@@ -51,13 +51,13 @@
             app:widgetLayout="@layout/start_activity_preference"
             app:layout="@layout/mp_preference_material_widget">
         </Preference>
-        <Preference
-            app:key="applicationPowerManager"
-            app:title="@string/phone_profiles_pref_applicationPowerManager"
-            app:summary="@string/phone_profiles_pref_applicationPowerManager_summary"
-            app:widgetLayout="@layout/start_activity_preference"
-            app:layout="@layout/mp_preference_material_widget">
-        </Preference>
+        <!--<Preference-->
+            <!--app:key="applicationPowerManager"-->
+            <!--app:title="@string/phone_profiles_pref_applicationPowerManager"-->
+            <!--app:summary="@string/phone_profiles_pref_applicationPowerManager_summary"-->
+            <!--app:widgetLayout="@layout/start_activity_preference"-->
+            <!--app:layout="@layout/mp_preference_material_widget">-->
+        <!--</Preference>-->
         <Preference
             app:key="applicationDoNotKillMyApp"
             app:title="@string/phone_profiles_pref_applicationDoNotKillMyApp"

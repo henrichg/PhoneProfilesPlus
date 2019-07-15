@@ -1,7 +1,7 @@
 include ':RootShell'
 include ':RootTools'
 //include ':android-job'
-include ':appkillermanager'
+//include ':appkillermanager'
 include ':android-betterpickers'
 //include ':taptargetview'
 include ':time-duration-picker'

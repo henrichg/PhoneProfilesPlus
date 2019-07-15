@@ -13,10 +13,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
-import android.util.Log;
 
 import com.evernote.android.job.JobRequest;
-import com.thelittlefireman.appkillermanager.managers.KillerManager;
+//import com.thelittlefireman.appkillermanager.managers.KillerManager;
 
 import java.util.concurrent.TimeUnit;
 
@@ -66,11 +65,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS = "applicationBatteryOptimization";
     //private static final String PREF_APPLICATION_LANGUAGE_24 = "applicationLanguage24";
     //static final int RESULT_LOCALE_SETTINGS = 1996;
-    private static final String PREF_AUTOSTART_MANAGER = "applicationAutoStartManager";
+    //private static final String PREF_AUTOSTART_MANAGER = "applicationAutoStartManager";
     private static final String PREF_WIFI_KEEP_ON_SYSTEM_SETTINGS = "applicationEventWiFiKeepOnSystemSettings";
     private static final int RESULT_WIFI_KEEP_ON_SETTINGS = 1999;
     private static final String PREF_NOTIFICATION_SYSTEM_SETTINGS = "notificationSystemSettings";
-    private static final String PREF_APPLICATION_POWER_MANAGER = "applicationPowerManager";
+    //private static final String PREF_APPLICATION_POWER_MANAGER = "applicationPowerManager";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -844,7 +843,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if ((preferenceScreen != null) && (preferenceCategory != null))
                 preferenceScreen.removePreference(preferenceCategory);
         }
-        preference = findPreference(PREF_AUTOSTART_MANAGER);
+        /*preference = findPreference(PREF_AUTOSTART_MANAGER);
         if (preference != null) {
             if (KillerManager.isActionAvailable(getActivity(), KillerManager.Actions.ACTION_AUTOSTART)) {
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -880,7 +879,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
             }
-        }
+        }*/
         long jobMinInterval = TimeUnit.MILLISECONDS.toMinutes(JobRequest.MIN_INTERVAL);
         String summary = getString(R.string.phone_profiles_pref_applicationEventScanIntervalInfo_summary1) + " " +
                 jobMinInterval + " " +
@@ -1027,8 +1026,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 });
             }
         }
-        preference = findPreference(PREF_APPLICATION_POWER_MANAGER);
-        if (preference != null) {
+        //preference = findPreference(PREF_APPLICATION_POWER_MANAGER);
+        //if (preference != null) {
             /*boolean intentFound = false;
             KillerManager.init(getActivity());
             DeviceBase device = KillerManager.getDevice();
@@ -1050,7 +1049,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 //    intentFound = true;
             }
             PPApplication.logE("PhoneProfilesPrefsFragment.onActivityCreated", "intentFound="+intentFound);*/
-
+            /*
             if (KillerManager.isActionAvailable(getActivity(), KillerManager.Actions.ACTION_POWERSAVING)) {
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
@@ -1085,7 +1084,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
             }
-        }
+            */
+        //}
         if (Build.VERSION.SDK_INT < 24) {
             PreferenceCategory preferenceCategory = findPreference("categoryNotificationsStatusBar");
             preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE);
@@ -1488,14 +1488,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_APPLICATION_START_EVENTS);
         setSummary(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES);
         setSummary(PREF_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS);
-        setSummary(PREF_APPLICATION_POWER_MANAGER);
+        //setSummary(PREF_APPLICATION_POWER_MANAGER);
         setSummary(PREF_POWER_SAVE_MODE_SETTINGS);
         setSummary(PREF_GRANT_ROOT_PERMISSION);
         setSummary(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
         setSummary(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
         setSummary(PREF_DRAW_OVERLAYS_PERMISSIONS);
         setSummary(PREF_APPLICATION_PERMISSIONS);
-        setSummary(PREF_AUTOSTART_MANAGER);
+        //setSummary(PREF_AUTOSTART_MANAGER);
         setSummary(PREF_NOTIFICATION_SYSTEM_SETTINGS);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR);
         setSummary(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE_USAGE);
@@ -2058,10 +2058,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals("categoryApplicationStartRoot")) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationStartOnBoot);
-            if (KillerManager.isActionAvailable(context, KillerManager.Actions.ACTION_AUTOSTART)) {
+            /*if (KillerManager.isActionAvailable(context, KillerManager.Actions.ACTION_AUTOSTART)) {
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + getString(R.string.phone_profiles_pref_systemAutoStartManager);
-            }
+            }*/
             if (!summary.isEmpty()) summary = summary +" • ";
             summary = summary + getString(R.string.phone_profiles_pref_applicationActivate);
             if (!summary.isEmpty()) summary = summary +" • ";
@@ -2075,10 +2075,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (!summary.isEmpty()) summary = summary + " • ";
                 summary = summary + getString(R.string.phone_profiles_pref_applicationBatteryOptimization);
             }
-            if (KillerManager.isActionAvailable(context, KillerManager.Actions.ACTION_POWERSAVING)) {
+            /*if (KillerManager.isActionAvailable(context, KillerManager.Actions.ACTION_POWERSAVING)) {
                 if (!summary.isEmpty()) summary = summary + " • ";
                 summary = summary + getString(R.string.phone_profiles_pref_applicationPowerManager);
-            }
+            }*/
             if (!summary.isEmpty()) summary = summary +" • ";
             summary = summary + getString(R.string.phone_profiles_pref_applicationPowerSaveMode);
             //if (Build.VERSION.SDK_INT >= 21) {

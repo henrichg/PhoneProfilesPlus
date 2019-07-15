@@ -101,7 +101,7 @@ dependencies {
     implementation project(':RootTools')
     //implementation 'com.github.stericson:roottools:5.0'
     //implementation project(':android-job')
-    implementation project(':appkillermanager')
+    //implementation project(':appkillermanager')
     implementation project(':android-betterpickers')
     //implementation project(':taptargetview')
     implementation project(':time-duration-picker')

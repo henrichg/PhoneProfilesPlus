@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.thelittlefireman.appkillermanager.managers.KillerManager;
+//import com.thelittlefireman.appkillermanager.managers.KillerManager;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -572,6 +572,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         }
         */
 
+        /*
         KillerManager.init(activity);
         if (KillerManager.isActionAvailable(activity, KillerManager.Actions.ACTION_POWERSAVING)) {
             TextView infoText = view.findViewById(R.id.activity_info_notification_power_manager);
@@ -586,15 +587,15 @@ public class ImportantInfoHelpFragment extends Fragment {
                         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                         dialogBuilder.setPositiveButton(android.R.string.ok, null);
                         AlertDialog dialog = dialogBuilder.create();
-                            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                @Override
-                                public void onShow(DialogInterface dialog) {
-                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                    if (positive != null) positive.setAllCaps(false);
-                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                    if (negative != null) negative.setAllCaps(false);
-                                }
-                            });*/
+//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                @Override
+//                                public void onShow(DialogInterface dialog) {
+//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                    if (positive != null) positive.setAllCaps(false);
+//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                    if (negative != null) negative.setAllCaps(false);
+//                                }
+//                            });
                         if (!activity.isFinishing())
                             dialog.show();
                     }
@@ -605,6 +606,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             TextView infoText = view.findViewById(R.id.activity_info_notification_power_manager);
             infoText.setVisibility(View.GONE);
         }
+        */
 
         TextView infoText670 = view.findViewById(R.id.activity_info_notification_do_not_kill_my_app);
         infoText670.setText(getString(R.string.important_info_do_not_kill_my_app1) + " " +
