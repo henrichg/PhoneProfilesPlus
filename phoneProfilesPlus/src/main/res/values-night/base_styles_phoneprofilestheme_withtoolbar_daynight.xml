@@ -19,6 +19,7 @@
         <item name="android:windowBackground">@color/activityBackgroundColor</item>
         <item name="activityBackgroundColor">@color/activityBackgroundColor</item>
         <item name="activityTextColor">@color/activityTextColor</item>
+        <item name="activitySecondaryTextColor">@color/activitySecondaryTextColor</item>
         <item name="activityDisabledTextColor">@color/activityDisabledTextColor</item>
         <item name="activityCommandBackgroundColor">@color/activityCommandBackgroundColor</item>
 

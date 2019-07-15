@@ -1,14 +1,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="false"
     android:orientation="vertical" >
 
-    <WebView
-        android:id="@+id/do_not_kill_my_app_dialog_webView"
+    <!--<WebView-->
+        <!--android:id="@+id/do_not_kill_my_app_dialog_webView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_marginTop="15dp">-->
+    <!--</WebView>-->
+
+    <dev.doubledot.doki.views.DokiContentView
+        android:id="@+id/do_not_kill_my_app_dialog_dokiContentView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="15dp">
-    </WebView>
+        android:layout_marginTop="15dp"
+
+        app:dokiPrimaryTextColor="?attr/activityTextColor"
+        app:dokiSecondaryTextColor="?attr/activitySecondaryTextColor"
+        app:dokiBackgroundColor="?attr/activityBackgroundColor"
+        app:dokiHeaderBackgroundColor="?attr/editorFilterBackgroundColor"
+        app:dokiDividerColor="?attr/dialogDivider"
+        app:dokiActiveIconsColor="?attr/activityTextColor"
+        app:dokiInactiveIconsColor="?attr/activityDisabledTextColor"
+        app:dokiImgBorderColor="?attr/dialogDivider"
+        />
 
 </LinearLayout>

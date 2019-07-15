@@ -58,6 +58,10 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.1.0-beta01"
     implementation 'androidx.viewpager2:viewpager2:1.0.0-alpha06'
     //implementation "androidx.leanback:leanback:1.1.0-alpha02"
+
+    // required for dev.doubledot.doki.views.DokiContentView
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
+
     implementation "com.google.android.material:material:1.1.0-alpha07"
 
     implementation "androidx.work:work-runtime:2.1.0"
@@ -92,6 +96,9 @@ dependencies {
     implementation 'com.simplecityapps:recyclerview-fastscroll:2.0.0'
 
     //implementation 'com.thelittlefireman:AppKillerManager:2.1.1'
+    implementation('dev.doubledot.doki:library:0.0.1@aar') {
+        transitive = true
+    }
 
     implementation 'me.drakeet.support:toastcompat:1.1.0'
 

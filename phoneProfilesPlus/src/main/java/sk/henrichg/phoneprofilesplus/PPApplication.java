@@ -60,6 +60,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.multidex.MultiDex;
+import dev.doubledot.doki.views.DokiContentView;
 import io.fabric.sdk.android.Fabric;
 
 //import com.google.firebase.analytics.FirebaseAnalytics;
@@ -2258,6 +2259,27 @@ public class PPApplication extends Application {
     }
 
     static void showDoNotKillMyAppDialog(final Fragment fragment) {
+        //noinspection ConstantConditions
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(fragment.getActivity());
+        dialogBuilder.setTitle(R.string.phone_profiles_pref_applicationDoNotKillMyApp_dialogTitle);
+        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+
+        LayoutInflater inflater = fragment.getActivity().getLayoutInflater();
+        @SuppressLint("InflateParams")
+        View layout = inflater.inflate(R.layout.activity_do_not_kill_my_app_dialog, null);
+        dialogBuilder.setView(layout);
+
+        DokiContentView doki = layout.findViewById(R.id.do_not_kill_my_app_dialog_dokiContentView);
+        if (doki != null) {
+            doki.setButtonsVisibility(false);
+            doki.loadContent(Build.MANUFACTURER);
+        }
+
+        dialogBuilder.show();
+    }
+
+    /*
+    static void showDoNotKillMyAppDialog(final Fragment fragment) {
         new AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... voids) {
@@ -2281,26 +2303,6 @@ public class PPApplication extends Application {
 
                         String head = "<head><style>img{max-width: 100%; width:auto; height: auto;}</style></head>";
                         String html = "<html>" + head + "<body>" + result + "</body></html>";
-
-                                    /*
-                                    WebView wv = new WebView(getContext());
-                                    WebSettings settings = wv.getSettings();
-                                    WebSettings.LayoutAlgorithm layoutAlgorithm = WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING;
-                                    settings.setLayoutAlgorithm(layoutAlgorithm);
-                                    wv.loadData(html, "text/html; charset=utf-8", "UTF-8");
-                                    wv.setWebViewClient(new WebViewClient() {
-                                        @Override
-                                        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                                            view.loadUrl(url);
-                                            return true;
-                                        }
-                                    });
-
-                                    //noinspection ConstantConditions
-                                    new AlertDialog.Builder(getContext())
-                                            .setTitle(R.string.phone_profiles_pref_applicationDoNotKillMyApp_dialogTitle)
-                                            .setView(wv).setPositiveButton(android.R.string.ok, null).show();
-                                    */
 
                         //noinspection ConstantConditions
                         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(fragment.getActivity());
@@ -2348,6 +2350,7 @@ public class PPApplication extends Application {
             }
         }.execute();
     }
+    */
 
     static void startHandlerThread(String from) {
         PPApplication.logE("PPApplication.startHandlerThread", "from="+from);
