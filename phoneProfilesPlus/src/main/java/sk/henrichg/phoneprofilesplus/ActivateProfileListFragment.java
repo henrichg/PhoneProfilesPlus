@@ -495,7 +495,7 @@ public class ActivateProfileListFragment extends Fragment {
         }
     }
 
-    private void setProfileSelection(Profile profile, boolean refreshIcons) {
+    private void setProfileSelection(@SuppressWarnings("unused") Profile profile, boolean refreshIcons) {
         if (profileListAdapter != null)
         {
             /*

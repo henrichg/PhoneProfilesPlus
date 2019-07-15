@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 import androidx.gridlayout.widget.GridLayout;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
+@SuppressWarnings("WeakerAccess")
 public class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCompat
                                                 implements View.OnClickListener {
 

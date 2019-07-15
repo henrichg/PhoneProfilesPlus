@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public abstract class HidingRecyclerViewScrollListener extends RecyclerView.OnScrollListener {
+abstract class HidingRecyclerViewScrollListener extends RecyclerView.OnScrollListener {
 
     //private static final int HIDE_THRESHOLD = 20;
     //private int scrolledDistance = 0;
@@ -50,7 +50,7 @@ public abstract class HidingRecyclerViewScrollListener extends RecyclerView.OnSc
         }
     }
 
-    public abstract void onHide();
-    public abstract void onShow();
+    abstract void onHide();
+    abstract void onShow();
 
 }

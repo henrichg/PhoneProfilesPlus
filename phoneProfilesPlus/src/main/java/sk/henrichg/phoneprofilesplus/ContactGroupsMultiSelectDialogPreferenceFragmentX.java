@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
+@SuppressWarnings("WeakerAccess")
 public class ContactGroupsMultiSelectDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;

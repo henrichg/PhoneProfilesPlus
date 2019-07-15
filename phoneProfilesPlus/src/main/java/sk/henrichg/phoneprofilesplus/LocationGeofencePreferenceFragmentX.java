@@ -20,6 +20,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
+@SuppressWarnings("WeakerAccess")
 public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     LocationGeofencePreferenceX preference;

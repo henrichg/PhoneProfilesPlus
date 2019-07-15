@@ -18,7 +18,7 @@ public class TimePickerPreferenceX extends DialogPreference {
 
     int value;
     private int defaultValue;
-    private boolean savedInstanceState;
+    //private boolean savedInstanceState;
 
     final Context _context;
 
@@ -74,24 +74,24 @@ public class TimePickerPreferenceX extends DialogPreference {
         }
     }
 
-    void resetSummary() {
-        if (!savedInstanceState) {
-            Calendar now = Calendar.getInstance();
-            if (defaultValue == 0) {
-                value = getPersistedInt(now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE));
-            } else {
-                value = getPersistedInt(defaultValue);
-            }
-            setSummary(getSummary());
-        }
-        savedInstanceState = false;
-    }
+//    void resetSummary() {
+//        if (!savedInstanceState) {
+//            Calendar now = Calendar.getInstance();
+//            if (defaultValue == 0) {
+//                value = getPersistedInt(now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE));
+//            } else {
+//                value = getPersistedInt(defaultValue);
+//            }
+//            setSummary(getSummary());
+//        }
+//        savedInstanceState = false;
+//    }
 
 
     @Override
     protected Parcelable onSaveInstanceState()
     {
-        savedInstanceState = true;
+        //savedInstanceState = true;
 
         final Parcelable superState = super.onSaveInstanceState();
         /*if (isPersistent()) {

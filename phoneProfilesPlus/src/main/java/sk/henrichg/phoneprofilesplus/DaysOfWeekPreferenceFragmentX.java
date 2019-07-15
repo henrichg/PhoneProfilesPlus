@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
+@SuppressWarnings("WeakerAccess")
 public class DaysOfWeekPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;

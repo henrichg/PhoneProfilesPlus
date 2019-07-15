@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
+@SuppressWarnings("WeakerAccess")
 public class InfoDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private InfoDialogPreferenceX preference;

@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 
 import androidx.preference.DialogPreference;
 
+@SuppressWarnings("WeakerAccess")
 public class InfoDialogPreferenceX extends DialogPreference {
 
     InfoDialogPreferenceFragmentX fragment;

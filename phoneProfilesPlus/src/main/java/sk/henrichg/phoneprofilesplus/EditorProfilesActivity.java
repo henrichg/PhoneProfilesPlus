@@ -2689,7 +2689,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             return itemView;
         }
 
-        public void setSelection(int position) {
+        void setSelection(int position) {
             mSelectedIndex =  position;
             notifyDataSetChanged();
         }

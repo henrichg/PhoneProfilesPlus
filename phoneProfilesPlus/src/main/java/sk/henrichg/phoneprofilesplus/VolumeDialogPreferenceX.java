@@ -68,7 +68,6 @@ public class VolumeDialogPreferenceX extends DialogPreference {
 
         if (audioManager != null) {
             // get max. values from audio manager
-            //noinspection ConstantConditions
             if (volumeType.equalsIgnoreCase("RINGTONE"))
                 maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
             else if (volumeType.equalsIgnoreCase("NOTIFICATION"))

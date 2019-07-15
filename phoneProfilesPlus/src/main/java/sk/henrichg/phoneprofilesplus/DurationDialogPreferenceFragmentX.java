@@ -12,6 +12,7 @@ import androidx.preference.PreferenceDialogFragmentCompat;
 import mobi.upod.timedurationpicker.TimeDurationPicker;
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
 
+@SuppressWarnings("WeakerAccess")
 public class DurationDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
                                 implements SeekBar.OnSeekBarChangeListener {
 

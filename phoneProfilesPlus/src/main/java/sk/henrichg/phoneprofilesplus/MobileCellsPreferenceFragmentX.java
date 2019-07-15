@@ -35,6 +35,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
+@SuppressWarnings("WeakerAccess")
 public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;

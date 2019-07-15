@@ -11,6 +11,7 @@ import android.widget.GridView;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
+@SuppressWarnings("WeakerAccess")
 public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
+@SuppressWarnings("WeakerAccess")
 public class CalendarSearchStringPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;

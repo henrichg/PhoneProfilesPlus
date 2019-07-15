@@ -5164,7 +5164,6 @@ public class PhoneProfilesService extends Service
 
                 try {
                     if (ringingCallIsSimulating)
-                        //noinspection ConstantConditions
                         audioManager.setStreamVolume(AudioManager.STREAM_ALARM, oldMediaVolume, 0);
                 } catch (Exception ignored) {
                 }

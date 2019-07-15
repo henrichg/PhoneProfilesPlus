@@ -16,6 +16,7 @@ import java.util.List;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
+@SuppressWarnings("WeakerAccess")
 public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;

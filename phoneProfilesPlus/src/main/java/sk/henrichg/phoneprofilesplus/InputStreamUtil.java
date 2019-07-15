@@ -8,8 +8,8 @@ import java.nio.charset.StandardCharsets;
 
 class InputStreamUtil {
 
-    public InputStreamUtil() {
-    }
+//    public InputStreamUtil() {
+//    }
 
     static String read(InputStream is) {
         try {

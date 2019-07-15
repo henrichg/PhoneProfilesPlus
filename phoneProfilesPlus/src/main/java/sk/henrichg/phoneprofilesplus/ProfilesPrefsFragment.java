@@ -34,6 +34,7 @@ import androidx.preference.PreferenceScreen;
 import androidx.preference.SwitchPreferenceCompat;
 import me.drakeet.support.toast.ToastCompat;
 
+@SuppressWarnings("WeakerAccess")
 public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     implements SharedPreferences.OnSharedPreferenceChangeListener {
 

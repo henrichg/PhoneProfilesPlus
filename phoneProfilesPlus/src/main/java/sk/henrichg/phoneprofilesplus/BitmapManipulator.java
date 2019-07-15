@@ -53,7 +53,6 @@ class BitmapManipulator {
                 final BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inJustDecodeBounds = true;
                 BitmapFactory.decodeStream(inputStream, null, options);
-                //noinspection ConstantConditions
                 inputStream.close();
 
                 if (checkSize) {
@@ -93,7 +92,6 @@ class BitmapManipulator {
                 options.inJustDecodeBounds = false;
                 decodedSampleBitmap = BitmapFactory.decodeStream(inputStream, null, options);
 
-                //noinspection ConstantConditions
                 inputStream.close();
 
                 if (decodedSampleBitmap != null) {
@@ -151,7 +149,6 @@ class BitmapManipulator {
                 final BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inJustDecodeBounds = true;
                 BitmapFactory.decodeStream(inputStream, null, options);
-                //noinspection ConstantConditions
                 inputStream.close();
 
                 // raw height and width of image

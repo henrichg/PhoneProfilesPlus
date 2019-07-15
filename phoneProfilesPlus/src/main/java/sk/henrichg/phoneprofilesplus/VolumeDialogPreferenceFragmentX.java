@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
+@SuppressWarnings("WeakerAccess")
 public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
         implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener{
 
@@ -177,7 +178,6 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
     public void onStopTrackingTouch(SeekBar seekBar) {
         if (preference.mediaPlayer != null) {
             int volume;
-            //noinspection ConstantConditions
             if (preference.volumeType.equalsIgnoreCase("MEDIA"))
                 volume = preference.value;
             else {

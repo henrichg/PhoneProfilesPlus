@@ -2,7 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.widget.AbsListView;
 
-public abstract class HidingAbsListViewScrollListener implements AbsListView.OnScrollListener {
+abstract class HidingAbsListViewScrollListener implements AbsListView.OnScrollListener {
 
     private int mLastFirstVisibleItem;
 
@@ -30,7 +30,7 @@ public abstract class HidingAbsListViewScrollListener implements AbsListView.OnS
 
     }
 
-    public abstract void onHide();
-    public abstract void onShow();
+    abstract void onHide();
+    abstract void onShow();
 
 }

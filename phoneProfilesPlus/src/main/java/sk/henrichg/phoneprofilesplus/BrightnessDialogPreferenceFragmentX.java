@@ -21,6 +21,7 @@ import com.stericson.RootTools.RootTools;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
+@SuppressWarnings("WeakerAccess")
 public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
                 implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener{
 
