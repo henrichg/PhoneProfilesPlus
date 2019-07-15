@@ -2272,7 +2272,7 @@ public class PPApplication extends Application {
         DokiContentView doki = layout.findViewById(R.id.do_not_kill_my_app_dialog_dokiContentView);
         if (doki != null) {
             doki.setButtonsVisibility(false);
-            doki.loadContent(Build.MANUFACTURER);
+            doki.loadContent(Build.MANUFACTURER.toLowerCase().replace(" ", "-"));
         }
 
         dialogBuilder.show();
