@@ -9,25 +9,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import com.evernote.android.job.JobRequest;
 import com.thelittlefireman.appkillermanager.managers.KillerManager;
 
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
-import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 import androidx.appcompat.app.AlertDialog;
@@ -1130,96 +1120,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-
-                    new AsyncTask<Void, Void, String>() {
-                        @Override
-                        protected String doInBackground(Void... voids) {
-                            try {
-                                //noinspection RegExpRedundantEscape
-                                return ((JSONObject) new JSONTokener(
-                                        InputStreamUtil.read(new URL("https://dontkillmyapp.com/api/v2/"+Build.MANUFACTURER.toLowerCase().replaceAll(" ", "-")+".json").openStream())).nextValue()
-                                ).getString("user_solution").replaceAll("\\[[Yy]our app\\]", getString(R.string.app_name));
-                            } catch (Exception e) {
-                                // This vendor is not in the DontKillMyApp list
-                                Log.e("PhoneProfilesPrefsFragment.applicationDoNotKillMyApp", Log.getStackTraceString(e));
-                            }
-                            return null;
-                        }
-
-                        @Override
-                        protected void onPostExecute(String result) {
-                            try {
-                                if (result != null) {
-                                    //Log.e("PhoneProfilesPrefsFragment.applicationDoNotKillMyApp", result);
-
-                                    String head = "<head><style>img{max-width: 100%; width:auto; height: auto;}</style></head>";
-                                    String html = "<html>" + head + "<body>" + result + "</body></html>";
-
-                                    /*
-                                    WebView wv = new WebView(getContext());
-                                    WebSettings settings = wv.getSettings();
-                                    WebSettings.LayoutAlgorithm layoutAlgorithm = WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING;
-                                    settings.setLayoutAlgorithm(layoutAlgorithm);
-                                    wv.loadData(html, "text/html; charset=utf-8", "UTF-8");
-                                    wv.setWebViewClient(new WebViewClient() {
-                                        @Override
-                                        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                                            view.loadUrl(url);
-                                            return true;
-                                        }
-                                    });
-
-                                    //noinspection ConstantConditions
-                                    new AlertDialog.Builder(getContext())
-                                            .setTitle(R.string.phone_profiles_pref_applicationDoNotKillMyApp_dialogTitle)
-                                            .setView(wv).setPositiveButton(android.R.string.ok, null).show();
-                                    */
-
-                                    //noinspection ConstantConditions
-                                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                                    dialogBuilder.setTitle(R.string.phone_profiles_pref_applicationDoNotKillMyApp_dialogTitle);
-                                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
-
-                                    LayoutInflater inflater = getActivity().getLayoutInflater();
-                                    @SuppressLint("InflateParams")
-                                    View layout = inflater.inflate(R.layout.activity_do_not_kill_my_app_dialog, null);
-                                    dialogBuilder.setView(layout);
-
-                                    WebView webView = layout.findViewById(R.id.do_not_kill_my_app_dialog_webView);
-                                    WebSettings settings = webView.getSettings();
-                                    WebSettings.LayoutAlgorithm layoutAlgorithm = WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING;
-                                    settings.setLayoutAlgorithm(layoutAlgorithm);
-                                    webView.loadData(html, "text/html; charset=utf-8", "UTF-8");
-                                    webView.setWebViewClient(new WebViewClient() {
-                                        @Override
-                                        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                                            view.loadUrl(url);
-                                            return true;
-                                        }
-                                    });
-
-                                    dialogBuilder.show();
-                                }
-                                else {
-                                    String url = "https://dontkillmyapp.com/";
-                                    Intent i = new Intent(Intent.ACTION_VIEW);
-                                    i.setData(Uri.parse(url));
-                                    try {
-                                        startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
-                                    } catch (Exception ignored) {}
-                                }
-                            } catch (Exception e) {
-                                Log.e("PhoneProfilesPrefsFragment.applicationDoNotKillMyApp", Log.getStackTraceString(e));
-                                String url = "https://dontkillmyapp.com/";
-                                Intent i = new Intent(Intent.ACTION_VIEW);
-                                i.setData(Uri.parse(url));
-                                try {
-                                    startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
-                                } catch (Exception ignored) {}
-                            }
-                        }
-                    }.execute();
-
+                    PPApplication.showDoNotKillMyAppDialog(PhoneProfilesPrefsFragment.this);
                     return false;
                 }
             });
