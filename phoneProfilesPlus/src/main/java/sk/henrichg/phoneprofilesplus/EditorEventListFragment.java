@@ -23,7 +23,6 @@ import android.widget.TextView;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -67,7 +66,7 @@ public class EditorEventListFragment extends Fragment
     static final int EDIT_MODE_UNDEFINED = 0;
     static final int EDIT_MODE_INSERT = 1;
     static final int EDIT_MODE_DUPLICATE = 2;
-    static final int EDIT_MODE_EDIT = 3;
+    private static final int EDIT_MODE_EDIT = 3;
     static final int EDIT_MODE_DELETE = 4;
 
     static final String FILTER_TYPE_ARGUMENT = "filter_type";
