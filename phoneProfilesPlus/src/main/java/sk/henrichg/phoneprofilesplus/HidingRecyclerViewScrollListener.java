@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 abstract class HidingRecyclerViewScrollListener extends RecyclerView.OnScrollListener {
@@ -14,8 +13,7 @@ abstract class HidingRecyclerViewScrollListener extends RecyclerView.OnScrollLis
     public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
 
-        //noinspection ConstantConditions
-        int firstVisibleItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+        //int firstVisibleItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
         //Log.e("HidingRecyclerViewScrollListener.onScrolled", "firstVisibleItem="+firstVisibleItem);
         //show views if first item is first visible position and views are hidden
         /*if (firstVisibleItem == 0) {
@@ -39,15 +37,15 @@ abstract class HidingRecyclerViewScrollListener extends RecyclerView.OnScrollLis
             scrolledDistance += dy;
         }*/
 
-        if (firstVisibleItem == 0) {
+        /*if (firstVisibleItem == 0) {
             onShow();
         }
-        else {
-            //if (dy < 0)
-            //    onShow();
+        else {*/
+            if (dy < 0)
+                onShow();
             if (dy > 0)
                 onHide();
-        }
+        //}
     }
 
     abstract void onHide();

@@ -131,6 +131,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     private static boolean mTwoPane;
 
     private Toolbar editorToolbar;
+    Toolbar bottomToolbar;
     //private DrawerLayout drawerLayout;
     //private PPScrimInsetsFrameLayout drawerRoot;
     //private ListView drawerListView;
@@ -448,6 +449,8 @@ public class EditorProfilesActivity extends AppCompatActivity
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(R.string.title_activity_editor);
         }
+
+        bottomToolbar = findViewById(R.id.editor_list_bottom_bar);
 
         /*
         // Enable ActionBar app icon to behave as action to toggle nav drawer
@@ -1234,6 +1237,8 @@ public class EditorProfilesActivity extends AppCompatActivity
         */
         if (!fromClickListener)
             filterSpinner.setSelection(filterSelectedItem);
+
+        bottomToolbar.setVisibility(View.VISIBLE);
 
         // set filter status bar title
         //setStatusBarTitle();

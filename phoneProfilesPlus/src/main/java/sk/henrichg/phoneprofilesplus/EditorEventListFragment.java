@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -204,8 +205,8 @@ public class EditorEventListFragment extends Fragment
         listView.setHasFixedSize(true);
 
         activatedProfileHeader = view.findViewById(R.id.activated_profile_header);
-        if (activatedProfileHeader != null) {
-            /*Handler handler = new Handler(getActivity().getMainLooper());
+        /*if (activatedProfileHeader != null) {
+            Handler handler = new Handler(getActivity().getMainLooper());
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -240,30 +241,44 @@ public class EditorEventListFragment extends Fragment
                     });
 
                 }
-            }, 200);*/
+            }, 200);
+        }*/
 
-            final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_events_list_fragment))
-                    .getLayoutTransition();
-            layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
+        /*final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_events_list_fragment))
+                .getLayoutTransition();*/
+        final LayoutTransition layoutTransition = ((ViewGroup) getActivity().findViewById(R.id.editor_list_root))
+                .getLayoutTransition();
+        layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
 
-            listView.addOnScrollListener(new HidingRecyclerViewScrollListener() {
-                @Override
-                public void onHide() {
-                    /*if ((activatedProfileHeader.getMeasuredHeight() >= headerHeight - 4) &&
-                        (activatedProfileHeader.getMeasuredHeight() <= headerHeight + 4))
-                        hideAnimator.start();*/
-                    if (!layoutTransition.isRunning())
+        listView.addOnScrollListener(new HidingRecyclerViewScrollListener() {
+            @Override
+            public void onHide() {
+                /*if ((activatedProfileHeader.getMeasuredHeight() >= headerHeight - 4) &&
+                    (activatedProfileHeader.getMeasuredHeight() <= headerHeight + 4))
+                    hideAnimator.start();*/
+                if (!layoutTransition.isRunning()) {
+                    final int firstVisibleItem = ((LinearLayoutManager) listView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+                    if (firstVisibleItem != 0)
                         activatedProfileHeader.setVisibility(GONE);
+
+                    Toolbar bottomToolbar = ((EditorProfilesActivity)getActivity()).bottomToolbar;
+                    bottomToolbar.setVisibility(GONE);
                 }
-                @Override
-                public void onShow() {
-                    /*if (activatedProfileHeader.getMeasuredHeight() == 0)
-                        showAnimator.start();*/
-                    if (!layoutTransition.isRunning())
+            }
+            @Override
+            public void onShow() {
+                /*if (activatedProfileHeader.getMeasuredHeight() == 0)
+                    showAnimator.start();*/
+                if (!layoutTransition.isRunning()) {
+                    final int firstVisibleItem = ((LinearLayoutManager) listView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+                    if (firstVisibleItem == 0)
                         activatedProfileHeader.setVisibility(View.VISIBLE);
+
+                    Toolbar bottomToolbar = ((EditorProfilesActivity)getActivity()).bottomToolbar;
+                    bottomToolbar.setVisibility(View.VISIBLE);
                 }
-            });
-        }
+            }
+        });
 
         textViewNoData = view.findViewById(R.id.editor_events_list_empty);
         progressBar = view.findViewById(R.id.editor_events_list_linla_progress);
