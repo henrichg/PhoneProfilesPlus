@@ -56,7 +56,7 @@ dependencies {
     implementation "androidx.gridlayout:gridlayout:1.0.0"
     implementation "androidx.cardview:cardview:1.0.0"
     implementation "androidx.recyclerview:recyclerview:1.1.0-beta01"
-    implementation 'androidx.viewpager2:viewpager2:1.0.0-alpha06'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0-beta01'
     //implementation "androidx.leanback:leanback:1.1.0-alpha02"
 
     // required for dev.doubledot.doki.views.DokiContentView
