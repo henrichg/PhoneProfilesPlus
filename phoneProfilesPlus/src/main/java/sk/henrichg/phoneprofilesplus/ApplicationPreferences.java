@@ -38,7 +38,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_LIST_ICON_COLOR = "applicationWidgetListIconColor";
     static final String PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS = "applicationWidgetListIconLightness";
     //static final String PREF_APPLICATION_EDITOR_AUTO_CLOSE_DRAWER = "applicationEditorAutoCloseDrawer";
-    static final String PREF_APPLICATION_EDITOR_SAVE_EDITOR_STATE = "applicationEditorSaveEditorState";
+    //static final String PREF_APPLICATION_EDITOR_SAVE_EDITOR_STATE = "applicationEditorSaveEditorState";
     static final String PREF_NOTIFICATION_PREF_INDICATOR = "notificationPrefIndicator";
     static final String PREF_APPLICATION_HOME_LAUNCHER = "applicationHomeLauncher";
     static final String PREF_APPLICATION_WIDGET_LAUNCHER = "applicationWidgetLauncher";
@@ -307,11 +307,11 @@ class ApplicationPreferences {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EDITOR_AUTO_CLOSE_DRAWER, true);
     }
     */
-
+    /*
     static boolean applicationEditorSaveEditorState(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EDITOR_SAVE_EDITOR_STATE, true);
     }
-
+    */
     static boolean notificationPrefIndicator(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_PREF_INDICATOR, true);
     }

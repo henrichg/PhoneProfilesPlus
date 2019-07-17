@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/editor_list_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="false" >
-     
+    android:layout_height="match_parent" >
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/editor_list_bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="?attr/colorPrimary"
+        app:itemIconTint="@drawable/bottom_navigation_colors"
+        app:itemTextColor="@drawable/bottom_navigation_colors"
+        app:menu="@menu/editor_bottom_navigation_menu" />
+
     <RelativeLayout
+        android:id="@+id/editor_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:fitsSystemWindows="false"
-        tools:ignore="UselessParent">
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/editor_list_bottom_navigation">
 
         <LinearLayout
             android:id="@+id/editor_list_toolbar"
@@ -144,31 +153,4 @@
 
     </RelativeLayout>
 
-    <!--
-    <sk.henrichg.phoneprofilesplus.PPScrimInsetsFrameLayout
-        android:id="@+id/editor_drawer_root"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        style="@style/NavDrawer"
-        android:background="?attr/navigationDrawerBackground"
-        android:fitsSystemWindows="true"
-        android:elevation="1dp"
-        app:insetForeground="?attr/navigationDrawerInsetForeground" >
-
-        <ListView
-            android:id="@+id/editor_drawer_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:clipToPadding="false"
-            android:choiceMode="singleChoice"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="0dp"
-            android:listSelector="@drawable/editor_drawer_list_item_background" />
-
-    </sk.henrichg.phoneprofilesplus.PPScrimInsetsFrameLayout>
-    -->
-
-</FrameLayout>
+</RelativeLayout>

@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/menu_profiles_view"
+        android:title="@string/editor_drawer_title_profiles"
+        android:orderInCategory="100"
+        android:icon="?attr/actionProfilesViewIcon"/>
+    <item android:id="@+id/menu_events_view"
+        android:title="@string/editor_drawer_title_events"
+        android:orderInCategory="101"
+        android:icon="?attr/actionEventsViewIcon" />
+</menu>

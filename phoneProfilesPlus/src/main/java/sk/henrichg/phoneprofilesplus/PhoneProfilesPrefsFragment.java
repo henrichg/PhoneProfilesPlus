@@ -1520,7 +1520,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_ONLY_WHEN_SCREEN_IS_ON);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_ONLY_WHEN_SCREEN_IS_ON);
-        setSummary(ApplicationPreferences.PREF_APPLICATION_EDITOR_SAVE_EDITOR_STATE);
+        //setSummary(ApplicationPreferences.PREF_APPLICATION_EDITOR_SAVE_EDITOR_STATE);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_TYPE);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS);
@@ -2312,8 +2312,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             summary = summary + getString(R.string.phone_profiles_pref_applicationPrefIndicator);
             if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_applicationHeader);
-            if (!summary.isEmpty()) summary = summary + " • ";
-            summary = summary + getString(R.string.phone_profiles_pref_applicationEditorSaveEditorState);
+            //if (!summary.isEmpty()) summary = summary + " • ";
+            //summary = summary + getString(R.string.phone_profiles_pref_applicationEditorSaveEditorState);
             if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_deleteOldActivityLogs);
         }

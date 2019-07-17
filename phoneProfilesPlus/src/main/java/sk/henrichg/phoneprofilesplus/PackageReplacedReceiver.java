@@ -115,7 +115,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     ApplicationPreferences.getSharedPreferences(appContext);
                                     SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
 
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_SAVE_EDITOR_STATE, true);
+                                    //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_SAVE_EDITOR_STATE, true);
 
                                     editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS, false);
                                     editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, false);

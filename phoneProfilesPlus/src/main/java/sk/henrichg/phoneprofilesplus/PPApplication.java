@@ -186,7 +186,7 @@ public class PPApplication extends Application {
                                          //+"|DataWrapper.activateProfileAfterDuration"
                                          //+"|DataWrapper.getIsManualProfileActivation"
 
-                                         +"|BillingManager"
+                                         //+"|BillingManager"
                                          //+"|DonationFragment"
 
                                          //+"|Permissions.grantProfilePermissions"
@@ -425,6 +425,8 @@ public class PPApplication extends Application {
 
                                         //+"|[RJS] PhoneProfilesService.scheduleWifiJob"
                                         //+"|[RJS] PhoneProfilesService.cancelWifiJob"
+
+                                        +"|EditorProfilesActivity.selectFilterItem"
             ;
 
 

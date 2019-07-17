@@ -220,7 +220,7 @@
     <string name="event_list_item_menu_stop">Stop event</string>
     <string name="event_list_item_menu_duplicate">Duplicate</string>
     <string name="event_list_item_menu_delete">Delete</string>
-    <string name="phone_profiles_pref_applicationEditorSaveEditorState">Save editor state</string>
+    <!--<string name="phone_profiles_pref_applicationEditorSaveEditorState">Save editor state</string>-->
     <string name="phone_profiles_pref_notificationPrefIndicator">Show preferences indicator</string>
     <string name="phone_profiles_pref_applicationHomeLauncher">Launch from home screen</string>
     <string name="phone_profiles_pref_applicationWidgetLauncher">Launch from widget</string>

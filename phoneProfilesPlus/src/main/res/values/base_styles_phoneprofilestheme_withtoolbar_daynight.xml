@@ -85,6 +85,8 @@
         <item name="activityLogTypeOther">@color/altype_other</item>
         <item name="infoPreferenceIcon">@drawable/ic_info_preference_icon</item>
         <item name="exclamationPreferenceIcon">@drawable/ic_exclamation_preference_icon</item>
+        <item name="actionProfilesViewIcon">@drawable/ic_action_profiles_view</item>
+        <item name="actionEventsViewIcon">@drawable/ic_action_events_view</item>
 
     </style>
 
