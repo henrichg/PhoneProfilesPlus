@@ -10,17 +10,17 @@ abstract class HidingAbsListViewScrollListener implements AbsListView.OnScrollLi
     public void onScrollStateChanged(AbsListView view, int scrollState) {
         final int currentFirstVisibleItem = view.getFirstVisiblePosition();
 
-        if (currentFirstVisibleItem == 0)
+        /*if (currentFirstVisibleItem == 0)
             onShow();
-        else {
+        else {*/
             if (currentFirstVisibleItem > mLastFirstVisibleItem) {
                 // scrolling up
                 onHide();
-            }/* else if (currentFirstVisibleItem < mLastFirstVisibleItem) {
+            } else if (currentFirstVisibleItem < mLastFirstVisibleItem) {
                 // scrolling down
                 onShow();
-            }*/
-        }
+            }
+        //}
 
         mLastFirstVisibleItem = currentFirstVisibleItem;
     }

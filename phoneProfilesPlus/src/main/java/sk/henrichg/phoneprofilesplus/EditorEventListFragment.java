@@ -268,11 +268,10 @@ public class EditorEventListFragment extends Fragment
                     (activatedProfileHeader.getMeasuredHeight() <= headerHeight + 4))
                     hideAnimator.start();*/
                 if (!layoutTransition.isRunning()) {
-                    final int firstVisibleItem = ((LinearLayoutManager) listView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-                    if (firstVisibleItem != 0)
+                    //final int firstVisibleItem = ((LinearLayoutManager) listView.getLayoutManager()).findFirstVisibleItemPosition();
+                    //if (firstVisibleItem != 0)
                         activatedProfileHeader.setVisibility(GONE);
 
-                    //Toolbar bottomToolbar = ((EditorProfilesActivity)getActivity()).bottomToolbar;
                     bottomToolbar.setVisibility(GONE);
                 }
             }
@@ -281,11 +280,10 @@ public class EditorEventListFragment extends Fragment
                 /*if (activatedProfileHeader.getMeasuredHeight() == 0)
                     showAnimator.start();*/
                 if (!layoutTransition.isRunning()) {
-                    final int firstVisibleItem = ((LinearLayoutManager) listView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-                    if (firstVisibleItem == 0)
+                    //final int firstVisibleItem = ((LinearLayoutManager) listView.getLayoutManager()).findFirstVisibleItemPosition();
+                    //if (firstVisibleItem == 0)
                         activatedProfileHeader.setVisibility(View.VISIBLE);
 
-                    //Toolbar bottomToolbar = ((EditorProfilesActivity)getActivity()).bottomToolbar;
                     bottomToolbar.setVisibility(View.VISIBLE);
                 }
             }
