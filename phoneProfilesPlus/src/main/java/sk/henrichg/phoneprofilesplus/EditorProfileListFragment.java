@@ -234,10 +234,12 @@ public class EditorProfileListFragment extends Fragment
 
         }*/
 
-        /*final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_profiles_list_fragment))
-                                                        .getLayoutTransition();*/
-        final LayoutTransition layoutTransition = ((ViewGroup) getActivity().findViewById(R.id.editor_list_root))
-                .getLayoutTransition();
+        bottomToolbar = view.findViewById(R.id.editor_list_bottom_bar);
+
+        final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_profiles_list_fragment))
+                                                        .getLayoutTransition();
+        //final LayoutTransition layoutTransition = ((ViewGroup) getActivity().findViewById(R.id.editor_list_root))
+        //        .getLayoutTransition();
         layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
 
         listView.addOnScrollListener(new HidingRecyclerViewScrollListener() {
@@ -251,7 +253,7 @@ public class EditorProfileListFragment extends Fragment
                     if (firstVisibleItem != 0)
                         activatedProfileHeader.setVisibility(GONE);
 
-                    Toolbar bottomToolbar = ((EditorProfilesActivity)getActivity()).bottomToolbar;
+                    //Toolbar bottomToolbar = ((EditorProfilesActivity)getActivity()).bottomToolbar;
                     bottomToolbar.setVisibility(GONE);
                 }
             }
@@ -264,7 +266,7 @@ public class EditorProfileListFragment extends Fragment
                     if (firstVisibleItem == 0)
                         activatedProfileHeader.setVisibility(View.VISIBLE);
 
-                    Toolbar bottomToolbar = ((EditorProfilesActivity)getActivity()).bottomToolbar;
+                    //Toolbar bottomToolbar = ((EditorProfilesActivity)getActivity()).bottomToolbar;
                     bottomToolbar.setVisibility(View.VISIBLE);
                 }
             }
@@ -276,7 +278,6 @@ public class EditorProfileListFragment extends Fragment
         final Activity activity = getActivity();
         final EditorProfileListFragment fragment = this;
 
-        bottomToolbar = getActivity().findViewById(R.id.editor_list_bottom_bar);
         Menu menu = bottomToolbar.getMenu();
         if (menu != null) menu.clear();
         bottomToolbar.inflateMenu(R.menu.editor_profiles_bottom_bar);
@@ -302,9 +303,6 @@ public class EditorProfileListFragment extends Fragment
                 return false;
             }
         });
-
-        LinearLayout orderLayout = getActivity().findViewById(R.id.editor_list_bottom_bar_order_root);
-        orderLayout.setVisibility(GONE);
 
         synchronized (activityDataWrapper.profileList) {
             if (!activityDataWrapper.profileListFilled) {

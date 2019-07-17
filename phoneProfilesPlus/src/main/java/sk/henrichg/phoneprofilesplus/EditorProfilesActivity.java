@@ -81,7 +81,6 @@ public class EditorProfilesActivity extends AppCompatActivity
     private static final String SP_EDITOR_SELECTED_VIEW = "editor_selected_view";
     private static final String SP_EDITOR_PROFILES_VIEW_SELECTED_ITEM = "editor_profiles_view_selected_item";
     private static final String SP_EDITOR_EVENTS_VIEW_SELECTED_ITEM = "editor_events_view_selected_item";
-    private static final String SP_EDITOR_ORDER_SELECTED_ITEM = "editor_order_selected_item";
 
     private static final int DSI_PROFILES_ALL = 0;
     private static final int DSI_PROFILES_SHOW_IN_ACTIVATOR = 1;
@@ -114,14 +113,14 @@ public class EditorProfilesActivity extends AppCompatActivity
     public static final String PREF_START_TARGET_HELPS_FILTER_SPINNER = "editor_profile_activity_start_target_helps_filter_spinner";
 
     private Toolbar editorToolbar;
-    Toolbar bottomToolbar;
+    //Toolbar bottomToolbar;
     //private DrawerLayout drawerLayout;
     //private PPScrimInsetsFrameLayout drawerRoot;
     //private ListView drawerListView;
     //private ActionBarDrawerToggle drawerToggle;
     //private BottomNavigationView bottomNavigationView;
     private AppCompatSpinner filterSpinner;
-    private AppCompatSpinner orderSpinner;
+    //private AppCompatSpinner orderSpinner;
     //private View headerView;
     //private ImageView drawerHeaderFilterImage;
     //private TextView drawerHeaderFilterTitle;
@@ -134,8 +133,6 @@ public class EditorProfilesActivity extends AppCompatActivity
     private int editorSelectedView = 0;
     private int filterProfilesSelectedItem = 1;
     private int filterEventsSelectedItem = 1;
-    private int orderSelectedItem = 0;
-    //private int eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
 
     private boolean startTargetHelps;
 
@@ -353,7 +350,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             getSupportActionBar().setTitle(R.string.title_activity_editor);
         }
 
-        bottomToolbar = findViewById(R.id.editor_list_bottom_bar);
+        //bottomToolbar = findViewById(R.id.editor_list_bottom_bar);
 
         /*
         // Enable ActionBar app icon to behave as action to toggle nav drawer
@@ -474,60 +471,6 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
         });
 
-        orderSpinner = findViewById(R.id.editor_list_bottom_bar_order);
-        HighlightedSpinnerAdapter orderSpinnerAdapter = new HighlightedSpinnerAdapter(
-                this,
-                R.layout.editor_toolbar_spinner,
-                getResources().getStringArray(R.array.orderEventsArray));
-        /*
-        ArrayAdapter<CharSequence> orderSpinnerAdapter = ArrayAdapter.createFromResource(
-                                    //getSupportActionBar().getThemedContext(),
-                                    getBaseContext(),
-                                    R.array.orderEventsArray,
-                                    //android.R.layout.simple_spinner_item);
-                                    R.layout.editor_toolbar_spinner);*/
-        //orderSpinnerAdapter.setDropDownViewResource(android.support.v7.appcompat.R.layout.support_simple_spinner_dropdown_item);
-        orderSpinnerAdapter.setDropDownViewResource(R.layout.editor_toolbar_spinner_dropdown);
-        orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.accent));
-/*        switch (appTheme) {
-            case "dark":
-                orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor_dark));
-                //orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);
-                break;
-            case "white":
-                orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor_white));
-                //orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
-                break;
-//            case "dlight":
-//                orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor));
-//                orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dlight);
-//                break;
-            default:
-                orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor));
-                //orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
-                break;
-        }*/
-        orderSpinner.setAdapter(orderSpinnerAdapter);
-        orderSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((HighlightedSpinnerAdapter)orderSpinner.getAdapter()).setSelection(position);
-                if (position != orderSelectedItem)
-                    changeEventOrder(position/*, false*/);
-            }
-
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-        TextView orderLabel = findViewById(R.id.editor_list_bottom_bar_order_title);
-        orderLabel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                orderSpinner.performClick();
-            }
-        });
-
         eventsRunStopIndicator = findViewById(R.id.editor_list_run_stop_indicator);
         eventsRunStopIndicator.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -565,12 +508,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             editorSelectedView = ApplicationPreferences.preferences.getInt(SP_EDITOR_SELECTED_VIEW, 0);
             filterProfilesSelectedItem = ApplicationPreferences.preferences.getInt(SP_EDITOR_PROFILES_VIEW_SELECTED_ITEM, 1);
             filterEventsSelectedItem = ApplicationPreferences.preferences.getInt(SP_EDITOR_EVENTS_VIEW_SELECTED_ITEM, 1);
-            orderSelectedItem = ApplicationPreferences.preferences.getInt(SP_EDITOR_ORDER_SELECTED_ITEM, 0);
         //}
-
-        PPApplication.logE("EditorProfilesActivity.onCreate", "orderSelectedItem="+orderSelectedItem);
-        // first must be set eventsOrderType
-        changeEventOrder(orderSelectedItem/*, savedInstanceState != null*/);
 
         startTargetHelps = false;
         if (editorSelectedView == 0)
@@ -993,7 +931,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             int profilesFilterType;
             int eventsFilterType;
-            int eventsOrderType = getEventsOrderType();
+            //int eventsOrderType = getEventsOrderType();
 
             switch (editorSelectedView) {
                 case 0:
@@ -1044,7 +982,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             fragment = new EditorEventListFragment();
                             arguments = new Bundle();
                             arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
-                            arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, EditorEventListFragment.ORDER_TYPE_START_ORDER);
+                            //arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, EditorEventListFragment.ORDER_TYPE_START_ORDER);
                             PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsOrderType=ORDER_TYPE_START_ORDER");
                             arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                             fragment.setArguments(arguments);
@@ -1058,8 +996,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                             fragment = new EditorEventListFragment();
                             arguments = new Bundle();
                             arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
-                            arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, eventsOrderType);
-                            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsOrderType="+eventsOrderType);
+                            //arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, eventsOrderType);
+                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsOrderType="+eventsOrderType);
                             arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                             fragment.setArguments(arguments);
                             getSupportFragmentManager().beginTransaction()
@@ -1072,8 +1010,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                             fragment = new EditorEventListFragment();
                             arguments = new Bundle();
                             arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
-                            arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, eventsOrderType);
-                            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsOrderType="+eventsOrderType);
+                            //arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, eventsOrderType);
+                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsOrderType="+eventsOrderType);
                             arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                             fragment.setArguments(arguments);
                             getSupportFragmentManager().beginTransaction()
@@ -1086,8 +1024,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                             fragment = new EditorEventListFragment();
                             arguments = new Bundle();
                             arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
-                            arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, eventsOrderType);
-                            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsOrderType="+eventsOrderType);
+                            //arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, eventsOrderType);
+                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsOrderType="+eventsOrderType);
                             arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                             fragment.setArguments(arguments);
                             getSupportFragmentManager().beginTransaction()
@@ -1100,8 +1038,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                             fragment = new EditorEventListFragment();
                             arguments = new Bundle();
                             arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
-                            arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, eventsOrderType);
-                            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsOrderType="+eventsOrderType);
+                            //arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, eventsOrderType);
+                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsOrderType="+eventsOrderType);
                             arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                             fragment.setArguments(arguments);
                             getSupportFragmentManager().beginTransaction()
@@ -1125,7 +1063,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         if (!fromClickListener)
             filterSpinner.setSelection(filterSelectedItem);
 
-        bottomToolbar.setVisibility(View.VISIBLE);
+        //bottomToolbar.setVisibility(View.VISIBLE);
 
         // set filter status bar title
         //setStatusBarTitle();
@@ -1148,64 +1086,6 @@ public class EditorProfilesActivity extends AppCompatActivity
         */
 
         _selectFilterItem(selectedView, position, fromClickListener, startTargetHelps);
-    }
-
-    private void changeEventOrder(int position/*, boolean orientationChange*/) {
-        orderSelectedItem = position;
-
-        if ((editorSelectedView == 1) && (filterEventsSelectedItem != DSI_EVENTS_START_ORDER)) {
-            // save into shared preferences
-            ApplicationPreferences.getSharedPreferences(this);
-            Editor editor = ApplicationPreferences.preferences.edit();
-            editor.putInt(SP_EDITOR_ORDER_SELECTED_ITEM, orderSelectedItem);
-            editor.apply();
-        }
-
-        int _eventsOrderType = getEventsOrderType();
-        //setStatusBarTitle();
-
-        //PPApplication.logE("EditorProfilesActivity.changeEventOrder", "filterSelectedItem="+filterSelectedItem);
-        PPApplication.logE("EditorProfilesActivity.changeEventOrder", "orderSelectedItem="+orderSelectedItem);
-        PPApplication.logE("EditorProfilesActivity.changeEventOrder", "_eventsOrderType="+_eventsOrderType);
-
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
-        if ((fragment instanceof EditorEventListFragment))
-        {
-            ((EditorEventListFragment)fragment).changeListOrder(_eventsOrderType);
-        }
-
-        //if (drawerSelectedItem != DSI_EVENTS_START_ORDER)
-            orderSpinner.setSelection(orderSelectedItem);
-
-        /*
-        // Close drawer
-        if (ApplicationPreferences.applicationEditorAutoCloseDrawer(getApplicationContext()) && (!orientationChange))
-            drawerLayout.closeDrawer(drawerRoot);
-        */
-    }
-
-    private int getEventsOrderType() {
-        int _eventsOrderType;
-        if ((editorSelectedView == 1) && (filterEventsSelectedItem == DSI_EVENTS_START_ORDER)) {
-            _eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
-        } else {
-            _eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
-            switch (orderSelectedItem) {
-                /*case 0:
-                    _eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
-                    break;*/
-                case 1:
-                    _eventsOrderType = EditorEventListFragment.ORDER_TYPE_EVENT_NAME;
-                    break;
-                case 2:
-                    _eventsOrderType = EditorEventListFragment.ORDER_TYPE_PROFILE_NAME;
-                    break;
-                case 3:
-                    _eventsOrderType = EditorEventListFragment.ORDER_TYPE_PRIORITY;
-                    break;
-            }
-        }
-        return _eventsOrderType;
     }
 
     @Override
@@ -1629,7 +1509,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         Editor editor = ApplicationPreferences.preferences.edit();
                         editor.putInt(SP_EDITOR_PROFILES_VIEW_SELECTED_ITEM, 0);
                         editor.putInt(SP_EDITOR_EVENTS_VIEW_SELECTED_ITEM, 0);
-                        editor.putInt(SP_EDITOR_ORDER_SELECTED_ITEM, 0);
+                        editor.putInt(EditorEventListFragment.SP_EDITOR_ORDER_SELECTED_ITEM, 0);
                         editor.apply();
 
                         Permissions.setAllShowRequestPermissions(getApplicationContext(), true);

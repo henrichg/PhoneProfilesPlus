@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:id="@+id/layout_profiles_list_fragment"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
@@ -14,7 +15,8 @@
         android:layout_marginEnd="12dp"
         android:layout_marginTop="0dp"
         android:layout_marginBottom="5dp"
-        android:padding="6dp" >
+        android:padding="6dp"
+        android:layout_alignParentTop="true">
 
         <ImageView
             android:id="@+id/activated_profile_icon"
@@ -57,15 +59,17 @@
 
     </RelativeLayout>
 
-    <View
-        android:id="@+id/wifi_ssid_pref_dlg_buttonBarDivider2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?attr/dialogDivider" />
-
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:layout_below="@id/activated_profile_header"
+        android:layout_above="@id/editor_list_bottom_bar">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="top"
+            android:background="?attr/dialogDivider" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/editor_profiles_list"
@@ -102,6 +106,21 @@
 
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?attr/dialogDivider"
+            android:layout_gravity="bottom" />
+
     </FrameLayout>
 
-</LinearLayout>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/editor_list_bottom_bar"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:background="?attr/colorPrimary"
+        android:theme="?attr/bottomToolbarTheme"
+        app:popupTheme="?attr/toolbarPopupMenu" />
+
+</RelativeLayout>

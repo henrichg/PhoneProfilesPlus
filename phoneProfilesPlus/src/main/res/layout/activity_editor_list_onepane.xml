@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/editor_list_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:animateLayoutChanges="true" >
+    android:layout_height="match_parent" >
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/editor_list_bottom_navigation"
@@ -94,61 +93,16 @@
 
         </LinearLayout>
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/editor_list_bottom_bar"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_width="match_parent"
-            android:layout_alignParentBottom="true"
-            android:background="?attr/colorPrimary"
-            android:theme="?attr/bottomToolbarTheme"
-            app:popupTheme="?attr/toolbarPopupMenu" >
-
-            <LinearLayout
-                android:id="@+id/editor_list_bottom_bar_order_root"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/editor_list_bottom_bar_order_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:textSize="14sp"
-                    android:textColor="?attr/editorFilterTitleColor"
-                    android:clickable="true"
-                    android:text="@string/editor_drawer_order_label"
-                    android:maxLines="1"
-                    android:focusable="true"/>
-
-                <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/editor_list_bottom_bar_order"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/orderEventsArray" />
-
-            </LinearLayout>
-
-        </androidx.appcompat.widget.Toolbar>
-
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/editor_list_toolbar"
-            android:layout_above="@id/editor_list_bottom_bar" >
+            android:layout_below="@id/editor_list_toolbar" >
 
             <FrameLayout
                 android:id="@+id/editor_list_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:context=".EditorProfileListActivity"  />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/toolbar_dropShadow_height"
-                android:background="?attr/dialogDivider"
-                android:layout_gravity="bottom" />
 
         </FrameLayout>
 

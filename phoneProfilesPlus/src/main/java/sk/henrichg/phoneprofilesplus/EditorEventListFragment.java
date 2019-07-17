@@ -14,6 +14,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -33,7 +35,9 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -53,6 +57,7 @@ public class EditorEventListFragment extends Fragment
     private Toolbar bottomToolbar;
     TextView textViewNoData;
     private LinearLayout progressBar;
+    private AppCompatSpinner orderSpinner;
 
     private EditorEventListAdapter eventListAdapter;
     private ItemTouchHelper itemTouchHelper;
@@ -63,6 +68,8 @@ public class EditorEventListFragment extends Fragment
     //private ValueAnimator showAnimator;
     //private int headerHeight;
 
+    private int orderSelectedItem = 0;
+
     static final int EDIT_MODE_UNDEFINED = 0;
     static final int EDIT_MODE_INSERT = 1;
     static final int EDIT_MODE_DUPLICATE = 2;
@@ -70,7 +77,7 @@ public class EditorEventListFragment extends Fragment
     static final int EDIT_MODE_DELETE = 4;
 
     static final String FILTER_TYPE_ARGUMENT = "filter_type";
-    static final String ORDER_TYPE_ARGUMENT = "order_type";
+    //static final String ORDER_TYPE_ARGUMENT = "order_type";
     static final String START_TARGET_HELPS_ARGUMENT = "start_target_helps";
 
     static final int FILTER_TYPE_ALL = 0;
@@ -79,16 +86,18 @@ public class EditorEventListFragment extends Fragment
     static final int FILTER_TYPE_STOPPED = 3;
     static final int FILTER_TYPE_START_ORDER = 4;
 
-    static final int ORDER_TYPE_START_ORDER = 0;
-    static final int ORDER_TYPE_EVENT_NAME = 1;
-    static final int ORDER_TYPE_PROFILE_NAME = 2;
-    static final int ORDER_TYPE_PRIORITY = 3;
+    private static final int ORDER_TYPE_START_ORDER = 0;
+    private static final int ORDER_TYPE_EVENT_NAME = 1;
+    private static final int ORDER_TYPE_PROFILE_NAME = 2;
+    private static final int ORDER_TYPE_PRIORITY = 3;
 
     public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "editor_event_list_fragment_start_target_helps";
 
     private int filterType = FILTER_TYPE_ALL;
     private int orderType = ORDER_TYPE_EVENT_NAME;
+
+    static final String SP_EDITOR_ORDER_SELECTED_ITEM = "editor_order_selected_item";
 
     /**
      * The fragment's current callback objects
@@ -144,9 +153,10 @@ public class EditorEventListFragment extends Fragment
         filterType = getArguments() != null ? 
                 getArguments().getInt(FILTER_TYPE_ARGUMENT, EditorEventListFragment.FILTER_TYPE_START_ORDER) :
                     EditorEventListFragment.FILTER_TYPE_START_ORDER;
-        orderType = getArguments() != null ? 
-                getArguments().getInt(ORDER_TYPE_ARGUMENT, EditorEventListFragment.ORDER_TYPE_START_ORDER) :
-                    EditorEventListFragment.ORDER_TYPE_START_ORDER;
+//        orderType = getArguments() != null ?
+//                getArguments().getInt(ORDER_TYPE_ARGUMENT, EditorEventListFragment.ORDER_TYPE_START_ORDER) :
+//                    EditorEventListFragment.ORDER_TYPE_START_ORDER;
+        orderType = getEventsOrderType();
 
         //Log.d("EditorEventListFragment.onCreate","filterType="+filterType);
         //Log.d("EditorEventListFragment.onCreate","orderType="+orderType);
@@ -243,10 +253,12 @@ public class EditorEventListFragment extends Fragment
             }, 200);
         }*/
 
-        /*final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_events_list_fragment))
-                .getLayoutTransition();*/
-        final LayoutTransition layoutTransition = ((ViewGroup) getActivity().findViewById(R.id.editor_list_root))
+        bottomToolbar = view.findViewById(R.id.editor_list_bottom_bar);
+
+        final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_events_list_fragment))
                 .getLayoutTransition();
+        //final LayoutTransition layoutTransition = ((ViewGroup) getActivity().findViewById(R.id.editor_list_root))
+        //        .getLayoutTransition();
         layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
 
         listView.addOnScrollListener(new HidingRecyclerViewScrollListener() {
@@ -260,7 +272,7 @@ public class EditorEventListFragment extends Fragment
                     if (firstVisibleItem != 0)
                         activatedProfileHeader.setVisibility(GONE);
 
-                    Toolbar bottomToolbar = ((EditorProfilesActivity)getActivity()).bottomToolbar;
+                    //Toolbar bottomToolbar = ((EditorProfilesActivity)getActivity()).bottomToolbar;
                     bottomToolbar.setVisibility(GONE);
                 }
             }
@@ -273,7 +285,7 @@ public class EditorEventListFragment extends Fragment
                     if (firstVisibleItem == 0)
                         activatedProfileHeader.setVisibility(View.VISIBLE);
 
-                    Toolbar bottomToolbar = ((EditorProfilesActivity)getActivity()).bottomToolbar;
+                    //Toolbar bottomToolbar = ((EditorProfilesActivity)getActivity()).bottomToolbar;
                     bottomToolbar.setVisibility(View.VISIBLE);
                 }
             }
@@ -290,7 +302,6 @@ public class EditorEventListFragment extends Fragment
 
         final EditorEventListFragment fragment = this;
 
-        bottomToolbar = getActivity().findViewById(R.id.editor_list_bottom_bar);
         Menu menu = bottomToolbar.getMenu();
         if (menu != null) menu.clear();
         bottomToolbar.inflateMenu(R.menu.editor_events_bottom_bar);
@@ -317,26 +328,46 @@ public class EditorEventListFragment extends Fragment
             }
         });
 
-        LinearLayout orderLayout = getActivity().findViewById(R.id.editor_list_bottom_bar_order_root);
+        LinearLayout orderLayout = view.findViewById(R.id.editor_list_bottom_bar_order_root);
         if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
             orderLayout.setVisibility(View.GONE);
         else
             orderLayout.setVisibility(View.VISIBLE);
 
-        synchronized (activityDataWrapper.eventList) {
-            if (!activityDataWrapper.eventListFilled) {
-                LoadEventListAsyncTask asyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
-                this.asyncTaskContext = new WeakReference<>(asyncTask);
-                asyncTask.execute();
-            } else {
-                listView.setAdapter(eventListAdapter);
-                synchronized (activityDataWrapper.profileList) {
-                    Profile profile = activityDataWrapper.getActivatedProfileFromDB(true,
-                            ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
-                    updateHeader(profile);
-                }
+        ApplicationPreferences.getSharedPreferences(getActivity());
+        orderSelectedItem = ApplicationPreferences.preferences.getInt(SP_EDITOR_ORDER_SELECTED_ITEM, 0);
+
+        orderSpinner = view.findViewById(R.id.editor_list_bottom_bar_order);
+        HighlightedSpinnerAdapter orderSpinnerAdapter = new HighlightedSpinnerAdapter(
+                getActivity(),
+                R.layout.editor_toolbar_spinner,
+                getResources().getStringArray(R.array.orderEventsArray));
+        orderSpinnerAdapter.setDropDownViewResource(R.layout.editor_toolbar_spinner_dropdown);
+        orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
+        orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getActivity().getBaseContext(), R.color.accent));
+        orderSpinner.setAdapter(orderSpinnerAdapter);
+        orderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((HighlightedSpinnerAdapter)orderSpinner.getAdapter()).setSelection(position);
+                if (position != orderSelectedItem)
+                    changeEventOrder(position);
             }
-        }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        TextView orderLabel = view.findViewById(R.id.editor_list_bottom_bar_order_title);
+        orderLabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                orderSpinner.performClick();
+            }
+        });
+
+        PPApplication.logE("EditorEventListFragment.doOnViewCreated", "orderSelectedItem="+orderSelectedItem);
+        // first must be set eventsOrderType
+        changeEventOrder(orderSelectedItem/*, savedInstanceState != null*/);
     }
 
     private static class LoadEventListAsyncTask extends AsyncTask<Void, Void, Void> {
@@ -876,20 +907,38 @@ public class EditorEventListFragment extends Fragment
     }
     */
 
-    void changeListOrder(int orderType)
+    private void changeListOrder(int orderType)
     {
         if (isAsyncTaskPendingOrRunning()) {
             this.asyncTaskContext.get().cancel(true);
         }
 
         this.orderType = orderType;
-        if (eventListAdapter != null) {
+
+        synchronized (activityDataWrapper.eventList) {
+            if (!activityDataWrapper.eventListFilled) {
+                LoadEventListAsyncTask asyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
+                this.asyncTaskContext = new WeakReference<>(asyncTask);
+                asyncTask.execute();
+            } else {
+                sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
+                listView.setAdapter(eventListAdapter);
+                synchronized (activityDataWrapper.profileList) {
+                    Profile profile = activityDataWrapper.getActivatedProfileFromDB(true,
+                            ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
+                    updateHeader(profile);
+                }
+                eventListAdapter.notifyDataSetChanged();
+            }
+        }
+
+        /*if (eventListAdapter != null) {
             listView.getRecycledViewPool().clear();
             synchronized (activityDataWrapper.eventList) {
                 sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
             }
             eventListAdapter.notifyDataSetChanged();
-        }
+        }*/
     }
 
     private static void sortList(List<Event> eventList, int orderType, DataWrapper _dataWrapper)
@@ -1175,6 +1224,93 @@ public class EditorEventListFragment extends Fragment
                 editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
             editor.apply();
         }
+    }
+
+    private void changeEventOrder(int position/*, boolean orientationChange*/) {
+        orderSelectedItem = position;
+
+        if (filterType != EditorEventListFragment.FILTER_TYPE_START_ORDER) {
+            // save into shared preferences
+            ApplicationPreferences.getSharedPreferences(getActivity());
+            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            editor.putInt(SP_EDITOR_ORDER_SELECTED_ITEM, orderSelectedItem);
+            editor.apply();
+        }
+
+        int _eventsOrderType = getEventsOrderType();
+        //setStatusBarTitle();
+
+        //PPApplication.logE("EditorProfilesActivity.changeEventOrder", "filterSelectedItem="+filterSelectedItem);
+        PPApplication.logE("EditorProfilesActivity.changeEventOrder", "orderSelectedItem="+orderSelectedItem);
+        PPApplication.logE("EditorProfilesActivity.changeEventOrder", "_eventsOrderType="+_eventsOrderType);
+
+        changeListOrder(_eventsOrderType);
+
+        orderSpinner.setSelection(orderSelectedItem);
+
+        /*
+        // Close drawer
+        if (ApplicationPreferences.applicationEditorAutoCloseDrawer(getApplicationContext()) && (!orientationChange))
+            drawerLayout.closeDrawer(drawerRoot);
+        */
+    }
+
+    private int getEventsOrderType() {
+        int _eventsOrderType;
+        if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
+            _eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
+        } else {
+            _eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
+            switch (orderSelectedItem) {
+                /*case 0:
+                    _eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
+                    break;*/
+                case 1:
+                    _eventsOrderType = EditorEventListFragment.ORDER_TYPE_EVENT_NAME;
+                    break;
+                case 2:
+                    _eventsOrderType = EditorEventListFragment.ORDER_TYPE_PROFILE_NAME;
+                    break;
+                case 3:
+                    _eventsOrderType = EditorEventListFragment.ORDER_TYPE_PRIORITY;
+                    break;
+            }
+        }
+        return _eventsOrderType;
+    }
+
+    class HighlightedSpinnerAdapter extends ArrayAdapter<String> {
+
+        private int mSelectedIndex = -1;
+        private final Context context;
+
+        @SuppressWarnings("SameParameterValue")
+        HighlightedSpinnerAdapter(Context context, int textViewResourceId, String[] objects) {
+            super(context, textViewResourceId, objects);
+            this.context = context;
+        }
+
+        @Override
+        public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent){
+            View itemView =  super.getDropDownView(position, convertView, parent);
+
+            TextView itemText = itemView.findViewById(android.R.id.text1);
+            if (itemText != null) {
+                if (position == mSelectedIndex) {
+                    itemText.setTextColor(GlobalGUIRoutines.getThemeAccentColor(context));
+                } else {
+                    itemText.setTextColor(GlobalGUIRoutines.getThemeEditorSpinnerDropDownTextColor(context));
+                }
+            }
+
+            return itemView;
+        }
+
+        void setSelection(int position) {
+            mSelectedIndex =  position;
+            notifyDataSetChanged();
+        }
+
     }
 
 }
