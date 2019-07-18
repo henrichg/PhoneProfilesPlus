@@ -173,12 +173,6 @@ Direct boot:
     https://stackoverflow.com/questions/51377089/android-crashlytics-fails-on-direct-boot-due-to-disk-encryption
 
 ---------------------------------
-
-cmdWifiAP, cmdNfc, cmdGoToSleep nefunguju v targetSDK=28. Funguju ale, ked ich zavolam rootom.
-- Pridaj teda moznost pouzit root.
-- Ak root nema, je uz jedina moznosta to presunut to do Extendera a spravit podprtu pre to v PPP.
-
----------------------------------
 Extender:
 - Vypada to, ze parametrov, ktore pouzivaju Extender je stale viac.
 - Co tak spravit daky dialog, z ktoreho sa bude dat Extender managovat?
@@ -259,11 +253,22 @@ Android Q beta 1 - emulator:
 
 ----------------------------------------------------------------
 
-Zmenit moje preferences na AndroidX verziu
-- PreferenceActivity a PreferenceFragment vyhodit, nahradit za AppCompatActivity a PreferenceFragmentCompat
-- vid youtube: https://www.youtube.com/watch?v=PS9jhuHECEQ&feature=youtu.be&t=547
-- Nezabudni po kliknuti na preference, co otvori sub-screen zobrazit v titulku:
-  - title: nazov sunscreenu
-  - subtitle: nazov profilu/udalosti/Application settings
+Registracia mobilnych buniek:
+- Kazda udalost ma MobileCellsRegistrationDialogPreferenceX.
+  Ten na Start/Stop button prida/uberie udalostt, pre ktoru sa registracia robi.
+- MobileCellsRegistrationService bezi na pozadi a meria dlzku registracie.
+  V pravidelnych intervaloch posiela broadcast ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN.
+  Ten je len na update GUI v EventsPrefsActivity.
+- Samotnu registraciu robi PhoneStateScanner v doAutoRegistration().
 
+- Potrebujem spravit to, ze ak nebezi registracia, aby sa pridavali nove bunky do zvlasneho
+  zoznamu, kde bude cas, cellid, udalost s mobile cells senzorom ktora vtedy bezala.
+  Ale davaj do zoznamu len cellid, ktore este nie su v TABLE_MOBILE_CELLS.
+  Musis takuto bunku ale pridat este pred zavolanim doHandleEvents(), aby udalosti neskoncili
+  kvoli neexistujucej cellid.
+- Zobrazi sa na to notifikacia. Po kazdom pridani noveho cellid.
+- Klik na notifikaciu zobrazi tento zvlastny zoznam, kde pre kazdy riadok bude button na
+  pridanie cellid pre udalost, odstranenie riadku.
+
+------------------------------------------------------------------
 

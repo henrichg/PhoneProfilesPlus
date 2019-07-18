@@ -53,7 +53,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     private static final int RESULT_MOBILE_CELLS_SCANNING_SETTINGS = 1987;
     private static final String PREF_USE_PRIORITY_APP_SETTINGS = "eventUsePriorityAppSettings";
     private static final int RESULT_USE_PRIORITY_SETTINGS = 1988;
-    private static final String PREF_MOBILE_CELLS_REGISTRATION = "eventMobileCellsRegistration";
+    //private static final String PREF_MOBILE_CELLS_REGISTRATION = "eventMobileCellsRegistration";
     static final int RESULT_WIFI_LOCATION_SYSTEM_SETTINGS = 1989;
     static final int RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS = 1990;
     static final int RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS = 1991;
@@ -648,7 +648,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             });
         }
         MobileCellsRegistrationDialogPreferenceX mobileCellsRegistrationDialogPreference =
-                prefMng.findPreference(PREF_MOBILE_CELLS_REGISTRATION);
+                prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_REGISTRATION);
         if (mobileCellsRegistrationDialogPreference != null) {
             mobileCellsRegistrationDialogPreference.event_id = activity.event_id;
         }
@@ -1339,7 +1339,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     }
 
     void doMobileCellsRegistrationCountDownBroadcastReceiver(long millisUntilFinished) {
-        MobileCellsRegistrationDialogPreferenceX preference = prefMng.findPreference(PREF_MOBILE_CELLS_REGISTRATION);
+        MobileCellsRegistrationDialogPreferenceX preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_REGISTRATION);
         if (preference != null) {
             //Log.d("mobileCellsRegistrationCountDownBroadcastReceiver", "xxx");
             preference.updateInterface(millisUntilFinished, false);
