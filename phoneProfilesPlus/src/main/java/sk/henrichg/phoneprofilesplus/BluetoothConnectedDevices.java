@@ -32,6 +32,13 @@ class BluetoothConnectedDevices {
     private static BluetoothHealth bluetoothHealth = null;
     private static BluetoothA2dp bluetoothA2dp = null;
 
+    @SuppressWarnings("FieldCanBeLocal")
+    private static boolean okA2DP = false;
+    @SuppressWarnings("FieldCanBeLocal")
+    private static boolean okHEADSET = false;
+    @SuppressWarnings("FieldCanBeLocal")
+    private static boolean okHEALTH = false;
+
     static void getConnectedDevices(final Context context) {
         final BluetoothAdapter bluetoothAdapter = BluetoothScanJob.getBluetoothAdapter(context);
         if (bluetoothAdapter != null) {
@@ -195,13 +202,13 @@ class BluetoothConnectedDevices {
 
             try {
 
-                boolean okA2DP = bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.A2DP);
+                okA2DP = bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.A2DP);
                 PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "A2DP start="+okA2DP);
 
-                boolean okHEADSET = bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEADSET);
+                okHEADSET = bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEADSET);
                 PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEADSET start="+okHEADSET);
 
-                boolean okHEALTH = bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEALTH);
+                okHEALTH = bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEALTH);
                 PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEALTH start="+okHEALTH);
 
                 // wait for start
