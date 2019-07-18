@@ -19,8 +19,10 @@ import java.util.List;
 class AddEventAdapter extends BaseAdapter {
 
     private final List<Event> eventList;
-    private final String[] profileNamesArray;
-    private final int[] profileIconsArray;
+    private final String[] profileStartNamesArray;
+    private final String[] profileEndNamesArray;
+    private final int[] profileStartIconsArray;
+    private final int[] profileEndIconsArray;
     private int defaultColor;
 
     private final AddEventDialog dialog;
@@ -36,13 +38,22 @@ class AddEventAdapter extends BaseAdapter {
 
         //LayoutInflater inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        profileNamesArray = c.getResources().getStringArray(R.array.addEventPredefinedStartProfilesArray);
-        TypedArray profileIconsTypedArray = c.getResources().obtainTypedArray(R.array.addEventPredefinedStartProfileIconsArray);
-        profileIconsArray = new int[profileIconsTypedArray.length()];
-        for (int i = 0; i < profileIconsTypedArray.length(); i++) {
-            profileIconsArray[i] = profileIconsTypedArray.getResourceId(i, -1);
+        profileStartNamesArray = c.getResources().getStringArray(R.array.addEventPredefinedStartProfilesArray);
+        profileEndNamesArray = c.getResources().getStringArray(R.array.addEventPredefinedEndProfilesArray);
+
+        TypedArray profileStartIconsTypedArray = c.getResources().obtainTypedArray(R.array.addEventPredefinedStartProfileIconsArray);
+        profileStartIconsArray = new int[profileStartIconsTypedArray.length()];
+        for (int i = 0; i < profileStartIconsTypedArray.length(); i++) {
+            profileStartIconsArray[i] = profileStartIconsTypedArray.getResourceId(i, -1);
         }
-        profileIconsTypedArray.recycle();
+        profileStartIconsTypedArray.recycle();
+
+        TypedArray profileEndIconsTypedArray = c.getResources().obtainTypedArray(R.array.addEventPredefinedEndProfileIconsArray);
+        profileEndIconsArray = new int[profileEndIconsTypedArray.length()];
+        for (int i = 0; i < profileEndIconsTypedArray.length(); i++) {
+            profileEndIconsArray[i] = profileEndIconsTypedArray.getResourceId(i, -1);
+        }
+        profileEndIconsTypedArray.recycle();
     }
 
     public int getCount() {
@@ -204,7 +215,7 @@ class AddEventAdapter extends BaseAdapter {
             }
             else
             {
-                String profileName = profileNamesArray[position];
+                String profileName = profileStartNamesArray[position];
                 if (position > 0) {
                     profileName = "(*) " + profileName;
                     holder.profileStartName.setTextColor(Color.RED);
@@ -212,7 +223,7 @@ class AddEventAdapter extends BaseAdapter {
                 else
                     holder.profileStartName.setTextColor(defaultColor);
                 holder.profileStartName.setText(profileName);
-                holder.profileStartIcon.setImageResource(profileIconsArray[position]);
+                holder.profileStartIcon.setImageResource(profileStartIconsArray[position]);
                 if (applicationEditorPrefIndicator)
                 {
                     //profilePrefIndicatorImageView.setImageBitmap(null);
@@ -270,19 +281,33 @@ class AddEventAdapter extends BaseAdapter {
                         }
                     }
                 } else {
-                    String profileName;
-                    if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
-                        profileName = vi.getResources().getString(R.string.event_preference_profile_undone);
-                    else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
-                        profileName = vi.getResources().getString(R.string.event_preference_profile_restartEvents);
+                    String profileName = profileEndNamesArray[position];
+                    if ((position > 0) && (!profileName.isEmpty())) {
+                        profileName = "(*) " + profileName;
+                        holder.profileEndName.setTextColor(Color.RED);
+                    }
+                    else
+                        holder.profileEndName.setTextColor(defaultColor);
+                    if (profileName.isEmpty()) {
+                        if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
+                            profileName = vi.getResources().getString(R.string.event_preference_profile_undone);
+                        else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
+                            profileName = vi.getResources().getString(R.string.event_preference_profile_restartEvents);
+                        else {
+                            if (event._fkProfileEnd == Profile.PROFILE_NO_ACTIVATE)
+                                profileName = vi.getResources().getString(R.string.profile_preference_profile_end_no_activate);
+                            else
+                                profileName = vi.getResources().getString(R.string.profile_preference_profile_not_set);
+                        }
+                    }
                     else {
-                        if (event._fkProfileEnd == Profile.PROFILE_NO_ACTIVATE)
-                            profileName = vi.getResources().getString(R.string.profile_preference_profile_end_no_activate);
-                        else
-                            profileName = vi.getResources().getString(R.string.profile_preference_profile_not_set);
+                        if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
+                            profileName = profileName + " + " + vi.getResources().getString(R.string.event_preference_profile_undone);
+                        else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
+                            profileName = profileName + " + " + vi.getResources().getString(R.string.event_preference_profile_restartEvents);
                     }
                     holder.profileEndName.setText(profileName);
-                    holder.profileEndIcon.setImageResource(R.drawable.ic_empty);
+                    holder.profileEndIcon.setImageResource(profileEndIconsArray[position]);
                     if (applicationEditorPrefIndicator) {
                         //profilePrefIndicatorImageView.setImageBitmap(null);
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());

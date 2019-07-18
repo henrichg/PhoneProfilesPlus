@@ -95,6 +95,8 @@ class AddEventDialog
                     event = eventListFragment.activityDataWrapper.getPredefinedEvent(index, false, activity);
                     if (event._fkProfileStart == 0)
                         profileNotExists = true;
+                    if (event._fkProfileEnd == 0)
+                        profileNotExists = true;
                     eventList.add(event);
                 }
 

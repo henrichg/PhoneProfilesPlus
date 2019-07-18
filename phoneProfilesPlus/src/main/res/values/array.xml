@@ -521,6 +521,15 @@
         <item>@string/default_profile_name_home</item>
         <item>@string/default_profile_name_battery_low</item>
     </string-array>
+    <string-array name="addEventPredefinedEndProfilesArray">
+        <item>@string/empty_string</item>
+        <item>@string/empty_string</item>
+        <item>@string/empty_string</item>
+        <item>@string/empty_string</item>
+        <item>@string/empty_string</item>
+        <item>@string/empty_string</item>
+        <item>@string/default_profile_name_battery_ok</item>
+    </string-array>
     <string-array name="addEventPredefinedStartProfileIconsArray">
         <item>@drawable/ic_profile_default</item>
         <item>@drawable/ic_profile_home_2</item>
@@ -529,6 +538,15 @@
         <item>@drawable/ic_profile_sleep</item>
         <item>@drawable/ic_profile_home_2</item>
         <item>@drawable/ic_profile_battery_1</item>
+    </string-array>
+    <string-array name="addEventPredefinedEndProfileIconsArray">
+        <item>@drawable/ic_empty</item>
+        <item>@drawable/ic_empty</item>
+        <item>@drawable/ic_empty</item>
+        <item>@drawable/ic_empty</item>
+        <item>@drawable/ic_empty</item>
+        <item>@drawable/ic_empty</item>
+        <item>@drawable/ic_profile_battery_3</item>
     </string-array>
     <string-array name="networkTypeGSMArray">
         <item>@string/array_pref_no_change</item>

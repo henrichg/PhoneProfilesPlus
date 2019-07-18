@@ -1905,17 +1905,90 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
     }
 
-    private void startEventPreferenceActivity(Event event, int editMode, int predefinedEventIndex) {
-        Intent intent = new Intent(getBaseContext(), EventsPrefsActivity.class);
-        if (editMode == EditorEventListFragment.EDIT_MODE_INSERT)
-            intent.putExtra(PPApplication.EXTRA_EVENT_ID, 0L);
-        else {
-            intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
-            intent.putExtra(PPApplication.EXTRA_EVENT_STATUS, event.getStatus());
+    private void startEventPreferenceActivity(Event event, final int editMode, final int predefinedEventIndex) {
+        boolean profileExists = true;
+        long startProfileId = 0;
+        long endProfileId = -1;
+        if (editMode == EditorEventListFragment.EDIT_MODE_INSERT) {
+            if (getDataWrapper() != null){
+                // search names of start and end profiles
+                String[] profileStartNamesArray = getResources().getStringArray(R.array.addEventPredefinedStartProfilesArray);
+                String[] profileEndNamesArray = getResources().getStringArray(R.array.addEventPredefinedEndProfilesArray);
+
+                startProfileId = getDataWrapper().getProfileIdByName(profileStartNamesArray[predefinedEventIndex], true);
+                if (startProfileId == 0)
+                    profileExists = false;
+
+                if (!profileEndNamesArray[predefinedEventIndex].isEmpty()) {
+                    endProfileId = getDataWrapper().getProfileIdByName(profileEndNamesArray[predefinedEventIndex], true);
+                    if (endProfileId == 0)
+                        profileExists = false;
+                }
+            }
         }
-        intent.putExtra(EXTRA_NEW_EVENT_MODE, editMode);
-        intent.putExtra(EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
-        startActivityForResult(intent, REQUEST_CODE_EVENT_PREFERENCES);
+
+        if (profileExists) {
+            Intent intent = new Intent(getBaseContext(), EventsPrefsActivity.class);
+            if (editMode == EditorEventListFragment.EDIT_MODE_INSERT)
+                intent.putExtra(PPApplication.EXTRA_EVENT_ID, 0L);
+            else {
+                intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
+                intent.putExtra(PPApplication.EXTRA_EVENT_STATUS, event.getStatus());
+            }
+            intent.putExtra(EXTRA_NEW_EVENT_MODE, editMode);
+            intent.putExtra(EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
+            startActivityForResult(intent, REQUEST_CODE_EVENT_PREFERENCES);
+        }
+        else {
+            final long _startProfileId = startProfileId;
+            final long _endProfileId = endProfileId;
+
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+            dialogBuilder.setTitle(R.string.menu_new_event);
+            dialogBuilder.setMessage(R.string.new_event_profiles_not_exists_alert_message);
+            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+            dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    if (_startProfileId == 0) {
+                        // create profile
+                        int[] profileStartIndex = {0, 0, 2, 4, 0, 5};
+                        getDataWrapper().getPredefinedProfile(profileStartIndex[predefinedEventIndex], true, getBaseContext());
+                    }
+                    if (_endProfileId == 0) {
+                        // create profile
+                        int[] profileEndIndex = {0, 0, 0, 0, 0, 6};
+                        getDataWrapper().getPredefinedProfile(profileEndIndex[predefinedEventIndex], true, getBaseContext());
+                    }
+
+                    Intent intent = new Intent(getBaseContext(), EventsPrefsActivity.class);
+                    intent.putExtra(PPApplication.EXTRA_EVENT_ID, 0L);
+                    intent.putExtra(EXTRA_NEW_EVENT_MODE, editMode);
+                    intent.putExtra(EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
+                    startActivityForResult(intent, REQUEST_CODE_EVENT_PREFERENCES);
+                }
+            });
+            dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(getBaseContext(), EventsPrefsActivity.class);
+                    intent.putExtra(PPApplication.EXTRA_EVENT_ID, 0L);
+                    intent.putExtra(EXTRA_NEW_EVENT_MODE, editMode);
+                    intent.putExtra(EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
+                    startActivityForResult(intent, REQUEST_CODE_EVENT_PREFERENCES);
+                }
+            });
+            AlertDialog dialog = dialogBuilder.create();
+            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface dialog) {
+                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                    if (positive != null) positive.setAllCaps(false);
+                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                    if (negative != null) negative.setAllCaps(false);
+                }
+            });*/
+            if (!isFinishing())
+                dialog.show();
+        }
     }
 
     public void onStartEventPreferences(Event event, int editMode, int predefinedEventIndex/*, boolean startTargetHelps*/) {

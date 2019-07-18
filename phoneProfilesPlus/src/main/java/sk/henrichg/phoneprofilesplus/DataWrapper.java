@@ -1264,9 +1264,9 @@ public class DataWrapper {
          );
     }
 
-    private long getProfileIdByName(String name)
+    long getProfileIdByName(String name, boolean fromDB)
     {
-        if (!profileListFilled)
+        if ((!profileListFilled) || fromDB)
         {
             return DatabaseHandler.getInstance(context).getProfileIdByName(name);
         }
@@ -1291,7 +1291,9 @@ public class DataWrapper {
         switch (index) {
             case 0:
                 event = getNonInitializedEvent(baseContext.getString(R.string.default_event_name_during_the_week), index+1);
-                event._fkProfileStart = getProfileIdByName(baseContext.getString(R.string.default_profile_name_home));
+                event._fkProfileStart = getProfileIdByName(baseContext.getString(R.string.default_profile_name_home), false);
+                //if (event._fkProfileStart == 0)
+                //    event._fkProfileStart = getPredefinedProfile(0, true, baseContext)._id;
                 //event._undoneProfile = false;
                 event._atEndDo = Event.EATENDDO_NONE;
                 event._eventPreferencesTime._enabled = true;
@@ -1306,7 +1308,9 @@ public class DataWrapper {
                 break;
             case 1:
                 event = getNonInitializedEvent(baseContext.getString(R.string.default_event_name_weekend), index+1);
-                event._fkProfileStart = getProfileIdByName(baseContext.getString(R.string.default_profile_name_home));
+                event._fkProfileStart = getProfileIdByName(baseContext.getString(R.string.default_profile_name_home), false);
+                //if (event._fkProfileStart == 0)
+                //    event._fkProfileStart = getPredefinedProfile(0, true, baseContext)._id;
                 //event._undoneProfile = false;
                 event._atEndDo = Event.EATENDDO_NONE;
                 event._eventPreferencesTime._enabled = true;
@@ -1318,7 +1322,9 @@ public class DataWrapper {
                 break;
             case 2:
                 event = getNonInitializedEvent(baseContext.getString(R.string.default_event_name_during_the_work), index+1);
-                event._fkProfileStart = getProfileIdByName(baseContext.getString(R.string.default_profile_name_work));
+                event._fkProfileStart = getProfileIdByName(baseContext.getString(R.string.default_profile_name_work), false);
+                //if (event._fkProfileStart == 0)
+                //    event._fkProfileStart = getPredefinedProfile(2, true, baseContext)._id;
                 //event._undoneProfile = true;
                 event._atEndDo = Event.EATENDDO_NONE;
                 event._priority = Event.EPRIORITY_HIGHER;
@@ -1334,7 +1340,9 @@ public class DataWrapper {
                 break;
             case 3:
                 event = getNonInitializedEvent(baseContext.getString(R.string.default_event_name_overnight), index+1);
-                event._fkProfileStart = getProfileIdByName(baseContext.getString(R.string.default_profile_name_sleep));
+                event._fkProfileStart = getProfileIdByName(baseContext.getString(R.string.default_profile_name_sleep), false);
+                //if (event._fkProfileStart == 0)
+                //    event._fkProfileStart = getPredefinedProfile(4, true, baseContext)._id;
                 //event._undoneProfile = false;
                 event._atEndDo = Event.EATENDDO_UNDONE_PROFILE;
                 event._eventPreferencesTime._enabled = true;
@@ -1351,7 +1359,9 @@ public class DataWrapper {
                 break;
             case 4:
                 event = getNonInitializedEvent(baseContext.getString(R.string.default_event_name_night_call), index+1);
-                event._fkProfileStart = getProfileIdByName(baseContext.getString(R.string.default_profile_name_home));
+                event._fkProfileStart = getProfileIdByName(baseContext.getString(R.string.default_profile_name_home), false);
+                //if (event._fkProfileStart == 0)
+                //    event._fkProfileStart = getPredefinedProfile(0, true, baseContext)._id;
                 //event._undoneProfile = false;
                 event._atEndDo = Event.EATENDDO_UNDONE_PROFILE;
                 event._priority = Event.EPRIORITY_HIGHEST;
@@ -1374,8 +1384,12 @@ public class DataWrapper {
                 break;
             case 5:
                 event = getNonInitializedEvent(baseContext.getString(R.string.default_event_name_low_battery), index+1);
-                event._fkProfileStart = getProfileIdByName(baseContext.getString(R.string.default_profile_name_battery_low));
-                event._fkProfileEnd = getProfileIdByName(baseContext.getString(R.string.default_profile_name_battery_ok));
+                event._fkProfileStart = getProfileIdByName(baseContext.getString(R.string.default_profile_name_battery_low), false);
+                //if (event._fkProfileStart == 0)
+                //    event._fkProfileStart = getPredefinedProfile(5, true, baseContext)._id;
+                event._fkProfileEnd = getProfileIdByName(baseContext.getString(R.string.default_profile_name_battery_ok), false);
+                //if (event._fkProfileEnd == 0)
+                //    event._fkProfileEnd = getPredefinedProfile(6, true, baseContext)._id;
                 //event._undoneProfile = false;
                 event._atEndDo = Event.EATENDDO_RESTART_EVENTS;
                 event._priority = Event.EPRIORITY_HIGHEST;
