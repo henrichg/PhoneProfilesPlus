@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -46,6 +47,8 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
     private AppCompatImageButton addIcon;
     private WifiSSIDPreferenceAdapterX listAdapter;
     private TextView locationEnabledStatusTextView;
+    private AppCompatImageButton locationSystemSettingsButton;
+    private Button rescanButton;
 
     private AsyncTask<Void, Integer, Void> rescanAsyncTask;
 
@@ -169,7 +172,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
             }
         });
 
-        final Button rescanButton = view.findViewById(R.id.wifi_ssid_pref_dlg_rescanButton);
+        rescanButton = view.findViewById(R.id.wifi_ssid_pref_dlg_rescanButton);
         //rescanButton.setAllCaps(false);
         rescanButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,37 +183,9 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
         });
 
         locationEnabledStatusTextView = view.findViewById(R.id.wifi_ssid_pref_dlg_locationEnableStatus);
-        setLocationEnableStatus();
+        locationSystemSettingsButton = view.findViewById(R.id.wifi_ssid_pref_dlg_locationSystemSettingsButton);
 
-        AppCompatImageButton locationSystemSettingsButton = view.findViewById(R.id.wifi_ssid_pref_dlg_locationSystemSettingsButton);
-        locationSystemSettingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ((getActivity() != null) &&
-                        GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, prefContext.getApplicationContext())) {
-                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    getActivity().startActivityForResult(intent, EventsPrefsFragment.RESULT_WIFI_LOCATION_SYSTEM_SETTINGS);
-                }
-                else {
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
-                    dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                    AlertDialog dialog = dialogBuilder.create();
-                    /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                        @Override
-                        public void onShow(DialogInterface dialog) {
-                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                            if (positive != null) positive.setAllCaps(false);
-                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                            if (negative != null) negative.setAllCaps(false);
-                        }
-                    });*/
-                    if (!((Activity)prefContext).isFinishing())
-                        dialog.show();
-                }
-            }
-        });
+        setLocationEnableStatus();
 
         refreshListView(false, "");
     }
@@ -237,15 +212,56 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
     }
 
     void setLocationEnableStatus() {
-        String statusText;
-        if (!PhoneProfilesService.isLocationEnabled(prefContext)) {
-            statusText = getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
-                    "* " + getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *";
-        } else {
-            statusText = getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
-                    getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary);
+        if (Build.VERSION.SDK_INT >= 23) {
+            String statusText;
+            if (!PhoneProfilesService.isLocationEnabled(prefContext)) {
+                statusText = getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
+                        "* " + getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *";
+
+                locationEnabledStatusTextView.setText(statusText);
+
+                locationSystemSettingsButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if ((getActivity() != null) &&
+                                GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, prefContext.getApplicationContext())) {
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            getActivity().startActivityForResult(intent, EventsPrefsFragment.RESULT_WIFI_LOCATION_SYSTEM_SETTINGS);
+                        } else {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
+                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            AlertDialog dialog = dialogBuilder.create();
+                    /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        @Override
+                        public void onShow(DialogInterface dialog) {
+                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                            if (positive != null) positive.setAllCaps(false);
+                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                            if (negative != null) negative.setAllCaps(false);
+                        }
+                    });*/
+                            if (!((Activity) prefContext).isFinishing())
+                                dialog.show();
+                        }
+                    }
+                });
+
+                locationEnabledStatusTextView.setVisibility(View.VISIBLE);
+                locationSystemSettingsButton.setVisibility(View.VISIBLE);
+                rescanButton.setVisibility(View.GONE);
+            } else {
+                locationEnabledStatusTextView.setVisibility(View.GONE);
+                locationSystemSettingsButton.setVisibility(View.GONE);
+                rescanButton.setVisibility(View.VISIBLE);
+            }
         }
-        locationEnabledStatusTextView.setText(statusText);
+        else {
+            locationEnabledStatusTextView.setVisibility(View.GONE);
+            locationSystemSettingsButton.setVisibility(View.GONE);
+            rescanButton.setVisibility(View.VISIBLE);
+        }
     }
 
     @SuppressLint("StaticFieldLeak")

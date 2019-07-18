@@ -52,6 +52,8 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
     private MobileCellNamesDialogX mMobileCellNamesDialog;
     private AppCompatImageButton addCellButton;
     private TextView locationEnabledStatusTextView;
+    private AppCompatImageButton locationSystemSettingsButton;
+    private Button rescanButton;
 
     private AsyncTask<Void, Integer, Void> rescanAsyncTask;
 
@@ -216,7 +218,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
             }
         });
 
-        final Button rescanButton = view.findViewById(R.id.mobile_cells_pref_dlg_rescanButton);
+        rescanButton = view.findViewById(R.id.mobile_cells_pref_dlg_rescanButton);
         //rescanButton.setAllCaps(false);
         if (PPApplication.hasSystemFeature(prefContext, PackageManager.FEATURE_TELEPHONY)) {
             TelephonyManager telephonyManager = (TelephonyManager) prefContext.getSystemService(Context.TELEPHONY_SERVICE);
@@ -247,38 +249,9 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         });
 
         locationEnabledStatusTextView = view.findViewById(R.id.mobile_cells_pref_dlg_locationEnableStatus);
-        setLocationEnableStatus();
+        locationSystemSettingsButton = view.findViewById(R.id.mobile_cells_pref_dlg_locationSystemSettingsButton);
 
-        AppCompatImageButton locationSystemSettingsButton = view.findViewById(R.id.mobile_cells_pref_dlg_locationSystemSettingsButton);
-        locationSystemSettingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ((getActivity() != null) &&
-                        GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, prefContext.getApplicationContext())) {
-                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                    getActivity().startActivityForResult(intent, EventsPrefsFragment.RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS);
-                }
-                else {
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
-                    dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                    AlertDialog dialog = dialogBuilder.create();
-                    /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                        @Override
-                        public void onShow(DialogInterface dialog) {
-                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                            if (positive != null) positive.setAllCaps(false);
-                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                            if (negative != null) negative.setAllCaps(false);
-                        }
-                    });*/
-                    if (!((Activity)prefContext).isFinishing())
-                        dialog.show();
-                }
-            }
-        });
+        setLocationEnableStatus();
 
         refreshListView(false, Integer.MAX_VALUE);
     }
@@ -314,19 +287,62 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
     }
 
     void setLocationEnableStatus() {
-        String statusText;
-        if (!PhoneProfilesService.isLocationEnabled(prefContext)) {
-            if (Build.VERSION.SDK_INT < 28)
-                statusText = prefContext.getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
-                        prefContext.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary);
-            else
-                statusText = prefContext.getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
-                        "* " +prefContext.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *";
-        } else {
-            statusText = prefContext.getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
-                    prefContext.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary);
+        if (Build.VERSION.SDK_INT >= 28) {
+            String statusText;
+            if (!PhoneProfilesService.isLocationEnabled(prefContext)) {
+                if (Build.VERSION.SDK_INT < 28)
+                    statusText = prefContext.getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
+                            prefContext.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary);
+                else
+                    statusText = prefContext.getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
+                            "* " + prefContext.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *";
+
+                locationEnabledStatusTextView.setText(statusText);
+
+                locationSystemSettingsButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if ((getActivity() != null) &&
+                                GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, prefContext.getApplicationContext())) {
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            getActivity().startActivityForResult(intent, EventsPrefsFragment.RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS);
+                        }
+                        else {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
+                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            AlertDialog dialog = dialogBuilder.create();
+                    /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        @Override
+                        public void onShow(DialogInterface dialog) {
+                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                            if (positive != null) positive.setAllCaps(false);
+                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                            if (negative != null) negative.setAllCaps(false);
+                        }
+                    });*/
+                            if (!((Activity)prefContext).isFinishing())
+                                dialog.show();
+                        }
+                    }
+                });
+
+                locationEnabledStatusTextView.setVisibility(View.VISIBLE);
+                locationSystemSettingsButton.setVisibility(View.VISIBLE);
+                rescanButton.setVisibility(View.GONE);
+            } else {
+                locationEnabledStatusTextView.setVisibility(View.GONE);
+                locationSystemSettingsButton.setVisibility(View.GONE);
+                rescanButton.setVisibility(View.VISIBLE);
+            }
         }
-        locationEnabledStatusTextView.setText(statusText);
+        else {
+            locationEnabledStatusTextView.setVisibility(View.GONE);
+            locationSystemSettingsButton.setVisibility(View.GONE);
+            rescanButton.setVisibility(View.VISIBLE);
+        }
     }
 
     @SuppressLint("StaticFieldLeak")
