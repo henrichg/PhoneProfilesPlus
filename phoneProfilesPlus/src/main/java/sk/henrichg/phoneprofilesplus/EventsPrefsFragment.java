@@ -162,9 +162,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }*/
-        if (preference instanceof TimePickerPreferenceX) {
-            ((TimePickerPreferenceX) preference).fragment = new TimePickerPreferenceFragmentX();
-            dialogFragment = ((TimePickerPreferenceX) preference).fragment;
+        if (preference instanceof TimeDialogPreferenceX) {
+            ((TimeDialogPreferenceX) preference).fragment = new TimeDialogPreferenceFragmentX();
+            dialogFragment = ((TimeDialogPreferenceX) preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);

@@ -673,6 +673,13 @@ class GlobalGUIRoutines {
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
 
+    @SuppressLint("DefaultLocale")
+    static String getTimeString(int time) {
+        int hours = time / 60;
+        int minutes = (time % 60);
+        return String.format("%02d:%02d", hours, minutes);
+    }
+
     static String getListPreferenceString(String value, int arrayValuesRes,
                                           int arrayStringsRes, Context context) {
         String[] arrayValues = context.getResources().getStringArray(arrayValuesRes);

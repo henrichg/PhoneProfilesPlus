@@ -269,6 +269,7 @@ Registracia mobilnych buniek:
 - Zobrazi sa na to notifikacia. Po kazdom pridani noveho cellid.
 - Klik na notifikaciu zobrazi tento zvlastny zoznam, kde pre kazdy riadok bude button na
   pridanie cellid pre udalost, odstranenie riadku.
+- Cele toto sprav do PhoneStateScanner.doAutoRegistration().
 
 ------------------------------------------------------------------
 
