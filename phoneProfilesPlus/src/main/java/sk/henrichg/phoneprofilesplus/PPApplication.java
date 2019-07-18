@@ -1313,11 +1313,11 @@ public class PPApplication extends Application {
             // Configure the notification channel.
             //channel.setImportance(importance);
             channel.setDescription(description);
-            channel.enableLights(false);
+            channel.enableLights(true);
             // Sets the notification light color for notifications posted to this
             // channel, if the device supports this feature.
             //channel.setLightColor(Color.RED);
-            channel.enableVibration(false);
+            channel.enableVibration(true);
             //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
 
             NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -1338,11 +1338,11 @@ public class PPApplication extends Application {
             // Configure the notification channel.
             //channel.setImportance(importance);
             channel.setDescription(description);
-            channel.enableLights(false);
+            channel.enableLights(true);
             // Sets the notification light color for notifications posted to this
             // channel, if the device supports this feature.
             //channel.setLightColor(Color.RED);
-            channel.enableVibration(false);
+            channel.enableVibration(true);
             //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
 
             NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
