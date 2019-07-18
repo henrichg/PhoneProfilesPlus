@@ -417,7 +417,8 @@ public class PPApplication extends Application {
                                         //+"|[RJS] PhoneProfilesService.scheduleWifiJob"
                                         //+"|[RJS] PhoneProfilesService.cancelWifiJob"
 
-                                        +"|EditorProfilesActivity.selectFilterItem"
+                                        //+"|EditorProfilesActivity.selectFilterItem"
+                                        +"|EventsPrefsFragment.onResume"
             ;
 
 

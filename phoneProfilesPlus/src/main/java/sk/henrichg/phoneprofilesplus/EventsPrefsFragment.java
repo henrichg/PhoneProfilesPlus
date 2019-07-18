@@ -34,6 +34,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
     private boolean nestedFragment = false;
 
+    private boolean afterStartPPPE = false;
+
     private Event event;
 
     private static final String PRF_GRANT_PERMISSIONS = "eventGrantPermissions";
@@ -721,6 +723,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             try {
                                 startActivity(intent);
+                                afterStartPPPE = true;
                             } catch (Exception ignored) {
                             }
                         }
@@ -813,6 +816,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             try {
                                 startActivity(intent);
+                                afterStartPPPE = true;
                             } catch (Exception ignored) {
                             }
                         }
@@ -850,6 +854,29 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             infoDialogPreference.setInfoText(info);
         }
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        PPApplication.logE("EventsPrefsFragment.onResume", "xxx");
+
+        if (afterStartPPPE) {
+            afterStartPPPE = false;
+
+            if (getActivity() == null)
+                return;
+
+            final Context context = getActivity().getBaseContext();
+
+            event._eventPreferencesApplication.checkPreferences(prefMng, context);
+            event._eventPreferencesOrientation.checkPreferences(prefMng, context);
+            event._eventPreferencesSMS.checkPreferences(prefMng, context);
+            event._eventPreferencesCall.checkPreferences(prefMng, context);
+            setPermissionsPreference();
+            PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.onResume");
+            ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
+        }
     }
 
     @Override
