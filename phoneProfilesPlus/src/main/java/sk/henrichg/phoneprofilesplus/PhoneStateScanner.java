@@ -1,6 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -25,6 +27,8 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import static android.content.Context.POWER_SERVICE;
@@ -45,6 +49,9 @@ class PhoneStateScanner extends PhoneStateListener {
     static int durationForAutoRegistration = 0;
     static String cellsNameForAutoRegistration = "";
     static private final List<Long> autoRegistrationEventList = Collections.synchronizedList(new ArrayList<Long>());
+
+    static String EXTRA_MOBILE_CELL_ID = "mobile_cell_id";
+    private static final String NEW_MOBILE_CELLS_NOTIFICATION_DELETED_ACTION = PPApplication.PACKAGE_NAME + ".NEW_MOBILE_CELLS_NOTIFICATION_DELETED";
 
     //private static final String PREF_SHOW_ENABLE_LOCATION_NOTIFICATION_PHONE_STATE = "show_enable_location_notification_phone_state";
 
@@ -697,6 +704,43 @@ class PhoneStateScanner extends PhoneStateListener {
                             List<MobileCellsData> localCellsList = new ArrayList<>();
                             localCellsList.add(new MobileCellsData(registeredCell, "", true, false, Calendar.getInstance().getTimeInMillis(), lastRunningEvents));
                             db.saveMobileCellsList(localCellsList, true, false);
+
+                            NotificationCompat.Builder mBuilder;
+                            PPApplication.createMobileCellsNewCellNotificationChannel(context);
+
+                            Intent intent = new Intent(context, *Activity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                            String nText = context.getString(R.string.notification_new_mobile_cell_text1);
+                            nText = nText + " " + registeredCell + ". ";
+                            nText = nText + context.getString(R.string.notification_new_mobile_cell_text2);
+
+                            mBuilder = new NotificationCompat.Builder(context, PPApplication.NEW_MOBILE_CELL_NOTIFICATION_CHANNEL)
+                                    .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
+                                    .setSmallIcon(R.drawable.ic_exclamation_notify)
+                                    .setContentTitle(context.getString(R.string.notification_new_mobile_cell_title))
+                                    .setContentText(nText)
+                                    .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
+                                    .setAutoCancel(true); // clear notification after click
+
+                            Intent deleteIntent = new Intent(NEW_MOBILE_CELLS_NOTIFICATION_DELETED_ACTION);
+                            deleteIntent.putExtra(EXTRA_MOBILE_CELL_ID, registeredCell);
+                            PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, 1, deleteIntent, 0);
+                            mBuilder.setDeleteIntent(deletePendingIntent);
+
+                            intent.putExtra(EXTRA_MOBILE_CELL_ID, registeredCell);
+                            int notificationID = registeredCell;
+
+                            PendingIntent pi = PendingIntent.getActivity(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                            mBuilder.setContentIntent(pi);
+                            mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
+                            //mBuilder.setOnlyAlertOnce(true);
+                            mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+                            mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+
+                            NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                            if (mNotificationManager != null)
+                                mNotificationManager.notify(notificationID, mBuilder.build());
 
                         }
                     }

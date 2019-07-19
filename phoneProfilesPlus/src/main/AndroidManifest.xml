@@ -515,6 +515,14 @@
                 <action android:name="sk.henrichg.phoneprofilesplus.START_EVENT_NOTIFICATION_DELETED"/>
             </intent-filter>
         </receiver>
+        <receiver
+            android:name=".NewMobileCellsNotificationDeletedReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="sk.henrichg.phoneprofilesplus.NEW_MOBILE_CELLS_NOTIFICATION_DELETED"/>
+            </intent-filter>
+        </receiver>
 
         <!--
         <receiver

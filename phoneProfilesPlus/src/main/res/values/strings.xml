@@ -1424,6 +1424,12 @@
 
     <string name="new_event_profiles_not_exists_alert_message">Some profile not exists for new event. Create it?</string>
 
+    <string name="notification_channel_new_mobile_cell">New mobile cell detection</string>
+    <string name="notification_channel_new_mobile_cell_description">Shows notification about new mobile cell detection.</string>
+    <string name="notification_new_mobile_cell_title">New mobile cell is detected</string>
+    <string name="notification_new_mobile_cell_text1">Detected is new mobile cell id:</string>
+    <string name="notification_new_mobile_cell_text2">Click to add it into events mobile cells sensor.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
