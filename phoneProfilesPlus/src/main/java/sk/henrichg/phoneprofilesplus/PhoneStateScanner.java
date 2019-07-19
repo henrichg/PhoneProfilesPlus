@@ -708,7 +708,7 @@ class PhoneStateScanner extends PhoneStateListener {
                             NotificationCompat.Builder mBuilder;
                             PPApplication.createMobileCellsNewCellNotificationChannel(context);
 
-                            Intent intent = new Intent(context, *Activity.class);
+                            Intent intent = new Intent(context, NewMobileCellsDetectedActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
                             String nText = context.getString(R.string.notification_new_mobile_cell_text1);
