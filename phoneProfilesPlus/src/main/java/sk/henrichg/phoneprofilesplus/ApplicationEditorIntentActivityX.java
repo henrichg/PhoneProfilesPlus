@@ -71,7 +71,6 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // must by called before super.onCreate() for PreferenceActivity
         GlobalGUIRoutines.setTheme(this, false, false/*, false*/); // must by called before super.onCreate()
         GlobalGUIRoutines.setLanguage(this);
 

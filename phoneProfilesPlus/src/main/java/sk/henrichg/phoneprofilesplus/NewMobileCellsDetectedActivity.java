@@ -17,13 +17,21 @@ public class NewMobileCellsDetectedActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // must by called before super.onCreate() for PreferenceActivity
         GlobalGUIRoutines.setTheme(this, false, false/*, false*/); // must by called before super.onCreate()
         GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_important_info);
+        /*
+        setContentView(R.layout.activity_new_mobile_cells_detected);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(R.string.title_activity_new_mobile_cells_detected);
+            getSupportActionBar().setElevation(GlobalGUIRoutines.dpToPx(1));
+        }
+        */
 
     }
 
