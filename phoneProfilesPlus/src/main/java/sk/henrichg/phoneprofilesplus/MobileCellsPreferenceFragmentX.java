@@ -290,10 +290,10 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         if (Build.VERSION.SDK_INT >= 28) {
             String statusText;
             if (!PhoneProfilesService.isLocationEnabled(prefContext)) {
-                if (Build.VERSION.SDK_INT < 28)
+                /*if (Build.VERSION.SDK_INT < 28)
                     statusText = prefContext.getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
                             prefContext.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary);
-                else
+                else*/
                     statusText = prefContext.getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
                             "* " + prefContext.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *";
 
@@ -412,7 +412,8 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                         if (!preference.registeredCellInTable && PhoneStateScanner.isValidCellId(PhoneStateScanner.registeredCell)) {
                             PPApplication.logE("MobileCellsPreference.refreshListView", "add registered cell from scanner - not found - add it to list");
                             preference.registeredCellData = new MobileCellsData(PhoneStateScanner.registeredCell,
-                                    _cellName, true, true, PhoneStateScanner.lastConnectedTime);
+                                    _cellName, true, true,
+                                    PhoneStateScanner.lastConnectedTime, PhoneStateScanner.lastRunningEvents);
                             _cellsList.add(preference.registeredCellData);
                         }
                         if (!preference.registeredCellInTable) {
@@ -442,7 +443,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                         if (!found) {
                             try {
                                 int iCell = Integer.parseInt(cell);
-                                _cellsList.add(new MobileCellsData(iCell, _cellName, false, false, 0));
+                                _cellsList.add(new MobileCellsData(iCell, _cellName, false, false, 0, ""));
                                 PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add cells from preference value - not found - add it to list");
                             } catch (Exception ignored) {
                             }
