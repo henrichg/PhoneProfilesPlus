@@ -9888,6 +9888,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                 ringerMode = cursorExportedDB.getInt(i);
                                         }
 
+                                        if ((zenMode == 6) && (android.os.Build.VERSION.SDK_INT < 23)) {
+                                            // Alarms only zen mode is supported from Android 6.0
+                                            values.remove(KEY_VOLUME_ZEN_MODE);
+                                            values.put(KEY_VOLUME_ZEN_MODE, 3);
+                                        }
+
                                         // for non existent fields set default value
                                         if (exportedDBObj.getVersion() < 19) {
                                             values.put(KEY_DEVICE_MOBILE_DATA, 0);
@@ -9945,10 +9951,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         }
                                         if (exportedDBObj.getVersion() < 1350) {
                                             values.put(KEY_DURATION, duration * 60); // conversion to seconds
-                                        }
-                                        if (exportedDBObj.getVersion() < 1410) {
-                                            if ((zenMode == 6) && (android.os.Build.VERSION.SDK_INT < 23))
-                                                values.put(KEY_VOLUME_ZEN_MODE, 3); // Alarms only zen mode is supported from Android 6.0
                                         }
                                         if (exportedDBObj.getVersion() < 1420) {
                                             values.put(KEY_DEVICE_POWER_SAVE_MODE, 0);
