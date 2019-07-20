@@ -238,8 +238,6 @@ public class EditorProfileListFragment extends Fragment
 
         final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_profiles_list_fragment))
                                                         .getLayoutTransition();
-        //final LayoutTransition layoutTransition = ((ViewGroup) getActivity().findViewById(R.id.editor_list_root))
-        //        .getLayoutTransition();
         layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
 
         listView.addOnScrollListener(new HidingRecyclerViewScrollListener() {
@@ -253,7 +251,7 @@ public class EditorProfileListFragment extends Fragment
                     //if (firstVisibleItem != 0)
                         activatedProfileHeader.setVisibility(GONE);
 
-                    bottomToolbar.setVisibility(GONE);
+                    bottomToolbar.setVisibility(View.VISIBLE);
                 }
             }
             @Override
@@ -265,7 +263,7 @@ public class EditorProfileListFragment extends Fragment
                     //if (firstVisibleItem == 0)
                         activatedProfileHeader.setVisibility(View.VISIBLE);
 
-                    bottomToolbar.setVisibility(View.VISIBLE);
+                    bottomToolbar.setVisibility(GONE);
                 }
             }
         });

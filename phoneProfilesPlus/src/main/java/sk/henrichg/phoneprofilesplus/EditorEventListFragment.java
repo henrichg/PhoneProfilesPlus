@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.animation.LayoutTransition;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -64,9 +65,12 @@ public class EditorEventListFragment extends Fragment
 
     private WeakReference<LoadEventListAsyncTask> asyncTaskContext;
 
-    //private ValueAnimator hideAnimator;
-    //private ValueAnimator showAnimator;
-    //private int headerHeight;
+//    private ValueAnimator hideAnimatorHeader;
+//    private ValueAnimator showAnimatorHeader;
+//    private int headerHeight;
+//    private ValueAnimator hideAnimatorBottomBar;
+//    private ValueAnimator showAnimatorBottomBar;
+//    private int bottomBarHeight;
 
     private int orderSelectedItem = 0;
 
@@ -223,10 +227,10 @@ public class EditorEventListFragment extends Fragment
                         return;
 
                     headerHeight = activatedProfileHeader.getMeasuredHeight();
-                    Log.e("EditorProfileListFragment.doOnViewCreated", "headerHeight="+headerHeight);
-                    hideAnimator = ValueAnimator.ofInt(headerHeight / 4, 0);
-                    hideAnimator.setDuration(500);
-                    hideAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    //Log.e("EditorProfileListFragment.doOnViewCreated", "headerHeight="+headerHeight);
+                    hideAnimatorHeader = ValueAnimator.ofInt(headerHeight / 4, 0);
+                    hideAnimatorHeader.setDuration(500);
+                    hideAnimatorHeader.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                         @Override
                         public void onAnimationUpdate(ValueAnimator valueAnimator) {
                             int val = (Integer) valueAnimator.getAnimatedValue();
@@ -236,9 +240,9 @@ public class EditorEventListFragment extends Fragment
                             activatedProfileHeader.setLayoutParams(layoutParams);
                         }
                     });
-                    showAnimator = ValueAnimator.ofInt(0, headerHeight / 4);
-                    showAnimator.setDuration(500);
-                    showAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    showAnimatorHeader = ValueAnimator.ofInt(0, headerHeight / 4);
+                    showAnimatorHeader.setDuration(500);
+                    showAnimatorHeader.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                         @Override
                         public void onAnimationUpdate(ValueAnimator valueAnimator) {
                             int val = (Integer) valueAnimator.getAnimatedValue();
@@ -246,6 +250,33 @@ public class EditorEventListFragment extends Fragment
                             ViewGroup.LayoutParams layoutParams = activatedProfileHeader.getLayoutParams();
                             layoutParams.height = val * 4;
                             activatedProfileHeader.setLayoutParams(layoutParams);
+                        }
+                    });
+
+                    bottomBarHeight = bottomToolbar.getMeasuredHeight();
+                    //Log.e("EditorProfileListFragment.doOnViewCreated", "headerHeight="+headerHeight);
+                    hideAnimatorBottomBar = ValueAnimator.ofInt(bottomBarHeight / 4, 0);
+                    hideAnimatorBottomBar.setDuration(500);
+                    hideAnimatorBottomBar.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                        @Override
+                        public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                            int val = (Integer) valueAnimator.getAnimatedValue();
+                            //Log.e("hideAnimator.onAnimationUpdate", "val="+val);
+                            ViewGroup.LayoutParams layoutParams = bottomToolbar.getLayoutParams();
+                            layoutParams.height = val * 4;
+                            bottomToolbar.setLayoutParams(layoutParams);
+                        }
+                    });
+                    showAnimatorBottomBar = ValueAnimator.ofInt(0, bottomBarHeight / 4);
+                    showAnimatorBottomBar.setDuration(500);
+                    showAnimatorBottomBar.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                        @Override
+                        public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                            int val = (Integer) valueAnimator.getAnimatedValue();
+                            //Log.e("showAnimator.onAnimationUpdate", "val="+val);
+                            ViewGroup.LayoutParams layoutParams = bottomToolbar.getLayoutParams();
+                            layoutParams.height = val * 4;
+                            bottomToolbar.setLayoutParams(layoutParams);
                         }
                     });
 
@@ -257,34 +288,45 @@ public class EditorEventListFragment extends Fragment
 
         final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_events_list_fragment))
                 .getLayoutTransition();
-        //final LayoutTransition layoutTransition = ((ViewGroup) getActivity().findViewById(R.id.editor_list_root))
-        //        .getLayoutTransition();
         layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
+        //layoutTransition.setDuration(500);
 
         listView.addOnScrollListener(new HidingRecyclerViewScrollListener() {
             @Override
             public void onHide() {
-                /*if ((activatedProfileHeader.getMeasuredHeight() >= headerHeight - 4) &&
-                    (activatedProfileHeader.getMeasuredHeight() <= headerHeight + 4))
-                    hideAnimator.start();*/
+                //if ((activatedProfileHeader.getMeasuredHeight() >= headerHeight - 4) &&
+                //    (activatedProfileHeader.getMeasuredHeight() <= headerHeight + 4))
+//                if (!hideAnimatorHeader.isRunning()) {
+//                    hideAnimatorHeader.start();
+//                }
+//                if (!showAnimatorBottomBar.isRunning()) {
+//                    showAnimatorBottomBar.start();
+//                }
+
                 if (!layoutTransition.isRunning()) {
                     //final int firstVisibleItem = ((LinearLayoutManager) listView.getLayoutManager()).findFirstVisibleItemPosition();
                     //if (firstVisibleItem != 0)
                         activatedProfileHeader.setVisibility(GONE);
 
-                    bottomToolbar.setVisibility(GONE);
+                    bottomToolbar.setVisibility(View.VISIBLE);
                 }
             }
             @Override
             public void onShow() {
-                /*if (activatedProfileHeader.getMeasuredHeight() == 0)
-                    showAnimator.start();*/
+                //if (activatedProfileHeader.getMeasuredHeight() == 0)
+//                if (!showAnimatorHeader.isRunning()) {
+//                    showAnimatorHeader.start();
+//                }
+//                if (!hideAnimatorBottomBar.isRunning()) {
+//                    hideAnimatorBottomBar.start();
+//                }
+
                 if (!layoutTransition.isRunning()) {
                     //final int firstVisibleItem = ((LinearLayoutManager) listView.getLayoutManager()).findFirstVisibleItemPosition();
                     //if (firstVisibleItem == 0)
                         activatedProfileHeader.setVisibility(View.VISIBLE);
 
-                    bottomToolbar.setVisibility(View.VISIBLE);
+                    bottomToolbar.setVisibility(GONE);
                 }
             }
         });
