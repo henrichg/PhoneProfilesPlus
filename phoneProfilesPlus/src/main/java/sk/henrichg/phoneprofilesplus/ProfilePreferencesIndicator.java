@@ -32,7 +32,7 @@ class ProfilePreferencesIndicator {
     static Bitmap paint(Profile profile, boolean monochrome, Context context)
     {
 
-        int[] drawables = new int[30];
+        int[] drawables = new int[60];
         int countDrawables = 0;
 
         //Profile profile = _profile; //Profile.getMappedProfile(_profile, context);

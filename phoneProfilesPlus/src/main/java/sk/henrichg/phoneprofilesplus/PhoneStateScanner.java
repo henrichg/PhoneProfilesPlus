@@ -50,6 +50,8 @@ class PhoneStateScanner extends PhoneStateListener {
     static String cellsNameForAutoRegistration = "";
     static private final List<Long> autoRegistrationEventList = Collections.synchronizedList(new ArrayList<Long>());
 
+    static private int mobileCellsNotificationId = 5000000;
+
     static String EXTRA_MOBILE_CELL_ID = "mobile_cell_id";
     private static final String NEW_MOBILE_CELLS_NOTIFICATION_DELETED_ACTION = PPApplication.PACKAGE_NAME + ".NEW_MOBILE_CELLS_NOTIFICATION_DELETED";
 
@@ -729,7 +731,6 @@ class PhoneStateScanner extends PhoneStateListener {
                             mBuilder.setDeleteIntent(deletePendingIntent);
 
                             intent.putExtra(EXTRA_MOBILE_CELL_ID, registeredCell);
-                            int notificationID = registeredCell;
 
                             PendingIntent pi = PendingIntent.getActivity(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                             mBuilder.setContentIntent(pi);
@@ -740,7 +741,7 @@ class PhoneStateScanner extends PhoneStateListener {
 
                             NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                             if (mNotificationManager != null)
-                                mNotificationManager.notify(notificationID, mBuilder.build());
+                                mNotificationManager.notify(mobileCellsNotificationId++, mBuilder.build());
 
                         }
                     }
