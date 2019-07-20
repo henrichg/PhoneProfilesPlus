@@ -368,7 +368,10 @@
         </activity>
         <activity
             android:name=".NewMobileCellsDetectedActivity"
-            android:label="@string/title_activity_new_mobile_cells_detected">
+            android:excludeFromRecents="true"
+            android:label="@string/empty_string"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:theme="@style/EmptyAppCompatActivity">
         </activity>
 
         <!-- implicit broadcast receivers, in Android O exception group -->
