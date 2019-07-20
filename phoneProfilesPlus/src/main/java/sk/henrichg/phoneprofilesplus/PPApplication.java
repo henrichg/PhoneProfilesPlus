@@ -669,9 +669,9 @@ public class PPApplication extends Application {
 
             Fabric.with(this, crashlyticsKit);
             */
-            if (!BuildConfig.DEBUG) {
+            //if (!BuildConfig.DEBUG) {
                 Fabric.with(this, new Crashlytics());
-            }
+            //}
             // Crashlytics.getInstance().core.logException(exception); -- this log will be associated with crash log.
         } catch (Exception e) {
             /*
