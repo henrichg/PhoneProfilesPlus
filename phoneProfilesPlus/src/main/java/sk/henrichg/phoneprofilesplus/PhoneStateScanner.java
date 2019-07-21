@@ -700,13 +700,50 @@ class PhoneStateScanner extends PhoneStateListener {
                     if (isValidCellId(registeredCell)) {
                         PPApplication.logE("PhoneStateScanner.doAutoRegistration", "cellId is valid");
 
+                        boolean showNotification = false;
                         if (!db.isMobileCellSaved(registeredCell)) {
                             PPApplication.logE("PhoneStateScanner.doAutoRegistration", "cellId is NOT saved, save it");
 
                             List<MobileCellsData> localCellsList = new ArrayList<>();
                             localCellsList.add(new MobileCellsData(registeredCell, "", true, false, Calendar.getInstance().getTimeInMillis(), lastRunningEvents));
                             db.saveMobileCellsList(localCellsList, true, false);
+                            showNotification = true;
+                        }
 
+                        if (!showNotification) {
+                            // it is not new cell
+                            // test if registered cell is configured in running events
+                            boolean found = false;
+                            for (long eventId : runningEventList) {
+                                Event event = db.getEvent(eventId);
+                                if (event._eventPreferencesMobileCells._enabled) {
+                                    String configuredCells = event._eventPreferencesMobileCells._cells;
+                                    if (configuredCells.contains("|"+eventId+"|")) {
+                                        // cell is between others
+                                        found = true;
+                                        break;
+                                    }
+                                    if (configuredCells.startsWith(eventId+"|")) {
+                                        // cell is at start of others
+                                        found = true;
+                                        break;
+                                    }
+                                    if (configuredCells.endsWith("|"+eventId)) {
+                                        // cell is at end of others
+                                        found = true;
+                                        break;
+                                    }
+                                    if (configuredCells.equals(String.valueOf(eventId))) {
+                                        // only this cell is configured
+                                        found = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            showNotification = !found;
+                        }
+
+                        if (showNotification) {
                             NotificationCompat.Builder mBuilder;
                             PPApplication.createMobileCellsNewCellNotificationChannel(context);
 
