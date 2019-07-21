@@ -285,6 +285,7 @@ public class PhoneProfilesService extends Service
             showProfileNotification(true);
 
         registerReceiver(stopReceiver, new IntentFilter(ACTION_STOP));
+        //LocalBroadcastManager.getInstance(this).registerReceiver(stopReceiver, new IntentFilter(ACTION_STOP));
         LocalBroadcastManager.getInstance(this).registerReceiver(commandReceiver, new IntentFilter(ACTION_COMMAND));
 
         Context appContext = getApplicationContext();
