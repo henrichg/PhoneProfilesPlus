@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.animation.LayoutTransition;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -43,8 +42,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import static android.view.View.GONE;
 
 public class EditorEventListFragment extends Fragment
                                         implements OnStartDragItemListener {
@@ -306,7 +303,7 @@ public class EditorEventListFragment extends Fragment
                 if (!layoutTransition.isRunning()) {
                     //final int firstVisibleItem = ((LinearLayoutManager) listView.getLayoutManager()).findFirstVisibleItemPosition();
                     //if (firstVisibleItem != 0)
-                        activatedProfileHeader.setVisibility(GONE);
+                        activatedProfileHeader.setVisibility(View.GONE);
 
                     bottomToolbar.setVisibility(View.VISIBLE);
                 }
@@ -326,7 +323,7 @@ public class EditorEventListFragment extends Fragment
                     //if (firstVisibleItem == 0)
                         activatedProfileHeader.setVisibility(View.VISIBLE);
 
-                    bottomToolbar.setVisibility(GONE);
+                    bottomToolbar.setVisibility(View.GONE);
                 }
             }
         });
