@@ -456,7 +456,7 @@ public class PPApplication extends Application {
     static final String EXCLAMATION_NOTIFICATION_CHANNEL = "phoneProfilesPlus_exclamation";
     static final String GRANT_PERMISSION_NOTIFICATION_CHANNEL = "phoneProfilesPlus_grant_permission";
     static final String NOTIFY_EVENT_START_NOTIFICATION_CHANNEL = "phoneProfilesPlus_repeat_notify_event_start";
-    static final String NEW_MOBILE_CELL_NOTIFICATION_CHANNEL = "phoneProfilesPlus_new_mobile_cell";
+    static final String NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL = "phoneProfilesPlus_new_mobile_cell";
 
     static final int PROFILE_NOTIFICATION_ID = 700420;
     static final int IMPORTANT_INFO_NOTIFICATION_ID = 700422;
@@ -1384,11 +1384,11 @@ public class PPApplication extends Application {
     static void createMobileCellsNewCellNotificationChannel(Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
             // The user-visible name of the channel.
-            CharSequence name = context.getString(R.string.notification_channel_new_mobile_cell);
+            CharSequence name = context.getString(R.string.notification_channel_not_used_mobile_cell);
             // The user-visible description of the channel.
-            String description = context.getString(R.string.notification_channel_new_mobile_cell_description);
+            String description = context.getString(R.string.notification_channel_not_used_mobile_cell_description);
 
-            NotificationChannel channel = new NotificationChannel(NEW_MOBILE_CELL_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel channel = new NotificationChannel(NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
             // Configure the notification channel.
             //channel.setImportance(importance);

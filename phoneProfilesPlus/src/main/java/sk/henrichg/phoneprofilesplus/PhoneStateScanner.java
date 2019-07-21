@@ -747,17 +747,17 @@ class PhoneStateScanner extends PhoneStateListener {
                             NotificationCompat.Builder mBuilder;
                             PPApplication.createMobileCellsNewCellNotificationChannel(context);
 
-                            Intent intent = new Intent(context, NewMobileCellsDetectedActivity.class);
+                            Intent intent = new Intent(context, NotUsedMobileCellsDetectedActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                            String nText = context.getString(R.string.notification_new_mobile_cell_text1);
+                            String nText = context.getString(R.string.notification_not_used_mobile_cell_text1);
                             nText = nText + " " + registeredCell + ". ";
-                            nText = nText + context.getString(R.string.notification_new_mobile_cell_text2);
+                            nText = nText + context.getString(R.string.notification_not_used_mobile_cell_text2);
 
-                            mBuilder = new NotificationCompat.Builder(context, PPApplication.NEW_MOBILE_CELL_NOTIFICATION_CHANNEL)
+                            mBuilder = new NotificationCompat.Builder(context, PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL)
                                     .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
                                     .setSmallIcon(R.drawable.ic_exclamation_notify)
-                                    .setContentTitle(context.getString(R.string.notification_new_mobile_cell_title))
+                                    .setContentTitle(context.getString(R.string.notification_not_used_mobile_cell_title))
                                     .setContentText(nText)
                                     .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
                                     .setAutoCancel(true); // clear notification after click

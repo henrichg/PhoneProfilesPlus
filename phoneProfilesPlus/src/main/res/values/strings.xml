@@ -1424,13 +1424,13 @@
 
     <string name="new_event_profiles_not_exists_alert_message">Some profile not exists for new event. Create it?</string>
 
-    <string name="notification_channel_new_mobile_cell">New mobile cell detection</string>
-    <string name="notification_channel_new_mobile_cell_description">Shows notification about new mobile cell detection.</string>
-    <string name="notification_new_mobile_cell_title">New mobile cell is detected</string>
-    <string name="notification_new_mobile_cell_text1">Detected is new mobile cell id:</string>
-    <string name="notification_new_mobile_cell_text2">Click to add it into events mobile cells sensor.</string>
-    <string name="new_mobile_cells_detected_title">Detected new mobile cells</string>
-    <string name="new_mobile_cells_detected_cell_id">Detected mobile cell id:</string>
+    <string name="notification_channel_not_used_mobile_cell">Not used mobile cell detection</string>
+    <string name="notification_channel_not_used_mobile_cell_description">Shows notification about not used mobile cell detection.</string>
+    <string name="notification_not_used_mobile_cell_title">New mobile cell is detected</string>
+    <string name="notification_not_used_mobile_cell_text1">Detected is not used mobile cell id:</string>
+    <string name="notification_not_used_mobile_cell_text2">Click to add it into events mobile cells sensor.</string>
+    <string name="not_used_mobile_cells_detected_title">Detected not used mobile cells</string>
+    <string name="not_used_mobile_cells_detected_cell_id">Detected mobile cell id:</string>
 
     <!-- **************************************************************************************** -->
 

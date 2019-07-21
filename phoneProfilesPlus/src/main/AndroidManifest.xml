@@ -367,7 +367,7 @@
             android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
-            android:name=".NewMobileCellsDetectedActivity"
+            android:name=".NotUsedMobileCellsDetectedActivity"
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
