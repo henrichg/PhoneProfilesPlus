@@ -332,7 +332,7 @@ public class PPApplication extends Application {
                                         +"|PhoneStateScanner.stopAutoRegistration"
                                         //+"|PhoneStateScanner.getAllCellInfo"
                                         //+"|PhoneStateScanner.getCellLocation"
-                                        //+"|PhoneStateScanner.doAutoRegistration"
+                                        +"|PhoneStateScanner.doAutoRegistration"
                                         //+"|MobileCellsRegistrationDialogPreference.startRegistration"
                                         +"|MobileCellsRegistrationService"
 

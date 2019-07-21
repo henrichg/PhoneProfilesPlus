@@ -711,34 +711,45 @@ class PhoneStateScanner extends PhoneStateListener {
                         }
 
                         if (!showNotification) {
+                            PPApplication.logE("PhoneStateScanner.doAutoRegistration", "cellId is saved");
+                            PPApplication.logE("PhoneStateScanner.doAutoRegistration", "runningEventList="+runningEventList);
+
                             // it is not new cell
                             // test if registered cell is configured in running events
                             boolean found = false;
                             for (long eventId : runningEventList) {
                                 Event event = db.getEvent(eventId);
-                                if (event._eventPreferencesMobileCells._enabled) {
-                                    String configuredCells = event._eventPreferencesMobileCells._cells;
-                                    if (configuredCells.contains("|"+eventId+"|")) {
-                                        // cell is between others
-                                        found = true;
-                                        break;
+                                if (event != null) {
+                                    if (event._eventPreferencesMobileCells._enabled) {
+                                        String configuredCells = event._eventPreferencesMobileCells._cells;
+                                        PPApplication.logE("PhoneStateScanner.doAutoRegistration", "configuredCells="+configuredCells);
+                                        PPApplication.logE("PhoneStateScanner.doAutoRegistration", "registeredCell="+registeredCell);
+                                        if (configuredCells.contains("|" + registeredCell + "|")) {
+                                            // cell is between others
+                                            found = true;
+                                            break;
+                                        }
+                                        if (configuredCells.startsWith(registeredCell + "|")) {
+                                            // cell is at start of others
+                                            found = true;
+                                            break;
+                                        }
+                                        if (configuredCells.endsWith("|" + registeredCell)) {
+                                            // cell is at end of others
+                                            found = true;
+                                            break;
+                                        }
+                                        if (configuredCells.equals(String.valueOf(registeredCell))) {
+                                            // only this cell is configured
+                                            found = true;
+                                            break;
+                                        }
                                     }
-                                    if (configuredCells.startsWith(eventId+"|")) {
-                                        // cell is at start of others
+                                    else
                                         found = true;
-                                        break;
-                                    }
-                                    if (configuredCells.endsWith("|"+eventId)) {
-                                        // cell is at end of others
-                                        found = true;
-                                        break;
-                                    }
-                                    if (configuredCells.equals(String.valueOf(eventId))) {
-                                        // only this cell is configured
-                                        found = true;
-                                        break;
-                                    }
                                 }
+                                else
+                                    found = true;
                             }
                             showNotification = !found;
                         }
