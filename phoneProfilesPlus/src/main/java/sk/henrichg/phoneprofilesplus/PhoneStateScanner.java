@@ -52,7 +52,6 @@ class PhoneStateScanner extends PhoneStateListener {
 
     static private int mobileCellsNotificationId = 5000000;
 
-    static String EXTRA_MOBILE_CELL_ID = "mobile_cell_id";
     private static final String NEW_MOBILE_CELLS_NOTIFICATION_DELETED_ACTION = PPApplication.PACKAGE_NAME + ".NEW_MOBILE_CELLS_NOTIFICATION_DELETED";
 
     //private static final String PREF_SHOW_ENABLE_LOCATION_NOTIFICATION_PHONE_STATE = "show_enable_location_notification_phone_state";
@@ -774,11 +773,13 @@ class PhoneStateScanner extends PhoneStateListener {
                                     .setAutoCancel(true); // clear notification after click
 
                             Intent deleteIntent = new Intent(NEW_MOBILE_CELLS_NOTIFICATION_DELETED_ACTION);
-                            deleteIntent.putExtra(EXTRA_MOBILE_CELL_ID, registeredCell);
+                            deleteIntent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_CELL_ID, registeredCell);
                             PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, 1, deleteIntent, 0);
                             mBuilder.setDeleteIntent(deletePendingIntent);
 
-                            intent.putExtra(EXTRA_MOBILE_CELL_ID, registeredCell);
+                            intent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_CELL_ID, registeredCell);
+                            intent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_LAST_CONNECTED_TIME, lastConnectedTime);
+                            intent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_LAST_RUNNING_EVENTS, lastRunningEvents);
 
                             PendingIntent pi = PendingIntent.getActivity(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                             mBuilder.setContentIntent(pi);

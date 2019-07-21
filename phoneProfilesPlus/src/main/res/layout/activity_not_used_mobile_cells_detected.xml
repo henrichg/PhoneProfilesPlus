@@ -18,6 +18,19 @@
         android:textSize="20sp"
         android:textStyle="bold"/>
 
+    <TextView
+        android:id="@+id/not_used_mobile_cells_dlg_connection_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/not_used_mobile_cells_detected_connection_time"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/not_used_mobile_cells_dlg_cells_name"

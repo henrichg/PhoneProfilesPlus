@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +15,27 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
 
     AlertDialog mDialog;
 
+    static int mobileCellId = Integer.MAX_VALUE;
+    static long lastConnectedTime = 0;
+    static String lastRunningEvents = "";
+
+    static String EXTRA_MOBILE_CELL_ID = "mobile_cell_id";
+    static String EXTRA_MOBILE_LAST_CONNECTED_TIME = "last_connected_time";
+    static String EXTRA_MOBILE_LAST_RUNNING_EVENTS = "last_running_events";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
         PPApplication.logE("NotUsedMobileCellsDetectedActivity.onCreate", "xxx");
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            mobileCellId = intent.getIntExtra(EXTRA_MOBILE_CELL_ID, 0);
+            lastConnectedTime = intent.getLongExtra(EXTRA_MOBILE_LAST_CONNECTED_TIME, 0);
+            lastRunningEvents = intent.getStringExtra(EXTRA_MOBILE_LAST_RUNNING_EVENTS);
+        }
     }
 
     @Override
