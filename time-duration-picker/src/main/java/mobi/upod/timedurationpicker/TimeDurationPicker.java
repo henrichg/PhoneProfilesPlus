@@ -7,7 +7,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.*;
 
@@ -519,7 +518,7 @@ public class TimeDurationPicker extends FrameLayout {
             if (input.length() < maxDigits && (input.length() > 0 || digit != '0')) {
                 input.append(digit);
             }
-            Log.e("TimeDurationPicker.pushDigit", "enableNumPadButtons");
+            //Log.e("TimeDurationPicker.pushDigit", "enableNumPadButtons");
             enableNumPadButtons();
             padWithZeros();
         }
@@ -527,14 +526,14 @@ public class TimeDurationPicker extends FrameLayout {
         void popDigit() {
             if (input.length() > 0)
                 input.deleteCharAt(input.length() - 1);
-            Log.e("TimeDurationPicker.pushDigit", "popDigit");
+            //Log.e("TimeDurationPicker.pushDigit", "popDigit");
             enableNumPadButtons();
             padWithZeros();
         }
 
         void clear() {
             input.setLength(0);
-            Log.e("TimeDurationPicker.pushDigit", "clear");
+            //Log.e("TimeDurationPicker.pushDigit", "clear");
             enableNumPadButtons();
             padWithZeros();
         }
@@ -572,7 +571,7 @@ public class TimeDurationPicker extends FrameLayout {
                 TimeDurationUtil.hoursOf(millis),
                 timeUnits == MM_SS ? TimeDurationUtil.minutesOf(millis) : TimeDurationUtil.minutesInHourOf(millis),
                 TimeDurationUtil.secondsInMinuteOf(millis));
-            Log.e("TimeDurationPicker.setDuration", "enableNumPadButtons");
+            //Log.e("TimeDurationPicker.setDuration", "enableNumPadButtons");
             removeLeadingZeros();
             enableNumPadButtons();
             padWithZeros();

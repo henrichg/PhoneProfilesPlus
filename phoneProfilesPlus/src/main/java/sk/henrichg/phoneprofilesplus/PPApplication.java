@@ -325,13 +325,16 @@ public class PPApplication extends Application {
                                         //+ "|PhoneStateScanner"
                                         //+"|MobileCellsPreference"
                                         //+"|MobileCellsPreference.refreshListView"
-                                        //+"|PhoneStateScanner.startAutoRegistration"
-                                        //+"|PhoneStateScanner.stopAutoRegistration"
+                                        +"|PhoneStateScanner.constructor"
+                                        +"|PhoneStateScanner.connect"
+                                        +"|PhoneStateScanner.disconnect"
+                                        +"|PhoneStateScanner.startAutoRegistration"
+                                        +"|PhoneStateScanner.stopAutoRegistration"
                                         //+"|PhoneStateScanner.getAllCellInfo"
                                         //+"|PhoneStateScanner.getCellLocation"
                                         //+"|PhoneStateScanner.doAutoRegistration"
                                         //+"|MobileCellsRegistrationDialogPreference.startRegistration"
-                                        //+"|MobileCellsRegistrationService"
+                                        +"|MobileCellsRegistrationService"
 
                                         //+"|[RJS] PhoneProfilesService.registerReceiversAndJobs"
                                         //+"|[RJS] PhoneProfilesService.unregisterReceiversAndJobs"
@@ -418,7 +421,7 @@ public class PPApplication extends Application {
                                         //+"|[RJS] PhoneProfilesService.cancelWifiJob"
 
                                         //+"|EditorProfilesActivity.selectFilterItem"
-                                        +"|EventsPrefsFragment.onResume"
+                                        //+"|EventsPrefsFragment.onResume"
             ;
 
 

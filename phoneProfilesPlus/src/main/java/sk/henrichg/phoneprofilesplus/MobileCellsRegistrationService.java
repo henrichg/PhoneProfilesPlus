@@ -39,20 +39,20 @@ public class MobileCellsRegistrationService extends Service {
 
     private MobileCellsRegistrationStopButtonBroadcastReceiver mobileCellsRegistrationStopButtonBroadcastReceiver = null;
 
-    private final BroadcastReceiver stopReceiver = new BroadcastReceiver() {
+    /*private final BroadcastReceiver stopReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            PPApplication.logE("PhoneProfilesService.stopReceiver", "xxx");
+            PPApplication.logE("MobileCellsRegistrationService.stopReceiver", "xxx");
             try {
                 //noinspection deprecation
                 context.removeStickyBroadcast(intent);
             } catch (Exception e) {
-                PPApplication.logE("PhoneProfilesService.stopReceiver", Log.getStackTraceString(e));
+                PPApplication.logE("MobileCellsRegistrationService.stopReceiver", Log.getStackTraceString(e));
             }
             stopForeground(true);
             stopSelf();
         }
-    };
+    };*/
 
     @Override
     public void onCreate()
@@ -63,12 +63,13 @@ public class MobileCellsRegistrationService extends Service {
 
         context = this;
 
-        registerReceiver(stopReceiver, new IntentFilter(ACTION_STOP));
+        //registerReceiver(stopReceiver, new IntentFilter(ACTION_STOP));
 
         removeResultNotification();
         showNotification(getMobileCellsAutoRegistrationRemainingDuration(this));
 
         int remainingDuration = getMobileCellsAutoRegistrationRemainingDuration(this);
+        PPApplication.logE("MobileCellsRegistrationService.onCreate", "remainingDuration="+remainingDuration);
 
         if (remainingDuration > 0) {
             serviceStarted = true;
@@ -130,9 +131,9 @@ public class MobileCellsRegistrationService extends Service {
     public void onDestroy() {
         PPApplication.logE("MobileCellsRegistrationService.onDestroy", "xxx");
 
-        try {
+        /*try {
             unregisterReceiver(stopReceiver);
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {}*/
 
         if (serviceStarted) {
             countDownTimer.cancel();
@@ -209,6 +210,8 @@ public class MobileCellsRegistrationService extends Service {
     }
 
     private void stopRegistration() {
+        PPApplication.logE("MobileCellsRegistrationService.stopRegistration", "xxx");
+
         setMobileCellsAutoRegistration(context, true);
 
         // broadcast for event preferences
