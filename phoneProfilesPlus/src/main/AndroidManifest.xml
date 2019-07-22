@@ -523,7 +523,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".NewMobileCellsNotificationDeletedReceiver"
+            android:name=".NotUsedMobileCellsNotificationDeletedReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>

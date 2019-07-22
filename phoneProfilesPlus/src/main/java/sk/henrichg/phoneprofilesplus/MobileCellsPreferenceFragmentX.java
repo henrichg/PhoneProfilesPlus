@@ -391,7 +391,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
 
                     // add all from table
                     DatabaseHandler db = DatabaseHandler.getInstance(prefContext.getApplicationContext());
-                    db.addMobileCellsToList(_cellsList/*, false*/);
+                    db.addMobileCellsToList(_cellsList, 0);
 
                     preference.registeredCellData = null;
                     preference.registeredCellInTable = false;

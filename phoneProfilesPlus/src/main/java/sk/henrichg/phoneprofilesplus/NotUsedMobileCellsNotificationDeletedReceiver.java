@@ -9,21 +9,21 @@ import android.os.PowerManager;
 import static android.content.Context.POWER_SERVICE;
 
 // Delete button (X) or "clear all" in notification
-public class NewMobileCellsNotificationDeletedReceiver extends BroadcastReceiver {
+public class NotUsedMobileCellsNotificationDeletedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### NewMobileCellsNotificationDeletedReceiver.onReceive", "xxx");
+        PPApplication.logE("##### NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "xxx");
 
-        CallsCounter.logCounter(context, "NewMobileCellsNotificationDeletedReceiver.onReceive", "NewMobileCellsNotificationDeletedReceiver_onReceive");
+        CallsCounter.logCounter(context, "NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "NewMobileCellsNotificationDeletedReceiver_onReceive");
 
         if (intent != null) {
-            final int mobileCellId = intent.getIntExtra(PhoneStateScanner.EXTRA_MOBILE_CELL_ID, 0);
+            final int mobileCellId = intent.getIntExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_CELL_ID, 0);
             if (mobileCellId != 0) {
                 // delete cell from database
 
                 final Context appContext = context.getApplicationContext();
-                PPApplication.startHandlerThread("NewMobileCellsNotificationDeletedReceiver.onReceive");
+                PPApplication.startHandlerThread("NotUsedMobileCellsNotificationDeletedReceiver.onReceive");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
@@ -36,12 +36,12 @@ public class NewMobileCellsNotificationDeletedReceiver extends BroadcastReceiver
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=NewMobileCellsNotificationDeletedReceiver.onReceive");
+                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsNotificationDeletedReceiver.onReceive");
 
                             DatabaseHandler db = DatabaseHandler.getInstance(appContext);
                             db.deleteMobileCell(mobileCellId);
 
-                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=NewMobileCellsNotificationDeletedReceiver.onReceive");
+                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=NotUsedMobileCellsNotificationDeletedReceiver.onReceive");
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

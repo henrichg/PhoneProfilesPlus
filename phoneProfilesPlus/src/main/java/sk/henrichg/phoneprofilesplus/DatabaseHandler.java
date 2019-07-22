@@ -8198,7 +8198,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // add mobile cells to list
-    void addMobileCellsToList(List<MobileCellsData> cellsList/*, boolean onlyNew*/) {
+    void addMobileCellsToList(List<MobileCellsData> cellsList, int onlyCellId) {
         importExportLock.lock();
         try {
             try {
@@ -8212,10 +8212,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_MC_LAST_RUNNING_EVENTS +
                         " FROM " + TABLE_MOBILE_CELLS;
 
-                /*if (onlyNew) {
+                if (onlyCellId != 0) {
                     selectQuery = selectQuery +
-                            " WHERE " + KEY_MC_NEW + "=1";
-                }*/
+                            " WHERE " + KEY_MC_CELL_ID + "=" + onlyCellId;
+                }
 
                 //SQLiteDatabase db = this.getReadableDatabase();
                 SQLiteDatabase db = getMyWritableDatabase();
