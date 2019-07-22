@@ -56,6 +56,12 @@ class MobileCellNamesDialogX {
             dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    if (preference == null) {
+                        if (activity instanceof NotUsedMobileCellsDetectedActivity) {
+                            ((NotUsedMobileCellsDetectedActivity)activity).cellNameTextView.setText(cellName.getText());
+                        }
+                    }
+                    else
                     if (preference instanceof MobileCellsRegistrationDialogPreferenceX) {
                         ((MobileCellsRegistrationDialogPreferenceX) preference).setCellNameText(cellName.getText().toString());
                     }
@@ -165,7 +171,11 @@ class MobileCellNamesDialogX {
 
                     cellNamesList = new ArrayList<>(_cellNamesList);
 
-                    if (preference instanceof MobileCellsRegistrationDialogPreferenceX) {
+                    if (preference == null) {
+                        if (activity instanceof NotUsedMobileCellsDetectedActivity) {
+                            cellName.setText(((NotUsedMobileCellsDetectedActivity)activity).cellNameTextView.getText().toString());
+                        }
+                    } else if (preference instanceof MobileCellsRegistrationDialogPreferenceX) {
                         cellName.setText(((MobileCellsRegistrationDialogPreferenceX) preference).getCellNameText());
                     } else if (preference instanceof MobileCellsPreferenceX) {
                     /*if (showFilterItems) {

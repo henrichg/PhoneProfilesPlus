@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
@@ -24,6 +26,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
     TextView lastConnectTimeTextView;
     TextView cellNameTextView;
     ListView lastRunningEventsListView;
+    private MobileCellNamesDialogX mMobileCellNamesDialog;
 
     static int mobileCellId = Integer.MAX_VALUE;
     static long lastConnectedTime = 0;
@@ -66,6 +69,8 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
         dialogBuilder.setTitle(R.string.not_used_mobile_cells_detected_title);
         dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
+                // 1. test existence of mobile cell id in table, may be deleted
+                // 2. test existence of event in table, may be deleted
 
                 NotUsedMobileCellsDetectedActivity.this.finish();
             }
@@ -85,7 +90,6 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
         mDialog = dialogBuilder.create();
 
         mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-
             @Override
             public void onShow(DialogInterface dialog) {
                 NotUsedMobileCellsDetectedActivity.this.onShow();
@@ -96,6 +100,38 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
         lastConnectTimeTextView = layout.findViewById(R.id.not_used_mobile_cells_dlg_connection_time);
         cellNameTextView = layout.findViewById(R.id.not_used_mobile_cells_dlg_cells_name);
         lastRunningEventsListView = layout.findViewById(R.id.not_used_mobile_cells_dlg_last_running_events_listview);
+
+        mMobileCellNamesDialog = new MobileCellNamesDialogX(this, null, false);
+        cellNameTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mMobileCellNamesDialog.show();
+                }
+            }
+        );
+
+        cellNameTextView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                String cellName = cellNameTextView.getText().toString();
+
+                boolean anyChecked = false;
+                for (Event event : eventList) {
+                    if (event.getStatus() == 1)
+                        anyChecked = true;
+                }
+                mDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(!cellName.isEmpty() && anyChecked);
+            }
+        });
+
 
         if (!isFinishing())
             mDialog.show();
