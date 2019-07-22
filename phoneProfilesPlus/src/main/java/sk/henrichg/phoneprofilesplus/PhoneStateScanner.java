@@ -345,7 +345,7 @@ class PhoneStateScanner extends PhoneStateListener {
                     else
                         getAllCellInfo(cellInfo);
 
-                    handleEvents();
+                    handleEvents(appContext);
 
                     PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneStateScanner.onCellInfoChanged");
                 } finally {
@@ -389,7 +389,7 @@ class PhoneStateScanner extends PhoneStateListener {
                     else
                         PPApplication.logE("PhoneStateScanner.onServiceStateChanged", "registeredCell=NOT valid");
 
-                    handleEvents();
+                    handleEvents(appContext);
 
                     PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneStateScanner.onServiceStateChanged");
                 } finally {
@@ -516,7 +516,7 @@ class PhoneStateScanner extends PhoneStateListener {
                     else
                         PPApplication.logE("PhoneStateScanner.onCellLocationChanged", "registeredCell=NOT valid");
 
-                    handleEvents();
+                    handleEvents(appContext);
 
                     PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneStateScanner.onCellLocationChanged");
                 } finally {
@@ -574,7 +574,7 @@ class PhoneStateScanner extends PhoneStateListener {
                         else
                             PPApplication.logE("PhoneStateScanner.rescanMobileCells", "registeredCell=NOT valid");
 
-                        handleEvents();
+                        handleEvents(appContext);
 
                         PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneStateScanner.rescanMobileCells");
                     } finally {
@@ -590,7 +590,7 @@ class PhoneStateScanner extends PhoneStateListener {
         }
     }
 
-    private void handleEvents() {
+    static void handleEvents(final Context context) {
         PPApplication.logE("PhoneStateScanner.handleEvents", "xxx");
         //PhoneStateJob.start(context);
         if (Event.getGlobalEventsRunning(context))
@@ -657,17 +657,15 @@ class PhoneStateScanner extends PhoneStateListener {
                         localCellsList.add(new MobileCellsData(registeredCell, cellsNameForAutoRegistration, true, false, Calendar.getInstance().getTimeInMillis(), lastRunningEvents));
                         db.saveMobileCellsList(localCellsList, true, true);
 
-                        DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
-
                         synchronized (autoRegistrationEventList) {
                             for (Long event_id : autoRegistrationEventList) {
-                                Event event = dataWrapper.getEventById(event_id);
+                                //Event event = dataWrapper.getEventById(event_id);
+                                Event event = db.getEvent(event_id);
                                 if (event != null) {
                                     PPApplication.logE("PhoneStateScanner.doAutoRegistration", "save cellId to event="+event._name);
                                     String cells = event._eventPreferencesMobileCells._cells;
                                     cells = addCellId(cells, registeredCell);
                                     event._eventPreferencesMobileCells._cells = cells;
-                                    dataWrapper.updateEvent(event);
                                     db.updateMobileCellsCells(event);
 
                                     // broadcast for event preferences
@@ -683,8 +681,6 @@ class PhoneStateScanner extends PhoneStateListener {
                                 }
                             }
                         }
-
-                        dataWrapper.invalidateDataWrapper();
                     }
                 }
                 else
@@ -881,7 +877,7 @@ class PhoneStateScanner extends PhoneStateListener {
         }
     }
 
-    private String addCellId(String cells, int cellId) {
+    static String addCellId(String cells, int cellId) {
         String[] splits = cells.split("\\|");
         String sCellId = Integer.toString(cellId);
         boolean found = false;
