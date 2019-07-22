@@ -103,7 +103,7 @@ class TonesHandler {
             }
         } catch (Exception ignored) {}
         String filename = appContext.getResources().getResourceEntryName(TonesHandler.TONE_ID) + ".ogg";
-        return displayName.equals(filename);
+        return (displayName != null) && displayName.equals(filename);
     }
 
     private static boolean  isToneInstalled(/*int resID, String directory,*/ int type, Context context) {
