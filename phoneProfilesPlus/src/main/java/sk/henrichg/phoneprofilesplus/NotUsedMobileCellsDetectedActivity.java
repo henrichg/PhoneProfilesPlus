@@ -29,6 +29,8 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
     static long lastConnectedTime = 0;
     static String lastRunningEvents = "";
 
+    List<Event> eventList = new ArrayList<>();
+
     static String EXTRA_MOBILE_CELL_ID = "mobile_cell_id";
     static String EXTRA_MOBILE_LAST_CONNECTED_TIME = "last_connected_time";
     static String EXTRA_MOBILE_LAST_RUNNING_EVENTS = "last_running_events";
@@ -112,7 +114,6 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
             DatabaseHandler db;
             List<MobileCellsData> _cellsList = null;
             String cellName;
-            //final List<Profile> profileList = new ArrayList<>();
 
             @Override
             protected void onPreExecute()
@@ -122,9 +123,6 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                 db = DatabaseHandler.getInstance(NotUsedMobileCellsDetectedActivity.this);
                 _cellsList = new ArrayList<>();
                 cellName = "";
-
-                //listView.setVisibility(View.GONE);
-                //linlaProgress.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -133,23 +131,17 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                 if (!_cellsList.isEmpty())
                     cellName = _cellsList.get(0).name;
 
-                /*boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(activity);
-                Profile profile;
-                profile = DataWrapper.getNonInitializedProfile(
-                        activity.getResources().getString(R.string.profile_name_default),
-                        Profile.PROFILE_ICON_DEFAULT, 0);
-                profile.generateIconBitmap(activity, false, 0xFF, false);
-                if (applicationEditorPrefIndicator)
-                    profile.generatePreferencesIndicator(activity, false, 0xFF);
-                profileList.add(profile);
-                for (int index = 0; index < 7; index++) {
-                    profile = profileListFragment.activityDataWrapper.getPredefinedProfile(index, false, activity);
-                    profile.generateIconBitmap(activity, false, 0xFF, false);
-                    if (applicationEditorPrefIndicator)
-                        profile.generatePreferencesIndicator(activity, false, 0xFF);
-                    profileList.add(profile);
-                }*/
-
+                String[] eventIds = lastRunningEvents.split("\\|");
+                eventList.clear();
+                for (String eventId : eventIds) {
+                    if (!eventId.isEmpty()) {
+                        Event event = db.getEvent(Long.valueOf(eventId));
+                        if (event != null) {
+                            event.setStatus(1); // use status of event for checkbox status
+                            eventList.add(event);
+                        }
+                    }
+                }
                 return null;
             }
 
@@ -163,13 +155,18 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                 lastConnectTimeTextView.setText(getString(R.string.not_used_mobile_cells_detected_connection_time) + " " +
                         GlobalGUIRoutines.timeDateStringFromTimestamp(NotUsedMobileCellsDetectedActivity.this, lastConnectedTime));
                 if (!cellName.isEmpty())
-                cellNameTextView.setText(cellName);
+                    cellNameTextView.setText(cellName);
 
-                /*listView.setVisibility(View.VISIBLE);
-                linlaProgress.setVisibility(View.GONE);
+                NotUsedMobileCellsDetectedAdapter notUsedMobileCellsDetectedAdapter =
+                        new NotUsedMobileCellsDetectedAdapter(NotUsedMobileCellsDetectedActivity.this, eventList);
+                lastRunningEventsListView.setAdapter(notUsedMobileCellsDetectedAdapter);
 
-                AddProfileAdapter addProfileAdapter = new AddProfileAdapter(AddProfileDialog.this, activity, profileList);
-                listView.setAdapter(addProfileAdapter);*/
+                boolean anyChecked = false;
+                for (Event event : eventList) {
+                    if (event.getStatus() == 1)
+                        anyChecked = true;
+                }
+                mDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(!cellName.isEmpty() && anyChecked);
             }
 
         }.execute();

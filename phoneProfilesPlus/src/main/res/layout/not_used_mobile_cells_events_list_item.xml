@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:padding="3dp" >
+
+    <CheckBox
+        android:id="@+id/not_used_mobile_cells_events_list_item_checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_centerVertical="true"
+        android:checked="false"
+        android:focusable="false"
+        android:text="@string/empty_string" />
+
+    <TextView
+        android:id="@+id/not_used_mobile_cells_events_list_item_event_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="3dp"
+        android:layout_toEndOf="@id/not_used_mobile_cells_events_list_item_checkBox"
+        android:text="@string/empty_string"
+        android:textSize="17sp"
+        android:ellipsize="end"
+        android:maxLines="1"/>
+
+</RelativeLayout>
