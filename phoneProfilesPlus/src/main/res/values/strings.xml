@@ -1422,7 +1422,8 @@
     <string name="important_info_do_not_kill_my_app1">Concerning problems with killing PhoneProfilesPlus by system, when is running in background, click here for display</string>
     <string name="important_info_do_not_kill_my_app2">web page. In this page is how to configure device to not killing PhoneProfilesPlus, when is in background.</string>
 
-    <string name="new_event_profiles_not_exists_alert_message">Some profile not exists for new event. Create it?</string>
+    <string name="new_event_profiles_not_exists_alert_message1">Profile</string>
+    <string name="new_event_profiles_not_exists_alert_message2">not exists for new event. Create it?</string>
 
     <string name="notification_channel_not_used_mobile_cell">Not used mobile cell detection</string>
     <string name="notification_channel_not_used_mobile_cell_description">Shows notification about not used mobile cell detection.</string>

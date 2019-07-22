@@ -1909,8 +1909,8 @@ public class EditorProfilesActivity extends AppCompatActivity
         boolean profileExists = true;
         long startProfileId = 0;
         long endProfileId = -1;
-        if (editMode == EditorEventListFragment.EDIT_MODE_INSERT) {
-            if (getDataWrapper() != null){
+        if ((editMode == EditorEventListFragment.EDIT_MODE_INSERT) && (predefinedEventIndex > 0)) {
+            if (getDataWrapper() != null) {
                 // search names of start and end profiles
                 String[] profileStartNamesArray = getResources().getStringArray(R.array.addEventPredefinedStartProfilesArray);
                 String[] profileEndNamesArray = getResources().getStringArray(R.array.addEventPredefinedEndProfilesArray);
@@ -1938,25 +1938,50 @@ public class EditorProfilesActivity extends AppCompatActivity
             intent.putExtra(EXTRA_NEW_EVENT_MODE, editMode);
             intent.putExtra(EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
             startActivityForResult(intent, REQUEST_CODE_EVENT_PREFERENCES);
-        }
-        else {
+        } else {
             final long _startProfileId = startProfileId;
             final long _endProfileId = endProfileId;
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             dialogBuilder.setTitle(R.string.menu_new_event);
-            dialogBuilder.setMessage(R.string.new_event_profiles_not_exists_alert_message);
+
+            String startProfileName = "";
+            String endProfileName = "";
+            if (_startProfileId == 0) {
+                // create profile
+                int[] profileStartIndex = {0, 0, 0, 2, 4, 0, 5};
+                startProfileName = getDataWrapper().getPredefinedProfile(profileStartIndex[predefinedEventIndex], false, getBaseContext())._name;
+            }
+            if (_endProfileId == 0) {
+                // create profile
+                int[] profileEndIndex = {0, 0, 0, 0, 0, 0, 6};
+                endProfileName = getDataWrapper().getPredefinedProfile(profileEndIndex[predefinedEventIndex], false, getBaseContext())._name;
+            }
+
+            String message = "";
+            if (!startProfileName.isEmpty())
+                message = message + " \"" + startProfileName + "\"";
+            if (!endProfileName.isEmpty()) {
+                if (!message.isEmpty())
+                    message = message + ",";
+                message = message + " \"" + endProfileName + "\"";
+            }
+            message = getString(R.string.new_event_profiles_not_exists_alert_message1) + message + " " +
+                    getString(R.string.new_event_profiles_not_exists_alert_message2);
+
+            dialogBuilder.setMessage(message);
+
             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     if (_startProfileId == 0) {
                         // create profile
-                        int[] profileStartIndex = {0, 0, 2, 4, 0, 5};
+                        int[] profileStartIndex = {0, 0, 0, 2, 4, 0, 5};
                         getDataWrapper().getPredefinedProfile(profileStartIndex[predefinedEventIndex], true, getBaseContext());
                     }
                     if (_endProfileId == 0) {
                         // create profile
-                        int[] profileEndIndex = {0, 0, 0, 0, 0, 6};
+                        int[] profileEndIndex = {0, 0, 0, 0, 0, 0, 6};
                         getDataWrapper().getPredefinedProfile(profileEndIndex[predefinedEventIndex], true, getBaseContext());
                     }
 
@@ -1977,15 +2002,15 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }
             });
             AlertDialog dialog = dialogBuilder.create();
-            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                @Override
-                public void onShow(DialogInterface dialog) {
-                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                    if (positive != null) positive.setAllCaps(false);
-                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                    if (negative != null) negative.setAllCaps(false);
-                }
-            });*/
+        /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                if (positive != null) positive.setAllCaps(false);
+                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                if (negative != null) negative.setAllCaps(false);
+            }
+        });*/
             if (!isFinishing())
                 dialog.show();
         }
