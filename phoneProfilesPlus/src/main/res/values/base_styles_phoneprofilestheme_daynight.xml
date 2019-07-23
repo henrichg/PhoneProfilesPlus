@@ -12,6 +12,7 @@
         <item name="colorAccent">@color/accent</item>
         <item name="colorAccentDisabled">@color/accent_disabled</item>
 
+        <item name="android:textViewStyle">@style/TextViewTheme</item>
         <item name="android:windowBackground">@color/activityBackgroundColor</item>
         <item name="activityBackgroundColor">@color/activityBackgroundColor</item>
         <item name="activityTextColor">@color/activityTextColor</item>

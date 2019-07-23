@@ -16,6 +16,7 @@
         <item name="toolbarPopupMenu">@style/ThemeOverlay.AppCompat.Dark</item>
         <item name="bottomToolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
 
+        <item name="android:textViewStyle">@style/TextViewTheme</item>
         <item name="android:windowBackground">@color/activityBackgroundColor</item>
         <item name="activityBackgroundColor">@color/activityBackgroundColor</item>
         <item name="activityTextColor">@color/activityTextColor</item>
