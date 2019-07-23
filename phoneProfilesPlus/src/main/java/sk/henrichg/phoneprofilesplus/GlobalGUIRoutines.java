@@ -1034,6 +1034,12 @@ class GlobalGUIRoutines {
         //timeDurationPicker.setSeparatorColor(GlobalGUIRoutines.getThemeDialogDividerColor(activity));
     }
 
+    static int getThemeSecondaryTextColor(final Context context) {
+        final TypedValue value = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.activitySecondaryTextColor, value, true);
+        return value.data;
+    }
+
     /*
     static int getResourceId(String pVariableName, String pResourceName, Context context)
     {

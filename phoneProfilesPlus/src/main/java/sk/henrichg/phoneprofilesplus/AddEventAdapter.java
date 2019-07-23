@@ -113,7 +113,7 @@ class AddEventAdapter extends BaseAdapter {
                 holder.profileEndIndicator = vi.findViewById(R.id.event_pref_dlg_item_profile_end_pref_indicator);
             }
             vi.setTag(holder);
-            defaultColor = holder.eventName.getTextColors().getDefaultColor();
+            defaultColor = GlobalGUIRoutines.getThemeSecondaryTextColor(context);
         }
         else
         {
