@@ -23,6 +23,8 @@ public class ColorChooserPreferenceX extends DialogPreference {
 
     ColorChooserPreferenceFragmentX fragment;
 
+    FrameLayout widgetLayout;
+
     String value;
 
     private final Context context;
@@ -51,7 +53,16 @@ public class ColorChooserPreferenceX extends DialogPreference {
     {
         super.onBindViewHolder(holder);
 
-        FrameLayout layout = (FrameLayout)holder.findViewById(R.id.dialog_color_chooser_pref_color);
+        widgetLayout = (FrameLayout)holder.findViewById(R.id.dialog_color_chooser_pref_color);
+
+        setColorInWidget();
+    }
+
+    void setBackgroundCompat(View view, Drawable d) {
+        view.setBackground(d);
+    }
+
+    private void setColorInWidget() {
 
         int color = Integer.valueOf(value);
 
@@ -66,23 +77,18 @@ public class ColorChooserPreferenceX extends DialogPreference {
                     color
             };
             ColorStateList rippleColors = new ColorStateList(states, colors);
-            setBackgroundCompat(layout, new RippleDrawable(rippleColors, selector, null));
+            setBackgroundCompat(widgetLayout, new RippleDrawable(rippleColors, selector, null));
         } else {
-            setBackgroundCompat(layout, selector);
+            setBackgroundCompat(widgetLayout, selector);
         }
 
-        Handler handler = new Handler(context.getMainLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                setSummary(R.string.empty_string);
-            }
-        }, 200);
-
-    }
-
-    void setBackgroundCompat(View view, Drawable d) {
-        view.setBackground(d);
+//        Handler handler = new Handler(context.getMainLooper());
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                setSummary(R.string.empty_string);
+//            }
+//        }, 200);
     }
 
     @Override
@@ -101,6 +107,7 @@ public class ColorChooserPreferenceX extends DialogPreference {
         if (callChangeListener(value))
         {
             persistString(value);
+            setColorInWidget();
         }
     }
 

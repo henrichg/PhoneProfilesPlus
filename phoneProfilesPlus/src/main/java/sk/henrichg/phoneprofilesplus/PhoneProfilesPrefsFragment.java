@@ -1851,17 +1851,21 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             //if (key.equals(PPApplication.PREF_APPLICATION_LANGUAGE))
             //    setTitleStyle(preference, true, false);
         } else
-            //noinspection StatementWithEmptyBody
-            if (preference instanceof RingtonePreferenceX) {
-                // keep summary from preference
-            } else {
-                if (!stringValue.isEmpty()) {
-                    // For all other preferences, set the summary to the value's
-                    // simple string representation.
-                    //preference.setSummary(preference.toString());
-                    preference.setSummary(stringValue);
-                }
+        //noinspection StatementWithEmptyBody
+        if (preference instanceof RingtonePreferenceX) {
+            // keep summary from preference
+        }
+        else if (preference instanceof ColorChooserPreferenceX) {
+            // keep summary from preference
+        }
+        else {
+            if (!stringValue.isEmpty()) {
+                // For all other preferences, set the summary to the value's
+                // simple string representation.
+                //preference.setSummary(preference.toString());
+                preference.setSummary(stringValue);
             }
+        }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES)) {
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES);
             if (_preference != null) {
