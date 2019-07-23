@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
             android:text="@string/event_name_default"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:scrollHorizontally="true"
             android:ellipsize="end" />
