@@ -16,7 +16,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import androidx.appcompat.app.AlertDialog;
@@ -27,21 +26,21 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
 
     AlertDialog mDialog;
-    TextView cellIdTextView;
-    TextView lastConnectTimeTextView;
+    private TextView cellIdTextView;
+    private TextView lastConnectTimeTextView;
     TextView cellNameTextView;
-    ListView lastRunningEventsListView;
+    private ListView lastRunningEventsListView;
     private MobileCellNamesDialogX mMobileCellNamesDialog;
 
-    int mobileCellId = Integer.MAX_VALUE;
-    long lastConnectedTime = 0;
-    String lastRunningEvents = "";
+    private int mobileCellId = Integer.MAX_VALUE;
+    private long lastConnectedTime = 0;
+    private String lastRunningEvents = "";
 
-    List<Event> eventList = new ArrayList<>();
+    private final List<Event> eventList = new ArrayList<>();
 
-    static String EXTRA_MOBILE_CELL_ID = "mobile_cell_id";
-    static String EXTRA_MOBILE_LAST_CONNECTED_TIME = "last_connected_time";
-    static String EXTRA_MOBILE_LAST_RUNNING_EVENTS = "last_running_events";
+    static final String EXTRA_MOBILE_CELL_ID = "mobile_cell_id";
+    static final String EXTRA_MOBILE_LAST_CONNECTED_TIME = "last_connected_time";
+    static final String EXTRA_MOBILE_LAST_RUNNING_EVENTS = "last_running_events";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

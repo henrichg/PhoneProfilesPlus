@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,7 +16,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-@SuppressLint("NewApi")
 class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private DataWrapper dataWrapper;

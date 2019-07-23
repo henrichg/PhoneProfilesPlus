@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -20,7 +19,6 @@ import android.text.SpannableString;
 import android.view.View;
 import android.widget.RemoteViews;
 
-@SuppressLint("NewApi")
 public class ProfileListWidgetProvider extends AppWidgetProvider {
 
     private DataWrapper dataWrapper;

@@ -13,8 +13,8 @@ import java.util.List;
 class NotUsedMobileCellsDetectedAdapter extends BaseAdapter {
 
     private final LayoutInflater inflater;
-    List<Event> eventList;
-    NotUsedMobileCellsDetectedActivity activity;
+    private final List<Event> eventList;
+    private final NotUsedMobileCellsDetectedActivity activity;
 
     NotUsedMobileCellsDetectedAdapter(NotUsedMobileCellsDetectedActivity activity, List<Event> eventList) {
         inflater = LayoutInflater.from(activity);
