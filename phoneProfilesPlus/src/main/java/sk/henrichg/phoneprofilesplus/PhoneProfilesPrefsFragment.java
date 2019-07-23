@@ -1855,7 +1855,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (preference instanceof RingtonePreferenceX) {
             // keep summary from preference
         }
-        else if (preference instanceof ColorChooserPreferenceX) {
+        else
+        //noinspection StatementWithEmptyBody
+        if (preference instanceof ColorChooserPreferenceX) {
             // keep summary from preference
         }
         else {
