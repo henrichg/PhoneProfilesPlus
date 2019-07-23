@@ -1434,6 +1434,7 @@
     <string name="not_used_mobile_cells_detected_cell_id">Detected mobile cell id:</string>
     <string name="not_used_mobile_cells_detected_connection_time">Device has been connected:</string>
     <string name="not_used_mobile_cells_detected_last_running_events_label">Add into events:</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellsRegistrationInfo_summary">Cell registration is for registering mobile cells for this event. Registration will be running in background. During running registration, is recommended to not change location of mobile.</string>
 
     <!-- **************************************************************************************** -->
 

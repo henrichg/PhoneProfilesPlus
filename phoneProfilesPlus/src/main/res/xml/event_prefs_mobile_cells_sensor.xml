@@ -23,6 +23,13 @@
         app:widgetLayout="@layout/start_activity_preference"
         app:dependency="eventMobileCellsEnabled"
         app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="eventMobileCellsRegistrationInfo"
+        app:title="@string/phone_profiles_pref_applicationEventMobileCellsRegistration"
+        app:summary="@string/phone_profiles_pref_applicationEventMobileCellsRegistrationInfo_summary"
+        app:dependency="eventMobileCellsEnabled"
+        app:widgetLayout="@layout/info_preference"
+        app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.MobileCellsRegistrationDialogPreferenceX
         app:key="eventMobileCellsRegistration"
         app:summary="@string/phone_profiles_pref_applicationEventMobileCellsRegistration"
