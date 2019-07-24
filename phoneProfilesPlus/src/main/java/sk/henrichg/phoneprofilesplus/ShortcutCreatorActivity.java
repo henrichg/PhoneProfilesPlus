@@ -89,7 +89,7 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(R.string.title_activity_shortcut_creator);
-            getSupportActionBar().setElevation(GlobalGUIRoutines.dpToPx(1));
+            getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
 
         //databaseHandler = new DatabaseHandler(this);

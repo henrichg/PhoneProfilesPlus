@@ -57,7 +57,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setElevation(GlobalGUIRoutines.dpToPx(1));
+            getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
 
         invalidateEditor = false;

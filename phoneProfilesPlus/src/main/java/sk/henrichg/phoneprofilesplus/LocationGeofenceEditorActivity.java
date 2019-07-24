@@ -137,7 +137,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             //getSupportActionBar().setHomeButtonEnabled(true);
             //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(R.string.location_editor_title);
-            getSupportActionBar().setElevation(GlobalGUIRoutines.dpToPx(1));
+            getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
 
         mResultReceiver = new AddressResultReceiver(new Handler(getMainLooper()));

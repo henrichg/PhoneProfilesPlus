@@ -54,7 +54,7 @@ public class DonationActivity extends AppCompatActivity implements BillingProvid
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(R.string.donation_activity_title);
-            getSupportActionBar().setElevation(GlobalGUIRoutines.dpToPx(1));
+            getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
 
         // Create and initialize BillingManager which talks to BillingLibrary

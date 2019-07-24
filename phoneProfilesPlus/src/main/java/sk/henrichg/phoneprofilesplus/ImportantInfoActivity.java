@@ -66,7 +66,7 @@ public class ImportantInfoActivity extends AppCompatActivity {
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(R.string.important_info_activity_title);
-            getSupportActionBar().setElevation(GlobalGUIRoutines.dpToPx(0));
+            getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(0)*/);
         }
 
         TabLayout tabLayout = findViewById(R.id.activity_important_info_tab_layout);
