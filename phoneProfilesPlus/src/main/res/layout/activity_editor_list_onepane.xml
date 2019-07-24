@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="?attr/colorPrimary"
+        app:elevation="0dp"
         app:itemIconTint="@drawable/bottom_navigation_colors"
         app:itemTextColor="@drawable/bottom_navigation_colors"
         app:menu="@menu/editor_bottom_navigation_menu" />

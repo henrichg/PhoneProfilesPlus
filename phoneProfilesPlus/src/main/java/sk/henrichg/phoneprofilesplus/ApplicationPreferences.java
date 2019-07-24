@@ -3,6 +3,8 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.Build;
+import android.os.SystemPropertiesProto;
 
 class ApplicationPreferences {
 
@@ -184,7 +186,10 @@ class ApplicationPreferences {
     }
 
     static public String applicationTheme(Context context, boolean useNightMode) {
-        String applicationTheme = getSharedPreferences(context).getString(PREF_APPLICATION_THEME, "night_mode");
+        String defaultValue = "white";
+        if (Build.VERSION.SDK_INT >= 28)
+            defaultValue = "night_mode";
+        String applicationTheme = getSharedPreferences(context).getString(PREF_APPLICATION_THEME, defaultValue);
         if (applicationTheme.equals("light") ||
                 applicationTheme.equals("material") ||
                 applicationTheme.equals("color")  ||
