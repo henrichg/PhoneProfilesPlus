@@ -10,7 +10,7 @@
     <!--<color name="activityBackgroundColor">#FF252525</color>-->
     <color name="activityBackgroundColor">#FF202020</color>
     <color name="activityTextColor">#FFFFFFFF</color>
-    <color name="activitySecondaryTextColor">#BFFFFFFF</color>
+    <color name="activitySecondaryTextColor">#CFFFFFFF</color>
     <color name="activityDisabledTextColor">#2FFFFFFF</color>
     <color name="activityCommandBackgroundColor">#1FFFFFFF</color>
 
