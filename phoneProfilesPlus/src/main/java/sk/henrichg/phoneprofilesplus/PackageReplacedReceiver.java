@@ -294,6 +294,15 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     editor.apply();
                                 }
 
+                                if (actualVersionCode <= 5000) {
+                                    PPApplication.logE("PackageReplacedReceiver.onReceive", "set \"night_mode\" theme");
+                                    ApplicationPreferences.getSharedPreferences(appContext);
+                                    SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "night_mode");
+                                    GlobalGUIRoutines.switchNightMode(appContext, true);
+                                    editor.apply();
+                                }
+
                                 PPApplication.logE("PackageReplacedReceiver.onReceive", "restartService="+restartService);
                             }
                         } catch (Exception ignored) {

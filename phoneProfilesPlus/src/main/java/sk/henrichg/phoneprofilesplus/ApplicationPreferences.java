@@ -184,7 +184,7 @@ class ApplicationPreferences {
     }
 
     static public String applicationTheme(Context context, boolean useNightMode) {
-        String applicationTheme = getSharedPreferences(context).getString(PREF_APPLICATION_THEME, "white");
+        String applicationTheme = getSharedPreferences(context).getString(PREF_APPLICATION_THEME, "night_mode");
         if (applicationTheme.equals("light") ||
                 applicationTheme.equals("material") ||
                 applicationTheme.equals("color")  ||

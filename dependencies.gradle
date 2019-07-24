@@ -15,10 +15,11 @@
 // 4600 = support for "NOT LIKE" in calendar sensor
 // 4800 = show target helps for Editor filter spinner
 //        removed color and dark-light theme
+// 5000 = set night_mode as default
 
 ext.ppVersions = [
     publishVersion: '4.1b',
-    publishVersionCode: 4902,
+    publishVersionCode: 4907,
 
     minSdk: 21,
     targetSdk: 28,
