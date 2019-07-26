@@ -643,6 +643,7 @@ class PhoneStateScanner extends PhoneStateListener {
                     lastRunningEvents = lastRunningEvents + "|";
                 lastRunningEvents = lastRunningEvents + runningEvent;
             }
+            PPApplication.logE("PhoneStateScanner.doAutoRegistration", "lastRunningEvents="+lastRunningEvents);
 
             if (enabledAutoRegistration) {
                 PPApplication.logE("PhoneStateScanner.doAutoRegistration", "by user enabled autoregistration");
