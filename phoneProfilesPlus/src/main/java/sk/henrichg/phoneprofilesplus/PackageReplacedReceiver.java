@@ -294,7 +294,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     editor.apply();
                                 }
 
-                                if (actualVersionCode <= 5000) {
+                                if (actualVersionCode <= 5010) {
                                     PPApplication.logE("PackageReplacedReceiver.onReceive", "set \"night_mode\" theme");
                                     if (Build.VERSION.SDK_INT >= 28) {
                                         ApplicationPreferences.getSharedPreferences(appContext);
