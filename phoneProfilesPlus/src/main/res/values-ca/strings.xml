@@ -390,7 +390,7 @@
     <string name="wifi_ssid_pref_dlg_info_about_wildcards">en el SSID,</string>
     <string name="bluetooth_name_pref_dlg_info_about_wildcards">en el nom del  bluetooth,</string>
     <string name="calendar_pref_dlg_info_about_wildcards">en la cadena de cerca,</string>
-    <string name="pref_dlg_info_about_wildcards_3">afegir \"\" davant d\'aquests caràcters.</string>
+    <string name="pref_dlg_info_about_wildcards_3">afegir \"\u005C\" davant d\'aquests caràcters.</string>
     <!--<string name="important_into_sony_stamina_mode">For Sony devices, please enable \"Stamina\" mode in \"Power management\". Please also add PhoneProfilesPlus into \"Apps active in standby\". Without this, the application will not work correctly.</string>-->
     <string name="important_info_profile_settings">Algunes preferències de perfil requereix canvis en la configuració de sistema. Aquestes preferències estan marcats amb \"(S)\".</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_title">Notificació d\'accés</string>

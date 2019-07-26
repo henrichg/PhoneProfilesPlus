@@ -390,7 +390,7 @@
     <string name="wifi_ssid_pref_dlg_info_about_wildcards">在 SSID 名称中，</string>
     <string name="bluetooth_name_pref_dlg_info_about_wildcards">在蓝牙名称中，</string>
     <string name="calendar_pref_dlg_info_about_wildcards">在搜索字符串中，</string>
-    <string name="pref_dlg_info_about_wildcards_3">用 “\\” 把这些字符包围起来。</string>
+    <string name="pref_dlg_info_about_wildcards_3">用 “\u005C” 把这些字符包围起来。</string>
     <!--<string name="important_into_sony_stamina_mode">For Sony devices, please enable \"Stamina\" mode in \"Power management\". Please also add PhoneProfilesPlus into \"Apps active in standby\". Without this, the application will not work correctly.</string>-->
     <string name="important_info_profile_settings">一些情景设置项需要在系统设置中进行更改，这些首选项标记为“(S)”。</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_title">通知访问</string>

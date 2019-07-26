@@ -390,7 +390,7 @@
     <string name="wifi_ssid_pref_dlg_info_about_wildcards">в імені SSID</string>
     <string name="bluetooth_name_pref_dlg_info_about_wildcards">в імені Bluetooth,</string>
     <string name="calendar_pref_dlg_info_about_wildcards">в рядку пошуку,</string>
-    <string name="pref_dlg_info_about_wildcards_3">Додайте «\\» перед цими символами.</string>
+    <string name="pref_dlg_info_about_wildcards_3">Додайте «\u005C» перед цими символами.</string>
     <!--<string name="important_into_sony_stamina_mode">For Sony devices, please enable \"Stamina\" mode in \"Power management\". Please also add PhoneProfilesPlus into \"Apps active in standby\". Without this, the application will not work correctly.</string>-->
     <string name="important_info_profile_settings">Деякі налаштування профілю потребують внесення змін до системних налаштуваннях. Ці налаштування відмічені «(S)».</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_title">Доступ до сповіщень</string>

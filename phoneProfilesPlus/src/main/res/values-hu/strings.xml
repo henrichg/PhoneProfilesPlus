@@ -390,7 +390,7 @@
     <string name="wifi_ssid_pref_dlg_info_about_wildcards">az SSID név,</string>
     <string name="bluetooth_name_pref_dlg_info_about_wildcards">a bluetooth-név</string>
     <string name="calendar_pref_dlg_info_about_wildcards">a keresési karakterlánc,</string>
-    <string name="pref_dlg_info_about_wildcards_3">Add elé \"\" ezeket a karaktereket.</string>
+    <string name="pref_dlg_info_about_wildcards_3">Add elé \"\u005C\" ezeket a karaktereket.</string>
     <!--<string name="important_into_sony_stamina_mode">For Sony devices, please enable \"Stamina\" mode in \"Power management\". Please also add PhoneProfilesPlus into \"Apps active in standby\". Without this, the application will not work correctly.</string>-->
     <string name="important_info_profile_settings">Néhány profil tulajdonság érvényesítéséhez a rendszer beállításokon módosítani kell. Ezeket a \"(S)\" -sel jelöli.</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_title">Értesítési hozzáférés</string>

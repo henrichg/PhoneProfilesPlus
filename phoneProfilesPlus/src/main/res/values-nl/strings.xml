@@ -390,7 +390,7 @@
     <string name="wifi_ssid_pref_dlg_info_about_wildcards">in SSID naam,</string>
     <string name="bluetooth_name_pref_dlg_info_about_wildcards">in bluetooth naam,</string>
     <string name="calendar_pref_dlg_info_about_wildcards">in de zoekterm,</string>
-    <string name="pref_dlg_info_about_wildcards_3">plaats \"\" voor deze tekens.</string>
+    <string name="pref_dlg_info_about_wildcards_3">plaats \"\u005C\" voor deze tekens.</string>
     <!--<string name="important_into_sony_stamina_mode">For Sony devices, please enable \"Stamina\" mode in \"Power management\". Please also add PhoneProfilesPlus into \"Apps active in standby\". Without this, the application will not work correctly.</string>-->
     <string name="important_info_profile_settings">Sommige profielvoorkeuren vereisen een aanpassing in de systeeminstellingen. Daar staat een \"(S)\" bij.</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_title">Toegang tot notificaties</string>

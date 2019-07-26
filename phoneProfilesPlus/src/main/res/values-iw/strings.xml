@@ -390,7 +390,7 @@
     <string name="wifi_ssid_pref_dlg_info_about_wildcards">בשם ה-SSID,</string>
     <string name="bluetooth_name_pref_dlg_info_about_wildcards">בשם bluetooth,</string>
     <string name="calendar_pref_dlg_info_about_wildcards">במלל החיפוש,</string>
-    <string name="pref_dlg_info_about_wildcards_3">יש להוסיף \"\" לפני תווים אלה.</string>
+    <string name="pref_dlg_info_about_wildcards_3">יש להוסיף \"\u005C\" לפני תווים אלה.</string>
     <!--<string name="important_into_sony_stamina_mode">For Sony devices, please enable \"Stamina\" mode in \"Power management\". Please also add PhoneProfilesPlus into \"Apps active in standby\". Without this, the application will not work correctly.</string>-->
     <string name="important_info_profile_settings">העדפות פרופיל מסוימות מחייבות שינויים בהגדרות המערכת. העדפות אלה מסומנות ב-\"(S)\".</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_title">גישה להתראות</string>

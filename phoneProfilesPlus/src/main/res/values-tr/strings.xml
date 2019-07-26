@@ -390,7 +390,7 @@
     <string name="wifi_ssid_pref_dlg_info_about_wildcards">SSID Adında,</string>
     <string name="bluetooth_name_pref_dlg_info_about_wildcards">Bluetooth isminde,</string>
     <string name="calendar_pref_dlg_info_about_wildcards">arama dizesinde,</string>
-    <string name="pref_dlg_info_about_wildcards_3">bu karakterlerin önüne \"\"\" ekleyin.</string>
+    <string name="pref_dlg_info_about_wildcards_3">bu karakterlerin önüne \"\u005C\" ekleyin.</string>
     <!--<string name="important_into_sony_stamina_mode">For Sony devices, please enable \"Stamina\" mode in \"Power management\". Please also add PhoneProfilesPlus into \"Apps active in standby\". Without this, the application will not work correctly.</string>-->
     <string name="important_info_profile_settings">Bazı tercih ayarları, Sistem ayarlarında değişikliklere ihtiyaç duyar. Bu ayarlar \"(S)\" ile işaretlenmiştir.</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_title">Bildirim erişimi</string>
