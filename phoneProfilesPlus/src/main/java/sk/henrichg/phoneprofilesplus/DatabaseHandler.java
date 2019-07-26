@@ -8632,7 +8632,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 runningEventList.clear();
 
                 final String countQuery;
-                String eventTypeChecked = KEY_E_STATUS + "=2" + " AND ";  //  only running events
+                String eventTypeChecked = KEY_E_STATUS + "=" + Event.ESTATUS_RUNNING + " AND ";  //  only running events
                 eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_ENABLED + "=1";
 
                 countQuery = "SELECT " + KEY_E_ID + " FROM " + TABLE_EVENTS +
