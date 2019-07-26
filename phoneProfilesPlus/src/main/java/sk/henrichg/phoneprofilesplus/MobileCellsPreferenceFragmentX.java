@@ -15,7 +15,6 @@ import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -75,7 +74,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
     protected void onBindDialogView(View view) {
         super.onBindDialogView(view);
 
-        Log.e("MobileCellsPreferenceFragmentX.onBindDialogView", "xxx");
+        //Log.e("MobileCellsPreferenceFragmentX.onBindDialogView", "xxx");
 
         refreshListViewBroadcastReceiver = new MobileCellsPreferenceFragmentX.RefreshListViewBroadcastReceiver(/*preference*/);
         LocalBroadcastManager.getInstance(prefContext).registerReceiver(refreshListViewBroadcastReceiver,
@@ -258,7 +257,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
 
     @Override
     public void onDialogClosed(boolean positiveResult) {
-        Log.e("MobileCellsPreferenceFragmentX.onDialogClosed", "xxx");
+        //Log.e("MobileCellsPreferenceFragmentX.onDialogClosed", "xxx");
 
         if (positiveResult) {
             preference.persistValue();

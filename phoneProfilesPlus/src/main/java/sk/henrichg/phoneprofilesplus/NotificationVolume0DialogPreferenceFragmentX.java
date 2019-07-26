@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RadioButton;
@@ -39,20 +38,20 @@ public class NotificationVolume0DialogPreferenceFragmentX  extends PreferenceDia
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(preference._context);
 
-        Log.e("NotificationVolume0DialogPreferenceFragmentX.onCreateDialog", "before layout inflater");
+        //Log.e("NotificationVolume0DialogPreferenceFragmentX.onCreateDialog", "before layout inflater");
 
         LayoutInflater inflater = ((Activity)preference._context).getLayoutInflater();
         @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.activity_notification_volume_0_pref_dialog, null);
         dialogBuilder.setView(layout);
 
-        Log.e("NotificationVolume0DialogPreferenceFragmentX.onCreateDialog", "after layout inflater");
+        //Log.e("NotificationVolume0DialogPreferenceFragmentX.onCreateDialog", "after layout inflater");
 
         dialogBuilder.setTitle(preference.getDialogTitle());
 
         String message = "";
 
-        Log.e("NotificationVolume0DialogPreferenceFragmentX.onCreateDialog", "before configure builder");
+        //Log.e("NotificationVolume0DialogPreferenceFragmentX.onCreateDialog", "before configure builder");
 
         if (uriId.isEmpty())
             message = getString(R.string.profile_preferences_volumeNotificationVolume0_toneNotInstalled) + "\n\n";
@@ -86,11 +85,11 @@ public class NotificationVolume0DialogPreferenceFragmentX  extends PreferenceDia
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
-        Log.e("NotificationVolume0DialogPreferenceFragmentX.onCreateDialog", "after configure builder");
+        //Log.e("NotificationVolume0DialogPreferenceFragmentX.onCreateDialog", "after configure builder");
 
         AlertDialog dialog = dialogBuilder.create();
 
-        Log.e("NotificationVolume0DialogPreferenceFragmentX.onCreateDialog", "after create dialog");
+        //Log.e("NotificationVolume0DialogPreferenceFragmentX.onCreateDialog", "after create dialog");
 
         TextView text = layout.findViewById(R.id.notification_0_pref_dialog_text);
         text.setText(message);

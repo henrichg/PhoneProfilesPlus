@@ -392,7 +392,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.menu_profiles_view:
-                                Log.e("EditorProfilesActivity.onNavigationItemSelected", "menu_profiles_view");
+                                //Log.e("EditorProfilesActivity.onNavigationItemSelected", "menu_profiles_view");
                                 String[] filterItems = new String[] {
                                         getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_all),
                                         getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
@@ -407,7 +407,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 selectFilterItem(0, filterProfilesSelectedItem, false, startTargetHelps);
                                 break;
                             case R.id.menu_events_view:
-                                Log.e("EditorProfilesActivity.onNavigationItemSelected", "menu_events_view");
+                                //Log.e("EditorProfilesActivity.onNavigationItemSelected", "menu_events_view");
                                 filterItems = new String[] {
                                         getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_start_order),
                                         getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_all),
