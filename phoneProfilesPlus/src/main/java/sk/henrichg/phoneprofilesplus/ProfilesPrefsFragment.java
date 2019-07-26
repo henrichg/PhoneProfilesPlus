@@ -286,7 +286,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             } else {
                 if (ringerModePreference != null) {
                     CharSequence[] entries = ringerModePreference.getEntries();
-                    entries[5] = "(S) " + getString(R.string.array_pref_soundModeArray_ZenMode);
+                    entries[4] = "(S) " + getString(R.string.array_pref_soundModeArray_ZenMode);
                     ringerModePreference.setEntries(entries);
                 }
 
