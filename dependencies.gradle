@@ -18,8 +18,8 @@
 // 5000 = set night_mode as default
 
 ext.ppVersions = [
-    publishVersion: '4.1b',
-    publishVersionCode: 4907,
+    publishVersion: '4.1',
+    publishVersionCode: 5000,
 
     minSdk: 21,
     targetSdk: 28,
