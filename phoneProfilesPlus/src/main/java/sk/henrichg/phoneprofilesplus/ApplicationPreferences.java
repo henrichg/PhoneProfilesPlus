@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
-import android.os.SystemPropertiesProto;
 
 class ApplicationPreferences {
 

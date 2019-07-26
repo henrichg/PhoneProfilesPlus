@@ -9,7 +9,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
-import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -23,7 +22,7 @@ public class ColorChooserPreferenceX extends DialogPreference {
 
     ColorChooserPreferenceFragmentX fragment;
 
-    FrameLayout widgetLayout;
+    private FrameLayout widgetLayout;
 
     String value;
 
