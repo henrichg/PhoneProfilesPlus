@@ -7,4 +7,5 @@ class MobileCell {
     boolean _new;
     long _lastConnectedTime;
     String _lastRunningEvents;
+    String _lastPausedEvents;
 }

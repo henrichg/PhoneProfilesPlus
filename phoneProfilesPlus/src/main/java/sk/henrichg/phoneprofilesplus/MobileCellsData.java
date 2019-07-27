@@ -8,11 +8,13 @@ class MobileCellsData {
     final boolean _new;
     final long lastConnectedTime;
     final String lastRunningEvents;
+    final String lastPausedEvents;
 
     //MobileCellsData() {
     //}
 
-    MobileCellsData(int cellId, String name, boolean connected, boolean _new, long lastConnectedTime, String lastRunningEvents)
+    MobileCellsData(int cellId, String name, boolean connected, boolean _new, long lastConnectedTime,
+                    String lastRunningEvents, String lastPausedEvents)
     {
         this.cellId = cellId;
         this.name = name;
@@ -20,6 +22,7 @@ class MobileCellsData {
         this._new = _new;
         this.lastConnectedTime = lastConnectedTime;
         this.lastRunningEvents = lastRunningEvents;
+        this.lastPausedEvents = lastPausedEvents;
     }
 
 }

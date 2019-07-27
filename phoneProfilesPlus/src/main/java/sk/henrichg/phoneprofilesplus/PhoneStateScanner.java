@@ -41,7 +41,8 @@ class PhoneStateScanner extends PhoneStateListener {
 
     static int registeredCell = Integer.MAX_VALUE;
     static long lastConnectedTime = 0;
-    static String lastRunningEvents = "";
+    static String lastRunningEventsNotOutside = "";
+    static String lastPausedEventsOutside = "";
 
     static boolean forceStart = false;
 
@@ -636,14 +637,24 @@ class PhoneStateScanner extends PhoneStateListener {
 
             // get running events with enabled Mobile cells sensor
             List<Long> runningEventList = new ArrayList<>();
-            db.loadMobileCellsSensorRunningEvents(runningEventList);
-            lastRunningEvents = "";
+            db.loadMobileCellsSensorRunningPausedEvents(runningEventList, false);
+            lastRunningEventsNotOutside = "";
             for (long runningEvent : runningEventList) {
-                if (!lastRunningEvents.isEmpty())
-                    lastRunningEvents = lastRunningEvents + "|";
-                lastRunningEvents = lastRunningEvents + runningEvent;
+                if (!lastRunningEventsNotOutside.isEmpty())
+                    lastRunningEventsNotOutside = lastRunningEventsNotOutside + "|";
+                lastRunningEventsNotOutside = lastRunningEventsNotOutside + runningEvent;
             }
-            PPApplication.logE("PhoneStateScanner.doAutoRegistration", "lastRunningEvents="+lastRunningEvents);
+            PPApplication.logE("PhoneStateScanner.doAutoRegistration", "lastRunningEventsNotOutside="+ lastRunningEventsNotOutside);
+
+            List<Long> pausedEventList = new ArrayList<>();
+            db.loadMobileCellsSensorRunningPausedEvents(pausedEventList, true);
+            lastPausedEventsOutside = "";
+            for (long runningEvent : pausedEventList) {
+                if (!lastPausedEventsOutside.isEmpty())
+                    lastPausedEventsOutside = lastPausedEventsOutside + "|";
+                lastPausedEventsOutside = lastPausedEventsOutside + runningEvent;
+            }
+            PPApplication.logE("PhoneStateScanner.doAutoRegistration", "lastPausedEventsOutside="+ lastPausedEventsOutside);
 
             if (enabledAutoRegistration) {
                 PPApplication.logE("PhoneStateScanner.doAutoRegistration", "by user enabled autoregistration");
@@ -655,7 +666,8 @@ class PhoneStateScanner extends PhoneStateListener {
                         PPApplication.logE("PhoneStateScanner.doAutoRegistration", "cellId is NOT saved, save it");
 
                         List<MobileCellsData> localCellsList = new ArrayList<>();
-                        localCellsList.add(new MobileCellsData(registeredCell, cellsNameForAutoRegistration, true, false, Calendar.getInstance().getTimeInMillis(), lastRunningEvents));
+                        localCellsList.add(new MobileCellsData(registeredCell, cellsNameForAutoRegistration, true, false,
+                                Calendar.getInstance().getTimeInMillis(), lastRunningEventsNotOutside, lastPausedEventsOutside));
                         db.saveMobileCellsList(localCellsList, true, true);
 
                         synchronized (autoRegistrationEventList) {
@@ -690,23 +702,26 @@ class PhoneStateScanner extends PhoneStateListener {
             else {
                 PPApplication.logE("PhoneStateScanner.doAutoRegistration", "internal autoregistration");
 
-                if (!lastRunningEvents.isEmpty()) {
+                boolean showRunningNotification = false;
+                boolean showPausedNotification = false;
+
+                if (!lastRunningEventsNotOutside.isEmpty()) {
                     PPApplication.logE("PhoneStateScanner.doAutoRegistration", "any event with mobile cells sensor is running");
 
                     if (isValidCellId(registeredCell)) {
                         PPApplication.logE("PhoneStateScanner.doAutoRegistration", "cellId is valid");
 
-                        boolean showNotification = false;
                         if (!db.isMobileCellSaved(registeredCell)) {
                             PPApplication.logE("PhoneStateScanner.doAutoRegistration", "cellId is NOT saved, save it");
 
                             List<MobileCellsData> localCellsList = new ArrayList<>();
-                            localCellsList.add(new MobileCellsData(registeredCell, "", true, false, Calendar.getInstance().getTimeInMillis(), lastRunningEvents));
+                            localCellsList.add(new MobileCellsData(registeredCell, "", true, false,
+                                    Calendar.getInstance().getTimeInMillis(), lastRunningEventsNotOutside, lastPausedEventsOutside));
                             db.saveMobileCellsList(localCellsList, true, false);
-                            showNotification = true;
+                            showRunningNotification = true;
                         }
 
-                        if (!showNotification) {
+                        if (!showRunningNotification) {
                             PPApplication.logE("PhoneStateScanner.doAutoRegistration", "cellId is saved");
                             PPApplication.logE("PhoneStateScanner.doAutoRegistration", "runningEventList="+runningEventList);
 
@@ -747,50 +762,113 @@ class PhoneStateScanner extends PhoneStateListener {
                                 else
                                     found = true;
                             }
-                            showNotification = !found;
-                        }
-
-                        if (showNotification) {
-                            NotificationCompat.Builder mBuilder;
-                            PPApplication.createMobileCellsNewCellNotificationChannel(context);
-
-                            Intent intent = new Intent(context, NotUsedMobileCellsDetectedActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                            String nText = context.getString(R.string.notification_not_used_mobile_cell_text1);
-                            nText = nText + " " + registeredCell + ". ";
-                            nText = nText + context.getString(R.string.notification_not_used_mobile_cell_text2);
-
-                            mBuilder = new NotificationCompat.Builder(context, PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL)
-                                    .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
-                                    .setSmallIcon(R.drawable.ic_exclamation_notify)
-                                    .setContentTitle(context.getString(R.string.notification_not_used_mobile_cell_title))
-                                    .setContentText(nText)
-                                    .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
-                                    .setAutoCancel(true); // clear notification after click
-
-                            Intent deleteIntent = new Intent(NEW_MOBILE_CELLS_NOTIFICATION_DELETED_ACTION);
-                            deleteIntent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_CELL_ID, registeredCell);
-                            PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, 1, deleteIntent, 0);
-                            mBuilder.setDeleteIntent(deletePendingIntent);
-
-                            intent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_CELL_ID, registeredCell);
-                            intent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_LAST_CONNECTED_TIME, lastConnectedTime);
-                            intent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_LAST_RUNNING_EVENTS, lastRunningEvents);
-
-                            PendingIntent pi = PendingIntent.getActivity(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                            mBuilder.setContentIntent(pi);
-                            mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
-                            //mBuilder.setOnlyAlertOnce(true);
-                            mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
-                            mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-
-                            NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                            if (mNotificationManager != null)
-                                mNotificationManager.notify(mobileCellsNotificationId++, mBuilder.build());
-
+                            showRunningNotification = !found;
                         }
                     }
+                }
+
+                if (!lastPausedEventsOutside.isEmpty()) {
+                    PPApplication.logE("PhoneStateScanner.doAutoRegistration", "any event with mobile cells sensor is paused");
+
+                    if (isValidCellId(registeredCell)) {
+                        PPApplication.logE("PhoneStateScanner.doAutoRegistration", "cellId is valid");
+
+                        if (!db.isMobileCellSaved(registeredCell)) {
+                            PPApplication.logE("PhoneStateScanner.doAutoRegistration", "cellId is NOT saved, save it");
+
+                            List<MobileCellsData> localCellsList = new ArrayList<>();
+                            localCellsList.add(new MobileCellsData(registeredCell, "", true, false,
+                                    Calendar.getInstance().getTimeInMillis(), lastRunningEventsNotOutside, lastPausedEventsOutside));
+                            db.saveMobileCellsList(localCellsList, true, false);
+                            showPausedNotification = true;
+                        }
+
+                        if (!showPausedNotification) {
+                            PPApplication.logE("PhoneStateScanner.doAutoRegistration", "cellId is saved");
+                            PPApplication.logE("PhoneStateScanner.doAutoRegistration", "pausedEventList="+pausedEventList);
+
+                            // it is not new cell
+                            // test if registered cell is configured in running events
+                            boolean found = false;
+                            for (long eventId : pausedEventList) {
+                                Event event = db.getEvent(eventId);
+                                if (event != null) {
+                                    if (event._eventPreferencesMobileCells._enabled) {
+                                        String configuredCells = event._eventPreferencesMobileCells._cells;
+                                        PPApplication.logE("PhoneStateScanner.doAutoRegistration", "configuredCells="+configuredCells);
+                                        PPApplication.logE("PhoneStateScanner.doAutoRegistration", "registeredCell="+registeredCell);
+                                        if (configuredCells.contains("|" + registeredCell + "|")) {
+                                            // cell is between others
+                                            found = true;
+                                            break;
+                                        }
+                                        if (configuredCells.startsWith(registeredCell + "|")) {
+                                            // cell is at start of others
+                                            found = true;
+                                            break;
+                                        }
+                                        if (configuredCells.endsWith("|" + registeredCell)) {
+                                            // cell is at end of others
+                                            found = true;
+                                            break;
+                                        }
+                                        if (configuredCells.equals(String.valueOf(registeredCell))) {
+                                            // only this cell is configured
+                                            found = true;
+                                            break;
+                                        }
+                                    }
+                                    else
+                                        found = true;
+                                }
+                                else
+                                    found = true;
+                            }
+                            showPausedNotification = !found;
+                        }
+                    }
+                }
+
+                if (showRunningNotification || showPausedNotification) {
+                    NotificationCompat.Builder mBuilder;
+                    PPApplication.createMobileCellsNewCellNotificationChannel(context);
+
+                    Intent intent = new Intent(context, NotUsedMobileCellsDetectedActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                    String nText = context.getString(R.string.notification_not_used_mobile_cell_text1);
+                    nText = nText + " " + registeredCell + ". ";
+                    nText = nText + context.getString(R.string.notification_not_used_mobile_cell_text2);
+
+                    mBuilder = new NotificationCompat.Builder(context, PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL)
+                            .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
+                            .setSmallIcon(R.drawable.ic_exclamation_notify)
+                            .setContentTitle(context.getString(R.string.notification_not_used_mobile_cell_title))
+                            .setContentText(nText)
+                            .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
+                            .setAutoCancel(true); // clear notification after click
+
+                    Intent deleteIntent = new Intent(NEW_MOBILE_CELLS_NOTIFICATION_DELETED_ACTION);
+                    deleteIntent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_CELL_ID, registeredCell);
+                    PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, 1, deleteIntent, 0);
+                    mBuilder.setDeleteIntent(deletePendingIntent);
+
+                    intent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_CELL_ID, registeredCell);
+                    intent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_LAST_CONNECTED_TIME, lastConnectedTime);
+                    intent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_LAST_RUNNING_EVENTS, lastRunningEventsNotOutside);
+                    intent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_LAST_PAUSED_EVENTS, lastPausedEventsOutside);
+
+                    PendingIntent pi = PendingIntent.getActivity(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    mBuilder.setContentIntent(pi);
+                    mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
+                    //mBuilder.setOnlyAlertOnce(true);
+                    mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+                    mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+
+                    NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                    if (mNotificationManager != null)
+                        mNotificationManager.notify(mobileCellsNotificationId++, mBuilder.build());
+
                 }
             }
 

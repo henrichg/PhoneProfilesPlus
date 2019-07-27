@@ -35,12 +35,14 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
     private int mobileCellId = Integer.MAX_VALUE;
     private long lastConnectedTime = 0;
     private String lastRunningEvents = "";
+    private String lastPausedEvents = "";
 
     private final List<Event> eventList = new ArrayList<>();
 
     static final String EXTRA_MOBILE_CELL_ID = "mobile_cell_id";
     static final String EXTRA_MOBILE_LAST_CONNECTED_TIME = "last_connected_time";
     static final String EXTRA_MOBILE_LAST_RUNNING_EVENTS = "last_running_events";
+    static final String EXTRA_MOBILE_LAST_PAUSED_EVENTS = "last_paused_events";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
             mobileCellId = intent.getIntExtra(EXTRA_MOBILE_CELL_ID, 0);
             lastConnectedTime = intent.getLongExtra(EXTRA_MOBILE_LAST_CONNECTED_TIME, 0);
             lastRunningEvents = intent.getStringExtra(EXTRA_MOBILE_LAST_RUNNING_EVENTS);
+            lastPausedEvents = intent.getStringExtra(EXTRA_MOBILE_LAST_PAUSED_EVENTS);
         }
     }
 
@@ -79,6 +82,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                 final int _mobileCellId = mobileCellId;
                 final long _lastConnectedTime = lastConnectedTime;
                 final String _lastRunningEvents = lastRunningEvents;
+                final String _lastPausedEvents = lastPausedEvents;
                 final String _cellName = cellNameTextView.getText().toString();
 
                 final Context appContext = getApplicationContext();
@@ -101,10 +105,34 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
 
                             List<MobileCellsData> localCellsList = new ArrayList<>();
                             localCellsList.add(new MobileCellsData(_mobileCellId, _cellName,
-                                    true, false, _lastConnectedTime, _lastRunningEvents));
+                                    true, false, _lastConnectedTime, _lastRunningEvents, _lastPausedEvents));
                             db.saveMobileCellsList(localCellsList, true, true);
 
                             String[] eventIds = _lastRunningEvents.split("\\|");
+                            for (String eventId : eventIds) {
+                                if (!eventId.isEmpty()) {
+                                    Event event = db.getEvent(Long.valueOf(eventId));
+                                    if (event != null) {
+                                        PPApplication.logE("NotUsedMobileCellsDetectedActivity.onClick", "save cellId to event="+event._name);
+                                        String cells = event._eventPreferencesMobileCells._cells;
+                                        cells = PhoneStateScanner.addCellId(cells, mobileCellId);
+                                        event._eventPreferencesMobileCells._cells = cells;
+                                        db.updateMobileCellsCells(event);
+
+                                        // broadcast for event preferences
+                                        Intent intent = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELLS);
+                                        intent.putExtra(PPApplication.EXTRA_EVENT_ID, eventId);
+                                        intent.putExtra(MobileCellsRegistrationService.EXTRA_NEW_CELLS_VALUE, _mobileCellId);
+                                        intent.setPackage(appContext.getPackageName());
+                                        appContext.sendBroadcast(intent);
+
+                                        Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
+                                        refreshIntent.putExtra(PPApplication.EXTRA_EVENT_ID, eventId);
+                                        LocalBroadcastManager.getInstance(appContext).sendBroadcast(refreshIntent);
+                                    }
+                                }
+                            }
+                            eventIds = _lastPausedEvents.split("\\|");
                             for (String eventId : eventIds) {
                                 if (!eventId.isEmpty()) {
                                     Event event = db.getEvent(Long.valueOf(eventId));

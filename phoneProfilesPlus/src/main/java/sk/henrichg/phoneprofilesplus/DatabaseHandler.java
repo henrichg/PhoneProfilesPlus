@@ -38,7 +38,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2350;
+    private static final int DATABASE_VERSION = 2360;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -380,6 +380,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_MC_NEW = "new";
     private static final String KEY_MC_LAST_CONNECTED_TIME = "lastConnectedTime";
     private static final String KEY_MC_LAST_RUNNING_EVENTS = "lastRunningEvents";
+    private static final String KEY_MC_LAST_PAUSED_EVENTS = "lastPausedEvents";
 
     // NFC tags Columns names
     private static final String KEY_NT_ID = "_id";
@@ -755,7 +756,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_MC_NAME + " TEXT,"
                 + KEY_MC_NEW + " INTEGER,"
                 + KEY_MC_LAST_CONNECTED_TIME + " INTEGER,"
-                + KEY_MC_LAST_RUNNING_EVENTS + " TEXT"
+                + KEY_MC_LAST_RUNNING_EVENTS + " TEXT,"
+                + KEY_MC_LAST_PAUSED_EVENTS + " TEXT"
                 + ")";
         db.execSQL(CREATE_MOBILE_CELLS_TABLE);
 
@@ -2876,6 +2878,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("ALTER TABLE " + TABLE_MOBILE_CELLS + " ADD COLUMN " + KEY_MC_LAST_RUNNING_EVENTS + " TEXT");
 
             db.execSQL("UPDATE " + TABLE_MOBILE_CELLS + " SET " + KEY_MC_LAST_RUNNING_EVENTS + "=\"\"");
+        }
+
+        if (oldVersion < 2360)
+        {
+            db.execSQL("ALTER TABLE " + TABLE_MOBILE_CELLS + " ADD COLUMN " + KEY_MC_LAST_PAUSED_EVENTS + " TEXT");
+
+            db.execSQL("UPDATE " + TABLE_MOBILE_CELLS + " SET " + KEY_MC_LAST_PAUSED_EVENTS + "=\"\"");
         }
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
@@ -8133,6 +8142,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_MC_NEW, mobileCell._new ? 1 : 0);
                 values.put(KEY_MC_LAST_CONNECTED_TIME, mobileCell._lastConnectedTime);
                 values.put(KEY_MC_LAST_RUNNING_EVENTS, mobileCell._lastRunningEvents);
+                values.put(KEY_MC_LAST_PAUSED_EVENTS, mobileCell._lastPausedEvents);
 
                 db.beginTransaction();
 
@@ -8172,6 +8182,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_MC_NEW, mobileCell._new ? 1 : 0);
                 values.put(KEY_MC_LAST_CONNECTED_TIME, mobileCell._lastConnectedTime);
                 values.put(KEY_MC_LAST_RUNNING_EVENTS, mobileCell._lastRunningEvents);
+                values.put(KEY_MC_LAST_PAUSED_EVENTS, mobileCell._lastPausedEvents);
 
                 db.beginTransaction();
 
@@ -8209,7 +8220,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_MC_NAME + "," +
                         KEY_MC_NEW + "," +
                         KEY_MC_LAST_CONNECTED_TIME + "," +
-                        KEY_MC_LAST_RUNNING_EVENTS +
+                        KEY_MC_LAST_RUNNING_EVENTS + "," +
+                        KEY_MC_LAST_PAUSED_EVENTS +
                         " FROM " + TABLE_MOBILE_CELLS;
 
                 if (onlyCellId != 0) {
@@ -8230,6 +8242,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         boolean _new = cursor.getInt(cursor.getColumnIndex(KEY_MC_NEW)) == 1;
                         long lastConnectedTime = cursor.getLong(cursor.getColumnIndex(KEY_MC_LAST_CONNECTED_TIME));
                         String lastRunningEvents = cursor.getString(cursor.getColumnIndex(KEY_MC_LAST_RUNNING_EVENTS));
+                        String lastPausedEvents = cursor.getString(cursor.getColumnIndex(KEY_MC_LAST_PAUSED_EVENTS));
                         //Log.d("DatabaseHandler.addMobileCellsToList", "cellId="+cellId + " new="+_new);
                         boolean found = false;
                         for (MobileCellsData cell : cellsList) {
@@ -8239,7 +8252,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             }
                         }
                         if (!found) {
-                            MobileCellsData cell = new MobileCellsData(cellId, name, false, _new, lastConnectedTime, lastRunningEvents);
+                            MobileCellsData cell = new MobileCellsData(cellId, name, false, _new, lastConnectedTime,
+                                    lastRunningEvents, lastPausedEvents);
                             cellsList.add(cell);
                         }
                     } while (cursor.moveToNext());
@@ -8265,7 +8279,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_MC_CELL_ID + "," +
                         KEY_MC_NAME + "," +
                         KEY_MC_LAST_CONNECTED_TIME + "," +
-                        KEY_MC_LAST_RUNNING_EVENTS +
+                        KEY_MC_LAST_RUNNING_EVENTS + "," +
+                        KEY_MC_LAST_PAUSED_EVENTS +
                         " FROM " + TABLE_MOBILE_CELLS;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -8279,6 +8294,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     String foundedCellName = "";
                     long foundedLastConnectedTime = 0;
                     String foundedLastRunningEvents = "";
+                    String foundedLastPausedEvents = "";
                     if (cursor.moveToFirst()) {
                         do {
                             String dbCellId = Integer.toString(cursor.getInt(cursor.getColumnIndex(KEY_MC_CELL_ID)));
@@ -8287,6 +8303,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 foundedCellName = cursor.getString(cursor.getColumnIndex(KEY_MC_NAME));
                                 foundedLastConnectedTime = cursor.getLong(cursor.getColumnIndex(KEY_MC_LAST_CONNECTED_TIME));
                                 foundedLastRunningEvents = cursor.getString(cursor.getColumnIndex(KEY_MC_LAST_RUNNING_EVENTS));
+                                foundedLastPausedEvents = cursor.getString(cursor.getColumnIndex(KEY_MC_LAST_PAUSED_EVENTS));
                                 found = true;
                                 break;
                             }
@@ -8300,6 +8317,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         mobileCell._new = true;
                         mobileCell._lastConnectedTime = cell.lastConnectedTime;
                         mobileCell._lastRunningEvents = cell.lastRunningEvents;
+                        mobileCell._lastPausedEvents = cell.lastPausedEvents;
                         addMobileCell(mobileCell);
                     } else {
                         //Log.d("DatabaseHandler.saveMobileCellsList", "found="+foundedDbId+" cell.new="+cell._new+" new="+_new);
@@ -8315,6 +8333,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         else
                             mobileCell._lastConnectedTime = foundedLastConnectedTime;
                         mobileCell._lastRunningEvents = foundedLastRunningEvents;
+                        mobileCell._lastPausedEvents = foundedLastPausedEvents;
                         updateMobileCell(mobileCell);
                     }
                 }
@@ -8369,6 +8388,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 mobileCell._new = true;
                                 mobileCell._lastConnectedTime = cell.lastConnectedTime;
                                 mobileCell._lastRunningEvents = cell.lastRunningEvents;
+                                mobileCell._lastPausedEvents = cell.lastPausedEvents;
                                 updateMobileCell(mobileCell);
                             }
                         } else {
@@ -8385,6 +8405,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         mobileCell._new = cell._new;
                                         mobileCell._lastConnectedTime = cell.lastConnectedTime;
                                         mobileCell._lastRunningEvents = cell.lastRunningEvents;
+                                        mobileCell._lastPausedEvents = cell.lastPausedEvents;
                                         updateMobileCell(mobileCell);
                                     }
                                 }
@@ -8399,6 +8420,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 mobileCell._new = cell._new;
                                 mobileCell._lastConnectedTime = cell.lastConnectedTime;
                                 mobileCell._lastRunningEvents = cell.lastRunningEvents;
+                                mobileCell._lastPausedEvents = cell.lastPausedEvents;
                                 updateMobileCell(mobileCell);
                             }
                         }
@@ -8623,7 +8645,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    void loadMobileCellsSensorRunningEvents(List<Long> runningEventList) {
+    void loadMobileCellsSensorRunningPausedEvents(List<Long> runningEventList, boolean outsideParameter) {
         importExportLock.lock();
         try {
             try {
@@ -8632,9 +8654,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 runningEventList.clear();
 
                 final String countQuery;
-                String eventTypeChecked = KEY_E_STATUS + "=" + Event.ESTATUS_RUNNING + " AND ";  //  only running events
-                eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_ENABLED + "=1 AND ";
-                eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + "=0";
+                String eventTypeChecked = "";
+                if (outsideParameter) {
+                    eventTypeChecked = KEY_E_STATUS + "=" + Event.ESTATUS_PAUSE + " AND ";  //  only paused events
+                    eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_ENABLED + "=1 AND ";
+                    eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + "=1";
+                }
+                else {
+                    eventTypeChecked = KEY_E_STATUS + "=" + Event.ESTATUS_RUNNING + " AND ";  //  only running events
+                    eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_ENABLED + "=1 AND ";
+                    eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + "=0";
+                }
 
                 countQuery = "SELECT " + KEY_E_ID + " FROM " + TABLE_EVENTS +
                         " WHERE " + eventTypeChecked;
@@ -10927,6 +10957,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                             }
                                             if (exportedDBObj.getVersion() < 2350) {
                                                 values.put(KEY_MC_LAST_RUNNING_EVENTS, "");
+                                            }
+                                            if (exportedDBObj.getVersion() < 2360) {
+                                                values.put(KEY_MC_LAST_PAUSED_EVENTS, "");
                                             }
 
                                             // Inserting Row do db z SQLiteOpenHelper
