@@ -277,6 +277,19 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                         }
                     }
                 }
+
+                eventIds = lastPausedEvents.split("\\|");
+                eventList.clear();
+                for (String eventId : eventIds) {
+                    if (!eventId.isEmpty()) {
+                        Event event = db.getEvent(Long.valueOf(eventId));
+                        if (event != null) {
+                            event.setStatus(1); // use status of event for checkbox status
+                            eventList.add(event);
+                        }
+                    }
+                }
+
                 return null;
             }
 
