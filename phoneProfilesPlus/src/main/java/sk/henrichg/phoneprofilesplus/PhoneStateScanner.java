@@ -882,7 +882,7 @@ class PhoneStateScanner extends PhoneStateListener {
 
                         Intent deleteIntent = new Intent(NEW_MOBILE_CELLS_NOTIFICATION_DELETED_ACTION);
                         deleteIntent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_CELL_ID, _registeredCell);
-                        PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, 0, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, _registeredCell, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         mBuilder.setDeleteIntent(deletePendingIntent);
 
                         intent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_CELL_ID, _registeredCell);
