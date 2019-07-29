@@ -633,6 +633,7 @@ class PhoneStateScanner extends PhoneStateListener {
 
             DatabaseHandler db = DatabaseHandler.getInstance(context);
 
+/*
             // get running events with enabled Mobile cells sensor
             List<Long> runningEventList = new ArrayList<>();
             db.loadMobileCellsSensorRunningPausedEvents(runningEventList, false);
@@ -653,6 +654,7 @@ class PhoneStateScanner extends PhoneStateListener {
                 lastPausedEventsOutside = lastPausedEventsOutside + runningEvent;
             }
             PPApplication.logE("PhoneStateScanner.doAutoRegistration", "lastPausedEventsOutside="+ lastPausedEventsOutside);
+*/
 
             if (enabledAutoRegistration) {
                 PPApplication.logE("PhoneStateScanner.doAutoRegistration", "by user enabled autoregistration");
@@ -697,7 +699,7 @@ class PhoneStateScanner extends PhoneStateListener {
                 else
                     PPApplication.logE("PhoneStateScanner.doAutoRegistration", "cellId is NOT valid");
             }
-            else {
+/*            else {
                 PPApplication.logE("PhoneStateScanner.doAutoRegistration", "internal autoregistration");
 
                 boolean showRunningNotification = false;
@@ -880,7 +882,7 @@ class PhoneStateScanner extends PhoneStateListener {
                         mNotificationManager.notify(_registeredCell + 5000000, mBuilder.build());
                 }
             }
-
+*/
         } finally {
             if ((wakeLock != null) && wakeLock.isHeld()) {
                 try {
