@@ -261,15 +261,16 @@ Registracia mobilnych buniek:
   Ten je len na update GUI v EventsPrefsActivity.
 - Samotnu registraciu robi PhoneStateScanner v doAutoRegistration().
 
-- Potrebujem spravit to, ze ak nebezi registracia, aby sa pridavali nove bunky do zvlasneho
-  zoznamu, kde bude cas, cellid, udalost s mobile cells senzorom ktora vtedy bezala.
-  Ale davaj do zoznamu len cellid, ktore este nie su v TABLE_MOBILE_CELLS.
-  Musis takuto bunku ale pridat este pred zavolanim doHandleEvents(), aby udalosti neskoncili
-  kvoli neexistujucej cellid.
-- Zobrazi sa na to notifikacia. Po kazdom pridani noveho cellid.
-- Klik na notifikaciu zobrazi tento zvlastny zoznam, kde pre kazdy riadok bude button na
-  pridanie cellid pre udalost, odstranenie riadku.
-- Cele toto sprav do PhoneStateScanner.doAutoRegistration().
+- "Not used mobile cell" detektor som vyhodil. Chcem ho vratit spat.
+- V prvom rade treba vyriesit, aby sa nenotifikoval jeden cell viac krat. Sice uz len jedna
+  notifikacia sa zobrazi, ale stale to dava zvuk.
+- Samotne notifikacie uzivatela otravuju. Treba porozmyslat, ako to spravit inac.
+  Napriklad tak, ze bude len jedna notifikacia, Nie pre kazdu bunku zvlast, ale ze sa bude
+  pamatat: bunka, cas, udalosti, ktorych sa tyka.
+  Notifikacia otvori nie dialog, ale aktivitu, kde sa zobrazi zoznam: bunka, cas a udlaosti.
+  Kliknutim na item zoznamu sa zobrazi uz teraz existujuci dialog. Dialog na OK, Cancel item
+  zo zoznanmu vyhodi.
+- Toto by mohlo eliminovat tieto notifikacie.
 
 ------------------------------------------------------------------
 
