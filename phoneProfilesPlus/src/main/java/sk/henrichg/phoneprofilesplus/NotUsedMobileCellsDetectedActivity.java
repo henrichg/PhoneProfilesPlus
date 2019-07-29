@@ -308,8 +308,9 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                 if (!_cellsList.isEmpty())
                     cellName = _cellsList.get(0).name;
 
-                String[] eventIds = lastRunningEvents.split("\\|");
                 eventList.clear();
+
+                String[] eventIds = lastRunningEvents.split("\\|");
                 for (String eventId : eventIds) {
                     if (!eventId.isEmpty()) {
                         Event event = db.getEvent(Long.valueOf(eventId));
@@ -321,7 +322,6 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                 }
 
                 eventIds = lastPausedEvents.split("\\|");
-                eventList.clear();
                 for (String eventId : eventIds) {
                     if (!eventId.isEmpty()) {
                         Event event = db.getEvent(Long.valueOf(eventId));
