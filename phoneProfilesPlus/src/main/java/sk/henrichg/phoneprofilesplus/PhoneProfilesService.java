@@ -82,7 +82,7 @@ public class PhoneProfilesService extends Service
 
     private PermissionsNotificationDeletedReceiver permissionsNotificationDeletedReceiver = null;
     private StartEventNotificationDeletedReceiver startEventNotificationDeletedReceiver = null;
-    //private NotUsedMobileCellsNotificationDeletedReceiver notUsedMobileCellsNotificationDeletedReceiver = null;
+    private NotUsedMobileCellsNotificationDeletedReceiver notUsedMobileCellsNotificationDeletedReceiver = null;
     private ShutdownBroadcastReceiver shutdownBroadcastReceiver = null;
     private ScreenOnOffBroadcastReceiver screenOnOffReceiver = null;
     private InterruptionFilterChangedBroadcastReceiver interruptionFilterChangedReceiver = null;
@@ -443,7 +443,7 @@ public class PhoneProfilesService extends Service
                     startEventNotificationDeletedReceiver = null;
                 }
             }
-            /*if (notUsedMobileCellsNotificationDeletedReceiver != null) {
+            if (notUsedMobileCellsNotificationDeletedReceiver != null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER not used mobile cells notification delete", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER not used mobile cells notification delete");
                 try {
@@ -452,7 +452,7 @@ public class PhoneProfilesService extends Service
                 } catch (Exception e) {
                     notUsedMobileCellsNotificationDeletedReceiver = null;
                 }
-            }*/
+            }
             if (shutdownBroadcastReceiver != null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER shutdown", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER shutdown");
@@ -681,7 +681,7 @@ public class PhoneProfilesService extends Service
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered start event notification delete");
 
-            /*if (notUsedMobileCellsNotificationDeletedReceiver == null) {
+            if (notUsedMobileCellsNotificationDeletedReceiver == null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER not used mobile cells notification delete", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER not used mobile cells notification delete");
                 notUsedMobileCellsNotificationDeletedReceiver = new NotUsedMobileCellsNotificationDeletedReceiver();
@@ -690,7 +690,7 @@ public class PhoneProfilesService extends Service
                 appContext.registerReceiver(notUsedMobileCellsNotificationDeletedReceiver, intentFilter5);
             }
             else
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered not used mobile cells notification delete");*/
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered not used mobile cells notification delete");
 
             if (shutdownBroadcastReceiver == null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER shutdown", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");

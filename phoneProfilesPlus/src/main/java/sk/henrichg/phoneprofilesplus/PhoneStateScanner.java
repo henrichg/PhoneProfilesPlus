@@ -1,11 +1,15 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.service.notification.StatusBarNotification;
 import android.telephony.CellIdentityCdma;
 import android.telephony.CellIdentityGsm;
 import android.telephony.CellIdentityLte;
@@ -25,8 +29,11 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import static android.content.Context.NOTIFICATION_SERVICE;
 import static android.content.Context.POWER_SERVICE;
 
 class PhoneStateScanner extends PhoneStateListener {
@@ -47,7 +54,7 @@ class PhoneStateScanner extends PhoneStateListener {
     static String cellsNameForAutoRegistration = "";
     static private final List<Long> autoRegistrationEventList = Collections.synchronizedList(new ArrayList<Long>());
 
-    //static final String NEW_MOBILE_CELLS_NOTIFICATION_DELETED_ACTION = PPApplication.PACKAGE_NAME + ".NEW_MOBILE_CELLS_NOTIFICATION_DELETED";
+    static final String NEW_MOBILE_CELLS_NOTIFICATION_DELETED_ACTION = PPApplication.PACKAGE_NAME + ".NEW_MOBILE_CELLS_NOTIFICATION_DELETED";
 
     //private static final String PREF_SHOW_ENABLE_LOCATION_NOTIFICATION_PHONE_STATE = "show_enable_location_notification_phone_state";
 
@@ -606,6 +613,7 @@ class PhoneStateScanner extends PhoneStateListener {
         */
     }
 
+    @SuppressWarnings("StringConcatenationInLoop")
     private void doAutoRegistration(final int _registeredCell) {
         if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
@@ -628,7 +636,6 @@ class PhoneStateScanner extends PhoneStateListener {
 
             DatabaseHandler db = DatabaseHandler.getInstance(context);
 
-/*
             // get running events with enabled Mobile cells sensor
             List<Long> runningEventList = new ArrayList<>();
             db.loadMobileCellsSensorRunningPausedEvents(runningEventList, false);
@@ -649,7 +656,6 @@ class PhoneStateScanner extends PhoneStateListener {
                 lastPausedEventsOutside = lastPausedEventsOutside + runningEvent;
             }
             PPApplication.logE("PhoneStateScanner.doAutoRegistration", "lastPausedEventsOutside="+ lastPausedEventsOutside);
-*/
 
             if (enabledAutoRegistration) {
                 PPApplication.logE("PhoneStateScanner.doAutoRegistration", "by user enabled autoregistration");
@@ -694,7 +700,7 @@ class PhoneStateScanner extends PhoneStateListener {
                 else
                     PPApplication.logE("PhoneStateScanner.doAutoRegistration", "cellId is NOT valid");
             }
-/*            else {
+            else {
                 PPApplication.logE("PhoneStateScanner.doAutoRegistration", "internal autoregistration");
 
                 boolean showRunningNotification = false;
@@ -837,47 +843,67 @@ class PhoneStateScanner extends PhoneStateListener {
                 }
 
                 if (showRunningNotification || showPausedNotification) {
-                    NotificationCompat.Builder mBuilder;
+
                     PPApplication.createMobileCellsNewCellNotificationChannel(context);
 
-                    Intent intent = new Intent(context, NotUsedMobileCellsDetectedActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    boolean isShown = false;
+                    if (Build.VERSION.SDK_INT >= 23) {
+                        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+                        StatusBarNotification[] notifications = mNotificationManager.getActiveNotifications();
+                        for (StatusBarNotification notification : notifications) {
+                            if (notification.getId() == _registeredCell + 5000000) {
+                                isShown = true;
+                                break;
+                            }
+                        }
+                    }
+                    else {
+                        Intent notificationIntent = new Intent(context, NotUsedMobileCellsDetectedActivity.class);
+                        PendingIntent test = PendingIntent.getActivity(context, _registeredCell, notificationIntent, PendingIntent.FLAG_NO_CREATE);
+                        isShown = test != null;
+                    }
+                    if (!isShown) {
+                        NotificationCompat.Builder mBuilder;
 
-                    String nText = context.getString(R.string.notification_not_used_mobile_cell_text1);
-                    nText = nText + " " + _registeredCell + ". ";
-                    nText = nText + context.getString(R.string.notification_not_used_mobile_cell_text2);
+                        Intent intent = new Intent(context, NotUsedMobileCellsDetectedActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                    mBuilder = new NotificationCompat.Builder(context, PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL)
-                            .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
-                            .setSmallIcon(R.drawable.ic_exclamation_notify)
-                            .setContentTitle(context.getString(R.string.notification_not_used_mobile_cell_title))
-                            .setContentText(nText)
-                            .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
-                            .setAutoCancel(true); // clear notification after click
+                        String nText = context.getString(R.string.notification_not_used_mobile_cell_text1);
+                        nText = nText + " " + _registeredCell + ". ";
+                        nText = nText + context.getString(R.string.notification_not_used_mobile_cell_text2);
 
-                    Intent deleteIntent = new Intent(NEW_MOBILE_CELLS_NOTIFICATION_DELETED_ACTION);
-                    deleteIntent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_CELL_ID, _registeredCell);
-                    PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, 0, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                    mBuilder.setDeleteIntent(deletePendingIntent);
+                        mBuilder = new NotificationCompat.Builder(context, PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL)
+                                .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
+                                .setSmallIcon(R.drawable.ic_exclamation_notify)
+                                .setContentTitle(context.getString(R.string.notification_not_used_mobile_cell_title))
+                                .setContentText(nText)
+                                .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
+                                .setAutoCancel(true); // clear notification after click
 
-                    intent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_CELL_ID, _registeredCell);
-                    intent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_LAST_CONNECTED_TIME, lastConnectedTime);
-                    intent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_LAST_RUNNING_EVENTS, lastRunningEventsNotOutside);
-                    intent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_LAST_PAUSED_EVENTS, lastPausedEventsOutside);
+                        Intent deleteIntent = new Intent(NEW_MOBILE_CELLS_NOTIFICATION_DELETED_ACTION);
+                        deleteIntent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_CELL_ID, _registeredCell);
+                        PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, 0, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        mBuilder.setDeleteIntent(deletePendingIntent);
 
-                    PendingIntent pi = PendingIntent.getActivity(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                    mBuilder.setContentIntent(pi);
-                    mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
-                    //mBuilder.setOnlyAlertOnce(true);
-                    mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
-                    mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+                        intent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_CELL_ID, _registeredCell);
+                        intent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_LAST_CONNECTED_TIME, lastConnectedTime);
+                        intent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_LAST_RUNNING_EVENTS, lastRunningEventsNotOutside);
+                        intent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_LAST_PAUSED_EVENTS, lastPausedEventsOutside);
 
-                    NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                    if (mNotificationManager != null)
-                        mNotificationManager.notify(_registeredCell + 5000000, mBuilder.build());
+                        PendingIntent pi = PendingIntent.getActivity(context, _registeredCell, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        mBuilder.setContentIntent(pi);
+                        mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
+                        //mBuilder.setOnlyAlertOnce(true);
+                        mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+                        mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+
+                        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+                        if (mNotificationManager != null)
+                            mNotificationManager.notify(_registeredCell + 5000000, mBuilder.build());
+                    }
                 }
             }
-*/
+
         } finally {
             if ((wakeLock != null) && wakeLock.isHeld()) {
                 try {
