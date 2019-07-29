@@ -335,6 +335,9 @@ public class PPApplication extends Application {
                                         +"|PhoneStateScanner.doAutoRegistration"
                                         //+"|MobileCellsRegistrationDialogPreference.startRegistration"
                                         +"|MobileCellsRegistrationService"
+                                        +"|NotUsedMobileCellsNotificationDeletedReceiver.onReceive"
+
+                                        +"|PermissionsNotificationDeletedReceiver.onReceive"
 
                                         //+"|[RJS] PhoneProfilesService.registerReceiversAndJobs"
                                         //+"|[RJS] PhoneProfilesService.unregisterReceiversAndJobs"

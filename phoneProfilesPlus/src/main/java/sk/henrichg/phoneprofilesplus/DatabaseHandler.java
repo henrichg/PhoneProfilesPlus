@@ -8307,9 +8307,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     long foundedDbId = 0;
                     String foundedCellName = "";
                     long foundedLastConnectedTime = 0;
-                    String foundedLastRunningEvents = "";
-                    String foundedLastPausedEvents = "";
-                    boolean doNotDetect = false;
+                    //String foundedLastRunningEvents = "";
+                    //String foundedLastPausedEvents = "";
+                    //boolean doNotDetect = false;
                     if (cursor.moveToFirst()) {
                         do {
                             String dbCellId = Integer.toString(cursor.getInt(cursor.getColumnIndex(KEY_MC_CELL_ID)));
@@ -8317,9 +8317,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 foundedDbId = cursor.getLong(cursor.getColumnIndex(KEY_MC_ID));
                                 foundedCellName = cursor.getString(cursor.getColumnIndex(KEY_MC_NAME));
                                 foundedLastConnectedTime = cursor.getLong(cursor.getColumnIndex(KEY_MC_LAST_CONNECTED_TIME));
-                                foundedLastRunningEvents = cursor.getString(cursor.getColumnIndex(KEY_MC_LAST_RUNNING_EVENTS));
-                                foundedLastPausedEvents = cursor.getString(cursor.getColumnIndex(KEY_MC_LAST_PAUSED_EVENTS));
-                                doNotDetect = cursor.getInt(cursor.getColumnIndex(KEY_MC_DO_NOT_DETECT)) == 1;
+                                //foundedLastRunningEvents = cursor.getString(cursor.getColumnIndex(KEY_MC_LAST_RUNNING_EVENTS));
+                                //foundedLastPausedEvents = cursor.getString(cursor.getColumnIndex(KEY_MC_LAST_PAUSED_EVENTS));
+                                //doNotDetect = cursor.getInt(cursor.getColumnIndex(KEY_MC_DO_NOT_DETECT)) == 1;
                                 found = true;
                                 break;
                             }
@@ -8349,9 +8349,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             mobileCell._lastConnectedTime = cell.lastConnectedTime;
                         else
                             mobileCell._lastConnectedTime = foundedLastConnectedTime;
-                        mobileCell._lastRunningEvents = foundedLastRunningEvents;
-                        mobileCell._lastPausedEvents = foundedLastPausedEvents;
-                        mobileCell._doNotDetect = doNotDetect;
+                        mobileCell._lastRunningEvents = cell.lastRunningEvents;
+                        mobileCell._lastPausedEvents = cell.lastPausedEvents;
+                        mobileCell._doNotDetect = cell.doNotDetect;
                         updateMobileCell(mobileCell);
                     }
                 }

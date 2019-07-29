@@ -506,6 +506,7 @@
 
 
         <!-- pending intents -->
+        <!--
         <receiver
             android:name=".PermissionsNotificationDeletedReceiver"
             android:enabled="true"
@@ -530,6 +531,7 @@
                 <action android:name="sk.henrichg.phoneprofilesplus.NEW_MOBILE_CELLS_NOTIFICATION_DELETED"/>
             </intent-filter>
         </receiver>
+        -->
 
         <!--
         <receiver

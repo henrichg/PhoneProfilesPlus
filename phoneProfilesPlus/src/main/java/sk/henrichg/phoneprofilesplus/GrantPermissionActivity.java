@@ -80,7 +80,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
     private static final String EXTRA_WITH_RATIONALE = PPApplication.PACKAGE_NAME + ".EXTRA_WITH_RATIONALE";
 
-    private static final String NOTIFICATION_DELETED_ACTION = PPApplication.PACKAGE_NAME + ".PERMISSIONS_NOTIFICATION_DELETED";
+    static final String NOTIFICATION_DELETED_ACTION = PPApplication.PACKAGE_NAME + ".PERMISSIONS_NOTIFICATION_DELETED";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -797,7 +797,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         .setAutoCancel(true); // clear notification after click
                 mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
                 Intent deleteIntent = new Intent(NOTIFICATION_DELETED_ACTION);
-                PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, grantType, deleteIntent, 0);
+                PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, grantType, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setDeleteIntent(deletePendingIntent);
 
                 if (event != null) {
@@ -829,7 +829,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         .setAutoCancel(true); // clear notification after click
                 mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
                 Intent deleteIntent = new Intent(NOTIFICATION_DELETED_ACTION);
-                PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, grantType, deleteIntent, 0);
+                PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, grantType, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setDeleteIntent(deletePendingIntent);
 
                 //intent.putExtra(Permissions.EXTRA_FOR_GUI, forGUI);

@@ -39,15 +39,16 @@ public class NotUsedMobileCellsNotificationDeletedReceiver extends BroadcastRece
 
                             PPApplication.logE("PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsNotificationDeletedReceiver.onReceive");
 
+                            PPApplication.logE("NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "mobileCellId="+mobileCellId);
+
                             DatabaseHandler db = DatabaseHandler.getInstance(appContext);
 
                             List<MobileCellsData> localCellsList = new ArrayList<>();
                             db.addMobileCellsToList(localCellsList, mobileCellId);
                             if (!localCellsList.isEmpty()) {
+                                PPApplication.logE("NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "save mobile cell");
                                 MobileCellsData cell = localCellsList.get(0);
-                                                                localCellsList.add(new MobileCellsData(mobileCellId, cell.name,
-                                        true, cell._new, cell.lastConnectedTime, cell.lastRunningEvents, cell.lastPausedEvents,
-                                        true)); // dn not detect again
+                                cell.doNotDetect = true;
                                 db.saveMobileCellsList(localCellsList, true, false);
                             }
 
