@@ -51,8 +51,6 @@ class PhoneStateScanner extends PhoneStateListener {
     static String cellsNameForAutoRegistration = "";
     static private final List<Long> autoRegistrationEventList = Collections.synchronizedList(new ArrayList<Long>());
 
-    static private int mobileCellsNotificationId = 5000000;
-
     private static final String NEW_MOBILE_CELLS_NOTIFICATION_DELETED_ACTION = PPApplication.PACKAGE_NAME + ".NEW_MOBILE_CELLS_NOTIFICATION_DELETED";
 
     //private static final String PREF_SHOW_ENABLE_LOCATION_NOTIFICATION_PHONE_STATE = "show_enable_location_notification_phone_state";
@@ -667,7 +665,7 @@ class PhoneStateScanner extends PhoneStateListener {
 
                         List<MobileCellsData> localCellsList = new ArrayList<>();
                         localCellsList.add(new MobileCellsData(registeredCell, cellsNameForAutoRegistration, true, false,
-                                Calendar.getInstance().getTimeInMillis(), lastRunningEventsNotOutside, lastPausedEventsOutside));
+                                Calendar.getInstance().getTimeInMillis(), lastRunningEventsNotOutside, lastPausedEventsOutside, false));
                         db.saveMobileCellsList(localCellsList, true, true);
 
                         synchronized (autoRegistrationEventList) {
@@ -716,7 +714,7 @@ class PhoneStateScanner extends PhoneStateListener {
 
                             List<MobileCellsData> localCellsList = new ArrayList<>();
                             localCellsList.add(new MobileCellsData(registeredCell, "", true, false,
-                                    Calendar.getInstance().getTimeInMillis(), lastRunningEventsNotOutside, lastPausedEventsOutside));
+                                    Calendar.getInstance().getTimeInMillis(), lastRunningEventsNotOutside, lastPausedEventsOutside, false));
                             db.saveMobileCellsList(localCellsList, true, false);
                             showRunningNotification = true;
                         }
@@ -727,42 +725,45 @@ class PhoneStateScanner extends PhoneStateListener {
 
                             // it is not new cell
                             // test if registered cell is configured in running events
-                            boolean found = false;
-                            for (long eventId : runningEventList) {
-                                Event event = db.getEvent(eventId);
-                                if (event != null) {
-                                    if (event._eventPreferencesMobileCells._enabled) {
-                                        String configuredCells = event._eventPreferencesMobileCells._cells;
-                                        PPApplication.logE("PhoneStateScanner.doAutoRegistration", "configuredCells="+configuredCells);
-                                        PPApplication.logE("PhoneStateScanner.doAutoRegistration", "registeredCell="+registeredCell);
-                                        if (configuredCells.contains("|" + registeredCell + "|")) {
-                                            // cell is between others
+
+                            List<MobileCellsData> _cellsList = new ArrayList<>();
+                            db.addMobileCellsToList(_cellsList, registeredCell);
+                            if ((!_cellsList.isEmpty()) && (!_cellsList.get(0).doNotDetect)) {
+                                boolean found = false;
+                                for (long eventId : runningEventList) {
+                                    Event event = db.getEvent(eventId);
+                                    if (event != null) {
+                                        if (event._eventPreferencesMobileCells._enabled) {
+                                            String configuredCells = event._eventPreferencesMobileCells._cells;
+                                            PPApplication.logE("PhoneStateScanner.doAutoRegistration", "configuredCells=" + configuredCells);
+                                            PPApplication.logE("PhoneStateScanner.doAutoRegistration", "registeredCell=" + registeredCell);
+                                            if (configuredCells.contains("|" + registeredCell + "|")) {
+                                                // cell is between others
+                                                found = true;
+                                                break;
+                                            }
+                                            if (configuredCells.startsWith(registeredCell + "|")) {
+                                                // cell is at start of others
+                                                found = true;
+                                                break;
+                                            }
+                                            if (configuredCells.endsWith("|" + registeredCell)) {
+                                                // cell is at end of others
+                                                found = true;
+                                                break;
+                                            }
+                                            if (configuredCells.equals(String.valueOf(registeredCell))) {
+                                                // only this cell is configured
+                                                found = true;
+                                                break;
+                                            }
+                                        } else
                                             found = true;
-                                            break;
-                                        }
-                                        if (configuredCells.startsWith(registeredCell + "|")) {
-                                            // cell is at start of others
-                                            found = true;
-                                            break;
-                                        }
-                                        if (configuredCells.endsWith("|" + registeredCell)) {
-                                            // cell is at end of others
-                                            found = true;
-                                            break;
-                                        }
-                                        if (configuredCells.equals(String.valueOf(registeredCell))) {
-                                            // only this cell is configured
-                                            found = true;
-                                            break;
-                                        }
-                                    }
-                                    else
+                                    } else
                                         found = true;
                                 }
-                                else
-                                    found = true;
+                                showRunningNotification = !found;
                             }
-                            showRunningNotification = !found;
                         }
                     }
                 }
@@ -778,7 +779,7 @@ class PhoneStateScanner extends PhoneStateListener {
 
                             List<MobileCellsData> localCellsList = new ArrayList<>();
                             localCellsList.add(new MobileCellsData(registeredCell, "", true, false,
-                                    Calendar.getInstance().getTimeInMillis(), lastRunningEventsNotOutside, lastPausedEventsOutside));
+                                    Calendar.getInstance().getTimeInMillis(), lastRunningEventsNotOutside, lastPausedEventsOutside, false));
                             db.saveMobileCellsList(localCellsList, true, false);
                             showPausedNotification = true;
                         }
@@ -789,42 +790,45 @@ class PhoneStateScanner extends PhoneStateListener {
 
                             // it is not new cell
                             // test if registered cell is configured in running events
-                            boolean found = false;
-                            for (long eventId : pausedEventList) {
-                                Event event = db.getEvent(eventId);
-                                if (event != null) {
-                                    if (event._eventPreferencesMobileCells._enabled) {
-                                        String configuredCells = event._eventPreferencesMobileCells._cells;
-                                        PPApplication.logE("PhoneStateScanner.doAutoRegistration", "configuredCells="+configuredCells);
-                                        PPApplication.logE("PhoneStateScanner.doAutoRegistration", "registeredCell="+registeredCell);
-                                        if (configuredCells.contains("|" + registeredCell + "|")) {
-                                            // cell is between others
+
+                            List<MobileCellsData> _cellsList = new ArrayList<>();
+                            db.addMobileCellsToList(_cellsList, registeredCell);
+                            if ((!_cellsList.isEmpty()) && (!_cellsList.get(0).doNotDetect)) {
+                                boolean found = false;
+                                for (long eventId : pausedEventList) {
+                                    Event event = db.getEvent(eventId);
+                                    if (event != null) {
+                                        if (event._eventPreferencesMobileCells._enabled) {
+                                            String configuredCells = event._eventPreferencesMobileCells._cells;
+                                            PPApplication.logE("PhoneStateScanner.doAutoRegistration", "configuredCells=" + configuredCells);
+                                            PPApplication.logE("PhoneStateScanner.doAutoRegistration", "registeredCell=" + registeredCell);
+                                            if (configuredCells.contains("|" + registeredCell + "|")) {
+                                                // cell is between others
+                                                found = true;
+                                                break;
+                                            }
+                                            if (configuredCells.startsWith(registeredCell + "|")) {
+                                                // cell is at start of others
+                                                found = true;
+                                                break;
+                                            }
+                                            if (configuredCells.endsWith("|" + registeredCell)) {
+                                                // cell is at end of others
+                                                found = true;
+                                                break;
+                                            }
+                                            if (configuredCells.equals(String.valueOf(registeredCell))) {
+                                                // only this cell is configured
+                                                found = true;
+                                                break;
+                                            }
+                                        } else
                                             found = true;
-                                            break;
-                                        }
-                                        if (configuredCells.startsWith(registeredCell + "|")) {
-                                            // cell is at start of others
-                                            found = true;
-                                            break;
-                                        }
-                                        if (configuredCells.endsWith("|" + registeredCell)) {
-                                            // cell is at end of others
-                                            found = true;
-                                            break;
-                                        }
-                                        if (configuredCells.equals(String.valueOf(registeredCell))) {
-                                            // only this cell is configured
-                                            found = true;
-                                            break;
-                                        }
-                                    }
-                                    else
+                                    } else
                                         found = true;
                                 }
-                                else
-                                    found = true;
+                                showPausedNotification = !found;
                             }
-                            showPausedNotification = !found;
                         }
                     }
                 }
@@ -867,8 +871,7 @@ class PhoneStateScanner extends PhoneStateListener {
 
                     NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                     if (mNotificationManager != null)
-                        mNotificationManager.notify(mobileCellsNotificationId++, mBuilder.build());
-
+                        mNotificationManager.notify(registeredCell + 5000000, mBuilder.build());
                 }
             }
 

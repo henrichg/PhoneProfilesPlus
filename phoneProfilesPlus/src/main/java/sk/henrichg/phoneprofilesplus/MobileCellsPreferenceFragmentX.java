@@ -414,7 +414,8 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                                     _cellName, true, true,
                                     PhoneStateScanner.lastConnectedTime,
                                     PhoneStateScanner.lastRunningEventsNotOutside,
-                                    PhoneStateScanner.lastPausedEventsOutside);
+                                    PhoneStateScanner.lastPausedEventsOutside,
+                                    false);
                             _cellsList.add(preference.registeredCellData);
                         }
                         if (!preference.registeredCellInTable) {
@@ -444,7 +445,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                         if (!found) {
                             try {
                                 int iCell = Integer.parseInt(cell);
-                                _cellsList.add(new MobileCellsData(iCell, _cellName, false, false, 0, "", ""));
+                                _cellsList.add(new MobileCellsData(iCell, _cellName, false, false, 0, "", "", false));
                                 PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add cells from preference value - not found - add it to list");
                             } catch (Exception ignored) {
                             }

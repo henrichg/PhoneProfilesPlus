@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static android.content.Context.POWER_SERVICE;
 
 // Delete button (X) or "clear all" in notification
@@ -20,8 +23,6 @@ public class NotUsedMobileCellsNotificationDeletedReceiver extends BroadcastRece
         if (intent != null) {
             final int mobileCellId = intent.getIntExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_CELL_ID, 0);
             if (mobileCellId != 0) {
-                // delete cell from database
-
                 final Context appContext = context.getApplicationContext();
                 PPApplication.startHandlerThread("NotUsedMobileCellsNotificationDeletedReceiver.onReceive");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -39,7 +40,16 @@ public class NotUsedMobileCellsNotificationDeletedReceiver extends BroadcastRece
                             PPApplication.logE("PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsNotificationDeletedReceiver.onReceive");
 
                             DatabaseHandler db = DatabaseHandler.getInstance(appContext);
-                            db.deleteMobileCell(mobileCellId);
+
+                            List<MobileCellsData> localCellsList = new ArrayList<>();
+                            db.addMobileCellsToList(localCellsList, mobileCellId);
+                            if (!localCellsList.isEmpty()) {
+                                MobileCellsData cell = localCellsList.get(0);
+                                                                localCellsList.add(new MobileCellsData(mobileCellId, cell.name,
+                                        true, cell._new, cell.lastConnectedTime, cell.lastRunningEvents, cell.lastPausedEvents,
+                                        true)); // dn not detect again
+                                db.saveMobileCellsList(localCellsList, true, false);
+                            }
 
                             PPApplication.logE("PPApplication.startHandlerThread", "END run - from=NotUsedMobileCellsNotificationDeletedReceiver.onReceive");
                         } finally {

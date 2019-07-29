@@ -105,7 +105,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
 
                             List<MobileCellsData> localCellsList = new ArrayList<>();
                             localCellsList.add(new MobileCellsData(_mobileCellId, _cellName,
-                                    true, false, _lastConnectedTime, _lastRunningEvents, _lastPausedEvents));
+                                    true, false, _lastConnectedTime, _lastRunningEvents, _lastPausedEvents, false));
                             db.saveMobileCellsList(localCellsList, true, true);
 
                             String[] eventIds = _lastRunningEvents.split("\\|");
@@ -177,6 +177,48 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
         dialogBuilder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                final int _mobileCellId = mobileCellId;
+                final long _lastConnectedTime = lastConnectedTime;
+                final String _lastRunningEvents = lastRunningEvents;
+                final String _lastPausedEvents = lastPausedEvents;
+                final String _cellName = cellNameTextView.getText().toString();
+
+                final Context appContext = getApplicationContext();
+                PPApplication.startHandlerThread("NotUsedMobileCellsDetectedActivity.onClick");
+                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":NotUsedMobileCellsDetectedActivity_onClick");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
+
+                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsDetectedActivity.onClick");
+
+                            DatabaseHandler db = DatabaseHandler.getInstance(appContext);
+
+                            List<MobileCellsData> localCellsList = new ArrayList<>();
+                            localCellsList.add(new MobileCellsData(_mobileCellId, _cellName,
+                                    true, false, _lastConnectedTime, _lastRunningEvents, _lastPausedEvents,
+                                    true)); // do not detect again
+                            db.saveMobileCellsList(localCellsList, true, true);
+
+                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=NotUsedMobileCellsDetectedActivity.onClick");
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
+                        }
+                    }
+                });
+
                 NotUsedMobileCellsDetectedActivity.this.finish();
             }
         });

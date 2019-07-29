@@ -9,12 +9,13 @@ class MobileCellsData {
     final long lastConnectedTime;
     final String lastRunningEvents;
     final String lastPausedEvents;
+    boolean doNotDetect;
 
     //MobileCellsData() {
     //}
 
     MobileCellsData(int cellId, String name, boolean connected, boolean _new, long lastConnectedTime,
-                    String lastRunningEvents, String lastPausedEvents)
+                    String lastRunningEvents, String lastPausedEvents, boolean doNotDetect)
     {
         this.cellId = cellId;
         this.name = name;
@@ -23,6 +24,7 @@ class MobileCellsData {
         this.lastConnectedTime = lastConnectedTime;
         this.lastRunningEvents = lastRunningEvents;
         this.lastPausedEvents = lastPausedEvents;
+        this.doNotDetect = doNotDetect;
     }
 
 }
