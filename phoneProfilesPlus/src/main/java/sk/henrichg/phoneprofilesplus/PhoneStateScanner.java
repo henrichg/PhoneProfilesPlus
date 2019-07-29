@@ -1,8 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -27,8 +25,6 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import static android.content.Context.POWER_SERVICE;
@@ -51,7 +47,7 @@ class PhoneStateScanner extends PhoneStateListener {
     static String cellsNameForAutoRegistration = "";
     static private final List<Long> autoRegistrationEventList = Collections.synchronizedList(new ArrayList<Long>());
 
-    static final String NEW_MOBILE_CELLS_NOTIFICATION_DELETED_ACTION = PPApplication.PACKAGE_NAME + ".NEW_MOBILE_CELLS_NOTIFICATION_DELETED";
+    //static final String NEW_MOBILE_CELLS_NOTIFICATION_DELETED_ACTION = PPApplication.PACKAGE_NAME + ".NEW_MOBILE_CELLS_NOTIFICATION_DELETED";
 
     //private static final String PREF_SHOW_ENABLE_LOCATION_NOTIFICATION_PHONE_STATE = "show_enable_location_notification_phone_state";
 
@@ -610,7 +606,6 @@ class PhoneStateScanner extends PhoneStateListener {
         */
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     private void doAutoRegistration(final int _registeredCell) {
         if (!PPApplication.getApplicationStarted(context, true))
             // application is not started

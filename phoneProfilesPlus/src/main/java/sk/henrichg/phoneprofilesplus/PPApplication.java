@@ -459,7 +459,7 @@ public class PPApplication extends Application {
     static final String EXCLAMATION_NOTIFICATION_CHANNEL = "phoneProfilesPlus_exclamation";
     static final String GRANT_PERMISSION_NOTIFICATION_CHANNEL = "phoneProfilesPlus_grant_permission";
     static final String NOTIFY_EVENT_START_NOTIFICATION_CHANNEL = "phoneProfilesPlus_repeat_notify_event_start";
-    static final String NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL = "phoneProfilesPlus_new_mobile_cell";
+    //static final String NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL = "phoneProfilesPlus_new_mobile_cell";
 
     static final int PROFILE_NOTIFICATION_ID = 700420;
     static final int IMPORTANT_INFO_NOTIFICATION_ID = 700422;
@@ -1384,6 +1384,7 @@ public class PPApplication extends Application {
         }
     }
 
+    /*
     static void createMobileCellsNewCellNotificationChannel(Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
             // The user-visible name of the channel.
@@ -1408,6 +1409,7 @@ public class PPApplication extends Application {
                 notificationManager.createNotificationChannel(channel);
         }
     }
+    */
 
     static void createNotificationChannels(Context appContext) {
         PPApplication.createProfileNotificationChannel(appContext);
@@ -1416,7 +1418,7 @@ public class PPApplication extends Application {
         PPApplication.createExclamationNotificationChannel(appContext);
         PPApplication.createGrantPermissionNotificationChannel(appContext);
         PPApplication.createNotifyEventStartNotificationChannel(appContext);
-        PPApplication.createMobileCellsNewCellNotificationChannel(appContext);
+        //PPApplication.createMobileCellsNewCellNotificationChannel(appContext);
     }
 
     static void showProfileNotification(/*Context context*/boolean refresh) {
