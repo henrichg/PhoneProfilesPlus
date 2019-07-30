@@ -122,7 +122,6 @@
     <orderEntry type="library" name="Gradle: androidx.documentfile:documentfile:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.localbroadcastmanager:localbroadcastmanager:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.fragment:fragment:1.1.0-rc01@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.android.material:material:1.1.0-alpha07@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.work:work-runtime:2.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: __local_aars__:/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/libs/slook_v1.4.0.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.cardview:cardview:1.0.0@aar" level="project" />
@@ -171,9 +170,11 @@
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-runtime:2.1.0-rc01@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.KeepSafe:TapTargetView:master-SNAPSHOT@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.core:core:1.1.0-rc02@aar" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.coordinatorlayout:coordinatorlayout:1.1.0-beta01@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.crashlytics.sdk.android:answers:1.4.7@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.legacy:legacy-support-core-utils:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.print:print:1.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.android.material:material:1.1.0-alpha09@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-location:17.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.preference:preference:1.1.0-rc01@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.billingclient:billing:2.0.2@aar" level="project" />
@@ -187,7 +188,6 @@
     <orderEntry type="library" name="Gradle: androidx.viewpager2:viewpager2:1.0.0-beta02@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-places-placereport:17.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.simplecityapps:recyclerview-fastscroll:2.0.0@aar" level="project" />
-    <orderEntry type="library" name="Gradle: androidx.coordinatorlayout:coordinatorlayout:1.1.0-alpha01@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.evernote:android-job:1.3.0-rc1@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.constraintlayout:constraintlayout-solver:2.0.0-beta2@jar" level="project" />
     <orderEntry type="module" module-name="RootTools" />
