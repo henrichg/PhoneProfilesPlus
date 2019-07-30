@@ -1029,13 +1029,13 @@ class GlobalGUIRoutines {
         if (ApplicationPreferences.applicationTheme(activity, true).equals("white")) {
             timeDurationPicker.setDisplayTextAppearance(R.style.TextAppearance_TimeDurationPicker_Display);
             timeDurationPicker.setUnitTextAppearance(R.style.TextAppearance_TimeDurationPicker_Unit);
-            timeDurationPicker.setBackspaceIcon(activity.getResources().getDrawable(R.drawable.ic_backspace_light_tdp));
+            timeDurationPicker.setBackspaceIcon(activity.getResources().getDrawable(R.drawable.ic_backspace_light_bp));
             timeDurationPicker.setClearIcon(activity.getResources().getDrawable(R.drawable.ic_clear_light_tdp));
         }
         else {
             timeDurationPicker.setDisplayTextAppearance(R.style.TextAppearance_TimeDurationPicker_Display_Dark);
             timeDurationPicker.setUnitTextAppearance(R.style.TextAppearance_TimeDurationPicker_Unit_Dark);
-            timeDurationPicker.setBackspaceIcon(activity.getResources().getDrawable(R.drawable.ic_backspace_tdp));
+            timeDurationPicker.setBackspaceIcon(activity.getResources().getDrawable(R.drawable.ic_backspace_bp));
             timeDurationPicker.setClearIcon(activity.getResources().getDrawable(R.drawable.ic_clear_tdp));
         }
         timeDurationPicker.setDurationDisplayBackgroundColor(getThemeEditorFilterBackgroundColor(activity));
