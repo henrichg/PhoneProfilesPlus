@@ -330,7 +330,14 @@ class ProfilePreferencesIndicator {
             // auto-rotate
             if (profile._deviceAutoRotate != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AUTOROTATE, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    drawables[countDrawables++] = R.drawable.ic_profile_pref_autorotate;
+                    if (profile._deviceAutoRotate == 6) {
+                        if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_autorotate_off_mono;
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_autorotate_off;
+                    }
+                    else
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_autorotate;
             }
             // notification led
             if (profile._notificationLed != 0) {

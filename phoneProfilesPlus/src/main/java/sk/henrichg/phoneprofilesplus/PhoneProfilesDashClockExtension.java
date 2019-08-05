@@ -328,7 +328,10 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
             // auto-rotation
             if (profile._deviceAutoRotate != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AUTOROTATE, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    indicator1 = addIntoIndicator(indicator1, "rot");
+                    if (profile._deviceAutoRotate == 6)
+                        indicator1 = addIntoIndicator(indicator1, "rt0");
+                    else
+                        indicator1 = addIntoIndicator(indicator1, "rt1");
             }
             // notification led
             if (profile._notificationLed != 0) {
