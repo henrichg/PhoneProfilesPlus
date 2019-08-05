@@ -172,7 +172,7 @@ public class PPApplication extends Application {
                                          //+"|DataWrapper.activateProfileFromMainThread"
                                          //+"|ActivateProfileHelper.execute"
                                          //+"|Profile.convertPercentsToBrightnessManualValue"
-                                         //+"|SettingsContentObserver.onChange"
+                                         +"|SettingsContentObserver"
 
                                          //+"|$$$ DataWrapper._activateProfile"
                                          //+"|ProfileDurationAlarmBroadcastReceiver.onReceive"
@@ -188,7 +188,7 @@ public class PPApplication extends Application {
                                          //+"|ActivateProfileHelper.executeForVolumes"
                                          //+"|ActivateProfileHelper.setZenMode"
                                          //+"|ActivateProfileHelper.setRingerMode"
-                                         //+"|ActivateProfileHelper.setVolumes"
+                                         +"|ActivateProfileHelper.setVolumes"
                                          //+"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
                                          //+"|ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0"
                                          //+"|ActivateProfileHelper.isAudibleSystemRingerMode"

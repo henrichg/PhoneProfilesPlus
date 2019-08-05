@@ -47,9 +47,9 @@ class SettingsContentObserver  extends ContentObserver {
     private int volumeChangeDetect(int volumeStream, int previousVolume, AudioManager audioManager) {
 
         int currentVolume = audioManager.getStreamVolume(volumeStream);
-        PPApplication.logE("### SettingsContentObserver", "channel=" + volumeStream + " currentVolume=" + currentVolume);
-        PPApplication.logE("### SettingsContentObserver", "channel=" + volumeStream + " previousVolume=" + previousVolume);
-        PPApplication.logE("### SettingsContentObserver", "internalChange="+RingerModeChangeReceiver.internalChange);
+        PPApplication.logE("SettingsContentObserver.volumeChangeDetect", "channel=" + volumeStream + " currentVolume=" + currentVolume);
+        PPApplication.logE("SettingsContentObserver.volumeChangeDetect", "channel=" + volumeStream + " previousVolume=" + previousVolume);
+        PPApplication.logE("SettingsContentObserver.volumeChangeDetect", "internalChange="+RingerModeChangeReceiver.internalChange);
 
         int delta=previousVolume-currentVolume;
 
