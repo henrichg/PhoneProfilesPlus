@@ -265,48 +265,50 @@ public class GrantPermissionActivity extends AppCompatActivity {
         showRequestAccessCoarseLocation = false;
         showRequestAccessFineLocation = false;
 
-        whyPermissionType = new boolean[15][100];
+        if (permissions != null) {
+            whyPermissionType = new boolean[15][100];
 
-        for (Permissions.PermissionType permissionType : permissions) {
-            if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
-                showRequestWriteSettings = Permissions.getShowRequestWriteSettingsPermission(context) || forceGrant;
-                whyPermissionType[0][permissionType.type] = true;
-            }
-            if (permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY)) {
-                showRequestAccessNotificationPolicy = Permissions.getShowRequestAccessNotificationPolicyPermission(context) || forceGrant;
-                whyPermissionType[1][permissionType.type] = true;
-            }
-            if (permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
-                showRequestDrawOverlays = Permissions.getShowRequestDrawOverlaysPermission(context) || forceGrant;
-                whyPermissionType[2][permissionType.type] = true;
-            }
-            if (permissionType.permission.equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                showRequestReadExternalStorage = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
-                whyPermissionType[3][permissionType.type] = true;
-            }
-            if (permissionType.permission.equals(Manifest.permission.READ_PHONE_STATE)) {
-                showRequestReadPhoneState = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
-                whyPermissionType[4][permissionType.type] = true;
-            }
-            if (permissionType.permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                showRequestWriteExternalStorage = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
-                whyPermissionType[6][permissionType.type] = true;
-            }
-            if (permissionType.permission.equals(Manifest.permission.READ_CALENDAR)) {
-                showRequestReadCalendar = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
-                whyPermissionType[7][permissionType.type] = true;
-            }
-            if (permissionType.permission.equals(Manifest.permission.READ_CONTACTS)) {
-                showRequestReadContacts = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
-                whyPermissionType[8][permissionType.type] = true;
-            }
-            if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION)) {
-                showRequestAccessCoarseLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
-                whyPermissionType[12][permissionType.type] = true;
-            }
-            if (permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
-                showRequestAccessFineLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
-                whyPermissionType[13][permissionType.type] = true;
+            for (Permissions.PermissionType permissionType : permissions) {
+                if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
+                    showRequestWriteSettings = Permissions.getShowRequestWriteSettingsPermission(context) || forceGrant;
+                    whyPermissionType[0][permissionType.type] = true;
+                }
+                if (permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY)) {
+                    showRequestAccessNotificationPolicy = Permissions.getShowRequestAccessNotificationPolicyPermission(context) || forceGrant;
+                    whyPermissionType[1][permissionType.type] = true;
+                }
+                if (permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
+                    showRequestDrawOverlays = Permissions.getShowRequestDrawOverlaysPermission(context) || forceGrant;
+                    whyPermissionType[2][permissionType.type] = true;
+                }
+                if (permissionType.permission.equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                    showRequestReadExternalStorage = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
+                    whyPermissionType[3][permissionType.type] = true;
+                }
+                if (permissionType.permission.equals(Manifest.permission.READ_PHONE_STATE)) {
+                    showRequestReadPhoneState = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
+                    whyPermissionType[4][permissionType.type] = true;
+                }
+                if (permissionType.permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    showRequestWriteExternalStorage = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
+                    whyPermissionType[6][permissionType.type] = true;
+                }
+                if (permissionType.permission.equals(Manifest.permission.READ_CALENDAR)) {
+                    showRequestReadCalendar = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
+                    whyPermissionType[7][permissionType.type] = true;
+                }
+                if (permissionType.permission.equals(Manifest.permission.READ_CONTACTS)) {
+                    showRequestReadContacts = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
+                    whyPermissionType[8][permissionType.type] = true;
+                }
+                if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                    showRequestAccessCoarseLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
+                    whyPermissionType[12][permissionType.type] = true;
+                }
+                if (permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    showRequestAccessFineLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
+                    whyPermissionType[13][permissionType.type] = true;
+                }
             }
         }
 
