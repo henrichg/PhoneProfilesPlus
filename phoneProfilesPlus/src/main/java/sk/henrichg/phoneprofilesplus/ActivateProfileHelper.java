@@ -756,7 +756,8 @@ class ActivateProfileHelper {
                                 audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION /* 5 */, volume, 0);
                                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
                                 //correctVolume0(audioManager);
-                                setNotificationVolume(context, volume);
+                                if (!profile.getVolumeNotificationChange())
+                                    setNotificationVolume(context, volume);
                             } catch (Exception ignored) { }
                         }
                         volumesSet = true;
@@ -771,7 +772,8 @@ class ActivateProfileHelper {
                                 if (PhoneProfilesService.getInstance() != null)
                                     PhoneProfilesService.getInstance().ringingVolume = volume;
                                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
-                                setNotificationVolume(context, volume);
+                                if (!profile.getVolumeNotificationChange())
+                                    setNotificationVolume(context, volume);
                             } catch (Exception ignored) { }
                         }
                         volume = getNotificationVolume(context);
@@ -795,7 +797,8 @@ class ActivateProfileHelper {
                                     PhoneProfilesService.getInstance().ringingVolume = volume;
                                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, volume);
                                 //correctVolume0(audioManager);
-                                setNotificationVolume(context, volume);
+                                if (!profile.getVolumeNotificationChange())
+                                    setNotificationVolume(context, volume);
                             } catch (Exception ignored) { }
                         }
                         volume = getNotificationVolume(context);
