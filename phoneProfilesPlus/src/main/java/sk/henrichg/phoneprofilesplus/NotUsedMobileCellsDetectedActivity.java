@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -246,7 +247,8 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
         cellNameTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mMobileCellNamesDialog.show();
+                    if (!NotUsedMobileCellsDetectedActivity.this.isFinishing())
+                        mMobileCellNamesDialog.show();
                 }
             }
         );

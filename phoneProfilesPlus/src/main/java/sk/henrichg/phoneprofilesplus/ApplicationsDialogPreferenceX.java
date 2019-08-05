@@ -581,8 +581,10 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
     }
 
     void startEditor(Application application) {
-        mEditorDialog = new ApplicationEditorDialogX((Activity)context, this, application);
-        mEditorDialog.show();
+        if (!((Activity)context).isFinishing()) {
+            mEditorDialog = new ApplicationEditorDialogX((Activity) context, this, application);
+            mEditorDialog.show();
+        }
     }
 
     void updateGUI() {

@@ -197,7 +197,8 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
         mCellsName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mMobileCellNamesDialog.show();
+                    if (!((Activity)prefContext).isFinishing())
+                        mMobileCellNamesDialog.show();
                 }
             }
         );

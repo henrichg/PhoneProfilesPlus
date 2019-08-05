@@ -146,29 +146,31 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
         changeSelectionIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mSelectorDialog = new AlertDialog.Builder(prefContext)
-                        .setTitle(R.string.pref_dlg_change_selection_title)
-                        .setCancelable(true)
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .setItems(R.array.wifiSSIDChangeSelectionArray, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                switch (which) {
-                                    case 0:
-                                        preference.value = "";
-                                        break;
-                                    case 1:
-                                        for (WifiSSIDData ssid : preference.SSIDList) {
-                                            if (ssid.ssid.equals(SSIDName.getText().toString()))
-                                                preference.addSSID(ssid.ssid);
-                                        }
-                                        break;
-                                    default:
+                if (!((Activity)prefContext).isFinishing()) {
+                    mSelectorDialog = new AlertDialog.Builder(prefContext)
+                            .setTitle(R.string.pref_dlg_change_selection_title)
+                            .setCancelable(true)
+                            .setNegativeButton(android.R.string.cancel, null)
+                            .setItems(R.array.wifiSSIDChangeSelectionArray, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    switch (which) {
+                                        case 0:
+                                            preference.value = "";
+                                            break;
+                                        case 1:
+                                            for (WifiSSIDData ssid : preference.SSIDList) {
+                                                if (ssid.ssid.equals(SSIDName.getText().toString()))
+                                                    preference.addSSID(ssid.ssid);
+                                            }
+                                            break;
+                                        default:
+                                    }
+                                    refreshListView(false, "");
                                 }
-                                refreshListView(false, "");
-                            }
-                        })
-                        .show();
+                            })
+                            .show();
+                }
             }
         });
 

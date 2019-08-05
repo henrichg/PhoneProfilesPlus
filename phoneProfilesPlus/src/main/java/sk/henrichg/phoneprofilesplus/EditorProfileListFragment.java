@@ -283,8 +283,10 @@ public class EditorProfileListFragment extends Fragment
                 switch (item.getItemId()) {
                     case R.id.menu_add_profile:
                         if (profileListAdapter != null) {
-                            ((EditorProfilesActivity) activity).addProfileDialog = new AddProfileDialog(activity, fragment);
-                            ((EditorProfilesActivity) activity).addProfileDialog.show();
+                            if (!activity.isFinishing()) {
+                                ((EditorProfilesActivity) activity).addProfileDialog = new AddProfileDialog(activity, fragment);
+                                ((EditorProfilesActivity) activity).addProfileDialog.show();
+                            }
                         }
                         return true;
                     case R.id.menu_delete_all_profiles:

@@ -130,7 +130,8 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         cellFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMobileCellsFilterDialog.show();
+                if (!((Activity)prefContext).isFinishing())
+                    mMobileCellsFilterDialog.show();
             }
         });
 
@@ -138,7 +139,8 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         cellName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMobileCellNamesDialog.show();
+                if (!((Activity)prefContext).isFinishing())
+                    mMobileCellNamesDialog.show();
             }
         });
 
@@ -146,66 +148,70 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         editIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mRenameDialog = new AlertDialog.Builder(prefContext)
-                        .setTitle(R.string.mobile_cells_pref_dlg_cell_rename_title)
-                        .setCancelable(true)
-                        .setNegativeButton(android.R.string.cancel, null)
-                        //.setSingleChoiceItems(R.array.mobileCellsRenameArray, 0, new DialogInterface.OnClickListener() {
-                        .setItems(R.array.mobileCellsRenameArray, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                final DatabaseHandler db = DatabaseHandler.getInstance(prefContext);
-                                switch (which) {
-                                    case 0:
-                                    case 1:
-                                        db.renameMobileCellsList(preference.filteredCellsList, cellName.getText().toString(), which == 0, preference.value);
-                                        break;
-                                    case 2:
-                                        db.renameMobileCellsList(preference.filteredCellsList, cellName.getText().toString(), false, null);
-                                        break;
+                if (!((Activity)prefContext).isFinishing()) {
+                    mRenameDialog = new AlertDialog.Builder(prefContext)
+                            .setTitle(R.string.mobile_cells_pref_dlg_cell_rename_title)
+                            .setCancelable(true)
+                            .setNegativeButton(android.R.string.cancel, null)
+                            //.setSingleChoiceItems(R.array.mobileCellsRenameArray, 0, new DialogInterface.OnClickListener() {
+                            .setItems(R.array.mobileCellsRenameArray, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    final DatabaseHandler db = DatabaseHandler.getInstance(prefContext);
+                                    switch (which) {
+                                        case 0:
+                                        case 1:
+                                            db.renameMobileCellsList(preference.filteredCellsList, cellName.getText().toString(), which == 0, preference.value);
+                                            break;
+                                        case 2:
+                                            db.renameMobileCellsList(preference.filteredCellsList, cellName.getText().toString(), false, null);
+                                            break;
+                                    }
+                                    refreshListView(false, Integer.MAX_VALUE);
+                                    //dialog.dismiss();
                                 }
-                                refreshListView(false, Integer.MAX_VALUE);
-                                //dialog.dismiss();
-                            }
-                        })
-                        .show();
+                            })
+                            .show();
+                }
             }
         });
         AppCompatImageButton changeSelectionIcon = view.findViewById(R.id.mobile_cells_pref_dlg_changeSelection);
         changeSelectionIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mSelectorDialog = new AlertDialog.Builder(prefContext)
-                        .setTitle(R.string.pref_dlg_change_selection_title)
-                        .setCancelable(true)
-                        .setNegativeButton(android.R.string.cancel, null)
-                        //.setSingleChoiceItems(R.array.mobileCellsChangeSelectionArray, 0, new DialogInterface.OnClickListener() {
-                        .setItems(R.array.mobileCellsChangeSelectionArray, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                switch (which) {
-                                    case 0:
-                                        preference.value = "";
-                                        break;
-                                    case 1:
-                                        for (MobileCellsData cell : preference.filteredCellsList) {
-                                            if (cell.name.equals(cellName.getText().toString()))
+                if (!((Activity)prefContext).isFinishing()) {
+                    mSelectorDialog = new AlertDialog.Builder(prefContext)
+                            .setTitle(R.string.pref_dlg_change_selection_title)
+                            .setCancelable(true)
+                            .setNegativeButton(android.R.string.cancel, null)
+                            //.setSingleChoiceItems(R.array.mobileCellsChangeSelectionArray, 0, new DialogInterface.OnClickListener() {
+                            .setItems(R.array.mobileCellsChangeSelectionArray, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    switch (which) {
+                                        case 0:
+                                            preference.value = "";
+                                            break;
+                                        case 1:
+                                            for (MobileCellsData cell : preference.filteredCellsList) {
+                                                if (cell.name.equals(cellName.getText().toString()))
+                                                    preference.addCellId(cell.cellId);
+                                            }
+                                            break;
+                                        case 2:
+                                            preference.value = "";
+                                            for (MobileCellsData cell : preference.filteredCellsList) {
                                                 preference.addCellId(cell.cellId);
-                                        }
-                                        break;
-                                    case 2:
-                                        preference.value = "";
-                                        for (MobileCellsData cell : preference.filteredCellsList) {
-                                            preference.addCellId(cell.cellId);
-                                        }
-                                        break;
-                                    default:
+                                            }
+                                            break;
+                                        default:
+                                    }
+                                    refreshListView(false, Integer.MAX_VALUE);
+                                    //dialog.dismiss();
                                 }
-                                refreshListView(false, Integer.MAX_VALUE);
-                                //dialog.dismiss();
-                            }
-                        })
-                        .show();
+                            })
+                            .show();
+                }
             }
         });
 

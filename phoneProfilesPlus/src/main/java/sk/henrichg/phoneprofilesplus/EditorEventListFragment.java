@@ -348,8 +348,10 @@ public class EditorEventListFragment extends Fragment
                 switch (item.getItemId()) {
                     case R.id.menu_add_event:
                         if (eventListAdapter != null) {
-                            ((EditorProfilesActivity) getActivity()).addEventDialog = new AddEventDialog(getActivity(), fragment);
-                            ((EditorProfilesActivity) getActivity()).addEventDialog.show();
+                            if (!getActivity().isFinishing()) {
+                                ((EditorProfilesActivity) getActivity()).addEventDialog = new AddEventDialog(getActivity(), fragment);
+                                ((EditorProfilesActivity) getActivity()).addEventDialog.show();
+                            }
                         }
                         return true;
                     case R.id.menu_delete_all_events:

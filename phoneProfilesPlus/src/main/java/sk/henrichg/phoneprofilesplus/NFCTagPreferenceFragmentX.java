@@ -160,31 +160,33 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
         changeSelectionIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mSelectorDialog = new AlertDialog.Builder(prefContext)
-                        .setTitle(R.string.pref_dlg_change_selection_title)
-                        .setCancelable(true)
-                        .setNegativeButton(android.R.string.cancel, null)
-                        //.setSingleChoiceItems(R.array.bluetoothNameDChangeSelectionArray, 0, new DialogInterface.OnClickListener() {
-                        .setItems(R.array.nfcTagsChangeSelectionArray, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                switch (which) {
-                                    case 0:
-                                        preference.value = "";
-                                        break;
-                                    case 1:
-                                        for (NFCTag nfcTag : preference.nfcTagList) {
-                                            if (nfcTag._name.equals(nfcTagName.getText().toString()))
-                                                preference.addNfcTag(nfcTag._name);
-                                        }
-                                        break;
-                                    default:
+                if (!((Activity)prefContext).isFinishing()) {
+                    mSelectorDialog = new AlertDialog.Builder(prefContext)
+                            .setTitle(R.string.pref_dlg_change_selection_title)
+                            .setCancelable(true)
+                            .setNegativeButton(android.R.string.cancel, null)
+                            //.setSingleChoiceItems(R.array.bluetoothNameDChangeSelectionArray, 0, new DialogInterface.OnClickListener() {
+                            .setItems(R.array.nfcTagsChangeSelectionArray, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    switch (which) {
+                                        case 0:
+                                            preference.value = "";
+                                            break;
+                                        case 1:
+                                            for (NFCTag nfcTag : preference.nfcTagList) {
+                                                if (nfcTag._name.equals(nfcTagName.getText().toString()))
+                                                    preference.addNfcTag(nfcTag._name);
+                                            }
+                                            break;
+                                        default:
+                                    }
+                                    refreshListView("");
+                                    //dialog.dismiss();
                                 }
-                                refreshListView("");
-                                //dialog.dismiss();
-                            }
-                        })
-                        .show();
+                            })
+                            .show();
+                }
             }
         });
 

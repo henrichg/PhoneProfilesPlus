@@ -153,31 +153,33 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
         changeSelectionIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mSelectorDialog = new AlertDialog.Builder(prefContext)
-                        .setTitle(R.string.pref_dlg_change_selection_title)
-                        .setCancelable(true)
-                        .setNegativeButton(android.R.string.cancel, null)
-                        //.setSingleChoiceItems(R.array.bluetoothNameDChangeSelectionArray, 0, new DialogInterface.OnClickListener() {
-                        .setItems(R.array.bluetoothNameDChangeSelectionArray, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                switch (which) {
-                                    case 0:
-                                        preference.value = "";
-                                        break;
-                                    case 1:
-                                        for (BluetoothDeviceData bluetooth : preference.bluetoothList) {
-                                            if (bluetooth.name.equals(bluetoothName.getText().toString()))
-                                                preference.addBluetoothName(bluetooth.name);
-                                        }
-                                        break;
-                                    default:
+                if (!((Activity)prefContext).isFinishing()) {
+                    mSelectorDialog = new AlertDialog.Builder(prefContext)
+                            .setTitle(R.string.pref_dlg_change_selection_title)
+                            .setCancelable(true)
+                            .setNegativeButton(android.R.string.cancel, null)
+                            //.setSingleChoiceItems(R.array.bluetoothNameDChangeSelectionArray, 0, new DialogInterface.OnClickListener() {
+                            .setItems(R.array.bluetoothNameDChangeSelectionArray, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    switch (which) {
+                                        case 0:
+                                            preference.value = "";
+                                            break;
+                                        case 1:
+                                            for (BluetoothDeviceData bluetooth : preference.bluetoothList) {
+                                                if (bluetooth.name.equals(bluetoothName.getText().toString()))
+                                                    preference.addBluetoothName(bluetooth.name);
+                                            }
+                                            break;
+                                        default:
+                                    }
+                                    refreshListView(false, "");
+                                    //dialog.dismiss();
                                 }
-                                refreshListView(false, "");
-                                //dialog.dismiss();
-                            }
-                        })
-                        .show();
+                            })
+                            .show();
+                }
             }
         });
 
