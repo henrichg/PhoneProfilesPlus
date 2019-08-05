@@ -65,6 +65,7 @@ public class PPApplication extends Application {
     static final boolean romIsMIUI = isMIUI();
     static final boolean romIsEMUI = isEMUI();
     static final boolean romIsSamsung = isSamsung();
+    static final boolean romIsLG = isLG();
 
     static final String PACKAGE_NAME = "sk.henrichg.phoneprofilesplus";
     static final String PACKAGE_NAME_EXTENDER = "sk.henrichg.phoneprofilesplusextender";
@@ -85,6 +86,7 @@ public class PPApplication extends Application {
                                          +"|PPApplication.isMIUI"
                                          +"|PPApplication.isEMUI"
                                          +"|PPApplication.isSamsung"
+                                         +"|PPApplication.isLG"
                                          +"|PPApplication.exitApp"
                                          +"|PPApplication._exitApp"
                                          +"|PhoneProfilesService.onCreate"
@@ -633,6 +635,7 @@ public class PPApplication extends Application {
         PPApplication.logE("##### PPApplication.onCreate", "romIsMIUI="+romIsMIUI);
         PPApplication.logE("##### PPApplication.onCreate", "romIsEMUI="+romIsEMUI);
         PPApplication.logE("##### PPApplication.onCreate", "romIsSamsung="+romIsSamsung);
+        PPApplication.logE("##### PPApplication.onCreate", "romIsLG="+romIsLG);
 
         if (checkAppReplacingState())
             return;
@@ -2142,6 +2145,15 @@ public class PPApplication extends Application {
         return Build.BRAND.equalsIgnoreCase("samsung") ||
                 Build.MANUFACTURER.equalsIgnoreCase("samsung") ||
                 Build.FINGERPRINT.toLowerCase().contains("samsung");
+    }
+
+    private static boolean isLG() {
+        //PPApplication.logE("PPApplication.isLG", "brand="+Build.BRAND);
+        //PPApplication.logE("PPApplication.isLG", "manufacturer="+Build.MANUFACTURER);
+        //PPApplication.logE("PPApplication.isLG", "fingerprint="+Build.FINGERPRINT);
+        return Build.BRAND.equalsIgnoreCase("lge") ||
+                Build.MANUFACTURER.equalsIgnoreCase("lge") ||
+                Build.FINGERPRINT.toLowerCase().contains("lge");
     }
 
     static boolean hasSystemFeature(Context context, String feature) {
