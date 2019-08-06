@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -613,6 +614,17 @@ class PhoneStateScanner extends PhoneStateListener {
         */
     }
 
+    private boolean isNotUsedCellsNotificationEnabled() {
+        if (Build.VERSION.SDK_INT >= 26) {
+            NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationChannel channel = manager.getNotificationChannel(PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL);
+            return channel.getImportance() != NotificationManager.IMPORTANCE_NONE;
+        }
+        else {
+            return ApplicationPreferences.applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled(context);
+        }
+    }
+
     @SuppressWarnings("StringConcatenationInLoop")
     private void doAutoRegistration(final int _registeredCell) {
         if (!PPApplication.getApplicationStarted(context, true))
@@ -636,26 +648,31 @@ class PhoneStateScanner extends PhoneStateListener {
 
             DatabaseHandler db = DatabaseHandler.getInstance(context);
 
-            // get running events with enabled Mobile cells sensor
-            List<Long> runningEventList = new ArrayList<>();
-            db.loadMobileCellsSensorRunningPausedEvents(runningEventList, false);
-            lastRunningEventsNotOutside = "";
-            for (long runningEvent : runningEventList) {
-                if (!lastRunningEventsNotOutside.isEmpty())
-                    lastRunningEventsNotOutside = lastRunningEventsNotOutside + "|";
-                lastRunningEventsNotOutside = lastRunningEventsNotOutside + runningEvent;
-            }
-            PPApplication.logE("PhoneStateScanner.doAutoRegistration", "lastRunningEventsNotOutside="+ lastRunningEventsNotOutside);
+            boolean notUsedMobileCellsNotificationEnabled = isNotUsedCellsNotificationEnabled();
+            PPApplication.logE("PhoneStateScanner.doAutoRegistration", "notUsedMobileCellsNotificationEnabled="+notUsedMobileCellsNotificationEnabled);
 
-            List<Long> pausedEventList = new ArrayList<>();
-            db.loadMobileCellsSensorRunningPausedEvents(pausedEventList, true);
+            lastRunningEventsNotOutside = "";
             lastPausedEventsOutside = "";
-            for (long runningEvent : pausedEventList) {
-                if (!lastPausedEventsOutside.isEmpty())
-                    lastPausedEventsOutside = lastPausedEventsOutside + "|";
-                lastPausedEventsOutside = lastPausedEventsOutside + runningEvent;
+            List<Long> runningEventList = new ArrayList<>();
+            List<Long> pausedEventList = new ArrayList<>();
+            if (notUsedMobileCellsNotificationEnabled) {
+                // get running events with enabled Mobile cells sensor
+                db.loadMobileCellsSensorRunningPausedEvents(runningEventList, false);
+                for (long runningEvent : runningEventList) {
+                    if (!lastRunningEventsNotOutside.isEmpty())
+                        lastRunningEventsNotOutside = lastRunningEventsNotOutside + "|";
+                    lastRunningEventsNotOutside = lastRunningEventsNotOutside + runningEvent;
+                }
+                PPApplication.logE("PhoneStateScanner.doAutoRegistration", "lastRunningEventsNotOutside=" + lastRunningEventsNotOutside);
+
+                db.loadMobileCellsSensorRunningPausedEvents(pausedEventList, true);
+                for (long runningEvent : pausedEventList) {
+                    if (!lastPausedEventsOutside.isEmpty())
+                        lastPausedEventsOutside = lastPausedEventsOutside + "|";
+                    lastPausedEventsOutside = lastPausedEventsOutside + runningEvent;
+                }
+                PPApplication.logE("PhoneStateScanner.doAutoRegistration", "lastPausedEventsOutside=" + lastPausedEventsOutside);
             }
-            PPApplication.logE("PhoneStateScanner.doAutoRegistration", "lastPausedEventsOutside="+ lastPausedEventsOutside);
 
             if (enabledAutoRegistration) {
                 PPApplication.logE("PhoneStateScanner.doAutoRegistration", "by user enabled autoregistration");
@@ -700,8 +717,9 @@ class PhoneStateScanner extends PhoneStateListener {
                 else
                     PPApplication.logE("PhoneStateScanner.doAutoRegistration", "cellId is NOT valid");
             }
-            else {
-                PPApplication.logE("PhoneStateScanner.doAutoRegistration", "internal autoregistration");
+            else
+            if (notUsedMobileCellsNotificationEnabled) {
+                PPApplication.logE("PhoneStateScanner.doAutoRegistration", "not used mobile cell detection");
 
                 boolean showRunningNotification = false;
                 boolean showPausedNotification = false;

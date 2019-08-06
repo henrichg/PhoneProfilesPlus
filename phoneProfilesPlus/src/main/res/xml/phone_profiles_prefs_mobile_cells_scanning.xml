@@ -26,52 +26,35 @@
         app:dependency="applicationEventMobileCellEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
     -->
-    <PreferenceCategory
-        app:key="applicationEventMobileCellNotUsedCellsDetectionNotificationCategory"
-        app:title="@string/phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotification"
+    <SwitchPreferenceCompat
+        app:key="applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled"
+        app:title="@string/phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotificationEnabled"
+        app:defaultValue="true"
         app:dependency="applicationEventMobileCellEnableScannig"
-        app:layout="@layout/mp_preference_category" >
-        <SwitchPreferenceCompat
-            app:key="applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled"
-            app:title="@string/phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotificationEnabled"
-            app:defaultValue="true"
-            app:layout="@layout/mp_preference_material_widget" />
-        <SwitchPreferenceCompat
-            app:key="applicationEventMobileCellNotUsedCellsDetectionNotificationShowInStatusBar"
-            app:title="@string/phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotificationShowInStatusBar"
-            app:defaultValue="true"
-            app:dependency="applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled"
-            app:layout="@layout/mp_preference_material_widget" />
-    </PreferenceCategory>
-    <PreferenceCategory
-        app:key="applicationEventMobileCellOtherParametersCategory"
-        app:title="@string/phone_profiles_pref_applicationOtherParametersCategory"
+        app:layout="@layout/mp_preference_material_widget" />
+    <ListPreference
+        app:key="applicationEventMobileCellScanInPowerSaveMode"
+        app:title="@string/phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode"
+        app:summary="@string/array_pref_scanInPowerSaveMode_scan"
+        app:defaultValue="1"
+        app:entries="@array/scanInPowerSaveModeMobileCellsArray"
+        app:entryValues="@array/scanInPowerSaveModeMobileCellsValues"
         app:dependency="applicationEventMobileCellEnableScannig"
-        app:layout="@layout/mp_preference_category" >
-        <ListPreference
-            app:key="applicationEventMobileCellScanInPowerSaveMode"
-            app:title="@string/phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode"
-            app:summary="@string/array_pref_scanInPowerSaveMode_scan"
-            app:defaultValue="1"
-            app:entries="@array/scanInPowerSaveModeMobileCellsArray"
-            app:entryValues="@array/scanInPowerSaveModeMobileCellsValues"
-            app:dependency="applicationEventMobileCellEnableScannig"
-            app:layout="@layout/mp_preference_material_widget" />
-        <SwitchPreferenceCompat
-            app:key="applicationEventMobileCellScanOnlyWhenScreenIsOn"
-            app:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
-            app:defaultValue="false"
-            app:dependency="applicationEventMobileCellEnableScannig"
-            app:layout="@layout/mp_preference_material_widget" />
-        <ListPreference
-            app:title="@string/phone_profiles_pref_applicationEventMobileCellsRescan"
-            app:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
-            app:key="applicationEventMobileCellsRescan"
-            app:defaultValue="1"
-            app:entries="@array/applicationEventRescanArray"
-            app:entryValues="@array/applicationEventRescanValues"
-            app:dependency="applicationEventMobileCellEnableScannig"
-            app:layout="@layout/mp_preference_material_widget" />
-    </PreferenceCategory>
-    
+        app:layout="@layout/mp_preference_material_widget" />
+    <SwitchPreferenceCompat
+        app:key="applicationEventMobileCellScanOnlyWhenScreenIsOn"
+        app:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
+        app:defaultValue="false"
+        app:dependency="applicationEventMobileCellEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+    <ListPreference
+        app:title="@string/phone_profiles_pref_applicationEventMobileCellsRescan"
+        app:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
+        app:key="applicationEventMobileCellsRescan"
+        app:defaultValue="1"
+        app:entries="@array/applicationEventRescanArray"
+        app:entryValues="@array/applicationEventRescanValues"
+        app:dependency="applicationEventMobileCellEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+
 </androidx.preference.PreferenceScreen>

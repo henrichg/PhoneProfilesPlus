@@ -143,6 +143,7 @@ class ApplicationPreferences {
     static final String PREF_NOTIFICATION_LAYOUT_TYPE = "notificationLayoutType";
     static final String PREF_NOTIFICATION_BACKGROUND_COLOR = "notificationBackgroundColor";
     //static final String PREF_APPLICATION_NIGHT_MODE_OFF_THEME = "applicationNightModeOffTheme";
+    static final String PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED = "applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled";
 
     //static boolean forceNotUseAlarmClock = false;
 
@@ -726,5 +727,9 @@ class ApplicationPreferences {
         return getSharedPreferences(context).getString(PREF_APPLICATION_NIGHT_MODE_OFF_THEME, "white");
     }
     */
+
+    static boolean applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled(Context context) {
+        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED, true);
+    }
 
 }

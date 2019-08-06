@@ -70,6 +70,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final int RESULT_WIFI_KEEP_ON_SETTINGS = 1999;
     private static final String PREF_NOTIFICATION_SYSTEM_SETTINGS = "notificationSystemSettings";
     //private static final String PREF_APPLICATION_POWER_MANAGER = "applicationPowerManager";
+    private static final String PREF_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_SYSTEM_SETTINGS = "applicationEventMobileCellNotUsedCellsDetectionNotificationSystemSettings";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -1125,6 +1126,47 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             });
         }
+
+        if (Build.VERSION.SDK_INT >= 26) {
+            preference = findPreference(PREF_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_SYSTEM_SETTINGS);
+            if (preference != null) {
+                preference.setSummary(getString(R.string.phone_profiles_pref_notificationSystemSettings_summary) +
+                        " " + getString(R.string.notification_channel_not_used_mobile_cell));
+                //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @SuppressWarnings("ConstantConditions")
+                    @TargetApi(Build.VERSION_CODES.O)
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
+                        intent.putExtra(Settings.EXTRA_CHANNEL_ID, PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL);
+                        intent.putExtra(Settings.EXTRA_APP_PACKAGE, getActivity().getPackageName());
+                        if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
+                            startActivity(intent);
+                        } else {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            AlertDialog dialog = dialogBuilder.create();
+                            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                @Override
+                                public void onShow(DialogInterface dialog) {
+                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                    if (positive != null) positive.setAllCaps(false);
+                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                    if (negative != null) negative.setAllCaps(false);
+                                }
+                            });*/
+                            if (!getActivity().isFinishing())
+                                dialog.show();
+                        }
+                        return false;
+                    }
+                });
+            }
+        }
+
     }
 
     @Override
@@ -1531,6 +1573,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS);
+        setSummary(PREF_NOTIFICATION_SYSTEM_SETTINGS);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED);
 
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, getActivity().getApplicationContext());
         if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
