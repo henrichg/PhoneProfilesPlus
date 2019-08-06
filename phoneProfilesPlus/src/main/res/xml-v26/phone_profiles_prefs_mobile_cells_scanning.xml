@@ -15,13 +15,6 @@
         app:title="@string/phone_profiles_pref_applicationEventMobileCellEnableScanning"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
-    <Preference
-        app:key="applicationEventMobileCellsLocationSystemSettings"
-        app:title="@string/phone_profiles_pref_eventLocationSystemSettings"
-        app:summary="@string/phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary"
-        app:widgetLayout="@layout/start_activity_preference"
-        app:dependency="applicationEventMobileCellEnableScannig"
-        app:layout="@layout/mp_preference_material_widget" />
     <!--
     <sk.henrichg.phoneprofilesplus.MobileCellsRegistrationDialogPreference
         app:key="applicationEventMobileCellsRegistration"

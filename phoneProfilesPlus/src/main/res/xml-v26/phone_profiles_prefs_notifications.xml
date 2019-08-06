@@ -18,8 +18,7 @@
             app:title="@string/phone_profiles_pref_notificationSystemSettings"
             app:summary="@string/phone_profiles_pref_notificationSystemSettings_summary"
             app:widgetLayout="@layout/start_activity_preference"
-            app:layout="@layout/mp_preference_material_widget">
-        </Preference>
+            app:layout="@layout/mp_preference_material_widget" />
         <ListPreference
             app:title="@string/phone_profiles_pref_notificationLayoutType"
             app:summary="@string/phone_profiles_pref_notificationLayoutType_expandable"
