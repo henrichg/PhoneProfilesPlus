@@ -77,7 +77,7 @@ dependencies {
     //    exclude group: 'com.android.support', module:'support-v4'
     //}
 
-    implementation 'com.android.billingclient:billing:2.0.2'
+    implementation 'com.android.billingclient:billing:2.0.3'
     implementation 'com.google.code.gson:gson:2.8.5'
 
     //implementation 'com.google.firebase:firebase-core:16.0.9'
