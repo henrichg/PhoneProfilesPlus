@@ -1339,6 +1339,10 @@ public class Profile {
                 return false;
             if (this._volumeZenMode != withProfile._volumeZenMode)
                 return false;
+            if ((this._volumeRingerMode == 1) || (this._volumeRingerMode == 4)) {
+                if (this._vibrateWhenRinging != withProfile._vibrateWhenRinging)
+                    return false;
+            }
             if ((this._volumeRingerMode == 5) && ((this._volumeZenMode == 1) || (this._volumeZenMode == 2))){
                 if (this._vibrateWhenRinging != withProfile._vibrateWhenRinging)
                     return false;
