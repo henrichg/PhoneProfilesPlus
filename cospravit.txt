@@ -274,7 +274,7 @@ Registracia mobilnych buniek:
 
 ------------------------------------------------------------------
 
-Chyba nastavenia Vibrate when ringing:
+OPRAVENE - Chyba nastavenia Vibrate when ringing:
 
 - Profil Дом -> Sound mode=Sound, Vibrate when ringing=off
 - Profil Улица -> Sound mode=Sound, Vibrate when ringing=On
