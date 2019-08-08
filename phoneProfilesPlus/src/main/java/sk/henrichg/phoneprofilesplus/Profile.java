@@ -1107,11 +1107,13 @@ public class Profile {
                 // also look at ProfilesPrefsFragment.disableDependedPref()
                 if (withProfile._volumeZenMode != 0) {
                     this._volumeZenMode = withProfile._volumeZenMode;
-                    if ((this._volumeRingerMode == 5) && ((this._volumeZenMode == 1) || (this._volumeZenMode == 2))){
+                    /*if ((this._volumeRingerMode == 5) && ((this._volumeZenMode == 1) || (this._volumeZenMode == 2))){
                         if (withProfile._vibrateWhenRinging != 0)
                             this._vibrateWhenRinging = withProfile._vibrateWhenRinging;
-                    }
+                    }*/
                 }
+                if (withProfile._vibrateWhenRinging != 0)
+                    this._vibrateWhenRinging = withProfile._vibrateWhenRinging;
             }
             if (withProfile.getVolumeRingtoneChange())
                 this._volumeRingtone = withProfile._volumeRingtone;

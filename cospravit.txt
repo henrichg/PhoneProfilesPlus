@@ -274,3 +274,53 @@ Registracia mobilnych buniek:
 
 ------------------------------------------------------------------
 
+Chyba nastavenia Vibrate when ringing:
+
+- Profil Дом -> Sound mode=Sound, Vibrate when ringing=off
+- Profil Улица -> Sound mode=Sound, Vibrate when ringing=On
+- Profil Bi... -> Sound profile=Vibration - Ringtobe volume 1, System volume=0, Notification volume=No change
+
+Manualne aktivuje Улица, Vibrate when ringing je On
+Restartuje udalosti, aktivuje sa Дом, Vibrate when ringing zostane On !!!
+Manualne aktivuje Дом, Vibrate when ringing je Off
+
+Aktivuje Bi..., Vibrate when ringing je On !!!, ze by som ho daval natvrdo na vybraciu ked je Sound mode=Vibration?
+Restartuje udalosti, aktivuje sa Дом, Vibrate when ringing zostane On !!!
+Manualne aktivuje Дом, Vibrate when ringing je Off
+
+
+
+Podla mna zle prepne z On na Off a az dryhy krat aktivacia nastavi na Off
+
+- RINGERMODE_RING - setVibrateWhenRinging(context, profile, -1);
+- RINGERMODE_RING_AND_VIBRATE - setVibrateWhenRinging(context, null, 1);
+- RINGERMODE_VIBRATE - setVibrateWhenRinging(context, null, 1);
+- RINGERMODE_SILENT - setVibrateWhenRinging(context, profile, -1);
+- RINGERMODE_ZENMODE
+  - ZENMODE_ALL - setVibrateWhenRinging(context, profile, -1);
+  - ZENMODE_PRIORITY - setVibrateWhenRinging(context, profile, -1);
+  - ZENMODE_NONE - nie je volane
+  - ZENMODE_ALL_AND_VIBRATE - setVibrateWhenRinging(context, null, 1);
+  - ZENMODE_PRIORITY_AND_VIBRATE - setVibrateWhenRinging(context, null, 1);
+  - ZENMODE_ALARMS - nie je volane
+
+Ako funguje setVibrateWhenRinging()
+- ak je nastaveny parameter profile, beriem profile._vibrateWhenRinging
+- ak je paramaeter profile = null, beriem parameter value
+
+Vypada to tak, ze Profile.mergeProfile() zle merguje Profile._vibrateWhenRinging.
+
+Kedy je "Vibrate when ringing" zakazane v profile parametroch:
+- Rezim zvuku = Zvuk -> povolene
+- Rezim zvuku = Vybrovanie -> zakazane
+- Rezim zvuku = Len budiky -> povolene
+- Rezim zvuku = Nerusit:
+  - Typ nerusit = Nemenit -> zakazane
+  - Typ nerusit = Vypnute -> povolene
+  - Typ nerusit = Vypnute, ale s vibraciami -> zakazane
+  - Typ nerusit = Prioritne -> povolene
+  - Typ nerusit = Prioritne s vibraciami -> zakazane
+  - Typ nerusit = Len budiky -> zakazane
+  - Typ nerusit = Uplne ticho -> zakazane
+
+--------------------------------------------------------------------
