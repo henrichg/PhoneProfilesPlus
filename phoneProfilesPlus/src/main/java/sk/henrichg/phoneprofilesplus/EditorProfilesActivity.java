@@ -19,13 +19,10 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.getkeepsafe.taptargetview.TapTarget;
@@ -398,11 +395,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
                                         getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
                                 };
-                                HighlightedSpinnerAdapter filterSpinnerAdapter = new HighlightedSpinnerAdapter(
+                                GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                                         EditorProfilesActivity.this,
-                                        R.layout.editor_toolbar_spinner,
+                                        R.layout.highlighted_spinner,
                                         filterItems);
-                                filterSpinnerAdapter.setDropDownViewResource(R.layout.editor_toolbar_spinner_dropdown);
+                                filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
                                 filterSpinner.setAdapter(filterSpinnerAdapter);
                                 selectFilterItem(0, filterProfilesSelectedItem, false, startTargetHelps);
                                 break;
@@ -415,11 +412,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_paused),
                                         getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_stopped)
                                 };
-                                filterSpinnerAdapter = new HighlightedSpinnerAdapter(
+                                filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                                         EditorProfilesActivity.this,
-                                        R.layout.editor_toolbar_spinner,
+                                        R.layout.highlighted_spinner,
                                         filterItems);
-                                filterSpinnerAdapter.setDropDownViewResource(R.layout.editor_toolbar_spinner_dropdown);
+                                filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
                                 filterSpinner.setAdapter(filterSpinnerAdapter);
                                 selectFilterItem(1, filterEventsSelectedItem, false, startTargetHelps);
                                 break;
@@ -434,11 +431,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                 getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
                 getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator)
         };
-        HighlightedSpinnerAdapter filterSpinnerAdapter = new HighlightedSpinnerAdapter(
+        GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 this,
-                R.layout.editor_toolbar_spinner,
+                R.layout.highlighted_spinner,
                 filterItems);
-        filterSpinnerAdapter.setDropDownViewResource(R.layout.editor_toolbar_spinner_dropdown);
+        filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
         filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.accent));
 /*        switch (appTheme) {
@@ -463,7 +460,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         filterSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((HighlightedSpinnerAdapter)filterSpinner.getAdapter()).setSelection(position);
+                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)filterSpinner.getAdapter()).setSelection(position);
                 selectFilterItem(editorSelectedView, position, true, true);
             }
 
@@ -2454,40 +2451,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }, 500);
             }
         }
-    }
-
-    class HighlightedSpinnerAdapter extends ArrayAdapter<String>{
-
-        private int mSelectedIndex = -1;
-        private final Context context;
-
-        @SuppressWarnings("SameParameterValue")
-        HighlightedSpinnerAdapter(Context context, int textViewResourceId, String[] objects) {
-            super(context, textViewResourceId, objects);
-            this.context = context;
-        }
-
-        @Override
-        public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent){
-            View itemView =  super.getDropDownView(position, convertView, parent);
-
-            TextView itemText = itemView.findViewById(android.R.id.text1);
-            if (itemText != null) {
-                if (position == mSelectedIndex) {
-                    itemText.setTextColor(GlobalGUIRoutines.getThemeAccentColor(context));
-                } else {
-                    itemText.setTextColor(GlobalGUIRoutines.getThemeEditorSpinnerDropDownTextColor(context));
-                }
-            }
-
-            return itemView;
-        }
-
-        void setSelection(int position) {
-            mSelectedIndex =  position;
-            notifyDataSetChanged();
-        }
-
     }
 
 }

@@ -143,11 +143,11 @@
         android:textSize="16sp"
         android:text="@string/profile_preferences_afterDurationDo" />
 
-    <Spinner
+    <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/fast_access_duration_dlg_after_do_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="-8dp"
+        android:layout_marginStart="0dp"
         android:entries="@array/afterProfileDurationDoArray" />
 
     <Button

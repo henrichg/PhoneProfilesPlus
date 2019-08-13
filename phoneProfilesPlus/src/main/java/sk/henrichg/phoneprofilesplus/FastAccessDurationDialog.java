@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.SeekBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.Arrays;
@@ -16,6 +15,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.core.content.ContextCompat;
 import mobi.upod.timedurationpicker.TimeDurationPicker;
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
 
@@ -43,6 +44,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
     private SeekBar mSeekBarSeconds;
     private final TextView mEnds;
     private final TimeDurationPickerDialog mValueDialog;
+    private final AppCompatSpinner afterDoSpinner;
 
     private volatile Timer updateEndsTimer;
 
@@ -211,8 +213,14 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
         mTextViewRange.setText(sMin + " - " + sMax);
 
-        Spinner afterDoSpinner = layout.findViewById(R.id.fast_access_duration_dlg_after_do_spinner);
+        afterDoSpinner = layout.findViewById(R.id.fast_access_duration_dlg_after_do_spinner);
+        GlobalGUIRoutines.HighlightedSpinnerAdapter spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+                mActivity,
+                R.layout.highlighted_spinner,
+                mActivity.getResources().getStringArray(R.array.afterProfileDurationDoArray));
+        spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
+        afterDoSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(mActivity.getBaseContext(), R.color.accent));
         /*switch (ApplicationPreferences.applicationTheme(mActivity, true)) {
             case "dark":
                 afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);
@@ -227,11 +235,13 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
                 break;
         }*/
+        afterDoSpinner.setAdapter(spinnerAdapter);
         afterDoValues = mActivity.getResources().getStringArray(R.array.afterProfileDurationDoValues);
         afterDoSpinner.setSelection(Arrays.asList(afterDoValues).indexOf(String.valueOf(mProfile._afterDurationDo)));
         afterDoSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)afterDoSpinner.getAdapter()).setSelection(position);
                 mAfterDo = Integer.valueOf(afterDoValues[position]);
             }
 

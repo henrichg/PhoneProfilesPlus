@@ -32,6 +32,10 @@ import android.text.style.LeadingMarginSpan;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.util.TypedValue;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import org.xml.sax.XMLReader;
 
@@ -45,6 +49,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.content.ContextCompat;
@@ -1148,6 +1153,41 @@ class GlobalGUIRoutines {
                     }
                 }
             }
+        }
+
+    }
+
+
+    static class HighlightedSpinnerAdapter extends ArrayAdapter<String> {
+
+        private int mSelectedIndex = -1;
+        private final Context context;
+
+        @SuppressWarnings("SameParameterValue")
+        HighlightedSpinnerAdapter(Context context, int textViewResourceId, String[] objects) {
+            super(context, textViewResourceId, objects);
+            this.context = context;
+        }
+
+        @Override
+        public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent){
+            View itemView =  super.getDropDownView(position, convertView, parent);
+
+            TextView itemText = itemView.findViewById(android.R.id.text1);
+            if (itemText != null) {
+                if (position == mSelectedIndex) {
+                    itemText.setTextColor(GlobalGUIRoutines.getThemeAccentColor(context));
+                } else {
+                    itemText.setTextColor(GlobalGUIRoutines.getThemeEditorSpinnerDropDownTextColor(context));
+                }
+            }
+
+            return itemView;
+        }
+
+        void setSelection(int position) {
+            mSelectedIndex =  position;
+            notifyDataSetChanged();
         }
 
     }

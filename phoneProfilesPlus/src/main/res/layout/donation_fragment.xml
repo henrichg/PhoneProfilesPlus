@@ -58,7 +58,7 @@
         android:orientation="horizontal"
         android:paddingTop="5dp" >
 
-        <Spinner
+        <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/donation_google_android_market_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

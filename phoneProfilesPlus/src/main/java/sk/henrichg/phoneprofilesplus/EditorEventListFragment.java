@@ -15,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -377,18 +376,18 @@ public class EditorEventListFragment extends Fragment
         orderSelectedItem = ApplicationPreferences.preferences.getInt(SP_EDITOR_ORDER_SELECTED_ITEM, 0);
 
         orderSpinner = view.findViewById(R.id.editor_list_bottom_bar_order);
-        HighlightedSpinnerAdapter orderSpinnerAdapter = new HighlightedSpinnerAdapter(
+        GlobalGUIRoutines.HighlightedSpinnerAdapter orderSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 getActivity(),
-                R.layout.editor_toolbar_spinner,
+                R.layout.highlighted_spinner,
                 getResources().getStringArray(R.array.orderEventsArray));
-        orderSpinnerAdapter.setDropDownViewResource(R.layout.editor_toolbar_spinner_dropdown);
+        orderSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
         orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getActivity().getBaseContext(), R.color.accent));
         orderSpinner.setAdapter(orderSpinnerAdapter);
         orderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((HighlightedSpinnerAdapter)orderSpinner.getAdapter()).setSelection(position);
+                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)orderSpinner.getAdapter()).setSelection(position);
                 if (position != orderSelectedItem)
                     changeEventOrder(position);
             }
@@ -1316,40 +1315,6 @@ public class EditorEventListFragment extends Fragment
             }
         }
         return _eventsOrderType;
-    }
-
-    class HighlightedSpinnerAdapter extends ArrayAdapter<String> {
-
-        private int mSelectedIndex = -1;
-        private final Context context;
-
-        @SuppressWarnings("SameParameterValue")
-        HighlightedSpinnerAdapter(Context context, int textViewResourceId, String[] objects) {
-            super(context, textViewResourceId, objects);
-            this.context = context;
-        }
-
-        @Override
-        public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent){
-            View itemView =  super.getDropDownView(position, convertView, parent);
-
-            TextView itemText = itemView.findViewById(android.R.id.text1);
-            if (itemText != null) {
-                if (position == mSelectedIndex) {
-                    itemText.setTextColor(GlobalGUIRoutines.getThemeAccentColor(context));
-                } else {
-                    itemText.setTextColor(GlobalGUIRoutines.getThemeEditorSpinnerDropDownTextColor(context));
-                }
-            }
-
-            return itemView;
-        }
-
-        void setSelection(int position) {
-            mSelectedIndex =  position;
-            notifyDataSetChanged();
-        }
-
     }
 
 }

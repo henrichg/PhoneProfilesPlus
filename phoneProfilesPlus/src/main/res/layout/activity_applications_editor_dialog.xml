@@ -17,10 +17,11 @@
         android:clickable="true"
         android:focusable="true" >
 
-        <Spinner
+        <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/applications_editor_dialog_filter_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             android:entries="@array/applicationsEditorDialogFilterArray" />
 
     </LinearLayout>

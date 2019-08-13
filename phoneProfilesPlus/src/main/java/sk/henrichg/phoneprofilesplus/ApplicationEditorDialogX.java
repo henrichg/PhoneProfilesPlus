@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
@@ -26,6 +25,8 @@ import java.util.List;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import mobi.upod.timedurationpicker.TimeDurationPicker;
@@ -44,6 +45,7 @@ class ApplicationEditorDialogX
     private final ImageView mSelectedAppIcon;
     private final TextView mSelectedAppName;
     private final AppCompatImageButton addButton;
+    private final AppCompatSpinner filterSpinner;
 
 
     private final List<Application> cachedApplicationList;
@@ -142,8 +144,14 @@ class ApplicationEditorDialogX
             }
         });
 
-        Spinner filterSpinner = layout.findViewById(R.id.applications_editor_dialog_filter_spinner);
+        filterSpinner = layout.findViewById(R.id.applications_editor_dialog_filter_spinner);
+        GlobalGUIRoutines.HighlightedSpinnerAdapter spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+                activity,
+                R.layout.highlighted_spinner,
+                activity.getResources().getStringArray(R.array.applicationsEditorDialogFilterArray));
+        spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
+        filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(activity.getBaseContext(), R.color.accent));
 /*        switch (ApplicationPreferences.applicationTheme(activity, true)) {
             case "dark":
                 filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);
@@ -158,6 +166,8 @@ class ApplicationEditorDialogX
                 filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
                 break;
         }*/
+        filterSpinner.setAdapter(spinnerAdapter);
+
         filterValues= activity.getResources().getStringArray(R.array.applicationsEditorDialogFilterValues);
 
         if (editedApplication != null) {
@@ -178,6 +188,8 @@ class ApplicationEditorDialogX
         filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)filterSpinner.getAdapter()).setSelection(position);
+
                 selectedFilter = Integer.valueOf(filterValues[position]);
                 if (selectedFilter == 2)
                     addButton.setVisibility(View.VISIBLE);
