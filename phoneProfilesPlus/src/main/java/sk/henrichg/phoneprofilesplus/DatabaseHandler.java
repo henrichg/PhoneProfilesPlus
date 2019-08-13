@@ -2,11 +2,13 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Environment;
@@ -8687,8 +8689,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + "=0";
                 }
 
-                countQuery = "SELECT " + KEY_E_ID + " FROM " + TABLE_EVENTS +
-                        " WHERE " + eventTypeChecked;
+                countQuery = "SELECT " + KEY_E_ID + " FROM " + TABLE_EVENTS + " WHERE " + eventTypeChecked;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
                 SQLiteDatabase db = getMyWritableDatabase();
@@ -10264,7 +10265,150 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         } while (cursorImportDB.moveToNext());
                                     }
                                 }
-                                
+
+                                AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+                                if (audioManager != null) {
+                                    SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(context);
+                                    int maximumVolumeRing = sharedPreferences.getInt("maximumVolume_ring", 0);
+                                    int maximumVolumeNotification = sharedPreferences.getInt("maximumVolume_notification", 0);
+                                    int maximumVolumeMusic = sharedPreferences.getInt("maximumVolume_music", 0);
+                                    int maximumVolumeAlarm = sharedPreferences.getInt("maximumVolume_alarm", 0);
+                                    int maximumVolumeSystem = sharedPreferences.getInt("maximumVolume_system", 0);
+                                    int maximumVolumeVoiceCall = sharedPreferences.getInt("maximumVolume_voiceCall", 0);
+                                    int maximumVolumeDTFM = sharedPreferences.getInt("maximumVolume_dtmf", 0);
+                                    int maximumVolumeAccessibility = sharedPreferences.getInt("maximumVolume_accessibility", 0);
+                                    int maximumVolumeBluetoothSCO = sharedPreferences.getInt("maximumVolume_bluetoothSCO", 0);
+
+                                    if (cursorImportDB.moveToFirst()) {
+                                        do {
+
+                                            profileId = Long.parseLong(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_ID)));
+
+                                            values = new ContentValues();
+
+                                            if (maximumVolumeRing > 0) {
+                                                String value = cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_VOLUME_RINGTONE));
+                                                try {
+                                                    String[] splits = value.split("\\|");
+                                                    int volume = Integer.parseInt(splits[0]);
+                                                    //Log.e("DatabaseHandler.importDB", "old max ringtone volume="+maximumVolumeRing);
+                                                    //Log.e("DatabaseHandler.importDB", "old ringtone volume="+volume);
+                                                    float fVolume = volume;
+                                                    float percentage = fVolume / maximumVolumeRing * 100f;
+                                                    fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING) / 100f * percentage;
+                                                    volume = Math.round(fVolume);
+                                                    //Log.e("DatabaseHandler.importDB", "new max ringtone volume="+audioManager.getStreamMaxVolume(AudioManager.STREAM_RING));
+                                                    //Log.e("DatabaseHandler.importDB", "new ringtone volume="+volume);
+                                                    values.put(KEY_VOLUME_RINGTONE, volume+"|"+splits[1]+"|"+splits[2]);
+                                                } catch (Exception ignored) {
+                                                    //Log.e("DatabaseHandler.importDB", Log.getStackTraceString(e));
+                                                }
+                                            }
+                                            if (maximumVolumeNotification > 0) {
+                                                String value = cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_VOLUME_NOTIFICATION));
+                                                try {
+                                                    String[] splits = value.split("\\|");
+                                                    int volume = Integer.parseInt(splits[0]);
+                                                    float fVolume = volume;
+                                                    float percentage = fVolume / maximumVolumeNotification * 100f;
+                                                    fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION) / 100f * percentage;
+                                                    volume = Math.round(fVolume);
+                                                    values.put(KEY_VOLUME_NOTIFICATION, volume+"|"+splits[1]+"|"+splits[2]);
+                                                } catch (Exception ignored) {}
+                                            }
+                                            if (maximumVolumeMusic > 0) {
+                                                String value = cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_VOLUME_MEDIA));
+                                                try {
+                                                    String[] splits = value.split("\\|");
+                                                    int volume = Integer.parseInt(splits[0]);
+                                                    float fVolume = volume;
+                                                    float percentage = fVolume / maximumVolumeMusic * 100f;
+                                                    fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC) / 100f * percentage;
+                                                    volume = Math.round(fVolume);
+                                                    values.put(KEY_VOLUME_MEDIA, volume+"|"+splits[1]+"|"+splits[2]);
+                                                } catch (Exception ignored) {}
+                                            }
+                                            if (maximumVolumeAlarm > 0) {
+                                                String value = cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_VOLUME_ALARM));
+                                                try {
+                                                    String[] splits = value.split("\\|");
+                                                    int volume = Integer.parseInt(splits[0]);
+                                                    float fVolume = volume;
+                                                    float percentage = fVolume / maximumVolumeAlarm * 100f;
+                                                    fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM) / 100f * percentage;
+                                                    volume = Math.round(fVolume);
+                                                    values.put(KEY_VOLUME_ALARM, volume+"|"+splits[1]+"|"+splits[2]);
+                                                } catch (Exception ignored) {}
+                                            }
+                                            if (maximumVolumeSystem > 0) {
+                                                String value = cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_VOLUME_SYSTEM));
+                                                try {
+                                                    String[] splits = value.split("\\|");
+                                                    int volume = Integer.parseInt(splits[0]);
+                                                    float fVolume = volume;
+                                                    float percentage = fVolume / maximumVolumeSystem * 100f;
+                                                    fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM) / 100f * percentage;
+                                                    volume = Math.round(fVolume);
+                                                    values.put(KEY_VOLUME_SYSTEM, volume+"|"+splits[1]+"|"+splits[2]);
+                                                } catch (Exception ignored) {}
+                                            }
+                                            if (maximumVolumeVoiceCall > 0) {
+                                                String value = cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_VOLUME_VOICE));
+                                                try {
+                                                    String[] splits = value.split("\\|");
+                                                    int volume = Integer.parseInt(splits[0]);
+                                                    float fVolume = volume;
+                                                    float percentage = fVolume / maximumVolumeVoiceCall * 100f;
+                                                    fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL) / 100f * percentage;
+                                                    volume = Math.round(fVolume);
+                                                    values.put(KEY_VOLUME_VOICE, volume+"|"+splits[1]+"|"+splits[2]);
+                                                } catch (Exception ignored) {}
+                                            }
+                                            if (maximumVolumeDTFM > 0) {
+                                                String value = cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_VOLUME_DTMF));
+                                                try {
+                                                    String[] splits = value.split("\\|");
+                                                    int volume = Integer.parseInt(splits[0]);
+                                                    float fVolume = volume;
+                                                    float percentage = fVolume / maximumVolumeDTFM * 100f;
+                                                    fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF) / 100f * percentage;
+                                                    volume = Math.round(fVolume);
+                                                    values.put(KEY_VOLUME_DTMF, volume+"|"+splits[1]+"|"+splits[2]);
+                                                } catch (Exception ignored) {}
+                                            }
+                                            if (maximumVolumeAccessibility > 0) {
+                                                String value = cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_VOLUME_ACCESSIBILITY));
+                                                try {
+                                                    String[] splits = value.split("\\|");
+                                                    int volume = Integer.parseInt(splits[0]);
+                                                    float fVolume = volume;
+                                                    float percentage = fVolume / maximumVolumeAccessibility * 100f;
+                                                    fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY) / 100f * percentage;
+                                                    volume = Math.round(fVolume);
+                                                    values.put(KEY_VOLUME_ACCESSIBILITY, volume+"|"+splits[1]+"|"+splits[2]);
+                                                } catch (Exception ignored) {}
+                                            }
+                                            if (maximumVolumeBluetoothSCO > 0) {
+                                                String value = cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_VOLUME_BLUETOOTH_SCO));
+                                                try {
+                                                    String[] splits = value.split("\\|");
+                                                    int volume = Integer.parseInt(splits[0]);
+                                                    float fVolume = volume;
+                                                    float percentage = fVolume / maximumVolumeBluetoothSCO * 100f;
+                                                    fVolume = audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO) / 100f * percentage;
+                                                    volume = Math.round(fVolume);
+                                                    values.put(KEY_VOLUME_BLUETOOTH_SCO, volume+"|"+splits[1]+"|"+splits[2]);
+                                                } catch (Exception ignored) {}
+                                            }
+
+                                            // updating row
+                                            if (values.size() > 0)
+                                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                                        new String[]{String.valueOf(profileId)});
+                                        } while (cursorImportDB.moveToNext());
+                                    }
+                                }
+
                                 cursorExportedDB.close();
                                 cursorImportDB.close();
 
