@@ -125,6 +125,9 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
         mDialog = dialogBuilder.create();
 
+        TextView afterDurationLabel = layout.findViewById(R.id.fast_access_duration_dlg_after_do_label);
+        afterDurationLabel.setText(activity.getString(R.string.profile_preferences_afterDurationDo) + ":");
+
         TextView mTextViewRange = layout.findViewById(R.id.duration_pref_dlg_range);
 
         mValue = layout.findViewById(R.id.duration_pref_dlg_value);
