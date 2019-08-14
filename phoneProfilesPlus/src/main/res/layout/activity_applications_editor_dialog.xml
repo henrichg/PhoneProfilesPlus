@@ -21,8 +21,9 @@
             android:id="@+id/applications_editor_dialog_filter_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:entries="@array/applicationsEditorDialogFilterArray" />
+            android:layout_marginStart="0dp"
+            android:entries="@array/applicationsEditorDialogFilterArray"
+            style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
 
     </LinearLayout>
 

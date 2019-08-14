@@ -147,8 +147,10 @@
         android:id="@+id/fast_access_duration_dlg_after_do_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:entries="@array/afterProfileDurationDoArray" />
+        android:layout_marginStart="-4dp"
+        android:layout_marginTop="-10dp"
+        android:entries="@array/afterProfileDurationDoArray"
+        style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
 
     <Button
         android:id="@+id/fast_access_duration_dlg_activate_without"

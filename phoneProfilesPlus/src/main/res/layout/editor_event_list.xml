@@ -116,7 +116,7 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/editor_list_bottom_bar"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="@dimen/editor_bottom_bar_height"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
         android:background="?attr/colorPrimary"
@@ -146,7 +146,10 @@
                 android:id="@+id/editor_list_bottom_bar_order"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:entries="@array/orderEventsArray" />
+                android:layout_marginTop="-10dp"
+                android:layout_marginStart="-4dp"
+                android:entries="@array/orderEventsArray"
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
 
         </LinearLayout>
 

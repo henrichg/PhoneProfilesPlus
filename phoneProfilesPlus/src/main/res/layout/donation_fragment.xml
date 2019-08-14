@@ -65,7 +65,8 @@
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             android:layout_weight="1"
-            android:prompt="@string/donation_google_android_market_text" />
+            android:prompt="@string/donation_google_android_market_text"
+            style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
 
         <Button
             android:id="@+id/donation_google_android_market_donate_button"

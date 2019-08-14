@@ -99,10 +99,11 @@
                     android:id="@+id/application_editor_intent_intent_type_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="19dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="8dp"
-                    android:entries="@array/applicationEditorIntentIntentTypeArray" />
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="18dp"
+                    android:layout_marginTop="5dp"
+                    android:entries="@array/applicationEditorIntentIntentTypeArray"
+                    style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
 
                 <View
                     android:layout_width="match_parent"
@@ -165,10 +166,11 @@
                     android:id="@+id/application_editor_intent_action_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="19dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="8dp"
-                    android:entries="@array/applicationEditorIntentActionArray" />
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="18dp"
+                    android:layout_marginTop="5dp"
+                    android:entries="@array/applicationEditorIntentActionArray"
+                    style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
                 <EditText
                     android:id="@+id/application_editor_intent_action_edit"
                     android:layout_width="match_parent"
@@ -360,9 +362,10 @@
                             android:id="@+id/application_editor_intent_extra_type_spinner_1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginEnd="10dp"
-                            android:entries="@array/applicationEditorIntentExtraTypeArray" />
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="18dp"
+                            android:entries="@array/applicationEditorIntentExtraTypeArray"
+                            style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
@@ -405,9 +408,10 @@
                             android:id="@+id/application_editor_intent_extra_type_spinner_2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginEnd="10dp"
-                            android:entries="@array/applicationEditorIntentExtraTypeArray" />
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="18dp"
+                            android:entries="@array/applicationEditorIntentExtraTypeArray"
+                            style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
@@ -450,9 +454,10 @@
                             android:id="@+id/application_editor_intent_extra_type_spinner_3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginEnd="10dp"
-                            android:entries="@array/applicationEditorIntentExtraTypeArray" />
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="18dp"
+                            android:entries="@array/applicationEditorIntentExtraTypeArray"
+                            style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
@@ -495,9 +500,10 @@
                             android:id="@+id/application_editor_intent_extra_type_spinner_4"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginEnd="10dp"
-                            android:entries="@array/applicationEditorIntentExtraTypeArray" />
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="18dp"
+                            android:entries="@array/applicationEditorIntentExtraTypeArray"
+                            style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
@@ -540,9 +546,10 @@
                             android:id="@+id/application_editor_intent_extra_type_spinner_5"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginEnd="10dp"
-                            android:entries="@array/applicationEditorIntentExtraTypeArray" />
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="18dp"
+                            android:entries="@array/applicationEditorIntentExtraTypeArray"
+                            style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
                     </LinearLayout>
                 </LinearLayout>
 
