@@ -72,7 +72,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentTop="true"
                         android:layout_marginEnd="@dimen/run_stop_indicator_margin_end"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="2dp"
                         android:padding="5dp"
                         android:layout_toEndOf="@id/editor_filter_spinner"
                         android:adjustViewBounds="true"
