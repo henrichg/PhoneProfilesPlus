@@ -23,6 +23,6 @@
     <dimen name="important_info_title_size">18sp</dimen>
     <dimen name="important_info_text_size">16sp</dimen>
 
-    <dimen name="editor_bottom_bar_height">60dp</dimen>
+    <dimen name="editor_bottom_bar_height">67dp</dimen>
 
 </resources>

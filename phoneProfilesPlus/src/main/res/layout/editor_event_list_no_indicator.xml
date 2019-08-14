@@ -132,7 +132,7 @@
                 android:id="@+id/editor_list_bottom_bar_order"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-10dp"
+                android:layout_marginTop="-3dp"
                 android:layout_marginStart="-4dp"
                 android:entries="@array/orderEventsArray"
                 style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
