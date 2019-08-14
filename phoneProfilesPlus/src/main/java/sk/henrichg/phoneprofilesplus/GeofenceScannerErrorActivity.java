@@ -27,6 +27,12 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
     {
         super.onStart();
         activity = this;
+
+        // set theme and language for dialog alert ;-)
+        // not working on Android 2.3.x
+        GlobalGUIRoutines.setTheme(this, true, true/*, false*/);
+        GlobalGUIRoutines.setLanguage(this);
+
         showErrorDialog(dialogError);
     }
 
