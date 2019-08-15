@@ -1530,11 +1530,13 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     doImport = false;
 
-                    GlobalGUIRoutines.unlockScreenOrientation(activity);
-
-                    if ((importProgressDialog != null) && importProgressDialog.isShowing()) {
-                        importProgressDialog.dismiss();
-                        importProgressDialog = null;
+                    if (!isFinishing()) {
+                        if ((importProgressDialog != null) && importProgressDialog.isShowing()) {
+                            if (!isDestroyed())
+                                importProgressDialog.dismiss();
+                            importProgressDialog = null;
+                        }
+                        GlobalGUIRoutines.unlockScreenOrientation(activity);
                     }
 
                     PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EditorProfilesActivity.doImportData");
@@ -1810,12 +1812,14 @@ public class EditorProfilesActivity extends AppCompatActivity
                 protected void onPostExecute(Integer result) {
                     super.onPostExecute(result);
 
-                    if ((exportProgressDialog != null) && exportProgressDialog.isShowing()) {
-                        exportProgressDialog.dismiss();
-                        exportProgressDialog = null;
-                    }
-                    if (!isFinishing())
+                    if (!isFinishing()) {
+                        if ((exportProgressDialog != null) && exportProgressDialog.isShowing()) {
+                            if (!isDestroyed())
+                                exportProgressDialog.dismiss();
+                            exportProgressDialog = null;
+                        }
                         GlobalGUIRoutines.unlockScreenOrientation(activity);
+                    }
 
                     if (result == 1) {
 
