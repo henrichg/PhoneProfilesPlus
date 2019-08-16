@@ -12,22 +12,26 @@ Android application - manualy and event triggered change of device settings like
 
 [Privacy Policy](https://sites.google.com/site/phoneprofilesplus/home/privacy-policy)
 
+Supported Android SDK
+----------------------
+- minSdkVersion = 21
+- targetSdkVersion = 28
+
 Required external libs
 ----------------------
 
-- Android support library: core, appcompat, gridlayout, cardview, recyclerview
+- AndroidX library: appcompat, preferences, gridlayout, cardview, recyclerview, viewpager2, constraintlayout, workmanager
+- Material library
 - Google Play services library (GMS): location, maps
-- Google Billing library: donations
+- Google Billing library
+- Crashlytics library
 - Samsung Look - http://developer.samsung.com/galaxy/edge
 - RootTools - https://github.com/Stericson/RootTools
 - android-hidden-api - https://github.com/anggrayudi/android-hidden-api 
-- SystemBarTint - https://github.com/jgilfelt/SystemBarTint
 - google-gson - https://code.google.com/p/google-gson/
 - RelativePopupWindow - https://github.com/kakajika/RelativePopupWindow
 - TapTargetView - https://github.com/KeepSafe/TapTargetView
-- Crashlytics - https://fabric.io/kits/android/crashlytics
 - RecyclerView-FastScroll - https://github.com/timusus/RecyclerView-FastScroll
 - android-job - https://github.com/evernote/android-job
 - time-duration-picker - https://github.com/svenwiegand/time-duration-picker
 - android-betterpickers - https://github.com/code-troopers/android-betterpickers
-- AppKillerManager - https://github.com/thelittlefireman/AppKillerManager
