@@ -25,16 +25,16 @@ Required external libs
 - Google Material library
 - Google Play services library (GMS): location, maps
 - Google Billing library
-- Firebase Crashlytics library
+- Firebase Crashlytics library  
 - google-gson - https://code.google.com/p/google-gson/
 - TapTargetView - https://github.com/KeepSafe/TapTargetView
 - RecyclerView-FastScroll - https://github.com/timusus/RecyclerView-FastScroll
 - android-job - https://github.com/evernote/android-job
 - doki - https://github.com/DoubleDotLabs/doki
-- Samsung Look - http://developer.samsung.com/galaxy/edge
+- Samsung Look - http://developer.samsung.com/galaxy/edge  
 - RootTools (as modified module) - https://github.com/Stericson/RootTools
 - time-duration-picker (as modified module) - https://github.com/svenwiegand/time-duration-picker
-- android-betterpickers (as modified module) - https://github.com/code-troopers/android-betterpickers
-- RelativePopupWindow (as modified RelativePopupWindow class) - https://github.com/kakajika/RelativePopupWindow
-- android-hidden-api (downloaded android.jar copied to folder \<android-sdk\>/android-XX) - https://github.com/anggrayudi/android-hidden-api 
-- FreeReflection (only code from https://github.com/tiann/FreeReflection/blob/master/library/src/main/java/me/weishu/reflection/Reflection.java) - https://github.com/tiann/FreeReflection
+- android-betterpickers (as modified module) - https://github.com/code-troopers/android-betterpickers  
+- RelativePopupWindow (as modified RelativePopupWindow class) - https://github.com/kakajika/RelativePopupWindow  
+- android-hidden-api (downloaded android.jar copied to folder \<android-sdk\>/android-XX) - https://github.com/anggrayudi/android-hidden-api   
+- FreeReflection (only code from https://github.com/tiann/FreeReflection/blob/master/library/src/main/java/me/weishu/reflection/Reflection.java) - https://github.com/tiann/FreeReflection  
