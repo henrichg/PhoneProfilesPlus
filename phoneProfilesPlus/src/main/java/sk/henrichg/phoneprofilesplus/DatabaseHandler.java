@@ -8677,7 +8677,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 runningEventList.clear();
 
                 final String countQuery;
-                String eventTypeChecked = "";
+                String eventTypeChecked;
                 if (outsideParameter) {
                     eventTypeChecked = KEY_E_STATUS + "=" + Event.ESTATUS_PAUSE + " AND ";  //  only paused events
                     eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_ENABLED + "=1 AND ";
