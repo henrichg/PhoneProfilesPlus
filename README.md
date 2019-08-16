@@ -25,7 +25,7 @@ Required external libs
 - Google Material library
 - Google Play services library (GMS): location, maps
 - Google Billing library
-- Crashlytics library
+- Firebase Crashlytics library
 - Samsung Look - http://developer.samsung.com/galaxy/edge
 - RootTools - https://github.com/Stericson/RootTools
 - android-hidden-api - https://github.com/anggrayudi/android-hidden-api 
