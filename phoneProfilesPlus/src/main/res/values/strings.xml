@@ -1438,6 +1438,8 @@
     <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotification">Notification for detection of not used mobile cell</string>
     <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotificationEnabled">Show notification for detection of not used mobile cell</string>
 
+    <string name="about_application_help_me_with_translation">Please help me with the translation. Thank you.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>

@@ -250,11 +250,17 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
+        Preference preference; /*= findPreference("applicationUnlinkRingerNotificationVolumesInfo");
+        if (preference != null) {
+            preference.setShouldDisableView(false);
+            preference.setEnabled(false);
+        }*/
+
         //if (!ActivateProfileHelper.getMergedRingNotificationVolumes(getActivity().getApplicationContext())) {
         if (!ApplicationPreferences.preferences.getBoolean(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES, true)) {
             // detection of volumes merge = volumes are not merged
             //Log.e("PhoneProfilesPrefsFragment.onActivityCreated","volumes are merged=false");
-            Preference preference = findPreference("applicationUnlinkRingerNotificationVolumesInfo");
+            preference = findPreference("applicationUnlinkRingerNotificationVolumesInfo");
             if (preference != null) {
                 //preference.setEnabled(false);
                 preference.setTitle(R.string.phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary);
@@ -262,7 +268,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         else {
-            Preference preference = findPreference("applicationUnlinkRingerNotificationVolumesInfo");
+            preference = findPreference("applicationUnlinkRingerNotificationVolumesInfo");
             if (preference != null) {
                 //preference.setEnabled(true);
                 preference.setSummary(R.string.phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary);
@@ -273,7 +279,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 systemCategory.removePreference(preference);*/
         }
 
-        Preference preference = findPreference(PREF_POWER_SAVE_MODE_SETTINGS);
+        preference = findPreference(PREF_POWER_SAVE_MODE_SETTINGS);
         if (preference != null) {
             //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
             preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {

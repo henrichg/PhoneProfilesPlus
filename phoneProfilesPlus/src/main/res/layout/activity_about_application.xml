@@ -74,10 +74,19 @@
             android:textSize="15sp"/>
 
         <TextView
-            android:id="@+id/about_application_translations"
+            android:id="@+id/about_application_translations_thanks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/about_application_help_me_with_translation"
+            android:textSize="15sp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/about_application_translations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:text="@string/about_application_translations"
