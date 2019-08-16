@@ -337,7 +337,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._activationByUserCount,
                         origProfile._deviceNetworkTypePrefs,
                         origProfile._deviceCloseAllApplications,
-                        origProfile._screenNightMode,
+                        origProfile._screenCarMode,
                         origProfile._dtmfToneWhenDialing,
                         origProfile._soundOnTouch,
                         origProfile._volumeDTMF,
@@ -440,7 +440,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, profile._deviceForceStopApplicationPackageName);
             editor.putString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, Integer.toString(profile._deviceNetworkTypePrefs));
             editor.putString(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS, Integer.toString(profile._deviceCloseAllApplications));
-            editor.putString(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE, Integer.toString(profile._screenNightMode));
+            editor.putString(Profile.PREF_PROFILE_SCREEN_CAR_MODE, Integer.toString(profile._screenCarMode));
             editor.putString(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING, Integer.toString(profile._dtmfToneWhenDialing));
             editor.putString(Profile.PREF_PROFILE_SOUND_ON_TOUCH, Integer.toString(profile._soundOnTouch));
             editor.putString(Profile.PREF_PROFILE_VOLUME_DTMF, profile._volumeDTMF);
@@ -557,7 +557,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 profile._deviceForceStopApplicationPackageName = "-";
             profile._deviceNetworkTypePrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, ""));
             profile._deviceCloseAllApplications = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS, ""));
-            profile._screenNightMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE, ""));
+            profile._screenCarMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SCREEN_CAR_MODE, ""));
             profile._dtmfToneWhenDialing = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING, ""));
             profile._soundOnTouch = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_ON_TOUCH, ""));
             profile._volumeDTMF = preferences.getString(Profile.PREF_PROFILE_VOLUME_DTMF, "");

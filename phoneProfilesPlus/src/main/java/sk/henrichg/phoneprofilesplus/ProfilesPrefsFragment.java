@@ -1596,7 +1596,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_DEVICE_AUTOROTATE) ||
                 key.equals(Profile.PREF_PROFILE_NOTIFICATION_LED) ||
                 key.equals(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS) ||
-                key.equals(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE)) {*/
+                key.equals(Profile.PREF_PROFILE_SCREEN_CAR_MODE)) {*/
         if (key.equals("prf_pref_screenCategoryRoot")) {
             String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, R.string.profile_preferences_deviceScreenTimeout, false, context);
             if (!title.isEmpty()) {
@@ -1690,18 +1690,18 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 summary = summary + title + ": " + value;
             }
-            /*title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE, R.string.profile_preferences_screenNightMode, false, context);
+            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SCREEN_CAR_MODE, R.string.profile_preferences_screenCarMode, false, context);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
 
                 String value = GlobalGUIRoutines.getListPreferenceString(
-                        preferences.getString(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE,
-                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE)),
-                        R.array.screenNightModeValues, R.array.screenNightModeArray, context);
+                        preferences.getString(Profile.PREF_PROFILE_SCREEN_CAR_MODE,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SCREEN_CAR_MODE)),
+                        R.array.screenCarModeValues, R.array.screenCarModeArray, context);
 
                 summary = summary + title + ": " + value;
-            }*/
+            }
         }
 
         /*if (key.equals(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE) ||
@@ -2282,7 +2282,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (key.equals(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS) ||
-                key.equals(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE))
+                key.equals(Profile.PREF_PROFILE_SCREEN_CAR_MODE))
         {
             ListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
@@ -2628,7 +2628,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS);
         setSummary(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS);
         setSummary(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS);
-        setSummary(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE);
+        setSummary(Profile.PREF_PROFILE_SCREEN_CAR_MODE);
         setSummary(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING);
         setSummary(Profile.PREF_PROFILE_SOUND_ON_TOUCH);
         setSummary(PREF_LOCK_DEVICE_INSTALL_EXTENDER);

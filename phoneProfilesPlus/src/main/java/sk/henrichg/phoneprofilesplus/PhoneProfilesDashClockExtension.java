@@ -351,17 +351,17 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                         indicator1 = addIntoIndicator(indicator1, "pn0");
                 }
             }
-            /*
             // screen night mode
-            if (profile._screenNightMode != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE, null, this) == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._screenNightMode == 1) || (profile._screenNightMode == 3))
-                        indicator1 = addIntoIndicator(indicator1, "sn1");
-                    if (profile._screenNightMode == 2)
-                        indicator1 = addIntoIndicator(indicator1, "sn0");
+            if (profile._screenCarMode != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_CAR_MODE, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (profile._screenCarMode == 1)
+                        indicator1 = addIntoIndicator(indicator1, "cm1");
+                    if (profile._screenCarMode == 2)
+                        indicator1 = addIntoIndicator(indicator1, "cm2");
+                    if (profile._screenCarMode == 3)
+                        indicator1 = addIntoIndicator(indicator1, "cm0");
                 }
             }
-            */
             // power save mode
             if (profile._devicePowerSaveMode != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {

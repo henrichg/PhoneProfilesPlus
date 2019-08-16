@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.UiModeManager;
 import android.app.WallpaperManager;
 import android.appwidget.AppWidgetManager;
 import android.bluetooth.BluetoothAdapter;
@@ -2424,12 +2425,10 @@ class ActivateProfileHelper {
             }
         }
 
-        /*
         // set screen night mode
-        if (profile._screenNightMode != 0) {
-            setScreenNightMode(context, profile._screenNightMode);
+        if (profile._screenCarMode != 0) {
+            setScreenCarMode(context, profile._screenCarMode);
         }
-        */
 
         // close all applications
         if (profile._deviceCloseAllApplications == 1) {
@@ -3920,28 +3919,29 @@ class ActivateProfileHelper {
         });
     }
 
-    /*
-    private static void setScreenNightMode(Context context, final int value) {
-        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE, context)
+    private static void setScreenCarMode(Context context, final int value) {
+        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_CAR_MODE, null, null, false, context).allowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
             UiModeManager uiModeManager = (UiModeManager) context.getSystemService(Context.UI_MODE_SERVICE);
-            PPApplication.logE("ActivateProfileHelper.setScreenNightMode", "uiModeManager="+uiModeManager);
+            PPApplication.logE("ActivateProfileHelper.setScreenCarMode", "uiModeManager="+uiModeManager);
             if (uiModeManager != null) {
                 switch (value) {
                     case 1:
+                        uiModeManager.enableCarMode(0);
                         uiModeManager.setNightMode(UiModeManager.MODE_NIGHT_YES);
                         break;
                     case 2:
+                        uiModeManager.enableCarMode(0);
                         uiModeManager.setNightMode(UiModeManager.MODE_NIGHT_NO);
                         break;
                     case 3:
-                        uiModeManager.setNightMode(UiModeManager.MODE_NIGHT_AUTO);
+                        uiModeManager.disableCarMode(0);
+                        uiModeManager.setNightMode(UiModeManager.MODE_NIGHT_NO);
                         break;
                 }
             }
         }
     }
-    */
 
     static int getRingerVolume(Context context)
     {
