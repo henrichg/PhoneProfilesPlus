@@ -70,7 +70,19 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             android:text="@string/about_application_support"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/about_application_privacy_policy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/about_application_privacy_policy"
             android:textSize="15sp"/>
 
         <TextView
@@ -93,20 +105,10 @@
             android:textSize="15sp"/>
 
         <TextView
-            android:id="@+id/about_application_privacy_policy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:text="@string/about_application_privacy_policy"
-            android:textSize="15sp"/>
-
-        <TextView
             android:id="@+id/about_application_releases"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:text="@string/about_application_releases"
