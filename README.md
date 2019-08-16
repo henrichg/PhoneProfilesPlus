@@ -8,7 +8,7 @@ PhoneProfilesPlus
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/HenrichGron)
 [![Join the chat at https://gitter.im/PhoneProfilesPlus/Lobby](https://badges.gitter.im/PhoneProfilesPlus/Lobby.svg)](https://gitter.im/PhoneProfilesPlus/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Android application - manualy and event triggered change of device settings like ringer mode, sounds, Wifi, Bluetooth, launcher wallpaper, ...
+Android application - manually and by event triggered change of device settings like ringer mode, sounds, Wifi, Bluetooth, launcher wallpaper, ...
 
 [Privacy Policy](https://sites.google.com/site/phoneprofilesplus/home/privacy-policy)
 
