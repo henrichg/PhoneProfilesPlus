@@ -21,7 +21,7 @@ Required external libs
 ----------------------
 
 - AndroidX library: appcompat, preferences, gridlayout, cardview, recyclerview, viewpager2, constraintlayout, workmanager
-- Material library
+- Google Material library
 - Google Play services library (GMS): location, maps
 - Google Billing library
 - Crashlytics library
