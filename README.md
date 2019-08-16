@@ -36,5 +36,5 @@ Required external libs
 - time-duration-picker (as modified module) - https://github.com/svenwiegand/time-duration-picker
 - android-betterpickers (as modified module) - https://github.com/code-troopers/android-betterpickers
 - RelativePopupWindow (as modified RelativePopupWindow class) - https://github.com/kakajika/RelativePopupWindow
-- android-hidden-api (downloaded android.jar copied to folder <android-sdk>/android-XX) - https://github.com/anggrayudi/android-hidden-api 
+- android-hidden-api (downloaded android.jar copied to folder \<android-sdk\>/android-XX) - https://github.com/anggrayudi/android-hidden-api 
 - FreeReflection (only code from https://github.com/tiann/FreeReflection/blob/master/library/src/main/java/me/weishu/reflection/Reflection.java) - https://github.com/tiann/FreeReflection
