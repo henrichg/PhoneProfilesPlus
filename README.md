@@ -14,6 +14,7 @@ Android application - manualy and event triggered change of device settings like
 
 Supported Android SDK
 ----------------------
+
 - minSdkVersion = 21
 - targetSdkVersion = 28
 
