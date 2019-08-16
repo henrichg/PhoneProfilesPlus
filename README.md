@@ -33,6 +33,7 @@ Required external libs
 - doki - https://github.com/DoubleDotLabs/doki
 - Samsung Look - http://developer.samsung.com/galaxy/edge  
 - RootTools (as module, code modified) - https://github.com/Stericson/RootTools
+- RootShell (as module, code modified) - https://github.com/Stericson/RootShell
 - time-duration-picker (as module, code modified) - https://github.com/svenwiegand/time-duration-picker
 - android-betterpickers (as module, code modified) - https://github.com/code-troopers/android-betterpickers  
 - RelativePopupWindow (only modified RelativePopupWindow class) - https://github.com/kakajika/RelativePopupWindow  
