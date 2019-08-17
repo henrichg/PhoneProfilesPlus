@@ -427,7 +427,7 @@ public class PPApplication extends Application {
 
                                         //+"|EditorProfilesActivity.selectFilterItem"
                                         //+"|EventsPrefsFragment.onResume"
-                                        +"|ActivateProfileHelper.setScreenCarMode"
+                                        //+"|ActivateProfileHelper.setScreenCarMode"
             ;
 
 

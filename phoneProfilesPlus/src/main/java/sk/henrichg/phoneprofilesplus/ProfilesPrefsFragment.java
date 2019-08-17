@@ -1690,18 +1690,18 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 summary = summary + title + ": " + value;
             }
-            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SCREEN_CAR_MODE, R.string.profile_preferences_screenCarMode, false, context);
-            if (!title.isEmpty()) {
-                _bold = true;
-                if (!summary.isEmpty()) summary = summary +" • ";
-
-                String value = GlobalGUIRoutines.getListPreferenceString(
-                        preferences.getString(Profile.PREF_PROFILE_SCREEN_CAR_MODE,
-                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SCREEN_CAR_MODE)),
-                        R.array.screenCarModeValues, R.array.screenCarModeArray, context);
-
-                summary = summary + title + ": " + value;
-            }
+//            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SCREEN_CAR_MODE, R.string.profile_preferences_screenCarMode, false, context);
+//            if (!title.isEmpty()) {
+//                _bold = true;
+//                if (!summary.isEmpty()) summary = summary +" • ";
+//
+//                String value = GlobalGUIRoutines.getListPreferenceString(
+//                        preferences.getString(Profile.PREF_PROFILE_SCREEN_CAR_MODE,
+//                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SCREEN_CAR_MODE)),
+//                        R.array.screenCarModeValues, R.array.screenCarModeArray, context);
+//
+//                summary = summary + title + ": " + value;
+//            }
         }
 
         /*if (key.equals(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE) ||

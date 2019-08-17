@@ -351,7 +351,8 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                         indicator1 = addIntoIndicator(indicator1, "pn0");
                 }
             }
-            // screen night mode
+            /*
+            // screen car mode
             if (profile._screenCarMode != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_CAR_MODE, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (profile._screenCarMode == 1)
@@ -362,6 +363,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                         indicator1 = addIntoIndicator(indicator1, "cm0");
                 }
             }
+            */
             // power save mode
             if (profile._devicePowerSaveMode != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
