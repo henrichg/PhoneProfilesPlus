@@ -3927,18 +3927,21 @@ class ActivateProfileHelper {
             if (uiModeManager != null) {
                 switch (value) {
                     case 1:
-                        uiModeManager.enableCarMode(0);
+                        //uiModeManager.enableCarMode(0);
                         uiModeManager.setNightMode(UiModeManager.MODE_NIGHT_YES);
                         break;
                     case 2:
-                        uiModeManager.enableCarMode(0);
+                        //uiModeManager.enableCarMode(0);
                         uiModeManager.setNightMode(UiModeManager.MODE_NIGHT_NO);
                         break;
                     case 3:
-                        uiModeManager.disableCarMode(0);
+                        //uiModeManager.disableCarMode(0);
                         uiModeManager.setNightMode(UiModeManager.MODE_NIGHT_NO);
                         break;
                 }
+
+                PPApplication.logE("ActivateProfileHelper.setScreenCarMode", "currentModeType="+uiModeManager.getCurrentModeType());
+                PPApplication.logE("ActivateProfileHelper.setScreenCarMode", "nightMode="+uiModeManager.getNightMode());
             }
         }
     }

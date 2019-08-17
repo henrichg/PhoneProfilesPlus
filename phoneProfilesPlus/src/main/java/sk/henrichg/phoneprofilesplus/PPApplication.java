@@ -334,7 +334,7 @@ public class PPApplication extends Application {
                                         //+"|PhoneStateScanner.stopAutoRegistration"
                                         //+"|PhoneStateScanner.getAllCellInfo"
                                         //+"|PhoneStateScanner.getCellLocation"
-                                        +"|PhoneStateScanner.doAutoRegistration"
+                                        //+"|PhoneStateScanner.doAutoRegistration"
                                         //+"|MobileCellsRegistrationDialogPreference.startRegistration"
                                         //+"|MobileCellsRegistrationService"
                                         //+"|NotUsedMobileCellsNotificationDeletedReceiver.onReceive"
@@ -427,6 +427,7 @@ public class PPApplication extends Application {
 
                                         //+"|EditorProfilesActivity.selectFilterItem"
                                         //+"|EventsPrefsFragment.onResume"
+                                        +"|ActivateProfileHelper.setScreenCarMode"
             ;
 
 
