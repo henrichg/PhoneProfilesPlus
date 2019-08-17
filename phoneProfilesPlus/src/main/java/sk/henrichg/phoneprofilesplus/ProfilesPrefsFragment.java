@@ -77,6 +77,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         initPreferenceFragment(savedInstanceState);
 
         updateAllSummary();
+
+        PPApplication.logE("ProfilesPrefsFragment.onCreate", "END");
     }
 
     @Override
@@ -185,6 +187,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         {
             super.onDisplayPreferenceDialog(preference);
         }
+
+        PPApplication.logE("ProfilesPrefsFragment.onDisplayPreferenceDialog", "END");
     }
 
     @Override
@@ -659,6 +663,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             });
         }
 
+        PPApplication.logE("ProfilesPrefsFragment.onActivityCreated", "END");
     }
 
     @Override
@@ -2804,6 +2809,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
+        PPApplication.logE("ProfilesPrefsFragment.setPermissionsPreference", "xxx");
+
         final ProfilesPrefsActivity activity = (ProfilesPrefsActivity)getActivity();
 
         Context context = activity.getApplicationContext();
@@ -2812,6 +2819,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (profile_id != 0) {
             int newProfileMode = activity.newProfileMode;
             int predefinedProfileIndex = activity.predefinedProfileIndex;
+
             final Profile profile = ((ProfilesPrefsActivity) getActivity())
                     .getProfileFromPreferences(profile_id, newProfileMode, predefinedProfileIndex);
 
@@ -2912,6 +2920,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preferenceCategory.removePreference(preference);
             }
         }
+
+        PPApplication.logE("ProfilesPrefsFragment.setPermissionsPreference", "END");
     }
 
 }

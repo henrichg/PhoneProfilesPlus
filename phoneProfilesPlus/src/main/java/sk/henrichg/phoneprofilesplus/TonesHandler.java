@@ -88,21 +88,24 @@ class TonesHandler {
     }
 
     static boolean isPhoneProfilesSilent(Uri uri, Context appContext) {
+        PPApplication.logE("TonesHandler.isPhoneProfilesSilent", "xxx");
         String displayName = "";
+        PPApplication.logE("TonesHandler.isPhoneProfilesSilent", "uri="+uri);
         try {
             Cursor cursor = appContext.getContentResolver().query(uri, null, null, null, null);
             if (cursor != null) {
                 if (cursor.moveToFirst()) {
                     int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
-                    displayName = cursor.getString(nameIndex);
+                    if (nameIndex != -1)
+                        displayName = cursor.getString(nameIndex);
                 }
-
                 PPApplication.logE("TonesHandler.isPhoneProfilesSilent", "displayName=" + displayName);
 
                 cursor.close();
             }
         } catch (Exception ignored) {}
         String filename = appContext.getResources().getResourceEntryName(TonesHandler.TONE_ID) + ".ogg";
+        PPApplication.logE("TonesHandler.isPhoneProfilesSilent", "END");
         return (displayName != null) && displayName.equals(filename);
     }
 

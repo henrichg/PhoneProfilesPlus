@@ -114,6 +114,7 @@ public class PPApplication extends Application {
                                          +"|ImportantInfoNotification"*/
 
                                          //+"|TonesHandler"
+                                         //+"|TonesHandler.isPhoneProfilesSilent"
                                          //+"|TonesHandler.getToneName"
                                          //+"|DatabaseHandler.fixPhoneProfilesSilentInProfiles"
 
@@ -197,9 +198,14 @@ public class PPApplication extends Application {
                                          //+"|PhoneProfilesPreferencesNestedFragment.onActivityCreated"
                                          //+"|PhoneProfilesPrefsActivity"
                                          //+"|PhoneProfilesPrefsFragment"
-                                         /*+"|ProfilesPrefsActivity"
-                                         +"|ProfilesPrefsFragment"
-                                         +"|EventsPrefsActivity"
+                                         //+"|ProfilesPrefsActivity"
+                                         //+"|ProfilesPrefsFragment"
+                                         //+"|ProfilesPrefsFragment.onCreate"
+                                         //+"|ProfilesPrefsFragment.onDisplayPreferenceDialog"
+                                         //+"|ProfilesPrefsFragment.onActivityCreated"
+                                         //+"|ProfilesPrefsFragment.setPermissionsPreference"
+                                         //+"|ProfilesPrefsActivity.getProfileFromPreferences"
+                                         /*+"|EventsPrefsActivity"
                                          +"|EventsPrefsFragment"
                                          +"|PhoneProfilesPrefsNotifications"
                                          +"|LocationGeofencePreferenceX"
