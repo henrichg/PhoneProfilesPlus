@@ -32,12 +32,14 @@ class EventPreferencesTime extends EventPreferences {
     boolean _saturday;
     int _startTime;
     int _endTime;
+    int _timeType;
     //boolean _useEndTime;
 
     static final String PREF_EVENT_TIME_ENABLED = "eventTimeEnabled";
     private static final String PREF_EVENT_TIME_DAYS = "eventTimeDays";
     private static final String PREF_EVENT_TIME_START_TIME = "eventTimeStartTime";
     private static final String PREF_EVENT_TIME_END_TIME = "eventTimeEndTime";
+    private static final String PREF_EVENT_TIME_TYPE = "eventTimeType";
     //private static final String PREF_EVENT_TIME_USE_END_TIME = "eventTimeUseEndTime";
 
     private static final String PREF_EVENT_TIME_CATEGORY = "eventTimeCategoryRoot";
@@ -52,7 +54,8 @@ class EventPreferencesTime extends EventPreferences {
                                 boolean friday,
                                 boolean saturday,
                                 int startTime,
-                                int endTime//,
+                                int endTime,
+                                int timeType//,
                                 //boolean useEndTime
                                 )
     {
@@ -67,6 +70,7 @@ class EventPreferencesTime extends EventPreferences {
         this._saturday = saturday;
         this._startTime = startTime;
         this._endTime = endTime;
+        this._timeType = timeType;
         //this._useEndTime = useEndTime;
     }
 
@@ -83,6 +87,7 @@ class EventPreferencesTime extends EventPreferences {
         this._saturday = fromEvent._eventPreferencesTime._saturday;
         this._startTime = fromEvent._eventPreferencesTime._startTime;
         this._endTime = fromEvent._eventPreferencesTime._endTime;
+        this._timeType = fromEvent._eventPreferencesTime._timeType;
         //this._useEndTime = fromEvent._eventPreferencesTime._useEndTime;
         this.setSensorPassed(fromEvent._eventPreferencesTime.getSensorPassed());
     }
@@ -104,6 +109,7 @@ class EventPreferencesTime extends EventPreferences {
         editor.putString(PREF_EVENT_TIME_DAYS, sValue);
         editor.putInt(PREF_EVENT_TIME_START_TIME, this._startTime);
         editor.putInt(PREF_EVENT_TIME_END_TIME, this._endTime);
+        editor.putInt(PREF_EVENT_TIME_TYPE, this._timeType);
         //editor.putBoolean(PREF_EVENT_TIME_USE_END_TIME, this._useEndTime);
         editor.apply();
     }
@@ -150,6 +156,7 @@ class EventPreferencesTime extends EventPreferences {
         int defaultValue = now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE);
         this._startTime = preferences.getInt(PREF_EVENT_TIME_START_TIME, defaultValue);
         this._endTime = preferences.getInt(PREF_EVENT_TIME_END_TIME, defaultValue);
+        this._timeType = preferences.getInt(PREF_EVENT_TIME_TYPE, defaultValue);
         //this._useEndTime = preferences.getBoolean(PREF_EVENT_TIME_USE_END_TIME, false);
     }
 
@@ -305,7 +312,7 @@ class EventPreferencesTime extends EventPreferences {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_TIME_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesTime tmp = new EventPreferencesTime(this._event, this._enabled, this._sunday, this._monday, this._tuesday, this._wednesday,
-                    this._thursday, this._friday, this._saturday, this._startTime, this._endTime);
+                    this._thursday, this._friday, this._saturday, this._startTime, this._endTime, this._timeType);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 

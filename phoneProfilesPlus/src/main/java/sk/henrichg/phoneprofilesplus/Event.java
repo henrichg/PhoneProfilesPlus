@@ -281,7 +281,7 @@ class Event {
 
     private void createEventPreferencesTime()
     {
-        this._eventPreferencesTime = new EventPreferencesTime(this, false, false, false, false, false, false, false, false, 0, 0/*, false*/);
+        this._eventPreferencesTime = new EventPreferencesTime(this, false, false, false, false, false, false, false, false, 0, 0, 0/*, false*/);
     }
 
     private void createEventPreferencesBattery()

@@ -540,6 +540,10 @@ public class PPApplication extends Application {
     static final int SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER = 15;
     static final int SCANNER_RESTART_BLUETOOTH_SCANNER = 16;
 
+    static final int SCANNER_START_TWILIGHT_SCANNER = 17;
+    static final int SCANNER_STOP_TWILIGHT_SCANNER = 18;
+    static final int SCANNER_RESTART_TWILIGHT_SCANNER = 19;
+
     static final int SCANNER_RESTART_ALL_SCANNERS = 50;
 
     static final String EXTENDER_ACCESSIBILITY_SERVICE_ID = "sk.henrichg.phoneprofilesplusextender/.PPPEAccessibilityService";
@@ -619,6 +623,7 @@ public class PPApplication extends Application {
     public static final BluetoothScanMutex bluetoothScanMutex = new BluetoothScanMutex();
     public static final BluetoothLEScanMutex bluetoothLEScanMutex = new BluetoothLEScanMutex();
     public static final BluetoothScanResultsMutex bluetoothScanResultsMutex = new BluetoothScanResultsMutex();
+    public static final TwilightScannerMutex twilightScannerMutex = new TwilightScannerMutex();
 
     //public static boolean isPowerSaveMode = false;
 
@@ -2005,6 +2010,24 @@ public class PPApplication extends Application {
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_PHONE_STATE_SCANNER);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
+            PPApplication.runCommand(context, commandIntent);
+        } catch (Exception ignored) {}
+    }
+
+    public static void restartTwilightScanner(Context context/*, boolean forScreenOn*/) {
+        try {
+            PPApplication.logE("[RJS] PPApplication.restartOrientationScanner", "xxx");
+            /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_TWILIGHT_SCANNER);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, true);
+            PPApplication.startPPService(context, serviceIntent);*/
+            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_TWILIGHT_SCANNER);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, true);
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception ignored) {}
     }

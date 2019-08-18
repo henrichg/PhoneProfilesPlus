@@ -318,6 +318,10 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             PPApplication.restartPhoneStateScanner(appContext, false);
         }
 
+        if (permissionsChanged) {
+            PPApplication.restartTwilightScanner(appContext);
+        }
+
         if (useAlarmClockEnabled != ApplicationPreferences.applicationUseAlarmClock(appContext)) {
             // unblockEventsRun must be true to reset alarms
             PPApplication.restartEvents(appContext, true, true);

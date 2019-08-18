@@ -40,7 +40,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2370;
+    private static final int DATABASE_VERSION = 2380;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -101,6 +101,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_WIFI = 25;
     static final int ETYPE_BLUETOOTH = 26;
     static final int ETYPE_ALARM_CLOCK = 27;
+    static final int ETYPE_TIMETWILIGHT = 28;
 
     // activity log types
     static final int ALTYPE_UNDEFINED = 0;
@@ -345,6 +346,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_NOTIFICATION_SOUND_END = "notificationSoundEnd";
     private static final String KEY_E_NOTIFICATION_VIBRATE_END = "notificationVibrateEnd";
     private static final String KEY_E_BATTERY_PLUGGED = "batteryPlugged";
+    private static final String KEY_E_TIME_TYPE = "timeType";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -702,7 +704,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_ALARM_CLOCK_SENSOR_PASSED + " INTEGER,"
                 + KEY_E_NOTIFICATION_SOUND_END + " TEXT,"
                 + KEY_E_NOTIFICATION_VIBRATE_END + " INTEGER,"
-                + KEY_E_BATTERY_PLUGGED + " TEXT"
+                + KEY_E_BATTERY_PLUGGED + " TEXT,"
+                + KEY_E_TIME_TYPE + " INTEGER"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -2898,6 +2901,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_MOBILE_CELLS + " SET " + KEY_MC_DO_NOT_DETECT + "=0");
         }
 
+        if (oldVersion < 2380)
+        {
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_TIME_TYPE + " INTEGER");
+
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_TIME_TYPE + "=0");
+        }
+
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
 
     }
@@ -4977,7 +4987,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_START_TIME,
                         KEY_E_END_TIME,
                         //KEY_E_USE_END_TIME
-                        KEY_E_TIME_SENSOR_PASSED
+                        KEY_E_TIME_SENSOR_PASSED,
+                        KEY_E_TIME_TYPE
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -5031,6 +5042,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._startTime = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_START_TIME)));
                 eventPreferences._endTime = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_END_TIME)));
                 //eventPreferences._useEndTime = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_USE_END_TIME))) == 1) ? true : false;
+                eventPreferences._timeType = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_TIME_TYPE)));
                 eventPreferences.setSensorPassed(Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_TIME_SENSOR_PASSED))));
             }
             cursor.close();
@@ -5564,6 +5576,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_START_TIME, eventPreferences._startTime);
         values.put(KEY_E_END_TIME, eventPreferences._endTime);
         //values.put(KEY_E_USE_END_TIME, (eventPreferences._useEndTime) ? 1 : 0);
+        values.put(KEY_E_TIME_TYPE, eventPreferences._timeType);
         values.put(KEY_E_TIME_SENSOR_PASSED, eventPreferences.getSensorPassed());
 
         // updating row
@@ -6417,6 +6430,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             KEY_E_RADIO_SWITCH_AIRPLANE_MODE + "!=0";
                 else if (eventType == ETYPE_ALARM_CLOCK)
                     eventTypeChecked = eventTypeChecked + KEY_E_ALARM_CLOCK_ENABLED + "=1";
+                else if (eventType == ETYPE_TIMETWILIGHT)
+                    eventTypeChecked = eventTypeChecked + KEY_E_TIME_ENABLED + "=1" + " AND " +
+                            KEY_E_TIME_TYPE + "!=0";
 
                 countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
                         " WHERE " + eventTypeChecked;
@@ -10944,6 +10960,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     }
                                                 }
                                                 values.put(KEY_E_CALENDAR_SEARCH_STRING, searchStringNew);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 2380) {
+                                                values.put(KEY_E_TIME_TYPE, 0);
                                             }
 
                                             // Inserting Row do db z SQLiteOpenHelper

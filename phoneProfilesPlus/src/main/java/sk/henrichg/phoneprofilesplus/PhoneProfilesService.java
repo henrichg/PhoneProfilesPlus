@@ -194,6 +194,8 @@ public class PhoneProfilesService extends Service
 
     private PhoneStateScanner phoneStateScanner = null;
 
+    private TwilightScanner twilightScanner = null;
+
     private static final int DEVICE_ORIENTATION_UNKNOWN = 0;
     private static final int DEVICE_ORIENTATION_RIGHT_SIDE_UP = 3;
     private static final int DEVICE_ORIENTATION_LEFT_SIDE_UP = 4;
@@ -2983,6 +2985,50 @@ public class PhoneProfilesService extends Service
         }
     }
 
+    private void startTwilightScanner(boolean start, boolean stop, boolean checkDatabase) {
+        synchronized (PPApplication.twilightScannerMutex) {
+            Context appContext = getApplicationContext();
+            CallsCounter.logCounter(appContext, "PhoneProfilesService.startTwilightScanner", "PhoneProfilesService_startTwilightScanner");
+            PPApplication.logE("[RJS] PhoneProfilesService.startTwilightScanner", "xxx");
+            if (stop) {
+                if (isTwilightScannerStarted()) {
+                    CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startTwilightScanner->STOP", "PhoneProfilesService_startTwilightScanner");
+                    PPApplication.logE("[RJS] PhoneProfilesService.startTwilightScanner", "STOP");
+                    stopTwilightScanner();
+                } else
+                    PPApplication.logE("[RJS] PhoneProfilesService.startTwilightScanner", "not started");
+            }
+            if (start) {
+                //boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
+                //        PreferenceAllowed.PREFERENCE_ALLOWED;
+                //if (eventAllowed) {
+                    //if (ApplicationPreferences.applicationEventOrientationEnableScanning(appContext)) {
+                        //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        //if ((PPApplication.isScreenOn) || !ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn(appContext)) {
+                            // start only for screen On
+                            int eventCount = 1;
+                            if (checkDatabase/* || (!isOrientationScannerStarted())*/) {
+                                eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_TIMETWILIGHT, false);
+                            }
+                            if (eventCount > 0) {
+                                if (!isTwilightScannerStarted()) {
+                                    CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startTwilightScanner->START", "PhoneProfilesService_startTwilightScanner");
+                                    PPApplication.logE("[RJS] PhoneProfilesService.startTwilightScanner", "START");
+                                    startTwilightScanner();
+                                } else
+                                    PPApplication.logE("[RJS] PhoneProfilesService.startTwilightScanner", "started");
+                            } else
+                                startTwilightScanner(false, true, false);
+                        //} else
+                        //    startOrientationScanner(false, true, false);
+                    //} else
+                    //    startOrientationScanner(false, true, false);
+                //} else
+                //    startOrientationScanner(false, true, false);
+            }
+        }
+    }
+
     private void registerReceiversAndJobs(boolean fromCommand) {
         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiversAndJobs", "xxx");
 
@@ -3154,6 +3200,7 @@ public class PhoneProfilesService extends Service
         scheduleGeofenceScannerJob(true,  true, /*false,*/ false);
         startPhoneStateScanner(true, true, true, false, false);
         startOrientationScanner(true, true, true);
+        startTwilightScanner(true, true, true);
     }
 
     private void unregisterReceiversAndJobs() {
@@ -3198,6 +3245,7 @@ public class PhoneProfilesService extends Service
         scheduleGeofenceScannerJob(false,  false, /*false,*/ false);
         startPhoneStateScanner(false, true, false, false, false);
         startOrientationScanner(false, true, false);
+        startTwilightScanner(false, true, false);
     }
 
     private void reregisterReceiversAndJobs() {
@@ -3235,6 +3283,7 @@ public class PhoneProfilesService extends Service
         scheduleGeofenceScannerJob(true,  true, /*false,*/ false);
         startPhoneStateScanner(true, true, true, false, false);
         startOrientationScanner(true, true, true);
+        startTwilightScanner(true, true, true);
     }
 
     // start service for first start
@@ -3693,6 +3742,14 @@ public class PhoneProfilesService extends Service
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_STOP_PHONE_STATE_SCANNER");
                                     startPhoneStateScanner(false, true, false, false, false);
                                     break;
+                                case PPApplication.SCANNER_START_TWILIGHT_SCANNER:
+                                    PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_START_TWILIGHT_SCANNER");
+                                    startTwilightScanner(true, true, true);
+                                    break;
+                                case PPApplication.SCANNER_STOP_TWILIGHT_SCANNER:
+                                    PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_STOP_TWILIGHT_SCANNER");
+                                    startTwilightScanner(false, true, false);
+                                    break;
                                 case PPApplication.SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
                                     registerWifiConnectionBroadcastReceiver(true, true, false);
@@ -3754,6 +3811,10 @@ public class PhoneProfilesService extends Service
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_ORIENTATION_SCANNER");
                                     startOrientationScanner(true, false, true);
                                     break;
+                                case PPApplication.SCANNER_RESTART_TWILIGHT_SCANNER:
+                                    PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_TWILIGHT_SCANNER");
+                                    startTwilightScanner(true, false, true);
+                                    break;
                                 case PPApplication.SCANNER_RESTART_ALL_SCANNERS:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_ALL_SCANNERS");
                                     registerWifiConnectionBroadcastReceiver(true, true, false);
@@ -3775,6 +3836,8 @@ public class PhoneProfilesService extends Service
                                     scheduleGeofenceScannerJob(true, true, /*forScreenOn,*/ true);
 
                                     startOrientationScanner(true, false, true);
+
+                                    startTwilightScanner(true, false, true);
                                     break;
                             }
                         }
@@ -4968,6 +5031,34 @@ public class PhoneProfilesService extends Service
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+    }
+
+    // Twilight scanner ----------------------------------------------------------------
+
+    private void startTwilightScanner() {
+        if (twilightScanner != null) {
+            twilightScanner.stop();
+            twilightScanner = null;
+        }
+
+        twilightScanner = new TwilightScanner(getApplicationContext());
+        twilightScanner.start();
+    }
+
+    private void stopTwilightScanner() {
+        if (twilightScanner != null) {
+            twilightScanner.stop();
+            twilightScanner = null;
+        }
+    }
+
+    boolean isTwilightScannerStarted() {
+        return (twilightScanner != null);
+    }
+
+
+    TwilightScanner getTwilightScanner() {
+        return twilightScanner;
     }
 
     //---------------------------
