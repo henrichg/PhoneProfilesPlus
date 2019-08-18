@@ -3322,6 +3322,20 @@ public class PhoneProfilesService extends Service
                             // grant root
                             PPApplication.isRootGranted();
                         }
+                        else {
+                            synchronized (PPApplication.rootMutex) {
+                                if (PPApplication.rootMutex.rootChecked) {
+                                    try {
+                                        Crashlytics.setString(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(PPApplication.rootMutex.rooted));
+                                    } catch (Exception ignored) {}
+                                }
+                                else {
+                                    try {
+                                        Crashlytics.setString(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, "ask for grant disabled");
+                                    } catch (Exception ignored) {}
+                                }
+                            }
+                        }
                         //PPApplication.getSUVersion();
                         PPApplication.settingsBinaryExists(false);
                         PPApplication.serviceBinaryExists(false);

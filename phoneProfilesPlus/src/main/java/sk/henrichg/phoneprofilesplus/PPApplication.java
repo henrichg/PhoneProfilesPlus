@@ -570,6 +570,8 @@ public class PPApplication extends Application {
 
     static final String EXTRA_APPLICATIONS = "extra_applications";
 
+    static final String CRASHLYTICS_LOG_DEVICE_ROOTED = "DEVICE_ROOTED";
+
     public static boolean isScreenOn;
 
     //static private FirebaseAnalytics firebaseAnalytics;
@@ -1466,8 +1468,12 @@ public class PPApplication extends Application {
     {
         RootShell.debugMode = rootToolsDebug;
 
-        if (rootMutex.rootChecked)
+        if (rootMutex.rootChecked) {
+            try {
+                Crashlytics.setString(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(rootMutex.rooted));
+            } catch (Exception ignored) {}
             return rootMutex.rooted;
+        }
 
         try {
             PPApplication.logE("PPApplication._isRooted", "start isRootAvailable");
@@ -1490,9 +1496,8 @@ public class PPApplication extends Application {
             }
             rootMutex.rootChecked = true;
             try {
-                Crashlytics.setBool("DEVICE_ROOTED", rootMutex.rooted);
+                Crashlytics.setString(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(rootMutex.rooted));
             } catch (Exception ignored) {}
-
         } catch (Exception e) {
             Log.e("PPApplication._isRooted", Log.getStackTraceString(e));
         }
