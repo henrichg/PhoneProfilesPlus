@@ -1489,6 +1489,10 @@ public class PPApplication extends Application {
                 //rootMutex.serviceBinaryChecked = false;
             }
             rootMutex.rootChecked = true;
+            try {
+                Crashlytics.setBool("DEVICE_ROOTED", rootMutex.rooted);
+            } catch (Exception ignored) {}
+
         } catch (Exception e) {
             Log.e("PPApplication._isRooted", Log.getStackTraceString(e));
         }
