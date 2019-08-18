@@ -44,6 +44,10 @@ class EventPreferencesTime extends EventPreferences {
 
     private static final String PREF_EVENT_TIME_CATEGORY = "eventTimeCategoryRoot";
 
+    static final int TIME_TYPE_EXACT = 0;
+    static final int TIME_TYPE_SUNRISE_SUNSET = 1;
+    static final int TIME_TYPE_SUNSET_SUNRISE = 2;
+
     EventPreferencesTime(Event event,
                                 boolean enabled,
                                 boolean sunday,
@@ -205,42 +209,66 @@ class EventPreferencesTime extends EventPreferences {
                     }
                 }
 
-                Calendar calendar = Calendar.getInstance();
-
-                calendar.set(Calendar.HOUR_OF_DAY, _startTime / 60);
-                calendar.set(Calendar.MINUTE, _startTime % 60);
                 descr = descr + "• ";
-                descr = descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
-                //if (tmp._useEndTime)
-                //{
-                calendar.set(Calendar.HOUR_OF_DAY, _endTime / 60);
-                calendar.set(Calendar.MINUTE, _endTime % 60);
-                descr = descr + "-";
-                descr = descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
-                //}
+                switch (_timeType) {
+                    case TIME_TYPE_EXACT:
+                        descr = descr + context.getString(R.string.event_preference_sensor_time_type_exact);
+                        break;
+                    case TIME_TYPE_SUNRISE_SUNSET:
+                        descr = descr + context.getString(R.string.event_preference_sensor_time_type_sunrise_sunset);
+                        break;
+                    case TIME_TYPE_SUNSET_SUNRISE:
+                        descr = descr + context.getString(R.string.event_preference_sensor_time_type_sunset_sunrise);
+                        break;
+                }
 
+                if (_timeType == TIME_TYPE_EXACT) {
+                    descr = descr + " • ";
 
-                if (addBullet) {
-                    if (Event.getGlobalEventsRunning(context)) {
-                        long alarmTime;
-                        //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
-                        String alarmTimeS;
-                        if (_event.getStatus() == Event.ESTATUS_PAUSE) {
-                            alarmTime = computeAlarm(true);
-                            // date and time format by user system settings configuration
-                            alarmTimeS = "(st) " + DateFormat.getDateFormat(context).format(alarmTime) +
-                                    " " + DateFormat.getTimeFormat(context).format(alarmTime);
-                            descr = descr + "<br>"; //'\n';
-                            descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
-                        } else if ((_event.getStatus() == Event.ESTATUS_RUNNING)/* && _useEndTime*/) {
-                            alarmTime = computeAlarm(false);
-                            // date and time format by user system settings configuration
-                            alarmTimeS = "(et) " + DateFormat.getDateFormat(context).format(alarmTime) +
-                                    " " + DateFormat.getTimeFormat(context).format(alarmTime);
-                            descr = descr + "<br>"; //'\n';
-                            descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
+                    Calendar calendar = Calendar.getInstance();
+
+                    calendar.set(Calendar.HOUR_OF_DAY, _startTime / 60);
+                    calendar.set(Calendar.MINUTE, _startTime % 60);
+                    descr = descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
+                    //if (tmp._useEndTime)
+                    //{
+                    calendar.set(Calendar.HOUR_OF_DAY, _endTime / 60);
+                    calendar.set(Calendar.MINUTE, _endTime % 60);
+                    descr = descr + "-";
+                    descr = descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
+                    //}
+
+                    if (addBullet) {
+                        if (Event.getGlobalEventsRunning(context)) {
+                            long alarmTime;
+                            //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
+                            String alarmTimeS;
+                            if (_event.getStatus() == Event.ESTATUS_PAUSE) {
+                                alarmTime = computeAlarm(true);
+                                // date and time format by user system settings configuration
+                                alarmTimeS = "(st) " + DateFormat.getDateFormat(context).format(alarmTime) +
+                                        " " + DateFormat.getTimeFormat(context).format(alarmTime);
+                                descr = descr + "<br>"; //'\n';
+                                descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
+                            } else if ((_event.getStatus() == Event.ESTATUS_RUNNING)/* && _useEndTime*/) {
+                                alarmTime = computeAlarm(false);
+                                // date and time format by user system settings configuration
+                                alarmTimeS = "(et) " + DateFormat.getDateFormat(context).format(alarmTime) +
+                                        " " + DateFormat.getTimeFormat(context).format(alarmTime);
+                                descr = descr + "<br>"; //'\n';
+                                descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
+                            }
                         }
                     }
+                }
+                else {
+                    /*if (PhoneProfilesService.getInstance() != null) {
+                        TwilightScanner twilightScanner = PhoneProfilesService.getInstance().getTwilightScanner();
+                        if (twilightScanner != null) {
+                            TwilightState twilightState = twilightScanner.getTwilightState();
+
+                        }
+                    }*/
                 }
             }
         }

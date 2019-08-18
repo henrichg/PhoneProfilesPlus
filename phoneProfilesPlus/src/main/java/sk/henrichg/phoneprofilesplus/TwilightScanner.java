@@ -34,7 +34,7 @@ class TwilightScanner {
     private LocationManager mLocationManager;
     private LocationHandler mLocationHandler;
 
-    TwilightState mTwilightState;
+    private TwilightState mTwilightState;
 
     TwilightScanner(Context context) {
         this.context = context;
@@ -67,7 +67,7 @@ class TwilightScanner {
 
     private void setTwilightState(TwilightState state) {
         synchronized (mLock) {
-            if (!mTwilightState.equals(state)) {
+            if ((mTwilightState == null) || (state == null) || !mTwilightState.equals(state)) {
                 if (DEBUG) {
                     Log.d(TAG, "Twilight state changed: " + state);
                 }
@@ -75,7 +75,15 @@ class TwilightScanner {
                 mTwilightState = state;
 
                 //TODO tu zavolaj HandleEvents
+                // ale este predtym updatni vsetkym time twilight udalostiam
+                // v databaze KEY_E_START_TIME, KEY_E_END_TIME
             }
+        }
+    }
+
+    TwilightState getTwilightState() {
+        synchronized (mLock) {
+            return mTwilightState;
         }
     }
 
