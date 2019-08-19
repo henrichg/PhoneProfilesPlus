@@ -218,6 +218,19 @@ class EventsHandler {
                     }
                 }
             }
+            if (sensorType.equals(SENSOR_TYPE_TIME)) {
+                // search for time events
+                PPApplication.logE("[TIME] EventsHandler.handleEvents", "search for time events");
+                for (Event _event : dataWrapper.eventList) {
+                    if ((_event._eventPreferencesTime._enabled) && (_event.getStatus() != Event.ESTATUS_STOP)) {
+                        PPApplication.logE("[TIME] EventsHandler.handleEvents", "event._id=" + _event._id);
+                        if (_event.getStatus() == Event.ESTATUS_RUNNING)
+                            _event._eventPreferencesTime.setSystemEventForPause(dataWrapper.context);
+                        if (_event.getStatus() == Event.ESTATUS_PAUSE)
+                            _event._eventPreferencesTime.setSystemEventForStart(dataWrapper.context);
+                    }
+                }
+            }
 
             if (isRestart) {
                 // for restart events, set startTime to 0

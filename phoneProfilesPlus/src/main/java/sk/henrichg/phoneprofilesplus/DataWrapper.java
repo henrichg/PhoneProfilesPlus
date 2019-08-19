@@ -1302,6 +1302,7 @@ public class DataWrapper {
                 event._eventPreferencesTime._wednesday = true;
                 event._eventPreferencesTime._thursday = true;
                 event._eventPreferencesTime._friday = true;
+                event._eventPreferencesTime._timeType = EventPreferencesTime.TIME_TYPE_EXACT;
                 event._eventPreferencesTime._startTime = 8 * 60;
                 event._eventPreferencesTime._endTime = 23 * 60;
                 //event._eventPreferencesTime._useEndTime = true;
@@ -1316,6 +1317,7 @@ public class DataWrapper {
                 event._eventPreferencesTime._enabled = true;
                 event._eventPreferencesTime._saturday = true;
                 event._eventPreferencesTime._sunday = true;
+                event._eventPreferencesTime._timeType = EventPreferencesTime.TIME_TYPE_EXACT;
                 event._eventPreferencesTime._startTime = 8 * 60;
                 event._eventPreferencesTime._endTime = 23 * 60;
                 //event._eventPreferencesTime._useEndTime = true;
@@ -1334,6 +1336,7 @@ public class DataWrapper {
                 event._eventPreferencesTime._wednesday = true;
                 event._eventPreferencesTime._thursday = true;
                 event._eventPreferencesTime._friday = true;
+                event._eventPreferencesTime._timeType = EventPreferencesTime.TIME_TYPE_EXACT;
                 event._eventPreferencesTime._startTime = 9 * 60 + 30;
                 event._eventPreferencesTime._endTime = 17 * 60 + 30;
                 //event._eventPreferencesTime._useEndTime = true;
@@ -1353,6 +1356,7 @@ public class DataWrapper {
                 event._eventPreferencesTime._friday = true;
                 event._eventPreferencesTime._saturday = true;
                 event._eventPreferencesTime._sunday = true;
+                event._eventPreferencesTime._timeType = EventPreferencesTime.TIME_TYPE_EXACT;
                 event._eventPreferencesTime._startTime = 23 * 60;
                 event._eventPreferencesTime._endTime = 8 * 60;
                 //event._eventPreferencesTime._useEndTime = true;
@@ -1375,6 +1379,7 @@ public class DataWrapper {
                 event._eventPreferencesTime._friday = true;
                 event._eventPreferencesTime._saturday = true;
                 event._eventPreferencesTime._sunday = true;
+                event._eventPreferencesTime._timeType = EventPreferencesTime.TIME_TYPE_EXACT;
                 event._eventPreferencesTime._startTime = 23 * 60;
                 event._eventPreferencesTime._endTime = 8 * 60;
                 //event._eventPreferencesTime._useEndTime = true;
@@ -1972,31 +1977,63 @@ public class DataWrapper {
 
         if (event._eventPreferencesTime._enabled) {
             if (Event.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                PPApplication.logE("[TIME] DataWrapper.doHandleEvents","------- event._id="+event._id);
+                PPApplication.logE("[TIME] DataWrapper.doHandleEvents","------- event._name="+event._name);
+
                 // compute start datetime
                 long startAlarmTime;
                 long endAlarmTime;
 
-                startAlarmTime = event._eventPreferencesTime.computeAlarm(true);
+                boolean addWeekDay = false; //event._eventPreferencesTime._timeType == EventPreferencesTime.TIME_TYPE_EXACT;
+                startAlarmTime = event._eventPreferencesTime.computeAlarm(true, addWeekDay);
+                endAlarmTime = event._eventPreferencesTime.computeAlarm(false, addWeekDay);
 
-                String alarmTimeS = DateFormat.getDateFormat(context).format(startAlarmTime) +
-                        " " + DateFormat.getTimeFormat(context).format(startAlarmTime);
-                PPApplication.logE("%%% DataWrapper.doHandleEvents", "startAlarmTime=" + alarmTimeS);
-
-                endAlarmTime = event._eventPreferencesTime.computeAlarm(false);
-
-                alarmTimeS = DateFormat.getDateFormat(context).format(endAlarmTime) +
-                        " " + DateFormat.getTimeFormat(context).format(endAlarmTime);
-                PPApplication.logE("%%% DataWrapper.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+                if (startAlarmTime > 0) {
+                    String alarmTimeS = DateFormat.getDateFormat(context).format(startAlarmTime) +
+                            " " + DateFormat.getTimeFormat(context).format(startAlarmTime);
+                    PPApplication.logE("[TIME] DataWrapper.doHandleEvents", "startAlarmTime=" + alarmTimeS);
+                }
+                else
+                    PPApplication.logE("[TIME] DataWrapper.doHandleEvents", "startAlarmTime=not alarm computed");
+                if (endAlarmTime > 0) {
+                    String alarmTimeS = DateFormat.getDateFormat(context).format(endAlarmTime) +
+                            " " + DateFormat.getTimeFormat(context).format(endAlarmTime);
+                    PPApplication.logE("[TIME] DataWrapper.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+                }
+                else
+                    PPApplication.logE("[TIME] DataWrapper.doHandleEvents", "endAlarmTime=not alarm computed");
 
                 Calendar now = Calendar.getInstance();
                 long nowAlarmTime = now.getTimeInMillis();
-                alarmTimeS = DateFormat.getDateFormat(context).format(nowAlarmTime) +
+                String alarmTimeS = DateFormat.getDateFormat(context).format(nowAlarmTime) +
                         " " + DateFormat.getTimeFormat(context).format(nowAlarmTime);
-                PPApplication.logE("%%% DataWrapper.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+                PPApplication.logE("[TIME] DataWrapper.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
 
-                timePassed = ((nowAlarmTime >= startAlarmTime) && (nowAlarmTime < endAlarmTime));
+                boolean[] daysOfWeek =  new boolean[8];
+                daysOfWeek[Calendar.SUNDAY] = event._eventPreferencesTime._sunday;
+                daysOfWeek[Calendar.MONDAY] = event._eventPreferencesTime._monday;
+                daysOfWeek[Calendar.TUESDAY] = event._eventPreferencesTime._tuesday;
+                daysOfWeek[Calendar.WEDNESDAY] = event._eventPreferencesTime._wednesday;
+                daysOfWeek[Calendar.THURSDAY] = event._eventPreferencesTime._thursday;
+                daysOfWeek[Calendar.FRIDAY] = event._eventPreferencesTime._friday;
+                daysOfWeek[Calendar.SATURDAY] = event._eventPreferencesTime._saturday;
 
-                PPApplication.logE("%%% DataWrapper.doHandleEvents", "timePassed=" + timePassed);
+                Calendar calStartTime = Calendar.getInstance();
+                calStartTime.setTimeInMillis(startAlarmTime);
+                int startDayOfWeek = calStartTime.get(Calendar.DAY_OF_WEEK);
+                if (daysOfWeek[startDayOfWeek])
+                {
+                    // startTime of week is selected
+                    PPApplication.logE("[TIME] DataWrapper.doHandleEvents","startTime of week is selected");
+                    if ((startAlarmTime > 0) && (endAlarmTime > 0))
+                        timePassed = ((nowAlarmTime >= startAlarmTime) && (nowAlarmTime < endAlarmTime));
+                    else
+                        timePassed = false;
+                }
+                else
+                    timePassed = false;
+
+                PPApplication.logE("[TIME] DataWrapper.doHandleEvents", "timePassed=" + timePassed);
 
                 if (!notAllowedTime) {
                     if (timePassed)

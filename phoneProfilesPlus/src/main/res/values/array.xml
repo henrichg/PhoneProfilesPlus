@@ -1039,4 +1039,14 @@
         <item>2</item>
         <item>3</item>
     </string-array>
+    <string-array name="eventTimeTypeArray">
+        <item>@string/event_preference_sensor_time_type_exact</item>
+        <item>@string/event_preference_sensor_time_type_sunrise_sunset</item>
+        <item>@string/event_preference_sensor_time_type_sunset_sunrise</item>
+    </string-array>
+    <string-array name="eventTimeTypeValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 </resources>

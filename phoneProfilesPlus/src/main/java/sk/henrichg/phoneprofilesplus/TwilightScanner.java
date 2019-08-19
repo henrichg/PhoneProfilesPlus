@@ -75,8 +75,6 @@ class TwilightScanner {
                 mTwilightState = state;
 
                 //TODO tu zavolaj HandleEvents
-                // ale este predtym updatni vsetkym time twilight udalostiam
-                // v databaze KEY_E_START_TIME, KEY_E_END_TIME
             }
         }
     }
@@ -316,6 +314,7 @@ class TwilightScanner {
             // calculate yesterday's twilight
             mTwilightCalculator.calculateTwilight(now - DateUtils.DAY_IN_MILLIS,
                     mLocation.getLatitude(), mLocation.getLongitude());
+            final long yesterdaySunrise = mTwilightCalculator.mSunrise;
             final long yesterdaySunset = mTwilightCalculator.mSunset;
 
             // calculate today's twilight
@@ -329,10 +328,11 @@ class TwilightScanner {
             mTwilightCalculator.calculateTwilight(now + DateUtils.DAY_IN_MILLIS,
                     mLocation.getLatitude(), mLocation.getLongitude());
             final long tomorrowSunrise = mTwilightCalculator.mSunrise;
+            final long tomorrowSunset = mTwilightCalculator.mSunset;
 
             // set twilight state
-            TwilightState state = new TwilightState(isNight, yesterdaySunset,
-                    todaySunrise, todaySunset, tomorrowSunrise);
+            TwilightState state = new TwilightState(isNight, yesterdaySunrise, yesterdaySunset,
+                    todaySunrise, todaySunset, tomorrowSunrise, tomorrowSunset);
             if (DEBUG) {
                 Log.d(TAG, "Updating twilight state: " + state);
             }

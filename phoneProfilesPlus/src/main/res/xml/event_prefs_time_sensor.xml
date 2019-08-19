@@ -15,6 +15,15 @@
         app:title="@string/event_preferences_time_timeDays"
         app:dependency="eventTimeEnabled"
         app:layout="@layout/mp_preference_material_widget" />
+    <ListPreference
+        app:title="@string/event_preferences_time_timeType"
+        app:summary="@string/event_preference_sensor_time_type_exact"
+        app:key="eventTimeType"
+        app:defaultValue="0"
+        app:entries="@array/eventTimeTypeArray"
+        app:entryValues="@array/eventTimeTypeValues"
+        app:dependency="eventTimeEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
         app:key="eventTimeStartTime"
         app:defaultValue="0"

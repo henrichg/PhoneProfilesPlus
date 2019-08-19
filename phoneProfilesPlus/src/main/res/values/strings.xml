@@ -1442,6 +1442,7 @@
     <string name="profile_preferences_screenCarMode">Car mode</string>
     <string name="array_pref_screenCarMode_onWithNightNode">On with night mode</string>
     <string name="array_pref_screenCarMode_onWithoutNightNode">On without night mode</string>
+    <string name="event_preferences_time_timeType">Time type</string>
     <string name="event_preference_sensor_time_type_exact">Exact time</string>
     <string name="event_preference_sensor_time_type_sunrise_sunset">From sunrise to sunset</string>
     <string name="event_preference_sensor_time_type_sunset_sunrise">From sunset to sunrise</string>
