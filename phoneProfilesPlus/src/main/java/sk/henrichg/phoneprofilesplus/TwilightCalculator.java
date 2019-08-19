@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.text.format.DateUtils;
 
+@SuppressWarnings("WeakerAccess")
 class TwilightCalculator {
 
     /** Value of {@link #mState} if it is currently day */
@@ -47,10 +48,10 @@ class TwilightCalculator {
      * calculates the civil twilight bases on time and geo-coordinates.
      *
      * @param time time in milliseconds.
-     * @param latiude latitude in degrees.
+     * @param latitude latitude in degrees.
      * @param longitude latitude in degrees.
      */
-    void calculateTwilight(long time, double latiude, double longitude) {
+    void calculateTwilight(long time, double latitude, double longitude) {
         final float daysSince2000 = (float) (time - UTC_2000) / DateUtils.DAY_IN_MILLIS;
 
         // mean anomaly
@@ -61,21 +62,22 @@ class TwilightCalculator {
                 * Math.sin(2 * meanAnomaly) + C3 * Math.sin(3 * meanAnomaly);
 
         // ecliptic longitude
-        final double solarLng = trueAnomaly + 1.796593063f + (float) Math.PI;
+        final double solarLng = trueAnomaly + 1.796593063d + Math.PI;
 
         // solar transit in days since 2000
         final double arcLongitude = -longitude / 360;
         float n = Math.round(daysSince2000 - J0 - arcLongitude);
-        double solarTransitJ2000 = n + J0 + arcLongitude + 0.0053f * Math.sin(meanAnomaly)
-                + -0.0069f * Math.sin(2 * solarLng);
+        double solarTransitJ2000 = n + J0 + arcLongitude + 0.0053d * Math.sin(meanAnomaly)
+                + -0.0069d * Math.sin(2 * solarLng);
 
         // declination of sun
         double solarDec = Math.asin(Math.sin(solarLng) * Math.sin(OBLIQUITY));
 
-        final double latRad = latiude * DEGREES_TO_RADIANS;
+        final double latRad = latitude * DEGREES_TO_RADIANS;
 
         double cosHourAngle = (Math.sin(ALTIDUTE_CORRECTION_CIVIL_TWILIGHT) - Math.sin(latRad)
                 * Math.sin(solarDec)) / (Math.cos(latRad) * Math.cos(solarDec));
+
         // The day or night never ends for the given date and location, if this value is out of
         // range.
         if (cosHourAngle >= 1) {
