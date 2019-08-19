@@ -262,15 +262,28 @@ class EventPreferencesTime extends EventPreferences {
                         }
                     }
                 }
-                /*else {
+                else {
                     if (PhoneProfilesService.getInstance() != null) {
                         TwilightScanner twilightScanner = PhoneProfilesService.getInstance().getTwilightScanner();
                         if (twilightScanner != null) {
                             TwilightState twilightState = twilightScanner.getTwilightState();
+                            if (twilightState != null) {
+                                long startTime = computeAlarm(true, false);
+                                long endTime = computeAlarm(false, false);
+                                if ((startTime != 0) && (endTime != 0)) {
+                                    descr = descr + " • ";
 
+                                    Calendar calendar = Calendar.getInstance();
+                                    calendar.setTimeInMillis(startTime);
+                                    descr = descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
+                                    calendar.setTimeInMillis(endTime);
+                                    descr = descr + "-";
+                                    descr = descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
+                                }
+                            }
                         }
                     }
-                }*/
+                }
             }
         }
 
@@ -520,17 +533,29 @@ class EventPreferencesTime extends EventPreferences {
 
                         ///// set calendar for startTime and endTime
                         if (_timeType == TIME_TYPE_SUNRISE_SUNSET) {
-                            calStartTime.setTimeInMillis(twilightState.getTodaySunrise());
-                            calEndTime.setTimeInMillis(twilightState.getTodaySunset());
+                            if ((twilightState.getTodaySunrise() != -1) && (twilightState.getTodaySunset() != -1)) {
+                                calStartTime.setTimeInMillis(twilightState.getTodaySunrise());
+                                calEndTime.setTimeInMillis(twilightState.getTodaySunset());
 
-                            // endTime is before actual time, compute for future
-                            if (calEndTime.getTimeInMillis() < now.getTimeInMillis()) {
-                                calStartTime.setTimeInMillis(twilightState.getTomorrowSunrise());
-                                calEndTime.setTimeInMillis(twilightState.getTomorrowSunset());
+                                // endTime is before actual time, compute for future
+                                if (calEndTime.getTimeInMillis() < now.getTimeInMillis()) {
+                                    if ((twilightState.getTomorrowSunrise() != -1) && (twilightState.getTomorrowSunset() != -1)) {
+                                        calStartTime.setTimeInMillis(twilightState.getTomorrowSunrise());
+                                        calEndTime.setTimeInMillis(twilightState.getTomorrowSunset());
+                                    }
+                                    else
+                                        setAlarm = false;
+                                }
                             }
+                            else
+                                setAlarm = false;
                         } else {
-                            calStartTime.setTimeInMillis(twilightState.getTodaySunset());
-                            calEndTime.setTimeInMillis(twilightState.getTomorrowSunrise());
+                            if ((twilightState.getTodaySunset() != -1) && (twilightState.getTomorrowSunrise() != -1)) {
+                                calStartTime.setTimeInMillis(twilightState.getTodaySunset());
+                                calEndTime.setTimeInMillis(twilightState.getTomorrowSunrise());
+                            }
+                            else
+                                setAlarm = false;
                         }
                         ////////////////////////////
                     }
