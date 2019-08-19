@@ -5,6 +5,7 @@ import java.util.Date;
 
 import androidx.annotation.NonNull;
 
+@SuppressWarnings("unused")
 class TwilightState {
 
     private final boolean mIsNight;
@@ -31,7 +32,7 @@ class TwilightState {
     /**
      * Returns true if it is currently night time.
      */
-    public boolean isNight() {
+    boolean isNight() {
         return mIsNight;
     }
 
@@ -39,7 +40,7 @@ class TwilightState {
      * Returns the time of yesterday's sunrise in the System.currentTimeMillis() timebase,
      * or -1 if the sun never sets.
      */
-    public long getYesterdaySunrise() {
+    long getYesterdaySunrise() {
         return mYesterdaySunrise;
     }
 
@@ -47,7 +48,7 @@ class TwilightState {
      * Returns the time of yesterday's sunset in the System.currentTimeMillis() timebase,
      * or -1 if the sun never sets.
      */
-    public long getYesterdaySunset() {
+    long getYesterdaySunset() {
         return mYesterdaySunset;
     }
 
@@ -55,7 +56,7 @@ class TwilightState {
      * Returns the time of today's sunrise in the System.currentTimeMillis() timebase,
      * or -1 if the sun never rises.
      */
-    public long getTodaySunrise() {
+    long getTodaySunrise() {
         return mTodaySunrise;
     }
 
@@ -63,7 +64,7 @@ class TwilightState {
      * Returns the time of today's sunset in the System.currentTimeMillis() timebase,
      * or -1 if the sun never sets.
      */
-    public long getTodaySunset() {
+    long getTodaySunset() {
         return mTodaySunset;
     }
 
@@ -71,7 +72,7 @@ class TwilightState {
      * Returns the time of tomorrow's sunrise in the System.currentTimeMillis() timebase,
      * or -1 if the sun never rises.
      */
-    public long getTomorrowSunrise() {
+    long getTomorrowSunrise() {
         return mTomorrowSunrise;
     }
 
@@ -79,7 +80,7 @@ class TwilightState {
      * Returns the time of tomorrow's sunset in the System.currentTimeMillis() timebase,
      * or -1 if the sun never rises.
      */
-    public long getTomorrowSunset() {
+    long getTomorrowSunset() {
         return mTomorrowSunset;
     }
 
@@ -88,7 +89,7 @@ class TwilightState {
         return o instanceof TwilightState && equals((TwilightState)o);
     }
 
-    public boolean equals(TwilightState other) {
+    boolean equals(TwilightState other) {
         return other != null
                 && mIsNight == other.mIsNight
                 && mYesterdaySunrise == other.mYesterdaySunrise

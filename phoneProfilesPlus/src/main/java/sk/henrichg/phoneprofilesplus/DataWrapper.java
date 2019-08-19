@@ -1976,7 +1976,8 @@ public class DataWrapper {
         PPApplication.logE("%%%%%%% DataWrapper.doHandleEvents","------- sensorType="+sensorType);
 
         if (event._eventPreferencesTime._enabled) {
-            if (Event.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if ((Event.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+                    && Permissions.checkEventLocation(context, event, null)) {
                 PPApplication.logE("[TIME] DataWrapper.doHandleEvents","------- event._id="+event._id);
                 PPApplication.logE("[TIME] DataWrapper.doHandleEvents","------- event._name="+event._name);
 
@@ -2030,8 +2031,10 @@ public class DataWrapper {
                     else
                         timePassed = false;
                 }
-                else
+                else {
+                    PPApplication.logE("[TIME] DataWrapper.doHandleEvents","startTime of week is NOT selected");
                     timePassed = false;
+                }
 
                 PPApplication.logE("[TIME] DataWrapper.doHandleEvents", "timePassed=" + timePassed);
 
@@ -4029,6 +4032,7 @@ public class DataWrapper {
                     if (ApplicationPreferences.applicationEventMobileCellsRescan(dataWrapper.context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
                         PPApplication.restartPhoneStateScanner(dataWrapper.context, false);
                     }
+                    PPApplication.restartTwilightScanner(context);
 
                     PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DataWrapper.restartEventsWithRescan");
                 } finally {

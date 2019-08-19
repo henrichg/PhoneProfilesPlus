@@ -66,6 +66,7 @@ class Permissions {
     static final int PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES = 36;
     static final int PERMISSION_LOG_TO_FILE = 37;
     static final int PERMISSION_EVENT_BLUETOOTH_SWITCH_PREFERENCES = 38;
+    static final int PERMISSION_EVENT_TIME_PREFERENCES = 39;
 
     static final int GRANT_TYPE_PROFILE = 1;
     //static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -1144,12 +1145,14 @@ class Permissions {
             try {
                 if ((event._eventPreferencesWifi._enabled &&
                         ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_INFRONT) ||
-                                (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT))) ||
-                        (event._eventPreferencesBluetooth._enabled &&
-                                ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_INFRONT) ||
-                                        (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT))) ||
-                        (event._eventPreferencesLocation._enabled) ||
-                        (event._eventPreferencesMobileCells._enabled)) {
+                         (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT))) ||
+                    (event._eventPreferencesBluetooth._enabled &&
+                        ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_INFRONT) ||
+                         (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT))) ||
+                    (event._eventPreferencesLocation._enabled) ||
+                    (event._eventPreferencesMobileCells._enabled) ||
+                    (event._eventPreferencesTime._enabled &&
+                        (event._eventPreferencesTime._timeType != EventPreferencesTime.TIME_TYPE_EXACT))) {
                     boolean grantedAccessCoarseLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
                     boolean grantedAccessFineLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
                     if (permissions != null) {
@@ -1177,6 +1180,13 @@ class Permissions {
                             if (!grantedAccessFineLocation)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                         }
+                        else
+                        if (event._eventPreferencesTime._enabled) {
+                            if (!grantedAccessCoarseLocation)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                            if (!grantedAccessFineLocation)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                        }
                         else {
                             if (!grantedAccessCoarseLocation)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
@@ -1195,12 +1205,14 @@ class Permissions {
             try {
                 if ((event._eventPreferencesWifi._enabled &&
                         ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_INFRONT) ||
-                                (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT))) ||
-                        (event._eventPreferencesBluetooth._enabled &&
-                                ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_INFRONT) ||
-                                        (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT))) ||
-                        (event._eventPreferencesLocation._enabled) ||
-                        (event._eventPreferencesMobileCells._enabled)) {
+                         (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT))) ||
+                    (event._eventPreferencesBluetooth._enabled &&
+                        ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_INFRONT) ||
+                         (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT))) ||
+                    (event._eventPreferencesLocation._enabled) ||
+                    (event._eventPreferencesMobileCells._enabled) ||
+                    (event._eventPreferencesTime._enabled &&
+                        (event._eventPreferencesTime._timeType != EventPreferencesTime.TIME_TYPE_EXACT))) {
                     return hasPermission(context, permission.ACCESS_COARSE_LOCATION) &&
                             hasPermission(context, permission.ACCESS_FINE_LOCATION);
                 } else

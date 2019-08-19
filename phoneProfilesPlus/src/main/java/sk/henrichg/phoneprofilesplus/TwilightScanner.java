@@ -14,12 +14,15 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.PowerManager;
 import android.os.SystemClock;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
 
 import java.util.Iterator;
+
+import static android.content.Context.POWER_SERVICE;
 
 class TwilightScanner {
 
@@ -74,7 +77,45 @@ class TwilightScanner {
 
                 mTwilightState = state;
 
-                //TODO tu zavolaj HandleEvents
+                final Context appContext = context.getApplicationContext();
+
+                if (!PPApplication.getApplicationStarted(appContext, true))
+                    // application is not started
+                    return;
+
+                if (Event.getGlobalEventsRunning(appContext)) {
+                    PPApplication.logE("TwilightScanner.setTwilightState", "xxx");
+
+                    PPApplication.startHandlerThread("TwilightScanner.setTwilightState");
+                    final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            try {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":TwilightScanner_setTwilightState");
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
+
+                                PPApplication.logE("PPApplication.startHandlerThread", "START run - from=TwilightScanner.setTwilightState");
+
+                                EventsHandler eventsHandler = new EventsHandler(appContext);
+                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_TIME);
+
+                                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=TwilightScanner.setTwilightState");
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
             }
         }
     }

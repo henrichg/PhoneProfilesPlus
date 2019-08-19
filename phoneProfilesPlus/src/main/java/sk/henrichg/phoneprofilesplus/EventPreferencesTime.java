@@ -509,10 +509,13 @@ class EventPreferencesTime extends EventPreferences {
         }
         else {
             if (PhoneProfilesService.getInstance() != null) {
+                PPApplication.logE("EventPreferencesTime.computeAlarm", "PPService started");
                 TwilightScanner twilightScanner = PhoneProfilesService.getInstance().getTwilightScanner();
                 if (twilightScanner != null) {
+                    PPApplication.logE("EventPreferencesTime.computeAlarm", "TwilightScanner started");
                     TwilightState twilightState = twilightScanner.getTwilightState();
                     if (twilightState != null) {
+                        PPApplication.logE("EventPreferencesTime.computeAlarm", "TwilightState set");
                         setAlarm = true;
 
                         ///// set calendar for startTime and endTime
@@ -531,9 +534,14 @@ class EventPreferencesTime extends EventPreferences {
                         }
                         ////////////////////////////
                     }
+                    else
+                        PPApplication.logE("EventPreferencesTime.computeAlarm", "TwilightState NOT set");
                 }
+                else
+                    PPApplication.logE("EventPreferencesTime.computeAlarm", "TwilightScanner NOT started");
             }
-
+            else
+                PPApplication.logE("EventPreferencesTime.computeAlarm", "PPService NOT started");
         }
 
         if (setAlarm) {

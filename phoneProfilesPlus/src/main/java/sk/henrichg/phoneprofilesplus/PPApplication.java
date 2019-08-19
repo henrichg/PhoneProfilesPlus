@@ -400,6 +400,7 @@ public class PPApplication extends Application {
                                         +"|EventPreferencesTime.removeAlarm"
                                         +"|EventPreferencesTime.setAlarm"
                                         +"|[TIME] DataWrapper.doHandleEvents"
+                                        +"|TwilightScanner.setTwilightState"
 
                                         //+"|EventPreferencesCalendar.saveStartEndTime"
 

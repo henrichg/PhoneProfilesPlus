@@ -706,6 +706,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     case Permissions.PERMISSION_LOG_TO_FILE:
                         s = getString(R.string.permission_why_log_to_file);
                         break;
+                    case Permissions.PERMISSION_EVENT_TIME_PREFERENCES:
+                        s = getString(R.string.permission_why_event_time_preferences);
+                        break;
                 }
             }
         }
@@ -1546,6 +1549,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     PPApplication.restartWifiScanner(context, false);
                     PPApplication.restartBluetoothScanner(context, false);
                     PPApplication.restartGeofenceScanner(context, false);
+                    PPApplication.restartTwilightScanner(context);
                     break;
                 }
             }
