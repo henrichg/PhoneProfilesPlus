@@ -6,6 +6,7 @@ import java.util.Date;
 
 import androidx.annotation.NonNull;
 
+@SuppressWarnings("unused")
 class TwilightState {
 
     private final boolean mIsNight;
