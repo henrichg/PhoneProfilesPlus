@@ -20,6 +20,7 @@ import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
 
+import java.util.Calendar;
 import java.util.Iterator;
 
 import static android.content.Context.POWER_SERVICE;
@@ -371,9 +372,22 @@ class TwilightScanner {
             final long tomorrowSunrise = mTwilightCalculator.mSunrise;
             final long tomorrowSunset = mTwilightCalculator.mSunset;
 
+            long[] daysOfWeekSunrise = new long[8];
+            long[] daysOfWeekSunset = new long[8];
+            int nowDayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+            for (int i = 0; i < 7; i++) {
+                mTwilightCalculator.calculateTwilight(now + i*DateUtils.DAY_IN_MILLIS,
+                        mLocation.getLatitude(), mLocation.getLongitude());
+                daysOfWeekSunrise[nowDayOfWeek] = mTwilightCalculator.mSunrise;
+                daysOfWeekSunset[nowDayOfWeek] = mTwilightCalculator.mSunset;
+                ++nowDayOfWeek;
+                if (nowDayOfWeek == 8)
+                    nowDayOfWeek = 1;
+            }
+
             // set twilight state
             TwilightState state = new TwilightState(isNight, yesterdaySunrise, yesterdaySunset,
-                    todaySunrise, todaySunset, tomorrowSunrise, tomorrowSunset);
+                    todaySunrise, todaySunset, tomorrowSunrise, tomorrowSunset, daysOfWeekSunrise, daysOfWeekSunset);
             if (DEBUG) {
                 Log.d(TAG, "Updating twilight state: " + state);
             }
