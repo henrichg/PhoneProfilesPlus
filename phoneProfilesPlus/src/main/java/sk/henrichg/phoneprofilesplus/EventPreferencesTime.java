@@ -268,8 +268,8 @@ class EventPreferencesTime extends EventPreferences {
                         if (twilightScanner != null) {
                             TwilightState twilightState = twilightScanner.getTwilightState();
                             if (twilightState != null) {
-                                long startTime = computeAlarm(true, false);
-                                long endTime = computeAlarm(false, false);
+                                long startTime = computeAlarm(true, true);
+                                long endTime = computeAlarm(false, true);
                                 if ((startTime != 0) && (endTime != 0)) {
                                     descr = descr + " • ";
 
@@ -476,13 +476,13 @@ class EventPreferencesTime extends EventPreferences {
                 // endTime is over midnight
                 PPApplication.logE("EventPreferencesTime.computeAlarm","startTime >= endTime");
 
-                /*if (now.getTimeInMillis() < calEndTime.getTimeInMillis())
+                if (now.getTimeInMillis() < calEndTime.getTimeInMillis())
                 {
                     // now is before endTime
                     // decrease start/end time
                     calStartTime.add(Calendar.DAY_OF_YEAR, -1);
                     calEndTime.add(Calendar.DAY_OF_YEAR, -1);
-                }*/
+                }
 
                 // add next day to end time
                 calEndTime.add(Calendar.DAY_OF_YEAR, 1);
@@ -557,9 +557,11 @@ class EventPreferencesTime extends EventPreferences {
 
                         //// get day by selected day of week
                         int firstDayOfWeek = now.get(Calendar.DAY_OF_WEEK);
-                        int secondDayOfWeek = firstDayOfWeek;
+                        int nextDayOfWeek = firstDayOfWeek;
+                        int previousDayOfWeek = firstDayOfWeek;
                         int firstDaysToAdd = 0;
-                        int secondDaysToAdd = 0;
+                        int nextDaysToAdd = 0;
+                        int previousDaysToRemove = 0;
 
                         if (addWeekDay) {
                             boolean[] daysOfWeek = new boolean[8];
@@ -583,47 +585,75 @@ class EventPreferencesTime extends EventPreferences {
                             if (!foundFirst) {
                                 for (int i = 1; i < firstDayOfWeek; i++) {
                                     if (daysOfWeek[i]) {
-                                        foundFirst = true;
+                                        //foundFirst = true;
                                         break;
                                     }
                                     ++firstDaysToAdd;
                                 }
                             }
-                            if (foundFirst) {
-                                // next day
-                                secondDayOfWeek = firstDayOfWeek + 1;
-                                if (secondDayOfWeek == 8)
-                                    secondDayOfWeek = 1;
-                            }
 
-                            // search for second selected day of week
-                            boolean foundSecond = false;
-                            for (int i = secondDayOfWeek + 1; i < 8; i++) {
+                            // next day
+                            nextDayOfWeek = firstDayOfWeek + 1;
+                            if (nextDayOfWeek == 8)
+                                nextDayOfWeek = 1;
+
+                            // search for next selected day of week
+                            boolean foundNext = false;
+                            for (int i = nextDayOfWeek; i < 8; i++) {
                                 if (daysOfWeek[i]) {
-                                    foundSecond = true;
+                                    foundNext = true;
                                     break;
                                 }
-                                ++secondDaysToAdd;
+                                ++nextDaysToAdd;
                             }
-                            if (!foundSecond) {
-                                for (int i = 1; i < secondDayOfWeek; i++) {
+                            if (!foundNext) {
+                                for (int i = 1; i < nextDayOfWeek; i++) {
                                     if (daysOfWeek[i]) {
                                         //foundSecond = true;
                                         break;
                                     }
-                                    ++secondDaysToAdd;
+                                    ++nextDaysToAdd;
+                                }
+                            }
+
+                            // previous day
+                            previousDayOfWeek = firstDayOfWeek - 1;
+                            if (previousDayOfWeek == 0)
+                                previousDayOfWeek = 7;
+
+                            // search for previous selected day of week
+                            boolean foundPrevious = false;
+                            for (int i = previousDayOfWeek; i > 0; i--) {
+                                if (daysOfWeek[i]) {
+                                    foundPrevious = true;
+                                    break;
+                                }
+                                --previousDaysToRemove;
+                            }
+                            if (!foundPrevious) {
+                                for (int i = 7; i > previousDayOfWeek; i--) {
+                                    if (daysOfWeek[i]) {
+                                        //foundSecond = true;
+                                        break;
+                                    }
+                                    --previousDaysToRemove;
                                 }
                             }
 
                             for (int i = 0; i < firstDaysToAdd; i++) {
                                 firstDayOfWeek++;
-                                if (firstDayOfWeek == 0)
+                                if (firstDayOfWeek == 8)
                                     firstDayOfWeek = 1;
                             }
-                            for (int i = 0; i < secondDaysToAdd; i++) {
-                                secondDayOfWeek++;
-                                if (secondDayOfWeek == 0)
-                                    secondDayOfWeek = 1;
+                            for (int i = 0; i < nextDaysToAdd; i++) {
+                                nextDayOfWeek++;
+                                if (nextDayOfWeek == 8)
+                                    nextDayOfWeek = 1;
+                            }
+                            for (int i = 0; i < previousDaysToRemove; i++) {
+                                previousDayOfWeek--;
+                                if (previousDayOfWeek == 0)
+                                    previousDayOfWeek = 7;
                             }
                         }
                         /////////////////
@@ -640,9 +670,9 @@ class EventPreferencesTime extends EventPreferences {
 
                                     // endTime is before actual time, compute for tomorrow
                                     if (calEndTime.getTimeInMillis() < now.getTimeInMillis()) {
-                                        if ((twilightDaysOfWeekSunrise[secondDayOfWeek] != 1) && (twilightDaysOfWeekSunset[secondDayOfWeek] != 1)) {
-                                            calStartTime.setTimeInMillis(twilightDaysOfWeekSunrise[secondDayOfWeek]);
-                                            calEndTime.setTimeInMillis(twilightDaysOfWeekSunset[secondDayOfWeek]);
+                                        if ((twilightDaysOfWeekSunrise[nextDayOfWeek] != 1) && (twilightDaysOfWeekSunset[nextDayOfWeek] != 1)) {
+                                            calStartTime.setTimeInMillis(twilightDaysOfWeekSunrise[nextDayOfWeek]);
+                                            calEndTime.setTimeInMillis(twilightDaysOfWeekSunset[nextDayOfWeek]);
                                         } else
                                             setAlarm = false;
                                     }
@@ -670,18 +700,46 @@ class EventPreferencesTime extends EventPreferences {
                             if (addWeekDay) {
                                 long[] twilightDaysOfWeekSunrise = twilightState.getDaysOfWeekSunrise();
                                 long[] twilightDaysOfWeekSunset = twilightState.getDaysOfWeekSunset();
-                                if ((twilightDaysOfWeekSunset[firstDayOfWeek] != 1) && (twilightDaysOfWeekSunrise[secondDayOfWeek] != 1)) {
-                                    calStartTime.setTimeInMillis(twilightDaysOfWeekSunset[firstDayOfWeek]);
-                                    calEndTime.setTimeInMillis(twilightDaysOfWeekSunrise[secondDayOfWeek]);
-                                } else
+                                boolean selected = false;
+                                if ((twilightDaysOfWeekSunrise[firstDayOfWeek] != 1) && (twilightDaysOfWeekSunset[previousDayOfWeek] != 1)) {
+                                    if (now.getTimeInMillis() < twilightDaysOfWeekSunrise[firstDayOfWeek])
+                                    {
+                                        // now is before first day sunrise
+                                        calStartTime.setTimeInMillis(twilightDaysOfWeekSunset[previousDayOfWeek]);
+                                        calEndTime.setTimeInMillis(twilightDaysOfWeekSunrise[firstDayOfWeek]);
+                                        selected = true;
+                                    }
+                                }
+                                else
                                     setAlarm = false;
+                                if (!selected) {
+                                    if ((twilightDaysOfWeekSunset[firstDayOfWeek] != 1) && (twilightDaysOfWeekSunrise[nextDayOfWeek] != 1)) {
+                                        calStartTime.setTimeInMillis(twilightDaysOfWeekSunset[firstDayOfWeek]);
+                                        calEndTime.setTimeInMillis(twilightDaysOfWeekSunrise[nextDayOfWeek]);
+                                    } else
+                                        setAlarm = false;
+                                }
                             }
                             else {
-                                if ((twilightState.getTodaySunset() != -1) && (twilightState.getTomorrowSunrise() != -1)) {
-                                    calStartTime.setTimeInMillis(twilightState.getTodaySunset());
-                                    calEndTime.setTimeInMillis(twilightState.getTomorrowSunrise());
-                                } else
+                                boolean selected = false;
+                                if (twilightState.getTodaySunrise() != -1) {
+                                    if (now.getTimeInMillis() < twilightState.getTodaySunrise())
+                                    {
+                                        // now is before today sunrise
+                                        calStartTime.setTimeInMillis(twilightState.getYesterdaySunset());
+                                        calEndTime.setTimeInMillis(twilightState.getTodaySunrise());
+                                        selected = true;
+                                    }
+                                }
+                                else
                                     setAlarm = false;
+                                if (!selected) {
+                                    if ((twilightState.getTodaySunset() != -1) && (twilightState.getTomorrowSunrise() != -1)) {
+                                        calStartTime.setTimeInMillis(twilightState.getTodaySunset());
+                                        calEndTime.setTimeInMillis(twilightState.getTomorrowSunrise());
+                                    } else
+                                        setAlarm = false;
+                                }
                             }
                         }
                         ////////////////////////////
