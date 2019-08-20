@@ -218,7 +218,7 @@ class EventsHandler {
                     }
                 }
             }
-            if (sensorType.equals(SENSOR_TYPE_TIME)) {
+            /*if (sensorType.equals(SENSOR_TYPE_TIME)) {
                 // search for time events
                 PPApplication.logE("[TIME] EventsHandler.handleEvents", "search for time events");
                 for (Event _event : dataWrapper.eventList) {
@@ -230,7 +230,7 @@ class EventsHandler {
                             _event._eventPreferencesTime.setSystemEventForStart(dataWrapper.context);
                     }
                 }
-            }
+            }*/
 
             if (isRestart) {
                 // for restart events, set startTime to 0
