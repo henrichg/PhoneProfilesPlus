@@ -245,14 +245,14 @@ class EventPreferencesTime extends EventPreferences {
                             //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
                             String alarmTimeS;
                             if (_event.getStatus() == Event.ESTATUS_PAUSE) {
-                                alarmTime = computeAlarm(true, true);
+                                alarmTime = computeAlarm(true, context);
                                 // date and time format by user system settings configuration
                                 alarmTimeS = "(st) " + DateFormat.getDateFormat(context).format(alarmTime) +
                                         " " + DateFormat.getTimeFormat(context).format(alarmTime);
                                 descr = descr + "<br>"; //'\n';
                                 descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
                             } else if ((_event.getStatus() == Event.ESTATUS_RUNNING)/* && _useEndTime*/) {
-                                alarmTime = computeAlarm(false, true);
+                                alarmTime = computeAlarm(false, context);
                                 // date and time format by user system settings configuration
                                 alarmTimeS = "(et) " + DateFormat.getDateFormat(context).format(alarmTime) +
                                         " " + DateFormat.getTimeFormat(context).format(alarmTime);
@@ -268,8 +268,8 @@ class EventPreferencesTime extends EventPreferences {
                         if (twilightScanner != null) {
                             TwilightState twilightState = twilightScanner.getTwilightState();
                             if (twilightState != null) {
-                                long startTime = computeAlarm(true, true);
-                                long endTime = computeAlarm(false, true);
+                                long startTime = computeAlarm(true, context);
+                                long endTime = computeAlarm(false, context);
                                 if ((startTime != 0) && (endTime != 0)) {
                                     descr = descr + " • ";
 
@@ -286,14 +286,14 @@ class EventPreferencesTime extends EventPreferences {
                                             //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
                                             String alarmTimeS;
                                             if (_event.getStatus() == Event.ESTATUS_PAUSE) {
-                                                alarmTime = computeAlarm(true, true);
+                                                alarmTime = computeAlarm(true, context);
                                                 // date and time format by user system settings configuration
                                                 alarmTimeS = "(st) " + DateFormat.getDateFormat(context).format(alarmTime) +
                                                         " " + DateFormat.getTimeFormat(context).format(alarmTime);
                                                 descr = descr + "<br>"; //'\n';
                                                 descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
                                             } else if ((_event.getStatus() == Event.ESTATUS_RUNNING)/* && _useEndTime*/) {
-                                                alarmTime = computeAlarm(false, true);
+                                                alarmTime = computeAlarm(false, context);
                                                 // date and time format by user system settings configuration
                                                 alarmTimeS = "(et) " + DateFormat.getDateFormat(context).format(alarmTime) +
                                                         " " + DateFormat.getTimeFormat(context).format(alarmTime);
@@ -440,9 +440,13 @@ class EventPreferencesTime extends EventPreferences {
         return runnable;
     }
 
-    long computeAlarm(boolean startEvent, boolean addWeekDay)
+    long computeAlarm(boolean startEvent, Context context)
     {
-        PPApplication.logE("EventPreferencesTime.computeAlarm","startEvent="+startEvent);
+        boolean testEvent = (_event._name != null) && _event._name.equals("TEST TIME SENSOR");
+        if (testEvent) {
+            PPApplication.logE("EventPreferencesTime.computeAlarm", "eventName=" + _event._name);
+            PPApplication.logE("EventPreferencesTime.computeAlarm", "startEvent=" + startEvent);
+        }
 
         Calendar now = Calendar.getInstance();
 
@@ -471,286 +475,303 @@ class EventPreferencesTime extends EventPreferences {
             calEndTime.set(Calendar.SECOND, 0);
             calEndTime.set(Calendar.MILLISECOND, 0);
 
+            //// update calendar for startTime a endTime by selected day of week
+            boolean[] daysOfWeek = new boolean[8];
+            daysOfWeek[Calendar.SUNDAY] = this._sunday;
+            daysOfWeek[Calendar.MONDAY] = this._monday;
+            daysOfWeek[Calendar.TUESDAY] = this._tuesday;
+            daysOfWeek[Calendar.WEDNESDAY] = this._wednesday;
+            daysOfWeek[Calendar.THURSDAY] = this._thursday;
+            daysOfWeek[Calendar.FRIDAY] = this._friday;
+            daysOfWeek[Calendar.SATURDAY] = this._saturday;
+
+            int startDayOfWeek = calStartTime.get(Calendar.DAY_OF_WEEK);
+            if (daysOfWeek[startDayOfWeek]) {
+                // startTime of week is selected
+                if (testEvent)
+                    PPApplication.logE("EventPreferencesTime.computeAlarm", "startTime of week is selected");
+            } else {
+                // startTime of week is not selected,
+                if (testEvent) {
+                    PPApplication.logE("EventPreferencesTime.computeAlarm", "startTime of week is NOT selected");
+                    PPApplication.logE("EventPreferencesTime.computeAlarm", "startDayOfWeek=" + startDayOfWeek);
+                }
+
+                // search for selected day of week
+                boolean found = false;
+                int daysToAdd = 0;
+                for (int i = startDayOfWeek; i < 8; i++) {
+                    if (daysOfWeek[i]) {
+                        found = true;
+                        break;
+                    }
+                    ++daysToAdd;
+                }
+                if (!found) {
+                    for (int i = 1; i < startDayOfWeek; i++) {
+                        if (daysOfWeek[i]) {
+                            found = true;
+                            break;
+                        }
+                        ++daysToAdd;
+                    }
+                }
+                if (found) {
+                    if (testEvent)
+                        PPApplication.logE("EventPreferencesTime.computeAlarm", "daysToAdd=" + daysToAdd);
+                    calStartTime.add(Calendar.DAY_OF_YEAR, daysToAdd);
+                    calEndTime.add(Calendar.DAY_OF_YEAR, daysToAdd);
+                }
+            }
+            //////////////////////
+
             if (calStartTime.getTimeInMillis() >= calEndTime.getTimeInMillis())
             {
                 // endTime is over midnight
-                PPApplication.logE("EventPreferencesTime.computeAlarm","startTime >= endTime");
+                if (testEvent)
+                    PPApplication.logE("EventPreferencesTime.computeAlarm","startTime >= endTime");
 
+                // add day to endTime
+                calEndTime.add(Calendar.DAY_OF_YEAR, 1);
+
+                /*
+                boolean selected = false;
                 if (now.getTimeInMillis() < calEndTime.getTimeInMillis())
                 {
                     // now is before endTime
-                    // decrease start/end time
-                    calStartTime.add(Calendar.DAY_OF_YEAR, -1);
-                    calEndTime.add(Calendar.DAY_OF_YEAR, -1);
-                }
+                    if (addWeekDay)
+                        PPApplication.logE("EventPreferencesTime.computeAlarm","now < endTime");
 
-                // add next day to end time
-                calEndTime.add(Calendar.DAY_OF_YEAR, 1);
+                    // decrease start time
+                    calStartTime.add(Calendar.DAY_OF_YEAR, -1);
+                    selected = true;
+                }
+                if (!selected) {
+                    // add next day to end time
+
+                    if (addWeekDay)
+                        PPApplication.logE("EventPreferencesTime.computeAlarm","now >= endTime");
+
+                    calEndTime.add(Calendar.DAY_OF_YEAR, 1);
+                }*/
             }
             else
             if (calEndTime.getTimeInMillis() < now.getTimeInMillis())
             {
                 // endTime is before actual time, compute for tomorrow
+                if (testEvent)
+                    PPApplication.logE("EventPreferencesTime.computeAlarm","startTime < endTime");
+
                 calStartTime.add(Calendar.DAY_OF_YEAR, 1);
                 calEndTime.add(Calendar.DAY_OF_YEAR, 1);
             }
-            ////////////////////////////
-
-            if (addWeekDay) {
-                //// update calendar for startTime a endTime by selected day of week
-                boolean[] daysOfWeek = new boolean[8];
-                daysOfWeek[Calendar.SUNDAY] = this._sunday;
-                daysOfWeek[Calendar.MONDAY] = this._monday;
-                daysOfWeek[Calendar.TUESDAY] = this._tuesday;
-                daysOfWeek[Calendar.WEDNESDAY] = this._wednesday;
-                daysOfWeek[Calendar.THURSDAY] = this._thursday;
-                daysOfWeek[Calendar.FRIDAY] = this._friday;
-                daysOfWeek[Calendar.SATURDAY] = this._saturday;
-
-                int startDayOfWeek = calStartTime.get(Calendar.DAY_OF_WEEK);
-                if (daysOfWeek[startDayOfWeek]) {
-                    // startTime of week is selected
-                    PPApplication.logE("EventPreferencesTime.computeAlarm", "startTime of week is selected");
-                } else {
-                    // startTime of week is not selected,
-                    PPApplication.logE("EventPreferencesTime.computeAlarm", "startTime of week is NOT selected");
-                    PPApplication.logE("EventPreferencesTime.computeAlarm", "startDayOfWeek=" + startDayOfWeek);
-
-                    // search for selected day of week
-                    boolean found = false;
-                    int daysToAdd = 0;
-                    for (int i = startDayOfWeek + 1; i < 8; i++) {
-                        ++daysToAdd;
-                        if (daysOfWeek[i]) {
-                            found = true;
-                            break;
-                        }
-                    }
-                    if (!found) {
-                        for (int i = 1; i < startDayOfWeek; i++) {
-                            ++daysToAdd;
-                            if (daysOfWeek[i]) {
-                                found = true;
-                                break;
-                            }
-                        }
-                    }
-                    if (found) {
-                        PPApplication.logE("EventPreferencesTime.computeAlarm", "daysToAdd=" + daysToAdd);
-                        calStartTime.add(Calendar.DAY_OF_YEAR, daysToAdd);
-                        calEndTime.add(Calendar.DAY_OF_YEAR, daysToAdd);
-                    }
-                }
-                //////////////////////
+            if (testEvent) {
+                PPApplication.logE("EventPreferencesTime.computeAlarm", "callStartTime=" + DateFormat.getDateFormat(context).format(calStartTime.getTimeInMillis()) +
+                        " " + DateFormat.getTimeFormat(context).format(calStartTime.getTimeInMillis()));
+                PPApplication.logE("EventPreferencesTime.computeAlarm", "callEndTime=" + DateFormat.getDateFormat(context).format(calEndTime.getTimeInMillis()) +
+                        " " + DateFormat.getTimeFormat(context).format(calEndTime.getTimeInMillis()));
             }
+            ////////////////////////////
         }
         else {
             if (PhoneProfilesService.getInstance() != null) {
-                PPApplication.logE("EventPreferencesTime.computeAlarm", "PPService started");
+                if (testEvent)
+                    PPApplication.logE("EventPreferencesTime.computeAlarm", "PPService started");
                 TwilightScanner twilightScanner = PhoneProfilesService.getInstance().getTwilightScanner();
                 if (twilightScanner != null) {
-                    PPApplication.logE("EventPreferencesTime.computeAlarm", "TwilightScanner started");
+                    if (testEvent)
+                        PPApplication.logE("EventPreferencesTime.computeAlarm", "TwilightScanner started");
                     TwilightState twilightState = twilightScanner.getTwilightState();
                     if (twilightState != null) {
-                        PPApplication.logE("EventPreferencesTime.computeAlarm", "TwilightState set");
+                        if (testEvent)
+                            PPApplication.logE("EventPreferencesTime.computeAlarm", "TwilightState set");
                         setAlarm = true;
 
                         //// get day by selected day of week
                         int firstDayOfWeek = now.get(Calendar.DAY_OF_WEEK);
-                        int nextDayOfWeek = firstDayOfWeek;
-                        int previousDayOfWeek = firstDayOfWeek;
+                        int nextDayOfWeek;
+                        //int previousDayOfWeek = firstDayOfWeek;
                         int firstDaysToAdd = 0;
                         int nextDaysToAdd = 0;
-                        int previousDaysToRemove = 0;
+                        //int previousDaysToRemove = 0;
 
-                        if (addWeekDay) {
-                            boolean[] daysOfWeek = new boolean[8];
-                            daysOfWeek[Calendar.SUNDAY] = this._sunday;
-                            daysOfWeek[Calendar.MONDAY] = this._monday;
-                            daysOfWeek[Calendar.TUESDAY] = this._tuesday;
-                            daysOfWeek[Calendar.WEDNESDAY] = this._wednesday;
-                            daysOfWeek[Calendar.THURSDAY] = this._thursday;
-                            daysOfWeek[Calendar.FRIDAY] = this._friday;
-                            daysOfWeek[Calendar.SATURDAY] = this._saturday;
+                        boolean[] daysOfWeek = new boolean[8];
+                        daysOfWeek[Calendar.SUNDAY] = this._sunday;
+                        daysOfWeek[Calendar.MONDAY] = this._monday;
+                        daysOfWeek[Calendar.TUESDAY] = this._tuesday;
+                        daysOfWeek[Calendar.WEDNESDAY] = this._wednesday;
+                        daysOfWeek[Calendar.THURSDAY] = this._thursday;
+                        daysOfWeek[Calendar.FRIDAY] = this._friday;
+                        daysOfWeek[Calendar.SATURDAY] = this._saturday;
 
-                            // search for first selected day of week
-                            boolean foundFirst = false;
-                            for (int i = firstDayOfWeek; i < 8; i++) {
+                        // search for first selected day of week
+                        boolean foundFirst = false;
+                        for (int i = firstDayOfWeek; i < 8; i++) {
+                            if (daysOfWeek[i]) {
+                                foundFirst = true;
+                                break;
+                            }
+                            ++firstDaysToAdd;
+                        }
+                        if (!foundFirst) {
+                            for (int i = 1; i < firstDayOfWeek; i++) {
                                 if (daysOfWeek[i]) {
-                                    foundFirst = true;
+                                    //foundFirst = true;
                                     break;
                                 }
                                 ++firstDaysToAdd;
                             }
-                            if (!foundFirst) {
-                                for (int i = 1; i < firstDayOfWeek; i++) {
-                                    if (daysOfWeek[i]) {
-                                        //foundFirst = true;
-                                        break;
-                                    }
-                                    ++firstDaysToAdd;
-                                }
+                        }
+
+                        // next day
+                        nextDayOfWeek = firstDayOfWeek + 1;
+                        if (nextDayOfWeek == 8)
+                            nextDayOfWeek = 1;
+
+                        // search for next selected day of week
+                        boolean foundNext = false;
+                        for (int i = nextDayOfWeek; i < 8; i++) {
+                            if (daysOfWeek[i]) {
+                                foundNext = true;
+                                break;
                             }
-
-                            // next day
-                            nextDayOfWeek = firstDayOfWeek + 1;
-                            if (nextDayOfWeek == 8)
-                                nextDayOfWeek = 1;
-
-                            // search for next selected day of week
-                            boolean foundNext = false;
-                            for (int i = nextDayOfWeek; i < 8; i++) {
+                            ++nextDaysToAdd;
+                        }
+                        if (!foundNext) {
+                            for (int i = 1; i < nextDayOfWeek; i++) {
                                 if (daysOfWeek[i]) {
-                                    foundNext = true;
+                                    //foundSecond = true;
                                     break;
                                 }
                                 ++nextDaysToAdd;
                             }
-                            if (!foundNext) {
-                                for (int i = 1; i < nextDayOfWeek; i++) {
-                                    if (daysOfWeek[i]) {
-                                        //foundSecond = true;
-                                        break;
-                                    }
-                                    ++nextDaysToAdd;
-                                }
+                        }
+                        /*
+                        // previous day
+                        previousDayOfWeek = firstDayOfWeek - 1;
+                        if (previousDayOfWeek == 0)
+                            previousDayOfWeek = 7;
+
+                        // search for previous selected day of week
+                        boolean foundPrevious = false;
+                        for (int i = previousDayOfWeek; i > 0; i--) {
+                            if (daysOfWeek[i]) {
+                                foundPrevious = true;
+                                break;
                             }
-
-                            // previous day
-                            previousDayOfWeek = firstDayOfWeek - 1;
-                            if (previousDayOfWeek == 0)
-                                previousDayOfWeek = 7;
-
-                            // search for previous selected day of week
-                            boolean foundPrevious = false;
-                            for (int i = previousDayOfWeek; i > 0; i--) {
+                            --previousDaysToRemove;
+                        }
+                        if (!foundPrevious) {
+                            for (int i = 7; i > previousDayOfWeek; i--) {
                                 if (daysOfWeek[i]) {
-                                    foundPrevious = true;
+                                    //foundSecond = true;
                                     break;
                                 }
                                 --previousDaysToRemove;
                             }
-                            if (!foundPrevious) {
-                                for (int i = 7; i > previousDayOfWeek; i--) {
-                                    if (daysOfWeek[i]) {
-                                        //foundSecond = true;
-                                        break;
-                                    }
-                                    --previousDaysToRemove;
-                                }
-                            }
-
-                            for (int i = 0; i < firstDaysToAdd; i++) {
-                                firstDayOfWeek++;
-                                if (firstDayOfWeek == 8)
-                                    firstDayOfWeek = 1;
-                            }
-                            for (int i = 0; i < nextDaysToAdd; i++) {
-                                nextDayOfWeek++;
-                                if (nextDayOfWeek == 8)
-                                    nextDayOfWeek = 1;
-                            }
-                            for (int i = 0; i < previousDaysToRemove; i++) {
-                                previousDayOfWeek--;
-                                if (previousDayOfWeek == 0)
-                                    previousDayOfWeek = 7;
-                            }
                         }
+                        */
+
+                        for (int i = 0; i < firstDaysToAdd; i++) {
+                            firstDayOfWeek++;
+                            if (firstDayOfWeek == 8)
+                                firstDayOfWeek = 1;
+                        }
+                        for (int i = 0; i < nextDaysToAdd; i++) {
+                            nextDayOfWeek++;
+                            if (nextDayOfWeek == 8)
+                                nextDayOfWeek = 1;
+                        }
+                        /*for (int i = 0; i < previousDaysToRemove; i++) {
+                            previousDayOfWeek--;
+                            if (previousDayOfWeek == 0)
+                                previousDayOfWeek = 7;
+                        }*/
                         /////////////////
 
                         ///// set calendar for startTime and endTime
                         if (_timeType == TIME_TYPE_SUNRISE_SUNSET) {
-                            if (addWeekDay) {
-                                long[] twilightDaysOfWeekSunrise = twilightState.getDaysOfWeekSunrise();
-                                long[] twilightDaysOfWeekSunset = twilightState.getDaysOfWeekSunset();
-                                if ((twilightDaysOfWeekSunrise[firstDayOfWeek] != 1) && (twilightDaysOfWeekSunset[firstDayOfWeek] != 1)) {
-                                    // today
-                                    calStartTime.setTimeInMillis(twilightDaysOfWeekSunrise[firstDayOfWeek]);
-                                    calEndTime.setTimeInMillis(twilightDaysOfWeekSunset[firstDayOfWeek]);
+                            if (testEvent)
+                                PPApplication.logE("EventPreferencesTime.computeAlarm","from sunrise to sunset");
 
-                                    // endTime is before actual time, compute for tomorrow
-                                    if (calEndTime.getTimeInMillis() < now.getTimeInMillis()) {
-                                        if ((twilightDaysOfWeekSunrise[nextDayOfWeek] != 1) && (twilightDaysOfWeekSunset[nextDayOfWeek] != 1)) {
-                                            calStartTime.setTimeInMillis(twilightDaysOfWeekSunrise[nextDayOfWeek]);
-                                            calEndTime.setTimeInMillis(twilightDaysOfWeekSunset[nextDayOfWeek]);
-                                        } else
-                                            setAlarm = false;
-                                    }
-                                } else
-                                    setAlarm = false;
+                            long[] twilightDaysOfWeekSunrise = twilightState.getDaysOfWeekSunrise();
+                            long[] twilightDaysOfWeekSunset = twilightState.getDaysOfWeekSunset();
+                            if ((twilightDaysOfWeekSunrise[firstDayOfWeek] != 1) && (twilightDaysOfWeekSunset[firstDayOfWeek] != 1)) {
+                                // today
+                                calStartTime.setTimeInMillis(twilightDaysOfWeekSunrise[firstDayOfWeek]);
+                                calEndTime.setTimeInMillis(twilightDaysOfWeekSunset[firstDayOfWeek]);
 
-                            }
-                            else {
-                                if ((twilightState.getTodaySunrise() != -1) && (twilightState.getTodaySunset() != -1)) {
-                                    calStartTime.setTimeInMillis(twilightState.getTodaySunrise());
-                                    calEndTime.setTimeInMillis(twilightState.getTodaySunset());
-
-                                    // endTime is before actual time, compute for future
-                                    if (calEndTime.getTimeInMillis() < now.getTimeInMillis()) {
-                                        if ((twilightState.getTomorrowSunrise() != -1) && (twilightState.getTomorrowSunset() != -1)) {
-                                            calStartTime.setTimeInMillis(twilightState.getTomorrowSunrise());
-                                            calEndTime.setTimeInMillis(twilightState.getTomorrowSunset());
-                                        } else
-                                            setAlarm = false;
-                                    }
-                                } else
-                                    setAlarm = false;
+                                // endTime is before actual time, compute for tomorrow
+                                if (calEndTime.getTimeInMillis() < now.getTimeInMillis()) {
+                                    if ((twilightDaysOfWeekSunrise[nextDayOfWeek] != 1) && (twilightDaysOfWeekSunset[nextDayOfWeek] != 1)) {
+                                        calStartTime.setTimeInMillis(twilightDaysOfWeekSunrise[nextDayOfWeek]);
+                                        calEndTime.setTimeInMillis(twilightDaysOfWeekSunset[nextDayOfWeek]);
+                                    } else
+                                        setAlarm = false;
+                                }
+                            } else
+                                setAlarm = false;
+                            if (testEvent) {
+                                PPApplication.logE("EventPreferencesTime.computeAlarm", "callStartTime=" + DateFormat.getDateFormat(context).format(calStartTime.getTimeInMillis()) +
+                                        " " + DateFormat.getTimeFormat(context).format(calStartTime.getTimeInMillis()));
+                                PPApplication.logE("EventPreferencesTime.computeAlarm", "callEndTime=" + DateFormat.getDateFormat(context).format(calEndTime.getTimeInMillis()) +
+                                        " " + DateFormat.getTimeFormat(context).format(calEndTime.getTimeInMillis()));
                             }
                         } else {
-                            if (addWeekDay) {
-                                long[] twilightDaysOfWeekSunrise = twilightState.getDaysOfWeekSunrise();
-                                long[] twilightDaysOfWeekSunset = twilightState.getDaysOfWeekSunset();
-                                boolean selected = false;
-                                if ((twilightDaysOfWeekSunrise[firstDayOfWeek] != 1) && (twilightDaysOfWeekSunset[previousDayOfWeek] != 1)) {
-                                    if (now.getTimeInMillis() < twilightDaysOfWeekSunrise[firstDayOfWeek])
-                                    {
-                                        // now is before first day sunrise
-                                        calStartTime.setTimeInMillis(twilightDaysOfWeekSunset[previousDayOfWeek]);
-                                        calEndTime.setTimeInMillis(twilightDaysOfWeekSunrise[firstDayOfWeek]);
-                                        selected = true;
-                                    }
-                                }
-                                else
-                                    setAlarm = false;
-                                if (!selected) {
-                                    if ((twilightDaysOfWeekSunset[firstDayOfWeek] != 1) && (twilightDaysOfWeekSunrise[nextDayOfWeek] != 1)) {
-                                        calStartTime.setTimeInMillis(twilightDaysOfWeekSunset[firstDayOfWeek]);
-                                        calEndTime.setTimeInMillis(twilightDaysOfWeekSunrise[nextDayOfWeek]);
-                                    } else
-                                        setAlarm = false;
+                            if (testEvent)
+                                PPApplication.logE("EventPreferencesTime.computeAlarm","from sunset to sunrise");
+
+                            long[] twilightDaysOfWeekSunrise = twilightState.getDaysOfWeekSunrise();
+                            long[] twilightDaysOfWeekSunset = twilightState.getDaysOfWeekSunset();
+                            if ((twilightDaysOfWeekSunset[firstDayOfWeek] != 1) && (twilightDaysOfWeekSunrise[nextDayOfWeek] != 1)) {
+                                calStartTime.setTimeInMillis(twilightDaysOfWeekSunset[firstDayOfWeek]);
+                                firstDayOfWeek++;
+                                if (firstDayOfWeek == 8)
+                                    firstDayOfWeek = 1;
+                                calEndTime.setTimeInMillis(twilightDaysOfWeekSunrise[firstDayOfWeek]);
+                            } else
+                                setAlarm = false;
+                            /*int previousDayOfWeek = firstDayOfWeek-1;
+                            if (previousDayOfWeek == 0)
+                                previousDayOfWeek = 7;
+                            boolean selected = false;
+                            if ((twilightDaysOfWeekSunrise[firstDayOfWeek] != 1) && (twilightDaysOfWeekSunset[previousDayOfWeek] != 1)) {
+                                if (now.getTimeInMillis() < twilightDaysOfWeekSunrise[firstDayOfWeek])
+                                {
+                                    // now is before first day sunrise
+                                    calStartTime.setTimeInMillis(twilightDaysOfWeekSunset[previousDayOfWeek]);
+                                    calEndTime.setTimeInMillis(twilightDaysOfWeekSunrise[firstDayOfWeek]);
+                                    selected = true;
                                 }
                             }
-                            else {
-                                boolean selected = false;
-                                if (twilightState.getTodaySunrise() != -1) {
-                                    if (now.getTimeInMillis() < twilightState.getTodaySunrise())
-                                    {
-                                        // now is before today sunrise
-                                        calStartTime.setTimeInMillis(twilightState.getYesterdaySunset());
-                                        calEndTime.setTimeInMillis(twilightState.getTodaySunrise());
-                                        selected = true;
-                                    }
-                                }
-                                else
+                            else
+                                setAlarm = false;
+                            if (!selected) {
+                                if ((twilightDaysOfWeekSunset[firstDayOfWeek] != 1) && (twilightDaysOfWeekSunrise[nextDayOfWeek] != 1)) {
+                                    calStartTime.setTimeInMillis(twilightDaysOfWeekSunset[firstDayOfWeek]);
+                                    calEndTime.setTimeInMillis(twilightDaysOfWeekSunrise[nextDayOfWeek]);
+                                } else
                                     setAlarm = false;
-                                if (!selected) {
-                                    if ((twilightState.getTodaySunset() != -1) && (twilightState.getTomorrowSunrise() != -1)) {
-                                        calStartTime.setTimeInMillis(twilightState.getTodaySunset());
-                                        calEndTime.setTimeInMillis(twilightState.getTomorrowSunrise());
-                                    } else
-                                        setAlarm = false;
-                                }
+                            }*/
+                            if (testEvent) {
+                                PPApplication.logE("EventPreferencesTime.computeAlarm", "callStartTime=" + DateFormat.getDateFormat(context).format(calStartTime.getTimeInMillis()) +
+                                        " " + DateFormat.getTimeFormat(context).format(calStartTime.getTimeInMillis()));
+                                PPApplication.logE("EventPreferencesTime.computeAlarm", "callEndTime=" + DateFormat.getDateFormat(context).format(calEndTime.getTimeInMillis()) +
+                                        " " + DateFormat.getTimeFormat(context).format(calEndTime.getTimeInMillis()));
                             }
                         }
                         ////////////////////////////
                     }
                     else
+                    if (testEvent)
                         PPApplication.logE("EventPreferencesTime.computeAlarm", "TwilightState NOT set");
                 }
                 else
+                if (testEvent)
                     PPApplication.logE("EventPreferencesTime.computeAlarm", "TwilightScanner NOT started");
             }
             else
+            if (testEvent)
                 PPApplication.logE("EventPreferencesTime.computeAlarm", "PPService NOT started");
         }
 
@@ -783,11 +804,11 @@ class EventPreferencesTime extends EventPreferences {
         if (!(isRunnable(context) && _enabled))
             return;
 
-        long alarmTime = computeAlarm(true, false/*_timeType == EventPreferencesTime.TIME_TYPE_EXACT*/);
+        long alarmTime = computeAlarm(true, context/*_timeType == EventPreferencesTime.TIME_TYPE_EXACT*/);
         if (alarmTime > 0)
             setAlarm(true, alarmTime, context);
 
-        alarmTime = computeAlarm(false, false/*_timeType == EventPreferencesTime.TIME_TYPE_EXACT*/);
+        alarmTime = computeAlarm(false, context/*_timeType == EventPreferencesTime.TIME_TYPE_EXACT*/);
         if (alarmTime > 0)
             setAlarm(false, alarmTime, context);
     }
@@ -808,11 +829,11 @@ class EventPreferencesTime extends EventPreferences {
         if (!(isRunnable(context) && _enabled))
             return;
 
-        long alarmTime = computeAlarm(false, false/*_timeType == EventPreferencesTime.TIME_TYPE_EXACT*/);
+        long alarmTime = computeAlarm(false, context/*_timeType == EventPreferencesTime.TIME_TYPE_EXACT*/);
         if (alarmTime > 0)
             setAlarm(false, alarmTime, context);
 
-        alarmTime = computeAlarm(true, false/*_timeType == EventPreferencesTime.TIME_TYPE_EXACT*/);
+        alarmTime = computeAlarm(true, context/*_timeType == EventPreferencesTime.TIME_TYPE_EXACT*/);
         if (alarmTime > 0)
             setAlarm(true, alarmTime, context);
     }

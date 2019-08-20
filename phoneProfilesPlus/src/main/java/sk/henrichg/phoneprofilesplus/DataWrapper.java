@@ -1985,9 +1985,8 @@ public class DataWrapper {
                 long startAlarmTime;
                 long endAlarmTime;
 
-                boolean addWeekDay = false; //event._eventPreferencesTime._timeType == EventPreferencesTime.TIME_TYPE_EXACT;
-                startAlarmTime = event._eventPreferencesTime.computeAlarm(true, addWeekDay);
-                endAlarmTime = event._eventPreferencesTime.computeAlarm(false, addWeekDay);
+                startAlarmTime = event._eventPreferencesTime.computeAlarm(true, context);
+                endAlarmTime = event._eventPreferencesTime.computeAlarm(false, context);
 
                 if (startAlarmTime > 0) {
                     String alarmTimeS = DateFormat.getDateFormat(context).format(startAlarmTime) +
@@ -2010,31 +2009,31 @@ public class DataWrapper {
                         " " + DateFormat.getTimeFormat(context).format(nowAlarmTime);
                 PPApplication.logE("[TIME] DataWrapper.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
 
-                boolean[] daysOfWeek =  new boolean[8];
+                /*boolean[] daysOfWeek =  new boolean[8];
                 daysOfWeek[Calendar.SUNDAY] = event._eventPreferencesTime._sunday;
                 daysOfWeek[Calendar.MONDAY] = event._eventPreferencesTime._monday;
                 daysOfWeek[Calendar.TUESDAY] = event._eventPreferencesTime._tuesday;
                 daysOfWeek[Calendar.WEDNESDAY] = event._eventPreferencesTime._wednesday;
                 daysOfWeek[Calendar.THURSDAY] = event._eventPreferencesTime._thursday;
                 daysOfWeek[Calendar.FRIDAY] = event._eventPreferencesTime._friday;
-                daysOfWeek[Calendar.SATURDAY] = event._eventPreferencesTime._saturday;
+                daysOfWeek[Calendar.SATURDAY] = event._eventPreferencesTime._saturday;*/
 
                 Calendar calStartTime = Calendar.getInstance();
                 calStartTime.setTimeInMillis(startAlarmTime);
                 int startDayOfWeek = calStartTime.get(Calendar.DAY_OF_WEEK);
-                if (daysOfWeek[startDayOfWeek])
-                {
+                //if (daysOfWeek[startDayOfWeek])
+                //{
                     // startTime of week is selected
                     PPApplication.logE("[TIME] DataWrapper.doHandleEvents","startTime of week is selected");
                     if ((startAlarmTime > 0) && (endAlarmTime > 0))
                         timePassed = ((nowAlarmTime >= startAlarmTime) && (nowAlarmTime < endAlarmTime));
                     else
                         timePassed = false;
-                }
+                /*}
                 else {
                     PPApplication.logE("[TIME] DataWrapper.doHandleEvents","startTime of week is NOT selected");
                     timePassed = false;
-                }
+                }*/
 
                 PPApplication.logE("[TIME] DataWrapper.doHandleEvents", "timePassed=" + timePassed);
 
