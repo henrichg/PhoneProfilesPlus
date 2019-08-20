@@ -44,5 +44,12 @@
         app:title="@string/event_preferences_time_endTime"
         app:dependency="eventTimeEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    
+    <Preference
+        app:key="eventTimeLocationSystemSettings"
+        app:title="@string/phone_profiles_pref_eventLocationSystemSettings"
+        app:summary="@string/phone_profiles_pref_eventWiFiLocationSystemSettings_summary"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:dependency="eventTimeEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
 </androidx.preference.PreferenceScreen>

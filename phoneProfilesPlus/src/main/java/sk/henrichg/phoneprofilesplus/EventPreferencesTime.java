@@ -42,6 +42,7 @@ class EventPreferencesTime extends EventPreferences {
     private static final String PREF_EVENT_TIME_END_TIME = "eventTimeEndTime";
     private static final String PREF_EVENT_TIME_TYPE = "eventTimeType";
     //private static final String PREF_EVENT_TIME_USE_END_TIME = "eventTimeUseEndTime";
+    static final String PREF_EVENT_TIME_LOCATION_SYSTEM_SETTINGS = "eventTimeLocationSystemSettings";
 
     private static final String PREF_EVENT_TIME_CATEGORY = "eventTimeCategoryRoot";
 
@@ -179,6 +180,12 @@ class EventPreferencesTime extends EventPreferences {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_time), addPassStatus, DatabaseHandler.ETYPE_TIME, context);
                     descr = descr + ": </b>";
+                }
+
+                if (_timeType != TIME_TYPE_EXACT) {
+                    if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
+                        descr = descr + "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *<br>";
+                    }
                 }
 
                 boolean[] daySet = new boolean[7];
@@ -355,6 +362,24 @@ class EventPreferencesTime extends EventPreferences {
             preference = prefMng.findPreference(PREF_EVENT_TIME_END_TIME);
             if (preference != null)
                 preference.setEnabled(enable);
+            preference = prefMng.findPreference(PREF_EVENT_TIME_LOCATION_SYSTEM_SETTINGS);
+            if (preference != null)
+                preference.setEnabled(!enable);
+        }
+        if (key.equals(PREF_EVENT_TIME_LOCATION_SYSTEM_SETTINGS)) {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                String summary = context.getString(R.string.event_preference_sensor_time_locationSystemSettings_summary);
+                if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
+                    summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *\n\n"+
+                            summary;
+                }
+                else {
+                    summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + ".\n\n"+
+                            summary;
+                }
+                preference.setSummary(summary);
+            }
         }
 
         Event event = new Event();
@@ -382,7 +407,8 @@ class EventPreferencesTime extends EventPreferences {
             setSummary(prefMng, key, value ? "true": "false", context);
         }
         if (key.equals(PREF_EVENT_TIME_DAYS) ||
-                key.equals(PREF_EVENT_TIME_TYPE))
+                key.equals(PREF_EVENT_TIME_TYPE) ||
+                key.equals(PREF_EVENT_TIME_LOCATION_SYSTEM_SETTINGS))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
@@ -394,6 +420,7 @@ class EventPreferencesTime extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_TIME_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_TIME_DAYS, preferences, context);
         setSummary(prefMng, PREF_EVENT_TIME_TYPE, preferences, context);
+        setSummary(prefMng, PREF_EVENT_TIME_LOCATION_SYSTEM_SETTINGS, preferences, context);
     }
 
     @Override
@@ -438,6 +465,13 @@ class EventPreferencesTime extends EventPreferences {
         runnable = runnable && dayOfWeek;
 
         return runnable;
+    }
+
+    @Override
+    public void checkPreferences(PreferenceManager prefMng, Context context) {
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+        setSummary(prefMng, PREF_EVENT_TIME_LOCATION_SYSTEM_SETTINGS, preferences, context);
+        setCategorySummary(prefMng, preferences, context);
     }
 
     long computeAlarm(boolean startEvent, Context context)

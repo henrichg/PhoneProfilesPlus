@@ -59,6 +59,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     static final int RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS = 1991;
     private static final int RESULT_WIFI_KEEP_ON_SYSTEM_SETTINGS = 1992;
     static final int RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS = 1993;
+    private static final int RESULT_TIME_LOCATION_SYSTEM_SETTINGS = 1994;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -434,6 +435,32 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         //intent.addCategory(Intent.CATEGORY_DEFAULT);
                         startActivityForResult(intent, RESULT_WIFI_LOCATION_SYSTEM_SETTINGS);
+                    }
+                    else {
+                        if (getActivity() != null) {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            AlertDialog dialog = dialogBuilder.create();
+                            if (!getActivity().isFinishing())
+                                dialog.show();
+                        }
+                    }
+                    return false;
+                }
+            });
+        }
+        preference = prefMng.findPreference(EventPreferencesTime.PREF_EVENT_TIME_LOCATION_SYSTEM_SETTINGS);
+        if (preference != null) {
+            //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context.getApplicationContext())) {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                        startActivityForResult(intent, RESULT_TIME_LOCATION_SYSTEM_SETTINGS);
                     }
                     else {
                         if (getActivity() != null) {
@@ -957,7 +984,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             event._eventPreferencesSMS.checkPreferences(prefMng, context);
             event._eventPreferencesCall.checkPreferences(prefMng, context);
             setPermissionsPreference();
-            PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventPreferencesNestedFragment.doOnActivityResult");
+            PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
             ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
         }
         if (requestCode == RESULT_WIFI_SCANNING_APP_SETTINGS) {
@@ -1002,7 +1029,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             event._eventPreferencesWifi.checkPreferences(prefMng, context);
             setPermissionsPreference();
-            PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventPreferencesNestedFragment.doOnActivityResult");
+            PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
             ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
         }
         if (requestCode == RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS) {
@@ -1013,7 +1040,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             event._eventPreferencesBluetooth.checkPreferences(prefMng, context);
             setPermissionsPreference();
-            PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventPreferencesNestedFragment.doOnActivityResult");
+            PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
             ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
         }
         if (requestCode == RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS) {
@@ -1024,7 +1051,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             event._eventPreferencesLocation.checkPreferences(prefMng, context);
             setPermissionsPreference();
-            PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventPreferencesNestedFragment.doOnActivityResult");
+            PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
             ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
         }
         if (requestCode == RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS) {
@@ -1035,7 +1062,15 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             event._eventPreferencesMobileCells.checkPreferences(prefMng, context);
             setPermissionsPreference();
-            PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventPreferencesNestedFragment.doOnActivityResult");
+            PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
+            ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
+        }
+        if (requestCode == RESULT_TIME_LOCATION_SYSTEM_SETTINGS) {
+            PPApplication.restartTwilightScanner(context);
+
+            event._eventPreferencesTime.checkPreferences(prefMng, context);
+            setPermissionsPreference();
+            PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
             ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
         }
         if (requestCode == RESULT_USE_PRIORITY_SETTINGS) {
