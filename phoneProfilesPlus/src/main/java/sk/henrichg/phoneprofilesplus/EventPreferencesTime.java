@@ -707,10 +707,8 @@ class EventPreferencesTime extends EventPreferences {
                             midnightTime.set(Calendar.SECOND, 0);
                             midnightTime.set(Calendar.MILLISECOND, 0);
 
-                            int moveStartTime = 0;
-                            int moveEndTime = 0;
-
                             ///// set calendar for startTime and endTime
+                            boolean previousDayUsed = false;
                             if (hoursStartTime.getTimeInMillis() >= hoursEndTime.getTimeInMillis()) {
                                 // endTime is over midnight
                                 if (testEvent)
@@ -723,7 +721,7 @@ class EventPreferencesTime extends EventPreferences {
                                         PPApplication.logE("EventPreferencesTime.computeAlarm", "now is between midnight and endTime");
 
                                     calStartTime.add(Calendar.DAY_OF_YEAR, -1);
-                                    moveStartTime = -1;
+                                    previousDayUsed = true;
                                 } else if ((hoursNowTime.getTimeInMillis() >= hoursStartTime.getTimeInMillis()) &&
                                         (hoursNowTime.getTimeInMillis() < midnightTime.getTimeInMillis())) {
                                     // now is between startTime and midnight
@@ -731,14 +729,12 @@ class EventPreferencesTime extends EventPreferences {
                                         PPApplication.logE("EventPreferencesTime.computeAlarm", "now is between startTime and midnight");
 
                                     calEndTime.add(Calendar.DAY_OF_YEAR, 1);
-                                    moveEndTime = 1;
                                 } else {
                                     // now is before start time
                                     if (testEvent)
                                         PPApplication.logE("EventPreferencesTime.computeAlarm", "now is before start time");
 
                                     calEndTime.add(Calendar.DAY_OF_YEAR, 1);
-                                    moveEndTime = 1;
                                 }
                             } else {
                                 if (testEvent)
@@ -751,8 +747,6 @@ class EventPreferencesTime extends EventPreferences {
 
                                     calStartTime.add(Calendar.DAY_OF_YEAR, 1);
                                     calEndTime.add(Calendar.DAY_OF_YEAR, 1);
-                                    moveStartTime = 1;
-                                    moveEndTime = 1;
                                 }
                             }
 
@@ -769,6 +763,9 @@ class EventPreferencesTime extends EventPreferences {
                             daysOfWeek[Calendar.FRIDAY] = this._friday;
                             daysOfWeek[Calendar.SATURDAY] = this._saturday;
 
+                            int daysIndex = 0;
+                            if (!previousDayUsed)
+                                daysIndex = 1;
                             if (daysOfWeek[startDayOfWeek]) {
                                 // startTime of week is selected
                                 if (testEvent)
@@ -782,13 +779,12 @@ class EventPreferencesTime extends EventPreferences {
 
                                 // search for selected day of week
                                 boolean found = false;
-                                int daysToAdd = 0;
                                 for (int i = startDayOfWeek; i < 8; i++) {
                                     if (daysOfWeek[i]) {
                                         found = true;
                                         break;
                                     }
-                                    ++daysToAdd;
+                                    ++daysIndex;
                                 }
                                 if (!found) {
                                     for (int i = 1; i < startDayOfWeek; i++) {
@@ -796,243 +792,46 @@ class EventPreferencesTime extends EventPreferences {
                                             found = true;
                                             break;
                                         }
-                                        ++daysToAdd;
+                                        ++daysIndex;
                                     }
                                 }
                                 if (found) {
                                     if (testEvent)
-                                        PPApplication.logE("EventPreferencesTime.computeAlarm", "daysToAdd=" + daysToAdd);
-
-                                    for (int i = 0; i < 7; i++) {
-                                        startDayOfWeek++;
-                                        if (startDayOfWeek == 8)
-                                            startDayOfWeek = 1;
-                                    }
-                                    //calStartTime.add(Calendar.DAY_OF_YEAR, daysToAdd);
-                                    //calEndTime.add(Calendar.DAY_OF_YEAR, daysToAdd);
+                                        PPApplication.logE("EventPreferencesTime.computeAlarm", "daysToAdd=" + daysIndex);
                                 }
                             }
                             //////////////////////
 
-
-                            /*int firstDayOfWeek = calStartTime.get(Calendar.DAY_OF_WEEK);
-                            int nextDayOfWeek;
-                            int previousDayOfWeek;
-                            int firstDaysToAdd = 0;
-                            int nextDaysToAdd = 0;
-                            int previousDaysToRemove = 0;
-
-                            boolean[] daysOfWeek = new boolean[8];
-                            daysOfWeek[Calendar.SUNDAY] = this._sunday;
-                            daysOfWeek[Calendar.MONDAY] = this._monday;
-                            daysOfWeek[Calendar.TUESDAY] = this._tuesday;
-                            daysOfWeek[Calendar.WEDNESDAY] = this._wednesday;
-                            daysOfWeek[Calendar.THURSDAY] = this._thursday;
-                            daysOfWeek[Calendar.FRIDAY] = this._friday;
-                            daysOfWeek[Calendar.SATURDAY] = this._saturday;
-
-                            // search for first selected day of week
-                            boolean foundFirst = false;
-                            for (int i = firstDayOfWeek; i < 8; i++) {
-                                if (daysOfWeek[i]) {
-                                    foundFirst = true;
-                                    break;
-                                }
-                                ++firstDaysToAdd;
-                            }
-                            if (!foundFirst) {
-                                for (int i = 1; i < firstDayOfWeek; i++) {
-                                    if (daysOfWeek[i]) {
-                                        //foundFirst = true;
-                                        break;
-                                    }
-                                    ++firstDaysToAdd;
-                                }
-                            }
-
-                            // next day
-                            nextDayOfWeek = firstDayOfWeek + 1;
-                            if (nextDayOfWeek == 8)
-                                nextDayOfWeek = 1;
-
-                            // search for next selected day of week
-                            boolean foundNext = false;
-                            for (int i = nextDayOfWeek; i < 8; i++) {
-                                if (daysOfWeek[i]) {
-                                    foundNext = true;
-                                    break;
-                                }
-                                ++nextDaysToAdd;
-                            }
-                            if (!foundNext) {
-                                for (int i = 1; i < nextDayOfWeek; i++) {
-                                    if (daysOfWeek[i]) {
-                                        //foundSecond = true;
-                                        break;
-                                    }
-                                    ++nextDaysToAdd;
-                                }
-                            }
-
-                            // previous day
-                            previousDayOfWeek = firstDayOfWeek - 1;
-                            if (previousDayOfWeek == 0)
-                                previousDayOfWeek = 7;
-
-                            // search for previous selected day of week
-                            boolean foundPrevious = false;
-                            for (int i = previousDayOfWeek; i > 0; i--) {
-                                if (daysOfWeek[i]) {
-                                    foundPrevious = true;
-                                    break;
-                                }
-                                --previousDaysToRemove;
-                            }
-                            if (!foundPrevious) {
-                                for (int i = 7; i > previousDayOfWeek; i--) {
-                                    if (daysOfWeek[i]) {
-                                        //foundSecond = true;
-                                        break;
-                                    }
-                                    --previousDaysToRemove;
-                                }
-                            }
-
-                            for (int i = 0; i < firstDaysToAdd; i++) {
-                                firstDayOfWeek++;
-                                if (firstDayOfWeek == 8)
-                                    firstDayOfWeek = 1;
-                            }
-                            for (int i = 0; i < nextDaysToAdd; i++) {
-                                nextDayOfWeek++;
-                                if (nextDayOfWeek == 8)
-                                    nextDayOfWeek = 1;
-                            }
-                            for (int i = 0; i < previousDaysToRemove; i++) {
-                                previousDayOfWeek--;
-                                if (previousDayOfWeek == 0)
-                                    previousDayOfWeek = 7;
-                            }*/
-                            /////////////////
-
-                            long[] twilightDaysOfWeekSunrise = twilightState.getDaysOfWeekSunrise();
-                            long[] twilightDaysOfWeekSunset = twilightState.getDaysOfWeekSunset();
+                            long[] twilightDaysSunrise = twilightState.getDaysSunrise();
+                            long[] twilightDaysSunset = twilightState.getDaysSunset();
 
                             if (_timeType == TIME_TYPE_SUNRISE_SUNSET) {
                                 if (testEvent)
                                     PPApplication.logE("EventPreferencesTime.computeAlarm", "from sunrise to sunset");
 
-                                if (twilightDaysOfWeekSunrise[startDayOfWeek] != -1)
-                                    calStartTime.setTimeInMillis(twilightDaysOfWeekSunrise[startDayOfWeek]);
+                                if (twilightDaysSunrise[daysIndex] != -1)
+                                    calStartTime.setTimeInMillis(twilightDaysSunrise[daysIndex]);
                                 else
                                     setAlarm = false;
-                                startDayOfWeek++;
-                                if (startDayOfWeek == 8)
-                                    startDayOfWeek = 1;
-                                if (twilightDaysOfWeekSunset[startDayOfWeek] != -1)
-                                    calEndTime.setTimeInMillis(twilightDaysOfWeekSunset[startDayOfWeek]);
+                                daysIndex++;
+                                if (twilightDaysSunset[daysIndex] != -1)
+                                    calEndTime.setTimeInMillis(twilightDaysSunset[daysIndex]);
                                 else
                                     setAlarm = false;
-
-                                /*switch (moveStartTime) {
-                                    case -1:
-                                        if (twilightDaysOfWeekSunrise[previousDayOfWeek] != -1)
-                                            calStartTime.setTimeInMillis(twilightDaysOfWeekSunrise[previousDayOfWeek]);
-                                        else
-                                            setAlarm = false;
-                                        break;
-                                    case 0:
-                                        if (twilightDaysOfWeekSunrise[firstDayOfWeek] != -1)
-                                            calStartTime.setTimeInMillis(twilightDaysOfWeekSunrise[firstDayOfWeek]);
-                                        else
-                                            setAlarm = false;
-                                        break;
-                                    case 1:
-                                        if (twilightDaysOfWeekSunrise[nextDayOfWeek] != -1)
-                                            calStartTime.setTimeInMillis(twilightDaysOfWeekSunrise[nextDayOfWeek]);
-                                        else
-                                            setAlarm = false;
-                                        break;
-                                }
-                                switch (moveEndTime) {
-                                    //noinspection ConstantConditions
-                                    case -1:
-                                        if (twilightDaysOfWeekSunset[previousDayOfWeek] != -1)
-                                            calEndTime.setTimeInMillis(twilightDaysOfWeekSunset[previousDayOfWeek]);
-                                        else
-                                            setAlarm = false;
-                                        break;
-                                    case 0:
-                                        if (twilightDaysOfWeekSunset[firstDayOfWeek] != -1)
-                                            calEndTime.setTimeInMillis(twilightDaysOfWeekSunset[firstDayOfWeek]);
-                                        else
-                                            setAlarm = false;
-                                        break;
-                                    case 1:
-                                        if (twilightDaysOfWeekSunset[nextDayOfWeek] != -1)
-                                            calEndTime.setTimeInMillis(twilightDaysOfWeekSunset[nextDayOfWeek]);
-                                        else
-                                            setAlarm = false;
-                                        break;
-                                }*/
                             }
                             else {
                                 if (testEvent)
                                     PPApplication.logE("EventPreferencesTime.computeAlarm", "from sunset to sunrise");
 
-                                if (twilightDaysOfWeekSunset[startDayOfWeek] != -1)
-                                    calStartTime.setTimeInMillis(twilightDaysOfWeekSunset[startDayOfWeek]);
+                                if (twilightDaysSunset[daysIndex] != -1)
+                                    calStartTime.setTimeInMillis(twilightDaysSunset[daysIndex]);
                                 else
                                     setAlarm = false;
-                                startDayOfWeek++;
-                                if (startDayOfWeek == 8)
-                                    startDayOfWeek = 1;
-                                if (twilightDaysOfWeekSunrise[startDayOfWeek] != -1)
-                                    calEndTime.setTimeInMillis(twilightDaysOfWeekSunrise[startDayOfWeek]);
+                                daysIndex++;
+                                if (twilightDaysSunrise[daysIndex] != -1)
+                                    calEndTime.setTimeInMillis(twilightDaysSunrise[daysIndex]);
                                 else
                                     setAlarm = false;
-
-                                /*switch (moveStartTime) {
-                                    case -1:
-                                        if (twilightDaysOfWeekSunset[previousDayOfWeek] != -1)
-                                            calStartTime.setTimeInMillis(twilightDaysOfWeekSunset[previousDayOfWeek]);
-                                        else
-                                            setAlarm = false;
-                                        break;
-                                    case 0:
-                                        if (twilightDaysOfWeekSunset[firstDayOfWeek] != -1)
-                                            calStartTime.setTimeInMillis(twilightDaysOfWeekSunset[firstDayOfWeek]);
-                                        else
-                                            setAlarm = false;
-                                        break;
-                                    case 1:
-                                        if (twilightDaysOfWeekSunset[nextDayOfWeek] != -1)
-                                            calStartTime.setTimeInMillis(twilightDaysOfWeekSunset[nextDayOfWeek]);
-                                        else
-                                            setAlarm = false;
-                                        break;
-                                }
-                                switch (moveEndTime) {
-                                    //noinspection ConstantConditions
-                                    case -1:
-                                        if (twilightDaysOfWeekSunrise[previousDayOfWeek] != -1)
-                                            calEndTime.setTimeInMillis(twilightDaysOfWeekSunrise[previousDayOfWeek]);
-                                        else
-                                            setAlarm = false;
-                                        break;
-                                    case 0:
-                                        if (twilightDaysOfWeekSunrise[firstDayOfWeek] != -1)
-                                            calEndTime.setTimeInMillis(twilightDaysOfWeekSunrise[firstDayOfWeek]);
-                                        else
-                                            setAlarm = false;
-                                        break;
-                                    case 1:
-                                        if (twilightDaysOfWeekSunrise[nextDayOfWeek] != -1)
-                                            calEndTime.setTimeInMillis(twilightDaysOfWeekSunrise[nextDayOfWeek]);
-                                        else
-                                            setAlarm = false;
-                                        break;
-                                }*/
                             }
                             if (testEvent) {
                                 PPApplication.logE("EventPreferencesTime.computeAlarm", "callStartTime=" + DateFormat.getDateFormat(context).format(calStartTime.getTimeInMillis()) +

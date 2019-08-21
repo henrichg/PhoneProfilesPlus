@@ -372,25 +372,21 @@ class TwilightScanner {
             final long tomorrowSunrise = mTwilightCalculator.mSunrise;
             final long tomorrowSunset = mTwilightCalculator.mSunset;
 
-            long[] daysOfWeekSunrise = new long[8];
-            long[] daysOfWeekSunset = new long[8];
+            long[] daysSunrise = new long[9];
+            long[] daysSunset = new long[9];
             Calendar calNow = Calendar.getInstance();
             calNow.add(Calendar.DAY_OF_WEEK, -1);
             long calNowMillis = calNow.getTimeInMillis();
-            int nowDayOfWeek = calNow.get(Calendar.DAY_OF_WEEK);
-            for (int i = 0; i < 7; i++) {
+            for (int i = 0; i < 9; i++) {
                 mTwilightCalculator.calculateTwilight(calNowMillis + i*DateUtils.DAY_IN_MILLIS,
                         mLocation.getLatitude(), mLocation.getLongitude());
-                daysOfWeekSunrise[nowDayOfWeek] = mTwilightCalculator.mSunrise;
-                daysOfWeekSunset[nowDayOfWeek] = mTwilightCalculator.mSunset;
-                ++nowDayOfWeek;
-                if (nowDayOfWeek == 8)
-                    nowDayOfWeek = 1;
+                daysSunrise[i] = mTwilightCalculator.mSunrise;
+                daysSunset[i] = mTwilightCalculator.mSunset;
             }
 
             // set twilight state
             TwilightState state = new TwilightState(isNight, yesterdaySunrise, yesterdaySunset,
-                    todaySunrise, todaySunset, tomorrowSunrise, tomorrowSunset, daysOfWeekSunrise, daysOfWeekSunset);
+                    todaySunrise, todaySunset, tomorrowSunrise, tomorrowSunset, daysSunrise, daysSunset);
             if (DEBUG) {
                 Log.d(TAG, "Updating twilight state: " + state);
             }

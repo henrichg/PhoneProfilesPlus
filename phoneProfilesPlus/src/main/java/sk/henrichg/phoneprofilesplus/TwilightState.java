@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import java.text.DateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import androidx.annotation.NonNull;
@@ -17,14 +16,14 @@ class TwilightState {
     private final long mTomorrowSunrise;
     private final long mTomorrowSunset;
 
-    private long[] mDaysOfWeekSunrise = new long[8];
-    private long[] mDaysOfWeekSunset = new long[8];
+    private long[] mDaysSunrise = new long[9];
+    private long[] mDaysSunset = new long[9];
 
     TwilightState(boolean isNight,
                   long yesterdaySunrise, long yesterdaySunset,
                   long todaySunrise, long todaySunset,
                   long tomorrowSunrise, long tomorrowSunset,
-                  long[] daysOfWeekSunrise, long[] daysOfWeekSunset) {
+                  long[] daysSunrise, long[] daysSunset) {
         mIsNight = isNight;
         mYesterdaySunrise = yesterdaySunrise;
         mYesterdaySunset = yesterdaySunset;
@@ -33,21 +32,10 @@ class TwilightState {
         mTomorrowSunrise = tomorrowSunrise;
         mTomorrowSunset = tomorrowSunset;
 
-        mDaysOfWeekSunrise[Calendar.SUNDAY] = daysOfWeekSunrise[Calendar.SUNDAY];
-        mDaysOfWeekSunrise[Calendar.MONDAY] = daysOfWeekSunrise[Calendar.MONDAY];
-        mDaysOfWeekSunrise[Calendar.TUESDAY] = daysOfWeekSunrise[Calendar.TUESDAY];
-        mDaysOfWeekSunrise[Calendar.WEDNESDAY] = daysOfWeekSunrise[Calendar.WEDNESDAY];
-        mDaysOfWeekSunrise[Calendar.THURSDAY] = daysOfWeekSunrise[Calendar.THURSDAY];
-        mDaysOfWeekSunrise[Calendar.FRIDAY] = daysOfWeekSunrise[Calendar.FRIDAY];
-        mDaysOfWeekSunrise[Calendar.SATURDAY] = daysOfWeekSunrise[Calendar.SATURDAY];
-
-        mDaysOfWeekSunset[Calendar.SUNDAY] = daysOfWeekSunset[Calendar.SUNDAY];
-        mDaysOfWeekSunset[Calendar.MONDAY] = daysOfWeekSunset[Calendar.MONDAY];
-        mDaysOfWeekSunset[Calendar.TUESDAY] = daysOfWeekSunset[Calendar.TUESDAY];
-        mDaysOfWeekSunset[Calendar.WEDNESDAY] = daysOfWeekSunset[Calendar.WEDNESDAY];
-        mDaysOfWeekSunset[Calendar.THURSDAY] = daysOfWeekSunset[Calendar.THURSDAY];
-        mDaysOfWeekSunset[Calendar.FRIDAY] = daysOfWeekSunset[Calendar.FRIDAY];
-        mDaysOfWeekSunset[Calendar.SATURDAY] = daysOfWeekSunset[Calendar.SATURDAY];
+        for (int i = 0; i < 9; i++) {
+            mDaysSunrise[i] = daysSunrise[i];
+            mDaysSunset[i] = daysSunset[i];
+        }
     }
 
     /**
@@ -105,8 +93,8 @@ class TwilightState {
         return mTomorrowSunset;
     }
 
-    long[] getDaysOfWeekSunrise() { return mDaysOfWeekSunrise; }
-    long[] getDaysOfWeekSunset() { return mDaysOfWeekSunset; }
+    long[] getDaysSunrise() { return mDaysSunrise; }
+    long[] getDaysSunset() { return mDaysSunset; }
 
     @Override
     public boolean equals(Object o) {
