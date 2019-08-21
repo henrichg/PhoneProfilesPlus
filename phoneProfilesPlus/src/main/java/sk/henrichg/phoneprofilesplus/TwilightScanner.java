@@ -375,7 +375,7 @@ class TwilightScanner {
             long[] daysSunrise = new long[9];
             long[] daysSunset = new long[9];
             Calendar calNow = Calendar.getInstance();
-            calNow.add(Calendar.DAY_OF_YEAR, -1);
+            calNow.add(Calendar.DAY_OF_YEAR, -1); // index 0 = previous day
             long calNowMillis = calNow.getTimeInMillis();
             for (int i = 0; i < 9; i++) {
                 mTwilightCalculator.calculateTwilight(calNowMillis + i*DateUtils.DAY_IN_MILLIS,
