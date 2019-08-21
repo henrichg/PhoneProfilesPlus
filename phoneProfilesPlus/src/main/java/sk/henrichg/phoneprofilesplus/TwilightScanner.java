@@ -374,9 +374,12 @@ class TwilightScanner {
 
             long[] daysOfWeekSunrise = new long[8];
             long[] daysOfWeekSunset = new long[8];
-            int nowDayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+            Calendar calNow = Calendar.getInstance();
+            calNow.add(Calendar.DAY_OF_WEEK, -1);
+            long calNowMillis = calNow.getTimeInMillis();
+            int nowDayOfWeek = calNow.get(Calendar.DAY_OF_WEEK);
             for (int i = 0; i < 7; i++) {
-                mTwilightCalculator.calculateTwilight(now + i*DateUtils.DAY_IN_MILLIS,
+                mTwilightCalculator.calculateTwilight(calNowMillis + i*DateUtils.DAY_IN_MILLIS,
                         mLocation.getLatitude(), mLocation.getLongitude());
                 daysOfWeekSunrise[nowDayOfWeek] = mTwilightCalculator.mSunrise;
                 daysOfWeekSunset[nowDayOfWeek] = mTwilightCalculator.mSunset;
