@@ -816,7 +816,6 @@ class EventPreferencesTime extends EventPreferences {
                                     calStartTime.setTimeInMillis(twilightDaysSunrise[daysIndex]);
                                 else
                                     setAlarm = false;
-                                daysIndex++;
                                 if (twilightDaysSunset[daysIndex] != -1)
                                     calEndTime.setTimeInMillis(twilightDaysSunset[daysIndex]);
                                 else
