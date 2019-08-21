@@ -419,9 +419,9 @@ class TwilightScanner {
                     context, 0, updateIntent, 0);
             mAlarmManager.cancel(pendingIntent);
             if (android.os.Build.VERSION.SDK_INT >= 23)
-                mAlarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC, nextUpdate, pendingIntent);
+                mAlarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, nextUpdate, pendingIntent);
             else
-                mAlarmManager.setExact(AlarmManager.RTC, nextUpdate, pendingIntent);
+                mAlarmManager.setExact(AlarmManager.RTC_WAKEUP, nextUpdate, pendingIntent);
         }
     }
 
