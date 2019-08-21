@@ -476,7 +476,7 @@ class EventPreferencesTime extends EventPreferences {
 
     long computeAlarm(boolean startEvent, Context context)
     {
-        boolean testEvent = (_event._name != null) && _event._name.equals("TEST TIME SENSOR");
+        boolean testEvent = (_event._name != null) && _event._name.equals("TEST TIME SENSOR night");
         if (testEvent) {
             PPApplication.logE("EventPreferencesTime.computeAlarm", "eventName=" + _event._name);
             PPApplication.logE("EventPreferencesTime.computeAlarm", "startEvent=" + startEvent);
