@@ -1878,7 +1878,7 @@ class ActivateProfileHelper {
             Intent intent = new Intent(PPApplication.ACTION_FORCE_STOP_APPLICATIONS_START);
             intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
             intent.putExtra(PPApplication.EXTRA_APPLICATIONS, applications);
-            context.sendBroadcast(intent);//, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
+            context.sendBroadcast(intent, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
         }
     }
 
@@ -3906,7 +3906,7 @@ class ActivateProfileHelper {
                             break;
                         case 3:
                             Intent intent = new Intent(PPApplication.ACTION_LOCK_DEVICE);
-                            context.sendBroadcast(intent);//, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
+                            context.sendBroadcast(intent, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
                             break;
                     }
                 } finally {
