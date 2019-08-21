@@ -600,11 +600,11 @@ class EventPreferencesTime extends EventPreferences {
 
             int startDayOfWeek = calStartTime.get(Calendar.DAY_OF_WEEK);
             if (daysOfWeek[startDayOfWeek]) {
-                // startTime of week is selected
+                // week for startTime is selected
                 if (testEvent)
                     PPApplication.logE("EventPreferencesTime.computeAlarm", "startTime of week is selected");
             } else {
-                // startTime of week is not selected,
+                // week for startTime is not selected,
                 if (testEvent) {
                     PPApplication.logE("EventPreferencesTime.computeAlarm", "startTime of week is NOT selected");
                     PPApplication.logE("EventPreferencesTime.computeAlarm", "startDayOfWeek=" + startDayOfWeek);
@@ -764,18 +764,21 @@ class EventPreferencesTime extends EventPreferences {
                             daysOfWeek[Calendar.SATURDAY] = this._saturday;
 
                             int daysIndex = 0;
-                            if (!previousDayUsed)
-                                daysIndex = 1;
                             if (daysOfWeek[startDayOfWeek]) {
-                                // startTime of week is selected
+                                // week for startTime is selected
                                 if (testEvent)
                                     PPApplication.logE("EventPreferencesTime.computeAlarm", "startTime of week is selected");
+
+                                if (!previousDayUsed)
+                                    daysIndex = 1;
                             } else {
-                                // startTime of week is not selected,
+                                // week for startTime is not selected,
                                 if (testEvent) {
                                     PPApplication.logE("EventPreferencesTime.computeAlarm", "startTime of week is NOT selected");
                                     PPApplication.logE("EventPreferencesTime.computeAlarm", "startDayOfWeek=" + startDayOfWeek);
                                 }
+
+                                daysIndex = 1;
 
                                 // search for selected day of week
                                 boolean found = false;
