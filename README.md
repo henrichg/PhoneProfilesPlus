@@ -38,6 +38,7 @@ Required external libs
 - RootShell (as module, code modified) - https://github.com/Stericson/RootShell
 - time-duration-picker (as module, code modified) - https://github.com/svenwiegand/time-duration-picker
 - android-betterpickers (as module, code modified) - https://github.com/code-troopers/android-betterpickers  
-- RelativePopupWindow (only modified RelativePopupWindow class) - https://github.com/kakajika/RelativePopupWindow  
+- RelativePopupWindow (only modified RelativePopupWindow class) - https://github.com/kakajika/RelativePopupWindow
+- SunriseSunset (only class SunriseSunset) - https://github.com/caarmen/SunriseSunset  
 - android-hidden-api (downloaded android.jar copied into folder \<android-sdk\>/android-XX) - https://github.com/anggrayudi/android-hidden-api   
 - FreeReflection (only code from https://github.com/tiann/FreeReflection/blob/master/library/src/main/java/me/weishu/reflection/Reflection.java) - https://github.com/tiann/FreeReflection  
