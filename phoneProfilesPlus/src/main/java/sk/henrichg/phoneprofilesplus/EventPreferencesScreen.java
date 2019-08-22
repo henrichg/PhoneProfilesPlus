@@ -84,10 +84,12 @@ class EventPreferencesScreen extends EventPreferences {
                     descr = descr + ": </b>";
                 }
 
+                descr = descr + context.getString(R.string.event_preferences_screen_event_type) + ": ";
                 String[] eventListTypeNames = context.getResources().getStringArray(R.array.eventScreenEventTypeArray);
                 String[] eventListTypes = context.getResources().getStringArray(R.array.eventScreenEventTypeValues);
                 int index = Arrays.asList(eventListTypes).indexOf(Integer.toString(this._eventType));
                 descr = descr + eventListTypeNames[index];
+
                 if (this._whenUnlocked) {
                     if (this._eventType == 0)
                         descr = descr + " • " + context.getString(R.string.pref_event_screen_startWhenUnlocked);

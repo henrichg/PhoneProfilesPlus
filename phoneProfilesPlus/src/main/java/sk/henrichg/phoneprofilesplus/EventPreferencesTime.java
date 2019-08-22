@@ -201,6 +201,7 @@ class EventPreferencesTime extends EventPreferences {
                 for (int i = 0; i < 7; i++)
                     allDays = allDays && daySet[i];
 
+                descr = descr + context.getString(R.string.event_preferences_time_timeDays) + ": ";
                 if (allDays) {
                     descr = descr + context.getString(R.string.array_pref_event_all);
                     descr = descr + " ";
@@ -218,6 +219,7 @@ class EventPreferencesTime extends EventPreferences {
                 }
 
                 descr = descr + "• ";
+                descr = descr + context.getString(R.string.event_preferences_time_timeType) + ": ";
                 switch (_timeType) {
                     case TIME_TYPE_EXACT:
                         descr = descr + context.getString(R.string.event_preference_sensor_time_type_exact);
@@ -233,6 +235,8 @@ class EventPreferencesTime extends EventPreferences {
                 if (_timeType == TIME_TYPE_EXACT) {
                     descr = descr + " • ";
 
+                    descr = descr + context.getString(R.string.event_preferences_time_startTime)+"-"+
+                            context.getString(R.string.event_preferences_time_endTime)+": ";
                     Calendar calendar = Calendar.getInstance();
 
                     calendar.set(Calendar.HOUR_OF_DAY, _startTime / 60);
@@ -279,6 +283,13 @@ class EventPreferencesTime extends EventPreferences {
                                 long endTime = computeAlarm(false, context);
                                 if ((startTime != 0) && (endTime != 0)) {
                                     descr = descr + " • ";
+
+                                    if (_timeType == TIME_TYPE_SUNRISE_SUNSET)
+                                        descr = descr + context.getString(R.string.event_preference_sensor_time_sunrise) + "-" +
+                                                context.getString(R.string.event_preference_sensor_time_sunset) + ": ";
+                                    else
+                                        descr = descr + context.getString(R.string.event_preference_sensor_time_sunset) + "-" +
+                                                context.getString(R.string.event_preference_sensor_time_sunrise) + ": ";
 
                                     Calendar calendar = Calendar.getInstance();
                                     calendar.setTimeInMillis(startTime);

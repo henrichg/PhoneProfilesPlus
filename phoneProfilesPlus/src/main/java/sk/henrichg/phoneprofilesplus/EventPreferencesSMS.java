@@ -152,6 +152,15 @@ class EventPreferencesSMS extends EventPreferences {
                     //descr = descr + context.getString(R.string.pref_event_sms_event);
                     //String[] smsEvents = context.getResources().getStringArray(R.array.eventSMSEventsArray);
                     //descr = descr + ": " + smsEvents[tmp._smsEvent] + "; ";
+
+                    descr = descr + context.getString(R.string.event_preferences_sms_contact_groups) + ": ";
+                    String[] splits = this._contactGroups.split("\\|");
+                    descr = descr + splits.length + " • ";
+
+                    descr = descr + context.getString(R.string.event_preferences_sms_contacts) + ": ";
+                    splits = this._contacts.split("\\|");
+                    descr = descr + splits.length + " • ";
+
                     descr = descr + context.getString(R.string.pref_event_sms_contactListType);
                     String[] contactListTypes = context.getResources().getStringArray(R.array.eventSMSContactListTypeArray);
                     descr = descr + ": " + contactListTypes[this._contactListType] + " • ";

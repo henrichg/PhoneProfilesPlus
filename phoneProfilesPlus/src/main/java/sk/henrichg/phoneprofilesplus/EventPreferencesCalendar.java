@@ -154,12 +154,18 @@ class EventPreferencesCalendar extends EventPreferences {
                     descr = descr + ": </b>";
                 }
 
+                descr = descr + context.getString(R.string.event_preferences_calendar_calendars) + ": ";
+                String[] calendarsSplits = _calendars.split("\\|");
+                descr = descr + calendarsSplits.length + " • ";
+
                 if (this._allEvents) {
                     descr = descr + context.getString(R.string.event_preferences_calendar_all_events) + " • ";
                 } else {
+                    descr = descr + context.getString(R.string.event_preferences_calendar_search_field) + ": ";
                     String[] searchFields = context.getResources().getStringArray(R.array.eventCalendarSearchFieldArray);
-                    descr = descr + searchFields[this._searchField] + ": ";
+                    descr = descr + searchFields[this._searchField] + " • ";
 
+                    descr = descr + context.getString(R.string.event_preferences_calendar_search_string) + ": ";
                     descr = descr + "\"" + this._searchString + "\"" + " • ";
                 }
 
@@ -269,7 +275,7 @@ class EventPreferencesCalendar extends EventPreferences {
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, true, !isRunnable, false);
         }
 
-        boolean allEventsNotChecked = preferences.getBoolean(PREF_EVENT_CALENDAR_ALL_EVENTS, false);
+        boolean allEventsNotChecked = !preferences.getBoolean(PREF_EVENT_CALENDAR_ALL_EVENTS, false);
         enabled = enabled && allEventsNotChecked;
         preference = prefMng.findPreference(PREF_EVENT_CALENDAR_SEARCH_FIELD);
         if (preference != null) {

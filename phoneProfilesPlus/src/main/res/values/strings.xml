@@ -1448,6 +1448,8 @@
     <string name="event_preference_sensor_time_type_sunset_sunrise">From sunset to sunrise</string>
     <string name="permission_why_event_time_preferences">for use location data to get sunrise/sunset time in Time sensor</string>
     <string name="event_preference_sensor_time_locationSystemSettings_summary">Please enable Location in System Settings. Without this, time type \"From sunrise to sunset\" and \"From sunset to sunrise\" will not work.</string>
+    <string name="event_preference_sensor_time_sunrise">Sunrise</string>
+    <string name="event_preference_sensor_time_sunset">Sunset</string>
 
     <!-- **************************************************************************************** -->
 

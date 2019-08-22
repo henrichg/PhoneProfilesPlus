@@ -77,6 +77,7 @@ class EventPreferencesPeripherals extends EventPreferences {
                     descr = descr + ": </b>";
                 }
 
+                descr = descr + context.getString(R.string.event_preferences_peripheral_type) + ": ";
                 String[] peripheralTypes = context.getResources().getStringArray(R.array.eventPeripheralTypeArray);
                 descr = descr + peripheralTypes[this._peripheralType];
             }
