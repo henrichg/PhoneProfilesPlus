@@ -119,7 +119,10 @@ class TwilightScanner {
     }
 
     TwilightState getTwilightState() {
+        PPApplication.logE("TwilightScanner.getTwilightState", "xxx");
         synchronized (mLock) {
+            mLocationHandler.updateTwilightState(false);
+            PPApplication.logE("TwilightScanner.getTwilightState", "END");
             return mTwilightState;
         }
     }
@@ -289,7 +292,7 @@ class TwilightScanner {
                     break;
 
                 case MSG_DO_TWILIGHT_UPDATE:
-                    updateTwilightState();
+                    updateTwilightState(true);
                     break;
             }
         }
@@ -336,10 +339,10 @@ class TwilightScanner {
 
         private void setLocation(Location location) {
             mLocation = location;
-            updateTwilightState();
+            updateTwilightState(true);
         }
 
-        private void updateTwilightState() {
+        void updateTwilightState(boolean setAlarm) {
             if (mLocation == null) {
                 setTwilightState(null);
                 return;
@@ -349,14 +352,14 @@ class TwilightScanner {
 
             PPApplication.logE("TwilightScanner.updateTwilightState", "now=" + now.getTime());
 
-            Calendar[] twilight = SunriseSunset.getSunriseSunset(Calendar.getInstance(), mLocation.getLatitude(), mLocation.getLongitude());
-            PPApplication.logE("TwilightScanner.updateTwilightState", "SunriseSunset.getCivilTwilight[0]=" + twilight[0].getTime());
-            PPApplication.logE("TwilightScanner.updateTwilightState", "SunriseSunset.getCivilTwilight[1]=" + twilight[1].getTime());
+//            Calendar[] twilight = SunriseSunset.getSunriseSunset(Calendar.getInstance(), mLocation.getLatitude(), mLocation.getLongitude());
+//            PPApplication.logE("TwilightScanner.updateTwilightState", "SunriseSunset.getCivilTwilight[0]=" + twilight[0].getTime());
+//            PPApplication.logE("TwilightScanner.updateTwilightState", "SunriseSunset.getCivilTwilight[1]=" + twilight[1].getTime());
 
             // calculate yesterday's twilight
             Calendar yesterday = Calendar.getInstance();
             yesterday.add(Calendar.DAY_OF_YEAR, -1);
-            twilight = SunriseSunset.getSunriseSunset(yesterday, mLocation.getLatitude(), mLocation.getLongitude());
+            Calendar[] twilight = SunriseSunset.getSunriseSunset(yesterday, mLocation.getLatitude(), mLocation.getLongitude());
             final long yesterdaySunrise = twilight[0].getTimeInMillis();
             final long yesterdaySunset = twilight[1].getTimeInMillis();
 
@@ -390,34 +393,36 @@ class TwilightScanner {
             PPApplication.logE("TwilightScanner.updateTwilightState", "Updating twilight state: " + state);
             setTwilightState(state);
 
-            // schedule next update
-            long nextUpdate = 0;
-            if (todaySunrise == -1 || todaySunset == -1) {
-                // In the case the day or night never ends the update is scheduled 12 hours later.
-                nextUpdate = now.getTimeInMillis() + 12 * DateUtils.HOUR_IN_MILLIS;
-            } else {
-                // add some extra time to be on the safe side.
-                nextUpdate += DateUtils.MINUTE_IN_MILLIS;
-
-                if (now.getTimeInMillis() > todaySunset) {
-                    nextUpdate += tomorrowSunrise;
-                } else if (now.getTimeInMillis() > todaySunrise) {
-                    nextUpdate += todaySunset;
+            if (setAlarm) {
+                // schedule next update
+                long nextUpdate = 0;
+                if (todaySunrise == -1 || todaySunset == -1) {
+                    // In the case the day or night never ends the update is scheduled 12 hours later.
+                    nextUpdate = now.getTimeInMillis() + 12 * DateUtils.HOUR_IN_MILLIS;
                 } else {
-                    nextUpdate += todaySunrise;
+                    // add some extra time to be on the safe side.
+                    nextUpdate += DateUtils.MINUTE_IN_MILLIS;
+
+                    if (now.getTimeInMillis() > todaySunset) {
+                        nextUpdate += tomorrowSunrise;
+                    } else if (now.getTimeInMillis() > todaySunrise) {
+                        nextUpdate += todaySunset;
+                    } else {
+                        nextUpdate += todaySunrise;
+                    }
                 }
+
+                PPApplication.logE("TwilightScanner.updateTwilightState", "Next update in " + (nextUpdate - now.getTimeInMillis()) + " ms");
+
+                Intent updateIntent = new Intent(ACTION_UPDATE_TWILIGHT_STATE);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                        context, 0, updateIntent, 0);
+                mAlarmManager.cancel(pendingIntent);
+                if (android.os.Build.VERSION.SDK_INT >= 23)
+                    mAlarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, nextUpdate, pendingIntent);
+                else
+                    mAlarmManager.setExact(AlarmManager.RTC_WAKEUP, nextUpdate, pendingIntent);
             }
-
-            PPApplication.logE("TwilightScanner.updateTwilightState", "Next update in " + (nextUpdate - now.getTimeInMillis()) + " ms");
-
-            Intent updateIntent = new Intent(ACTION_UPDATE_TWILIGHT_STATE);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                    context, 0, updateIntent, 0);
-            mAlarmManager.cancel(pendingIntent);
-            if (android.os.Build.VERSION.SDK_INT >= 23)
-                mAlarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, nextUpdate, pendingIntent);
-            else
-                mAlarmManager.setExact(AlarmManager.RTC_WAKEUP, nextUpdate, pendingIntent);
         }
     }
 
