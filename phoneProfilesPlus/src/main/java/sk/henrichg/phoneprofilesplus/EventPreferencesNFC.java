@@ -94,7 +94,8 @@ class EventPreferencesNFC extends EventPreferences {
                     descr = descr + ": </b>";
                 }
 
-                String selectedNfcTags = context.getString(R.string.event_preferences_nfc_nfcTags) + ": ";
+                descr = descr + context.getString(R.string.event_preferences_nfc_nfcTags) + ": ";
+                String selectedNfcTags = "";
                 String[] splits = this._nfcTags.split("\\|");
                 for (String _tag : splits) {
                     if (_tag.isEmpty()) {

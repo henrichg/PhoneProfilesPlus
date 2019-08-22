@@ -123,7 +123,8 @@ class EventPreferencesBluetooth extends EventPreferences {
                 int index = Arrays.asList(connectionListTypes).indexOf(Integer.toString(this._connectionType));
                 descr = descr + ": " + connectionListTypeNames[index] + " • ";
 
-                String selectedBluetoothNames = context.getString(R.string.pref_event_bluetooth_adapterName) + ": ";
+                descr = descr + context.getString(R.string.pref_event_bluetooth_adapterName) + ": ";
+                String selectedBluetoothNames = "";
                 String[] splits = this._adapterName.split("\\|");
                 for (String _bluetoothName : splits) {
                     if (_bluetoothName.isEmpty()) {
