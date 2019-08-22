@@ -1824,7 +1824,7 @@ public class DataWrapper {
         {
             // activation is invoked during device boot
 
-            ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
+            //ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
             Profile.setActivatedProfileForDuration(context, 0);
 
             if (ApplicationPreferences.applicationActivate(context))
@@ -1840,7 +1840,12 @@ public class DataWrapper {
         {
             // activation is invoked from launcher
 
-            ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
+            Profile _profile;
+            if (profile_id == 0)
+                _profile = null;
+            else
+                _profile = getProfileById(profile_id, false, false, false);
+            ProfileDurationAlarmBroadcastReceiver.removeAlarm(_profile, context);
             Profile.setActivatedProfileForDuration(context, 0);
 
             if (ApplicationPreferences.applicationActivate(context))
@@ -3918,7 +3923,10 @@ public class DataWrapper {
         if (unblockEventsRun)
         {
             // remove alarm for profile duration
-            ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
+            if (!profileListFilled)
+                fillProfileList(false, false);
+            for (Profile profile : profileList)
+                ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, context);
             Profile.setActivatedProfileForDuration(context, 0);
 
             Event.setEventsBlocked(context, false);

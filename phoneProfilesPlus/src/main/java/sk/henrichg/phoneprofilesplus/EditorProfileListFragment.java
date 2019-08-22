@@ -657,7 +657,12 @@ public class EditorProfileListFragment extends Fragment
                     activityDataWrapper.addActivityLog(DatabaseHandler.ALTYPE_ALLPROFILESDELETED, null, null, null, 0);
 
                     // remove alarm for profile duration
-                    ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, activityDataWrapper.context);
+                    synchronized (activityDataWrapper.profileList) {
+                        if (activityDataWrapper.profileListFilled) {
+                            for (Profile profile : activityDataWrapper.profileList)
+                                ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, activityDataWrapper.context);
+                        }
+                    }
                     Profile.setActivatedProfileForDuration(activityDataWrapper.context, 0);
 
                     listView.getRecycledViewPool().clear();

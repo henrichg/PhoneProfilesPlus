@@ -581,7 +581,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
             if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
                 // set alarm for profile duration
-                ProfileDurationAlarmBroadcastReceiver.setAlarm(profile, getApplicationContext());
+                ProfileDurationAlarmBroadcastReceiver.setAlarm(profile, false, getApplicationContext());
                 Profile.setActivatedProfileForDuration(getApplicationContext(), profile._id);
             }
 

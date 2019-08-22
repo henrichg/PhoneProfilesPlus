@@ -2249,6 +2249,12 @@ public class PPApplication extends Application {
                 //PPApplication.initRoot();
             }
 
+            if (dataWrapper != null) {
+                if (!dataWrapper.profileListFilled)
+                    dataWrapper.fillProfileList(false, false);
+                for (Profile profile : dataWrapper.profileList)
+                    ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, context);
+            }
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
             Profile.setActivatedProfileForDuration(context, 0);
             StartEventNotificationBroadcastReceiver.removeAlarm(context);
