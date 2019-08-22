@@ -565,7 +565,7 @@ class EventsHandler {
                     profileChanged = true;
 
                 if (profileChanged || reactivateProfile) {
-                    dataWrapper.activateProfileFromEvent(mergedProfile._id, /*interactive,*/ false, true);
+                    dataWrapper.activateProfileFromEvent(mergedProfile._id, false, true, isRestart);
                     // wait for profile activation
                     doSleep = true;
                 }

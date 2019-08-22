@@ -235,8 +235,8 @@ public class DataWrapper {
 
     private String getVolumeLevelString(int percentage, int maxValue)
     {
-        Double dValue = maxValue / 100.0 * percentage;
-        return String.valueOf(dValue.intValue());
+        double dValue = maxValue / 100.0 * percentage;
+        return String.valueOf((int)Math.ceil(dValue));
     }
 
     Profile getPredefinedProfile(int index, boolean saveToDB, Context baseContext) {
@@ -513,8 +513,7 @@ public class DataWrapper {
         }
     }
 
-    void activateProfileFromEvent(long profile_id, /*boolean interactive,*/ boolean manual,
-                                         boolean merged)
+    void activateProfileFromEvent(long profile_id, boolean manual, boolean merged, boolean forRestartEvents)
     {
         int startupSource = PPApplication.STARTUP_SOURCE_SERVICE;
         if (manual)
@@ -525,7 +524,7 @@ public class DataWrapper {
         if (Permissions.grantProfilePermissions(context, profile, merged, true,
                 /*false, monochrome, monochromeValue,*/
                 startupSource, false,true, false)) {
-            _activateProfile(profile, merged, startupSource);
+            _activateProfile(profile, merged, startupSource, forRestartEvents);
         }
     }
 
@@ -1451,8 +1450,7 @@ public class DataWrapper {
 
 //----- Activate profile ---------------------------------------------------------------------------------------------
 
-    private void _activateProfile(Profile _profile, boolean merged, int startupSource
-                                    /*,final boolean _interactive,*/)
+    private void _activateProfile(Profile _profile, boolean merged, int startupSource, final boolean forRestartEvents)
     {
         // remove last configured profile duration alarm
         ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
@@ -1504,8 +1502,9 @@ public class DataWrapper {
         {
             profileIcon = mappedProfile._icon;
 
-            if ((mappedProfile._afterDurationDo != Profile.AFTERDURATIONDO_NOTHING) &&
-                    (mappedProfile._duration > 0))
+            if ((!forRestartEvents) &&
+                (mappedProfile._afterDurationDo != Profile.AFTERDURATIONDO_NOTHING) &&
+                (mappedProfile._duration > 0))
                 profileDuration = mappedProfile._duration;
 
             // activation with duration
@@ -1523,6 +1522,7 @@ public class DataWrapper {
                     long profileId = activatedProfile._id;
                     PPApplication.logE("$$$ DataWrapper._activateProfile", "setActivatedProfileForDuration profileId=" + profileId);
                     PPApplication.logE("$$$ DataWrapper._activateProfile", "setActivatedProfileForDuration duration=" + profileDuration);
+                    PPApplication.logE("$$$ DataWrapper._activateProfile", "setActivatedProfileForDuration forRestartEvents=" + forRestartEvents);
                     Profile.setActivatedProfileForDuration(context, profileId);
                 }
                 else
@@ -1593,7 +1593,7 @@ public class DataWrapper {
 
                     PPApplication.logE("$$$$$ PPApplication.startHandlerThread", "START run - from=DataWrapper.activateProfileFromMainThread");
 
-                    dataWrapper._activateProfile(profile, merged, startupSource);
+                    dataWrapper._activateProfile(profile, merged, startupSource, false);
                     if (interactive) {
                         DatabaseHandler.getInstance(dataWrapper.context).increaseActivationByUserCount(profile);
                         dataWrapper.setDynamicLauncherShortcuts();
@@ -1918,7 +1918,7 @@ public class DataWrapper {
                 startupSource, true,true, false)) {
             // activateProfileAfterDuration is already called from handlerThread
             PPApplication.logE("DataWrapper.activateProfileAfterDuration", "activate");
-            _activateProfile(profile, false, startupSource);
+            _activateProfile(profile, false, startupSource, false);
         }
     }
 
@@ -2020,7 +2020,7 @@ public class DataWrapper {
 
                 Calendar calStartTime = Calendar.getInstance();
                 calStartTime.setTimeInMillis(startAlarmTime);
-                int startDayOfWeek = calStartTime.get(Calendar.DAY_OF_WEEK);
+                //int startDayOfWeek = calStartTime.get(Calendar.DAY_OF_WEEK);
                 //if (daysOfWeek[startDayOfWeek])
                 //{
                     // startTime of week is selected

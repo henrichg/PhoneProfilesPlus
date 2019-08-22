@@ -898,7 +898,7 @@ class Event {
                     //if (forceRunChanged)
                     //    summary = summary + "[»] " + context.getString(R.string.event_preferences_ForceRun);
                     if (manualProfileActivationChanged) {
-                        if (!summary.isEmpty()) summary = summary + " • ";
+                        /*if (!summary.isEmpty())*/ summary = summary + " • ";
                         summary = summary + context.getString(R.string.event_preferences_manualProfileActivation);
                     }
                     if (profileStartWhenActivatedChanged) {
@@ -947,7 +947,7 @@ class Event {
                 if (bold) {
                     String summary = "";
                     if (delayEndChanged) {
-                        if (!summary.isEmpty()) summary = summary + " • ";
+                        /*if (!summary.isEmpty())*/ summary = summary + " • ";
                         summary = summary + context.getString(R.string.event_preferences_delayStart) + ": ";
                         summary = summary + GlobalGUIRoutines.getDurationString(delayEnd);
                     }
@@ -1492,9 +1492,8 @@ class Event {
             Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
             if (activatedProfile != null)
                 activatedProfileId = activatedProfile._id;
-            if (this._manualProfileActivation || forRestartEvents ||
-                    (this._fkProfileStart != activatedProfileId))
-                dataWrapper.activateProfileFromEvent(this._fkProfileStart, /*interactive,*/ false, false);
+            if (this._manualProfileActivation || forRestartEvents || (this._fkProfileStart != activatedProfileId))
+                dataWrapper.activateProfileFromEvent(this._fkProfileStart, false, false, forRestartEvents);
             else {
                 PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from Event.startEvent");
                 dataWrapper.updateNotificationAndWidgets(false);
@@ -1504,7 +1503,7 @@ class Event {
             mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper, true);
             if (this._manualProfileActivation) {
                 DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
-                dataWrapper.activateProfileFromEvent(mergedProfile._id, /*interactive,*/ true, true);
+                dataWrapper.activateProfileFromEvent(mergedProfile._id, true, true, forRestartEvents);
                 mergedProfile._id = 0;
             }
         }
@@ -1556,7 +1555,7 @@ class Event {
                     if ((_fkProfileEnd != activatedProfileId) || forRestartEvents)
                     {
                         PPApplication.logE("@@@ Event.pauseEvent","doActivateEndProfile-activate end profile");
-                        dataWrapper.activateProfileFromEvent(_fkProfileEnd, /*false,*/ false, false);
+                        dataWrapper.activateProfileFromEvent(_fkProfileEnd, false, false, forRestartEvents);
                         activatedProfileId = _fkProfileEnd;
                         profileActivated = true;
                     }
@@ -1581,7 +1580,7 @@ class Event {
                         PPApplication.logE("@@@ Event.pauseEvent","doActivateEndProfile-_fkProfileEndActivated="+eventTimeline._fkProfileEndActivated);
                         if (eventTimeline._fkProfileEndActivated != 0)
                         {
-                            dataWrapper.activateProfileFromEvent(eventTimeline._fkProfileEndActivated, /*false,*/ false, false);
+                            dataWrapper.activateProfileFromEvent(eventTimeline._fkProfileEndActivated, false, false, forRestartEvents);
                             profileActivated = true;
                         }
                     }
