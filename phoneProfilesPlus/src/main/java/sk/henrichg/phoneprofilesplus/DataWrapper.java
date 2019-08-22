@@ -1453,7 +1453,7 @@ public class DataWrapper {
     private void _activateProfile(Profile _profile, boolean merged, int startupSource, final boolean forRestartEvents)
     {
         // remove last configured profile duration alarm
-        ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
+        ProfileDurationAlarmBroadcastReceiver.removeAlarm(_profile, context);
         Profile.setActivatedProfileForDuration(context, 0);
 
         final Profile mappedProfile = _profile; //Profile.getMappedProfile(_profile, context);
@@ -1502,8 +1502,7 @@ public class DataWrapper {
         {
             profileIcon = mappedProfile._icon;
 
-            if ((!forRestartEvents) &&
-                (mappedProfile._afterDurationDo != Profile.AFTERDURATIONDO_NOTHING) &&
+            if ((mappedProfile._afterDurationDo != Profile.AFTERDURATIONDO_NOTHING) &&
                 (mappedProfile._duration > 0))
                 profileDuration = mappedProfile._duration;
 
@@ -1528,7 +1527,7 @@ public class DataWrapper {
                 else
                     Profile.setActivatedProfileForDuration(context, 0);
 
-                ProfileDurationAlarmBroadcastReceiver.setAlarm(mappedProfile, context);
+                ProfileDurationAlarmBroadcastReceiver.setAlarm(mappedProfile, forRestartEvents, context);
                 ///////////
             }
             else {
@@ -1825,7 +1824,7 @@ public class DataWrapper {
         {
             // activation is invoked during device boot
 
-            ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
+            ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
             Profile.setActivatedProfileForDuration(context, 0);
 
             if (ApplicationPreferences.applicationActivate(context))
@@ -1841,7 +1840,7 @@ public class DataWrapper {
         {
             // activation is invoked from launcher
 
-            ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
+            ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
             Profile.setActivatedProfileForDuration(context, 0);
 
             if (ApplicationPreferences.applicationActivate(context))
@@ -1906,7 +1905,7 @@ public class DataWrapper {
         PPApplication.logE("DataWrapper.activateProfileAfterDuration", "profile="+profile);
         if (profile == null) {
             PPApplication.logE("DataWrapper.activateProfileAfterDuration", "no activate");
-            ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
+            ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, context);
             Profile.setActivatedProfileForDuration(context, 0);
             PPApplication.showProfileNotification(/*context*/false);
             PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.activateProfileAfterDuration");
@@ -3919,7 +3918,7 @@ public class DataWrapper {
         if (unblockEventsRun)
         {
             // remove alarm for profile duration
-            ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
+            ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
             Profile.setActivatedProfileForDuration(context, 0);
 
             Event.setEventsBlocked(context, false);

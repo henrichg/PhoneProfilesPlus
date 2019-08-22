@@ -2249,7 +2249,7 @@ public class PPApplication extends Application {
                 //PPApplication.initRoot();
             }
 
-            ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
+            ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
             Profile.setActivatedProfileForDuration(context, 0);
             StartEventNotificationBroadcastReceiver.removeAlarm(context);
             GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(context);

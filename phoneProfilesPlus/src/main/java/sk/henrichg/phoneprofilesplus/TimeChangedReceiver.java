@@ -46,7 +46,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
 
                             if (/*(android.os.Build.VERSION.SDK_INT >= 21) &&*/
                                     ApplicationPreferences.applicationUseAlarmClock(appContext)) {
-                                ProfileDurationAlarmBroadcastReceiver.removeAlarm(appContext);
+                                ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, appContext);
                                 Profile.setActivatedProfileForDuration(appContext, 0);
                             }
 

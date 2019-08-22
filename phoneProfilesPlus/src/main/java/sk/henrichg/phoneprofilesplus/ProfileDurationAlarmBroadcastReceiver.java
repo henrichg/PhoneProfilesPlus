@@ -16,6 +16,8 @@ import static android.content.Context.POWER_SERVICE;
 
 public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
+    private static final String EXTRA_FOR_RESTART_EVENTS = "for_restart_events";
+
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### ProfileDurationAlarmBroadcastReceiver.onReceive", "xxx");
         CallsCounter.logCounter(context, "ProfileDurationAlarmBroadcastReceiver.onReceive", "ProfileDurationAlarmBroadcastReceiver_onReceive");
@@ -26,6 +28,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             if (intent != null) {
                 final Context appContext = context.getApplicationContext();
                 final long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
+                final boolean forRestartEvents = intent.getBooleanExtra(EXTRA_FOR_RESTART_EVENTS, false);
                 PPApplication.startHandlerThread("ProfileDurationAlarmBroadcastReceiver.onReceive");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
@@ -94,12 +97,14 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                                     profile._icon, 0);
                                         }
                                         if (profile._afterDurationDo == Profile.AFTERDURATIONDO_RESTARTEVENTS) {
-                                            dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_AFTERDURATION_RESTARTEVENTS, null,
-                                                    DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, dataWrapper, false, appContext),
-                                                    profile._icon, 0);
+                                            if (!forRestartEvents) {
+                                                dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_AFTERDURATION_RESTARTEVENTS, null,
+                                                        DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, dataWrapper, false, appContext),
+                                                        profile._icon, 0);
 
-                                            PPApplication.logE("ProfileDurationAlarmBroadcastReceiver.onReceive", "restart events");
-                                            dataWrapper.restartEventsWithDelay(3, true, false, DatabaseHandler.ALTYPE_UNDEFINED);
+                                                PPApplication.logE("ProfileDurationAlarmBroadcastReceiver.onReceive", "restart events");
+                                                dataWrapper.restartEventsWithDelay(3, true, false, DatabaseHandler.ALTYPE_UNDEFINED);
+                                            }
                                         } else {
                                             dataWrapper.activateProfileAfterDuration(activateProfileId);
                                         }
@@ -125,9 +130,9 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
-    static public void setAlarm(Profile profile, Context context)
+    static public void setAlarm(Profile profile, boolean forRestartEvents, Context context)
     {
-        removeAlarm(context);
+        removeAlarm(profile, context);
 
         if (profile == null)
             return;
@@ -150,13 +155,14 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             //intent.setClass(context, ProfileDurationAlarmBroadcastReceiver.class);
 
             intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+            intent.putExtra(EXTRA_FOR_RESTART_EVENTS, forRestartEvents);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) profile._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
                 if (/*(android.os.Build.VERSION.SDK_INT >= 21) &&*/
-                        ApplicationPreferences.applicationUseAlarmClock(context)) {
+                    ApplicationPreferences.applicationUseAlarmClock(context)) {
                     Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
@@ -182,19 +188,21 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
     }
 
-    static public void removeAlarm(Context context)
+    static public void removeAlarm(Profile profile, Context context)
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
-            //Intent intent = new Intent(_context, ProfileDurationAlarmBroadcastReceiver.class);
-            Intent intent = new Intent();
-            intent.setAction(PhoneProfilesService.ACTION_PROFILE_DURATION_BROADCAST_RECEIVER);
-            //intent.setClass(context, ProfileDurationAlarmBroadcastReceiver.class);
+            if (profile != null) {
+                //Intent intent = new Intent(_context, ProfileDurationAlarmBroadcastReceiver.class);
+                Intent intent = new Intent();
+                intent.setAction(PhoneProfilesService.ACTION_PROFILE_DURATION_BROADCAST_RECEIVER);
+                //intent.setClass(context, ProfileDurationAlarmBroadcastReceiver.class);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
-            if (pendingIntent != null) {
-                alarmManager.cancel(pendingIntent);
-                pendingIntent.cancel();
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) profile._id, intent, PendingIntent.FLAG_NO_CREATE);
+                if (pendingIntent != null) {
+                    alarmManager.cancel(pendingIntent);
+                    pendingIntent.cancel();
+                }
             }
 
             //this._isInDelay = false;

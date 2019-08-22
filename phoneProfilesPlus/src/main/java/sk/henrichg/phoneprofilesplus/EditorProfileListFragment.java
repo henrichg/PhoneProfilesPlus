@@ -535,7 +535,7 @@ public class EditorProfileListFragment extends Fragment
         if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
             // remove alarm for profile duration
             //noinspection ConstantConditions
-            ProfileDurationAlarmBroadcastReceiver.removeAlarm(getActivity().getApplicationContext());
+            ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, getActivity().getApplicationContext());
             Profile.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
         }
 
@@ -657,7 +657,7 @@ public class EditorProfileListFragment extends Fragment
                     activityDataWrapper.addActivityLog(DatabaseHandler.ALTYPE_ALLPROFILESDELETED, null, null, null, 0);
 
                     // remove alarm for profile duration
-                    ProfileDurationAlarmBroadcastReceiver.removeAlarm(activityDataWrapper.context);
+                    ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, activityDataWrapper.context);
                     Profile.setActivatedProfileForDuration(activityDataWrapper.context, 0);
 
                     listView.getRecycledViewPool().clear();

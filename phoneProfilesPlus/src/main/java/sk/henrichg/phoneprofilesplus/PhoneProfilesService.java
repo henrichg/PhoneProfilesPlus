@@ -3456,7 +3456,7 @@ public class PhoneProfilesService extends Service
                             // show info notification
                             ImportantInfoNotification.showInfoNotification(appContext);
 
-                            ProfileDurationAlarmBroadcastReceiver.removeAlarm(appContext);
+                            ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, appContext);
                             Profile.setActivatedProfileForDuration(appContext, 0);
 
                             StartEventNotificationBroadcastReceiver.removeAlarm(appContext);
