@@ -203,9 +203,10 @@ class EventPreferencesTime extends EventPreferences {
 
                 descr = descr + context.getString(R.string.event_preferences_time_timeDays) + ": ";
                 if (allDays) {
-                    descr = descr + context.getString(R.string.array_pref_event_all);
+                    descr = descr + "<b>" + context.getString(R.string.array_pref_event_all) + "</b>";
                     descr = descr + " ";
                 } else {
+                    descr = descr + "<b>";
                     String[] namesOfDay = DateFormatSymbols.getInstance().getShortWeekdays();
 
                     int dayOfWeek;
@@ -216,10 +217,11 @@ class EventPreferencesTime extends EventPreferences {
                             //noinspection StringConcatenationInLoop
                             descr = descr + namesOfDay[dayOfWeek + 1] + " ";
                     }
+                    descr = descr + "</b>";
                 }
 
                 descr = descr + "• ";
-                descr = descr + context.getString(R.string.event_preferences_time_timeType) + ": ";
+                descr = descr + context.getString(R.string.event_preferences_time_timeType) + ": <b>";
                 switch (_timeType) {
                     case TIME_TYPE_EXACT:
                         descr = descr + context.getString(R.string.event_preference_sensor_time_type_exact);
@@ -231,14 +233,16 @@ class EventPreferencesTime extends EventPreferences {
                         descr = descr + context.getString(R.string.event_preference_sensor_time_type_sunset_sunrise);
                         break;
                 }
+                descr = descr + "</b>";
 
                 if (_timeType == TIME_TYPE_EXACT) {
                     descr = descr + " • ";
 
                     descr = descr + context.getString(R.string.event_preferences_time_startTime)+"-"+
                             context.getString(R.string.event_preferences_time_endTime)+": ";
-                    Calendar calendar = Calendar.getInstance();
 
+                    descr = descr + "<b>";
+                    Calendar calendar = Calendar.getInstance();
                     calendar.set(Calendar.HOUR_OF_DAY, _startTime / 60);
                     calendar.set(Calendar.MINUTE, _startTime % 60);
                     descr = descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
@@ -249,6 +253,7 @@ class EventPreferencesTime extends EventPreferences {
                     descr = descr + "-";
                     descr = descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
                     //}
+                    descr = descr + "</b>";
 
                     if (addBullet) {
                         if (Event.getGlobalEventsRunning(context)) {
@@ -291,12 +296,14 @@ class EventPreferencesTime extends EventPreferences {
                                         descr = descr + context.getString(R.string.event_preference_sensor_time_sunset) + "-" +
                                                 context.getString(R.string.event_preference_sensor_time_sunrise) + ": ";
 
+                                    descr = descr + "<b>";
                                     Calendar calendar = Calendar.getInstance();
                                     calendar.setTimeInMillis(startTime);
                                     descr = descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
                                     calendar.setTimeInMillis(endTime);
                                     descr = descr + "-";
                                     descr = descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
+                                    descr = descr + "</b>";
 
                                     if (addBullet) {
                                         if (Event.getGlobalEventsRunning(context)) {

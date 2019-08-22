@@ -160,27 +160,27 @@ class EventPreferencesCall extends EventPreferences {
                 } else {
                     descr = descr + context.getString(R.string.pref_event_call_event);
                     String[] callEvents = context.getResources().getStringArray(R.array.eventCallEventsArray);
-                    descr = descr + ": " + callEvents[this._callEvent] + " • ";
+                    descr = descr + ": <b>" + callEvents[this._callEvent] + "</b> • ";
 
                     descr = descr + context.getString(R.string.event_preferences_call_contact_groups) + ": ";
                     String[] splits = this._contactGroups.split("\\|");
-                    descr = descr + splits.length + " • ";
+                    descr = descr + "<b>" + splits.length + "</b> • ";
 
                     descr = descr + context.getString(R.string.event_preferences_call_contacts) + ": ";
                     splits = this._contacts.split("\\|");
-                    descr = descr + splits.length + " • ";
+                    descr = descr + "<b>" + splits.length + "</b> • ";
 
                     descr = descr + context.getString(R.string.event_preferences_contactListType);
                     String[] contactListTypes = context.getResources().getStringArray(R.array.eventCallContactListTypeArray);
-                    descr = descr + ": " + contactListTypes[this._contactListType];
+                    descr = descr + ": <b>" + contactListTypes[this._contactListType] + "</b>";
 
                     if ((this._callEvent == CALL_EVENT_MISSED_CALL) ||
                             (this._callEvent == CALL_EVENT_INCOMING_CALL_ENDED) ||
                             (this._callEvent == CALL_EVENT_OUTGOING_CALL_ENDED)) {
                         if (this._permanentRun)
-                            descr = descr + " • " + context.getString(R.string.pref_event_permanentRun);
+                            descr = descr + " • <b>" + context.getString(R.string.pref_event_permanentRun) + "</b>";
                         else
-                            descr = descr + " • " + context.getString(R.string.pref_event_duration) + ": " + GlobalGUIRoutines.getDurationString(this._duration);
+                            descr = descr + " • " + context.getString(R.string.pref_event_duration) + ": <b>" + GlobalGUIRoutines.getDurationString(this._duration) + "</b>";
                     }
                 }
             }

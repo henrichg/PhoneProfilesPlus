@@ -145,14 +145,14 @@ class EventPreferencesBattery extends EventPreferences {
                 }
 
                 descr = descr + context.getString(R.string.pref_event_battery_level);
-                descr = descr + ": " + this._levelLow + "% - " + this._levelHight + "%";
+                descr = descr + ": <b>" + this._levelLow + "% - " + this._levelHight + "%</b>";
 
                 if (this._powerSaveMode)
-                    descr = descr + " • " + context.getString(R.string.pref_event_battery_power_save_mode);
+                    descr = descr + " • <b>" + context.getString(R.string.pref_event_battery_power_save_mode) + "</b>";
                 else {
                     descr = descr + " • " + context.getString(R.string.pref_event_battery_charging);
                     String[] charging = context.getResources().getStringArray(R.array.eventBatteryChargingArray);
-                    descr = descr + ": " + charging[this._charging];
+                    descr = descr + ": <b>" + charging[this._charging] + "</b>";
 
                     String selectedPlugged = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                     if ((this._plugged != null) && !this._plugged.isEmpty() && !this._plugged.equals("-")) {
@@ -168,7 +168,7 @@ class EventPreferencesBattery extends EventPreferences {
                             } catch (Exception ignored) {}
                         }
                     }
-                    descr = descr + " • " + context.getString(R.string.event_preferences_battery_plugged) + ": " + selectedPlugged;
+                    descr = descr + " • " + context.getString(R.string.event_preferences_battery_plugged) + ": <b>" + selectedPlugged + "</b>";
                 }
             }
         }

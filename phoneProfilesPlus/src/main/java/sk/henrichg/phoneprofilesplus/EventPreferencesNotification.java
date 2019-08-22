@@ -98,12 +98,12 @@ class EventPreferencesNotification extends EventPreferences {
                     descr = descr + context.getString(R.string.event_preferences_notificationsAccessSettings_enabled_summary) + "<br>";
 
                     if (this._inCall) {
-                        descr = descr + context.getString(R.string.event_preferences_notifications_inCall);
+                        descr = descr + "<b>" + context.getString(R.string.event_preferences_notifications_inCall) + "</b>";
                     }
                     if (this._missedCall) {
                         if (this._inCall)
                             descr = descr + " • ";
-                        descr = descr + context.getString(R.string.event_preferences_notifications_missedCall);
+                        descr = descr + "<b>" +context.getString(R.string.event_preferences_notifications_missedCall) + "</b>";
                     }
                     String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                     if (!this._applications.isEmpty() && !this._applications.equals("-")) {
@@ -133,7 +133,7 @@ class EventPreferencesNotification extends EventPreferences {
                     }
                     if (this._inCall || this._missedCall)
                         descr = descr + " • ";
-                    descr = descr + /*"(S) "+*/context.getString(R.string.event_preferences_notifications_applications) + ": " + selectedApplications;// + "; ";
+                    descr = descr + /*"(S) "+*/context.getString(R.string.event_preferences_notifications_applications) + ": <b>" + selectedApplications + "</b>";
                 }
             }
         }

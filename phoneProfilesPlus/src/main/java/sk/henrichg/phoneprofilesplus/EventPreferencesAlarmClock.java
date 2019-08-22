@@ -89,9 +89,9 @@ class EventPreferencesAlarmClock extends EventPreferences {
                 }
 
                 if (this._permanentRun)
-                    descr = descr + context.getString(R.string.pref_event_permanentRun);
+                    descr = descr + "<b>" + context.getString(R.string.pref_event_permanentRun) + "</b>";
                 else
-                    descr = descr + context.getString(R.string.pref_event_duration) + ": " + GlobalGUIRoutines.getDurationString(this._duration);
+                    descr = descr + context.getString(R.string.pref_event_duration) + ": <b>" + GlobalGUIRoutines.getDurationString(this._duration) + "</b>";
             }
         }
 

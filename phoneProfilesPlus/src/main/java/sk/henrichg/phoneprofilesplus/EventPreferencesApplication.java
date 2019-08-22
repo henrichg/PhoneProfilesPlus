@@ -126,7 +126,7 @@ class EventPreferencesApplication extends EventPreferences {
                     } else
                         selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
                 }
-                descr = descr + /*"(S) "+*/context.getString(R.string.event_preferences_applications_applications) + ": " + selectedApplications;
+                descr = descr + /*"(S) "+*/context.getString(R.string.event_preferences_applications_applications) + ": <b>" + selectedApplications + "</b>";
 
                 //descr = descr + context.getString(R.string.event_preferences_notifications_applications) + ": " +selectedApplications + "; ";
                 //descr = descr + context.getString(R.string.pref_event_duration) + ": " +tmp._duration;

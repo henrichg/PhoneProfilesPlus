@@ -111,9 +111,9 @@ class EventPreferencesMobileCells extends EventPreferences {
                     selectedCells = context.getString(R.string.applications_multiselect_summary_text_selected);
                     selectedCells = selectedCells + " " + splits.length;
                 }
-                descr = descr + context.getString(R.string.event_preferences_mobile_cells_cells) + ": " +selectedCells;
+                descr = descr + context.getString(R.string.event_preferences_mobile_cells_cells) + ": <b>" +selectedCells + "</b>";
                 if (this._whenOutside)
-                    descr = descr + " • " + context.getString(R.string.event_preferences_mobile_cells_when_outside_description);
+                    descr = descr + " • <b>" + context.getString(R.string.event_preferences_mobile_cells_when_outside_description) + "</b>";
             }
             else {
                 descr = descr + context.getResources().getString(R.string.profile_preferences_device_not_allowed)+

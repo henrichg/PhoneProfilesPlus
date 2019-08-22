@@ -155,19 +155,19 @@ class EventPreferencesSMS extends EventPreferences {
 
                     descr = descr + context.getString(R.string.event_preferences_sms_contact_groups) + ": ";
                     String[] splits = this._contactGroups.split("\\|");
-                    descr = descr + splits.length + " • ";
+                    descr = descr + "<b>" + splits.length + "</b> • ";
 
                     descr = descr + context.getString(R.string.event_preferences_sms_contacts) + ": ";
                     splits = this._contacts.split("\\|");
-                    descr = descr + splits.length + " • ";
+                    descr = descr + "<b>" + splits.length + "</b> • ";
 
                     descr = descr + context.getString(R.string.pref_event_sms_contactListType);
                     String[] contactListTypes = context.getResources().getStringArray(R.array.eventSMSContactListTypeArray);
-                    descr = descr + ": " + contactListTypes[this._contactListType] + " • ";
+                    descr = descr + ": <b>" + contactListTypes[this._contactListType] + "</b> • ";
                     if (this._permanentRun)
-                        descr = descr + context.getString(R.string.pref_event_permanentRun);
+                        descr = descr + "<b>" + context.getString(R.string.pref_event_permanentRun) + "</b>";
                     else
-                        descr = descr + context.getString(R.string.pref_event_duration) + ": " + GlobalGUIRoutines.getDurationString(this._duration);
+                        descr = descr + context.getString(R.string.pref_event_duration) + ": <b>" + GlobalGUIRoutines.getDurationString(this._duration) + "</b>";
                 }
             }
             else {

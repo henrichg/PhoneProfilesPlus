@@ -119,7 +119,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 if (this._wifi != 0) {
                     descr = descr + context.getString(R.string.event_preferences_radioSwitch_wifi) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
-                    descr = descr + fields[this._wifi];
+                    descr = descr + "<b>" + fields[this._wifi] + "</b>";
                     _addBullet = true;
                 }
 
@@ -128,7 +128,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         descr = descr +  " • ";
                     descr = descr + context.getString(R.string.event_preferences_radioSwitch_bluetooth) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
-                    descr = descr + fields[this._bluetooth];
+                    descr = descr + "<b>" + fields[this._bluetooth] + "</b>";
                     _addBullet = true;
                 }
 
@@ -137,7 +137,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         descr = descr +  " • ";
                     descr = descr + context.getString(R.string.event_preferences_radioSwitch_mobileData) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
-                    descr = descr + fields[this._mobileData];
+                    descr = descr + "<b>" + fields[this._mobileData] + "</b>";
                     _addBullet = true;
                 }
 
@@ -146,7 +146,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         descr = descr +  " • ";
                     descr = descr + context.getString(R.string.event_preferences_radioSwitch_gps) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
-                    descr = descr + fields[this._gps];
+                    descr = descr + "<b>" + fields[this._gps] + "</b>";
                     _addBullet = true;
 
                 }
@@ -156,7 +156,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         descr = descr +  " • ";
                     descr = descr + context.getString(R.string.event_preferences_radioSwitch_nfc) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
-                    descr = descr + fields[this._nfc];
+                    descr = descr + "<b>" + fields[this._nfc] + "</b>";
                     _addBullet = true;
                 }
 
@@ -165,7 +165,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         descr = descr +  " • ";
                     descr = descr + context.getString(R.string.event_preferences_radioSwitch_airplaneMode) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
-                    descr = descr + fields[this._airplaneMode];
+                    descr = descr + "<b>" + fields[this._airplaneMode] + "</b>";
                 }
             }
         }

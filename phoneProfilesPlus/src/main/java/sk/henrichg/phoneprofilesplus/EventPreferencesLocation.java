@@ -117,9 +117,9 @@ class EventPreferencesLocation extends EventPreferences {
                         }
                     }
                 }
-                descr = descr + /*"(S) "+*/context.getString(R.string.event_preferences_locations_location) + ": " + selectedLocations;
+                descr = descr + /*"(S) "+*/context.getString(R.string.event_preferences_locations_location) + ": <b>" + selectedLocations + "</b>";
                 if (this._whenOutside)
-                    descr = descr + " • " + context.getString(R.string.event_preferences_location_when_outside_description);
+                    descr = descr + " • <b>" + context.getString(R.string.event_preferences_location_when_outside_description) + "</b>";
             }
         }
 
