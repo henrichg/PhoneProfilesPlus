@@ -7,6 +7,7 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.service.notification.StatusBarNotification;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
@@ -285,8 +286,67 @@ class EventPreferencesNotification extends EventPreferences {
     }
 
     // search if any configured package names are visible in status bar
+    private boolean isNotificationActive(StatusBarNotification[] statusBarNotifications, String packageName, boolean checkEnd) {
+        for (StatusBarNotification statusBarNotification : statusBarNotifications) {
+            String _packageName = statusBarNotification.getPackageName();
+            PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName=" + _packageName);
+            if (checkEnd) {
+                if (_packageName.endsWith(packageName)) {
+                    //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName returned=" + _packageName);
+                    return true;
+                }
+            }
+            else {
+                if (_packageName.equals(packageName)) {
+                    //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName returned=" + _packageName);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     boolean isNotificationVisible(DataWrapper dataWrapper) {
         // get all saved notifications
+        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "xxx");
+        if (PPNotificationListenerService.isNotificationListenerServiceEnabled(dataWrapper.context)) {
+            PPNotificationListenerService service = PPNotificationListenerService.getInstance();
+            if (service != null) {
+                StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();
+
+                if (this._inCall) {
+                    // Nexus/Pixel??? stock ROM
+                    if (isNotificationActive(statusBarNotifications, "com.google.android.dialer", false))
+                        return true;
+                    // Samsung, MIUI, Sony
+                    if (isNotificationActive(statusBarNotifications, "android.incallui", true))
+                        return true;
+                }
+                if (this._missedCall) {
+                    // Samsung, MIUI, Nexus/Pixel??? stock ROM, Sony
+                    if (isNotificationActive(statusBarNotifications, "com.android.server.telecom", false))
+                        return true;
+                    // Samsung One UI
+                    if (isNotificationActive(statusBarNotifications, "com.samsung.android.dialer", false))
+                        return true;
+                    // LG
+                    if (isNotificationActive(statusBarNotifications, "com.android.phone", false))
+                        return true;
+                }
+
+                String[] splits = this._applications.split("\\|");
+                for (String split : splits) {
+                    // get only package name = remove activity
+                    String packageName = Application.getPackageName(split);
+                    // search for package name in saved package names
+                    if (isNotificationActive(statusBarNotifications, packageName, false))
+                        return true;
+                }
+                return false;
+            }
+        }
+
+        /*
         PPNotificationListenerService.getNotifiedPackages(dataWrapper.context);
 
         // com.android.incallui - in call
@@ -323,7 +383,8 @@ class EventPreferencesNotification extends EventPreferences {
             PostedNotificationData notification = PPNotificationListenerService.getNotificationPosted(packageName, false);
             if (notification != null)
                 return true;
-        }
+        }*/
+
         return false;
     }
 

@@ -231,7 +231,8 @@ public class PPApplication extends Application {
 
                                          //+"|PPNotificationListenerService"
                                          //+"|[NOTIF] EventsHandler.handleEvents"
-                                         //+"|EventPreferencesNotification"
+                                         +"|[NOTIF] DataWrapper.doHandleEvents"
+                                         +"|EventPreferencesNotification.isNotificationActive"
 
                                          //+"|[CALL] DataWrapper.doHandleEvents"
 
@@ -629,6 +630,7 @@ public class PPApplication extends Application {
     public static final BluetoothLEScanMutex bluetoothLEScanMutex = new BluetoothLEScanMutex();
     public static final BluetoothScanResultsMutex bluetoothScanResultsMutex = new BluetoothScanResultsMutex();
     public static final TwilightScannerMutex twilightScannerMutex = new TwilightScannerMutex();
+    public static final PPNotificationListenerService ppNotificationListenerService = new PPNotificationListenerService();
 
     //public static boolean isPowerSaveMode = false;
 

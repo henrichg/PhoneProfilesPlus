@@ -3465,7 +3465,7 @@ public class PhoneProfilesService extends Service
                             GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(appContext);
                             LockDeviceActivityFinishBroadcastReceiver.removeAlarm(appContext);
 
-                            PPNotificationListenerService.clearNotifiedPackages(appContext);
+                            //PPNotificationListenerService.clearNotifiedPackages(appContext);
 
                             DatabaseHandler.getInstance(appContext).deleteAllEventTimelines();
                             DatabaseHandler.getInstance(appContext).updateAllEventsSensorsPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);

@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Handler;
@@ -14,11 +13,7 @@ import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.text.TextUtils;
 
-import com.google.gson.Gson;
-
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import androidx.core.app.NotificationManagerCompat;
@@ -30,14 +25,20 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
     private static final String TAG = PPNotificationListenerService.class.getSimpleName();
 
+    private static volatile PPNotificationListenerService instance;
+
     private NLServiceReceiver nlservicereceiver;
 
-    private static List<PostedNotificationData> notifications = null;
+    //private static List<PostedNotificationData> notifications = null;
 
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+        synchronized (PPApplication.ppNotificationListenerService) {
+            instance = this;
+        }
 
         nlservicereceiver = new NLServiceReceiver();
         IntentFilter filter = new IntentFilter();
@@ -50,6 +51,16 @@ public class PPNotificationListenerService extends NotificationListenerService {
         super.onDestroy();
 
         unregisterReceiver(nlservicereceiver);
+
+        synchronized (PPApplication.ppNotificationListenerService) {
+            instance = null;
+        }
+    }
+
+    static PPNotificationListenerService getInstance() {
+        //synchronized (PPApplication.ppNotificationListenerService) {
+        return instance;
+        //}
     }
 
     @Override
@@ -89,9 +100,9 @@ public class PPNotificationListenerService extends NotificationListenerService {
         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
         long time = sbn.getPostTime() + gmtOffset;
 
-        getNotifiedPackages(context);
-        addNotifiedPackage(sbn.getPackageName(), time);
-        saveNotifiedPackages(context);
+        //getNotifiedPackages(context);
+        //addNotifiedPackage(sbn.getPackageName(), time);
+        //saveNotifiedPackages(context);
 
         if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
@@ -149,9 +160,9 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         PPApplication.logE("PPNotificationListenerService.onNotificationRemoved","packageName="+sbn.getPackageName());
 
-        getNotifiedPackages(context);
-        removeNotifiedPackage(sbn.getPackageName());
-        saveNotifiedPackages(context);
+        //getNotifiedPackages(context);
+        //removeNotifiedPackage(sbn.getPackageName());
+        //saveNotifiedPackages(context);
 
         if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
@@ -429,7 +440,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         }
     }
 
-
+    /*
     private static final String POSTED_NOTIFICATIONS_COUNT_PREF = "count";
     private static final String POSTED_NOTIFICATIONS_PACKAGE_PREF = "package";
 
@@ -568,5 +579,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
             return null;
         }
     }
+    */
 
 }
