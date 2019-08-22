@@ -397,12 +397,12 @@ public class PPApplication extends Application {
                                         //+"|CalendarProviderChangedBroadcastReceiver"
 
 
-                                        +"|EventPreferencesTime.computeAlarm"
+                                        //+"|EventPreferencesTime.computeAlarm"
                                         //+"|EventPreferencesTime.removeSystemEvent"
                                         //+"|EventPreferencesTime.removeAlarm"
                                         //+"|EventPreferencesTime.setAlarm"
                                         //+"|[TIME] DataWrapper.doHandleEvents"
-                                        +"|TwilightScanner"
+                                        //+"|TwilightScanner"
 
                                         //+"|EventPreferencesCalendar.saveStartEndTime"
 
