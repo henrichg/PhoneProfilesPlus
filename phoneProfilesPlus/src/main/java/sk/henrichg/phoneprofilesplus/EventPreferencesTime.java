@@ -476,7 +476,7 @@ class EventPreferencesTime extends EventPreferences {
 
     long computeAlarm(boolean startEvent, Context context)
     {
-        boolean testEvent = (_event._name != null) && _event._name.equals("TEST TIME SENSOR night");
+        boolean testEvent = (_event._name != null) && _event._name.equals("TEST TIME SENSOR");
         if (testEvent) {
             PPApplication.logE("EventPreferencesTime.computeAlarm", "eventName=" + _event._name);
             PPApplication.logE("EventPreferencesTime.computeAlarm", "startEvent=" + startEvent);
@@ -913,7 +913,9 @@ class EventPreferencesTime extends EventPreferences {
     {
         // set alarm for state PAUSE
 
-        PPApplication.logE("EventPreferencesTime.setSystemEventForStart","xxx");
+        boolean testEvent = (_event._name != null) && _event._name.equals("TEST TIME SENSOR");
+        if (testEvent)
+            PPApplication.logE("EventPreferencesTime.setSystemEventForStart","TEST TIME SENSOR");
 
         // this alarm generates broadcast, that change state into RUNNING;
         // from broadcast will by called EventsHandler
@@ -938,7 +940,9 @@ class EventPreferencesTime extends EventPreferences {
     {
         // set alarm for state RUNNING
 
-        PPApplication.logE("EventPreferencesTime.setSystemEventForPause","xxx");
+        boolean testEvent = (_event._name != null) && _event._name.equals("TEST TIME SENSOR");
+        if (testEvent)
+            PPApplication.logE("EventPreferencesTime.setSystemEventForPause","TEST TIME SENSOR");
 
         // this alarm generates broadcast, that change state into PAUSE;
         // from broadcast will by called EventsHandler
@@ -963,16 +967,22 @@ class EventPreferencesTime extends EventPreferences {
     {
         // remove alarms for state STOP
 
+        boolean testEvent = (_event._name != null) && _event._name.equals("TEST TIME SENSOR");
+
         //removeAlarm(true, _context);
         removeAlarm(/*false, */context);
 
-        //PPApplication.logE("EventPreferencesTime.removeSystemEvent","forceNotUseAlarmClock="+ApplicationPreferences.forceNotUseAlarmClock);
-        PPApplication.logE("EventPreferencesTime.removeSystemEvent","xxx");
+        if (testEvent) {
+            //PPApplication.logE("EventPreferencesTime.removeSystemEvent","forceNotUseAlarmClock="+ApplicationPreferences.forceNotUseAlarmClock);
+            PPApplication.logE("EventPreferencesTime.removeSystemEvent", "TEST TIME SENSOR");
+        }
     }
 
     private void removeAlarm(/*boolean startEvent, */Context context)
     {
-        PPApplication.logE("EventPreferencesTime.removeAlarm", "event="+_event._name);
+        boolean testEvent = (_event._name != null) && _event._name.equals("TEST TIME SENSOR");
+        if (testEvent)
+            PPApplication.logE("EventPreferencesTime.removeAlarm", "event="+_event._name);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
             //Intent intent = new Intent(context, EventTimeBroadcastReceiver.class);
@@ -980,12 +990,28 @@ class EventPreferencesTime extends EventPreferences {
             intent.setAction(PhoneProfilesService.ACTION_EVENT_TIME_BROADCAST_RECEIVER);
             //intent.setClass(context, EventPreferencesTime.class);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
-            PPApplication.logE("EventPreferencesTime.removeAlarm", "pendingIntent="+pendingIntent);
+            if (testEvent)
+                PPApplication.logE("EventPreferencesTime.removeAlarm", "remove start alarm");
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int)_event._id, intent, PendingIntent.FLAG_NO_CREATE);
+            if (testEvent)
+                PPApplication.logE("EventPreferencesTime.removeAlarm", "pendingIntent="+pendingIntent);
             if (pendingIntent != null) {
                 alarmManager.cancel(pendingIntent);
                 pendingIntent.cancel();
-                PPApplication.logE("EventPreferencesTime.removeAlarm", "event="+_event._name + " alarm removed");
+                if (testEvent)
+                    PPApplication.logE("EventPreferencesTime.removeAlarm", "event="+_event._name + " alarm removed");
+            }
+
+            if (testEvent)
+                PPApplication.logE("EventPreferencesTime.removeAlarm", "remove end alarm");
+            pendingIntent = PendingIntent.getBroadcast(context, -(int)_event._id, intent, PendingIntent.FLAG_NO_CREATE);
+            if (testEvent)
+                PPApplication.logE("EventPreferencesTime.removeAlarm", "pendingIntent="+pendingIntent);
+            if (pendingIntent != null) {
+                alarmManager.cancel(pendingIntent);
+                pendingIntent.cancel();
+                if (testEvent)
+                    PPApplication.logE("EventPreferencesTime.removeAlarm", "event="+_event._name + " alarm removed");
             }
         }
     }
@@ -993,14 +1019,19 @@ class EventPreferencesTime extends EventPreferences {
     @SuppressLint({"SimpleDateFormat", "NewApi"})
     private void setAlarm(boolean startEvent, long alarmTime, Context context)
     {
-        if (PPApplication.logEnabled()) {
-            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-            String result = sdf.format(alarmTime);
-            if (startEvent)
-                PPApplication.logE("EventPreferencesTime.setAlarm", "startTime=" + result);
-            else
-                PPApplication.logE("EventPreferencesTime.setAlarm", "endTime=" + result);
-        }
+        boolean testEvent = (_event._name != null) && _event._name.equals("TEST TIME SENSOR");
+        if (testEvent)
+            PPApplication.logE("EventPreferencesTime.setAlarm", "event="+_event._name);
+
+        if (testEvent)
+            if (PPApplication.logEnabled()) {
+                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                String result = sdf.format(alarmTime);
+                if (startEvent)
+                    PPApplication.logE("EventPreferencesTime.setAlarm", "startTime=" + result);
+                else
+                    PPApplication.logE("EventPreferencesTime.setAlarm", "endTime=" + result);
+            }
 
         boolean applicationUseAlarmClock = ApplicationPreferences.applicationUseAlarmClock(context);
 
@@ -1009,13 +1040,15 @@ class EventPreferencesTime extends EventPreferences {
         if (/*(android.os.Build.VERSION.SDK_INT >= 21) &&*/
                 applicationUseAlarmClock) {
             if (now.getTimeInMillis() > (alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET)) {
-                PPApplication.logE("EventPreferencesTime.setAlarm", "event="+_event._name + " alarm clock is over");
+                if (testEvent)
+                    PPApplication.logE("EventPreferencesTime.setAlarm", "alarm clock is over");
                 return;
             }
         }
         else {
             if (now.getTimeInMillis() > (alarmTime + Event.EVENT_ALARM_TIME_OFFSET)) {
-                PPApplication.logE("EventPreferencesTime.setAlarm", "event="+_event._name + " alarm is over");
+                if (testEvent)
+                    PPApplication.logE("EventPreferencesTime.setAlarm", "alarm is over");
                 return;
             }
         }
@@ -1027,20 +1060,21 @@ class EventPreferencesTime extends EventPreferences {
 
         //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        int requestCode = (int)_event._id;
+        if (!startEvent)
+            requestCode = -(int)_event._id;
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
             if (/*(android.os.Build.VERSION.SDK_INT >= 21) &&*/
                     applicationUseAlarmClock) {
                 Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
-                int requestCode = 1000;
-                if (!startEvent)
-                    requestCode = -1000;
-                PendingIntent infoPendingIntent = PendingIntent.getActivity(context, requestCode, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
                 alarmManager.setAlarmClock(clockInfo, pendingIntent);
-                PPApplication.logE("EventPreferencesTime.setAlarm", "event="+_event._name + " alarm clock set");
+                if (testEvent)
+                    PPApplication.logE("EventPreferencesTime.setAlarm", "event="+_event._name + " alarm clock set");
             }
             else {
                 if (android.os.Build.VERSION.SDK_INT >= 23)
@@ -1049,7 +1083,8 @@ class EventPreferencesTime extends EventPreferences {
                     alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
                 //else
                 //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-                PPApplication.logE("EventPreferencesTime.setAlarm", "event="+_event._name + " alarm set");
+                if (testEvent)
+                    PPApplication.logE("EventPreferencesTime.setAlarm", "event="+_event._name + " alarm set");
             }
         }
     }

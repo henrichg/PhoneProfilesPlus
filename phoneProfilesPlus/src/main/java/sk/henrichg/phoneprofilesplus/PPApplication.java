@@ -359,8 +359,6 @@ public class PPApplication extends Application {
                                         //+"|PPApplication.startHandlerThread"
                                         //+"|Event.startEvent"
                                         //+"|Event.pauseEvent"
-                                        //+"|EventTimeBroadcastReceiver.onReceive"
-                                        //+"|EventPreferencesTime"
 
                                         //+"|PhoneCallReceiver"
                                         //+"|PhoneCallBroadcastReceiver"
@@ -399,10 +397,13 @@ public class PPApplication extends Application {
 
                                         //+"|EventPreferencesTime.computeAlarm"
                                         //+"|EventPreferencesTime.removeSystemEvent"
+                                        //+"|EventPreferencesTime.setSystemEventForStart"
+                                        //+"|EventPreferencesTime.setSystemEventForPause"
                                         //+"|EventPreferencesTime.removeAlarm"
                                         //+"|EventPreferencesTime.setAlarm"
                                         //+"|[TIME] DataWrapper.doHandleEvents"
                                         //+"|TwilightScanner"
+                                        //+"|EventTimeBroadcastReceiver"
 
                                         //+"|EventPreferencesCalendar.saveStartEndTime"
 
