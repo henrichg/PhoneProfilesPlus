@@ -8,6 +8,9 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.service.notification.StatusBarNotification;
+import android.text.format.DateFormat;
+
+import java.util.Calendar;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
@@ -21,12 +24,14 @@ class EventPreferencesNotification extends EventPreferences {
     String _applications;
     boolean _inCall;
     boolean _missedCall;
+    int _duration;
 
     static final String PREF_EVENT_NOTIFICATION_ENABLED = "eventNotificationEnabled";
     private static final String PREF_EVENT_NOTIFICATION_APPLICATIONS = "eventNotificationApplications";
     private static final String PREF_EVENT_NOTIFICATION_IN_CALL = "eventNotificationInCall";
     private static final String PREF_EVENT_NOTIFICATION_MISSED_CALL = "eventNotificationMissedCall";
     static final String PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS = "eventNotificationNotificationsAccessSettings";
+    private static final String PREF_EVENT_NOTIFICATION_DURATION = "eventNotificationDuration";
 
     private static final String PREF_EVENT_NOTIFICATION_CATEGORY = "eventNotificationCategoryRoot";
 
@@ -34,13 +39,15 @@ class EventPreferencesNotification extends EventPreferences {
                                         boolean enabled,
                                         String applications,
                                         boolean inCall,
-                                        boolean missedCall)
+                                        boolean missedCall,
+                                        int duration)
     {
         super(event, enabled);
 
         this._applications = applications;
         this._inCall = inCall;
         this._missedCall = missedCall;
+        this._duration = duration;
     }
 
     @Override
@@ -50,6 +57,7 @@ class EventPreferencesNotification extends EventPreferences {
         this._applications = fromEvent._eventPreferencesNotification._applications;
         this._inCall = fromEvent._eventPreferencesNotification._inCall;
         this._missedCall = fromEvent._eventPreferencesNotification._missedCall;
+        this._duration = fromEvent._eventPreferencesNotification._duration;
         this.setSensorPassed(fromEvent._eventPreferencesNotification.getSensorPassed());
     }
 
@@ -62,6 +70,7 @@ class EventPreferencesNotification extends EventPreferences {
             editor.putString(PREF_EVENT_NOTIFICATION_APPLICATIONS, this._applications);
             editor.putBoolean(PREF_EVENT_NOTIFICATION_IN_CALL, this._inCall);
             editor.putBoolean(PREF_EVENT_NOTIFICATION_MISSED_CALL, this._missedCall);
+            editor.putString(PREF_EVENT_NOTIFICATION_DURATION, String.valueOf(this._duration));
             editor.apply();
         //}
     }
@@ -74,6 +83,7 @@ class EventPreferencesNotification extends EventPreferences {
             this._applications = preferences.getString(PREF_EVENT_NOTIFICATION_APPLICATIONS, "");
             this._inCall = preferences.getBoolean(PREF_EVENT_NOTIFICATION_IN_CALL, false);
             this._missedCall = preferences.getBoolean(PREF_EVENT_NOTIFICATION_MISSED_CALL, false);
+            this._duration = Integer.parseInt(preferences.getString(PREF_EVENT_NOTIFICATION_DURATION, "5"));
         //}
     }
 
@@ -135,6 +145,7 @@ class EventPreferencesNotification extends EventPreferences {
                     if (this._inCall || this._missedCall)
                         descr = descr + " • ";
                     descr = descr + /*"(S) "+*/context.getString(R.string.event_preferences_notifications_applications) + ": <b>" + selectedApplications + "</b>";
+                    descr = descr + context.getString(R.string.pref_event_duration) + ": <b>" + GlobalGUIRoutines.getDurationString(this._duration) + "</b>";
                 }
             }
         }
@@ -169,6 +180,16 @@ class EventPreferencesNotification extends EventPreferences {
                 preference.setSummary(summary);
             }
         }
+        if (key.equals(PREF_EVENT_NOTIFICATION_DURATION)) {
+            Preference preference = prefMng.findPreference(key);
+            int delay;
+            try {
+                delay = Integer.parseInt(value);
+            } catch (Exception e) {
+                delay = 0;
+            }
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 5, true, false, false, false);
+        }
 
         Event event = new Event();
         event.createEventPreferences();
@@ -200,8 +221,8 @@ class EventPreferencesNotification extends EventPreferences {
             setSummary(prefMng, key, value ? "true": "false", context);
         }
         if (key.equals(PREF_EVENT_NOTIFICATION_APPLICATIONS)||
-            key.equals(PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS)/* ||
-            key.equals(PREF_EVENT_NOTIFICATION_DURATION)*/)
+            key.equals(PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS) ||
+            key.equals(PREF_EVENT_NOTIFICATION_DURATION))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
@@ -215,6 +236,7 @@ class EventPreferencesNotification extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_MISSED_CALL, preferences, context);
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_APPLICATIONS, preferences, context);
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_DURATION, preferences, context);
     }
 
     @Override
@@ -222,8 +244,7 @@ class EventPreferencesNotification extends EventPreferences {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_NOTIFICATION_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesNotification tmp = new EventPreferencesNotification(this._event, this._enabled,
-                                                        this._applications, this._inCall, this._missedCall/*,
-                                                        this._permanentRun, this._duration, this._endWhenRemoved*/);
+                                                        this._applications, this._inCall, this._missedCall, this._duration);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 
@@ -290,6 +311,13 @@ class EventPreferencesNotification extends EventPreferences {
         for (StatusBarNotification statusBarNotification : statusBarNotifications) {
             String _packageName = statusBarNotification.getPackageName();
             PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName=" + _packageName);
+            if (PPApplication.logEnabled()) {
+                long postTime = statusBarNotification.getPostTime();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(postTime);
+                PPApplication.logE("EventPreferencesNotification.isNotificationActive", "postTime=" + calendar.getTime());
+            }
+            //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "postIme=" + statusBarNotification);
             if (checkEnd) {
                 if (_packageName.endsWith(packageName)) {
                     //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName returned=" + _packageName);
@@ -318,7 +346,7 @@ class EventPreferencesNotification extends EventPreferences {
                     // Nexus/Pixel??? stock ROM
                     if (isNotificationActive(statusBarNotifications, "com.google.android.dialer", false))
                         return true;
-                    // Samsung, MIUI, Sony
+                    // Samsung, MIUI, EMUI, Sony
                     if (isNotificationActive(statusBarNotifications, "android.incallui", true))
                         return true;
                 }
@@ -331,6 +359,9 @@ class EventPreferencesNotification extends EventPreferences {
                         return true;
                     // LG
                     if (isNotificationActive(statusBarNotifications, "com.android.phone", false))
+                        return true;
+                    // EMUI
+                    if (isNotificationActive(statusBarNotifications, "com.android.contacts", false))
                         return true;
                 }
 

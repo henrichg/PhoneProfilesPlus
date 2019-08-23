@@ -5306,7 +5306,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 new String[]{KEY_E_NOTIFICATION_ENABLED,
                         KEY_E_NOTIFICATION_APPLICATIONS,
                         //KEY_E_NOTIFICATION_START_TIME,
-                        //KEY_E_NOTIFICATION_DURATION,
+                        KEY_E_NOTIFICATION_DURATION,
                         //KEY_E_NOTIFICATION_END_WHEN_REMOVED,
                         //KEY_E_NOTIFICATION_PERMANENT_RUN,
                         KEY_E_NOTIFICATION_IN_CALL,
@@ -5328,7 +5328,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._inCall = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_IN_CALL))) == 1);
                 eventPreferences._missedCall = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_MISSED_CALL))) == 1);
                 //eventPreferences._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_START_TIME)));
-                //eventPreferences._duration = cursor.getInt(cursor.getColumnIndex(KEY_E_NOTIFICATION_DURATION));
+                eventPreferences._duration = cursor.getInt(cursor.getColumnIndex(KEY_E_NOTIFICATION_DURATION));
                 //eventPreferences._endWhenRemoved = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_END_WHEN_REMOVED))) == 1);
                 //eventPreferences._permanentRun = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_PERMANENT_RUN))) == 1);
                 eventPreferences.setSensorPassed(Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_SENSOR_PASSED))));
@@ -5735,7 +5735,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_NOTIFICATION_IN_CALL, (eventPreferences._inCall) ? 1 : 0);
         values.put(KEY_E_NOTIFICATION_MISSED_CALL, (eventPreferences._missedCall) ? 1 : 0);
         //values.put(KEY_E_NOTIFICATION_START_TIME, eventPreferences._startTime);
-        //values.put(KEY_E_NOTIFICATION_DURATION, eventPreferences._duration);
+        values.put(KEY_E_NOTIFICATION_DURATION, eventPreferences._duration);
         //values.put(KEY_E_NOTIFICATION_END_WHEN_REMOVED, (eventPreferences._endWhenRemoved) ? 1 : 0);
         //values.put(KEY_E_NOTIFICATION_PERMANENT_RUN, (eventPreferences._permanentRun) ? 1 : 0);
         values.put(KEY_E_NOTIFICATION_SENSOR_PASSED, eventPreferences.getSensorPassed());
@@ -5752,8 +5752,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         values.put(KEY_E_APPLICATION_ENABLED, (eventPreferences._enabled) ? 1 : 0);
         values.put(KEY_E_APPLICATION_APPLICATIONS, eventPreferences._applications);
-        //values.put(KEY_E_NOTIFICATION_START_TIME, eventPreferences._startTime);
-        //values.put(KEY_E_NOTIFICATION_DURATION, eventPreferences._duration);
+        //values.put(KEY_E_APPLICATION_START_TIME, eventPreferences._startTime);
+        //values.put(KEY_E_APPLICATION_DURATION, eventPreferences._duration);
         values.put(KEY_E_APPLICATION_SENSOR_PASSED, eventPreferences.getSensorPassed());
 
         // updating row
