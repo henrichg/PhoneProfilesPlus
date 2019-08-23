@@ -508,7 +508,7 @@ public class PPApplication extends Application {
     static final String BLUETOOTH_LE_SCAN_RESULTS_PREFS_NAME = "bluetooth_le_scan_results";
     //static final String PERMISSIONS_PREFS_NAME = "permissions_list";
     static final String PERMISSIONS_STATUS_PREFS_NAME = "permissions_status";
-    static final String POSTED_NOTIFICATIONS_PREFS_NAME = "posted_notifications";
+    //static final String POSTED_NOTIFICATIONS_PREFS_NAME = "posted_notifications";
 
     //public static final String RESCAN_TYPE_SCREEN_ON = "1";
     public static final String RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS = "3";
@@ -618,7 +618,7 @@ public class PPApplication extends Application {
     private static final ServiceListMutex serviceListMutex = new ServiceListMutex();
     //public static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
     public static final BluetoothConnectionChangeStateMutex bluetoothConnectionChangeStateMutex = new BluetoothConnectionChangeStateMutex();
-    public static final NotificationsChangeMutex notificationsChangeMutex = new NotificationsChangeMutex();
+    //public static final NotificationsChangeMutex notificationsChangeMutex = new NotificationsChangeMutex();
     public static final WifiScanResultsMutex wifiScanResultsMutex = new WifiScanResultsMutex();
     public static final GeofenceScannerLastLocationMutex geofenceScannerLastLocationMutex = new GeofenceScannerLastLocationMutex();
     public static final GeofenceScannerMutex geofenceScannerMutex = new GeofenceScannerMutex();
