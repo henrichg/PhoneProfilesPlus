@@ -69,6 +69,7 @@ public class PhoneProfilesService extends Service
     private boolean serviceHasFirstStart = false;
     private boolean serviceRunning = false;
     private boolean runningInForeground = false;
+    private boolean waitForEndOfStart = true;
 
     private KeyguardManager keyguardManager = null;
     @SuppressWarnings("deprecation")
@@ -283,6 +284,7 @@ public class PhoneProfilesService extends Service
         serviceHasFirstStart = false;
         serviceRunning = false;
         runningInForeground = false;
+        waitForEndOfStart = true;
         //ApplicationPreferences.forceNotUseAlarmClock = false;
 
         if (Build.VERSION.SDK_INT >= 26)
@@ -395,6 +397,7 @@ public class PhoneProfilesService extends Service
         serviceHasFirstStart = false;
         serviceRunning = false;
         runningInForeground = false;
+        waitForEndOfStart = true;
 
         super.onDestroy();
     }
@@ -418,6 +421,18 @@ public class PhoneProfilesService extends Service
 
     boolean getServiceHasFirstStart() {
         return serviceHasFirstStart;
+    }
+
+    boolean getServiceRunning() {
+        return serviceRunning;
+    }
+
+    boolean getWaitForEndOfStart() {
+        return waitForEndOfStart;
+    }
+
+    void setWaitForEndOfStart(boolean value) {
+        waitForEndOfStart = value;
     }
 
     private void registerAllTheTimeRequiredReceivers(boolean register) {
@@ -3554,6 +3569,45 @@ public class PhoneProfilesService extends Service
                     }
                 }
             });
+
+            PPApplication.startHandlerThread("PhoneProfilesService.doForFirstStart.2");
+            final Handler handler3 = new Handler(PPApplication.handlerThread.getLooper());
+            handler3.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "PhoneProfilesService.doForFirstStart.2 START");
+
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PackageReplacedReceiver_onReceive_2");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+                        PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "PhoneProfilesService.doForFirstStart.2 START");
+
+                        waitForEndOfStart = false;
+
+                        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+
+                        PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "xRESTART EVENTS AFTER WAIT FOR END OF START");
+                        dataWrapper.restartEventsWithRescan();
+
+                        dataWrapper.invalidateDataWrapper();
+
+                        PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "PhoneProfilesService.doForFirstStart.2 END");
+
+                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneProfilesService.doForFirstStart.2");
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
+                        }
+                    }
+                }
+            }, 20000);
+
         //}
 
         PPApplication.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart END");

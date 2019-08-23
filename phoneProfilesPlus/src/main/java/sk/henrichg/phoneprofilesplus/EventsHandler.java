@@ -463,6 +463,10 @@ class EventsHandler {
             long backgroundProfileId = Profile.PROFILE_NO_ACTIVATE;
             boolean notifyBackgroundProfile = false;
 
+            boolean waitForEndOfStart = true;
+            if (PhoneProfilesService.getInstance() != null)
+                waitForEndOfStart = PhoneProfilesService.getInstance().getWaitForEndOfStart();
+
             if (!dataWrapper.getIsManualProfileActivation(false)) {
                 PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "active profile is NOT activated manually");
                 PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "runningEventCount0=" + runningEventCount0);
@@ -474,6 +478,8 @@ class EventsHandler {
                     PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "no events running");
                     // no events running
                     backgroundProfileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context));
+                    if (waitForEndOfStart)
+                        backgroundProfileId = Profile.PROFILE_NO_ACTIVATE;
                     if (backgroundProfileId != Profile.PROFILE_NO_ACTIVATE) {
                         PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "default profile is set");
                         long activatedProfileId = 0;
@@ -516,6 +522,8 @@ class EventsHandler {
                 PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "active profile is activated manually");
                 // manual profile activation
                 backgroundProfileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context));
+                if (waitForEndOfStart)
+                    backgroundProfileId = Profile.PROFILE_NO_ACTIVATE;
                 if (backgroundProfileId != Profile.PROFILE_NO_ACTIVATE) {
                     if (activatedProfile == null) {
                         // if not profile activated, activate Default profile

@@ -1467,6 +1467,13 @@ public class DataWrapper {
         PPApplication.logE("### DataWrapper._activateProfile","startupSource="+startupSource);
         PPApplication.logE("### DataWrapper._activateProfile","merged="+merged);
 
+        if (PPApplication.logEnabled()) {
+            if (PhoneProfilesService.getInstance() != null) {
+                PPApplication.logE("### DataWrapper._activateProfile", "serviceHasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
+                PPApplication.logE("### DataWrapper._activateProfile", "serviceRunning=" + PhoneProfilesService.getInstance().getServiceRunning());
+            }
+        }
+
         //boolean interactive = _interactive;
         //final Activity activity = _activity;
 
