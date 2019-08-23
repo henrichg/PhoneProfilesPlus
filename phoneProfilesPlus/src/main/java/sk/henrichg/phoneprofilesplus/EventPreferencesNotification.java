@@ -96,7 +96,7 @@ class EventPreferencesNotification extends EventPreferences {
                 if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
                     descr = descr + "* " + context.getString(R.string.event_preferences_notificationsAccessSettings_disabled_summary) + "! *";
                 } else {
-                    descr = descr + context.getString(R.string.event_preferences_notificationsAccessSettings_enabled_summary) + "<br>";
+                    //descr = descr + context.getString(R.string.event_preferences_notificationsAccessSettings_enabled_summary) + "<br>";
 
                     if (this._inCall) {
                         descr = descr + "<b>" + context.getString(R.string.event_preferences_notifications_inCall) + "</b>";
