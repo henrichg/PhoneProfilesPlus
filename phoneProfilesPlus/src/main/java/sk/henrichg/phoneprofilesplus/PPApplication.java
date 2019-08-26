@@ -137,7 +137,7 @@ public class PPApplication extends Application {
                                          //+"|Profile.mergeProfiles"
                                          //+"|@@@ Event.pauseEvent"
                                          //+"|@@@ Event.stopEvent"
-                                         +"|### DataWrapper._activateProfile"
+                                         //+"|### DataWrapper._activateProfile"
 
                                          //+"|LauncherActivity.onStart"
                                          //+"|EditorProfilesActivity.onCreate"
@@ -232,7 +232,9 @@ public class PPApplication extends Application {
                                          //+"|PPNotificationListenerService"
                                          //+"|[NOTIF] EventsHandler.handleEvents"
                                          +"|[NOTIF] DataWrapper.doHandleEvents"
-                                         +"|EventPreferencesNotification.isNotificationActive"
+                                         //+"|EventPreferencesNotification.isNotificationActive"
+                                         +"|EventPreferencesNotification.isNotificationVisible"
+                                         +"|NotificationEventEndBroadcastReceiver"
 
                                          //+"|[CALL] DataWrapper.doHandleEvents"
 

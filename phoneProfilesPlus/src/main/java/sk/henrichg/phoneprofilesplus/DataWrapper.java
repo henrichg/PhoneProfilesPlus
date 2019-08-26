@@ -3050,55 +3050,9 @@ public class DataWrapper {
 
         if (event._eventPreferencesNotification._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
-                //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                    /*if (!event._eventPreferencesNotification._endWhenRemoved) {
-
-                        if (event._eventPreferencesNotification._startTime > 0) {
-                            // compute start time
-                            int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-                            long startTime = event._eventPreferencesNotification._startTime - gmtOffset;
-
-                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                            String alarmTimeS = sdf.format(startTime);
-                            PPApplication.logE("[NOTIF] DataWrapper.doHandleEvents", "startTime=" + alarmTimeS);
-
-                            // compute end datetime
-                            long endAlarmTime = event._eventPreferencesNotification.computeAlarm();
-                            alarmTimeS = sdf.format(endAlarmTime);
-                            PPApplication.logE("[NOTIF] DataWrapper.doHandleEvents", "endAlarmTime=" + alarmTimeS);
-
-                            Calendar now = Calendar.getInstance();
-                            long nowAlarmTime = now.getTimeInMillis();
-                            alarmTimeS = sdf.format(nowAlarmTime);
-                            PPApplication.logE("[NOTIF] DataWrapper.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
-
-                            if (sensorType.equals(EventsHandler.SENSOR_TYPE_NOTIFICATION))
-                                notificationPassed = true;
-                            else if (!event._eventPreferencesNotification._permanentRun) {
-                                if (sensorType.equals(EventsHandler.SENSOR_TYPE_NOTIFICATION_EVENT_END)) {
-                                    notificationPassed = false;
-                                }
-                                else
-                                    notificationPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
-                            }
-                            else
-                                notificationPassed = nowAlarmTime >= startTime;
-                        } else
-                            notificationPassed = false;
-                    } else {*/
                 notificationPassed = event._eventPreferencesNotification.isNotificationVisible(context);
-                //}
 
                 PPApplication.logE("[NOTIF] DataWrapper.doHandleEvents", "notificationPassed=" + notificationPassed);
-
-                    /*if (!notificationPassed) {
-                        event._eventPreferencesNotification._startTime = 0;
-                        DatabaseHandler.getInstance(context).updateNotificationStartTime(event);
-                    }*/
-                /*}
-                else {
-                    ignoreNotification = true;
-                }*/
 
                 if (!notAllowedNotification) {
                     if (notificationPassed)
