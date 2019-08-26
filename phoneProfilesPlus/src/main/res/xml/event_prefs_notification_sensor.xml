@@ -48,15 +48,15 @@
         app:summary="@string/pref_event_permanentRun_summary"
         app:defaultValue="true"
         app:dependency="eventNotificationEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget" />-->
     <sk.henrichg.phoneprofilesplus.DurationDialogPreferenceX
         app:key="eventNotificationDuration"
         app:summary="@string/event_preferences_duration"
         app:title="@string/event_preferences_duration"
-        app:defaultValue="5"
-        app:dMin="5"
+        app:defaultValue="0"
+        app:dMin="0"
         app:dMax="86400"
         app:dependency="eventNotificationEnabled"
-        app:layout="@layout/mp_preference_material_widget" /> -->
+        app:layout="@layout/mp_preference_material_widget" />
     
 </androidx.preference.PreferenceScreen>

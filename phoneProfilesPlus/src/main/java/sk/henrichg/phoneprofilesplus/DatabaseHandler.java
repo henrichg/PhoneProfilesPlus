@@ -40,7 +40,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2380;
+    private static final int DATABASE_VERSION = 2390;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -2743,79 +2743,80 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     );
 
                     profile = Profile.getMappedProfile(profile, sharedProfile);
+                    if (profile != null) {
+                        ContentValues values = new ContentValues();
+                        values.put(KEY_NAME, profile._name);
+                        values.put(KEY_ICON, profile._icon);
+                        values.put(KEY_CHECKED, (profile._checked) ? 1 : 0);
+                        values.put(KEY_PORDER, profile._porder);
+                        values.put(KEY_VOLUME_RINGER_MODE, profile._volumeRingerMode);
+                        values.put(KEY_VOLUME_ZEN_MODE, profile._volumeZenMode);
+                        values.put(KEY_VOLUME_RINGTONE, profile._volumeRingtone);
+                        values.put(KEY_VOLUME_NOTIFICATION, profile._volumeNotification);
+                        values.put(KEY_VOLUME_MEDIA, profile._volumeMedia);
+                        values.put(KEY_VOLUME_ALARM, profile._volumeAlarm);
+                        values.put(KEY_VOLUME_SYSTEM, profile._volumeSystem);
+                        values.put(KEY_VOLUME_VOICE, profile._volumeVoice);
+                        values.put(KEY_SOUND_RINGTONE_CHANGE, profile._soundRingtoneChange);
+                        values.put(KEY_SOUND_RINGTONE, profile._soundRingtone);
+                        values.put(KEY_SOUND_NOTIFICATION_CHANGE, profile._soundNotificationChange);
+                        values.put(KEY_SOUND_NOTIFICATION, profile._soundNotification);
+                        values.put(KEY_SOUND_ALARM_CHANGE, profile._soundAlarmChange);
+                        values.put(KEY_SOUND_ALARM, profile._soundAlarm);
+                        values.put(KEY_DEVICE_AIRPLANE_MODE, profile._deviceAirplaneMode);
+                        values.put(KEY_DEVICE_WIFI, profile._deviceWiFi);
+                        values.put(KEY_DEVICE_BLUETOOTH, profile._deviceBluetooth);
+                        values.put(KEY_DEVICE_SCREEN_TIMEOUT, profile._deviceScreenTimeout);
+                        values.put(KEY_DEVICE_BRIGHTNESS, profile._deviceBrightness);
+                        values.put(KEY_DEVICE_WALLPAPER_CHANGE, profile._deviceWallpaperChange);
+                        values.put(KEY_DEVICE_WALLPAPER, profile._deviceWallpaper);
+                        values.put(KEY_DEVICE_MOBILE_DATA, profile._deviceMobileData);
+                        values.put(KEY_DEVICE_MOBILE_DATA_PREFS, profile._deviceMobileDataPrefs);
+                        values.put(KEY_DEVICE_GPS, profile._deviceGPS);
+                        values.put(KEY_DEVICE_RUN_APPLICATION_CHANGE, profile._deviceRunApplicationChange);
+                        values.put(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME, profile._deviceRunApplicationPackageName);
+                        values.put(KEY_DEVICE_AUTOSYNC, profile._deviceAutoSync);
+                        values.put(KEY_SHOW_IN_ACTIVATOR, (profile._showInActivator) ? 1 : 0);
+                        values.put(KEY_DEVICE_AUTOROTATE, profile._deviceAutoRotate);
+                        values.put(KEY_DEVICE_LOCATION_SERVICE_PREFS, profile._deviceLocationServicePrefs);
+                        values.put(KEY_VOLUME_SPEAKER_PHONE, profile._volumeSpeakerPhone);
+                        values.put(KEY_DEVICE_NFC, profile._deviceNFC);
+                        values.put(KEY_DURATION, profile._duration);
+                        values.put(KEY_AFTER_DURATION_DO, profile._afterDurationDo);
+                        values.put(KEY_DURATION_NOTIFICATION_SOUND, profile._durationNotificationSound);
+                        values.put(KEY_DURATION_NOTIFICATION_VIBRATE, profile._durationNotificationVibrate);
+                        values.put(KEY_DEVICE_KEYGUARD, profile._deviceKeyguard);
+                        values.put(KEY_VIBRATE_ON_TOUCH, profile._vibrationOnTouch);
+                        values.put(KEY_DEVICE_WIFI_AP, profile._deviceWiFiAP);
+                        values.put(KEY_DEVICE_POWER_SAVE_MODE, profile._devicePowerSaveMode);
+                        values.put(KEY_ASK_FOR_DURATION, (profile._askForDuration) ? 1 : 0);
+                        values.put(KEY_DEVICE_NETWORK_TYPE, profile._deviceNetworkType);
+                        values.put(KEY_NOTIFICATION_LED, profile._notificationLed);
+                        values.put(KEY_VIBRATE_WHEN_RINGING, profile._vibrateWhenRinging);
+                        values.put(KEY_DEVICE_WALLPAPER_FOR, profile._deviceWallpaperFor);
+                        values.put(KEY_HIDE_STATUS_BAR_ICON, (profile._hideStatusBarIcon) ? 1 : 0);
+                        values.put(KEY_LOCK_DEVICE, profile._lockDevice);
+                        values.put(KEY_DEVICE_CONNECT_TO_SSID, profile._deviceConnectToSSID);
+                        values.put(KEY_APPLICATION_DISABLE_WIFI_SCANNING, profile._applicationDisableWifiScanning);
+                        values.put(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING, profile._applicationDisableBluetoothScanning);
+                        values.put(KEY_DEVICE_WIFI_AP_PREFS, profile._deviceWiFiAPPrefs);
+                        values.put(KEY_APPLICATION_DISABLE_LOCATION_SCANNING, profile._applicationDisableLocationScanning);
+                        values.put(KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, profile._applicationDisableMobileCellScanning);
+                        values.put(KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING, profile._applicationDisableOrientationScanning);
+                        values.put(KEY_HEADS_UP_NOTIFICATIONS, profile._headsUpNotifications);
+                        values.put(KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE, profile._deviceForceStopApplicationChange);
+                        values.put(KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, profile._deviceForceStopApplicationPackageName);
+                        values.put(KEY_ACTIVATION_BY_USER_COUNT, profile._activationByUserCount);
+                        values.put(KEY_DEVICE_NETWORK_TYPE_PREFS, profile._deviceNetworkTypePrefs);
+                        values.put(KEY_DEVICE_CLOSE_ALL_APPLICATIONS, profile._deviceCloseAllApplications);
+                        values.put(KEY_SCREEN_CAR_MODE, profile._screenCarMode);
+                        values.put(KEY_DTMF_TONE_WHEN_DIALING, profile._dtmfToneWhenDialing);
+                        values.put(KEY_SOUND_ON_TOUCH, profile._soundOnTouch);
 
-                    ContentValues values = new ContentValues();
-                    values.put(KEY_NAME, profile._name);
-                    values.put(KEY_ICON, profile._icon);
-                    values.put(KEY_CHECKED, (profile._checked) ? 1 : 0);
-                    values.put(KEY_PORDER, profile._porder);
-                    values.put(KEY_VOLUME_RINGER_MODE, profile._volumeRingerMode);
-                    values.put(KEY_VOLUME_ZEN_MODE, profile._volumeZenMode);
-                    values.put(KEY_VOLUME_RINGTONE, profile._volumeRingtone);
-                    values.put(KEY_VOLUME_NOTIFICATION, profile._volumeNotification);
-                    values.put(KEY_VOLUME_MEDIA, profile._volumeMedia);
-                    values.put(KEY_VOLUME_ALARM, profile._volumeAlarm);
-                    values.put(KEY_VOLUME_SYSTEM, profile._volumeSystem);
-                    values.put(KEY_VOLUME_VOICE, profile._volumeVoice);
-                    values.put(KEY_SOUND_RINGTONE_CHANGE, profile._soundRingtoneChange);
-                    values.put(KEY_SOUND_RINGTONE, profile._soundRingtone);
-                    values.put(KEY_SOUND_NOTIFICATION_CHANGE, profile._soundNotificationChange);
-                    values.put(KEY_SOUND_NOTIFICATION, profile._soundNotification);
-                    values.put(KEY_SOUND_ALARM_CHANGE, profile._soundAlarmChange);
-                    values.put(KEY_SOUND_ALARM, profile._soundAlarm);
-                    values.put(KEY_DEVICE_AIRPLANE_MODE, profile._deviceAirplaneMode);
-                    values.put(KEY_DEVICE_WIFI, profile._deviceWiFi);
-                    values.put(KEY_DEVICE_BLUETOOTH, profile._deviceBluetooth);
-                    values.put(KEY_DEVICE_SCREEN_TIMEOUT, profile._deviceScreenTimeout);
-                    values.put(KEY_DEVICE_BRIGHTNESS, profile._deviceBrightness);
-                    values.put(KEY_DEVICE_WALLPAPER_CHANGE, profile._deviceWallpaperChange);
-                    values.put(KEY_DEVICE_WALLPAPER, profile._deviceWallpaper);
-                    values.put(KEY_DEVICE_MOBILE_DATA, profile._deviceMobileData);
-                    values.put(KEY_DEVICE_MOBILE_DATA_PREFS, profile._deviceMobileDataPrefs);
-                    values.put(KEY_DEVICE_GPS, profile._deviceGPS);
-                    values.put(KEY_DEVICE_RUN_APPLICATION_CHANGE, profile._deviceRunApplicationChange);
-                    values.put(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME, profile._deviceRunApplicationPackageName);
-                    values.put(KEY_DEVICE_AUTOSYNC, profile._deviceAutoSync);
-                    values.put(KEY_SHOW_IN_ACTIVATOR, (profile._showInActivator) ? 1 : 0);
-                    values.put(KEY_DEVICE_AUTOROTATE, profile._deviceAutoRotate);
-                    values.put(KEY_DEVICE_LOCATION_SERVICE_PREFS, profile._deviceLocationServicePrefs);
-                    values.put(KEY_VOLUME_SPEAKER_PHONE, profile._volumeSpeakerPhone);
-                    values.put(KEY_DEVICE_NFC, profile._deviceNFC);
-                    values.put(KEY_DURATION, profile._duration);
-                    values.put(KEY_AFTER_DURATION_DO, profile._afterDurationDo);
-                    values.put(KEY_DURATION_NOTIFICATION_SOUND, profile._durationNotificationSound);
-                    values.put(KEY_DURATION_NOTIFICATION_VIBRATE, profile._durationNotificationVibrate);
-                    values.put(KEY_DEVICE_KEYGUARD, profile._deviceKeyguard);
-                    values.put(KEY_VIBRATE_ON_TOUCH, profile._vibrationOnTouch);
-                    values.put(KEY_DEVICE_WIFI_AP, profile._deviceWiFiAP);
-                    values.put(KEY_DEVICE_POWER_SAVE_MODE, profile._devicePowerSaveMode);
-                    values.put(KEY_ASK_FOR_DURATION, (profile._askForDuration) ? 1 : 0);
-                    values.put(KEY_DEVICE_NETWORK_TYPE, profile._deviceNetworkType);
-                    values.put(KEY_NOTIFICATION_LED, profile._notificationLed);
-                    values.put(KEY_VIBRATE_WHEN_RINGING, profile._vibrateWhenRinging);
-                    values.put(KEY_DEVICE_WALLPAPER_FOR, profile._deviceWallpaperFor);
-                    values.put(KEY_HIDE_STATUS_BAR_ICON, (profile._hideStatusBarIcon) ? 1 : 0);
-                    values.put(KEY_LOCK_DEVICE, profile._lockDevice);
-                    values.put(KEY_DEVICE_CONNECT_TO_SSID, profile._deviceConnectToSSID);
-                    values.put(KEY_APPLICATION_DISABLE_WIFI_SCANNING, profile._applicationDisableWifiScanning);
-                    values.put(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING, profile._applicationDisableBluetoothScanning);
-                    values.put(KEY_DEVICE_WIFI_AP_PREFS, profile._deviceWiFiAPPrefs);
-                    values.put(KEY_APPLICATION_DISABLE_LOCATION_SCANNING, profile._applicationDisableLocationScanning);
-                    values.put(KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, profile._applicationDisableMobileCellScanning);
-                    values.put(KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING, profile._applicationDisableOrientationScanning);
-                    values.put(KEY_HEADS_UP_NOTIFICATIONS, profile._headsUpNotifications);
-                    values.put(KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE, profile._deviceForceStopApplicationChange);
-                    values.put(KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, profile._deviceForceStopApplicationPackageName);
-                    values.put(KEY_ACTIVATION_BY_USER_COUNT, profile._activationByUserCount);
-                    values.put(KEY_DEVICE_NETWORK_TYPE_PREFS, profile._deviceNetworkTypePrefs);
-                    values.put(KEY_DEVICE_CLOSE_ALL_APPLICATIONS, profile._deviceCloseAllApplications);
-                    values.put(KEY_SCREEN_CAR_MODE, profile._screenCarMode);
-                    values.put(KEY_DTMF_TONE_WHEN_DIALING, profile._dtmfToneWhenDialing);
-                    values.put(KEY_SOUND_ON_TOUCH, profile._soundOnTouch);
-
-                    // updating row
-                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                            new String[]{String.valueOf(profile._id)});
+                        // updating row
+                        db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                new String[]{String.valueOf(profile._id)});
+                    }
 
                 } while (cursor.moveToNext());
             }
@@ -2906,6 +2907,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_TIME_TYPE + " INTEGER");
 
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_TIME_TYPE + "=0");
+        }
+
+        if (oldVersion < 2390)
+        {
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_DURATION + "=0");
         }
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
@@ -10204,79 +10210,80 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                             );
 
                                             profile = Profile.getMappedProfile(profile, sharedProfile);
+                                            if (profile != null) {
+                                                values = new ContentValues();
+                                                values.put(KEY_NAME, profile._name);
+                                                values.put(KEY_ICON, profile._icon);
+                                                values.put(KEY_CHECKED, (profile._checked) ? 1 : 0);
+                                                values.put(KEY_PORDER, profile._porder);
+                                                values.put(KEY_VOLUME_RINGER_MODE, profile._volumeRingerMode);
+                                                values.put(KEY_VOLUME_ZEN_MODE, profile._volumeZenMode);
+                                                values.put(KEY_VOLUME_RINGTONE, profile._volumeRingtone);
+                                                values.put(KEY_VOLUME_NOTIFICATION, profile._volumeNotification);
+                                                values.put(KEY_VOLUME_MEDIA, profile._volumeMedia);
+                                                values.put(KEY_VOLUME_ALARM, profile._volumeAlarm);
+                                                values.put(KEY_VOLUME_SYSTEM, profile._volumeSystem);
+                                                values.put(KEY_VOLUME_VOICE, profile._volumeVoice);
+                                                values.put(KEY_SOUND_RINGTONE_CHANGE, profile._soundRingtoneChange);
+                                                values.put(KEY_SOUND_RINGTONE, profile._soundRingtone);
+                                                values.put(KEY_SOUND_NOTIFICATION_CHANGE, profile._soundNotificationChange);
+                                                values.put(KEY_SOUND_NOTIFICATION, profile._soundNotification);
+                                                values.put(KEY_SOUND_ALARM_CHANGE, profile._soundAlarmChange);
+                                                values.put(KEY_SOUND_ALARM, profile._soundAlarm);
+                                                values.put(KEY_DEVICE_AIRPLANE_MODE, profile._deviceAirplaneMode);
+                                                values.put(KEY_DEVICE_WIFI, profile._deviceWiFi);
+                                                values.put(KEY_DEVICE_BLUETOOTH, profile._deviceBluetooth);
+                                                values.put(KEY_DEVICE_SCREEN_TIMEOUT, profile._deviceScreenTimeout);
+                                                values.put(KEY_DEVICE_BRIGHTNESS, profile._deviceBrightness);
+                                                values.put(KEY_DEVICE_WALLPAPER_CHANGE, profile._deviceWallpaperChange);
+                                                values.put(KEY_DEVICE_WALLPAPER, profile._deviceWallpaper);
+                                                values.put(KEY_DEVICE_MOBILE_DATA, profile._deviceMobileData);
+                                                values.put(KEY_DEVICE_MOBILE_DATA_PREFS, profile._deviceMobileDataPrefs);
+                                                values.put(KEY_DEVICE_GPS, profile._deviceGPS);
+                                                values.put(KEY_DEVICE_RUN_APPLICATION_CHANGE, profile._deviceRunApplicationChange);
+                                                values.put(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME, profile._deviceRunApplicationPackageName);
+                                                values.put(KEY_DEVICE_AUTOSYNC, profile._deviceAutoSync);
+                                                values.put(KEY_SHOW_IN_ACTIVATOR, (profile._showInActivator) ? 1 : 0);
+                                                values.put(KEY_DEVICE_AUTOROTATE, profile._deviceAutoRotate);
+                                                values.put(KEY_DEVICE_LOCATION_SERVICE_PREFS, profile._deviceLocationServicePrefs);
+                                                values.put(KEY_VOLUME_SPEAKER_PHONE, profile._volumeSpeakerPhone);
+                                                values.put(KEY_DEVICE_NFC, profile._deviceNFC);
+                                                values.put(KEY_DURATION, profile._duration);
+                                                values.put(KEY_AFTER_DURATION_DO, profile._afterDurationDo);
+                                                values.put(KEY_DURATION_NOTIFICATION_SOUND, profile._durationNotificationSound);
+                                                values.put(KEY_DURATION_NOTIFICATION_VIBRATE, profile._durationNotificationVibrate);
+                                                values.put(KEY_DEVICE_KEYGUARD, profile._deviceKeyguard);
+                                                values.put(KEY_VIBRATE_ON_TOUCH, profile._vibrationOnTouch);
+                                                values.put(KEY_DEVICE_WIFI_AP, profile._deviceWiFiAP);
+                                                values.put(KEY_DEVICE_POWER_SAVE_MODE, profile._devicePowerSaveMode);
+                                                values.put(KEY_ASK_FOR_DURATION, (profile._askForDuration) ? 1 : 0);
+                                                values.put(KEY_DEVICE_NETWORK_TYPE, profile._deviceNetworkType);
+                                                values.put(KEY_NOTIFICATION_LED, profile._notificationLed);
+                                                values.put(KEY_VIBRATE_WHEN_RINGING, profile._vibrateWhenRinging);
+                                                values.put(KEY_DEVICE_WALLPAPER_FOR, profile._deviceWallpaperFor);
+                                                values.put(KEY_HIDE_STATUS_BAR_ICON, (profile._hideStatusBarIcon) ? 1 : 0);
+                                                values.put(KEY_LOCK_DEVICE, profile._lockDevice);
+                                                values.put(KEY_DEVICE_CONNECT_TO_SSID, profile._deviceConnectToSSID);
+                                                values.put(KEY_APPLICATION_DISABLE_WIFI_SCANNING, profile._applicationDisableWifiScanning);
+                                                values.put(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING, profile._applicationDisableBluetoothScanning);
+                                                values.put(KEY_DEVICE_WIFI_AP_PREFS, profile._deviceWiFiAPPrefs);
+                                                values.put(KEY_APPLICATION_DISABLE_LOCATION_SCANNING, profile._applicationDisableLocationScanning);
+                                                values.put(KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, profile._applicationDisableMobileCellScanning);
+                                                values.put(KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING, profile._applicationDisableOrientationScanning);
+                                                values.put(KEY_HEADS_UP_NOTIFICATIONS, profile._headsUpNotifications);
+                                                values.put(KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE, profile._deviceForceStopApplicationChange);
+                                                values.put(KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, profile._deviceForceStopApplicationPackageName);
+                                                values.put(KEY_ACTIVATION_BY_USER_COUNT, profile._activationByUserCount);
+                                                values.put(KEY_DEVICE_NETWORK_TYPE_PREFS, profile._deviceNetworkTypePrefs);
+                                                values.put(KEY_DEVICE_CLOSE_ALL_APPLICATIONS, profile._deviceCloseAllApplications);
+                                                values.put(KEY_SCREEN_CAR_MODE, profile._screenCarMode);
+                                                values.put(KEY_DTMF_TONE_WHEN_DIALING, profile._dtmfToneWhenDialing);
+                                                values.put(KEY_SOUND_ON_TOUCH, profile._soundOnTouch);
 
-                                            values = new ContentValues();
-                                            values.put(KEY_NAME, profile._name);
-                                            values.put(KEY_ICON, profile._icon);
-                                            values.put(KEY_CHECKED, (profile._checked) ? 1 : 0);
-                                            values.put(KEY_PORDER, profile._porder);
-                                            values.put(KEY_VOLUME_RINGER_MODE, profile._volumeRingerMode);
-                                            values.put(KEY_VOLUME_ZEN_MODE, profile._volumeZenMode);
-                                            values.put(KEY_VOLUME_RINGTONE, profile._volumeRingtone);
-                                            values.put(KEY_VOLUME_NOTIFICATION, profile._volumeNotification);
-                                            values.put(KEY_VOLUME_MEDIA, profile._volumeMedia);
-                                            values.put(KEY_VOLUME_ALARM, profile._volumeAlarm);
-                                            values.put(KEY_VOLUME_SYSTEM, profile._volumeSystem);
-                                            values.put(KEY_VOLUME_VOICE, profile._volumeVoice);
-                                            values.put(KEY_SOUND_RINGTONE_CHANGE, profile._soundRingtoneChange);
-                                            values.put(KEY_SOUND_RINGTONE, profile._soundRingtone);
-                                            values.put(KEY_SOUND_NOTIFICATION_CHANGE, profile._soundNotificationChange);
-                                            values.put(KEY_SOUND_NOTIFICATION, profile._soundNotification);
-                                            values.put(KEY_SOUND_ALARM_CHANGE, profile._soundAlarmChange);
-                                            values.put(KEY_SOUND_ALARM, profile._soundAlarm);
-                                            values.put(KEY_DEVICE_AIRPLANE_MODE, profile._deviceAirplaneMode);
-                                            values.put(KEY_DEVICE_WIFI, profile._deviceWiFi);
-                                            values.put(KEY_DEVICE_BLUETOOTH, profile._deviceBluetooth);
-                                            values.put(KEY_DEVICE_SCREEN_TIMEOUT, profile._deviceScreenTimeout);
-                                            values.put(KEY_DEVICE_BRIGHTNESS, profile._deviceBrightness);
-                                            values.put(KEY_DEVICE_WALLPAPER_CHANGE, profile._deviceWallpaperChange);
-                                            values.put(KEY_DEVICE_WALLPAPER, profile._deviceWallpaper);
-                                            values.put(KEY_DEVICE_MOBILE_DATA, profile._deviceMobileData);
-                                            values.put(KEY_DEVICE_MOBILE_DATA_PREFS, profile._deviceMobileDataPrefs);
-                                            values.put(KEY_DEVICE_GPS, profile._deviceGPS);
-                                            values.put(KEY_DEVICE_RUN_APPLICATION_CHANGE, profile._deviceRunApplicationChange);
-                                            values.put(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME, profile._deviceRunApplicationPackageName);
-                                            values.put(KEY_DEVICE_AUTOSYNC, profile._deviceAutoSync);
-                                            values.put(KEY_SHOW_IN_ACTIVATOR, (profile._showInActivator) ? 1 : 0);
-                                            values.put(KEY_DEVICE_AUTOROTATE, profile._deviceAutoRotate);
-                                            values.put(KEY_DEVICE_LOCATION_SERVICE_PREFS, profile._deviceLocationServicePrefs);
-                                            values.put(KEY_VOLUME_SPEAKER_PHONE, profile._volumeSpeakerPhone);
-                                            values.put(KEY_DEVICE_NFC, profile._deviceNFC);
-                                            values.put(KEY_DURATION, profile._duration);
-                                            values.put(KEY_AFTER_DURATION_DO, profile._afterDurationDo);
-                                            values.put(KEY_DURATION_NOTIFICATION_SOUND, profile._durationNotificationSound);
-                                            values.put(KEY_DURATION_NOTIFICATION_VIBRATE, profile._durationNotificationVibrate);
-                                            values.put(KEY_DEVICE_KEYGUARD, profile._deviceKeyguard);
-                                            values.put(KEY_VIBRATE_ON_TOUCH, profile._vibrationOnTouch);
-                                            values.put(KEY_DEVICE_WIFI_AP, profile._deviceWiFiAP);
-                                            values.put(KEY_DEVICE_POWER_SAVE_MODE, profile._devicePowerSaveMode);
-                                            values.put(KEY_ASK_FOR_DURATION, (profile._askForDuration) ? 1 : 0);
-                                            values.put(KEY_DEVICE_NETWORK_TYPE, profile._deviceNetworkType);
-                                            values.put(KEY_NOTIFICATION_LED, profile._notificationLed);
-                                            values.put(KEY_VIBRATE_WHEN_RINGING, profile._vibrateWhenRinging);
-                                            values.put(KEY_DEVICE_WALLPAPER_FOR, profile._deviceWallpaperFor);
-                                            values.put(KEY_HIDE_STATUS_BAR_ICON, (profile._hideStatusBarIcon) ? 1 : 0);
-                                            values.put(KEY_LOCK_DEVICE, profile._lockDevice);
-                                            values.put(KEY_DEVICE_CONNECT_TO_SSID, profile._deviceConnectToSSID);
-                                            values.put(KEY_APPLICATION_DISABLE_WIFI_SCANNING, profile._applicationDisableWifiScanning);
-                                            values.put(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING, profile._applicationDisableBluetoothScanning);
-                                            values.put(KEY_DEVICE_WIFI_AP_PREFS, profile._deviceWiFiAPPrefs);
-                                            values.put(KEY_APPLICATION_DISABLE_LOCATION_SCANNING, profile._applicationDisableLocationScanning);
-                                            values.put(KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, profile._applicationDisableMobileCellScanning);
-                                            values.put(KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING, profile._applicationDisableOrientationScanning);
-                                            values.put(KEY_HEADS_UP_NOTIFICATIONS, profile._headsUpNotifications);
-                                            values.put(KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE, profile._deviceForceStopApplicationChange);
-                                            values.put(KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, profile._deviceForceStopApplicationPackageName);
-                                            values.put(KEY_ACTIVATION_BY_USER_COUNT, profile._activationByUserCount);
-                                            values.put(KEY_DEVICE_NETWORK_TYPE_PREFS, profile._deviceNetworkTypePrefs);
-                                            values.put(KEY_DEVICE_CLOSE_ALL_APPLICATIONS, profile._deviceCloseAllApplications);
-                                            values.put(KEY_SCREEN_CAR_MODE, profile._screenCarMode);
-                                            values.put(KEY_DTMF_TONE_WHEN_DIALING, profile._dtmfToneWhenDialing);
-                                            values.put(KEY_SOUND_ON_TOUCH, profile._soundOnTouch);
-
-                                            // updating row
-                                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                                    new String[]{String.valueOf(profile._id)});
+                                                // updating row
+                                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                                        new String[]{String.valueOf(profile._id)});
+                                            }
                                         } while (cursorImportDB.moveToNext());
                                     }
                                 }
@@ -10740,7 +10747,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                 values.put(KEY_E_NOTIFICATION_ENABLED, 0);
                                                 values.put(KEY_E_NOTIFICATION_APPLICATIONS, "");
                                                 values.put(KEY_E_NOTIFICATION_START_TIME, 0);
-                                                values.put(KEY_E_NOTIFICATION_DURATION, 5);
+                                                values.put(KEY_E_NOTIFICATION_DURATION, 0);
                                             }
 
                                             if (exportedDBObj.getVersion() < 1430) {
@@ -10964,6 +10971,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                                             if (exportedDBObj.getVersion() < 2380) {
                                                 values.put(KEY_E_TIME_TYPE, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 2390) {
+                                                values.put(KEY_E_NOTIFICATION_DURATION, 0);
                                             }
 
                                             // Inserting Row do db z SQLiteOpenHelper

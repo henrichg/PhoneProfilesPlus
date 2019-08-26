@@ -1,5 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,16 +11,13 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.service.notification.StatusBarNotification;
-import android.text.format.DateFormat;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
-//import android.preference.CheckBoxPreference;
-//import android.preference.Preference;
-//import android.preference.PreferenceManager;
 
 class EventPreferencesNotification extends EventPreferences {
 
@@ -83,7 +83,7 @@ class EventPreferencesNotification extends EventPreferences {
             this._applications = preferences.getString(PREF_EVENT_NOTIFICATION_APPLICATIONS, "");
             this._inCall = preferences.getBoolean(PREF_EVENT_NOTIFICATION_IN_CALL, false);
             this._missedCall = preferences.getBoolean(PREF_EVENT_NOTIFICATION_MISSED_CALL, false);
-            this._duration = Integer.parseInt(preferences.getString(PREF_EVENT_NOTIFICATION_DURATION, "5"));
+            this._duration = Integer.parseInt(preferences.getString(PREF_EVENT_NOTIFICATION_DURATION, "0"));
         //}
     }
 
@@ -188,7 +188,7 @@ class EventPreferencesNotification extends EventPreferences {
             } catch (Exception e) {
                 delay = 0;
             }
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 5, true, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 0, true, false, false, false);
         }
 
         Event event = new Event();
@@ -306,8 +306,118 @@ class EventPreferencesNotification extends EventPreferences {
         }*/
     }
 
+    long computeAlarm(Context context)
+    {
+        PPApplication.logE("EventPreferencesNotification.computeAlarm","xxx");
+
+        StatusBarNotification newestNotification = getNewestVisibleNotification(context);
+        if (newestNotification != null) {
+            return newestNotification.getPostTime();
+        }
+        return 0;
+    }
+
+    @Override
+    public void setSystemEventForStart(Context context)
+    {
+        // set alarm for state PAUSE
+
+        // this alarm generates broadcast, that change state into RUNNING;
+        // from broadcast will by called EventsHandler
+
+        PPApplication.logE("EventPreferencesNotification.setSystemRunningEvent","xxx");
+
+        removeAlarm(context);
+    }
+
+    @Override
+    public void setSystemEventForPause(Context context)
+    {
+        // set alarm for state RUNNING
+
+        // this alarm generates broadcast, that change state into PAUSE;
+        // from broadcast will by called EventsHandler
+
+        PPApplication.logE("EventPreferencesNotification.setSystemPauseEvent","xxx");
+
+        removeAlarm(context);
+
+        if (!(isRunnable(context) && _enabled))
+            return;
+
+        setAlarm(computeAlarm(context), context);
+    }
+
+    @Override
+    public void removeSystemEvent(Context context)
+    {
+        removeAlarm(context);
+
+        PPApplication.logE("EventPreferencesNotification.removeSystemEvent", "xxx");
+    }
+
+    void removeAlarm(Context context)
+    {
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        if (alarmManager != null) {
+            //Intent intent = new Intent(context, SMSEventEndBroadcastReceiver.class);
+            Intent intent = new Intent();
+            intent.setAction(PhoneProfilesService.ACTION_SMS_EVENT_END_BROADCAST_RECEIVER);
+            //intent.setClass(context, SMSEventEndBroadcastReceiver.class);
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
+            if (pendingIntent != null) {
+                PPApplication.logE("EventPreferencesNotification.removeAlarm", "alarm found");
+
+                alarmManager.cancel(pendingIntent);
+                pendingIntent.cancel();
+            }
+        }
+    }
+
+    @SuppressLint({"SimpleDateFormat", "NewApi"})
+    private void setAlarm(long alarmTime, Context context)
+    {
+        if (alarmTime > 0) {
+            if (PPApplication.logEnabled()) {
+                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                String result = sdf.format(alarmTime);
+                PPApplication.logE("EventPreferencesNotification.setAlarm", "endTime=" + result);
+            }
+
+            //Intent intent = new Intent(context, SMSEventEndBroadcastReceiver.class);
+            Intent intent = new Intent();
+            intent.setAction(PhoneProfilesService.ACTION_SMS_EVENT_END_BROADCAST_RECEIVER);
+            //intent.setClass(context, SMSEventEndBroadcastReceiver.class);
+
+            //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            if (alarmManager != null) {
+                if (/*(android.os.Build.VERSION.SDK_INT >= 21) &&*/
+                        ApplicationPreferences.applicationUseAlarmClock(context)) {
+                    Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                    PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
+                    alarmManager.setAlarmClock(clockInfo, pendingIntent);
+                }
+                else {
+                    if (android.os.Build.VERSION.SDK_INT >= 23)
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                    else //if (android.os.Build.VERSION.SDK_INT >= 19)
+                        alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                    //else
+                    //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                }
+            }
+        }
+    }
+
+
     // search if any configured package names are visible in status bar
-    private boolean isNotificationActive(StatusBarNotification[] statusBarNotifications, String packageName, boolean checkEnd) {
+    private StatusBarNotification isNotificationActive(StatusBarNotification[] statusBarNotifications, String packageName, boolean checkEnd) {
         for (StatusBarNotification statusBarNotification : statusBarNotifications) {
             String _packageName = statusBarNotification.getPackageName();
             PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName=" + _packageName);
@@ -321,48 +431,89 @@ class EventPreferencesNotification extends EventPreferences {
             if (checkEnd) {
                 if (_packageName.endsWith(packageName)) {
                     //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName returned=" + _packageName);
-                    return true;
+                    return statusBarNotification;
                 }
             }
             else {
                 if (_packageName.equals(packageName)) {
                     //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName returned=" + _packageName);
-                    return true;
+                    return statusBarNotification;
                 }
             }
         }
-        return false;
+        return null;
     }
 
-    boolean isNotificationVisible(DataWrapper dataWrapper) {
-        // get all saved notifications
+    boolean isNotificationVisible(Context context) {
         PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "xxx");
-        if (PPNotificationListenerService.isNotificationListenerServiceEnabled(dataWrapper.context)) {
+        if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
             PPNotificationListenerService service = PPNotificationListenerService.getInstance();
             if (service != null) {
                 StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();
-
+                StatusBarNotification notification;
                 if (this._inCall) {
                     // Nexus/Pixel??? stock ROM
-                    if (isNotificationActive(statusBarNotifications, "com.google.android.dialer", false))
-                        return true;
+                    notification = isNotificationActive(statusBarNotifications, "com.google.android.dialer", false);
+                    if (notification != null) {
+                        if (_duration != 0) {
+                            if (notification.getPostTime() + _duration < System.currentTimeMillis())
+                                return true;
+                        }
+                        else
+                            return true;
+                    }
                     // Samsung, MIUI, EMUI, Sony
-                    if (isNotificationActive(statusBarNotifications, "android.incallui", true))
-                        return true;
+                    notification = isNotificationActive(statusBarNotifications, "android.incallui", true);
+                    if (notification != null) {
+                        if (_duration != 0) {
+                            if (notification.getPostTime() + _duration < System.currentTimeMillis())
+                                return true;
+                        }
+                        else
+                            return true;
+                    }
                 }
                 if (this._missedCall) {
                     // Samsung, MIUI, Nexus/Pixel??? stock ROM, Sony
-                    if (isNotificationActive(statusBarNotifications, "com.android.server.telecom", false))
-                        return true;
+                    notification = isNotificationActive(statusBarNotifications, "com.android.server.telecom", false);
+                    if (notification != null) {
+                        if (_duration != 0) {
+                            if (notification.getPostTime() + _duration < System.currentTimeMillis())
+                                return true;
+                        }
+                        else
+                            return true;
+                    }
                     // Samsung One UI
-                    if (isNotificationActive(statusBarNotifications, "com.samsung.android.dialer", false))
-                        return true;
+                    notification = isNotificationActive(statusBarNotifications, "com.samsung.android.dialer", false);
+                    if (notification != null) {
+                        if (_duration != 0) {
+                            if (notification.getPostTime() + _duration < System.currentTimeMillis())
+                                return true;
+                        }
+                        else
+                            return true;
+                    }
                     // LG
-                    if (isNotificationActive(statusBarNotifications, "com.android.phone", false))
-                        return true;
+                    notification = isNotificationActive(statusBarNotifications, "com.android.phone", false);
+                    if (notification != null) {
+                        if (_duration != 0) {
+                            if (notification.getPostTime() + _duration < System.currentTimeMillis())
+                                return true;
+                        }
+                        else
+                            return true;
+                    }
                     // EMUI
-                    if (isNotificationActive(statusBarNotifications, "com.android.contacts", false))
-                        return true;
+                    notification = isNotificationActive(statusBarNotifications, "com.android.contacts", false);
+                    if (notification != null) {
+                        if (_duration != 0) {
+                            if (notification.getPostTime() + _duration < System.currentTimeMillis())
+                                return true;
+                        }
+                        else
+                            return true;
+                    }
                 }
 
                 String[] splits = this._applications.split("\\|");
@@ -370,14 +521,23 @@ class EventPreferencesNotification extends EventPreferences {
                     // get only package name = remove activity
                     String packageName = Application.getPackageName(split);
                     // search for package name in saved package names
-                    if (isNotificationActive(statusBarNotifications, packageName, false))
-                        return true;
+                    notification = isNotificationActive(statusBarNotifications, packageName, false);
+                    if (notification != null) {
+                        if (_duration != 0) {
+                            if (notification.getPostTime() + _duration < System.currentTimeMillis())
+                                return true;
+                        }
+                        else
+                            return true;
+                    }
                 }
+
                 return false;
             }
         }
 
         /*
+        // get all saved notifications
         PPNotificationListenerService.getNotifiedPackages(dataWrapper.context);
 
         // com.android.incallui - in call
@@ -417,6 +577,76 @@ class EventPreferencesNotification extends EventPreferences {
         }*/
 
         return false;
+    }
+
+    private StatusBarNotification getNewestVisibleNotification(Context context) {
+        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "xxx");
+        if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
+            PPNotificationListenerService service = PPNotificationListenerService.getInstance();
+            if (service != null) {
+                StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();
+                StatusBarNotification newestNotification = null;
+                StatusBarNotification notification;
+
+                if (this._inCall) {
+                    // Nexus/Pixel??? stock ROM
+                    notification = isNotificationActive(statusBarNotifications, "com.google.android.dialer", false);
+                    if (notification != null) {
+                        //noinspection ConstantConditions
+                        if ((newestNotification == null) || (notification.getPostTime() > newestNotification.getPostTime()))
+                            newestNotification = notification;
+                    }
+                    // Samsung, MIUI, EMUI, Sony
+                    notification = isNotificationActive(statusBarNotifications, "android.incallui", true);
+                    if (notification != null) {
+                        if ((newestNotification == null) || (notification.getPostTime() > newestNotification.getPostTime()))
+                            newestNotification = notification;
+                    }
+                }
+                if (this._missedCall) {
+                    // Samsung, MIUI, Nexus/Pixel??? stock ROM, Sony
+                    notification = isNotificationActive(statusBarNotifications, "com.android.server.telecom", false);
+                    if (notification != null) {
+                        if ((newestNotification == null) || (notification.getPostTime() > newestNotification.getPostTime()))
+                            newestNotification = notification;
+                    }
+                    // Samsung One UI
+                    notification = isNotificationActive(statusBarNotifications, "com.samsung.android.dialer", false);
+                    if (notification != null) {
+                        if ((newestNotification == null) || (notification.getPostTime() > newestNotification.getPostTime()))
+                            newestNotification = notification;
+                    }
+                    // LG
+                    notification = isNotificationActive(statusBarNotifications, "com.android.phone", false);
+                    if (notification != null) {
+                        if ((newestNotification == null) || (notification.getPostTime() > newestNotification.getPostTime()))
+                            newestNotification = notification;
+                    }
+                    // EMUI
+                    notification = isNotificationActive(statusBarNotifications, "com.android.contacts", false);
+                    if (notification != null) {
+                        if ((newestNotification == null) || (notification.getPostTime() > newestNotification.getPostTime()))
+                            newestNotification = notification;
+                    }
+                }
+
+                String[] splits = this._applications.split("\\|");
+                for (String split : splits) {
+                    // get only package name = remove activity
+                    String packageName = Application.getPackageName(split);
+                    // search for package name in saved package names
+                    notification = isNotificationActive(statusBarNotifications, packageName, false);
+                    if (notification != null) {
+                        if ((newestNotification == null) || (notification.getPostTime() > newestNotification.getPostTime()))
+                            newestNotification = notification;
+                    }
+                }
+
+                return newestNotification;
+            }
+        }
+
+        return null;
     }
 
 }

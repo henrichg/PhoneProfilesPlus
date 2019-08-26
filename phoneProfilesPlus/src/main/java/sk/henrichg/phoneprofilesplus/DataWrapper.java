@@ -3086,7 +3086,7 @@ public class DataWrapper {
                         } else
                             notificationPassed = false;
                     } else {*/
-                notificationPassed = event._eventPreferencesNotification.isNotificationVisible(this);
+                notificationPassed = event._eventPreferencesNotification.isNotificationVisible(context);
                 //}
 
                 PPApplication.logE("[NOTIF] DataWrapper.doHandleEvents", "notificationPassed=" + notificationPassed);

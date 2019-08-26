@@ -126,7 +126,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
             try {
                 delay = Integer.parseInt(value);
             } catch (Exception e) {
-                delay = 0;
+                delay = 5;
             }
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 5, true, false, false, false);
         }
