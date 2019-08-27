@@ -6436,7 +6436,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             KEY_E_RADIO_SWITCH_AIRPLANE_MODE + "!=0";
                 else if (eventType == ETYPE_ALARM_CLOCK)
                     eventTypeChecked = eventTypeChecked + KEY_E_ALARM_CLOCK_ENABLED + "=1";
-                else if (eventType == ETYPE_TIMETWILIGHT)
+                else if (eventType == ETYPE_TIME_TWILIGHT)
                     eventTypeChecked = eventTypeChecked + KEY_E_TIME_ENABLED + "=1" + " AND " +
                             KEY_E_TIME_TYPE + "!=0";
 
