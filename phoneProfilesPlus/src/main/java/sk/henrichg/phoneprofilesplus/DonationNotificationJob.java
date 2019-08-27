@@ -50,15 +50,15 @@ class DonationNotificationJob extends Job {
             switch (donationNotificationCount) {
                 case 0:
                     int daysForOneNotification = 7;
-                    notify = daysAfterFirstStart > daysForOneNotification;
+                    notify = daysAfterFirstStart >= daysForOneNotification;
                     break;
                 case 1:
                     daysForOneNotification = 7 + 14;
-                    notify = daysAfterFirstStart > daysForOneNotification;
+                    notify = daysAfterFirstStart >= daysForOneNotification;
                     break;
                 case 2:
                     daysForOneNotification = 7 + 14 + 21;
-                    notify = daysAfterFirstStart > daysForOneNotification;
+                    notify = daysAfterFirstStart >= daysForOneNotification;
                     break;
             }
 
