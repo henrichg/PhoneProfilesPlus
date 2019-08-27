@@ -1451,6 +1451,7 @@
     <string name="event_preference_sensor_time_sunrise">Sunrise</string>
     <string name="event_preference_sensor_time_sunset">Sunset</string>
     <string name="event_preferences_notifications_duration">Maximum duration</string>
+    <string name="donation_description_2">Thank you very much.</string>
 
     <!-- **************************************************************************************** -->
 

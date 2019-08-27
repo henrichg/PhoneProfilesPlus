@@ -3655,7 +3655,7 @@ public class PhoneProfilesService extends Service
                         }
                     }
                 }
-            }, 20000);
+            }, 30000);
 
         //}
 

@@ -45,18 +45,24 @@ class DonationNotificationJob extends Job {
         boolean donationDonated = PPApplication.getDonationDonated(context);
         PPApplication.logE("DonationNotificationJob.onRunJob", "donationDonated="+donationDonated);
 
-        if (!donationDonated && (donationNotificationCount < MAX_DONATION_NOTIFICATION_COUNT)) {
-            int daysForOneNotification = 7;
+        if ((BuildConfig.DEBUG) || (!donationDonated && (donationNotificationCount < MAX_DONATION_NOTIFICATION_COUNT))) {
+            boolean notify = false;
             switch (donationNotificationCount) {
+                case 0:
+                    int daysForOneNotification = 7;
+                    notify = daysAfterFirstStart > daysForOneNotification;
+                    break;
                 case 1:
-                    daysForOneNotification = daysAfterFirstStart + 14;
+                    daysForOneNotification = 7 + 14;
+                    notify = daysAfterFirstStart > daysForOneNotification;
                     break;
                 case 2:
-                    daysForOneNotification = daysAfterFirstStart + 21;
+                    daysForOneNotification = 7 + 14 + 21;
+                    notify = daysAfterFirstStart > daysForOneNotification;
                     break;
             }
 
-            if (daysAfterFirstStart == daysForOneNotification) {
+            if (notify/*daysAfterFirstStart == daysForOneNotification*/) {
                 PPApplication.setDonationNotificationCount(context, donationNotificationCount+1);
 
                 // show notification about "Please donate me."
@@ -152,8 +158,10 @@ class DonationNotificationJob extends Job {
 
         boolean donationDonated = PPApplication.getDonationDonated(context);
         PPApplication.logE("DonationNotificationJob.scheduleJob", "donationDonated="+donationDonated);
-        if (donationDonated)
-            return;
+        if (!BuildConfig.DEBUG) {
+            if (donationDonated)
+                return;
+        }
 
         if (useHandler) {
             PPApplication.startHandlerThread("DonationNotificationJob.scheduleJob");
@@ -162,7 +170,6 @@ class DonationNotificationJob extends Job {
                 @Override
                 public void run() {
                     PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DonationNotificationJob.scheduleJob");
-
                     _scheduleJob();
                     /*if (countDownLatch != null)
                         countDownLatch.countDown();*/
@@ -198,4 +205,5 @@ class DonationNotificationJob extends Job {
         });
     }
     */
+
 }

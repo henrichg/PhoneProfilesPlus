@@ -53,6 +53,19 @@
             android:textSize="15sp"
             android:textStyle="bold"/>
 
+        <Button
+            android:id="@+id/about_application_donate_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25dp"
+            android:background="?attr/buttonBackground"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/about_application_donate_button"
+            tools:ignore="UnusedAttribute"/>
+
         <TextView
             android:id="@+id/about_application_author"
             android:layout_width="wrap_content"
@@ -155,19 +168,6 @@
             android:text="@string/about_application_google_plus_community"
             android:textSize="15sp"/>
         -->
-
-        <Button
-            android:id="@+id/about_application_donate_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:background="?attr/buttonBackground"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:focusable="true"
-            android:text="@string/about_application_donate_button"
-            tools:ignore="UnusedAttribute"/>
 
     </LinearLayout>
 

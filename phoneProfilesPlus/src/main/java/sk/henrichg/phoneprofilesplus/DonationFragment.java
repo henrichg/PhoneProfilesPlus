@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,8 +33,9 @@ public class DonationFragment extends Fragment {
 
     private ProgressBar mLoadingView;
     private TextView mErrorTextView;
-    private AppCompatSpinner mGoogleSpinner;
-    private Button btGoogle;
+    private GridView mGoogleGridView;
+    //private AppCompatSpinner mGoogleSpinner;
+    //private Button btGoogle;
 
     private BillingProvider mBillingProvider;
 
@@ -75,8 +77,11 @@ public class DonationFragment extends Fragment {
         mErrorTextView = root.findViewById(R.id.donation_google_android_market_error_textview);
 
         // choose donation amount
-        mGoogleSpinner = root.findViewById(R.id.donation_google_android_market_spinner);
-        mGoogleSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
+        mGoogleGridView = root.findViewById(R.id.donation_google_android_market_grid);
+
+
+//        mGoogleSpinner = root.findViewById(R.id.donation_google_android_market_spinner);
+//        mGoogleSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
 /*        switch (ApplicationPreferences.applicationTheme(getActivity(), true)) {
             case "dark":
                 mGoogleSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);
@@ -92,15 +97,15 @@ public class DonationFragment extends Fragment {
                 break;
         }*/
 
-        btGoogle = root.findViewById(
-                R.id.donation_google_android_market_donate_button);
-        //btGoogle.setAllCaps(false);
-        btGoogle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                donateGoogleOnClick(/*v*/);
-            }
-        });
+//        btGoogle = root.findViewById(
+//                R.id.donation_google_android_market_donate_button);
+//        //btGoogle.setAllCaps(false);
+//        btGoogle.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                donateGoogleOnClick(-1);
+//            }
+//        });
 
         mBillingProvider = (BillingProvider) getActivity();
 
@@ -136,10 +141,10 @@ public class DonationFragment extends Fragment {
     /**
      * Donate button executes donations based on selection in spinner
      */
-    private void donateGoogleOnClick(/*View view*/) {
-        final int index = mGoogleSpinner.getSelectedItemPosition();
+    private void donateGoogleOnClick(int position) {
+        //final int index = mGoogleSpinner.getSelectedItemPosition();
 
-        mBillingProvider.getBillingManager().startPurchaseFlow(SKU_DETAILS.get(index));
+        mBillingProvider.getBillingManager().startPurchaseFlow(SKU_DETAILS.get(position));
         //mBillingProvider.getBillingManager().startPurchaseFlow(SKU_DETAILS.get(index).getSku(), BillingClient.SkuType.INAPP);
     }
 
@@ -178,26 +183,37 @@ public class DonationFragment extends Fragment {
                                 displayAnErrorIfNeeded(BillingClient.BillingResponseCode.OK);
 
                                 if (getActivity() != null) {
-                                    GlobalGUIRoutines.HighlightedSpinnerAdapter spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
-                                            getActivity(),
-                                            R.layout.highlighted_spinner,
-                                            prices);
-                                    mGoogleSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getActivity().getBaseContext(), R.color.accent));
-                                    spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
-                                    mGoogleSpinner.setAdapter(spinnerAdapter);
+                                    mGoogleGridView.setAdapter(new DonationGooglePlayAdapter(DonationFragment.this, prices));
+                                    mGoogleGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-                                    mGoogleSpinner.setSelection(0);
-                                    mGoogleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-                                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                            ((GlobalGUIRoutines.HighlightedSpinnerAdapter)mGoogleSpinner.getAdapter()).setSelection(position);
+                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                            donateGoogleOnClick(position);
                                         }
 
-                                        public void onNothingSelected(AdapterView<?> parent) {
-                                        }
+
                                     });
+                                    mGoogleGridView.setEnabled(true);
 
-                                    btGoogle.setEnabled(true);
+//                                    GlobalGUIRoutines.HighlightedSpinnerAdapter spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+//                                            getActivity(),
+//                                            R.layout.highlighted_spinner,
+//                                            prices);
+//                                    mGoogleSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getActivity().getBaseContext(), R.color.accent));
+//                                    spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+//                                    mGoogleSpinner.setAdapter(spinnerAdapter);
+//
+//                                    mGoogleSpinner.setSelection(0);
+//                                    mGoogleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//
+//                                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                                            ((GlobalGUIRoutines.HighlightedSpinnerAdapter)mGoogleSpinner.getAdapter()).setSelection(position);
+//                                        }
+//
+//                                        public void onNothingSelected(AdapterView<?> parent) {
+//                                        }
+//                                    });
+//
+//                                    btGoogle.setEnabled(true);
                                 }
                             }
                             else {

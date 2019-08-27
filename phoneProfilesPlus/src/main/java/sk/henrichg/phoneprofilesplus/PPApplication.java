@@ -231,10 +231,10 @@ public class PPApplication extends Application {
 
                                          //+"|PPNotificationListenerService"
                                          //+"|[NOTIF] EventsHandler.handleEvents"
-                                         +"|[NOTIF] DataWrapper.doHandleEvents"
+                                         //+"|[NOTIF] DataWrapper.doHandleEvents"
                                          //+"|EventPreferencesNotification.isNotificationActive"
-                                         +"|EventPreferencesNotification.isNotificationVisible"
-                                         +"|NotificationEventEndBroadcastReceiver"
+                                         //+"|EventPreferencesNotification.isNotificationVisible"
+                                         //+"|NotificationEventEndBroadcastReceiver"
 
                                          //+"|[CALL] DataWrapper.doHandleEvents"
 
@@ -442,6 +442,8 @@ public class PPApplication extends Application {
                                         //+"|EditorProfilesActivity.selectFilterItem"
                                         //+"|EventsPrefsFragment.onResume"
                                         //+"|ActivateProfileHelper.setScreenCarMode"
+
+                                        +"|DonationNotificationJob"
             ;
 
 
