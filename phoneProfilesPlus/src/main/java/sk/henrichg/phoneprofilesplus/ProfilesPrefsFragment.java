@@ -1754,6 +1754,32 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 summary = summary + title + ": " + value;
             }
+            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, R.string.profile_preferences_deviceForceStopApplicationsChange, false, context);
+            if (!title.isEmpty()) {
+                _bold = true;
+
+                /*if (!summary.isEmpty()) summary = summary +" • ";
+
+                String value = GlobalGUIRoutines.getListPreferenceString(
+                        preferences.getString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)),
+                        R.array.forceStopApplicationValues, R.array.forceStopApplicationArray, context);
+
+                summary = summary + title + ": " + value;*/
+
+                if (!summary.isEmpty()) summary = summary +" • ";
+
+                String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME,
+                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME));
+                if (value != null) {
+                    String[] splits = value.split("\\|");
+
+                    summary = summary + title + ": " + context.getString(R.string.applications_multiselect_summary_text_selected) + " " + splits.length;
+                }
+                else
+                    summary = summary + title;
+
+            }
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, R.string.profile_preferences_deviceWallpaperChange, false, context);
             if (!title.isEmpty()) {
                 _bold = true;
