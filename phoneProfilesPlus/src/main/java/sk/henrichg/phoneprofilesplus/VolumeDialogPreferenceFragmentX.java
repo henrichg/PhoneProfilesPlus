@@ -66,10 +66,10 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
         //sharedProfileChBox = view.findViewById(R.id.volumePrefDialogSharedProfile);
 
         seekBar.setKeyProgressIncrement(preference.stepSize);
-        seekBar.setMax(preference.maximumValue - preference.minimumValue);
+        seekBar.setMax(preference.maximumValue/* - preference.minimumValue*/);
         seekBar.setProgress(preference.value);
 
-        valueText.setText(String.valueOf(preference.value + preference.minimumValue));
+        valueText.setText(String.valueOf(preference.value/* + preference.minimumValue*/));
 
         noChangeChBox.setChecked((preference.noChange == 1));
 
@@ -163,7 +163,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
             }
 
             // Set the valueText text.
-            valueText.setText(String.valueOf(preference.value + preference.minimumValue));
+            valueText.setText(String.valueOf(preference.value/* + preference.minimumValue*/));
 
             preference.callChangeListener(preference.getSValue());
         }

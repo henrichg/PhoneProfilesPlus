@@ -15,7 +15,6 @@ import android.os.Handler;
 import android.provider.Settings;
 
 import com.evernote.android.job.JobRequest;
-//import com.thelittlefireman.appkillermanager.managers.KillerManager;
 
 import java.util.concurrent.TimeUnit;
 

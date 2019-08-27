@@ -1406,12 +1406,11 @@ class ActivateProfileHelper {
                     switch (interruptionFilter) {
                         case NotificationManager.INTERRUPTION_FILTER_ALARMS:
                             return ActivateProfileHelper.ZENMODE_ALARMS;
-                        case NotificationManager.INTERRUPTION_FILTER_ALL:
-                            return ActivateProfileHelper.ZENMODE_ALL;
                         case NotificationManager.INTERRUPTION_FILTER_NONE:
                             return ActivateProfileHelper.ZENMODE_NONE;
                         case NotificationManager.INTERRUPTION_FILTER_PRIORITY:
                             return ActivateProfileHelper.ZENMODE_PRIORITY;
+                        case NotificationManager.INTERRUPTION_FILTER_ALL:
                         case NotificationManager.INTERRUPTION_FILTER_UNKNOWN:
                             return ActivateProfileHelper.ZENMODE_ALL;
                     }

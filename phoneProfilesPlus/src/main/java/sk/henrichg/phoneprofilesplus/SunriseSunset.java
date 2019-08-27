@@ -18,6 +18,8 @@
  */
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -34,6 +36,7 @@ import java.util.TimeZone;
  * @see <a href="http://en.wikipedia.org/wiki/Julian_day">Julian Day on Wikipedia</a>
  * @see <a href="http://en.wikipedia.org/wiki/Sunrise_equation">Sunrise equation on Wikipedia</a>
  */
+@SuppressWarnings({"RedundantIfStatement", "WeakerAccess", "unused"})
 public final class SunriseSunset {
 
     public enum DayPeriod {
@@ -504,6 +507,7 @@ public final class SunriseSunset {
         }
         Calendar dawn = astronomicalTwilight[0];
         Calendar dusk = astronomicalTwilight[1];
+        @SuppressLint("SimpleDateFormat")
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss z");
         format.setTimeZone(calendar.getTimeZone());
         return calendar.before(dawn) || calendar.after(dusk);

@@ -51,8 +51,8 @@
         app:layout="@layout/mp_preference_material_widget" />-->
     <sk.henrichg.phoneprofilesplus.DurationDialogPreferenceX
         app:key="eventNotificationDuration"
-        app:summary="@string/event_preferences_duration"
-        app:title="@string/event_preferences_duration"
+        app:summary="@string/event_preferences_notifications_duration"
+        app:title="@string/event_preferences_notifications_duration"
         app:defaultValue="0"
         app:dMin="0"
         app:dMax="86400"

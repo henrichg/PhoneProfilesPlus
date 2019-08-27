@@ -252,7 +252,7 @@
     <string name="array_event_pref_contact_list_type_not_use">Do not use</string>
     <string name="event_type_call">Call</string>
     <string name="pref_event_call_event">Event</string>
-    <string name="pref_event_call_contactListType">List</string>
+<!--    <string name="pref_event_call_contactListType">List</string>-->
     <string name="event_preferences_battery_level_bad_value">Bad value</string>
     <string name="event_preferences_eventProfileEnd">Activate profile</string>
     <string name="menu_restart_events">Restart events</string>
@@ -1439,9 +1439,9 @@
     <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotificationEnabled">Show notification for detection of not used mobile cell</string>
 
     <string name="about_application_help_me_with_translation">Please help me with the translation. Thank you.</string>
-    <string name="profile_preferences_screenCarMode">Car mode</string>
-    <string name="array_pref_screenCarMode_onWithNightNode">On with night mode</string>
-    <string name="array_pref_screenCarMode_onWithoutNightNode">On without night mode</string>
+<!--    <string name="profile_preferences_screenCarMode">Car mode</string>-->
+<!--    <string name="array_pref_screenCarMode_onWithNightNode">On with night mode</string>-->
+<!--    <string name="array_pref_screenCarMode_onWithoutNightNode">On without night mode</string>-->
     <string name="event_preferences_time_timeType">Time type</string>
     <string name="event_preference_sensor_time_type_exact">Exact time</string>
     <string name="event_preference_sensor_time_type_sunrise_sunset">From sunrise to sunset</string>

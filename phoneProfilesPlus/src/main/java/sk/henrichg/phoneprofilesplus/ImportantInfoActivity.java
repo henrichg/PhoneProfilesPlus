@@ -96,6 +96,7 @@ public class ImportantInfoActivity extends AppCompatActivity {
 
         TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager,
                 new TabLayoutMediator.OnConfigureTabCallback() {
+                    @SuppressWarnings("unused")
                     @Override
                     public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                         if (position == 1)

@@ -712,6 +712,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressWarnings("unused")
     static public class EventsPrefsStartOfEventsOthers extends EventsPrefsFragment {
 
         @Override
@@ -720,6 +721,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressWarnings("unused")
     static public class EventsPrefsEndOfEventsOthers extends EventsPrefsFragment {
 
         @Override
@@ -728,6 +730,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressWarnings("unused")
     static public class EventsPrefsTimeParameters extends EventsPrefsFragment {
 
         @Override
@@ -736,6 +739,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressWarnings("unused")
     static public class EventsPrefsCalendarParameters extends EventsPrefsFragment {
 
         @Override
@@ -744,6 +748,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressWarnings("unused")
     static public class EventsPrefsBatteryParameters extends EventsPrefsFragment {
 
         @Override
@@ -752,6 +757,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressWarnings("unused")
     static public class EventsPrefsCallParameters extends EventsPrefsFragment {
 
         @Override
@@ -760,6 +766,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressWarnings("unused")
     static public class EventsPrefsSMSParameters extends EventsPrefsFragment {
 
         @Override
@@ -768,6 +775,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressWarnings("unused")
     static public class EventsPrefsRadioSwitchParameters extends EventsPrefsFragment {
 
         @Override
@@ -776,6 +784,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressWarnings("unused")
     static public class EventsPrefsLocationParameters extends EventsPrefsFragment {
 
         @Override
@@ -784,6 +793,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressWarnings("unused")
     static public class EventsPrefsWifiParameters extends EventsPrefsFragment {
 
         @Override
@@ -792,6 +802,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressWarnings("unused")
     static public class EventsPrefsBluetoothParameters extends EventsPrefsFragment {
 
         @Override
@@ -800,6 +811,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressWarnings("unused")
     static public class EventsPrefsMobileCellsParameters extends EventsPrefsFragment {
 
         @Override
@@ -808,6 +820,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressWarnings("unused")
     static public class EventsPrefsAccessoriesParameters extends EventsPrefsFragment {
 
         @Override
@@ -816,6 +829,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressWarnings("unused")
     static public class EventsPrefsScreenParameters extends EventsPrefsFragment {
 
         @Override
@@ -824,6 +838,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressWarnings("unused")
     static public class EventsPrefsNotificationsParameters extends EventsPrefsFragment {
 
         @Override
@@ -832,6 +847,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressWarnings("unused")
     static public class EventsPrefsApplicationsParameters extends EventsPrefsFragment {
 
         @Override
@@ -840,6 +856,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressWarnings("unused")
     static public class EventsPrefsOrientationParameters extends EventsPrefsFragment {
 
         @Override
@@ -848,6 +865,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressWarnings("unused")
     static public class EventsPrefsNFCParameters extends EventsPrefsFragment {
 
         @Override
@@ -856,6 +874,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressWarnings("unused")
     static public class EventsPrefsAlarmClockParameters extends EventsPrefsFragment {
 
         @Override

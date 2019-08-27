@@ -1144,11 +1144,11 @@ class Permissions {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
                 if ((event._eventPreferencesWifi._enabled &&
-                        ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_INFRONT) ||
-                         (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT))) ||
+                        ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
+                         (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY))) ||
                     (event._eventPreferencesBluetooth._enabled &&
-                        ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_INFRONT) ||
-                         (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT))) ||
+                        ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NEARBY) ||
+                         (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY))) ||
                     (event._eventPreferencesLocation._enabled) ||
                     (event._eventPreferencesMobileCells._enabled) ||
                     (event._eventPreferencesTime._enabled &&
@@ -1157,8 +1157,8 @@ class Permissions {
                     boolean grantedAccessFineLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
                     if (permissions != null) {
                         if (event._eventPreferencesWifi._enabled &&
-                                ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_INFRONT) ||
-                                        (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT))) {
+                                ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
+                                        (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY))) {
                             if (!grantedAccessCoarseLocation)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
                             if (!grantedAccessFineLocation)
@@ -1166,8 +1166,8 @@ class Permissions {
                         }
                         else
                         if (event._eventPreferencesBluetooth._enabled &&
-                                ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_INFRONT) ||
-                                        (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT))) {
+                                ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NEARBY) ||
+                                        (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY))) {
                             if (!grantedAccessCoarseLocation)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
                             if (!grantedAccessFineLocation)
@@ -1204,11 +1204,11 @@ class Permissions {
         else {
             try {
                 if ((event._eventPreferencesWifi._enabled &&
-                        ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_INFRONT) ||
-                         (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT))) ||
+                        ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
+                         (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY))) ||
                     (event._eventPreferencesBluetooth._enabled &&
-                        ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_INFRONT) ||
-                         (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT))) ||
+                        ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NEARBY) ||
+                         (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY))) ||
                     (event._eventPreferencesLocation._enabled) ||
                     (event._eventPreferencesMobileCells._enabled) ||
                     (event._eventPreferencesTime._enabled &&
@@ -1228,8 +1228,8 @@ class Permissions {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
                 if (event._eventPreferencesBluetooth._enabled &&
-                                ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_INFRONT) ||
-                                        (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT))) {
+                                ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NEARBY) ||
+                                        (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY))) {
                     boolean granted = checkBluetoothForEMUI(context);
                     if (permissions != null) {
                         if (!granted)
@@ -1245,8 +1245,8 @@ class Permissions {
         else {
             try {
                 if (event._eventPreferencesBluetooth._enabled &&
-                                ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_INFRONT) ||
-                                        (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT))) {
+                                ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NEARBY) ||
+                                        (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY))) {
                     return hasPermission(context, permission.WRITE_SETTINGS);
                 } else
                     return true;

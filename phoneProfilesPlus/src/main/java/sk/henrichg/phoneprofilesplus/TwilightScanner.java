@@ -32,7 +32,7 @@ class TwilightScanner {
 
     private final Object mLock = new Object();
 
-    Context context;
+    private final Context context;
     private AlarmManager mAlarmManager;
     private LocationManager mLocationManager;
     private LocationHandler mLocationHandler;

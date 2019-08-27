@@ -27,9 +27,9 @@ class EventPreferencesBluetooth extends EventPreferences {
     int _devicesType;
 
     static final int CTYPE_CONNECTED = 0;
-    static final int CTYPE_INFRONT = 1;
-    static final int CTYPE_NOTCONNECTED = 2;
-    static final int CTYPE_NOTINFRONT = 3;
+    static final int CTYPE_NEARBY = 1;
+    static final int CTYPE_NOT_CONNECTED = 2;
+    static final int CTYPE_NOT_NEARBY = 3;
 
     static final int DTYPE_CLASSIC = 0;
     static final int DTYPE_LE = 1;
@@ -139,7 +139,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                                 selectedBluetoothNames = selectedBluetoothNames + context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb);
                                 break;
                             default:
-                                if ((this._connectionType == CTYPE_INFRONT) || (this._connectionType == CTYPE_NOTINFRONT)) {
+                                if ((this._connectionType == CTYPE_NEARBY) || (this._connectionType == CTYPE_NOT_NEARBY)) {
                                     if (WifiBluetoothScanner.bluetoothLESupported(context)) {
                                         if (this._devicesType == DTYPE_CLASSIC)
                                             selectedBluetoothNames = selectedBluetoothNames + "[CL] ";

@@ -79,11 +79,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_CALL = 3;
     static final int ETYPE_PERIPHERAL = 4;
     static final int ETYPE_CALENDAR = 5;
-    static final int ETYPE_WIFICONNECTED = 6;
-    static final int ETYPE_WIFIINFRONT = 7;
+    static final int ETYPE_WIFI_CONNECTED = 6;
+    static final int ETYPE_WIFI_NEARBY = 7;
     static final int ETYPE_SCREEN = 8;
-    static final int ETYPE_BLUETOOTHCONNECTED = 9;
-    static final int ETYPE_BLUETOOTHINFRONT = 10;
+    static final int ETYPE_BLUETOOTH_CONNECTED = 9;
+    static final int ETYPE_BLUETOOTH_NEARBY = 10;
     static final int ETYPE_SMS = 11;
     static final int ETYPE_NOTIFICATION = 12;
     static final int ETYPE_APPLICATION = 13;
@@ -101,7 +101,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_WIFI = 25;
     static final int ETYPE_BLUETOOTH = 26;
     static final int ETYPE_ALARM_CLOCK = 27;
-    static final int ETYPE_TIMETWILIGHT = 28;
+    static final int ETYPE_TIME_TWILIGHT = 28;
 
     // activity log types
     static final int ALTYPE_UNDEFINED = 0;
@@ -6386,18 +6386,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     eventTypeChecked = eventTypeChecked + KEY_E_PERIPHERAL_ENABLED + "=1";
                 else if (eventType == ETYPE_CALENDAR)
                     eventTypeChecked = eventTypeChecked + KEY_E_CALENDAR_ENABLED + "=1";
-                else if (eventType == ETYPE_WIFICONNECTED)
+                else if (eventType == ETYPE_WIFI_CONNECTED)
                     eventTypeChecked = eventTypeChecked + KEY_E_WIFI_ENABLED + "=1" + " AND " +
                             "(" + KEY_E_WIFI_CONNECTION_TYPE + "=0 OR " + KEY_E_WIFI_CONNECTION_TYPE + "=2)";
-                else if (eventType == ETYPE_WIFIINFRONT)
+                else if (eventType == ETYPE_WIFI_NEARBY)
                     eventTypeChecked = eventTypeChecked + KEY_E_WIFI_ENABLED + "=1" + " AND " +
                             "(" + KEY_E_WIFI_CONNECTION_TYPE + "=1 OR " + KEY_E_WIFI_CONNECTION_TYPE + "=3)";
                 else if (eventType == ETYPE_SCREEN)
                     eventTypeChecked = eventTypeChecked + KEY_E_SCREEN_ENABLED + "=1";
-                else if (eventType == ETYPE_BLUETOOTHCONNECTED)
+                else if (eventType == ETYPE_BLUETOOTH_CONNECTED)
                     eventTypeChecked = eventTypeChecked + KEY_E_BLUETOOTH_ENABLED + "=1" + " AND " +
                             "(" + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=0 OR " + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=2)";
-                else if (eventType == ETYPE_BLUETOOTHINFRONT)
+                else if (eventType == ETYPE_BLUETOOTH_NEARBY)
                     eventTypeChecked = eventTypeChecked + KEY_E_BLUETOOTH_ENABLED + "=1" + " AND " +
                             "(" + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=1 OR " + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=3)";
                 else if (eventType == ETYPE_SMS)
@@ -8657,6 +8657,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     boolean isMobileCellSaved(int mobileCell) {
         importExportLock.lock();
         try {
@@ -9574,9 +9575,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                             ringerMode = 1;
                                             break;
                                         case 2:
-                                            ringerMode = 4;
-                                            break;
                                         case 3:
+                                        case 6:
                                             ringerMode = 4;
                                             break;
                                         case 4:
@@ -9584,9 +9584,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                             break;
                                         case 5:
                                             ringerMode = 3;
-                                            break;
-                                        case 6:
-                                            ringerMode = 4;
                                             break;
                                     }
                                     values.clear();

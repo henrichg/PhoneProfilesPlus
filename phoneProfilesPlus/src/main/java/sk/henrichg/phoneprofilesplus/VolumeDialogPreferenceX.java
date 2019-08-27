@@ -28,7 +28,7 @@ public class VolumeDialogPreferenceX extends DialogPreference {
     //final int disableSharedProfile;
 
     int maximumValue = 7;
-    final int minimumValue = 0;
+    //final int minimumValue = 0;
     int maximumMediaValue = 15;
     private int defaultValueRing = 0;
     private int defaultValueNotification = 0;
@@ -158,7 +158,7 @@ public class VolumeDialogPreferenceX extends DialogPreference {
             PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", Log.getStackTraceString(e));
             value = 0;
         }
-        value = value - minimumValue;
+        //value = value - minimumValue;
 
         try {
             noChange = Integer.parseInt(splits[1]);
@@ -195,8 +195,8 @@ public class VolumeDialogPreferenceX extends DialogPreference {
     }
 
     String getSValue() {
-        int _value = value + minimumValue;
-        return _value
+        //int _value = value + minimumValue;
+        return value
                 + "|" + noChange
                 + "|" + "0";
     }

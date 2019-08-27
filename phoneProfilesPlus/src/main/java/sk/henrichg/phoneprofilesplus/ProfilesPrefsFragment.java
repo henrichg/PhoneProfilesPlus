@@ -402,7 +402,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 preferenceCategory.removePreference(preference);
             }
         }*/
-        if ((android.os.Build.VERSION.SDK_INT < 23) || (android.os.Build.VERSION.SDK_INT > 23)) {
+        if (Build.VERSION.SDK_INT != 23) {
             Preference preference = prefMng.findPreference("prf_pref_volumeVibrateWhenRingingRootInfo");
             if (preference != null) {
                 PreferenceScreen preferenceCategory = findPreference("prf_pref_soundProfileCategory");
@@ -1355,6 +1355,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_ON_TOUCH, R.string.profile_preferences_soundOnTouch, false, context);
             if (!title.isEmpty()) {
                 _bold = true;
+                //noinspection ConstantConditions
                 if (!summary.isEmpty()) summary = summary +" • ";
 
                 String value = GlobalGUIRoutines.getListPreferenceString(

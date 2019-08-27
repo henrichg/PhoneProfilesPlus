@@ -307,7 +307,7 @@ class EventPreferencesNotification extends EventPreferences {
         }*/
     }
 
-    long computeAlarm(Context context)
+    private long computeAlarm(Context context)
     {
         PPApplication.logE("EventPreferencesNotification.computeAlarm","xxx");
 
@@ -359,7 +359,7 @@ class EventPreferencesNotification extends EventPreferences {
         PPApplication.logE("EventPreferencesNotification.removeSystemEvent", "xxx");
     }
 
-    void removeAlarm(Context context)
+    private void removeAlarm(Context context)
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {

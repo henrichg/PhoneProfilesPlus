@@ -1027,18 +1027,18 @@
         <item>@string/array_intent_type_activity</item>
         <item>@string/array_intent_type_broadcast</item>
     </string-array>
-    <string-array name="screenCarModeArray">
-        <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_screenCarMode_onWithNightNode</item>
-        <item>@string/array_pref_screenCarMode_onWithoutNightNode</item>
-        <item>@string/array_pref_hardwareModeArray_off</item>
-    </string-array>
-    <string-array name="screenCarModeValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
+<!--    <string-array name="screenCarModeArray">-->
+<!--        <item>@string/array_pref_no_change</item>-->
+<!--        <item>@string/array_pref_screenCarMode_onWithNightNode</item>-->
+<!--        <item>@string/array_pref_screenCarMode_onWithoutNightNode</item>-->
+<!--        <item>@string/array_pref_hardwareModeArray_off</item>-->
+<!--    </string-array>-->
+<!--    <string-array name="screenCarModeValues">-->
+<!--        <item>0</item>-->
+<!--        <item>1</item>-->
+<!--        <item>2</item>-->
+<!--        <item>3</item>-->
+<!--    </string-array>-->
     <string-array name="eventTimeTypeArray">
         <item>@string/event_preference_sensor_time_type_exact</item>
         <item>@string/event_preference_sensor_time_type_sunrise_sunset</item>

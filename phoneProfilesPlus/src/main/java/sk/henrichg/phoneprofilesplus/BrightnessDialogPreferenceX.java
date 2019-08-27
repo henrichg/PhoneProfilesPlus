@@ -23,7 +23,7 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
 
     //private final int defaultValue = 50;
     final int maximumValue = 100;
-    final int minimumValue = 0;
+    //final int minimumValue = 0;
     final int stepSize = 1;
 
     private String sValue = "";
@@ -112,7 +112,7 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
         } catch (Exception e) {
             value = 50;
         }
-        value = value - minimumValue;
+        //value = value - minimumValue;
         try {
             noChange = Integer.parseInt(splits[1]);
         } catch (Exception e) {
@@ -171,8 +171,8 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
     }
 
     String getSValue() {
-        int _value = value + minimumValue;
-        return _value
+        //int _value = value + minimumValue;
+        return value
                 + "|" + noChange
                 + "|" + automatic
                 + "|" + "0"

@@ -2432,6 +2432,7 @@ public class Profile {
 
     private static String getVolumeLevelString(int percentage, int maxValue)
     {
+        //noinspection WrapperTypeMayBePrimitive
         Double dValue = maxValue / 100.0 * percentage;
         return String.valueOf(dValue.intValue());
     }

@@ -207,8 +207,6 @@ class ApplicationPreferences {
                     applicationTheme = "dark";
                     break;
                 case Configuration.UI_MODE_NIGHT_NO:
-                    applicationTheme = "white"; //getSharedPreferences(context).getString(PREF_APPLICATION_NIGHT_MODE_OFF_THEME, "white");
-                    break;
                 case Configuration.UI_MODE_NIGHT_UNDEFINED:
                     applicationTheme = "white"; //getSharedPreferences(context).getString(PREF_APPLICATION_NIGHT_MODE_OFF_THEME, "white");
                     break;

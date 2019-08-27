@@ -642,21 +642,23 @@ class EventsHandler {
         int eventType = 0;
         switch (broadcastReceiverType) {
             case SENSOR_TYPE_BATTERY:
+            case SENSOR_TYPE_POWER_SAVE_MODE:
                 eventType = DatabaseHandler.ETYPE_BATTERY;
                 break;
             case SENSOR_TYPE_BLUETOOTH_CONNECTION:
-                eventType = DatabaseHandler.ETYPE_BLUETOOTHCONNECTED;
+            case SENSOR_TYPE_BLUETOOTH_STATE:
+                eventType = DatabaseHandler.ETYPE_BLUETOOTH_CONNECTED;
                 break;
             case SENSOR_TYPE_BLUETOOTH_SCANNER:
-                eventType = DatabaseHandler.ETYPE_BLUETOOTHINFRONT;
-                break;
-            case SENSOR_TYPE_BLUETOOTH_STATE:
-                eventType = DatabaseHandler.ETYPE_BLUETOOTHCONNECTED;
+                eventType = DatabaseHandler.ETYPE_BLUETOOTH_NEARBY;
                 break;
             case SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED:
+            case SENSOR_TYPE_CALENDAR:
+            case SENSOR_TYPE_SEARCH_CALENDAR_EVENTS:
                 eventType = DatabaseHandler.ETYPE_CALENDAR;
                 break;
             case SENSOR_TYPE_DOCK_CONNECTION:
+            case SENSOR_TYPE_HEADSET_CONNECTION:
                 eventType = DatabaseHandler.ETYPE_PERIPHERAL;
                 break;
             /*case SENSOR_TYPE_EVENT_DELAY_START:
@@ -665,17 +667,11 @@ class EventsHandler {
             case SENSOR_TYPE_EVENT_DELAY_END:
                 eventType = DatabaseHandler.ETYPE_????;
                 break;*/
-            case SENSOR_TYPE_CALENDAR:
-                eventType = DatabaseHandler.ETYPE_CALENDAR;
-                break;
             case SENSOR_TYPE_TIME:
                 eventType = DatabaseHandler.ETYPE_TIME;
                 break;
             case SENSOR_TYPE_APPLICATION:
                 eventType = DatabaseHandler.ETYPE_APPLICATION;
-                break;
-            case SENSOR_TYPE_HEADSET_CONNECTION:
-                eventType = DatabaseHandler.ETYPE_PERIPHERAL;
                 break;
             case SENSOR_TYPE_NOTIFICATION:
                 eventType = DatabaseHandler.ETYPE_NOTIFICATION;
@@ -684,8 +680,6 @@ class EventsHandler {
                 eventType = DatabaseHandler.ETYPE_NOTIFICATION;
                 break;*/
             case SENSOR_TYPE_PHONE_CALL:
-                eventType = DatabaseHandler.ETYPE_CALL;
-                break;
             case SENSOR_TYPE_PHONE_CALL_EVENT_END:
                 eventType = DatabaseHandler.ETYPE_CALL;
                 break;
@@ -696,33 +690,21 @@ class EventsHandler {
             case SENSOR_TYPE_SCREEN:
                 eventType = DatabaseHandler.ETYPE_SCREEN;
                 break;*/
-            case SENSOR_TYPE_SEARCH_CALENDAR_EVENTS:
-                eventType = DatabaseHandler.ETYPE_CALENDAR;
-                break;
             case SENSOR_TYPE_SMS:
-                eventType = DatabaseHandler.ETYPE_SMS;
-                break;
             case SENSOR_TYPE_SMS_EVENT_END:
                 eventType = DatabaseHandler.ETYPE_SMS;
                 break;
             case SENSOR_TYPE_WIFI_CONNECTION:
-                eventType = DatabaseHandler.ETYPE_WIFICONNECTED;
+            case SENSOR_TYPE_WIFI_STATE:
+                eventType = DatabaseHandler.ETYPE_WIFI_CONNECTED;
                 break;
             case SENSOR_TYPE_WIFI_SCANNER:
-                eventType = DatabaseHandler.ETYPE_WIFIINFRONT;
-                break;
-            case SENSOR_TYPE_WIFI_STATE:
-                eventType = DatabaseHandler.ETYPE_WIFICONNECTED;
+                eventType = DatabaseHandler.ETYPE_WIFI_NEARBY;
                 break;
             /*case SENSOR_TYPE_DEVICE_IDLE_MODE:
                 eventType = DatabaseHandler.ETYPE_????;
                 break;*/
-            case SENSOR_TYPE_POWER_SAVE_MODE:
-                eventType = DatabaseHandler.ETYPE_BATTERY;
-                break;
             case SENSOR_TYPE_GEOFENCES_SCANNER:
-                eventType = DatabaseHandler.ETYPE_LOCATION;
-                break;
             case SENSOR_TYPE_LOCATION_MODE:
                 eventType = DatabaseHandler.ETYPE_LOCATION;
                 break;
@@ -733,8 +715,6 @@ class EventsHandler {
                 eventType = DatabaseHandler.ETYPE_MOBILE_CELLS;
                 break;
             case SENSOR_TYPE_NFC_TAG:
-                eventType = DatabaseHandler.ETYPE_NFC;
-                break;
             case SENSOR_TYPE_NFC_EVENT_END:
                 eventType = DatabaseHandler.ETYPE_NFC;
                 break;
@@ -742,8 +722,6 @@ class EventsHandler {
                 eventType = DatabaseHandler.ETYPE_RADIO_SWITCH;
                 break;
             case SENSOR_TYPE_ALARM_CLOCK:
-                eventType = DatabaseHandler.ETYPE_ALARM_CLOCK;
-                break;
             case SENSOR_TYPE_ALARM_CLOCK_EVENT_END:
                 eventType = DatabaseHandler.ETYPE_ALARM_CLOCK;
                 break;

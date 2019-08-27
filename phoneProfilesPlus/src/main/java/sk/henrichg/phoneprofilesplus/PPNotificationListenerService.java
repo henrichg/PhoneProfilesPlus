@@ -97,9 +97,8 @@ public class PPNotificationListenerService extends NotificationListenerService {
             PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "time=" + alarmTimeS);
         }
 
-        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-        long time = sbn.getPostTime() + gmtOffset;
-
+//        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+//        long time = sbn.getPostTime() + gmtOffset;
         //getNotifiedPackages(context);
         //addNotifiedPackage(sbn.getPackageName(), time);
         //saveNotifiedPackages(context);

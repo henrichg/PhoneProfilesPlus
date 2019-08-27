@@ -433,9 +433,9 @@ public class PhoneProfilesService extends Service
         return waitForEndOfStart;
     }
 
-    void setWaitForEndOfStart(boolean value) {
-        waitForEndOfStart = value;
-    }
+//    void setWaitForEndOfStart(boolean value) {
+//        waitForEndOfStart = value;
+//    }
 
     private void registerAllTheTimeRequiredReceivers(boolean register) {
         final Context appContext = getApplicationContext();
@@ -967,8 +967,8 @@ public class PhoneProfilesService extends Service
             if (allowed) {
                 int eventCount = 1;
                 if (checkDatabase/* || (powerSaveModeReceiver == null)*/) {
-                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT, false);
-                    eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT, false);
+                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFI_NEARBY, false);
+                    eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTH_NEARBY, false);
                     eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION, false);
                     eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false);
                     eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false);
@@ -1032,8 +1032,8 @@ public class PhoneProfilesService extends Service
                 int eventCount = 1;
                 int batteryLevelCount = 1;
                 if (checkDatabase/* || (batteryChangeLevelReceiver == null)*/) {
-                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT, false);
-                    eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT, false);
+                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFI_NEARBY, false);
+                    eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTH_NEARBY, false);
                     eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION, false);
                     eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false);
                     eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false);
@@ -1941,8 +1941,8 @@ public class PhoneProfilesService extends Service
                         if ((PPApplication.isScreenOn) || !ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(appContext)) {
                             // start only for screen On
                             eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_RADIO_SWITCH_BLUETOOTH, false);
-                            eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHCONNECTED, false);
-                            eventScannerCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT, false);
+                            eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTH_CONNECTED, false);
+                            eventScannerCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTH_NEARBY, false);
                         } else {
                             eventScannerCount = 0;
                             eventCount = 0;
@@ -2004,8 +2004,8 @@ public class PhoneProfilesService extends Service
                     //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     if ((PPApplication.isScreenOn) || !ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(appContext)) {
                         // start only for screen On
-                        eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHCONNECTED);
-                        eventScannerCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT);
+                        eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTH_CONNECTED);
+                        eventScannerCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTH_NEARBY);
                     }
                     else {
                         eventScannerCount = 0;
@@ -2104,7 +2104,7 @@ public class PhoneProfilesService extends Service
                         //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         if ((PPApplication.isScreenOn) || !ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(appContext)) {
                             // start only for screen On
-                            eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT, false);
+                            eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTH_NEARBY, false);
                         } else
                             eventCount = 0;
                     } else
@@ -2171,7 +2171,7 @@ public class PhoneProfilesService extends Service
                         // start only for screen On
                         int eventCount = 1;
                         if (checkDatabase/* || (wifiAPStateChangeBroadcastReceiver == null)*/) {
-                            eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT, false);
+                            eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFI_NEARBY, false);
                         }
                         if (eventCount > 0) {
                             if (wifiAPStateChangeBroadcastReceiver == null) {
@@ -2229,8 +2229,8 @@ public class PhoneProfilesService extends Service
             if (allowed) {
                 int eventCount = 1;
                 if (checkDatabase/* || (powerSaveModeReceiver == null)*/) {
-                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT, false);
-                    eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT, false);
+                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFI_NEARBY, false);
+                    eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTH_NEARBY, false);
                     eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION, false);
                     eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false);
                     eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false);
@@ -2303,8 +2303,8 @@ public class PhoneProfilesService extends Service
                             //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                             if ((PPApplication.isScreenOn) || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
                                 // start only for screen On
-                                eventScannerCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT, false);
-                                eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFICONNECTED, false);
+                                eventScannerCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFI_NEARBY, false);
+                                eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFI_CONNECTED, false);
                                 eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_RADIO_SWITCH_WIFI, false);
                             } else {
                                 eventCount = 0;
@@ -2382,8 +2382,8 @@ public class PhoneProfilesService extends Service
                             //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                             if ((PPApplication.isScreenOn) || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
                                 // start only for screen On
-                                eventScannerCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT, false);
-                                eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFICONNECTED, false);
+                                eventScannerCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFI_NEARBY, false);
+                                eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFI_CONNECTED, false);
                             } else {
                                 eventScannerCount = 0;
                                 eventCount = 0;
@@ -2445,7 +2445,7 @@ public class PhoneProfilesService extends Service
                         //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         if ((PPApplication.isScreenOn) || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
                             // start only for screen On
-                            eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT, false);
+                            eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFI_NEARBY, false);
                         } else
                             eventCount = 0;
                     } else
@@ -2693,7 +2693,7 @@ public class PhoneProfilesService extends Service
                                 // start only for screen On
                                 int eventCount = 1;
                                 if (checkDatabase/* || (!WifiScanJob.isJobScheduled())*/) {
-                                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT, false);
+                                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFI_NEARBY, false);
                                 }
                                 if (eventCount > 0) {
                                     if (!WifiScanJob.isJobScheduled()) {
@@ -2756,7 +2756,7 @@ public class PhoneProfilesService extends Service
                                 // start only for screen On
                                 int eventCount = 1;
                                 if (checkDatabase/* || (!BluetoothScanJob.isJobScheduled())*/) {
-                                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT, false);
+                                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTH_NEARBY, false);
                                 }
                                 if (eventCount > 0) {
                                     if (!BluetoothScanJob.isJobScheduled()) {
@@ -3068,7 +3068,7 @@ public class PhoneProfilesService extends Service
                             // start only for screen On
                             int eventCount = 1;
                             if (checkDatabase/* || (!isOrientationScannerStarted())*/) {
-                                eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_TIMETWILIGHT, false);
+                                eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_TIME_TWILIGHT, false);
                             }
                             if (eventCount > 0) {
                                 if (!isTwilightScannerStarted()) {
@@ -5157,7 +5157,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    boolean isTwilightScannerStarted() {
+    private boolean isTwilightScannerStarted() {
         return (twilightScanner != null);
     }
 
