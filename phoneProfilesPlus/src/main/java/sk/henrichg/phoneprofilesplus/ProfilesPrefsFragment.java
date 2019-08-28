@@ -2607,6 +2607,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         disableDependedPref(Profile.PREF_PROFILE_VOLUME_RINGER_MODE);
         disableDependedPref(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
         disableDependedPref(Profile.PREF_PROFILE_AFTER_DURATION_DO);
+        disableDependedPref(Profile.PREF_PROFILE_ASK_FOR_DURATION);
 
         //if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE)
         //{
@@ -2616,6 +2617,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_DURATION);
         setSummary(Profile.PREF_PROFILE_AFTER_DURATION_DO);
         setSummary(Profile.PREF_PROFILE_ASK_FOR_DURATION);
+        setSummary(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE);
         setSummary(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND);
         setSummary(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE);
         setSummary(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON);
@@ -2829,7 +2831,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
-        if (key.equals(Profile.PREF_PROFILE_AFTER_DURATION_DO)) {
+        if (key.equals(Profile.PREF_PROFILE_AFTER_DURATION_DO) ||
+            key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION)) {
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE);
             if (preference != null) {
                 String afterDurationDo = preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_DO, "0");
@@ -2841,7 +2844,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
     private void disableDependedPref(String key) {
         String value;
-        if (key.equals(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR)) {
+        if (key.equals(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR) ||
+            key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION)) {
             boolean b = preferences.getBoolean(key, false);
             value = Boolean.toString(b);
         }
