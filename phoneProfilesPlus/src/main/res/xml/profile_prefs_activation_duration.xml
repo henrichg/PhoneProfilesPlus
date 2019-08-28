@@ -26,6 +26,7 @@
         app:defaultValue="-999"
         app:key="prf_pref_afterDurationProfile"
         app:title="@string/array_pref_afterProfileDurationDo_activateProfile"
+        app:dependency="prf_pref_askForDuration"
         app:addNoActivateItem="1"
         app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat

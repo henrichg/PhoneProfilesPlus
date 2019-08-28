@@ -1041,11 +1041,24 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         value = GlobalGUIRoutines.getDurationString(Integer.parseInt(value));
                         summary = summary + title + ": " + value + " • ";
 
-                        value = GlobalGUIRoutines.getListPreferenceString(
-                                preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_DO,
-                                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_AFTER_DURATION_DO)),
+                        String afterDurationDoValue = preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_DO,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_AFTER_DURATION_DO));
+                        value = GlobalGUIRoutines.getListPreferenceString(afterDurationDoValue,
                                 R.array.afterProfileDurationDoValues, R.array.afterProfileDurationDoArray, context);
                         summary = summary + afterDurationDoTitle + ": " + value;
+
+                        if (afterDurationDoValue.equals("4")) {
+                            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+                            long profileId = Long.parseLong(preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE)));
+                            Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
+                            if (profile != null)
+                                value = profile._name;
+                            else {
+                                if (profileId == Profile.PROFILE_NO_ACTIVATE)
+                                    value = context.getResources().getString(R.string.profile_preference_profile_end_no_activate);
+                            }
+                            summary = summary + ": " + value;
+                        }
                     }
                     else
                         summary = summary + afterDurationDoTitle;

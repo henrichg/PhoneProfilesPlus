@@ -447,6 +447,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(Profile.PREF_PROFILE_VOLUME_DTMF, profile._volumeDTMF);
             editor.putString(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, profile._volumeAccessibility);
             editor.putString(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO, profile._volumeBluetoothSCO);
+            editor.putString(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, Long.toString(profile._afterDurationProfile));
             editor.apply();
         }
     }
@@ -467,6 +468,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
             profile._duration = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DURATION, ""));
             profile._afterDurationDo = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_DO, ""));
+            profile._afterDurationProfile = Long.parseLong(preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, ""));
             profile._askForDuration = preferences.getBoolean(Profile.PREF_PROFILE_ASK_FOR_DURATION, false);
             profile._durationNotificationSound = preferences.getString(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND, "");
             profile._durationNotificationVibrate = preferences.getBoolean(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE, false);

@@ -40,7 +40,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2400;
+    private static final int DATABASE_VERSION = 2401;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -2921,6 +2921,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_AFTER_DURATION_PROFILE + " INTEGER");
 
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_AFTER_DURATION_PROFILE + "=" + Profile.PROFILE_NO_ACTIVATE);
+        }
+        if (oldVersion < 2401)
+        {
+            if (!doMergedTableCreate) {
+                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_AFTER_DURATION_PROFILE + " INTEGER");
+            }
+
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_AFTER_DURATION_PROFILE + "=" + Profile.PROFILE_NO_ACTIVATE);
         }
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
