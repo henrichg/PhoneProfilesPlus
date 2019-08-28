@@ -156,7 +156,7 @@ class EventPreferencesCalendar extends EventPreferences {
 
                 descr = descr + context.getString(R.string.event_preferences_calendar_calendars) + ": ";
                 String[] calendarsSplits = _calendars.split("\\|");
-                descr = descr + "<b>" + calendarsSplits.length + "</b> • ";
+                descr = descr + "<b>" + context.getString(R.string.applications_multiselect_summary_text_selected) + " " + calendarsSplits.length + "</b> • ";
 
                 if (this._allEvents) {
                     descr = descr + "<b>" + context.getString(R.string.event_preferences_calendar_all_events) + "</b> • ";
