@@ -342,7 +342,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._soundOnTouch,
                         origProfile._volumeDTMF,
                         origProfile._volumeAccessibility,
-                        origProfile._volumeBluetoothSCO);
+                        origProfile._volumeBluetoothSCO,
+                        origProfile._afterDurationProfile);
                 showSaveMenu = true;
             }
             else

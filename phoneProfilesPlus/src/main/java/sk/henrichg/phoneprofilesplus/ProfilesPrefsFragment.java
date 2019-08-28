@@ -174,6 +174,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        if (preference instanceof ProfilePreferenceX) {
+            ((ProfilePreferenceX) preference).fragment = new ProfilePreferenceFragmentX();
+            dialogFragment = ((ProfilePreferenceX) preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
 
         if (dialogFragment != null)
         {

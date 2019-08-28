@@ -40,7 +40,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2390;
+    private static final int DATABASE_VERSION = 2400;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -210,6 +210,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_VOLUME_DTMF = "volumeDTMF";
     private static final String KEY_VOLUME_ACCESSIBILITY = "volumeAccessibility";
     private static final String KEY_VOLUME_BLUETOOTH_SCO = "volumeBluetoothSCO";
+    private static final String KEY_AFTER_DURATION_PROFILE = "afterDurationProfile";
 
     // Events Table Columns names
     private static final String KEY_E_ID = "id";
@@ -556,7 +557,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_SOUND_ON_TOUCH + " INTEGER,"
                 + KEY_VOLUME_DTMF + " TEXT,"
                 + KEY_VOLUME_ACCESSIBILITY + " TEXT,"
-                + KEY_VOLUME_BLUETOOTH_SCO + " TEXT"
+                + KEY_VOLUME_BLUETOOTH_SCO + " TEXT,"
+                + KEY_AFTER_DURATION_PROFILE + " INTEGER"
                 + ")";
     }
 
@@ -2739,7 +2741,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SCREEN_CAR_MODE))),
                             Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DTMF_TONE_WHEN_DIALING))),
                             Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_ON_TOUCH))),
-                            "-1|1|0", "-1|1|0", "-1|1|0"
+                            "-1|1|0", "-1|1|0", "-1|1|0", Profile.PROFILE_NO_ACTIVATE
                     );
 
                     profile = Profile.getMappedProfile(profile, sharedProfile);
@@ -2914,6 +2916,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_DURATION + "=0");
         }
 
+        if (oldVersion < 2400)
+        {
+            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_AFTER_DURATION_PROFILE + " INTEGER");
+
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_AFTER_DURATION_PROFILE + "=" + Profile.PROFILE_NO_ACTIVATE);
+        }
+
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
 
     }
@@ -3016,6 +3025,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_VOLUME_DTMF, profile._volumeDTMF);
                 values.put(KEY_VOLUME_ACCESSIBILITY, profile._volumeAccessibility);
                 values.put(KEY_VOLUME_BLUETOOTH_SCO, profile._volumeBluetoothSCO);
+                values.put(KEY_AFTER_DURATION_PROFILE, profile._afterDurationProfile);
 
                 // Insert Row
                 if (!merged) {
@@ -3120,7 +3130,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_SOUND_ON_TOUCH,
                                 KEY_VOLUME_DTMF,
                                 KEY_VOLUME_ACCESSIBILITY,
-                                KEY_VOLUME_BLUETOOTH_SCO
+                                KEY_VOLUME_BLUETOOTH_SCO,
+                                KEY_AFTER_DURATION_PROFILE
                         },
                         KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -3199,7 +3210,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_ON_TOUCH))),
                                 cursor.getString(cursor.getColumnIndex(KEY_VOLUME_DTMF)),
                                 cursor.getString(cursor.getColumnIndex(KEY_VOLUME_ACCESSIBILITY)),
-                                cursor.getString(cursor.getColumnIndex(KEY_VOLUME_BLUETOOTH_SCO))
+                                cursor.getString(cursor.getColumnIndex(KEY_VOLUME_BLUETOOTH_SCO)),
+                                Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_AFTER_DURATION_PROFILE)))
                         );
                     }
 
@@ -3297,7 +3309,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_SOUND_ON_TOUCH + "," +
                         KEY_VOLUME_DTMF + "," +
                         KEY_VOLUME_ACCESSIBILITY + "," +
-                        KEY_VOLUME_BLUETOOTH_SCO +
+                        KEY_VOLUME_BLUETOOTH_SCO + "," +
+                        KEY_AFTER_DURATION_PROFILE +
                 " FROM " + TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -3380,6 +3393,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         profile._volumeDTMF = cursor.getString(cursor.getColumnIndex(KEY_VOLUME_DTMF));
                         profile._volumeAccessibility = cursor.getString(cursor.getColumnIndex(KEY_VOLUME_ACCESSIBILITY));
                         profile._volumeBluetoothSCO = cursor.getString(cursor.getColumnIndex(KEY_VOLUME_BLUETOOTH_SCO));
+                        profile._afterDurationProfile = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_AFTER_DURATION_PROFILE)));
                         // Adding profile to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
@@ -3479,6 +3493,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_VOLUME_DTMF, profile._volumeDTMF);
                 values.put(KEY_VOLUME_ACCESSIBILITY, profile._volumeAccessibility);
                 values.put(KEY_VOLUME_BLUETOOTH_SCO, profile._volumeBluetoothSCO);
+                values.put(KEY_AFTER_DURATION_PROFILE, profile._afterDurationProfile);
 
                 // updating row
                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -3823,7 +3838,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_SOUND_ON_TOUCH,
                                 KEY_VOLUME_DTMF,
                                 KEY_VOLUME_ACCESSIBILITY,
-                                KEY_VOLUME_BLUETOOTH_SCO
+                                KEY_VOLUME_BLUETOOTH_SCO,
+                                KEY_AFTER_DURATION_PROFILE
                         },
                         KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -3904,7 +3920,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_ON_TOUCH))),
                                 cursor.getString(cursor.getColumnIndex(KEY_VOLUME_DTMF)),
                                 cursor.getString(cursor.getColumnIndex(KEY_VOLUME_ACCESSIBILITY)),
-                                cursor.getString(cursor.getColumnIndex(KEY_VOLUME_BLUETOOTH_SCO))
+                                cursor.getString(cursor.getColumnIndex(KEY_VOLUME_BLUETOOTH_SCO)),
+                                Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_AFTER_DURATION_PROFILE)))
                         );
                     }
 
@@ -10114,6 +10131,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                 values.put(KEY_VIBRATE_WHEN_RINGING, 1);
                                             }
                                         }
+                                        if (exportedDBObj.getVersion() < 2400) {
+                                            values.put(KEY_AFTER_DURATION_PROFILE, Profile.PROFILE_NO_ACTIVATE);
+                                        }
 
                                         ///////////////////////////////////////////////////////
 
@@ -10203,7 +10223,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_SCREEN_CAR_MODE))),
                                                     Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DTMF_TONE_WHEN_DIALING))),
                                                     Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_SOUND_ON_TOUCH))),
-                                                    "-1|1|0", "-1|1|0", "-1|1|0"
+                                                    "-1|1|0", "-1|1|0", "-1|1|0", Profile.PROFILE_NO_ACTIVATE
                                             );
 
                                             profile = Profile.getMappedProfile(profile, sharedProfile);

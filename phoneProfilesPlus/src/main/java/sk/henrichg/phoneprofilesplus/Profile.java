@@ -105,10 +105,13 @@ public class Profile {
     String _volumeDTMF;
     String _volumeAccessibility;
     String _volumeBluetoothSCO;
+    long _afterDurationProfile;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
     int _ringerModeForZenMode;
+
+    static final long PROFILE_NO_ACTIVATE = -999;
 
     private static final String PREF_PROFILE_ID = "prf_pref_id";
     static final String PREF_PROFILE_NAME = "prf_pref_profileName";
@@ -181,6 +184,7 @@ public class Profile {
     static final String PREF_PROFILE_VOLUME_DTMF = "prf_pref_volumeDTMF";
     static final String PREF_PROFILE_VOLUME_ACCESSIBILITY = "prf_pref_volumeAccessibility";
     static final String PREF_PROFILE_VOLUME_BLUETOOTH_SCO = "prf_pref_volumeBluetoothSCO";
+    static final String PREF_PROFILE_AFTER_DURATION_PROFILE = "prf_pref_afterDurationProfile";
 
     static final HashMap<String, Boolean> defaultValuesBoolean;
     static {
@@ -259,6 +263,7 @@ public class Profile {
         defaultValuesString.put("prf_pref_volumeDTMF", "-1|1|0");
         defaultValuesString.put("prf_pref_volumeAccessibility", "-1|1|0");
         defaultValuesString.put("prf_pref_volumeBluetoothSCO", "-1|1|0");
+        defaultValuesString.put("prf_pref_afterDurationProfile", String.valueOf(PROFILE_NO_ACTIVATE));
     }
 
     static final int RINGERMODE_RING = 1;
@@ -286,7 +291,6 @@ public class Profile {
 
     //static final long SHARED_PROFILE_ID = -999L;
     static final String PROFILE_ICON_DEFAULT = "ic_profile_default";
-    static final long PROFILE_NO_ACTIVATE = -999;
     static final long RESTART_EVENTS_PROFILE_ID = -888L;
 
     static final int NO_CHANGE_VALUE = 0;
@@ -756,7 +760,8 @@ public class Profile {
                    int soundOnTouch,
                    String volumeDTMF,
                    String volumeAccessibility,
-                   String volumeBluetoothSCO)
+                   String volumeBluetoothSCO,
+                   long afterDurationProfile)
     {
         this._id = id;
         this._name = name;
@@ -828,6 +833,7 @@ public class Profile {
         this._volumeDTMF = volumeDTMF;
         this._volumeAccessibility = volumeAccessibility;
         this._volumeBluetoothSCO = volumeBluetoothSCO;
+        this._afterDurationProfile = afterDurationProfile;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -904,7 +910,8 @@ public class Profile {
                    int soundOnTouch,
                    String volumeDTMF,
                    String volumeAccessibility,
-                   String volumeBluetoothSCO)
+                   String volumeBluetoothSCO,
+                   long afterDurationProfile)
     {
         this._name = name;
         this._icon = icon;
@@ -975,6 +982,7 @@ public class Profile {
         this._volumeDTMF = volumeDTMF;
         this._volumeAccessibility = volumeAccessibility;
         this._volumeBluetoothSCO = volumeBluetoothSCO;
+        this._afterDurationProfile = afterDurationProfile;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1053,6 +1061,7 @@ public class Profile {
         this._volumeDTMF = profile._volumeDTMF;
         this._volumeAccessibility = profile._volumeAccessibility;
         this._volumeBluetoothSCO = profile._volumeBluetoothSCO;
+        this._afterDurationProfile = profile._afterDurationProfile;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -1091,10 +1100,12 @@ public class Profile {
             if (!withProfile._askForDuration && setDuration) {
                 this._duration = withProfile._duration;
                 this._afterDurationDo = withProfile._afterDurationDo;
+                this._afterDurationProfile = withProfile._afterDurationProfile;
             }
             else {
                 this._duration = 0;
                 this._afterDurationDo = AFTERDURATIONDO_RESTARTEVENTS;
+                this._afterDurationProfile = PROFILE_NO_ACTIVATE;
             }
             this._durationNotificationSound = withProfile._durationNotificationSound;
             this._durationNotificationVibrate = withProfile._durationNotificationVibrate;
@@ -2476,13 +2487,14 @@ public class Profile {
         else {*/
             profile._id = preferences.getLong(PREF_PROFILE_ID, 0);
             profile._name = preferences.getString(PREF_PROFILE_NAME, context.getResources().getString(R.string.profile_name_default));
-            profile._icon = preferences.getString(PREF_PROFILE_ICON, Profile.PROFILE_ICON_DEFAULT+"1|0|0");
+            profile._icon = preferences.getString(PREF_PROFILE_ICON, PROFILE_ICON_DEFAULT+"1|0|0");
             profile._checked = preferences.getBoolean(PREF_PROFILE_CHECKED, false);
         //}
 
         profile._porder = 0;
         profile._duration = 0;
-        profile._afterDurationDo = Profile.AFTERDURATIONDO_RESTARTEVENTS;
+        profile._afterDurationDo = AFTERDURATIONDO_RESTARTEVENTS;
+        profile._afterDurationProfile = PROFILE_NO_ACTIVATE;
         profile._durationNotificationSound = "";
         profile._durationNotificationVibrate = false;
         profile._activationByUserCount = 0;
@@ -2699,7 +2711,8 @@ public class Profile {
                     profile._soundOnTouch,
                     profile._volumeDTMF,
                     profile._volumeAccessibility,
-                    profile._volumeBluetoothSCO);
+                    profile._volumeBluetoothSCO,
+                    profile._afterDurationProfile);
 
             boolean zenModeMapped = false;
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE) {

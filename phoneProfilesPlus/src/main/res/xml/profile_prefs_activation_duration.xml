@@ -22,6 +22,12 @@
         app:entryValues="@array/afterProfileDurationDoValues"
         app:dependency="prf_pref_askForDuration"
         app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.ProfilePreferenceX
+        app:defaultValue="-999"
+        app:key="prf_pref_afterDurationProfile"
+        app:title="@string/array_pref_afterProfileDurationDo_activateProfile"
+        app:addNoActivateItem="1"
+        app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="prf_pref_askForDuration"
         app:title="@string/profile_preferences_askForDuration"
