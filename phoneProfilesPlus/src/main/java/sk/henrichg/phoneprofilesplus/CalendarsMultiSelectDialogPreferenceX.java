@@ -74,17 +74,15 @@ public class CalendarsMultiSelectDialogPreferenceX extends DialogPreference
         }
     }
 
-    @SuppressLint("MissingPermission")
-    private void setSummaryCMSDP()
-    {
-        String prefVolumeDataSummary = _context.getString(R.string.calendars_multiselect_summary_text_not_selected);
-        if (Permissions.checkCalendar(_context)) {
+    static String getSummary(String value, Context context) {
+        String summary = context.getString(R.string.calendars_multiselect_summary_text_not_selected);
+        if (Permissions.checkCalendar(context)) {
             if (!value.isEmpty()) {
                 String[] splits = value.split("\\|");
                 if (splits.length == 1) {
                     boolean found = false;
                     Cursor cur;
-                    ContentResolver cr = _context.getContentResolver();
+                    ContentResolver cr = context.getContentResolver();
                     Uri uri = Calendars.CONTENT_URI;
                     String selection = Calendars._ID + "=" + splits[0];
                     //noinspection MissingPermission
@@ -93,18 +91,24 @@ public class CalendarsMultiSelectDialogPreferenceX extends DialogPreference
                         //while (cur.moveToNext()) {
                         if (cur.moveToFirst()) {
                             found = true;
-                            prefVolumeDataSummary = cur.getString(CalendarsMultiSelectDialogPreferenceFragmentX.PROJECTION_DISPLAY_NAME_INDEX);
+                            summary = cur.getString(CalendarsMultiSelectDialogPreferenceFragmentX.PROJECTION_DISPLAY_NAME_INDEX);
                             //break;
                         }
                         cur.close();
                     }
                     if (!found)
-                        prefVolumeDataSummary = _context.getString(R.string.calendars_multiselect_summary_text_selected) + ": " + splits.length;
+                        summary = context.getString(R.string.calendars_multiselect_summary_text_selected) + ": " + splits.length;
                 } else
-                    prefVolumeDataSummary = _context.getString(R.string.calendars_multiselect_summary_text_selected) + ": " + splits.length;
+                    summary = context.getString(R.string.calendars_multiselect_summary_text_selected) + ": " + splits.length;
             }
         }
-        setSummary(prefVolumeDataSummary);
+        return summary;
+    }
+
+    @SuppressLint("MissingPermission")
+    private void setSummaryCMSDP()
+    {
+        setSummary(getSummary(value, _context));
     }
 
     @SuppressWarnings("SameParameterValue")

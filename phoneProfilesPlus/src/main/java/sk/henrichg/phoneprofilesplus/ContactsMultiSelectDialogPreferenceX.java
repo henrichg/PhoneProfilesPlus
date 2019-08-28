@@ -83,10 +83,9 @@ public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
         }
     }
 
-    private void setSummaryCMSDP()
-    {
-        String prefVolumeDataSummary = _context.getString(R.string.contacts_multiselect_summary_text_not_selected);
-        if (Permissions.checkContacts(_context)) {
+    static String getSummary(String value, Context context) {
+        String summary = context.getString(R.string.contacts_multiselect_summary_text_not_selected);
+        if (Permissions.checkContacts(context)) {
             if (!value.isEmpty()) {
                 String[] splits = value.split("\\|");
                 if (splits.length == 1) {
@@ -97,18 +96,18 @@ public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
                             ContactsContract.Contacts.PHOTO_ID};
                     String[] splits2 = splits[0].split("#");
                     String selection = ContactsContract.Contacts._ID + "=" + splits2[0];
-                    Cursor mCursor = _context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, selection, null, null);
+                    Cursor mCursor = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, selection, null, null);
 
                     if (mCursor != null) {
                         while (mCursor.moveToNext()) {
                             selection = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + splits2[0] + " AND " +
                                     ContactsContract.CommonDataKinds.Phone._ID + "=" + splits2[1];
-                            Cursor phones = _context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, selection, null, null);
+                            Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, selection, null, null);
                             if (phones != null) {
                                 //while (phones.moveToNext()) {
                                 if (phones.moveToFirst()) {
                                     found = true;
-                                    prefVolumeDataSummary = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)) + '\n' +
+                                    summary = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)) + '\n' +
                                             phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                                     //break;
                                 }
@@ -120,12 +119,17 @@ public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
                         mCursor.close();
                     }
                     if (!found)
-                        prefVolumeDataSummary = _context.getString(R.string.contacts_multiselect_summary_text_selected) + ": " + splits.length;
+                        summary = context.getString(R.string.contacts_multiselect_summary_text_selected) + ": " + splits.length;
                 } else
-                    prefVolumeDataSummary = _context.getString(R.string.contacts_multiselect_summary_text_selected) + ": " + splits.length;
+                    summary = context.getString(R.string.contacts_multiselect_summary_text_selected) + ": " + splits.length;
             }
         }
-        setSummary(prefVolumeDataSummary);
+        return summary;
+    }
+
+    private void setSummaryCMSDP()
+    {
+        setSummary(getSummary(value, _context));
     }
 
     @SuppressWarnings("StringConcatenationInLoop")

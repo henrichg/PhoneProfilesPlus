@@ -80,10 +80,9 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
         }
     }
 
-    private void setSummaryCMSDP()
-    {
-        String prefVolumeDataSummary = _context.getString(R.string.contacts_multiselect_summary_text_not_selected);
-        if (Permissions.checkContacts(_context)) {
+    static String getSummary(String value, Context context) {
+        String summary = context.getString(R.string.contacts_multiselect_summary_text_not_selected);
+        if (Permissions.checkContacts(context)) {
             if (!value.isEmpty()) {
                 String[] splits = value.split("\\|");
                 if (splits.length == 1) {
@@ -92,24 +91,29 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
                             ContactsContract.Groups._ID,
                             ContactsContract.Groups.TITLE};
                     String selection = ContactsContract.Groups._ID + "=" + splits[0];
-                    Cursor mCursor = _context.getContentResolver().query(ContactsContract.Groups.CONTENT_SUMMARY_URI, projection, selection, null, null);
+                    Cursor mCursor = context.getContentResolver().query(ContactsContract.Groups.CONTENT_SUMMARY_URI, projection, selection, null, null);
 
                     if (mCursor != null) {
                         //while (mCursor.moveToNext()) {
                         if (mCursor.moveToFirst()) {
                             found = true;
-                            prefVolumeDataSummary = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.TITLE));
+                            summary = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.TITLE));
                             //break;
                         }
                         mCursor.close();
                     }
                     if (!found)
-                        prefVolumeDataSummary = _context.getString(R.string.contacts_multiselect_summary_text_selected) + ": " + splits.length;
+                        summary = context.getString(R.string.contacts_multiselect_summary_text_selected) + ": " + splits.length;
                 } else
-                    prefVolumeDataSummary = _context.getString(R.string.contacts_multiselect_summary_text_selected) + ": " + splits.length;
+                    summary = context.getString(R.string.contacts_multiselect_summary_text_selected) + ": " + splits.length;
             }
         }
-        setSummary(prefVolumeDataSummary);
+        return summary;
+    }
+
+    private void setSummaryCMSDP()
+    {
+        setSummary(getSummary(value, _context));
     }
 
     @SuppressWarnings("StringConcatenationInLoop")

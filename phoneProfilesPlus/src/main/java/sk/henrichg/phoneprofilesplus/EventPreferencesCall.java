@@ -163,12 +163,10 @@ class EventPreferencesCall extends EventPreferences {
                     descr = descr + ": <b>" + callEvents[this._callEvent] + "</b> • ";
 
                     descr = descr + context.getString(R.string.event_preferences_call_contact_groups) + ": ";
-                    String[] splits = this._contactGroups.split("\\|");
-                    descr = descr + "<b>" + context.getString(R.string.applications_multiselect_summary_text_selected) + " " + splits.length + "</b> • ";
+                    descr = descr + "<b>" + ContactGroupsMultiSelectDialogPreferenceX.getSummary(_contactGroups, context) + "</b> • ";
 
                     descr = descr + context.getString(R.string.event_preferences_call_contacts) + ": ";
-                    splits = this._contacts.split("\\|");
-                    descr = descr + "<b>" + context.getString(R.string.applications_multiselect_summary_text_selected) + " " + splits.length + "</b> • ";
+                    descr = descr + "<b>" + ContactsMultiSelectDialogPreferenceX.getSummary(_contacts, context) + "</b> • ";
 
                     descr = descr + context.getString(R.string.event_preferences_contactListType);
                     String[] contactListTypes = context.getResources().getStringArray(R.array.eventCallContactListTypeArray);
