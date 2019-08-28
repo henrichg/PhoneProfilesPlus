@@ -1047,7 +1047,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 R.array.afterProfileDurationDoValues, R.array.afterProfileDurationDoArray, context);
                         summary = summary + afterDurationDoTitle + ": " + value;
 
-                        if (afterDurationDoValue.equals("4")) {
+                        if (afterDurationDoValue.equals(String.valueOf(Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE))) {
                             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
                             long profileId = Long.parseLong(preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE)));
                             Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
@@ -2606,6 +2606,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         disableDependedPref(Profile.PREF_PROFILE_DEVICE_WIFI_AP);
         disableDependedPref(Profile.PREF_PROFILE_VOLUME_RINGER_MODE);
         disableDependedPref(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
+        disableDependedPref(Profile.PREF_PROFILE_AFTER_DURATION_DO);
 
         //if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE)
         //{
@@ -2825,6 +2826,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_LOCK_DEVICE);
             if (preference != null) {
                 setSummary(Profile.PREF_PROFILE_LOCK_DEVICE);
+            }
+        }
+
+        if (key.equals(Profile.PREF_PROFILE_AFTER_DURATION_DO)) {
+            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE);
+            if (preference != null) {
+                String afterDurationDo = preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_DO, "0");
+                boolean askForDuration= preferences.getBoolean(Profile.PREF_PROFILE_ASK_FOR_DURATION, false);
+                preference.setEnabled(!askForDuration && (afterDurationDo.equals(String.valueOf(Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE))));
             }
         }
     }

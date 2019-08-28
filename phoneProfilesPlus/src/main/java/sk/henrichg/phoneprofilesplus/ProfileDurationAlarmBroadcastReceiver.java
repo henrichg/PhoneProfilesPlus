@@ -64,7 +64,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
                                     if ((profile != null) && (activatedProfile != null) &&
                                             (activatedProfile._id == profile._id) &&
-                                            (profile._afterDurationDo != Profile.AFTERDURATIONDO_NOTHING)) {
+                                            (profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING)) {
                                         // alarm is from activated profile
 
                                         PPApplication.logE("ProfileDurationAlarmBroadcastReceiver.onReceive", "alarm is from activated profile");
@@ -78,7 +78,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                         }
 
                                         long activateProfileId = 0;
-                                        if (profile._afterDurationDo == Profile.AFTERDURATIONDO_BACKGROUNPROFILE) {
+                                        if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_BACKGROUND_PROFILE) {
                                             activateProfileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(appContext));
                                             if (activateProfileId == Profile.PROFILE_NO_ACTIVATE)
                                                 activateProfileId = 0;
@@ -87,7 +87,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                                     DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, dataWrapper, false, appContext),
                                                     profile._icon, 0);
                                         }
-                                        if (profile._afterDurationDo == Profile.AFTERDURATIONDO_UNDOPROFILE) {
+                                        if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_UNDO_PROFILE) {
                                             activateProfileId = Profile.getActivatedProfileForDuration(appContext);
                                             if (activateProfileId == activatedProfile._id)
                                                 activateProfileId = 0;
@@ -96,7 +96,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                                     DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, dataWrapper, false, appContext),
                                                     profile._icon, 0);
                                         }
-                                        if (profile._afterDurationDo == Profile.AFTERDURATIONDO_RESTARTEVENTS) {
+                                        if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_RESTART_EVENTS) {
                                             if (!forRestartEvents) {
                                                 dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_AFTERDURATION_RESTARTEVENTS, null,
                                                         DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, dataWrapper, false, appContext),
@@ -140,7 +140,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
         if (profile == null)
             return;
 
-        if ((profile._afterDurationDo != Profile.AFTERDURATIONDO_NOTHING) &&
+        if ((profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING) &&
             (profile._duration > 0))
         {
             // duration for start is > 0

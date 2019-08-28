@@ -279,10 +279,11 @@ public class Profile {
     static final int ZENMODE_PRIORITY_AND_VIBRATE = 5;
     static final int ZENMODE_ALARMS = 6;
 
-    static final int AFTERDURATIONDO_NOTHING = 0;
-    static final int AFTERDURATIONDO_UNDOPROFILE = 1;
-    static final int AFTERDURATIONDO_BACKGROUNPROFILE = 2;
-    static final int AFTERDURATIONDO_RESTARTEVENTS = 3;
+    static final int AFTER_DURATION_DO_NOTHING = 0;
+    static final int AFTER_DURATION_DO_UNDO_PROFILE = 1;
+    static final int AFTER_DURATION_DO_BACKGROUND_PROFILE = 2;
+    static final int AFTER_DURATION_DO_RESTART_EVENTS = 3;
+    static final int AFTER_DURATION_DO_SPECIFIC_PROFILE = 4;
 
     static final int BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET = -99;
 
@@ -1104,7 +1105,7 @@ public class Profile {
             }
             else {
                 this._duration = 0;
-                this._afterDurationDo = AFTERDURATIONDO_RESTARTEVENTS;
+                this._afterDurationDo = AFTER_DURATION_DO_RESTART_EVENTS;
                 this._afterDurationProfile = PROFILE_NO_ACTIVATE;
             }
             this._durationNotificationSound = withProfile._durationNotificationSound;
@@ -2378,7 +2379,7 @@ public class Profile {
         if (!eventName.isEmpty())
             profileName = profileName + " " + eventName;
         String durationString = "";
-        if ((_duration > 0) && (_afterDurationDo != Profile.AFTERDURATIONDO_NOTHING)) {
+        if ((_duration > 0) && (_afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING)) {
             boolean showEndTime = false;
             if (_checked) {
                 long endDurationTime = getActivatedProfileEndDurationTime(context);
@@ -2493,7 +2494,7 @@ public class Profile {
 
         profile._porder = 0;
         profile._duration = 0;
-        profile._afterDurationDo = AFTERDURATIONDO_RESTARTEVENTS;
+        profile._afterDurationDo = AFTER_DURATION_DO_RESTART_EVENTS;
         profile._afterDurationProfile = PROFILE_NO_ACTIVATE;
         profile._durationNotificationSound = "";
         profile._durationNotificationVibrate = false;

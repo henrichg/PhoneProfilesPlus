@@ -196,7 +196,7 @@ public class DataWrapper {
                 Integer.valueOf(Profile.defaultValuesString.get("prf_pref_volumeSpeakerPhone")),
                 Integer.valueOf(Profile.defaultValuesString.get("prf_pref_deviceNFC")),
                 Integer.valueOf(Profile.defaultValuesString.get("prf_pref_duration")),
-                  Profile.AFTERDURATIONDO_RESTARTEVENTS,
+                  Profile.AFTER_DURATION_DO_RESTART_EVENTS,
                 Integer.valueOf(Profile.defaultValuesString.get("prf_pref_volumeZenMode")),
                 Integer.valueOf(Profile.defaultValuesString.get("prf_pref_deviceKeyguard")),
                 Integer.valueOf(Profile.defaultValuesString.get("prf_pref_vibrationOnTouch")),
@@ -1510,7 +1510,7 @@ public class DataWrapper {
         {
             profileIcon = mappedProfile._icon;
 
-            if ((mappedProfile._afterDurationDo != Profile.AFTERDURATIONDO_NOTHING) &&
+            if ((mappedProfile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING) &&
                 (mappedProfile._duration > 0))
                 profileDuration = mappedProfile._duration;
 
