@@ -51,6 +51,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
     private final TimeDurationPickerDialog mValueDialog;
     private final AppCompatSpinner afterDoSpinner;
     private final RelativeLayout profileView;
+    private final TextView profileLabel;
     private final TextView profileName;
     private final ImageView profileIcon;
     private final ImageView profileIndicators;
@@ -228,8 +229,6 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
         mTextViewRange.setText(sMin + " - " + sMax);
 
-        profileView = layout.findViewById(R.id.fast_access_duration_dlg_profile);
-
         afterDoSpinner = layout.findViewById(R.id.fast_access_duration_dlg_after_do_spinner);
         GlobalGUIRoutines.HighlightedSpinnerAdapter spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 mActivity,
@@ -293,9 +292,9 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
             }
         }.init(activity), 250, 250);
 
-        TextView profileLabel = layout.findViewById(R.id.fast_access_duration_dlg_profile_label);
+        profileView = layout.findViewById(R.id.fast_access_duration_dlg_profile);
+        profileLabel = layout.findViewById(R.id.fast_access_duration_dlg_profile_label);
         profileLabel.setText(mDataWrapper.context.getString(R.string.profile_preferences_afterDurationProfile) + ":");
-
         profileName = layout.findViewById(R.id.fast_access_duration_dlg_profile_name);
         profileIcon = layout.findViewById(R.id.fast_access_duration_dlg_profile_icon);
         profileIndicators = layout.findViewById(R.id.fast_access_duration_dlg_profile_pref_indicator);
@@ -434,6 +433,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         }
 
         if (mAfterDo != 4) {
+            profileLabel.setEnabled(false);
             profileView.setEnabled(false);
             int disabledColor = GlobalGUIRoutines.getThemeDisabledTextColor(mActivity);
             profileName.setTextColor(disabledColor);
@@ -442,6 +442,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 profileIndicators.setColorFilter(disabledColor, android.graphics.PorterDuff.Mode.MULTIPLY);
         }
         else {
+            profileLabel.setEnabled(true);
             profileView.setEnabled(true);
             profileName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(mActivity));
             profileIcon.setColorFilter(null);
