@@ -488,7 +488,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
         final DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
 
-        dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_EVENTPREFERENCESCHANGED, event._name, null, null, 0);
+        dataWrapper.addActivityLog(DataWrapper.ALTYPE_EVENT_PREFERENCES_CHANGED, event._name, null, null, 0);
 
         // save preferences into profile
         final List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();

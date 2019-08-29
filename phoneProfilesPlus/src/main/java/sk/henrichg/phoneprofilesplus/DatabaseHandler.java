@@ -103,41 +103,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_ALARM_CLOCK = 27;
     static final int ETYPE_TIME_TWILIGHT = 28;
 
-    // activity log types
-    static final int ALTYPE_UNDEFINED = 0;
-    static final int ALTYPE_PROFILEACTIVATION = 1;
-    static final int ALTYPE_AFTERDURATION_UNDOPROFILE = 21;
-    static final int ALTYPE_AFTERDURATION_BACKGROUNDPROFILE = 22;
-    static final int ALTYPE_AFTERDURATION_RESTARTEVENTS = 23;
-    static final int ALTYPE_EVENTSTART = 3;
-    static final int ALTYPE_EVENTSTARTDELAY = 4;
-    static final int ALTYPE_EVENTEND_NONE = 51;
-    static final int ALTYPE_EVENTEND_ACTIVATEPROFILE = 52;
-    static final int ALTYPE_EVENTEND_UNDOPROFILE = 53;
-    static final int ALTYPE_EVENTEND_ACTIVATEPROFILE_UNDOPROFILE = 54;
-    static final int ALTYPE_EVENTEND_RESTARTEVENTS = 55;
-    static final int ALTYPE_EVENTEND_ACTIVATEPROFILE_RESTARTEVENTS = 56;
-    static final int ALTYPE_RESTARTEVENTS = 6;
-    static final int ALTYPE_RUNEVENTS_DISABLE = 7;
-    static final int ALTYPE_RUNEVENTS_ENABLE = 8;
-    static final int ALTYPE_APPLICATIONSTART = 9;
-    static final int ALTYPE_APPLICATIONEXIT = 10;
-    static final int ALTYPE_DATAIMPORT = 11;
-    static final int ALTYPE_PAUSEDLOGGING = 12;
-    static final int ALTYPE_STARTEDLOGGING = 13;
-    static final int ALTYPE_EVENTENDDELAY = 14;
-    static final int ALTYPE_EVENTSTOP = 15;
-    static final int ALTYPE_APPLICATIONSTARTONBOOT = 16;
-    static final int ALTYPE_EVENTPREFERENCESCHANGED = 17;
-    static final int ALTYPE_EVENTDELETED = 18;
-    static final int ALTYPE_PROFILEDELETED = 19;
-    static final int ALTYPE_PROFILEPREFERENCESCHANGED = 30;
-    static final int ALTYPE_SHAREDPROFILEPREFERENCESCHANGED = 31;
-    static final int ALTYPE_ALLEVENTSDELETED = 32;
-    static final int ALTYPE_ALLPROFILESDELETED = 33;
-    static final int ALTYPE_APPLICATIONUPGRADE = 34;
-
-
     // Profiles Table Columns names
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";

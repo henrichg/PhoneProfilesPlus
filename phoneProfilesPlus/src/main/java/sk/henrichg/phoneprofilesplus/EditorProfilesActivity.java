@@ -1563,7 +1563,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         //    this.dataWrapper.restartEventsWithDelay(3, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
                         //}
 
-                        this.dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_DATAIMPORT, null, null, null, 0);
+                        this.dataWrapper.addActivityLog(DataWrapper.ALTYPE_DATA_IMPORT, null, null, null, 0);
 
                         // toast notification
                         Toast msg = ToastCompat.makeText(this.dataWrapper.context.getApplicationContext(),

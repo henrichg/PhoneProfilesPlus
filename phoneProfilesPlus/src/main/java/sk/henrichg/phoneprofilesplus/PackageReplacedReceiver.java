@@ -40,7 +40,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                 PPApplication.setSavedVersionCode(appContext, actualVersionCode);
 
                 String version = pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
-                dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONUPGRADE, version, null, null, 0);
+                dataWrapper.addActivityLog(DataWrapper.ALTYPE_APPLICATION_UPGRADE, version, null, null, 0);
             } catch (Exception ignored) {
             }
 
@@ -370,7 +370,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             if (PPApplication.getApplicationStarted(appContext, true)) {
                                 // service is started by PPApplication
                                 final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
-                                dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTART, null, null, null, 0);
+                                dataWrapper.addActivityLog(DataWrapper.ALTYPE_APPLICATION_START, null, null, null, 0);
 
                                 // start events
                                 if (Event.getGlobalEventsRunning(appContext)) {

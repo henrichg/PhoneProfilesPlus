@@ -76,7 +76,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 PPApplication.logE("BootUpReceiver.onReceive", "activate profiles");
 
                                 final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
-                                dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTARTONBOOT, null, null, null, 0);
+                                dataWrapper.addActivityLog(DataWrapper.ALTYPE_APPLICATION_START_ON_BOOT, null, null, null, 0);
 
                                 // start events
                                 if (Event.getGlobalEventsRunning(appContext)) {

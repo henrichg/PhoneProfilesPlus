@@ -1320,7 +1320,7 @@ public class Profile {
             dataWrapper.setProfileActive(withProfile);
 
             String profileIcon = withProfile._icon;
-            dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
+            dataWrapper.addActivityLog(DataWrapper.ALTYPE_PROFILE_ACTIVATION, null,
                                     DataWrapper.getProfileNameWithManualIndicatorAsString(withProfile, true, "", false, false, dataWrapper, false, dataWrapper.context),
                                     profileIcon, 0);
 

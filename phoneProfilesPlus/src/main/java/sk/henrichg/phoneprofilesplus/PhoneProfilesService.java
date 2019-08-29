@@ -3560,10 +3560,10 @@ public class PhoneProfilesService extends Service
                             PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "application started");
 
                             if (_startOnBoot)
-                                dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTARTONBOOT, null, null, null, 0);
+                                dataWrapper.addActivityLog(DataWrapper.ALTYPE_APPLICATION_START_ON_BOOT, null, null, null, 0);
                             else
                             if (_activateProfiles)
-                                dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTART, null, null, null, 0);
+                                dataWrapper.addActivityLog(DataWrapper.ALTYPE_APPLICATION_START, null, null, null, 0);
 
                             // start events
                             if (Event.getGlobalEventsRunning(appContext)) {

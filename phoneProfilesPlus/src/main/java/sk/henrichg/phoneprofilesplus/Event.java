@@ -1482,7 +1482,7 @@ class Event {
         DatabaseHandler.getInstance(dataWrapper.context).updateEventStatus(this);
 
         if (/*log && */(status != this._status)) {
-            dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_EVENTSTART, _name, null, null, 0);
+            dataWrapper.addActivityLog(DataWrapper.ALTYPE_EVENT_START, _name, null, null, 0);
         }
 
         PPApplication.logE("Event.startEvent","event_id="+this._id+" activate profile id="+this._fkProfileStart);
@@ -1619,7 +1619,7 @@ class Event {
             if ((_atEndDo == EATENDDO_RESTART_EVENTS) && allowRestart) {
                 PPApplication.logE("@@@ Event.pauseEvent","doActivateEndProfile-restart events");
                 // do not reactivate profile to avoid infinite loop
-                dataWrapper.restartEventsWithDelay(5, true, true, DatabaseHandler.ALTYPE_UNDEFINED);
+                dataWrapper.restartEventsWithDelay(5, true, true, DataWrapper.ALTYPE_UNDEFINED);
                 profileActivated = true;
             }
 
@@ -1776,23 +1776,23 @@ class Event {
 
     void doLogForPauseEvent(DataWrapper dataWrapper,
                             boolean allowRestart) {
-        int alType = DatabaseHandler.ALTYPE_EVENTEND_NONE;
+        int alType = DataWrapper.ALTYPE_EVENT_END_NONE;
         if ((_atEndDo == EATENDDO_UNDONE_PROFILE) && (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE))
-            alType = DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE_UNDOPROFILE;
+            alType = DataWrapper.ALTYPE_EVENT_END_ACTIVATE_PROFILE_UNDO_PROFILE;
         if ((_atEndDo == EATENDDO_RESTART_EVENTS) && (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)) {
             if (allowRestart)
-                alType = DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE_RESTARTEVENTS;
+                alType = DataWrapper.ALTYPE_EVENT_END_ACTIVATE_PROFILE_RESTART_EVENTS;
             else
-                alType = DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE;
+                alType = DataWrapper.ALTYPE_EVENT_END_ACTIVATE_PROFILE;
         }
         else if (_atEndDo == EATENDDO_UNDONE_PROFILE)
-            alType = DatabaseHandler.ALTYPE_EVENTEND_UNDOPROFILE;
+            alType = DataWrapper.ALTYPE_EVENT_END_UNDO_PROFILE;
         else if (_atEndDo == EATENDDO_RESTART_EVENTS) {
             if (allowRestart)
-                alType = DatabaseHandler.ALTYPE_EVENTEND_RESTARTEVENTS;
+                alType = DataWrapper.ALTYPE_EVENT_END_RESTART_EVENTS;
         }
         else if (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)
-            alType = DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE;
+            alType = DataWrapper.ALTYPE_EVENT_END_ACTIVATE_PROFILE;
 
         dataWrapper.addActivityLog(alType, _name, null, null, 0);
     }
@@ -1835,7 +1835,7 @@ class Event {
             DatabaseHandler.getInstance(dataWrapper.context).updateAllEventSensorsPassed(this);
 
         if (/*log &&*/ (status != this._status)) {
-            dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_EVENTSTOP, _name, null, null, 0);
+            dataWrapper.addActivityLog(DataWrapper.ALTYPE_EVENT_STOP, _name, null, null, 0);
         }
 
         //return;
@@ -2112,7 +2112,7 @@ class Event {
         DatabaseHandler.getInstance(dataWrapper.context).updateEventInDelayStart(this);
 
         if (_isInDelayStart) {
-            dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_EVENTSTARTDELAY, _name, null, null, _delayStart);
+            dataWrapper.addActivityLog(DataWrapper.ALTYPE_EVENT_START_DELAY, _name, null, null, _delayStart);
         }
 
         //return;
@@ -2257,7 +2257,7 @@ class Event {
         DatabaseHandler.getInstance(dataWrapper.context).updateEventInDelayEnd(this);
 
         if (_isInDelayEnd) {
-            dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_EVENTENDDELAY, _name, null, null, _delayEnd);
+            dataWrapper.addActivityLog(DataWrapper.ALTYPE_EVENT_END_DELAY, _name, null, null, _delayEnd);
         }
 
         //return;

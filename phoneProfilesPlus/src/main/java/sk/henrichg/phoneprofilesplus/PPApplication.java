@@ -2233,7 +2233,7 @@ public class PPApplication extends Application {
                 Permissions.removeNotifications(context);
 
                 if (dataWrapper != null)
-                    dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
+                    dataWrapper.addActivityLog(DataWrapper.ALTYPE_APPLICATION_EXIT, null, null, null, 0);
 
                 if (PPApplication.brightnessHandler != null) {
                     PPApplication.brightnessHandler.post(new Runnable() {
