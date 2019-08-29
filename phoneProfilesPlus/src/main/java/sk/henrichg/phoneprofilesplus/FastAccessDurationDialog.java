@@ -2,11 +2,14 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -25,6 +28,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
     private final int mMin, mMax;
     private final Profile mProfile;
     private int mAfterDo;
+    private long mAfterDoProfile;
 
     private final DataWrapper mDataWrapper;
     //private final boolean mMonochrome;
@@ -45,6 +49,9 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
     private final TextView mEnds;
     private final TimeDurationPickerDialog mValueDialog;
     private final AppCompatSpinner afterDoSpinner;
+    private final TextView profileName;
+    private final ImageView profileIcon;
+    private final ImageView profileIndicators;
 
     private volatile Timer updateEndsTimer;
 
@@ -58,6 +65,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         mMax = 86400;
         mMin = 0;
         mAfterDo = -1;
+        mAfterDoProfile = Profile.PROFILE_NO_ACTIVATE;
 
         mActivity = activity;
         //mContext = activity.getBaseContext();
@@ -246,6 +254,8 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ((GlobalGUIRoutines.HighlightedSpinnerAdapter)afterDoSpinner.getAdapter()).setSelection(position);
                 mAfterDo = Integer.valueOf(afterDoValues[position]);
+
+                updateProfileView();
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -276,6 +286,19 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 }
             }
         }.init(activity), 250, 250);
+
+        TextView profileLabel = layout.findViewById(R.id.fast_access_duration_dlg_profile_label);
+        profileLabel.setText(mDataWrapper.context.getString(R.string.profile_preferences_afterDurationProfile) + ":");
+
+        profileName = layout.findViewById(R.id.fast_access_duration_dlg_profile_name);
+        profileIcon = layout.findViewById(R.id.fast_access_duration_dlg_profile_icon);
+        profileIndicators = layout.findViewById(R.id.fast_access_duration_dlg_profile_pref_indicator);
+        if (!ApplicationPreferences.applicationActivatorPrefIndicator(mDataWrapper.context))
+            profileIndicators.setVisibility(View.GONE);
+
+        mAfterDoProfile = mProfile._afterDurationProfile;
+
+        updateProfileView();
 
         final Button activateWithoutButton = layout.findViewById(R.id.fast_access_duration_dlg_activate_without);
         //activateWithoutButton.setAllCaps(false);
@@ -341,6 +364,76 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
     public void show() {
         if (!mActivity.isFinishing())
             mDialog.show();
+    }
+
+    private void updateProfileView()
+    {
+        PPApplication.logE("FastAccessDurationDialog.updateProfileView", "mProfile="+mProfile);
+
+        if (mProfile == null)
+        {
+            profileName.setText(mDataWrapper.context.getString(R.string.profile_preference_profile_end_no_activate));
+            profileIcon.setImageResource(R.drawable.ic_profile_default);
+            profileIndicators.setImageResource(R.drawable.ic_empty);
+        }
+        else
+        {
+            if (mAfterDoProfile != Profile.PROFILE_NO_ACTIVATE) {
+
+                boolean showIndicators = ApplicationPreferences.applicationActivatorPrefIndicator(mDataWrapper.context);
+
+                Profile afterDoProfile = mDataWrapper.getProfileById(mAfterDoProfile, true, showIndicators, false);
+
+                profileName.setText(afterDoProfile._name);
+                if (afterDoProfile.getIsIconResourceID())
+                {
+                    if (afterDoProfile._iconBitmap != null)
+                        profileIcon.setImageBitmap(afterDoProfile._iconBitmap);
+                    else {
+                        int res = Profile.getIconResource(afterDoProfile.getIconIdentifier());
+                        profileIcon.setImageResource(res); // icon resource
+                    }
+                }
+                else
+                {
+                    profileIcon.setImageBitmap(afterDoProfile._iconBitmap);
+                }
+
+                if (showIndicators)
+                {
+                    if (profileIndicators != null)
+                    {
+                        /*if (afterDoProfile == null)
+                            profileIndicators.setImageResource(R.drawable.ic_empty);
+                        else*/ {
+                            if (afterDoProfile._preferencesIndicator != null)
+                                profileIndicators.setImageBitmap(afterDoProfile._preferencesIndicator);
+                            else
+                                profileIndicators.setImageResource(R.drawable.ic_empty);
+                        }
+                    }
+                }
+            }
+            else {
+                profileName.setText(mDataWrapper.context.getString(R.string.profile_preference_profile_end_no_activate));
+                profileIcon.setImageResource(R.drawable.ic_profile_default);
+                profileIndicators.setImageResource(R.drawable.ic_empty);
+            }
+        }
+
+        if (mAfterDo != 4) {
+            int disabledColor = GlobalGUIRoutines.getThemeDisabledTextColor(mActivity);
+            profileName.setTextColor(disabledColor);
+            profileIcon.setColorFilter(disabledColor, android.graphics.PorterDuff.Mode.MULTIPLY);
+            if (profileIndicators != null)
+                profileIndicators.setColorFilter(disabledColor, android.graphics.PorterDuff.Mode.MULTIPLY);
+        }
+        else {
+            profileName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(mActivity));
+            profileIcon.setColorFilter(null);
+            if (profileIndicators != null)
+                profileIndicators.setColorFilter(null);
+        }
     }
 
 }
