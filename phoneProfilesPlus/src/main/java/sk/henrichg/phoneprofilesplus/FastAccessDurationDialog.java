@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -28,7 +29,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
     private final int mMin, mMax;
     private final Profile mProfile;
     private int mAfterDo;
-    private long mAfterDoProfile;
+    long mAfterDoProfile;
 
     private final DataWrapper mDataWrapper;
     //private final boolean mMonochrome;
@@ -49,6 +50,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
     private final TextView mEnds;
     private final TimeDurationPickerDialog mValueDialog;
     private final AppCompatSpinner afterDoSpinner;
+    private final RelativeLayout profileView;
     private final TextView profileName;
     private final ImageView profileIcon;
     private final ImageView profileIndicators;
@@ -65,7 +67,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         mMax = 86400;
         mMin = 0;
         mAfterDo = -1;
-        mAfterDoProfile = Profile.PROFILE_NO_ACTIVATE;
+        mAfterDoProfile = -1;
 
         mActivity = activity;
         //mContext = activity.getBaseContext();
@@ -101,6 +103,8 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 mProfile._duration = iValue;
                 if (mAfterDo != -1)
                     mProfile._afterDurationDo = mAfterDo;
+                mProfile._afterDurationProfile = mAfterDoProfile;
+
                 DatabaseHandler.getInstance(mDataWrapper.context).updateProfile(mProfile);
 
                 if (Permissions.grantProfilePermissions(mActivity, mProfile, false, false,
@@ -224,6 +228,8 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
         mTextViewRange.setText(sMin + " - " + sMax);
 
+        profileView = layout.findViewById(R.id.fast_access_duration_dlg_profile);
+
         afterDoSpinner = layout.findViewById(R.id.fast_access_duration_dlg_after_do_spinner);
         GlobalGUIRoutines.HighlightedSpinnerAdapter spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 mActivity,
@@ -295,9 +301,15 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         profileIndicators = layout.findViewById(R.id.fast_access_duration_dlg_profile_pref_indicator);
         if (!ApplicationPreferences.applicationActivatorPrefIndicator(mDataWrapper.context))
             profileIndicators.setVisibility(View.GONE);
+        profileView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FastAccessDurationProfileDialog dialog = new FastAccessDurationProfileDialog(mActivity, FastAccessDurationDialog.this);
+                dialog.show();
+            }
+        });
 
         mAfterDoProfile = mProfile._afterDurationProfile;
-
         updateProfileView();
 
         final Button activateWithoutButton = layout.findViewById(R.id.fast_access_duration_dlg_activate_without);
@@ -422,6 +434,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         }
 
         if (mAfterDo != 4) {
+            profileView.setEnabled(false);
             int disabledColor = GlobalGUIRoutines.getThemeDisabledTextColor(mActivity);
             profileName.setTextColor(disabledColor);
             profileIcon.setColorFilter(disabledColor, android.graphics.PorterDuff.Mode.MULTIPLY);
@@ -429,6 +442,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 profileIndicators.setColorFilter(disabledColor, android.graphics.PorterDuff.Mode.MULTIPLY);
         }
         else {
+            profileView.setEnabled(true);
             profileName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(mActivity));
             profileIcon.setColorFilter(null);
             if (profileIndicators != null)
@@ -436,4 +450,8 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         }
     }
 
+    void updateAfterDoProfile(long profileId) {
+        mAfterDoProfile = profileId;
+        updateProfileView();
+    }
 }
