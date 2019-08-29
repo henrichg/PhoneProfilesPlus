@@ -316,18 +316,25 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
                         //boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+                        boolean ok = false;
                         if (showDoNotDisturbPermission) {
-                            @SuppressLint("InlinedApi")
-                            Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
-                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
+                            try {
+                                @SuppressLint("InlinedApi")
+                                Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
+                                ok = true;
+                            } catch (Exception ignored) {}
                         }
                         else
                         if (GlobalGUIRoutines.activityActionExists("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS", context)) {
-                            Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
-                            startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
+                            try {
+                                Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                                startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
+                                ok = true;
+                            } catch (Exception ignored) {}
                         }
-                        else {
+                        if (!ok) {
                             if (getActivity() != null) {
                                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                                 dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
@@ -560,10 +567,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             accessibilityPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
+                    boolean ok = false;
                     if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_ACCESSIBILITY_SETTINGS, context)) {
-                        Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-                        startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
-                    } else {
+                        try {
+                            Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                            startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
+                            ok = true;
+                        } catch (Exception ignored) {}
+                    }
+                    if (!ok) {
                         if (getActivity() != null) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
@@ -642,10 +654,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             accessibilityPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
+                    boolean ok = false;
                     if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_ACCESSIBILITY_SETTINGS, context)) {
-                        Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-                        startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
-                    } else {
+                        try {
+                            Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                            startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
+                            ok = true;
+                        } catch (Exception ignored) {}
+                    }
+                    if (!ok) {
                         if (getActivity() != null) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);

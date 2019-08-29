@@ -288,15 +288,20 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             notificationAccessPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
+                    boolean ok = false;
                     String activity;
                     if (Build.VERSION.SDK_INT >= 22)
                         activity = Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
                     else
                         activity = "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS";
                     if (GlobalGUIRoutines.activityActionExists(activity, context)) {
-                        Intent intent = new Intent(activity);
-                        startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
-                    } else {
+                        try {
+                            Intent intent = new Intent(activity);
+                            startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
+                            ok = true;
+                        } catch (Exception ignored) {}
+                    }
+                    if (!ok) {
                         if (getActivity() != null) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
@@ -342,10 +347,15 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             accessibilityPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
+                    boolean ok = false;
                     if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_ACCESSIBILITY_SETTINGS, context)) {
-                        Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-                        startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
-                    } else {
+                        try {
+                            Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                            startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
+                            ok = true;
+                        } catch (Exception ignored) {}
+                    }
+                    if (!ok) {
                         if (getActivity() != null) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
@@ -390,12 +400,16 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
+                    boolean ok = false;
                     if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context.getApplicationContext())) {
-                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        startActivityForResult(intent, RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS);
+                        try {
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            startActivityForResult(intent, RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS);
+                            ok = true;
+                        } catch (Exception ignored) {}
                     }
-                    else {
+                    if (!ok) {
                         if (getActivity() != null) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
@@ -431,12 +445,16 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
+                    boolean ok = false;
                     if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context.getApplicationContext())) {
-                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        startActivityForResult(intent, RESULT_WIFI_LOCATION_SYSTEM_SETTINGS);
+                        try {
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            startActivityForResult(intent, RESULT_WIFI_LOCATION_SYSTEM_SETTINGS);
+                            ok = true;
+                        } catch (Exception ignored) {}
                     }
-                    else {
+                    if (!ok) {
                         if (getActivity() != null) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
@@ -457,12 +475,16 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
+                    boolean ok = false;
                     if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context.getApplicationContext())) {
-                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        startActivityForResult(intent, RESULT_TIME_LOCATION_SYSTEM_SETTINGS);
+                        try {
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            startActivityForResult(intent, RESULT_TIME_LOCATION_SYSTEM_SETTINGS);
+                            ok = true;
+                        } catch (Exception ignored) {}
                     }
-                    else {
+                    if (!ok) {
                         if (getActivity() != null) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
@@ -492,12 +514,17 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
+                        boolean ok = false;
                         //Intent intent = new Intent(WifiManager.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE);
                         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_WIFI_IP_SETTINGS, context.getApplicationContext())) {
-                            Intent intent = new Intent(Settings.ACTION_WIFI_IP_SETTINGS);
-                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivityForResult(intent, RESULT_WIFI_KEEP_ON_SYSTEM_SETTINGS);
-                        } else {
+                            try {
+                                Intent intent = new Intent(Settings.ACTION_WIFI_IP_SETTINGS);
+                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                startActivityForResult(intent, RESULT_WIFI_KEEP_ON_SYSTEM_SETTINGS);
+                                ok = true;
+                            } catch (Exception ignored) {}
+                        }
+                        if (!ok) {
                             if (getActivity() != null) {
                                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                                 dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
@@ -534,12 +561,16 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
+                    boolean ok = false;
                     if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context.getApplicationContext())) {
-                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        startActivityForResult(intent, RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS);
+                        try {
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            startActivityForResult(intent, RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS);
+                            ok = true;
+                        } catch (Exception ignored) {}
                     }
-                    else {
+                    if (!ok) {
                         if (getActivity() != null) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
@@ -591,10 +622,15 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             orientationPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
+                    boolean ok = false;
                     if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_ACCESSIBILITY_SETTINGS, context)) {
-                        Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-                        startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
-                    } else {
+                        try {
+                            Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                            startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
+                            ok = true;
+                        } catch (Exception ignored) {}
+                    }
+                    if (!ok) {
                         if (getActivity() != null) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
@@ -639,12 +675,16 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
+                    boolean ok = false;
                     if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context.getApplicationContext())) {
-                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        startActivityForResult(intent, RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS);
+                        try {
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            startActivityForResult(intent, RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS);
+                            ok = true;
+                        } catch (Exception ignored) {}
                     }
-                    else {
+                    if (!ok) {
                         if (getActivity() != null) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
@@ -709,10 +749,15 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             smsPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
+                    boolean ok = false;
                     if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_ACCESSIBILITY_SETTINGS, context)) {
-                        Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-                        startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
-                    } else {
+                        try {
+                            Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                            startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
+                            ok = true;
+                        } catch (Exception ignored) {}
+                    }
+                    if (!ok) {
                         if (getActivity() != null) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
@@ -802,10 +847,15 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             callPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
+                    boolean ok = false;
                     if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_ACCESSIBILITY_SETTINGS, context)) {
-                        Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-                        startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
-                    } else {
+                        try {
+                            Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                            startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
+                            ok = true;
+                        } catch (Exception ignored) {}
+                    }
+                    if (!ok) {
                         if (getActivity() != null) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);

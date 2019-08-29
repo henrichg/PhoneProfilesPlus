@@ -101,11 +101,16 @@ public class ImportantInfoHelpFragment extends Fragment {
                 infoText21.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        boolean ok = false;
                         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
-                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivity(intent);
-                        } else {
+                            try {
+                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                startActivity(intent);
+                                ok = true;
+                            } catch (Exception ignored) {}
+                        }
+                        if (!ok) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -144,11 +149,16 @@ public class ImportantInfoHelpFragment extends Fragment {
                 infoText22.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        boolean ok = false;
                         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
-                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivity(intent);
-                        } else {
+                            try {
+                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                startActivity(intent);
+                                ok = true;
+                            } catch (Exception ignored) {}
+                        }
+                        if (!ok) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -269,12 +279,16 @@ public class ImportantInfoHelpFragment extends Fragment {
                 infoText19.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        boolean ok = false;
                         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
-                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivity(intent);
+                            try {
+                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                startActivity(intent);
+                                ok = true;
+                            } catch (Exception ignored) {}
                         }
-                        else {
+                        if (!ok) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -300,12 +314,16 @@ public class ImportantInfoHelpFragment extends Fragment {
                 infoText21.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        boolean ok = false;
                         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
-                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivity(intent);
+                            try {
+                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                startActivity(intent);
+                                ok = true;
+                            } catch (Exception ignored) {}
                         }
-                        else {
+                        if (!ok) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -341,12 +359,16 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoText20.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    boolean ok = false;
                     if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
-                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        startActivity(intent);
+                        try {
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            startActivity(intent);
+                            ok = true;
+                        } catch (Exception ignored) {}
                     }
-                    else {
+                    if (!ok) {
                         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
                         dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -372,12 +394,16 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoText22.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    boolean ok = false;
                     if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
-                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        startActivity(intent);
+                        try {
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            startActivity(intent);
+                            ok = true;
+                        } catch (Exception ignored) {}
                     }
-                    else {
+                    if (!ok) {
                         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
                         dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -401,13 +427,17 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoText10a.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    boolean ok = false;
                     if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, context)) {
-                        @SuppressLint("InlinedApi")
-                        Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
-                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        startActivity(intent);
+                        try {
+                            @SuppressLint("InlinedApi")
+                            Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            startActivity(intent);
+                            ok = true;
+                        } catch (Exception ignored) {}
                     }
-                    else {
+                    if (!ok) {
                         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
                         dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -447,11 +477,15 @@ public class ImportantInfoHelpFragment extends Fragment {
                     infoText13.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            boolean ok = false;
                             if (GlobalGUIRoutines.activityActionExists("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS", context)) {
-                                Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
-                                startActivity(intent);
+                                try {
+                                    Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                                    startActivity(intent);
+                                    ok = true;
+                                } catch (Exception ignored) {}
                             }
-                            else {
+                            if (!ok) {
                                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
                                 dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                                 //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -492,11 +526,15 @@ public class ImportantInfoHelpFragment extends Fragment {
                 infoText14.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        boolean ok = false;
                         if (GlobalGUIRoutines.activityActionExists("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS", context)) {
-                            Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
-                            startActivity(intent);
+                            try {
+                                Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                                startActivity(intent);
+                                ok = true;
+                            } catch (Exception ignored) {}
                         }
-                        else {
+                        if (!ok) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);

@@ -344,13 +344,17 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
                         Permissions.saveAllPermissions(getActivity().getApplicationContext(), false);
+                        boolean ok = false;
                         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                         //intent.addCategory(Intent.CATEGORY_DEFAULT);
                         intent.setData(Uri.parse("package:sk.henrichg.phoneprofilesplus"));
                         if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
-                            startActivityForResult(intent, RESULT_APPLICATION_PERMISSIONS);
+                            try {
+                                startActivityForResult(intent, RESULT_APPLICATION_PERMISSIONS);
+                                ok = true;
+                            } catch (Exception ignored) {}
                         }
-                        else {
+                        if (!ok){
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -382,14 +386,19 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     @SuppressWarnings("ConstantConditions")
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
+                        boolean ok = false;
                         //if (!PPApplication.romIsMIUI) {
                         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_MANAGE_WRITE_SETTINGS, getActivity().getApplicationContext())) {
-                            @SuppressLint("InlinedApi")
-                            Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
-                            intent.setData(Uri.parse("package:sk.henrichg.phoneprofilesplus"));
-                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivityForResult(intent, RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
-                        } else {
+                            try {
+                                @SuppressLint("InlinedApi")
+                                Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                                intent.setData(Uri.parse("package:sk.henrichg.phoneprofilesplus"));
+                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                startActivityForResult(intent, RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
+                                ok = true;
+                            } catch (Exception ignored) {}
+                        }
+                        if (!ok) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -479,14 +488,20 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     @SuppressWarnings("ConstantConditions")
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
+                        boolean ok = false;
                         //if (!PPApplication.romIsMIUI) {
                         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, getActivity().getApplicationContext())) {
-                            @SuppressLint("InlinedApi")
-                            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-                            intent.setData(Uri.parse("package:sk.henrichg.phoneprofilesplus"));
-                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivityForResult(intent, RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS);
-                        } else {
+                            try {
+                                @SuppressLint("InlinedApi")
+                                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                                intent.setData(Uri.parse("package:sk.henrichg.phoneprofilesplus"));
+                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                startActivityForResult(intent, RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS);
+                                ok = true;
+                            } catch (Exception ignored) {
+                            }
+                        }
+                        if (!ok) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -562,13 +577,17 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     @SuppressWarnings("ConstantConditions")
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
+                        boolean ok = false;
                         //Intent intent = new Intent(WifiManager.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE);
                         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, getActivity().getApplicationContext())) {
-                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivityForResult(intent, RESULT_WIFI_BLUETOOTH_MOBILE_CELLS_LOCATION_SETTINGS);
+                            try {
+                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                startActivityForResult(intent, RESULT_WIFI_BLUETOOTH_MOBILE_CELLS_LOCATION_SETTINGS);
+                                ok = true;
+                            } catch (Exception ignored) {}
                         }
-                        else {
+                        if (!ok) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -598,12 +617,17 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     @SuppressWarnings("ConstantConditions")
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
+                        boolean ok = false;
                         //Intent intent = new Intent(WifiManager.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE);
                         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_WIFI_IP_SETTINGS, getActivity().getApplicationContext())) {
-                            Intent intent = new Intent(Settings.ACTION_WIFI_IP_SETTINGS);
-                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivityForResult(intent, RESULT_WIFI_KEEP_ON_SETTINGS);
-                        } else {
+                            try {
+                                Intent intent = new Intent(Settings.ACTION_WIFI_IP_SETTINGS);
+                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                startActivityForResult(intent, RESULT_WIFI_KEEP_ON_SETTINGS);
+                                ok = true;
+                            } catch (Exception ignored) {}
+                        }
+                        if (!ok) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -634,12 +658,16 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     @SuppressWarnings("ConstantConditions")
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
+                        boolean ok = false;
                         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, getActivity().getApplicationContext())) {
-                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivityForResult(intent, RESULT_WIFI_BLUETOOTH_MOBILE_CELLS_LOCATION_SETTINGS);
+                            try {
+                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                startActivityForResult(intent, RESULT_WIFI_BLUETOOTH_MOBILE_CELLS_LOCATION_SETTINGS);
+                                ok = true;
+                            } catch (Exception ignored) {}
                         }
-                        else {
+                        if (!ok) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -670,12 +698,16 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     @SuppressWarnings("ConstantConditions")
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
+                        boolean ok = false;
                         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, getActivity().getApplicationContext())) {
-                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivityForResult(intent, RESULT_WIFI_BLUETOOTH_MOBILE_CELLS_LOCATION_SETTINGS);
+                            try {
+                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                startActivityForResult(intent, RESULT_WIFI_BLUETOOTH_MOBILE_CELLS_LOCATION_SETTINGS);
+                                ok = true;
+                            } catch (Exception ignored) {}
                         }
-                        else {
+                        if (!ok) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -705,13 +737,17 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     @SuppressWarnings("ConstantConditions")
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
+                        boolean ok = false;
                         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, getActivity().getApplicationContext())) {
-                            @SuppressLint("InlinedApi")
-                            Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
-                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivity(intent);
+                            try {
+                                @SuppressLint("InlinedApi")
+                                Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                startActivity(intent);
+                                ok = true;
+                            } catch (Exception ignored) {}
                         }
-                        else {
+                        if (!ok) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -808,12 +844,16 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 @SuppressWarnings("ConstantConditions")
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
+                    boolean ok = false;
                     if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, getActivity().getApplicationContext())) {
-                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        startActivityForResult(intent, RESULT_LOCATION_SYSTEM_SETTINGS);
+                        try {
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            startActivityForResult(intent, RESULT_LOCATION_SYSTEM_SETTINGS);
+                            ok = true;
+                        } catch (Exception ignored) {}
                     }
-                    else {
+                    if (!ok) {
                         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                         dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -1004,12 +1044,17 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     @TargetApi(Build.VERSION_CODES.O)
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
+                        boolean ok = false;
                         Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
                         intent.putExtra(Settings.EXTRA_CHANNEL_ID, PPApplication.PROFILE_NOTIFICATION_CHANNEL);
                         intent.putExtra(Settings.EXTRA_APP_PACKAGE, getActivity().getPackageName());
                         if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
-                            startActivity(intent);
-                        } else {
+                            try {
+                                startActivity(intent);
+                                ok = true;
+                            } catch (Exception ignored) {}
+                        }
+                        if (!ok) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -1143,12 +1188,17 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     @TargetApi(Build.VERSION_CODES.O)
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
+                        boolean ok = false;
                         Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
                         intent.putExtra(Settings.EXTRA_CHANNEL_ID, PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL);
                         intent.putExtra(Settings.EXTRA_APP_PACKAGE, getActivity().getPackageName());
                         if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
-                            startActivity(intent);
-                        } else {
+                            try {
+                                startActivity(intent);
+                                ok = true;
+                            } catch (Exception ignored) {}
+                        }
+                        if (!ok) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
