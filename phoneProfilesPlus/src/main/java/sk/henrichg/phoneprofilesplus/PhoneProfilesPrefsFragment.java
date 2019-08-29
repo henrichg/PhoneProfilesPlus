@@ -1251,6 +1251,33 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 GlobalGUIRoutines.reloadActivity(getActivity(), true);
             }
         }
+        /*
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING)) {
+            SharedPreferences.Editor editor = applicationPreferences.edit();
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_DISABLED_SCANNING_BY_PROFILE, false);
+            editor.apply();
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING)) {
+            SharedPreferences.Editor editor = applicationPreferences.edit();
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_DISABLED_SCANNING_BY_PROFILE, false);
+            editor.apply();
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING)) {
+            SharedPreferences.Editor editor = applicationPreferences.edit();
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_DISABLED_SCANNING_BY_PROFILE, false);
+            editor.apply();
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING)) {
+            SharedPreferences.Editor editor = applicationPreferences.edit();
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_DISABLED_SCANNING_BY_PROFILE, false);
+            editor.apply();
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING)) {
+            SharedPreferences.Editor editor = applicationPreferences.edit();
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, false);
+            editor.apply();
+        }
+        */
     }
 
     void doOnActivityResult(int requestCode, int resultCode/*, Intent data*/)
