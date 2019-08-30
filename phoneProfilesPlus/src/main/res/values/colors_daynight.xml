@@ -10,7 +10,7 @@
     <color name="activityBackgroundColor">#FFFFFFFF</color>
     <color name="activityTextColor">#FF000000</color>
     <color name="activitySecondaryTextColor">#BF000000</color>
-    <color name="activityDisabledTextColor">#2F000000</color>
+    <color name="activityDisabledTextColor">#47000000</color>
     <color name="activityCommandBackgroundColor">#1F000000</color>
 
     <!--<color name="activityPopupBackground">#FFd0d0d0</color>-->
