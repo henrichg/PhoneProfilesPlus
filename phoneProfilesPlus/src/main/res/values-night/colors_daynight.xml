@@ -11,7 +11,7 @@
     <color name="activityBackgroundColor">#FF202020</color>
     <color name="activityTextColor">#FFFFFFFF</color>
     <color name="activitySecondaryTextColor">#CFFFFFFF</color>
-    <color name="activityDisabledTextColor">#47FFFFFF</color>
+    <color name="activityDisabledTextColor">#4DFFFFFF</color>
     <color name="activityCommandBackgroundColor">#1FFFFFFF</color>
 
 <!--    <color name="activityPopupBackground">#FF2A2A2A</color>-->
