@@ -1291,9 +1291,9 @@
     <string name="not_used_mobile_cells_detected_connection_time">Urządzenie zostało połączone:</string>
     <string name="not_used_mobile_cells_detected_last_running_events_label">Dodaj do zdarzenia:</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistrationInfo_summary">Rejestracja stacji bazowych służy do zapisu numerów stacji bazowych powiązanych z tym zdarzeniem. Rejestracja będzie działać w tle. W czasie trwania rejestracji nie zaleca się zmieniać lokalizacji urządzenia.</string>
-    <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotification">Notification for detection of not used mobile cell</string>
-    <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotificationEnabled">Show notification for detection of not used mobile cell</string>
-    <string name="about_application_help_me_with_translation">Please help me with the translation. Thank you.</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotification">Powiadomienie o wykryciu nieużywanej stacji bazowej</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotificationEnabled">Pokaż powiadomienie o wykryciu nieużywanej stacji bazowej</string>
+    <string name="about_application_help_me_with_translation">Pomóż mi, proszę, z tłumaczeniem. Dziękuję.</string>
     <string name="event_preferences_time_timeType">Time type</string>
     <string name="event_preference_sensor_time_type_exact">Exact time</string>
     <string name="event_preference_sensor_time_type_sunrise_sunset">From sunrise to sunset</string>
