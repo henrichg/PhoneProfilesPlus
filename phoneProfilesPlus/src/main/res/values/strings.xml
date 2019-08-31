@@ -706,9 +706,6 @@
     <string name="about_application_donate_button">Please donate</string>
     <string name="donation_activity_title">Donation</string>
     <string name="donation_description">Do you find this application useful?\nSupport its development by sending a donation to the developer.</string>
-    <string name="donation_google_android_market">Google Play Store</string>
-    <string name="donation_google_android_market_text">How much?</string>
-    <string name="donation_google_android_market_donate_button">Donate</string>
     <string name="phone_profiles_pref_applicationLanguage_fa" translatable="false">فارسی</string>
     <string name="phone_profiles_pref_applicationLanguage_ja" translatable="false">日本語</string>
     <string name="phone_profiles_pref_applicationLanguage_ko" translatable="false">한국어</string>
@@ -1521,6 +1518,9 @@
     <!--    <string name="profile_preferences_screenCarMode">Car mode</string>-->
     <!--    <string name="array_pref_screenCarMode_onWithNightNode">On with night mode</string>-->
     <!--    <string name="array_pref_screenCarMode_onWithoutNightNode">On without night mode</string>-->
+<!--    <string name="donation_google_android_market">Google Play Store</string>-->
+<!--    <string name="donation_google_android_market_text">How much?</string>-->
+<!--    <string name="donation_google_android_market_donate_button">Donate</string>-->
 
 
 </resources>

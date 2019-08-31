@@ -13,7 +13,7 @@ import java.util.List;
 
 class FastAccessDurationProfileAdapter extends BaseAdapter {
 
-    final List<Profile> profileList;
+    private final List<Profile> profileList;
     private final long profileId;
     private final FastAccessDurationProfileDialog dialog;
 

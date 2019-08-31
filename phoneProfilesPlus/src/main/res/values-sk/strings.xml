@@ -24,7 +24,6 @@
     <string name="toast_profile_activated_0">Profil</string>
     <string name="toast_profile_activated_1">aktivovaný</string>
     <string name="preference_profile_no_change">Nemeniť</string>
-    <!--    <string name="preference_profile_autoBrightness">Automatic</string>-->
     <string name="title_activity_phone_profiles_preferences">Nastavenia aplikácie</string>
     <string name="menu_exit">Ukončiť</string>
     <string name="activate_profile_alert_message">Aktivovať profil?</string>
@@ -50,7 +49,6 @@
     <string name="profile_preferences_category_sounds">Tóny</string>
     <string name="profile_preferences_profileName">Názov profilu</string>
     <string name="profile_preferences_profileIcon">Ikona profilu</string>
-    <!--<string name="profile_preferences_volumeRingerMode">Ringer mode</string>-->
     <string name="profile_preferences_volumeRingtone">Hlasitosť zvonenia</string>
     <string name="profile_preferences_volumeNotification">Hlasitosť notifikácie</string>
     <string name="profile_preferences_volumeMedia">Hlasitosť médií</string>
@@ -72,10 +70,6 @@
     <string name="profile_preferences_deviceWallpaper">Obrázok pozadia</string>
     <string name="profile_preferences_deviceWallpaperChange">Zmeniť obrázok pozadia</string>
     <string name="array_pref_no_change">Nemeniť</string>
-    <!--<string name="array_pref_ringerModeArray_ring">Ring</string>-->
-    <!--<string name="array_pref_ringerModeArray_ring_and_vibrate">Ring and Vibrate</string>-->
-    <!--<string name="array_pref_ringerModeArray_vibrate">Vibrate</string>-->
-    <!--<string name="array_pref_ringerModeArray_silent">Silent</string>-->
     <string name="array_pref_hardwareModeArray_on">Zapnúť</string>
     <string name="array_pref_hardwareModeArray_off">Vypnúť</string>
     <string name="array_pref_hardwareModeArray_toggle">Prepnúť stav</string>
@@ -107,11 +101,7 @@
     <string name="alert_title_delete_all_events">Vymazať všetky udalosti</string>
     <string name="alert_message_delete_all_events">Ste si istí?</string>
     <string name="phone_profiles_pref_applicationTheme">Téma aplikácie</string>
-    <!--<string name="phone_profiles_pref_applicationTheme_color">Color</string>-->
     <string name="phone_profiles_pref_applicationTheme_dark">Tmavá téma</string>
-    <!--<string name="phone_profiles_pref_applicationTheme_dlight">Light with dark title</string>-->
-    <!--<string name="array_pref_value_color" translatable="false">color</string>-->
-    <!--<string name="array_pref_value_dlight" translatable="false">dlight</string>-->
     <string name="phone_preferences_actionMode_save">Uložiť</string>
     <string name="profile_preferences_showInActivator">Zobrazuj v Aktivátore</string>
     <string name="event_type_time">Čas</string>
@@ -167,17 +157,11 @@
     <string name="array_pref_90_degrees" formatted="false">90°</string>
     <string name="array_pref_180_degrees" formatted="false">180°</string>
     <string name="array_pref_270_degrees" formatted="false">270°</string>
-    <!--    <string name="default_profile_name">Shared profile</string> -->
-    <!--    <string name="brightness_pref_dialog_default_profile_chb">Shared profile</string> -->
-    <!--    <string name="preference_profile_default_profile">Shared profile</string> -->
-    <!--    <string name="volume_pref_dialog_default_profile_chb">Shared profile</string> -->
-    <!--    <string name="array_pref_default_profile">Shared profile</string> -->
     <string name="array_pref_change">Zmeniť</string>
     <string name="array_pref_no_show">Nezobrazovať</string>
     <string name="array_pref_show">Zobrazovať</string>
     <string name="array_pref_no_run">Nespúšťať</string>
     <string name="array_pref_run">Spúšťať</string>
-    <!--    <string name="title_activity_default_profile_preferences">Shared profile</string> -->
     <string name="profile_list_item_menu_activate">Aktivuj</string>
     <string name="profile_list_item_menu_duplicate">Duplikuj</string>
     <string name="profile_list_item_menu_delete">Zmaž</string>
@@ -185,7 +169,6 @@
     <string name="event_list_item_menu_stop">Zastav</string>
     <string name="event_list_item_menu_duplicate">Duplikuj</string>
     <string name="event_list_item_menu_delete">Zmaž</string>
-    <!--<string name="phone_profiles_pref_applicationEditorSaveEditorState">Save editor state</string>-->
     <string name="phone_profiles_pref_notificationPrefIndicator">Indikátor parametrov</string>
     <string name="phone_profiles_pref_applicationHomeLauncher">Spustiť z domácej obrazovky</string>
     <string name="phone_profiles_pref_applicationWidgetLauncher">Spustiť z miniaplikácie</string>
@@ -217,7 +200,6 @@
     <string name="array_event_pref_contact_list_type_not_use">Nepouži</string>
     <string name="event_type_call">Hovor</string>
     <string name="pref_event_call_event">Udalosť</string>
-    <string name="pref_event_call_contactListType">Zoznam</string>
     <string name="event_preferences_battery_level_bad_value">Zlá hodnota</string>
     <string name="event_preferences_eventProfileEnd">Aktivovať profil</string>
     <string name="menu_restart_events">Reštart udalostí</string>
@@ -317,7 +299,6 @@
     <string name="phone_profiles_pref_applicationEventBluetoothRescan">Preskenuj Bluetooth</string>
     <string name="phone_profiles_pref_applicationEventRescan_screenOn">Zapnutie obrazovky</string>
     <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Zapnutie obrazovky &amp; Reštart udalostí</string>
-    <!--<string name="array_pref_ringerModeArray_ZenMode">Interruptions</string>-->
     <string name="profile_preferences_volumeZenMode">Typy vyrušení</string>
     <string name="array_pref_zenModeArray_all">Všetky</string>
     <string name="array_pref_zenModeArray_priority">Prioritné</string>
@@ -376,7 +357,6 @@
     <string name="info_notification_title">Dôležité informácie</string>
     <string name="info_notification_text">Kliknite sem pre zobrazenie dôležitých informácií</string>
     <string name="profile_preferences_deviceWiFiAP">Wi-Fi prístupový bod</string>
-    <!--<string name="array_pref_ringerModeArray_silentL">Priority mode</string>-->
     <string name="menu_import_export">Záloha/Obnova</string>
     <string name="array_pref_screenTimeoutArray_5minutes">5 minút</string>
     <string name="important_info_profiles">Profily</string>
@@ -391,7 +371,6 @@
     <string name="bluetooth_name_pref_dlg_info_about_wildcards">v mene Bluetooth,</string>
     <string name="calendar_pref_dlg_info_about_wildcards">v hľadanom reťazci,</string>
     <string name="pref_dlg_info_about_wildcards_3">pridajte \"\u005C\" pred tieto znaky.</string>
-    <!--<string name="important_into_sony_stamina_mode">For Sony devices, please enable \"Stamina\" mode in \"Power management\". Please also add PhoneProfilesPlus into \"Apps active in standby\". Without this, the application will not work correctly.</string>-->
     <string name="important_info_profile_settings">Niektoré parametre profilu vyžadujú zmeny nastavení v systémových Nastaveniach. Tieto parametre sú označená ako \"(S)\".</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_title">Prístup k upozorneniam</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Povoľ PhoneProfilesPlus v systémovom nastavení \"Prístup k upozorneniam\", pre povolenie parametru profilu \"Typy vyrušení\".</string>
@@ -423,11 +402,7 @@
     <string name="permissions_for_profile_text3">Prosím, povoľte ich v nasledujúcich dialógových oknách. Potom sa aktivuje profil.</string>
     <string name="permissions_for_profile_text_notification">Vyžaduje sa povolenie</string>
     <string name="permissions_for_profile_big_text_notification">vyžaduje udelenie niektorých povolení.</string>
-    <!--    <string name="permissions_for_install_tone_text1">Installation of tone \"PhoneProfiles Silent\" cannot be executed because it requires some permissions.</string>-->
-    <!--    <string name="permissions_for_install_tone_text2">Please grant them in the next dialog. Tone will then be installed.</string>-->
     <string name="permissions_notification_text">Vyžaduje sa povolenie</string>
-    <!--    <string name="permissions_for_install_tone_big_text_notification">Installation of tone \"PhoneProfiles Silent\" requires some permissions to be granted.</string>-->
-    <!--    <string name="menu_install_tone">Install tone \"PhoneProfiles Silent\"</string>-->
     <string name="toast_tone_installation_installed_ok">Tón \"PhoneProfiles Silent\" je nainštalovaný.</string>
     <string name="toast_tone_installation_installed_error">Chyba pri inštalácii tónu \"PhoneProfiles Silent\"!</string>
     <string name="toast_permissions_granted">Povolenia sú už udelené</string>
@@ -545,7 +520,6 @@
     <string name="phone_profiles_pref_applicationEventLocationScanInPowerSaveMode">Skenovanie polohy v režime Šetrič batérie</string>
     <string name="phone_profiles_pref_eventLocationSystemSettings">Systémové nastavenia polohy</string>
     <string name="phone_profiles_pref_eventLocationSystemSettings_summary">Prosím, zapnite Polohu v nastaveniach systému. Bez toho, skenovanie polohy nebude fungovať.</string>
-    <!--<string name="array_pref_ringerModeArray_silentM">Alarms only</string>-->
     <string name="phone_profiles_pref_applicationEventLocationsEditor">Editor polôh</string>
     <string name="phone_profiles_pref_applicationEventLocationsUseGPS">Použiť GPS, ak nie je Režim šetrenia batérie</string>
     <string name="menu_activity_log_pause">Zastav záznam</string>
@@ -613,7 +587,6 @@
     <string name="about_application_source_code">Zdrojový kód:</string>
     <string name="about_application_translations">Preklady:</string>
     <string name="about_application_rate_in_googlePlay">Ohodnoťte prosím túto aplikáciu v obchode Google Play</string>
-    <!--    <string name="phone_profiles_pref_systemLanguage_summary">Application uses languages configured in system.</string>-->
     <string name="permission_group_name_access_notification_policy">Prístup k nastaveniu Nerušiť</string>
     <string name="permissions_access_notification_policy_not_allowed_confirm">Nepovolili ste \"Prístup k nastaveniu Nerušiť\". Nabudúce sa už nepýtať?</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Prístup k nastaveniu Nerušiť</string>
@@ -694,9 +667,6 @@
     <string name="about_application_donate_button">Prosím prispejte</string>
     <string name="donation_activity_title">Príspevok</string>
     <string name="donation_description">Je tato aplikácia užitočná?\nPodporte jej vývoj zaslaním príspevku vývojárovi.</string>
-    <string name="donation_google_android_market">Obchod Play</string>
-    <string name="donation_google_android_market_text">Koľko to stojí?</string>
-    <string name="donation_google_android_market_donate_button">Prispejte</string>
     <string name="about_application_releases">Vydania:</string>
     <string name="permission_group_name_draw_overlays">Vykresliť cez ďalšie aplikácie</string>
     <string name="permissions_draw_overlays_not_allowed_confirm">Nepovolili ste \"Vykresliť cez ďalšie aplikácie\". Nabudúce sa už nepýtať?</string>
@@ -716,9 +686,7 @@
     <string name="editor_event_list_item_event_status">Indikátor stavu udalosti</string>
     <string name="editor_event_list_item_profile_start_icon">Ikona profilu začiatku udalosti</string>
     <string name="editor_event_list_item_profile_end_icon">Ikona profilu konca udalosti</string>
-    <!--    <string name="profile_preferences_sourceProfileInfo_summary">You can configure each profile parameter to use \"Shared profile\" and during activation will be used values from shared profile. Click here to configure the Shared profile parameters.</string> -->
     <string name="run_stop_events_indicator">Povoľ/zastav beh udalostí</string>
-    <!--    <string name="run_stop_indicator_popup_window_important_info">For more information, review the \"Important information\" screen in Editor through the question mark icon in the toolbar.</string>-->
     <string name="important_info_how_to_show">Tieto dôležité informácie môžete zobraziť v Editore cez ikonu otáznika v nástrojovej lište.</string>
     <string name="preference_not_allowed_reason_not_supported_by_application">nepodporované aplikáciou</string>
     <string name="preference_not_allowed_reason_detail_old_android">stará verzia Androida</string>
@@ -771,7 +739,6 @@
     <string name="event_preference_sensor_application_summary">Tento senzor je pre štart udalosti podľa aplikácie v popredí. Parametre: Aplikácie.</string>
     <string name="event_preference_sensor_orientation_summary">Tento senzor je pre štart udalosti podľa orientácie zariadenia. Parametre: Obrazovka (Hore, Dolu), Strany (Horizontálne, strana hore), Priblíženie (V blízkosti, Ďaleko; použitý je senzor priblíženia), ignorovať pre aplikácie (v popredí).</string>
     <string name="event_preference_sensor_nfc_summary">Tento senzor je pre štart udalosti podľa NFC tagov. Parametre: NFC tagy, Trvalý beh, Trvanie (dĺžka behu udalosti).</string>
-    <!--    <string name="editor_activity_targetHelps_navigationIcon_title">\"Views\" side panel</string>-->
     <string name="editor_activity_targetHelps_applicationMenu_title">Aplikačné menu</string>
     <string name="editor_activity_targetHelps_applicationMenu_description">Kliknite sem pre otvorenie menu aplikácie. V tejto ponuke sú Nastavenia aplikácie.</string>
     <string name="editor_activity_targetHelps_restartEvents_title">Reštart udalostí</string>
@@ -843,7 +810,6 @@
     <string name="profile_preferences_category_application">Funkcie aplikácie</string>
     <string name="profile_preferences_applicationDisableWifiScanning">Vypnutie skenovania Wi-Fi</string>
     <string name="profile_preferences_applicationDisableBluetoothScanning">Vypnutie skenovania Bluetooth</string>
-    <!--<string name="array_pref_ringerModeArray_ZenModeM">Do not disturb</string>-->
     <string name="profile_preferences_volumeZenModeM">Typ \"Nerušiť\"</string>
     <string name="array_pref_zenModeArray_off">Vypnuté</string>
     <string name="array_pref_zenModeArray_offButVibration">Vypnuté, ale s vibráciami</string>
@@ -875,7 +841,6 @@
     <string name="event_preferences_notificationVibrate">Upozorni vibráciami</string>
     <string name="important_info_profile_grant">Niektoré parametre profilu vyžadujú povolenie WRITE_SECURE_SETTINGS. ROOT nie je potrebný. Tieto parametre sú označená ako \"(G1)\".</string>
     <string name="important_info_profile_grant_lookSectionProfiles">Pre viac informácií, pozrite si sekciu \"Profily\" ďalej nižšie.</string>
-    <!--    <string name="profile_preferences_typesInfoGrant">For more information see \"Important information\", section \"Profiles\".</string>-->
     <string name="important_info_profile_grant_1_howTo_1">Môžete udeliť povolenie pre PhoneProfilesPlus potrebné pre parametre profilu označené (G1). Potrebný je počítač s nainštalovaným adb.</string>
     <string name="important_info_profile_grant_1_howTo_2">Ak v počítači nemáte nainštalovaný adb:</string>
     <string name="important_info_profile_grant_1_howTo_3">Stiahnite SDK Platform Tools z:</string>
@@ -931,8 +896,6 @@
     <string name="important_info_accessibility_service_text1">Vzhľadom na to, že spoločnosť Google zmenila pravidlá o používaní služieb dostupnosti, musíte pre udalostný senzor aplikácií a udalostný senzor orientácie nainštalovať PhoneProfilesPlusExtender. Pozrite sa na parametre týchto senzorov pre viac informácií.</string>
     <string name="about_application_extender_source_code">Zdrojový kód - Extender:</string>
     <string name="pref_dlg_info_about_wildcards_4">Môžete nakonfigurovať viac reťazcov. Oddeľte ich znakom \"|\".</string>
-    <!--    <string name="profile_preferences_sourceProfileInfoX_title">Shared profile functionality.</string> -->
-    <!--    <string name="profile_preferences_sourceProfileInfoX_summary">You can configure each profile parameter to use \"Shared profile\" and during activation will be used values from shared profile.</string> -->
     <string name="editor_activity_targetHelps_backgroundProfileButton_title">Predvolený profil</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_description">Tento profil sa aktivuje, ak nebeží žiadna udalosť. Kliknite sem pre jeho nakonfigurovanie.</string>
     <string name="mobile_cell_names_dialog_title">Názvy buniek</string>
@@ -1015,7 +978,6 @@
     <string name="notification_channel_grant_permission_description">Zobrazuje povolenie, ktoré je potrebné, aby ste udelili.</string>
     <string name="notification_channel_notify_event_start">Notifikácia spustenia udalosti</string>
     <string name="notification_channel_notify_event_start_description">Zobrazuje notifikáciu o spustení udalosti.</string>
-    <!--    <string name="editor_drawer_open">Open navigation drawer</string>-->
     <string name="important_info_accessibility_service_new_version">Prosím nainštalujte novú verziu PhoneProfilesPlusExtender. Ďalšie informácie o inštalácii sú v parametroch, ktoré PhoneProfilesPlusExtender vyžadujú.</string>
     <string name="important_info_accessibility_service_new_version_2">Kliknite sem pre zobrazenie vydaní PhoneProfilesPlusExtender v GitHub.</string>
     <string name="array_pref_no_force_stop">Nevynucovať zastavenie</string>
@@ -1089,11 +1051,7 @@
     <string name="phone_profiles_pref_applicationUseAlarmClock">Použiť budík</string>
     <string name="phone_profiles_pref_applicationUseAlarmClock_summary">Trvanie profilu a udalosti, senzor času, senzor kalendára, pozdržanie štartu a konca udalosti nie sú presné, keď je obrazovka vypnutá. Povoľte tento parameter pre ich nastavenie ako presné. V stavovom riadku sa zobrazí ikona budíka.</string>
     <string name="important_info_useAlarmClock">Trvanie profilu a udalosti, senzor času, senzor kalendára, pozdržanie štartu a konca udalosti nie sú presné, keď je obrazovka vypnutá. Povoľte v Nastaveniach parameter \"Systém\"→\"Použiť budík\" pre ich nastavenie ako presné. V stavovom riadku sa zobrazí ikona budíka.</string>
-    <!--<string name="nfc_tag_pref_dlg_read_tag_editor_title">Read NFC Tag</string>
-    <string name="nfc_tag_pref_dlg_readNfcTag_touch">Attach your device to an NFC tag. Read will be started.</string>
-    <string name="nfc_tag_pref_dlg_tag_uid_empty">Tag UID is not read from tag.</string>-->
     <string name="nfc_tag_pref_dlg_change_tag_name">Zmeň názov</string>
-    <!--<string name="nfc_tag_pref_dlg_read_tag_uid">Read tag UID</string>-->
     <string name="event_preferences_not_set_underlined_parameters">Nie sú nakonfigurované niektoré podčiarknuté parametre!</string>
     <string name="permission_group_name_draw_overlays_miui">Zobrazovať vyskakovacie okná</string>
     <string name="permissions_draw_overlays_not_allowed_confirm_miui">Nepovolili ste \"Zobrazovať vyskakovacie okná\". Nabudúce sa už nepýtať?</string>
@@ -1101,11 +1059,6 @@
     <string name="stop_events_alert_message">Ste si istý?</string>
     <string name="array_event_pref_incall_ended">Príchodzí hovor skončil</string>
     <string name="array_event_pref_outcall_ended">Odchozí hovor skončil</string>
-    <!--<string name="phone_profiles_pref_applicationPowerManager">Power manager</string>-->
-    <!--<string name="phone_profiles_pref_applicationPowerManager_summary">Allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications. Without this, PhoneProfilesPlus will not working in background.</string>-->
-    <!--<string name="phone_profiles_pref_systemAutoStartManager">Automatic start manager</string>-->
-    <!--<string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>-->
-    <!--<string name="important_info_power_manager">Concerning problems with run of PhoneProfilesPlus in background, click here to allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications.</string>-->
     <string name="array_pref_screenTimeoutArray_30minutes">30 minút</string>
     <string name="event_preferences_calendar_all_events">Všetky udalosti v kalendári</string>
     <string name="event_preference_sensor_alarm_clock_summary">Tento senzor je pre štart udalosti podľa budíka. Parametre: Trvalý beh, Trvanie (dĺžka behu udalosti).</string>
@@ -1126,7 +1079,6 @@
     <string name="permission_why_profile_radio_preferences">pre zapnutie/vypnutie mobilných dát, zmenu typu mobilnej siete, pripojenie k SSID</string>
     <string name="permission_why_profile_phone_state_broadcast">pre oddelenie hlasitosti zvonenia a oznámení, zapnutie/vypnutie slúchadla počas hovoru</string>
     <string name="permission_why_profile_custom_profile_icon">pre vlastnú ikonu profilu</string>
-    <!--    <string name="permission_why_install_tone">for save tone into storage</string>-->
     <string name="permission_why_export">pre uloženie zálohovaných údajov do úložiska</string>
     <string name="permission_why_import">pre načítanie zálohovaných dát z úložiska</string>
     <string name="permission_why_event_calendar_preferences">pre čítanie údajov kalendára v Senzore kalendára</string>
@@ -1187,8 +1139,6 @@
     <string name="about_application_support">Podpora:</string>
     <string name="about_application_support2">kontakt:</string>
     <string name="about_application_support_subject">podpora</string>
-    <!--    <string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>-->
-    <!--    <string name="profile_preferences_installSilentTone_installed_summary">Tone is installed.</string>-->
     <string name="permissions_for_log_to_file_text1">Debug log do log.txt a crash.txt</string>
     <string name="permissions_for_log_to_file_text2">Prosím, povoľte ich v nasledujúcom dialógovom okne. Debug log potom bude zapisovaný.</string>
     <string name="permission_why_log_to_file">pre zápis debug logu do log.txt a crash.txt</string>
@@ -1224,11 +1174,8 @@
     <string name="phone_profiles_pref_notificationBackgroundColor_android">Natívna</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">Tmavá</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">Podľa nočného módu</string>
-    <!--<string name="phone_profiles_pref_nightModeOffApplicationTheme">Theme for night mode off</string>-->
     <string name="phone_profiles_pref_applicationTheme_nightMode">Podľa nočného módu</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Prosím, zapnite Polohu v nastaveniach systému. Bez toho, skenovanie mobilných buniek nebude fungovať.</string>
-    <!--    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-hide side panel</string>-->
-    <!--    <string name="editor_activity_targetHelps_navigationIcon_description">Click this or swipe from left screen side to right to open \"Views\" side panel, where you can switch between Profiles and Events views.</string> -->
     <string name="action_for_external_application_notification_title">Podpora externých aplikácií (Tasker)</string>
     <string name="start_event_notification_text2">Vymažte toto upozornenie, aby sa prestalo zobrazovať.</string>
     <string name="event_preferences_battery_plugged">Typ nabíjačky</string>
@@ -1344,6 +1291,22 @@
     <string name="not_used_mobile_cells_detected_connection_time">Zariadenie bolo pripojené:</string>
     <string name="not_used_mobile_cells_detected_last_running_events_label">Pridajte ju k udalostiam:</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistrationInfo_summary">Registrácia buniek slúži na registráciu mobilných buniek pre túto udalosť. Registrácia bude prebiehať na pozadí. Počas vykonávania registrácie sa odporúča nemeniť umiestnenie zariadenia.</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotification">Notification for detection of not used mobile cell</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotificationEnabled">Show notification for detection of not used mobile cell</string>
+    <string name="about_application_help_me_with_translation">Please help me with the translation. Thank you.</string>
+    <string name="event_preferences_time_timeType">Time type</string>
+    <string name="event_preference_sensor_time_type_exact">Exact time</string>
+    <string name="event_preference_sensor_time_type_sunrise_sunset">From sunrise to sunset</string>
+    <string name="event_preference_sensor_time_type_sunset_sunrise">From sunset to sunrise</string>
+    <string name="permission_why_event_time_preferences">for use location data to get sunrise/sunset time in Time sensor</string>
+    <string name="event_preference_sensor_time_locationSystemSettings_summary">Please enable Location in System Settings. Without this, time type \"From sunrise to sunset\" and \"From sunset to sunrise\" will not work.</string>
+    <string name="event_preference_sensor_time_sunrise">Sunrise</string>
+    <string name="event_preference_sensor_time_sunset">Sunset</string>
+    <string name="event_preferences_notifications_duration">Maximum duration</string>
+    <string name="donation_description_2">Thank you very much.</string>
+    <string name="array_pref_afterProfileDurationDo_activateProfile">Activate specific profile</string>
+    <string name="profile_preferences_afterDurationProfile">Profile to activate</string>
+    <string name="altype_afterDuration_specificProfile">after duration expires - specific profile</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1367,8 +1330,6 @@
     <string name="extender_permissions_event_sensor_call_28">• Povolenia pre parametre udalosti \"Senzor hovoru\" - povolenie Telefón, Denníky hovorov:</string>
     <string name="extender_toast_permissions_not_granted">Povolenia nie sú udelené</string>
     <string name="extender_accessibility_service_profile_lock_device">• Služba Dostupnosť pre parameter profilu \"Zamknutie zariadenia\":</string>
-    <!--<string name="profile_preferences_screenNightMode">Night mode</string>-->
-    <!--<string name="array_pref_screenNightMode_automatic">Automatic</string> -->
     <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>-->
     <!--<string name="array_pref_color_native">Native</string>-->
     <!--<string name="array_pref_color_dark">Dark</string>-->
@@ -1403,4 +1364,60 @@
     <!--<string name="important_info_email_body_translation_language_from">Language from which to translate:</string>-->
     <!--<string name="permission_group_name_sms">SMS/MMS</string>-->
     <!--<string name="phone_profiles_pref_notificationDarkBackground">Dark background</string>-->
+    <!--    <string name="preference_profile_autoBrightness">Automatic</string>-->
+    <!--<string name="profile_preferences_volumeRingerMode">Ringer mode</string>-->
+    <!--<string name="array_pref_ringerModeArray_ring">Ring</string>-->
+    <!--<string name="array_pref_ringerModeArray_ring_and_vibrate">Ring and Vibrate</string>-->
+    <!--<string name="array_pref_ringerModeArray_vibrate">Vibrate</string>-->
+    <!--<string name="array_pref_ringerModeArray_silent">Silent</string>-->
+    <!--<string name="phone_profiles_pref_applicationTheme_color">Color</string>-->
+    <!--<string name="phone_profiles_pref_applicationTheme_dlight">Light with dark title</string>-->
+    <!--<string name="array_pref_value_color" translatable="false">color</string>-->
+    <!--<string name="array_pref_value_dlight" translatable="false">dlight</string>-->
+    <!--    <string name="default_profile_name">Shared profile</string> -->
+    <!--    <string name="brightness_pref_dialog_default_profile_chb">Shared profile</string> -->
+    <!--    <string name="preference_profile_default_profile">Shared profile</string> -->
+    <!--    <string name="volume_pref_dialog_default_profile_chb">Shared profile</string> -->
+    <!--    <string name="array_pref_default_profile">Shared profile</string> -->
+    <!--    <string name="title_activity_default_profile_preferences">Shared profile</string> -->
+    <!--<string name="phone_profiles_pref_applicationEditorSaveEditorState">Save editor state</string>-->
+    <!--    <string name="pref_event_call_contactListType">List</string>-->
+    <!--<string name="array_pref_ringerModeArray_ZenMode">Interruptions</string>-->
+    <!--<string name="array_pref_ringerModeArray_silentL">Priority mode</string>-->
+    <!--<string name="important_into_sony_stamina_mode">For Sony devices, please enable \"Stamina\" mode in \"Power management\". Please also add PhoneProfilesPlus into \"Apps active in standby\". Without this, the application will not work correctly.</string>-->
+    <!--    <string name="permissions_for_install_tone_text1">Installation of tone \"PhoneProfiles Silent\" cannot be executed because it requires some permissions.</string>-->
+    <!--    <string name="permissions_for_install_tone_text2">Please grant them in the next dialog. Tone will then be installed.</string>-->
+    <!--    <string name="permissions_for_install_tone_big_text_notification">Installation of tone \"PhoneProfiles Silent\" requires some permissions to be granted.</string>-->
+    <!--    <string name="menu_install_tone">Install tone \"PhoneProfiles Silent\"</string>-->
+    <!--<string name="array_pref_ringerModeArray_silentM">Alarms only</string>-->
+    <!--    <string name="phone_profiles_pref_systemLanguage_summary">Application uses languages configured in system.</string>-->
+    <!--    <string name="profile_preferences_sourceProfileInfo_summary">You can configure each profile parameter to use \"Shared profile\" and during activation will be used values from shared profile. Click here to configure the Shared profile parameters.</string> -->
+    <!--    <string name="run_stop_indicator_popup_window_important_info">For more information, review the \"Important information\" screen in Editor through the question mark icon in the toolbar.</string>-->
+    <!--    <string name="editor_activity_targetHelps_navigationIcon_title">\"Views\" side panel</string>-->
+    <!--<string name="array_pref_ringerModeArray_ZenModeM">Do not disturb</string>-->
+    <!--    <string name="profile_preferences_typesInfoGrant">For more information see \"Important information\", section \"Profiles\".</string>-->
+    <!--    <string name="profile_preferences_sourceProfileInfoX_title">Shared profile functionality.</string> -->
+    <!--    <string name="profile_preferences_sourceProfileInfoX_summary">You can configure each profile parameter to use \"Shared profile\" and during activation will be used values from shared profile.</string> -->
+    <!--    <string name="editor_drawer_open">Open navigation drawer</string>-->
+    <!--<string name="nfc_tag_pref_dlg_read_tag_editor_title">Read NFC Tag</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_touch">Attach your device to an NFC tag. Read will be started.</string>
+    <string name="nfc_tag_pref_dlg_tag_uid_empty">Tag UID is not read from tag.</string>-->
+    <!--<string name="nfc_tag_pref_dlg_read_tag_uid">Read tag UID</string>-->
+    <!--<string name="phone_profiles_pref_applicationPowerManager">Power manager</string>-->
+    <!--<string name="phone_profiles_pref_applicationPowerManager_summary">Allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications. Without this, PhoneProfilesPlus will not working in background.</string>-->
+    <!--<string name="phone_profiles_pref_systemAutoStartManager">Automatic start manager</string>-->
+    <!--<string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>-->
+    <!--<string name="important_info_power_manager">Concerning problems with run of PhoneProfilesPlus in background, click here to allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications.</string>-->
+    <!--    <string name="permission_why_install_tone">for save tone into storage</string>-->
+    <!--    <string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>-->
+    <!--    <string name="profile_preferences_installSilentTone_installed_summary">Tone is installed.</string>-->
+    <!--<string name="phone_profiles_pref_nightModeOffApplicationTheme">Theme for night mode off</string>-->
+    <!--    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-hide side panel</string>-->
+    <!--    <string name="editor_activity_targetHelps_navigationIcon_description">Click this or swipe from left screen side to right to open \"Views\" side panel, where you can switch between Profiles and Events views.</string> -->
+    <!--    <string name="profile_preferences_screenCarMode">Car mode</string>-->
+    <!--    <string name="array_pref_screenCarMode_onWithNightNode">On with night mode</string>-->
+    <!--    <string name="array_pref_screenCarMode_onWithoutNightNode">On without night mode</string>-->
+    <!--    <string name="donation_google_android_market">Google Play Store</string>-->
+    <!--    <string name="donation_google_android_market_text">How much?</string>-->
+    <!--    <string name="donation_google_android_market_donate_button">Donate</string>-->
 </resources>

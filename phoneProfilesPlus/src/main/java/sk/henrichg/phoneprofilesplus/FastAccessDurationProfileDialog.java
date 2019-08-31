@@ -22,7 +22,7 @@ class FastAccessDurationProfileDialog
 
     private final DataWrapper dataWrapper;
 
-    final AlertDialog mDialog;
+    private final AlertDialog mDialog;
     private final Activity activity;
 
     private final LinearLayout linlaProgress;

@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -21,8 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatSpinner;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import me.drakeet.support.toast.ToastCompat;
 import sk.henrichg.phoneprofilesplus.billing.BillingProvider;

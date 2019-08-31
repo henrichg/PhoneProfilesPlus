@@ -1,29 +1,16 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.Activity;
-import android.content.SharedPreferences;
-import android.graphics.Rect;
-import android.graphics.Typeface;
-import android.os.Handler;
-import android.text.Spannable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.getkeepsafe.taptargetview.TapTarget;
-import com.getkeepsafe.taptargetview.TapTargetSequence;
 
 class DonationGooglePlayAdapter extends BaseAdapter
 {
     private DonationFragment fragment;
 
-    private String[] prices;
-
-    //public boolean targetHelpsSequenceStarted;
-    static final String PREF_START_TARGET_HELPS = "activate_profile_list_adapter_start_target_helps";
+    private final String[] prices;
 
     DonationGooglePlayAdapter(DonationFragment fragment, String[] prices)
     {
@@ -31,10 +18,10 @@ class DonationGooglePlayAdapter extends BaseAdapter
         this.prices = prices;
     }
 
-    public void release()
-    {
-        fragment = null;
-    }
+//    public void release()
+//    {
+//        fragment = null;
+//    }
 
     public int getCount()
     {

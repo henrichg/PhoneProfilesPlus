@@ -24,7 +24,6 @@
     <string name="toast_profile_activated_0">Perfil</string>
     <string name="toast_profile_activated_1">activado</string>
     <string name="preference_profile_no_change">No cambiar</string>
-    <!--    <string name="preference_profile_autoBrightness">Automatic</string>-->
     <string name="title_activity_phone_profiles_preferences">Ajustes de aplicación</string>
     <string name="menu_exit">Salir</string>
     <string name="activate_profile_alert_message">¿Activar perfil?</string>
@@ -50,7 +49,6 @@
     <string name="profile_preferences_category_sounds">Sonidos</string>
     <string name="profile_preferences_profileName">Nombre de perfil</string>
     <string name="profile_preferences_profileIcon">Icono de perfil</string>
-    <!--<string name="profile_preferences_volumeRingerMode">Ringer mode</string>-->
     <string name="profile_preferences_volumeRingtone">Volumen de llamada</string>
     <string name="profile_preferences_volumeNotification">Volumen de notificación</string>
     <string name="profile_preferences_volumeMedia">Volumen multimedia</string>
@@ -72,10 +70,6 @@
     <string name="profile_preferences_deviceWallpaper">Fondo de pantalla</string>
     <string name="profile_preferences_deviceWallpaperChange">Cambiar fondo de pantalla</string>
     <string name="array_pref_no_change">No cambiar</string>
-    <!--<string name="array_pref_ringerModeArray_ring">Ring</string>-->
-    <!--<string name="array_pref_ringerModeArray_ring_and_vibrate">Ring and Vibrate</string>-->
-    <!--<string name="array_pref_ringerModeArray_vibrate">Vibrate</string>-->
-    <!--<string name="array_pref_ringerModeArray_silent">Silent</string>-->
     <string name="array_pref_hardwareModeArray_on">Encendido</string>
     <string name="array_pref_hardwareModeArray_off">Apagado</string>
     <string name="array_pref_hardwareModeArray_toggle">Alternar</string>
@@ -107,11 +101,7 @@
     <string name="alert_title_delete_all_events">Borrar todos los eventos</string>
     <string name="alert_message_delete_all_events">¿Estás seguro?</string>
     <string name="phone_profiles_pref_applicationTheme">Tema de aplicación</string>
-    <!--<string name="phone_profiles_pref_applicationTheme_color">Color</string>-->
     <string name="phone_profiles_pref_applicationTheme_dark">Oscuro</string>
-    <!--<string name="phone_profiles_pref_applicationTheme_dlight">Light with dark title</string>-->
-    <!--<string name="array_pref_value_color" translatable="false">color</string>-->
-    <!--<string name="array_pref_value_dlight" translatable="false">dlight</string>-->
     <string name="phone_preferences_actionMode_save">Guardar</string>
     <string name="profile_preferences_showInActivator">Mostrar en el Activador</string>
     <string name="event_type_time">Hora</string>
@@ -167,17 +157,11 @@
     <string name="array_pref_90_degrees" formatted="false">90°</string>
     <string name="array_pref_180_degrees" formatted="false">180°</string>
     <string name="array_pref_270_degrees" formatted="false">270°</string>
-    <!--    <string name="default_profile_name">Shared profile</string> -->
-    <!--    <string name="brightness_pref_dialog_default_profile_chb">Shared profile</string> -->
-    <!--    <string name="preference_profile_default_profile">Shared profile</string> -->
-    <!--    <string name="volume_pref_dialog_default_profile_chb">Shared profile</string> -->
-    <!--    <string name="array_pref_default_profile">Shared profile</string> -->
     <string name="array_pref_change">Cambiar</string>
     <string name="array_pref_no_show">No mostrar</string>
     <string name="array_pref_show">Mostrar</string>
     <string name="array_pref_no_run">No ejecutar</string>
     <string name="array_pref_run">Ejecutar</string>
-    <!--    <string name="title_activity_default_profile_preferences">Shared profile</string> -->
     <string name="profile_list_item_menu_activate">Activar</string>
     <string name="profile_list_item_menu_duplicate">Duplicar</string>
     <string name="profile_list_item_menu_delete">Borrar</string>
@@ -185,7 +169,6 @@
     <string name="event_list_item_menu_stop">Detener eventos</string>
     <string name="event_list_item_menu_duplicate">Duplicar</string>
     <string name="event_list_item_menu_delete">Borrar</string>
-    <!--<string name="phone_profiles_pref_applicationEditorSaveEditorState">Save editor state</string>-->
     <string name="phone_profiles_pref_notificationPrefIndicator">Mostrar preferencias del indicador</string>
     <string name="phone_profiles_pref_applicationHomeLauncher">Lanzar desde la pantalla de inicio</string>
     <string name="phone_profiles_pref_applicationWidgetLauncher">Lanzar desde widget</string>
@@ -217,7 +200,6 @@
     <string name="array_event_pref_contact_list_type_not_use">No usar</string>
     <string name="event_type_call">Llamar</string>
     <string name="pref_event_call_event">Evento</string>
-    <string name="pref_event_call_contactListType">Lista</string>
     <string name="event_preferences_battery_level_bad_value">Valor incorrecto</string>
     <string name="event_preferences_eventProfileEnd">Activar perfil</string>
     <string name="menu_restart_events">Reiniciar eventos</string>
@@ -317,7 +299,6 @@
     <string name="phone_profiles_pref_applicationEventBluetoothRescan">Reescanear Bluetooth</string>
     <string name="phone_profiles_pref_applicationEventRescan_screenOn">Pantalla encendida</string>
     <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Pantalla encendida &amp; Reescanear eventos</string>
-    <!--<string name="array_pref_ringerModeArray_ZenMode">Interruptions</string>-->
     <string name="profile_preferences_volumeZenMode">Tipo de interrupciones</string>
     <string name="array_pref_zenModeArray_all">Todo</string>
     <string name="array_pref_zenModeArray_priority">Prioridad</string>
@@ -376,7 +357,6 @@
     <string name="info_notification_title">Información importante</string>
     <string name="info_notification_text">Haz clic aquí para ver información importante</string>
     <string name="profile_preferences_deviceWiFiAP">Punto de acceso Wi-Fi</string>
-    <!--<string name="array_pref_ringerModeArray_silentL">Priority mode</string>-->
     <string name="menu_import_export">Respaldar/Recobrar</string>
     <string name="array_pref_screenTimeoutArray_5minutes">5 minutos</string>
     <string name="important_info_profiles">Perfiles</string>
@@ -391,7 +371,6 @@
     <string name="bluetooth_name_pref_dlg_info_about_wildcards">en el nombre bluetooth,</string>
     <string name="calendar_pref_dlg_info_about_wildcards">en la cadena de búsqueda,</string>
     <string name="pref_dlg_info_about_wildcards_3">añade \"\u005C\" delante de estos caracteres.</string>
-    <!--<string name="important_into_sony_stamina_mode">For Sony devices, please enable \"Stamina\" mode in \"Power management\". Please also add PhoneProfilesPlus into \"Apps active in standby\". Without this, the application will not work correctly.</string>-->
     <string name="important_info_profile_settings">Algunas preferencias del perfil requieren cambios en los Ajustes del sistema. Estas preferencias están marcadas \"(S)\".</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_title">Acceso a la notificación</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Permitia que PhoneProfilesPlus tenga \"acceso a las notificaciones\" en los ajustes del sistema, para habilitar el \"Tipo de Interrupción\" en el perfil de preferencia.</string>
@@ -423,11 +402,7 @@
     <string name="permissions_for_profile_text3">Por favor autorízalos en los diálogos siguientes. Después el perfil de activará.</string>
     <string name="permissions_for_profile_text_notification">Petición de permisos</string>
     <string name="permissions_for_profile_big_text_notification">requiere que se autoricen algunos permisos.</string>
-    <!--    <string name="permissions_for_install_tone_text1">Installation of tone \"PhoneProfiles Silent\" cannot be executed because it requires some permissions.</string>-->
-    <!--    <string name="permissions_for_install_tone_text2">Please grant them in the next dialog. Tone will then be installed.</string>-->
     <string name="permissions_notification_text">Petición de permisos</string>
-    <!--    <string name="permissions_for_install_tone_big_text_notification">Installation of tone \"PhoneProfiles Silent\" requires some permissions to be granted.</string>-->
-    <!--    <string name="menu_install_tone">Install tone \"PhoneProfiles Silent\"</string>-->
     <string name="toast_tone_installation_installed_ok">Tono \"PhoneProfiles Silent\" instalado.</string>
     <string name="toast_tone_installation_installed_error">¡Error al instalar tono \"PhoneProfiles Silent\"!</string>
     <string name="toast_permissions_granted">Permisos ya concedidos</string>
@@ -545,7 +520,6 @@
     <string name="phone_profiles_pref_applicationEventLocationScanInPowerSaveMode">Escaneado de localización en modo de Ahorro de Batería</string>
     <string name="phone_profiles_pref_eventLocationSystemSettings">Ajustes del sistema de localización</string>
     <string name="phone_profiles_pref_eventLocationSystemSettings_summary">Por favor habilita la ubicación en la configuración del sistema. Sin esto, el escaneo de ubicación no funcionará.</string>
-    <!--<string name="array_pref_ringerModeArray_silentM">Alarms only</string>-->
     <string name="phone_profiles_pref_applicationEventLocationsEditor">Editor de ubicación</string>
     <string name="phone_profiles_pref_applicationEventLocationsUseGPS">Utiliza el GPS cuando no esté en el modo de ahorro de energía</string>
     <string name="menu_activity_log_pause">Pausar registro</string>
@@ -613,7 +587,6 @@
     <string name="about_application_source_code">Código fuente:</string>
     <string name="about_application_translations">Traducciones:</string>
     <string name="about_application_rate_in_googlePlay">Por favor califique esta aplicación en Google Play</string>
-    <!--    <string name="phone_profiles_pref_systemLanguage_summary">Application uses languages configured in system.</string>-->
     <string name="permission_group_name_access_notification_policy">No molestar el acceso</string>
     <string name="permissions_access_notification_policy_not_allowed_confirm">Usted no ha habilitado \"No molestar el acceso\". ¿Nunca volverlo a preguntar?</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">No molestar el acceso</string>
@@ -694,9 +667,6 @@
     <string name="about_application_donate_button">Por favor done</string>
     <string name="donation_activity_title">Donación</string>
     <string name="donation_description">¿Encontraste esta aplicación útil?\nApoya su desarrollo mediante el envío de una donación al desarrollador.</string>
-    <string name="donation_google_android_market">Google Play Store</string>
-    <string name="donation_google_android_market_text">¿Cuánto?</string>
-    <string name="donation_google_android_market_donate_button">Donar</string>
     <string name="about_application_releases">Lanzamientos:</string>
     <string name="permission_group_name_draw_overlays">Dibujar sobre aplicaciones</string>
     <string name="permissions_draw_overlays_not_allowed_confirm">Usted no tiene habilitado \"Dibujar sobre aplicaciones\". ¿Nunca volverlo a preguntar?</string>
@@ -716,9 +686,7 @@
     <string name="editor_event_list_item_event_status">Indicador del estado del evento</string>
     <string name="editor_event_list_item_profile_start_icon">Icono del perfil de inicio del evento</string>
     <string name="editor_event_list_item_profile_end_icon">Icono del perfil del fin del evento</string>
-    <!--    <string name="profile_preferences_sourceProfileInfo_summary">You can configure each profile parameter to use \"Shared profile\" and during activation will be used values from shared profile. Click here to configure the Shared profile parameters.</string> -->
     <string name="run_stop_events_indicator">Activar/desactivar indicador de ejecución de eventos</string>
-    <!--    <string name="run_stop_indicator_popup_window_important_info">For more information, review the \"Important information\" screen in Editor through the question mark icon in the toolbar.</string>-->
     <string name="important_info_how_to_show">Esta información importante puede ser vista en el Editor mediante el icono del signo de interrogación en la barra de herramientas.</string>
     <string name="preference_not_allowed_reason_not_supported_by_application">no compatible con la aplicación</string>
     <string name="preference_not_allowed_reason_detail_old_android">versión vieja de Android</string>
@@ -771,7 +739,6 @@
     <string name="event_preference_sensor_application_summary">Este sensor iniciará un evento por la aplicación en primer plano. Parámetros: Aplicaciones.</string>
     <string name="event_preference_sensor_orientation_summary">Este sensor iniciará un evento por la orientación del dispositivo. Parámetros: Pantalla (arriba, abajo), Sides (horizontal, hacia arriba), Distancia (cerca, lejos; usado el sensor de proximidad), Ignorar aplicaciones (en primer plano).</string>
     <string name="event_preference_sensor_nfc_summary">Este sensor iniciará un evento por etiquetas NFC. Parámetros Etiquetas NFC, Siempre en funcionamiento, Duración (Duración del evento en funcionamiento).</string>
-    <!--    <string name="editor_activity_targetHelps_navigationIcon_title">\"Views\" side panel</string>-->
     <string name="editor_activity_targetHelps_applicationMenu_title">Menú de aplicación</string>
     <string name="editor_activity_targetHelps_applicationMenu_description">Haga clic aquí para abrir el menú de la aplicación, donde puede cambiar la configuración de la aplicación. </string>
     <string name="editor_activity_targetHelps_restartEvents_title">Reiniciar eventos</string>
@@ -843,7 +810,6 @@
     <string name="profile_preferences_category_application">Funciones de aplicación</string>
     <string name="profile_preferences_applicationDisableWifiScanning">Desactivar escaneo de red Wi-Fi</string>
     <string name="profile_preferences_applicationDisableBluetoothScanning">Desactivar escaneo de Bluetooth</string>
-    <!--<string name="array_pref_ringerModeArray_ZenModeM">Do not disturb</string>-->
     <string name="profile_preferences_volumeZenModeM">Tipo de \"No molestar\"</string>
     <string name="array_pref_zenModeArray_off">Desactivado</string>
     <string name="array_pref_zenModeArray_offButVibration">Apagar con vibración</string>
@@ -875,7 +841,6 @@
     <string name="event_preferences_notificationVibrate">Notificar por vibración</string>
     <string name="important_info_profile_grant">Alguna preferencias de perfil requieren algunos permisos WRITE_SECURE_SETTINGS. No se requiere ruteo del dispositivo. Esas preferencias están marcadas con \"(G1)\".</string>
     <string name="important_info_profile_grant_lookSectionProfiles">Para más información, revise la sección \"Perfiles\" más abajo.</string>
-    <!--    <string name="profile_preferences_typesInfoGrant">For more information see \"Important information\", section \"Profiles\".</string>-->
     <string name="important_info_profile_grant_1_howTo_1">Los parámetros de perfil marcados con (G1) necesitan permisos especiales para PhoneProfilePlus. Esto se hace a a través de tu PC con adb instalado.</string>
     <string name="important_info_profile_grant_1_howTo_2">Si usted no tiene instalado adb en su PC:</string>
     <string name="important_info_profile_grant_1_howTo_3">Descargue la plataforma SDK Tools desde:</string>
@@ -931,8 +896,6 @@
     <string name="important_info_accessibility_service_text1">Debido al cambio de normas por parte de Google respecto a los servicios de accesibilidad, debe instalar PhoneProfilesPlusExtender para usar el sensor de eventos de aplicación y el sensor de eventos de orientación. Compruebe los parámetros de dichos sensores para más información.</string>
     <string name="about_application_extender_source_code">Código fuente - extensor:</string>
     <string name="pref_dlg_info_about_wildcards_4">Puede configurar más cadenas. Separándolas con el carácter \"|\".</string>
-    <!--    <string name="profile_preferences_sourceProfileInfoX_title">Shared profile functionality.</string> -->
-    <!--    <string name="profile_preferences_sourceProfileInfoX_summary">You can configure each profile parameter to use \"Shared profile\" and during activation will be used values from shared profile.</string> -->
     <string name="editor_activity_targetHelps_backgroundProfileButton_title">Perfil predeterminado</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_description">Este perfil se activará cuando no hayan eventos en funcionamiento. Haga clic aquí para configurar.</string>
     <string name="mobile_cell_names_dialog_title">Nombres de celda</string>
@@ -1015,7 +978,6 @@
     <string name="notification_channel_grant_permission_description">Shows permission witch is needed grant it.</string>
     <string name="notification_channel_notify_event_start">Start event notification</string>
     <string name="notification_channel_notify_event_start_description">Shows notification about start of event.</string>
-    <!--    <string name="editor_drawer_open">Open navigation drawer</string>-->
     <string name="important_info_accessibility_service_new_version">Please install the new version of PhoneProfilesPlusExtender. More information about installation is in parameters for which is PhoneProfilesPlusExtender required.</string>
     <string name="important_info_accessibility_service_new_version_2">Click here to display PhoneProfilesPlusExtender releases in GitHub.</string>
     <string name="array_pref_no_force_stop">Do not force stop</string>
@@ -1089,11 +1051,7 @@
     <string name="phone_profiles_pref_applicationUseAlarmClock">Use alarm clock</string>
     <string name="phone_profiles_pref_applicationUseAlarmClock_summary">Profile and event duration, time sensor, calendar sensor, events delay start and end are not exact, when screen is off. Enable this parameter, to set it exact. Alarm clock icon will be displayed in status bar.</string>
     <string name="important_info_useAlarmClock">Profile and event duration, time sensor, calendar sensor, events delay start and end are not exact, when screen is off. Enable in Settings parameter \"System\"→\"Use alarm clock\", to set it exact. Alarm clock icon will be displayed in status bar.</string>
-    <!--<string name="nfc_tag_pref_dlg_read_tag_editor_title">Read NFC Tag</string>
-    <string name="nfc_tag_pref_dlg_readNfcTag_touch">Attach your device to an NFC tag. Read will be started.</string>
-    <string name="nfc_tag_pref_dlg_tag_uid_empty">Tag UID is not read from tag.</string>-->
     <string name="nfc_tag_pref_dlg_change_tag_name">Change name</string>
-    <!--<string name="nfc_tag_pref_dlg_read_tag_uid">Read tag UID</string>-->
     <string name="event_preferences_not_set_underlined_parameters">Some underlined parameters are not configured!</string>
     <string name="permission_group_name_draw_overlays_miui">Display pop-up window</string>
     <string name="permissions_draw_overlays_not_allowed_confirm_miui">You have not enabled \"Display pop-up window\". Never ask again?</string>
@@ -1101,11 +1059,6 @@
     <string name="stop_events_alert_message">Are you sure?</string>
     <string name="array_event_pref_incall_ended">Incoming call ended</string>
     <string name="array_event_pref_outcall_ended">Outgoing call ended</string>
-    <!--<string name="phone_profiles_pref_applicationPowerManager">Power manager</string>-->
-    <!--<string name="phone_profiles_pref_applicationPowerManager_summary">Allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications. Without this, PhoneProfilesPlus will not working in background.</string>-->
-    <!--<string name="phone_profiles_pref_systemAutoStartManager">Automatic start manager</string>-->
-    <!--<string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>-->
-    <!--<string name="important_info_power_manager">Concerning problems with run of PhoneProfilesPlus in background, click here to allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications.</string>-->
     <string name="array_pref_screenTimeoutArray_30minutes">30 minutes</string>
     <string name="event_preferences_calendar_all_events">All calendar events</string>
     <string name="event_preference_sensor_alarm_clock_summary">This sensor will start an event by alarm clock. Parameters: Permanent run, Duration (event run duration).</string>
@@ -1126,7 +1079,6 @@
     <string name="permission_why_profile_radio_preferences">for enable/disable mobile data, change mobile network type, connect to SSID</string>
     <string name="permission_why_profile_phone_state_broadcast">for unlink ringing and notification volumes, enable/disable speakerphone during call</string>
     <string name="permission_why_profile_custom_profile_icon">for custom profile icon</string>
-    <!--    <string name="permission_why_install_tone">for save tone into storage</string>-->
     <string name="permission_why_export">for save backup data into storage</string>
     <string name="permission_why_import">for load backup data from storage</string>
     <string name="permission_why_event_calendar_preferences">for read calendar data in Calendar sensor</string>
@@ -1187,8 +1139,6 @@
     <string name="about_application_support">Support:</string>
     <string name="about_application_support2">contact:</string>
     <string name="about_application_support_subject">support</string>
-    <!--    <string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>-->
-    <!--    <string name="profile_preferences_installSilentTone_installed_summary">Tone is installed.</string>-->
     <string name="permissions_for_log_to_file_text1">Debug log into log.txt and crash.txt</string>
     <string name="permissions_for_log_to_file_text2">Please grant them in next dialog. Debug log will then be written.</string>
     <string name="permission_why_log_to_file">for write debug log into log.txt and crash.txt</string>
@@ -1224,11 +1174,8 @@
     <string name="phone_profiles_pref_notificationBackgroundColor_android">Native</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">Dark</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">By night mode</string>
-    <!--<string name="phone_profiles_pref_nightModeOffApplicationTheme">Theme for night mode off</string>-->
     <string name="phone_profiles_pref_applicationTheme_nightMode">By night mode</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Please enable Location in System Settings. Without this, Mobile cells scanning will not work.</string>
-    <!--    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-hide side panel</string>-->
-    <!--    <string name="editor_activity_targetHelps_navigationIcon_description">Click this or swipe from left screen side to right to open \"Views\" side panel, where you can switch between Profiles and Events views.</string> -->
     <string name="action_for_external_application_notification_title">External applications support (Tasker)</string>
     <string name="start_event_notification_text2">Clear this notification to stop displaying it.</string>
     <string name="event_preferences_battery_plugged">Charger type</string>
@@ -1344,6 +1291,22 @@
     <string name="not_used_mobile_cells_detected_connection_time">Device has been connected:</string>
     <string name="not_used_mobile_cells_detected_last_running_events_label">Add it to events:</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistrationInfo_summary">Cell registration is for registering mobile cells for this event. Registration will be running in background. During running registration, is recommended to not change location of device.</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotification">Notification for detection of not used mobile cell</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotificationEnabled">Show notification for detection of not used mobile cell</string>
+    <string name="about_application_help_me_with_translation">Please help me with the translation. Thank you.</string>
+    <string name="event_preferences_time_timeType">Time type</string>
+    <string name="event_preference_sensor_time_type_exact">Exact time</string>
+    <string name="event_preference_sensor_time_type_sunrise_sunset">From sunrise to sunset</string>
+    <string name="event_preference_sensor_time_type_sunset_sunrise">From sunset to sunrise</string>
+    <string name="permission_why_event_time_preferences">for use location data to get sunrise/sunset time in Time sensor</string>
+    <string name="event_preference_sensor_time_locationSystemSettings_summary">Please enable Location in System Settings. Without this, time type \"From sunrise to sunset\" and \"From sunset to sunrise\" will not work.</string>
+    <string name="event_preference_sensor_time_sunrise">Sunrise</string>
+    <string name="event_preference_sensor_time_sunset">Sunset</string>
+    <string name="event_preferences_notifications_duration">Maximum duration</string>
+    <string name="donation_description_2">Thank you very much.</string>
+    <string name="array_pref_afterProfileDurationDo_activateProfile">Activate specific profile</string>
+    <string name="profile_preferences_afterDurationProfile">Profile to activate</string>
+    <string name="altype_afterDuration_specificProfile">after duration expires - specific profile</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1367,8 +1330,6 @@
     <string name="extender_permissions_event_sensor_call_28">• Permissions for event parameter \"Call sensor\" - permission Phone, Call logs:</string>
     <string name="extender_toast_permissions_not_granted">Permissions are not granted</string>
     <string name="extender_accessibility_service_profile_lock_device">• Accessibility service for profile parameter \"Lock device\":</string>
-    <!--<string name="profile_preferences_screenNightMode">Night mode</string>-->
-    <!--<string name="array_pref_screenNightMode_automatic">Automatic</string> -->
     <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>-->
     <!--<string name="array_pref_color_native">Native</string>-->
     <!--<string name="array_pref_color_dark">Dark</string>-->
@@ -1403,4 +1364,60 @@
     <!--<string name="important_info_email_body_translation_language_from">Language from which to translate:</string>-->
     <!--<string name="permission_group_name_sms">SMS/MMS</string>-->
     <!--<string name="phone_profiles_pref_notificationDarkBackground">Dark background</string>-->
+    <!--    <string name="preference_profile_autoBrightness">Automatic</string>-->
+    <!--<string name="profile_preferences_volumeRingerMode">Ringer mode</string>-->
+    <!--<string name="array_pref_ringerModeArray_ring">Ring</string>-->
+    <!--<string name="array_pref_ringerModeArray_ring_and_vibrate">Ring and Vibrate</string>-->
+    <!--<string name="array_pref_ringerModeArray_vibrate">Vibrate</string>-->
+    <!--<string name="array_pref_ringerModeArray_silent">Silent</string>-->
+    <!--<string name="phone_profiles_pref_applicationTheme_color">Color</string>-->
+    <!--<string name="phone_profiles_pref_applicationTheme_dlight">Light with dark title</string>-->
+    <!--<string name="array_pref_value_color" translatable="false">color</string>-->
+    <!--<string name="array_pref_value_dlight" translatable="false">dlight</string>-->
+    <!--    <string name="default_profile_name">Shared profile</string> -->
+    <!--    <string name="brightness_pref_dialog_default_profile_chb">Shared profile</string> -->
+    <!--    <string name="preference_profile_default_profile">Shared profile</string> -->
+    <!--    <string name="volume_pref_dialog_default_profile_chb">Shared profile</string> -->
+    <!--    <string name="array_pref_default_profile">Shared profile</string> -->
+    <!--    <string name="title_activity_default_profile_preferences">Shared profile</string> -->
+    <!--<string name="phone_profiles_pref_applicationEditorSaveEditorState">Save editor state</string>-->
+    <!--    <string name="pref_event_call_contactListType">List</string>-->
+    <!--<string name="array_pref_ringerModeArray_ZenMode">Interruptions</string>-->
+    <!--<string name="array_pref_ringerModeArray_silentL">Priority mode</string>-->
+    <!--<string name="important_into_sony_stamina_mode">For Sony devices, please enable \"Stamina\" mode in \"Power management\". Please also add PhoneProfilesPlus into \"Apps active in standby\". Without this, the application will not work correctly.</string>-->
+    <!--    <string name="permissions_for_install_tone_text1">Installation of tone \"PhoneProfiles Silent\" cannot be executed because it requires some permissions.</string>-->
+    <!--    <string name="permissions_for_install_tone_text2">Please grant them in the next dialog. Tone will then be installed.</string>-->
+    <!--    <string name="permissions_for_install_tone_big_text_notification">Installation of tone \"PhoneProfiles Silent\" requires some permissions to be granted.</string>-->
+    <!--    <string name="menu_install_tone">Install tone \"PhoneProfiles Silent\"</string>-->
+    <!--<string name="array_pref_ringerModeArray_silentM">Alarms only</string>-->
+    <!--    <string name="phone_profiles_pref_systemLanguage_summary">Application uses languages configured in system.</string>-->
+    <!--    <string name="profile_preferences_sourceProfileInfo_summary">You can configure each profile parameter to use \"Shared profile\" and during activation will be used values from shared profile. Click here to configure the Shared profile parameters.</string> -->
+    <!--    <string name="run_stop_indicator_popup_window_important_info">For more information, review the \"Important information\" screen in Editor through the question mark icon in the toolbar.</string>-->
+    <!--    <string name="editor_activity_targetHelps_navigationIcon_title">\"Views\" side panel</string>-->
+    <!--<string name="array_pref_ringerModeArray_ZenModeM">Do not disturb</string>-->
+    <!--    <string name="profile_preferences_typesInfoGrant">For more information see \"Important information\", section \"Profiles\".</string>-->
+    <!--    <string name="profile_preferences_sourceProfileInfoX_title">Shared profile functionality.</string> -->
+    <!--    <string name="profile_preferences_sourceProfileInfoX_summary">You can configure each profile parameter to use \"Shared profile\" and during activation will be used values from shared profile.</string> -->
+    <!--    <string name="editor_drawer_open">Open navigation drawer</string>-->
+    <!--<string name="nfc_tag_pref_dlg_read_tag_editor_title">Read NFC Tag</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_touch">Attach your device to an NFC tag. Read will be started.</string>
+    <string name="nfc_tag_pref_dlg_tag_uid_empty">Tag UID is not read from tag.</string>-->
+    <!--<string name="nfc_tag_pref_dlg_read_tag_uid">Read tag UID</string>-->
+    <!--<string name="phone_profiles_pref_applicationPowerManager">Power manager</string>-->
+    <!--<string name="phone_profiles_pref_applicationPowerManager_summary">Allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications. Without this, PhoneProfilesPlus will not working in background.</string>-->
+    <!--<string name="phone_profiles_pref_systemAutoStartManager">Automatic start manager</string>-->
+    <!--<string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>-->
+    <!--<string name="important_info_power_manager">Concerning problems with run of PhoneProfilesPlus in background, click here to allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications.</string>-->
+    <!--    <string name="permission_why_install_tone">for save tone into storage</string>-->
+    <!--    <string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>-->
+    <!--    <string name="profile_preferences_installSilentTone_installed_summary">Tone is installed.</string>-->
+    <!--<string name="phone_profiles_pref_nightModeOffApplicationTheme">Theme for night mode off</string>-->
+    <!--    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-hide side panel</string>-->
+    <!--    <string name="editor_activity_targetHelps_navigationIcon_description">Click this or swipe from left screen side to right to open \"Views\" side panel, where you can switch between Profiles and Events views.</string> -->
+    <!--    <string name="profile_preferences_screenCarMode">Car mode</string>-->
+    <!--    <string name="array_pref_screenCarMode_onWithNightNode">On with night mode</string>-->
+    <!--    <string name="array_pref_screenCarMode_onWithoutNightNode">On without night mode</string>-->
+    <!--    <string name="donation_google_android_market">Google Play Store</string>-->
+    <!--    <string name="donation_google_android_market_text">How much?</string>-->
+    <!--    <string name="donation_google_android_market_donate_button">Donate</string>-->
 </resources>
