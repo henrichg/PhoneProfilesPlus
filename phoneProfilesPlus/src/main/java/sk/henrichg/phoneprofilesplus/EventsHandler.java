@@ -326,7 +326,7 @@ class EventsHandler {
                 //oldActivatedProfile = null;
 
                 // get running events count
-                List<EventTimeline> _etl = dataWrapper.getEventTimelineList();
+                List<EventTimeline> _etl = dataWrapper.getEventTimelineList(true);
                 runningEventCount0 = _etl.size();
 
                 // 1. pause events
@@ -394,7 +394,7 @@ class EventsHandler {
                 //activatedProfile0 = dataWrapper.getActivatedProfileFromDB();
 
                 // get running events count
-                List<EventTimeline> _etl = dataWrapper.getEventTimelineList();
+                List<EventTimeline> _etl = dataWrapper.getEventTimelineList(true);
                 runningEventCount0 = _etl.size();
 
                 //1. pause events
@@ -456,7 +456,7 @@ class EventsHandler {
             //// activate background profile when no profile is activated
 
             // get running events count
-            List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
+            List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(true);
             int runningEventCountE = eventTimelineList.size();
 
             Profile activatedProfile = dataWrapper.getActivatedProfileFromDB(false, false);

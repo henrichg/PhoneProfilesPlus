@@ -319,6 +319,8 @@ public class ActivateProfileListFragment extends Fragment {
             }
 
             Collections.sort(this.dataWrapper.profileList, new ProfileComparator());
+
+            this.dataWrapper.fillEventTimelineList();
             return null;
         }
 
@@ -335,6 +337,11 @@ public class ActivateProfileListFragment extends Fragment {
                 this.dataWrapper.fillProfileList(true, applicationActivatorPrefIndicator);
                 // set copy local profile list into activity profilesDataWrapper
                 fragment.activityDataWrapper.copyProfileList(this.dataWrapper);
+
+                // get local eventTimelineList
+                this.dataWrapper.fillEventTimelineList();
+                // set copy local event timeline list into activity profilesDataWrapper
+                fragment.activityDataWrapper.copyEventTimelineList(this.dataWrapper);
 
                 if (fragment.activityDataWrapper.profileList.size() == 0)
                 {

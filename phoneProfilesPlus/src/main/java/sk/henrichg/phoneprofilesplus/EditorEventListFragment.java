@@ -444,6 +444,7 @@ public class EditorEventListFragment extends Fragment
         protected Void doInBackground(Void... params) {
             _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
             _dataWrapper.fillEventList();
+            _dataWrapper.fillEventTimelineList();
             //Log.d("EditorEventListFragment.LoadEventListAsyncTask","filterType="+filterType);
             if (_filterType == FILTER_TYPE_START_ORDER)
                 EditorEventListFragment.sortList(_dataWrapper.eventList, ORDER_TYPE_START_ORDER, _dataWrapper);
@@ -471,6 +472,11 @@ public class EditorEventListFragment extends Fragment
                 _dataWrapper.fillEventList();
                 // set local event list into activity dataWrapper
                 fragment.activityDataWrapper.copyEventList(_dataWrapper);
+
+                // get local eventTimelineList
+                _dataWrapper.fillEventTimelineList();
+                // set copy local event timeline list into activity dataWrapper
+                fragment.activityDataWrapper.copyEventTimelineList(_dataWrapper);
 
                 fragment.eventListAdapter = new EditorEventListAdapter(fragment, fragment.activityDataWrapper, _filterType, fragment);
 
@@ -568,7 +574,7 @@ public class EditorEventListFragment extends Fragment
         if (Event.getGlobalEventsRunning(activityDataWrapper.context)) {
             // events are not globally stopped
 
-            List<EventTimeline> eventTimelineList = activityDataWrapper.getEventTimelineList();
+            List<EventTimeline> eventTimelineList = activityDataWrapper.getEventTimelineList(true);
             if (event.getStatusFromDB(activityDataWrapper.context) == Event.ESTATUS_STOP) {
                 // pause event
                 // not needed to use handlerThread, profile is not activated (activateReturnProfile=false)

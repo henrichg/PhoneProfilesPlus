@@ -65,8 +65,10 @@ public class DataWrapper {
 
     boolean profileListFilled = false;
     boolean eventListFilled = false;
+    private boolean eventTimelineListFilled = false;
     final List<Profile> profileList = Collections.synchronizedList(new ArrayList<Profile>());
     final List<Event> eventList = Collections.synchronizedList(new ArrayList<Event>());
+    private final List<EventTimeline> eventTimelines = Collections.synchronizedList(new ArrayList<EventTimeline>());
 
     //static final String EXTRA_INTERACTIVE = "interactive";
 
@@ -135,6 +137,9 @@ public class DataWrapper {
         }
         synchronized (eventList) {
             dataWrapper.copyEventList(this);
+        }
+        synchronized (eventTimelines) {
+            dataWrapper.copyEventTimelineList(this);
         }
         return dataWrapper;
     }
@@ -975,7 +980,7 @@ public class DataWrapper {
     // stops all events associated with profile
     private void stopEventsForProfile(Profile profile, boolean alsoUnlink/*, boolean saveEventStatus*/)
     {
-        List<EventTimeline> eventTimelineList = getEventTimelineList();
+        List<EventTimeline> eventTimelineList = getEventTimelineList(true);
 
         synchronized (eventList) {
             fillEventList();
@@ -1033,7 +1038,7 @@ public class DataWrapper {
     // pauses all events
     void pauseAllEvents(boolean noSetSystemEvent, boolean blockEvents/*, boolean activateReturnProfile*/)
     {
-        List<EventTimeline> eventTimelineList = getEventTimelineList();
+        List<EventTimeline> eventTimelineList = getEventTimelineList(true);
 
         synchronized (eventList) {
             PPApplication.logE("DataWrapper.pauseAllEvents", "eventListFilled="+eventListFilled);
@@ -1108,7 +1113,7 @@ public class DataWrapper {
     // stops all events
     void stopAllEvents(boolean saveEventStatus, boolean alsoDelete/*, boolean activateReturnProfile*/)
     {
-        List<EventTimeline> eventTimelineList = getEventTimelineList();
+        List<EventTimeline> eventTimelineList = getEventTimelineList(true);
         synchronized (eventList) {
             fillEventList();
             //noinspection ForLoopReplaceableByForEach
@@ -1473,15 +1478,56 @@ public class DataWrapper {
 
 //---------------------------------------------------
 
-    List<EventTimeline> getEventTimelineList()
+//---------------------------------------------------
+
+    void fillEventTimelineList()
     {
-        return DatabaseHandler.getInstance(context).getAllEventTimelines();
+        synchronized (eventTimelines) {
+            if (!eventTimelineListFilled) {
+                eventTimelines.addAll(DatabaseHandler.getInstance(context).getAllEventTimelines());
+                eventTimelineListFilled = true;
+            }
+        }
     }
+
+    void copyEventTimelineList(DataWrapper fromDataWrapper) {
+        synchronized (eventTimelines) {
+            if (eventTimelineListFilled) {
+                eventTimelines.clear();
+                eventTimelineListFilled = false;
+            }
+            if (fromDataWrapper.eventTimelineListFilled) {
+                eventTimelines.addAll(fromDataWrapper.eventTimelines);
+                eventTimelineListFilled = true;
+            }
+        }
+    }
+
+    void invalidateEventTimelineList()
+    {
+        synchronized (eventTimelines) {
+            if (eventTimelineListFilled)
+                eventTimelines.clear();
+            eventTimelineListFilled = false;
+        }
+    }
+
+    List<EventTimeline> getEventTimelineList(boolean fromDB)
+    {
+        synchronized (eventTimelines) {
+            if (!eventTimelineListFilled || fromDB)
+                fillEventTimelineList();
+        }
+        return eventTimelines;
+    }
+
+//-------------------------------------------------------------------------------------------------------------------
 
     public void invalidateDataWrapper()
     {
         invalidateProfileList();
         invalidateEventList();
+        invalidateEventTimelineList();
     }
 
 //----- Activate profile ---------------------------------------------------------------------------------------------
@@ -3675,7 +3721,7 @@ public class DataWrapper {
             DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_ALARM_CLOCK);
         }
 
-        List<EventTimeline> eventTimelineList = getEventTimelineList();
+        List<EventTimeline> eventTimelineList = getEventTimelineList(true);
 
         boolean allPassed = true;
         boolean someNotAllowed = false;
@@ -4299,7 +4345,7 @@ public class DataWrapper {
     static Spannable getProfileNameWithManualIndicator(Profile profile, boolean addEventName, String indicators, boolean addDuration, boolean multiLine,
                                                     DataWrapper dataWrapper, boolean fromDB, Context context) {
         if (dataWrapper != null) {
-            List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
+            List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(fromDB);
             return getProfileNameWithManualIndicator(profile, eventTimelineList, addEventName, indicators, addDuration, multiLine, dataWrapper, fromDB, context);
         }
         else {

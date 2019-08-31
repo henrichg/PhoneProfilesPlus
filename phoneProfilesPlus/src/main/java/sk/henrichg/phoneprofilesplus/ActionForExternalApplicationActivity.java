@@ -123,7 +123,6 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     if (event_id != 0) {
                         final Event event = dataWrapper.getEventById(event_id);
                         if (event.getStatus() != Event.ESTATUS_RUNNING) {
-                            final List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
                             final DataWrapper _dataWrapper = dataWrapper;
                             PPApplication.startHandlerThread("ActionForExternalApplicationActivity.onStart.1");
                             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -140,6 +139,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
 
                                         PPApplication.logE("PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.1");
 
+                                        List<EventTimeline> eventTimelineList = _dataWrapper.getEventTimelineList(false);
                                         event.pauseEvent(_dataWrapper, eventTimelineList, true, false,
                                                 false, /*true,*/ null, false, false); // activate return profile
                                         _dataWrapper.restartEvents(false, true, true, true, false);
@@ -166,7 +166,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     break;
                 case ACTION_PAUSE_EVENT:
                     if (event_id != 0) {
-                        List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
+                        List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
                         Event event = dataWrapper.getEventById(event_id);
                         if (event.getStatus() == Event.ESTATUS_RUNNING) {
                             event.pauseEvent(dataWrapper, eventTimelineList, true, false,
@@ -182,7 +182,6 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     break;
                 case ACTION_STOP_EVENT:
                     if (event_id != 0) {
-                        final List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
                         final Event event = dataWrapper.getEventById(event_id);
                         if (event.getStatus() != Event.ESTATUS_STOP) {
                             final DataWrapper _dataWrapper = dataWrapper;
@@ -201,6 +200,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
 
                                         PPApplication.logE("PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.2");
 
+                                        final List<EventTimeline> eventTimelineList = _dataWrapper.getEventTimelineList(false);
                                         event.stopEvent(_dataWrapper, eventTimelineList, true, false,
                                                 true/*, true*/); // activate return profile
                                         _dataWrapper.restartEvents(false, true, true, true, false);

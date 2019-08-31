@@ -491,7 +491,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         dataWrapper.addActivityLog(DataWrapper.ALTYPE_EVENT_PREFERENCES_CHANGED, event._name, null, null, 0);
 
         // save preferences into profile
-        final List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
+        final List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(true);
 
         if ((new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) ||
                 (new_event_mode == EditorEventListFragment.EDIT_MODE_DUPLICATE))
