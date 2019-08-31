@@ -1516,6 +1516,8 @@ public class DataWrapper {
     {
         synchronized (eventTimelines) {
             if (!eventTimelineListFilled || fromDB)
+                if (fromDB)
+                    invalidateEventTimelineList();
                 fillEventTimelineList();
         }
         return eventTimelines;
