@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 class DonationGooglePlayAdapter extends BaseAdapter
 {
-    private DonationFragment fragment;
+    private final DonationFragment fragment;
 
     private final String[] prices;
 
