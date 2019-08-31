@@ -1053,6 +1053,7 @@ public class EditorEventListFragment extends Fragment
             return;
 
         Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
+        activityDataWrapper.fillEventTimelineList();
 
         String pName;
         if (profileFromDB != null)
