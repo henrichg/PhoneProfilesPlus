@@ -444,7 +444,7 @@ public class EditorEventListFragment extends Fragment
         protected Void doInBackground(Void... params) {
             _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
             _dataWrapper.fillEventList();
-            _dataWrapper.fillEventTimelineList();
+            _dataWrapper.getEventTimelineList(true);
             //Log.d("EditorEventListFragment.LoadEventListAsyncTask","filterType="+filterType);
             if (_filterType == FILTER_TYPE_START_ORDER)
                 EditorEventListFragment.sortList(_dataWrapper.eventList, ORDER_TYPE_START_ORDER, _dataWrapper);
@@ -474,7 +474,7 @@ public class EditorEventListFragment extends Fragment
                 fragment.activityDataWrapper.copyEventList(_dataWrapper);
 
                 // get local eventTimelineList
-                _dataWrapper.fillEventTimelineList();
+                _dataWrapper.getEventTimelineList(true);
                 // set copy local event timeline list into activity dataWrapper
                 fragment.activityDataWrapper.copyEventTimelineList(_dataWrapper);
 
@@ -1053,7 +1053,7 @@ public class EditorEventListFragment extends Fragment
             return;
 
         Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
-        activityDataWrapper.fillEventTimelineList();
+        activityDataWrapper.getEventTimelineList(true);
 
         String pName;
         if (profileFromDB != null)

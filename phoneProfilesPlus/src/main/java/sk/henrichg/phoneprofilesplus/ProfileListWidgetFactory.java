@@ -227,7 +227,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
 
         List<Profile> newProfileList = dataWrapper.getNewProfileList(true,
                 applicationWidgetListPrefIndicator);
-        dataWrapper.fillEventTimelineList();
+        dataWrapper.getEventTimelineList(true);
 
         if (!applicationWidgetListHeader)
         {

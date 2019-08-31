@@ -320,7 +320,8 @@ public class ActivateProfileListFragment extends Fragment {
 
             Collections.sort(this.dataWrapper.profileList, new ProfileComparator());
 
-            this.dataWrapper.fillEventTimelineList();
+            dataWrapper.getEventTimelineList(true);
+
             return null;
         }
 
@@ -561,7 +562,7 @@ public class ActivateProfileListFragment extends Fragment {
             return;
 
         Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
-        activityDataWrapper.fillEventTimelineList();
+        activityDataWrapper.getEventTimelineList(true);
 
         String pName;
         if (profileFromDB != null)
