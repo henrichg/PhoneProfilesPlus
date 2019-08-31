@@ -179,6 +179,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             //if (applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
 
             Profile profile = DatabaseHandler.getInstance(dataWrapper.context).getActivatedProfile();
+            dataWrapper.fillEventTimelineList();
 
             boolean isIconResourceID;
             String iconIdentifier;
@@ -643,7 +644,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
                 createProfilesDataWrapper(context);
 
-                Profile profile = dataWrapper.getActivatedProfile(false, false);
+                Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
+                dataWrapper.fillEventTimelineList();
 
                 String pName;
                 if (profile != null)

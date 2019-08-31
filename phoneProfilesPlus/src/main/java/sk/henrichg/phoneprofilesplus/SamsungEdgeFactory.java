@@ -210,6 +210,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
         createProfilesDataWrapper();
 
         List<Profile> newProfileList = dataWrapper.getNewProfileList(true, false);
+        dataWrapper.fillEventTimelineList();
 
         if (!ApplicationPreferences.applicationSamsungEdgeHeader(context))
         {
