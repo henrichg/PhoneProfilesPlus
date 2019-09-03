@@ -2953,9 +2953,11 @@ public class DataWrapper {
                                 List<BluetoothDeviceData> scanResults = BluetoothScanJob.getScanResults(context);
 
                                 if (scanResults != null) {
-                                    //PPApplication.logE("@@@ DataWrapper.doHandleEvents","-- eventAdapterName="+event._eventPreferencesBluetooth._adapterName);
+                                    PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "scanResults.size="+scanResults.size());
 
                                     for (BluetoothDeviceData device : scanResults) {
+                                        PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "device.getName="+device.getName());
+                                        PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "device.getAddress="+device.getAddress());
                                         String[] splits = event._eventPreferencesBluetooth._adapterName.split("\\|");
                                         boolean[] nearby = new boolean[splits.length];
                                         int i = 0;
