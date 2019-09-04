@@ -311,37 +311,40 @@ public class Profile {
             R.drawable.ic_profile_outdoors_1, R.drawable.ic_profile_outdoors_2, R.drawable.ic_profile_outdoors_3,
             R.drawable.ic_profile_outdoors_4, R.drawable.ic_profile_outdoors_5, R.drawable.ic_profile_outdoors_6,
             R.drawable.ic_profile_outdoors_7, R.drawable.ic_profile_outdoors_8, R.drawable.ic_profile_outdoors_9,
+            R.drawable.ic_profile_running_1,
 
             R.drawable.ic_profile_meeting, R.drawable.ic_profile_meeting_2, R.drawable.ic_profile_meeting_3,
-            R.drawable.ic_profile_mute, R.drawable.ic_profile_mute_2, R.drawable.ic_profile_volume_4,
-            R.drawable.ic_profile_volume_1, R.drawable.ic_profile_volume_2, R.drawable.ic_profile_volume_3,
-            R.drawable.ic_profile_vibrate_1,
+            R.drawable.ic_profile_meeting_4, R.drawable.ic_profile_mute, R.drawable.ic_profile_mute_2,
+            R.drawable.ic_profile_volume_4, R.drawable.ic_profile_volume_1, R.drawable.ic_profile_volume_2,
+            R.drawable.ic_profile_volume_3, R.drawable.ic_profile_vibrate_1,
 
             R.drawable.ic_profile_work_1, R.drawable.ic_profile_work_2, R.drawable.ic_profile_work_12,
             R.drawable.ic_profile_work_3, R.drawable.ic_profile_work_4, R.drawable.ic_profile_work_5,
             R.drawable.ic_profile_work_6, R.drawable.ic_profile_work_7, R.drawable.ic_profile_work_8,
             R.drawable.ic_profile_work_9, R.drawable.ic_profile_work_10, R.drawable.ic_profile_work_11,
             R.drawable.ic_profile_work_13, R.drawable.ic_profile_work_14, R.drawable.ic_profile_work_15,
+            R.drawable.ic_profile_work_16,
 
-            R.drawable.ic_profile_sleep, R.drawable.ic_profile_sleep_2, R.drawable.ic_profile_night,
-            R.drawable.ic_profile_call_1, R.drawable.ic_profile_food_1, R.drawable.ic_profile_food_2,
-            R.drawable.ic_profile_food_3, R.drawable.ic_profile_food_4, R.drawable.ic_profile_food_5,
-            R.drawable.ic_profile_alarm,
+            R.drawable.ic_profile_sleep, R.drawable.ic_profile_sleep_2, R.drawable.ic_profile_sleep_3,
+            R.drawable.ic_profile_night, R.drawable.ic_profile_call_1, R.drawable.ic_profile_food_1,
+            R.drawable.ic_profile_food_2, R.drawable.ic_profile_food_3, R.drawable.ic_profile_food_4,
+            R.drawable.ic_profile_food_5, R.drawable.ic_profile_alarm,
 
             R.drawable.ic_profile_car_1, R.drawable.ic_profile_car_2, R.drawable.ic_profile_car_3,
             R.drawable.ic_profile_car_4, R.drawable.ic_profile_car_5, R.drawable.ic_profile_car_6,
             R.drawable.ic_profile_car_7, R.drawable.ic_profile_car_8, R.drawable.ic_profile_car_9,
-            R.drawable.ic_profile_car_10, R.drawable.ic_profile_airplane_1, R.drawable.ic_profile_airplane_2,
-            R.drawable.ic_profile_airplane_3, R.drawable.ic_profile_ship_1, R.drawable.ic_profile_ship_2,
-            R.drawable.ic_profile_ship_3, R.drawable.ic_profile_tram_1, R.drawable.ic_profile_tickets_1,
-            R.drawable.ic_profile_tickets_2,
+            R.drawable.ic_profile_car_10, R.drawable.ic_profile_car_11, R.drawable.ic_profile_steering_1,
+            R.drawable.ic_profile_airplane_1, R.drawable.ic_profile_airplane_2, R.drawable.ic_profile_airplane_3,
+            R.drawable.ic_profile_ship_1, R.drawable.ic_profile_ship_2, R.drawable.ic_profile_ship_3,
+            R.drawable.ic_profile_tram_1, R.drawable.ic_profile_tickets_1, R.drawable.ic_profile_tickets_2,
+            R.drawable.ic_profile_travel_1,
 
             R.drawable.ic_profile_culture_1, R.drawable.ic_profile_culture_6, R.drawable.ic_profile_culture_7,
             R.drawable.ic_profile_culture_2, R.drawable.ic_profile_culture_8, R.drawable.ic_profile_culture_9,
             R.drawable.ic_profile_culture_3, R.drawable.ic_profile_culture_10, R.drawable.ic_profile_culture_11,
             R.drawable.ic_profile_culture_12, R.drawable.ic_profile_culture_13, R.drawable.ic_profile_culture_5,
             R.drawable.ic_profile_culture_14, R.drawable.ic_profile_culture_4, R.drawable.ic_profile_culture_15,
-            R.drawable.ic_profile_culture_16,
+            R.drawable.ic_profile_culture_16, R.drawable.ic_profile_culture_17,
 
             R.drawable.ic_profile_battery_1, R.drawable.ic_profile_battery_2, R.drawable.ic_profile_battery_3,
 
@@ -357,35 +360,37 @@ public class Profile {
             0xff99cc00,
 
             // outdoors
-            0xffffbc33, 0xffffbc33, 0xffffbc33, 0xffffbc33,
-            0xffffbc33, 0xffffbc33, 0xffffbc33, 0xffffbc33,
-            0xffffbc33,
+            0xffffbc33, 0xffffbc33, 0xffffbc33, 0xffffbc33, 0xffffbc33,
+            0xffffbc33, 0xffffbc33, 0xffffbc33, 0xffffbc33, 0xffffbc33,
 
             // meeting, volume
             0xffcc0000, 0xffcc0000, 0xffcc0000, 0xffcc0000, 0xffcc0000,
             0xffcc0000, 0xffcc0000, 0xffcc0000, 0xffcc0000, 0xffcc0000,
+            0xffcc0000,
 
             // work
             0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff,
             0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff,
             0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff,
+            0xffa801ff,
 
             // sleep, food, alarm
             0xff0099cc, 0xff0099cc, 0xff0099cc, 0xff0099cc, 0xff0099cc,
             0xff0099cc, 0xff0099cc, 0xff0099cc, 0xff0099cc, 0xff0099cc,
+            0xff0099cc,
 
             // car, airplane, ship, tickets
             0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174,
             0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174,
-            0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174,
-            0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174,
-            0xff28a174,
+            0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174,
+            0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174,
+            0xff28a174, 0xff28a174,
 
             // culture
-            0xffe91e63, 0xffe91e63, 0xffe91e63, 0xffe91e63,
-            0xffe91e63, 0xffe91e63, 0xffe91e63, 0xffe91e63,
-            0xffe91e63, 0xffe91e63, 0xffe91e63, 0xffe91e63,
-            0xffe91e63, 0xffe91e63, 0xffe91e63, 0xffe91e63,
+            0xffe91e63, 0xffe91e63, 0xffe91e63, 0xffe91e63, 0xffe91e63,
+            0xffe91e63, 0xffe91e63, 0xffe91e63, 0xffe91e63, 0xffe91e63,
+            0xffe91e63, 0xffe91e63, 0xffe91e63, 0xffe91e63, 0xffe91e63,
+            0xffe91e63, 0xffe91e63,
 
             // battery
             0xffdb3514, 0xffdb9714, 0xff2aa561,
@@ -416,9 +421,11 @@ public class Profile {
         profileIconIdMap.put("ic_profile_outdoors_7", R.drawable.ic_profile_outdoors_7);
         profileIconIdMap.put("ic_profile_outdoors_8", R.drawable.ic_profile_outdoors_8);
         profileIconIdMap.put("ic_profile_outdoors_9", R.drawable.ic_profile_outdoors_9);
+        profileIconIdMap.put("ic_profile_running_1", R.drawable.ic_profile_running_1);
         profileIconIdMap.put("ic_profile_meeting", R.drawable.ic_profile_meeting);
         profileIconIdMap.put("ic_profile_meeting_2", R.drawable.ic_profile_meeting_2);
         profileIconIdMap.put("ic_profile_meeting_3", R.drawable.ic_profile_meeting_3);
+        profileIconIdMap.put("ic_profile_meeting_4", R.drawable.ic_profile_meeting_4);
         profileIconIdMap.put("ic_profile_mute", R.drawable.ic_profile_mute);
         profileIconIdMap.put("ic_profile_mute_2", R.drawable.ic_profile_mute_2);
         profileIconIdMap.put("ic_profile_volume_4", R.drawable.ic_profile_volume_4);
@@ -441,8 +448,10 @@ public class Profile {
         profileIconIdMap.put("ic_profile_work_13", R.drawable.ic_profile_work_13);
         profileIconIdMap.put("ic_profile_work_14", R.drawable.ic_profile_work_14);
         profileIconIdMap.put("ic_profile_work_15", R.drawable.ic_profile_work_15);
+        profileIconIdMap.put("ic_profile_work_16", R.drawable.ic_profile_work_16);
         profileIconIdMap.put("ic_profile_sleep", R.drawable.ic_profile_sleep);
         profileIconIdMap.put("ic_profile_sleep_2", R.drawable.ic_profile_sleep_2);
+        profileIconIdMap.put("ic_profile_sleep_3", R.drawable.ic_profile_sleep_3);
         profileIconIdMap.put("ic_profile_night", R.drawable.ic_profile_night);
         profileIconIdMap.put("ic_profile_call_1", R.drawable.ic_profile_call_1);
         profileIconIdMap.put("ic_profile_food_1", R.drawable.ic_profile_food_1);
@@ -461,6 +470,8 @@ public class Profile {
         profileIconIdMap.put("ic_profile_car_8", R.drawable.ic_profile_car_8);
         profileIconIdMap.put("ic_profile_car_9", R.drawable.ic_profile_car_9);
         profileIconIdMap.put("ic_profile_car_10", R.drawable.ic_profile_car_10);
+        profileIconIdMap.put("ic_profile_car_11", R.drawable.ic_profile_car_11);
+        profileIconIdMap.put("ic_profile_steering_1", R.drawable.ic_profile_steering_1);
         profileIconIdMap.put("ic_profile_airplane_1", R.drawable.ic_profile_airplane_1);
         profileIconIdMap.put("ic_profile_airplane_2", R.drawable.ic_profile_airplane_2);
         profileIconIdMap.put("ic_profile_airplane_3", R.drawable.ic_profile_airplane_3);
@@ -470,6 +481,7 @@ public class Profile {
         profileIconIdMap.put("ic_profile_tram_1", R.drawable.ic_profile_tram_1);
         profileIconIdMap.put("ic_profile_tickets_1", R.drawable.ic_profile_tickets_1);
         profileIconIdMap.put("ic_profile_tickets_2", R.drawable.ic_profile_tickets_2);
+        profileIconIdMap.put("ic_profile_travel_1", R.drawable.ic_profile_travel_1);
         profileIconIdMap.put("ic_profile_culture_1", R.drawable.ic_profile_culture_1);
         profileIconIdMap.put("ic_profile_culture_6", R.drawable.ic_profile_culture_6);
         profileIconIdMap.put("ic_profile_culture_7", R.drawable.ic_profile_culture_7);
@@ -486,6 +498,7 @@ public class Profile {
         profileIconIdMap.put("ic_profile_culture_4", R.drawable.ic_profile_culture_4);
         profileIconIdMap.put("ic_profile_culture_15", R.drawable.ic_profile_culture_15);
         profileIconIdMap.put("ic_profile_culture_16", R.drawable.ic_profile_culture_16);
+        profileIconIdMap.put("ic_profile_culture_17", R.drawable.ic_profile_culture_17);
         profileIconIdMap.put("ic_profile_battery_1", R.drawable.ic_profile_battery_1);
         profileIconIdMap.put("ic_profile_battery_2", R.drawable.ic_profile_battery_2);
         profileIconIdMap.put("ic_profile_battery_3", R.drawable.ic_profile_battery_3);
@@ -511,9 +524,11 @@ public class Profile {
         profileIconNotifyId.put("ic_profile_outdoors_7", R.drawable.ic_profile_outdoors_7_notify);
         profileIconNotifyId.put("ic_profile_outdoors_8", R.drawable.ic_profile_outdoors_8_notify);
         profileIconNotifyId.put("ic_profile_outdoors_9", R.drawable.ic_profile_outdoors_9_notify);
+        profileIconNotifyId.put("ic_profile_running_1", R.drawable.ic_profile_running_1_notify);
         profileIconNotifyId.put("ic_profile_meeting", R.drawable.ic_profile_meeting_notify);
         profileIconNotifyId.put("ic_profile_meeting_2", R.drawable.ic_profile_meeting_2_notify);
         profileIconNotifyId.put("ic_profile_meeting_3", R.drawable.ic_profile_meeting_3_notify);
+        profileIconNotifyId.put("ic_profile_meeting_4", R.drawable.ic_profile_meeting_4_notify);
         profileIconNotifyId.put("ic_profile_mute", R.drawable.ic_profile_mute_notify);
         profileIconNotifyId.put("ic_profile_mute_2", R.drawable.ic_profile_mute_2_notify);
         profileIconNotifyId.put("ic_profile_volume_4", R.drawable.ic_profile_volume_4_notify);
@@ -536,8 +551,10 @@ public class Profile {
         profileIconNotifyId.put("ic_profile_work_13", R.drawable.ic_profile_work_13_notify);
         profileIconNotifyId.put("ic_profile_work_14", R.drawable.ic_profile_work_14_notify);
         profileIconNotifyId.put("ic_profile_work_15", R.drawable.ic_profile_work_15_notify);
+        profileIconNotifyId.put("ic_profile_work_16", R.drawable.ic_profile_work_16_notify);
         profileIconNotifyId.put("ic_profile_sleep", R.drawable.ic_profile_sleep_notify);
         profileIconNotifyId.put("ic_profile_sleep_2", R.drawable.ic_profile_sleep_2_notify);
+        profileIconNotifyId.put("ic_profile_sleep_3", R.drawable.ic_profile_sleep_3_notify);
         profileIconNotifyId.put("ic_profile_night", R.drawable.ic_profile_night_notify);
         profileIconNotifyId.put("ic_profile_call_1", R.drawable.ic_profile_call_1_notify);
         profileIconNotifyId.put("ic_profile_food_1", R.drawable.ic_profile_food_1_notify);
@@ -556,6 +573,8 @@ public class Profile {
         profileIconNotifyId.put("ic_profile_car_8", R.drawable.ic_profile_car_8_notify);
         profileIconNotifyId.put("ic_profile_car_9", R.drawable.ic_profile_car_9_notify);
         profileIconNotifyId.put("ic_profile_car_10", R.drawable.ic_profile_car_10_notify);
+        profileIconNotifyId.put("ic_profile_car_11", R.drawable.ic_profile_car_11_notify);
+        profileIconNotifyId.put("ic_profile_steering_1", R.drawable.ic_profile_steering_1_notify);
         profileIconNotifyId.put("ic_profile_airplane_1", R.drawable.ic_profile_airplane_1_notify);
         profileIconNotifyId.put("ic_profile_airplane_2", R.drawable.ic_profile_airplane_2_notify);
         profileIconNotifyId.put("ic_profile_airplane_3", R.drawable.ic_profile_airplane_3_notify);
@@ -565,6 +584,7 @@ public class Profile {
         profileIconNotifyId.put("ic_profile_tram_1", R.drawable.ic_profile_tram_1_notify);
         profileIconNotifyId.put("ic_profile_tickets_1", R.drawable.ic_profile_tickets_1_notify);
         profileIconNotifyId.put("ic_profile_tickets_2", R.drawable.ic_profile_tickets_2_notify);
+        profileIconNotifyId.put("ic_profile_travel_1", R.drawable.ic_profile_travel_1_notify);
         profileIconNotifyId.put("ic_profile_culture_1", R.drawable.ic_profile_culture_1_notify);
         profileIconNotifyId.put("ic_profile_culture_6", R.drawable.ic_profile_culture_6_notify);
         profileIconNotifyId.put("ic_profile_culture_7", R.drawable.ic_profile_culture_7_notify);
@@ -581,6 +601,7 @@ public class Profile {
         profileIconNotifyId.put("ic_profile_culture_4", R.drawable.ic_profile_culture_4_notify);
         profileIconNotifyId.put("ic_profile_culture_15", R.drawable.ic_profile_culture_15_notify);
         profileIconNotifyId.put("ic_profile_culture_16", R.drawable.ic_profile_culture_16_notify);
+        profileIconNotifyId.put("ic_profile_culture_17", R.drawable.ic_profile_culture_17_notify);
         profileIconNotifyId.put("ic_profile_battery_1", R.drawable.ic_profile_battery_1_notify);
         profileIconNotifyId.put("ic_profile_battery_2", R.drawable.ic_profile_battery_2_notify);
         profileIconNotifyId.put("ic_profile_battery_3", R.drawable.ic_profile_battery_3_notify);
@@ -606,9 +627,11 @@ public class Profile {
         profileIconNotifyColorId.put("ic_profile_outdoors_7", R.drawable.ic_profile_outdoors_7_notify_color);
         profileIconNotifyColorId.put("ic_profile_outdoors_8", R.drawable.ic_profile_outdoors_8_notify_color);
         profileIconNotifyColorId.put("ic_profile_outdoors_9", R.drawable.ic_profile_outdoors_9_notify_color);
+        profileIconNotifyColorId.put("ic_profile_running_1", R.drawable.ic_profile_running_1_notify_color);
         profileIconNotifyColorId.put("ic_profile_meeting", R.drawable.ic_profile_meeting_notify_color);
         profileIconNotifyColorId.put("ic_profile_meeting_2", R.drawable.ic_profile_meeting_2_notify_color);
         profileIconNotifyColorId.put("ic_profile_meeting_3", R.drawable.ic_profile_meeting_3_notify_color);
+        profileIconNotifyColorId.put("ic_profile_meeting_4", R.drawable.ic_profile_meeting_4_notify_color);
         profileIconNotifyColorId.put("ic_profile_mute", R.drawable.ic_profile_mute_notify_color);
         profileIconNotifyColorId.put("ic_profile_mute_2", R.drawable.ic_profile_mute_2_notify_color);
         profileIconNotifyColorId.put("ic_profile_volume_4", R.drawable.ic_profile_volume_4_notify_color);
@@ -631,8 +654,10 @@ public class Profile {
         profileIconNotifyColorId.put("ic_profile_work_13", R.drawable.ic_profile_work_13_notify_color);
         profileIconNotifyColorId.put("ic_profile_work_14", R.drawable.ic_profile_work_14_notify_color);
         profileIconNotifyColorId.put("ic_profile_work_15", R.drawable.ic_profile_work_15_notify_color);
+        profileIconNotifyColorId.put("ic_profile_work_16", R.drawable.ic_profile_work_16_notify_color);
         profileIconNotifyColorId.put("ic_profile_sleep", R.drawable.ic_profile_sleep_notify_color);
         profileIconNotifyColorId.put("ic_profile_sleep_2", R.drawable.ic_profile_sleep_2_notify_color);
+        profileIconNotifyColorId.put("ic_profile_sleep_3", R.drawable.ic_profile_sleep_3_notify_color);
         profileIconNotifyColorId.put("ic_profile_night", R.drawable.ic_profile_night_notify_color);
         profileIconNotifyColorId.put("ic_profile_call_1", R.drawable.ic_profile_call_1_notify_color);
         profileIconNotifyColorId.put("ic_profile_food_1", R.drawable.ic_profile_food_1_notify_color);
@@ -651,6 +676,8 @@ public class Profile {
         profileIconNotifyColorId.put("ic_profile_car_8", R.drawable.ic_profile_car_8_notify_color);
         profileIconNotifyColorId.put("ic_profile_car_9", R.drawable.ic_profile_car_9_notify_color);
         profileIconNotifyColorId.put("ic_profile_car_10", R.drawable.ic_profile_car_10_notify_color);
+        profileIconNotifyColorId.put("ic_profile_car_11", R.drawable.ic_profile_car_11_notify_color);
+        profileIconNotifyColorId.put("ic_profile_steering_1", R.drawable.ic_profile_steering_1_notify_color);
         profileIconNotifyColorId.put("ic_profile_airplane_1", R.drawable.ic_profile_airplane_1_notify_color);
         profileIconNotifyColorId.put("ic_profile_airplane_2", R.drawable.ic_profile_airplane_2_notify_color);
         profileIconNotifyColorId.put("ic_profile_airplane_3", R.drawable.ic_profile_airplane_3_notify_color);
@@ -660,6 +687,7 @@ public class Profile {
         profileIconNotifyColorId.put("ic_profile_tram_1", R.drawable.ic_profile_tram_1_notify_color);
         profileIconNotifyColorId.put("ic_profile_tickets_1", R.drawable.ic_profile_tickets_1_notify_color);
         profileIconNotifyColorId.put("ic_profile_tickets_2", R.drawable.ic_profile_tickets_2_notify_color);
+        profileIconNotifyColorId.put("ic_profile_travel_1", R.drawable.ic_profile_travel_1_notify_color);
         profileIconNotifyColorId.put("ic_profile_culture_1", R.drawable.ic_profile_culture_1_notify_color);
         profileIconNotifyColorId.put("ic_profile_culture_6", R.drawable.ic_profile_culture_6_notify_color);
         profileIconNotifyColorId.put("ic_profile_culture_7", R.drawable.ic_profile_culture_7_notify_color);
@@ -676,6 +704,7 @@ public class Profile {
         profileIconNotifyColorId.put("ic_profile_culture_4", R.drawable.ic_profile_culture_4_notify_color);
         profileIconNotifyColorId.put("ic_profile_culture_15", R.drawable.ic_profile_culture_15_notify_color);
         profileIconNotifyColorId.put("ic_profile_culture_16", R.drawable.ic_profile_culture_16_notify_color);
+        profileIconNotifyColorId.put("ic_profile_culture_17", R.drawable.ic_profile_culture_17_notify_color);
         profileIconNotifyColorId.put("ic_profile_battery_1", R.drawable.ic_profile_battery_1_notify_color);
         profileIconNotifyColorId.put("ic_profile_battery_2", R.drawable.ic_profile_battery_2_notify_color);
         profileIconNotifyColorId.put("ic_profile_battery_3", R.drawable.ic_profile_battery_3_notify_color);
