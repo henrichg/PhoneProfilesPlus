@@ -249,7 +249,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
-        Preference preference; /*= findPreference("applicationUnlinkRingerNotificationVolumesInfo");
+        Preference preference;/* = findPreference("applicationUnlinkRingerNotificationVolumesInfo");
         if (preference != null) {
             preference.setShouldDisableView(false);
             preference.setEnabled(false);
@@ -270,7 +270,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             preference = findPreference("applicationUnlinkRingerNotificationVolumesInfo");
             if (preference != null) {
                 //preference.setEnabled(true);
-                preference.setSummary(R.string.phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary);
+                preference.setTitle(R.string.phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary);
             }
             //Log.e("PhoneProfilesPrefsFragment.onActivityCreated","volumes are merged=true");
             /*Preference preference = findPreference(ApplicationPreferences.PREF_APPLICATION_RINGER_NOTIFICATION_VOLUMES_UNLINKED_INFO);

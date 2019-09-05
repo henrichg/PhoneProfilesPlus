@@ -12,7 +12,9 @@
             app:key="applicationUnlinkRingerNotificationVolumesInfo"
             app:title="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary"
             app:summary="@string/empty_string"
-            app:layout="@layout/mp_preference_material_widget" />-
+            app:shouldDisableView="false"
+            app:enabled="false"
+            app:layout="@layout/mp_preference_material_widget" />
         <SwitchPreferenceCompat
             app:key="applicationUnlinkRingerNotificationVolumes"
             app:title="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes"
