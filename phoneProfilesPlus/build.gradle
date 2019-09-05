@@ -80,6 +80,7 @@ dependencies {
     implementation 'com.android.billingclient:billing:2.0.3'
     implementation 'com.google.code.gson:gson:2.8.5'
 
+    implementation 'com.google.firebase:firebase-analytics:17.2.0'
     //implementation 'com.google.firebase:firebase-core:16.0.9'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
@@ -123,5 +124,4 @@ dependencies {
     //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-2'
 }
 
-//apply plugin: 'com.google.gms.google-services'
 
