@@ -439,7 +439,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 filterItems);
         filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.accent));
+        filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
 /*        switch (appTheme) {
             case "dark":
                 filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor_dark));

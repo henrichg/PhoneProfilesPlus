@@ -1159,12 +1159,12 @@ class GlobalGUIRoutines {
     static class HighlightedSpinnerAdapter extends ArrayAdapter<String> {
 
         private int mSelectedIndex = -1;
-        private final Context context;
+        private final Activity activity;
 
         @SuppressWarnings("SameParameterValue")
-        HighlightedSpinnerAdapter(Context context, int textViewResourceId, String[] objects) {
-            super(context, textViewResourceId, objects);
-            this.context = context;
+        HighlightedSpinnerAdapter(Activity activity, int textViewResourceId, String[] objects) {
+            super(activity, textViewResourceId, objects);
+            this.activity = activity;
         }
 
         @Override
@@ -1174,9 +1174,9 @@ class GlobalGUIRoutines {
             TextView itemText = itemView.findViewById(android.R.id.text1);
             if (itemText != null) {
                 if (position == mSelectedIndex) {
-                    itemText.setTextColor(GlobalGUIRoutines.getThemeAccentColor(context));
+                    itemText.setTextColor(GlobalGUIRoutines.getThemeAccentColor(activity));
                 } else {
-                    itemText.setTextColor(GlobalGUIRoutines.getThemeEditorSpinnerDropDownTextColor(context));
+                    itemText.setTextColor(GlobalGUIRoutines.getThemeEditorSpinnerDropDownTextColor(activity));
                 }
             }
 

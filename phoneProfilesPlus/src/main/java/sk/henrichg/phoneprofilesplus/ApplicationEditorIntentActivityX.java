@@ -148,7 +148,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
         spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         intentIntentTypeSpinner.setAdapter(spinnerAdapter);
         intentIntentTypeSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        intentIntentTypeSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.accent));
+        intentIntentTypeSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner));
         intentIntentTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -173,7 +173,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
         spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         intentActionSpinner.setAdapter(spinnerAdapter);
         intentActionSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        intentActionSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.accent));
+        intentActionSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner));
         intentActionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -331,7 +331,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
         spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         intentExtraSpinner1.setAdapter(spinnerAdapter);
         intentExtraSpinner1.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        intentExtraSpinner1.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.accent));
+        intentExtraSpinner1.setSupportBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner));
         intentExtraSpinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -353,7 +353,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
         spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         intentExtraSpinner2.setAdapter(spinnerAdapter);
         intentExtraSpinner2.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        intentExtraSpinner2.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.accent));
+        intentExtraSpinner2.setSupportBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner));
         intentExtraSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -375,7 +375,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
         spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         intentExtraSpinner3.setAdapter(spinnerAdapter);
         intentExtraSpinner3.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        intentExtraSpinner3.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.accent));
+        intentExtraSpinner3.setSupportBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner));
         intentExtraSpinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -397,7 +397,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
         spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         intentExtraSpinner4.setAdapter(spinnerAdapter);
         intentExtraSpinner4.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        intentExtraSpinner4.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.accent));
+        intentExtraSpinner4.setSupportBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner));
         intentExtraSpinner4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -419,7 +419,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
         spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         intentExtraSpinner5.setAdapter(spinnerAdapter);
         intentExtraSpinner5.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        intentExtraSpinner5.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.accent));
+        intentExtraSpinner5.setSupportBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner));
         intentExtraSpinner5.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

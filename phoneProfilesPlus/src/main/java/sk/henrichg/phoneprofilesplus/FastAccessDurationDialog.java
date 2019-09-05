@@ -234,7 +234,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 mActivity.getResources().getStringArray(R.array.afterProfileDurationDoArray));
         spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        afterDoSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(mActivity.getBaseContext(), R.color.accent));
+        afterDoSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(mActivity/*.getBaseContext()*/, R.color.highlighted_spinner_all));
         /*switch (ApplicationPreferences.applicationTheme(mActivity, true)) {
             case "dark":
                 afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);
@@ -292,7 +292,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
         profileView = layout.findViewById(R.id.fast_access_duration_dlg_profile);
         profileLabel = layout.findViewById(R.id.fast_access_duration_dlg_profile_label);
-        profileLabel.setText(mDataWrapper.context.getString(R.string.profile_preferences_afterDurationProfile) + ":");
+        profileLabel.setText(mActivity.getString(R.string.profile_preferences_afterDurationProfile) + ":");
         profileName = layout.findViewById(R.id.fast_access_duration_dlg_profile_name);
         profileIcon = layout.findViewById(R.id.fast_access_duration_dlg_profile_icon);
         profileIndicators = layout.findViewById(R.id.fast_access_duration_dlg_profile_pref_indicator);
@@ -381,7 +381,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
         if (mProfile == null)
         {
-            profileName.setText(mDataWrapper.context.getString(R.string.profile_preference_profile_end_no_activate));
+            profileName.setText(mActivity.getString(R.string.profile_preference_profile_end_no_activate));
             profileIcon.setImageResource(R.drawable.ic_profile_default);
             profileIndicators.setImageResource(R.drawable.ic_empty);
         }
@@ -424,7 +424,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 }
             }
             else {
-                profileName.setText(mDataWrapper.context.getString(R.string.profile_preference_profile_end_no_activate));
+                profileName.setText(mActivity.getString(R.string.profile_preference_profile_end_no_activate));
                 profileIcon.setImageResource(R.drawable.ic_profile_default);
                 profileIndicators.setImageResource(R.drawable.ic_empty);
             }
