@@ -25,6 +25,7 @@ import com.crashlytics.android.Crashlytics;
 import com.evernote.android.job.JobApi;
 import com.evernote.android.job.JobConfig;
 import com.evernote.android.job.JobManager;
+//import com.google.firebase.analytics.FirebaseAnalytics;
 import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.look.Slook;
 import com.stericson.RootShell.RootShell;
@@ -53,8 +54,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.multidex.MultiDex;
 import dev.doubledot.doki.views.DokiContentView;
 import io.fabric.sdk.android.Fabric;
-
-//import com.google.firebase.analytics.FirebaseAnalytics;
 
 //import com.github.anrwatchdog.ANRError;
 //import com.github.anrwatchdog.ANRWatchDog;
@@ -590,7 +589,7 @@ public class PPApplication extends Application {
 
     public static boolean isScreenOn;
 
-    //static private FirebaseAnalytics firebaseAnalytics;
+//    static private FirebaseAnalytics firebaseAnalytics;
 
     public static HandlerThread handlerThread = null;
     public static HandlerThread handlerThreadInternalChangeToFalse = null;
@@ -688,14 +687,14 @@ public class PPApplication extends Application {
         }
         //////////////////////////////////////////
 
-        if (logIntoFile || crashIntoFile)
-            Permissions.grantLogToFilePermissions(getApplicationContext());
+        //if (logIntoFile || crashIntoFile)
+        //    Permissions.grantLogToFilePermissions(getApplicationContext());
 
         try {
-            /*if (!BuildConfig.DEBUG) {
+            //if (!BuildConfig.DEBUG) {
                 // Obtain the FirebaseAnalytics instance.
-                firebaseAnalytics = FirebaseAnalytics.getInstance(this);
-            }*/
+                //firebaseAnalytics = FirebaseAnalytics.getInstance(this);
+            //}
 
             /*
             // Set up Crashlytics, disabled for debug builds
