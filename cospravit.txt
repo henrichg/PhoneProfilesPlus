@@ -404,4 +404,8 @@ Migracia z android-job do WorkManager:
         }
     }
 
+- android-job Job.onCancel() ->
+
+    Worker.onStopped()
+
 --------------------------------------------------------------------
