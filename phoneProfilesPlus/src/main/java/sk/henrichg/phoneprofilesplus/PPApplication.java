@@ -196,7 +196,11 @@ public class PPApplication extends Application {
 
                                          //+"|PhoneProfilesPreferencesNestedFragment.onActivityCreated"
                                          //+"|PhoneProfilesPrefsActivity"
-                                         //+"|PhoneProfilesPrefsFragment"
+                                         //+"|PhoneProfilesPrefsFragment.onCreate"
+                                         //+"|PhoneProfilesPrefsFragment.onCreatePreferences"
+                                         //+"|PhoneProfilesPrefsFragment.updateSharedPreferences"
+                                         //+"|PhoneProfilesPrefsFragment.initPreferenceFragment"
+                                         //+"|PhoneProfilesPrefsFragment.loadSharedPreferences"
                                          //+"|ProfilesPrefsActivity"
                                          //+"|ProfilesPrefsFragment"
                                          //+"|ProfilesPrefsFragment.onCreate"
@@ -446,8 +450,8 @@ public class PPApplication extends Application {
 
                                         //+"|FastAccessDurationDialog.updateProfileView"
 
-                                        +"|NotUsedMobileCellsNotificationDisableReceiver"
-                                        +"|NotUsedMobileCellsNotificationDeletedReceiver"
+                                        //+"|NotUsedMobileCellsNotificationDisableReceiver"
+                                        //+"|NotUsedMobileCellsNotificationDeletedReceiver"
             ;
 
 

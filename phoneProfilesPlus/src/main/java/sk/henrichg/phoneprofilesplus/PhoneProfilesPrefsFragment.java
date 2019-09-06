@@ -1485,26 +1485,35 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         preferences = prefMng.getSharedPreferences();
         if (getContext() != null) {
-            applicationPreferences = getContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
+            applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
         }
 
+        PPApplication.logE("PhoneProfilesPrefsFragment.initPreferenceFragment", "savedInstanceState="+savedInstanceState);
         PPApplication.logE("PhoneProfilesPrefsFragment.initPreferenceFragment", "getContext()="+getContext());
 
-        if (savedInstanceState == null) {
+        preferences.registerOnSharedPreferenceChangeListener(this);
+
+        /*if (savedInstanceState == null) {
             SharedPreferences.Editor editor = preferences.edit();
             updateSharedPreferences(editor, applicationPreferences);
             editor.apply();
-        }
-
-        preferences.registerOnSharedPreferenceChangeListener(this);
+        }*/
     }
 
     void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
+        PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsFragment");
     }
 
     void updateSharedPreferences() {
         SharedPreferences.Editor editor = applicationPreferences.edit();
         updateSharedPreferences(editor, preferences);
+        editor.apply();
+    }
+
+    void loadSharedPreferences(SharedPreferences preferences, SharedPreferences applicationPreferences) {
+        PPApplication.logE("PhoneProfilesPrefsFragment.loadSharedPreferences", "xxx");
+        SharedPreferences.Editor editor = preferences.edit();
+        updateSharedPreferences(editor, applicationPreferences);
         editor.apply();
     }
 
