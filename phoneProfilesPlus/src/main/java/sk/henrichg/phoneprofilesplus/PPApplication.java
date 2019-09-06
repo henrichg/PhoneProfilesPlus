@@ -445,6 +445,9 @@ public class PPApplication extends Application {
                                         //+"|DonationNotificationJob"
 
                                         //+"|FastAccessDurationDialog.updateProfileView"
+
+                                        +"|NotUsedMobileCellsNotificationDisableReceiver"
+                                        +"|NotUsedMobileCellsNotificationDeletedReceiver"
             ;
 
 

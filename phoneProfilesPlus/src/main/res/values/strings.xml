@@ -1400,6 +1400,8 @@
     <string name="profile_preferences_afterDurationProfile">Profile to activate</string>
     <string name="altype_afterDuration_specificProfile">after duration expires - specific profile</string>
 
+    <string name="notification_not_used_mobile_cell_disable">Disable</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>

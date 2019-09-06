@@ -90,6 +90,7 @@ public class PhoneProfilesService extends Service
     private PhoneCallBroadcastReceiver phoneCallBroadcastReceiver = null;
     private RingerModeChangeReceiver ringerModeChangeReceiver = null;
     private WifiStateChangedBroadcastReceiver wifiStateChangedBroadcastReceiver = null;
+    private NotUsedMobileCellsNotificationDisableReceiver notUsedMobileCellsNotificationDisableReceiver = null;
 
     private BatteryBroadcastReceiver batteryEventReceiver = null;
     private BatteryBroadcastReceiver batteryChangeLevelReceiver = null;
@@ -932,6 +933,17 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered pppExtenderBroadcastReceiver");
+
+            if (notUsedMobileCellsNotificationDisableReceiver == null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER not used mobile cells notification disable", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER not used mobile cells notification disable");
+                notUsedMobileCellsNotificationDisableReceiver = new NotUsedMobileCellsNotificationDisableReceiver();
+                IntentFilter intentFilter5 = new IntentFilter();
+                intentFilter5.addAction(PhoneStateScanner.NEW_MOBILE_CELLS_NOTIFICATION_DISABLE_ACTION);
+                appContext.registerReceiver(notUsedMobileCellsNotificationDisableReceiver, intentFilter5);
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered not used mobile cells notification delete");
         }
     }
 
@@ -4458,7 +4470,7 @@ public class PhoneProfilesService extends Service
             else
                 notificationBuilder.setContent(contentViewLarge);
 
-            if ((Build.VERSION.SDK_INT >= 24) &&
+            if (/*(Build.VERSION.SDK_INT >= 24) &&*/
                     (ApplicationPreferences.notificationShowButtonExit(appContext)) &&
                     useDecorator) {
                 // add action button to stop application
