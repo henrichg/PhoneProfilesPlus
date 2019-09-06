@@ -615,14 +615,14 @@ class PhoneStateScanner extends PhoneStateListener {
     }
 
     private boolean isNotUsedCellsNotificationEnabled() {
-        if (Build.VERSION.SDK_INT >= 26) {
+        /*if (Build.VERSION.SDK_INT >= 26) {
             NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             NotificationChannel channel = manager.getNotificationChannel(PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL);
             return channel.getImportance() != NotificationManager.IMPORTANCE_NONE;
         }
-        else {
+        else {*/
             return ApplicationPreferences.applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled(context);
-        }
+        //}
     }
 
     @SuppressWarnings("StringConcatenationInLoop")

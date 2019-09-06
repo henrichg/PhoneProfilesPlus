@@ -26,6 +26,13 @@
         app:dependency="applicationEventMobileCellEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
     -->
+    <SwitchPreferenceCompat
+        app:key="applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled"
+        app:title="@string/phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotificationEnabled"
+        app:defaultValue="true"
+        app:dependency="applicationEventMobileCellEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+    <!--
     <Preference
         app:key="applicationEventMobileCellNotUsedCellsDetectionNotificationSystemSettings"
         app:title="@string/phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotification"
@@ -33,6 +40,7 @@
         app:widgetLayout="@layout/start_activity_preference"
         app:dependency="applicationEventMobileCellEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
+    -->
     <ListPreference
         app:key="applicationEventMobileCellScanInPowerSaveMode"
         app:title="@string/phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode"

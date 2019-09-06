@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -303,6 +305,20 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                         GlobalGUIRoutines.switchNightMode(appContext, true);
                                         editor.apply();
                                     }
+                                }
+
+                                if (actualVersionCode <= 5100) {
+                                    if (Build.VERSION.SDK_INT >= 26) {
+                                        NotificationManager manager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                                        NotificationChannel channel = manager.getNotificationChannel(PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL);
+
+                                        ApplicationPreferences.getSharedPreferences(appContext);
+                                        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED,
+                                                                    channel.getImportance() != NotificationManager.IMPORTANCE_NONE);
+                                        editor.apply();
+                                    }
+
                                 }
 
                                 PPApplication.logE("PackageReplacedReceiver.onReceive", "restartService="+restartService);
