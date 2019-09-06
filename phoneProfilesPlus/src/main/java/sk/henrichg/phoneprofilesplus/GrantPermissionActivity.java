@@ -127,8 +127,11 @@ public class GrantPermissionActivity extends AppCompatActivity {
         event = dataWrapper.getEventById(event_id);
 
         restoredInstanceState = savedInstanceState != null;
+        if (restoredInstanceState) {
+            started = savedInstanceState.getBoolean("started", false);
+        }
 
-        if (onlyNotification) {
+        if (!started && onlyNotification) {
             showNotification();
             started = true;
         }
@@ -138,6 +141,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
     protected void onStart()
     {
         super.onStart();
+        GlobalGUIRoutines.lockScreenOrientation(this);
 
         if (started) return;
         started = true;
@@ -241,6 +245,12 @@ public class GrantPermissionActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        GlobalGUIRoutines.unlockScreenOrientation(this);
+    }
+
     /*
     @Override
     protected void onDestroy()
@@ -252,6 +262,12 @@ public class GrantPermissionActivity extends AppCompatActivity {
         super.onDestroy();
     }
     */
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putBoolean("started", started);
+    }
 
     private boolean canShowRationale(Context context, boolean forceGrant) {
         showRequestWriteSettings = false;
