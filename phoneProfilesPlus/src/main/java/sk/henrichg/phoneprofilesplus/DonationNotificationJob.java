@@ -20,7 +20,7 @@ class DonationNotificationJob extends Job {
 
     static final String JOB_TAG  = "DonationNotificationJob";
 
-    private static final int MAX_DONATION_NOTIFICATION_COUNT = 3;
+    //private static final int MAX_DONATION_NOTIFICATION_COUNT = 3;
 
     //private static CountDownLatch countDownLatch = null;
 
@@ -45,8 +45,14 @@ class DonationNotificationJob extends Job {
         boolean donationDonated = PPApplication.getDonationDonated(context);
         PPApplication.logE("DonationNotificationJob.onRunJob", "donationDonated="+donationDonated);
 
-        if (!donationDonated && (donationNotificationCount < MAX_DONATION_NOTIFICATION_COUNT)) {
-            boolean notify = false;
+        if (!donationDonated/* && (donationNotificationCount < MAX_DONATION_NOTIFICATION_COUNT)*/) {
+            boolean notify;
+            int daysForOneNotification = 7;
+            for (int i = 1; i <= donationNotificationCount; i++) {
+                daysForOneNotification = daysForOneNotification + 7 * (i+1);
+            }
+            notify = daysAfterFirstStart >= daysForOneNotification;
+            /*
             switch (donationNotificationCount) {
                 case 0:
                     int daysForOneNotification = 7;
@@ -61,6 +67,7 @@ class DonationNotificationJob extends Job {
                     notify = daysAfterFirstStart >= daysForOneNotification;
                     break;
             }
+            */
 
             if (notify/*daysAfterFirstStart == daysForOneNotification*/) {
                 PPApplication.setDonationNotificationCount(context, donationNotificationCount+1);
@@ -110,9 +117,9 @@ class DonationNotificationJob extends Job {
             countDownLatch = null;
             PPApplication.logE("DonationNotificationJob.onRunJob", "return");*/
         }
-        else {
+        /*else {
             PPApplication.setDonationNotificationCount(context, MAX_DONATION_NOTIFICATION_COUNT);
-        }
+        }*/
 
         return Result.SUCCESS;
     }
