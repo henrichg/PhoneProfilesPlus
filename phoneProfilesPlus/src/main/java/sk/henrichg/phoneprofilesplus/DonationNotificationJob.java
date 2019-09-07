@@ -51,7 +51,7 @@ class DonationNotificationJob extends Job {
             for (int i = 1; i <= donationNotificationCount; i++) {
                 daysForOneNotification = daysForOneNotification + 7 * (i+1);
             }
-            notify = daysAfterFirstStart >= daysForOneNotification;
+            notify = (daysAfterFirstStart > 0) && (daysAfterFirstStart >= daysForOneNotification);
             /*
             switch (donationNotificationCount) {
                 case 0:
