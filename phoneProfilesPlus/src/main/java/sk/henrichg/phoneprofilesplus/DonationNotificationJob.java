@@ -45,6 +45,9 @@ class DonationNotificationJob extends Job {
         boolean donationDonated = PPApplication.getDonationDonated(context);
         PPApplication.logE("DonationNotificationJob.onRunJob", "donationDonated="+donationDonated);
 
+        // TODO for test only!!!
+        donationDonated = false;
+
         if (!donationDonated/* && (donationNotificationCount < MAX_DONATION_NOTIFICATION_COUNT)*/) {
             boolean notify;
             int daysForOneNotification = 7;

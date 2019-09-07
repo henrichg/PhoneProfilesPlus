@@ -174,9 +174,9 @@ public class PPApplication extends Application {
                                          //+"|Profile.convertPercentsToBrightnessManualValue"
                                          //+"|SettingsContentObserver"
 
-                                         +"|$$$ DataWrapper._activateProfile"
-                                         +"|ProfileDurationAlarmBroadcastReceiver.onReceive"
-                                         +"|DataWrapper.activateProfileAfterDuration"
+                                         //+"|$$$ DataWrapper._activateProfile"
+                                         //+"|ProfileDurationAlarmBroadcastReceiver.onReceive"
+                                         //+"|DataWrapper.activateProfileAfterDuration"
                                          //+"|DataWrapper.getIsManualProfileActivation"
 
                                          //+"|BillingManager"
@@ -446,7 +446,7 @@ public class PPApplication extends Application {
                                         //+"|EventsPrefsFragment.onResume"
                                         //+"|ActivateProfileHelper.setScreenCarMode"
 
-                                        //+"|DonationNotificationJob"
+                                        +"|DonationNotificationJob"
 
                                         //+"|FastAccessDurationDialog.updateProfileView"
 
