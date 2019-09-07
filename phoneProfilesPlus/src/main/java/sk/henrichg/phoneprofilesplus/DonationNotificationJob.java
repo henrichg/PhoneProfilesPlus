@@ -78,7 +78,7 @@ class DonationNotificationJob extends Job {
                 PPApplication.setDonationNotificationCount(context, donationNotificationCount+1);
 
                 // show notification about "Please donate me."
-                PPApplication.createInformationNotificationChannel(context);
+                PPApplication.createDonationNotificationChannel(context);
 
                 NotificationCompat.Builder mBuilder;
                 Intent _intent = new Intent(context, DonationActivity.class);
@@ -90,7 +90,7 @@ class DonationNotificationJob extends Job {
                     nText = context.getString(R.string.about_application_donate_button) + ": " +
                             context.getString(R.string.donation_description);
                 }
-                mBuilder = new NotificationCompat.Builder(context, PPApplication.INFORMATION_NOTIFICATION_CHANNEL)
+                mBuilder = new NotificationCompat.Builder(context, PPApplication.DONATION_CHANNEL)
                         .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
                         .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                         .setContentTitle(nTitle) // title for notification

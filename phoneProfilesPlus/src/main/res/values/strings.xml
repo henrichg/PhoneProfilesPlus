@@ -1401,6 +1401,7 @@
     <string name="altype_afterDuration_specificProfile">after duration expires - specific profile</string>
 
     <string name="notification_not_used_mobile_cell_disable">Disable</string>
+    <string name="notification_channel_donation">Donation</string>
 
     <!-- **************************************************************************************** -->
 
