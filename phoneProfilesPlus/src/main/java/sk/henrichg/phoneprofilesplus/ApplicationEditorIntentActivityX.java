@@ -594,21 +594,39 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
     }
 
     private void saveIntent() {
-        ppIntent._name = intentNameEditText.getText().toString();
+        if (intentNameEditText.getText() != null)
+            ppIntent._name = intentNameEditText.getText().toString();
+        else
+            ppIntent._name = "";
         if (application != null)
             application.appLabel = ppIntent._name;
         ppIntent._intentType = intentIntentTypeSpinner.getSelectedItemPosition();
-        ppIntent._packageName = intentPackageName.getText().toString().replaceAll(" ","");
-        ppIntent._className = intentClassName.getText().toString().replaceAll(" ","");
-        ppIntent._data = intentData.getText().toString();
-        ppIntent._mimeType = intentMimeType.getText().toString().replaceAll(" ","");
+        if (intentPackageName.getText() != null)
+            ppIntent._packageName = intentPackageName.getText().toString().replaceAll(" ","");
+        else
+            ppIntent._packageName = "";
+        if (intentClassName.getText() != null)
+            ppIntent._className = intentClassName.getText().toString().replaceAll(" ","");
+        else
+            ppIntent._className = "";
+        if (intentData.getText() != null)
+            ppIntent._data = intentData.getText().toString();
+        else
+            ppIntent._data = "";
+        if (intentMimeType.getText() != null)
+            ppIntent._mimeType = intentMimeType.getText().toString().replaceAll(" ","");
+        else
+            ppIntent._mimeType = "";
 
         int actionSpinnerId = intentActionSpinner.getSelectedItemPosition();
         if (actionSpinnerId == 0)
             ppIntent._action = "";
         else
         if (actionSpinnerId == 1)
-            ppIntent._action = intentActionEdit.getText().toString();
+            if (intentActionEdit.getText() != null)
+                ppIntent._action = intentActionEdit.getText().toString();
+            else
+                ppIntent._action = "";
         else {
             ppIntent._action = actionsArray[actionSpinnerId];
         }
@@ -639,20 +657,54 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
             ++i;
         }
 
-        ppIntent._extraKey1 = intentExtraKeyName1.getText().toString();
-        ppIntent._extraValue1 = intentExtraKeyValue1.getText().toString();
+        if (intentExtraKeyName1.getText() != null)
+            ppIntent._extraKey1 = intentExtraKeyName1.getText().toString();
+        else
+            ppIntent._extraKey1 = "";
+        if (intentExtraKeyValue1.getText() != null)
+            ppIntent._extraValue1 = intentExtraKeyValue1.getText().toString();
+        else
+            ppIntent._extraValue1 = "";
         ppIntent._extraType1 = intentExtraSpinner1.getSelectedItemPosition();
-        ppIntent._extraKey2 = intentExtraKeyName2.getText().toString();
-        ppIntent._extraValue2 = intentExtraKeyValue2.getText().toString();
+
+        if (intentExtraKeyName2.getText() != null)
+            ppIntent._extraKey2 = intentExtraKeyName2.getText().toString();
+        else
+            ppIntent._extraKey2 = "";
+        if (intentExtraKeyValue2.getText() != null)
+            ppIntent._extraValue2 = intentExtraKeyValue2.getText().toString();
+        else
+            ppIntent._extraValue2 = "";
         ppIntent._extraType2 = intentExtraSpinner2.getSelectedItemPosition();
-        ppIntent._extraKey3 = intentExtraKeyName3.getText().toString();
-        ppIntent._extraValue3 = intentExtraKeyValue3.getText().toString();
+
+        if (intentExtraKeyName3.getText() != null)
+            ppIntent._extraKey3 = intentExtraKeyName3.getText().toString();
+        else
+            ppIntent._extraKey3 = "";
+        if (intentExtraKeyValue3.getText() != null)
+            ppIntent._extraValue3 = intentExtraKeyValue3.getText().toString();
+        else
+            ppIntent._extraValue3 = "";
         ppIntent._extraType3 = intentExtraSpinner3.getSelectedItemPosition();
-        ppIntent._extraKey4 = intentExtraKeyName4.getText().toString();
-        ppIntent._extraValue4 = intentExtraKeyValue4.getText().toString();
+
+        if (intentExtraKeyName4.getText() != null)
+            ppIntent._extraKey4 = intentExtraKeyName4.getText().toString();
+        else
+            ppIntent._extraKey4 = "";
+        if (intentExtraKeyValue4.getText() != null)
+            ppIntent._extraValue4 = intentExtraKeyValue4.getText().toString();
+        else
+            ppIntent._extraValue4 = "";
         ppIntent._extraType4 = intentExtraSpinner4.getSelectedItemPosition();
-        ppIntent._extraKey5 = intentExtraKeyName5.getText().toString();
-        ppIntent._extraValue5 = intentExtraKeyValue5.getText().toString();
+
+        if (intentExtraKeyName5.getText() != null)
+            ppIntent._extraKey5 = intentExtraKeyName5.getText().toString();
+        else
+            ppIntent._extraKey5 = "";
+        if (intentExtraKeyValue5.getText() != null)
+            ppIntent._extraValue5 = intentExtraKeyValue5.getText().toString();
+        else
+            ppIntent._extraValue5 = "";
         ppIntent._extraType5 = intentExtraSpinner5.getSelectedItemPosition();
     }
 
