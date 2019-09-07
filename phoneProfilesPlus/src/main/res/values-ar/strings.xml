@@ -266,8 +266,8 @@
     <string name="profile_preferences_duration">المدة الزمنية</string>
     <string name="profile_preferences_afterDurationDo">عندما تنتهي المدة الزمنية</string>
     <string name="array_pref_afterProfileDurationDo_nothing">لا شيئ</string>
-    <string name="array_pref_afterProfileDurationDo_undoProfile">التراجع عن الوضع</string>
-    <string name="array_pref_afterProfileDurationDo_backgroundProfile">تنشيط الوضع الافتراضي</string>
+    <string name="array_pref_afterProfileDurationDo_undoProfile">[M] التراجع عن الوضع</string>
+    <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] تنشيط الوضع الافتراضي</string>
     <string name="phone_profiles_pref_applicationGridLayout">تخطيط الشبكة</string>
     <string name="menu_help">مساعدة</string>
     <string name="array_event_pref_eventScreenEventType_screenOn">فتح الشاشة</string>
@@ -307,7 +307,7 @@
     <string name="preference_profile_adaptiveBrightness">تكيف</string>
     <string name="profile_preferences_deviceKeyguard">قفل الشاشة</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">إخفاء اسم الوضع (القطعة)</string>
-    <string name="array_pref_afterProfileDurationDo_restartEvents">إعادة تشغيل الأحداث</string>
+    <string name="array_pref_afterProfileDurationDo_restartEvents">[M] إعادة تشغيل الأحداث</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">تم إلغاء الإتصال</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">بعيد ( ليس في نطاق البحث)</string>
     <string name="array_event_pref_bluetoothConnectionType_notConnected">تم إلغاء الإتصال</string>

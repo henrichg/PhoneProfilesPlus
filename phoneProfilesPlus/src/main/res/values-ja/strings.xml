@@ -266,8 +266,8 @@
     <string name="profile_preferences_duration">期間</string>
     <string name="profile_preferences_afterDurationDo">When duration expires</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Do nothing</string>
-    <string name="array_pref_afterProfileDurationDo_undoProfile">Undo the profile</string>
-    <string name="array_pref_afterProfileDurationDo_backgroundProfile">Activate Default profile</string>
+    <string name="array_pref_afterProfileDurationDo_undoProfile">[M] Undo the profile</string>
+    <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Activate Default profile</string>
     <string name="phone_profiles_pref_applicationGridLayout">グリッド状</string>
     <string name="menu_help">ヘルプ</string>
     <string name="array_event_pref_eventScreenEventType_screenOn">Screen On</string>
@@ -307,7 +307,7 @@
     <string name="preference_profile_adaptiveBrightness">Adaptive</string>
     <string name="profile_preferences_deviceKeyguard">ロックスクリーン</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">プロファイル名を非表示します (ウィジェット)</string>
-    <string name="array_pref_afterProfileDurationDo_restartEvents">イベントを再始動</string>
+    <string name="array_pref_afterProfileDurationDo_restartEvents">[M] イベントを再始動</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">接続されていません</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">Not nearby (not within scanning range)</string>
     <string name="array_event_pref_bluetoothConnectionType_notConnected">接続されていません</string>

@@ -266,8 +266,8 @@
     <string name="profile_preferences_duration">अवधि</string>
     <string name="profile_preferences_afterDurationDo">अवधि समाप्त होने पर</string>
     <string name="array_pref_afterProfileDurationDo_nothing">कुछ न करें</string>
-    <string name="array_pref_afterProfileDurationDo_undoProfile">प्रोफ़ाइल बंद करें</string>
-    <string name="array_pref_afterProfileDurationDo_backgroundProfile">डिफ़ॉल्ट प्रोफ़ाइल सक्रिय करें</string>
+    <string name="array_pref_afterProfileDurationDo_undoProfile">[M] प्रोफ़ाइल बंद करें</string>
+    <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] डिफ़ॉल्ट प्रोफ़ाइल सक्रिय करें</string>
     <string name="phone_profiles_pref_applicationGridLayout">ग्रिड ख़ाका</string>
     <string name="menu_help">मदद</string>
     <string name="array_event_pref_eventScreenEventType_screenOn">स्‍क्रीन चालू</string>
@@ -307,7 +307,7 @@
     <string name="preference_profile_adaptiveBrightness">अनुकूली</string>
     <string name="profile_preferences_deviceKeyguard">ताला स्क्रीन</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">प्रोफ़ाइल नाम छुपाएं (विजेट)</string>
-    <string name="array_pref_afterProfileDurationDo_restartEvents">इवेंट पुनरारंभ करें</string>
+    <string name="array_pref_afterProfileDurationDo_restartEvents">[M] इवेंट पुनरारंभ करें</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">कनेक्ट नहीं है</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">पास नहीं (स्कैनिंग रेंज के भीतर नहीं)</string>
     <string name="array_event_pref_bluetoothConnectionType_notConnected">कनेक्ट नहीं है</string>

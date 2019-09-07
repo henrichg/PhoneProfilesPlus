@@ -266,8 +266,8 @@
     <string name="profile_preferences_duration">Süre</string>
     <string name="profile_preferences_afterDurationDo">Müddet bittince yapılacaklar</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Hiçbiri</string>
-    <string name="array_pref_afterProfileDurationDo_undoProfile">Tercihi geri al</string>
-    <string name="array_pref_afterProfileDurationDo_backgroundProfile">Varsayılan tercihi faaliyete geçir</string>
+    <string name="array_pref_afterProfileDurationDo_undoProfile">[M] Tercihi geri al</string>
+    <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Varsayılan tercihi faaliyete geçir</string>
     <string name="phone_profiles_pref_applicationGridLayout">Izgara düzeni</string>
     <string name="menu_help">Yardım</string>
     <string name="array_event_pref_eventScreenEventType_screenOn">Ekran Açık</string>
@@ -307,7 +307,7 @@
     <string name="preference_profile_adaptiveBrightness">Ortama göre</string>
     <string name="profile_preferences_deviceKeyguard">Kilit ekranı</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Tercih ismini gizle (widget)</string>
-    <string name="array_pref_afterProfileDurationDo_restartEvents">Durumları tekrar başlat</string>
+    <string name="array_pref_afterProfileDurationDo_restartEvents">[M] Durumları tekrar başlat</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">Wi-Fi bağlanmadı</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">Yakındaki değil (tarama aralığı içinde değil)</string>
     <string name="array_event_pref_bluetoothConnectionType_notConnected">Bluetooth bağlanmadı</string>

@@ -266,8 +266,8 @@
     <string name="profile_preferences_duration">Продолжительность</string>
     <string name="profile_preferences_afterDurationDo">По окончании действия профиля</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Ничего не делать</string>
-    <string name="array_pref_afterProfileDurationDo_undoProfile">Отменить данный профиль</string>
-    <string name="array_pref_afterProfileDurationDo_backgroundProfile">Активировать профиль по умолчанию</string>
+    <string name="array_pref_afterProfileDurationDo_undoProfile">[M] Отменить данный профиль</string>
+    <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Активировать профиль по умолчанию</string>
     <string name="phone_profiles_pref_applicationGridLayout">В виде сетки</string>
     <string name="menu_help">Помощь</string>
     <string name="array_event_pref_eventScreenEventType_screenOn">Включение экрана</string>
@@ -307,7 +307,7 @@
     <string name="preference_profile_adaptiveBrightness">Адаптивная</string>
     <string name="profile_preferences_deviceKeyguard">Блокировка экрана</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Скрыть имя профиля (виджет)</string>
-    <string name="array_pref_afterProfileDurationDo_restartEvents">Перезапустить события</string>
+    <string name="array_pref_afterProfileDurationDo_restartEvents">[M] Перезапустить события</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">Не подключено</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">Далеко (вне диапазона сканирования)</string>
     <string name="array_event_pref_bluetoothConnectionType_notConnected">Не подключено</string>

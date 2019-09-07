@@ -266,8 +266,8 @@
     <string name="profile_preferences_duration">지속기간</string>
     <string name="profile_preferences_afterDurationDo">지속기간 만료 시</string>
     <string name="array_pref_afterProfileDurationDo_nothing">아무것도 안 함</string>
-    <string name="array_pref_afterProfileDurationDo_undoProfile">프로필 되돌리기</string>
-    <string name="array_pref_afterProfileDurationDo_backgroundProfile">기본 프로필을 활성화</string>
+    <string name="array_pref_afterProfileDurationDo_undoProfile">[M] 프로필 되돌리기</string>
+    <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] 기본 프로필을 활성화</string>
     <string name="phone_profiles_pref_applicationGridLayout">격자 레이아웃</string>
     <string name="menu_help">도움말</string>
     <string name="array_event_pref_eventScreenEventType_screenOn">화면 켜짐</string>
@@ -307,7 +307,7 @@
     <string name="preference_profile_adaptiveBrightness">Adaptive</string>
     <string name="profile_preferences_deviceKeyguard">Lock screen</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Hide profile name (widget)</string>
-    <string name="array_pref_afterProfileDurationDo_restartEvents">Restart events</string>
+    <string name="array_pref_afterProfileDurationDo_restartEvents">[M] Restart events</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">Not connected</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">Not nearby (not within scanning range)</string>
     <string name="array_event_pref_bluetoothConnectionType_notConnected">Not connected</string>

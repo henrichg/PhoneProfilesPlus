@@ -266,8 +266,8 @@
     <string name="profile_preferences_duration">Lamanya</string>
     <string name="profile_preferences_afterDurationDo">Bila durasi habis</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Tidak melakukan apapun</string>
-    <string name="array_pref_afterProfileDurationDo_undoProfile">Urungkan profilnya</string>
-    <string name="array_pref_afterProfileDurationDo_backgroundProfile">Aktifkan profil default</string>
+    <string name="array_pref_afterProfileDurationDo_undoProfile">[M] Urungkan profilnya</string>
+    <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Aktifkan profil default</string>
     <string name="phone_profiles_pref_applicationGridLayout">Tata letak kotak</string>
     <string name="menu_help">Membantu</string>
     <string name="array_event_pref_eventScreenEventType_screenOn">Layar aktif</string>
@@ -307,7 +307,7 @@
     <string name="preference_profile_adaptiveBrightness">Adaptif</string>
     <string name="profile_preferences_deviceKeyguard">Layar kunci</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Sembunyikan nama profil (widget)</string>
-    <string name="array_pref_afterProfileDurationDo_restartEvents">Mulai ulang acara</string>
+    <string name="array_pref_afterProfileDurationDo_restartEvents">[M] Mulai ulang acara</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">Tidak terhubung</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">Tidak dekat (tidak dalam rentang pemindaian)</string>
     <string name="array_event_pref_bluetoothConnectionType_notConnected">Tidak terhubung</string>

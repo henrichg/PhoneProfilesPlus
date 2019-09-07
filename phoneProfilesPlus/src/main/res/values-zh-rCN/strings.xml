@@ -266,8 +266,8 @@
     <string name="profile_preferences_duration">持续时间</string>
     <string name="profile_preferences_afterDurationDo">结束后操作</string>
     <string name="array_pref_afterProfileDurationDo_nothing">无</string>
-    <string name="array_pref_afterProfileDurationDo_undoProfile">撤销</string>
-    <string name="array_pref_afterProfileDurationDo_backgroundProfile">激活默认</string>
+    <string name="array_pref_afterProfileDurationDo_undoProfile">[M] 撤销</string>
+    <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] 激活默认</string>
     <string name="phone_profiles_pref_applicationGridLayout">网格布局</string>
     <string name="menu_help">帮助</string>
     <string name="array_event_pref_eventScreenEventType_screenOn">点亮屏幕</string>
@@ -307,7 +307,7 @@
     <string name="preference_profile_adaptiveBrightness">自适应</string>
     <string name="profile_preferences_deviceKeyguard">锁定屏幕</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">隐藏情景名称 (widget)</string>
-    <string name="array_pref_afterProfileDurationDo_restartEvents">重新启动事件</string>
+    <string name="array_pref_afterProfileDurationDo_restartEvents">[M] 重新启动事件</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">未连接</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">不在附近 (不在扫描范围之内)</string>
     <string name="array_event_pref_bluetoothConnectionType_notConnected">未连接</string>

@@ -490,8 +490,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         DurationDialogPreferenceX durationPreference = prefMng.findPreference(Profile.PREF_PROFILE_DURATION);
         if (durationPreference != null)
         {
-            durationPreference.setTitle("[M] " + context.getString(R.string.profile_preferences_duration));
-            durationPreference.setDialogTitle("[M] " + context.getString(R.string.profile_preferences_duration));
+            durationPreference.setTitle(context.getString(R.string.profile_preferences_duration));
+            durationPreference.setDialogTitle(context.getString(R.string.profile_preferences_duration));
             String value = preferences.getString(Profile.PREF_PROFILE_DURATION, "");
             setSummary(Profile.PREF_PROFILE_DURATION, value);
         }
@@ -1013,7 +1013,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 title = "(R) "+getString(R.string.profile_preferences_vibrateWhenRinging);
                             else
                             if (key.equals(Profile.PREF_PROFILE_DURATION))
-                                title = "[M] " + context.getString(R.string.profile_preferences_duration);
+                                title = context.getString(R.string.profile_preferences_duration);
                             else
                                 title = getString(preferenceTitleId);
                         }

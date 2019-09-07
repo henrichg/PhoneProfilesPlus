@@ -266,8 +266,8 @@
     <string name="profile_preferences_duration">Duration</string>
     <string name="profile_preferences_afterDurationDo">When duration expires</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Do nothing</string>
-    <string name="array_pref_afterProfileDurationDo_undoProfile">ప్రొఫైల్ అన్డు</string>
-    <string name="array_pref_afterProfileDurationDo_backgroundProfile">డిఫాల్ట్ ప్రొఫైల్ను సక్రియం</string>
+    <string name="array_pref_afterProfileDurationDo_undoProfile">[M] ప్రొఫైల్ అన్డు</string>
+    <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] డిఫాల్ట్ ప్రొఫైల్ను సక్రియం</string>
     <string name="phone_profiles_pref_applicationGridLayout">రూపరేఖ</string>
     <string name="menu_help">Help</string>
     <string name="array_event_pref_eventScreenEventType_screenOn">Screen On</string>
@@ -307,7 +307,7 @@
     <string name="preference_profile_adaptiveBrightness">Adaptive</string>
     <string name="profile_preferences_deviceKeyguard">Lock screen</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">దాచు ప్రొఫైల్ పేరు ( విడ్జెట్ లో )</string>
-    <string name="array_pref_afterProfileDurationDo_restartEvents">ఈవెంట్స్ పునఃప్రారంభించు</string>
+    <string name="array_pref_afterProfileDurationDo_restartEvents">[M] ఈవెంట్స్ పునఃప్రారంభించు</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">Not connected</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">Not nearby (not within scanning range)</string>
     <string name="array_event_pref_bluetoothConnectionType_notConnected">Not connected</string>

@@ -266,8 +266,8 @@
     <string name="profile_preferences_duration">Tijdsduur</string>
     <string name="profile_preferences_afterDurationDo">Bij einde tijdsduur doe</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Niets</string>
-    <string name="array_pref_afterProfileDurationDo_undoProfile">Profiel ongedaan maken</string>
-    <string name="array_pref_afterProfileDurationDo_backgroundProfile">Standaardprofiel activeren</string>
+    <string name="array_pref_afterProfileDurationDo_undoProfile">[M] Profiel ongedaan maken</string>
+    <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Standaardprofiel activeren</string>
     <string name="phone_profiles_pref_applicationGridLayout">Grid lay-out</string>
     <string name="menu_help">Help</string>
     <string name="array_event_pref_eventScreenEventType_screenOn">Scherm Aan</string>
@@ -307,7 +307,7 @@
     <string name="preference_profile_adaptiveBrightness">Adaptieve</string>
     <string name="profile_preferences_deviceKeyguard">Vergrendel scherm</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Profielnaam verbergen (widget)</string>
-    <string name="array_pref_afterProfileDurationDo_restartEvents">Events herstarten</string>
+    <string name="array_pref_afterProfileDurationDo_restartEvents">[M] Events herstarten</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">Niet verbonden</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">Niet in de buurt (niet binnen scanbereik)</string>
     <string name="array_event_pref_bluetoothConnectionType_notConnected">Niet verbonden</string>

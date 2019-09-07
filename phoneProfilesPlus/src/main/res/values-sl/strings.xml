@@ -266,8 +266,8 @@
     <string name="profile_preferences_duration">Trajanje</string>
     <string name="profile_preferences_afterDurationDo">Po poteku trajanja</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Ne stori ničesar</string>
-    <string name="array_pref_afterProfileDurationDo_undoProfile">Razveljavi profil</string>
-    <string name="array_pref_afterProfileDurationDo_backgroundProfile">Aktiviraj privzeti profil</string>
+    <string name="array_pref_afterProfileDurationDo_undoProfile">[M] Razveljavi profil</string>
+    <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Aktiviraj privzeti profil</string>
     <string name="phone_profiles_pref_applicationGridLayout">Mrežna postavitev</string>
     <string name="menu_help">Pomoč</string>
     <string name="array_event_pref_eventScreenEventType_screenOn">Zaslon vklopljen</string>
@@ -307,7 +307,7 @@
     <string name="preference_profile_adaptiveBrightness">Prilagodljivi</string>
     <string name="profile_preferences_deviceKeyguard">Zakleni zaslon</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Skrij ime profila (gradnik)</string>
-    <string name="array_pref_afterProfileDurationDo_restartEvents">Ponovno zaženi dogodke</string>
+    <string name="array_pref_afterProfileDurationDo_restartEvents">[M] Ponovno zaženi dogodke</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">Brez povezave</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">Ni v bližini (ni v obsegu iskanja)</string>
     <string name="array_event_pref_bluetoothConnectionType_notConnected">Brez povezave</string>

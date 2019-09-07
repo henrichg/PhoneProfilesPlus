@@ -266,8 +266,8 @@
     <string name="profile_preferences_duration">משך</string>
     <string name="profile_preferences_afterDurationDo">לאחר משך זמן ביצוע</string>
     <string name="array_pref_afterProfileDurationDo_nothing">כלום</string>
-    <string name="array_pref_afterProfileDurationDo_undoProfile">ביטול הפרופיל</string>
-    <string name="array_pref_afterProfileDurationDo_backgroundProfile">הפעלת פרופיל ברירת מחדל</string>
+    <string name="array_pref_afterProfileDurationDo_undoProfile">[M] ביטול הפרופיל</string>
+    <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] הפעלת פרופיל ברירת מחדל</string>
     <string name="phone_profiles_pref_applicationGridLayout">פריסת רשת</string>
     <string name="menu_help">עזרה</string>
     <string name="array_event_pref_eventScreenEventType_screenOn">מסך מופעל</string>
@@ -307,7 +307,7 @@
     <string name="preference_profile_adaptiveBrightness">מסתגלת</string>
     <string name="profile_preferences_deviceKeyguard">מסך הנעילה</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">הסתרת שם הפרופיל (Widget)</string>
-    <string name="array_pref_afterProfileDurationDo_restartEvents">הפעלת אירועים מחדש</string>
+    <string name="array_pref_afterProfileDurationDo_restartEvents">[M] הפעלת אירועים מחדש</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">לא מחובר</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">לא קרוב (לא בטווח סריקה)</string>
     <string name="array_event_pref_bluetoothConnectionType_notConnected">לא מחובר</string>

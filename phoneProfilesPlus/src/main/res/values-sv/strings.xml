@@ -266,8 +266,8 @@
     <string name="profile_preferences_duration">Varaktighet</string>
     <string name="profile_preferences_afterDurationDo">Efter varaktighet gör</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Ingenting</string>
-    <string name="array_pref_afterProfileDurationDo_undoProfile">Ångra profilen</string>
-    <string name="array_pref_afterProfileDurationDo_backgroundProfile">Aktivera standardprofil</string>
+    <string name="array_pref_afterProfileDurationDo_undoProfile">[M] Ångra profilen</string>
+    <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Aktivera standardprofil</string>
     <string name="phone_profiles_pref_applicationGridLayout">Rutnätslayout</string>
     <string name="menu_help">Hjälp</string>
     <string name="array_event_pref_eventScreenEventType_screenOn">Skärm På</string>
@@ -307,7 +307,7 @@
     <string name="preference_profile_adaptiveBrightness">Adaptiv</string>
     <string name="profile_preferences_deviceKeyguard">Låsskärmen</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Dölj profilnamn (widget)</string>
-    <string name="array_pref_afterProfileDurationDo_restartEvents">Starta om händelser</string>
+    <string name="array_pref_afterProfileDurationDo_restartEvents">[M] Starta om händelser</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">Inte ansluten</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">Not nearby (not within scanning range)</string>
     <string name="array_event_pref_bluetoothConnectionType_notConnected">Inte ansluten</string>

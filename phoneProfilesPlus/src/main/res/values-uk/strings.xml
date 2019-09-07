@@ -266,8 +266,8 @@
     <string name="profile_preferences_duration">Тривалість</string>
     <string name="profile_preferences_afterDurationDo">По завершені терміну</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Нічого</string>
-    <string name="array_pref_afterProfileDurationDo_undoProfile">Скасувати профіль</string>
-    <string name="array_pref_afterProfileDurationDo_backgroundProfile">Активувати профіль за замовч</string>
+    <string name="array_pref_afterProfileDurationDo_undoProfile">[M] Скасувати профіль</string>
+    <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Активувати профіль за замовч</string>
     <string name="phone_profiles_pref_applicationGridLayout">Сітка</string>
     <string name="menu_help">Допомога</string>
     <string name="array_event_pref_eventScreenEventType_screenOn">Увімкнення</string>
@@ -307,7 +307,7 @@
     <string name="preference_profile_adaptiveBrightness">Адаптивна</string>
     <string name="profile_preferences_deviceKeyguard">Заблокувати екран</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Приховати назву профілю (віджет)</string>
-    <string name="array_pref_afterProfileDurationDo_restartEvents">Перезапустити події</string>
+    <string name="array_pref_afterProfileDurationDo_restartEvents">[M] Перезапустити події</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">Не під’єднано</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">Не поруч (поза діапазоном сканування)</string>
     <string name="array_event_pref_bluetoothConnectionType_notConnected">Не під’єднано</string>

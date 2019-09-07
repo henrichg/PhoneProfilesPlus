@@ -266,8 +266,8 @@
     <string name="profile_preferences_duration">Durée</string>
     <string name="profile_preferences_afterDurationDo">Après la durée faire</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Rien</string>
-    <string name="array_pref_afterProfileDurationDo_undoProfile">Désactiver le profil</string>
-    <string name="array_pref_afterProfileDurationDo_backgroundProfile">Activer le profil par défaut</string>
+    <string name="array_pref_afterProfileDurationDo_undoProfile">[M] Désactiver le profil</string>
+    <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Activer le profil par défaut</string>
     <string name="phone_profiles_pref_applicationGridLayout">Présentation grille</string>
     <string name="menu_help">Aide</string>
     <string name="array_event_pref_eventScreenEventType_screenOn">Allumer l\'écran</string>
@@ -307,7 +307,7 @@
     <string name="preference_profile_adaptiveBrightness">Adaptatif</string>
     <string name="profile_preferences_deviceKeyguard">Écran de verrouillage</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Cacher le nom du profil (widget)</string>
-    <string name="array_pref_afterProfileDurationDo_restartEvents">Redémarrez les événements</string>
+    <string name="array_pref_afterProfileDurationDo_restartEvents">[M] Redémarrez les événements</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">Non connecté</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">Éloigné (hors de la zone de balayage)</string>
     <string name="array_event_pref_bluetoothConnectionType_notConnected">Non Connecté</string>

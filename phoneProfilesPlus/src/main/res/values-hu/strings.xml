@@ -266,8 +266,8 @@
     <string name="profile_preferences_duration">Időtartam</string>
     <string name="profile_preferences_afterDurationDo">Időtartam után csinálja</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Semmi</string>
-    <string name="array_pref_afterProfileDurationDo_undoProfile">A profil visszavonása</string>
-    <string name="array_pref_afterProfileDurationDo_backgroundProfile">Alapértelmezett üzemmód bekapcsolása</string>
+    <string name="array_pref_afterProfileDurationDo_undoProfile">[M] A profil visszavonása</string>
+    <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Alapértelmezett üzemmód bekapcsolása</string>
     <string name="phone_profiles_pref_applicationGridLayout">Rács elrendezés</string>
     <string name="menu_help">Segítség</string>
     <string name="array_event_pref_eventScreenEventType_screenOn">Képernyő Be</string>
@@ -307,7 +307,7 @@
     <string name="preference_profile_adaptiveBrightness">Adaptív</string>
     <string name="profile_preferences_deviceKeyguard">Képernyőzár</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Profil név elrejtés (Widget)</string>
-    <string name="array_pref_afterProfileDurationDo_restartEvents">Eseményt újra indít</string>
+    <string name="array_pref_afterProfileDurationDo_restartEvents">[M] Eseményt újra indít</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">Nincs csatlakozva</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">Nem közeli (hatósugaron kívüli keresés)</string>
     <string name="array_event_pref_bluetoothConnectionType_notConnected">Nincs csatlakozva</string>

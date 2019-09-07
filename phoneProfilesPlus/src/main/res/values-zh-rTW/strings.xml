@@ -266,8 +266,8 @@
     <string name="profile_preferences_duration">持續時間</string>
     <string name="profile_preferences_afterDurationDo">持續時間後做</string>
     <string name="array_pref_afterProfileDurationDo_nothing">沒動作</string>
-    <string name="array_pref_afterProfileDurationDo_undoProfile">復原設定檔</string>
-    <string name="array_pref_afterProfileDurationDo_backgroundProfile">啟動預設設定檔</string>
+    <string name="array_pref_afterProfileDurationDo_undoProfile">[M] 復原設定檔</string>
+    <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] 啟動預設設定檔</string>
     <string name="phone_profiles_pref_applicationGridLayout">網格佈局</string>
     <string name="menu_help">說明</string>
     <string name="array_event_pref_eventScreenEventType_screenOn">螢幕打開</string>
@@ -307,7 +307,7 @@
     <string name="preference_profile_adaptiveBrightness">自動調整</string>
     <string name="profile_preferences_deviceKeyguard">鎖定螢幕</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">隱藏設定檔名稱 (小工具)</string>
-    <string name="array_pref_afterProfileDurationDo_restartEvents">重新啟動事件</string>
+    <string name="array_pref_afterProfileDurationDo_restartEvents">[M] 重新啟動事件</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">未連接</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">不在附近 (不在掃描範圍內)</string>
     <string name="array_event_pref_bluetoothConnectionType_notConnected">未連接</string>

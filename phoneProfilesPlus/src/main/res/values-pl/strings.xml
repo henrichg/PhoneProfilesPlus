@@ -266,8 +266,8 @@
     <string name="profile_preferences_duration">Czas trwania</string>
     <string name="profile_preferences_afterDurationDo">Po czasie trwania wykonaj</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Nic nie rób</string>
-    <string name="array_pref_afterProfileDurationDo_undoProfile">Cofnij profil</string>
-    <string name="array_pref_afterProfileDurationDo_backgroundProfile">Aktywuj profil domyślny</string>
+    <string name="array_pref_afterProfileDurationDo_undoProfile">[M] Cofnij profil</string>
+    <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Aktywuj profil domyślny</string>
     <string name="phone_profiles_pref_applicationGridLayout">Układ siatki</string>
     <string name="menu_help">Pomoc</string>
     <string name="array_event_pref_eventScreenEventType_screenOn">Ekran włączony</string>
@@ -307,7 +307,7 @@
     <string name="preference_profile_adaptiveBrightness">Adaptacyjna</string>
     <string name="profile_preferences_deviceKeyguard">Ekran blokady</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Ukryj nazwę profilu (widżet)</string>
-    <string name="array_pref_afterProfileDurationDo_restartEvents">Zrestartuj zdarzenia</string>
+    <string name="array_pref_afterProfileDurationDo_restartEvents">[M] Zrestartuj zdarzenia</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">Nie połączono</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">poza zasięgiem skanowania</string>
     <string name="array_event_pref_bluetoothConnectionType_notConnected">Nie połączono</string>

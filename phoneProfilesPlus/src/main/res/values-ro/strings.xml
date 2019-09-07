@@ -266,8 +266,8 @@
     <string name="profile_preferences_duration">Durată</string>
     <string name="profile_preferences_afterDurationDo">When duration expires</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Nimic</string>
-    <string name="array_pref_afterProfileDurationDo_undoProfile">Anulare profil</string>
-    <string name="array_pref_afterProfileDurationDo_backgroundProfile">Activare profil implicit</string>
+    <string name="array_pref_afterProfileDurationDo_undoProfile">[M] Anulare profil</string>
+    <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Activare profil implicit</string>
     <string name="phone_profiles_pref_applicationGridLayout">Aspect grilă</string>
     <string name="menu_help">Ajutor</string>
     <string name="array_event_pref_eventScreenEventType_screenOn">Ecran aprins</string>
@@ -307,7 +307,7 @@
     <string name="preference_profile_adaptiveBrightness">Adaptivă</string>
     <string name="profile_preferences_deviceKeyguard">Blocare ecran</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Ascunde numele profilului (widget)</string>
-    <string name="array_pref_afterProfileDurationDo_restartEvents">Repornire evenimente</string>
+    <string name="array_pref_afterProfileDurationDo_restartEvents">[M] Repornire evenimente</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">Neconectat</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">Not nearby (not within scanning range)</string>
     <string name="array_event_pref_bluetoothConnectionType_notConnected">Not connected</string>

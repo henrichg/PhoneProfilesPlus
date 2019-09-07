@@ -266,8 +266,8 @@
     <string name="profile_preferences_duration">Διάρκεια (δευτ)</string>
     <string name="profile_preferences_afterDurationDo">Μετά την ενεργοποίηση να γίνει</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Τίποτα</string>
-    <string name="array_pref_afterProfileDurationDo_undoProfile">Αναίρεση του προφίλ</string>
-    <string name="array_pref_afterProfileDurationDo_backgroundProfile">Ενεργοποίηση Προεπιλεγμένου προφίλ</string>
+    <string name="array_pref_afterProfileDurationDo_undoProfile">[M] Αναίρεση του προφίλ</string>
+    <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Ενεργοποίηση Προεπιλεγμένου προφίλ</string>
     <string name="phone_profiles_pref_applicationGridLayout">Διάταξη πλέγματος</string>
     <string name="menu_help">Βοήθεια</string>
     <string name="array_event_pref_eventScreenEventType_screenOn">Ενεργοποίηση οθόνης</string>
@@ -307,7 +307,7 @@
     <string name="preference_profile_adaptiveBrightness">Προσαρμοστική</string>
     <string name="profile_preferences_deviceKeyguard">Κλείδωμα οθόνης</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Απόκρυψη ονόματος προφίλ (widget)</string>
-    <string name="array_pref_afterProfileDurationDo_restartEvents">Επανεκκίνηση συμβάντων</string>
+    <string name="array_pref_afterProfileDurationDo_restartEvents">[M] Επανεκκίνηση συμβάντων</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">Χωρίς σύνδεση</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">Not nearby (not within scanning range)</string>
     <string name="array_event_pref_bluetoothConnectionType_notConnected">Χωρίς σύνδεση</string>

@@ -266,8 +266,8 @@
     <string name="profile_preferences_duration">Durada</string>
     <string name="profile_preferences_afterDurationDo">Després de durada fer</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Res</string>
-    <string name="array_pref_afterProfileDurationDo_undoProfile">Desfer el perfil</string>
-    <string name="array_pref_afterProfileDurationDo_backgroundProfile">Activar el perfil per defecte</string>
+    <string name="array_pref_afterProfileDurationDo_undoProfile">[M] Desfer el perfil</string>
+    <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Activar el perfil per defecte</string>
     <string name="phone_profiles_pref_applicationGridLayout">Disseny de quadrícula</string>
     <string name="menu_help">Ajuda</string>
     <string name="array_event_pref_eventScreenEventType_screenOn">Activar pantalla</string>
@@ -307,7 +307,7 @@
     <string name="preference_profile_adaptiveBrightness">Adaptativa</string>
     <string name="profile_preferences_deviceKeyguard">Pantalla de bloqueig</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Amaga el nom de perfil (widget)</string>
-    <string name="array_pref_afterProfileDurationDo_restartEvents">Reiniciar esdeveniments</string>
+    <string name="array_pref_afterProfileDurationDo_restartEvents">[M] Reiniciar esdeveniments</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">Sense connexió</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">Not nearby (not within scanning range)</string>
     <string name="array_event_pref_bluetoothConnectionType_notConnected">Sense connexió</string>

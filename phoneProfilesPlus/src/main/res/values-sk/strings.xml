@@ -266,8 +266,8 @@
     <string name="profile_preferences_duration">Trvanie</string>
     <string name="profile_preferences_afterDurationDo">Po uplynutí trvania urob</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Nič</string>
-    <string name="array_pref_afterProfileDurationDo_undoProfile">Vráť späť profil</string>
-    <string name="array_pref_afterProfileDurationDo_backgroundProfile">Aktivuj predvolený profil</string>
+    <string name="array_pref_afterProfileDurationDo_undoProfile">[M] Vráť späť profil</string>
+    <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Aktivuj predvolený profil</string>
     <string name="phone_profiles_pref_applicationGridLayout">Mriežkové rozloženie</string>
     <string name="menu_help">Pomoc</string>
     <string name="array_event_pref_eventScreenEventType_screenOn">Zapla sa</string>
@@ -307,7 +307,7 @@
     <string name="preference_profile_adaptiveBrightness">Prispôsobenie</string>
     <string name="profile_preferences_deviceKeyguard">Zámok obrazovky</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Skryť názov profilu (miniapl.)</string>
-    <string name="array_pref_afterProfileDurationDo_restartEvents">Reštart udalostí</string>
+    <string name="array_pref_afterProfileDurationDo_restartEvents">[M] Reštart udalostí</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">Nepripojené</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">Nie je v blízkosti (nie je v rozsahu skenovania)</string>
     <string name="array_event_pref_bluetoothConnectionType_notConnected">Nepripojené</string>
