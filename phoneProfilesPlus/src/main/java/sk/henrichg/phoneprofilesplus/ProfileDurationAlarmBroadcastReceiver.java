@@ -29,6 +29,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                 final Context appContext = context.getApplicationContext();
                 final long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
                 final boolean forRestartEvents = intent.getBooleanExtra(EXTRA_FOR_RESTART_EVENTS, false);
+                final int startupSource = intent.getIntExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SERVICE_MANUAL);
                 PPApplication.startHandlerThread("ProfileDurationAlarmBroadcastReceiver.onReceive");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
@@ -50,11 +51,13 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
-                                if (PPApplication.logEnabled())
+                                if (PPApplication.logEnabled()) {
                                     PPApplication.logE("ProfileDurationAlarmBroadcastReceiver.onReceive", "getIsManualProfileActivation()=" + dataWrapper.getIsManualProfileActivation(true));
+                                }
 
-                                if (dataWrapper.getIsManualProfileActivation(true)) {
-                                    Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
+                                Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
+                                if (dataWrapper.getIsManualProfileActivation(true) ||
+                                    (profile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE)) {
                                     Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
 
                                     if (PPApplication.logEnabled()) {
@@ -115,10 +118,10 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                                 dataWrapper.restartEventsWithDelay(3, true, false, DataWrapper.ALTYPE_UNDEFINED);
                                             }
                                             else {
-                                                dataWrapper.activateProfileAfterDuration(0);
+                                                dataWrapper.activateProfileAfterDuration(0, startupSource);
                                             }
                                         } else {
-                                            dataWrapper.activateProfileAfterDuration(activateProfileId);
+                                            dataWrapper.activateProfileAfterDuration(activateProfileId, startupSource);
                                         }
                                     }
                                 }
@@ -142,7 +145,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
-    static public void setAlarm(Profile profile, boolean forRestartEvents, Context context)
+    static public void setAlarm(Profile profile, boolean forRestartEvents, int startupSource, Context context)
     {
         removeAlarm(profile, context);
 
@@ -168,6 +171,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
             intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
             intent.putExtra(EXTRA_FOR_RESTART_EVENTS, forRestartEvents);
+            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) profile._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 

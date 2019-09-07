@@ -1098,7 +1098,7 @@ public class Profile {
         this._activationByUserCount = profile._activationByUserCount;
     }
 
-    void mergeProfiles(long withProfileId, DataWrapper dataWrapper, boolean setDuration)
+    void mergeProfiles(long withProfileId, DataWrapper dataWrapper/*, boolean setDuration*/)
     {
         PPApplication.logE("$$$ Profile.mergeProfiles","withProfileId="+withProfileId);
 
@@ -1127,7 +1127,7 @@ public class Profile {
             this._icon = withProfile._icon;
             this._iconBitmap = withProfile._iconBitmap;
             this._preferencesIndicator = withProfile._preferencesIndicator;
-            if (!withProfile._askForDuration && setDuration) {
+            if (!withProfile._askForDuration/* && setDuration*/) {
                 this._duration = withProfile._duration;
                 this._afterDurationDo = withProfile._afterDurationDo;
                 this._afterDurationProfile = withProfile._afterDurationProfile;

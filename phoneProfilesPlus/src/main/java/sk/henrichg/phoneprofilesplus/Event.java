@@ -1500,7 +1500,7 @@ class Event {
             }
         }
         else {
-            mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper, true);
+            mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper/*, true*/);
             if (this._manualProfileActivation) {
                 DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
                 dataWrapper.activateProfileFromEvent(mergedProfile._id, true, true, forRestartEvents);
@@ -1591,7 +1591,7 @@ class Event {
                 if (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)
                 {
                     PPApplication.logE("@@@ Event.pauseEvent","doActivateEndProfile-activate end profile");
-                    mergedProfile.mergeProfiles(_fkProfileEnd, dataWrapper, false);
+                    mergedProfile.mergeProfiles(_fkProfileEnd, dataWrapper/*, false*/);
                 }
                 // second activate when undone profile is set
                 if (_atEndDo == EATENDDO_UNDONE_PROFILE)
@@ -1610,7 +1610,7 @@ class Event {
                     PPApplication.logE("@@@ Event.pauseEvent","doActivateEndProfile-_fkProfileEndActivated="+eventTimeline._fkProfileEndActivated);
                     if (eventTimeline._fkProfileEndActivated != 0)
                     {
-                        mergedProfile.mergeProfiles(eventTimeline._fkProfileEndActivated, dataWrapper, false);
+                        mergedProfile.mergeProfiles(eventTimeline._fkProfileEndActivated, dataWrapper/*, false*/);
                     }
                 }
             }

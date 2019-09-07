@@ -174,9 +174,9 @@ public class PPApplication extends Application {
                                          //+"|Profile.convertPercentsToBrightnessManualValue"
                                          //+"|SettingsContentObserver"
 
-                                         //+"|$$$ DataWrapper._activateProfile"
-                                         //+"|ProfileDurationAlarmBroadcastReceiver.onReceive"
-                                         //+"|DataWrapper.activateProfileAfterDuration"
+                                         +"|$$$ DataWrapper._activateProfile"
+                                         +"|ProfileDurationAlarmBroadcastReceiver.onReceive"
+                                         +"|DataWrapper.activateProfileAfterDuration"
                                          //+"|DataWrapper.getIsManualProfileActivation"
 
                                          //+"|BillingManager"
