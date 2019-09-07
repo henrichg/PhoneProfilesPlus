@@ -51,7 +51,9 @@ class DonationNotificationJob extends Job {
             for (int i = 1; i <= donationNotificationCount; i++) {
                 daysForOneNotification = daysForOneNotification + 7 * (i+1);
             }
+            PPApplication.logE("DonationNotificationJob.onRunJob", "daysForOneNotification="+daysForOneNotification);
             notify = (daysAfterFirstStart > 0) && (daysAfterFirstStart >= daysForOneNotification);
+            PPApplication.logE("DonationNotificationJob.onRunJob", "notify="+notify);
             /*
             switch (donationNotificationCount) {
                 case 0:
