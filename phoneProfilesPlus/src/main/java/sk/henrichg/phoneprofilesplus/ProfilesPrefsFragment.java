@@ -693,6 +693,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     @Override
     public void onDestroy()
     {
+        super.onDestroy();
+
         try {
             preferences.unregisterOnSharedPreferenceChangeListener(this);
 
@@ -705,8 +707,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             PPApplication.logE("ProfilesPrefsFragment.onDestroy", "xxx");
 
         } catch (Exception ignored) {}
-
-        super.onDestroy();
     }
 
     @Override

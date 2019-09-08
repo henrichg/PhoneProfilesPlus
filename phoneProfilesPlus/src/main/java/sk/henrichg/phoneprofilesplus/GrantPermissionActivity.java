@@ -255,11 +255,11 @@ public class GrantPermissionActivity extends AppCompatActivity {
     @Override
     protected void onDestroy()
     {
+        super.onDestroy();
+
         if ((geofenceEditorAsyncTask != null) && !geofenceEditorAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
             geofenceEditorAsyncTask.cancel(true);
         }
-
-        super.onDestroy();
     }
     */
 

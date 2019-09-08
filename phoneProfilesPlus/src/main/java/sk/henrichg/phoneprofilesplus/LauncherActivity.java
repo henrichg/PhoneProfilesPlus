@@ -138,10 +138,10 @@ public class LauncherActivity extends AppCompatActivity {
     @Override
     protected void onDestroy()
     {
+        super.onDestroy();
+
         dataWrapper.invalidateDataWrapper();
         dataWrapper = null;
-
-        super.onDestroy();
     }
 
     @Override

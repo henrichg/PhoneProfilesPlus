@@ -451,6 +451,8 @@ public class EditorProfileListFragment extends Fragment
     @Override
     public void onDestroy()
     {
+        super.onDestroy();
+
         if (isAsyncTaskPendingOrRunning()) {
             stopRunningAsyncTask();
         }
@@ -463,9 +465,6 @@ public class EditorProfileListFragment extends Fragment
         if (activityDataWrapper != null)
             activityDataWrapper.invalidateDataWrapper();
         activityDataWrapper = null;
-
-        super.onDestroy();
-
     }
 
     @Override

@@ -368,6 +368,8 @@ public class PhoneProfilesService extends Service
     @Override
     public void onDestroy()
     {
+        super.onDestroy();
+
         PPApplication.logE("PhoneProfilesService.onDestroy", "xxx");
 
         try {
@@ -403,8 +405,6 @@ public class PhoneProfilesService extends Service
         serviceRunning = false;
         runningInForeground = false;
         waitForEndOfStart = true;
-
-        super.onDestroy();
     }
 
     static PhoneProfilesService getInstance() {

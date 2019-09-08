@@ -35,6 +35,8 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
     @Override
     public void onDestroy()
     {
+        super.onDestroy();
+
         instance = null;
         /*if (dataWrapper != null)
             dataWrapper.invalidateDataWrapper();

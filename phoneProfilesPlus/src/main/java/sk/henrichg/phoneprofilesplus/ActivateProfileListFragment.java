@@ -411,6 +411,8 @@ public class ActivateProfileListFragment extends Fragment {
     @Override
     public void onDestroy()
     {
+        super.onDestroy();
+
         if (isAsyncTaskPendingOrRunning()) {
             this.asyncTaskContext.get().cancel(true);
         }
@@ -428,8 +430,6 @@ public class ActivateProfileListFragment extends Fragment {
         if (activityDataWrapper != null)
             activityDataWrapper.invalidateDataWrapper();
         activityDataWrapper = null;
-
-        super.onDestroy();
     }
 
     private void updateHeader(Profile profile)

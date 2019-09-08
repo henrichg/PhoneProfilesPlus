@@ -604,6 +604,8 @@ public class EditorProfilesActivity extends AppCompatActivity
     @Override
     protected void onDestroy()
     {
+        super.onDestroy();
+
         if ((importProgressDialog != null) && importProgressDialog.isShowing()) {
             importProgressDialog.dismiss();
             importProgressDialog = null;
@@ -630,8 +632,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                 contactsCache.clearCache(true);
             contactsCache = null;
         }
-
-        super.onDestroy();
     }
 
     @Override

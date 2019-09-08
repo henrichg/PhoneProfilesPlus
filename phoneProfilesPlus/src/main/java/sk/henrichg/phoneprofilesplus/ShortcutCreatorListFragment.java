@@ -180,6 +180,8 @@ public class ShortcutCreatorListFragment extends Fragment {
     @Override
     public void onDestroy()
     {
+        super.onDestroy();
+
         if (isAsyncTaskPendingOrRunning()) {
             this.asyncTaskContext.get().cancel(true);
         }
@@ -192,8 +194,6 @@ public class ShortcutCreatorListFragment extends Fragment {
         if (activityDataWrapper != null)
             activityDataWrapper.invalidateDataWrapper();
         activityDataWrapper = null;
-
-        super.onDestroy();
     }
 
     @SuppressLint("StaticFieldLeak")

@@ -958,6 +958,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
     @Override
     public void onDestroy() {
+        super.onDestroy();
+
         try {
             preferences.unregisterOnSharedPreferenceChangeListener(this);
 
@@ -971,8 +973,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         } catch (Exception ignored) {
         }
-
-        super.onDestroy();
     }
 
     @Override

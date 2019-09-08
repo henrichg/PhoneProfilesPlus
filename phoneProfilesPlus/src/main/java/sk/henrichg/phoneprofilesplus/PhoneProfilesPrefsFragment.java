@@ -1227,6 +1227,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     @Override
     public void onDestroy()
     {
+        super.onDestroy();
+
         try {
             preferences.unregisterOnSharedPreferenceChangeListener(this);
 
@@ -1237,8 +1239,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             PPApplication.logE("PhoneProfilesPrefsFragment.onDestroy", "xxx");
 
         } catch (Exception ignored) {}
-
-        super.onDestroy();
     }
 
     @Override

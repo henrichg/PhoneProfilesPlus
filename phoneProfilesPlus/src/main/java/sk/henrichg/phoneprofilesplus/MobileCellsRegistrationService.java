@@ -128,6 +128,8 @@ public class MobileCellsRegistrationService extends Service {
 
     @Override
     public void onDestroy() {
+        super.onDestroy();
+
         PPApplication.logE("MobileCellsRegistrationService.onDestroy", "xxx");
 
         /*try {
@@ -158,9 +160,6 @@ public class MobileCellsRegistrationService extends Service {
             stopForeground(true);
 
         serviceStarted = false;
-
-        //Log.d("MobileCellsRegistrationService", "Timer cancelled");
-        super.onDestroy();
     }
 
     public static void stop(Context context) {
