@@ -52,14 +52,15 @@ class DonationNotificationJob extends Job {
         if (!donationDonated/* && (donationNotificationCount < MAX_DONATION_NOTIFICATION_COUNT)*/) {
 
             // correction for new algorithm
-            if (donationNotificationCount == 3) {
-                donationNotificationCount = daysAfterFirstStart / 90 + 1;
+            if ((donationNotificationCount == 3) && (daysAfterFirstStart > 7+14+21)) {
+                //donationNotificationCount = daysAfterFirstStart / 90 + 1;
+                daysAfterFirstStart = 7+14+21+1;
             }
             /////////
 
 
             int daysForOneNotification;
-            if (daysAfterFirstStart > 3 * 90) {
+            if (donationNotificationCount > 3) {
                 daysForOneNotification = donationNotificationCount * 90;
             }
             else {
