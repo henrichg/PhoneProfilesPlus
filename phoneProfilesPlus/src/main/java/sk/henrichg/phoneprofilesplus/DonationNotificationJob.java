@@ -63,7 +63,7 @@ class DonationNotificationJob extends Job {
 
             int daysForOneNotification;
             if (donationNotificationCount > 3) {
-                daysForOneNotification = donationNotificationCount * 90;
+                daysForOneNotification = (donationNotificationCount-2) * 90;
             }
             else {
                 daysForOneNotification = 7;
@@ -205,7 +205,7 @@ class DonationNotificationJob extends Job {
 
             int daysForOneNotification;
             if (donationNotificationCount > 3) {
-                daysForOneNotification = donationNotificationCount * 90;
+                daysForOneNotification = (donationNotificationCount-2) * 90;
             } else {
                 daysForOneNotification = 7;
                 for (int i = 1; i <= donationNotificationCount; i++) {
