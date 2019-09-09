@@ -47,15 +47,29 @@ class DonationNotificationJob extends Job {
 
         // TODO for test only!!!
         donationDonated = false;
+        donationNotificationCount  = 3;
 
         if (!donationDonated/* && (donationNotificationCount < MAX_DONATION_NOTIFICATION_COUNT)*/) {
-            boolean notify;
-            int daysForOneNotification = 7;
-            for (int i = 1; i <= donationNotificationCount; i++) {
-                daysForOneNotification = daysForOneNotification + 7 * (i+1);
+
+            // correction for new algorithm
+            if (donationNotificationCount == 3) {
+                donationNotificationCount = daysAfterFirstStart / 90 + 1;
+            }
+            /////////
+
+
+            int daysForOneNotification;
+            if (daysAfterFirstStart > 3 * 90) {
+                daysForOneNotification = donationNotificationCount * 90;
+            }
+            else {
+                daysForOneNotification = 7;
+                for (int i = 1; i <= donationNotificationCount; i++) {
+                    daysForOneNotification = daysForOneNotification + 7 * (i + 1);
+                }
             }
             PPApplication.logE("DonationNotificationJob.onRunJob", "daysForOneNotification="+daysForOneNotification);
-            notify = (daysAfterFirstStart > 0) && (daysAfterFirstStart >= daysForOneNotification);
+            boolean notify = (daysAfterFirstStart > 0) && (daysAfterFirstStart >= daysForOneNotification);
             PPApplication.logE("DonationNotificationJob.onRunJob", "notify="+notify);
             /*
             switch (donationNotificationCount) {
@@ -74,7 +88,7 @@ class DonationNotificationJob extends Job {
             }
             */
 
-            if (notify/*daysAfterFirstStart == daysForOneNotification*/) {
+            if (notify) {
                 PPApplication.setDonationNotificationCount(context, donationNotificationCount+1);
 
                 // show notification about "Please donate me."
