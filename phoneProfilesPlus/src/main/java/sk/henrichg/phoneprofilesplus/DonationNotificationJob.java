@@ -122,10 +122,6 @@ class DonationNotificationJob extends Job {
                     mNotificationManager.notify(PPApplication.ABOUT_APPLICATION_DONATE_NOTIFICATION_ID, mBuilder.build());
             }
 
-            PPApplication.setDaysAfterFirstStart(context, daysAfterFirstStart);
-
-            scheduleJob(context, false);
-
             /*
             try {
                 countDownLatch.await();
@@ -137,6 +133,10 @@ class DonationNotificationJob extends Job {
         /*else {
             PPApplication.setDonationNotificationCount(context, MAX_DONATION_NOTIFICATION_COUNT);
         }*/
+
+        scheduleJob(context, false);
+
+        PPApplication.setDaysAfterFirstStart(context, daysAfterFirstStart);
 
         return Result.SUCCESS;
     }
