@@ -41,15 +41,14 @@ class TwilightScanner {
 
     TwilightScanner(Context context) {
         this.context = context;
-    }
-
-    void start() {
 
         mAlarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         mLocationManager = (LocationManager) context.getSystemService(
                 Context.LOCATION_SERVICE);
         mLocationHandler = new LocationHandler();
+    }
 
+    void start() {
         IntentFilter filter = new IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED);
         filter.addAction(Intent.ACTION_TIME_CHANGED);
         filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
