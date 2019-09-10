@@ -532,6 +532,7 @@ public class PPApplication extends Application {
     private static final String PREF_SAVED_VERSION_CODE = "saved_version_code";
     private static final String PREF_DAYS_AFTER_FIRST_START = "days_after_first_start";
     private static final String PREF_DONATION_NOTIFICATION_COUNT = "donation_notification_count";
+    private static final String PREF_DAYS_FOR_NEXT_DONATION_NOTIFICATION = "days_for_next_donation_notification";
     private static final String PREF_DONATION_DONATED = "donation_donated";
     private static final String PREF_NOTIFICATION_PROFILE_NAME = "notification_profile_name";
     private static final String PREF_WIDGET_PROFILE_NAME = "widget_profile_name";
@@ -1183,6 +1184,20 @@ public class PPApplication extends Application {
         ApplicationPreferences.getSharedPreferences(context);
         Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PREF_DONATION_NOTIFICATION_COUNT, days);
+        editor.apply();
+    }
+
+    static public int getDaysForNextDonationNotification(Context context)
+    {
+        ApplicationPreferences.getSharedPreferences(context);
+        return ApplicationPreferences.preferences.getInt(PREF_DAYS_FOR_NEXT_DONATION_NOTIFICATION, 0);
+    }
+
+    static public void setDaysForNextDonationNotification(Context context, int days)
+    {
+        ApplicationPreferences.getSharedPreferences(context);
+        Editor editor = ApplicationPreferences.preferences.edit();
+        editor.putInt(PREF_DAYS_FOR_NEXT_DONATION_NOTIFICATION, days);
         editor.apply();
     }
 
