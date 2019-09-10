@@ -46,8 +46,8 @@ class DonationNotificationJob extends Job {
         PPApplication.logE("DonationNotificationJob.onRunJob", "donationDonated="+donationDonated);
 
         // TODO for test only!!!
-        donationDonated = false;
-        donationNotificationCount  = 3;
+        //donationDonated = false;
+        //donationNotificationCount  = 3;
 
         if (!donationDonated/* && (donationNotificationCount < MAX_DONATION_NOTIFICATION_COUNT)*/) {
 
@@ -55,11 +55,10 @@ class DonationNotificationJob extends Job {
             if ((donationNotificationCount == 3) && (daysAfterFirstStart > 7+14+21+28+30)) {
                 //donationNotificationCount = daysAfterFirstStart / 90 + 1;
                 daysAfterFirstStart = 7+14+21+28+30;
+                PPApplication.logE("DonationNotificationJob.onRunJob", "daysAfterFirstStart=" + daysAfterFirstStart);
             }
             /////////
 
-            PPApplication.logE("DonationNotificationJob.onRunJob", "daysAfterFirstStart=" + daysAfterFirstStart);
-            PPApplication.logE("DonationNotificationJob.onRunJob", "donationNotificationCount=" + donationNotificationCount);
 
             int daysForOneNotification;
             if (donationNotificationCount > 3) {
@@ -191,17 +190,15 @@ class DonationNotificationJob extends Job {
             int donationNotificationCount = PPApplication.getDonationNotificationCount(context);
             PPApplication.logE("DonationNotificationJob.scheduleJob", "donationNotificationCount=" + donationNotificationCount);
 
-            donationNotificationCount = 3;
+            //donationNotificationCount = 3;
 
             // correction for new algorithm
             if ((donationNotificationCount == 3) && (daysAfterFirstStart > 7+14+21+28+30)) {
                 //donationNotificationCount = daysAfterFirstStart / 90 + 1;
                 daysAfterFirstStart = 7+14+21+28+30;
+                PPApplication.logE("DonationNotificationJob.scheduleJob", "daysAfterFirstStart=" + daysAfterFirstStart);
             }
             /////////
-
-            PPApplication.logE("DonationNotificationJob.scheduleJob", "daysAfterFirstStart=" + daysAfterFirstStart);
-            PPApplication.logE("DonationNotificationJob.scheduleJob", "donationNotificationCount=" + donationNotificationCount);
 
             int daysForOneNotification;
             if (donationNotificationCount > 3) {
