@@ -205,10 +205,10 @@ class DonationNotificationJob extends Job {
             PPApplication.logE("DonationNotificationJob.scheduleJob", "daysForNextNotification=" + daysForNextNotification);
 
             // TODO for testing only!!!
-            donationNotificationCount = 3;
+            /*donationNotificationCount = 3;
             daysAfterFirstStart = 1168;
             PPApplication.setDonationNotificationCount(context, donationNotificationCount);
-            PPApplication.setDaysAfterFirstStart(context, daysAfterFirstStart);
+            PPApplication.setDaysAfterFirstStart(context, daysAfterFirstStart);*/
 
             boolean notify;
             if ((donationNotificationCount == 3) && (daysAfterFirstStart > 7+14+21+28+30)) {
