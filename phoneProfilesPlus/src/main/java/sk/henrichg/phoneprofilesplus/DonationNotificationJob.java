@@ -54,53 +54,37 @@ class DonationNotificationJob extends Job {
         //PPApplication.setDonationNotificationCount(context, donationNotificationCount);
         //PPApplication.setDaysAfterFirstStart(context, daysAfterFirstStart);
 
-        if (!donationDonated/* && (donationNotificationCount < MAX_DONATION_NOTIFICATION_COUNT)*/) {
+        boolean notify;
+        if ((donationNotificationCount == 3) && (daysAfterFirstStart > 7+14+21+28+30)) {
+            // correction for new algorithm
+            PPApplication.logE("DonationNotificationJob.onRunJob", "correction for new algorithm");
 
-            boolean notify;
-            if ((donationNotificationCount == 3) && (daysAfterFirstStart > 7+14+21+28+30)) {
-                // correction for new algorithm
-
-                daysForNextNotification = daysAfterFirstStart + 90;
-                PPApplication.setDaysForNextDonationNotification(context, daysForNextNotification);
-                PPApplication.logE("DonationNotificationJob.onRunJob", "daysForNextNotification=" + daysForNextNotification);
-                notify = true;
-            }
-            else {
-                int daysForOneNotification;
-                if (donationNotificationCount > 3) {
-                    notify = daysAfterFirstStart >= daysForNextNotification;
-                    if (notify) {
-                        daysForNextNotification = daysAfterFirstStart + 90;
-                        PPApplication.setDaysForNextDonationNotification(context, daysForNextNotification);
-                        PPApplication.logE("DonationNotificationJob.onRunJob", "daysForNextNotification=" + daysForNextNotification);
-                    }
-                } else {
-                    daysForOneNotification = 7;
-                    for (int i = 1; i <= donationNotificationCount; i++) {
-                        daysForOneNotification = daysForOneNotification + 7 * (i + 1);
-                    }
-                    PPApplication.logE("DonationNotificationJob.onRunJob", "daysForOneNotification=" + daysForOneNotification);
-                    notify = (daysAfterFirstStart > 0) && (daysAfterFirstStart >= daysForOneNotification);
+            daysForNextNotification = daysAfterFirstStart + 90;
+            PPApplication.setDaysForNextDonationNotification(context, daysForNextNotification);
+            PPApplication.logE("DonationNotificationJob.onRunJob", "daysForNextNotification=" + daysForNextNotification);
+            notify = true;
+        }
+        else {
+            int daysForOneNotification;
+            if (donationNotificationCount > 3) {
+                notify = daysAfterFirstStart >= daysForNextNotification;
+                if (notify) {
+                    daysForNextNotification = daysAfterFirstStart + 90;
+                    PPApplication.setDaysForNextDonationNotification(context, daysForNextNotification);
+                    PPApplication.logE("DonationNotificationJob.onRunJob", "daysForNextNotification=" + daysForNextNotification);
                 }
+            } else {
+                daysForOneNotification = 7;
+                for (int i = 1; i <= donationNotificationCount; i++) {
+                    daysForOneNotification = daysForOneNotification + 7 * (i + 1);
+                }
+                PPApplication.logE("DonationNotificationJob.onRunJob", "daysForOneNotification=" + daysForOneNotification);
+                notify = (daysAfterFirstStart > 0) && (daysAfterFirstStart >= daysForOneNotification);
             }
-            PPApplication.logE("DonationNotificationJob.onRunJob", "notify=" + notify);
+        }
+        PPApplication.logE("DonationNotificationJob.onRunJob", "notify=" + notify);
 
-            /*
-            switch (donationNotificationCount) {
-                case 0:
-                    int daysForOneNotification = 7;
-                    notify = daysAfterFirstStart >= daysForOneNotification;
-                    break;
-                case 1:
-                    daysForOneNotification = 7 + 14;
-                    notify = daysAfterFirstStart >= daysForOneNotification;
-                    break;
-                case 2:
-                    daysForOneNotification = 7 + 14 + 21;
-                    notify = daysAfterFirstStart >= daysForOneNotification;
-                    break;
-            }
-            */
+        if (!donationDonated/* && (donationNotificationCount < MAX_DONATION_NOTIFICATION_COUNT)*/) {
 
             if (notify) {
                 PPApplication.setDonationNotificationCount(context, donationNotificationCount+1);
@@ -213,6 +197,7 @@ class DonationNotificationJob extends Job {
             boolean notify;
             if ((donationNotificationCount == 3) && (daysAfterFirstStart > 7+14+21+28+30)) {
                 // correction for new algorithm
+                PPApplication.logE("DonationNotificationJob.scheduleJob", "correction for new algorithm");
 
                 daysForNextNotification = daysAfterFirstStart + 90;
                 PPApplication.setDaysForNextDonationNotification(context, daysForNextNotification);
