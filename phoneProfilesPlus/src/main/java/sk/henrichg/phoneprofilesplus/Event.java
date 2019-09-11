@@ -1372,9 +1372,14 @@ class Event {
             // events are globally stopped
             return;
 
-        if (!this.isRunnable(dataWrapper.context, true))
-            // event is not runnable, no pause it
+        PPApplication.logE("Event.startEvent","event_id="+this._id+"-----------------------------------");
+        PPApplication.logE("Event.startEvent","-- event_name="+this._name);
+
+        if (!this.isRunnable(dataWrapper.context, true)) {
+            // event is not runnable, no start it
+            PPApplication.logE("Event.startEvent","event is not runnable, no start it");
             return;
+        }
 
         if (getEventsBlocked(dataWrapper.context))
         {
@@ -1405,9 +1410,11 @@ class Event {
                         break;
                     }
                 }
-                if (!found)
+                if (!found) {
                     // if activated profile is not _startWhenActivatedProfile, not start event
+                    PPApplication.logE("Event.startEvent","is not started _startWhenActivatedProfile");
                     return;
+                }
             }
         }
 
@@ -1416,16 +1423,15 @@ class Event {
         for (EventTimeline eventTimeline : eventTimelineList)
         {
             Event event = dataWrapper.getEventById(eventTimeline._fkEvent);
-            if ((event != null) && applicationEventUsePriority && (event._priority > this._priority))
+            if ((event != null) && applicationEventUsePriority && (event._priority > this._priority)) {
                 // is running event with higher priority
+                PPApplication.logE("Event.startEvent","is running event with higher priority");
                 return;
+            }
         }
 
         if (_forceRun)
             setForceRunEventRunning(dataWrapper.context, true);
-
-        PPApplication.logE("@@@ Event.startEvent","event_id="+this._id+"-----------------------------------");
-        PPApplication.logE("@@@ Event.startEvent","-- event_name="+this._name);
 
         EventTimeline eventTimeline;
 
@@ -1485,7 +1491,8 @@ class Event {
             dataWrapper.addActivityLog(DataWrapper.ALTYPE_EVENT_START, _name, null, null, 0);
         }
 
-        PPApplication.logE("Event.startEvent","event_id="+this._id+" activate profile id="+this._fkProfileStart);
+        PPApplication.logE("Event.startEvent","event="+this._id+" activate profile id="+this._fkProfileStart);
+        PPApplication.logE("Event.startEvent","mergedProfile="+mergedProfile);
 
         if (mergedProfile == null) {
             long activatedProfileId = 0;
@@ -1501,6 +1508,7 @@ class Event {
         }
         else {
             mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper/*, true*/);
+            PPApplication.logE("Event.startEvent","mergedProfile="+mergedProfile._name);
             if (this._manualProfileActivation) {
                 DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
                 dataWrapper.activateProfileFromEvent(mergedProfile._id, true, true, forRestartEvents);

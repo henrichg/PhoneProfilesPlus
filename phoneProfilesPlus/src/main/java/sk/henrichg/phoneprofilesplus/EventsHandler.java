@@ -400,9 +400,9 @@ class EventsHandler {
                 //1. pause events
                 dataWrapper.sortEventsByStartOrderDesc();
                 for (Event _event : dataWrapper.eventList) {
-                    PPApplication.logE("EventsHandler.handleEvents", "state PAUSE");
-                    PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
-                    PPApplication.logE("EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
+                    PPApplication.logE("$$$ EventsHandler.handleEvents", "state PAUSE");
+                    PPApplication.logE("$$$ EventsHandler.handleEvents", "event._id=" + _event._id);
+                    PPApplication.logE("$$$ EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
 
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
                         // only pause events
@@ -429,9 +429,9 @@ class EventsHandler {
                 mergedProfile.copyProfile(mergedPausedProfile);
                 dataWrapper.sortEventsByStartOrderAsc();
                 for (Event _event : dataWrapper.eventList) {
-                    PPApplication.logE("EventsHandler.handleEvents", "state RUNNING");
-                    PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
-                    PPApplication.logE("EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
+                    PPApplication.logE("$$$ EventsHandler.handleEvents", "state RUNNING");
+                    PPApplication.logE("$$$ EventsHandler.handleEvents", "event._id=" + _event._id);
+                    PPApplication.logE("$$$ EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
 
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
                         // only start events

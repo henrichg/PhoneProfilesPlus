@@ -137,6 +137,13 @@ public class PPApplication extends Application {
                                          //+"|@@@ Event.pauseEvent"
                                          //+"|@@@ Event.stopEvent"
                                          //+"|### DataWrapper._activateProfile"
+                                        //+"|$$$ restartEvents"
+                                        //+"|DataWrapper._restartEvents"
+                                        //+"|DataWrapper.restartEvents"
+                                        //+"|PPApplication.startHandlerThread"
+                                        //+"|Event.startEvent"
+                                        //+"|Event.pauseEvent"
+                                        //+"|[DSTART] DataWrapper.doHandleEvents"
 
                                          //+"|LauncherActivity.onStart"
                                          //+"|EditorProfilesActivity.onCreate"
@@ -359,12 +366,6 @@ public class PPApplication extends Application {
                                         //+"|[RJS] PhoneProfilesService.registerReceiverForTimeSensor"
 
                                         //+"|EventPreferencesActivity.savePreferences"
-                                        //+"|$$$ restartEvents"
-                                        //+"|DataWrapper._restartEvents"
-                                        //+"|DataWrapper.restartEvents"
-                                        //+"|PPApplication.startHandlerThread"
-                                        //+"|Event.startEvent"
-                                        //+"|Event.pauseEvent"
 
                                         //+"|PhoneCallReceiver"
                                         //+"|PhoneCallBroadcastReceiver"

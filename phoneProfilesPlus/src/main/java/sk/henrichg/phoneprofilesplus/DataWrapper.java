@@ -3901,11 +3901,13 @@ public class DataWrapper {
                                 PPApplication.logE("[***] DataWrapper.doHandleEvents", "mergedProfile._id=" + mergedProfile._id);
                             }
                         }
-
+                        PPApplication.logE("[DSTART] DataWrapper.doHandleEvents", "forDelayStartAlarm=" + forDelayStartAlarm);
+                        PPApplication.logE("[DSTART] DataWrapper.doHandleEvents", "event._isInDelayStart=" + event._isInDelayStart);
                         if (forDelayStartAlarm && event._isInDelayStart) {
                             // called for delay alarm
                             // start event
                             event.startEvent(this, eventTimelineList, /*interactive,*/ forRestartEvents, mergedProfile);
+                            PPApplication.logE("[DSTART] DataWrapper.doHandleEvents", "mergedProfile=" + mergedProfile._name);
                         }
                     }
                 } else if (((newEventStatus == Event.ESTATUS_PAUSE) || forRestartEvents) && statePause) {
