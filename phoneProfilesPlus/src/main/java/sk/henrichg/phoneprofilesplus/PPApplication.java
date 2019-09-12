@@ -453,6 +453,8 @@ public class PPApplication extends Application {
 
                                         //+"|NotUsedMobileCellsNotificationDisableReceiver"
                                         //+"|NotUsedMobileCellsNotificationDeletedReceiver"
+
+                                        //+"|ActivateProfileHelper.executeForForceStopApplications"
             ;
 
 

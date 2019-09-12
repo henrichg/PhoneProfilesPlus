@@ -1863,22 +1863,73 @@ class ActivateProfileHelper {
         }
     }
 
+    private static int processPID = -1;
     private static void executeForForceStopApplications(final Profile profile, Context context) {
         if (PPApplication.blockProfileEventActions)
             // not force stop applications after boot
             return;
 
-        if (profile._lockDevice != 0)
-            // not force stop if profile has lock device enabled
-            return;
+        /*if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
+                (PPApplication.isRooted(false))) {
 
-        String applications = profile._deviceForceStopApplicationPackageName;
-        if (!(applications.isEmpty() || (applications.equals("-")))) {
-            Intent intent = new Intent(PPApplication.ACTION_FORCE_STOP_APPLICATIONS_START);
-            intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-            intent.putExtra(PPApplication.EXTRA_APPLICATIONS, applications);
-            context.sendBroadcast(intent, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
-        }
+            PPApplication.logE("ActivateProfileHelper.executeForForceStopApplications","do force stop via root");
+
+            synchronized (PPApplication.rootMutex) {
+                processPID = -1;
+                String command1 = "pidof sk.henrichg.phoneprofilesplus";
+                Command command = new Command(0, false, command1) {
+                    @Override
+                    public void commandOutput(int id, String line) {
+                        super.commandOutput(id, line);
+                        PPApplication.logE("ActivateProfileHelper.executeForForceStopApplications","shell output="+line);
+                        try {
+                            processPID = Integer.parseInt(line);
+                        } catch (Exception e) {
+                            processPID = -1;
+                        }
+                    }
+
+                    @Override
+                    public void commandTerminated(int id, String reason) {
+                        super.commandTerminated(id, reason);
+                        PPApplication.logE("ActivateProfileHelper.executeForForceStopApplications","terminated="+reason);
+                    }
+
+                    @Override
+                    public void commandCompleted(int id, int exitCode) {
+                        super.commandCompleted(id, exitCode);
+                        PPApplication.logE("ActivateProfileHelper.executeForForceStopApplications","completed="+exitCode);
+                    }
+                };
+
+
+                try {
+                    PPApplication.logE("ActivateProfileHelper.executeForForceStopApplications", "force stop application with root");
+                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                    PPApplication.commandWait(command);
+                    PPApplication.logE("ActivateProfileHelper.executeForForceStopApplications", "processPID="+processPID);
+                    //if (processPID != -1) {
+                        PPApplication.logE("ActivateProfileHelper.executeForForceStopApplications", "call RootTools.killProcess");
+                        boolean killed = RootTools.killProcess("sk.henrichg.phoneprofilesplus");
+                        PPApplication.logE("ActivateProfileHelper.executeForForceStopApplications", "killed="+killed);
+                    //}
+                } catch (Exception ee) {
+                    Log.e("ActivateProfileHelper.executeForForceStopApplications", Log.getStackTraceString(ee));
+                }
+            }
+        } else {*/
+            if (profile._lockDevice != 0)
+                // not force stop if profile has lock device enabled
+                return;
+
+            String applications = profile._deviceForceStopApplicationPackageName;
+            if (!(applications.isEmpty() || (applications.equals("-")))) {
+                Intent intent = new Intent(PPApplication.ACTION_FORCE_STOP_APPLICATIONS_START);
+                intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+                intent.putExtra(PPApplication.EXTRA_APPLICATIONS, applications);
+                context.sendBroadcast(intent, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
+            }
+        //}
     }
 
     private static void executeRootForAdaptiveBrightness(final Profile profile, Context context) {
