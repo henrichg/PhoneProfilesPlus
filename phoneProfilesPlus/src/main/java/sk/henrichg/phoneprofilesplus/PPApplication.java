@@ -447,7 +447,7 @@ public class PPApplication extends Application {
                                         //+"|EventsPrefsFragment.onResume"
                                         //+"|ActivateProfileHelper.setScreenCarMode"
 
-                                        +"|DonationNotificationJob"
+                                        //+"|DonationNotificationJob"
                                         +"|DonationBroadcastReceiver"
 
                                         //+"|FastAccessDurationDialog.updateProfileView"
