@@ -385,7 +385,9 @@ class TwilightScanner {
             long[] daysSunrise = new long[9];
             long[] daysSunset = new long[9];
             Calendar day = Calendar.getInstance();
-            day.add(Calendar.DAY_OF_YEAR, -1); // index 0 = previous day
+
+            day.add(Calendar.DAY_OF_YEAR, -1); // index = 0 -> getYesterdaySunrise(), getYesterdaySunset(),
+
             for (int i = 0; i < 9; i++) {
                 twilight = SunriseSunset.getSunriseSunset(day, mLocation.getLatitude(), mLocation.getLongitude());
                 daysSunrise[i] = twilight[0].getTimeInMillis();

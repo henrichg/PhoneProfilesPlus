@@ -545,6 +545,15 @@ class EventPreferencesTime extends EventPreferences {
             midnightTime.set(Calendar.SECOND, 0);
             midnightTime.set(Calendar.MILLISECOND, 0);
 
+            Calendar midnightMinusOneTime = Calendar.getInstance();
+            midnightMinusOneTime.set(Calendar.HOUR_OF_DAY, 23);
+            midnightMinusOneTime.set(Calendar.MINUTE, 59);
+            midnightMinusOneTime.set(Calendar.DAY_OF_MONTH, 0);
+            midnightMinusOneTime.set(Calendar.MONTH, 0);
+            midnightMinusOneTime.set(Calendar.YEAR, 0);
+            midnightMinusOneTime.set(Calendar.SECOND, 59);
+            midnightMinusOneTime.set(Calendar.MILLISECOND, 999);
+
             calStartTime.set(Calendar.HOUR_OF_DAY, _startTime / 60);
             calStartTime.set(Calendar.MINUTE, _startTime % 60);
             calStartTime.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
@@ -577,7 +586,7 @@ class EventPreferencesTime extends EventPreferences {
                 }
                 else
                 if ((hoursNowTime.getTimeInMillis() >= hoursStartTime.getTimeInMillis()) &&
-                    (hoursNowTime.getTimeInMillis() < midnightTime.getTimeInMillis())) {
+                    (hoursNowTime.getTimeInMillis() <= midnightMinusOneTime.getTimeInMillis())) {
                     // now is between startTime and midnight
                     if (testEvent)
                         PPApplication.logE("EventPreferencesTime.computeAlarm","now is between startTime and midnight");
@@ -680,34 +689,6 @@ class EventPreferencesTime extends EventPreferences {
 
                         if ((twilightState.getTodaySunset() != -1) && (twilightState.getTodaySunrise() != -1)) {
                             Calendar hoursStartTime = Calendar.getInstance();
-                            if (_timeType == TIME_TYPE_SUNRISE_SUNSET) {
-                                calStartTime.setTimeInMillis(twilightState.getTodaySunrise());
-                                hoursStartTime.setTimeInMillis(twilightState.getTodaySunrise());
-                            }
-                            else {
-                                calStartTime.setTimeInMillis(twilightState.getTodaySunset());
-                                hoursStartTime.setTimeInMillis(twilightState.getTodaySunset());
-                            }
-                            hoursStartTime.set(Calendar.DAY_OF_MONTH, 0);
-                            hoursStartTime.set(Calendar.MONTH, 0);
-                            hoursStartTime.set(Calendar.YEAR, 0);
-                            hoursStartTime.set(Calendar.SECOND, 0);
-                            hoursStartTime.set(Calendar.MILLISECOND, 0);
-
-                            Calendar hoursEndTime = Calendar.getInstance();
-                            if (_timeType == TIME_TYPE_SUNRISE_SUNSET) {
-                                calEndTime.setTimeInMillis(twilightState.getTodaySunset());
-                                hoursEndTime.setTimeInMillis(twilightState.getTodaySunset());
-                            }
-                            else {
-                                calEndTime.setTimeInMillis(twilightState.getTodaySunrise());
-                                hoursEndTime.setTimeInMillis(twilightState.getTodaySunrise());
-                            }
-                            hoursEndTime.set(Calendar.DAY_OF_MONTH, 0);
-                            hoursEndTime.set(Calendar.MONTH, 0);
-                            hoursEndTime.set(Calendar.YEAR, 0);
-                            hoursEndTime.set(Calendar.SECOND, 0);
-                            hoursEndTime.set(Calendar.MILLISECOND, 0);
 
                             Calendar hoursNowTime = Calendar.getInstance();
                             hoursNowTime.set(Calendar.DAY_OF_MONTH, 0);
@@ -725,43 +706,107 @@ class EventPreferencesTime extends EventPreferences {
                             midnightTime.set(Calendar.SECOND, 0);
                             midnightTime.set(Calendar.MILLISECOND, 0);
 
-                            Calendar midnightMinusOneTime = Calendar.getInstance();
-                            midnightMinusOneTime.set(Calendar.HOUR_OF_DAY, 23);
-                            midnightMinusOneTime.set(Calendar.MINUTE, 59);
-                            midnightMinusOneTime.set(Calendar.DAY_OF_MONTH, 0);
-                            midnightMinusOneTime.set(Calendar.MONTH, 0);
-                            midnightMinusOneTime.set(Calendar.YEAR, 0);
-                            midnightMinusOneTime.set(Calendar.SECOND, 59);
-                            midnightMinusOneTime.set(Calendar.MILLISECOND, 999);
+                            Calendar midnightPlusOneTime = Calendar.getInstance();
+                            midnightPlusOneTime.set(Calendar.HOUR_OF_DAY, 1);
+                            midnightPlusOneTime.set(Calendar.MINUTE, 0);
+                            midnightPlusOneTime.set(Calendar.DAY_OF_MONTH, 0);
+                            midnightPlusOneTime.set(Calendar.MONTH, 0);
+                            midnightPlusOneTime.set(Calendar.YEAR, 0);
+                            midnightPlusOneTime.set(Calendar.SECOND, 0);
+                            midnightPlusOneTime.set(Calendar.MILLISECOND, 0);
 
+                            // SunriseSunset get previous day when time is between 00:00 and 01:00
+                            boolean inOneHour =
+                                (hoursNowTime.getTimeInMillis() >= midnightTime.getTimeInMillis()) &&
+                                (hoursNowTime.getTimeInMillis() < midnightPlusOneTime.getTimeInMillis());
+                            PPApplication.logE("EventPreferencesTime.computeAlarm", "inOneHour="+inOneHour);
+
+                            Calendar middayTime = Calendar.getInstance();
+                            middayTime.set(Calendar.HOUR_OF_DAY, 12);
+                            middayTime.set(Calendar.MINUTE, 0);
+                            middayTime.set(Calendar.DAY_OF_MONTH, 0);
+                            middayTime.set(Calendar.MONTH, 0);
+                            middayTime.set(Calendar.YEAR, 0);
+                            middayTime.set(Calendar.SECOND, 0);
+                            middayTime.set(Calendar.MILLISECOND, 0);
+
+                            boolean inMorning =
+                                (hoursNowTime.getTimeInMillis() >= midnightPlusOneTime.getTimeInMillis()) &&
+                                (hoursNowTime.getTimeInMillis() < middayTime.getTimeInMillis());
+                            PPApplication.logE("EventPreferencesTime.computeAlarm", "inMorning="+inMorning);
+
+                            if (_timeType == TIME_TYPE_SUNRISE_SUNSET) {
+                                if (inOneHour)
+                                    calStartTime.setTimeInMillis(twilightState.getTomorrowSunrise());
+                                else
+                                    calStartTime.setTimeInMillis(twilightState.getTodaySunrise());
+                            } else {
+                                if (inMorning)
+                                    calStartTime.setTimeInMillis(twilightState.getYesterdaySunset());
+                                else
+                                    calStartTime.setTimeInMillis(twilightState.getTodaySunset());
+                            }
+                            hoursStartTime.setTimeInMillis(calStartTime.getTimeInMillis());
+                            hoursStartTime.set(Calendar.DAY_OF_MONTH, 0);
+                            hoursStartTime.set(Calendar.MONTH, 0);
+                            hoursStartTime.set(Calendar.YEAR, 0);
+                            hoursStartTime.set(Calendar.SECOND, 0);
+                            hoursStartTime.set(Calendar.MILLISECOND, 0);
+
+                            Calendar hoursEndTime = Calendar.getInstance();
+                            if (_timeType == TIME_TYPE_SUNRISE_SUNSET) {
+                                if (inOneHour)
+                                    calEndTime.setTimeInMillis(twilightState.getTomorrowSunset());
+                                else
+                                    calEndTime.setTimeInMillis(twilightState.getTodaySunset());
+                            }
+                            else {
+                                if (inMorning)
+                                    calEndTime.setTimeInMillis(twilightState.getTodaySunrise());
+                                else
+                                    calEndTime.setTimeInMillis(twilightState.getTomorrowSunrise());
+                            }
+                            hoursEndTime.setTimeInMillis(calEndTime.getTimeInMillis());
+                            hoursEndTime.set(Calendar.DAY_OF_MONTH, 0);
+                            hoursEndTime.set(Calendar.MONTH, 0);
+                            hoursEndTime.set(Calendar.YEAR, 0);
+                            hoursEndTime.set(Calendar.SECOND, 0);
+                            hoursEndTime.set(Calendar.MILLISECOND, 0);
+
+
+                            /*
                             ///// set calendar for startTime and endTime
-                            //boolean previousDayUsed = false;
+                            boolean previousDayUsed = false;
                             if (hoursStartTime.getTimeInMillis() >= hoursEndTime.getTimeInMillis()) {
-                                // endTime is over midnight
                                 if (testEvent)
                                     PPApplication.logE("EventPreferencesTime.computeAlarm", "startTime >= endTime");
 
                                 if ((hoursNowTime.getTimeInMillis() >= midnightTime.getTimeInMillis()) &&
-                                        (hoursNowTime.getTimeInMillis() <= hoursEndTime.getTimeInMillis())) {
+                                    (hoursNowTime.getTimeInMillis() <= hoursEndTime.getTimeInMillis())) {
                                     // now is between midnight and endTime
                                     if (testEvent)
                                         PPApplication.logE("EventPreferencesTime.computeAlarm", "now is between midnight and endTime");
 
-                                    //calStartTime.add(Calendar.DAY_OF_YEAR, -1);
-                                    //previousDayUsed = true;
+                                    startIndex = 0;
+
+                                    // SunriseSunset get previous day when time is between 00:00 and 01:00
+                                    //if (hoursNowTime.getTimeInMillis() >= midnightPlusOneTime.getTimeInMillis()) {
+                                    //    calStartTime.add(Calendar.DAY_OF_YEAR, -1);
+                                    //    previousDayUsed = true;
+                                    //}
                                 } else if ((hoursNowTime.getTimeInMillis() >= hoursStartTime.getTimeInMillis()) &&
                                         (hoursNowTime.getTimeInMillis() <= midnightMinusOneTime.getTimeInMillis())) {
                                     // now is between startTime and midnight
                                     if (testEvent)
                                         PPApplication.logE("EventPreferencesTime.computeAlarm", "now is between startTime and midnight");
 
-                                    calEndTime.add(Calendar.DAY_OF_YEAR, 1);
+                                    //calEndTime.add(Calendar.DAY_OF_YEAR, 1);
                                 } else {
                                     // now is before start time
                                     if (testEvent)
                                         PPApplication.logE("EventPreferencesTime.computeAlarm", "now is before start time");
 
-                                    calEndTime.add(Calendar.DAY_OF_YEAR, 1);
+                                    //calEndTime.add(Calendar.DAY_OF_YEAR, 1);
                                 }
                             } else {
                                 if (testEvent)
@@ -773,9 +818,10 @@ class EventPreferencesTime extends EventPreferences {
                                         PPApplication.logE("EventPreferencesTime.computeAlarm", "nowTime > endTime");
 
                                     calStartTime.add(Calendar.DAY_OF_YEAR, 1);
-                                    calEndTime.add(Calendar.DAY_OF_YEAR, 1);
+                                    //calEndTime.add(Calendar.DAY_OF_YEAR, 1);
                                 }
                             }
+                            */
 
                             //// get day by selected day of week
                             int startDayOfWeek = calStartTime.get(Calendar.DAY_OF_WEEK);
@@ -790,14 +836,10 @@ class EventPreferencesTime extends EventPreferences {
                             daysOfWeek[Calendar.FRIDAY] = this._friday;
                             daysOfWeek[Calendar.SATURDAY] = this._saturday;
 
-                            //int daysIndex = 0;
                             if (daysOfWeek[startDayOfWeek]) {
                                 // week for startTime is selected
                                 if (testEvent)
                                     PPApplication.logE("EventPreferencesTime.computeAlarm", "startTime of week is selected");
-
-                                //if (!previousDayUsed)
-                                //    daysIndex = 1;
                             } else {
                                 // week for startTime is not selected,
                                 if (testEvent) {
@@ -805,12 +847,9 @@ class EventPreferencesTime extends EventPreferences {
                                     PPApplication.logE("EventPreferencesTime.computeAlarm", "startDayOfWeek=" + startDayOfWeek);
                                 }
 
-                                //daysIndex = 1;
-
                                 // search for selected day of week
                                 boolean found = false;
                                 for (int i = startDayOfWeek; i < 8; i++) {
-                                    //++daysIndex;
                                     if (daysOfWeek[i]) {
                                         startDayOfWeek = i;
                                         found = true;
@@ -819,7 +858,6 @@ class EventPreferencesTime extends EventPreferences {
                                 }
                                 if (!found) {
                                     for (int i = 1; i < startDayOfWeek; i++) {
-                                        //++daysIndex;
                                         if (daysOfWeek[i]) {
                                             startDayOfWeek = i;
                                             found = true;
@@ -829,7 +867,6 @@ class EventPreferencesTime extends EventPreferences {
                                 }
                                 if (found) {
                                     if (testEvent)
-                                        //PPApplication.logE("EventPreferencesTime.computeAlarm", "daysIndex=" + daysIndex);
                                         PPApplication.logE("EventPreferencesTime.computeAlarm", "NEW startDayOfWeek="+startDayOfWeek);
                                 }
                             }
@@ -839,11 +876,40 @@ class EventPreferencesTime extends EventPreferences {
                             long[] twilightDaysSunset = twilightState.getDaysSunset();
 
                             if (testEvent) {
+                                Calendar t = Calendar.getInstance();
+                                t.setTimeInMillis(twilightState.getYesterdaySunrise());
+                                PPApplication.logE("EventPreferencesTime.computeAlarm", "twilightState.getYesterdaySunrise()=" +
+                                        DateFormat.getDateFormat(context).format(twilightState.getYesterdaySunrise()) + " " +
+                                        DateFormat.getTimeFormat(context).format(twilightState.getYesterdaySunrise()) + " " + t.get(Calendar.DAY_OF_WEEK));
+                                t.setTimeInMillis(twilightState.getYesterdaySunset());
+                                PPApplication.logE("EventPreferencesTime.computeAlarm", "twilightState.getYesterdaySunset()=" +
+                                        DateFormat.getDateFormat(context).format(twilightState.getYesterdaySunset()) + " " +
+                                        DateFormat.getTimeFormat(context).format(twilightState.getYesterdaySunset()) + " " + t.get(Calendar.DAY_OF_WEEK));
+                                t.setTimeInMillis(twilightState.getTodaySunrise());
+                                PPApplication.logE("EventPreferencesTime.computeAlarm", "twilightState.getTodaySunrise()=" +
+                                        DateFormat.getDateFormat(context).format(twilightState.getTodaySunrise()) + " " +
+                                        DateFormat.getTimeFormat(context).format(twilightState.getTodaySunrise()) + " " + t.get(Calendar.DAY_OF_WEEK));
+                                t.setTimeInMillis(twilightState.getTodaySunset());
+                                PPApplication.logE("EventPreferencesTime.computeAlarm", "twilightState.getTodaySunset()=" +
+                                        DateFormat.getDateFormat(context).format(twilightState.getTodaySunset()) + " " +
+                                        DateFormat.getTimeFormat(context).format(twilightState.getTodaySunset()) + " " + t.get(Calendar.DAY_OF_WEEK));
+                                t.setTimeInMillis(twilightState.getTomorrowSunrise());
+                                PPApplication.logE("EventPreferencesTime.computeAlarm", "twilightState.getTomorrowSunrise()=" +
+                                        DateFormat.getDateFormat(context).format(twilightState.getTomorrowSunrise()) + " " +
+                                        DateFormat.getTimeFormat(context).format(twilightState.getTomorrowSunrise()) + " " + t.get(Calendar.DAY_OF_WEEK));
+                                t.setTimeInMillis(twilightState.getTomorrowSunset());
+                                PPApplication.logE("EventPreferencesTime.computeAlarm", "twilightState.getTomorrowSunset()=" +
+                                        DateFormat.getDateFormat(context).format(twilightState.getTomorrowSunset()) + " " +
+                                        DateFormat.getTimeFormat(context).format(twilightState.getTomorrowSunset()) + " " + t.get(Calendar.DAY_OF_WEEK));
+
                                 for (int i = 0; i < 9; i++) {
+                                    t = Calendar.getInstance();
+                                    t.setTimeInMillis(twilightDaysSunrise[i]);
                                     PPApplication.logE("EventPreferencesTime.computeAlarm", "twilightDaysSunrise["+i+"]=" + DateFormat.getDateFormat(context).format(twilightDaysSunrise[i]) +
-                                            " " + DateFormat.getTimeFormat(context).format(twilightDaysSunrise[i]));
+                                            " " + DateFormat.getTimeFormat(context).format(twilightDaysSunrise[i]) + " " + t.get(Calendar.DAY_OF_WEEK));
+                                    t.setTimeInMillis(twilightDaysSunset[i]);
                                     PPApplication.logE("EventPreferencesTime.computeAlarm", "twilightDaysSunset["+i+"]=" + DateFormat.getDateFormat(context).format(twilightDaysSunset[i]) +
-                                            " " + DateFormat.getTimeFormat(context).format(twilightDaysSunset[i]));
+                                            " " + DateFormat.getTimeFormat(context).format(twilightDaysSunset[i]) + " " + t.get(Calendar.DAY_OF_WEEK));
                                 }
                             }
 
@@ -851,16 +917,28 @@ class EventPreferencesTime extends EventPreferences {
                                 if (testEvent)
                                     PPApplication.logE("EventPreferencesTime.computeAlarm", "from sunrise to sunset");
 
-                                // ignore index 0 (previous day)
                                 for (int daysIndex = 1; daysIndex < 9; daysIndex++) {
-                                    if (twilightDaysSunrise[daysIndex] != -1) {
 
-                                        calStartTime.setTimeInMillis(twilightDaysSunrise[daysIndex]);
+                                    int idx;
+
+                                    if (inOneHour)
+                                        idx = daysIndex+1;
+                                    else
+                                        idx = daysIndex;
+
+                                    if (twilightDaysSunrise[idx] != -1) {
+
+                                        calStartTime.setTimeInMillis(twilightDaysSunrise[idx]);
 
                                         if (calStartTime.get(Calendar.DAY_OF_WEEK) == startDayOfWeek) {
 
-                                            if (twilightDaysSunset[daysIndex] != -1)
-                                                calEndTime.setTimeInMillis(twilightDaysSunset[daysIndex]);
+                                            if (inOneHour)
+                                                idx = daysIndex+1;
+                                            else
+                                                idx = daysIndex;
+
+                                            if (twilightDaysSunset[idx] != -1)
+                                                calEndTime.setTimeInMillis(twilightDaysSunset[idx]);
                                             else
                                                 setAlarm = false;
 
@@ -875,22 +953,38 @@ class EventPreferencesTime extends EventPreferences {
                                 if (testEvent)
                                     PPApplication.logE("EventPreferencesTime.computeAlarm", "from sunset to sunrise");
 
-                                int startIndex = 1;
-                                //if (previousDayUsed)
-                                //    startIndex = 0;
-                                for (int daysIndex = startIndex; daysIndex < 9; daysIndex++) {
-                                    if (twilightDaysSunset[daysIndex] != -1) {
+                                for (int daysIndex = 1; daysIndex < 9; daysIndex++) {
 
-                                        calStartTime.setTimeInMillis(twilightDaysSunset[daysIndex]);
+                                    int idx;
+
+                                    if (inMorning)
+                                        idx = daysIndex-1;
+                                    else
+                                        idx = daysIndex;
+
+                                    if (twilightDaysSunset[idx] != -1) {
+
+                                        calStartTime.setTimeInMillis(twilightDaysSunset[idx]);
 
                                         if (calStartTime.get(Calendar.DAY_OF_WEEK) == startDayOfWeek) {
 
-                                            daysIndex++;
-                                            if (twilightDaysSunrise[daysIndex] != -1)
-                                                calEndTime.setTimeInMillis(twilightDaysSunrise[daysIndex]);
+                                            if (inMorning)
+                                                idx = daysIndex;
+                                            else
+                                                idx = daysIndex+1;
+
+                                            if (twilightDaysSunrise[idx] != -1)
+                                                calEndTime.setTimeInMillis(twilightDaysSunrise[idx]);
                                             else
                                                 setAlarm = false;
+
+                                            if (testEvent)
+                                                PPApplication.logE("EventPreferencesTime.computeAlarm", "daysIndex OK="+daysIndex);
                                             break;
+                                        }
+                                        else {
+                                            if (testEvent)
+                                                PPApplication.logE("EventPreferencesTime.computeAlarm", "daysIndex NOT OK="+daysIndex);
                                         }
                                     }
                                     else
