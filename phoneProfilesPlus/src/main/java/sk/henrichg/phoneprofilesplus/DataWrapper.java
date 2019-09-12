@@ -2080,8 +2080,11 @@ public class DataWrapper {
         if (event._eventPreferencesTime._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                     && Permissions.checkEventLocation(context, event, null)) {
-                PPApplication.logE("[TIME] DataWrapper.doHandleEvents","------- event._id="+event._id);
-                PPApplication.logE("[TIME] DataWrapper.doHandleEvents","------- event._name="+event._name);
+                boolean testEvent = (event._name != null) && event._name.equals("Plugged In Nighttime");
+                if (testEvent) {
+                    PPApplication.logE("[TIME] DataWrapper.doHandleEvents", "------- event._id=" + event._id);
+                    PPApplication.logE("[TIME] DataWrapper.doHandleEvents", "------- event._name=" + event._name);
+                }
 
                 // compute start datetime
                 long startAlarmTime;
@@ -2093,23 +2096,28 @@ public class DataWrapper {
                 if (startAlarmTime > 0) {
                     String alarmTimeS = DateFormat.getDateFormat(context).format(startAlarmTime) +
                             " " + DateFormat.getTimeFormat(context).format(startAlarmTime);
-                    PPApplication.logE("[TIME] DataWrapper.doHandleEvents", "startAlarmTime=" + alarmTimeS);
+                    if (testEvent)
+                        PPApplication.logE("[TIME] DataWrapper.doHandleEvents", "startAlarmTime=" + alarmTimeS);
                 }
                 else
+                if (testEvent)
                     PPApplication.logE("[TIME] DataWrapper.doHandleEvents", "startAlarmTime=not alarm computed");
                 if (endAlarmTime > 0) {
                     String alarmTimeS = DateFormat.getDateFormat(context).format(endAlarmTime) +
                             " " + DateFormat.getTimeFormat(context).format(endAlarmTime);
-                    PPApplication.logE("[TIME] DataWrapper.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+                    if (testEvent)
+                        PPApplication.logE("[TIME] DataWrapper.doHandleEvents", "endAlarmTime=" + alarmTimeS);
                 }
                 else
+                if (testEvent)
                     PPApplication.logE("[TIME] DataWrapper.doHandleEvents", "endAlarmTime=not alarm computed");
 
                 Calendar now = Calendar.getInstance();
                 long nowAlarmTime = now.getTimeInMillis();
                 String alarmTimeS = DateFormat.getDateFormat(context).format(nowAlarmTime) +
                         " " + DateFormat.getTimeFormat(context).format(nowAlarmTime);
-                PPApplication.logE("[TIME] DataWrapper.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+                if (testEvent)
+                    PPApplication.logE("[TIME] DataWrapper.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
 
                 /*boolean[] daysOfWeek =  new boolean[8];
                 daysOfWeek[Calendar.SUNDAY] = event._eventPreferencesTime._sunday;
@@ -2126,7 +2134,8 @@ public class DataWrapper {
                 //if (daysOfWeek[startDayOfWeek])
                 //{
                     // startTime of week is selected
-                    PPApplication.logE("[TIME] DataWrapper.doHandleEvents","startTime of week is selected");
+                    if (testEvent)
+                        PPApplication.logE("[TIME] DataWrapper.doHandleEvents","startTime of week is selected");
                     if ((startAlarmTime > 0) && (endAlarmTime > 0))
                         timePassed = ((nowAlarmTime >= startAlarmTime) && (nowAlarmTime < endAlarmTime));
                     else
@@ -2137,7 +2146,8 @@ public class DataWrapper {
                     timePassed = false;
                 }*/
 
-                PPApplication.logE("[TIME] DataWrapper.doHandleEvents", "timePassed=" + timePassed);
+                if (testEvent)
+                    PPApplication.logE("[TIME] DataWrapper.doHandleEvents", "timePassed=" + timePassed);
 
                 if (!notAllowedTime) {
                     if (timePassed)

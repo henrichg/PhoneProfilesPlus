@@ -282,7 +282,7 @@ class EventPreferencesTime extends EventPreferences {
                     if (PhoneProfilesService.getInstance() != null) {
                         TwilightScanner twilightScanner = PhoneProfilesService.getInstance().getTwilightScanner();
                         if (twilightScanner != null) {
-                            TwilightState twilightState = twilightScanner.getTwilightState();
+                            TwilightState twilightState = twilightScanner.getTwilightState(true);
                             if (twilightState != null) {
                                 long startTime = computeAlarm(true, context);
                                 long endTime = computeAlarm(false, context);
@@ -494,7 +494,7 @@ class EventPreferencesTime extends EventPreferences {
 
     long computeAlarm(boolean startEvent, Context context)
     {
-        boolean testEvent = (_event._name != null) && _event._name.equals("TEST TIME SENSOR");
+        boolean testEvent = (_event._name != null) && _event._name.equals("Plugged In Nighttime");
         if (testEvent) {
             PPApplication.logE("EventPreferencesTime.computeAlarm", "eventName=" + _event._name);
             PPApplication.logE("EventPreferencesTime.computeAlarm", "startEvent=" + startEvent);
@@ -672,7 +672,7 @@ class EventPreferencesTime extends EventPreferences {
                 if (twilightScanner != null) {
                     if (testEvent)
                         PPApplication.logE("EventPreferencesTime.computeAlarm", "TwilightScanner started");
-                    TwilightState twilightState = twilightScanner.getTwilightState();
+                    TwilightState twilightState = twilightScanner.getTwilightState(testEvent);
                     if (twilightState != null) {
                         if (testEvent)
                             PPApplication.logE("EventPreferencesTime.computeAlarm", "TwilightState set");
@@ -725,6 +725,15 @@ class EventPreferencesTime extends EventPreferences {
                             midnightTime.set(Calendar.SECOND, 0);
                             midnightTime.set(Calendar.MILLISECOND, 0);
 
+                            Calendar midnightMinusOneTime = Calendar.getInstance();
+                            midnightMinusOneTime.set(Calendar.HOUR_OF_DAY, 23);
+                            midnightMinusOneTime.set(Calendar.MINUTE, 59);
+                            midnightMinusOneTime.set(Calendar.DAY_OF_MONTH, 0);
+                            midnightMinusOneTime.set(Calendar.MONTH, 0);
+                            midnightMinusOneTime.set(Calendar.YEAR, 0);
+                            midnightMinusOneTime.set(Calendar.SECOND, 59);
+                            midnightMinusOneTime.set(Calendar.MILLISECOND, 999);
+
                             ///// set calendar for startTime and endTime
                             boolean previousDayUsed = false;
                             if (hoursStartTime.getTimeInMillis() >= hoursEndTime.getTimeInMillis()) {
@@ -738,10 +747,10 @@ class EventPreferencesTime extends EventPreferences {
                                     if (testEvent)
                                         PPApplication.logE("EventPreferencesTime.computeAlarm", "now is between midnight and endTime");
 
-                                    calStartTime.add(Calendar.DAY_OF_YEAR, -1);
-                                    previousDayUsed = true;
+                                    //calStartTime.add(Calendar.DAY_OF_YEAR, -1);
+                                    //previousDayUsed = true;
                                 } else if ((hoursNowTime.getTimeInMillis() >= hoursStartTime.getTimeInMillis()) &&
-                                        (hoursNowTime.getTimeInMillis() < midnightTime.getTimeInMillis())) {
+                                        (hoursNowTime.getTimeInMillis() <= midnightMinusOneTime.getTimeInMillis())) {
                                     // now is between startTime and midnight
                                     if (testEvent)
                                         PPApplication.logE("EventPreferencesTime.computeAlarm", "now is between startTime and midnight");
@@ -931,9 +940,9 @@ class EventPreferencesTime extends EventPreferences {
     {
         // set alarm for state PAUSE
 
-        boolean testEvent = (_event._name != null) && _event._name.equals("TEST TIME SENSOR");
+        boolean testEvent = (_event._name != null) && _event._name.equals("Plugged In Nighttime");
         if (testEvent)
-            PPApplication.logE("EventPreferencesTime.setSystemEventForStart","TEST TIME SENSOR");
+            PPApplication.logE("EventPreferencesTime.setSystemEventForStart","Plugged In Nighttime");
 
         // this alarm generates broadcast, that change state into RUNNING;
         // from broadcast will by called EventsHandler
@@ -958,9 +967,9 @@ class EventPreferencesTime extends EventPreferences {
     {
         // set alarm for state RUNNING
 
-        boolean testEvent = (_event._name != null) && _event._name.equals("TEST TIME SENSOR");
+        boolean testEvent = (_event._name != null) && _event._name.equals("Plugged In Nighttime");
         if (testEvent)
-            PPApplication.logE("EventPreferencesTime.setSystemEventForPause","TEST TIME SENSOR");
+            PPApplication.logE("EventPreferencesTime.setSystemEventForPause","Plugged In Nighttime");
 
         // this alarm generates broadcast, that change state into PAUSE;
         // from broadcast will by called EventsHandler
@@ -985,20 +994,20 @@ class EventPreferencesTime extends EventPreferences {
     {
         // remove alarms for state STOP
 
-        boolean testEvent = (_event._name != null) && _event._name.equals("TEST TIME SENSOR");
+        boolean testEvent = (_event._name != null) && _event._name.equals("Plugged In Nighttime");
 
         //removeAlarm(true, _context);
         removeAlarm(/*false, */context);
 
         if (testEvent) {
             //PPApplication.logE("EventPreferencesTime.removeSystemEvent","forceNotUseAlarmClock="+ApplicationPreferences.forceNotUseAlarmClock);
-            PPApplication.logE("EventPreferencesTime.removeSystemEvent", "TEST TIME SENSOR");
+            PPApplication.logE("EventPreferencesTime.removeSystemEvent", "Plugged In Nighttime");
         }
     }
 
     private void removeAlarm(/*boolean startEvent, */Context context)
     {
-        boolean testEvent = (_event._name != null) && _event._name.equals("TEST TIME SENSOR");
+        boolean testEvent = (_event._name != null) && _event._name.equals("Plugged In Nighttime");
         if (testEvent)
             PPApplication.logE("EventPreferencesTime.removeAlarm", "event="+_event._name);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -1037,7 +1046,7 @@ class EventPreferencesTime extends EventPreferences {
     @SuppressLint({"SimpleDateFormat", "NewApi"})
     private void setAlarm(boolean startEvent, long alarmTime, Context context)
     {
-        boolean testEvent = (_event._name != null) && _event._name.equals("TEST TIME SENSOR");
+        boolean testEvent = (_event._name != null) && _event._name.equals("Plugged In Nighttime");
         if (testEvent)
             PPApplication.logE("EventPreferencesTime.setAlarm", "event="+_event._name);
 
