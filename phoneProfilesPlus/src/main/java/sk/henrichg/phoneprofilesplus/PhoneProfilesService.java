@@ -91,6 +91,7 @@ public class PhoneProfilesService extends Service
     private RingerModeChangeReceiver ringerModeChangeReceiver = null;
     private WifiStateChangedBroadcastReceiver wifiStateChangedBroadcastReceiver = null;
     private NotUsedMobileCellsNotificationDisableReceiver notUsedMobileCellsNotificationDisableReceiver = null;
+    private DonationBroadcastReceiver donationBroadcastReceiver = null;
 
     private BatteryBroadcastReceiver batteryEventReceiver = null;
     private BatteryBroadcastReceiver batteryChangeLevelReceiver = null;
@@ -428,9 +429,9 @@ public class PhoneProfilesService extends Service
         return serviceHasFirstStart;
     }
 
-    boolean getServiceRunning() {
-        return serviceRunning;
-    }
+//    boolean getServiceRunning() {
+//        return serviceRunning;
+//    }
 
     boolean getWaitForEndOfStart() {
         return waitForEndOfStart;
@@ -679,6 +680,30 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered pppExtenderBroadcastReceiver");
+            if (notUsedMobileCellsNotificationDisableReceiver != null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER notUsedMobileCellsNotificationDisableReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER notUsedMobileCellsNotificationDisableReceiver");
+                try {
+                    appContext.unregisterReceiver(notUsedMobileCellsNotificationDisableReceiver);
+                    notUsedMobileCellsNotificationDisableReceiver = null;
+                } catch (Exception e) {
+                    notUsedMobileCellsNotificationDisableReceiver = null;
+                }
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered notUsedMobileCellsNotificationDisableReceiver");
+            if (donationBroadcastReceiver != null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER donationBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER donationBroadcastReceiver");
+                try {
+                    appContext.unregisterReceiver(donationBroadcastReceiver);
+                    donationBroadcastReceiver = null;
+                } catch (Exception e) {
+                    donationBroadcastReceiver = null;
+                }
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered donationBroadcastReceiver");
         }
         if (register) {
             if (permissionsNotificationDeletedReceiver == null) {
@@ -935,15 +960,26 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered pppExtenderBroadcastReceiver");
 
             if (notUsedMobileCellsNotificationDisableReceiver == null) {
-                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER not used mobile cells notification disable", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER not used mobile cells notification disable");
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER notUsedMobileCellsNotificationDisableReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER notUsedMobileCellsNotificationDisableReceiver");
                 notUsedMobileCellsNotificationDisableReceiver = new NotUsedMobileCellsNotificationDisableReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(PhoneStateScanner.NEW_MOBILE_CELLS_NOTIFICATION_DISABLE_ACTION);
                 appContext.registerReceiver(notUsedMobileCellsNotificationDisableReceiver, intentFilter5);
             }
             else
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered not used mobile cells notification delete");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered notUsedMobileCellsNotificationDisableReceiver");
+
+            if (donationBroadcastReceiver == null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER donationBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER donationBroadcastReceiver");
+                donationBroadcastReceiver = new DonationBroadcastReceiver();
+                IntentFilter intentFilter5 = new IntentFilter();
+                intentFilter5.addAction(PPApplication.ACTION_DONATION);
+                appContext.registerReceiver(donationBroadcastReceiver, intentFilter5);
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered donationBroadcastReceiver");
         }
     }
 
@@ -3568,7 +3604,8 @@ public class PhoneProfilesService extends Service
                         }
 
                         registerReceiversAndJobs(false);
-                        DonationNotificationJob.scheduleJob(appContext, false);
+                        //DonationNotificationJob.scheduleJob(appContext, false);
+                        DonationBroadcastReceiver.setAlarm(appContext);
 
                         if (_startOnBoot || _startOnPackageReplace || _initializeStart) {
                             PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "application started");

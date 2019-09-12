@@ -95,7 +95,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     PPApplication.logE("PackageReplacedReceiver.onReceive", "donation alarm restart");
                                     PPApplication.setDaysAfterFirstStart(appContext, 0);
                                     PPApplication.setDonationNotificationCount(appContext, 0);
-                                    DonationNotificationJob.scheduleJob(appContext, true);
+                                    //DonationNotificationJob.scheduleJob(appContext, true);
+                                    DonationBroadcastReceiver.setAlarm(appContext);
 
                                     restartService = true;
                                 }

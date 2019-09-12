@@ -26,8 +26,8 @@ class PPJobsCreator implements JobCreator {
                 return new GeofenceScannerJob();
             //case GeofenceScannerJob.JOB_TAG_START:
             //    return new GeofenceScannerJob();
-            case DonationNotificationJob.JOB_TAG:
-                return new DonationNotificationJob();
+            //case DonationNotificationJob.JOB_TAG:
+            //    return new DonationNotificationJob();
 
             default:
                 return null;

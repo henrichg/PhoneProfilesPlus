@@ -448,6 +448,7 @@ public class PPApplication extends Application {
                                         //+"|ActivateProfileHelper.setScreenCarMode"
 
                                         +"|DonationNotificationJob"
+                                        +"|DonationBroadcastReceiver"
 
                                         //+"|FastAccessDurationDialog.updateProfileView"
 
@@ -581,6 +582,7 @@ public class PPApplication extends Application {
     static final String ACTION_CALL_RECEIVED = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_CALL_RECEIVED";
     static final String ACTION_LOCK_DEVICE = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_LOCK_DEVICE";
     static final String ACCESSIBILITY_SERVICE_PERMISSION = PPApplication.PACKAGE_NAME_EXTENDER + ".ACCESSIBILITY_SERVICE_PERMISSION";
+    static final String ACTION_DONATION = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_DONATION";
 
     static final String EXTRA_REGISTRATION_APP = "registration_app";
     static final String EXTRA_REGISTRATION_TYPE = "registration_type";
