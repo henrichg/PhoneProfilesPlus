@@ -735,7 +735,7 @@ class EventPreferencesTime extends EventPreferences {
                             midnightMinusOneTime.set(Calendar.MILLISECOND, 999);
 
                             ///// set calendar for startTime and endTime
-                            boolean previousDayUsed = false;
+                            //boolean previousDayUsed = false;
                             if (hoursStartTime.getTimeInMillis() >= hoursEndTime.getTimeInMillis()) {
                                 // endTime is over midnight
                                 if (testEvent)
@@ -876,8 +876,8 @@ class EventPreferencesTime extends EventPreferences {
                                     PPApplication.logE("EventPreferencesTime.computeAlarm", "from sunset to sunrise");
 
                                 int startIndex = 1;
-                                if (previousDayUsed)
-                                    startIndex = 0;
+                                //if (previousDayUsed)
+                                //    startIndex = 0;
                                 for (int daysIndex = startIndex; daysIndex < 9; daysIndex++) {
                                     if (twilightDaysSunset[daysIndex] != -1) {
 
