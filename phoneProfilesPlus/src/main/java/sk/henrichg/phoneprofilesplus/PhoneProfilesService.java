@@ -266,8 +266,12 @@ public class PhoneProfilesService extends Service
             } catch (Exception e) {
                 PPApplication.logE("PhoneProfilesService.stopReceiver", Log.getStackTraceString(e));
             }
-            stopForeground(true);
-            stopSelf();
+            try {
+                stopForeground(true);
+                stopSelf();
+            } catch (Exception e) {
+                PPApplication.logE("PhoneProfilesService.stopReceiver", Log.getStackTraceString(e));
+            }
         }
     };
 
