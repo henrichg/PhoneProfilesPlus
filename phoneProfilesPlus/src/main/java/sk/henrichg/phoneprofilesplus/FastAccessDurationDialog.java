@@ -392,35 +392,38 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 boolean showIndicators = ApplicationPreferences.applicationActivatorPrefIndicator(mDataWrapper.context);
 
                 Profile afterDoProfile = mDataWrapper.getProfileById(mAfterDoProfile, true, showIndicators, false);
+                if (afterDoProfile != null) {
 
-                profileName.setText(afterDoProfile._name);
-                if (afterDoProfile.getIsIconResourceID())
-                {
-                    if (afterDoProfile._iconBitmap != null)
+                    profileName.setText(afterDoProfile._name);
+                    if (afterDoProfile.getIsIconResourceID()) {
+                        if (afterDoProfile._iconBitmap != null)
+                            profileIcon.setImageBitmap(afterDoProfile._iconBitmap);
+                        else {
+                            int res = Profile.getIconResource(afterDoProfile.getIconIdentifier());
+                            profileIcon.setImageResource(res); // icon resource
+                        }
+                    } else {
                         profileIcon.setImageBitmap(afterDoProfile._iconBitmap);
-                    else {
-                        int res = Profile.getIconResource(afterDoProfile.getIconIdentifier());
-                        profileIcon.setImageResource(res); // icon resource
                     }
-                }
-                else
-                {
-                    profileIcon.setImageBitmap(afterDoProfile._iconBitmap);
-                }
 
-                if (showIndicators)
-                {
-                    if (profileIndicators != null)
-                    {
+                    if (showIndicators) {
+                        if (profileIndicators != null) {
                         /*if (afterDoProfile == null)
                             profileIndicators.setImageResource(R.drawable.ic_empty);
-                        else*/ {
-                            if (afterDoProfile._preferencesIndicator != null)
-                                profileIndicators.setImageBitmap(afterDoProfile._preferencesIndicator);
-                            else
-                                profileIndicators.setImageResource(R.drawable.ic_empty);
+                        else*/
+                            {
+                                if (afterDoProfile._preferencesIndicator != null)
+                                    profileIndicators.setImageBitmap(afterDoProfile._preferencesIndicator);
+                                else
+                                    profileIndicators.setImageResource(R.drawable.ic_empty);
+                            }
                         }
                     }
+                }
+                else {
+                    profileName.setText(mActivity.getString(R.string.profile_preference_profile_end_no_activate));
+                    profileIcon.setImageResource(R.drawable.ic_profile_default);
+                    profileIndicators.setImageResource(R.drawable.ic_empty);
                 }
             }
             else {
