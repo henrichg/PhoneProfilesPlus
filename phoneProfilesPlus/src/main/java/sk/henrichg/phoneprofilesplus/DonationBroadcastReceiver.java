@@ -34,19 +34,19 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                         int daysForNextNotification = PPApplication.getDaysForNextDonationNotification(appContext);
                         boolean donationDonated = PPApplication.getDonationDonated(appContext);
 
-                        if (BuildConfig.DEBUG) {
+                        /*if (BuildConfig.DEBUG) {
                             donationDonated = false;
-                            if (donationNotificationCount == 3) {
-                                //donationNotificationCount = 0;
-                                daysAfterFirstStart = 43;
-                                //PPApplication.setDonationNotificationCount(context, donationNotificationCount);
+                            if (donationNotificationCount == 5) {
+                                donationNotificationCount = 3;
+                                daysAfterFirstStart = 120;
+                                PPApplication.setDonationNotificationCount(context, donationNotificationCount);
                                 PPApplication.setDaysAfterFirstStart(context, daysAfterFirstStart);
                             }
                             //donationNotificationCount = 3;
                             //daysAfterFirstStart = 1168;
                             //PPApplication.setDonationNotificationCount(context, donationNotificationCount);
                             //PPApplication.setDaysAfterFirstStart(context, daysAfterFirstStart);
-                        }
+                        }*/
 
                         PPApplication.logE("DonationBroadcastReceiver.onReceive", "daysAfterFirstStart=" + daysAfterFirstStart);
                         PPApplication.logE("DonationBroadcastReceiver.onReceive", "donationNotificationCount=" + donationNotificationCount);
@@ -160,16 +160,16 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
         removeAlarm(context);
 
         Calendar now = Calendar.getInstance();
-        if (BuildConfig.DEBUG) {
+        /*if (BuildConfig.DEBUG) {
             now.add(Calendar.MINUTE, 1);
-        } else {
+        } else {*/
             // each day at 13:30
             now.set(Calendar.HOUR_OF_DAY, 13);
             now.set(Calendar.MINUTE, 30);
             now.add(Calendar.DAY_OF_MONTH, 1);
             now.set(Calendar.SECOND, 0);
             now.set(Calendar.MILLISECOND, 0);
-        }
+        //}
 
         long alarmTime = now.getTimeInMillis();
 
