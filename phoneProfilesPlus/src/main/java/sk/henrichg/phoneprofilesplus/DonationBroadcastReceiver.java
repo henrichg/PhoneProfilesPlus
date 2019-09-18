@@ -34,19 +34,19 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                         int daysForNextNotification = PPApplication.getDaysForNextDonationNotification(appContext);
                         boolean donationDonated = PPApplication.getDonationDonated(appContext);
 
-                        /*if (BuildConfig.DEBUG) {
+                        if (BuildConfig.DEBUG) {
                             donationDonated = false;
-                            if (donationNotificationCount == 5) {
+                            /*if (donationNotificationCount == 5) {
                                 donationNotificationCount = 3;
                                 daysAfterFirstStart = 120;
                                 PPApplication.setDonationNotificationCount(context, donationNotificationCount);
                                 PPApplication.setDaysAfterFirstStart(context, daysAfterFirstStart);
-                            }
+                            }*/
                             //donationNotificationCount = 3;
                             //daysAfterFirstStart = 1168;
                             //PPApplication.setDonationNotificationCount(context, donationNotificationCount);
                             //PPApplication.setDaysAfterFirstStart(context, daysAfterFirstStart);
-                        }*/
+                        }
 
                         PPApplication.logE("DonationBroadcastReceiver.onReceive", "daysAfterFirstStart=" + daysAfterFirstStart);
                         PPApplication.logE("DonationBroadcastReceiver.onReceive", "donationNotificationCount=" + donationNotificationCount);
