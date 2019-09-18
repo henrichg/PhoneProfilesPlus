@@ -494,7 +494,7 @@ class EventPreferencesTime extends EventPreferences {
 
     long computeAlarm(boolean startEvent, Context context)
     {
-        boolean testEvent = (_event._name != null) && _event._name.equals("Plugged In Nighttime");
+        boolean testEvent = (_event._name != null) && _event._name.equals("Plugged In Daytime");
         if (testEvent) {
             PPApplication.logE("EventPreferencesTime.computeAlarm", "eventName=" + _event._name);
             PPApplication.logE("EventPreferencesTime.computeAlarm", "startEvent=" + startEvent);
@@ -706,21 +706,6 @@ class EventPreferencesTime extends EventPreferences {
                             midnightTime.set(Calendar.SECOND, 0);
                             midnightTime.set(Calendar.MILLISECOND, 0);
 
-                            Calendar midnightPlusOneTime = Calendar.getInstance();
-                            midnightPlusOneTime.set(Calendar.HOUR_OF_DAY, 1);
-                            midnightPlusOneTime.set(Calendar.MINUTE, 0);
-                            midnightPlusOneTime.set(Calendar.DAY_OF_MONTH, 0);
-                            midnightPlusOneTime.set(Calendar.MONTH, 0);
-                            midnightPlusOneTime.set(Calendar.YEAR, 0);
-                            midnightPlusOneTime.set(Calendar.SECOND, 0);
-                            midnightPlusOneTime.set(Calendar.MILLISECOND, 0);
-
-                            // SunriseSunset get previous day when time is between 00:00 and 01:00
-                            boolean inOneHour =
-                                (hoursNowTime.getTimeInMillis() >= midnightTime.getTimeInMillis()) &&
-                                (hoursNowTime.getTimeInMillis() < midnightPlusOneTime.getTimeInMillis());
-                            PPApplication.logE("EventPreferencesTime.computeAlarm", "inOneHour="+inOneHour);
-
                             Calendar middayTime = Calendar.getInstance();
                             middayTime.set(Calendar.HOUR_OF_DAY, 12);
                             middayTime.set(Calendar.MINUTE, 0);
@@ -731,12 +716,14 @@ class EventPreferencesTime extends EventPreferences {
                             middayTime.set(Calendar.MILLISECOND, 0);
 
                             boolean inMorning =
-                                (hoursNowTime.getTimeInMillis() >= midnightPlusOneTime.getTimeInMillis()) &&
+                                (hoursNowTime.getTimeInMillis() >= midnightTime.getTimeInMillis()) &&
                                 (hoursNowTime.getTimeInMillis() < middayTime.getTimeInMillis());
                             PPApplication.logE("EventPreferencesTime.computeAlarm", "inMorning="+inMorning);
 
                             if (_timeType == TIME_TYPE_SUNRISE_SUNSET) {
-                                if (inOneHour)
+                                Calendar todaySunset = Calendar.getInstance();
+                                todaySunset.setTimeInMillis(twilightState.getTodaySunset());
+                                if (now.compareTo(todaySunset) > 0)
                                     calStartTime.setTimeInMillis(twilightState.getTomorrowSunrise());
                                 else
                                     calStartTime.setTimeInMillis(twilightState.getTodaySunrise());
@@ -755,8 +742,10 @@ class EventPreferencesTime extends EventPreferences {
 
                             Calendar hoursEndTime = Calendar.getInstance();
                             if (_timeType == TIME_TYPE_SUNRISE_SUNSET) {
-                                if (inOneHour)
-                                    calEndTime.setTimeInMillis(twilightState.getTomorrowSunset());
+                                Calendar todaySunset = Calendar.getInstance();
+                                todaySunset.setTimeInMillis(twilightState.getTodaySunset());
+                                if (now.compareTo(todaySunset) > 0)
+                                    calStartTime.setTimeInMillis(twilightState.getTomorrowSunset());
                                 else
                                     calEndTime.setTimeInMillis(twilightState.getTodaySunset());
                             }
@@ -921,9 +910,9 @@ class EventPreferencesTime extends EventPreferences {
 
                                     int idx;
 
-                                    if (inOneHour)
-                                        idx = daysIndex+1;
-                                    else
+                                    //if (inOneHour)
+                                    //    idx = daysIndex+1;
+                                    //else
                                         idx = daysIndex;
 
                                     if (twilightDaysSunrise[idx] != -1) {
@@ -932,9 +921,9 @@ class EventPreferencesTime extends EventPreferences {
 
                                         if (calStartTime.get(Calendar.DAY_OF_WEEK) == startDayOfWeek) {
 
-                                            if (inOneHour)
-                                                idx = daysIndex+1;
-                                            else
+                                            //if (inOneHour)
+                                            //    idx = daysIndex+1;
+                                            //else
                                                 idx = daysIndex;
 
                                             if (twilightDaysSunset[idx] != -1)
@@ -958,7 +947,7 @@ class EventPreferencesTime extends EventPreferences {
                                     int idx;
 
                                     if (inMorning)
-                                        idx = daysIndex-1;
+                                        idx = daysIndex - 1;
                                     else
                                         idx = daysIndex;
 
@@ -1034,9 +1023,9 @@ class EventPreferencesTime extends EventPreferences {
     {
         // set alarm for state PAUSE
 
-        boolean testEvent = (_event._name != null) && _event._name.equals("Plugged In Nighttime");
+        boolean testEvent = (_event._name != null) && _event._name.equals("Plugged In Daytime");
         if (testEvent)
-            PPApplication.logE("EventPreferencesTime.setSystemEventForStart","Plugged In Nighttime");
+            PPApplication.logE("EventPreferencesTime.setSystemEventForStart","Plugged In Daytime");
 
         // this alarm generates broadcast, that change state into RUNNING;
         // from broadcast will by called EventsHandler
@@ -1061,9 +1050,9 @@ class EventPreferencesTime extends EventPreferences {
     {
         // set alarm for state RUNNING
 
-        boolean testEvent = (_event._name != null) && _event._name.equals("Plugged In Nighttime");
+        boolean testEvent = (_event._name != null) && _event._name.equals("Plugged In Daytime");
         if (testEvent)
-            PPApplication.logE("EventPreferencesTime.setSystemEventForPause","Plugged In Nighttime");
+            PPApplication.logE("EventPreferencesTime.setSystemEventForPause","Plugged In Daytime");
 
         // this alarm generates broadcast, that change state into PAUSE;
         // from broadcast will by called EventsHandler
@@ -1088,20 +1077,20 @@ class EventPreferencesTime extends EventPreferences {
     {
         // remove alarms for state STOP
 
-        boolean testEvent = (_event._name != null) && _event._name.equals("Plugged In Nighttime");
+        boolean testEvent = (_event._name != null) && _event._name.equals("Plugged In Daytime");
 
         //removeAlarm(true, _context);
         removeAlarm(/*false, */context);
 
         if (testEvent) {
             //PPApplication.logE("EventPreferencesTime.removeSystemEvent","forceNotUseAlarmClock="+ApplicationPreferences.forceNotUseAlarmClock);
-            PPApplication.logE("EventPreferencesTime.removeSystemEvent", "Plugged In Nighttime");
+            PPApplication.logE("EventPreferencesTime.removeSystemEvent", "Plugged In Daytime");
         }
     }
 
     private void removeAlarm(/*boolean startEvent, */Context context)
     {
-        boolean testEvent = (_event._name != null) && _event._name.equals("Plugged In Nighttime");
+        boolean testEvent = (_event._name != null) && _event._name.equals("Plugged In Daytime");
         if (testEvent)
             PPApplication.logE("EventPreferencesTime.removeAlarm", "event="+_event._name);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -1140,7 +1129,7 @@ class EventPreferencesTime extends EventPreferences {
     @SuppressLint({"SimpleDateFormat", "NewApi"})
     private void setAlarm(boolean startEvent, long alarmTime, Context context)
     {
-        boolean testEvent = (_event._name != null) && _event._name.equals("Plugged In Nighttime");
+        boolean testEvent = (_event._name != null) && _event._name.equals("Plugged In Daytime");
         if (testEvent)
             PPApplication.logE("EventPreferencesTime.setAlarm", "event="+_event._name);
 

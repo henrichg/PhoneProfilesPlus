@@ -2080,7 +2080,7 @@ public class DataWrapper {
         if (event._eventPreferencesTime._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                     && Permissions.checkEventLocation(context, event, null)) {
-                boolean testEvent = (event._name != null) && event._name.equals("Plugged In Nighttime");
+                boolean testEvent = (event._name != null) && event._name.equals("Plugged In Daytime");
                 if (testEvent) {
                     PPApplication.logE("[TIME] DataWrapper.doHandleEvents", "------- event._id=" + event._id);
                     PPApplication.logE("[TIME] DataWrapper.doHandleEvents", "------- event._name=" + event._name);
