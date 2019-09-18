@@ -16,6 +16,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
 import android.os.SystemClock;
+import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 
@@ -362,12 +363,8 @@ class TwilightScanner {
 //            PPApplication.logE("TwilightScanner.updateTwilightState", "SunriseSunset.getCivilTwilight[0]=" + twilight[0].getTime());
 //            PPApplication.logE("TwilightScanner.updateTwilightState", "SunriseSunset.getCivilTwilight[1]=" + twilight[1].getTime());
 
-            // calculate today's twilight
+            // calculate correction
             Calendar[] twilight = SunriseSunset.getSunriseSunset(now, mLocation.getLatitude(), mLocation.getLongitude());
-
-            final boolean isNight;
-            final long todaySunrise;
-            final long todaySunset;
 
             // check if must be applied correction
             Calendar _now = Calendar.getInstance();
@@ -381,42 +378,31 @@ class TwilightScanner {
             _twilight.set(Calendar.SECOND, 0);
             _twilight.set(Calendar.MILLISECOND, 0);
 
-            // if must be applied, add one day
-            boolean mustCorrect = _twilight.compareTo(_now) < 0;
+            int correction = -_twilight.compareTo(_now);
             if (log) {
                 PPApplication.logE("TwilightScanner.updateTwilightState", "_now=" + _now.getTime());
                 PPApplication.logE("TwilightScanner.updateTwilightState", "_twilight=" + _twilight.getTime());
-                PPApplication.logE("TwilightScanner.updateTwilightState", "_twilight.compareTo(_now)=" + _twilight.compareTo(_now));
-                PPApplication.logE("TwilightScanner.updateTwilightState", "mustCorrect=" + mustCorrect);
+                PPApplication.logE("TwilightScanner.updateTwilightState", "correction=" + correction);
             }
 
-            if (mustCorrect) {
-                _now = Calendar.getInstance();
-                _now.add(Calendar.DAY_OF_YEAR, 1);
-                twilight = SunriseSunset.getSunriseSunset(_now, mLocation.getLatitude(), mLocation.getLongitude());
-                isNight = SunriseSunset.isNight(_now, mLocation.getLatitude(), mLocation.getLongitude());
-                todaySunrise = twilight[0].getTimeInMillis();
-                todaySunset = twilight[1].getTimeInMillis();
-            }
-            else {
-                isNight = SunriseSunset.isNight(now, mLocation.getLatitude(), mLocation.getLongitude());
-                todaySunrise = twilight[0].getTimeInMillis();
-                todaySunset = twilight[1].getTimeInMillis();
-            }
+            // calculate today twilight
+            _now = Calendar.getInstance();
+            _now.add(Calendar.DAY_OF_YEAR, correction);
+            twilight = SunriseSunset.getSunriseSunset(_now, mLocation.getLatitude(), mLocation.getLongitude());
+            boolean isNight = SunriseSunset.isNight(_now, mLocation.getLatitude(), mLocation.getLongitude());
+            long todaySunrise = twilight[0].getTimeInMillis();
+            long todaySunset = twilight[1].getTimeInMillis();
 
             // calculate yesterday's twilight
             Calendar yesterday = Calendar.getInstance();
-            if (!mustCorrect)
-                yesterday.add(Calendar.DAY_OF_YEAR, -1);
+            yesterday.add(Calendar.DAY_OF_YEAR, -1 + correction);
             twilight = SunriseSunset.getSunriseSunset(yesterday, mLocation.getLatitude(), mLocation.getLongitude());
             final long yesterdaySunrise = twilight[0].getTimeInMillis();
             final long yesterdaySunset = twilight[1].getTimeInMillis();
 
             // calculate tomorrow's twilight
             Calendar tomorrow = Calendar.getInstance();
-            tomorrow.add(Calendar.DAY_OF_YEAR, 1);
-            if (mustCorrect)
-                tomorrow.add(Calendar.DAY_OF_YEAR, 1);
+            tomorrow.add(Calendar.DAY_OF_YEAR, 1 + correction);
             twilight = SunriseSunset.getSunriseSunset(tomorrow, mLocation.getLatitude(), mLocation.getLongitude());
             final long tomorrowSunrise = twilight[0].getTimeInMillis();
             final long tomorrowSunset = twilight[1].getTimeInMillis();
@@ -425,8 +411,7 @@ class TwilightScanner {
             long[] daysSunset = new long[9];
             Calendar day = Calendar.getInstance();
 
-            if (!mustCorrect)
-                day.add(Calendar.DAY_OF_YEAR, -1); // index = 0 -> yesterday,
+            day.add(Calendar.DAY_OF_YEAR, -1 + correction); // index = 0 -> yesterday,
 
             for (int i = 0; i < 9; i++) {
                 twilight = SunriseSunset.getSunriseSunset(day, mLocation.getLatitude(), mLocation.getLongitude());
@@ -440,6 +425,7 @@ class TwilightScanner {
                     todaySunrise, todaySunset, tomorrowSunrise, tomorrowSunset, daysSunrise, daysSunset);
             if (log)
                 PPApplication.logE("TwilightScanner.updateTwilightState", "Updating twilight state: " + state);
+
             setTwilightState(state);
 
             if (setAlarm) {
