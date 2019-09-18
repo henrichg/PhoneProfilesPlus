@@ -30,22 +30,28 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                     public void run() {*/
 
                         int daysAfterFirstStart = PPApplication.getDaysAfterFirstStart(appContext) + 1;
-                        PPApplication.logE("DonationBroadcastReceiver.onReceive", "daysAfterFirstStart=" + daysAfterFirstStart);
                         int donationNotificationCount = PPApplication.getDonationNotificationCount(appContext);
-                        PPApplication.logE("DonationBroadcastReceiver.onReceive", "donationNotificationCount=" + donationNotificationCount);
                         int daysForNextNotification = PPApplication.getDaysForNextDonationNotification(appContext);
-                        PPApplication.logE("DonationBroadcastReceiver.onReceive", "daysForNextNotification=" + daysForNextNotification);
                         boolean donationDonated = PPApplication.getDonationDonated(appContext);
-                        PPApplication.logE("DonationBroadcastReceiver.onReceive", "donationDonated="+donationDonated);
 
                         if (BuildConfig.DEBUG) {
                             donationDonated = false;
-                            PPApplication.logE("DonationBroadcastReceiver.onReceive", "donationDonated="+donationDonated);
+                            if (donationNotificationCount == 3) {
+                                //donationNotificationCount = 0;
+                                daysAfterFirstStart = 43;
+                                //PPApplication.setDonationNotificationCount(context, donationNotificationCount);
+                                PPApplication.setDaysAfterFirstStart(context, daysAfterFirstStart);
+                            }
                             //donationNotificationCount = 3;
                             //daysAfterFirstStart = 1168;
                             //PPApplication.setDonationNotificationCount(context, donationNotificationCount);
                             //PPApplication.setDaysAfterFirstStart(context, daysAfterFirstStart);
                         }
+
+                        PPApplication.logE("DonationBroadcastReceiver.onReceive", "daysAfterFirstStart=" + daysAfterFirstStart);
+                        PPApplication.logE("DonationBroadcastReceiver.onReceive", "donationNotificationCount=" + donationNotificationCount);
+                        PPApplication.logE("DonationBroadcastReceiver.onReceive", "daysForNextNotification=" + daysForNextNotification);
+                        PPApplication.logE("DonationBroadcastReceiver.onReceive", "donationDonated="+donationDonated);
 
                         boolean notify = false;
                         if (donationNotificationCount == 3) {
@@ -53,10 +59,18 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                             PPApplication.setDaysForNextDonationNotification(appContext, daysForNextNotification);
                             PPApplication.logE("DonationBroadcastReceiver.onReceive", "daysForNextNotification=" + daysForNextNotification);
 
-                            if (daysAfterFirstStart > 7+14+21+28+30) {
-                                // correction for new algorithm
-                                PPApplication.logE("DonationBroadcastReceiver.onReceive", "correction for new algorithm");
+                            if (daysAfterFirstStart > 7+14+21+42+30) {
+                                // notify old users after 114 days
+                                PPApplication.logE("DonationBroadcastReceiver.onReceive", "notify old users after 114 days");
                                 notify = true;
+
+                                daysForNextNotification = daysAfterFirstStart + 90;
+                                PPApplication.setDaysForNextDonationNotification(appContext, daysForNextNotification);
+                                PPApplication.logE("DonationBroadcastReceiver.onReceive", "daysForNextNotification=" + daysForNextNotification);
+                            }
+                            else {
+                                PPApplication.setDonationNotificationCount(appContext, donationNotificationCount+1);
+                                PPApplication.logE("DonationBroadcastReceiver.onReceive", "do not notify when donationNotificationCount is 3");
                             }
                         }
                         else {
@@ -75,13 +89,15 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                                 }
                                 PPApplication.logE("DonationBroadcastReceiver.onReceive", "daysForOneNotification=" + daysForOneNotification);
 
-                                if ((donationNotificationCount == 0) ||
-                                        (donationNotificationCount == 1)) {
+                                notify = (daysAfterFirstStart > 0) && (daysAfterFirstStart >= daysForOneNotification);
+
+                                if (notify &&
+                                        ((donationNotificationCount == 0) ||
+                                         (donationNotificationCount == 1))) {
                                     PPApplication.setDonationNotificationCount(appContext, donationNotificationCount+1);
                                     PPApplication.logE("DonationBroadcastReceiver.onReceive", "do not notify when donationNotificationCount is 0, 1");
+                                    notify = false;
                                 }
-                                else
-                                    notify = (daysAfterFirstStart > 0) && (daysAfterFirstStart >= daysForOneNotification);
                             }
                         }
                         PPApplication.logE("DonationBroadcastReceiver.onReceive", "notify=" + notify);
@@ -144,16 +160,16 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
         removeAlarm(context);
 
         Calendar now = Calendar.getInstance();
-        /*if (BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             now.add(Calendar.MINUTE, 1);
-        } else {*/
+        } else {
             // each day at 13:30
             now.set(Calendar.HOUR_OF_DAY, 13);
             now.set(Calendar.MINUTE, 30);
             now.add(Calendar.DAY_OF_MONTH, 1);
             now.set(Calendar.SECOND, 0);
             now.set(Calendar.MILLISECOND, 0);
-        //}
+        }
 
         long alarmTime = now.getTimeInMillis();
 

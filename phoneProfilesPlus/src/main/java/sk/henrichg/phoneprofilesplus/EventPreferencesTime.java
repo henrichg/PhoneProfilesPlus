@@ -570,6 +570,13 @@ class EventPreferencesTime extends EventPreferences {
             calEndTime.set(Calendar.SECOND, 0);
             calEndTime.set(Calendar.MILLISECOND, 0);
 
+            if (testEvent) {
+                PPApplication.logE("EventPreferencesTime.computeAlarm", "callStartTime=" + DateFormat.getDateFormat(context).format(calStartTime.getTimeInMillis()) +
+                        " " + DateFormat.getTimeFormat(context).format(calStartTime.getTimeInMillis()));
+                PPApplication.logE("EventPreferencesTime.computeAlarm", "callEndTime=" + DateFormat.getDateFormat(context).format(calEndTime.getTimeInMillis()) +
+                        " " + DateFormat.getTimeFormat(context).format(calEndTime.getTimeInMillis()));
+            }
+
             if (hoursStartTime.getTimeInMillis() >= hoursEndTime.getTimeInMillis())
             {
                 // endTime is over midnight
@@ -606,7 +613,7 @@ class EventPreferencesTime extends EventPreferences {
                     PPApplication.logE("EventPreferencesTime.computeAlarm","startTime < endTime");
 
                 if (hoursNowTime.getTimeInMillis() > hoursEndTime.getTimeInMillis()) {
-                    // endTime is before actual time, compute for tomorrow
+                    // now is after end time, compute for tomorrow
                     if (testEvent)
                         PPApplication.logE("EventPreferencesTime.computeAlarm", "nowTime > endTime");
 
