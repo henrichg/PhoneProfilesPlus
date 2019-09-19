@@ -458,8 +458,8 @@ public class PPApplication extends Application {
 
                                         //+"|ActivateProfileHelper.executeForForceStopApplications"
 
-                                        +"|DaysOfWeekPreferenceX"
-                                        +"|EventPreferencesTime.getDayOfWeekByLocale"
+                                        //+"|DaysOfWeekPreferenceX"
+                                        //+"|EventPreferencesTime.getDayOfWeekByLocale"
             ;
 
 
