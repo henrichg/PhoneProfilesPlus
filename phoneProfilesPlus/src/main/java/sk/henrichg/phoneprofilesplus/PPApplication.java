@@ -449,7 +449,7 @@ public class PPApplication extends Application {
                                         //+"|ActivateProfileHelper.setScreenCarMode"
 
                                         //+"|DonationNotificationJob"
-                                        +"|DonationBroadcastReceiver"
+                                        //+"|DonationBroadcastReceiver"
 
                                         //+"|FastAccessDurationDialog.updateProfileView"
 
@@ -457,6 +457,9 @@ public class PPApplication extends Application {
                                         //+"|NotUsedMobileCellsNotificationDeletedReceiver"
 
                                         //+"|ActivateProfileHelper.executeForForceStopApplications"
+
+                                        +"|DaysOfWeekPreferenceX"
+                                        +"|EventPreferencesTime.getDayOfWeekByLocale"
             ;
 
 

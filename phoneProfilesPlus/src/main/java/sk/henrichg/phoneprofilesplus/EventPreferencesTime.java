@@ -343,9 +343,9 @@ class EventPreferencesTime extends EventPreferences {
     // return: value are (for example) Calendar.MONDAY-1
     static int getDayOfWeekByLocale(int dayOfWeek)
     {
-
         Calendar cal = Calendar.getInstance();
         int firstDayOfWeek = cal.getFirstDayOfWeek();
+        //PPApplication.logE("EventPreferencesTime.getDayOfWeekByLocale", "firstDayOfWeek="+firstDayOfWeek);
 
         int resDayOfWeek = dayOfWeek + (firstDayOfWeek-1);
         if (resDayOfWeek > 6)
