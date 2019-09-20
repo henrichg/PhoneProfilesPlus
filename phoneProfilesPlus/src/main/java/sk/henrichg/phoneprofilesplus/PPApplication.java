@@ -129,7 +129,7 @@ public class PPApplication extends Application {
                                          //+"|OneRowWidgetProvider.onUpdate"
 
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
-                                         //+"|#### EventsHandler.handleEvents"
+                                         +"|#### EventsHandler.handleEvents"
                                          //+"|[DEFPROF] EventsHandler"
                                          //+"|$$$ EventsHandler.handleEvents"
                                          //+"|[NOTIFY] EventsHandler"
