@@ -10,6 +10,7 @@ import android.content.pm.PackageInfo;
 import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.util.Log;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
         CallsCounter.logCounter(context, "PackageReplacedReceiver.onReceive", "PackageReplacedReceiver_onReceive");
 
         if ((intent != null) && (intent.getAction() != null) && intent.getAction().equals(Intent.ACTION_MY_PACKAGE_REPLACED)) {
-            PPApplication.logE("##### PackageReplacedReceiver.onReceive", "xxx");
+            PPApplication.logE("##### PackageReplacedReceiver.onReceive", "yyy");
 
             restartService = false;
 

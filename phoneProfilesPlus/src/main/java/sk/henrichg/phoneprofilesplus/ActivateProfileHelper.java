@@ -258,7 +258,7 @@ class ActivateProfileHelper {
                             }
                             if (isWifiEnabled)
                                 // when wifi is enabled from profile, no disable wifi after scan
-                                WifiScanJob.setWifiEnabledForScan(context, false);
+                                WifiScanWorker.setWifiEnabledForScan(context, false);
                             if (setWifiState) {
                                 try {
                                     PPApplication.logE("#### setWifiEnabled", "from ActivateProfileHelper.doExecuteForRadio");

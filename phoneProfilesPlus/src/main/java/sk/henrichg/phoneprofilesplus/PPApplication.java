@@ -129,7 +129,7 @@ public class PPApplication extends Application {
                                          //+"|OneRowWidgetProvider.onUpdate"
 
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
-                                         +"|#### EventsHandler.handleEvents"
+                                         //+"|#### EventsHandler.handleEvents"
                                          //+"|[DEFPROF] EventsHandler"
                                          //+"|$$$ EventsHandler.handleEvents"
                                          //+"|[NOTIFY] EventsHandler"
@@ -170,6 +170,7 @@ public class PPApplication extends Application {
                                          //+"|GrantPermissionActivity"
                                          //+"|PhoneProfilesPreferencesNestedFragment.doOnActivityResult"
 
+                                         +"|[****] BatteryBroadcastReceiver.onReceive"
                                          /*
                                          +"|[XXX] PowerSaveModeBroadcastReceiver.onReceive"
                                          +"|[XXX] BatteryBroadcastReceiver.onReceive"
@@ -299,6 +300,7 @@ public class PPApplication extends Application {
                                          //+"|PostDelayedBroadcastReceiver.onReceive"
 
                                          //+"|WifiScanJob"
+                                         +"|WifiScanWorker"
                                          //+"|%%%% WifiScanBroadcastReceiver.onReceive"
 
                                          //+"|WifiSSIDPreference.refreshListView"
@@ -327,9 +329,6 @@ public class PPApplication extends Application {
                                          //+"|ActivateProfileHelper.doExecuteForRadios"
                                          //+"|CmdMobileData.isEnabled"
                                          //+"|$$$ WifiAP"
-
-                                         //+"|BatteryBroadcastReceiver.onReceive"
-                                         //+"|PowerSaveModeBroadcastReceiver.onReceive"
 
                                          //+"|RunApplicationWithDelayBroadcastReceiver"
 

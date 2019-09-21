@@ -2544,7 +2544,7 @@ public class DataWrapper {
                 WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                 boolean isWifiEnabled = wifiManager.getWifiState() == WifiManager.WIFI_STATE_ENABLED;
 
-                List<WifiSSIDData> wifiConfigurationList = WifiScanJob.getWifiConfigurationList(context);
+                List<WifiSSIDData> wifiConfigurationList = WifiScanWorker.getWifiConfigurationList(context);
 
                 boolean done = false;
 
@@ -2605,7 +2605,7 @@ public class DataWrapper {
                     if (wifiConnected) {
                         PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifi connected");
 
-                        PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiSSID=" + WifiScanJob.getSSID(wifiManager, wifiInfo, wifiConfigurationList));
+                        PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiSSID=" + WifiScanWorker.getSSID(wifiManager, wifiInfo, wifiConfigurationList));
                         PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiBSSID=" + wifiInfo.getBSSID());
 
                         //PPApplication.logE("----- DataWrapper.doHandleEvents","SSID="+event._eventPreferencesWifi._SSID);
@@ -2622,13 +2622,13 @@ public class DataWrapper {
                                     break;
                                 case EventPreferencesWifi.CONFIGURED_SSIDS_VALUE:
                                     for (WifiSSIDData data : wifiConfigurationList) {
-                                        connected[i] = WifiScanJob.compareSSID(wifiManager, wifiInfo, data.ssid.replace("\"", ""), wifiConfigurationList);
+                                        connected[i] = WifiScanWorker.compareSSID(wifiManager, wifiInfo, data.ssid.replace("\"", ""), wifiConfigurationList);
                                         if (connected[i])
                                             break;
                                     }
                                     break;
                                 default:
-                                    connected[i] = WifiScanJob.compareSSID(wifiManager, wifiInfo, _ssid, wifiConfigurationList);
+                                    connected[i] = WifiScanWorker.compareSSID(wifiManager, wifiInfo, _ssid, wifiConfigurationList);
                                     break;
                             }
                             i++;
@@ -2701,7 +2701,7 @@ public class DataWrapper {
 
                                 wifiPassed = false;
 
-                                List<WifiSSIDData> scanResults = WifiScanJob.getScanResults(context);
+                                List<WifiSSIDData> scanResults = WifiScanWorker.getScanResults(context);
 
                                 //PPApplication.logE("----- DataWrapper.doHandleEvents","scanResults="+scanResults);
 
@@ -2726,7 +2726,7 @@ public class DataWrapper {
                                                 case EventPreferencesWifi.CONFIGURED_SSIDS_VALUE:
                                                     PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "configured ssids");
                                                     for (WifiSSIDData data : wifiConfigurationList) {
-                                                        if (WifiScanJob.compareSSID(result, data.ssid.replace("\"", ""), wifiConfigurationList)) {
+                                                        if (WifiScanWorker.compareSSID(result, data.ssid.replace("\"", ""), wifiConfigurationList)) {
                                                             PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "configured SSID=" + data.ssid.replace("\"", ""));
                                                             PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifi found");
                                                             nearby[i] = true;
@@ -2735,7 +2735,7 @@ public class DataWrapper {
                                                     }
                                                     break;
                                                 default:
-                                                    if (WifiScanJob.compareSSID(result, _ssid, wifiConfigurationList)) {
+                                                    if (WifiScanWorker.compareSSID(result, _ssid, wifiConfigurationList)) {
                                                         PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "event SSID=" + event._eventPreferencesWifi._SSID);
                                                         PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifi found");
                                                         nearby[i] = true;
@@ -3571,9 +3571,9 @@ public class DataWrapper {
                 if ((event._eventPreferencesRadioSwitch._wifi == 1 || event._eventPreferencesRadioSwitch._wifi == 2)
                         && PPApplication.hasSystemFeature(context, PackageManager.FEATURE_WIFI)) {
 
-                    if (!(WifiScanJob.getScanRequest(context) ||
-                            WifiScanJob.getWaitForResults(context) ||
-                            WifiScanJob.getWifiEnabledForScan(context))) {
+                    if (!(WifiScanWorker.getScanRequest(context) ||
+                            WifiScanWorker.getWaitForResults(context) ||
+                            WifiScanWorker.getWifiEnabledForScan(context))) {
                         // ignore for wifi scanning
 
                         WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);

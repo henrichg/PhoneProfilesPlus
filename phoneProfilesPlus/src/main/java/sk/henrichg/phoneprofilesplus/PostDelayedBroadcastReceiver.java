@@ -178,7 +178,7 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
 
                             PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PostDelayedBroadcastReceiver.onReceive.ACTION_START_WIFI_SCAN");
 
-                            WifiScanJob.startScan(appContext);
+                            WifiScanWorker.startScan(appContext);
 
                             PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PostDelayedBroadcastReceiver.onReceive.ACTION_START_WIFI_SCAN");
                         } finally {

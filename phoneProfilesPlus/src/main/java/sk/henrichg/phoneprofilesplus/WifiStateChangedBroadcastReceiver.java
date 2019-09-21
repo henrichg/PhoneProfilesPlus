@@ -34,8 +34,8 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
             if (intent.getAction().equals(WifiManager.WIFI_STATE_CHANGED_ACTION)) {
                 // WifiStateChangedBroadcastReceiver
 
-                if (WifiScanJob.wifi == null)
-                    WifiScanJob.wifi = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
+                if (WifiScanWorker.wifi == null)
+                    WifiScanWorker.wifi = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
 
                 final int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0);
 
@@ -55,9 +55,9 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                             PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiStateChangedBroadcastReceiver.onReceive.1");
 
                             if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
-                                if (!(WifiScanJob.getScanRequest(appContext) ||
-                                        WifiScanJob.getWaitForResults(appContext) ||
-                                        WifiScanJob.getWifiEnabledForScan(appContext))) {
+                                if (!(WifiScanWorker.getScanRequest(appContext) ||
+                                        WifiScanWorker.getWaitForResults(appContext) ||
+                                        WifiScanWorker.getWifiEnabledForScan(appContext))) {
                                     // ignore for wifi scanning
 
                                     if (PhoneProfilesService.getInstance() != null) {
@@ -95,7 +95,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                 if ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_DISABLED)) {
                                     if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
                                         // start scan
-                                        if (WifiScanJob.getScanRequest(appContext)) {
+                                        if (WifiScanWorker.getScanRequest(appContext)) {
                                             //final Context _context = appContext;
                                         /*PPApplication.startHandlerThread("WifiStateChangedBroadcastReceiver.onReceive.2");
                                         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -111,7 +111,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                                 }
 
                                                 PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "startScan");
-                                                WifiScanJob.startScan(appContext);
+                                                WifiScanWorker.startScan(appContext);
                                                 } finally (
                                                 if ((wakeLock != null) && wakeLock.isHeld()) {
                                                     try {
@@ -124,14 +124,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                             PostDelayedBroadcastReceiver.setAlarm(
                                                     PostDelayedBroadcastReceiver.ACTION_START_WIFI_SCAN, 5, appContext);
 
-                                        /*
-                                        PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "before startScan");
-                                        PPApplication.sleep(5000);
-                                        WifiScanJobBroadcastReceiver.startScan(appContext);
-                                        PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "after startScan");
-                                        */
-
-                                        } else if (!WifiScanJob.getWaitForResults(appContext)) {
+                                        } else if (!WifiScanWorker.getWaitForResults(appContext)) {
                                             // refresh configured networks list
                                             PPApplication.startHandlerThread("WifiStateChangedBroadcastReceiver.onReceive.3");
                                             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -148,7 +141,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                                                         PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiStateChangedBroadcastReceiver.onReceive.3");
 
-                                                        WifiScanJob.fillWifiConfigurationList(appContext);
+                                                        WifiScanWorker.fillWifiConfigurationList(appContext);
 
                                                         PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiStateChangedBroadcastReceiver.onReceive.3");
                                                     } finally {
@@ -164,9 +157,9 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                         }
                                     }
 
-                                    if (!(WifiScanJob.getScanRequest(appContext) ||
-                                            WifiScanJob.getWaitForResults(appContext) ||
-                                            WifiScanJob.getWifiEnabledForScan(appContext))) {
+                                    if (!(WifiScanWorker.getScanRequest(appContext) ||
+                                            WifiScanWorker.getWaitForResults(appContext) ||
+                                            WifiScanWorker.getWifiEnabledForScan(appContext))) {
 
                                         // start events handler
                                         EventsHandler eventsHandler = new EventsHandler(appContext);

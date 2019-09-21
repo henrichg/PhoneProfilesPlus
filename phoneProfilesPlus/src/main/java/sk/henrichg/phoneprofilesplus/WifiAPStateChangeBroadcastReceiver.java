@@ -28,7 +28,7 @@ public class WifiAPStateChangeBroadcastReceiver extends BroadcastReceiver {
             if (isWifiAPEnabled) {
                 // Wifi AP is enabled - cancel wifi scan job
                 PPApplication.logE("WifiAPStateChangeBroadcastReceiver.onReceive","wifi AP enabled");
-                WifiScanJob.cancelJob(appContext, true,null);
+                WifiScanWorker.cancelWork(appContext, true,null);
             }
             else {
                 // Wifi AP is disabled - schedule wifi scan job

@@ -14,8 +14,8 @@ class PPJobsCreator implements JobCreator {
                 return new SearchCalendarEventsJob();
             //case SearchCalendarEventsJob.JOB_TAG_SHORT:
             //    return new SearchCalendarEventsJob();
-            case WifiScanJob.JOB_TAG:
-                return new WifiScanJob();
+            //case WifiScanJob.JOB_TAG:
+            //    return new WifiScanJob();
             //case WifiScanJob.JOB_TAG_SHORT:
             //    return new WifiScanJob();
             case BluetoothScanJob.JOB_TAG:

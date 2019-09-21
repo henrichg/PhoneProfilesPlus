@@ -54,8 +54,8 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                 final boolean scanResultsUpdated = resultsUpdated;
                 PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanResultsUpdated=" + scanResultsUpdated);
 
-                if (WifiScanJob.wifi == null)
-                    WifiScanJob.wifi = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
+                if (WifiScanWorker.wifi == null)
+                    WifiScanWorker.wifi = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
 
                 final int forceOneScan = WifiBluetoothScanner.getForceOneWifiScan(appContext);
                 PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "forceOneScan=" + forceOneScan);
@@ -76,7 +76,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
                                 PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiScanBroadcastReceiver.onReceive.1");
 
-                                boolean scanStarted = (WifiScanJob.getWaitForResults(appContext));
+                                boolean scanStarted = (WifiScanWorker.getWaitForResults(appContext));
                                 PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanStarted=" + scanStarted);
 
                                 //boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);
@@ -85,11 +85,9 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                 //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "resultsUpdated="+intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false));
 
                                 if (scanResultsUpdated)
-                                    WifiScanJob.fillScanResults(appContext);
+                                    WifiScanWorker.fillScanResults(appContext);
 
-                                //WifiScanJobBroadcastReceiver.unlock();
-
-                                List<WifiSSIDData> scanResults = WifiScanJob.getScanResults(appContext);
+                                List<WifiSSIDData> scanResults = WifiScanWorker.getScanResults(appContext);
                                 if (scanResults != null) {
                                     PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanResults.size=" + scanResults.size());
                                     for (WifiSSIDData result : scanResults) {
@@ -99,7 +97,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                     PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanResults=null");
 
                                 if (scanStarted) {
-                                    WifiScanJob.setWaitForResults(appContext, false);
+                                    WifiScanWorker.setWaitForResults(appContext, false);
                                     WifiBluetoothScanner.setForceOneWifiScan(appContext, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
 
                                     if (forceOneScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan

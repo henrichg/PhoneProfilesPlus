@@ -2710,10 +2710,10 @@ public class PhoneProfilesService extends Service
     }
 
     private void cancelWifiJob(final Context context, final Handler _handler) {
-        if (WifiScanJob.isJobScheduled()) {
+        if (WifiScanWorker.isWorkScheduled(context)) {
             CallsCounter.logCounterNoInc(context, "PhoneProfilesService.cancelWifiJob->CANCEL", "PhoneProfilesService_cancelWifiJob");
             PPApplication.logE("[RJS] PhoneProfilesService.cancelWifiJob", "CANCEL");
-            WifiScanJob.cancelJob(context, true, _handler);
+            WifiScanWorker.cancelWork(context, true, _handler);
         }
         else
             PPApplication.logE("[RJS] PhoneProfilesService.cancelWifiJob", "not scheduled");
@@ -2746,18 +2746,18 @@ public class PhoneProfilesService extends Service
                             if ((PPApplication.isScreenOn) || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
                                 // start only for screen On
                                 int eventCount = 1;
-                                if (checkDatabase/* || (!WifiScanJob.isJobScheduled())*/) {
+                                if (checkDatabase/* || (!WifiScanWorker.isWorkScheduled())*/) {
                                     eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFI_NEARBY, false);
                                 }
                                 if (eventCount > 0) {
-                                    if (!WifiScanJob.isJobScheduled()) {
+                                    if (!WifiScanWorker.isWorkScheduled(appContext)) {
                                         CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleWifiJob->SCHEDULE", "PhoneProfilesService_scheduleWifiJob");
                                         PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiJob", "SCHEDULE");
-                                        WifiScanJob.scheduleJob(appContext, true, handler, true/*, forScreenOn, afterEnableWifi*/);
+                                        WifiScanWorker.scheduleWork(appContext, true, handler, true/*, forScreenOn, afterEnableWifi*/);
                                     } else {
                                         PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiJob", "scheduled");
                                         if (rescan)
-                                            WifiScanJob.scheduleJob(appContext, true, handler, true/*, forScreenOn, afterEnableWifi*/);
+                                            WifiScanWorker.scheduleWork(appContext, true, handler, true/*, forScreenOn, afterEnableWifi*/);
                                     }
                                 } else
                                     cancelWifiJob(appContext, handler);
@@ -3305,7 +3305,7 @@ public class PhoneProfilesService extends Service
         // register receiver for geofences scanner
         registerGeofencesScannerReceiver(true, true);
 
-        WifiScanJob.initialize(appContext, !fromCommand);
+        WifiScanWorker.initialize(appContext, !fromCommand);
         BluetoothScanJob.initialize(appContext, !fromCommand);
 
         scheduleWifiJob(true,  true, /*false, false, false,*/ false);
@@ -3596,9 +3596,9 @@ public class PhoneProfilesService extends Service
                             //BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
                             BluetoothConnectedDevices.getConnectedDevices(appContext);
 
-                            WifiScanJob.setScanRequest(appContext, false);
-                            WifiScanJob.setWaitForResults(appContext, false);
-                            WifiScanJob.setWifiEnabledForScan(appContext, false);
+                            WifiScanWorker.setScanRequest(appContext, false);
+                            WifiScanWorker.setWaitForResults(appContext, false);
+                            WifiScanWorker.setWifiEnabledForScan(appContext, false);
 
                             BluetoothScanJob.setScanRequest(appContext, false);
                             BluetoothScanJob.setLEScanRequest(appContext, false);

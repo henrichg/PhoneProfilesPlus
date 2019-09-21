@@ -561,10 +561,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             //int locationMode = Settings.Secure.getInt(getActivity().getApplicationContext().getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
 
             /*
-            if (WifiScanJob.wifi == null)
-                WifiScanJob.wifi = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            if (WifiScanWorker.wifi == null)
+                WifiScanWorker.wifi = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
-            boolean isScanAlwaysAvailable = WifiScanJob.wifi.isScanAlwaysAvailable();
+            boolean isScanAlwaysAvailable = WifiScanWorker.wifi.isScanAlwaysAvailable();
 
             PPApplication.logE("PhoneProfilesPrefsFragment.onActivityCreated", "locationMode="+locationMode);
             PPApplication.logE("PhoneProfilesPrefsFragment.onActivityCreated", "isScanAlwaysAvailable="+isScanAlwaysAvailable);

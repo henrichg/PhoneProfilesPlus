@@ -136,7 +136,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
             //BatteryJob.start(appContext, isCharging, batteryPct, statusReceived, levelReceived);
 
             // required for reschedule jobs for power save mode
-            PPApplication.logE("[XXX] BatteryBroadcastReceiver.onReceive", "restartAllScanners");
+            PPApplication.logE("[****] BatteryBroadcastReceiver.onReceive", "restartAllScanners");
             PPApplication.restartAllScanners(appContext, true);
             /*PPApplication.restartWifiScanner(appContext, true);
             PPApplication.restartBluetoothScanner(appContext, true);

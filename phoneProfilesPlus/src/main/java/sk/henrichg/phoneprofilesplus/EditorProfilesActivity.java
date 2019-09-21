@@ -1410,9 +1410,9 @@ public class EditorProfilesActivity extends AppCompatActivity
             } catch (IOException ignored) {
             }
 
-            WifiScanJob.setScanRequest(getApplicationContext(), false);
-            WifiScanJob.setWaitForResults(getApplicationContext(), false);
-            WifiScanJob.setWifiEnabledForScan(getApplicationContext(), false);
+            WifiScanWorker.setScanRequest(getApplicationContext(), false);
+            WifiScanWorker.setWaitForResults(getApplicationContext(), false);
+            WifiScanWorker.setWifiEnabledForScan(getApplicationContext(), false);
 
             BluetoothScanJob.setScanRequest(getApplicationContext(), false);
             BluetoothScanJob.setLEScanRequest(getApplicationContext(), false);

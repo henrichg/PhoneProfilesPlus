@@ -298,7 +298,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
 
                 if (_forRescan) {
                     WifiBluetoothScanner.setForceOneWifiScan(prefContext, WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
-                    WifiScanJob.startScanner(prefContext, true);
+                    WifiScanWorker.startScanner(prefContext, true);
                     PPApplication.logE("WifiSSIDPreferenceFragmentX.refreshListView","start waiting for scan end");
 
                     //try { Thread.sleep(200); } catch (InterruptedException e) { }
@@ -308,7 +308,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
                     PPApplication.logE("WifiSSIDPreferenceFragmentX.refreshListView","end waiting for scan end");
                 }
 
-                List<WifiSSIDData> wifiConfigurationList = WifiScanJob.getWifiConfigurationList(prefContext);
+                List<WifiSSIDData> wifiConfigurationList = WifiScanWorker.getWifiConfigurationList(prefContext);
                 if (wifiConfigurationList != null) {
                     for (WifiSSIDData wifiConfiguration : wifiConfigurationList) {
                         //if ((wifiConfiguration.bssid != null) && (wifiConfiguration.ssid != null))
@@ -318,21 +318,21 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
                     }
                 }
 
-                List<WifiSSIDData> scanResults = WifiScanJob.getScanResults(prefContext);
+                List<WifiSSIDData> scanResults = WifiScanWorker.getScanResults(prefContext);
                 if (scanResults != null) {
                     for (WifiSSIDData scanResult : scanResults) {
-                        if (!WifiScanJob.getSSID(scanResult, wifiConfigurationList).isEmpty()) {
+                        if (!WifiScanWorker.getSSID(scanResult, wifiConfigurationList).isEmpty()) {
                             boolean exists = false;
                             for (WifiSSIDData ssidData : _SSIDList) {
                                 if (!ssidData.ssid.equals(EventPreferencesWifi.ALL_SSIDS_VALUE)) {
-                                    if (WifiScanJob.compareSSID(scanResult, ssidData.ssid, wifiConfigurationList)) {
+                                    if (WifiScanWorker.compareSSID(scanResult, ssidData.ssid, wifiConfigurationList)) {
                                         exists = true;
                                         break;
                                     }
                                 }
                             }
                             if (!exists) {
-                                _SSIDList.add(new WifiSSIDData(WifiScanJob.getSSID(scanResult, wifiConfigurationList), scanResult.bssid, false, false, true));
+                                _SSIDList.add(new WifiSSIDData(WifiScanWorker.getSSID(scanResult, wifiConfigurationList), scanResult.bssid, false, false, true));
                             }
                         }
                     }

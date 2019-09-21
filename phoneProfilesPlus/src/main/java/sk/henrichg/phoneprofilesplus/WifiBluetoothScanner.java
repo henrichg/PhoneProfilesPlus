@@ -110,7 +110,7 @@ class WifiBluetoothScanner {
                 if (scannerType.equals(SCANNER_TYPE_WIFI)) {
                     PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "start wifi scan");
 
-                    WifiScanJob.fillWifiConfigurationList(context);
+                    WifiScanWorker.fillWifiConfigurationList(context);
 
                     boolean canScan = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
                     if (canScan) {
@@ -141,14 +141,14 @@ class WifiBluetoothScanner {
                         if (!scan) {
                             // wifi scan events not exists
                             PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "alarms removed");
-                            WifiScanJob.cancelJob(context, true, null);
+                            WifiScanWorker.cancelWork(context, true, null);
                         } else {
                             PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "can scan");
 
-                            if (WifiScanJob.wifi == null)
-                                WifiScanJob.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                            if (WifiScanWorker.wifi == null)
+                                WifiScanWorker.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
-                            if (WifiScanJob.getWifiEnabledForScan(context)) {
+                            if (WifiScanWorker.getWifiEnabledForScan(context)) {
                                 // service restarted during scanning, disable wifi
                                 PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "disable wifi - service restarted");
                                 wifiBluetoothChangeHandler.post(new Runnable() {
@@ -157,7 +157,7 @@ class WifiBluetoothScanner {
                                         PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
                                         //lock();
                                         PPApplication.logE("#### setWifiEnabled", "from WifiBluetoothScanner.doScan 1");
-                                        WifiScanJob.wifi.setWifiEnabled(false);
+                                        WifiScanWorker.wifi.setWifiEnabled(false);
                                         PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
                                     }
                                 });
@@ -172,11 +172,11 @@ class WifiBluetoothScanner {
 
                                 PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "scan started");
 
-                                WifiScanJob.setScanRequest(context, false);
-                                WifiScanJob.setWaitForResults(context, false);
-                                WifiScanJob.setWifiEnabledForScan(context, false);
+                                WifiScanWorker.setScanRequest(context, false);
+                                WifiScanWorker.setWaitForResults(context, false);
+                                WifiScanWorker.setWifiEnabledForScan(context, false);
 
-                                WifiScanJob.unlock();
+                                WifiScanWorker.unlock();
 
                                 // start scan
 
@@ -184,19 +184,19 @@ class WifiBluetoothScanner {
 
                                 // enable wifi
                                 int wifiState;
-                                wifiState = enableWifi(dataWrapper, WifiScanJob.wifi, wifiBluetoothChangeHandler);
+                                wifiState = enableWifi(dataWrapper, WifiScanWorker.wifi, wifiBluetoothChangeHandler);
 
                                 if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
                                     PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "startScan");
-                                    WifiScanJob.startScan(context);
+                                    WifiScanWorker.startScan(context);
                                 } else if (wifiState != WifiManager.WIFI_STATE_ENABLING) {
-                                    WifiScanJob.setScanRequest(context, false);
-                                    WifiScanJob.setWaitForResults(context, false);
+                                    WifiScanWorker.setScanRequest(context, false);
+                                    WifiScanWorker.setWaitForResults(context, false);
                                     setForceOneWifiScan(context, FORCE_ONE_SCAN_DISABLED);
                                 }
 
-                                if (WifiScanJob.getScanRequest(context) ||
-                                        WifiScanJob.getWaitForResults(context)) {
+                                if (WifiScanWorker.getScanRequest(context) ||
+                                        WifiScanWorker.getWaitForResults(context)) {
                                     PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "waiting for scan end");
 
                                     // wait for scan end
@@ -204,7 +204,7 @@ class WifiBluetoothScanner {
 
                                     PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "scan ended");
 
-                                    if (WifiScanJob.getWaitForResults(context)) {
+                                    if (WifiScanWorker.getWaitForResults(context)) {
                                         PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "no data received from scanner");
                                         if (getForceOneWifiScan(context) != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                                         {
@@ -213,7 +213,7 @@ class WifiBluetoothScanner {
                                     }
                                 }
 
-                                WifiScanJob.unlock();
+                                WifiScanWorker.unlock();
                                 //unlock();
                             }
                         }
@@ -223,11 +223,11 @@ class WifiBluetoothScanner {
                             public void run() {
                                 PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
 
-                                if (WifiScanJob.getWifiEnabledForScan(context)) {
+                                if (WifiScanWorker.getWifiEnabledForScan(context)) {
                                     PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "disable wifi");
                                     //lock();
                                     PPApplication.logE("#### setWifiEnabled", "from WifiBluetoothScanner.doScan 2");
-                                    WifiScanJob.wifi.setWifiEnabled(false);
+                                    WifiScanWorker.wifi.setWifiEnabled(false);
                                 } else
                                     PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "keep enabled wifi");
 
@@ -241,10 +241,10 @@ class WifiBluetoothScanner {
                     }
 
                     setForceOneWifiScan(context, FORCE_ONE_SCAN_DISABLED);
-                    WifiScanJob.setWaitForResults(context, false);
-                    WifiScanJob.setScanRequest(context, false);
+                    WifiScanWorker.setWaitForResults(context, false);
+                    WifiScanWorker.setScanRequest(context, false);
 
-                    WifiScanJob.unlock();
+                    WifiScanWorker.unlock();
                     //unlock();
 
                 } else if (scannerType.equals(SCANNER_TYPE_BLUETOOTH)) {
@@ -531,9 +531,6 @@ class WifiBluetoothScanner {
             boolean isWifiEnabled = (wifiState == WifiManager.WIFI_STATE_ENABLED);
             boolean isScanAlwaysAvailable = false;
             if (forceScan != FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
-                // from dialog preference wifi must be enabled for saved wifi configuration
-                // (see WifiScanJobBroadcastReceiver.fillWifiConfigurationList)
-
                 // this must be disabled because scanning not working, when wifi is disabled after disabled WiFi AP
                 // Tested and scanning working ;-)
                 //if (android.os.Build.VERSION.SDK_INT >= 18)
@@ -551,9 +548,9 @@ class WifiBluetoothScanner {
                             (forceScan == FORCE_ONE_SCAN_FROM_PREF_DIALOG));
                     if (scan)
                     {
-                        WifiScanJob.setWifiEnabledForScan(context, true);
-                        WifiScanJob.setScanRequest(dataWrapper.context, true);
-                        WifiScanJob.lock();
+                        WifiScanWorker.setWifiEnabledForScan(context, true);
+                        WifiScanWorker.setScanRequest(dataWrapper.context, true);
+                        WifiScanWorker.lock();
                         final WifiManager _wifi = wifi;
                         wifiBluetoothChangeHandler.post(new Runnable() {
                             @Override
@@ -666,11 +663,8 @@ class WifiBluetoothScanner {
     {
         long start = SystemClock.uptimeMillis();
         do {
-            //PPApplication.logE("$$$ WifiAP", "WifiBluetoothScanner.waitForWifiScanEnd-getScanRequest="+WifiScanJobBroadcastReceiver.getScanRequest(context));
-            //PPApplication.logE("$$$ WifiAP", "WifiBluetoothScanner.waitForWifiScanEnd-getWaitForResults="+WifiScanJobBroadcastReceiver.getWaitForResults(context));
-
-            if (!((WifiScanJob.getScanRequest(context)) ||
-                    (WifiScanJob.getWaitForResults(context)))) {
+            if (!((WifiScanWorker.getScanRequest(context)) ||
+                    (WifiScanWorker.getWaitForResults(context)))) {
                 break;
             }
             if (asyncTask != null)
@@ -790,11 +784,11 @@ class WifiBluetoothScanner {
             /* isScanAlwaysAvailable() may be disabled for unknown reason :-(
             //boolean isScanAlwaysAvailable = true;
             if (scanType.equals(SCANNER_TYPE_WIFI)) {
-                if (WifiScanJob.wifi == null)
-                    WifiScanJob.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                int wifiState = WifiScanJob.wifi.getWifiState();
+                if (WifiScanWorker.wifi == null)
+                    WifiScanWorker.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                int wifiState = WifiScanWorker.wifi.getWifiState();
                 boolean isWifiEnabled = (wifiState == WifiManager.WIFI_STATE_ENABLED);
-                isScanAlwaysAvailable = isWifiEnabled || WifiScanJob.wifi.isScanAlwaysAvailable();
+                isScanAlwaysAvailable = isWifiEnabled || WifiScanWorker.wifi.isScanAlwaysAvailable();
             }
             */
 

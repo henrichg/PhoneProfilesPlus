@@ -77,8 +77,8 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
             @Override
             protected Void doInBackground(Void... params) {
 
-                WifiScanJob.fillWifiConfigurationList(prefContext);
-                List<WifiSSIDData> wifiConfigurationList = WifiScanJob.getWifiConfigurationList(prefContext);
+                WifiScanWorker.fillWifiConfigurationList(prefContext);
+                List<WifiSSIDData> wifiConfigurationList = WifiScanWorker.getWifiConfigurationList(prefContext);
                 if (wifiConfigurationList != null)
                 {
                     for (WifiSSIDData wifiConfiguration : wifiConfigurationList)
