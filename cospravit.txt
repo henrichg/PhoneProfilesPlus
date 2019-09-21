@@ -277,7 +277,7 @@ Registracia mobilnych buniek:
 Migracia z android-job do WorkManager:
 - android-job jobBuilder.startNow() ->
 
-    val work = OneTimeWorkRequest.Builder(MyWorker::class.java)
+    OneTimeWorkRequest work = OneTimeWorkRequest.Builder(MyWorker::class.java)
                 .setInputData(inputData)
                 .addTag(JOB_TAG)
                 .build()
@@ -334,7 +334,7 @@ Migracia z android-job do WorkManager:
     ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosByTag(tag);
     try {
         List<WorkInfo> workInfoList = statuses.get();
-        return workInfoList.size() == 0;
+        return workInfoList.size() != 0;
     } catch (ExecutionException e) {
         e.printStackTrace();
         return false;
