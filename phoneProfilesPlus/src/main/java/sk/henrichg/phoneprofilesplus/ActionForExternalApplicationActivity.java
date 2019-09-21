@@ -116,7 +116,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     }
                     break;
                 case ACTION_RESTART_EVENTS:
-                    dataWrapper.restartEventsWithRescan();
+                    dataWrapper.restartEventsWithRescan(true, true, true);
                     dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
                     break;
                 case ACTION_ENABLE_RUN_FOR_EVENT:

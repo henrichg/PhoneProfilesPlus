@@ -3628,7 +3628,7 @@ public class PhoneProfilesService extends Service
                                     if (!dataWrapper.getIsManualProfileActivation(false)) {
                                         ////// unblock all events for first start
                                         //     that may be blocked in previous application run
-                                        dataWrapper.pauseAllEvents(true, false/*, false*/);
+                                        dataWrapper.pauseAllEvents(true, false);
                                     }
                                 }
 
@@ -3639,7 +3639,7 @@ public class PhoneProfilesService extends Service
                                 if (_activateProfiles) {
                                     ////// unblock all events for first start
                                     //     that may be blocked in previous application run
-                                    dataWrapper.pauseAllEvents(true, false/*, false*/);
+                                    dataWrapper.pauseAllEvents(true, false);
                                 }
 
                                 dataWrapper.activateProfileOnBoot();
@@ -3679,7 +3679,7 @@ public class PhoneProfilesService extends Service
             handler3.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "PhoneProfilesService.doForFirstStart.2 START");
+                    PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "PhoneProfilesService.doForFirstStart.2 START");
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
@@ -3688,20 +3688,23 @@ public class PhoneProfilesService extends Service
                             wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PackageReplacedReceiver_onReceive_2");
                             wakeLock.acquire(10 * 60 * 1000);
                         }
-                        PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "PhoneProfilesService.doForFirstStart.2 START");
+                        PPApplication.logE("PPApplication.startHandlerThread.2", "START run - from=PhoneProfilesService.doForFirstStart");
 
                         waitForEndOfStart = false;
 
-                        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+                        if (Event.getGlobalEventsRunning(appContext)) {
+                            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
-                        PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "xRESTART EVENTS AFTER WAIT FOR END OF START");
-                        dataWrapper.restartEventsWithRescan();
+                            if (!dataWrapper.getIsManualProfileActivation(false)) {
+                                PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "xRESTART EVENTS AFTER WAIT FOR END OF START");
+                                dataWrapper.restartEventsWithRescan(_activateProfiles, false, false);
 
-                        dataWrapper.invalidateDataWrapper();
-
-                        PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "PhoneProfilesService.doForFirstStart.2 END");
+                                dataWrapper.invalidateDataWrapper();
+                            }
+                        }
 
                         PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneProfilesService.doForFirstStart.2");
+                        PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "PhoneProfilesService.doForFirstStart.2 END");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

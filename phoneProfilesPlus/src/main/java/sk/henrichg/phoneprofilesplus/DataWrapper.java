@@ -4066,68 +4066,76 @@ public class DataWrapper {
             _restartEvents(unblockEventsRun, notClearActivatedProfile, reactivateProfile, log);
     }
 
-    void restartEventsWithRescan(/*boolean showToast, boolean interactive*/)
+    private void _restartEventsWithRescan(boolean unblockEventsRun) {
+        // remove all event delay alarms
+        resetAllEventsInDelayStart(false);
+        resetAllEventsInDelayEnd(false);
+        // ignore manual profile activation
+        // and unblock forceRun events
+        restartEvents(unblockEventsRun, true, true, true, false);
+
+        if (ApplicationPreferences.applicationEventWifiRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
+            PPApplication.restartWifiScanner(context, false);
+        }
+        if (ApplicationPreferences.applicationEventBluetoothRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
+            PPApplication.restartBluetoothScanner(context, false);
+        }
+        if (ApplicationPreferences.applicationEventLocationRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
+            PPApplication.restartGeofenceScanner(context, false);
+        }
+        if (ApplicationPreferences.applicationEventMobileCellsRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
+            PPApplication.restartPhoneStateScanner(context, false);
+        }
+        PPApplication.restartTwilightScanner(context);
+    }
+
+    void restartEventsWithRescan(final boolean unblockEventsRun, boolean useHandler, boolean showToast)
     {
         PPApplication.logE("$$$ DataWrapper.restartEventsWithRescan","xxx");
 
-        final DataWrapper dataWrapper = copyDataWrapper();
+        if (useHandler) {
+            final DataWrapper dataWrapper = copyDataWrapper();
 
-        PPApplication.startHandlerThread("DataWrapper.restartEventsWithRescan");
-        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper_restartEventsWithRescan");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+            PPApplication.startHandlerThread("DataWrapper.restartEventsWithRescan");
+            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper_restartEventsWithRescan");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
-                    PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DataWrapper.restartEventsWithRescan");
+                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DataWrapper.restartEventsWithRescan");
 
-                    // remove all event delay alarms
-                    dataWrapper.resetAllEventsInDelayStart(false);
-                    dataWrapper.resetAllEventsInDelayEnd(false);
-                    // ignore manual profile activation
-                    // and unblock forceRun events
-                    dataWrapper.restartEvents(true, true, true, true, false);
+                        dataWrapper._restartEventsWithRescan(unblockEventsRun);
 
-                    if (ApplicationPreferences.applicationEventWifiRescan(dataWrapper.context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
-                        PPApplication.restartWifiScanner(dataWrapper.context, false);
-                    }
-                    if (ApplicationPreferences.applicationEventBluetoothRescan(dataWrapper.context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
-                        PPApplication.restartBluetoothScanner(dataWrapper.context, false);
-                    }
-                    if (ApplicationPreferences.applicationEventLocationRescan(dataWrapper.context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
-                        PPApplication.restartGeofenceScanner(dataWrapper.context, false);
-                    }
-                    if (ApplicationPreferences.applicationEventMobileCellsRescan(dataWrapper.context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
-                        PPApplication.restartPhoneStateScanner(dataWrapper.context, false);
-                    }
-                    PPApplication.restartTwilightScanner(context);
-
-                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DataWrapper.restartEventsWithRescan");
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {}
+                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DataWrapper.restartEventsWithRescan");
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
+                            }
+                        }
                     }
                 }
-            }
-        });
-
-        //if (showToast)
-        if (ApplicationPreferences.notificationsToast(context))
-        {
-            Toast msg = ToastCompat.makeText(context.getApplicationContext(),
-                context.getResources().getString(R.string.toast_events_restarted),
-                Toast.LENGTH_SHORT);
-            msg.show();
+            });
         }
+        else
+            _restartEventsWithRescan(unblockEventsRun);
 
+        if (showToast) {
+            if (ApplicationPreferences.notificationsToast(context)) {
+                Toast msg = ToastCompat.makeText(context.getApplicationContext(),
+                        context.getResources().getString(R.string.toast_events_restarted),
+                        Toast.LENGTH_SHORT);
+                msg.show();
+            }
+        }
     }
 
     void restartEventsWithAlert(final Activity activity)
@@ -4177,7 +4185,7 @@ public class DataWrapper {
                         PPApplication.startPPService(context, serviceIntent);
                     }
 
-                    restartEventsWithRescan();
+                    restartEventsWithRescan(true, true, true);
                 }
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
@@ -4240,7 +4248,7 @@ public class DataWrapper {
                 });
             }
 
-            restartEventsWithRescan();
+            restartEventsWithRescan(true, true, true);
         }
     }
 
