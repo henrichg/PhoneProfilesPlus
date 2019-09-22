@@ -286,7 +286,6 @@
     <string name="event_preferences_category_eventWifiParameters">Wi-Fi sensor</string>
     <string name="event_preferences_wifi_ssid">SSID</string>
     <string name="pref_event_wifi_ssid">SSID</string>
-    <string name="pref_event_wifi_connectionType">Connection</string>
     <string name="array_event_pref_wifiConnectionType_connected">Connected</string>
     <string name="array_event_pref_wifiConnectionType_inFront">Nearby (within scanning range)</string>
     <string name="event_preferences_wifi_connection_type">Connection type</string>
@@ -314,8 +313,6 @@
     <string name="event_type_bluetooth">Bluetooth</string>
     <string name="event_preferences_category_eventBluetoothParameters">Bluetooth sensor</string>
     <string name="event_preferences_bluetooth_adapter_name">Bluetooth name</string>
-    <string name="pref_event_bluetooth_adapterName">BT name</string>
-    <string name="pref_event_bluetooth_connectionType">Connection</string>
     <string name="array_event_pref_bluetoothConnectionType_connected">Connected</string>
     <string name="array_event_pref_bluetoothConnectionType_inFront">Nearby (within scanning range)</string>
     <string name="event_preferences_bluetooth_connection_type">Connection type</string>

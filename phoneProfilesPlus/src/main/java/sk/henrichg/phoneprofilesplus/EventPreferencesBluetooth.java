@@ -117,13 +117,23 @@ class EventPreferencesBluetooth extends EventPreferences {
                     }
                 }
 
-                descr = descr + context.getString(R.string.pref_event_bluetooth_connectionType);
+                descr = descr + context.getString(R.string.event_preferences_bluetooth_connection_type);
                 String[] connectionListTypeNames = context.getResources().getStringArray(R.array.eventBluetoothConnectionTypeArray);
                 String[] connectionListTypes = context.getResources().getStringArray(R.array.eventBluetoothConnectionTypeValues);
                 int index = Arrays.asList(connectionListTypes).indexOf(Integer.toString(this._connectionType));
                 descr = descr + ": <b>" + connectionListTypeNames[index] + "</b> • ";
 
-                descr = descr + context.getString(R.string.pref_event_bluetooth_adapterName) + ": ";
+                if ((this._connectionType == CTYPE_NEARBY) || (this._connectionType == CTYPE_NOT_NEARBY)) {
+                    if (WifiBluetoothScanner.bluetoothLESupported(context)) {
+                        descr = descr + context.getString(R.string.event_preferences_bluetooth_devices_type);
+                        String[] deviceTypeListTypeNames = context.getResources().getStringArray(R.array.eventBluetoothDevicesTypeArray);
+                        String[] deviceTypeListTypes = context.getResources().getStringArray(R.array.eventBluetoothDevicesTypeValues);
+                        index = Arrays.asList(deviceTypeListTypes).indexOf(Integer.toString(this._devicesType));
+                        descr = descr + ": <b>" + deviceTypeListTypeNames[index] + "</b> • ";
+                    }
+                }
+
+                descr = descr + context.getString(R.string.event_preferences_bluetooth_adapter_name) + ": ";
                 String selectedBluetoothNames = "";
                 String[] splits = this._adapterName.split("\\|");
                 for (String _bluetoothName : splits) {
@@ -139,14 +149,14 @@ class EventPreferencesBluetooth extends EventPreferences {
                                 selectedBluetoothNames = selectedBluetoothNames + context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb);
                                 break;
                             default:
-                                if ((this._connectionType == CTYPE_NEARBY) || (this._connectionType == CTYPE_NOT_NEARBY)) {
+                                /*if ((this._connectionType == CTYPE_NEARBY) || (this._connectionType == CTYPE_NOT_NEARBY)) {
                                     if (WifiBluetoothScanner.bluetoothLESupported(context)) {
                                         if (this._devicesType == DTYPE_CLASSIC)
                                             selectedBluetoothNames = selectedBluetoothNames + "[CL] ";
                                         else if (this._devicesType == DTYPE_LE)
                                             selectedBluetoothNames = selectedBluetoothNames + "[LE] ";
                                     }
-                                }
+                                }*/
                                 selectedBluetoothNames = selectedBluetoothNames + _bluetoothName;
                                 break;
                         }
