@@ -276,15 +276,15 @@ class WifiBluetoothScanner {
                         if (!scan) {
                             // bluetooth scan events not exists
                             PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "no bt scan events");
-                            BluetoothScanJob.cancelJob(context, true, null);
+                            BluetoothScanWorker.cancelWork(context, true, null);
                         } else {
                             PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "scan=true");
 
-                            if (BluetoothScanJob.bluetooth == null)
-                                BluetoothScanJob.bluetooth = BluetoothScanJob.getBluetoothAdapter(context);
+                            if (BluetoothScanWorker.bluetooth == null)
+                                BluetoothScanWorker.bluetooth = BluetoothScanWorker.getBluetoothAdapter(context);
 
-                            if (BluetoothScanJob.bluetooth != null) {
-                                if (BluetoothScanJob.getBluetoothEnabledForScan(context)) {
+                            if (BluetoothScanWorker.bluetooth != null) {
+                                if (BluetoothScanWorker.getBluetoothEnabledForScan(context)) {
                                     // service restarted during scanning, disable Bluetooth
                                     PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "disable BT - service restarted");
                                     wifiBluetoothChangeHandler.post(new Runnable() {
@@ -293,7 +293,7 @@ class WifiBluetoothScanner {
                                             PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
                                             if (Permissions.checkBluetoothForEMUI(context)) {
                                                 //lock();
-                                                BluetoothScanJob.bluetooth.disable();
+                                                BluetoothScanWorker.bluetooth.disable();
                                             }
                                             PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
                                         }
@@ -306,11 +306,11 @@ class WifiBluetoothScanner {
 
                                 //noinspection ConstantConditions,ConstantIfStatement
                                 if (true /*canScanBluetooth(dataWrapper)*/) {  // scan even if bluetooth is connected
-                                    BluetoothScanJob.setScanRequest(context, false);
-                                    BluetoothScanJob.setLEScanRequest(context, false);
-                                    BluetoothScanJob.setWaitForResults(context, false);
-                                    BluetoothScanJob.setWaitForLEResults(context, false);
-                                    BluetoothScanJob.setBluetoothEnabledForScan(context, false);
+                                    BluetoothScanWorker.setScanRequest(context, false);
+                                    BluetoothScanWorker.setLEScanRequest(context, false);
+                                    BluetoothScanWorker.setWaitForResults(context, false);
+                                    BluetoothScanWorker.setWaitForLEResults(context, false);
+                                    BluetoothScanWorker.setBluetoothEnabledForScan(context, false);
 
                                     int bluetoothState;
 
@@ -323,22 +323,22 @@ class WifiBluetoothScanner {
 
                                         // enable bluetooth
                                         bluetoothState = enableBluetooth(dataWrapper,
-                                                BluetoothScanJob.bluetooth,
+                                                BluetoothScanWorker.bluetooth,
                                                 wifiBluetoothChangeHandler,
                                                 false);
                                         PPApplication.logE("$$$BCL WifiBluetoothScanner.doScan", "bluetoothState=" + bluetoothState);
 
                                         if (bluetoothState == BluetoothAdapter.STATE_ON) {
                                             PPApplication.logE("$$$BCL WifiBluetoothScanner.doScan", "start classic scan");
-                                            BluetoothScanJob.startCLScan(context);
+                                            BluetoothScanWorker.startCLScan(context);
                                         } else if (bluetoothState != BluetoothAdapter.STATE_TURNING_ON) {
-                                            BluetoothScanJob.setScanRequest(context, false);
-                                            BluetoothScanJob.setWaitForResults(context, false);
+                                            BluetoothScanWorker.setScanRequest(context, false);
+                                            BluetoothScanWorker.setWaitForResults(context, false);
                                             setForceOneBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
                                         }
 
-                                        if ((BluetoothScanJob.getScanRequest(context)) ||
-                                                (BluetoothScanJob.getWaitForResults(context))) {
+                                        if ((BluetoothScanWorker.getScanRequest(context)) ||
+                                                (BluetoothScanWorker.getWaitForResults(context))) {
                                             PPApplication.logE("$$$BCL WifiBluetoothScanner.doScan", "waiting for classic scan end");
 
                                             // wait for scan end
@@ -350,8 +350,8 @@ class WifiBluetoothScanner {
                                         //unlock();
 
                                         //setForceOneBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
-                                        //BluetoothScanJob.setWaitForResults(context, false);
-                                        //BluetoothScanJob.setLEScanRequest(context, false);
+                                        //BluetoothScanWorker.setWaitForResults(context, false);
+                                        //BluetoothScanWorker.setLEScanRequest(context, false);
 
                                         ///////// Classic BT scan - end
                                     }
@@ -367,21 +367,21 @@ class WifiBluetoothScanner {
 
                                         // enable bluetooth
                                         bluetoothState = enableBluetooth(dataWrapper,
-                                                BluetoothScanJob.bluetooth,
+                                                BluetoothScanWorker.bluetooth,
                                                 wifiBluetoothChangeHandler,
                                                 true);
 
                                         if (bluetoothState == BluetoothAdapter.STATE_ON) {
                                             PPApplication.logE("$$$BLE WifiBluetoothScanner.doScan", "start LE scan");
-                                            BluetoothScanJob.startLEScan(context);
+                                            BluetoothScanWorker.startLEScan(context);
                                         } else if (bluetoothState != BluetoothAdapter.STATE_TURNING_ON) {
-                                            BluetoothScanJob.setLEScanRequest(context, false);
-                                            BluetoothScanJob.setWaitForLEResults(context, false);
+                                            BluetoothScanWorker.setLEScanRequest(context, false);
+                                            BluetoothScanWorker.setWaitForLEResults(context, false);
                                             setForceOneLEBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
                                         }
 
-                                        if ((BluetoothScanJob.getLEScanRequest(context)) ||
-                                                (BluetoothScanJob.getWaitForLEResults(context))) {
+                                        if ((BluetoothScanWorker.getLEScanRequest(context)) ||
+                                                (BluetoothScanWorker.getWaitForLEResults(context))) {
                                             PPApplication.logE("$$$BLE WifiBluetoothScanner.doScan", "waiting for LE scan end");
 
                                             // wait for scan end
@@ -399,8 +399,8 @@ class WifiBluetoothScanner {
                                         //unlock();
 
                                         //setForceOneLEBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
-                                        //BluetoothScanJob.setWaitForLEResults(context, false);
-                                        //BluetoothScanJob.setLEScanRequest(context, false);
+                                        //BluetoothScanWorker.setWaitForLEResults(context, false);
+                                        //BluetoothScanWorker.setLEScanRequest(context, false);
 
                                         ///////// LE BT scan - end
                                     }
@@ -411,11 +411,11 @@ class WifiBluetoothScanner {
                                     public void run() {
                                         PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
 
-                                        if (BluetoothScanJob.getBluetoothEnabledForScan(context)) {
+                                        if (BluetoothScanWorker.getBluetoothEnabledForScan(context)) {
                                             PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "disable bluetooth");
                                             if (Permissions.checkBluetoothForEMUI(context)) {
                                                 //lock();
-                                                BluetoothScanJob.bluetooth.disable();
+                                                BluetoothScanWorker.bluetooth.disable();
                                             }
                                         } else
                                             PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "keep enabled bluetooth");
@@ -433,10 +433,10 @@ class WifiBluetoothScanner {
 
                     setForceOneBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
                     setForceOneLEBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
-                    BluetoothScanJob.setWaitForResults(context, false);
-                    BluetoothScanJob.setWaitForLEResults(context, false);
-                    BluetoothScanJob.setScanRequest(context, false);
-                    BluetoothScanJob.setLEScanRequest(context, false);
+                    BluetoothScanWorker.setWaitForResults(context, false);
+                    BluetoothScanWorker.setWaitForLEResults(context, false);
+                    BluetoothScanWorker.setScanRequest(context, false);
+                    BluetoothScanWorker.setLEScanRequest(context, false);
 
                     //unlock();
                 }
@@ -626,11 +626,11 @@ class WifiBluetoothScanner {
                 if (scan)
                 {
                     PPApplication.logE("$$$B WifiBluetoothScanner.enableBluetooth","set enabled");
-                    BluetoothScanJob.setBluetoothEnabledForScan(context, true);
+                    BluetoothScanWorker.setBluetoothEnabledForScan(context, true);
                     if (!forLE)
-                        BluetoothScanJob.setScanRequest(dataWrapper.context, true);
+                        BluetoothScanWorker.setScanRequest(dataWrapper.context, true);
                     else
-                        BluetoothScanJob.setLEScanRequest(dataWrapper.context, true);
+                        BluetoothScanWorker.setLEScanRequest(dataWrapper.context, true);
                     final BluetoothAdapter _bluetooth = bluetooth;
                     wifiBluetoothChangeHandler.post(new Runnable() {
                         @Override
@@ -682,15 +682,15 @@ class WifiBluetoothScanner {
     {
         long start = SystemClock.uptimeMillis();
         do {
-            if (!((BluetoothScanJob.getScanRequest(context)) ||
-                    (BluetoothScanJob.getWaitForResults(context))))
+            if (!((BluetoothScanWorker.getScanRequest(context)) ||
+                    (BluetoothScanWorker.getWaitForResults(context))))
                 break;
             //try { Thread.sleep(100); } catch (InterruptedException e) { }
             SystemClock.sleep(100);
         } while (SystemClock.uptimeMillis() - start < classicBTScanDuration * 1000);
 
-        BluetoothScanJob.finishCLScan(context);
-        BluetoothScanJob.stopCLScan(context);
+        BluetoothScanWorker.finishCLScan(context);
+        BluetoothScanWorker.stopCLScan(context);
     }
 
     private static void waitForLEBluetoothScanEnd(Context context)
@@ -699,15 +699,15 @@ class WifiBluetoothScanner {
             int applicationEventBluetoothLEScanDuration = ApplicationPreferences.applicationEventBluetoothLEScanDuration(context);
             long start = SystemClock.uptimeMillis();
             do {
-                if (!((BluetoothScanJob.getLEScanRequest(context)) ||
-                        (BluetoothScanJob.getWaitForLEResults(context))))
+                if (!((BluetoothScanWorker.getLEScanRequest(context)) ||
+                        (BluetoothScanWorker.getWaitForLEResults(context))))
                     break;
 
                 //try { Thread.sleep(100); } catch (InterruptedException e) { }
                 SystemClock.sleep(100);
             } while (SystemClock.uptimeMillis() - start < applicationEventBluetoothLEScanDuration * 1000);
-            BluetoothScanJob.finishLEScan(context);
-            BluetoothScanJob.stopLEScan(context);
+            BluetoothScanWorker.finishLEScan(context);
+            BluetoothScanWorker.stopLEScan(context);
 
 
             // wait for ScanCallback.onBatchScanResults after stop scan
@@ -717,7 +717,7 @@ class WifiBluetoothScanner {
                 SystemClock.sleep(100);
             } while (SystemClock.uptimeMillis() - start < 10 * 1000);
             // save ScanCallback.onBatchScanResults
-            BluetoothScanJob.finishLEScan(context);
+            BluetoothScanWorker.finishLEScan(context);
 
         }
     }
@@ -736,8 +736,8 @@ class WifiBluetoothScanner {
             //try { Thread.sleep(100); } catch (InterruptedException e) { }
             SystemClock.sleep(100);
         } while (SystemClock.uptimeMillis() - start < classicBTScanDuration * 1000);
-        BluetoothScanJob.finishCLScan(context);
-        BluetoothScanJob.stopCLScan(context);
+        BluetoothScanWorker.finishCLScan(context);
+        BluetoothScanWorker.stopCLScan(context);
 
         if (asyncTask != null)
         {
@@ -758,8 +758,8 @@ class WifiBluetoothScanner {
             //try { Thread.sleep(100); } catch (InterruptedException e) { }
             SystemClock.sleep(100);
         } while (SystemClock.uptimeMillis() - start < applicationEventBluetoothLEScanDuration * 1000);
-        BluetoothScanJob.finishLEScan(context);
-        BluetoothScanJob.stopLEScan(context);
+        BluetoothScanWorker.finishLEScan(context);
+        BluetoothScanWorker.stopLEScan(context);
 
         // wait for ScanCallback.onBatchScanResults after stop scan
         start = SystemClock.uptimeMillis();
@@ -768,7 +768,7 @@ class WifiBluetoothScanner {
             SystemClock.sleep(100);
         } while (SystemClock.uptimeMillis() - start < 10 * 1000);
         // save ScanCallback.onBatchScanResults
-        BluetoothScanJob.finishLEScan(context);
+        BluetoothScanWorker.finishLEScan(context);
     }
 
     @SuppressLint("InlinedApi")

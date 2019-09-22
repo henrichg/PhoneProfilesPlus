@@ -139,7 +139,6 @@ public class WifiScanWorker extends Worker {
         }
 
         PPApplication.logE("WifiScanWorker._scheduleWork", "---------------------------------------- END");
-
     }
 
     static void scheduleWork(final Context context, final boolean useHandler, final Handler _handler, final boolean shortInterval/*, final boolean forScreenOn, final boolean afterEnableWifi*/) {

@@ -124,11 +124,11 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                                 //if (lastState != currState)
                                 //{
 
-                                if (!(BluetoothScanJob.getScanRequest(appContext) ||
-                                        BluetoothScanJob.getLEScanRequest(appContext) ||
-                                        BluetoothScanJob.getWaitForResults(appContext) ||
-                                        BluetoothScanJob.getWaitForLEResults(appContext) ||
-                                        BluetoothScanJob.getBluetoothEnabledForScan(appContext))) {
+                                if (!(BluetoothScanWorker.getScanRequest(appContext) ||
+                                        BluetoothScanWorker.getLEScanRequest(appContext) ||
+                                        BluetoothScanWorker.getWaitForResults(appContext) ||
+                                        BluetoothScanWorker.getWaitForLEResults(appContext) ||
+                                        BluetoothScanWorker.getBluetoothEnabledForScan(appContext))) {
                                     // bluetooth is not scanned
 
                                     PPApplication.logE("@@@ BluetoothConnectionBroadcastReceiver.onReceive", "start EventsHandler");
@@ -267,7 +267,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                 Calendar now = Calendar.getInstance();
                 long timestamp = now.getTimeInMillis() - gmtOffset;
                 connectedDevices.add(new BluetoothDeviceData(device.getName(), device.getAddress(),
-                        BluetoothScanJob.getBluetoothType(device), false, timestamp, false, false));
+                        BluetoothScanWorker.getBluetoothType(device), false, timestamp, false, false));
             }
         }
     }

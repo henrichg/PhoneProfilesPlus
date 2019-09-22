@@ -1414,11 +1414,11 @@ public class EditorProfilesActivity extends AppCompatActivity
             WifiScanWorker.setWaitForResults(getApplicationContext(), false);
             WifiScanWorker.setWifiEnabledForScan(getApplicationContext(), false);
 
-            BluetoothScanJob.setScanRequest(getApplicationContext(), false);
-            BluetoothScanJob.setLEScanRequest(getApplicationContext(), false);
-            BluetoothScanJob.setWaitForResults(getApplicationContext(), false);
-            BluetoothScanJob.setWaitForLEResults(getApplicationContext(), false);
-            BluetoothScanJob.setBluetoothEnabledForScan(getApplicationContext(), false);
+            BluetoothScanWorker.setScanRequest(getApplicationContext(), false);
+            BluetoothScanWorker.setLEScanRequest(getApplicationContext(), false);
+            BluetoothScanWorker.setWaitForResults(getApplicationContext(), false);
+            BluetoothScanWorker.setWaitForLEResults(getApplicationContext(), false);
+            BluetoothScanWorker.setBluetoothEnabledForScan(getApplicationContext(), false);
 
         }
         return res;

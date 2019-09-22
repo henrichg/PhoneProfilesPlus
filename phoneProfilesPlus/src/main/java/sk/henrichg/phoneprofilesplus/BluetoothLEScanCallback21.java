@@ -53,7 +53,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
 
                     PPApplication.logE("PPApplication.startHandlerThread", "START run - from=BluetoothLEScanCallback21.onScanResult");
 
-                    //boolean scanStarted = (BluetoothScanJob.getWaitForLEResults(context));
+                    //boolean scanStarted = (BluetoothScanWorker.getWaitForLEResults(context));
                     //PPApplication.logE("BluetoothLEScanCallback21.onScanResult", "scanStarted=" + scanStarted);
 
                     //if (scanStarted) {
@@ -66,9 +66,9 @@ class BluetoothLEScanCallback21 extends ScanCallback {
                         //PPApplication.logE("BluetoothLEScanCallback21.onScanResult", "deviceName=" + btName);
 
                         BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, _device.getAddress(),
-                                BluetoothScanJob.getBluetoothType(_device), false, 0, false, true);
+                                BluetoothScanWorker.getBluetoothType(_device), false, 0, false, true);
 
-                        BluetoothScanJob.addLEScanResult(deviceData);
+                        BluetoothScanWorker.addLEScanResult(deviceData);
                     //}
 
                     PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothLEScanCallback21.onScanResult");
@@ -113,7 +113,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
 
                     PPApplication.logE("PPApplication.startHandlerThread", "START run - from=BluetoothLEScanCallback21.onBatchScanResults");
 
-                    //boolean scanStarted = (BluetoothScanJob.getWaitForLEResults(context));
+                    //boolean scanStarted = (BluetoothScanWorker.getWaitForLEResults(context));
                     //PPApplication.logE("BluetoothLEScanCallback21.onBatchScanResults", "scanStarted=" + scanStarted);
 
                     //if (scanStarted) {
@@ -127,9 +127,9 @@ class BluetoothLEScanCallback21 extends ScanCallback {
                             //PPApplication.logE("BluetoothLEScanCallback21.onBatchScanResults", "deviceName=" + btName);
 
                             BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, device.getAddress(),
-                                    BluetoothScanJob.getBluetoothType(device), false, 0, false, true);
+                                    BluetoothScanWorker.getBluetoothType(device), false, 0, false, true);
 
-                            BluetoothScanJob.addLEScanResult(deviceData);
+                            BluetoothScanWorker.addLEScanResult(deviceData);
                         }
                     //}
 

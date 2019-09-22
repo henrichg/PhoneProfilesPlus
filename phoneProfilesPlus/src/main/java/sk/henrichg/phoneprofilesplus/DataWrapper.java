@@ -2848,11 +2848,11 @@ public class DataWrapper {
                     && Permissions.checkEventBluetoothForEMUI(context, event, null)) {
                 bluetoothPassed = false;
 
-                List<BluetoothDeviceData> boundedDevicesList = BluetoothScanJob.getBoundedDevicesList(context);
+                List<BluetoothDeviceData> boundedDevicesList = BluetoothScanWorker.getBoundedDevicesList(context);
 
                 boolean done = false;
 
-                BluetoothAdapter bluetooth = BluetoothScanJob.getBluetoothAdapter(context);
+                BluetoothAdapter bluetooth = BluetoothScanWorker.getBluetoothAdapter(context);
                 if (bluetooth != null) {
                     boolean isBluetoothEnabled = bluetooth.isEnabled();
 
@@ -2967,7 +2967,7 @@ public class DataWrapper {
                             } else {
                                 bluetoothPassed = false;
 
-                                List<BluetoothDeviceData> scanResults = BluetoothScanJob.getScanResults(context);
+                                List<BluetoothDeviceData> scanResults = BluetoothScanWorker.getScanResults(context);
 
                                 if (scanResults != null) {
                                     PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "scanResults.size="+scanResults.size());
@@ -3592,15 +3592,15 @@ public class DataWrapper {
                 if ((event._eventPreferencesRadioSwitch._bluetooth == 1 || event._eventPreferencesRadioSwitch._bluetooth == 2)
                         && PPApplication.hasSystemFeature(context, PackageManager.FEATURE_BLUETOOTH)) {
 
-                    if (!(BluetoothScanJob.getScanRequest(context) ||
-                            BluetoothScanJob.getLEScanRequest(context) ||
-                            BluetoothScanJob.getWaitForResults(context) ||
-                            BluetoothScanJob.getWaitForLEResults(context) ||
-                            BluetoothScanJob.getBluetoothEnabledForScan(context))) {
+                    if (!(BluetoothScanWorker.getScanRequest(context) ||
+                            BluetoothScanWorker.getLEScanRequest(context) ||
+                            BluetoothScanWorker.getWaitForResults(context) ||
+                            BluetoothScanWorker.getWaitForLEResults(context) ||
+                            BluetoothScanWorker.getBluetoothEnabledForScan(context))) {
                         // ignore for bluetooth scanning
 
 
-                        BluetoothAdapter bluetoothAdapter = BluetoothScanJob.getBluetoothAdapter(context);
+                        BluetoothAdapter bluetoothAdapter = BluetoothScanWorker.getBluetoothAdapter(context);
                         if (bluetoothAdapter != null) {
                             boolean enabled = bluetoothAdapter.isEnabled();
                             PPApplication.logE("-###- DataWrapper.doHandleEvents", "bluetoothState=" + enabled);

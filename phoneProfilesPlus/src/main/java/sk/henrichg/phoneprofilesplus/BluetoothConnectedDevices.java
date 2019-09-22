@@ -40,7 +40,7 @@ class BluetoothConnectedDevices {
     private static boolean okHEALTH = false;
 
     static void getConnectedDevices(final Context context) {
-        final BluetoothAdapter bluetoothAdapter = BluetoothScanJob.getBluetoothAdapter(context);
+        final BluetoothAdapter bluetoothAdapter = BluetoothScanWorker.getBluetoothAdapter(context);
         if (bluetoothAdapter != null) {
             if (!bluetoothAdapter.isEnabled())
                 return;
@@ -327,7 +327,7 @@ class BluetoothConnectedDevices {
                     Calendar now = Calendar.getInstance();
                     long timestamp = now.getTimeInMillis() - gmtOffset;
                     connectedDevices.add(new BluetoothDeviceData(device.getName(), device.getAddress(),
-                            BluetoothScanJob.getBluetoothType(device), false, timestamp, false, false));
+                            BluetoothScanWorker.getBluetoothType(device), false, timestamp, false, false));
                 }
             }
         //}

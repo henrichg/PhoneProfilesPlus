@@ -361,7 +361,7 @@ class ActivateProfileHelper {
         if (profile._deviceBluetooth != 0) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, null, null, false, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","setBluetooth");
-                BluetoothAdapter bluetoothAdapter = BluetoothScanJob.getBluetoothAdapter(context);
+                BluetoothAdapter bluetoothAdapter = BluetoothScanWorker.getBluetoothAdapter(context);
                 if (bluetoothAdapter != null) {
                     boolean isBluetoothEnabled = bluetoothAdapter.isEnabled();
                     boolean setBluetoothState = false;
@@ -388,7 +388,7 @@ class ActivateProfileHelper {
                     if (isBluetoothEnabled) {
                         // when bluetooth is enabled from profile, no disable bluetooth after scan
                         PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "isBluetoothEnabled=true; setBluetoothEnabledForScan=false");
-                        BluetoothScanJob.setBluetoothEnabledForScan(context, false);
+                        BluetoothScanWorker.setBluetoothEnabledForScan(context, false);
                     }
                     if (setBluetoothState) {
                         try {

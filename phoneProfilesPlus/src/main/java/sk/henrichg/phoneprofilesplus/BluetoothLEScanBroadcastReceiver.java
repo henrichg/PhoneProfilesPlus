@@ -43,15 +43,15 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
                         PPApplication.logE("PPApplication.startHandlerThread", "START run - from=BluetoothLEScanBroadcastReceiver.onReceive.1");
 
-                        //boolean scanStarted = (BluetoothScanJob.getWaitForLEResults(appContext));
+                        //boolean scanStarted = (BluetoothScanWorker.getWaitForLEResults(appContext));
 
                         //if (scanStarted) {
                             PPApplication.logE("@@@ BluetoothLEScanBroadcastReceiver.onReceive", "xxx");
 
 
-                            BluetoothScanJob.fillBoundedDevicesList(appContext);
+                            BluetoothScanWorker.fillBoundedDevicesList(appContext);
 
-                            BluetoothScanJob.setWaitForLEResults(appContext, false);
+                            BluetoothScanWorker.setWaitForLEResults(appContext, false);
 
                             WifiBluetoothScanner.setForceOneLEBluetoothScan(appContext, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
 

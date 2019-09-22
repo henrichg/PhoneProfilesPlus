@@ -309,7 +309,7 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
                 if (_forRescan) {
                     WifiBluetoothScanner.setForceOneBluetoothScan(prefContext, WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
                     WifiBluetoothScanner.setForceOneLEBluetoothScan(prefContext, WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
-                    BluetoothScanJob.startScanner(prefContext, true);
+                    BluetoothScanWorker.startScanner(prefContext, true);
 
                     //try { Thread.sleep(200); } catch (InterruptedException e) { }
                     //SystemClock.sleep(200);
@@ -317,14 +317,14 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
                     WifiBluetoothScanner.waitForForceOneBluetoothScanEnd(prefContext, this);
                 }
 
-                List<BluetoothDeviceData> boundedDevicesList = BluetoothScanJob.getBoundedDevicesList(prefContext);
+                List<BluetoothDeviceData> boundedDevicesList = BluetoothScanWorker.getBoundedDevicesList(prefContext);
                 if (boundedDevicesList != null) {
                     for (BluetoothDeviceData device : boundedDevicesList) {
                         _bluetoothList.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false, 0, true, false));
                     }
                 }
 
-                List<BluetoothDeviceData> scanResults = BluetoothScanJob.getScanResults(prefContext);
+                List<BluetoothDeviceData> scanResults = BluetoothScanWorker.getScanResults(prefContext);
                 if (scanResults != null) {
                     for (BluetoothDeviceData device : scanResults) {
                         if (!device.getName().isEmpty()) {
