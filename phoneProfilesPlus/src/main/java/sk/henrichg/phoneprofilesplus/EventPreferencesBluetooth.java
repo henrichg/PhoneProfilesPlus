@@ -24,7 +24,7 @@ class EventPreferencesBluetooth extends EventPreferences {
 
     String _adapterName;
     int _connectionType;
-    int _devicesType;
+    //int _devicesType;
 
     static final int CTYPE_CONNECTED = 0;
     static final int CTYPE_NEARBY = 1;
@@ -50,14 +50,14 @@ class EventPreferencesBluetooth extends EventPreferences {
     EventPreferencesBluetooth(Event event,
                                     boolean enabled,
                                     String adapterName,
-                                    int connectionType,
-                                    int devicesType)
+                                    int connectionType/*,
+                                    int devicesType*/)
     {
         super(event, enabled);
 
         this._adapterName = adapterName;
         this._connectionType = connectionType;
-        this._devicesType = devicesType;
+        //this._devicesType = devicesType;
     }
 
     @Override
@@ -66,7 +66,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         this._enabled = fromEvent._eventPreferencesBluetooth._enabled;
         this._adapterName = fromEvent._eventPreferencesBluetooth._adapterName;
         this._connectionType = fromEvent._eventPreferencesBluetooth._connectionType;
-        this._devicesType = fromEvent._eventPreferencesBluetooth._devicesType;
+        //this._devicesType = fromEvent._eventPreferencesBluetooth._devicesType;
         this.setSensorPassed(fromEvent._eventPreferencesBluetooth.getSensorPassed());
     }
 
@@ -77,7 +77,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         editor.putBoolean(PREF_EVENT_BLUETOOTH_ENABLED, _enabled);
         editor.putString(PREF_EVENT_BLUETOOTH_ADAPTER_NAME, this._adapterName);
         editor.putString(PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, String.valueOf(this._connectionType));
-        editor.putString(PREF_EVENT_BLUETOOTH_DEVICES_TYPE, String.valueOf(this._devicesType));
+        //editor.putString(PREF_EVENT_BLUETOOTH_DEVICES_TYPE, String.valueOf(this._devicesType));
         editor.apply();
     }
 
@@ -87,7 +87,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         this._enabled = preferences.getBoolean(PREF_EVENT_BLUETOOTH_ENABLED, false);
         this._adapterName = preferences.getString(PREF_EVENT_BLUETOOTH_ADAPTER_NAME, "");
         this._connectionType = Integer.parseInt(preferences.getString(PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, "1"));
-        this._devicesType = Integer.parseInt(preferences.getString(PREF_EVENT_BLUETOOTH_DEVICES_TYPE, "0"));
+        //this._devicesType = Integer.parseInt(preferences.getString(PREF_EVENT_BLUETOOTH_DEVICES_TYPE, "0"));
     }
 
     @Override
@@ -123,6 +123,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                 int index = Arrays.asList(connectionListTypes).indexOf(Integer.toString(this._connectionType));
                 descr = descr + ": <b>" + connectionListTypeNames[index] + "</b> • ";
 
+                /*
                 if ((this._connectionType == CTYPE_NEARBY) || (this._connectionType == CTYPE_NOT_NEARBY)) {
                     if (WifiBluetoothScanner.bluetoothLESupported(context)) {
                         descr = descr + context.getString(R.string.event_preferences_bluetooth_devices_type);
@@ -132,6 +133,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                         descr = descr + ": <b>" + deviceTypeListTypeNames[index] + "</b> • ";
                     }
                 }
+                */
 
                 descr = descr + context.getString(R.string.event_preferences_bluetooth_adapter_name) + ": ";
                 String selectedBluetoothNames = "";
@@ -372,7 +374,7 @@ class EventPreferencesBluetooth extends EventPreferences {
     public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_BLUETOOTH_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-            EventPreferencesBluetooth tmp = new EventPreferencesBluetooth(this._event, this._enabled, this._adapterName, this._connectionType, this._devicesType);
+            EventPreferencesBluetooth tmp = new EventPreferencesBluetooth(this._event, this._enabled, this._adapterName, this._connectionType/*, this._devicesType*/);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 

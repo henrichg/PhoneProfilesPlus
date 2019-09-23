@@ -138,7 +138,7 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
             @Override
             public void onClick(View v) {
                 String helpString = getString(R.string.event_preference_bluetooth_btName_type)+"\n\n"+
-                        getString(R.string.event_preference_bluetooth_bt_types)+"\n\n"+
+                        //getString(R.string.event_preference_bluetooth_bt_types)+"\n\n"+
                         getString(R.string.pref_dlg_info_about_wildcards_1) + " " +
                         getString(R.string.pref_dlg_info_about_wildcards_2) + " " +
                         getString(R.string.bluetooth_name_pref_dlg_info_about_wildcards) + " " +

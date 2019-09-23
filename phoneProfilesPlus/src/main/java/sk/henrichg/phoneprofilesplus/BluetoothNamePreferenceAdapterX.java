@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
-import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,12 +73,12 @@ class BluetoothNamePreferenceAdapterX extends BaseAdapter
         }
 
         if (bluetoothDevice.getName().equalsIgnoreCase(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE))
-            holder.bluetoothName.setText("[DU] " + context.getString(R.string.bluetooth_name_pref_dlg_all_bt_names_chb));
+            holder.bluetoothName.setText(/*"[DU] " + */context.getString(R.string.bluetooth_name_pref_dlg_all_bt_names_chb));
         else
         if (bluetoothDevice.getName().equalsIgnoreCase(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE))
-            holder.bluetoothName.setText("[DU] " + context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb));
+            holder.bluetoothName.setText(/*"[DU] " + */context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb));
         else {
-            String sType;
+            /*String sType;
             if (bluetoothDevice.type == BluetoothDevice.DEVICE_TYPE_CLASSIC)
                 sType = "CL";
             else if (bluetoothDevice.type == BluetoothDevice.DEVICE_TYPE_DUAL)
@@ -87,7 +86,7 @@ class BluetoothNamePreferenceAdapterX extends BaseAdapter
             else if (bluetoothDevice.type == BluetoothDevice.DEVICE_TYPE_LE)
                 sType = "LE";
             else
-                sType = "??";
+                sType = "??";*/
 
             String btName = "";
             if (bluetoothDevice.configured)
@@ -95,7 +94,7 @@ class BluetoothNamePreferenceAdapterX extends BaseAdapter
             else
             if (bluetoothDevice.scanned)
                 btName = "(S)";
-            btName = btName + " " + "[" + sType + "] " + bluetoothDevice.getName();
+            btName = btName + " " + /*"[" + sType + "] " +*/ bluetoothDevice.getName();
 
             holder.bluetoothName.setText(btName);
         }

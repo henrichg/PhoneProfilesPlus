@@ -299,6 +299,7 @@ public class PPApplication extends Application {
                                         //+"|BluetoothScanBroadcastReceiver"
                                         +"|BluetoothScanJob"
                                         +"|BluetoothScanWorker"
+                                        +"|$$$B WifiBluetoothScanner.doScan"
 
                                          //+"|PostDelayedBroadcastReceiver.onReceive"
 

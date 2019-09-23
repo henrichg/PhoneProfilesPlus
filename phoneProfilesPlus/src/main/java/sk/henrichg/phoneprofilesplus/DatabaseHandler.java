@@ -5252,7 +5252,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._enabled = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BLUETOOTH_ENABLED))) == 1);
                 eventPreferences._adapterName = cursor.getString(cursor.getColumnIndex(KEY_E_BLUETOOTH_ADAPTER_NAME));
                 eventPreferences._connectionType = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BLUETOOTH_CONNECTION_TYPE)));
-                eventPreferences._devicesType = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BLUETOOTH_DEVICES_TYPE)));
+                //eventPreferences._devicesType = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BLUETOOTH_DEVICES_TYPE)));
                 eventPreferences.setSensorPassed(Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BLUETOOTH_SENSOR_PASSED))));
             }
             cursor.close();
@@ -5693,7 +5693,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_BLUETOOTH_ENABLED, (eventPreferences._enabled) ? 1 : 0);
         values.put(KEY_E_BLUETOOTH_ADAPTER_NAME, eventPreferences._adapterName);
         values.put(KEY_E_BLUETOOTH_CONNECTION_TYPE, eventPreferences._connectionType);
-        values.put(KEY_E_BLUETOOTH_DEVICES_TYPE, eventPreferences._devicesType);
+        //values.put(KEY_E_BLUETOOTH_DEVICES_TYPE, eventPreferences._devicesType);
         values.put(KEY_E_BLUETOOTH_SENSOR_PASSED, eventPreferences.getSensorPassed());
 
         // updating row
@@ -6863,6 +6863,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
     */
 
+    /*
     int getBluetoothDevicesTypeCount(int devicesType, int forceScan)
     {
         importExportLock.lock();
@@ -6907,6 +6908,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             stopRunningCommand();
         }
     }
+    */
 
     void updateNFCStartTime(Event event)
     {

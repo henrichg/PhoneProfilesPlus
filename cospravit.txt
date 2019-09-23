@@ -409,3 +409,27 @@ Migracia z android-job do WorkManager:
     Worker.onStopped()
 
 --------------------------------------------------------------------
+
+Classic a LE scanning:
+
+- skener skenuje vzdy Classic aj LE sposobom
+- pozera, ake typy skenovania su nakonfigurovane v udalostiach
+  - ked su classic, skenujem classic skenom
+  - ked su LE skenujem LE skenom
+  - cize vysledkom moze byt, ze skenujem oboma typmi
+- len pre LE scan ziadam zapnutu BT - TOTO POZRI, CI NAHODOU NIE JE NUTNE AJ PRE CLASSIC SCAN
+- pre oboje zapinam Bluetooth, ak je vypnute
+
+- Vypada to tak, ze:
+- LE scan nevie vratit classic BT zariadenie
+- Classic scan skenuje oba typy zariadenia, pre oba vratilo meno BT zariadenia
+
+- Ten device type parameter u udalosti je uplne neprehladny.
+- Hlavne uzivatel nevie, co ma nastavit.
+- Pre oba zapinam BT, pre LE vyzadujem zapnutu lokaciu
+- Co tak teda vyhodit ten device type a proste vzdy skenovat oba typy
+- Potom netreba ani, akeho typu je BT zariadenie, cize mozu sa vyhodit [CL], [DU], [LE] indikatory
+
+
+
+

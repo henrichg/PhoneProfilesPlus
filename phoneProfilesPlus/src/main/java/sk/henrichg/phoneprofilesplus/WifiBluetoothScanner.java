@@ -260,15 +260,19 @@ class WifiBluetoothScanner {
                         boolean bluetoothEventsExists = DatabaseHandler.getInstance(context.getApplicationContext()).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTH_NEARBY, false) > 0;
                         int forceScan = getForceOneBluetoothScan(dataWrapper.context);
                         int forceScanLE = getForceOneLEBluetoothScan(context);
-                        boolean classicDevicesScan = DatabaseHandler.getInstance(context.getApplicationContext()).getBluetoothDevicesTypeCount(EventPreferencesBluetooth.DTYPE_CLASSIC, forceScanLE) > 0;
-                        boolean leDevicesScan;
-                        if (bluetoothLESupported(context))
+                        boolean classicDevicesScan = true; //DatabaseHandler.getInstance(context.getApplicationContext()).getBluetoothDevicesTypeCount(EventPreferencesBluetooth.DTYPE_CLASSIC, forceScanLE) > 0;
+                        boolean leDevicesScan = bluetoothLESupported(context);
+                        /*if (bluetoothLESupported(context))
                             leDevicesScan = DatabaseHandler.getInstance(context.getApplicationContext()).getBluetoothDevicesTypeCount(EventPreferencesBluetooth.DTYPE_LE, forceScanLE) > 0;
                         else
-                            leDevicesScan = false;
+                            leDevicesScan = false;*/
+                        PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "classicDevicesScan="+classicDevicesScan);
+                        PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "leDevicesScan="+leDevicesScan);
+
                         //unlock();
-                        boolean scan = (bluetoothEventsExists || (forceScan == FORCE_ONE_SCAN_FROM_PREF_DIALOG) ||
-                                (forceScanLE == FORCE_ONE_SCAN_FROM_PREF_DIALOG));
+                        boolean scan = (bluetoothEventsExists ||
+                                       (forceScan == FORCE_ONE_SCAN_FROM_PREF_DIALOG) ||
+                                       (forceScanLE == FORCE_ONE_SCAN_FROM_PREF_DIALOG));
                         if (scan) {
                             if (leDevicesScan)
                                 leDevicesScan = isLocationEnabled(context/*, scannerType*/);
@@ -314,6 +318,7 @@ class WifiBluetoothScanner {
 
                                     int bluetoothState;
 
+                                    //noinspection ConstantConditions
                                     if (classicDevicesScan) {
                                         ///////// Classic BT scan
 
