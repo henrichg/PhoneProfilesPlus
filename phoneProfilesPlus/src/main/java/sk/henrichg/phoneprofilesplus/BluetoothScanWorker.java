@@ -564,12 +564,15 @@ public class BluetoothScanWorker extends Worker {
             List<BluetoothDeviceData> scanResults = new ArrayList<>();
 
             if (tmpScanLEResults != null) {
-
+                PPApplication.logE("BluetoothScanWorker.finishLEScan", "tmpScanLEResults.size="+tmpScanLEResults.size());
                 for (BluetoothDeviceData device : tmpScanLEResults) {
                     scanResults.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false, 0, false, true));
+                    PPApplication.logE("BluetoothScanWorker.finishLEScan", "device="+device.getName());
                 }
                 //tmpScanLEResults = null;
             }
+            else
+                PPApplication.logE("BluetoothScanWorker.finishLEScan", "tmpScanLEResults=null");
 
             saveLEScanResults(context, scanResults);
         }
@@ -891,11 +894,14 @@ public class BluetoothScanWorker extends Worker {
                 List<BluetoothDeviceData> scanResults = new ArrayList<>();
 
                 if (WifiBluetoothScanner.tmpBluetoothScanResults != null) {
-
+                    PPApplication.logE("BluetoothScanWorker.finishCLScan", "WifiBluetoothScanner.tmpBluetoothScanResults.size="+WifiBluetoothScanner.tmpBluetoothScanResults.size());
                     for (BluetoothDeviceData device : WifiBluetoothScanner.tmpBluetoothScanResults) {
                         scanResults.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false, 0, false, true));
+                        PPApplication.logE("BluetoothScanWorker.finishCLScan", "device="+device.getName());
                     }
                 }
+                else
+                    PPApplication.logE("BluetoothScanWorker.finishCLScan", "tmpBluetoothScanResults=null");
 
                 saveCLScanResults(context, scanResults);
 
