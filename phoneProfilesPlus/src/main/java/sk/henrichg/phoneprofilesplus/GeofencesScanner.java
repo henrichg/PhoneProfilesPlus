@@ -163,10 +163,12 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
                             if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                                 GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
-                                scanner.clearAllEventGeofences();
-                                PPApplication.logE("##### GeofenceScanner.onConnected", "updateTransitionsByLastKnownLocation");
-                                scanner.startLocationUpdates();
-                                scanner.updateTransitionsByLastKnownLocation(false);
+                                if (scanner != null) {
+                                    scanner.clearAllEventGeofences();
+                                    PPApplication.logE("##### GeofenceScanner.onConnected", "updateTransitionsByLastKnownLocation");
+                                    scanner.startLocationUpdates();
+                                    scanner.updateTransitionsByLastKnownLocation(false);
+                                }
                             }
 
                             PPApplication.logE("PPApplication.startHandlerThread", "END run - from=GeofenceScanner.onConnected");

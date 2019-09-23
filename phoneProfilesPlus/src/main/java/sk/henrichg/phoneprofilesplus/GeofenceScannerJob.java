@@ -47,11 +47,12 @@ class GeofenceScannerJob extends Job {
                 boolean geofenceScannerUpdatesStarted = false;
                 synchronized (PPApplication.geofenceScannerMutex) {
                     if ((PhoneProfilesService.getInstance() != null) && (PhoneProfilesService.getInstance().getGeofencesScanner() != null)) {
-                        if (PhoneProfilesService.getInstance().getGeofencesScanner().mUpdatesStarted) {
+                        GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
+                        if (scanner.mUpdatesStarted) {
                             PPApplication.logE("GeofenceScannerJob.onRunJob", "location updates started - save to DB");
 
-                            if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted())
-                                PhoneProfilesService.getInstance().getGeofencesScanner().updateGeofencesInDB();
+                            //if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted())
+                            scanner.updateGeofencesInDB();
 
                             geofenceScannerUpdatesStarted = true;
                         }
