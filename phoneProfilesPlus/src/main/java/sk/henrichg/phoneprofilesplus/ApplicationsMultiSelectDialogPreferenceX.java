@@ -150,34 +150,30 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
         }
     }
 
-    static String getSummaryForPreferenceCategory(String value, String systemSettings, Context _context) {
+    static String getSummaryForPreferenceCategory(String value, String systemSettings, Context _context, boolean forPreference) {
         String prefDataSummary = _context.getString(R.string.applications_multiselect_summary_text_not_selected);
         boolean ok = true;
-        if (systemSettings.equals("notifications") && (!PPNotificationListenerService.isNotificationListenerServiceEnabled(_context))) {
-            ok = false;
-            prefDataSummary = _context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                    ": "+_context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
-        }
-        else
-        if (systemSettings.equals("accessibility_2.0")) {
-            int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(_context);
-            int requiredVersion = PPApplication.VERSION_CODE_EXTENDER_3_0;
-            if (extenderVersion == 0) {
+        if (forPreference) {
+            if (systemSettings.equals("notifications") && (!PPNotificationListenerService.isNotificationListenerServiceEnabled(_context))) {
                 ok = false;
                 prefDataSummary = _context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
-                        ": " + _context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
-            }
-            else
-            if (extenderVersion < requiredVersion) {
-                ok = false;
-                prefDataSummary = _context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
-                        ": " + _context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-            }
-            else
-            if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(_context)) {
-                ok = false;
-                prefDataSummary = _context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+_context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
+                        ": " + _context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
+            } else if (systemSettings.equals("accessibility_2.0")) {
+                int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(_context);
+                int requiredVersion = PPApplication.VERSION_CODE_EXTENDER_3_0;
+                if (extenderVersion == 0) {
+                    ok = false;
+                    prefDataSummary = _context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                            ": " + _context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
+                } else if (extenderVersion < requiredVersion) {
+                    ok = false;
+                    prefDataSummary = _context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                            ": " + _context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
+                } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(_context)) {
+                    ok = false;
+                    prefDataSummary = _context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                            ": " + _context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
+                }
             }
         }
         if (ok) {
@@ -221,7 +217,7 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
 
     private String getSummaryAMSDP()
     {
-        String prefDataSummary = getSummaryForPreferenceCategory(value, systemSettings, _context);
+        String prefDataSummary = getSummaryForPreferenceCategory(value, systemSettings, _context, true);
         setSummary(prefDataSummary);
         return prefDataSummary;
     }

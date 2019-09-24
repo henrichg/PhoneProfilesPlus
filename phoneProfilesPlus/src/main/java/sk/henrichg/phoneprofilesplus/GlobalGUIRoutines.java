@@ -744,7 +744,8 @@ class GlobalGUIRoutines {
             @Override
             protected void onPostExecute(Void result) {
                 super.onPostExecute(result);
-                preference.setSummary(TextUtils.replace(initSummary, new String[]{"<ringtone_name>"}, new String[]{ringtoneName}));
+                String summary = TextUtils.replace(initSummary, new String[]{"<ringtone_name>"}, new String[]{ringtoneName}).toString();
+                preference.setSummary(GlobalGUIRoutines.fromHtml(summary, false, false, 0, 0));
             }
 
         }.execute();
@@ -806,9 +807,10 @@ class GlobalGUIRoutines {
             @Override
             protected void onPostExecute(Void result) {
                 super.onPostExecute(result);
-                preference.setSummary(TextUtils.replace(initSummary,
+                String summary = TextUtils.replace(initSummary,
                         new String[]{"<ringtone_name>", "<notification_name>", "<alarm_name>"},
-                        new String[]{ringtoneName, notificationName, alarmName}));
+                        new String[]{ringtoneName, notificationName, alarmName}).toString();
+                preference.setSummary(GlobalGUIRoutines.fromHtml(summary, false, false, 0, 0));
             }
 
         }.execute();
