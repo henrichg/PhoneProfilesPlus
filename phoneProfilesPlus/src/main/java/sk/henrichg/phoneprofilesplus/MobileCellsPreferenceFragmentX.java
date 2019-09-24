@@ -380,14 +380,16 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                 _cellFilterValue = cellFilter.getText().toString();
                 _value = preference.value;
 
-                _registeredCellData = new MobileCellsData(preference.registeredCellData.cellId,
-                                                            preference.registeredCellData.name,
-                                                            preference.registeredCellData.connected,
-                                                            preference.registeredCellData._new,
-                                                            preference.registeredCellData.lastConnectedTime,
-                                                            preference.registeredCellData.lastRunningEvents,
-                                                            preference.registeredCellData.lastPausedEvents,
-                                                            preference.registeredCellData.doNotDetect);
+                if (preference.registeredCellData != null) {
+                    _registeredCellData = new MobileCellsData(preference.registeredCellData.cellId,
+                                                                preference.registeredCellData.name,
+                                                                preference.registeredCellData.connected,
+                                                                preference.registeredCellData._new,
+                                                                preference.registeredCellData.lastConnectedTime,
+                                                                preference.registeredCellData.lastRunningEvents,
+                                                                preference.registeredCellData.lastPausedEvents,
+                                                                preference.registeredCellData.doNotDetect);
+                }
                 _registeredCellInTable = preference.registeredCellInTable;
                 _registeredCellInValue = preference.registeredCellInValue;
 
@@ -556,14 +558,16 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                     }
                 }
 
-                preference.registeredCellData = new MobileCellsData(_registeredCellData.cellId,
-                                                                    _registeredCellData.name,
-                                                                    _registeredCellData.connected,
-                                                                    _registeredCellData._new,
-                                                                    _registeredCellData.lastConnectedTime,
-                                                                    _registeredCellData.lastRunningEvents,
-                                                                    _registeredCellData.lastPausedEvents,
-                                                                    _registeredCellData.doNotDetect);
+                if (_registeredCellData != null) {
+                    preference.registeredCellData = new MobileCellsData(_registeredCellData.cellId,
+                                                                        _registeredCellData.name,
+                                                                        _registeredCellData.connected,
+                                                                        _registeredCellData._new,
+                                                                        _registeredCellData.lastConnectedTime,
+                                                                        _registeredCellData.lastRunningEvents,
+                                                                        _registeredCellData.lastPausedEvents,
+                                                                        _registeredCellData.doNotDetect);
+                }
                 preference.registeredCellInTable = _registeredCellInTable;
                 preference.registeredCellInValue = _registeredCellInValue;
 
