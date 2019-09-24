@@ -600,7 +600,6 @@ class PhoneStateScanner extends PhoneStateListener {
 
     static void handleEvents(final Context context) {
         PPApplication.logE("PhoneStateScanner.handleEvents", "xxx");
-        //PhoneStateJob.start(context);
         if (Event.getGlobalEventsRunning(context))
         {
             if (DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {

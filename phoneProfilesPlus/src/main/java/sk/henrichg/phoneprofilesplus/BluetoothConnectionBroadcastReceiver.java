@@ -38,10 +38,6 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         if (intent == null)
             return;
 
-        /*BluetoothJob.startForConnectionBroadcast(appContext, intent.getAction(),
-                intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE),
-                intent.getStringExtra(BluetoothDevice.EXTRA_NAME));*/
-
         final String action = intent.getAction();
         if (action == null)
             return;
@@ -139,7 +135,6 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
                                 if (bluetoothEventsExists)
                                 {
-                                    PPApplication.logE("@@@ BluetoothJob.onRunJob","BluetoothConnectionBroadcastReceiver: bluetoothEventsExists="+bluetoothEventsExists);
                                 */
                                     // start events handler
                                     EventsHandler eventsHandler = new EventsHandler(appContext);

@@ -25,7 +25,6 @@ public class AlarmClockEventEndBroadcastReceiver extends BroadcastReceiver {
         {
             PPApplication.logE("@@@ AlarmClockEventEndBroadcastReceiver.onReceive","xxx");
 
-            // start job
             PPApplication.startHandlerThread("AlarmClockEventEndBroadcastReceiver.onReceive");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {

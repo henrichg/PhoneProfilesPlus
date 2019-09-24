@@ -25,9 +25,7 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        //PowerSaveModeJob.start(appContext);
-
-        // required for reschedule jobs for power save mode
+        // required for reschedule workers for power save mode
         PPApplication.logE("[XXX] PowerSaveModeBroadcastReceiver.onReceive", "restartAllScanners");
         PPApplication.restartAllScanners(appContext, true);
         /*PPApplication.restartWifiScanner(appContext, true);

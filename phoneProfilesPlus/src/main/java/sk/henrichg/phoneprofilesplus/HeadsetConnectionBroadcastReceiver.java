@@ -35,15 +35,6 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
 
         String action = intent.getAction();
 
-        /*if (action.equals(Intent.ACTION_HEADSET_PLUG))
-            HeadsetConnectionJob.startForHeadsetPlug(appContext, intent.getIntExtra("state", -1), intent.getIntExtra("microphone", -1));
-        else
-        if (action.equals(BluetoothHeadset.ACTION_AUDIO_STATE_CHANGED))
-            HeadsetConnectionJob.startForBluetoothPlug(appContext, BluetoothHeadset.ACTION_AUDIO_STATE_CHANGED, intent.getIntExtra(BluetoothProfile.EXTRA_STATE, BluetoothHeadset.STATE_AUDIO_DISCONNECTED));
-        else
-        if (action.equals(BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED))
-            HeadsetConnectionJob.startForBluetoothPlug(appContext, BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED, intent.getIntExtra(BluetoothProfile.EXTRA_STATE, BluetoothProfile.STATE_DISCONNECTED));*/
-
         ApplicationPreferences.getSharedPreferences(appContext);
 
         boolean broadcast = false;

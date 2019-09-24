@@ -270,6 +270,7 @@ public class PPApplication extends Application {
                                          //+"|PhoneProfilesService.startGeofenceScanner"
                                          //+"|PhoneProfilesService.stopGeofenceScanner"
                                          //+"|[GeoSensor] DataWrapper.doHandleEvents"
+                                         +"|GeofenceScanWorker"
 
                                          //+"|WifiStateChangedBroadcastReceiver"
                                          //+"|WifiConnectionBroadcastReceiver"
@@ -280,15 +281,15 @@ public class PPApplication extends Application {
                                          //+"|$$$BLE WifiBluetoothScanner"
                                          //+"|[WiFi] DataWrapper.doHandleEvents"
 
-                                         /*+"|BluetoothScanJob.onRunJob"
-                                         +"|BluetoothScanJob.startScanner"
-                                         +"|BluetoothScanJob.startCLScan"
-                                         +"|BluetoothScanJob.stopCLScan"
-                                         +"|BluetoothScanJob.startLEScan"
-                                         +"|BluetoothScanJob.stopLEScan"
-                                         +"|BluetoothScanJob.onRunJob"
-                                         +"|BluetoothScanJob.finishCLScan"
-                                         +"|BluetoothScanJob.finishLEScan"
+                                         /*+"|BluetoothScanWorker.doWork"
+                                         +"|BluetoothScanWorker.startScanner"
+                                         +"|BluetoothScanWorker.startCLScan"
+                                         +"|BluetoothScanWorker.stopCLScan"
+                                         +"|BluetoothScanWorker.startLEScan"
+                                         +"|BluetoothScanWorker.stopLEScan"
+                                         +"|BluetoothScanWorker.doWork"
+                                         +"|BluetoothScanWorker.finishCLScan"
+                                         +"|BluetoothScanWorker.finishLEScan"
                                          +"|BluetoothScanBroadcastReceiver.onReceive"
                                          +"|@@@ BluetoothScanBroadcastReceiver.onReceive"
                                          +"|BluetoothLEScanCallback21"*/
@@ -297,9 +298,8 @@ public class PPApplication extends Application {
                                         //+"|BluetoothConnectionBroadcastReceiver"
                                         //+"|BluetoothStateChangedBroadcastReceiver"
                                         //+"|BluetoothScanBroadcastReceiver"
-                                        +"|BluetoothScanJob"
-                                        +"|BluetoothScanWorker"
-                                        +"|$$$B WifiBluetoothScanner.doScan"
+                                        //+"|BluetoothScanWorker"
+                                        //+"|$$$B WifiBluetoothScanner.doScan"
 
                                          //+"|PostDelayedBroadcastReceiver.onReceive"
 
@@ -362,9 +362,9 @@ public class PPApplication extends Application {
 
                                         //+"|PermissionsNotificationDeletedReceiver.onReceive"
 
-                                        //+"|[RJS] PhoneProfilesService.registerReceiversAndJobs"
-                                        //+"|[RJS] PhoneProfilesService.unregisterReceiversAndJobs"
-                                        //+"|[RJS] PhoneProfilesService.reregisterReceiversAndJobs"
+                                        //+"|[RJS] PhoneProfilesService.registerReceiversAndWorkers"
+                                        //+"|[RJS] PhoneProfilesService.unregisterReceiversAndWorkers"
+                                        //+"|[RJS] PhoneProfilesService.reregisterReceiversAndWorkers"
                                         //+"|[RJS] PhoneProfilesService.registerReceiverForTimeSensor"
 
                                         //+"|EventPreferencesActivity.savePreferences"
@@ -443,14 +443,13 @@ public class PPApplication extends Application {
                                         //+"|RingtonePreferenceX"
                                         //+"|PhoneProfilesService.playNotificationSound"
 
-                                        //+"|[RJS] PhoneProfilesService.scheduleWifiJob"
-                                        //+"|[RJS] PhoneProfilesService.cancelWifiJob"
+                                        //+"|[RJS] PhoneProfilesService.scheduleWifiWorker"
+                                        //+"|[RJS] PhoneProfilesService.cancelWifiWorker"
 
                                         //+"|EditorProfilesActivity.selectFilterItem"
                                         //+"|EventsPrefsFragment.onResume"
                                         //+"|ActivateProfileHelper.setScreenCarMode"
 
-                                        //+"|DonationNotificationJob"
                                         //+"|DonationBroadcastReceiver"
 
                                         //+"|FastAccessDurationDialog.updateProfileView"

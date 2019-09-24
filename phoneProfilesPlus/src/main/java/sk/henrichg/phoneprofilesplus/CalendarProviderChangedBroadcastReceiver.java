@@ -35,8 +35,6 @@ public class CalendarProviderChangedBroadcastReceiver extends BroadcastReceiver 
 
             if (calendarEventsExists)
             {*/
-                // start job
-                //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED);
                 PPApplication.startHandlerThread("CalendarProviderChangedBroadcastReceiver.onReceive");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {

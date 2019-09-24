@@ -35,8 +35,6 @@ public class NFCEventEndBroadcastReceiver extends BroadcastReceiver {
 
             if (smsEventsExists)
             {*/
-                // start job
-                //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_NFC_EVENT_END);
                 PPApplication.startHandlerThread("NFCEventEndBroadcastReceiver.onReceive");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {

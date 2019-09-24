@@ -14,8 +14,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 
-import com.evernote.android.job.JobRequest;
-
 import java.util.concurrent.TimeUnit;
 
 import androidx.appcompat.app.AlertDialog;
@@ -30,6 +28,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.SwitchPreferenceCompat;
+import androidx.work.PeriodicWorkRequest;
 
 class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -926,9 +925,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     preferenceCategory.removePreference(preference);
             }
         }*/
-        long jobMinInterval = TimeUnit.MILLISECONDS.toMinutes(JobRequest.MIN_INTERVAL);
+        long workMinInterval = TimeUnit.MILLISECONDS.toMinutes(PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS);
         String summary = getString(R.string.phone_profiles_pref_applicationEventScanIntervalInfo_summary1) + " " +
-                jobMinInterval + " " +
+                workMinInterval + " " +
                 getString(R.string.phone_profiles_pref_applicationEventScanIntervalInfo_summary2);
         preference = findPreference("applicationEventLocationUpdateIntervalInfo");
         if (preference != null) {

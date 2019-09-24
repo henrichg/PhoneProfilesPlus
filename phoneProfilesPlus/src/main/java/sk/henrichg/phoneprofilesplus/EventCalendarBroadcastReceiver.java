@@ -35,8 +35,6 @@ public class EventCalendarBroadcastReceiver extends BroadcastReceiver {
 
             if (calendarEventsExists)
             {*/
-                // start job
-                //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_CALENDAR);
                 PPApplication.startHandlerThread("EventCalendarBroadcastReceiver.onReceive");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {

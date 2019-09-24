@@ -36,7 +36,6 @@ public class NFCTagReadActivity extends AppCompatActivity {
                 int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                 final long _time = now.getTimeInMillis() + gmtOffset;
 
-                //EventsHandlerJob.startForNFCTagSensor(getApplicationContext(), tagRead, time);
                 final Context appContext = getApplicationContext();
                 PPApplication.startHandlerThread("NFCTagReadActivity.OnTagReadListener.onUidRead");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -69,7 +68,6 @@ public class NFCTagReadActivity extends AppCompatActivity {
                 int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                 final long _time = now.getTimeInMillis() + gmtOffset;
 
-                //EventsHandlerJob.startForNFCTagSensor(getApplicationContext(), tagRead, time);
                 final Context appContext = getApplicationContext();
                 PPApplication.startHandlerThread("NFCTagReadActivity.OnTagReadListener.onTagRead");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());

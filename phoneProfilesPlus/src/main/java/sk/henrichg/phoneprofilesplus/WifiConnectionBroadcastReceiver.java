@@ -27,8 +27,6 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
         if (intent == null)
             return;
 
-        //WifiJob.startForConnectionBroadcast(appContext, intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO));
-
         if (intent.getAction() != null) {
             if (intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) {
                 final NetworkInfo info = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);

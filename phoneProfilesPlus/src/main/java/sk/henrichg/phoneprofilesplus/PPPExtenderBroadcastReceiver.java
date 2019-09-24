@@ -99,7 +99,6 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                         setApplicationInForeground(appContext, packageName);
 
                         if (Event.getGlobalEventsRunning(appContext)) {
-                            //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_APPLICATION);
                             PPApplication.startHandlerThread("PPPExtenderBroadcastReceiver.onReceive.ACTION_FOREGROUND_APPLICATION_CHANGED");
                             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                             handler.post(new Runnable() {
@@ -142,7 +141,6 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
             case PPApplication.ACTION_ACCESSIBILITY_SERVICE_UNBIND:
                 setApplicationInForeground(appContext, "");
 
-                //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_APPLICATION);
                 PPApplication.startHandlerThread("PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_UNBIND");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {

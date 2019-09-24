@@ -15,10 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-/*
- This service is called only from LocationGeofenceEditorActivity, not needed to convert it to job.
- */
-
 public class FetchAddressIntentService extends IntentService {
 
     private ResultReceiver mReceiver;

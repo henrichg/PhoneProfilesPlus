@@ -26,8 +26,6 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        //ScreenOnOffJob.start(appContext, intent.getAction());
-
         final String action = intent.getAction();
 
         PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "before start handler");

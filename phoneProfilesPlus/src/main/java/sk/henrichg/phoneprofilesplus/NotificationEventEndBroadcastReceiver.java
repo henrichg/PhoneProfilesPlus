@@ -34,7 +34,6 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
 
             if (smsEventsExists)
             {*/
-                // start job
                 PPApplication.startHandlerThread("NotificationEventEndBroadcastReceiver.onReceive");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {

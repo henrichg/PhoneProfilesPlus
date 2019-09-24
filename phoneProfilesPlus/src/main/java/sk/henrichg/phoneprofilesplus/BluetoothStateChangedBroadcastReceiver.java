@@ -26,8 +26,6 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
         if (intent == null)
             return;
 
-        //BluetoothJob.startForStateChangedBroadcast(appContext, intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR));
-
         String action = intent.getAction();
         if ((action != null) && action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
             // BluetoothStateChangedBroadcastReceiver
@@ -95,7 +93,6 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                                 dataWrapper.invalidateDataWrapper();
 
                                 if (bluetoothEventsExists) {
-                                    PPApplication.logE("@@@ BluetoothJob.onRunJob", "BluetoothStateChangedBroadcastReceiver: bluetoothEventsExists=" + bluetoothEventsExists);
                                 */
 
                                     // start events handler

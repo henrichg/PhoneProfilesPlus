@@ -25,8 +25,6 @@ public class MissedCallEventEndBroadcastReceiver extends BroadcastReceiver {
         {
             PPApplication.logE("@@@ MissedCallEventEndBroadcastReceiver.onReceive","xxx");
 
-            // start job
-            //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_SMS_EVENT_END);
             PPApplication.startHandlerThread("MissedCallEventEndBroadcastReceiver.onReceive");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {

@@ -29,11 +29,6 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
         if (intent == null)
             return;
 
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-            WifiJob.startForScanBroadcast(context.getApplicationContext(), intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, true));
-        else
-            WifiJob.startForScanBroadcast(context.getApplicationContext());*/
-
         final Context appContext = context.getApplicationContext();
 
         if (intent.getAction() != null) {
@@ -103,33 +98,32 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                     if (forceOneScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                                     {
                                         PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "start EventsHandler (1)");
-                                    /*// start job
-                                    PPApplication.startHandlerThread("WifiScanBroadcastReceiver.onReceive.2");
-                                    final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-                                    handler.postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                                            PowerManager.WakeLock wakeLock = null;
-                                            try {
-                                            if (powerManager != null) {
-                                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WifiScanBroadcastReceiver.onReceive.Handler.postDelayed");
-                                                wakeLock.acquire(10 * 60 * 1000);
-                                            }
-
-                                            PPApplication.logE("$$$ WifiScanBroadcastReceiver.onReceive", "start EventsHandler (2)");
-                                            //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
-                                            EventsHandler eventsHandler = new EventsHandler(appContext);
-                                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
-                                            } finally (
-                                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                        /*
+                                        PPApplication.startHandlerThread("WifiScanBroadcastReceiver.onReceive.2");
+                                        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                                        handler.postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                                PowerManager.WakeLock wakeLock = null;
                                                 try {
-                                                    wakeLock.release();
-                                                } catch (Exception ignored) {}
+                                                if (powerManager != null) {
+                                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WifiScanBroadcastReceiver.onReceive.Handler.postDelayed");
+                                                    wakeLock.acquire(10 * 60 * 1000);
+                                                }
+
+                                                PPApplication.logE("$$$ WifiScanBroadcastReceiver.onReceive", "start EventsHandler (2)");
+                                                EventsHandler eventsHandler = new EventsHandler(appContext);
+                                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
+                                                } finally (
+                                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                                    try {
+                                                        wakeLock.release();
+                                                    } catch (Exception ignored) {}
+                                                }
+                                                }
                                             }
-                                            }
-                                        }
-                                    }, 5000);*/
+                                        }, 5000);*/
                                         PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER, 5, appContext);
                                     }
                                 }

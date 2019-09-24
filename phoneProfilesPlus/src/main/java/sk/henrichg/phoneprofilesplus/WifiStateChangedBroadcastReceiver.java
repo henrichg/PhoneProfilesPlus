@@ -28,8 +28,6 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
         if (intent == null)
             return;
 
-        //WifiJob.startForStateChangedBroadcast(context.getApplicationContext(), intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0));
-
         if (intent.getAction() != null) {
             if (intent.getAction().equals(WifiManager.WIFI_STATE_CHANGED_ACTION)) {
                 // WifiStateChangedBroadcastReceiver

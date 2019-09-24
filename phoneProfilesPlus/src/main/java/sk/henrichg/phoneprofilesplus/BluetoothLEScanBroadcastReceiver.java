@@ -22,8 +22,6 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        //BluetoothJob.startForLEScanBroadcast(context.getApplicationContext());
-
         final int forceOneScan = WifiBluetoothScanner.getForceOneLEBluetoothScan(appContext);
 
         if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
@@ -57,7 +55,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
                             if (forceOneScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
                             {
-                            /*// start job
+                            /*
                             PPApplication.startHandlerThread("BluetoothLEScanBroadcastReceiver.onReceive.2");
                             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                             handler.postDelayed(new Runnable() {
@@ -71,7 +69,6 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
                                         wakeLock.acquire(10 * 60 * 1000);
                                     }
 
-                                    //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER);
                                     // start events handler
                                     EventsHandler eventsHandler = new EventsHandler(appContext);
                                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER);

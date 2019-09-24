@@ -32,10 +32,6 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
         if (intent == null)
             return;
 
-        /*BluetoothJob.startForScanBroadcast(context.getApplicationContext(), intent.getAction(),
-                intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE),
-                intent.getStringExtra(BluetoothDevice.EXTRA_NAME));*/
-
         final String action = intent.getAction();
 
         PPApplication.logE("BluetoothScanBroadcastReceiver.onReceive","action="+action);

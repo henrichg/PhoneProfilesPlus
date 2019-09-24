@@ -108,7 +108,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
             return;
 
         if (Event.getGlobalEventsRunning(context)) {
-            //EventsHandlerJob.startForNotificationSensor(context, "posted");
             PPApplication.startHandlerThread("PPNotificationListenerService.onNotificationPosted");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
@@ -168,7 +167,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
             return;
 
         if (Event.getGlobalEventsRunning(context)) {
-            //EventsHandlerJob.startForNotificationSensor(context, "removed");
             PPApplication.startHandlerThread("PPNotificationListenerService.onNotificationRemoved");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {

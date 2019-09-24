@@ -35,8 +35,6 @@ public class EventTimeBroadcastReceiver extends BroadcastReceiver {
 
             if (timeEventsExists)
             {*/
-                // start job
-                //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_TIME);
                 PPApplication.startHandlerThread("EventTimeBroadcastReceiver.onReceive");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {

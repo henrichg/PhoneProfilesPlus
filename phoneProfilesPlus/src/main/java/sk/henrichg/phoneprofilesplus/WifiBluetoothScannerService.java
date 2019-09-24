@@ -4,10 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.IntentService;
 import android.content.Intent;
 
-/*
- This service is called only from WifiSSIDPreference and BluetoothNamePreference, not needed to convert it to job.
- */
-
 public class WifiBluetoothScannerService extends IntentService
 {
     //private Context context;

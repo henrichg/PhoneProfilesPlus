@@ -4570,11 +4570,11 @@ public class DataWrapper {
 
                 /*Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_JOBS, true);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS, true);
                 PPApplication.startPPService(context, serviceIntent);*/
                 Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
                 //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                commandIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_JOBS, true);
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS, true);
                 PPApplication.runCommand(context, commandIntent);
                 return true;
             }
@@ -4587,11 +4587,11 @@ public class DataWrapper {
 
                 /*Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_REGISTER_RECEIVERS_AND_JOBS, true);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_REGISTER_RECEIVERS_AND_WORKERS, true);
                 PPApplication.startPPService(context, serviceIntent);*/
                 Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
                 //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                commandIntent.putExtra(PhoneProfilesService.EXTRA_REGISTER_RECEIVERS_AND_JOBS, true);
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_REGISTER_RECEIVERS_AND_WORKERS, true);
                 PPApplication.runCommand(context, commandIntent);
 
                 // setup for next start

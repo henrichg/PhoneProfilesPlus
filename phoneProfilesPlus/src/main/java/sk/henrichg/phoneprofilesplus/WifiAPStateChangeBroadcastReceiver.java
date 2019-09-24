@@ -26,15 +26,15 @@ public class WifiAPStateChangeBroadcastReceiver extends BroadcastReceiver {
             else
                 isWifiAPEnabled = CmdWifiAP.isEnabled();
             if (isWifiAPEnabled) {
-                // Wifi AP is enabled - cancel wifi scan job
+                // Wifi AP is enabled - cancel wifi scan work
                 PPApplication.logE("WifiAPStateChangeBroadcastReceiver.onReceive","wifi AP enabled");
                 WifiScanWorker.cancelWork(appContext, true,null);
             }
             else {
-                // Wifi AP is disabled - schedule wifi scan job
+                // Wifi AP is disabled - schedule wifi scan work
                 PPApplication.logE("WifiAPStateChangeBroadcastReceiver.onReceive","wifi AP disabled");
                 if (PhoneProfilesService.getInstance() != null)
-                    PhoneProfilesService.getInstance().scheduleWifiJob(true,  true, /*false, true, false,*/ false);
+                    PhoneProfilesService.getInstance().scheduleWifiWorker(true,  true, /*false, true, false,*/ false);
             }
         }
     }

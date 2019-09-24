@@ -423,7 +423,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                     PPApplication.logE("##### GeofenceScanner.stopLocationUpdates", "xxx");
                     if (mFusedLocationClient != null)
                         mFusedLocationClient.removeLocationUpdates(mLocationCallback);
-                    PPApplication.logE("##### GeofenceScannerJob.mUpdatesStarted=false", "from GeofenceScanner.stopLocationUpdates");
+                    PPApplication.logE("##### GeofenceScanWorker.mUpdatesStarted=false", "from GeofenceScanner.stopLocationUpdates");
                     mUpdatesStarted = false;
                 }
             } catch (Exception ignored) {}
@@ -434,10 +434,10 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     void resetLocationUpdates(boolean forScreenOn) {
         stopLocationUpdates();
         createLocationRequest();
-        PPApplication.logE("GeofenceScanner.scheduleJob", "from GeofenceScanner.resetLocationUpdates");
-        // startLocationUpdates is called from GeofenceScannerJob
+        PPApplication.logE("GeofenceScanner.scheduleWorker", "from GeofenceScanner.resetLocationUpdates");
+        // startLocationUpdates is called from GeofenceScanWorker
         if (PhoneProfilesService.getInstance() != null)
-            PhoneProfilesService.getInstance().scheduleGeofenceScannerJob(true, false, true, forScreenOn, true);
+            PhoneProfilesService.getInstance().scheduleGeofenceWorker(true, false, true, forScreenOn, true);
     }
     */
 
@@ -485,8 +485,6 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                                         }
 
                                         if (startEventsHandler) {
-                                            // start job
-                                            //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_LOCATION_MODE);
                                             EventsHandler eventsHandler = new EventsHandler(appContext);
                                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_LOCATION_MODE);
                                         }
