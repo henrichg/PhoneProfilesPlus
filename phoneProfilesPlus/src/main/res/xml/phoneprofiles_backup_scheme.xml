@@ -5,6 +5,6 @@
     <exclude domain="sharedpref" path="wifi_scan_results.xml"/>
     <exclude domain="sharedpref" path="permissions_list.xml"/>
 
-<!--    <exclude domain="sharedpref" path="evernote_jobs.xml" />-->
-<!--    <exclude domain="database" path="evernote_jobs.db" />-->
+    <exclude domain="sharedpref" path="evernote_jobs.xml" />
+    <exclude domain="database" path="evernote_jobs.db" />
 </full-backup-content>
