@@ -23,7 +23,7 @@ public class GeofenceScanWorker extends Worker {
 
     final Context context;
 
-    static final String WORK_TAG  = "GeofenceScannerJob";
+    private static final String WORK_TAG  = "GeofenceScannerJob";
 
     public GeofenceScanWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
@@ -81,7 +81,15 @@ public class GeofenceScanWorker extends Worker {
             }
         }
 
-        scheduleWork(context, false, null, false/*, false*/);
+        PPApplication.startHandlerThreadPPService();
+        final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                PPApplication.logE("GeofenceScanWorker.doWork - handler", "schedule work");
+                scheduleWork(context, false, null, false/*, false*/);
+            }
+        }, 500);
 
         PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- END");
         return Result.success();
@@ -130,15 +138,15 @@ public class GeofenceScanWorker extends Worker {
 
         if (!shortInterval) {
             PPApplication.logE("GeofenceScanWorker._scheduleWork", "exact work");
-            OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(WifiScanWorker.class)
-                    .setInitialDelay(interval, TimeUnit.MINUTES)
+            OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(GeofenceScanWorker.class)
+                    .setInitialDelay(interval, TimeUnit.SECONDS)
                     .addTag(WORK_TAG)
                     .build();
             workManager.enqueueUniqueWork(WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
         } else {
             PPApplication.logE("GeofenceScanWorker._scheduleWork", "start now work");
             waitForFinish(context);
-            OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(WifiScanWorker.class)
+            OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(GeofenceScanWorker.class)
                     .addTag(WORK_TAG)
                     .build();
             workManager.enqueueUniqueWork(WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);

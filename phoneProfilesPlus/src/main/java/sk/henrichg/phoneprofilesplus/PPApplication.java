@@ -261,7 +261,7 @@ public class PPApplication extends Application {
                                          //+"|DeviceIdleModeBroadcastReceiver"
 
                                          //+"|##### GeofenceScanner"
-                                         //+"|GeofenceScannerJob"
+                                         +"|GeofenceScannerJob"
                                          //+"|GeofenceScannerJob.scheduleJob"
                                          //+"|GeofenceScannerJob.onRunJob"
                                          //+"|LocationGeofenceEditorActivity"
@@ -270,6 +270,7 @@ public class PPApplication extends Application {
                                          //+"|PhoneProfilesService.startGeofenceScanner"
                                          //+"|PhoneProfilesService.stopGeofenceScanner"
                                          //+"|[GeoSensor] DataWrapper.doHandleEvents"
+                                         +"|[***] GeofenceScanner"
                                          +"|GeofenceScanWorker"
 
                                          //+"|WifiStateChangedBroadcastReceiver"
