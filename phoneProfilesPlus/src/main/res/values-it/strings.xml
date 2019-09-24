@@ -251,7 +251,6 @@
     <string name="event_preferences_category_eventWifiParameters">Sensore Wi-Fi</string>
     <string name="event_preferences_wifi_ssid">SSID</string>
     <string name="pref_event_wifi_ssid">SSID</string>
-    <string name="pref_event_wifi_connectionType">Connessione</string>
     <string name="array_event_pref_wifiConnectionType_connected">Collegato</string>
     <string name="array_event_pref_wifiConnectionType_inFront">Nelle vicinanze (entro il raggio di scansione)</string>
     <string name="event_preferences_wifi_connection_type">Tipo di connessione</string>
@@ -266,7 +265,7 @@
     <string name="profile_preferences_duration">Durata</string>
     <string name="profile_preferences_afterDurationDo">Dopo una durata fai</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Niente</string>
-    <string name="array_pref_afterProfileDurationDo_undoProfile">[M] Annulla il profilo</string>
+    <string name="array_pref_afterProfileDurationDo_undoProfile">Annulla il profilo</string>
     <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Attiva il profilo predefinito</string>
     <string name="phone_profiles_pref_applicationGridLayout">Layout di griglia</string>
     <string name="menu_help">Guida</string>
@@ -279,8 +278,6 @@
     <string name="event_type_bluetooth">Bluetooth</string>
     <string name="event_preferences_category_eventBluetoothParameters">Sensore Bluetooth</string>
     <string name="event_preferences_bluetooth_adapter_name">Nome Bluetooth</string>
-    <string name="pref_event_bluetooth_adapterName">Nome BT</string>
-    <string name="pref_event_bluetooth_connectionType">Connessione</string>
     <string name="array_event_pref_bluetoothConnectionType_connected">Collegato</string>
     <string name="array_event_pref_bluetoothConnectionType_inFront">Nelle vicinanze (entro il raggio di scansione)</string>
     <string name="event_preferences_bluetooth_connection_type">Tipo di connessione</string>
@@ -451,9 +448,6 @@
     <string name="important_info_profile_wifiScanning_location">In Android 6+, per la scansione Wi-Fi devono essere abilitati Posizione e \"Scansione Wi-Fi\" nelle impostazioni di Posizione.</string>
     <string name="important_info_profile_bluetoothScanning_location">In Android 6+, per la scansione Bluetooth LE devono essere abilitati Posizione e \"Scansione bluetooth\" nelle impostazioni di Posizione.</string>
     <string name="profile_preferences_devicePowerSaveMode">(G1)(R) Modalità di risparmio energetico</string>
-    <string name="event_preferences_bluetooth_devices_type">Tipo di dispositivi rilevati</string>
-    <string name="array_event_pref_bluetoothDevicesType_classic">Normale [CL]</string>
-    <string name="array_event_pref_bluetoothDevicesType_le">Basso consumo energetico [LE]</string>
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Durata scansione Bluetooth in modalità LE (sec)</string>
     <string name="phone_profiles_pref_category_wifi_scanning">Scansione Wi-Fi</string>
     <string name="phone_profiles_pref_category_bluetooth_scanning">Scansione bluetooth</string>
@@ -723,7 +717,6 @@
     <string name="phone_profiles_pref_notificationStatusBarRequired">Necessario per il servizio background PhoneProfileService</string>
     <string name="event_preferences_event_priorityInfo_summary">Funzionamento: l\'evento non verrà avviato se è in corso un evento con maggiore priorità.</string>
     <string name="profile_preferences_preferenceTypesInfo_title">Tipo di preferenze</string>
-    <string name="event_preference_bluetooth_bt_types">Tipi di Bluetooth: [CL] classico, [LE] basso consumo energetico, [DU] dual.</string>
     <string name="event_preference_sensor_time_summary">Questo sensore serve per avviare eventi legati all\'orologio. Parametri: Giorni della settimana, Ora di inizio, Ora di fine.</string>
     <string name="event_preference_sensor_calendar_summary">Questo sensore serve per avviare eventi legati al calendario. Parametri: Calendario, Campo di ricerca (Nome dell\'evento, Descrizione, …), Stringa di ricerca, Ignora gli eventi \"Tutto il giorno\", Disponibilità (Occupato, Libero, …).</string>
     <string name="event_preference_sensor_battery_summary">Questo sensore serve per avviare eventi legati allo stato della batteria. Parametri: Livello inferiore, Livello superiore, Ricarica, Modalità di risparmio energetico.</string>
@@ -1307,6 +1300,8 @@
     <string name="array_pref_afterProfileDurationDo_activateProfile">Activate specific profile</string>
     <string name="profile_preferences_afterDurationProfile">Profile to activate</string>
     <string name="altype_afterDuration_specificProfile">after duration expires - specific profile</string>
+    <string name="notification_not_used_mobile_cell_disable">Disable</string>
+    <string name="notification_channel_donation">Donation</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1420,4 +1415,8 @@
     <!--    <string name="donation_google_android_market">Google Play Store</string>-->
     <!--    <string name="donation_google_android_market_text">How much?</string>-->
     <!--    <string name="donation_google_android_market_donate_button">Donate</string>-->
+    <!--    <string name="event_preferences_bluetooth_devices_type">Scanned devices type</string>-->
+    <!--    <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CL]</string>-->
+    <!--    <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>-->
+    <!--    <string name="event_preference_bluetooth_bt_types">Bluetooth types: [CL] classic, [LE] low energy, [DU] dual.</string>-->
 </resources>

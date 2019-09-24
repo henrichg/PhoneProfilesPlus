@@ -251,7 +251,6 @@
     <string name="event_preferences_category_eventWifiParameters">Senzor Wi-Fi</string>
     <string name="event_preferences_wifi_ssid">SSID</string>
     <string name="pref_event_wifi_ssid">SSID</string>
-    <string name="pref_event_wifi_connectionType">Připojení</string>
     <string name="array_event_pref_wifiConnectionType_connected">Připojeno</string>
     <string name="array_event_pref_wifiConnectionType_inFront">Nedaleko (v rozsahu skenování)</string>
     <string name="event_preferences_wifi_connection_type">Typ připojení</string>
@@ -279,8 +278,6 @@
     <string name="event_type_bluetooth">Bluetooth</string>
     <string name="event_preferences_category_eventBluetoothParameters">Senzor Bluetooth</string>
     <string name="event_preferences_bluetooth_adapter_name">Jméno Bluetooth</string>
-    <string name="pref_event_bluetooth_adapterName">Jméno BT</string>
-    <string name="pref_event_bluetooth_connectionType">Připojení</string>
     <string name="array_event_pref_bluetoothConnectionType_connected">Připojené</string>
     <string name="array_event_pref_bluetoothConnectionType_inFront">Nedaleko (v rozsahu skenování)</string>
     <string name="event_preferences_bluetooth_connection_type">Typ připojení</string>
@@ -451,9 +448,6 @@
     <string name="important_info_profile_wifiScanning_location">V Android 6+, pro skenování Wi-Fi musí být povolena Poloha a \"Vyhledávání sítí Wi-Fi\" v nastaveních Polohy.</string>
     <string name="important_info_profile_bluetoothScanning_location">V Android 6+, pro Bluetooth LE skenování musí být povolena Poloha a \"Hledání zařízení Bluetooth\" v nastavení Polohy.</string>
     <string name="profile_preferences_devicePowerSaveMode">(G1)(R) Úsporný režim</string>
-    <string name="event_preferences_bluetooth_devices_type">Skenované typy zařízení</string>
-    <string name="array_event_pref_bluetoothDevicesType_classic">Klasické [CL]</string>
-    <string name="array_event_pref_bluetoothDevicesType_le">Nízkoenergetické [LE]</string>
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Trvání skenování Bluetooth LE (sek.)</string>
     <string name="phone_profiles_pref_category_wifi_scanning">Skenování Wi-Fi</string>
     <string name="phone_profiles_pref_category_bluetooth_scanning">Skenování Bluetooth</string>
@@ -723,7 +717,6 @@
     <string name="phone_profiles_pref_notificationStatusBarRequired">Vyžadováno pro službu v pozadí PhoneProfilesService</string>
     <string name="event_preferences_event_priorityInfo_summary">Funkcionalita priority: událost se nespustí, pokud je spuštěna událost s vyšší prioritou.</string>
     <string name="profile_preferences_preferenceTypesInfo_title">Typy parametrů</string>
-    <string name="event_preference_bluetooth_bt_types">Typy Bluetooth: [CL] klasické, [LE] nízkoenergetické, [DU] duální.</string>
     <string name="event_preference_sensor_time_summary">Tento senzor je pro start události podle času. Parametry: Čas začátku, Čas konce, Dny v týdnu.</string>
     <string name="event_preference_sensor_calendar_summary">Tento senzor je pro start události podle události v kalendáři. Parametry: Kalendáře, Hledat v položce (Název události, Popis, atd.), Hledaný řetězec, ignoruj \"celodenní\" události, Dostupnost (Zaneprázdněný, K dispozici, atd.).</string>
     <string name="event_preference_sensor_battery_summary">Tento senzor je pro start události podle úrovně spotřeby baterie. Parametry: Spodní úroveň, Horní úroveň, Nabíjení, Úsporný režim.</string>
@@ -1307,6 +1300,8 @@
     <string name="array_pref_afterProfileDurationDo_activateProfile">Aktivovat specifický profil</string>
     <string name="profile_preferences_afterDurationProfile">Profil, který aktivovat</string>
     <string name="altype_afterDuration_specificProfile">po uplynutí trvání - aktivace specifického profilu</string>
+    <string name="notification_not_used_mobile_cell_disable">Disable</string>
+    <string name="notification_channel_donation">Donation</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1420,4 +1415,8 @@
     <!--    <string name="donation_google_android_market">Google Play Store</string>-->
     <!--    <string name="donation_google_android_market_text">How much?</string>-->
     <!--    <string name="donation_google_android_market_donate_button">Donate</string>-->
+    <!--    <string name="event_preferences_bluetooth_devices_type">Scanned devices type</string>-->
+    <!--    <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CL]</string>-->
+    <!--    <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>-->
+    <!--    <string name="event_preference_bluetooth_bt_types">Bluetooth types: [CL] classic, [LE] low energy, [DU] dual.</string>-->
 </resources>

@@ -251,7 +251,6 @@
     <string name="event_preferences_category_eventWifiParameters">Wi-Fi sensor</string>
     <string name="event_preferences_wifi_ssid">SSID</string>
     <string name="pref_event_wifi_ssid">SSID</string>
-    <string name="pref_event_wifi_connectionType">連線</string>
     <string name="array_event_pref_wifiConnectionType_connected">已連接</string>
     <string name="array_event_pref_wifiConnectionType_inFront">附近 (在掃描範圍內)</string>
     <string name="event_preferences_wifi_connection_type">連線類型</string>
@@ -279,8 +278,6 @@
     <string name="event_type_bluetooth">Bluetooth</string>
     <string name="event_preferences_category_eventBluetoothParameters">Bluetooth sensor</string>
     <string name="event_preferences_bluetooth_adapter_name">藍牙名稱</string>
-    <string name="pref_event_bluetooth_adapterName">BT 名字</string>
-    <string name="pref_event_bluetooth_connectionType">連接</string>
     <string name="array_event_pref_bluetoothConnectionType_connected">已連接</string>
     <string name="array_event_pref_bluetoothConnectionType_inFront">附近 (在掃描範圍內)</string>
     <string name="event_preferences_bluetooth_connection_type">連線類型</string>
@@ -451,9 +448,6 @@
     <string name="important_info_profile_wifiScanning_location">在 Android 6+，Wi-Fi 掃描必須在位置設定中啟用位置和\"Wi-Fi 掃描\"。</string>
     <string name="important_info_profile_bluetoothScanning_location">在 Android 6+，藍牙 LE 掃描必須在位置設定中啟用位置和\"Wi-Fi 掃描\"。</string>
     <string name="profile_preferences_devicePowerSaveMode">(G1)(R) 省電模式</string>
-    <string name="event_preferences_bluetooth_devices_type">已掃描的裝置類型</string>
-    <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CL]</string>
-    <string name="array_event_pref_bluetoothDevicesType_le">低能量 [LE]</string>
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">藍牙 LE 掃描持續時間 (秒)</string>
     <string name="phone_profiles_pref_category_wifi_scanning">Wi-fi 掃描中</string>
     <string name="phone_profiles_pref_category_bluetooth_scanning">藍牙掃描中</string>
@@ -723,7 +717,6 @@
     <string name="phone_profiles_pref_notificationStatusBarRequired">Required for PhoneProfilesService background service</string>
     <string name="event_preferences_event_priorityInfo_summary">Priority functionality: Event will not start if another running event has a higher priority level.</string>
     <string name="profile_preferences_preferenceTypesInfo_title">偏好設定類型</string>
-    <string name="event_preference_bluetooth_bt_types">Bluetooth types: [CL] classic, [LE] low energy, [DU] dual.</string>
     <string name="event_preference_sensor_time_summary">本感應器將依照時間啟動事件. 參數: 開始時間, 結束時間, 星期週間.</string>
     <string name="event_preference_sensor_calendar_summary">This sensor will start an event by calendar event. Parameters: Calendars, Search field (Event name, Description, etc.), Search string, Ignore \"All day\" events, Availability (Busy, Free, etc.).</string>
     <string name="event_preference_sensor_battery_summary">This sensor will start an event by battery level. Parameters: Low level, Upper level, Charging, Power save mode.</string>
@@ -1307,6 +1300,8 @@
     <string name="array_pref_afterProfileDurationDo_activateProfile">Activate specific profile</string>
     <string name="profile_preferences_afterDurationProfile">Profile to activate</string>
     <string name="altype_afterDuration_specificProfile">after duration expires - specific profile</string>
+    <string name="notification_not_used_mobile_cell_disable">Disable</string>
+    <string name="notification_channel_donation">Donation</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1420,4 +1415,8 @@
     <!--    <string name="donation_google_android_market">Google Play Store</string>-->
     <!--    <string name="donation_google_android_market_text">How much?</string>-->
     <!--    <string name="donation_google_android_market_donate_button">Donate</string>-->
+    <!--    <string name="event_preferences_bluetooth_devices_type">Scanned devices type</string>-->
+    <!--    <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CL]</string>-->
+    <!--    <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>-->
+    <!--    <string name="event_preference_bluetooth_bt_types">Bluetooth types: [CL] classic, [LE] low energy, [DU] dual.</string>-->
 </resources>

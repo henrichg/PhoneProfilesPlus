@@ -251,7 +251,6 @@
     <string name="event_preferences_category_eventWifiParameters">Wi-Fi-sensor</string>
     <string name="event_preferences_wifi_ssid">SSID</string>
     <string name="pref_event_wifi_ssid">SSID</string>
-    <string name="pref_event_wifi_connectionType">Verbinding</string>
     <string name="array_event_pref_wifiConnectionType_connected">Verbonden</string>
     <string name="array_event_pref_wifiConnectionType_inFront">In de buurt (binnen scanbereik)</string>
     <string name="event_preferences_wifi_connection_type">Verbindingstype</string>
@@ -279,8 +278,6 @@
     <string name="event_type_bluetooth">Bluetooth</string>
     <string name="event_preferences_category_eventBluetoothParameters">Bluetooth sensor</string>
     <string name="event_preferences_bluetooth_adapter_name">Bluetooth naam</string>
-    <string name="pref_event_bluetooth_adapterName">BT naam</string>
-    <string name="pref_event_bluetooth_connectionType">Verbinding</string>
     <string name="array_event_pref_bluetoothConnectionType_connected">Verbonden</string>
     <string name="array_event_pref_bluetoothConnectionType_inFront">In de buurt (binnen scanbereik)</string>
     <string name="event_preferences_bluetooth_connection_type">Verbindingstype</string>
@@ -451,9 +448,6 @@
     <string name="important_info_profile_wifiScanning_location">In Android 6+, moet je voor het scannen van Wi-Fi de locatie modus \"Grote nauwkeurigheid\" kiezen in de locatie-instellingen.</string>
     <string name="important_info_profile_bluetoothScanning_location">In Android 6+, moet je voor het scannen van Bluetooth LE de locatie modus \"Grote nauwkeurigheid\" kiezen in de locatie-instellingen.</string>
     <string name="profile_preferences_devicePowerSaveMode">(G1)(R) energiebesparingsmodus</string>
-    <string name="event_preferences_bluetooth_devices_type">Gescande apparaten type</string>
-    <string name="array_event_pref_bluetoothDevicesType_classic">Klassieke [CL]</string>
-    <string name="array_event_pref_bluetoothDevicesType_le">Lage energie [LE]</string>
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Bluetooth LE scan tijdsduur (sec)</string>
     <string name="phone_profiles_pref_category_wifi_scanning">Wi-Fi scannen</string>
     <string name="phone_profiles_pref_category_bluetooth_scanning">Bluetooth scannen</string>
@@ -686,7 +680,7 @@
     <string name="editor_event_list_item_event_status">Event status indicator</string>
     <string name="editor_event_list_item_profile_start_icon">Begin van de gebeurtenis profiel icoon</string>
     <string name="editor_event_list_item_profile_end_icon">Einde van de event profiel icoon</string>
-    <string name="run_stop_events_indicator">Inschakelen/stop event uitvoeren indicator</string>
+    <string name="run_stop_events_indicator">Inschakelen/uitschakelen event uitvoeren indicator</string>
     <string name="important_info_how_to_show">Deze belangrijke informatie kan worden bekeken in de Editor via het vraagteken-pictogram in de werkbalk.</string>
     <string name="preference_not_allowed_reason_not_supported_by_application">niet ondersteund door programma</string>
     <string name="preference_not_allowed_reason_detail_old_android">oude Android versie</string>
@@ -723,7 +717,6 @@
     <string name="phone_profiles_pref_notificationStatusBarRequired">Vereist voor achtergrond service PhoneProfilesService</string>
     <string name="event_preferences_event_priorityInfo_summary">Prioriteitsfunctionaliteit: gebeurtenis start niet als er een event loopt met hogere prioriteit.</string>
     <string name="profile_preferences_preferenceTypesInfo_title">Soort voorkeuren</string>
-    <string name="event_preference_bluetooth_bt_types">Bluetooth typen: [CL] Klassiek, [LE] Lage Energie, [DU] Dual.</string>
     <string name="event_preference_sensor_time_summary">Deze sensor is voor het starten van een event in de tijd. Parameters: Begintijd, eindtijd, dagen van de week.</string>
     <string name="event_preference_sensor_calendar_summary">Deze sensor start een event door een agenda event. Parameters: Kalenders, zoekveld (onderwerp, beschrijving, etc.), zoek argument, Negeren \"Gehele dag\" afspraken, Beschikbaarheid (bezet, vrij, etc.).</string>
     <string name="event_preference_sensor_battery_summary">Deze sensor is voor het starten van een event door batterijniveau. Parameters: Ondergrens, bovengrens, opladen, modus voor stroombesparing.</string>
@@ -951,7 +944,7 @@
     <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">Oriëntatie scannen inschakelen</string>
     <string name="phone_profiles_pref_applicationEventScanningDisabled">Scannen uitgeschakeld!</string>
     <string name="profile_preferences_applicationDisableMobileCellScanning">Zendmast cel scannen uitschakelen</string>
-    <string name="profile_preferences_applicationDisableOrientationScanning">Oriëntatie scannen uischakelen</string>
+    <string name="profile_preferences_applicationDisableOrientationScanning">Oriëntatie scannen uitschakelen</string>
     <string name="profile_preferences_headsUpNotifications">(G1) (R) Pop-up notificaties</string>
     <string name="event_preferences_PPPExtenderInstallInfo_text">Hoe installeer je PhoneProfilesPlusExtender</string>
     <string name="event_preferences_PPPExtenderInstallInfo_summary">Download de nieuwste versie van PhoneProfilesPlusExtender.apk uit GitHub. Klik dan op de notificatie van de download en installeer de gedownloade apk.</string>
@@ -1088,14 +1081,14 @@
     <string name="permission_why_event_bluetooth_preferences">voor gebruik locatie data in Bluetooth sensor</string>
     <string name="permission_why_event_mobile_cells_preferences">voor gebruik locatie data in Zendmast cel sensor</string>
     <string name="permission_why_event_contacts_preference">voor lezen contacten tijdens configureren</string>
-    <string name="permission_why_profile_notification_led">voor aan- en uitzetten Notificatie LED</string>
-    <string name="permission_why_profile_vibrate_when_ringing">voor aan- en uitzetten trillen bij bellen</string>
+    <string name="permission_why_profile_notification_led">voor aan-/uitzetten Notificatie LED</string>
+    <string name="permission_why_profile_vibrate_when_ringing">voor aan-/uitzetten trillen bij bellen</string>
     <string name="permission_why_play_ringtone_notification">voor afspelen bel- en notificatiegeluiden</string>
     <string name="permission_why_profile_access_notification_policy">voor wijzigen geluidsprofiel, wijzigen bellen, notificatie, systeemvolume</string>
     <string name="permission_why_profile_lock_device">voor schermvergrendeling</string>
     <string name="permission_why_ringtone_preference">voor laden beltonen vanuit opslag</string>
-    <string name="permission_why_profile_dtmf_tone_when_dialing">voor aan- en uitzetten DTMF tonen bij kiezen</string>
-    <string name="permission_why_profile_sound_on_touch">voor aan- en uitzetten van geluid bij aanraken</string>
+    <string name="permission_why_profile_dtmf_tone_when_dialing">voor aan-/uitzetten DTMF tonen bij kiezen</string>
+    <string name="permission_why_profile_sound_on_touch">voor aan-/uitzetten van geluid bij aanraken</string>
     <string name="permission_why_brightness_preference">voor wijzigen helderheid bij configureren</string>
     <string name="permission_why_wallpaper_preference">voor laden van achtergronden vanuit opslag</string>
     <string name="permission_why_custom_profile_icon_preference">voor laden van aangepaste iconen vanuit opslag</string>
@@ -1241,7 +1234,7 @@
     <string name="permission_why_profile_radio_preferences_emui">voor het inschakelen/uitschakelen van mobiele data, het wijzigen van mobiele netwerktype, verbinden met SSID (Wifi), inschakelen/uitschakelen van Bluetooth</string>
     <string name="permission_why_event_bluetooth_preferences_emui">voor schakelaar Bluetooth AAN/UIT in Bluetooth sensor</string>
     <string name="event_preferences_priority_appSettings_enabled">Prioriteit is ingeschakeld</string>
-    <string name="event_preferences_priority_appSettings_disabled">Prioriteit is ingeschakeld</string>
+    <string name="event_preferences_priority_appSettings_disabled">Prioriteit is uitgeschakeld</string>
     <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_enabled">Ontkoppelde volumes is ingeschakeld</string>
     <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_disabled">Ontkoppelde volumes is uitgeschakeld</string>
     <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_merged">Uw apparaat heeft gekoppelde volume levels voor beltoon en meldingen. Klik hier om dit los te koppelen.</string>
@@ -1307,6 +1300,8 @@
     <string name="array_pref_afterProfileDurationDo_activateProfile">Activeer specifiek profiel</string>
     <string name="profile_preferences_afterDurationProfile">Profiel om te activeren</string>
     <string name="altype_afterDuration_specificProfile">na afloop van de tijdsduur - specifiek profiel</string>
+    <string name="notification_not_used_mobile_cell_disable">Uitschakelen</string>
+    <string name="notification_channel_donation">Donatie</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1420,4 +1415,8 @@
     <!--    <string name="donation_google_android_market">Google Play Store</string>-->
     <!--    <string name="donation_google_android_market_text">How much?</string>-->
     <!--    <string name="donation_google_android_market_donate_button">Donate</string>-->
+    <!--    <string name="event_preferences_bluetooth_devices_type">Scanned devices type</string>-->
+    <!--    <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CL]</string>-->
+    <!--    <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>-->
+    <!--    <string name="event_preference_bluetooth_bt_types">Bluetooth types: [CL] classic, [LE] low energy, [DU] dual.</string>-->
 </resources>

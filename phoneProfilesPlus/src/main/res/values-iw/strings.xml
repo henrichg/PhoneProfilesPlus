@@ -251,7 +251,6 @@
     <string name="event_preferences_category_eventWifiParameters">Wi-Fi sensor</string>
     <string name="event_preferences_wifi_ssid">SSID</string>
     <string name="pref_event_wifi_ssid">SSID</string>
-    <string name="pref_event_wifi_connectionType">חיבור</string>
     <string name="array_event_pref_wifiConnectionType_connected">מחובר</string>
     <string name="array_event_pref_wifiConnectionType_inFront">בקרבת מקום (בטווח סריקה)</string>
     <string name="event_preferences_wifi_connection_type">סוג חיבור</string>
@@ -279,8 +278,6 @@
     <string name="event_type_bluetooth">Bluetooth</string>
     <string name="event_preferences_category_eventBluetoothParameters">Bluetooth sensor</string>
     <string name="event_preferences_bluetooth_adapter_name">שם Bluetooth</string>
-    <string name="pref_event_bluetooth_adapterName">שם BT</string>
-    <string name="pref_event_bluetooth_connectionType">חיבור</string>
     <string name="array_event_pref_bluetoothConnectionType_connected">מחובר</string>
     <string name="array_event_pref_bluetoothConnectionType_inFront">בקרבת מקום (בטווח סריקה)</string>
     <string name="event_preferences_bluetooth_connection_type">סוג חיבור</string>
@@ -451,9 +448,6 @@
     <string name="important_info_profile_wifiScanning_location">באנדרואיד 6+, סריקת Wi-Fi מחייבת אפשור של מיקום וסריקת Wi-Fi בהגדרות המיקום.</string>
     <string name="important_info_profile_bluetoothScanning_location">באנדרואיד 6+, סריקת Bluetooth LE מחייבת אפשור של מיקום וסריקת Bluetooth בהגדרות מיקום.</string>
     <string name="profile_preferences_devicePowerSaveMode">(R)(G1) במצב חיסכון בצריכת חשמל</string>
-    <string name="event_preferences_bluetooth_devices_type">סוג ההתקנים שנסרקו</string>
-    <string name="array_event_pref_bluetoothDevicesType_classic">[CL] קלאסי</string>
-    <string name="array_event_pref_bluetoothDevicesType_le">[LE] אנרגיה נמוכה</string>
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">משך סריקת Bluetooth LE (שניות)</string>
     <string name="phone_profiles_pref_category_wifi_scanning">סריקת Wi-fi</string>
     <string name="phone_profiles_pref_category_bluetooth_scanning">סריקת Bluetooth</string>
@@ -726,7 +720,6 @@
     <string name="phone_profiles_pref_notificationStatusBarRequired">נדרש לשירות הרקע PhoneProfilesService</string>
     <string name="event_preferences_event_priorityInfo_summary">פונקציונליות עדיפות: האירוע לא יופעל אם כבר פועל אירוע בעל עדיפות גבוהה יותר.</string>
     <string name="profile_preferences_preferenceTypesInfo_title">סוג של העדפות</string>
-    <string name="event_preference_bluetooth_bt_types">סוגי Bluetooth: [CL] קלאסי, [LE] אנרגיה נמוכה, [DU] כפול.</string>
     <string name="event_preference_sensor_time_summary">חיישן זה הוא לצורך תחילת האירוע עפ\"י זמן. פרמטרים: שעת התחלה, שעת סיום, ימי השבוע.</string>
     <string name="event_preference_sensor_calendar_summary">חיישן זה נועד להתחלת אירוע עפ\"י אירוע בלוח שנה. פרמטרים: לוחות שנה, שדה חיפוש (שם האירוע, תיאור,…), מחרוזת החיפוש, להתעלם מאירועי \"כל היום\", זמינות (עסוק, פנוי,…).</string>
     <string name="event_preference_sensor_battery_summary">חיישן זה נועד להתחלת אירוע עפ\"י רמת הסוללה. פרמטרים: סף נמוך, סף גבוה, מצב טעינה, מצב חיסכון בחשמל.</string>
@@ -1310,6 +1303,8 @@
     <string name="array_pref_afterProfileDurationDo_activateProfile">Activate specific profile</string>
     <string name="profile_preferences_afterDurationProfile">Profile to activate</string>
     <string name="altype_afterDuration_specificProfile">after duration expires - specific profile</string>
+    <string name="notification_not_used_mobile_cell_disable">Disable</string>
+    <string name="notification_channel_donation">Donation</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1423,4 +1418,8 @@
     <!--    <string name="donation_google_android_market">Google Play Store</string>-->
     <!--    <string name="donation_google_android_market_text">How much?</string>-->
     <!--    <string name="donation_google_android_market_donate_button">Donate</string>-->
+    <!--    <string name="event_preferences_bluetooth_devices_type">Scanned devices type</string>-->
+    <!--    <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CL]</string>-->
+    <!--    <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>-->
+    <!--    <string name="event_preference_bluetooth_bt_types">Bluetooth types: [CL] classic, [LE] low energy, [DU] dual.</string>-->
 </resources>

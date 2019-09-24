@@ -251,7 +251,6 @@
     <string name="event_preferences_category_eventWifiParameters">Capteur WiFi</string>
     <string name="event_preferences_wifi_ssid">SSID</string>
     <string name="pref_event_wifi_ssid">SSID</string>
-    <string name="pref_event_wifi_connectionType">Connexion</string>
     <string name="array_event_pref_wifiConnectionType_connected">Connecté</string>
     <string name="array_event_pref_wifiConnectionType_inFront">À proximité (dans la zone de balayage)</string>
     <string name="event_preferences_wifi_connection_type">Type de connexion</string>
@@ -279,8 +278,6 @@
     <string name="event_type_bluetooth">Bluetooth</string>
     <string name="event_preferences_category_eventBluetoothParameters">Capteur bluetooth</string>
     <string name="event_preferences_bluetooth_adapter_name">Nom Bluetooth</string>
-    <string name="pref_event_bluetooth_adapterName">Nom BT</string>
-    <string name="pref_event_bluetooth_connectionType">Connexion</string>
     <string name="array_event_pref_bluetoothConnectionType_connected">Connecté</string>
     <string name="array_event_pref_bluetoothConnectionType_inFront">À proximité (dans la zone de balayage)</string>
     <string name="event_preferences_bluetooth_connection_type">Type de connexion</string>
@@ -451,9 +448,6 @@
     <string name="important_info_profile_wifiScanning_location">Dans Android 6+, pour pouvoir scanner le wifi il faut valider la localisation wifi dans les paramètre de localisation.</string>
     <string name="important_info_profile_bluetoothScanning_location">Dans Android 6+, pour pouvoir scanner le Bluetooth il faut le valider dans les paramètres de localisation.</string>
     <string name="profile_preferences_devicePowerSaveMode">(G1)(R) mode économie d\'énergie</string>
-    <string name="event_preferences_bluetooth_devices_type">Type de dispositifs scannés</string>
-    <string name="array_event_pref_bluetoothDevicesType_classic">[CL] classique</string>
-    <string name="array_event_pref_bluetoothDevicesType_le">Faible consommation d\'énergie [LE]</string>
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Durée de balayage Bluetooth LE (s)</string>
     <string name="phone_profiles_pref_category_wifi_scanning">Balayage du Wi-fi</string>
     <string name="phone_profiles_pref_category_bluetooth_scanning">Balayage du Bluetooth</string>
@@ -723,7 +717,6 @@
     <string name="phone_profiles_pref_notificationStatusBarRequired">Requis pour le service d\'arrière plan : PhoneProfilesService</string>
     <string name="event_preferences_event_priorityInfo_summary">Fonctionnalité de priorité : l\'événement ne sera pas démarré, si un événement s\'exécute avec une priorité plus élevée.</string>
     <string name="profile_preferences_preferenceTypesInfo_title">Type de préférences</string>
-    <string name="event_preference_bluetooth_bt_types">Types de Bluetooth : [CL] classique, [LE] basse énergie, [DU] double.</string>
     <string name="event_preference_sensor_time_summary">Ce capteur est pour démarrer un l’événement par le temps. Paramètres : Heure de début, heure de fin, jours de la semaine.</string>
     <string name="event_preference_sensor_calendar_summary">Ce capteur est pour démarrer un événement à partir du calendrier. Paramètres : Calendriers, champ de recherche (titre, Description, …), chaîne de recherche, ignorer les événements \"répétitif tous les jours\", disponibilité (occupé, libre, …).</string>
     <string name="event_preference_sensor_battery_summary">Ce capteur est pour démarrer un événement en fonction du niveau de batterie. Paramètres : Niveau inférieur, niveau supérieur, chargement, mode économie d’énergie.</string>
@@ -1056,7 +1049,7 @@
     <string name="permission_group_name_draw_overlays_miui">Afficher les fenêtres pop-up</string>
     <string name="permissions_draw_overlays_not_allowed_confirm_miui">Vous n\'avez pas activé \"Afficher la fenêtre pop-up\". Ne plus demander ?</string>
     <string name="stop_events_alert_title">Stopper les évènements</string>
-    <string name="stop_events_alert_message">T\'es sûr de toi ?</string>
+    <string name="stop_events_alert_message">Êtes-vous certain ?</string>
     <string name="array_event_pref_incall_ended">Fin de l\'appel entrant</string>
     <string name="array_event_pref_outcall_ended">Fin de l\'appel sortant</string>
     <string name="array_pref_screenTimeoutArray_30minutes">30 minutes</string>
@@ -1307,6 +1300,8 @@
     <string name="array_pref_afterProfileDurationDo_activateProfile">Activer le profil spécifique</string>
     <string name="profile_preferences_afterDurationProfile">Profil à activer</string>
     <string name="altype_afterDuration_specificProfile">lorsque la durée est écoulée - profil spécifique</string>
+    <string name="notification_not_used_mobile_cell_disable">Désactivé</string>
+    <string name="notification_channel_donation">Don</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1420,4 +1415,8 @@
     <!--    <string name="donation_google_android_market">Google Play Store</string>-->
     <!--    <string name="donation_google_android_market_text">How much?</string>-->
     <!--    <string name="donation_google_android_market_donate_button">Donate</string>-->
+    <!--    <string name="event_preferences_bluetooth_devices_type">Scanned devices type</string>-->
+    <!--    <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CL]</string>-->
+    <!--    <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>-->
+    <!--    <string name="event_preference_bluetooth_bt_types">Bluetooth types: [CL] classic, [LE] low energy, [DU] dual.</string>-->
 </resources>

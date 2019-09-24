@@ -251,7 +251,6 @@
     <string name="event_preferences_category_eventWifiParameters">Wi-Fi 传感器</string>
     <string name="event_preferences_wifi_ssid">SSID</string>
     <string name="pref_event_wifi_ssid">SSID</string>
-    <string name="pref_event_wifi_connectionType">连接​​​​​​​​</string>
     <string name="array_event_pref_wifiConnectionType_connected">已连接</string>
     <string name="array_event_pref_wifiConnectionType_inFront">附近 (扫描范围内)</string>
     <string name="event_preferences_wifi_connection_type">连接类型</string>
@@ -279,8 +278,6 @@
     <string name="event_type_bluetooth">蓝牙</string>
     <string name="event_preferences_category_eventBluetoothParameters">蓝牙传感器</string>
     <string name="event_preferences_bluetooth_adapter_name">蓝牙名称</string>
-    <string name="pref_event_bluetooth_adapterName">蓝牙名称</string>
-    <string name="pref_event_bluetooth_connectionType">连接​​​​​​​​</string>
     <string name="array_event_pref_bluetoothConnectionType_connected">已连接</string>
     <string name="array_event_pref_bluetoothConnectionType_inFront">附近 (扫描范围内)</string>
     <string name="event_preferences_bluetooth_connection_type">连接类型</string>
@@ -451,9 +448,6 @@
     <string name="important_info_profile_wifiScanning_location">在 Android 6+ 设备中，必须在定位设置中启用定位和“Wi-Fi 扫描”选项以启用 Wi-Fi 扫描。</string>
     <string name="important_info_profile_bluetoothScanning_location">在 Android 6+ 设备中，必须在定位设置中启用定位和“蓝牙扫描”选项以启用蓝牙 LE 扫描。</string>
     <string name="profile_preferences_devicePowerSaveMode">(G1)(R) 省电模式</string>
-    <string name="event_preferences_bluetooth_devices_type">扫描设备类型</string>
-    <string name="array_event_pref_bluetoothDevicesType_classic">经典 [CL]</string>
-    <string name="array_event_pref_bluetoothDevicesType_le">电量低 [LE]</string>
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">蓝牙 LE 扫描持续时间(秒)</string>
     <string name="phone_profiles_pref_category_wifi_scanning">Wi-Fi 扫描</string>
     <string name="phone_profiles_pref_category_bluetooth_scanning">蓝牙扫描</string>
@@ -489,7 +483,7 @@
     <string name="info_notification_event_states_paused_delay">延迟暂停: 事件已开始，但在延迟中等待。事件参数已满足。</string>
     <string name="event_preferences_calendar_ignore_all_day_events">忽略“全天”事件</string>
     <string name="important_info_default_profile">当没有任何事件在运行时，如果已经设置，则激活的是“默认情景”。您可以在应用程序设定中的“情景激活”来设置默认情景。按这里进行设置。</string>
-    <string name="important_info_how_does_volume_separation_work_title">“不关联铃声和通知音量”是如何工作的：</string>
+    <string name="important_info_how_does_volume_separation_work_title">”取消关联音量”是如何工作的：</string>
     <string name="important_info_how_does_volume_separation_work">设备音量由情景激活中的情景通知来调整音量级别。当检测到电话响了时，来电音量级别从激活情景中获取。通话完毕后，通知音量从恢复的情景中获取。</string>
     <string name="event_type_locations">定位</string>
     <string name="event_preferences_category_eventLocationsParameters">位置传感器</string>
@@ -710,7 +704,7 @@
     <string name="profile_preferences_category_profileDeviceParameters">设备参数</string>
     <string name="profile_preferences_volumeNotificationVolume0_title">更改通知提示音</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">已设置通知提示音为“PhoneProfiles 无声”</string>
-    <string name="info_notification_unlink_ringer_notification_volumes">您的设备已关联铃声和通知的音量级别。您可以使用“取消链接振铃和通知卷”。单击此处进行配置。</string>
+    <string name="info_notification_unlink_ringer_notification_volumes">您的设备已关联铃声和通知的音量级别。您可以使用“取消关联铃声和通知音量”。单击此处进行配置。</string>
     <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">您的设备已关联铃声和通知音量。如果要取消关联音量，请启用此参数。</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings">使用优先级</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">在应用程序设置中启用参数“优先级”的使用。</string>
@@ -723,7 +717,6 @@
     <string name="phone_profiles_pref_notificationStatusBarRequired">后台服务 PhoneProfilesService 必需</string>
     <string name="event_preferences_event_priorityInfo_summary">优先权功能：如果正在运行具有较高优先级的事件，本事件将不会启动。</string>
     <string name="profile_preferences_preferenceTypesInfo_title">设置类型</string>
-    <string name="event_preference_bluetooth_bt_types">蓝牙类型：[CL] 经典，[LE] 低能耗，[DU] 双模式。</string>
     <string name="event_preference_sensor_time_summary">此传感器用于按时间启动事件。参数：开始时间、结束时间、周内日。</string>
     <string name="event_preference_sensor_calendar_summary">此传感器用于按日程安排启动事件。参数：日历，搜索字段 (事件名称、 说明等)，搜索字符串，忽略“全天”事件，可用性 (忙、 自由等)。</string>
     <string name="event_preference_sensor_battery_summary">此传感器用于按电池电量启动事件。参数：低电量、高电量、正在充电、节电模式。</string>
@@ -902,8 +895,8 @@
     <string name="mobile_cell_names_dialog_filter_title">单元名称过滤</string>
     <string name="mobile_cell_names_dialog_item_show_selected">[ 已选择 ]</string>
     <string name="mobile_cell_names_dialog_item_show_without_name">[ 没有名字 ]</string>
-    <string name="mobile_cell_names_dialog_item_show_new">[ New (N) ]</string>
-    <string name="mobile_cell_names_dialog_item_show_all">[ All ]</string>
+    <string name="mobile_cell_names_dialog_item_show_new">[ 新建 (N) ]</string>
+    <string name="mobile_cell_names_dialog_item_show_all">[ 所有 ]</string>
     <string name="array_pref_change_selection_mobile_cells_select_all_visible">选择全部可见</string>
     <string name="array_pref_mobile_cells_rename_all_visible">全部可见</string>
     <string name="import_profiles_alert_error_database_newer_version">备份的数据库是较新的版本。</string>
@@ -1077,7 +1070,7 @@
     <string name="permission_why_profile_autorotation">用于更改屏幕旋转</string>
     <string name="permission_why_profile_wallpaper">用于更改壁纸</string>
     <string name="permission_why_profile_radio_preferences">用于启用/禁用移动数据，更改移动网络类型，连接到SSID</string>
-    <string name="permission_why_profile_phone_state_broadcast">要取消链接振铃和通知音量，请在通话期间启用/禁用免提通话</string>
+    <string name="permission_why_profile_phone_state_broadcast">要取消关联铃声和通知音量，请在通话期间启用/禁用免提通话</string>
     <string name="permission_why_profile_custom_profile_icon">自定义配置文件图标</string>
     <string name="permission_why_export">用于将备份数据保存到存储中</string>
     <string name="permission_why_import">用于从存储加载备份数据</string>
@@ -1105,7 +1098,7 @@
     <string name="exit_application_alert_message">你确定吗？</string>
     <string name="phone_profiles_pref_notificationShowButtonExit">显示按钮“退出”</string>
     <string name="altype_applicationUpgrade">应用升级</string>
-    <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary">您的设备没有用于铃声和通知的已连接音量。</string>
+    <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary">您的设备没有关联铃声和通知音量。</string>
     <string name="phone_profiles_pref_category_widget_list">小部件：列表</string>
     <string name="phone_profiles_pref_category_widget_icon_shortcut">小部件：图标; 快捷方式</string>
     <string name="title_activity_shortcut_creator">快捷方式</string>
@@ -1168,7 +1161,7 @@
     <string name="default_profile_name_battery_ok">好的电池</string>
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A)应用程序</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S)快捷方式</string>
-    <string name="applications_editor_dialog_not_selected">[not selected]</string>
+    <string name="applications_editor_dialog_not_selected">[未选中]</string>
     <string name="activate_profile_application_not_started">应用程序未启动</string>
     <string name="phone_profiles_pref_notificationBackgroundColor">背景颜色</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_android">本地</string>
@@ -1211,8 +1204,8 @@
     <string name="application_editor_intent_extras">参数:</string>
     <string name="application_editor_intent_categories">分类：</string>
     <string name="application_editor_intent_categories_dlg_title">分类</string>
-    <string name="application_editor_intent_flags">Flags:</string>
-    <string name="application_editor_intent_flags_dlg_title">Flags</string>
+    <string name="application_editor_intent_flags">标记：</string>
+    <string name="application_editor_intent_flags_dlg_title">标记</string>
     <string name="application_editor_intent_test_button">测试</string>
     <string name="application_editor_intent_extra_key">键名称</string>
     <string name="application_editor_intent_extra_value">键值</string>
@@ -1237,15 +1230,15 @@
     <string name="info_notification_event_not_started_2">你禁用了全局事件运行 (显示红灯) - 请在编辑器菜单中点击“允许运行事件”以启用事件运行功能。</string>
     <string name="info_notification_event_not_started_3">你手工激活了情景 (显示黄灯) - 必须重新运行事件。使用激活清单、编辑器或通知中的“重新启动事件”图标。手动激活的情景在情景名称前用“[M]”标记。例外的情况：如果事件设置中选中了“忽略手工激活”，则事件仍会运行。</string>
     <string name="info_notification_event_not_started_4">你在事件设置中禁止了事件运行 - 必须在事件设置中选中“允许运行”选项n注意：“红绿灯”在激活清单和编辑器的标题中显示。</string>
-    <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary">If Mobile cells scanning not working, enable Location in System Settings.</string>
-    <string name="permission_why_profile_radio_preferences_emui">for enable/disable mobile data, change mobile network type, connect to SSID, enable/disable Bluetooth</string>
-    <string name="permission_why_event_bluetooth_preferences_emui">for switch Bluetooth ON/OFF in Bluetooth sensor</string>
-    <string name="event_preferences_priority_appSettings_enabled">Priority is enabled</string>
-    <string name="event_preferences_priority_appSettings_disabled">Priority is disabled</string>
-    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_enabled">Unlink volumes is enabled</string>
-    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_disabled">Unlink volumes is disabled</string>
-    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_merged">Your device has linked volume levels for ringtone and notifications. Click here to configure unlink.</string>
-    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_not_merged">Your device does not have linked volume levels for ringtone and notifications. Click here to configure unlink.</string>
+    <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary">如果基站扫描不工作，在系统设置中启用定位。</string>
+    <string name="permission_why_profile_radio_preferences_emui">用于启用/禁用移动数据，更改移动网络类型，连接到SSID，启用/禁用蓝牙</string>
+    <string name="permission_why_event_bluetooth_preferences_emui">用于在蓝牙传感器中切换蓝牙开启/关闭</string>
+    <string name="event_preferences_priority_appSettings_enabled">已启用优先级</string>
+    <string name="event_preferences_priority_appSettings_disabled">已禁用优先级</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_enabled">取消关联音量已启用</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_disabled">取消关联音量已禁用</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_merged">您的设备已关联铃声和通知的音量级别。单击此处配置取消关联。</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_not_merged">您的设备未关联铃声和通知的音量级别。单击此处配置取消关联。</string>
     <string name="phone_profiles_pref_applicationPowerParametersCategory">Battery and power</string>
     <string name="phone_profiles_pref_applicationOtherParametersCategory">Other</string>
     <string name="activity_log_header_log_time">Log time</string>
@@ -1265,7 +1258,7 @@
     <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">Notification tone \"None\" is configured.</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">For truly silent notification volume, configure notification tone to \"PhoneProfiles Silent\" or \"None\".</string>
     <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it in profile parameter \"Sounds\".</string>
-    <string name="phone_profiles_pref_UnlinkRingerNotificationVolumesImportantInfo_importantInfo_summary">Click here to show how \"Unlink ringer and notification volumes\" works.</string>
+    <string name="phone_profiles_pref_UnlinkRingerNotificationVolumesImportantInfo_importantInfo_summary">点击此处查看”取消关联音量”是如何工作的。</string>
     <string name="profile_preferences_volumeSoundMode">Sound mode</string>
     <string name="array_pref_soundModeArray_sound">Sound</string>
     <string name="array_pref_soundModeArray_vibration">Vibration</string>
@@ -1307,6 +1300,8 @@
     <string name="array_pref_afterProfileDurationDo_activateProfile">Activate specific profile</string>
     <string name="profile_preferences_afterDurationProfile">Profile to activate</string>
     <string name="altype_afterDuration_specificProfile">after duration expires - specific profile</string>
+    <string name="notification_not_used_mobile_cell_disable">Disable</string>
+    <string name="notification_channel_donation">Donation</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1420,4 +1415,8 @@
     <!--    <string name="donation_google_android_market">Google Play Store</string>-->
     <!--    <string name="donation_google_android_market_text">How much?</string>-->
     <!--    <string name="donation_google_android_market_donate_button">Donate</string>-->
+    <!--    <string name="event_preferences_bluetooth_devices_type">Scanned devices type</string>-->
+    <!--    <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CL]</string>-->
+    <!--    <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>-->
+    <!--    <string name="event_preference_bluetooth_bt_types">Bluetooth types: [CL] classic, [LE] low energy, [DU] dual.</string>-->
 </resources>

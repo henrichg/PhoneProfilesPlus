@@ -251,7 +251,6 @@
     <string name="event_preferences_category_eventWifiParameters">WLAN-Sensor</string>
     <string name="event_preferences_wifi_ssid">SSID</string>
     <string name="pref_event_wifi_ssid">SSID</string>
-    <string name="pref_event_wifi_connectionType">Verbindung</string>
     <string name="array_event_pref_wifiConnectionType_connected">Verbunden</string>
     <string name="array_event_pref_wifiConnectionType_inFront">In der Nähe (innerhalb Scan-Reichweite)</string>
     <string name="event_preferences_wifi_connection_type">Verbindungstyp</string>
@@ -279,8 +278,6 @@
     <string name="event_type_bluetooth">Bluetooth</string>
     <string name="event_preferences_category_eventBluetoothParameters">Bluetooth Ereignisse</string>
     <string name="event_preferences_bluetooth_adapter_name">Bluetooth-Name</string>
-    <string name="pref_event_bluetooth_adapterName">BT-Name</string>
-    <string name="pref_event_bluetooth_connectionType">Verbindung</string>
     <string name="array_event_pref_bluetoothConnectionType_connected">Verbunden</string>
     <string name="array_event_pref_bluetoothConnectionType_inFront">In der Nähe (innerhalb Scan-Reichweite)</string>
     <string name="event_preferences_bluetooth_connection_type">Verbindungstyp</string>
@@ -451,9 +448,6 @@
     <string name="important_info_profile_wifiScanning_location">In Android 6+ muss die Suche nach GPS und WLAN in den Standorteinstellungen aktiviert sein, damit WLAN-Netze gefunden werden können.</string>
     <string name="important_info_profile_bluetoothScanning_location">In Android 6+ müssen GPS und Bluetooth-Scan in den Standorteinstellungen aktiviert sein, damit Bluetooth-LE-Scan funktioniert.</string>
     <string name="profile_preferences_devicePowerSaveMode">(G1)(R) Energiesparmodus</string>
-    <string name="event_preferences_bluetooth_devices_type">Gescannter Gerätetyp</string>
-    <string name="array_event_pref_bluetoothDevicesType_classic">Klassisch [CL]</string>
-    <string name="array_event_pref_bluetoothDevicesType_le">Niedriger Energieverbrauch [LE]</string>
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Bluetooth-Scan-Dauer (sek)</string>
     <string name="phone_profiles_pref_category_wifi_scanning">WLAN-Suche</string>
     <string name="phone_profiles_pref_category_bluetooth_scanning">Bluetooth-Suche</string>
@@ -723,7 +717,6 @@
     <string name="phone_profiles_pref_notificationStatusBarRequired">Benötigt für Hintergrunddienst PhoneProfilesService</string>
     <string name="event_preferences_event_priorityInfo_summary">Prioritäten: Ereignisse werden nicht gestartet, wenn ein Ereignis mit höherer Priorität läuft.</string>
     <string name="profile_preferences_preferenceTypesInfo_title">Einstellungsarten</string>
-    <string name="event_preference_bluetooth_bt_types">Bluetooth-Typen: [CL]=classic, [LE]=low energy=wenig Energie, [DU]=dual</string>
     <string name="event_preference_sensor_time_summary">Dieser Parameter ist für den Start nach Zeit: Startzeit, Endzeit, Wochentage</string>
     <string name="event_preference_sensor_calendar_summary">Dieser Parameter ist für den Start nach Kalender: Kalender, Suchfeld (Terminname, Beschreibung, …), Suchbegriff, ganztägige Termine ignorieren, Verfügbarkeit (beschäftigt, verfügbar, …).</string>
     <string name="event_preference_sensor_battery_summary">Dieser Parameter ist für den Start nach Akkustand: Niedrigster Stand, höchster Stand, ladend, Akkuschonmodus.</string>
@@ -1049,7 +1042,7 @@
     <string name="phone_profiles_pref_applicationEventScanningDisabledByProfile">Sensoren sind durch Profil abgeschalten.</string>
     <string name="alert_message_enable_event_check_box">Nicht erneut fragen/anzeigen.</string>
     <string name="phone_profiles_pref_applicationUseAlarmClock">Wecker verwenden</string>
-    <string name="phone_profiles_pref_applicationUseAlarmClock_summary">Profil und Ereignisdauer, Zeitsensor, Kalendersensor, Ereignisse verzögert starten/beenden sind nicht exakt, wenn der Bildschirm ausgeschaltet ist. Aktivieren Sie diesen Parameter, um ihn genau einzustellen. Das Weckersymbol wird in der Statusleiste angezeigt.</string>
+    <string name="phone_profiles_pref_applicationUseAlarmClock_summary">Profil und Ereignisdauer, Zeitsensor, Kalendersensor, Ereignise verzögert starten/beenden sind nicht exakt, wenn der Bildschirm ausgeschaltet ist. Aktivieren Sie diesen Parameter, um ihn genau einzustellen. Das Weckersymbol wird in der Statusleiste angezeigt.</string>
     <string name="important_info_useAlarmClock">Profil und Ereignisdauer, Zeitsensor, Kalendersensor, Ereignisse verzögert starten/beenden sind nicht exakt, wenn der Bildschirm ausgeschaltet ist. Aktivieren Sie im Einstellungsparameter „System” ➜ „Wecker verwenden”, um ihn genau einzustellen. Das Weckersymbol wird in der Statusleiste angezeigt.</string>
     <string name="nfc_tag_pref_dlg_change_tag_name">Ändere Bezeichnung</string>
     <string name="event_preferences_not_set_underlined_parameters">Unterstrichene Einstellungen sind nicht eingerichtet.</string>
@@ -1308,6 +1301,8 @@ und die Systemlautstärke zu ändern</string>
     <string name="array_pref_afterProfileDurationDo_activateProfile">Bestimmtes Profil aktivieren</string>
     <string name="profile_preferences_afterDurationProfile">Zu aktivierendes Profil</string>
     <string name="altype_afterDuration_specificProfile">nach Ablauf der Dauer - spezifisches Profil</string>
+    <string name="notification_not_used_mobile_cell_disable">Disable</string>
+    <string name="notification_channel_donation">Donation</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1421,4 +1416,8 @@ und die Systemlautstärke zu ändern</string>
     <!--    <string name="donation_google_android_market">Google Play Store</string>-->
     <!--    <string name="donation_google_android_market_text">How much?</string>-->
     <!--    <string name="donation_google_android_market_donate_button">Donate</string>-->
+    <!--    <string name="event_preferences_bluetooth_devices_type">Scanned devices type</string>-->
+    <!--    <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CL]</string>-->
+    <!--    <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>-->
+    <!--    <string name="event_preference_bluetooth_bt_types">Bluetooth types: [CL] classic, [LE] low energy, [DU] dual.</string>-->
 </resources>

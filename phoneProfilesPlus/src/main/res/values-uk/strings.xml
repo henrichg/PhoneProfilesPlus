@@ -251,7 +251,6 @@
     <string name="event_preferences_category_eventWifiParameters">Датчик Wi-Fi</string>
     <string name="event_preferences_wifi_ssid">SSID</string>
     <string name="pref_event_wifi_ssid">SSID</string>
-    <string name="pref_event_wifi_connectionType">З\'єднання</string>
     <string name="array_event_pref_wifiConnectionType_connected">З\'єднано</string>
     <string name="array_event_pref_wifiConnectionType_inFront">Поруч (в діапазоні сканування)</string>
     <string name="event_preferences_wifi_connection_type">Тип з\'єднання</string>
@@ -279,8 +278,6 @@
     <string name="event_type_bluetooth">Bluetooth</string>
     <string name="event_preferences_category_eventBluetoothParameters">Датчик Bluetooth</string>
     <string name="event_preferences_bluetooth_adapter_name">ім\'я Bluetooth</string>
-    <string name="pref_event_bluetooth_adapterName">Ім\'я Bluetooth</string>
-    <string name="pref_event_bluetooth_connectionType">З\'єднання</string>
     <string name="array_event_pref_bluetoothConnectionType_connected">З\'єднано</string>
     <string name="array_event_pref_bluetoothConnectionType_inFront">Поруч (в діапазоні сканування)</string>
     <string name="event_preferences_bluetooth_connection_type">Підключення</string>
@@ -451,9 +448,6 @@
     <string name="important_info_profile_wifiScanning_location">В Android 6+ для Wi-Fi сканування повинен бути увімкнений режим \"По всім джерелам\" в налаштуваннях \"Місцезнаходження\".</string>
     <string name="important_info_profile_bluetoothScanning_location">В Android 6+ для Bluetooth LE сканування повинен бути увімкнений режим \"По всім джерелам\" в налаштуваннях \"Місцезнаходження\".</string>
     <string name="profile_preferences_devicePowerSaveMode">(G1)(R) Режим енергозбереження</string>
-    <string name="event_preferences_bluetooth_devices_type">Типи сканованих пристроїв</string>
-    <string name="array_event_pref_bluetoothDevicesType_classic">Звичайний [CL]</string>
-    <string name="array_event_pref_bluetoothDevicesType_le">Низьке споживання [LE]</string>
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Тривалість сканування Bluetooth LE (сек)</string>
     <string name="phone_profiles_pref_category_wifi_scanning">Wi-fi сканування</string>
     <string name="phone_profiles_pref_category_bluetooth_scanning">Bluetooth сканування</string>
@@ -723,7 +717,6 @@
     <string name="phone_profiles_pref_notificationStatusBarRequired">Потрібно для фонової служби PhoneProfilesService</string>
     <string name="event_preferences_event_priorityInfo_summary">Пріоритет: подія не буде запущена, якщо виконується подія з більш високим пріоритетом.</string>
     <string name="profile_preferences_preferenceTypesInfo_title">Тип параметрів</string>
-    <string name="event_preference_bluetooth_bt_types">Типи Bluetooth: [CL] звичайний, [LE] з низьким енергоспоживанням, [DU] подвійний.</string>
     <string name="event_preference_sensor_time_summary">Цей датчик призначений для початку події за часом. Параметри: Час початку, час завершення, дні тижня.</string>
     <string name="event_preference_sensor_calendar_summary">Цей датчик призначений для запуску події по заходу із календаря. Параметри: \"Календарі\", \"Шукати в\" (назві заходу, описі і т. д.), \"Пошуковий рядок\", \"Ігнорувати події «Увесь день»\", \"Доступність\" (зайнятий, вільний і т. д.).</string>
     <string name="event_preference_sensor_battery_summary">Цей датчик призначено для подій рівня заряду акумулятора. Параметри: \"Низький рівень\", \"Високий рівень\", \"Зарядка\", \"Режим енергозбереження\".</string>
@@ -1307,6 +1300,8 @@
     <string name="array_pref_afterProfileDurationDo_activateProfile">Активувати визначений профіль</string>
     <string name="profile_preferences_afterDurationProfile">Активувати Профіль</string>
     <string name="altype_afterDuration_specificProfile">після завершення - визначений профіль</string>
+    <string name="notification_not_used_mobile_cell_disable">Вимкнути</string>
+    <string name="notification_channel_donation">Donation</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1420,4 +1415,8 @@
     <!--    <string name="donation_google_android_market">Google Play Store</string>-->
     <!--    <string name="donation_google_android_market_text">How much?</string>-->
     <!--    <string name="donation_google_android_market_donate_button">Donate</string>-->
+    <!--    <string name="event_preferences_bluetooth_devices_type">Scanned devices type</string>-->
+    <!--    <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CL]</string>-->
+    <!--    <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>-->
+    <!--    <string name="event_preference_bluetooth_bt_types">Bluetooth types: [CL] classic, [LE] low energy, [DU] dual.</string>-->
 </resources>

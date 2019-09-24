@@ -251,7 +251,6 @@
     <string name="event_preferences_category_eventWifiParameters">Wi-Fi sensor</string>
     <string name="event_preferences_wifi_ssid">SSID</string>
     <string name="pref_event_wifi_ssid">SSID</string>
-    <string name="pref_event_wifi_connectionType">Koneksi</string>
     <string name="array_event_pref_wifiConnectionType_connected">Terhubung</string>
     <string name="array_event_pref_wifiConnectionType_inFront">Terdekat (dalam jangkauan pemindaian)</string>
     <string name="event_preferences_wifi_connection_type">Tipe koneksi</string>
@@ -279,8 +278,6 @@
     <string name="event_type_bluetooth">Bluetooth</string>
     <string name="event_preferences_category_eventBluetoothParameters">Bluetooth sensor</string>
     <string name="event_preferences_bluetooth_adapter_name">Nama bluetooth</string>
-    <string name="pref_event_bluetooth_adapterName">Nama BT</string>
-    <string name="pref_event_bluetooth_connectionType">Koneksi</string>
     <string name="array_event_pref_bluetoothConnectionType_connected">Terhubung</string>
     <string name="array_event_pref_bluetoothConnectionType_inFront">Terdekat (dalam jangkauan pemindaian)</string>
     <string name="event_preferences_bluetooth_connection_type">Tipe koneksi</string>
@@ -451,9 +448,6 @@
     <string name="important_info_profile_wifiScanning_location">Di Android 6+, agar pemindaian Wi-Fi berfungsi, Anda harus mengaktifkan pemindaian Lokasi dan Wi-Fi di setelan Lokasi.</string>
     <string name="important_info_profile_bluetoothScanning_location">Di Android 6+, agar pemindaian Bluetooth LE bekerja, Anda harus mengaktifkan Pemindaian lokasi dan Bluetooth di setelan Lokasi.</string>
     <string name="profile_preferences_devicePowerSaveMode">(G1) (R) Mode hemat daya</string>
-    <string name="event_preferences_bluetooth_devices_type">Jenis perangkat yang dipindai</string>
-    <string name="array_event_pref_bluetoothDevicesType_classic">Klasik [CL]</string>
-    <string name="array_event_pref_bluetoothDevicesType_le">Energi rendah [LE]</string>
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Durasi pemindaian Bluetooth LE (detik)</string>
     <string name="phone_profiles_pref_category_wifi_scanning">Pemindaian Wi-Fi</string>
     <string name="phone_profiles_pref_category_bluetooth_scanning">Pemindaian Bluetooth</string>
@@ -723,7 +717,6 @@
     <string name="phone_profiles_pref_notificationStatusBarRequired">Diperlukan untuk layanan latar belakang PhoneProfilesService</string>
     <string name="event_preferences_event_priorityInfo_summary">Fungsi prioritas: Acara tidak akan dimulai jika acara lain berjalan memiliki tingkat prioritas yang lebih tinggi.</string>
     <string name="profile_preferences_preferenceTypesInfo_title">Jenis preferensi</string>
-    <string name="event_preference_bluetooth_bt_types">Jenis Bluetooth: [CL] klasik, [LE] energi rendah, [DU] dual.</string>
     <string name="event_preference_sensor_time_summary">Sensor ini akan memulai sebuah acara per jam. Parameter: Waktu mulai, Waktu akhir, Hari dalam seminggu.</string>
     <string name="event_preference_sensor_calendar_summary">Sensor ini akan memulai acara dengan acara kalender. Parameter: Kalender, Bidang pencarian (nama acara, deskripsi, dll.), String pencarian, Abaikan peristiwa \"sepanjang hari\", Ketersediaan (Sibuk, Gratis, dll.).</string>
     <string name="event_preference_sensor_battery_summary">Sensor ini akan memulai sebuah acara dengan level baterai. Parameter: Tingkat rendah, Tingkat atas, Pengisian, Hemat daya mode.</string>
@@ -1307,6 +1300,8 @@
     <string name="array_pref_afterProfileDurationDo_activateProfile">Activate specific profile</string>
     <string name="profile_preferences_afterDurationProfile">Profile to activate</string>
     <string name="altype_afterDuration_specificProfile">after duration expires - specific profile</string>
+    <string name="notification_not_used_mobile_cell_disable">Disable</string>
+    <string name="notification_channel_donation">Donation</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1420,4 +1415,8 @@
     <!--    <string name="donation_google_android_market">Google Play Store</string>-->
     <!--    <string name="donation_google_android_market_text">How much?</string>-->
     <!--    <string name="donation_google_android_market_donate_button">Donate</string>-->
+    <!--    <string name="event_preferences_bluetooth_devices_type">Scanned devices type</string>-->
+    <!--    <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CL]</string>-->
+    <!--    <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>-->
+    <!--    <string name="event_preference_bluetooth_bt_types">Bluetooth types: [CL] classic, [LE] low energy, [DU] dual.</string>-->
 </resources>

@@ -251,7 +251,6 @@
     <string name="event_preferences_category_eventWifiParameters">Senzor Wi-Fi</string>
     <string name="event_preferences_wifi_ssid">SSID</string>
     <string name="pref_event_wifi_ssid">SSID</string>
-    <string name="pref_event_wifi_connectionType">Pripojenie</string>
     <string name="array_event_pref_wifiConnectionType_connected">Pripojené</string>
     <string name="array_event_pref_wifiConnectionType_inFront">Neďaleko (v rozsahu skenovania)</string>
     <string name="event_preferences_wifi_connection_type">Typ pripojenia</string>
@@ -279,8 +278,6 @@
     <string name="event_type_bluetooth">Bluetooth</string>
     <string name="event_preferences_category_eventBluetoothParameters">Senzor Bluetooth</string>
     <string name="event_preferences_bluetooth_adapter_name">Meno Bluetooth</string>
-    <string name="pref_event_bluetooth_adapterName">Meno BT</string>
-    <string name="pref_event_bluetooth_connectionType">Pripojenie</string>
     <string name="array_event_pref_bluetoothConnectionType_connected">Pripojené</string>
     <string name="array_event_pref_bluetoothConnectionType_inFront">V blízkosti (v rozsahu skenovania)</string>
     <string name="event_preferences_bluetooth_connection_type">Typ pripojenia</string>
@@ -451,9 +448,6 @@
     <string name="important_info_profile_wifiScanning_location">V Android 6+, pre skenovanie Wi-Fi musí byť povolená Poloha a \"Vyhľadávanie sietí Wi-Fi\" na nastaveniach Polohy.</string>
     <string name="important_info_profile_bluetoothScanning_location">V Android 6+, pre Bluetooth LE skenovanie musí byť povolená Poloha a \"Vyhľadávanie zariadení Bluetooth\" v nastaveniach Polohy.</string>
     <string name="profile_preferences_devicePowerSaveMode">(G1)(R) Šetrič batérie</string>
-    <string name="event_preferences_bluetooth_devices_type">Skenované typy zariadení</string>
-    <string name="array_event_pref_bluetoothDevicesType_classic">Klasické [CL]</string>
-    <string name="array_event_pref_bluetoothDevicesType_le">Nízkoenergetické [LE]</string>
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Trvanie skenovania Bluetooth LE (sek.)</string>
     <string name="phone_profiles_pref_category_wifi_scanning">Wi-Fi skenovanie</string>
     <string name="phone_profiles_pref_category_bluetooth_scanning">Bluetooth skenovanie</string>
@@ -626,7 +620,7 @@
     <string name="preference_not_allowed_reason_not_supported">nepodporované systémom</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_notification">Registrácia mobilných buniek</string>
     <string name="wifi_ssid_pref_dlg_configured_ssids_chb">Všetky SSID nakonfigurované v systéme</string>
-    <string name="bluetooth_name_pref_dlg_configured_bt_names_chb">Všetky názvy Bluetooth nakonfigurovaný v systéme</string>
+    <string name="bluetooth_name_pref_dlg_configured_bt_names_chb">Všetky názvy Bluetooth nakonfigurovaných v systéme</string>
     <string name="wifi_ssid_pref_dlg_all_ssids_chb">Všetky SSID</string>
     <string name="bluetooth_name_pref_dlg_all_bt_names_chb">Všetky názvy Bluetooth</string>
     <string name="editor_drawer_list_item_events_start_order">Poradie štartu</string>
@@ -723,7 +717,6 @@
     <string name="phone_profiles_pref_notificationStatusBarRequired">Vyžadované pre službu v pozadí PhoneProfilesService</string>
     <string name="event_preferences_event_priorityInfo_summary">Funkcionalita priority: udalosť sa nespustí, ak je spustená udalosť s vyššou prioritou.</string>
     <string name="profile_preferences_preferenceTypesInfo_title">Typy parametrov</string>
-    <string name="event_preference_bluetooth_bt_types">Typy Bluetooth: [CL] klasické, [LE] nízkoenergetické, [DU] duálne.</string>
     <string name="event_preference_sensor_time_summary">Tento senzor je pre štart udalosti podľa času. Parametre: Čas začiatku, Čas konca, Dni v týždni.</string>
     <string name="event_preference_sensor_calendar_summary">Tento senzor je pre štart udalosti podľa udalosti v kalendári. Parametre: Kalendáre, Hľadať v položke (Názov udalosti, Popis, atď.), Hľadaný reťazec, ignoruj \"celodenné\" udalosti, Dostupnosť (Zaneprázdnený, K dispozícii, atď.).</string>
     <string name="event_preference_sensor_battery_summary">Tento senzor je pre štart udalosti podľa úrovne spotreby batérie. Parametre: Spodná úroveň, Horná úroveň, Nabíjanie, Úsporný režim.</string>
@@ -1307,6 +1300,8 @@
     <string name="array_pref_afterProfileDurationDo_activateProfile">Aktivovať špecifický profil</string>
     <string name="profile_preferences_afterDurationProfile">Profil, ktorý aktivovať</string>
     <string name="altype_afterDuration_specificProfile">po uplynutí trvania - aktivácia špecifického profilu</string>
+    <string name="notification_not_used_mobile_cell_disable">Disable</string>
+    <string name="notification_channel_donation">Donation</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1420,4 +1415,8 @@
     <!--    <string name="donation_google_android_market">Google Play Store</string>-->
     <!--    <string name="donation_google_android_market_text">How much?</string>-->
     <!--    <string name="donation_google_android_market_donate_button">Donate</string>-->
+    <!--    <string name="event_preferences_bluetooth_devices_type">Scanned devices type</string>-->
+    <!--    <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CL]</string>-->
+    <!--    <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>-->
+    <!--    <string name="event_preference_bluetooth_bt_types">Bluetooth types: [CL] classic, [LE] low energy, [DU] dual.</string>-->
 </resources>

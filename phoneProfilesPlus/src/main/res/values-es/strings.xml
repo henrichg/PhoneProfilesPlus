@@ -251,7 +251,6 @@
     <string name="event_preferences_category_eventWifiParameters">Sensor de Wi-Fi</string>
     <string name="event_preferences_wifi_ssid">SSID</string>
     <string name="pref_event_wifi_ssid">SSID</string>
-    <string name="pref_event_wifi_connectionType">Conexión</string>
     <string name="array_event_pref_wifiConnectionType_connected">Conectado</string>
     <string name="array_event_pref_wifiConnectionType_inFront">Cercanos (dentro del rango de escaneo)</string>
     <string name="event_preferences_wifi_connection_type">Tipo de conexión</string>
@@ -279,8 +278,6 @@
     <string name="event_type_bluetooth">Bluetooth</string>
     <string name="event_preferences_category_eventBluetoothParameters">Sensor de Bluetooth</string>
     <string name="event_preferences_bluetooth_adapter_name">Nombre del Bluetooth</string>
-    <string name="pref_event_bluetooth_adapterName">Nombre de BT</string>
-    <string name="pref_event_bluetooth_connectionType">Conexión</string>
     <string name="array_event_pref_bluetoothConnectionType_connected">Conectado</string>
     <string name="array_event_pref_bluetoothConnectionType_inFront">Cercanos (dentro del rango de escaneo)</string>
     <string name="event_preferences_bluetooth_connection_type">Tipo de conexión</string>
@@ -451,9 +448,6 @@
     <string name="important_info_profile_wifiScanning_location">En Android 6+ para la detección de Wi-Fi debe estar activada Ubicación y \"Detección de Wi-fi\" en Ajustes de ubicación.</string>
     <string name="important_info_profile_bluetoothScanning_location">En Android 6+ para la detección de Bluetooth debe estar activada la Ubicación y la \"Detección de Wi-fi\" en el menu de Ubicación.</string>
     <string name="profile_preferences_devicePowerSaveMode">(G1)(R) Modo de ahorro de energía</string>
-    <string name="event_preferences_bluetooth_devices_type">Tipo de dispositivos escaneados</string>
-    <string name="array_event_pref_bluetoothDevicesType_classic">Clásico [CL]</string>
-    <string name="array_event_pref_bluetoothDevicesType_le">Bajo consumo de energía [LE]</string>
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Tiempo de escaneo (seg)</string>
     <string name="phone_profiles_pref_category_wifi_scanning">Detección de Wi-Fi</string>
     <string name="phone_profiles_pref_category_bluetooth_scanning">Detección de Bluetooth</string>
@@ -723,7 +717,6 @@
     <string name="phone_profiles_pref_notificationStatusBarRequired">Requerido por el servicio en segundo plano de PhoneProfilesService</string>
     <string name="event_preferences_event_priorityInfo_summary">Prioridad de funcionalidad: El evento no iniciará si otro evento en funcionamiento tiene un nivel de prioridad más alto.</string>
     <string name="profile_preferences_preferenceTypesInfo_title">Tipo de preferencias</string>
-    <string name="event_preference_bluetooth_bt_types">Tipos de Bluetooth: [CL] clásico, [LE] bajo consumo de energía, [DU] dual.</string>
     <string name="event_preference_sensor_time_summary">Este sensor iniciará un evento por tiempo. Parámetros: Iniciar tiempo, Finalizar tiempo, Días de la semana.</string>
     <string name="event_preference_sensor_calendar_summary">Este sensor iniciará un evento por eventos de calendario. Parámetros: Calendario, Campo de búsqueda (Nombre del evento, descripción, etc.), Cadena de búsqueda, Ignorar eventos \"Todo el día\", Disponibilidad (Ocupado, Libre, etc.).</string>
     <string name="event_preference_sensor_battery_summary">Este sensor iniciará un evento por nivel de batería. Parámetros: Nivel bajo, Nivel superior, Cargando, Modo de ahorro de energía.</string>
@@ -1307,6 +1300,8 @@
     <string name="array_pref_afterProfileDurationDo_activateProfile">Activate specific profile</string>
     <string name="profile_preferences_afterDurationProfile">Profile to activate</string>
     <string name="altype_afterDuration_specificProfile">after duration expires - specific profile</string>
+    <string name="notification_not_used_mobile_cell_disable">Disable</string>
+    <string name="notification_channel_donation">Donation</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1420,4 +1415,8 @@
     <!--    <string name="donation_google_android_market">Google Play Store</string>-->
     <!--    <string name="donation_google_android_market_text">How much?</string>-->
     <!--    <string name="donation_google_android_market_donate_button">Donate</string>-->
+    <!--    <string name="event_preferences_bluetooth_devices_type">Scanned devices type</string>-->
+    <!--    <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CL]</string>-->
+    <!--    <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>-->
+    <!--    <string name="event_preference_bluetooth_bt_types">Bluetooth types: [CL] classic, [LE] low energy, [DU] dual.</string>-->
 </resources>

@@ -251,7 +251,6 @@
     <string name="event_preferences_category_eventWifiParameters">Wi-Fi sensörü</string>
     <string name="event_preferences_wifi_ssid">SSID</string>
     <string name="pref_event_wifi_ssid">SSID</string>
-    <string name="pref_event_wifi_connectionType">Wi-Fi Bağlantısı</string>
     <string name="array_event_pref_wifiConnectionType_connected">Wi-Fi bağlandı</string>
     <string name="array_event_pref_wifiConnectionType_inFront">Yakındaki (tarama aralığı içinde)</string>
     <string name="event_preferences_wifi_connection_type">Wi-Fi bağlantı türü</string>
@@ -279,8 +278,6 @@
     <string name="event_type_bluetooth">Bluetooth</string>
     <string name="event_preferences_category_eventBluetoothParameters">Bluetooth sensörü</string>
     <string name="event_preferences_bluetooth_adapter_name">Bluetooth ismi</string>
-    <string name="pref_event_bluetooth_adapterName">Bluetooth ismi</string>
-    <string name="pref_event_bluetooth_connectionType">Bluetooth bağlantısı</string>
     <string name="array_event_pref_bluetoothConnectionType_connected">Bluetooth bağlandı</string>
     <string name="array_event_pref_bluetoothConnectionType_inFront">Yakındaki (tarama aralığı içinde)</string>
     <string name="event_preferences_bluetooth_connection_type">Bluetooth bağlantı türü</string>
@@ -451,9 +448,6 @@
     <string name="important_info_profile_wifiScanning_location">Android 6+\'da Wi-Fi tarama için \"Sistem Ayarları\" → \"Konum\" → \"Konum ve Wi-Fi tarama\" ayarlarında PhoneProfilesPlus\'a izin verilmelidir.</string>
     <string name="important_info_profile_bluetoothScanning_location">Android 6+\'da Bluetooth LE tarama için \"Sistem Ayarları\" → \"Konum\" → \"Konum ve Bluetooth tarama\" ayarlarında PhoneProfilesPlus\'a izin verilmelidir.</string>
     <string name="profile_preferences_devicePowerSaveMode">(G1)(R) Güç tasarrufu modu</string>
-    <string name="event_preferences_bluetooth_devices_type">Taranan cihazların türü</string>
-    <string name="array_event_pref_bluetoothDevicesType_classic">Klasik enerjili [CL]</string>
-    <string name="array_event_pref_bluetoothDevicesType_le">Düşük enerjili [LE]</string>
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Bluetooth LE tarama süresi (sn)</string>
     <string name="phone_profiles_pref_category_wifi_scanning">Wi-fi taraması</string>
     <string name="phone_profiles_pref_category_bluetooth_scanning">Bluetooth Taraması</string>
@@ -723,7 +717,6 @@
     <string name="phone_profiles_pref_notificationStatusBarRequired">PhoneProfilesHizmeti arka plan hizmeti için lüzumludur</string>
     <string name="event_preferences_event_priorityInfo_summary">Öncelik özelliği: Daha öncelikli bir durum çalışıyorsa Durum başlatılmaz.</string>
     <string name="profile_preferences_preferenceTypesInfo_title">Tercihlerin türü</string>
-    <string name="event_preference_bluetooth_bt_types">Bluetooth türleri: [CL] klasik, [LE] düşük enerji, [DU] ikisi de.</string>
     <string name="event_preference_sensor_time_summary">Bu sensör zamana göre durumu başlatmak içindir. Değerler: Başlangıç saati, Bitiş saati, Haftanın günleri.</string>
     <string name="event_preference_sensor_calendar_summary">Bu sensör, durumun takvim olayı tarafından başlangıcı içindir. Değerler: Takvimler, Arama alanı (Olay adı, Açıklama,…), Arama kelimesi, \"Tüm gün\" olaylarını ihmal et, Durum (meşgul, serbest,…).</string>
     <string name="event_preference_sensor_battery_summary">Bu sensör, durumun pil seviyesi tarafından başlangıcı içindir. Değerler: Alt seviye, Üst seviye, Şarj edilme, Güç tasarrufu modu.</string>
@@ -1307,6 +1300,8 @@
     <string name="array_pref_afterProfileDurationDo_activateProfile">Activate specific profile</string>
     <string name="profile_preferences_afterDurationProfile">Profile to activate</string>
     <string name="altype_afterDuration_specificProfile">after duration expires - specific profile</string>
+    <string name="notification_not_used_mobile_cell_disable">Disable</string>
+    <string name="notification_channel_donation">Donation</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1420,4 +1415,8 @@
     <!--    <string name="donation_google_android_market">Google Play Store</string>-->
     <!--    <string name="donation_google_android_market_text">How much?</string>-->
     <!--    <string name="donation_google_android_market_donate_button">Donate</string>-->
+    <!--    <string name="event_preferences_bluetooth_devices_type">Scanned devices type</string>-->
+    <!--    <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CL]</string>-->
+    <!--    <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>-->
+    <!--    <string name="event_preference_bluetooth_bt_types">Bluetooth types: [CL] classic, [LE] low energy, [DU] dual.</string>-->
 </resources>
