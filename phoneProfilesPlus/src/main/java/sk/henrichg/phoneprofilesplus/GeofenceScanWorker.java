@@ -61,7 +61,7 @@ public class GeofenceScanWorker extends Worker {
                 if ((PhoneProfilesService.getInstance() != null) && (PhoneProfilesService.getInstance().getGeofencesScanner() != null)) {
                     GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
                     if (scanner.mUpdatesStarted) {
-                        PPApplication.logE("GeofenceScannerJob.onRunJob", "location updates started - save to DB");
+                        PPApplication.logE("GeofenceScanWorker.doWork", "location updates started - save to DB");
 
                         //if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted())
                         scanner.updateGeofencesInDB();
@@ -72,7 +72,7 @@ public class GeofenceScanWorker extends Worker {
             }
 
             if (geofenceScannerUpdatesStarted) {
-                PPApplication.logE("GeofenceScannerJob.onRunJob", "location updates started - start EventsHandler");
+                PPApplication.logE("GeofenceScanWorker.doWork", "location updates started - start EventsHandler");
 
                 // start events handler
                 EventsHandler eventsHandler = new EventsHandler(context);
@@ -232,7 +232,7 @@ public class GeofenceScanWorker extends Worker {
 
             //try { Thread.sleep(100); } catch (InterruptedException e) { }
             SystemClock.sleep(100);
-        } while (SystemClock.uptimeMillis() - start < WifiBluetoothScanner.wifiScanDuration * 1000);
+        } while (SystemClock.uptimeMillis() - start < 10 * 1000);
 
         PPApplication.logE("GeofenceScanWorker.waitForFinish", "END WAIT FOR FINISH");
     }
@@ -261,7 +261,7 @@ public class GeofenceScanWorker extends Worker {
         //noinspection TryWithIdenticalCatches
         try {
             List<WorkInfo> workInfoList = statuses.get();
-            //PPApplication.logE("WifiScanWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());
+            //PPApplication.logE("GeofenceScanWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());
             //return workInfoList.size() != 0;
             boolean running = false;
             for (WorkInfo workInfo : workInfoList) {
@@ -279,14 +279,14 @@ public class GeofenceScanWorker extends Worker {
     }
 
     static boolean isWorkScheduled(Context context) {
-        //PPApplication.logE("WifiScanWorker.isWorkScheduled", "xxx");
+        //PPApplication.logE("GeofenceScanWorker.isWorkScheduled", "xxx");
 
         WorkManager instance = WorkManager.getInstance(context);
         ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosByTag(WORK_TAG);
         //noinspection TryWithIdenticalCatches
         try {
             List<WorkInfo> workInfoList = statuses.get();
-            //PPApplication.logE("WifiScanWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());
+            //PPApplication.logE("GeofenceScanWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());
             //return workInfoList.size() != 0;
             boolean running = false;
             for (WorkInfo workInfo : workInfoList) {

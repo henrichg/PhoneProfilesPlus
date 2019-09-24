@@ -250,6 +250,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             }
 
             List<Geofence> geofences = DatabaseHandler.getInstance(dataWrapper.context).getAllGeofences();
+            PPApplication.logE("[***] GeofenceScanner.updateGeofencesInDB", "geofences.size="+geofences.size());
 
             //boolean change = false;
 
@@ -290,6 +291,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                     DatabaseHandler.getInstance(dataWrapper.context).updateGeofenceTransition(geofence._id, transitionType);
                     //change = true;
                 }
+                else
+                    PPApplication.logE("[***] GeofenceScanner.updateGeofencesInDB", "savedTransition == transitionType");
             }
 
             mTransitionsUpdated = true;

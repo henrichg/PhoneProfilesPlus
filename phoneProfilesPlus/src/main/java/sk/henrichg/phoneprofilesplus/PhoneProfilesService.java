@@ -2900,10 +2900,10 @@ public class PhoneProfilesService extends Service
     }
 
     private void cancelSearchCalendarEventsWorker(final Context context, final Handler _handler) {
-        if (SearchCalendarEventsJob.isJobScheduled()) {
+        if (SearchCalendarEventsWorker.isWorkScheduled(context)) {
             CallsCounter.logCounterNoInc(context, "PhoneProfilesService.cancelSearchCalendarEventsWorker->CANCEL", "PhoneProfilesService_cancelSearchCalendarEventsWorker");
             PPApplication.logE("[RJS] PhoneProfilesService.cancelSearchCalendarEventsWorker", "CANCEL");
-            SearchCalendarEventsJob.cancelJob(true, _handler);
+            SearchCalendarEventsWorker.cancelWork(context, true, _handler);
         }
         else
             PPApplication.logE("[RJS] PhoneProfilesService.cancelSearchCalendarEventsWorker", "not scheduled");
@@ -2931,10 +2931,10 @@ public class PhoneProfilesService extends Service
                             eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_CALENDAR, false);
                         }
                         if (eventCount > 0) {
-                            if (!SearchCalendarEventsJob.isJobScheduled()) {
+                            if (!SearchCalendarEventsWorker.isWorkScheduled(appContext)) {
                                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleSearchCalendarEventsWorker->SCHEDULE", "PhoneProfilesService_scheduleSearchCalendarEventsWorker");
                                 PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsWorker", "SCHEDULE");
-                                SearchCalendarEventsJob.scheduleJob(/*appContext, */true, handler, true);
+                                SearchCalendarEventsWorker.scheduleWork(appContext, true, handler, true);
                             }
                             else
                                 PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsWorker", "scheduled");

@@ -54,7 +54,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                                 Profile.setActivatedProfileForDuration(appContext, 0);
                             }
 
-                            SearchCalendarEventsJob.scheduleJob(false, null, true);
+                            SearchCalendarEventsWorker.scheduleWork(appContext, false, null, true);
 
                             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
                             //dataWrapper.clearSensorsStartTime();

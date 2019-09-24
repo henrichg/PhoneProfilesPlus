@@ -29,7 +29,6 @@ Required external libs
 - google-gson - https://code.google.com/p/google-gson/
 - TapTargetView - https://github.com/KeepSafe/TapTargetView
 - RecyclerView-FastScroll - https://github.com/timusus/RecyclerView-FastScroll
-- android-job - https://github.com/evernote/android-job
 - doki - https://github.com/DoubleDotLabs/doki
 - Samsung Look - http://developer.samsung.com/galaxy/edge  
 - dashclock - https://github.com/romannurik/dashclock

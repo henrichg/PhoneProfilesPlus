@@ -22,9 +22,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.crashlytics.android.Crashlytics;
-import com.evernote.android.job.JobApi;
-import com.evernote.android.job.JobConfig;
-import com.evernote.android.job.JobManager;
+//import com.evernote.android.job.JobApi;
+//import com.evernote.android.job.JobConfig;
+//import com.evernote.android.job.JobManager;
 //import com.google.firebase.analytics.FirebaseAnalytics;
 import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.look.Slook;
@@ -462,6 +462,9 @@ public class PPApplication extends Application {
 
                                         //+"|DaysOfWeekPreferenceX"
                                         //+"|EventPreferencesTime.getDayOfWeekByLocale"
+
+                                        +"|SearchCalendarEventsJob"
+                                        +"|SearchCalendarEventsWorker"
             ;
 
 
@@ -823,11 +826,13 @@ public class PPApplication extends Application {
         brightnessHandler = new Handler(getMainLooper());
         screenTimeoutHandler = new Handler(getMainLooper());
 
+        /*
         JobConfig.setApiEnabled(JobApi.WORK_MANAGER, true);
         //JobConfig.setForceAllowApi14(true); // https://github.com/evernote/android-job/issues/197
         //JobConfig.setApiEnabled(JobApi.GCM, false); // is only important for Android 4.X
 
         JobManager.create(this).addJobCreator(new PPJobsCreator());
+        */
 
         PPApplication.initRoot();
 
