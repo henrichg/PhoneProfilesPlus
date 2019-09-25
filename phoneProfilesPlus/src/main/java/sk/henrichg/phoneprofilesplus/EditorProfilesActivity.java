@@ -76,19 +76,19 @@ public class EditorProfilesActivity extends AppCompatActivity
     private AlertDialog importProgressDialog = null;
     private AlertDialog exportProgressDialog = null;
 
-    //private static final String SP_EDITOR_DRAWER_SELECTED_ITEM = "editor_drawer_selected_item";
     private static final String SP_EDITOR_SELECTED_VIEW = "editor_selected_view";
     private static final String SP_EDITOR_PROFILES_VIEW_SELECTED_ITEM = "editor_profiles_view_selected_item";
-    private static final String SP_EDITOR_EVENTS_VIEW_SELECTED_ITEM = "editor_events_view_selected_item";
+    static final String SP_EDITOR_EVENTS_VIEW_SELECTED_ITEM = "editor_events_view_selected_item";
 
     private static final int DSI_PROFILES_ALL = 0;
     private static final int DSI_PROFILES_SHOW_IN_ACTIVATOR = 1;
     private static final int DSI_PROFILES_NO_SHOW_IN_ACTIVATOR = 2;
     private static final int DSI_EVENTS_START_ORDER = 0;
     private static final int DSI_EVENTS_ALL = 1;
-    private static final int DSI_EVENTS_RUNNING = 2;
-    private static final int DSI_EVENTS_PAUSED = 3;
-    private static final int DSI_EVENTS_STOPPED = 4;
+    private static final int DSI_EVENTS_NOT_STOPPED = 2;
+    private static final int DSI_EVENTS_RUNNING = 3;
+    private static final int DSI_EVENTS_PAUSED = 4;
+    private static final int DSI_EVENTS_STOPPED = 5;
 
     static final String EXTRA_NEW_PROFILE_MODE = "new_profile_mode";
     static final String EXTRA_PREDEFINED_PROFILE_INDEX = "predefined_profile_index";
@@ -410,7 +410,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 filterItems = new String[] {
                                         getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_start_order),
                                         getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_all),
-                                        getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_running),
+                                        getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_not_stopped),
                                         getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_paused),
                                         getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_stopped)
                                 };
@@ -992,6 +992,20 @@ public class EditorProfilesActivity extends AppCompatActivity
                         case DSI_EVENTS_ALL:
                             eventsFilterType = EditorEventListFragment.FILTER_TYPE_ALL;
                             PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_ALL");
+                            fragment = new EditorEventListFragment();
+                            arguments = new Bundle();
+                            arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
+                            //arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, eventsOrderType);
+                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsOrderType="+eventsOrderType);
+                            arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                            fragment.setArguments(arguments);
+                            getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
+                                    .commitAllowingStateLoss();
+                            break;
+                        case DSI_EVENTS_NOT_STOPPED:
+                            eventsFilterType = EditorEventListFragment.FILTER_TYPE_NOT_STOPPED;
+                            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_NOT_STOPPED");
                             fragment = new EditorEventListFragment();
                             arguments = new Bundle();
                             arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);

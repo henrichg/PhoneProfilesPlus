@@ -85,6 +85,7 @@ public class EditorEventListFragment extends Fragment
     static final int FILTER_TYPE_PAUSED = 2;
     static final int FILTER_TYPE_STOPPED = 3;
     static final int FILTER_TYPE_START_ORDER = 4;
+    static final int FILTER_TYPE_NOT_STOPPED = 5;
 
     private static final int ORDER_TYPE_START_ORDER = 0;
     private static final int ORDER_TYPE_EVENT_NAME = 1;

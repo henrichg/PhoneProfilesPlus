@@ -307,17 +307,23 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                 }
 
                                 if (actualVersionCode <= 5100) {
+                                    ApplicationPreferences.getSharedPreferences(appContext);
+                                    SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+
                                     if (Build.VERSION.SDK_INT >= 26) {
                                         NotificationManager manager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
                                         NotificationChannel channel = manager.getNotificationChannel(PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL);
 
-                                        ApplicationPreferences.getSharedPreferences(appContext);
-                                        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED,
                                                                     channel.getImportance() != NotificationManager.IMPORTANCE_NONE);
-                                        editor.apply();
                                     }
 
+                                    int filterEventsSelectedItem = ApplicationPreferences.preferences.getInt(EditorProfilesActivity.SP_EDITOR_EVENTS_VIEW_SELECTED_ITEM, 1);
+                                    if (filterEventsSelectedItem == 2)
+                                        filterEventsSelectedItem++;
+                                    editor.putInt(EditorProfilesActivity.SP_EDITOR_EVENTS_VIEW_SELECTED_ITEM, filterEventsSelectedItem);
+
+                                    editor.apply();
                                 }
 
                                 PPApplication.logE("PackageReplacedReceiver.onReceive", "restartService="+restartService);

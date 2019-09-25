@@ -1400,6 +1400,7 @@
     <string name="array_pref_samsungEdgeVerticalPosition_top">Top</string>
     <string name="array_pref_samsungEdgeVerticalPosition_center">Center</string>
     <string name="array_pref_samsungEdgeVerticalPosition_bottom">Bottom</string>
+    <string name="editor_drawer_list_item_events_not_stopped">Not stopped</string>
 
     <!-- **************************************************************************************** -->
 
