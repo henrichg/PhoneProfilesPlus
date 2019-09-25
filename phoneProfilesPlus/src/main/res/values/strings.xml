@@ -1396,6 +1396,11 @@
     <string name="notification_not_used_mobile_cell_disable">Disable</string>
     <string name="notification_channel_donation">Donation</string>
 
+    <string name="phone_profiles_pref_applicationSamsungEdgeVerticalPosition">Vertical position</string>
+    <string name="array_pref_samsungEdgeVerticalPosition_top">Top</string>
+    <string name="array_pref_samsungEdgeVerticalPosition_center">Center</string>
+    <string name="array_pref_samsungEdgeVerticalPosition_bottom">Bottom</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>

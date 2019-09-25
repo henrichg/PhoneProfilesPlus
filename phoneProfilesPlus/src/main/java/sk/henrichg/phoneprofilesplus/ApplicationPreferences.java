@@ -144,6 +144,7 @@ class ApplicationPreferences {
     static final String PREF_NOTIFICATION_BACKGROUND_COLOR = "notificationBackgroundColor";
     //static final String PREF_APPLICATION_NIGHT_MODE_OFF_THEME = "applicationNightModeOffTheme";
     static final String PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED = "applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled";
+    static final String PREF_APPLICATION_SAMSUNG_EDGE_VERTICAL_POSITION = "applicationSamsungEdgeVerticalPosition";
 
     //static boolean forceNotUseAlarmClock = false;
 
@@ -728,6 +729,10 @@ class ApplicationPreferences {
 
     static boolean applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED, true);
+    }
+
+    static String applicationSamsungEdgeVerticalPosition(Context context) {
+        return getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_VERTICAL_POSITION, "0");
     }
 
 }

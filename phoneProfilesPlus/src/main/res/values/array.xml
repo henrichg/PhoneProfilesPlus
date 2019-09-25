@@ -1051,4 +1051,14 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+    <string-array name="samsungEdgeVerticalPositionArray">
+        <item>@string/array_pref_samsungEdgeVerticalPosition_top</item>
+        <item>@string/array_pref_samsungEdgeVerticalPosition_center</item>
+        <item>@string/array_pref_samsungEdgeVerticalPosition_bottom</item>
+    </string-array>
+    <string-array name="samsungEdgeVerticalPositionValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 </resources>

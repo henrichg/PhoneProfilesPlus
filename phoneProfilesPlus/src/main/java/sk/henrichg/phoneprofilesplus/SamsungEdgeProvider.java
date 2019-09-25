@@ -36,31 +36,35 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         String applicationSamsungEdgeIconColor = ApplicationPreferences.applicationSamsungEdgeIconColor(context);
         boolean applicationSamsungEdgeCustomIconLightness = ApplicationPreferences.applicationSamsungEdgeCustomIconLightness(context);
         String applicationWidgetListLightnessT = ApplicationPreferences.applicationSamsungEdgeLightnessT(context);
-
+        String applicationSamsungEdgeVerticalPosition = ApplicationPreferences.applicationSamsungEdgeVerticalPosition(context);
 
         if (applicationSamsungEdgeHeader)
         {
-            /*if (!applicationSamsungEdgeGridLayout)
-            {
-                if (applicationSamsungEdgePrefIndicator)
-                    widget=new RemoteViews(context.getPackageName(), R.layout.profile_list_widget);
-                else
-                    widget=new RemoteViews(context.getPackageName(), R.layout.profile_list_widget_no_indicator);
+            switch (applicationSamsungEdgeVerticalPosition) {
+                case "1":
+                    widget=new RemoteViews(context.getPackageName(), R.layout.samsung_edge_center);
+                    break;
+                case "2":
+                    widget=new RemoteViews(context.getPackageName(), R.layout.samsung_edge_bottom);
+                    break;
+                default:
+                    widget=new RemoteViews(context.getPackageName(), R.layout.samsung_edge_top);
+                    break;
             }
-            else
-            {
-                if (applicationSamsungEdgePrefIndicator)
-                    widget=new RemoteViews(context.getPackageName(), R.layout.profile_grid_widget);
-                else*/
-                    widget=new RemoteViews(context.getPackageName(), R.layout.samsung_edge);
-            //}
         }
         else
         {
-            /*if (!applicationSamsungEdgeGridLayout)
-                widget=new RemoteViews(context.getPackageName(), R.layout.profile_list_widget_no_header);
-            else*/
-                widget=new RemoteViews(context.getPackageName(), R.layout.samsung_edge_no_header);
+            switch (applicationSamsungEdgeVerticalPosition) {
+                case "1":
+                    widget=new RemoteViews(context.getPackageName(), R.layout.samsung_edge_center_no_header);
+                    break;
+                case "2":
+                    widget=new RemoteViews(context.getPackageName(), R.layout.samsung_edge_bottom_no_header);
+                    break;
+                default:
+                    widget=new RemoteViews(context.getPackageName(), R.layout.samsung_edge_top_no_header);
+                    break;
+            }
         }
 
         // set background

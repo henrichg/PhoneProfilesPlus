@@ -68,7 +68,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final int RESULT_WIFI_KEEP_ON_SETTINGS = 1999;
     private static final String PREF_NOTIFICATION_SYSTEM_SETTINGS = "notificationSystemSettings";
     //private static final String PREF_APPLICATION_POWER_MANAGER = "applicationPowerManager";
-    private static final String PREF_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_SYSTEM_SETTINGS = "applicationEventMobileCellNotUsedCellsDetectionNotificationSystemSettings";
+    //private static final String PREF_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_SYSTEM_SETTINGS = "applicationEventMobileCellNotUsedCellsDetectionNotificationSystemSettings";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -1604,6 +1604,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             setSummary(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_TYPE);
             setSummary(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR);
             setSummary(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS);
+            setSummary(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_VERTICAL_POSITION);
         }
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND);
@@ -2526,6 +2527,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if ((PPApplication.sLook != null) && PPApplication.sLookCocktailPanelEnabled) {
             if (key.equals("categorySamsungEdgePanelRoot")) {
+                summary = summary + getString(R.string.phone_profiles_pref_applicationSamsungEdgeVerticalPosition);
+                if (!summary.isEmpty()) summary = summary + " • ";
                 summary = summary + getString(R.string.phone_profiles_pref_applicationHeader);
                 if (!summary.isEmpty()) summary = summary + " • ";
                 summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetBackgroundType);
