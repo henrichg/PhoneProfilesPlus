@@ -348,7 +348,7 @@ public class Profile {
 
             R.drawable.ic_profile_battery_1, R.drawable.ic_profile_battery_2, R.drawable.ic_profile_battery_3,
 
-            R.drawable.ic_profile_lock
+            R.drawable.ic_profile_lock, R.drawable.ic_profile_wifi, R.drawable.ic_profile_mobile_data
     };
 
     static final int[] profileIconColor = {
@@ -396,7 +396,10 @@ public class Profile {
             0xffdb3514, 0xffdb9714, 0xff2aa561,
 
             //lock
-            0xff6a3e18
+            0xff6a3e18,
+
+            // wifi, mobile data
+            0xff1ea0df, 0xff1ea0df
     };
 
     static final HashMap<String, Integer> profileIconIdMap;
@@ -503,6 +506,8 @@ public class Profile {
         profileIconIdMap.put("ic_profile_battery_2", R.drawable.ic_profile_battery_2);
         profileIconIdMap.put("ic_profile_battery_3", R.drawable.ic_profile_battery_3);
         profileIconIdMap.put("ic_profile_lock", R.drawable.ic_profile_lock);
+        profileIconIdMap.put("ic_profile_wifi", R.drawable.ic_profile_wifi);
+        profileIconIdMap.put("ic_profile_mobile_data", R.drawable.ic_profile_mobile_data);
     }
     
     static final HashMap<String, Integer> profileIconNotifyId;
@@ -606,6 +611,8 @@ public class Profile {
         profileIconNotifyId.put("ic_profile_battery_2", R.drawable.ic_profile_battery_2_notify);
         profileIconNotifyId.put("ic_profile_battery_3", R.drawable.ic_profile_battery_3_notify);
         profileIconNotifyId.put("ic_profile_lock", R.drawable.ic_profile_lock_notify);
+        profileIconNotifyId.put("ic_profile_wifi", R.drawable.ic_profile_wifi_notify);
+        profileIconNotifyId.put("ic_profile_mobile_data", R.drawable.ic_profile_mobile_data_notify);
     }
 
     static final HashMap<String, Integer> profileIconNotifyColorId;
@@ -709,6 +716,8 @@ public class Profile {
         profileIconNotifyColorId.put("ic_profile_battery_2", R.drawable.ic_profile_battery_2_notify_color);
         profileIconNotifyColorId.put("ic_profile_battery_3", R.drawable.ic_profile_battery_3_notify_color);
         profileIconNotifyColorId.put("ic_profile_lock", R.drawable.ic_profile_lock_notify_color);
+        profileIconNotifyColorId.put("ic_profile_wifi", R.drawable.ic_profile_wifi_notify_color);
+        profileIconNotifyColorId.put("ic_profile_mobile_data", R.drawable.ic_profile_mobile_data_notify_color);
     }
 
     // Empty constructor
