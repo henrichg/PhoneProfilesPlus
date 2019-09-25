@@ -16,12 +16,13 @@
 // 4800 = show target helps for Editor filter spinner
 //        removed color and dark-light theme
 // 5020 = set night_mode as default
+// 5082 = move Editor events filter "Running", because was added "Not stopped" filter
 // 5100 = also use ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED
 //        for API level >= 26
 
 ext.ppVersions = [
     publishVersion: '4.1.2b',
-    publishVersionCode: 5081,
+    publishVersionCode: 5082,
 
     minSdk: 21,
     targetSdk: 28,
