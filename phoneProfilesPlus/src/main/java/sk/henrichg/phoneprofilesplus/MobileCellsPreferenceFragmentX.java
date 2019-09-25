@@ -600,20 +600,24 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
             if (GlobalGUIRoutines.collator != null) {
                 String _lhs = "";
                 if (lhs._new)
-                    _lhs = _lhs + "\uFFFF";
-                if (lhs.name.isEmpty())
-                    _lhs = _lhs + "\uFFFF";
+                    _lhs = _lhs + "0000";
                 else
-                    _lhs = _lhs + lhs.name;
+                    _lhs = _lhs + "0001";
+                if (lhs.name.isEmpty())
+                    _lhs = _lhs + "0002";
+                else
+                    _lhs = _lhs + "0003" + lhs.name;
                 _lhs = _lhs + "-" + lhs.cellId;
 
                 String _rhs = "";
                 if (rhs._new)
-                    _rhs = _rhs + "\uFFFF";
-                if (rhs.name.isEmpty())
-                    _rhs = _rhs + "\uFFFF";
+                    _rhs = _rhs + "0000";
                 else
-                    _rhs = _rhs + rhs.name;
+                    _rhs = _rhs + "0001";
+                if (rhs.name.isEmpty())
+                    _rhs = _rhs + "0002";
+                else
+                    _rhs = _rhs + "0003" + rhs.name;
                 _rhs = _rhs + "-" + rhs.cellId;
                 return GlobalGUIRoutines.collator.compare(_lhs, _rhs);
             }
