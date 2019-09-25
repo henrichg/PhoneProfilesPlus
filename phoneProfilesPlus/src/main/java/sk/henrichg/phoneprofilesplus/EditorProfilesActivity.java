@@ -411,6 +411,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_start_order),
                                         getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_all),
                                         getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_not_stopped),
+                                        getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_running),
                                         getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_paused),
                                         getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_stopped)
                                 };
