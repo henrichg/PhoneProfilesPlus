@@ -408,7 +408,7 @@ public class Profile {
 
         profileIconIdMap.put("ic_list_item_events_restart_color", R.drawable.ic_list_item_events_restart_color);
 
-        profileIconIdMap.put("ic_profile_default", R.drawable.ic_profile_default);
+        profileIconIdMap.put(PROFILE_ICON_DEFAULT, R.drawable.ic_profile_default);
         profileIconIdMap.put("ic_profile_home", R.drawable.ic_profile_home);
         profileIconIdMap.put("ic_profile_home_2", R.drawable.ic_profile_home_2);
         profileIconIdMap.put("ic_profile_home_3", R.drawable.ic_profile_home_3);
@@ -513,7 +513,7 @@ public class Profile {
     static final HashMap<String, Integer> profileIconNotifyId;
     static {
         profileIconNotifyId = new HashMap<>();
-        profileIconNotifyId.put("ic_profile_default", R.drawable.ic_profile_default_notify);
+        profileIconNotifyId.put(PROFILE_ICON_DEFAULT, R.drawable.ic_profile_default_notify);
         profileIconNotifyId.put("ic_profile_home", R.drawable.ic_profile_home_notify);
         profileIconNotifyId.put("ic_profile_home_2", R.drawable.ic_profile_home_2_notify);
         profileIconNotifyId.put("ic_profile_home_3", R.drawable.ic_profile_home_3_notify);
@@ -618,7 +618,7 @@ public class Profile {
     static final HashMap<String, Integer> profileIconNotifyColorId;
     static {
         profileIconNotifyColorId = new HashMap<>();
-        profileIconNotifyColorId.put("ic_profile_default", R.drawable.ic_profile_default_notify_color);
+        profileIconNotifyColorId.put(PROFILE_ICON_DEFAULT, R.drawable.ic_profile_default_notify_color);
         profileIconNotifyColorId.put("ic_profile_home", R.drawable.ic_profile_home_notify_color);
         profileIconNotifyColorId.put("ic_profile_home_2", R.drawable.ic_profile_home_2_notify_color);
         profileIconNotifyColorId.put("ic_profile_home_3", R.drawable.ic_profile_home_3_notify_color);
