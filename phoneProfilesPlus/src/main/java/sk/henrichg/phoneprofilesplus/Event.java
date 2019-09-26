@@ -2577,7 +2577,7 @@ class Event {
 
     //----------------------------------
 
-    boolean notifyEventStart(Context context) {
+    boolean notifyEventStart(Context context, boolean playSound) {
         String notificationSoundStart = _notificationSoundStart;
         boolean notificationVibrateStart = _notificationVibrateStart;
 
@@ -2627,15 +2627,16 @@ class Event {
                 StartEventNotificationBroadcastReceiver.setAlarm(this, context);
             }
 
-            if (PhoneProfilesService.getInstance() != null)
-                PhoneProfilesService.getInstance().playNotificationSound(notificationSoundStart, notificationVibrateStart);
+            if (playSound)
+                if (PhoneProfilesService.getInstance() != null)
+                    PhoneProfilesService.getInstance().playNotificationSound(notificationSoundStart, notificationVibrateStart);
 
             return true;
         }
         return false;
     }
 
-    boolean notifyEventEnd(/*Context context*/) {
+    boolean notifyEventEnd(/*Context context*/ boolean playSound) {
         String notificationSoundEnd = _notificationSoundEnd;
         boolean notificationVibrateEnd = _notificationVibrateEnd;
 
@@ -2643,8 +2644,9 @@ class Event {
 
             PPApplication.logE("Event.notifyEventEnd", "event._id="+_id);
 
-            if (PhoneProfilesService.getInstance() != null)
-                PhoneProfilesService.getInstance().playNotificationSound(notificationSoundEnd, notificationVibrateEnd);
+            if (playSound)
+                if (PhoneProfilesService.getInstance() != null)
+                    PhoneProfilesService.getInstance().playNotificationSound(notificationSoundEnd, notificationVibrateEnd);
 
             return true;
         }

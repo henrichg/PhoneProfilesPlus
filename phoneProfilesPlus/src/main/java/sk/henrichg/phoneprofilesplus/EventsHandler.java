@@ -586,24 +586,20 @@ class EventsHandler {
             }
 
             PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "notifyEventStart=" + notifyEventStart);
-            if (notifyEventStart != null) {
+            if (notifyEventStart != null)
                 PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "notifyEventStart._name=" + notifyEventStart._name);
-                PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "notifyEventStart=" + notifyEventStart.notifyEventStart(context));
-            }
             PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "notifyEventEnd=" + notifyEventEnd);
-            if (notifyEventEnd != null) {
+            if (notifyEventEnd != null)
                 PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "notifyEventEnd._name=" + notifyEventEnd._name);
-                PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "notifyEventEnd=" + notifyEventEnd.notifyEventEnd());
-            }
             PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "backgroundProfileNotificationSound=" + backgroundProfileNotificationSound);
 
-            // notify start of event - only when not restart events
-            boolean notify = (!isRestart) && (notifyEventStart != null) && notifyEventStart.notifyEventStart(context);
+            // notify start of event
+            boolean notify = (notifyEventStart != null) && notifyEventStart.notifyEventStart(context, !isRestart);
             if (notify)
                 PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "start of event notified");
             if (!notify)
-                // notify end of event - only when not restart events
-                notify = (!isRestart) && (notifyEventEnd != null) && notifyEventEnd.notifyEventEnd();
+                // notify end of event
+                notify = (notifyEventEnd != null) && notifyEventEnd.notifyEventEnd(!isRestart);
             if (notify)
                 PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "end of event notified");
             if (!notify) {
