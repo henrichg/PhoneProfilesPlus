@@ -4083,15 +4083,17 @@ public class PhoneProfilesService extends Service
                 if (oldPIntent != null) {
                     String pNameNotification = PPApplication.getNotificationProfileName(appContext);
 
-                    String pName;
-                    if (profile != null)
-                        pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, dataWrapper, false, appContext);
-                    else
-                        pName = appContext.getResources().getString(R.string.profiles_header_profile_name_no_activated);
+                    if (!pNameNotification.isEmpty()) {
+                        String pName;
+                        if (profile != null)
+                            pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, dataWrapper, false, appContext);
+                        else
+                            pName = appContext.getResources().getString(R.string.profiles_header_profile_name_no_activated);
 
-                    if (pName.equals(pNameNotification)) {
-                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "activated profile NOT changed");
-                        return;
+                        if (pName.equals(pNameNotification)) {
+                            PPApplication.logE("PhoneProfilesService._showProfileNotification", "activated profile NOT changed");
+                            return;
+                        }
                     }
                 }
             }
@@ -4264,14 +4266,13 @@ public class PhoneProfilesService extends Service
                 if (inHandlerThread)
                     pName = appContext.getResources().getString(R.string.profiles_header_profile_name_no_activated);
                 else
-                    pName = appContext.getResources().getString(R.string.empty_string);
+                    pName = "";
                 profileName = new SpannableString(pName);
                 iconBitmap = null;
                 preferencesIndicator = null;
             }
 
-            if (inHandlerThread)
-                PPApplication.setNotificationProfileName(appContext, pName);
+            PPApplication.setNotificationProfileName(appContext, pName);
 
             PendingIntent pIntent = PendingIntent.getActivity(appContext, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
