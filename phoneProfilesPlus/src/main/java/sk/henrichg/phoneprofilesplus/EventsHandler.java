@@ -619,6 +619,7 @@ class EventsHandler {
                     if (PhoneProfilesService.getInstance() != null) {
                         PhoneProfilesService.getInstance().playNotificationSound(backgroundProfileNotificationSound, backgroundProfileNotificationVibrate);
                         PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "default profile notified");
+                        notified = true;
                     }
                 }
             }
