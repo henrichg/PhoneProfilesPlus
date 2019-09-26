@@ -314,7 +314,8 @@ class EventsHandler {
             boolean restartEventsAtEnd = false;
             boolean activateProfileAtEnd = false;
             boolean anyEventPaused = false;
-            Event notifyEventEnd = null;
+            //Event notifyEventEnd = null;
+            boolean notified = false;
 
             boolean reactivateProfile = false;
 
@@ -347,7 +348,9 @@ class EventsHandler {
 
                         if (running && paused) {
                             anyEventPaused = true;
-                            notifyEventEnd = _event;
+                            //notifyEventEnd = _event;
+                            if (_event.notifyEventEnd(false))
+                                notified = true;
                         }
 
                         /*
@@ -375,7 +378,8 @@ class EventsHandler {
                         // start all events
                         //noinspection ConstantConditions
                         dataWrapper.doHandleEvents(_event, false, true, /*interactive,*/ false, forDelayEndAlarm, /*reactivateProfile,*/ mergedProfile, sensorType);
-
+                        if (_event.notifyEventStart(context, false))
+                            notified = true;
                         /*
                         PPApplication.logE("$$$ EventsHandler.handleEvents", "**** profileName=" + mergedProfile._name);
                         PPApplication.logE("$$$ EventsHandler.handleEvents", "**** profileId=" + mergedProfile._id);
@@ -414,7 +418,10 @@ class EventsHandler {
 
                         if (running && paused) {
                             anyEventPaused = true;
-                            notifyEventEnd = _event;
+                            //notifyEventEnd = _event;
+                            if (_event.notifyEventEnd(true))
+                                notified = true;
+
                             if (!restartEventsAtEnd && (_event._atEndDo == Event.EATENDDO_RESTART_EVENTS))
                                 restartEventsAtEnd = true;
                             if (!activateProfileAtEnd && ((_event._atEndDo == Event.EATENDDO_UNDONE_PROFILE) || (_event._fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)))
@@ -437,6 +444,8 @@ class EventsHandler {
                         // only start events
                         // start only paused events
                         dataWrapper.doHandleEvents(_event, false, false, /*interactive,*/ forDelayStartAlarm, forDelayEndAlarm, /*true*//*reactivateProfile,*/ mergedProfile, sensorType);
+                        if (_event.notifyEventStart(context, true))
+                            notified = true;
                     }
                 }
             }
@@ -585,6 +594,7 @@ class EventsHandler {
                 }
             }
 
+            /*
             PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "notifyEventStart=" + notifyEventStart);
             if (notifyEventStart != null)
                 PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "notifyEventStart._name=" + notifyEventStart._name);
@@ -602,7 +612,8 @@ class EventsHandler {
                 notify = (notifyEventEnd != null) && notifyEventEnd.notifyEventEnd(!isRestart);
             if (notify)
                 PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "end of event notified");
-            if (!notify) {
+            */
+            if (!notified) {
                 // notify default profile
                 if (!backgroundProfileNotificationSound.isEmpty() || backgroundProfileNotificationVibrate) {
                     if (PhoneProfilesService.getInstance() != null) {
@@ -612,7 +623,7 @@ class EventsHandler {
                 }
             }
 
-            if (doSleep || notify) {
+            if (doSleep || notified) {
                 //try { Thread.sleep(500); } catch (InterruptedException e) { }
                 //SystemClock.sleep(500);
                 PPApplication.sleep(500);
