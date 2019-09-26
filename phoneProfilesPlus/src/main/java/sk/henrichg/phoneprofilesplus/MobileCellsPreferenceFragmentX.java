@@ -662,7 +662,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
 
         public int compare(MobileCellsData lhs, MobileCellsData rhs) {
             if (GlobalGUIRoutines.collator != null) {
-                String _lhs = "";
+                String _lhs;// = "";
                 /*if (lhs._new)
                     _lhs = _lhs + "0000";
                 else
@@ -674,7 +674,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                 _lhs = _lhs + "-" + lhs.cellId;*/
                 _lhs = String.valueOf(lhs.lastConnectedTime);
 
-                String _rhs = "";
+                String _rhs;// = "";
                 /*if (rhs._new)
                     _rhs = _rhs + "0000";
                 else

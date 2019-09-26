@@ -266,6 +266,7 @@ class WifiBluetoothScanner {
                             leDevicesScan = DatabaseHandler.getInstance(context.getApplicationContext()).getBluetoothDevicesTypeCount(EventPreferencesBluetooth.DTYPE_LE, forceScanLE) > 0;
                         else
                             leDevicesScan = false;*/
+                        //noinspection ConstantConditions
                         PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "classicDevicesScan="+classicDevicesScan);
                         PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "leDevicesScan="+leDevicesScan);
 

@@ -710,8 +710,8 @@ public class PPApplication extends Application {
         }
         //////////////////////////////////////////
 
-        //if (logIntoFile || crashIntoFile)
-        //    Permissions.grantLogToFilePermissions(getApplicationContext());
+        if (logIntoFile || crashIntoFile)
+            Permissions.grantLogToFilePermissions(getApplicationContext());
 
         try {
             //if (!BuildConfig.DEBUG) {

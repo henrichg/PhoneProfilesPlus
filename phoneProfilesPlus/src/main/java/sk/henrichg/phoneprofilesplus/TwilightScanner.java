@@ -16,7 +16,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
 import android.os.SystemClock;
-import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 
@@ -34,9 +33,9 @@ class TwilightScanner {
     private final Object mLock = new Object();
 
     private final Context context;
-    private AlarmManager mAlarmManager;
-    private LocationManager mLocationManager;
-    private LocationHandler mLocationHandler;
+    private final AlarmManager mAlarmManager;
+    private final LocationManager mLocationManager;
+    private final LocationHandler mLocationHandler;
 
     private TwilightState mTwilightState;
 

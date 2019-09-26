@@ -31,14 +31,17 @@
       <w>autosync</w>
       <w>backgroundprofile</w>
       <w>backgrounprofile</w>
+      <w>bahasa</w>
       <w>basestation</w>
       <w>bitspin</w>
       <w>bluetoothconnected</w>
       <w>bluetoothinfront</w>
       <w>bluetoothsco</w>
       <w>bottombar</w>
+      <w>brasil</w>
       <w>browsable</w>
       <w>bssid</w>
+      <w>català</w>
       <w>cdma</w>
       <w>chainfire</w>
       <w>clockpackage</w>
@@ -50,13 +53,16 @@
       <w>dataimport</w>
       <w>dbfilename</w>
       <w>defaultprofile</w>
+      <w>defprof</w>
       <w>deinitialize</w>
       <w>descr</w>
       <w>deskclock</w>
+      <w>deutsch</w>
       <w>dlight</w>
       <w>doki</w>
       <w>droom</w>
       <w>dropshadow</w>
+      <w>dstart</w>
       <w>dtmf</w>
       <w>dtype</w>
       <w>earlybirdalarm</w>
@@ -66,6 +72,7 @@
       <w>emui</w>
       <w>eorder</w>
       <w>epriority</w>
+      <w>español</w>
       <w>estatus</w>
       <w>etype</w>
       <w>eventdeleted</w>
@@ -81,6 +88,7 @@
       <w>false;</w>
       <w>fgui</w>
       <w>firebase</w>
+      <w>français</w>
       <w>funanduseful</w>
       <w>gentlealarm</w>
       <w>geofence</w>
@@ -93,12 +101,14 @@
       <w>henrichg</w>
       <w>hight</w>
       <w>homescreen</w>
+      <w>horiz</w>
       <w>huawei</w>
       <w>imageview</w>
       <w>inapp</w>
       <w>incall</w>
       <w>incallui</w>
       <w>infront</w>
+      <w>italiano</w>
       <w>justany</w>
       <w>klock</w>
       <w>linkmode</w>
@@ -115,6 +125,7 @@
       <w>mono</w>
       <w>multiselect</w>
       <w>ndef</w>
+      <w>nederlands</w>
       <w>notconnected</w>
       <w>notif</w>
       <w>notinfront</w>
@@ -129,8 +140,10 @@
       <w>phoneprofileshelper</w>
       <w>phoneprofilesplus</w>
       <w>phoneprofilesplusextender</w>
+      <w>polski</w>
       <w>popupmenu</w>
       <w>porder</w>
+      <w>português</w>
       <w>poweron</w>
       <w>pphelper</w>
       <w>pppe</w>
@@ -150,6 +163,7 @@
       <w>restartevents</w>
       <w>ringermode</w>
       <w>ringtones</w>
+      <w>română</w>
       <w>rssi</w>
       <w>runevents</w>
       <w>samsung</w>
@@ -167,12 +181,15 @@
       <w>sipcall</w>
       <w>skus</w>
       <w>slook</w>
+      <w>slovenčina</w>
+      <w>slovenščina</w>
       <w>sonyericsson</w>
       <w>splunchy</w>
       <w>ssid</w>
       <w>ssids</w>
       <w>startedlogging</w>
       <w>supersu</w>
+      <w>svenska</w>
       <w>sysfs</w>
       <w>sysprop</w>
       <w>tasker</w>
@@ -184,10 +201,12 @@
       <w>treme</w>
       <w>true;</w>
       <w>twopane</w>
+      <w>türkçe</w>
       <w>uncheck</w>
       <w>undoprofile</w>
       <w>unselect</w>
       <w>urbandroid</w>
+      <w>vert</w>
       <w>wcdma</w>
       <w>wificonnected</w>
       <w>wifiinfront</w>
@@ -195,6 +214,7 @@
       <w>xiaomi</w>
       <w>xtreme</w>
       <w>zenmode</w>
+      <w>čeština</w>
     </words>
   </dictionary>
 </component>

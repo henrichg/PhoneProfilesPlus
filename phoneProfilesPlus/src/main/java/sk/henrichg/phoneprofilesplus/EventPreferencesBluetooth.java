@@ -31,8 +31,8 @@ class EventPreferencesBluetooth extends EventPreferences {
     static final int CTYPE_NOT_CONNECTED = 2;
     static final int CTYPE_NOT_NEARBY = 3;
 
-    static final int DTYPE_CLASSIC = 0;
-    static final int DTYPE_LE = 1;
+    //static final int DTYPE_CLASSIC = 0;
+    //static final int DTYPE_LE = 1;
 
     static final String PREF_EVENT_BLUETOOTH_ENABLED = "eventBluetoothEnabled";
     static final String PREF_EVENT_BLUETOOTH_ADAPTER_NAME = "eventBluetoothAdapterNAME";

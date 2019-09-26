@@ -10,7 +10,6 @@ import android.content.pm.PackageInfo;
 import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.util.Log;
 
 import java.util.List;
 

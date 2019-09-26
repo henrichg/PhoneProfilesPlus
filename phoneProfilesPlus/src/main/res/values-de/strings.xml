@@ -1042,7 +1042,7 @@
     <string name="phone_profiles_pref_applicationEventScanningDisabledByProfile">Sensoren sind durch Profil abgeschalten.</string>
     <string name="alert_message_enable_event_check_box">Nicht erneut fragen/anzeigen.</string>
     <string name="phone_profiles_pref_applicationUseAlarmClock">Wecker verwenden</string>
-    <string name="phone_profiles_pref_applicationUseAlarmClock_summary">Profil und Ereignisdauer, Zeitsensor, Kalendersensor, Ereignise verzögert starten/beenden sind nicht exakt, wenn der Bildschirm ausgeschaltet ist. Aktivieren Sie diesen Parameter, um ihn genau einzustellen. Das Weckersymbol wird in der Statusleiste angezeigt.</string>
+    <string name="phone_profiles_pref_applicationUseAlarmClock_summary">Profil und Ereignisdauer, Zeitsensor, Kalendersensor, Ereignisse verzögert starten/beenden sind nicht exakt, wenn der Bildschirm ausgeschaltet ist. Aktivieren Sie diesen Parameter, um ihn genau einzustellen. Das Weckersymbol wird in der Statusleiste angezeigt.</string>
     <string name="important_info_useAlarmClock">Profil und Ereignisdauer, Zeitsensor, Kalendersensor, Ereignisse verzögert starten/beenden sind nicht exakt, wenn der Bildschirm ausgeschaltet ist. Aktivieren Sie im Einstellungsparameter „System” ➜ „Wecker verwenden”, um ihn genau einzustellen. Das Weckersymbol wird in der Statusleiste angezeigt.</string>
     <string name="nfc_tag_pref_dlg_change_tag_name">Ändere Bezeichnung</string>
     <string name="event_preferences_not_set_underlined_parameters">Unterstrichene Einstellungen sind nicht eingerichtet.</string>

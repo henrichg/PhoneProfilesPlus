@@ -204,7 +204,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    static public void removeAlarm(Context context)
+    static private void removeAlarm(Context context)
     {
         PPApplication.logE("DonationBroadcastReceiver.removeAlarm", "xxx");
 

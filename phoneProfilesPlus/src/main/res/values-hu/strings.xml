@@ -1181,7 +1181,7 @@
     <string name="phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary">Helymeghatározás engedélyezve</string>
     <string name="preference_not_allowed_reason_no_sim_card">nincs SIM kártya</string>
     <string name="preference_not_allowed_reason_not_granted_g1_permission">nem kapott engedélyt WRITE_SECURE_SETTINGS</string>
-    <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_setToAlways_summary">Beállítva mindíg</string>
+    <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_setToAlways_summary">Beállítva mindig</string>
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary">Nincs mindig beállítva</string>
     <string name="event_preferences_notificationsAccessSettings_enabled_summary">Értesítés hozzáférés engedélyezve</string>
     <string name="event_preferences_notificationsAccessSettings_disabled_summary">Értesítések hozzáférés letiltva</string>

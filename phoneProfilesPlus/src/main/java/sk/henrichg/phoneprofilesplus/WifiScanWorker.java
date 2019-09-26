@@ -27,9 +27,10 @@ import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+@SuppressWarnings("WeakerAccess")
 public class WifiScanWorker extends Worker {
 
-    final Context context;
+    private final Context context;
 
     private static final String WORK_TAG  = "WifiScanJob";
 

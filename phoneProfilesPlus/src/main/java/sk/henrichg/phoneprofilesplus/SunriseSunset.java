@@ -80,14 +80,14 @@ public final class SunriseSunset {
         final double n;// Julian cycle (number of days since 2000-01-01).
         final double m; // solar mean anomaly
         final double lambda; // ecliptic longitude
-        final double jtransit; // Solar transit (hour angle for solar noon)
+        final double jTransit; // Solar transit (hour angle for solar noon)
         final double delta; // Declination of the sun
 
-        private SolarEquationVariables(double n, double m, double lambda, double jtransit, double delta) {
+        private SolarEquationVariables(double n, double m, double lambda, double jTransit, double delta) {
             this.n = n;
             this.m = m;
             this.lambda = lambda;
-            this.jtransit = jtransit;
+            this.jTransit = jTransit;
             this.delta = delta;
         }
     }
@@ -292,9 +292,9 @@ public final class SunriseSunset {
     /**
      * Return intermediate variables used for calculating sunrise, sunset, and solar noon.
      *
-     * @param day         The day for which to calculate the ecliptic longitude and jtransit
+     * @param day         The day for which to calculate the ecliptic longitude and jTransit
      * @param longitude   the longitude of the location in degrees (West is negative)
-     * @return a 2-element array with the ecliptic longitude (lambda) as the first element, and solar transit (jtransit) as the second element
+     * @return a 2-element array with the ecliptic longitude (lambda) as the first element, and solar transit (jTransit) as the second element
      * @see <a href="http://en.wikipedia.org/wiki/Sunrise_equation">Sunrise equation on Wikipedia</a>
      */
     private static SolarEquationVariables getSolarEquationVariables(final Calendar day, double longitude) {
@@ -305,16 +305,16 @@ public final class SunriseSunset {
         final double julianDate = getJulianDate(day);
 
         // Calculate current Julian cycle (number of days since 2000-01-01).
-        final double nstar = julianDate - JULIAN_DATE_2000_01_01 - CONST_0009
+        final double nStar = julianDate - JULIAN_DATE_2000_01_01 - CONST_0009
                 - longitude / CONST_360;
-        final double n = Math.round(nstar);
+        final double n = Math.round(nStar);
 
         // Approximate solar noon
-        final double jstar = JULIAN_DATE_2000_01_01 + CONST_0009 + longitude
+        final double jStar = JULIAN_DATE_2000_01_01 + CONST_0009 + longitude
                 / CONST_360 + n;
         // Solar mean anomaly
         final double m = Math
-                .toRadians((357.5291 + 0.98560028 * (jstar - JULIAN_DATE_2000_01_01))
+                .toRadians((357.5291 + 0.98560028 * (jStar - JULIAN_DATE_2000_01_01))
                         % CONST_360);
 
         // Equation of center
@@ -326,7 +326,7 @@ public final class SunriseSunset {
                 .toRadians((Math.toDegrees(m) + 102.9372 + c + 180) % CONST_360);
 
         // Solar transit (hour angle for solar noon)
-        final double jtransit = jstar + 0.0053 * Math.sin(m) - 0.0069
+        final double jTransit = jStar + 0.0053 * Math.sin(m) - 0.0069
                 * Math.sin(2 * lambda);
 
         // Declination of the sun.
@@ -334,7 +334,7 @@ public final class SunriseSunset {
                 * Math.sin(Math.toRadians(23.439)));
 
 
-        return new SolarEquationVariables(n, m, lambda, jtransit, delta);
+        return new SolarEquationVariables(n, m, lambda, jTransit, delta);
     }
 
     /**
@@ -368,16 +368,16 @@ public final class SunriseSunset {
         }
 
         // Sunset
-        final double jset = JULIAN_DATE_2000_01_01
+        final double jSet = JULIAN_DATE_2000_01_01
                 + CONST_0009
                 + ((Math.toDegrees(omega) + longitude) / CONST_360 + solarEquationVariables.n + 0.0053
                 * Math.sin(solarEquationVariables.m) - 0.0069 * Math.sin(2 * solarEquationVariables.lambda));
 
         // Sunrise
-        final double jrise = solarEquationVariables.jtransit - (jset - solarEquationVariables.jtransit);
+        final double jRise = solarEquationVariables.jTransit - (jSet - solarEquationVariables.jTransit);
         // Convert sunset and sunrise to Gregorian dates, in UTC
-        final Calendar gregRiseUTC = getGregorianDate(jrise);
-        final Calendar gregSetUTC = getGregorianDate(jset);
+        final Calendar gregRiseUTC = getGregorianDate(jRise);
+        final Calendar gregSetUTC = getGregorianDate(jSet);
 
         // Convert the sunset and sunrise to the timezone of the day parameter
         final Calendar gregRise = Calendar.getInstance(day.getTimeZone());
@@ -401,7 +401,7 @@ public final class SunriseSunset {
         SolarEquationVariables solarEquationVariables = getSolarEquationVariables(day, longitude);
 
         // Add a check for Antarctica in June and December (sun always down or up, respectively).
-        // In this case, jtransit will be filled in, but we need to check the hour angle omega for
+        // In this case, jTransit will be filled in, but we need to check the hour angle omega for
         // sunrise.
         // If there's no sunrise (omega is NaN), there's no solar noon.
         final double latitudeRad = Math.toRadians(latitude);
@@ -415,8 +415,8 @@ public final class SunriseSunset {
             return null;
         }
 
-        // Convert jtransit Gregorian dates, in UTC
-        final Calendar gregNoonUTC = getGregorianDate(solarEquationVariables.jtransit);
+        // Convert jTransit Gregorian dates, in UTC
+        final Calendar gregNoonUTC = getGregorianDate(solarEquationVariables.jTransit);
         final Calendar gregNoon = Calendar.getInstance(day.getTimeZone());
         gregNoon.setTimeInMillis(gregNoonUTC.getTimeInMillis());
         return gregNoon;

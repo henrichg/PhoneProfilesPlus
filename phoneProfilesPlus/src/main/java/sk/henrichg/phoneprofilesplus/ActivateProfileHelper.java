@@ -1863,7 +1863,7 @@ class ActivateProfileHelper {
         }
     }
 
-    private static int processPID = -1;
+    //private static int processPID = -1;
     private static void executeForForceStopApplications(final Profile profile, Context context) {
         if (PPApplication.blockProfileEventActions)
             // not force stop applications after boot
