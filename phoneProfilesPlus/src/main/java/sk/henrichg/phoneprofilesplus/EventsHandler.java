@@ -374,10 +374,15 @@ class EventsHandler {
 
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
                         // only start events
+
                         // start all events
-                        //noinspection ConstantConditions
+                        boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
                         dataWrapper.doHandleEvents(_event, false, true, /*interactive,*/ false, forDelayEndAlarm, /*reactivateProfile,*/ mergedProfile, sensorType);
-                        _event.notifyEventStart(context, false);
+                        boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
+
+                        if (running && paused) {
+                            _event.notifyEventStart(context, false);
+                        }
 
                         /*
                         PPApplication.logE("$$$ EventsHandler.handleEvents", "**** profileName=" + mergedProfile._name);
@@ -442,9 +447,14 @@ class EventsHandler {
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
                         // only start events
                         // start only paused events
+                        boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
                         dataWrapper.doHandleEvents(_event, false, false, /*interactive,*/ forDelayStartAlarm, forDelayEndAlarm, /*true*//*reactivateProfile,*/ mergedProfile, sensorType);
-                        if (_event.notifyEventStart(context, !notified))
-                            notified = true;
+                        boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
+
+                        if (running && paused) {
+                            if (_event.notifyEventStart(context, !notified))
+                                notified = true;
+                        }
                     }
                 }
             }
@@ -543,7 +553,7 @@ class EventsHandler {
             }
             ////////////////
 
-            Event notifyEventStart = null;
+            //Event notifyEventStart = null;
             String backgroundProfileNotificationSound = "";
             boolean backgroundProfileNotificationVibrate = false;
 
@@ -551,7 +561,7 @@ class EventsHandler {
                 // only running events is increased, play event notification sound
 
                 EventTimeline eventTimeline = eventTimelineList.get(runningEventCountE - 1);
-                notifyEventStart = dataWrapper.getEventById(eventTimeline._fkEvent);
+                //notifyEventStart = dataWrapper.getEventById(eventTimeline._fkEvent);
             }
             else
             if (/*(!isRestart) &&*/ (backgroundProfileId != Profile.PROFILE_NO_ACTIVATE) && notifyBackgroundProfile) {
