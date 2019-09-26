@@ -1284,7 +1284,6 @@
     <string name="not_used_mobile_cells_detected_connection_time">Устройство было подключено:</string>
     <string name="not_used_mobile_cells_detected_last_running_events_label">Добавить её к событиям:</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistrationInfo_summary">Регистрация вышек предназначена для регистрации мобильных вышек для этого события. Регистрация будет работать в фоновом режиме. Во время регистрации не рекомендуется изменять местоположение устройства.</string>
-    <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotification">Уведомление об обнаружении неиспользуемой мобильной вышки</string>
     <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotificationEnabled">Показывать уведомление об обнаружении неиспользуемой мобильной вышки</string>
     <string name="about_application_help_me_with_translation">Помогите мне, пожалуйста, с переводом. Спасибо.</string>
     <string name="event_preferences_time_timeType">Тип времени</string>
@@ -1301,7 +1300,15 @@
     <string name="profile_preferences_afterDurationProfile">Профиль, который нужно активировать</string>
     <string name="altype_afterDuration_specificProfile">По окончании - определённый профиль</string>
     <string name="notification_not_used_mobile_cell_disable">Отключить</string>
-    <string name="notification_channel_donation">Пожертвование</string>
+    <string name="notification_channel_donation">Вознаграждение</string>
+    <string name="phone_profiles_pref_applicationSamsungEdgeVerticalPosition">Vertical position</string>
+    <string name="array_pref_samsungEdgeVerticalPosition_top">Top</string>
+    <string name="array_pref_samsungEdgeVerticalPosition_center">Center</string>
+    <string name="array_pref_samsungEdgeVerticalPosition_bottom">Bottom</string>
+    <string name="editor_drawer_list_item_events_not_stopped">Not stopped</string>
+    <string name="mobile_cells_pref_dlg_cell_sort_title">Sort list</string>
+    <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">By cell name</string>
+    <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">By connected time</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1419,4 +1426,5 @@
     <!--    <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CL]</string>-->
     <!--    <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>-->
     <!--    <string name="event_preference_bluetooth_bt_types">Bluetooth types: [CL] classic, [LE] low energy, [DU] dual.</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotification">Notification for detection of not used mobile cell</string>-->
 </resources>

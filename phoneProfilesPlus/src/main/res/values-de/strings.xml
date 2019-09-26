@@ -1285,7 +1285,6 @@ und die Systemlautstärke zu ändern</string>
     <string name="not_used_mobile_cells_detected_connection_time">Gerät wurde angeschlossen:</string>
     <string name="not_used_mobile_cells_detected_last_running_events_label">Zu Ereignissen hinzufügen:</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistrationInfo_summary">Die Registrierung von Zellen dient dazu, Mobilfunkzellen für dieses Ereignis zu registrieren. Die Registrierung wird im Hintergrund ausgeführt. Während der laufenden Registrierung wird empfohlen, den Standort des Geräts nicht zu ändern.</string>
-    <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotification">Benachrichtigung bei Erkennung einer nicht genutzten Mobilfunkzelle</string>
     <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotificationEnabled">Zeigt eine Benachrichtigung bei Erkennung einer nicht verwendeten Mobilfunkzelle an</string>
     <string name="about_application_help_me_with_translation">Bitte unterstützen Sie mich bei der Übersetzung. Vielen Dank.</string>
     <string name="event_preferences_time_timeType">Zeittyp</string>
@@ -1303,6 +1302,14 @@ und die Systemlautstärke zu ändern</string>
     <string name="altype_afterDuration_specificProfile">nach Ablauf der Dauer - spezifisches Profil</string>
     <string name="notification_not_used_mobile_cell_disable">Disable</string>
     <string name="notification_channel_donation">Donation</string>
+    <string name="phone_profiles_pref_applicationSamsungEdgeVerticalPosition">Vertical position</string>
+    <string name="array_pref_samsungEdgeVerticalPosition_top">Top</string>
+    <string name="array_pref_samsungEdgeVerticalPosition_center">Center</string>
+    <string name="array_pref_samsungEdgeVerticalPosition_bottom">Bottom</string>
+    <string name="editor_drawer_list_item_events_not_stopped">Not stopped</string>
+    <string name="mobile_cells_pref_dlg_cell_sort_title">Sort list</string>
+    <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">By cell name</string>
+    <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">By connected time</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1420,4 +1427,5 @@ und die Systemlautstärke zu ändern</string>
     <!--    <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CL]</string>-->
     <!--    <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>-->
     <!--    <string name="event_preference_bluetooth_bt_types">Bluetooth types: [CL] classic, [LE] low energy, [DU] dual.</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotification">Notification for detection of not used mobile cell</string>-->
 </resources>

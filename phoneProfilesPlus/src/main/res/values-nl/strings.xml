@@ -1284,7 +1284,6 @@
     <string name="not_used_mobile_cells_detected_connection_time">Apparaat is verbonden:</string>
     <string name="not_used_mobile_cells_detected_last_running_events_label">Voeg het toe aan gebeurtenissen:</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistrationInfo_summary">Zendmast registratie is voor het registreren van zendmast cellen voor dit evenement. Registratie zal op de achtergrond worden uitgevoerd. Bij het uitvoeren van de registratie wordt aanbevolen om de locatie van het apparaat niet te wijzigen.</string>
-    <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotification">Melding voor het opsporen van niet gebruikte mobiele cel</string>
     <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotificationEnabled">Toont melding over gedetecteerde niet gebruikte mobiele cel</string>
     <string name="about_application_help_me_with_translation">Help me met vertalen. Dank je.</string>
     <string name="event_preferences_time_timeType">Tijd type</string>
@@ -1302,6 +1301,14 @@
     <string name="altype_afterDuration_specificProfile">na afloop van de tijdsduur - specifiek profiel</string>
     <string name="notification_not_used_mobile_cell_disable">Uitschakelen</string>
     <string name="notification_channel_donation">Donatie</string>
+    <string name="phone_profiles_pref_applicationSamsungEdgeVerticalPosition">Vertical position</string>
+    <string name="array_pref_samsungEdgeVerticalPosition_top">Top</string>
+    <string name="array_pref_samsungEdgeVerticalPosition_center">Center</string>
+    <string name="array_pref_samsungEdgeVerticalPosition_bottom">Bottom</string>
+    <string name="editor_drawer_list_item_events_not_stopped">Not stopped</string>
+    <string name="mobile_cells_pref_dlg_cell_sort_title">Sort list</string>
+    <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">By cell name</string>
+    <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">By connected time</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1419,4 +1426,5 @@
     <!--    <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CL]</string>-->
     <!--    <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>-->
     <!--    <string name="event_preference_bluetooth_bt_types">Bluetooth types: [CL] classic, [LE] low energy, [DU] dual.</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotification">Notification for detection of not used mobile cell</string>-->
 </resources>
