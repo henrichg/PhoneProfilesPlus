@@ -19,6 +19,7 @@ public class MobileCellsPreferenceX extends DialogPreference {
     String value;
     private String defaultValue;
     String cellFilter;
+    int sortCellsBy = 0;
     private boolean savedInstanceState;
 
     List<MobileCellsData> cellsList;
@@ -190,6 +191,7 @@ public class MobileCellsPreferenceX extends DialogPreference {
         myState.value = value;
         myState.defaultValue = defaultValue;
         myState.cellFilter = cellFilter;
+        myState.sortCellsBy = sortCellsBy;
 
         return myState;
     }
@@ -212,6 +214,7 @@ public class MobileCellsPreferenceX extends DialogPreference {
         value = myState.value;
         defaultValue = myState.defaultValue;
         cellFilter = myState.cellFilter;
+        sortCellsBy = myState.sortCellsBy;
 
         setSummary();
 
@@ -224,6 +227,7 @@ public class MobileCellsPreferenceX extends DialogPreference {
         String value;
         String defaultValue;
         String cellFilter;
+        int sortCellsBy;
 
         SavedState(Parcel source)
         {
@@ -232,6 +236,7 @@ public class MobileCellsPreferenceX extends DialogPreference {
             value = source.readString();
             defaultValue = source.readString();
             cellFilter = source.readString();
+            sortCellsBy = source.readInt();
         }
 
         @Override
@@ -242,6 +247,7 @@ public class MobileCellsPreferenceX extends DialogPreference {
             dest.writeString(value);
             dest.writeString(defaultValue);
             dest.writeString(cellFilter);
+            dest.writeInt(sortCellsBy);
         }
 
         SavedState(Parcelable superState)

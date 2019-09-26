@@ -15,6 +15,7 @@ import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -42,6 +43,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
 
     private AlertDialog mRenameDialog;
     private AlertDialog mSelectorDialog;
+    private AlertDialog mSortDialog;
 
     private TextView cellFilter;
     private TextView cellName;
@@ -214,6 +216,28 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                 }
             }
         });
+        final AppCompatImageButton sortIcon = view.findViewById(R.id.mobile_cells_pref_dlg_sort);
+        sortIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!((Activity)prefContext).isFinishing()) {
+                    mSortDialog = new AlertDialog.Builder(prefContext)
+                            .setTitle(R.string.mobile_cells_pref_dlg_cell_sort_title)
+                            .setCancelable(true)
+                            .setNegativeButton(android.R.string.cancel, null)
+                            .setSingleChoiceItems(R.array.mobileCellsSortArray, preference.sortCellsBy, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    preference.sortCellsBy = which;
+                                    Log.e("MobileCellsPreferenceFragmentX.sortIcon.onClickListener", "sortCellsBy="+preference.sortCellsBy);
+                                    refreshListView(false, Integer.MAX_VALUE);
+                                    dialog.dismiss();
+                                }
+                            })
+                            .show();
+                }
+            }
+        });
 
         final AppCompatImageButton helpIcon = view.findViewById(R.id.mobile_cells_pref_dlg_helpIcon);
         helpIcon.setOnClickListener(new View.OnClickListener() {
@@ -276,6 +300,8 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
             mRenameDialog.dismiss();
         if ((mSelectorDialog != null) && mSelectorDialog.isShowing())
             mSelectorDialog.dismiss();
+        if ((mSortDialog != null) && mSortDialog.isShowing())
+            mSortDialog.dismiss();
 
         if ((rescanAsyncTask != null) && (!rescanAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)))
             rescanAsyncTask.cancel(true);
@@ -365,6 +391,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
             List<MobileCellsData> _filteredCellsList = null;
             String _cellFilterValue;
             String _value;
+            int _sortCellsBy;
 
             MobileCellsData _registeredCellData;
             boolean _registeredCellInTable;
@@ -379,6 +406,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                 _filteredCellsList = new ArrayList<>();
                 _cellFilterValue = cellFilter.getText().toString();
                 _value = preference.value;
+                _sortCellsBy = preference.sortCellsBy;
 
                 if (preference.registeredCellData != null) {
                     _registeredCellData = new MobileCellsData(preference.registeredCellData.cellId,
@@ -501,7 +529,10 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                         db.renameMobileCellsList(_cellsList, _cellName, false, val);
                     }
 
-                    Collections.sort(_cellsList, new MobileCellsPreferenceFragmentX.SortList());
+                    if (_sortCellsBy == 0)
+                        Collections.sort(_cellsList, new MobileCellsPreferenceFragmentX.SortByNameList());
+                    else
+                        Collections.sort(_cellsList, new MobileCellsPreferenceFragmentX.SortByConnectionList());
 
 
                     PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add cells into filtered list");
@@ -594,7 +625,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         rescanAsyncTask.execute();
     }
 
-    private class SortList implements Comparator<MobileCellsData> {
+    private class SortByNameList implements Comparator<MobileCellsData> {
 
         public int compare(MobileCellsData lhs, MobileCellsData rhs) {
             if (GlobalGUIRoutines.collator != null) {
@@ -620,6 +651,41 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                     _rhs = _rhs + "0003" + rhs.name;
                 _rhs = _rhs + "-" + rhs.cellId;
                 return GlobalGUIRoutines.collator.compare(_lhs, _rhs);
+            }
+            else
+                return 0;
+        }
+
+    }
+
+    private class SortByConnectionList implements Comparator<MobileCellsData> {
+
+        public int compare(MobileCellsData lhs, MobileCellsData rhs) {
+            if (GlobalGUIRoutines.collator != null) {
+                String _lhs = "";
+                /*if (lhs._new)
+                    _lhs = _lhs + "0000";
+                else
+                    _lhs = _lhs + "0001";
+                if (lhs.name.isEmpty())
+                    _lhs = _lhs + "0002";
+                else
+                    _lhs = _lhs + "0003" + lhs.name;
+                _lhs = _lhs + "-" + lhs.cellId;*/
+                _lhs = String.valueOf(lhs.lastConnectedTime);
+
+                String _rhs = "";
+                /*if (rhs._new)
+                    _rhs = _rhs + "0000";
+                else
+                    _rhs = _rhs + "0001";
+                if (rhs.name.isEmpty())
+                    _rhs = _rhs + "0002";
+                else
+                    _rhs = _rhs + "0003" + rhs.name;
+                _rhs = _rhs + "-" + rhs.cellId;*/
+                _rhs = String.valueOf(rhs.lastConnectedTime);
+                return GlobalGUIRoutines.collator.compare(_rhs, _lhs);
             }
             else
                 return 0;

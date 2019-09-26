@@ -174,24 +174,46 @@
 
         <LinearLayout
             android:id="@+id/mobile_cells_pref_dlg_linla_listview"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_above="@id/mobile_cells_pref_dlg_et_btn"
             android:layout_alignParentTop="true">
 
-            <TextView
-                android:id="@+id/mobile_cells_pref_dlg_cells_filter_name"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:textSize="17sp"
-                android:textColor="?attr/colorAccent"
-                android:clickable="true"
-                android:focusable="true"/>
+                android:layout_height="wrap_content" >
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/mobile_cells_pref_dlg_sort"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/ic_button_sort"
+                    android:background="?attr/selectableItemBackground"
+                    android:contentDescription="@string/mobile_cells_pref_dlg_rename_icon"/>
+
+                <TextView
+                    android:id="@+id/mobile_cells_pref_dlg_cells_filter_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf = "@id/mobile_cells_pref_dlg_sort"
+                    android:textSize="17sp"
+                    android:textColor="?attr/colorAccent"
+                    android:clickable="true"
+                    android:focusable="true"/>
+
+
+            </RelativeLayout>
 
             <View
                 android:id="@+id/mobile_cells_pref_dlg_titleBarDivider"

@@ -1401,6 +1401,9 @@
     <string name="array_pref_samsungEdgeVerticalPosition_center">Center</string>
     <string name="array_pref_samsungEdgeVerticalPosition_bottom">Bottom</string>
     <string name="editor_drawer_list_item_events_not_stopped">Not stopped</string>
+    <string name="mobile_cells_pref_dlg_cell_sort_title">Sort list</string>
+    <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">By cell name</string>
+    <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">By connected time</string>
 
     <!-- **************************************************************************************** -->
 
