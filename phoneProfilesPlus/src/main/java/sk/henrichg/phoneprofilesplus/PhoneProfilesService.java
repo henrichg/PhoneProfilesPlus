@@ -4270,7 +4270,8 @@ public class PhoneProfilesService extends Service
                 preferencesIndicator = null;
             }
 
-            PPApplication.setNotificationProfileName(appContext, pName);
+            if (inHandlerThread)
+                PPApplication.setNotificationProfileName(appContext, pName);
 
             PendingIntent pIntent = PendingIntent.getActivity(appContext, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
