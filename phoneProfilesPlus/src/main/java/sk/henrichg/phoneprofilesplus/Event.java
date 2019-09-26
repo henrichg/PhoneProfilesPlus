@@ -1367,6 +1367,7 @@ class Event {
         // remove delay alarm
         removeDelayStartAlarm(dataWrapper); // for start delay
         removeDelayEndAlarm(dataWrapper); // for end delay
+        removeStartEventNotificationAlarm(dataWrapper); // for start repeating notification
 
         if ((!getGlobalEventsRunning(dataWrapper.context))/* && (!ignoreGlobalPref)*/)
             // events are globally stopped
@@ -1654,6 +1655,7 @@ class Event {
         // remove delay alarm
         removeDelayStartAlarm(dataWrapper); // for start delay
         removeDelayEndAlarm(dataWrapper); // for end delay
+        removeStartEventNotificationAlarm(dataWrapper); // for start repeating notification
 
         if ((!getGlobalEventsRunning(dataWrapper.context)) && (!ignoreGlobalPref))
             // events are globally stopped
@@ -1693,27 +1695,6 @@ class Event {
 
         if (exists)
         {
-            // clear start event notification
-            if (_repeatNotificationStart) {
-                boolean clearNotification = true;
-                for (int i = eventTimelineList.size()-1; i > 0; i--)
-                {
-                    EventTimeline _eventTimeline = eventTimelineList.get(i);
-                    Event event = dataWrapper.getEventById(_eventTimeline._fkEvent);
-                    if ((event != null) && (event._repeatNotificationStart) && (event._id != this._id)) {
-                        // not clear, notification is from another event
-                        clearNotification = false;
-                        break;
-                    }
-                }
-                if (clearNotification) {
-                    NotificationManager notificationManager = (NotificationManager) dataWrapper.context.getSystemService(Context.NOTIFICATION_SERVICE);
-                    if (notificationManager != null)
-                        notificationManager.cancel(PPApplication.EVENT_START_NOTIFICATION_ID);
-                    StartEventNotificationBroadcastReceiver.removeAlarm(dataWrapper.context);
-                }
-            }
-
             eventTimeline = eventTimelineList.get(eventPosition);
 
             // remove event from timeline
@@ -1816,6 +1797,7 @@ class Event {
         // remove delay alarm
         removeDelayStartAlarm(dataWrapper); // for start delay
         removeDelayEndAlarm(dataWrapper); // for end delay
+        removeStartEventNotificationAlarm(dataWrapper); // for start repeating notification
 
         if ((!getGlobalEventsRunning(dataWrapper.context)) && (!ignoreGlobalPref))
             // events are globally stopped
@@ -2329,6 +2311,30 @@ class Event {
         DatabaseHandler.getInstance(dataWrapper.context).updateEventInDelayEnd(this);
     }
 
+    private void removeStartEventNotificationAlarm(DataWrapper dataWrapper) {
+        if (_repeatNotificationStart) {
+            /*boolean clearNotification = true;
+            for (int i = eventTimelineList.size()-1; i > 0; i--)
+            {
+                EventTimeline _eventTimeline = eventTimelineList.get(i);
+                Event event = dataWrapper.getEventById(_eventTimeline._fkEvent);
+                if ((event != null) && (event._repeatNotificationStart) && (event._id != this._id)) {
+                    // not clear, notification is from another event
+                    clearNotification = false;
+                    break;
+                }
+            }
+            if (clearNotification) {*/
+                NotificationManager notificationManager = (NotificationManager) dataWrapper.context.getSystemService(Context.NOTIFICATION_SERVICE);
+                if (notificationManager != null) {
+                    int notificationID = -(99999999 + (int) _id);
+                    notificationManager.cancel(notificationID);
+                }
+                StartEventNotificationBroadcastReceiver.removeAlarm(this, dataWrapper.context);
+            //}
+        }
+    }
+
     static PreferenceAllowed isEventPreferenceAllowed(String preferenceKey, Context context)
     {
         PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
@@ -2599,7 +2605,7 @@ class Event {
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
                         .setAutoCancel(false); // clear notification after click
 
-                PendingIntent pi = PendingIntent.getActivity(context, 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent pi = PendingIntent.getActivity(context, (int) _id, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setContentIntent(pi);
                 mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
                 //if (android.os.Build.VERSION.SDK_INT >= 21) {
@@ -2608,12 +2614,15 @@ class Event {
                 //}
 
                 Intent deleteIntent = new Intent(StartEventNotificationDeletedReceiver.START_EVENT_NOTIFICATION_DELETED_ACTION);
-                PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, 0, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                deleteIntent.putExtra(PPApplication.EXTRA_EVENT_ID, _id);
+                PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, (int) _id, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setDeleteIntent(deletePendingIntent);
 
                 NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                if (mNotificationManager != null)
-                    mNotificationManager.notify(PPApplication.EVENT_START_NOTIFICATION_ID, mBuilder.build());
+                if (mNotificationManager != null) {
+                    int notificationID = -(99999999 + (int) _id);
+                    mNotificationManager.notify(notificationID, mBuilder.build());
+                }
 
                 StartEventNotificationBroadcastReceiver.setAlarm(this, context);
             }

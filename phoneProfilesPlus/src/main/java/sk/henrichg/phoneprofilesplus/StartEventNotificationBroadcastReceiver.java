@@ -58,7 +58,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
         });
     }
 
-    static void removeAlarm(Context context)
+    static void removeAlarm(Event event, Context context)
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
@@ -67,7 +67,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
             intent.setAction(PhoneProfilesService.ACTION_START_EVENT_NOTIFICATION_BROADCAST_RECEIVER);
             //intent.setClass(context, StartEventNotificationBroadcastReceiver.class);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) event._id, intent, PendingIntent.FLAG_NO_CREATE);
             if (pendingIntent != null) {
                 PPApplication.logE("StartEventNotificationBroadcastReceiver.removeAlarm", "alarm found");
 
@@ -89,7 +89,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 
             intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {

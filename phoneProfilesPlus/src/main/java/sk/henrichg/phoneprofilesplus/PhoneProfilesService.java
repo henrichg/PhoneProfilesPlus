@@ -3574,7 +3574,10 @@ public class PhoneProfilesService extends Service
                                 ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, appContext);
                             Profile.setActivatedProfileForDuration(appContext, 0);
 
-                            StartEventNotificationBroadcastReceiver.removeAlarm(appContext);
+                            dataWrapper.fillEventList();
+                            for (Event event : dataWrapper.eventList)
+                                StartEventNotificationBroadcastReceiver.removeAlarm(event, appContext);
+
                             GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(appContext);
                             LockDeviceActivityFinishBroadcastReceiver.removeAlarm(appContext);
 

@@ -235,9 +235,9 @@ public class PPApplication extends Application {
                                          +"|TimePreferenceX"
                                          +"|TimePreferenceFragmentX"*/
 
-                                         //+"|Event.notifyEventStart"
-                                         //+"|StartEventNotificationBroadcastReceiver"
-                                         //+"|StartEventNotificationDeletedReceiver"
+                                         +"|Event.notifyEventStart"
+                                         +"|StartEventNotificationBroadcastReceiver"
+                                         +"|StartEventNotificationDeletedReceiver"
                                          //+"|PhoneProfilesService.playNotificationSound"
 
                                          //+"|PPNotificationListenerService"
@@ -514,7 +514,7 @@ public class PPApplication extends Application {
     static final int MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID = 700430;
     static final int ABOUT_APPLICATION_DONATE_NOTIFICATION_ID = 700431;
     static final int ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_ID = 700432;
-    static final int EVENT_START_NOTIFICATION_ID = 700433;
+    //static final int EVENT_START_NOTIFICATION_ID = 700433;
     static final int PROFILE_ACTIVATION_MOBILE_DATA_PREFS_NOTIFICATION_ID = 700434;
     static final int PROFILE_ACTIVATION_LOCATION_PREFS_NOTIFICATION_ID = 700435;
     static final int PROFILE_ACTIVATION_WIFI_AP_PREFS_NOTIFICATION_ID = 700436;
@@ -2329,10 +2329,14 @@ public class PPApplication extends Application {
                     dataWrapper.fillProfileList(false, false);
                 for (Profile profile : dataWrapper.profileList)
                     ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, context);
+
+                if (!dataWrapper.eventListFilled)
+                    dataWrapper.fillEventList();
+                for (Event event : dataWrapper.eventList)
+                    StartEventNotificationBroadcastReceiver.removeAlarm(event, context);
             }
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
             Profile.setActivatedProfileForDuration(context, 0);
-            StartEventNotificationBroadcastReceiver.removeAlarm(context);
             GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(context);
             LockDeviceActivityFinishBroadcastReceiver.removeAlarm(context);
 
