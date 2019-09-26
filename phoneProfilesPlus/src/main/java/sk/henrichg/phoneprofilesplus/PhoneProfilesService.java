@@ -4243,7 +4243,8 @@ public class PhoneProfilesService extends Service
                 profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, dataWrapper, false, appContext);
 
                 if (inHandlerThread) {
-                    profile.generateIconBitmap(appContext, false, 0, false);
+                    if (notificationStatusBarStyle.equals("0"))
+                        profile.generateIconBitmap(appContext, false, 0, false);
                     if (notificationPrefIndicator)
                         profile.generatePreferencesIndicator(appContext, false, 0);
                     iconBitmap = profile._iconBitmap;
@@ -4253,6 +4254,8 @@ public class PhoneProfilesService extends Service
                     iconBitmap = null;
                     preferencesIndicator = null;
                 }
+                PPApplication.logE("PhoneProfilesService._showProfileNotification", "isIconResourceID="+isIconResourceID);
+                PPApplication.logE("PhoneProfilesService._showProfileNotification", "iconBitmap="+iconBitmap);
             }
             else
             {

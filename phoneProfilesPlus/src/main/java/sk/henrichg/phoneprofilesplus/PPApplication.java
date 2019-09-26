@@ -94,7 +94,7 @@ public class PPApplication extends Application {
                                          +"|PhoneProfilesService.doCommand"
                                          //+"|PhoneProfilesService.isServiceRunningInForeground"
                                          //+"|PhoneProfilesService.showProfileNotification"
-                                         //+"|PhoneProfilesService._showProfileNotification"
+                                         +"|PhoneProfilesService._showProfileNotification"
                                          //+"|PPApplication.createProfileNotificationChannel"
                                          +"|PhoneProfilesService.stopReceiver"
                                          +"|PhoneProfilesService.onDestroy"
@@ -235,9 +235,9 @@ public class PPApplication extends Application {
                                          +"|TimePreferenceX"
                                          +"|TimePreferenceFragmentX"*/
 
-                                         +"|Event.notifyEventStart"
-                                         +"|StartEventNotificationBroadcastReceiver"
-                                         +"|StartEventNotificationDeletedReceiver"
+                                         //+"|Event.notifyEventStart"
+                                         //+"|StartEventNotificationBroadcastReceiver"
+                                         //+"|StartEventNotificationDeletedReceiver"
                                          //+"|PhoneProfilesService.playNotificationSound"
 
                                          //+"|PPNotificationListenerService"
@@ -261,7 +261,7 @@ public class PPApplication extends Application {
                                          //+"|DeviceIdleModeBroadcastReceiver"
 
                                          //+"|##### GeofenceScanner"
-                                         +"|GeofenceScannerJob"
+                                         //+"|GeofenceScannerJob"
                                          //+"|GeofenceScannerJob.scheduleJob"
                                          //+"|GeofenceScannerJob.onRunJob"
                                          //+"|LocationGeofenceEditorActivity"
@@ -270,8 +270,8 @@ public class PPApplication extends Application {
                                          //+"|PhoneProfilesService.startGeofenceScanner"
                                          //+"|PhoneProfilesService.stopGeofenceScanner"
                                          //+"|[GeoSensor] DataWrapper.doHandleEvents"
-                                         +"|[***] GeofenceScanner"
-                                         +"|GeofenceScanWorker"
+                                         //+"|[***] GeofenceScanner"
+                                         //+"|GeofenceScanWorker"
 
                                          //+"|WifiStateChangedBroadcastReceiver"
                                          //+"|WifiConnectionBroadcastReceiver"
@@ -463,7 +463,6 @@ public class PPApplication extends Application {
                                         //+"|DaysOfWeekPreferenceX"
                                         //+"|EventPreferencesTime.getDayOfWeekByLocale"
 
-                                        +"|SearchCalendarEventsJob"
                                         +"|SearchCalendarEventsWorker"
             ;
 
