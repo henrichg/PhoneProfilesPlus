@@ -349,8 +349,7 @@ class EventsHandler {
                         if (running && paused) {
                             anyEventPaused = true;
                             //notifyEventEnd = _event;
-                            if (_event.notifyEventEnd(false))
-                                notified = true;
+                            _event.notifyEventEnd(false);
                         }
 
                         /*
@@ -378,8 +377,8 @@ class EventsHandler {
                         // start all events
                         //noinspection ConstantConditions
                         dataWrapper.doHandleEvents(_event, false, true, /*interactive,*/ false, forDelayEndAlarm, /*reactivateProfile,*/ mergedProfile, sensorType);
-                        if (_event.notifyEventStart(context, false))
-                            notified = true;
+                        _event.notifyEventStart(context, false);
+
                         /*
                         PPApplication.logE("$$$ EventsHandler.handleEvents", "**** profileName=" + mergedProfile._name);
                         PPApplication.logE("$$$ EventsHandler.handleEvents", "**** profileId=" + mergedProfile._id);
@@ -419,7 +418,7 @@ class EventsHandler {
                         if (running && paused) {
                             anyEventPaused = true;
                             //notifyEventEnd = _event;
-                            if (_event.notifyEventEnd(true))
+                            if (_event.notifyEventEnd(!notified))
                                 notified = true;
 
                             if (!restartEventsAtEnd && (_event._atEndDo == Event.EATENDDO_RESTART_EVENTS))
@@ -444,7 +443,7 @@ class EventsHandler {
                         // only start events
                         // start only paused events
                         dataWrapper.doHandleEvents(_event, false, false, /*interactive,*/ forDelayStartAlarm, forDelayEndAlarm, /*true*//*reactivateProfile,*/ mergedProfile, sensorType);
-                        if (_event.notifyEventStart(context, true))
+                        if (_event.notifyEventStart(context, !notified))
                             notified = true;
                     }
                 }
