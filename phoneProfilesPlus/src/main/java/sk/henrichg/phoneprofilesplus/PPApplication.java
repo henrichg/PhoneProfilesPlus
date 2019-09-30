@@ -136,7 +136,6 @@ public class PPApplication extends Application {
                                          //+"|Profile.mergeProfiles"
                                          //+"|@@@ Event.pauseEvent"
                                          //+"|@@@ Event.stopEvent"
-                                         //+"|### DataWrapper._activateProfile"
                                         //+"|$$$ restartEvents"
                                         //+"|DataWrapper._restartEvents"
                                         //+"|DataWrapper.restartEvents"
@@ -182,7 +181,7 @@ public class PPApplication extends Application {
                                          //+"|Profile.convertPercentsToBrightnessManualValue"
                                          //+"|SettingsContentObserver"
 
-                                         //+"|$$$ DataWrapper._activateProfile"
+                                         +"|$$$ DataWrapper._activateProfile"
                                          //+"|ProfileDurationAlarmBroadcastReceiver.onReceive"
                                          //+"|DataWrapper.activateProfileAfterDuration"
                                          //+"|DataWrapper.getIsManualProfileActivation"

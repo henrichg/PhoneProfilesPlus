@@ -1643,8 +1643,10 @@ public class DataWrapper {
 
         PPApplication.logE("$$$ DataWrapper._activateProfile","after update GUI");
 
-        if (mappedProfile != null)
+        if (mappedProfile != null) {
+            PPApplication.logE("$$$ DataWrapper._activateProfile","execute activation");
             ActivateProfileHelper.execute(context, mappedProfile);
+        }
 
         if ((mappedProfile != null) && (!merged)) {
             addActivityLog(ALTYPE_PROFILE_ACTIVATION, null,

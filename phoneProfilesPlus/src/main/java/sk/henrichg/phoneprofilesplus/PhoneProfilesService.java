@@ -4324,10 +4324,13 @@ public class PhoneProfilesService extends Service
             PPApplication.logE("PhoneProfilesService._showProfileNotification", "inHandlerThread="+inHandlerThread);
             if (inHandlerThread) {
                 if (isIconResourceID) {
+                    PPApplication.logE("PhoneProfilesService._showProfileNotification", "profile icon is internal resource");
                     int iconSmallResource;
                     if (iconBitmap != null) {
+                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "icon has changed color");
                         if (notificationStatusBarStyle.equals("0")) {
                             // colorful icon
+                            PPApplication.logE("PhoneProfilesService._showProfileNotification", "enabled is colorful icon in status bar");
 
                             // FC in Note 4, 6.0.1 :-/
                             boolean isNote4 = (Build.MANUFACTURER.compareToIgnoreCase("samsung") == 0) &&
@@ -4335,10 +4338,12 @@ public class PhoneProfilesService extends Service
                                    Build.MODEL.startsWith("SM-G900")     // Samsung Galaxy S5
                                   ) &&*/
                                     (android.os.Build.VERSION.SDK_INT == 23);
-                            //Log.d("ActivateProfileHelper.showNotification","isNote4="+isNote4);
+                            PPApplication.logE("PhoneProfilesService._showProfileNotification", "isNote4="+isNote4);
                             if ((android.os.Build.VERSION.SDK_INT >= 23) && (!isNote4)) {
+                                PPApplication.logE("PhoneProfilesService._showProfileNotification", "create icon from picture");
                                 notificationBuilder.setSmallIcon(Icon.createWithBitmap(iconBitmap));
                             } else {
+                                PPApplication.logE("PhoneProfilesService._showProfileNotification", "create icon default icon");
                                 //iconSmallResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier + "_notify_color", "drawable", dataWrapper.context.getPackageName());
                                 //if (iconSmallResource == 0)
                                 //    iconSmallResource = R.drawable.ic_profile_default;
@@ -4352,6 +4357,8 @@ public class PhoneProfilesService extends Service
                             }
                         } else {
                             // native icon
+                            PPApplication.logE("PhoneProfilesService._showProfileNotification", "colorful icon in status bar is disabled");
+
                             //iconSmallResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier + "_notify", "drawable", dataWrapper.context.getPackageName());
                             //if (iconSmallResource == 0)
                             //    iconSmallResource = R.drawable.ic_profile_default_notify;
@@ -4368,8 +4375,10 @@ public class PhoneProfilesService extends Service
                         if ((android.os.Build.VERSION.SDK_INT >= 24) && (!useDecorator)/* && (contentView != null)*/)
                             contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
                     } else {
+                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "icon has NOT changed color");
                         if (notificationStatusBarStyle.equals("0")) {
                             // colorful icon
+                            PPApplication.logE("PhoneProfilesService._showProfileNotification", "enabled is colorful icon in status bar");
                             //iconSmallResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier + "_notify_color", "drawable", dataWrapper.context.getPackageName());
                             //if (iconSmallResource == 0)
                             //    iconSmallResource = R.drawable.ic_profile_default;
@@ -4391,6 +4400,7 @@ public class PhoneProfilesService extends Service
                                 contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
                         } else {
                             // native icon
+                            PPApplication.logE("PhoneProfilesService._showProfileNotification", "colorful icon in status bar is disabled");
                             //iconSmallResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier + "_notify", "drawable", dataWrapper.context.getPackageName());
                             //if (iconSmallResource == 0)
                             //    iconSmallResource = R.drawable.ic_profile_default_notify;
@@ -4413,16 +4423,19 @@ public class PhoneProfilesService extends Service
                         }
                     }
                 } else {
+                    PPApplication.logE("PhoneProfilesService._showProfileNotification", "profile icon is custom - external picture");
                     // FC in Note 4, 6.0.1 :-/
                     boolean isNote4 = (Build.MANUFACTURER.compareToIgnoreCase("samsung") == 0) &&
                             /*(Build.MODEL.startsWith("SM-N910") ||  // Samsung Note 4
                              Build.MODEL.startsWith("SM-G900")     // Samsung Galaxy S5
                             ) &&*/
                             (android.os.Build.VERSION.SDK_INT == 23);
-                    //Log.d("ActivateProfileHelper.showNotification","isNote4="+isNote4);
+                    PPApplication.logE("PhoneProfilesService._showProfileNotification", "isNote4="+isNote4);
                     if ((Build.VERSION.SDK_INT >= 23) && (!isNote4) && (iconBitmap != null)) {
+                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "create icon from picture");
                         notificationBuilder.setSmallIcon(Icon.createWithBitmap(iconBitmap));
                     } else {
+                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "create icon default icon");
                         int iconSmallResource;
                         if (notificationStatusBarStyle.equals("0"))
                             iconSmallResource = R.drawable.ic_profile_default;
@@ -4444,6 +4457,7 @@ public class PhoneProfilesService extends Service
                 }
             }
             else {
+                PPApplication.logE("PhoneProfilesService._showProfileNotification", "create empty icon");
                 notificationBuilder.setSmallIcon(R.drawable.ic_empty);
                 contentViewLarge.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);
                 if ((android.os.Build.VERSION.SDK_INT >= 24) && (!useDecorator)/* && (contentView != null)*/)
