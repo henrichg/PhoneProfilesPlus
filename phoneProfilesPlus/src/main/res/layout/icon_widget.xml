@@ -3,7 +3,8 @@
     android:id="@+id/widget_icon_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center" >
+    android:gravity="center"
+    android:background="#40000000" >
 
     <ImageView
         android:id="@+id/widget_icon_background"

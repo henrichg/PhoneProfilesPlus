@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:id="@+id/widget_one_row_root"
-             android:layout_width="match_parent"
-             android:layout_height="60dp"
-             android:gravity="center" >
+    android:id="@+id/widget_one_row_root"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:gravity="center"
+    android:background="#40000000" >
 
     <ImageView
         android:id="@+id/widget_one_row_background"
