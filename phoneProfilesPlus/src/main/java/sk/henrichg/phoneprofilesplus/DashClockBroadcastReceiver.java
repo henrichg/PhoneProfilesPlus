@@ -42,9 +42,11 @@ public class DashClockBroadcastReceiver extends BroadcastReceiver {
                     if (!refresh) {
                         String pNameWidget = PPApplication.getWidgetProfileName(context, 5);
 
-                        if (pName.equals(pNameWidget)) {
-                            PPApplication.logE("DashClockBroadcastReceiver.onReceive", "activated profile NOT changed");
-                            return;
+                        if (!pNameWidget.isEmpty()) {
+                            if (pName.equals(pNameWidget)) {
+                                PPApplication.logE("DashClockBroadcastReceiver.onReceive", "activated profile NOT changed");
+                                return;
+                            }
                         }
                     }
 

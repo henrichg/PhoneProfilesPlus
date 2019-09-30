@@ -11,6 +11,7 @@
         android:layout_height="fill_parent"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_background"
+        android:visibility="invisible"
         android:contentDescription="@string/empty_string" />
 
     <RelativeLayout
@@ -92,6 +93,7 @@
         android:layout_height="fill_parent"
         android:scaleType="fitXY"
         android:src="@drawable/not_rounded_widget_border"
+        android:visibility="invisible"
         android:contentDescription="@string/empty_string" />
 
     <ImageView
@@ -100,6 +102,7 @@
         android:layout_height="fill_parent"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_border"
+        android:visibility="invisible"
         android:contentDescription="@string/empty_string" />
 
 </FrameLayout>

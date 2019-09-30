@@ -295,15 +295,22 @@ public class PhoneProfilesService extends Service
         waitForEndOfStart = true;
         //ApplicationPreferences.forceNotUseAlarmClock = false;
 
-        if (Build.VERSION.SDK_INT >= 26)
-            // show empty notification to avoid ANR
-            showProfileNotification(true);
+        Context appContext = getApplicationContext();
+
+        PPApplication.setNotificationProfileName(appContext, "");
+        PPApplication.setWidgetProfileName(appContext, 1, "");
+        PPApplication.setWidgetProfileName(appContext, 2, "");
+        PPApplication.setWidgetProfileName(appContext, 3, "");
+        PPApplication.setWidgetProfileName(appContext, 4, "");
+        PPApplication.setWidgetProfileName(appContext, 5, "");
+
+        //if (Build.VERSION.SDK_INT >= 26)
+        // show empty notification to avoid ANR in api level 26
+        showProfileNotification(true);
 
         registerReceiver(stopReceiver, new IntentFilter(ACTION_STOP));
         //LocalBroadcastManager.getInstance(this).registerReceiver(stopReceiver, new IntentFilter(ACTION_STOP));
         LocalBroadcastManager.getInstance(this).registerReceiver(commandReceiver, new IntentFilter(ACTION_COMMAND));
-
-        Context appContext = getApplicationContext();
 
         try {
             if ((Build.VERSION.SDK_INT < 26)) {
@@ -356,18 +363,8 @@ public class PhoneProfilesService extends Service
 
         PPApplication.logE("$$$ PhoneProfilesService.onCreate", "OK created");
 
-        /*if (PPApplication.getApplicationStarted(getApplicationContext(), false)) {
-            PPApplication.logE("$$$ PhoneProfilesService.onCreate", "doForFirstStart");
-            doForFirstStart(null);
-        }
-        else {
-            showProfileNotification();
-            stopSelf();
-        }*/
-        //if (!PPApplication.getApplicationStarted(getApplicationContext(), false)) {
-            showProfileNotification(true);
-        //    stopSelf();
-        //}
+        //showProfileNotification(true);
+        ActivateProfileHelper.updateGUI(appContext, false, true);
     }
 
     @Override
@@ -4637,15 +4634,15 @@ public class PhoneProfilesService extends Service
         });
     }
 
-    void clearProfileNotification(/*Context context, boolean onlyEmpty*/)
+    void clearProfileNotification(/*boolean onlyEmpty*/)
     {
         /*if (onlyEmpty) {
             final Context appContext = getApplicationContext();
             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
-            _showProfileNotification(null, false, dataWrapper);
+            _showProfileNotification(null, false, dataWrapper, true);
             dataWrapper.invalidateDataWrapper();
         }
-        else*/ {
+        else {*/
             try {
                 final Context appContext = getApplicationContext();
                 if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBarPermanent(appContext))
@@ -4658,7 +4655,7 @@ public class PhoneProfilesService extends Service
             } catch (Exception ignored) {
             }
             runningInForeground = false;
-        }
+        //}
     }
 
     /*

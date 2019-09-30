@@ -136,11 +136,11 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         blueBorder = redBorder;
         if (applicationWidgetListRoundedCorners) {
             widget.setViewVisibility(R.id.widget_profile_list_background, View.VISIBLE);
-            widget.setViewVisibility(R.id.widget_profile_list_not_rounded_border, View.GONE);
+            widget.setViewVisibility(R.id.widget_profile_list_not_rounded_border, View.INVISIBLE);
             if (applicationWidgetListShowBorder)
                 widget.setViewVisibility(R.id.widget_profile_list_rounded_border, View.VISIBLE);
             else
-                widget.setViewVisibility(R.id.widget_profile_list_rounded_border, View.GONE);
+                widget.setViewVisibility(R.id.widget_profile_list_rounded_border, View.INVISIBLE);
             widget.setInt(R.id.widget_profile_list_root, "setBackgroundColor", 0x00000000);
             widget.setInt(R.id.widget_profile_list_background, "setColorFilter", Color.argb(0xFF, red, green, blue));
             //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
@@ -151,12 +151,12 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 widget.setInt(R.id.widget_profile_list_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
         }
         else {
-            widget.setViewVisibility(R.id.widget_profile_list_background, View.GONE);
-            widget.setViewVisibility(R.id.widget_profile_list_rounded_border, View.GONE);
+            widget.setViewVisibility(R.id.widget_profile_list_background, View.INVISIBLE);
+            widget.setViewVisibility(R.id.widget_profile_list_rounded_border, View.INVISIBLE);
             if (applicationWidgetListShowBorder)
                 widget.setViewVisibility(R.id.widget_profile_list_not_rounded_border, View.VISIBLE);
             else
-                widget.setViewVisibility(R.id.widget_profile_list_not_rounded_border, View.GONE);
+                widget.setViewVisibility(R.id.widget_profile_list_not_rounded_border, View.INVISIBLE);
             widget.setInt(R.id.widget_profile_list_root, "setBackgroundColor", Color.argb(alpha, red, green, blue));
             /*widget.setInt(R.id.widget_profile_list_background, "setColorFilter", 0x00000000);
             //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
@@ -656,9 +656,11 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 if (!refresh) {
                     String pNameWidget = PPApplication.getWidgetProfileName(context, 3);
 
-                    if (pName.equals(pNameWidget)) {
-                        PPApplication.logE("ProfileListWidgetProvider.onUpdate", "activated profile NOT changed");
-                        return;
+                    if (!pNameWidget.isEmpty()) {
+                        if (pName.equals(pNameWidget)) {
+                            PPApplication.logE("ProfileListWidgetProvider.onUpdate", "activated profile NOT changed");
+                            return;
+                        }
                     }
                 }
 
