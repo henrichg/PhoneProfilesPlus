@@ -170,7 +170,7 @@ public class PPApplication extends Application {
                                          //+"|GrantPermissionActivity"
                                          //+"|PhoneProfilesPreferencesNestedFragment.doOnActivityResult"
 
-                                         +"|[****] BatteryBroadcastReceiver.onReceive"
+                                         //+"|[****] BatteryBroadcastReceiver.onReceive"
                                          /*
                                          +"|[XXX] PowerSaveModeBroadcastReceiver.onReceive"
                                          +"|[XXX] BatteryBroadcastReceiver.onReceive"
@@ -463,7 +463,7 @@ public class PPApplication extends Application {
                                         //+"|DaysOfWeekPreferenceX"
                                         //+"|EventPreferencesTime.getDayOfWeekByLocale"
 
-                                        +"|SearchCalendarEventsWorker"
+                                        //+"|SearchCalendarEventsWorker"
             ;
 
 

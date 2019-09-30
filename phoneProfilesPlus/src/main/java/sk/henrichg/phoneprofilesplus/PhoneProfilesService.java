@@ -4078,8 +4078,11 @@ public class PhoneProfilesService extends Service
                 // not redraw notification when activated profile is not changed
                 // activated profile is in requestCode
 
+                PPApplication.logE("PhoneProfilesService._showProfileNotification", "not redraw notification");
+
                 // get old notification
                 PendingIntent oldPIntent = PendingIntent.getActivity(appContext, requestCode, intent, PendingIntent.FLAG_NO_CREATE);
+                PPApplication.logE("PhoneProfilesService._showProfileNotification", "oldPIntent="+oldPIntent);
                 if (oldPIntent != null) {
                     String pNameNotification = PPApplication.getNotificationProfileName(appContext);
 
@@ -4236,6 +4239,7 @@ public class PhoneProfilesService extends Service
             Bitmap iconBitmap;
             Bitmap preferencesIndicator;
 
+            PPApplication.logE("PhoneProfilesService._showProfileNotification", "profile="+profile);
             if (profile != null)
             {
                 //PPApplication.logE("PhoneProfilesService.showProfileNotification", "profile != null");
@@ -4256,8 +4260,6 @@ public class PhoneProfilesService extends Service
                     iconBitmap = null;
                     preferencesIndicator = null;
                 }
-                PPApplication.logE("PhoneProfilesService._showProfileNotification", "isIconResourceID="+isIconResourceID);
-                PPApplication.logE("PhoneProfilesService._showProfileNotification", "iconBitmap="+iconBitmap);
             }
             else
             {
@@ -4271,6 +4273,8 @@ public class PhoneProfilesService extends Service
                 iconBitmap = null;
                 preferencesIndicator = null;
             }
+            PPApplication.logE("PhoneProfilesService._showProfileNotification", "isIconResourceID="+isIconResourceID);
+            PPApplication.logE("PhoneProfilesService._showProfileNotification", "iconBitmap="+iconBitmap);
 
             PPApplication.setNotificationProfileName(appContext, pName);
 
@@ -4317,6 +4321,7 @@ public class PhoneProfilesService extends Service
 
             //notificationBuilder.setTicker(profileName);
 
+            PPApplication.logE("PhoneProfilesService._showProfileNotification", "inHandlerThread="+inHandlerThread);
             if (inHandlerThread) {
                 if (isIconResourceID) {
                     int iconSmallResource;
