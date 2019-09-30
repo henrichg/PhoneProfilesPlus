@@ -86,6 +86,7 @@ class Permissions {
     static final int GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG = 17;
     static final int GRANT_TYPE_LOG_TO_FILE = 18;
     //static final int GRANT_TYPE_GRANT_ROOT = 19;
+    static final int GRANT_TYPE_EXPORT_AND_EMAIL = 20;
 
     static final int REQUEST_CODE = 5000;
     //static final int REQUEST_CODE_FORCE_GRANT = 6000;
@@ -1528,7 +1529,7 @@ class Permissions {
             return true;
     }
 
-    static boolean grantExportPermissions(Context context, EditorProfilesActivity editor) {
+    static boolean grantExportPermissions(Context context, EditorProfilesActivity editor, boolean email) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean granted = checkExport(context);
             if (!granted) {
@@ -1539,11 +1540,17 @@ class Permissions {
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
-                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_EXPORT);
+                    if (email)
+                        intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_EXPORT_AND_EMAIL);
+                    else
+                        intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_EXPORT);
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                     //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
-                    editor.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_EXPORT);
+                    if (email)
+                        editor.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_EXPORT_AND_EMAIL);
+                    else
+                        editor.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_EXPORT);
                     //editorActivity = editor;
                     //context.startActivity(intent);
                 } catch (Exception e) {

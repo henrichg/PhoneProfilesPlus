@@ -147,6 +147,16 @@
             android:name="io.fabric.ApiKey"
             android:value="795384c10c1c3eec6489c1d2fcf5e444d013da7d"/>
 
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+
         <activity
             android:name=".LauncherActivity"
             android:excludeFromRecents="true"

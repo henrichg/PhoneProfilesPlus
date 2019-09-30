@@ -58,7 +58,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_INTENTS = "intents";
 
     // import/export
-    private final String EXPORT_DBFILENAME = DATABASE_NAME + ".backup";
+    static final String EXPORT_DBFILENAME = DATABASE_NAME + ".backup";
     private final Lock importExportLock = new ReentrantLock();
     private final Condition runningImportExportCondition  = importExportLock.newCondition();
     private final Condition runningCommandCondition = importExportLock.newCondition();

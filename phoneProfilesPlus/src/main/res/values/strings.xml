@@ -1409,6 +1409,8 @@
     <string name="phone_profiles_pref_applicationLanguage_da" translatable="false">Dansk</string>
     <string name="phone_profiles_pref_applicationLanguage_sr" translatable="false">Српски</string>
 
+    <string name="menu_export_and_email">Backup and e-mail settings</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>

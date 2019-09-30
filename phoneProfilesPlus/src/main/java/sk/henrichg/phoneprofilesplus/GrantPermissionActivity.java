@@ -365,6 +365,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestString = context.getString(R.string.permissions_for_custom_profile_icon_text1) + "<br><br>";
             else if (grantType == Permissions.GRANT_TYPE_EXPORT)
                 showRequestString = context.getString(R.string.permissions_for_export_app_data_text1) + "<br><br>";
+            else if (grantType == Permissions.GRANT_TYPE_EXPORT_AND_EMAIL)
+                showRequestString = context.getString(R.string.permissions_for_export_app_data_text1) + "<br><br>";
             else if (grantType == Permissions.GRANT_TYPE_IMPORT)
                 showRequestString = context.getString(R.string.permissions_for_import_app_data_text1) + "<br><br>";
             else if (grantType == Permissions.GRANT_TYPE_WIFI_BT_SCAN_DIALOG)
@@ -503,6 +505,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
             else if (grantType == Permissions.GRANT_TYPE_CUSTOM_PROFILE_ICON)
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_custom_profile_icon_text2);
             else if (grantType == Permissions.GRANT_TYPE_EXPORT)
+                showRequestString = showRequestString + context.getString(R.string.permissions_for_export_app_data_text2);
+            else if (grantType == Permissions.GRANT_TYPE_EXPORT_AND_EMAIL)
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_export_app_data_text2);
             else if (grantType == Permissions.GRANT_TYPE_IMPORT)
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_import_app_data_text2);
@@ -1505,6 +1509,13 @@ public class GrantPermissionActivity extends AppCompatActivity {
         }
         else
         if (grantType == Permissions.GRANT_TYPE_EXPORT) {
+            setResult(Activity.RESULT_OK);
+            finish();
+            //if (Permissions.editorActivity != null)
+            //    Permissions.editorActivity.doExportData();
+        }
+        else
+        if (grantType == Permissions.GRANT_TYPE_EXPORT_AND_EMAIL) {
             setResult(Activity.RESULT_OK);
             finish();
             //if (Permissions.editorActivity != null)

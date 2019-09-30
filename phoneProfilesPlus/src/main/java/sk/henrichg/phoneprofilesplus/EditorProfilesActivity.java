@@ -3,14 +3,19 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.LabeledIntent;
+import android.content.pm.PackageInfo;
+import android.content.pm.ResolveInfo;
 import android.graphics.Rect;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -49,6 +54,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import me.drakeet.support.toast.ToastCompat;
@@ -783,7 +789,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }
                 return true;
             case R.id.menu_export:
-                exportData();
+                exportData(false);
+
+                return true;
+            case R.id.menu_export_and_email:
+                exportData(true);
 
                 return true;
             case R.id.menu_import:
@@ -1266,7 +1276,13 @@ public class EditorProfilesActivity extends AppCompatActivity
         else
         if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_EXPORT) {
             if (resultCode == RESULT_OK) {
-                doExportData();
+                doExportData(false);
+            }
+        }
+        else
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_EXPORT_AND_EMAIL) {
+            if (resultCode == RESULT_OK) {
+                doExportData(true);
             }
         }
         else
@@ -1746,7 +1762,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         return res;
     }
 
-    private void exportData()
+    private void exportData(final boolean email)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         dialogBuilder.setTitle(R.string.export_profiles_alert_title);
@@ -1757,7 +1773,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         dialogBuilder.setPositiveButton(R.string.alert_button_backup, new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
-                doExportData();
+                doExportData(email);
             }
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
@@ -1775,11 +1791,11 @@ public class EditorProfilesActivity extends AppCompatActivity
             dialog.show();
     }
 
-    private void doExportData()
+    private void doExportData(final boolean email)
     {
         final EditorProfilesActivity activity = this;
 
-        if (Permissions.grantExportPermissions(activity.getApplicationContext(), activity)) {
+        if (Permissions.grantExportPermissions(activity.getApplicationContext(), activity, email)) {
 
             @SuppressLint("StaticFieldLeak")
             class ExportAsyncTask extends AsyncTask<Void, Integer, Integer> {
@@ -1848,11 +1864,59 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     if ((dataWrapper != null) && (result == 1)) {
 
+                        Context context = this.dataWrapper.context.getApplicationContext();
                         // toast notification
-                        Toast msg = ToastCompat.makeText(this.dataWrapper.context.getApplicationContext(),
-                                getResources().getString(R.string.toast_export_ok),
-                                Toast.LENGTH_SHORT);
+                        Toast msg = ToastCompat.makeText(context, getString(R.string.toast_export_ok), Toast.LENGTH_SHORT);
                         msg.show();
+
+                        if (email) {
+                            // email backup
+
+                            ArrayList<Uri> uris = new ArrayList<>();
+
+                            File sd = Environment.getExternalStorageDirectory();
+
+                            File exportedDB = new File(sd, PPApplication.EXPORT_PATH + "/" + DatabaseHandler.EXPORT_DBFILENAME);
+                            Uri fileUri = FileProvider.getUriForFile(activity, context.getPackageName() + ".provider", exportedDB);
+                            uris.add(fileUri);
+
+                            File appSettingsFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
+                            fileUri = FileProvider.getUriForFile(activity, context.getPackageName() + ".provider", appSettingsFile);
+                            uris.add(fileUri);
+
+                            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                                    "mailto", "", null));
+
+                            String packageVersion = "";
+                            try {
+                                PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+                                packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
+                            } catch (Exception e) {
+                                Log.e("EditorProfilesActivity.doExportData", Log.getStackTraceString(e));
+                            }
+                            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.menu_export));
+                            emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                            List<ResolveInfo> resolveInfos = getPackageManager().queryIntentActivities(emailIntent, 0);
+                            List<LabeledIntent> intents = new ArrayList<>();
+                            for (ResolveInfo info : resolveInfos) {
+                                Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+                                intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
+                                //intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"example@gmail.com"});
+                                intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.menu_export));
+                                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's
+                                intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(getPackageManager()), info.icon));
+                            }
+                            try {
+                                Intent chooser = Intent.createChooser(intents.remove(intents.size() - 1), context.getString(R.string.email_chooser));
+                                //noinspection ToArrayCallWithZeroLengthArrayArgument
+                                chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[intents.size()]));
+                                startActivity(chooser);
+                            } catch (Exception e) {
+                                Log.e("EditorProfilesActivity.doExportData", Log.getStackTraceString(e));
+                            }
+                        }
 
                     } else {
                         if (!isFinishing())
