@@ -4101,6 +4101,10 @@ public class PhoneProfilesService extends Service
                 }
             }
 
+            if (Build.MANUFACTURER.equals("HMD Global"))
+                // clear it for redraw icon in "Glance view" for "HMD Global" mobiles
+                clearProfileNotification();
+
             if (refresh)
                 PPApplication.logE("PhoneProfilesService._showProfileNotification", "refresh");
             else
@@ -4249,8 +4253,8 @@ public class PhoneProfilesService extends Service
                 profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, dataWrapper, false, appContext);
 
                 if (inHandlerThread) {
-                    if (notificationStatusBarStyle.equals("0"))
-                        profile.generateIconBitmap(appContext, false, 0, false);
+                    //if (notificationStatusBarStyle.equals("0"))
+                    profile.generateIconBitmap(appContext, false, 0, false);
                     if (notificationPrefIndicator)
                         profile.generatePreferencesIndicator(appContext, false, 0);
                     iconBitmap = profile._iconBitmap;
@@ -4458,7 +4462,7 @@ public class PhoneProfilesService extends Service
             }
             else {
                 PPApplication.logE("PhoneProfilesService._showProfileNotification", "create empty icon");
-                notificationBuilder.setSmallIcon(R.drawable.ic_empty);
+                notificationBuilder.setSmallIcon(R.drawable.ic_profile_default);
                 contentViewLarge.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);
                 if ((android.os.Build.VERSION.SDK_INT >= 24) && (!useDecorator)/* && (contentView != null)*/)
                     contentView.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);
