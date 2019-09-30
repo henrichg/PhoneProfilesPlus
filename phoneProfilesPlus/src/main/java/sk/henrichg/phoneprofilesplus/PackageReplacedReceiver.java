@@ -30,19 +30,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
             final Context appContext = context.getApplicationContext();
 
-            final DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
-
-            final int oldVersionCode = PPApplication.getSavedVersionCode(appContext);
-            // save version code
-            try {
-                PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
-                int actualVersionCode = PPApplication.getVersionCode(pInfo);
-                PPApplication.setSavedVersionCode(appContext, actualVersionCode);
-
-                String version = pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
-                dataWrapper.addActivityLog(DataWrapper.ALTYPE_APPLICATION_UPGRADE, version, null, null, 0);
-            } catch (Exception ignored) {
-            }
+            final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
             PPApplication.startHandlerThread("PackageReplacedReceiver.onReceive.1");
             final Handler handler2 = new Handler(PPApplication.handlerThread.getLooper());
@@ -61,6 +49,18 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                         }
 
                         PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PackageReplacedReceiver.onReceive.1");
+
+                        final int oldVersionCode = PPApplication.getSavedVersionCode(appContext);
+                        // save version code
+                        try {
+                            PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
+                            int actualVersionCode = PPApplication.getVersionCode(pInfo);
+                            PPApplication.setSavedVersionCode(appContext, actualVersionCode);
+
+                            String version = pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
+                            dataWrapper.addActivityLog(DataWrapper.ALTYPE_APPLICATION_UPGRADE, version, null, null, 0);
+                        } catch (Exception ignored) {
+                        }
 
                         Permissions.setAllShowRequestPermissions(appContext, true);
 
