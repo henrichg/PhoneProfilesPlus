@@ -33,7 +33,8 @@
             android:scaleType="center"
             android:src="@drawable/ic_widget_restart_events"
             android:clickable="true"
-            android:focusable="true" />
+            android:focusable="true"
+            android:visibility="gone" />
 
         <RelativeLayout
             android:id="@+id/widget_one_row_header_profile_root"
