@@ -4281,18 +4281,13 @@ public class PhoneProfilesService extends Service
 
             PendingIntent pIntent = PendingIntent.getActivity(appContext, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            notificationBuilder = new Notification.Builder(appContext);
-            notificationBuilder.setContentIntent(pIntent);
-
-            //if (Build.VERSION.SDK_INT >= 21)
-                notificationBuilder.setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor));
-
             if (Build.VERSION.SDK_INT >= 26) {
-                PPApplication.createProfileNotificationChannel(/*profile, */appContext);
-                notificationBuilder.setChannelId(PPApplication.PROFILE_NOTIFICATION_CHANNEL);
+                PPApplication.createProfileNotificationChannel(appContext);
+                notificationBuilder = new Notification.Builder(appContext, PPApplication.PROFILE_NOTIFICATION_CHANNEL);
                 //notificationBuilder.setSettingsText("Test");
             }
             else {
+                notificationBuilder = new Notification.Builder(appContext);
                 PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationShowInStatusBar="+notificationShowInStatusBar);
                 if (notificationShowInStatusBar) {
                     KeyguardManager myKM = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
@@ -4314,11 +4309,11 @@ public class PhoneProfilesService extends Service
                 else
                     notificationBuilder.setPriority(Notification.PRIORITY_MIN);
             }
-            //if (Build.VERSION.SDK_INT >= 21)
-            //{
-                notificationBuilder.setCategory(Notification.CATEGORY_STATUS);
-                notificationBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
-            //}
+
+            notificationBuilder.setContentIntent(pIntent);
+            notificationBuilder.setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor));
+            notificationBuilder.setCategory(Notification.CATEGORY_STATUS);
+            notificationBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
 
             //notificationBuilder.setTicker(profileName);
 
