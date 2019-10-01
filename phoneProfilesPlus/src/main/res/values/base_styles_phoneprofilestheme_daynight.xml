@@ -45,10 +45,10 @@
         <item name="editItemMenuIcon">@drawable/ic_list_item_edit_menu</item>
         <item name="actionEventsRestartIcon">@drawable/ic_action_events_restart</item>
         <item name="importantInfoEventsRestartIcon">@drawable/ic_important_info_events_restart</item>
-        <item name="android:actionModeBackground">?attr/colorPrimary</item>
-        <item name="actionModeBackground">?attr/colorPrimary</item>
-        <item name="actionModeCloseButtonStyle">@style/NoCloseButton</item>
-        <item name="android:actionModeCloseButtonStyle">@style/NoCloseButton</item>
+<!--        <item name="android:actionModeBackground">?attr/colorPrimary</item>-->
+<!--        <item name="actionModeBackground">?attr/colorPrimary</item>-->
+<!--        <item name="actionModeCloseButtonStyle">@style/NoCloseButton</item>-->
+<!--        <item name="android:actionModeCloseButtonStyle">@style/NoCloseButton</item>-->
         <!--<item name="editorDrawerListHeaderBackground">@drawable/editor_drawer_list_header_background</item>-->
         <item name="editorDrawerListHeaderTitle">@color/editorDrawerListHeaderTitleColor</item>
         <!--<item name="editorDrawerFilterHeaderBg">@drawable/ic_events_drawer_filter_header_bg</item>-->

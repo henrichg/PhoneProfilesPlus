@@ -30,10 +30,11 @@
         <item name="android:windowAnimationStyle">@null</item>
     </style>
 
-
+    <!--
     <style name="NoCloseButton" parent="@style/Widget.AppCompat.ActionButton.CloseMode">
         <item name="android:visibility">gone</item>
     </style>
+    -->
 
     <!--
     <style name="NavDrawer">

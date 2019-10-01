@@ -48,11 +48,11 @@
         <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
         <item name="toolbarPopupMenu">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="bottomToolbarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
-        <item name="android:actionModeBackground">?attr/colorPrimary</item>
-        <item name="actionModeBackground">?attr/colorPrimary</item>
-        <item name="actionModeCloseButtonStyle">@style/NoCloseButton</item>
-        <item name="android:actionModeCloseButtonStyle">@style/NoCloseButton</item>
-        <item name="windowActionModeOverlay">true</item>
+<!--        <item name="android:actionModeBackground">?attr/colorPrimary</item>-->
+<!--        <item name="actionModeBackground">?attr/colorPrimary</item>-->
+<!--        <item name="actionModeCloseButtonStyle">@style/NoCloseButton</item>-->
+<!--        <item name="android:actionModeCloseButtonStyle">@style/NoCloseButton</item>-->
+<!--        <item name="windowActionModeOverlay">true</item>-->
         <!--<item name="editorDrawerListHeaderBackground">@drawable/editor_drawer_list_header_background</item>-->
         <item name="editorDrawerListHeaderTitle">@color/editorDrawerListHeaderTitleColor</item>
         <!--<item name="editorDrawerFilterHeaderBg">@drawable/ic_events_drawer_filter_header_bg</item>-->
