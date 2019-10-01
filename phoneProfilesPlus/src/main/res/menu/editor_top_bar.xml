@@ -50,9 +50,24 @@
                 app:showAsAction="never" />
         </menu>
     </item>
+    <item android:id="@+id/menu_support"
+        android:title="@string/menu_support"
+        android:orderInCategory="240"
+        app:showAsAction="never">
+        <menu>
+            <item android:id="@+id/menu_export_and_email_to_author"
+                android:title="@string/menu_export_and_email_to_autohor"
+                android:orderInCategory="100"
+                app:showAsAction="never" />
+            <item android:id="@+id/menu_email_debug_logs_to_author"
+                android:title="@string/menu_email_debug_logs_to_author"
+                android:orderInCategory="101"
+                app:showAsAction="never" />
+        </menu>
+    </item>
     <item android:id="@+id/menu_about"
         android:title="@string/menu_about_application"
-        android:orderInCategory="255"
+        android:orderInCategory="250"
         app:showAsAction="never" />
     <item android:id="@+id/menu_exit"
         android:title="@string/menu_exit"

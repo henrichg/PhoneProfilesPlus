@@ -64,7 +64,7 @@ class Permissions {
     static final int PERMISSION_EVENT_WIFI_PREFERENCES = 34;
     static final int PERMISSION_EVENT_BLUETOOTH_PREFERENCES = 35;
     static final int PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES = 36;
-    static final int PERMISSION_LOG_TO_FILE = 37;
+    //static final int PERMISSION_LOG_TO_FILE = 37;
     static final int PERMISSION_EVENT_BLUETOOTH_SWITCH_PREFERENCES = 38;
     static final int PERMISSION_EVENT_TIME_PREFERENCES = 39;
 
@@ -84,9 +84,10 @@ class Permissions {
     static final int GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG = 15;
     static final int GRANT_TYPE_RINGTONE_PREFERENCE = 16;
     static final int GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG = 17;
-    static final int GRANT_TYPE_LOG_TO_FILE = 18;
+    //static final int GRANT_TYPE_LOG_TO_FILE = 18;
     //static final int GRANT_TYPE_GRANT_ROOT = 19;
     static final int GRANT_TYPE_EXPORT_AND_EMAIL = 20;
+    static final int GRANT_TYPE_EXPORT_AND_EMAIL_TO_AUTHOR = 21;
 
     static final int REQUEST_CODE = 5000;
     //static final int REQUEST_CODE_FORCE_GRANT = 6000;
@@ -1324,6 +1325,7 @@ class Permissions {
         }
     }
 
+    /*
     static boolean checkLogToFile(Context context, ArrayList<PermissionType>  permissions) {
         try {
             if (android.os.Build.VERSION.SDK_INT >= 23) {
@@ -1340,6 +1342,7 @@ class Permissions {
             return false;
         }
     }
+    */
 
     static boolean grantProfilePermissions(Context context, Profile profile, boolean mergedProfile,
                                                   boolean onlyNotification,
@@ -1529,7 +1532,7 @@ class Permissions {
             return true;
     }
 
-    static boolean grantExportPermissions(Context context, EditorProfilesActivity editor, boolean email) {
+    static boolean grantExportPermissions(Context context, EditorProfilesActivity editor, boolean email, boolean toAuthor) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean granted = checkExport(context);
             if (!granted) {
@@ -1540,15 +1543,23 @@ class Permissions {
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
-                    if (email)
-                        intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_EXPORT_AND_EMAIL);
+                    if (email) {
+                        if (toAuthor)
+                            intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_EXPORT_AND_EMAIL_TO_AUTHOR);
+                        else
+                            intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_EXPORT_AND_EMAIL);
+                    }
                     else
                         intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_EXPORT);
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                     //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
-                    if (email)
-                        editor.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_EXPORT_AND_EMAIL);
+                    if (email) {
+                        if (toAuthor)
+                            editor.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_EXPORT_AND_EMAIL_TO_AUTHOR);
+                        else
+                            editor.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_EXPORT_AND_EMAIL);
+                    }
                     else
                         editor.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_EXPORT);
                     //editorActivity = editor;
@@ -1906,6 +1917,7 @@ class Permissions {
             return true;
     }
 
+    /*
     static void grantLogToFilePermissions(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             ArrayList<PermissionType> permissions = new ArrayList<>();
@@ -1938,6 +1950,7 @@ class Permissions {
             }
         }
     }
+    */
 
     static void removeProfileNotification(Context context)
     {
@@ -1969,13 +1982,14 @@ class Permissions {
             notificationManager.cancel(PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID);
     }
 
+    /*
     static void removeLogToFileNotification(Context context)
     {
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (notificationManager != null)
             notificationManager.cancel(PPApplication.GRANT_LOG_TO_FILE_PERMISSIONS_NOTIFICATION_ID);
     }
-
+    */
 
     static void removeNotifications(Context context)
     {
@@ -1985,7 +1999,7 @@ class Permissions {
             //notificationManager.cancel(PPApplication.GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID);
             notificationManager.cancel(PPApplication.GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_ID);
             notificationManager.cancel(PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID);
-            notificationManager.cancel(PPApplication.GRANT_LOG_TO_FILE_PERMISSIONS_NOTIFICATION_ID);
+            //notificationManager.cancel(PPApplication.GRANT_LOG_TO_FILE_PERMISSIONS_NOTIFICATION_ID);
         }
     }
 

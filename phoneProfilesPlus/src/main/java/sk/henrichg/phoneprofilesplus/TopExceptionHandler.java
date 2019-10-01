@@ -18,7 +18,7 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
     private final Context applicationContext;
     private final int actualVersionCode;
 
-    private static final String CRASH_FILENAME = "crash.txt";
+    static final String CRASH_FILENAME = "crash.txt";
 
     TopExceptionHandler(Context applicationContext, int actualVersionCode) {
         this.defaultUEH = Thread.getDefaultUncaughtExceptionHandler();
@@ -88,13 +88,17 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
     {
         if (PPApplication.crashIntoFile) {
             try {
-                File sd = Environment.getExternalStorageDirectory();
+                File path = applicationContext.getExternalFilesDir(null);
+
+                /*File sd = Environment.getExternalStorageDirectory();
                 File exportDir = new File(sd, PPApplication.EXPORT_PATH);
                 if (!(exportDir.exists() && exportDir.isDirectory()))
                     //noinspection ResultOfMethodCallIgnored
                     exportDir.mkdirs();
 
-                File logFile = new File(sd, PPApplication.EXPORT_PATH + "/" + CRASH_FILENAME);
+                File logFile = new File(sd, PPApplication.EXPORT_PATH + "/" + CRASH_FILENAME);*/
+
+                File logFile = new File(path, CRASH_FILENAME);
 
                 if (logFile.length() > 1024 * 10000)
                     resetLog();

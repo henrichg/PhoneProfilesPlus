@@ -162,7 +162,6 @@ class TonesHandler {
         return true;
     }
 
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     static boolean isToneInstalled(/*@SuppressWarnings("SameParameterValue") int resID,*/
                                    Context context) {
         //if (Permissions.checkInstallTone(context, null)) {
@@ -218,7 +217,6 @@ class TonesHandler {
         //File path = Environment.getExternalStoragePublicDirectory(directory);
         File path = context.getFilesDir();
         PPApplication.logE("TonesHandler._installTone", "path=" + path.getAbsolutePath());
-        // Make sure the directory exists
         //noinspection ResultOfMethodCallIgnored
         path.mkdirs();
         String filename = context.getResources().getResourceEntryName(resID) + ".ogg";

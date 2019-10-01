@@ -197,7 +197,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     return;
                 }
             }
-            else
+            /*else
             if (grantType == Permissions.GRANT_TYPE_LOG_TO_FILE) {
                 boolean granted = Permissions.checkLogToFile(context, permissions);
                 if (granted) {
@@ -208,7 +208,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     finish();
                     return;
                 }
-            }
+            }*/
             else {
                 // get permissions from shared preferences and recheck it
                 /*permissions = Permissions.recheckPermissions(context, Permissions.getMergedPermissions(context));
@@ -383,8 +383,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestString = context.getString(R.string.permissions_for_mobile_cells_scan_dialog_text1) + "<br><br>";
             else if (grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG)
                 showRequestString = context.getString(R.string.permissions_for_mobile_cells_registration_dialog_text1) + "<br><br>";
-            else if (grantType == Permissions.GRANT_TYPE_LOG_TO_FILE)
-                showRequestString = context.getString(R.string.permissions_for_log_to_file_text1) + "<br><br>";
+            //else if (grantType == Permissions.GRANT_TYPE_LOG_TO_FILE)
+            //    showRequestString = context.getString(R.string.permissions_for_log_to_file_text1) + "<br><br>";
+            else if (grantType == Permissions.GRANT_TYPE_EXPORT_AND_EMAIL_TO_AUTHOR)
+                showRequestString = context.getString(R.string.permissions_for_export_app_data_text1) + "<br><br>";
             else
             if (grantType == Permissions.GRANT_TYPE_EVENT){
                     /*if (mergedNotification) {
@@ -522,8 +524,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_location_geofence_editor_activity_text2);
             else if (grantType == Permissions.GRANT_TYPE_BRIGHTNESS_DIALOG)
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_brightness_dialog_text2);
-            else if (grantType == Permissions.GRANT_TYPE_LOG_TO_FILE)
-                showRequestString = showRequestString + context.getString(R.string.permissions_for_log_to_file_text2);
+            //else if (grantType == Permissions.GRANT_TYPE_LOG_TO_FILE)
+            //    showRequestString = showRequestString + context.getString(R.string.permissions_for_log_to_file_text2);
+            else if (grantType == Permissions.GRANT_TYPE_EXPORT_AND_EMAIL_TO_AUTHOR)
+                showRequestString = showRequestString + context.getString(R.string.permissions_for_export_app_data_text2);
             else
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text3);
 
@@ -723,9 +727,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     case Permissions.PERMISSION_CALENDAR_PREFERENCE:
                         s = getString(R.string.permission_why_calendar_preference);
                         break;
-                    case Permissions.PERMISSION_LOG_TO_FILE:
-                        s = getString(R.string.permission_why_log_to_file);
-                        break;
+                    //case Permissions.PERMISSION_LOG_TO_FILE:
+                    //    s = getString(R.string.permission_why_log_to_file);
+                    //    break;
                     case Permissions.PERMISSION_EVENT_TIME_PREFERENCES:
                         s = getString(R.string.permission_why_event_time_preferences);
                         break;
@@ -781,7 +785,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
                         .setAutoCancel(true); // clear notification after click
                 notificationID = PPApplication.GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_ID;
-            } else if (grantType == Permissions.GRANT_TYPE_LOG_TO_FILE) {
+            } /*else if (grantType == Permissions.GRANT_TYPE_LOG_TO_FILE) {
                 String nTitle = context.getString(R.string.permissions_notification_text);
                 String nText = context.getString(R.string.permissions_for_log_to_file_big_text_notification);
                 if (android.os.Build.VERSION.SDK_INT < 24) {
@@ -797,7 +801,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
                         .setAutoCancel(true); // clear notification after click
                 notificationID = PPApplication.GRANT_LOG_TO_FILE_PERMISSIONS_NOTIFICATION_ID;
-            } else if (grantType == Permissions.GRANT_TYPE_EVENT) {
+            }*/ else if (grantType == Permissions.GRANT_TYPE_EVENT) {
                 String nTitle = context.getString(R.string.permissions_for_event_text_notification);
                 String nText = "";
                 if (android.os.Build.VERSION.SDK_INT < 24) {
@@ -1531,6 +1535,13 @@ public class GrantPermissionActivity extends AppCompatActivity {
             //    Permissions.editorActivity.doImportData(applicationDataPath);
         }
         else
+        if (grantType == Permissions.GRANT_TYPE_EXPORT_AND_EMAIL_TO_AUTHOR) {
+            setResult(Activity.RESULT_OK);
+            finish();
+            //if (Permissions.editorActivity != null)
+            //    Permissions.editorActivity.doExportData();
+        }
+        else
         if (grantType == Permissions.GRANT_TYPE_WIFI_BT_SCAN_DIALOG) {
             setResult(Activity.RESULT_OK);
             finish();
@@ -1625,12 +1636,12 @@ public class GrantPermissionActivity extends AppCompatActivity {
             /*if (Permissions.ringtonePreference != null)
                 Permissions.ringtonePreference.refreshListView();*/
         }
-        else
+        /*else
         if (grantType == Permissions.GRANT_TYPE_LOG_TO_FILE) {
             //finishAffinity();
             finish();
             Permissions.removeLogToFileNotification(context);
-        }
+        }*/
         else {
             // Profile permission
 

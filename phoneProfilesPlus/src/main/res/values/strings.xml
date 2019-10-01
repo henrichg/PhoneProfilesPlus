@@ -1410,6 +1410,11 @@
     <string name="phone_profiles_pref_applicationLanguage_sr" translatable="false">Српски</string>
 
     <string name="menu_export_and_email">Backup and e-mail settings</string>
+    <string name="menu_support">Support</string>
+    <string name="menu_export_and_email_to_autohor">Backup and e-mail settings to author</string>
+    <string name="menu_email_debug_logs_to_author">E-mail debug log files to author</string>
+    <string name="email_debug_log_files_subject">Debug log files</string>
+    <string name="toast_debug_log_files_not_exists">Debug log files not exists</string>
 
     <!-- **************************************************************************************** -->
 

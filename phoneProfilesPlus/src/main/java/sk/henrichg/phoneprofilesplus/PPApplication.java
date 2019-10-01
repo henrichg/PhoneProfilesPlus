@@ -22,10 +22,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.crashlytics.android.Crashlytics;
-//import com.evernote.android.job.JobApi;
-//import com.evernote.android.job.JobConfig;
-//import com.evernote.android.job.JobManager;
-//import com.google.firebase.analytics.FirebaseAnalytics;
 import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.look.Slook;
 import com.stericson.RootShell.RootShell;
@@ -55,10 +51,9 @@ import androidx.multidex.MultiDex;
 import dev.doubledot.doki.views.DokiContentView;
 import io.fabric.sdk.android.Fabric;
 
-//import com.github.anrwatchdog.ANRError;
-//import com.github.anrwatchdog.ANRWatchDog;
-
 public class PPApplication extends Application {
+
+    private static PPApplication instance;
 
     //static final String romManufacturer = getROMManufacturer();
     static final boolean romIsMIUI = isMIUI();
@@ -77,7 +72,7 @@ public class PPApplication extends Application {
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && BuildConfig.DEBUG;
-    private static final boolean logIntoFile = true;
+    static final boolean logIntoFile = true;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && BuildConfig.DEBUG;
     private static final boolean rootToolsDebug = false;
@@ -181,7 +176,7 @@ public class PPApplication extends Application {
                                          //+"|Profile.convertPercentsToBrightnessManualValue"
                                          //+"|SettingsContentObserver"
 
-                                         +"|$$$ DataWrapper._activateProfile"
+                                         //+"|$$$ DataWrapper._activateProfile"
                                          //+"|ProfileDurationAlarmBroadcastReceiver.onReceive"
                                          //+"|DataWrapper.activateProfileAfterDuration"
                                          //+"|DataWrapper.getIsManualProfileActivation"
@@ -467,7 +462,7 @@ public class PPApplication extends Application {
 
 
     public static final String EXPORT_PATH = "/PhoneProfilesPlus";
-    private static final String LOG_FILENAME = "log.txt";
+    static final String LOG_FILENAME = "log.txt";
 
     static final String EXTRA_PROFILE_ID = "profile_id";
     static final String EXTRA_EVENT_ID = "event_id";
@@ -518,7 +513,7 @@ public class PPApplication extends Application {
     static final int PROFILE_ACTIVATION_WIFI_AP_PREFS_NOTIFICATION_ID = 700436;
     static final int PROFILE_ACTIVATION_NETWORK_TYPE_PREFS_NOTIFICATION_ID = 700437;
     static final int MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_ID = 700438;
-    static final int GRANT_LOG_TO_FILE_PERMISSIONS_NOTIFICATION_ID = 700439;
+    //static final int GRANT_LOG_TO_FILE_PERMISSIONS_NOTIFICATION_ID = 700439;
     //static final int LOCATION_SETTINGS_FOR_MOBILE_CELLS_SCANNING_NOTIFICATION_ID = 700440;
 
     static final String APPLICATION_PREFS_NAME = "phone_profile_preferences";
@@ -673,10 +668,13 @@ public class PPApplication extends Application {
 
     public static final Random requestCodeForAlarm = new Random();
 
+
     @Override
     public void onCreate()
     {
         super.onCreate();
+
+        instance = this;
 
         PPApplication.logE("##### PPApplication.onCreate", "romManufacturer="+Build.MANUFACTURER);
         PPApplication.logE("##### PPApplication.onCreate", "romIsMIUI="+romIsMIUI);
@@ -708,8 +706,10 @@ public class PPApplication extends Application {
         }
         //////////////////////////////////////////
 
+        /*
         if (logIntoFile || crashIntoFile)
             Permissions.grantLogToFilePermissions(getApplicationContext());
+        */
 
         try {
             //if (!BuildConfig.DEBUG) {
@@ -947,15 +947,23 @@ public class PPApplication extends Application {
         if (!logIntoFile)
             return;
 
+        if (instance == null)
+            return;
+
         try {
-            // warnings when logIntoFile == false
-            File sd = Environment.getExternalStorageDirectory();
+            File path = instance.getApplicationContext().getExternalFilesDir(null);
+            Log.e("PPApplication.logIntoFile", "----- path=" + path.getAbsolutePath());
+
+            /*File sd = Environment.getExternalStorageDirectory();
             File exportDir = new File(sd, PPApplication.EXPORT_PATH);
             if (!(exportDir.exists() && exportDir.isDirectory()))
                 //noinspection ResultOfMethodCallIgnored
                 exportDir.mkdirs();
 
             File logFile = new File(sd, EXPORT_PATH + "/" + LOG_FILENAME);
+            */
+
+            File logFile = new File(path, LOG_FILENAME);
 
             if (logFile.length() > 1024 * 10000)
                 resetLog();
