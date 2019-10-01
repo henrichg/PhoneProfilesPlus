@@ -55,13 +55,17 @@
         android:orderInCategory="240"
         app:showAsAction="never">
         <menu>
-            <item android:id="@+id/menu_export_and_email_to_author"
-                android:title="@string/menu_export_and_email_to_autohor"
+            <item android:id="@+id/menu_email_to_author"
+                android:title="@string/menu_email_to_author"
                 android:orderInCategory="100"
+                app:showAsAction="never" />
+            <item android:id="@+id/menu_export_and_email_to_author"
+                android:title="@string/menu_export_and_email_to_author"
+                android:orderInCategory="101"
                 app:showAsAction="never" />
             <item android:id="@+id/menu_email_debug_logs_to_author"
                 android:title="@string/menu_email_debug_logs_to_author"
-                android:orderInCategory="101"
+                android:orderInCategory="102"
                 app:showAsAction="never" />
         </menu>
     </item>

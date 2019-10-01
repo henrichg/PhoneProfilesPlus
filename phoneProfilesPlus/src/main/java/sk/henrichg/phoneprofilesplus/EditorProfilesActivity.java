@@ -815,6 +815,24 @@ public class EditorProfilesActivity extends AppCompatActivity
                         + " Please install a web browser",  Toast.LENGTH_LONG).show();
                 }
                 return true;*/
+            case R.id.menu_email_to_author:
+                intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+                String[] email = { "henrich.gron@gmail.com" };
+                intent.putExtra(Intent.EXTRA_EMAIL, email);
+                String packageVersion = "";
+                try {
+                    PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                    packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
+                } catch (Exception ignored) {
+                }
+                intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.about_application_support_subject));
+                intent.putExtra(Intent.EXTRA_TEXT, AboutApplicationActivity.getEmailBodyText(AboutApplicationActivity.EMAIL_BODY_SUPPORT, this));
+                try {
+                    startActivity(Intent.createChooser(intent, getString(R.string.email_chooser)));
+                } catch (Exception ignored) {}
+
+                return true;
             case R.id.menu_export_and_email_to_author:
                 exportData(true, true);
 
@@ -841,13 +859,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                     Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                             "mailto", emailAddress, null));
 
-                    String packageVersion = "";
+                    packageVersion = "";
                     try {
                         PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
                         packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
-                    } catch (Exception e) {
-                        Log.e("EditorProfilesActivity.doExportData", Log.getStackTraceString(e));
-                    }
+                    } catch (Exception ignored) {}
                     emailIntent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
                     emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
@@ -867,9 +883,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         //noinspection ToArrayCallWithZeroLengthArrayArgument
                         chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[intents.size()]));
                         startActivity(chooser);
-                    } catch (Exception e) {
-                        Log.e("EditorProfilesActivity.doExportData", Log.getStackTraceString(e));
-                    }
+                    } catch (Exception ignored) {}
                 }
                 else {
                     // toast notification
