@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -283,6 +282,7 @@ class BitmapManipulator {
     }
     */
 
+    /*
     static Bitmap resampleResource(Resources resources, int bitmapResource, int width, int height)
     {
         // first decode with inJustDecodeBounds=true to check dimensions
@@ -295,6 +295,7 @@ class BitmapManipulator {
         options.inJustDecodeBounds = false;
         return BitmapFactory.decodeResource(resources, bitmapResource, options);
     }
+    */
 
     static Bitmap recolorBitmap(Bitmap bitmap, int color/*, Context context*/)
     {
