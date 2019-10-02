@@ -54,6 +54,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:17.2.0'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
+    implementation "com.google.android.material:material:1.1.0-alpha10"
+
     implementation "androidx.appcompat:appcompat:$ppVersions.appcompatXLib"
     implementation "androidx.preference:preference:1.1.0"
     implementation "androidx.gridlayout:gridlayout:1.0.0"
@@ -63,8 +65,6 @@ dependencies {
 
     // required for dev.doubledot.doki.views.DokiContentView
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
-
-    implementation "com.google.android.material:material:1.1.0-alpha10"
 
     implementation "androidx.work:work-runtime:2.2.0"
 
