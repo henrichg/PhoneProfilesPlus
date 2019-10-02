@@ -4454,7 +4454,7 @@ public class PhoneProfilesService extends Service
             }
             else {
                 PPApplication.logE("PhoneProfilesService._showProfileNotification", "create empty icon");
-                notificationBuilder.setSmallIcon(R.drawable.ic_profile_default);
+                notificationBuilder.setSmallIcon(R.drawable.ic_profile_default_notify);
                 contentViewLarge.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);
                 if ((android.os.Build.VERSION.SDK_INT >= 24) && (!useDecorator)/* && (contentView != null)*/)
                     contentView.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);

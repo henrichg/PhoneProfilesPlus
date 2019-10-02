@@ -1205,10 +1205,6 @@
     <string name="about_application_support2">contact:</string>
     <string name="about_application_support_subject">support</string>
 
-    <string name="permissions_for_log_to_file_text1">Debug log into log.txt and crash.txt</string>
-    <string name="permissions_for_log_to_file_text2">Please grant them in next dialog. Debug log will then be written.</string>
-    <string name="permission_why_log_to_file">for write debug log into log.txt and crash.txt</string>
-    <string name="permissions_for_log_to_file_big_text_notification">Write debug log into log.txt and crash.txt requires some permissions to be granted.</string>
     <string name="dashclock_extension_description">Displays active profile with preferences indicator. Opens Activator on touch.</string>
     <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Use icon lightness for custom profile icons</string>
 
@@ -1543,6 +1539,10 @@
     <!--    <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>-->
     <!--    <string name="event_preference_bluetooth_bt_types">Bluetooth types: [CL] classic, [LE] low energy, [DU] dual.</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotification">Notification for detection of not used mobile cell</string>-->
+    <!--    <string name="permissions_for_log_to_file_text1">Debug log into log.txt and crash.txt</string>-->
+    <!--    <string name="permissions_for_log_to_file_text2">Please grant them in next dialog. Debug log will then be written.</string>-->
+    <!--    <string name="permission_why_log_to_file">for write debug log into log.txt and crash.txt</string>-->
+    <!--    <string name="permissions_for_log_to_file_big_text_notification">Write debug log into log.txt and crash.txt requires some permissions to be granted.</string>-->
 
 
 </resources>

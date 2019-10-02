@@ -68,8 +68,8 @@
 <!--    <attr name="activityPopupBackground" format="reference" />-->
     <attr name="dragHandleIcon" format="reference" />
     <attr name="actionProfilePrefSave" format="reference" />
-    <attr name="actionProfilePrefCancel" format="reference" />
-    <attr name="actionProfileButtonTextStyle" format="reference" />
+<!--    <attr name="actionProfilePrefCancel" format="reference" />-->
+<!--    <attr name="actionProfileButtonTextStyle" format="reference" />-->
     <!--<attr name="navigationDrawerBackground" format="reference" />-->
     <!--<attr name="navigationDrawerInsetForeground" format="reference" />-->
     <!--<attr name="navigationDrawerText" format="reference"/>-->
@@ -77,9 +77,9 @@
     <!--<attr name="navigationDrawerItemBackgroundColor" format="reference"/>-->
     <!--<attr name="navigationDrawerItemBackgroundPressedColor" format="reference"/>-->
     <!--<attr name="navigationDrawerSelector" format="reference"/>-->
-    <attr name="filterStatusBarBackground" format="reference" />
+<!--    <attr name="filterStatusBarBackground" format="reference" />-->
     <!-- <attr name="editorDrawerSpinner" format="reference" /> -->
-    <attr name="preferenceDialogBackground" format="reference" />
+<!--    <attr name="preferenceDialogBackground" format="reference" />-->
     <attr name="editItemMenuIcon" format="reference" />
     <attr name="actionEventsRestartIcon" format="reference" />
     <attr name="importantInfoEventsRestartIcon" format="reference" />

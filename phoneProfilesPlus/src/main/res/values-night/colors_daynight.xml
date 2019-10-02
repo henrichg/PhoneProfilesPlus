@@ -21,8 +21,8 @@
     <!--<color name="navigationDrawerItemBackground">#80DC8160</color>-->
     <!--<color name="navigationDrawerInsetForeground">#FF252525</color>-->
     <!--<color name="navigationDrawerItemBackgroundPressed">#1FFFFFFF</color>-->
-    <color name="preferenceDialogBackground">#FF000000</color>
-    <color name="editorDrawerListHeaderTitleColor">#FFFFFFFF</color>
+<!--    <color name="preferenceDialogBackground">#FF000000</color>-->
+<!--    <color name="editorDrawerListHeaderTitleColor">#FFFFFFFF</color>-->
     <color name="dialog_divider">#20FFFFFF</color>
 
     <color name="altype_other">#FF7F7F7F</color>
@@ -39,9 +39,9 @@
     <color name="fastScrollPopupBackgroundPP">#FFE99B7F</color>
     <color name="fastScrollPopupTextPP">#FFFFFFFF</color>
 
-    <color name="eventPauseTextColor">#FF00a7d8</color>
+<!--    <color name="eventPauseTextColor">#FF00a7d8</color>-->
     <color name="eventStopTextColor">#FFb5b5b5</color>
-    <color name="eventInDelayTextColor">#FFffb000</color>
+<!--    <color name="eventInDelayTextColor">#FFffb000</color>-->
 
     <color name="sensor_pass_status_passed">#FF00C000</color>
     <color name="sensor_pass_status_not_passed">#FFE05050</color>

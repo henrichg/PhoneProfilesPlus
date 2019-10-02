@@ -310,7 +310,7 @@ class EventsHandler {
             //Profile activatedProfile0 = null;
 
             int runningEventCount0;
-            int runningEventCountP;
+            //int runningEventCountP;
             boolean restartEventsAtEnd = false;
             boolean activateProfileAtEnd = false;
             boolean anyEventPaused = false;
@@ -342,8 +342,7 @@ class EventsHandler {
                         // pause also paused events
 
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
-                        //noinspection ConstantConditions
-                        dataWrapper.doHandleEvents(_event, true, true, /*interactive,*/ false, forDelayEndAlarm, /*reactivateProfile,*/ mergedProfile, sensorType);
+                        dataWrapper.doHandleEvents(_event, true, true, /*interactive,*/ false, false, /*reactivateProfile,*/ mergedProfile, sensorType);
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
 
                         if (running && paused) {
@@ -363,7 +362,7 @@ class EventsHandler {
                     }
                 }
 
-                runningEventCountP = _etl.size();
+                //runningEventCountP = _etl.size();
 
                 // 2. start events
                 dataWrapper.sortEventsByStartOrderAsc();
@@ -377,7 +376,7 @@ class EventsHandler {
 
                         // start all events
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
-                        dataWrapper.doHandleEvents(_event, false, true, /*interactive,*/ false, forDelayEndAlarm, /*reactivateProfile,*/ mergedProfile, sensorType);
+                        dataWrapper.doHandleEvents(_event, false, true, /*interactive,*/ false, false, /*reactivateProfile,*/ mergedProfile, sensorType);
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
 
                         if (running && paused) {
@@ -434,7 +433,7 @@ class EventsHandler {
                     }
                 }
 
-                runningEventCountP = _etl.size();
+                //runningEventCountP = _etl.size();
 
                 //2. start events
                 mergedProfile.copyProfile(mergedPausedProfile);
@@ -557,13 +556,13 @@ class EventsHandler {
             String backgroundProfileNotificationSound = "";
             boolean backgroundProfileNotificationVibrate = false;
 
-            if (/*(!isRestart) &&*/ (runningEventCountE > runningEventCountP)) {
+            //if (/*(!isRestart) &&*/ (runningEventCountE > runningEventCountP)) {
                 // only running events is increased, play event notification sound
 
-                EventTimeline eventTimeline = eventTimelineList.get(runningEventCountE - 1);
+                //EventTimeline eventTimeline = eventTimelineList.get(runningEventCountE - 1);
                 //notifyEventStart = dataWrapper.getEventById(eventTimeline._fkEvent);
-            }
-            else
+            //}
+            //else
             if (/*(!isRestart) &&*/ (backgroundProfileId != Profile.PROFILE_NO_ACTIVATE) && notifyBackgroundProfile) {
                 // only when activated is background profile, play event notification sound
 
