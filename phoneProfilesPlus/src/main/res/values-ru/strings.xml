@@ -1132,10 +1132,6 @@
     <string name="about_application_support">Поддержка:</string>
     <string name="about_application_support2">пишите:</string>
     <string name="about_application_support_subject">поддержка</string>
-    <string name="permissions_for_log_to_file_text1">Журнал отладки в log.txt и crash.txt</string>
-    <string name="permissions_for_log_to_file_text2">Предоставьте их, пожалуйста, в следующем диалоговом окне. После этого журнал отладки будет записан.</string>
-    <string name="permission_why_log_to_file">для записи журнала отладки в log.txt и crash.txt</string>
-    <string name="permissions_for_log_to_file_big_text_notification">Запись журнала отладки в log.txt и crash.txt требует предоставления некоторых разрешений.</string>
     <string name="dashclock_extension_description">Отображает активный профиль с индикатором настроек. Открывает Активатор по прикосновению.</string>
     <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Использовать яркость иконки для пользовательских иконок профиля</string>
     <string name="preferences_not_enabled_accessibility_service_title">Служба спец. возможностей не включена!</string>
@@ -1301,14 +1297,21 @@
     <string name="altype_afterDuration_specificProfile">По окончании - определённый профиль</string>
     <string name="notification_not_used_mobile_cell_disable">Отключить</string>
     <string name="notification_channel_donation">Вознаграждение</string>
-    <string name="phone_profiles_pref_applicationSamsungEdgeVerticalPosition">Vertical position</string>
-    <string name="array_pref_samsungEdgeVerticalPosition_top">Top</string>
-    <string name="array_pref_samsungEdgeVerticalPosition_center">Center</string>
-    <string name="array_pref_samsungEdgeVerticalPosition_bottom">Bottom</string>
-    <string name="editor_drawer_list_item_events_not_stopped">Not stopped</string>
-    <string name="mobile_cells_pref_dlg_cell_sort_title">Sort list</string>
-    <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">By cell name</string>
-    <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">By connected time</string>
+    <string name="phone_profiles_pref_applicationSamsungEdgeVerticalPosition">Положение по вертикали</string>
+    <string name="array_pref_samsungEdgeVerticalPosition_top">Вверху</string>
+    <string name="array_pref_samsungEdgeVerticalPosition_center">По центру</string>
+    <string name="array_pref_samsungEdgeVerticalPosition_bottom">Внизу</string>
+    <string name="editor_drawer_list_item_events_not_stopped">Неостановленные</string>
+    <string name="mobile_cells_pref_dlg_cell_sort_title">Сортировать</string>
+    <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">По имени вышки</string>
+    <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">По длительности подключения</string>
+    <string name="menu_export_and_email">Backup and e-mail settings</string>
+    <string name="menu_export_and_email_to_author">Backup and e-mail settings to author</string>
+    <string name="menu_email_debug_logs_to_author">E-mail debug log files to author</string>
+    <string name="menu_support">Support</string>
+    <string name="email_debug_log_files_subject">Debug log files</string>
+    <string name="toast_debug_log_files_not_exists">Debug log files not exists</string>
+    <string name="menu_email_to_author">E-mail to author</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1427,4 +1430,8 @@
     <!--    <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>-->
     <!--    <string name="event_preference_bluetooth_bt_types">Bluetooth types: [CL] classic, [LE] low energy, [DU] dual.</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotification">Notification for detection of not used mobile cell</string>-->
+    <!--    <string name="permissions_for_log_to_file_text1">Debug log into log.txt and crash.txt</string>-->
+    <!--    <string name="permissions_for_log_to_file_text2">Please grant them in next dialog. Debug log will then be written.</string>-->
+    <!--    <string name="permission_why_log_to_file">for write debug log into log.txt and crash.txt</string>-->
+    <!--    <string name="permissions_for_log_to_file_big_text_notification">Write debug log into log.txt and crash.txt requires some permissions to be granted.</string>-->
 </resources>

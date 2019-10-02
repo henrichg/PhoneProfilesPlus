@@ -598,7 +598,7 @@
     <string name="permissions_for_mobile_cells_scan_dialog_text1">Zendmast cel scannen vereist een aantal machtigingen.</string>
     <string name="mobile_cells_pref_dlg_rescan_button">Opnieuw scannen</string>
     <string name="mobile_cells_pref_dlg_help" tools:ignore="TypographyOther">(N) Nieuwe cel, (C) verbonden met cel.</string>
-    <string name="mobile_cells_pref_dlg_cell_name_hint">Cel naam</string>
+    <string name="mobile_cells_pref_dlg_cell_name_hint">Celnaam</string>
     <string name="mobile_cells_pref_dlg_cell_rename_title">Hernoem cellen</string>
     <string name="phone_profiles_pref_eventMobileCellsAppSettings_summary">Stel Zendmast scan parameters in bij programma-instellingen.</string>
     <string name="phone_profiles_pref_category_mobile_cells_scanning">Zendmast cellen scannen</string>
@@ -891,8 +891,8 @@
     <string name="pref_dlg_info_about_wildcards_4">Je kunt meer teksten configureren. Scheidt deze met het karakter \"|\".</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_title">Standaardprofiel</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_description">Dit profiel wordt actief zodra er geen event loopt. Klik hierop om dit te configureren.</string>
-    <string name="mobile_cell_names_dialog_title">Cel namen</string>
-    <string name="mobile_cell_names_dialog_filter_title">Cel namen filter</string>
+    <string name="mobile_cell_names_dialog_title">Celnamen</string>
+    <string name="mobile_cell_names_dialog_filter_title">Celnamen filter</string>
     <string name="mobile_cell_names_dialog_item_show_selected">[ Geselecteerd ]</string>
     <string name="mobile_cell_names_dialog_item_show_without_name">[ Zonder naam ]</string>
     <string name="mobile_cell_names_dialog_item_show_new">[ Nieuwe (N) ]</string>
@@ -1132,10 +1132,6 @@
     <string name="about_application_support">Ondersteuning:</string>
     <string name="about_application_support2">contact:</string>
     <string name="about_application_support_subject">ondersteuning</string>
-    <string name="permissions_for_log_to_file_text1">Debug log in log.txt en crash.txt</string>
-    <string name="permissions_for_log_to_file_text2">Sta het toe in de volgende schermen. Vervolgens wordt de debug log gemaakt.</string>
-    <string name="permission_why_log_to_file">schrijf debug log in log.txt en crash.txt</string>
-    <string name="permissions_for_log_to_file_big_text_notification">Schrijven van debug log in log.txt en crash.txt vereist dat bepaalde machtigingen worden verleend.</string>
     <string name="dashclock_extension_description">Actief profiel weergeven met voorkeuraanduiding. Opent de Activator bij aanraken.</string>
     <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Gebruik icoon helderheid voor aangepaste profiel iconen</string>
     <string name="preferences_not_enabled_accessibility_service_title">Toegankelijkheidsservice is niet ingeschakeld!</string>
@@ -1301,14 +1297,21 @@
     <string name="altype_afterDuration_specificProfile">na afloop van de tijdsduur - specifiek profiel</string>
     <string name="notification_not_used_mobile_cell_disable">Uitschakelen</string>
     <string name="notification_channel_donation">Donatie</string>
-    <string name="phone_profiles_pref_applicationSamsungEdgeVerticalPosition">Vertical position</string>
-    <string name="array_pref_samsungEdgeVerticalPosition_top">Top</string>
-    <string name="array_pref_samsungEdgeVerticalPosition_center">Center</string>
-    <string name="array_pref_samsungEdgeVerticalPosition_bottom">Bottom</string>
-    <string name="editor_drawer_list_item_events_not_stopped">Not stopped</string>
-    <string name="mobile_cells_pref_dlg_cell_sort_title">Sort list</string>
-    <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">By cell name</string>
-    <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">By connected time</string>
+    <string name="phone_profiles_pref_applicationSamsungEdgeVerticalPosition">Verticale positie</string>
+    <string name="array_pref_samsungEdgeVerticalPosition_top">Boven</string>
+    <string name="array_pref_samsungEdgeVerticalPosition_center">Midden</string>
+    <string name="array_pref_samsungEdgeVerticalPosition_bottom">Onder</string>
+    <string name="editor_drawer_list_item_events_not_stopped">Niet gestopt</string>
+    <string name="mobile_cells_pref_dlg_cell_sort_title">Sorteer lijst</string>
+    <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">Op celnaam</string>
+    <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">Op verbonden tijd</string>
+    <string name="menu_export_and_email">Backup and e-mail settings</string>
+    <string name="menu_export_and_email_to_author">Backup and e-mail settings to author</string>
+    <string name="menu_email_debug_logs_to_author">E-mail debug log files to author</string>
+    <string name="menu_support">Support</string>
+    <string name="email_debug_log_files_subject">Debug log files</string>
+    <string name="toast_debug_log_files_not_exists">Debug log files not exists</string>
+    <string name="menu_email_to_author">E-mail to author</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1427,4 +1430,8 @@
     <!--    <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>-->
     <!--    <string name="event_preference_bluetooth_bt_types">Bluetooth types: [CL] classic, [LE] low energy, [DU] dual.</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotification">Notification for detection of not used mobile cell</string>-->
+    <!--    <string name="permissions_for_log_to_file_text1">Debug log into log.txt and crash.txt</string>-->
+    <!--    <string name="permissions_for_log_to_file_text2">Please grant them in next dialog. Debug log will then be written.</string>-->
+    <!--    <string name="permission_why_log_to_file">for write debug log into log.txt and crash.txt</string>-->
+    <!--    <string name="permissions_for_log_to_file_big_text_notification">Write debug log into log.txt and crash.txt requires some permissions to be granted.</string>-->
 </resources>

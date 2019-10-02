@@ -1132,10 +1132,6 @@
     <string name="about_application_support">Podpora:</string>
     <string name="about_application_support2">kontakt:</string>
     <string name="about_application_support_subject">podpora</string>
-    <string name="permissions_for_log_to_file_text1">Debug log do log.txt a crash.txt</string>
-    <string name="permissions_for_log_to_file_text2">Prosím, povoľte ich v nasledujúcom dialógovom okne. Debug log potom bude zapisovaný.</string>
-    <string name="permission_why_log_to_file">pre zápis debug logu do log.txt a crash.txt</string>
-    <string name="permissions_for_log_to_file_big_text_notification">Zápis debug logu do log.txt a crash.txt vyžaduje udelenie niektorých povolení.</string>
     <string name="dashclock_extension_description">Zobrazí aktívny profil s indikátorom preferencií profilu. Na kliknutie sa otvorí Aktivátor.</string>
     <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Použiť svetlosť ikony pre vlastné ikony</string>
     <string name="preferences_not_enabled_accessibility_service_title">Služba Dostupnosť nie je povolená!</string>
@@ -1309,6 +1305,13 @@
     <string name="mobile_cells_pref_dlg_cell_sort_title">Sort list</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">By cell name</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">By connected time</string>
+    <string name="menu_export_and_email">Backup and e-mail settings</string>
+    <string name="menu_export_and_email_to_author">Backup and e-mail settings to author</string>
+    <string name="menu_email_debug_logs_to_author">E-mail debug log files to author</string>
+    <string name="menu_support">Support</string>
+    <string name="email_debug_log_files_subject">Debug log files</string>
+    <string name="toast_debug_log_files_not_exists">Debug log files not exists</string>
+    <string name="menu_email_to_author">E-mail to author</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1427,4 +1430,8 @@
     <!--    <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>-->
     <!--    <string name="event_preference_bluetooth_bt_types">Bluetooth types: [CL] classic, [LE] low energy, [DU] dual.</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotification">Notification for detection of not used mobile cell</string>-->
+    <!--    <string name="permissions_for_log_to_file_text1">Debug log into log.txt and crash.txt</string>-->
+    <!--    <string name="permissions_for_log_to_file_text2">Please grant them in next dialog. Debug log will then be written.</string>-->
+    <!--    <string name="permission_why_log_to_file">for write debug log into log.txt and crash.txt</string>-->
+    <!--    <string name="permissions_for_log_to_file_big_text_notification">Write debug log into log.txt and crash.txt requires some permissions to be granted.</string>-->
 </resources>
