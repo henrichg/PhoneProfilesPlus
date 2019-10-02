@@ -277,10 +277,12 @@ public class ShortcutCreatorListFragment extends Fragment {
                         else {
                             //int iconResource = getResources().getIdentifier(iconIdentifier, "drawable", context.getPackageName());
                             int iconResource = Profile.getIconResource(iconIdentifier);
-                            profileBitmap = BitmapFactory.decodeResource(getResources(), iconResource);
+                            //profileBitmap = BitmapFactory.decodeResource(getResources(), iconResource);
+                            profileBitmap = BitmapManipulator.getBitmapFromResource(iconResource, context);
                         }
                         if (Build.VERSION.SDK_INT < 26)
-                            shortcutOverlayBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_shortcut_overlay);
+                            //shortcutOverlayBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_shortcut_overlay);
+                            shortcutOverlayBitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_shortcut_overlay, context);
                     } else {
                         Resources resources = getResources();
                         int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
@@ -289,10 +291,12 @@ public class ShortcutCreatorListFragment extends Fragment {
                         profileBitmap = BitmapManipulator.resampleBitmapUri(iconIdentifier, width, height, true, false, context);
                         if (profileBitmap == null) {
                             int iconResource = R.drawable.ic_profile_default;
-                            profileBitmap = BitmapFactory.decodeResource(getResources(), iconResource);
+                            //profileBitmap = BitmapFactory.decodeResource(getResources(), iconResource);
+                            profileBitmap = BitmapManipulator.getBitmapFromResource(iconResource, context);
                         }
                         if (Build.VERSION.SDK_INT < 26)
-                            shortcutOverlayBitmap = BitmapManipulator.resampleResource(resources, R.drawable.ic_shortcut_overlay, width, height);
+                            //shortcutOverlayBitmap = BitmapManipulator.resampleResource(resources, R.drawable.ic_shortcut_overlay, width, height);
+                            shortcutOverlayBitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_shortcut_overlay, context);
                     }
 
                     if (ApplicationPreferences.applicationWidgetIconColor(activityDataWrapper.context).equals("1")) {

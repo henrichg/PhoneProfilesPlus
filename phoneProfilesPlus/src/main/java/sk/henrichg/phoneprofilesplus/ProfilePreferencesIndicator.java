@@ -11,7 +11,8 @@ class ProfilePreferencesIndicator {
     private static Bitmap createIndicatorBitmap(Context context, int countDrawables)
     {
         // bitmap to get size
-        Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_profile_pref_volume_on);
+        //Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_profile_pref_volume_on);
+        Bitmap bmp = BitmapManipulator.getBitmapFromResource(R.drawable.ic_profile_pref_volume_on, context);
 
         int width  = bmp.getWidth() * countDrawables;
         int height  = bmp.getHeight();
@@ -21,7 +22,8 @@ class ProfilePreferencesIndicator {
 
     private static void addIndicator(int preferenceBitmapResourceID, int index, Context context, Canvas canvas)
     {
-        Bitmap preferenceBitmap = BitmapFactory.decodeResource(context.getResources(), preferenceBitmapResourceID);
+        //Bitmap preferenceBitmap = BitmapFactory.decodeResource(context.getResources(), preferenceBitmapResourceID);
+        Bitmap preferenceBitmap = BitmapManipulator.getBitmapFromResource(preferenceBitmapResourceID, context);
 
         if (preferenceBitmap != null)
             canvas.drawBitmap(preferenceBitmap, preferenceBitmap.getWidth() * index, 0, null);

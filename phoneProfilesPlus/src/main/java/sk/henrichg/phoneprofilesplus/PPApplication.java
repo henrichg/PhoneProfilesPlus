@@ -952,7 +952,7 @@ public class PPApplication extends Application {
 
         try {
             File path = instance.getApplicationContext().getExternalFilesDir(null);
-            Log.e("PPApplication.logIntoFile", "----- path=" + path.getAbsolutePath());
+            //Log.e("PPApplication.logIntoFile", "----- path=" + path.getAbsolutePath());
 
             /*File sd = Environment.getExternalStorageDirectory();
             File exportDir = new File(sd, PPApplication.EXPORT_PATH);

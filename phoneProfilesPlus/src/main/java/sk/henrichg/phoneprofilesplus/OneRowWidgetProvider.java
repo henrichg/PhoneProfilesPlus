@@ -9,11 +9,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.View;
 import android.widget.RemoteViews;
+
+import androidx.core.content.ContextCompat;
 
 public class OneRowWidgetProvider extends AppWidgetProvider {
 
@@ -241,7 +244,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                                     monochromeValue = 0xC0;
                                 //if (applicationWidgetOneRowIconLightness.equals("100"))
                                 //    monochromeValue = 0xFF;
-                                Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_widget_restart_events);
+                                //Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_widget_restart_events);
+                                Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, context);
                                 bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
                                 remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
                             }

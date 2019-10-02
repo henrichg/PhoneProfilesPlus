@@ -24,6 +24,8 @@ import android.util.Log;
 
 import java.io.InputStream;
 
+import androidx.core.content.ContextCompat;
+
 class BitmapManipulator {
 
     static final int ICON_BITMAP_SIZE_MULTIPLIER = 4;
@@ -349,6 +351,11 @@ class BitmapManipulator {
             Log.e("BitmapManipulator.getBitmapFromDrawable", Log.getStackTraceString(e));
             return null;
         }
+    }
+
+    static Bitmap getBitmapFromResource(int drawableRes, Context context) {
+        Drawable drawable = ContextCompat.getDrawable(context, drawableRes);
+        return getBitmapFromDrawable(drawable);
     }
 
     static Bitmap grayScaleBitmap(Bitmap bitmap)

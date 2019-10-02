@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import java.util.Map;
+
+import androidx.core.content.ContextCompat;
 
 class ProfileIconPreferenceAdapterX extends BaseAdapter {
 
@@ -83,7 +86,8 @@ class ProfileIconPreferenceAdapterX extends BaseAdapter {
 
         int iconRes = Profile.profileIconId[position];
         if (iconResName.equals(preference.imageIdentifier) && preference.isImageResourceID && preference.useCustomColor) {
-            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), iconRes);
+            //Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), iconRes);
+            Bitmap bitmap = BitmapManipulator.getBitmapFromResource(iconRes, context);
             bitmap = BitmapManipulator.recolorBitmap(bitmap, preference.customColor/*, context*/);
             holder.icon.setImageBitmap(bitmap);
         }
