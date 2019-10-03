@@ -229,10 +229,6 @@ class Permissions {
         ArrayList<PermissionType>  permissions = new ArrayList<>();
         if (profile == null) return permissions;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
-            /*if (!checkProfileVolumePreferences(context, profile)) {
-                permissions.add(new PermissionType(PERMISSION_PROFILE_VOLUME_PREFERENCES, permission.WRITE_SETTINGS));
-                //Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_VOLUME_PREFERENCES");
-            }*/
             checkProfileVibrationOnTouch(context, profile, permissions);
             checkProfileVibrateWhenRinging(context, profile, permissions);
             checkProfileRingtones(context, profile, permissions);
@@ -254,29 +250,6 @@ class Permissions {
         else
             return permissions;
     }
-
-    /*
-    static boolean checkProfileVolumePreferences(Context context, Profile profile) {
-        //Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0); -- NOT WORKING, used is root
-        if (profile == null) return true;
-        if (android.os.Build.VERSION.SDK_INT >= 23) {
-            if ((profile._volumeRingerMode != 0) ||
-                    profile.getVolumeRingtoneChange() ||
-                    profile.getVolumeNotificationChange() ||
-                    profile.getVolumeMediaChange() ||
-                    profile.getVolumeAlarmChange() ||
-                    profile.getVolumeSystemChange() ||
-                    profile.getVolumeVoiceChange()) {
-                //return Settings.System.canWrite(context);
-                return true;
-            }
-            else
-                return true;
-        }
-        else
-            return true;
-    }
-    */
 
     /*
     static boolean checkInstallTone(Context context, ArrayList<PermissionType>  permissions) {

@@ -89,7 +89,7 @@ public class PPApplication extends Application {
                                          +"|PhoneProfilesService.doCommand"
                                          //+"|PhoneProfilesService.isServiceRunningInForeground"
                                          //+"|PhoneProfilesService.showProfileNotification"
-                                         +"|PhoneProfilesService._showProfileNotification"
+                                         //+"|PhoneProfilesService._showProfileNotification"
                                          //+"|PPApplication.createProfileNotificationChannel"
                                          +"|PhoneProfilesService.stopReceiver"
                                          +"|PhoneProfilesService.onDestroy"
@@ -311,6 +311,7 @@ public class PPApplication extends Application {
                                          //+"|PPPExtenderBroadcastReceiver"
 
 
+                                         //+"|EventsHandler.doEndHandler"
                                          //+"|PhoneProfilesService.doSimulatingRingingCall"
                                          //+"|PhoneProfilesService.startSimulatingRingingCall"
                                          //+"|PhoneProfilesService.stopSimulatingRingingCall"

@@ -5274,7 +5274,7 @@ public class PhoneProfilesService extends Service
                         newRingtone = contactLookupCursor.getString(contactLookupCursor.getColumnIndex(ContactsContract.PhoneLookup.CUSTOM_RINGTONE));
                         if (newRingtone == null)
                             newRingtone = "";
-                        PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone="+newRingtone);
+                        PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone from contact="+newRingtone);
                         phoneNumberFound = true;
                     }
                     contactLookupCursor.close();
@@ -5292,6 +5292,7 @@ public class PhoneProfilesService extends Service
                         newRingtone = uri.toString();
                     else
                         newRingtone = "";
+                    PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone from settings="+newRingtone);
                 } catch (SecurityException e) {
                     Permissions.grantPlayRingtoneNotificationPermissions(context, false);
                     newRingtone = "";
