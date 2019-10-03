@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_backspace_dark"
+                app:srcCompat="@drawable/ic_backspace_dark"
                 android:background="@drawable/key_background_dark"
                 android:contentDescription="@string/number_delete"
                 android:layout_height="match_parent"/>

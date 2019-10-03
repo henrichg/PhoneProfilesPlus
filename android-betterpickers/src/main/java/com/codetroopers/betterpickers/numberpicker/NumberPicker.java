@@ -23,6 +23,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DecimalFormat;
 
+import androidx.appcompat.content.res.AppCompatResources;
+
 public class NumberPicker extends LinearLayout implements Button.OnClickListener,
         Button.OnLongClickListener {
 
@@ -145,7 +147,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         }
         if (mDelete != null) {
             mDelete.setBackgroundResource(mButtonBackgroundResId);
-            mDelete.setImageDrawable(getResources().getDrawable(mDeleteDrawableSrcResId));
+            mDelete.setImageDrawable(AppCompatResources.getDrawable(mContext, mDeleteDrawableSrcResId));
         }
         if (mEnteredNumber != null) {
             mEnteredNumber.setTheme(mTheme);

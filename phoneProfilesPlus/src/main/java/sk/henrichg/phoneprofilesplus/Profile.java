@@ -2358,11 +2358,12 @@ public class Profile {
             // getIsIconResourceID must return false
             //_icon = getIconIdentifier() + "|0";
             /*Drawable drawable;
-            if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP){
-                drawable = context.getResources().getDrawable(iconResource, context.getTheme());
-            } else {
-                drawable = context.getResources().getDrawable(iconResource);
-            }
+            drawable = ContextCompat.getDrawable(context, iconResource);
+            //if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP){
+            //    drawable = context.getResources().getDrawable(iconResource, context.getTheme());
+            //} else {
+            //    drawable = context.getResources().getDrawable(iconResource);
+            //}
             _iconDrawable = BitmapManipulator.tintDrawableByValue(drawable, monochromeValue);
             _iconBitmap = null;*/
         }

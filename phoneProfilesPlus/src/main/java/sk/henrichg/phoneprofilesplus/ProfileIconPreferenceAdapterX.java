@@ -66,7 +66,7 @@ class ProfileIconPreferenceAdapterX extends BaseAdapter {
         }
 
         //String iconResName = context.getResources().getResourceEntryName(Profile.profileIconId[position]);
-        String iconResName = ProfileIconPreferenceAdapterX.getImageResourceName(position);
+        String iconResName = getImageResourceName(position);
         if (iconResName.equals(preference.imageIdentifier) && preference.isImageResourceID) {
             //if (Build.VERSION.SDK_INT >= 21)
                 holder.icon.setBackgroundColor(GlobalGUIRoutines.getThemeColorControlHighlight(context));
