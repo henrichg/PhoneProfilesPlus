@@ -48,10 +48,6 @@
         <attr name="showSilent" format="boolean" />
         <attr name="showDefault" format="boolean" />
     </declare-styleable>
-    <declare-styleable name="TextViewDrawableSize">
-        <attr name="compoundDrawableWidth" format="dimension"/>
-        <attr name="compoundDrawableHeight" format="dimension"/>
-    </declare-styleable>
     <!--
     <declare-styleable name="PPScrimInsetsFrameLayout">
         <attr format="reference|color" name="insetForeground" />
