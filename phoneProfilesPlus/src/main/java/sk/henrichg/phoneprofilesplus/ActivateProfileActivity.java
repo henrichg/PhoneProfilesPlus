@@ -365,26 +365,26 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
     public void setEventsRunStopIndicator()
     {
-        boolean whiteTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true).equals("white");
+        //boolean whiteTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true).equals("white");
         if (Event.getGlobalEventsRunning(getApplicationContext()))
         {
             if (Event.getEventsBlocked(getApplicationContext())) {
-                if (whiteTheme)
-                    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_manual_activation_white);
-                else
+                //if (whiteTheme)
+                //    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_manual_activation_white);
+                //else
                     eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_manual_activation);
             }
             else {
-                if (whiteTheme)
-                    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_running_white);
-                else
+                //if (whiteTheme)
+                //    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_running_white);
+                //else
                     eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_running);
             }
         }
         else {
-            if (whiteTheme)
-                eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_stoppped_white);
-            else
+            //if (whiteTheme)
+            //    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_stopped_white);
+            //else
                 eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_stopped);
         }
     }
