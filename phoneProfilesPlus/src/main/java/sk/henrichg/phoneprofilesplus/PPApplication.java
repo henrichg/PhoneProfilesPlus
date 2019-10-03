@@ -120,8 +120,8 @@ public class PPApplication extends Application {
                                          //+"|PPApplication.startHandlerThread"
 
                                          //+"|DataWrapper.updateNotificationAndWidgets"
-                                         +"|ActivateProfileHelper.updateGUI"
-                                         +"|OneRowWidgetProvider.onUpdate"
+                                         //+"|ActivateProfileHelper.updateGUI"
+                                         //+"|OneRowWidgetProvider.onUpdate"
 
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
                                          +"|#### EventsHandler.handleEvents"
@@ -288,7 +288,7 @@ public class PPApplication extends Application {
                                          +"|BluetoothScanBroadcastReceiver.onReceive"
                                          +"|@@@ BluetoothScanBroadcastReceiver.onReceive"
                                          +"|BluetoothLEScanCallback21"*/
-                                        //+"|[BTScan] DataWrapper.doHandleEvents"
+                                        +"|[BTScan] DataWrapper.doHandleEvents"
                                         //+"|BluetoothConnectedDevices"
                                         +"|BluetoothConnectionBroadcastReceiver"
                                         +"|BluetoothStateChangedBroadcastReceiver"
