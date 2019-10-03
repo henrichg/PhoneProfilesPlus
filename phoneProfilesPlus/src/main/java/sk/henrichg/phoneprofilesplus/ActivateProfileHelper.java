@@ -2810,10 +2810,14 @@ class ActivateProfileHelper {
     {
         PPApplication.logE("ActivateProfileHelper.updateGUI", "lockRefresh="+lockRefresh);
         PPApplication.logE("ActivateProfileHelper.updateGUI", "doImport="+EditorProfilesActivity.doImport);
+        PPApplication.logE("ActivateProfileHelper.updateGUI", "alsoEditor="+alsoEditor);
+        PPApplication.logE("ActivateProfileHelper.updateGUI", "refresh="+refresh);
 
-        if (lockRefresh || EditorProfilesActivity.doImport)
-            // no refresh widgets
-            return;
+        if (!refresh) {
+            if (lockRefresh || EditorProfilesActivity.doImport)
+                // no refresh widgets
+                return;
+        }
 
         // icon widget
         try {

@@ -120,8 +120,8 @@ public class PPApplication extends Application {
                                          //+"|PPApplication.startHandlerThread"
 
                                          //+"|DataWrapper.updateNotificationAndWidgets"
-                                         //+"|ActivateProfileHelper.updateGUI"
-                                         //+"|OneRowWidgetProvider.onUpdate"
+                                         +"|ActivateProfileHelper.updateGUI"
+                                         +"|OneRowWidgetProvider.onUpdate"
 
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
                                          +"|#### EventsHandler.handleEvents"
