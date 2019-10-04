@@ -4,11 +4,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
 
+    <ImageView
+        android:id="@+id/notification_activated_profile_restart_events"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="7dp"
+        android:contentDescription="@string/menu_restart_events"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_notification_restart_events"
+        android:focusable="true"
+        android:clickable="true" />
+
     <TextView
         android:id="@+id/notification_activated_profile_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@id/notification_activated_profile_restart_events"
         android:text="@string/profile_name_default"
         style="@style/TextAppearance.Compat.Notification.Title"
         android:ellipsize="end"

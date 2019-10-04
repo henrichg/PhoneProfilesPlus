@@ -459,6 +459,8 @@ public class PPApplication extends Application {
                                         //+"|EventPreferencesTime.getDayOfWeekByLocale"
 
                                         //+"|SearchCalendarEventsWorker"
+
+                                        +"|RestartEventsFromNotificationActivity"
             ;
 
 

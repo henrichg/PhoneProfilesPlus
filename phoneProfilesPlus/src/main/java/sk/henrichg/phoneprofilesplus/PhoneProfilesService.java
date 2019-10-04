@@ -4499,11 +4499,20 @@ public class PhoneProfilesService extends Service
 
             if (Event.getGlobalEventsRunning(getBaseContext().getApplicationContext()) &&
                     PPApplication.getApplicationStarted(getBaseContext().getApplicationContext(), true)) {
+                if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/) {
+                    contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
+                    contentView.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
+                }
+
                 contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
                 contentViewLarge.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
             }
-            else
+            else {
+                if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
+                    contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.GONE);
+
                 contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.GONE);
+            }
 
             if (android.os.Build.VERSION.SDK_INT >= 24) {
                 if (useDecorator)
