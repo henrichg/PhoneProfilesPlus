@@ -16,7 +16,7 @@ public class LauncherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        overridePendingTransition(0, 0);
+        //overridePendingTransition(0, 0);
 
         dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
 
@@ -162,7 +162,7 @@ public class LauncherActivity extends AppCompatActivity {
     public void finish()
     {
         super.finish();
-        overridePendingTransition(0, 0);
+        //overridePendingTransition(0, 0);
     }
 
 }
