@@ -19,13 +19,14 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
 
         if (intent != null) {
             if (intent.getAction().equals(PhoneProfilesService.ACTION_START_LAUNCHER_FROM_NOTIFICATION)) {
+                Context appContext = context.getApplicationContext();
                 // intent to LauncherActivity, for click on notification
-                Intent launcherIntent = new Intent(context, LauncherActivity.class);
+                Intent launcherIntent = new Intent(appContext, LauncherActivity.class);
                 // clear all opened activities
-                launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 // setup startupSource
                 launcherIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
-                context.startActivity(launcherIntent);
+                appContext.startActivity(launcherIntent);
             }
         }
     }

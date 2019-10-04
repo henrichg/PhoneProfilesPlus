@@ -127,7 +127,7 @@ public class LauncherActivity extends AppCompatActivity {
         else {
             finish();
 
-            intentLaunch.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intentLaunch.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NO_ANIMATION);
             intentLaunch.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);
             getApplicationContext().startActivity(intentLaunch);
             // reset startupSource
