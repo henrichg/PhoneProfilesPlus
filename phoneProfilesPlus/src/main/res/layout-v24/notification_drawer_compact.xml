@@ -10,12 +10,12 @@
         android:layout_height="23dp"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
-        android:padding="3dp"
-        android:layout_marginEnd="4dp"
+        android:padding="2dp"
+        android:layout_marginEnd="5dp"
         android:contentDescription="@string/menu_restart_events"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_notification_restart_events"
+        android:src="@drawable/ic_widget_restart_events"
         android:focusable="true"
         android:clickable="true" />
 
