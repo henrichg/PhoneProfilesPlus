@@ -91,6 +91,7 @@ public class PhoneProfilesService extends Service
     private WifiStateChangedBroadcastReceiver wifiStateChangedBroadcastReceiver = null;
     private NotUsedMobileCellsNotificationDisableReceiver notUsedMobileCellsNotificationDisableReceiver = null;
     private DonationBroadcastReceiver donationBroadcastReceiver = null;
+    private StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = null;
 
     private BatteryBroadcastReceiver batteryEventReceiver = null;
     private BatteryBroadcastReceiver batteryChangeLevelReceiver = null;
@@ -137,6 +138,8 @@ public class PhoneProfilesService extends Service
 
     private SettingsContentObserver settingsContentObserver = null;
     private MobileDataStateChangedContentObserver mobileDataStateChangedContentObserver = null;
+
+    static final String ACTION_START_LAUNCHER_FROM_NOTIFICATION = PPApplication.PACKAGE_NAME + ".ACTION_START_LAUNCHER_FROM_NOTIFICATION";
 
     static final String ACTION_EVENT_TIME_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".EventTimeBroadcastReceiver";
     static final String ACTION_EVENT_CALENDAR_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".EventCalendarBroadcastReceiver";
@@ -704,6 +707,18 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered donationBroadcastReceiver");
+            if (startLauncherFromNotificationReceiver != null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER startLauncherFromNotificationReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER startLauncherFromNotificationReceiver");
+                try {
+                    appContext.unregisterReceiver(startLauncherFromNotificationReceiver);
+                    startLauncherFromNotificationReceiver = null;
+                } catch (Exception e) {
+                    startLauncherFromNotificationReceiver = null;
+                }
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered startLauncherFromNotificationReceiver");
         }
         if (register) {
             if (permissionsNotificationDeletedReceiver == null) {
@@ -980,6 +995,17 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered donationBroadcastReceiver");
+
+            if (startLauncherFromNotificationReceiver == null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER startLauncherFromNotificationReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER startLauncherFromNotificationReceiver");
+                startLauncherFromNotificationReceiver = new StartLauncherFromNotificationReceiver();
+                IntentFilter intentFilter5 = new IntentFilter();
+                intentFilter5.addAction(ACTION_START_LAUNCHER_FROM_NOTIFICATION);
+                appContext.registerReceiver(startLauncherFromNotificationReceiver, intentFilter5);
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered startLauncherFromNotificationReceiver");
         }
     }
 
@@ -4061,11 +4087,12 @@ public class PhoneProfilesService extends Service
             PPApplication.logE("PhoneProfilesService._showProfileNotification", "show enabled");
 
             // intent to LauncherActivity, for click on notification
-            Intent intent = new Intent(appContext, LauncherActivity.class);
+            Intent launcherIntent = new Intent(ACTION_START_LAUNCHER_FROM_NOTIFICATION);
+            /*Intent launcherIntent = new Intent(appContext, LauncherActivity.class);
             // clear all opened activities
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
             // setup startupSource
-            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
+            launcherIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);*/
             int requestCode = 0;
             if (inHandlerThread && (profile != null))
                 requestCode = (int)profile._id;
@@ -4077,7 +4104,7 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("PhoneProfilesService._showProfileNotification", "not redraw notification");
 
                 // get old notification
-                PendingIntent oldPIntent = PendingIntent.getActivity(appContext, requestCode, intent, PendingIntent.FLAG_NO_CREATE);
+                PendingIntent oldPIntent = PendingIntent.getBroadcast(appContext, requestCode, launcherIntent, PendingIntent.FLAG_NO_CREATE);
                 PPApplication.logE("PhoneProfilesService._showProfileNotification", "oldPIntent="+oldPIntent);
                 if (oldPIntent != null) {
                     String pNameNotification = PPApplication.getNotificationProfileName(appContext);
@@ -4278,7 +4305,7 @@ public class PhoneProfilesService extends Service
 
             PPApplication.setNotificationProfileName(appContext, pName);
 
-            PendingIntent pIntent = PendingIntent.getActivity(appContext, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pIntent = PendingIntent.getBroadcast(appContext, requestCode, launcherIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             if (Build.VERSION.SDK_INT >= 26) {
                 PPApplication.createProfileNotificationChannel(appContext);
@@ -4549,7 +4576,7 @@ public class PhoneProfilesService extends Service
                 // intent to LauncherActivity, for click on notification
                 Intent exitAppIntent = new Intent(appContext, ExitApplicationActivity.class);
                 // clear all opened activities
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                exitAppIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 PendingIntent pExitAppIntent = PendingIntent.getActivity(appContext, 0, exitAppIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 Notification.Action.Builder actionBuilder = new Notification.Action.Builder(

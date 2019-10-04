@@ -77,6 +77,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        PPApplication.logE("ActivateProfileActivity.onCreate", "xxx");
+
         GlobalGUIRoutines.setTheme(this, true, true/*, false*/);
         GlobalGUIRoutines.setLanguage(this);
 
@@ -229,6 +231,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        PPApplication.logE("ActivateProfileActivity.onStart", "xxx");
+
         LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
                 new IntentFilter(PPApplication.PACKAGE_NAME + ".RefreshActivatorGUIBroadcastReceiver"));
         LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,

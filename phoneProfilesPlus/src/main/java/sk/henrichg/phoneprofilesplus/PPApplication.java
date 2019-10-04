@@ -139,7 +139,6 @@ public class PPApplication extends Application {
                                         //+"|Event.pauseEvent"
                                         //+"|[DSTART] DataWrapper.doHandleEvents"
 
-                                         //+"|LauncherActivity.onStart"
                                          //+"|EditorProfilesActivity.onCreate"
                                          //+"|EditorProfilesActivity.onStart"
                                          //+"|EditorProfilesActivity.onActivityResult"
@@ -377,7 +376,9 @@ public class PPApplication extends Application {
                                         //+"|EventPreferencesCall"
                                         //+"|MissedCallEventEndBroadcastReceiver"
 
-                                        //+"|LauncherActivity"
+                                        +"|StartLauncherFromNotificationReceiver"
+                                        +"|LauncherActivity"
+                                        +"|ActivateProfileActivity"
 
                                         //+"|AlarmClockBroadcastReceiver.onReceive"
                                         //+"|NextAlarmClockBroadcastReceiver"
@@ -459,8 +460,6 @@ public class PPApplication extends Application {
                                         //+"|EventPreferencesTime.getDayOfWeekByLocale"
 
                                         //+"|SearchCalendarEventsWorker"
-
-                                        +"|RestartEventsFromNotificationActivity"
             ;
 
 
