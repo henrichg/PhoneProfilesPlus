@@ -328,12 +328,15 @@ class BitmapManipulator {
         Drawable wrapDrawable = DrawableCompat.wrap(drawable);
         //DrawableCompat.setTintMode(wrapDrawable,  PorterDuff.Mode.DST_ATOP);
         DrawableCompat.setTint(wrapDrawable, color);
+        wrapDrawable.mutate();
         return wrapDrawable;
     }
 
     static Drawable tintDrawableByValue(Drawable drawable, int value) {
         int color  = Color.argb(0xFF, value, value, value);
-        return tintDrawableByColor(drawable, color);
+        Drawable tintedDrawable = tintDrawableByColor(drawable, color);
+        tintedDrawable.mutate();
+        return tintedDrawable;
     }
     */
 
