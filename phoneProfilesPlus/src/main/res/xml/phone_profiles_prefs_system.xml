@@ -24,7 +24,7 @@
             app:key="applicationUnlinkRingerNotificationVolumesImportantInfo"
             app:title="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes"
             app:summary="@string/phone_profiles_pref_UnlinkRingerNotificationVolumesImportantInfo_importantInfo_summary"
-            app:widgetLayout="@layout/info_preference_clickable"
+            app:widgetLayout="@layout/start_activity_preference"
             app:layout="@layout/mp_preference_material_widget" />
         <Preference
             app:key="applicationForceSetMergeRingNotificationVolumesInfo"
