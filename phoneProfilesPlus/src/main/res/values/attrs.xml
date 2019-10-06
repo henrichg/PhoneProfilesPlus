@@ -116,7 +116,5 @@
     <attr name="infoPreferenceIcon" format="reference" />
     <attr name="exclamationPreferenceIcon" format="reference" />
     <attr name="editorFilterBackgroundColor" format="reference" />
-    <attr name="actionProfilesViewIcon" format="reference" />
-    <attr name="actionEventsViewIcon" format="reference" />
 
 </resources>
