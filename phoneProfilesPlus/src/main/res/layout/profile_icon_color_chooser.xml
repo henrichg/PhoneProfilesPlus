@@ -1,13 +1,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
-            android:paddingTop="@dimen/alert_dialog_top_padding">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profile_icon_color_chooser_root"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:paddingTop="@dimen/alert_dialog_top_padding">
 
     <ScrollView
+        android:id="@+id/profile_icon_color_chooser_scroll_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scrollbarStyle="outsideOverlay"

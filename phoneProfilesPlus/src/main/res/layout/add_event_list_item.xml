@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:paddingStart="15dp"
-              android:paddingEnd="15dp"
-              android:paddingTop="5dp"
-              android:paddingBottom="5dp"
-              android:orientation="horizontal">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/event_pref_dlg_item_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="15dp"
+    android:paddingEnd="15dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:orientation="horizontal">
 
     <RadioButton
         android:id="@+id/event_pref_dlg_item_radio_button"

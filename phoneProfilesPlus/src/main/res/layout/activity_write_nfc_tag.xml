@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:paddingStart="@dimen/important_info_left_margin"
-              android:paddingEnd="@dimen/important_info_right_margin"
-              android:paddingTop="@dimen/important_info_top_margin"
-              android:paddingBottom="@dimen/important_info_bottom_margin"
-              android:fitsSystemWindows="false" >
+    android:id="@+id/write_nfc_tag_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/important_info_left_margin"
+    android:paddingEnd="@dimen/important_info_right_margin"
+    android:paddingTop="@dimen/important_info_top_margin"
+    android:paddingBottom="@dimen/important_info_bottom_margin"
+    android:fitsSystemWindows="false" >
 
     <TextView
         android:id="@+id/write_nfc_tag_touch"

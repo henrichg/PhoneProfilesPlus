@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
+    android:id="@+id/about_application_application_scroll_view"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fitsSystemWindows="false" >
 
     <LinearLayout
+        android:id="@+id/about_application_application_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"

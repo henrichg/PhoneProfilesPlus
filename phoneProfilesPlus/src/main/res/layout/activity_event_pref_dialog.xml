@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:paddingTop="@dimen/alert_dialog_top_padding">
+    android:id="@+id/event_pref_dlg_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/alert_dialog_top_padding">
 
     <LinearLayout
         android:id="@+id/event_pref_dlg_linla_progress"

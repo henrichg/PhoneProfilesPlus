@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:paddingStart="20dp"
-              android:paddingEnd="20dp"
-              android:paddingTop="@dimen/alert_dialog_top_padding">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/calendar_search_string_pref_dlg_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:paddingTop="@dimen/alert_dialog_top_padding">
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/calendar_search_string_pref_dlg_helpIcon"

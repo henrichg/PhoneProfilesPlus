@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mp_preference_category_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingStart="?android:attr/listPreferredItemPaddingStart"

@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dialog_help_popup_window_root"
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -10,6 +11,7 @@
     app:cardUseCompatPadding="true">
 
     <LinearLayout
+        android:id="@+id/dialog_help_popup_window_linla"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
@@ -17,6 +19,7 @@
         <include layout="@layout/popup_window_close" />
 
         <ScrollView
+            android:id="@+id/dialog_help_popup_window_scroll_view"
             android:layout_width="300dp"
             android:layout_height="match_parent">
 

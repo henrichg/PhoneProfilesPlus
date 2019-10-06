@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="3dp"
-                android:clickable="true"
-                android:background="?attr/selectableItemBackground"
-                android:focusable="true">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/applications_pref_dlg_item_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="3dp"
+    android:clickable="true"
+    android:background="?attr/selectableItemBackground"
+    android:focusable="true">
 
     <LinearLayout
         android:id="@+id/applications_pref_dlg_item_buttons_root"

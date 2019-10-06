@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:paddingStart="20dp"
-              android:paddingEnd="20dp"
-              android:orientation="vertical"
-              android:paddingTop="@dimen/alert_dialog_top_padding">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/brightnessPrefDialogRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/alert_dialog_top_padding">
 
     <CheckBox
         android:id="@+id/brightnessPrefDialogNoChange"
