@@ -244,13 +244,15 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                                 if (actualVersionCode <= 4550) {
                                     ApplicationPreferences.getSharedPreferences(appContext);
-                                    boolean darkBackground = ApplicationPreferences.preferences.getBoolean("notificationDarkBackground", false);
-                                    if (darkBackground) {
-                                        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-                                        editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "1");
-                                        editor.apply();
+                                    if (Build.VERSION.SDK_INT < 29) {
+                                        boolean darkBackground = ApplicationPreferences.preferences.getBoolean("notificationDarkBackground", false);
+                                        if (darkBackground) {
+                                            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                                            editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "1");
+                                            editor.apply();
 
-                                        restartService = true;
+                                            restartService = true;
+                                        }
                                     }
                                 }
 
