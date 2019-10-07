@@ -376,9 +376,9 @@ public class PPApplication extends Application {
                                         //+"|EventPreferencesCall"
                                         //+"|MissedCallEventEndBroadcastReceiver"
 
-                                        +"|StartLauncherFromNotificationReceiver"
-                                        +"|LauncherActivity"
-                                        +"|ActivateProfileActivity"
+                                        //+"|StartLauncherFromNotificationReceiver"
+                                        //+"|LauncherActivity"
+                                        //+"|ActivateProfileActivity"
 
                                         //+"|AlarmClockBroadcastReceiver.onReceive"
                                         //+"|NextAlarmClockBroadcastReceiver"

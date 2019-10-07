@@ -400,7 +400,9 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                         }
                         if (!found) {
                             for (BluetoothDeviceData _device : connectedDevices) {
-                                if (_device.getName().equalsIgnoreCase(deviceData.getName())) {
+                                String _deviceName = _device.getName().trim();
+                                String deviceDataName = deviceData.getName().trim();
+                                if (_deviceName.equalsIgnoreCase(deviceDataName)) {
                                     found = true;
                                     break;
                                 }
@@ -410,8 +412,8 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                     }
                     else {
                         for (BluetoothDeviceData _device : connectedDevices) {
-                            String device = _device.getName().toUpperCase();
-                            String _adapterName = sensorDeviceName.toUpperCase();
+                            String device = _device.getName().trim().toUpperCase();
+                            String _adapterName = sensorDeviceName.trim().toUpperCase();
                             if (Wildcard.match(device, _adapterName, '_', '%', true)) {
                                 return true;
                             }
