@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:key="categoryNotifications"
+    app:title="@string/phone_profiles_pref_category_notifications">
+
+    <SwitchPreferenceCompat
+        app:key="notificationsToast"
+        app:title="@string/phone_profiles_pref_notificationsToast"
+        app:defaultValue="true"
+        app:layout="@layout/mp_preference_material_widget" />
+    <PreferenceCategory
+        app:key="categoryNotificationsStatusBar"
+        app:title="@string/phone_profiles_pref_notificationStatusBarNew"
+        app:layout="@layout/mp_preference_category" >
+        <Preference
+            app:key="notificationSystemSettings"
+            app:title="@string/phone_profiles_pref_notificationSystemSettings"
+            app:summary="@string/phone_profiles_pref_notificationSystemSettings_summary"
+            app:widgetLayout="@layout/start_activity_preference"
+            app:layout="@layout/mp_preference_material_widget" />
+        <ListPreference
+            app:title="@string/phone_profiles_pref_notificationLayoutType"
+            app:summary="@string/phone_profiles_pref_notificationLayoutType_expandable"
+            app:key="notificationLayoutType"
+            app:defaultValue="0"
+            app:entries="@array/notificationLayoutTypeArray"
+            app:entryValues="@array/notificationLayoutTypeValues"
+            app:layout="@layout/mp_preference_material_widget" />
+        <Preference
+            app:key="notificationStatusBarStyleInfo"
+            app:title="@string/phone_profiles_pref_notificationStatusBarStyleInfo_title"
+            app:summary="@string/phone_profiles_pref_notificationStatusBarStyleInfo_summary"
+            app:widgetLayout="@layout/info_preference"
+            app:layout="@layout/mp_preference_material_widget" />
+        <ListPreference
+            app:title="@string/phone_profiles_pref_notificationStatusBarStyle"
+            app:summary="@string/phone_profiles_pref_notificationStatusBarStyle_android"
+            app:key="notificationStatusBarStyle"
+            app:defaultValue="1"
+            app:entries="@array/notificationIconStyleArray"
+            app:entryValues="@array/notificationIconStyleValues"
+            app:layout="@layout/mp_preference_material_widget" />
+        <SwitchPreferenceCompat
+            app:key="notificationPrefIndicator"
+            app:title="@string/phone_profiles_pref_notificationPrefIndicator"
+            app:defaultValue="true"
+            app:layout="@layout/mp_preference_material_widget" />
+        <!--
+        <ListPreference
+            app:title="@string/phone_profiles_pref_notificationBackgroundColor"
+            app:summary="@string/phone_profiles_pref_notificationBackgroundColor_android"
+            app:key="notificationBackgroundColor"
+            app:defaultValue="0"
+            app:entries="@array/notificationBackgroundColorArray"
+            app:entryValues="@array/notificationBackgroundColorValues"
+            app:layout="@layout/mp_preference_material_widget" />
+        <ListPreference
+            app:title="@string/phone_profiles_pref_notificationTextColor"
+            app:summary="@string/array_pref_no_change"
+            app:key="notificationTextColor"
+            app:defaultValue="0"
+            app:entries="@array/notificationTextColorArray"
+            app:entryValues="@array/notificationTextColorValues"
+            app:layout="@layout/mp_preference_material_widget" />
+        -->
+        <SwitchPreferenceCompat
+            app:key="notificationUseDecoration"
+            app:title="@string/phone_profiles_pref_notificationUseDecoration"
+            app:defaultValue="true"
+            app:layout="@layout/mp_preference_material_widget" />
+        <SwitchPreferenceCompat
+            app:key="notificationShowButtonExit"
+            app:title="@string/phone_profiles_pref_notificationShowButtonExit"
+            app:defaultValue="false"
+            app:layout="@layout/mp_preference_material_widget" />
+    </PreferenceCategory>
+    
+</androidx.preference.PreferenceScreen>

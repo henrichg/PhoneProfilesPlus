@@ -4171,32 +4171,45 @@ public class PhoneProfilesService extends Service
                 uiModeManager.setNightMode(UiModeManager.MODE_NIGHT_NO);
             }*/
 
+            boolean useDecorator = (!PPApplication.romIsMIUI) || (Build.VERSION.SDK_INT >= 26);
+            useDecorator = useDecorator && notificationUseDecoration;
+
             boolean notificationDarkBackground = false;
-            if (notificationBackgroundColor.equals("1")) {
-                notificationDarkBackground = true;
+            if (Build.VERSION.SDK_INT < 29) {
+                if (notificationBackgroundColor.equals("1")) {
+                    notificationDarkBackground = true;
+                } else if (notificationBackgroundColor.equals("2")) {
+                    int nightModeFlags =
+                            appContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                    switch (nightModeFlags) {
+                        case Configuration.UI_MODE_NIGHT_YES:
+                            notificationDarkBackground = true;
+                            notificationTextColor = "2";
+                            break;
+                        case Configuration.UI_MODE_NIGHT_NO:
+                            notificationTextColor = "1";
+                            break;
+                        case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                            break;
+                    }
+                }
+                PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationDarkBackground="+notificationDarkBackground);
+                useDecorator = useDecorator && (!notificationDarkBackground) && (!notificationBackgroundColor.equals("2"));
             }
-            else
-            if (notificationBackgroundColor.equals("2")) {
+            else {
                 int nightModeFlags =
                         appContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                 switch (nightModeFlags) {
                     case Configuration.UI_MODE_NIGHT_YES:
                         notificationDarkBackground = true;
-                        notificationTextColor = "2";
                         break;
                     case Configuration.UI_MODE_NIGHT_NO:
-                        notificationTextColor = "1";
-                        break;
                     case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                        notificationDarkBackground = false;
                         break;
                 }
+                PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationDarkBackground="+notificationDarkBackground);
             }
-
-            PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationDarkBackground="+notificationDarkBackground);
-
-            boolean useDecorator = (!PPApplication.romIsMIUI) || (Build.VERSION.SDK_INT >= 26);
-            useDecorator = useDecorator && notificationUseDecoration;
-            useDecorator = useDecorator && (!notificationDarkBackground) && (!notificationBackgroundColor.equals("2"));
 
             if (PPApplication.romIsMIUI) {
                 if (android.os.Build.VERSION.SDK_INT >= 24) {
@@ -4371,7 +4384,6 @@ public class PhoneProfilesService extends Service
                                 //    iconSmallResource = R.drawable.ic_profile_default;
                                 iconSmallResource = R.drawable.ic_profile_default_notify_color;
                                 try {
-                                    //noinspection ConstantConditions
                                     iconSmallResource = Profile.profileIconNotifyColorId.get(iconIdentifier);
                                 } catch (Exception ignored) {
                                 }
@@ -4386,7 +4398,6 @@ public class PhoneProfilesService extends Service
                             //    iconSmallResource = R.drawable.ic_profile_default_notify;
                             iconSmallResource = R.drawable.ic_profile_default_notify;
                             try {
-                                //noinspection ConstantConditions
                                 iconSmallResource = Profile.profileIconNotifyId.get(iconIdentifier);
                             } catch (Exception ignored) {
                             }
@@ -4406,7 +4417,6 @@ public class PhoneProfilesService extends Service
                             //    iconSmallResource = R.drawable.ic_profile_default;
                             iconSmallResource = R.drawable.ic_profile_default_notify_color;
                             try {
-                                //noinspection ConstantConditions
                                 iconSmallResource = Profile.profileIconNotifyColorId.get(iconIdentifier);
                             } catch (Exception ignored) {
                             }
@@ -4429,7 +4439,6 @@ public class PhoneProfilesService extends Service
                             //    iconSmallResource = R.drawable.ic_profile_default_notify;
                             iconSmallResource = R.drawable.ic_profile_default_notify;
                             try {
-                                //noinspection ConstantConditions
                                 iconSmallResource = Profile.profileIconNotifyId.get(iconIdentifier);
                             } catch (Exception ignored) {
                             }
@@ -4488,29 +4497,29 @@ public class PhoneProfilesService extends Service
                     contentView.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);
             }
 
-            if (notificationDarkBackground) {
-                int color = getResources().getColor(R.color.notificationDarkBackgroundColor);
-                contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
-                if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
-                    contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
-            }
-            else {
-                //int color = getResources().getColor(R.color.notificationBackground);
-                contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", Color.TRANSPARENT);
-                if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
-                    contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", Color.TRANSPARENT);
-            }
+            if (Build.VERSION.SDK_INT < 29) {
+                if (notificationDarkBackground) {
+                    int color = getResources().getColor(R.color.notificationDarkBackgroundColor);
+                    contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
+                    if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
+                        contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
+                }
+                else {
+                    //int color = getResources().getColor(R.color.notificationBackground);
+                    contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", Color.TRANSPARENT);
+                    if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
+                        contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", Color.TRANSPARENT);
+                }
 
-            if (notificationTextColor.equals("1") && (!notificationDarkBackground)) {
-                contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
-                if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
-                    contentView.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
-            }
-            else
-            if (notificationTextColor.equals("2") || notificationDarkBackground) {
-                contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
-                if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
-                    contentView.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
+                if (notificationTextColor.equals("1") && (!notificationDarkBackground)) {
+                    contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
+                    if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
+                        contentView.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
+                } else if (notificationTextColor.equals("2") || notificationDarkBackground) {
+                    contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
+                    if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
+                        contentView.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
+                }
             }
 
             contentViewLarge.setTextViewText(R.id.notification_activated_profile_name, profileName);
