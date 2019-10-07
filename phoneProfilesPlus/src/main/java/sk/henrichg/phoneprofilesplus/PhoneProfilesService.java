@@ -4489,7 +4489,7 @@ public class PhoneProfilesService extends Service
             }
 
             if (notificationDarkBackground) {
-                int color = getResources().getColor(R.color.notificationBackground);
+                int color = getResources().getColor(R.color.notificationDarkBackgroundColor);
                 contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
                 if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
                     contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
@@ -4528,10 +4528,18 @@ public class PhoneProfilesService extends Service
                     PPApplication.getApplicationStarted(getBaseContext().getApplicationContext(), true)) {
                 if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/) {
                     contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
+                    if (notificationDarkBackground)
+                        contentView.setImageViewResource(R.id.notification_activated_profile_restart_events, R.drawable.ic_widget_restart_events_dark);
+                    else
+                        contentView.setImageViewResource(R.id.notification_activated_profile_restart_events, R.drawable.ic_widget_restart_events);
                     contentView.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
                 }
 
                 contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
+                if (notificationDarkBackground)
+                    contentViewLarge.setImageViewResource(R.id.notification_activated_profile_restart_events, R.drawable.ic_widget_restart_events_dark);
+                else
+                    contentViewLarge.setImageViewResource(R.id.notification_activated_profile_restart_events, R.drawable.ic_widget_restart_events);
                 contentViewLarge.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
             }
             else {

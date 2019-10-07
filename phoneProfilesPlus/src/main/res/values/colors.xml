@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <color name="notificationDecorationColor">#DC8160</color>
-    <color name="notificationBackground">#FF202020</color>
+    <color name="notificationDarkBackgroundColor">#FF202020</color>
 
     <color name="altype_profile">#FF0000FF</color>
     <color name="altype_eventStart">#FF00C000</color>
