@@ -8,15 +8,6 @@
     <color name="altype_eventEnd">#FFFF0000</color>
     <color name="altype_eventDelayStartEnd">#FFFFB000</color>
 
-    <color name="map_edited_location_marker_stroke"
-           tools:keep="@color/map_edited_location_marker_stroke">#FFDC8160</color>
-    <color name="map_edited_location_marker_fill"
-           tools:keep="@color/map_edited_location_marker_fill">#77DC8160</color>
-    <color name="map_last_location_marker_stroke"
-           tools:keep="@color/map_last_location_marker_stroke">#FF84d2ef</color>
-    <color name="map_last_location_marker_fill"
-           tools:keep="@color/map_last_location_marker_fill">#7784d2ef</color>
-
     <color name="lockDevice_textColor">#FFFFFFFF</color>
 
 </resources>
