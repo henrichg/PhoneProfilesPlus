@@ -430,6 +430,59 @@ Classic a LE scanning:
 - Co tak teda vyhodit ten device type a proste vzdy skenovat oba typy
 - Potom netreba ani, akeho typu je BT zariadenie, cize mozu sa vyhodit [CL], [DU], [LE] indikatory
 
+------------------------------------------------------------------------
 
+Permissions vz. Root/G1
+
+checkProfileVibrationOnTouch(context, profile, permissions);
+_vibrationOnTouch
+
+checkProfileVibrateWhenRinging(context, profile, permissions);
+_vibrateWhenRinging (R)
+
+checkProfileRingtones(context, profile, permissions);
+_soundRingtoneChange
+_soundNotificationChange
+_soundAlarmChange
+
+checkProfileScreenTimeout(context, profile, permissions);
+_deviceScreenTimeout
+
+checkProfileScreenBrightness(context, profile, permissions);
+getDeviceBrightnessChange() (R)
+
+checkProfileAutoRotation(context, profile, permissions);
+_deviceAutoRotate
+
+checkProfileNotificationLed(context, profile, permissions);
+_notificationLed (R)
+
+checkProfileWallpaper(context, profile, permissions);
+_deviceWallpaperChange
+
+checkProfileRadioPreferences(context, profile, permissions);
+_deviceWiFiAP (R)
+_deviceBluetooth
+_deviceMobileData (R)
+_deviceNetworkType (R)
+_deviceConnectToSSID
+
+checkProfilePhoneBroadcast(context, profile, permissions);
+_volumeSpeakerPhone
+
+checkCustomProfileIcon(context, profile, permissions);
+getIsIconResourceID()
+
+checkProfileAccessNotificationPolicy(context, profile, permissions);
+_volumeRingerMode
+
+checkProfileLockDevice(context, profile, permissions);
+_lockDevice (R)
+
+checkProfileDtmfToneWhenDialing(context, profile, permissions);
+_dtmfToneWhenDialing
+
+checkProfileSoundOnTouch(context, profile, permissions);
+_soundOnTouch
 
 
