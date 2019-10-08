@@ -2187,6 +2187,9 @@ public class Profile {
             if (Build.VERSION.SDK_INT > 28)
                 defaultValue = getBrightnessValue_A9(50, minimumValue, maximumValue);
             else
+            if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) // Nexus may be LG, Samsung, Huawei, ...
+                defaultValue = getBrightnessValue_A9(50, minimumValue, maximumValue);
+            else
             if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG))
                 defaultValue = getBrightnessValue_A9(50, minimumValue, maximumValue);
             value = Settings.System.getInt(context.getContentResolver(),
@@ -2201,11 +2204,16 @@ public class Profile {
                     e.printStackTrace();
                 }
             }
-            if ((Build.VERSION.SDK_INT < 28) ||
-                    ((Build.VERSION.SDK_INT == 28) && (PPApplication.romIsSamsung || PPApplication.romIsLG)))
-                value = Math.round((float) (maximumValue - minimumValue) / 100 * percentage) + minimumValue;
-            else
+            if (Build.VERSION.SDK_INT > 28)
                 value = getBrightnessValue_A9(percentage, minimumValue, maximumValue);
+            else
+            if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) // Nexus may be LG, Samsung, Huawei, ...
+                value = getBrightnessValue_A9(percentage, minimumValue, maximumValue);
+            else
+            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG))
+                value = getBrightnessValue_A9(percentage, minimumValue, maximumValue);
+            else
+                value = Math.round((float) (maximumValue - minimumValue) / 100 * percentage) + minimumValue;
         }
 
         PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "value="+value);
@@ -2227,8 +2235,17 @@ public class Profile {
             value = Settings.System.getFloat(context.getContentResolver(),
                                 ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, 0f);
         else {
-            if ((Build.VERSION.SDK_INT < 28) ||
-                    ((Build.VERSION.SDK_INT == 28) && (PPApplication.romIsSamsung || PPApplication.romIsLG)))
+            boolean exponencialLevel = false;
+            if (Build.VERSION.SDK_INT > 28)
+                exponencialLevel = true;
+            else
+            if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) // Nexus may be LG, Samsung, Huawei, ...
+                exponencialLevel = true;
+            else
+            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG))
+                exponencialLevel = true;
+
+            if (!exponencialLevel)
                 value = (percentage - 50) / 50f;
             else {
                 int maximumValue;// = getMaximumScreenBrightnessSetting();
@@ -2262,11 +2279,16 @@ public class Profile {
         if (value == BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET)
             percentage = value; // keep BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET
         else {
-            if ((Build.VERSION.SDK_INT < 28) ||
-                    ((Build.VERSION.SDK_INT == 28) && (PPApplication.romIsSamsung || PPApplication.romIsLG)))
-                percentage = Math.round((float) (value - minValue) / (maxValue - minValue) * 100.0);
-            else
+            if (Build.VERSION.SDK_INT > 28)
                 percentage = getBrightnessPercentage_A9(value, minValue, maxValue);
+            else
+            if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) // Nexus may be LG, Samsung, Huawei, ...
+                percentage = getBrightnessPercentage_A9(value, minValue, maxValue);
+            else
+            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG))
+                percentage = getBrightnessPercentage_A9(value, minValue, maxValue);
+            else
+                percentage = Math.round((float) (value - minValue) / (maxValue - minValue) * 100.0);
         }
 
         return percentage;

@@ -107,7 +107,7 @@ public class PPApplication extends Application {
                                          +"|ImportantInfoHelpFragment.onViewCreated"
                                          +"|ImportantInfoNotification"*/
 
-                                         //+"|TonesHandler"
+                                         +"|TonesHandler"
                                          //+"|TonesHandler.isPhoneProfilesSilent"
                                          //+"|TonesHandler.getToneName"
                                          //+"|DatabaseHandler.fixPhoneProfilesSilentInProfiles"
@@ -686,6 +686,8 @@ public class PPApplication extends Application {
         PPApplication.logE("##### PPApplication.onCreate", "romIsEMUI="+romIsEMUI);
         PPApplication.logE("##### PPApplication.onCreate", "romIsSamsung="+romIsSamsung);
         PPApplication.logE("##### PPApplication.onCreate", "romIsLG="+romIsLG);
+        PPApplication.logE("##### PPApplication.onCreate", "model="+Build.MODEL);
+
 
         if (checkAppReplacingState())
             return;
