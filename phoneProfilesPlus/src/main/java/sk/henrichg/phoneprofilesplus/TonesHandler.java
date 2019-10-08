@@ -8,7 +8,6 @@ import android.media.MediaScannerConnection;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
-import android.os.SystemPropertiesProto;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.util.Log;
