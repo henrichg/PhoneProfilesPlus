@@ -273,8 +273,13 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
                     widget.setImageViewBitmap(R.id.widget_profile_list_header_restart_events, bitmap);
                 }
-                else
-                    widget.setImageViewResource(R.id.widget_profile_list_header_restart_events, R.drawable.ic_widget_restart_events);
+                else {
+                    int resId = R.drawable.ic_widget_restart_events_dark;
+                    if (applicationWidgetListLightnessT.equals("0")) resId = R.drawable.ic_widget_restart_events;
+                    if (applicationWidgetListLightnessT.equals("25")) resId = R.drawable.ic_widget_restart_events;
+                    if (applicationWidgetListLightnessT.equals("50")) resId = R.drawable.ic_widget_restart_events;
+                    widget.setImageViewResource(R.id.widget_profile_list_header_restart_events, resId);
+                }
             }
 
         }

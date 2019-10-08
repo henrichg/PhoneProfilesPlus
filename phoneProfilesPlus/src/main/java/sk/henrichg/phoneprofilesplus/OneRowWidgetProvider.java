@@ -245,8 +245,13 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                                 bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
                                 remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
                             }
-                            else
-                                remoteViews.setImageViewResource(R.id.widget_one_row_header_restart_events, R.drawable.ic_widget_restart_events);
+                            else {
+                                int resId = R.drawable.ic_widget_restart_events_dark;
+                                if (applicationWidgetOneRowLightnessT.equals("0")) resId = R.drawable.ic_widget_restart_events;
+                                if (applicationWidgetOneRowLightnessT.equals("25")) resId = R.drawable.ic_widget_restart_events;
+                                if (applicationWidgetOneRowLightnessT.equals("50")) resId = R.drawable.ic_widget_restart_events;
+                                remoteViews.setImageViewResource(R.id.widget_one_row_header_restart_events, resId);
+                            }
                         }
 
                         PPApplication.logE("OneRowWidgetProvider.onUpdate", "events running="+Event.getGlobalEventsRunning(context));
