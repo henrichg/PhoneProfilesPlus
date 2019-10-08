@@ -407,6 +407,7 @@ public class EditorProfileListFragment extends Fragment
 
                 // update activity for activated profile
                 fragment.listView.getRecycledViewPool().clear();
+
                 Profile profile = fragment.activityDataWrapper.getActivatedProfile(true,
                                 applicationEditorPrefIndicator);
                 fragment.updateHeader(profile);
@@ -905,26 +906,29 @@ public class EditorProfileListFragment extends Fragment
         if ((activityDataWrapper == null) || (profileListAdapter == null))
             return;
 
-        PPApplication.logE("EditorProfileListFragment.refreshGUI", "refresh");
+        PPApplication.logE("EditorProfileListFragment.refreshGUI", "refresh="+refresh);
 
         Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
 
         String pName;
         if (profileFromDB != null)
-            pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, activityDataWrapper, false, activityDataWrapper.context);
+            pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, activityDataWrapper, true, activityDataWrapper.context);
         else
             pName = getResources().getString(R.string.profiles_header_profile_name_no_activated);
+        PPApplication.logE("EditorProfileListFragment.refreshGUI", "pName="+pName);
 
         if (!refresh) {
-            String pNameWidget = PPApplication.getActivityProfileName(activityDataWrapper.context, 2);
+            String pNameHeader = PPApplication.getActivityProfileName(activityDataWrapper.context, 2);
+            PPApplication.logE("EditorProfileListFragment.refreshGUI", "pNameHeader="+pNameHeader);
 
-            if (pName.equals(pNameWidget)) {
+            if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
                 PPApplication.logE("EditorProfileListFragment.refreshGUI", "activated profile NOT changed");
                 return;
             }
         }
 
         PPApplication.setActivityProfileName(activityDataWrapper.context, 2, pName);
+        PPApplication.setActivityProfileName(activityDataWrapper.context, 3, pName);
 
         Profile profileFromAdapter = profileListAdapter.getActivatedProfile();
         if (profileFromAdapter != null)

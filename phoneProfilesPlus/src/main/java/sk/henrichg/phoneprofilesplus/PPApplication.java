@@ -107,7 +107,7 @@ public class PPApplication extends Application {
                                          +"|ImportantInfoHelpFragment.onViewCreated"
                                          +"|ImportantInfoNotification"*/
 
-                                         +"|TonesHandler"
+                                         //+"|TonesHandler"
                                          //+"|TonesHandler.isPhoneProfilesSilent"
                                          //+"|TonesHandler.getToneName"
                                          //+"|DatabaseHandler.fixPhoneProfilesSilentInProfiles"
@@ -461,8 +461,11 @@ public class PPApplication extends Application {
 
                                         //+"|SearchCalendarEventsWorker"
 
-                                        +"|Profile.getBrightnessPercentage_A9"
-                                        +"|Profile.getBrightnessValue_A9"
+                                        //+"|Profile.getBrightnessPercentage_A9"
+                                        //+"|Profile.getBrightnessValue_A9"
+
+                                        +"|EditorProfileListFragment.refreshGUI"
+                                        +"|EditorEventListFragment.refreshGUI"
             ;
 
 

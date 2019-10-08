@@ -59,7 +59,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         if (!pNameWidget.isEmpty()) {
                             String pName;
                             if (profile != null)
-                                pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, dataWrapper, false, context);
+                                pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, dataWrapper, true, context);
                             else
                                 pName = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
 

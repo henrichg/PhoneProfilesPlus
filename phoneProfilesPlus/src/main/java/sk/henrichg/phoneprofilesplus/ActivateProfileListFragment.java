@@ -566,14 +566,16 @@ public class ActivateProfileListFragment extends Fragment {
 
         String pName;
         if (profileFromDB != null)
-            pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, activityDataWrapper, false, activityDataWrapper.context);
+            pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, activityDataWrapper, true, activityDataWrapper.context);
         else
             pName = getResources().getString(R.string.profiles_header_profile_name_no_activated);
 
         if (!refresh) {
-            String pNameWidget = PPApplication.getActivityProfileName(activityDataWrapper.context, 1);
+            String pNameHeader = PPApplication.getActivityProfileName(activityDataWrapper.context, 1);
+            PPApplication.logE("ActivateProfileListFragment.refreshGUI", "pNameHeader="+pNameHeader);
+            PPApplication.logE("ActivateProfileListFragment.refreshGUI", "pName="+pName);
 
-            if (pName.equals(pNameWidget)) {
+            if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
                 PPApplication.logE("ActivateProfileListFragment.refreshGUI", "activated profile NOT changed");
                 return;
             }

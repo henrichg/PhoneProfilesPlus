@@ -488,10 +488,8 @@ public class EditorEventListFragment extends Fragment
 
                 fragment.listView.setAdapter(fragment.eventListAdapter);
 
-                Profile profile = fragment.activityDataWrapper.getActivatedProfileFromDB(true,
-                        applicationEditorPrefIndicator);
+                Profile profile = _dataWrapper.getActivatedProfileFromDB(true, applicationEditorPrefIndicator);
                 fragment.updateHeader(profile);
-
             }
         }
     }
@@ -1052,24 +1050,29 @@ public class EditorEventListFragment extends Fragment
         if (activityDataWrapper == null)
             return;
 
+        PPApplication.logE("EditorEventListFragment.refreshGUI", "refresh="+refresh);
+
         Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
         activityDataWrapper.getEventTimelineList(true);
 
         String pName;
         if (profileFromDB != null)
-            pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, activityDataWrapper, false, activityDataWrapper.context);
+            pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, activityDataWrapper, true, activityDataWrapper.context);
         else
             pName = getResources().getString(R.string.profiles_header_profile_name_no_activated);
+        PPApplication.logE("EditorEventListFragment.refreshGUI", "pName="+pName);
 
         if (!refresh) {
-            String pNameWidget = PPApplication.getActivityProfileName(activityDataWrapper.context, 3);
+            String pNameHeader = PPApplication.getActivityProfileName(activityDataWrapper.context, 3);
+            PPApplication.logE("EditorEventListFragment.refreshGUI", "pNameHeader="+pNameHeader);
 
-            if (pName.equals(pNameWidget)) {
+            if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
                 PPApplication.logE("EditorEventListFragment.refreshGUI", "activated profile NOT changed");
                 return;
             }
         }
 
+        PPApplication.setActivityProfileName(activityDataWrapper.context, 2, pName);
         PPApplication.setActivityProfileName(activityDataWrapper.context, 3, pName);
 
         synchronized (activityDataWrapper.eventList) {
