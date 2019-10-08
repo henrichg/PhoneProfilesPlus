@@ -2101,8 +2101,12 @@ public class Profile {
         final int value;
 
         value = convertLinearToGamma(settingsValue, minValue, maxValue);
+        int percentage = Math.round(getPercentage(value, 0, GAMMA_SPACE_MAX) * 100);
 
-        return Math.round(getPercentage(value, 0, GAMMA_SPACE_MAX) * 100);
+        PPApplication.logE("Profile.getBrightnessPercentage_A9", "settingsValue="+settingsValue);
+        PPApplication.logE("Profile.getBrightnessPercentage_A9", "percentage="+percentage);
+
+        return percentage;
     }
 
     private static int getBrightnessValue_A9(int percentage, int minValue, int maxValue) {
@@ -2110,6 +2114,10 @@ public class Profile {
         int systemValue = convertGammaToLinear(value, minValue, maxValue);
         if (systemValue > 255)
             systemValue = 255;
+
+        PPApplication.logE("Profile.getBrightnessValue_A9", "percentage="+percentage);
+        PPApplication.logE("Profile.getBrightnessValue_A9", "systemValue="+systemValue);
+
         return systemValue;
     }
 
@@ -2176,7 +2184,10 @@ public class Profile {
         if (percentage == BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET) {
             // brightness is not set, change it to default manual brightness value
             int defaultValue = 128;
-            if ((Build.VERSION.SDK_INT >= 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG))
+            if (Build.VERSION.SDK_INT > 28)
+                defaultValue = getBrightnessValue_A9(50, minimumValue, maximumValue);
+            else
+            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG))
                 defaultValue = getBrightnessValue_A9(50, minimumValue, maximumValue);
             value = Settings.System.getInt(context.getContentResolver(),
                     Settings.System.SCREEN_BRIGHTNESS, defaultValue);
@@ -2190,11 +2201,11 @@ public class Profile {
                     e.printStackTrace();
                 }
             }
-            if ((Build.VERSION.SDK_INT < 28) || PPApplication.romIsSamsung || PPApplication.romIsLG)
+            if ((Build.VERSION.SDK_INT < 28) ||
+                    ((Build.VERSION.SDK_INT == 28) && (PPApplication.romIsSamsung || PPApplication.romIsLG)))
                 value = Math.round((float) (maximumValue - minimumValue) / 100 * percentage) + minimumValue;
-            else {
+            else
                 value = getBrightnessValue_A9(percentage, minimumValue, maximumValue);
-            }
         }
 
         PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "value="+value);
@@ -2216,7 +2227,8 @@ public class Profile {
             value = Settings.System.getFloat(context.getContentResolver(),
                                 ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, 0f);
         else {
-            if ((Build.VERSION.SDK_INT < 28) || PPApplication.romIsSamsung || PPApplication.romIsLG)
+            if ((Build.VERSION.SDK_INT < 28) ||
+                    ((Build.VERSION.SDK_INT == 28) && (PPApplication.romIsSamsung || PPApplication.romIsLG)))
                 value = (percentage - 50) / 50f;
             else {
                 int maximumValue;// = getMaximumScreenBrightnessSetting();
@@ -2250,7 +2262,8 @@ public class Profile {
         if (value == BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET)
             percentage = value; // keep BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET
         else {
-            if ((Build.VERSION.SDK_INT < 28) || PPApplication.romIsSamsung || PPApplication.romIsLG)
+            if ((Build.VERSION.SDK_INT < 28) ||
+                    ((Build.VERSION.SDK_INT == 28) && (PPApplication.romIsSamsung || PPApplication.romIsLG)))
                 percentage = Math.round((float) (value - minValue) / (maxValue - minValue) * 100.0);
             else
                 percentage = getBrightnessPercentage_A9(value, minValue, maxValue);
