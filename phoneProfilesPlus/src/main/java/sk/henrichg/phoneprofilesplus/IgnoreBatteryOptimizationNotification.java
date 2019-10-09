@@ -1,9 +1,11 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.os.PowerManager;
 import android.provider.Settings;
@@ -13,17 +15,24 @@ import androidx.core.content.ContextCompat;
 
 class IgnoreBatteryOptimizationNotification {
 
-    //private static final String PREF_SHOW_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ON_START = "show_ignore_battery_optimization_notification_on_start";
+    static final String PREF_SHOW_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ON_START = "show_ignore_battery_optimization_notification_on_start";
+    static final String IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_DISABLE_ACTION = PPApplication.PACKAGE_NAME + ".IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_DISABLE_ACTION";
 
     static void showNotification(Context context) {
         if (Build.VERSION.SDK_INT >= 23) {
             PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "xxx");
 
-            PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-            if (!pm.isIgnoringBatteryOptimizations(context.getPackageName())) {
-                showNotification(context,
-                        context.getString(R.string.ignore_battery_optimization_notification_title),
-                        context.getString(R.string.ignore_battery_optimization_notification_text));
+            ApplicationPreferences.getSharedPreferences(context);
+            boolean show = ApplicationPreferences.preferences.getBoolean(PREF_SHOW_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ON_START, true);
+            PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show="+show);
+
+            if (show) {
+                PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                if (!pm.isIgnoringBatteryOptimizations(context.getPackageName())) {
+                    showNotification(context,
+                            context.getString(R.string.ignore_battery_optimization_notification_title),
+                            context.getString(R.string.ignore_battery_optimization_notification_text));
+                }
             }
         }
     }
@@ -53,6 +62,16 @@ class IgnoreBatteryOptimizationNotification {
             mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
             mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         //}
+
+        Intent disableIntent = new Intent(IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_DISABLE_ACTION);
+        PendingIntent pDisableIntent = PendingIntent.getBroadcast(context, 0, disableIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Action.Builder actionBuilder = new NotificationCompat.Action.Builder(
+                R.drawable.ic_action_exit_app_white,
+                context.getString(R.string.ignore_battery_optimization_notification_disable_button),
+                pDisableIntent);
+        mBuilder.addAction(actionBuilder.build());
+
         NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (mNotificationManager != null)
             mNotificationManager.notify(PPApplication.IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ID, mBuilder.build());
@@ -64,38 +83,5 @@ class IgnoreBatteryOptimizationNotification {
         if (notificationManager != null)
             notificationManager.cancel(PPApplication.IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ID);
     }
-
-    /*
-    private static boolean getShowInfoNotificationOnStart(Context context, int version)
-    {
-        ApplicationPreferences.getSharedPreferences(context);
-        boolean show = ApplicationPreferences.preferences.getBoolean(PREF_SHOW_INFO_NOTIFICATION_ON_START, true);
-        int _version = ApplicationPreferences.preferences.getInt(PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION, version);
-        return ((_version >= version) && show);
-    }
-
-    private static void setShowInfoNotificationOnStart(Context context, boolean show, int version)
-    {
-        ApplicationPreferences.getSharedPreferences(context);
-        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-        editor.putBoolean(PREF_SHOW_INFO_NOTIFICATION_ON_START, show);
-        editor.putInt(PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION, version);
-        editor.apply();
-    }
-
-    private static int getShowInfoNotificationOnStartVersion(Context context)
-    {
-        ApplicationPreferences.getSharedPreferences(context);
-        return ApplicationPreferences.preferences.getInt(PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION, 0);
-    }
-
-    private static void setShowInfoNotificationOnStartVersion(Context context, int version)
-    {
-        ApplicationPreferences.getSharedPreferences(context);
-        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-        editor.putInt(PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION, version);
-        editor.apply();
-    }
-    */
 
 }
