@@ -523,6 +523,7 @@ public class PPApplication extends Application {
     static final int MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_ID = 700438;
     //static final int GRANT_LOG_TO_FILE_PERMISSIONS_NOTIFICATION_ID = 700439;
     //static final int LOCATION_SETTINGS_FOR_MOBILE_CELLS_SCANNING_NOTIFICATION_ID = 700440;
+    static final int IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ID = 700441;
 
     static final String APPLICATION_PREFS_NAME = "phone_profile_preferences";
     //static final String SHARED_PROFILE_PREFS_NAME = "profile_preferences_default_profile";
@@ -2314,6 +2315,7 @@ public class PPApplication extends Application {
 
                 // remove notifications
                 ImportantInfoNotification.removeNotification(context);
+                IgnoreBatteryOptimizationNotification.removeNotification(context);
                 Permissions.removeNotifications(context);
 
                 if (dataWrapper != null)

@@ -3590,6 +3590,7 @@ public class PhoneProfilesService extends Service
 
                             // show info notification
                             ImportantInfoNotification.showInfoNotification(appContext);
+                            IgnoreBatteryOptimizationNotification.showNotification(appContext);
 
                             dataWrapper.fillProfileList(false, false);
                             for (Profile profile : dataWrapper.profileList)

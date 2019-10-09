@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.provider.Settings;
 
 import java.util.concurrent.TimeUnit;
@@ -736,34 +737,70 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     @SuppressWarnings("ConstantConditions")
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        boolean ok = false;
-                        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, getActivity().getApplicationContext())) {
-                            try {
-                                @SuppressLint("InlinedApi")
-                                Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
-                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                                startActivity(intent);
-                                ok = true;
-                            } catch (Exception ignored) {}
-                        }
-                        if (!ok) {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
-                            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                @Override
-                                public void onShow(DialogInterface dialog) {
-                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                    if (positive != null) positive.setAllCaps(false);
-                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                    if (negative != null) negative.setAllCaps(false);
+                        //PowerManager pm = (PowerManager) getActivity().getApplicationContext().getSystemService(Context.POWER_SERVICE);
+                        //String packageName = getActivity().getApplicationContext().getPackageName();
+                        //if (pm.isIgnoringBatteryOptimizations(packageName)) {
+                            boolean ok = false;
+                            if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, getActivity().getApplicationContext())) {
+                                try {
+                                    @SuppressLint("InlinedApi")
+                                    Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+                                    //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                    startActivity(intent);
+                                    ok = true;
+                                } catch (Exception ignored) {
                                 }
-                            });*/
-                            if (!getActivity().isFinishing())
-                                dialog.show();
-                        }
+                            }
+                            if (!ok) {
+                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                                dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                                dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                                AlertDialog dialog = dialogBuilder.create();
+                                /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                    @Override
+                                    public void onShow(DialogInterface dialog) {
+                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                        if (positive != null) positive.setAllCaps(false);
+                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                        if (negative != null) negative.setAllCaps(false);
+                                    }
+                                });*/
+                                if (!getActivity().isFinishing())
+                                    dialog.show();
+                            }
+                        /*} else {
+                            boolean ok = false;
+                            if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, getActivity().getApplicationContext())) {
+                                try {
+                                    @SuppressLint("InlinedApi")
+                                    Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                                    intent.setData(Uri.parse("package:" + packageName));
+                                    //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                    startActivity(intent);
+                                    ok = true;
+                                } catch (Exception ignored) {
+                                }
+                            }
+                            if (!ok) {
+                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                                dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                                dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                                AlertDialog dialog = dialogBuilder.create();
+                                //dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                //    @Override
+                                //    public void onShow(DialogInterface dialog) {
+                                //        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                //        if (positive != null) positive.setAllCaps(false);
+                                //        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                //        if (negative != null) negative.setAllCaps(false);
+                                //    }
+                                //});
+                                if (!getActivity().isFinishing())
+                                    dialog.show();
+                            }
+                        }*/
                         return false;
                     }
                 });
