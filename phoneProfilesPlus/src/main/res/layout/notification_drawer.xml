@@ -60,7 +60,7 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/empty_string"
             android:scaleType="@integer/profilePrefIndicatorScaleType"
-            android:src="@drawable/ic_profile_pref_volume_on" />
+            android:src="@drawable/ic_empty" />
 
     </RelativeLayout>
 
