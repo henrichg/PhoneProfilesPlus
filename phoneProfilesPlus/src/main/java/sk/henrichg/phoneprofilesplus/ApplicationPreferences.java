@@ -195,7 +195,7 @@ class ApplicationPreferences {
                 applicationTheme.equals("material") ||
                 applicationTheme.equals("color")  ||
                 applicationTheme.equals("dlight")){
-            applicationTheme = "white";
+            applicationTheme = defaultValue;
             SharedPreferences.Editor editor = getSharedPreferences(context).edit();
             editor.putString(PREF_APPLICATION_THEME, applicationTheme);
             editor.apply();

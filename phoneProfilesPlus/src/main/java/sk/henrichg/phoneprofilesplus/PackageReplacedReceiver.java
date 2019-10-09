@@ -289,7 +289,10 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                                     String theme = ApplicationPreferences.applicationTheme(appContext, false);
                                     if (!(theme.equals("white") || theme.equals("dark") || theme.equals("night_mode"))) {
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "white");
+                                        String defaultValue = "white";
+                                        if (Build.VERSION.SDK_INT >= 28)
+                                            defaultValue = "night_mode";
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, defaultValue);
                                         GlobalGUIRoutines.switchNightMode(appContext, true);
                                     }
 

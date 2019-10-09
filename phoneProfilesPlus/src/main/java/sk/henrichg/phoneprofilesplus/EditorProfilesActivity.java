@@ -1498,8 +1498,12 @@ public class EditorProfilesActivity extends AppCompatActivity
                     {
                         if (key.equals(ApplicationPreferences.PREF_APPLICATION_THEME))
                         {
-                            if (v.equals("light") || v.equals("material") || v.equals("color") || v.equals("dlight"))
-                                prefEdit.putString(key, "white");
+                            if (v.equals("light") || v.equals("material") || v.equals("color") || v.equals("dlight")) {
+                                String defaultValue = "white";
+                                if (Build.VERSION.SDK_INT >= 28)
+                                    defaultValue = "night_mode";
+                                prefEdit.putString(key, defaultValue);
+                            }
                         }
                         if (key.equals(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES))
                             ActivateProfileHelper.setMergedRingNotificationVolumes(getApplicationContext(), true, prefEdit);
