@@ -272,6 +272,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
         if (menuItem != null)
         {
             menuItem.setVisible(Event.getGlobalEventsRunning(getApplicationContext()));
+            menuItem.setEnabled(PPApplication.getApplicationStarted(getApplicationContext(), true));
         }
 
         return super.onPrepareOptionsMenu(menu);

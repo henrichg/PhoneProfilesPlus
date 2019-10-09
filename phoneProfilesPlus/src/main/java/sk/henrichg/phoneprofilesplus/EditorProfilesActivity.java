@@ -698,6 +698,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         if (menuItem != null)
         {
             menuItem.setVisible(Event.getGlobalEventsRunning(getApplicationContext()));
+            menuItem.setEnabled(PPApplication.getApplicationStarted(getApplicationContext(), true));
         }
 
         menuItem = menu.findItem(R.id.menu_dark_theme);

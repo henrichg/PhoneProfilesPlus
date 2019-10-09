@@ -464,8 +464,8 @@ public class PPApplication extends Application {
                                         //+"|Profile.getBrightnessPercentage_A9"
                                         //+"|Profile.getBrightnessValue_A9"
 
-                                        +"|EditorProfileListFragment.refreshGUI"
-                                        +"|EditorEventListFragment.refreshGUI"
+                                        //+"|EditorProfileListFragment.refreshGUI"
+                                        //+"|EditorEventListFragment.refreshGUI"
             ;
 
 
