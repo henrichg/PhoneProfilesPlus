@@ -2184,14 +2184,23 @@ public class Profile {
         if (percentage == BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET) {
             // brightness is not set, change it to default manual brightness value
             int defaultValue = 128;
-            if (Build.VERSION.SDK_INT > 28)
+            if (Build.VERSION.SDK_INT > 28) {
+                PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT > 28");
                 defaultValue = getBrightnessValue_A9(50, minimumValue, maximumValue);
+            }
             else
-            if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) // Nexus may be LG, Samsung, Huawei, ...
+            if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) {// Nexus may be LG, Samsung, Huawei, ...
+                PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and Nexus");
                 defaultValue = getBrightnessValue_A9(50, minimumValue, maximumValue);
+            }
             else
-            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG))
+            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG)) {
+                PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and !Samsing and !LG");
                 defaultValue = getBrightnessValue_A9(50, minimumValue, maximumValue);
+            }
+            else {
+                PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 NOT called");
+            }
             value = Settings.System.getInt(context.getContentResolver(),
                     Settings.System.SCREEN_BRIGHTNESS, defaultValue);
         }
@@ -2204,16 +2213,24 @@ public class Profile {
                     e.printStackTrace();
                 }
             }
-            if (Build.VERSION.SDK_INT > 28)
+            if (Build.VERSION.SDK_INT > 28) {
+                PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT > 28");
                 value = getBrightnessValue_A9(percentage, minimumValue, maximumValue);
+            }
             else
-            if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) // Nexus may be LG, Samsung, Huawei, ...
+            if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) {// Nexus may be LG, Samsung, Huawei, ...
+                PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and Nexus");
                 value = getBrightnessValue_A9(percentage, minimumValue, maximumValue);
+            }
             else
-            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG))
+            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG)) {
+                PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and !Samsing and !LG");
                 value = getBrightnessValue_A9(percentage, minimumValue, maximumValue);
-            else
+            }
+            else {
+                PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 NOT called");
                 value = Math.round((float) (maximumValue - minimumValue) / 100 * percentage) + minimumValue;
+            }
         }
 
         PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "value="+value);
@@ -2235,17 +2252,26 @@ public class Profile {
             value = Settings.System.getFloat(context.getContentResolver(),
                                 ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, 0f);
         else {
-            boolean exponencialLevel = false;
-            if (Build.VERSION.SDK_INT > 28)
-                exponencialLevel = true;
+            boolean exponentialLevel = false;
+            if (Build.VERSION.SDK_INT > 28) {
+                PPApplication.logE("Profile.convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=true - SDK_INT > 28");
+                exponentialLevel = true;
+            }
             else
-            if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) // Nexus may be LG, Samsung, Huawei, ...
-                exponencialLevel = true;
+            if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) {// Nexus may be LG, Samsung, Huawei, ...
+                PPApplication.logE("Profile.convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=true - SDK_INT == 28 and Nexus");
+                exponentialLevel = true;
+            }
             else
-            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG))
-                exponencialLevel = true;
+            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG)) {
+                PPApplication.logE("Profile.convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=true - SDK_INT == 28 and !Samsing and !LG");
+                exponentialLevel = true;
+            }
+            else {
+                PPApplication.logE("Profile.convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=false");
+            }
 
-            if (!exponencialLevel)
+            if (!exponentialLevel)
                 value = (percentage - 50) / 50f;
             else {
                 int maximumValue;// = getMaximumScreenBrightnessSetting();
@@ -2279,16 +2305,24 @@ public class Profile {
         if (value == BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET)
             percentage = value; // keep BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET
         else {
-            if (Build.VERSION.SDK_INT > 28)
+            if (Build.VERSION.SDK_INT > 28) {
+                PPApplication.logE("Profile.convertBrightnessToPercents", "getBrightnessPercentage_A9 called - SDK_INT > 28");
                 percentage = getBrightnessPercentage_A9(value, minValue, maxValue);
+            }
             else
-            if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) // Nexus may be LG, Samsung, Huawei, ...
+            if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) {// Nexus may be LG, Samsung, Huawei, ...
+                PPApplication.logE("Profile.convertBrightnessToPercents", "getBrightnessPercentage_A9 called - SDK_INT == 28 and Nexus");
                 percentage = getBrightnessPercentage_A9(value, minValue, maxValue);
+            }
             else
-            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG))
+            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG)) {
+                PPApplication.logE("Profile.convertBrightnessToPercents", "getBrightnessPercentage_A9 called - SDK_INT == 28 and !Samsing and !LG");
                 percentage = getBrightnessPercentage_A9(value, minValue, maxValue);
-            else
+            }
+            else {
+                PPApplication.logE("Profile.convertBrightnessToPercents", "getBrightnessPercentage_A9 NOT called");
                 percentage = Math.round((float) (value - minValue) / (maxValue - minValue) * 100.0);
+            }
         }
 
         return percentage;

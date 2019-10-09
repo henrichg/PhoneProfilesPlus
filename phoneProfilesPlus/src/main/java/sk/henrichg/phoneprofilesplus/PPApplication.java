@@ -72,7 +72,7 @@ public class PPApplication extends Application {
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && BuildConfig.DEBUG;
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && BuildConfig.DEBUG;
     private static final boolean rootToolsDebug = false;
@@ -461,8 +461,11 @@ public class PPApplication extends Application {
 
                                         //+"|SearchCalendarEventsWorker"
 
-                                        //+"|Profile.getBrightnessPercentage_A9"
-                                        //+"|Profile.getBrightnessValue_A9"
+                                        +"|Profile.getBrightnessPercentage_A9"
+                                        +"|Profile.getBrightnessValue_A9"
+                                        +"|Profile.convertPercentsToBrightnessManualValue"
+                                        +"|Profile.convertPercentsToBrightnessAdaptiveValue"
+                                        +"|Profile.convertBrightnessToPercents"
 
                                         //+"|EditorProfileListFragment.refreshGUI"
                                         //+"|EditorEventListFragment.refreshGUI"
