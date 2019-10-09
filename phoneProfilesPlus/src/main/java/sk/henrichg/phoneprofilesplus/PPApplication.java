@@ -955,7 +955,6 @@ public class PPApplication extends Application {
         logFile.delete();
     }
 
-    @SuppressLint("SimpleDateFormat")
     static private void logIntoFile(String type, String tag, String text)
     {
         if (!logIntoFile)
@@ -990,6 +989,7 @@ public class PPApplication extends Application {
             //BufferedWriter for performance, true to set append to file flag
             BufferedWriter buf = new BufferedWriter(new FileWriter(logFile, true));
             String log = "";
+            @SuppressLint("SimpleDateFormat")
             SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yy HH:mm:ss:S");
             String time = sdf.format(Calendar.getInstance().getTimeInMillis());
             log = log + time + "--" + type + "-----" + tag + "------" + text;
