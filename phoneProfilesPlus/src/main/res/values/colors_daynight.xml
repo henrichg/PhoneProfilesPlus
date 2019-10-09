@@ -13,6 +13,8 @@
     <color name="activityDisabledTextColor">#42000000</color>
     <color name="activityCommandBackgroundColor">#1F000000</color>
 
+    <color name="notificationDecorationColor">#DC8160</color>
+
     <!--<color name="activityPopupBackground">#FFd0d0d0</color>-->
     <!--<color name="navigationDrawerTextColor">#ff000000</color>-->
 <!--    <color name="navigationDrawerSubTextColor">#80000000</color> -->

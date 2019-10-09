@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryDark">#202020</color>
+    <color name="notificationDecorationColor">#E99B7F</color>
+</resources>
