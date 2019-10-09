@@ -161,6 +161,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         }
 
         if (savedInstanceState == null) {
+            Permissions.saveAllPermissions(getApplicationContext(), false);
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.activity_preferences_settings, preferenceFragment)
@@ -178,51 +179,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "xxx");
 
-        if (PhoneProfilesService.getInstance() != null)
-            PhoneProfilesService.getInstance().clearProfileNotification();
-
-        Handler handler = new Handler(getMainLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (PhoneProfilesService.getInstance() != null)
-                    PhoneProfilesService.getInstance().showProfileNotification(true);
-            }
-        }, 500);
-        PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesPrefsActivity.onStop");
-        ActivateProfileHelper.updateGUI(getApplicationContext(), true, true);
-
-        //GlobalGUIRoutines.unlockScreenOrientation(this);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        //noinspection SwitchStatementWithTooFewBranches
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                    getSupportFragmentManager().popBackStack();
-                } else {
-                    finish();
-                }
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
-        if (fragment != null)
-            ((PhoneProfilesPrefsFragment)fragment).doOnActivityResult(requestCode, resultCode);
-    }
-
-    @Override
-    public void finish() {
         Context appContext = getApplicationContext();
 
         PhoneProfilesPrefsFragment fragment = (PhoneProfilesPrefsFragment)getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
@@ -262,17 +220,20 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         boolean permissionsChanged = Permissions.getPermissionsChanged(appContext);
         if (permissionsChanged) {
+            PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "permissions changed");
             invalidateEditor = true;
         }
 
         if (!activeLanguage.equals(ApplicationPreferences.applicationLanguage(appContext)))
         {
+            PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "language changed");
             GlobalGUIRoutines.setLanguage(this);
             invalidateEditor = true;
         }
         else
         if (!activeTheme.equals(ApplicationPreferences.applicationTheme(appContext, false)))
         {
+            PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "theme changed");
             //EditorProfilesActivity.setTheme(this, false);
             GlobalGUIRoutines.switchNightMode(appContext, false);
             invalidateEditor = true;
@@ -286,6 +247,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         else
         if (showEditorPrefIndicator != ApplicationPreferences.applicationEditorPrefIndicator(appContext))
         {
+            PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "show editor pref. indicator changed");
             invalidateEditor = true;
         }
         /*else
@@ -328,6 +290,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         }
 
         if (useAlarmClockEnabled != ApplicationPreferences.applicationUseAlarmClock(appContext)) {
+            PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "use alarm clock enabled changed");
             // unblockEventsRun must be true to reset alarms
             PPApplication.restartEvents(appContext, true, true);
         }
@@ -348,6 +311,73 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             }
         }
         */
+
+        if (PhoneProfilesService.getInstance() != null)
+            PhoneProfilesService.getInstance().clearProfileNotification();
+
+        Handler handler = new Handler(getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (PhoneProfilesService.getInstance() != null)
+                    PhoneProfilesService.getInstance().showProfileNotification(true);
+            }
+        }, 500);
+        PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesPrefsActivity.onStop");
+        ActivateProfileHelper.updateGUI(getApplicationContext(), false, true);
+
+        //GlobalGUIRoutines.unlockScreenOrientation(this);
+
+                /*Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
+                PPApplication.startPPService(this, serviceIntent);*/
+        Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+        //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+        commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
+        PPApplication.runCommand(this, commandIntent);
+
+        //if (PhoneProfilesService.getInstance() != null) {
+                    /*
+                    boolean powerSaveMode = PPApplication.isPowerSaveMode;
+                    if ((PhoneProfilesService.isGeofenceScannerStarted())) {
+                        PhoneProfilesService.getGeofencesScanner().resetLocationUpdates(powerSaveMode, true);
+                    }
+                    PhoneProfilesService.getInstance().resetListeningOrientationSensors(powerSaveMode, true);
+                    if (PhoneProfilesService.isPhoneStateScannerStarted())
+                        PhoneProfilesService.phoneStateScanner.resetListening(powerSaveMode, true);
+                    */
+        //}
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //noinspection SwitchStatementWithTooFewBranches
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                    getSupportFragmentManager().popBackStack();
+                } else {
+                    finish();
+                }
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
+        if (fragment != null)
+            ((PhoneProfilesPrefsFragment)fragment).doOnActivityResult(requestCode, resultCode);
+    }
+
+    @Override
+    public void finish() {
+        PPApplication.logE("PhoneProfilesPrefsActivity.finish", "xxx");
 
         // for startActivityForResult
         Intent returnIntent = new Intent();

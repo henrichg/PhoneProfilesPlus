@@ -343,7 +343,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     @SuppressWarnings("ConstantConditions")
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        Permissions.saveAllPermissions(getActivity().getApplicationContext(), false);
+                        //Permissions.saveAllPermissions(getActivity().getApplicationContext(), false);
                         boolean ok = false;
                         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                         //intent.addCategory(Intent.CATEGORY_DEFAULT);
@@ -1264,16 +1264,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     public void onDestroy()
     {
         super.onDestroy();
+        PPApplication.logE("PhoneProfilesPrefsFragment.onDestroy", "xxx");
 
         try {
             preferences.unregisterOnSharedPreferenceChangeListener(this);
 
-            SharedPreferences.Editor editor = applicationPreferences.edit();
-            updateSharedPreferences(editor, preferences);
-            editor.apply();
-
-            PPApplication.logE("PhoneProfilesPrefsFragment.onDestroy", "xxx");
-
+        //    SharedPreferences.Editor editor = applicationPreferences.edit();
+        //    updateSharedPreferences(editor, preferences);
+        //    editor.apply();
         } catch (Exception ignored) {}
     }
 
@@ -1281,6 +1279,12 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         PPApplication.logE("PhoneProfilesPrefsFragment.onSharedPreferenceChanged", "xxx");
         setSummary(key);
+        try {
+            SharedPreferences.Editor editor = applicationPreferences.edit();
+            updateSharedPreferences(editor, preferences);
+            editor.apply();
+        } catch (Exception ignored) {}
+
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_LANGUAGE)) {
             if (getActivity() != null) {
                 GlobalGUIRoutines.setLanguage(getActivity());

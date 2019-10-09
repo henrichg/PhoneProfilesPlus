@@ -289,8 +289,8 @@ class GlobalGUIRoutines {
         }
     }
 
-    static void switchNightMode(final Context appContext, boolean useHandler) {
-        if (useHandler) {
+    static void switchNightMode(final Context appContext, boolean useMainLooperHandler) {
+        if (useMainLooperHandler) {
             new Handler(getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
