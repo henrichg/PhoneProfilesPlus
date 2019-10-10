@@ -1305,13 +1305,16 @@
     <string name="mobile_cells_pref_dlg_cell_sort_title">Listeyi sırala</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">Hücre ismine göre</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">Bağlantı süresine göre</string>
-    <string name="menu_export_and_email">Backup and e-mail settings</string>
-    <string name="menu_export_and_email_to_author">Backup and e-mail settings to author</string>
-    <string name="menu_email_debug_logs_to_author">E-mail debug log files to author</string>
-    <string name="menu_support">Support</string>
-    <string name="email_debug_log_files_subject">Debug log files</string>
-    <string name="toast_debug_log_files_not_exists">Debug log files not exists</string>
-    <string name="menu_email_to_author">E-mail to author</string>
+    <string name="menu_export_and_email">Yedekleme ve e-posta ayarları</string>
+    <string name="menu_export_and_email_to_author">Yazılımcıya yedekleyip e-posta ile gönderme ayarları</string>
+    <string name="menu_email_debug_logs_to_author">Hata ayıklama dosyalarını yazılımcıya e-posta ile gönder</string>
+    <string name="menu_support">Destek</string>
+    <string name="email_debug_log_files_subject">Hata Kayıt dosyaları</string>
+    <string name="toast_debug_log_files_not_exists">Hata Kayıt dosyası yok</string>
+    <string name="menu_email_to_author">Yazılımcıya e-posta gönder</string>
+    <string name="ignore_battery_optimization_notification_title">Pilin en iyi duruma getirilme ayarı</string>
+    <string name="ignore_battery_optimization_notification_text">Buraya dokunun ve PhoneProfilesPlus\'ı \"En iyi duruma getirme!\" listesine ekleyin. Ekran kapalıyken çalışmanın devam edebilmesi için bu lüzumludur.</string>
+    <string name="ignore_battery_optimization_notification_disable_button">Bunu bir daha gösterme</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

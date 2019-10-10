@@ -1305,13 +1305,16 @@
     <string name="mobile_cells_pref_dlg_cell_sort_title">Сортувати</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">За ім\'ям вишки</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">За часом з\'єднання</string>
-    <string name="menu_export_and_email">Backup and e-mail settings</string>
-    <string name="menu_export_and_email_to_author">Backup and e-mail settings to author</string>
-    <string name="menu_email_debug_logs_to_author">E-mail debug log files to author</string>
-    <string name="menu_support">Support</string>
-    <string name="email_debug_log_files_subject">Debug log files</string>
-    <string name="toast_debug_log_files_not_exists">Debug log files not exists</string>
-    <string name="menu_email_to_author">E-mail to author</string>
+    <string name="menu_export_and_email">Налаштування резервування та електронної пошти</string>
+    <string name="menu_export_and_email_to_author">Налаштування резервування та електронної пошти автору програми</string>
+    <string name="menu_email_debug_logs_to_author">Відправити файли журналу відлагодження автору програми</string>
+    <string name="menu_support">Підтримка</string>
+    <string name="email_debug_log_files_subject">Файли журналу відлагодження</string>
+    <string name="toast_debug_log_files_not_exists">Файлів журналу відлагодження немає</string>
+    <string name="menu_email_to_author">Надіслати листа автору програми</string>
+    <string name="ignore_battery_optimization_notification_title">Налаштування оптимізації батареї</string>
+    <string name="ignore_battery_optimization_notification_text">Натисніть тут та додайте PhoneProfilesPlus до \"Не оптимізовано\". Це потрібно для надійної роботи при вимкненому екрані.</string>
+    <string name="ignore_battery_optimization_notification_disable_button">Не показувати знову</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
