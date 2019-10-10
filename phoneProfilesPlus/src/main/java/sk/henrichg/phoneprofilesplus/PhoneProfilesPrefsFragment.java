@@ -1285,12 +1285,16 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             editor.apply();
         } catch (Exception ignored) {}
 
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_LANGUAGE)) {
+        /*if (key.equals(ApplicationPreferences.PREF_APPLICATION_LANGUAGE)) {
             if (getActivity() != null) {
+                PhoneProfilesPrefsActivity activity = (PhoneProfilesPrefsActivity)getActivity();
                 GlobalGUIRoutines.setLanguage(getActivity());
-                GlobalGUIRoutines.reloadActivity(getActivity(), true);
+                //GlobalGUIRoutines.reloadActivity(getActivity(), false);
+                activity.setResult(Activity.RESULT_OK);
+                activity.finish();
             }
-        }
+        }*/
+
         /*
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING)) {
             SharedPreferences.Editor editor = applicationPreferences.edit();

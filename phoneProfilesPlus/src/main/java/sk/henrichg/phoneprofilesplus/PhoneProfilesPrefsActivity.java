@@ -180,7 +180,47 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "xxx");
+        doPreferenceChanges();
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //noinspection SwitchStatementWithTooFewBranches
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                    getSupportFragmentManager().popBackStack();
+                } else {
+                    finish();
+                }
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
+        if (fragment != null)
+            ((PhoneProfilesPrefsFragment)fragment).doOnActivityResult(requestCode, resultCode);
+    }
+
+    @Override
+    public void finish() {
+        PPApplication.logE("PhoneProfilesPrefsActivity.finish", "xxx");
+
+        // for startActivityForResult
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, invalidateEditor);
+        setResult(RESULT_OK,returnIntent);
+
+        super.finish();
+    }
+
+    private void doPreferenceChanges() {
         Context appContext = getApplicationContext();
 
         PhoneProfilesPrefsFragment fragment = (PhoneProfilesPrefsFragment)getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
@@ -224,13 +264,13 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             invalidateEditor = true;
         }
 
-        if (!activeLanguage.equals(ApplicationPreferences.applicationLanguage(appContext)))
+        /*if (!activeLanguage.equals(ApplicationPreferences.applicationLanguage(appContext)))
         {
             PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "language changed");
             GlobalGUIRoutines.setLanguage(this);
             invalidateEditor = true;
         }
-        else
+        else*/
         if (!activeTheme.equals(ApplicationPreferences.applicationTheme(appContext, false)))
         {
             PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "theme changed");
@@ -312,6 +352,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         }
         */
 
+        //GlobalGUIRoutines.unlockScreenOrientation(this);
+
         if (PhoneProfilesService.getInstance() != null)
             PhoneProfilesService.getInstance().clearProfileNotification();
 
@@ -326,12 +368,10 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesPrefsActivity.onStop");
         ActivateProfileHelper.updateGUI(getApplicationContext(), false, true);
 
-        //GlobalGUIRoutines.unlockScreenOrientation(this);
-
-                /*Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
-                PPApplication.startPPService(this, serviceIntent);*/
+        /*Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+        serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+        serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
+        PPApplication.startPPService(this, serviceIntent);*/
         Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
         //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
         commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
@@ -350,42 +390,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         //}
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        //noinspection SwitchStatementWithTooFewBranches
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                    getSupportFragmentManager().popBackStack();
-                } else {
-                    finish();
-                }
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
-        if (fragment != null)
-            ((PhoneProfilesPrefsFragment)fragment).doOnActivityResult(requestCode, resultCode);
-    }
-
-    @Override
-    public void finish() {
-        PPApplication.logE("PhoneProfilesPrefsActivity.finish", "xxx");
-
-        // for startActivityForResult
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, invalidateEditor);
-        setResult(RESULT_OK,returnIntent);
-
-        super.finish();
-    }
 
 //--------------------------------------------------------------------------------------------------
 
