@@ -136,8 +136,8 @@ public class EditorProfilesActivity extends AppCompatActivity
     //private Integer[] drawerItemsIcon;
 
     private int editorSelectedView = 0;
-    private int filterProfilesSelectedItem = 1;
-    private int filterEventsSelectedItem = 1;
+    private int filterProfilesSelectedItem = 0;
+    private int filterEventsSelectedItem = 0;
 
     private boolean startTargetHelps;
 
@@ -512,8 +512,8 @@ public class EditorProfilesActivity extends AppCompatActivity
             ApplicationPreferences.getSharedPreferences(this);
             //filterSelectedItem = ApplicationPreferences.preferences.getInt(SP_EDITOR_DRAWER_SELECTED_ITEM, 1);
             editorSelectedView = ApplicationPreferences.preferences.getInt(SP_EDITOR_SELECTED_VIEW, 0);
-            filterProfilesSelectedItem = ApplicationPreferences.preferences.getInt(SP_EDITOR_PROFILES_VIEW_SELECTED_ITEM, 1);
-            filterEventsSelectedItem = ApplicationPreferences.preferences.getInt(SP_EDITOR_EVENTS_VIEW_SELECTED_ITEM, 1);
+            filterProfilesSelectedItem = ApplicationPreferences.preferences.getInt(SP_EDITOR_PROFILES_VIEW_SELECTED_ITEM, 0);
+            filterEventsSelectedItem = ApplicationPreferences.preferences.getInt(SP_EDITOR_EVENTS_VIEW_SELECTED_ITEM, 0);
         //}
 
         startTargetHelps = false;
