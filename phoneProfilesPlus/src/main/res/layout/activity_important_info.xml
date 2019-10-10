@@ -35,12 +35,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/activity_important_info_tab_layout">
 
+        <!--
         <View
             android:id="@+id/activity_important_info_toolbar_shadow"
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_dropShadow_height"
-            android:background="@drawable/topbar_dropshadow"
+            android:background="@color/dialog_divider"
             android:layout_gravity="top" />
+        -->
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/activity_important_info_pager"
