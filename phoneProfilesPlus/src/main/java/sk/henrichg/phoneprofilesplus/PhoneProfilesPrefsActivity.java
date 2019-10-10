@@ -180,6 +180,21 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "xxx");
+
+        if (PhoneProfilesService.getInstance() != null)
+            PhoneProfilesService.getInstance().clearProfileNotification();
+
+        Handler handler = new Handler(getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (PhoneProfilesService.getInstance() != null)
+                    PhoneProfilesService.getInstance().showProfileNotification(true);
+            }
+        }, 500);
+        PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesPrefsActivity.onStop");
+        ActivateProfileHelper.updateGUI(getApplicationContext(), true, true);
+
         doPreferenceChanges();
     }
 
@@ -211,6 +226,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     @Override
     public void finish() {
         PPApplication.logE("PhoneProfilesPrefsActivity.finish", "xxx");
+
+        //doPreferenceChanges();
 
         // for startActivityForResult
         Intent returnIntent = new Intent();
@@ -260,20 +277,20 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         boolean permissionsChanged = Permissions.getPermissionsChanged(appContext);
         if (permissionsChanged) {
-            PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "permissions changed");
+            PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "permissions changed");
             invalidateEditor = true;
         }
 
-        /*if (!activeLanguage.equals(ApplicationPreferences.applicationLanguage(appContext)))
+        if (!activeLanguage.equals(ApplicationPreferences.applicationLanguage(appContext)))
         {
-            PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "language changed");
+            PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "language changed");
             GlobalGUIRoutines.setLanguage(this);
             invalidateEditor = true;
         }
-        else*/
+        else
         if (!activeTheme.equals(ApplicationPreferences.applicationTheme(appContext, false)))
         {
-            PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "theme changed");
+            PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "theme changed");
             //EditorProfilesActivity.setTheme(this, false);
             GlobalGUIRoutines.switchNightMode(appContext, false);
             invalidateEditor = true;
@@ -287,7 +304,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         else
         if (showEditorPrefIndicator != ApplicationPreferences.applicationEditorPrefIndicator(appContext))
         {
-            PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "show editor pref. indicator changed");
+            PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "show editor pref. indicator changed");
             invalidateEditor = true;
         }
         /*else
@@ -330,7 +347,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         }
 
         if (useAlarmClockEnabled != ApplicationPreferences.applicationUseAlarmClock(appContext)) {
-            PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "use alarm clock enabled changed");
+            PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "use alarm clock enabled changed");
             // unblockEventsRun must be true to reset alarms
             PPApplication.restartEvents(appContext, true, true);
         }
@@ -353,20 +370,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         */
 
         //GlobalGUIRoutines.unlockScreenOrientation(this);
-
-        if (PhoneProfilesService.getInstance() != null)
-            PhoneProfilesService.getInstance().clearProfileNotification();
-
-        Handler handler = new Handler(getMainLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (PhoneProfilesService.getInstance() != null)
-                    PhoneProfilesService.getInstance().showProfileNotification(true);
-            }
-        }, 500);
-        PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesPrefsActivity.onStop");
-        ActivateProfileHelper.updateGUI(getApplicationContext(), false, true);
 
         /*Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);

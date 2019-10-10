@@ -1269,9 +1269,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         try {
             preferences.unregisterOnSharedPreferenceChangeListener(this);
 
-        //    SharedPreferences.Editor editor = applicationPreferences.edit();
-        //    updateSharedPreferences(editor, preferences);
-        //    editor.apply();
+            //SharedPreferences.Editor editor = applicationPreferences.edit();
+            //updateSharedPreferences(editor, preferences);
+            //editor.apply();
         } catch (Exception ignored) {}
     }
 
@@ -1285,15 +1285,21 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             editor.apply();
         } catch (Exception ignored) {}
 
-        /*if (key.equals(ApplicationPreferences.PREF_APPLICATION_LANGUAGE)) {
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_THEME)) {
+            if (getActivity() != null)
+                GlobalGUIRoutines.switchNightMode(getActivity().getApplicationContext(), false);
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_LANGUAGE)) {
             if (getActivity() != null) {
-                PhoneProfilesPrefsActivity activity = (PhoneProfilesPrefsActivity)getActivity();
+                //PhoneProfilesPrefsActivity activity = (PhoneProfilesPrefsActivity)getActivity();
                 GlobalGUIRoutines.setLanguage(getActivity());
-                //GlobalGUIRoutines.reloadActivity(getActivity(), false);
-                activity.setResult(Activity.RESULT_OK);
-                activity.finish();
+                GlobalGUIRoutines.reloadActivity(getActivity(), true);
+                //activity.setResult(Activity.RESULT_OK);
+                //activity.finish();
             }
-        }*/
+        }
+
+        PPApplication.logE("PhoneProfilesPrefsFragment.onSharedPreferenceChanged", "xxx 2");
 
         /*
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING)) {
