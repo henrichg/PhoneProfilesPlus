@@ -866,9 +866,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                     emailIntent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
                     emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-                    List<ResolveInfo> resolveInfos = getPackageManager().queryIntentActivities(emailIntent, 0);
+                    List<ResolveInfo> resolveInfo = getPackageManager().queryIntentActivities(emailIntent, 0);
                     List<LabeledIntent> intents = new ArrayList<>();
-                    for (ResolveInfo info : resolveInfos) {
+                    for (ResolveInfo info : resolveInfo) {
                         intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
                         intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
                         intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
@@ -1977,11 +1977,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                             fileUri = FileProvider.getUriForFile(activity, context.getPackageName() + ".provider", appSettingsFile);
                             uris.add(fileUri);
 
-                            String emailAdress = "";
+                            String emailAddress = "";
                             if (toAuthor)
-                                emailAdress = "henrich.gron@gmail.com";
+                                emailAddress = "henrich.gron@gmail.com";
                             Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                                    "mailto", emailAdress, null));
+                                    "mailto", emailAddress, null));
 
                             String packageVersion = "";
                             try {
@@ -1993,13 +1993,13 @@ public class EditorProfilesActivity extends AppCompatActivity
                             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.menu_export));
                             emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-                            List<ResolveInfo> resolveInfos = getPackageManager().queryIntentActivities(emailIntent, 0);
+                            List<ResolveInfo> resolveInfo = getPackageManager().queryIntentActivities(emailIntent, 0);
                             List<LabeledIntent> intents = new ArrayList<>();
-                            for (ResolveInfo info : resolveInfos) {
+                            for (ResolveInfo info : resolveInfo) {
                                 Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
                                 intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
-                                if (!emailAdress.isEmpty())
-                                    intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAdress});
+                                if (!emailAddress.isEmpty())
+                                    intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
                                 intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.menu_export));
                                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                 intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's

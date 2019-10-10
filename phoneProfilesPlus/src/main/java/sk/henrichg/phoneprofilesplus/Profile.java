@@ -2195,7 +2195,7 @@ public class Profile {
             }
             else
             if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG)) {
-                PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and !Samsing and !LG");
+                PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and !Samsung and !LG");
                 defaultValue = getBrightnessValue_A9(50, minimumValue, maximumValue);
             }
             else {
@@ -2224,7 +2224,7 @@ public class Profile {
             }
             else
             if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG)) {
-                PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and !Samsing and !LG");
+                PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and !Samsung and !LG");
                 value = getBrightnessValue_A9(percentage, minimumValue, maximumValue);
             }
             else {
@@ -2264,7 +2264,7 @@ public class Profile {
             }
             else
             if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG)) {
-                PPApplication.logE("Profile.convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=true - SDK_INT == 28 and !Samsing and !LG");
+                PPApplication.logE("Profile.convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=true - SDK_INT == 28 and !Samsung and !LG");
                 exponentialLevel = true;
             }
             else {
@@ -2316,7 +2316,7 @@ public class Profile {
             }
             else
             if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG)) {
-                PPApplication.logE("Profile.convertBrightnessToPercents", "getBrightnessPercentage_A9 called - SDK_INT == 28 and !Samsing and !LG");
+                PPApplication.logE("Profile.convertBrightnessToPercents", "getBrightnessPercentage_A9 called - SDK_INT == 28 and !Samsung and !LG");
                 percentage = getBrightnessPercentage_A9(value, minValue, maxValue);
             }
             else {
