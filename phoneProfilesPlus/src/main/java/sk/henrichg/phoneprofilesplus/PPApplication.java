@@ -73,7 +73,7 @@ public class PPApplication extends Application {
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && BuildConfig.DEBUG;
-    static final boolean logIntoFile = true;
+    static final boolean logIntoFile = false;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && BuildConfig.DEBUG;
     private static final boolean rootToolsDebug = false;
@@ -197,17 +197,17 @@ public class PPApplication extends Application {
                                          //+"|ActivateProfileHelper.setVibrateWhenRinging"
 
                                          //+"|PhoneProfilesPrefsActivity"
-                                         +"|PhoneProfilesPrefsActivity.onCreate"
-                                         +"|PhoneProfilesPrefsActivity.onStart"
-                                         +"|PhoneProfilesPrefsActivity.onStop"
-                                         +"|PhoneProfilesPrefsActivity.finish"
+                                         //+"|PhoneProfilesPrefsActivity.onCreate"
+                                         //+"|PhoneProfilesPrefsActivity.onStart"
+                                         //+"|PhoneProfilesPrefsActivity.onStop"
+                                         //+"|PhoneProfilesPrefsActivity.finish"
                                          //+"|PhoneProfilesPrefsFragment.onCreate"
                                          //+"|PhoneProfilesPrefsFragment.onCreatePreferences"
                                          //+"|PhoneProfilesPrefsFragment.updateSharedPreferences"
                                          //+"|PhoneProfilesPrefsFragment.initPreferenceFragment"
                                          //+"|PhoneProfilesPrefsFragment.loadSharedPreferences"
                                          //+"|PhoneProfilesPrefsFragment.onDestroy"
-                                         +"|PhoneProfilesPrefsFragment.onSharedPreferenceChanged"
+                                         //+"|PhoneProfilesPrefsFragment.onSharedPreferenceChanged"
                                          //+"|ProfilesPrefsActivity"
                                          //+"|ProfilesPrefsFragment"
                                          //+"|ProfilesPrefsFragment.onCreate"
@@ -467,11 +467,11 @@ public class PPApplication extends Application {
 
                                         //+"|SearchCalendarEventsWorker"
 
-                                        +"|Profile.getBrightnessPercentage_A9"
-                                        +"|Profile.getBrightnessValue_A9"
-                                        +"|Profile.convertPercentsToBrightnessManualValue"
-                                        +"|Profile.convertPercentsToBrightnessAdaptiveValue"
-                                        +"|Profile.convertBrightnessToPercents"
+                                        //+"|Profile.getBrightnessPercentage_A9"
+                                        //+"|Profile.getBrightnessValue_A9"
+                                        //+"|Profile.convertPercentsToBrightnessManualValue"
+                                        //+"|Profile.convertPercentsToBrightnessAdaptiveValue"
+                                        //+"|Profile.convertBrightnessToPercents"
 
                                         //+"|EditorProfileListFragment.refreshGUI"
                                         //+"|EditorEventListFragment.refreshGUI"
