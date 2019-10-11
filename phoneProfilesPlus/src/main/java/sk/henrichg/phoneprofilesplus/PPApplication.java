@@ -69,7 +69,8 @@ public class PPApplication extends Application {
     //static final int VERSION_CODE_EXTENDER_2_0 = 100;
     static final int VERSION_CODE_EXTENDER_3_0 = 200;
     static final int VERSION_CODE_EXTENDER_4_0 = 400;
-    static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_4_0;
+    static final int VERSION_CODE_EXTENDER_5_1_2 = 460;
+    static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_5_1_2;
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && BuildConfig.DEBUG;

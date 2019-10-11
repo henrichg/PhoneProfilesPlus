@@ -2533,11 +2533,16 @@ class ActivateProfileHelper {
             }
         }
 
-        if ((profile._deviceForceStopApplicationChange == 1) &&
-                PPPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_3_0))
-        {
-            // executeForInteractivePreferences() is called from broadcast receiver PPPExtenderBroadcastReceiver
-            ActivateProfileHelper.executeForForceStopApplications(profile, context);
+        if (profile._deviceForceStopApplicationChange == 1) {
+            boolean enabled;
+            if (Build.VERSION.SDK_INT >= 29)
+                enabled = PPPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_5_1_2);
+            else
+                enabled = PPPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_3_0);
+            if (enabled) {
+                // executeForInteractivePreferences() is called from broadcast receiver PPPExtenderBroadcastReceiver
+                ActivateProfileHelper.executeForForceStopApplications(profile, context);
+            }
         }
         else
             executeForInteractivePreferences(profile, context);

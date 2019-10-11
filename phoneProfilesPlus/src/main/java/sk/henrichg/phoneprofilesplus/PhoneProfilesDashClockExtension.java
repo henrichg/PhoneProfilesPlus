@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Intent;
+import android.os.Build;
 
 import com.google.android.apps.dashclock.api.DashClockExtension;
 import com.google.android.apps.dashclock.api.ExtensionData;
@@ -387,9 +388,16 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
             }
             // force stop application
             if (profile._deviceForceStopApplicationChange == 1) {
-                if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) &&
-                        PPPExtenderBroadcastReceiver.isEnabled(this, PPApplication.VERSION_CODE_EXTENDER_3_0))
-                    indicator1 = addIntoIndicator(indicator1, "sap");
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+                {
+                    boolean enabled;
+                    if (Build.VERSION.SDK_INT >= 29)
+                        enabled = PPPExtenderBroadcastReceiver.isEnabled(this, PPApplication.VERSION_CODE_EXTENDER_5_1_2);
+                    else
+                        enabled = PPPExtenderBroadcastReceiver.isEnabled(this, PPApplication.VERSION_CODE_EXTENDER_3_0);
+                    if (enabled)
+                        indicator1 = addIntoIndicator(indicator1, "sap");
+                }
             }
             // wallpaper
             if (profile._deviceWallpaperChange == 1) {

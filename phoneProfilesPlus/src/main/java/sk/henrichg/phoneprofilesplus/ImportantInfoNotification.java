@@ -68,6 +68,7 @@ class ImportantInfoNotification {
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
 
         PPApplication.logE("ImportantInfoNotification.canShowNotification", "newsLatest="+newsLatest);
+        PPApplication.logE("ImportantInfoNotification.canShowNotification", "extenderVersion="+extenderVersion);
 
         if (newsLatest) {
             // change to false for not show notification
