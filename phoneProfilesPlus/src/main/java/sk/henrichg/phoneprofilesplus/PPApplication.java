@@ -77,7 +77,7 @@ public class PPApplication extends Application {
     static final boolean logIntoFile = false;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && BuildConfig.DEBUG;
-    private static final boolean rootToolsDebug = false;
+    private static final boolean rootToolsDebug = true;
     private static final String logFilterTags = "##### PPApplication.onCreate"
                                          +"|PPApplication.isMIUI"
                                          +"|PPApplication.isEMUI"
@@ -477,6 +477,8 @@ public class PPApplication extends Application {
 
                                         //+"|EditorProfileListFragment.refreshGUI"
                                         //+"|EditorEventListFragment.refreshGUI"
+
+                                        +"|[BRS] SettingsContentObserver.onChange"
             ;
 
 
