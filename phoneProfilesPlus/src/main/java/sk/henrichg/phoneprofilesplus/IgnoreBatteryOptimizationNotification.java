@@ -44,7 +44,7 @@ class IgnoreBatteryOptimizationNotification {
                         ApplicationPreferences.getSharedPreferences(appContext);
                         boolean show = ApplicationPreferences.preferences.getBoolean(PREF_SHOW_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ON_START, true);
                         show = show && Event.getGlobalEventsRunning(appContext);
-                        show = show && DataWrapper.getIsManualProfileActivation(false, appContext);
+                        //show = show && DataWrapper.getIsManualProfileActivation(false, appContext);
                         DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
                         show = show && (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_ALL, false) != 0);
                         PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show="+show);
