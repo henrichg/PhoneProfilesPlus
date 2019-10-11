@@ -479,6 +479,7 @@ public class PPApplication extends Application {
                                         //+"|EditorEventListFragment.refreshGUI"
 
                                         +"|[BRS] SettingsContentObserver.onChange"
+                                        +"|----- ActivateProfileHelper.execute"
             ;
 
 
