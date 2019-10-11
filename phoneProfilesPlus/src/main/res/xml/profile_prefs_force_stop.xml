@@ -41,7 +41,7 @@
         app:key="prf_pref_deviceForceStopApplicationPackageName"
         app:title="@string/profile_preferences_deviceForceStopApplicationsPackageName"
         app:removePPApplications="1"
-        app:systemSettings="accessibility_2.0"
+        app:systemSettings="accessibility_5.0"
         app:layout="@layout/mp_preference_material_widget" />
     
 </androidx.preference.PreferenceScreen>
