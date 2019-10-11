@@ -2055,9 +2055,11 @@ public class Profile {
     }
 
 
-    /*
-    private static int getMinimumScreenBrightnessSetting ()
-    {
+//    private static int getMinimumScreenBrightnessSetting (Context context)
+//    {
+//        return context.getResources().getInteger(com.android.internal.R.integer.config_screenBrightnessSettingMinimum);
+//
+        /*
         final Resources res = Resources.getSystem();
         int id = res.getIdentifier("config_screenBrightnessSettingMinimum", "integer", "android"); // API17+
         if (id == 0)
@@ -2070,12 +2072,13 @@ public class Profile {
             catch (Exception ignored) {}
         }
         return 0;
-    }
-    */
+        */
+//    }
 
-    /*
-    private static int getMaximumScreenBrightnessSetting ()
-    {
+//    private static int getMaximumScreenBrightnessSetting (Context context)
+//    {
+//        return context.getResources().getInteger(com.android.internal.R.integer.config_screenBrightnessSettingMaximum);
+        /*
         final Resources res = Resources.getSystem();
         final int id = res.getIdentifier("config_screenBrightnessSettingMaximum", "integer", "android");  // API17+
         if (id != 0)
@@ -2091,8 +2094,8 @@ public class Profile {
             }
         }
         return 255;
-    }
-    */
+        */
+//    }
 
     ////// from AOSP and changed for PPP
     private static final int GAMMA_SPACE_MAX = 1023;
@@ -2171,8 +2174,8 @@ public class Profile {
         int maximumValue;// = getMaximumScreenBrightnessSetting();
         int minimumValue;// = getMinimumScreenBrightnessSetting();
 
-        //PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "maximumValue="+maximumValue);
-        //PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "minimumValue="+minimumValue);
+        //PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "maximumValue="+getMaximumScreenBrightnessSetting(context.getApplicationContext()));
+        //PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "minimumValue="+getMinimumScreenBrightnessSetting(context.getApplicationContext()));
 
         //if (maximumValue-minimumValue > 255) {
             minimumValue = 0;
@@ -2277,8 +2280,8 @@ public class Profile {
                 int maximumValue;// = getMaximumScreenBrightnessSetting();
                 int minimumValue;// = getMinimumScreenBrightnessSetting();
 
-                //PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "maximumValue="+maximumValue);
-                //PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "minimumValue="+minimumValue);
+                //PPApplication.logE("Profile.convertPercentsToBrightnessAdaptiveValue", "maximumValue="+getMaximumScreenBrightnessSetting(context.getApplicationContext()));
+                //PPApplication.logE("Profile.convertPercentsToBrightnessAdaptiveValue", "minimumValue="+getMinimumScreenBrightnessSetting(context.getApplicationContext()));
 
                 //if (maximumValue-minimumValue > 255) {
                 minimumValue = 0;

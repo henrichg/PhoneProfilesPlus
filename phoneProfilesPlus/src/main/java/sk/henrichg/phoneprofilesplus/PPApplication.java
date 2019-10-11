@@ -175,6 +175,7 @@ public class PPApplication extends Application {
                                          //+"|DataWrapper.activateProfileFromMainThread"
                                          //+"|ActivateProfileHelper.execute"
                                          //+"|Profile.convertPercentsToBrightnessManualValue"
+                                         //+"|Profile.convertPercentsToBrightnessAdaptiveValue"
                                          //+"|SettingsContentObserver"
 
                                          //+"|$$$ DataWrapper._activateProfile"
