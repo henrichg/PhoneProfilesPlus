@@ -73,6 +73,7 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
 
                     Permissions.setAllShowRequestPermissions(appContext, true);
                     IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(appContext, true);
+                    IgnoreBatteryOptimizationNotification.showNotification(appContext);
 
                     //WifiBluetoothScanner.setShowEnableLocationNotification(appContext, true, WifiBluetoothScanner.SCANNER_TYPE_WIFI);
                     //WifiBluetoothScanner.setShowEnableLocationNotification(appContext, true, WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);

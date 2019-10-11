@@ -484,7 +484,7 @@ class EventsHandler {
             if (PhoneProfilesService.getInstance() != null)
                 waitForEndOfStart = PhoneProfilesService.getInstance().getWaitForEndOfStart();
 
-            if (!dataWrapper.getIsManualProfileActivation(false)) {
+            if (!DataWrapper.getIsManualProfileActivation(false, context.getApplicationContext())) {
                 PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "active profile is NOT activated manually");
                 PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "runningEventCount0=" + runningEventCount0);
                 PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "runningEventCountE=" + runningEventCountE);

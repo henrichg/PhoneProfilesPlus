@@ -74,6 +74,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int PTYPE_LOCK_DEVICE = 3;
 
     // event type
+    static final int ETYPE_ALL = -1;
     static final int ETYPE_TIME = 1;
     static final int ETYPE_BATTERY = 2;
     static final int ETYPE_CALL = 3;
@@ -6366,69 +6367,71 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     eventTypeChecked = KEY_E_STATUS + "=2" + " AND ";  //  only running events
                 else
                     eventTypeChecked = KEY_E_STATUS + "!=0" + " AND ";  //  only not stopped events
-                if (eventType == ETYPE_TIME)
-                    eventTypeChecked = eventTypeChecked + KEY_E_TIME_ENABLED + "=1";
-                else if (eventType == ETYPE_BATTERY)
-                    eventTypeChecked = eventTypeChecked + KEY_E_BATTERY_ENABLED + "=1";
-                else if (eventType == ETYPE_CALL)
-                    eventTypeChecked = eventTypeChecked + KEY_E_CALL_ENABLED + "=1";
-                else if (eventType == ETYPE_PERIPHERAL)
-                    eventTypeChecked = eventTypeChecked + KEY_E_PERIPHERAL_ENABLED + "=1";
-                else if (eventType == ETYPE_CALENDAR)
-                    eventTypeChecked = eventTypeChecked + KEY_E_CALENDAR_ENABLED + "=1";
-                else if (eventType == ETYPE_WIFI_CONNECTED)
-                    eventTypeChecked = eventTypeChecked + KEY_E_WIFI_ENABLED + "=1" + " AND " +
-                            "(" + KEY_E_WIFI_CONNECTION_TYPE + "=0 OR " + KEY_E_WIFI_CONNECTION_TYPE + "=2)";
-                else if (eventType == ETYPE_WIFI_NEARBY)
-                    eventTypeChecked = eventTypeChecked + KEY_E_WIFI_ENABLED + "=1" + " AND " +
-                            "(" + KEY_E_WIFI_CONNECTION_TYPE + "=1 OR " + KEY_E_WIFI_CONNECTION_TYPE + "=3)";
-                else if (eventType == ETYPE_SCREEN)
-                    eventTypeChecked = eventTypeChecked + KEY_E_SCREEN_ENABLED + "=1";
-                else if (eventType == ETYPE_BLUETOOTH_CONNECTED)
-                    eventTypeChecked = eventTypeChecked + KEY_E_BLUETOOTH_ENABLED + "=1" + " AND " +
-                            "(" + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=0 OR " + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=2)";
-                else if (eventType == ETYPE_BLUETOOTH_NEARBY)
-                    eventTypeChecked = eventTypeChecked + KEY_E_BLUETOOTH_ENABLED + "=1" + " AND " +
-                            "(" + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=1 OR " + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=3)";
-                else if (eventType == ETYPE_SMS)
-                    eventTypeChecked = eventTypeChecked + KEY_E_SMS_ENABLED + "=1";
-                else if (eventType == ETYPE_NOTIFICATION)
-                    eventTypeChecked = eventTypeChecked + KEY_E_NOTIFICATION_ENABLED + "=1";
-                else if (eventType == ETYPE_APPLICATION)
-                    eventTypeChecked = eventTypeChecked + KEY_E_APPLICATION_ENABLED + "=1";
-                else if (eventType == ETYPE_LOCATION)
-                    eventTypeChecked = eventTypeChecked + KEY_E_LOCATION_ENABLED + "=1";
-                else if (eventType == ETYPE_ORIENTATION)
-                    eventTypeChecked = eventTypeChecked + KEY_E_ORIENTATION_ENABLED + "=1";
-                else if (eventType == ETYPE_MOBILE_CELLS)
-                    eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_ENABLED + "=1";
-                else if (eventType == ETYPE_NFC)
-                    eventTypeChecked = eventTypeChecked + KEY_E_NFC_ENABLED + "=1";
-                else if (eventType == ETYPE_RADIO_SWITCH)
-                    eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1";
-                else if (eventType == ETYPE_RADIO_SWITCH_WIFI)
-                    eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
-                            KEY_E_RADIO_SWITCH_WIFI + "!=0";
-                else if (eventType == ETYPE_RADIO_SWITCH_BLUETOOTH)
-                    eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
-                            KEY_E_RADIO_SWITCH_BLUETOOTH + "!=0";
-                else if (eventType == ETYPE_RADIO_SWITCH_MOBILE_DATA)
-                    eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
-                            KEY_E_RADIO_SWITCH_MOBILE_DATA + "!=0";
-                else if (eventType == ETYPE_RADIO_SWITCH_GPS)
-                    eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
-                            KEY_E_RADIO_SWITCH_GPS + "!=0";
-                else if (eventType == ETYPE_RADIO_SWITCH_NFC)
-                    eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
-                            KEY_E_RADIO_SWITCH_NFC + "!=0";
-                else if (eventType == ETYPE_RADIO_SWITCH_AIRPLANE_MODE)
-                    eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
-                            KEY_E_RADIO_SWITCH_AIRPLANE_MODE + "!=0";
-                else if (eventType == ETYPE_ALARM_CLOCK)
-                    eventTypeChecked = eventTypeChecked + KEY_E_ALARM_CLOCK_ENABLED + "=1";
-                else if (eventType == ETYPE_TIME_TWILIGHT)
-                    eventTypeChecked = eventTypeChecked + KEY_E_TIME_ENABLED + "=1" + " AND " +
-                            KEY_E_TIME_TYPE + "!=0";
+                if (eventType != ETYPE_ALL) {
+                    if (eventType == ETYPE_TIME)
+                        eventTypeChecked = eventTypeChecked + KEY_E_TIME_ENABLED + "=1";
+                    else if (eventType == ETYPE_BATTERY)
+                        eventTypeChecked = eventTypeChecked + KEY_E_BATTERY_ENABLED + "=1";
+                    else if (eventType == ETYPE_CALL)
+                        eventTypeChecked = eventTypeChecked + KEY_E_CALL_ENABLED + "=1";
+                    else if (eventType == ETYPE_PERIPHERAL)
+                        eventTypeChecked = eventTypeChecked + KEY_E_PERIPHERAL_ENABLED + "=1";
+                    else if (eventType == ETYPE_CALENDAR)
+                        eventTypeChecked = eventTypeChecked + KEY_E_CALENDAR_ENABLED + "=1";
+                    else if (eventType == ETYPE_WIFI_CONNECTED)
+                        eventTypeChecked = eventTypeChecked + KEY_E_WIFI_ENABLED + "=1" + " AND " +
+                                "(" + KEY_E_WIFI_CONNECTION_TYPE + "=0 OR " + KEY_E_WIFI_CONNECTION_TYPE + "=2)";
+                    else if (eventType == ETYPE_WIFI_NEARBY)
+                        eventTypeChecked = eventTypeChecked + KEY_E_WIFI_ENABLED + "=1" + " AND " +
+                                "(" + KEY_E_WIFI_CONNECTION_TYPE + "=1 OR " + KEY_E_WIFI_CONNECTION_TYPE + "=3)";
+                    else if (eventType == ETYPE_SCREEN)
+                        eventTypeChecked = eventTypeChecked + KEY_E_SCREEN_ENABLED + "=1";
+                    else if (eventType == ETYPE_BLUETOOTH_CONNECTED)
+                        eventTypeChecked = eventTypeChecked + KEY_E_BLUETOOTH_ENABLED + "=1" + " AND " +
+                                "(" + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=0 OR " + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=2)";
+                    else if (eventType == ETYPE_BLUETOOTH_NEARBY)
+                        eventTypeChecked = eventTypeChecked + KEY_E_BLUETOOTH_ENABLED + "=1" + " AND " +
+                                "(" + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=1 OR " + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=3)";
+                    else if (eventType == ETYPE_SMS)
+                        eventTypeChecked = eventTypeChecked + KEY_E_SMS_ENABLED + "=1";
+                    else if (eventType == ETYPE_NOTIFICATION)
+                        eventTypeChecked = eventTypeChecked + KEY_E_NOTIFICATION_ENABLED + "=1";
+                    else if (eventType == ETYPE_APPLICATION)
+                        eventTypeChecked = eventTypeChecked + KEY_E_APPLICATION_ENABLED + "=1";
+                    else if (eventType == ETYPE_LOCATION)
+                        eventTypeChecked = eventTypeChecked + KEY_E_LOCATION_ENABLED + "=1";
+                    else if (eventType == ETYPE_ORIENTATION)
+                        eventTypeChecked = eventTypeChecked + KEY_E_ORIENTATION_ENABLED + "=1";
+                    else if (eventType == ETYPE_MOBILE_CELLS)
+                        eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_ENABLED + "=1";
+                    else if (eventType == ETYPE_NFC)
+                        eventTypeChecked = eventTypeChecked + KEY_E_NFC_ENABLED + "=1";
+                    else if (eventType == ETYPE_RADIO_SWITCH)
+                        eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1";
+                    else if (eventType == ETYPE_RADIO_SWITCH_WIFI)
+                        eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
+                                KEY_E_RADIO_SWITCH_WIFI + "!=0";
+                    else if (eventType == ETYPE_RADIO_SWITCH_BLUETOOTH)
+                        eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
+                                KEY_E_RADIO_SWITCH_BLUETOOTH + "!=0";
+                    else if (eventType == ETYPE_RADIO_SWITCH_MOBILE_DATA)
+                        eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
+                                KEY_E_RADIO_SWITCH_MOBILE_DATA + "!=0";
+                    else if (eventType == ETYPE_RADIO_SWITCH_GPS)
+                        eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
+                                KEY_E_RADIO_SWITCH_GPS + "!=0";
+                    else if (eventType == ETYPE_RADIO_SWITCH_NFC)
+                        eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
+                                KEY_E_RADIO_SWITCH_NFC + "!=0";
+                    else if (eventType == ETYPE_RADIO_SWITCH_AIRPLANE_MODE)
+                        eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
+                                KEY_E_RADIO_SWITCH_AIRPLANE_MODE + "!=0";
+                    else if (eventType == ETYPE_ALARM_CLOCK)
+                        eventTypeChecked = eventTypeChecked + KEY_E_ALARM_CLOCK_ENABLED + "=1";
+                    else if (eventType == ETYPE_TIME_TWILIGHT)
+                        eventTypeChecked = eventTypeChecked + KEY_E_TIME_ENABLED + "=1" + " AND " +
+                                KEY_E_TIME_TYPE + "!=0";
+                }
 
                 countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
                         " WHERE " + eventTypeChecked;

@@ -603,7 +603,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 PPApplication.logE("$$$ restartEvents","from ProfilesPrefsActivity.savePreferences");
                 PPApplication.setBlockProfileEventActions(true);
                 if (Event.getGlobalEventsRunning(getApplicationContext())) {
-                    if (!dataWrapper.getIsManualProfileActivation(false))
+                    if (!dataWrapper.getIsManualProfileActivation(false, getApplicationContext()))
                         dataWrapper.restartEvents(false, true, true, true, true);
                     else {
                         if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {

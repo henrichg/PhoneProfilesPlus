@@ -1265,7 +1265,7 @@ public class DataWrapper {
         resetAllEventsInDelayStart(true);
         resetAllEventsInDelayEnd(true);
 
-        if (!getIsManualProfileActivation(false)) {
+        if (!getIsManualProfileActivation(false, context)) {
             PPApplication.logE("DataWrapper.firstStartEvents", "no manual profile activation, restart events");
             startEventsOnBoot(startedFromService, useHandler);
         }
@@ -4301,7 +4301,7 @@ public class DataWrapper {
     // returns true if:
     // 1. events are blocked = any profile is activated manually
     // 2. no any forceRun event is running
-    boolean getIsManualProfileActivation(boolean afterDuration)
+    static boolean getIsManualProfileActivation(boolean afterDuration, Context context)
     {
         PPApplication.logE("DataWrapper.getIsManualProfileActivation","getEventsBlocked()="+Event.getEventsBlocked(context));
         PPApplication.logE("DataWrapper.getIsManualProfileActivation","getForceRunEventRunning()="+Event.getForceRunEventRunning(context));
@@ -4599,6 +4599,8 @@ public class DataWrapper {
 
                 // setup for next start
                 firstStartEvents(false, true);
+
+                IgnoreBatteryOptimizationNotification.showNotification(context.getApplicationContext());
                 return true;
             }
         }

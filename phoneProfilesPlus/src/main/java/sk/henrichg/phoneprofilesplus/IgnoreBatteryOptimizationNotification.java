@@ -6,11 +6,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+
+import static android.content.Context.POWER_SERVICE;
 
 class IgnoreBatteryOptimizationNotification {
 
@@ -21,18 +24,50 @@ class IgnoreBatteryOptimizationNotification {
         if (Build.VERSION.SDK_INT >= 23) {
             PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "xxx");
 
-            ApplicationPreferences.getSharedPreferences(context);
-            boolean show = ApplicationPreferences.preferences.getBoolean(PREF_SHOW_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ON_START, true);
-            PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show="+show);
+            final Context appContext = context.getApplicationContext();
+            PPApplication.startHandlerThread("IgnoreBatteryOptimizationNotification.showNotification");
+            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
 
-            if (show) {
-                PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                if (!pm.isIgnoringBatteryOptimizations(context.getPackageName())) {
-                    showNotification(context,
-                            context.getString(R.string.ignore_battery_optimization_notification_title),
-                            context.getString(R.string.ignore_battery_optimization_notification_text));
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":IgnoreBatteryOptimizationNotification_showNotification");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+
+                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=IgnoreBatteryOptimizationNotification.showNotification");
+
+                        ApplicationPreferences.getSharedPreferences(appContext);
+                        boolean show = ApplicationPreferences.preferences.getBoolean(PREF_SHOW_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ON_START, true);
+                        show = show && Event.getGlobalEventsRunning(appContext);
+                        show = show && DataWrapper.getIsManualProfileActivation(false, appContext);
+                        DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
+                        show = show && (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_ALL, false) != 0);
+                        PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show="+show);
+
+                        if (show) {
+                            PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                            if (!pm.isIgnoringBatteryOptimizations(appContext.getPackageName())) {
+                                showNotification(appContext,
+                                        appContext.getString(R.string.ignore_battery_optimization_notification_title),
+                                        appContext.getString(R.string.ignore_battery_optimization_notification_text));
+                            }
+                        }
+
+                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=IgnoreBatteryOptimizationNotification_showNotification");
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
+                        }
+                    }
                 }
-            }
+            });
         }
     }
 

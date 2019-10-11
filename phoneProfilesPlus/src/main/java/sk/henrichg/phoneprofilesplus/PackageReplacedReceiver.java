@@ -401,7 +401,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                 if (Event.getGlobalEventsRunning(appContext)) {
                                     PPApplication.logE("PackageReplacedReceiver.onReceive", "global event run is enabled, first start events");
 
-                                    if (!dataWrapper.getIsManualProfileActivation(false)) {
+                                    if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
                                         ////// unblock all events for first start
                                         //     that may be blocked in previous application run
                                         dataWrapper.pauseAllEvents(true, false);
