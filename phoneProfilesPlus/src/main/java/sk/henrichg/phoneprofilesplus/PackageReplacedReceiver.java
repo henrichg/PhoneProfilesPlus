@@ -310,7 +310,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     }
                                 }
 
-                                if (actualVersionCode <= 5100) {
+                                if (actualVersionCode <= 5200) {
                                     ApplicationPreferences.getSharedPreferences(appContext);
                                     SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
 

@@ -161,7 +161,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         }
 
         if (savedInstanceState == null) {
-            Permissions.saveAllPermissions(getApplicationContext(), false);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                Permissions.saveAllPermissions(getApplicationContext(), false);
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.activity_preferences_settings, preferenceFragment)
