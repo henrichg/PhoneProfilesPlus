@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.AlarmManager;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -12,6 +13,8 @@ import java.util.Calendar;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+
+import static android.app.Notification.DEFAULT_VIBRATE;
 
 public class DonationBroadcastReceiver extends BroadcastReceiver {
 
@@ -130,14 +133,19 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
 
                                 PendingIntent pi = PendingIntent.getActivity(appContext, 0, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
                                 mBuilder.setContentIntent(pi);
-                                mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
+                                mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
                                 //if (android.os.Build.VERSION.SDK_INT >= 21) {
                                 mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
                                 mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
                                 //}
+
+                                Notification notification = mBuilder.build();
+                                notification.vibrate = null;
+                                notification.defaults &= ~DEFAULT_VIBRATE;
+
                                 NotificationManager mNotificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
                                 if (mNotificationManager != null)
-                                    mNotificationManager.notify(PPApplication.ABOUT_APPLICATION_DONATE_NOTIFICATION_ID, mBuilder.build());
+                                    mNotificationManager.notify(PPApplication.ABOUT_APPLICATION_DONATE_NOTIFICATION_ID, notification);
                             }
 
                         }

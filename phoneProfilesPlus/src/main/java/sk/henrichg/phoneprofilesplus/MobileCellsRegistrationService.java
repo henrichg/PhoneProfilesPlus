@@ -15,6 +15,9 @@ import android.os.IBinder;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
+import static android.app.Notification.DEFAULT_SOUND;
+import static android.app.Notification.DEFAULT_VIBRATE;
+
 public class MobileCellsRegistrationService extends Service {
 
     public static final String ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN = PPApplication.PACKAGE_NAME + ".ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN";
@@ -195,7 +198,7 @@ public class MobileCellsRegistrationService extends Service {
                 context.getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_stop),
                 stopRegistrationPendingIntent);
 
-        mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
+        mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
         //if (android.os.Build.VERSION.SDK_INT >= 21)
         //{
             mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
@@ -204,6 +207,13 @@ public class MobileCellsRegistrationService extends Service {
 
         Notification notification = mBuilder.build();
         notification.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
+        notification.flags &= ~Notification.FLAG_SHOW_LIGHTS;
+        notification.ledOnMS = 0;
+        notification.ledOffMS = 0;
+        notification.sound = null;
+        notification.vibrate = null;
+        notification.defaults &= ~DEFAULT_SOUND;
+        notification.defaults &= ~DEFAULT_VIBRATE;
         startForeground(PPApplication.MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID, notification);
     }
 

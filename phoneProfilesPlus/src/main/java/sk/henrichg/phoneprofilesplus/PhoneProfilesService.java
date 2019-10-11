@@ -59,6 +59,9 @@ import java.util.TimerTask;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import static android.app.Notification.DEFAULT_SOUND;
+import static android.app.Notification.DEFAULT_VIBRATE;
+
 
 public class PhoneProfilesService extends Service
                                     implements SensorEventListener/*,
@@ -4644,6 +4647,10 @@ public class PhoneProfilesService extends Service
                     phoneProfilesNotification.flags &= ~Notification.FLAG_SHOW_LIGHTS;
                     phoneProfilesNotification.ledOnMS = 0;
                     phoneProfilesNotification.ledOffMS = 0;
+                    phoneProfilesNotification.sound = null;
+                    phoneProfilesNotification.vibrate = null;
+                    phoneProfilesNotification.defaults &= ~DEFAULT_SOUND;
+                    phoneProfilesNotification.defaults &= ~DEFAULT_VIBRATE;
                 }
 
                 if ((Build.VERSION.SDK_INT >= 26) || notificationStatusBarPermanent) {

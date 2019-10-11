@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -27,6 +28,8 @@ import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 
+import static android.app.Notification.DEFAULT_SOUND;
+import static android.app.Notification.DEFAULT_VIBRATE;
 import static android.content.Context.SENSOR_SERVICE;
 
 class Event {
@@ -2607,7 +2610,7 @@ class Event {
 
                 PendingIntent pi = PendingIntent.getActivity(context, (int) _id, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setContentIntent(pi);
-                mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
+                mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
                 //if (android.os.Build.VERSION.SDK_INT >= 21) {
                     mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
                     mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
@@ -2618,10 +2621,16 @@ class Event {
                 PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, (int) _id, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setDeleteIntent(deletePendingIntent);
 
+                Notification notification = mBuilder.build();
+                notification.sound = null;
+                notification.vibrate = null;
+                notification.defaults &= ~DEFAULT_SOUND;
+                notification.defaults &= ~DEFAULT_VIBRATE;
+
                 NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                 if (mNotificationManager != null) {
                     int notificationID = -(99999999 + (int) _id);
-                    mNotificationManager.notify(notificationID, mBuilder.build());
+                    mNotificationManager.notify(notificationID, notification);
                 }
 
                 StartEventNotificationBroadcastReceiver.setAlarm(this, context);

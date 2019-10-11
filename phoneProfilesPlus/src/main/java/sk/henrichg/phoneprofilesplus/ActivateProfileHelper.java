@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.WallpaperManager;
@@ -59,6 +60,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import static android.app.Notification.DEFAULT_VIBRATE;
 import static android.content.Context.POWER_SERVICE;
 
 class ActivateProfileHelper {
@@ -2561,15 +2563,20 @@ class ActivateProfileHelper {
         mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
         PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
-        mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
+        mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
         //if (android.os.Build.VERSION.SDK_INT >= 21)
         //{
             mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
             mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         //}
+
+        Notification notification = mBuilder.build();
+        notification.vibrate = null;
+        notification.defaults &= ~DEFAULT_VIBRATE;
+
         NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (mNotificationManager != null)
-            mNotificationManager.notify(notificationId, mBuilder.build());
+            mNotificationManager.notify(notificationId, notification);
     }
 
     static void setScreenTimeout(int screenTimeout, Context context) {
