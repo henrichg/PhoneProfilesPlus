@@ -485,4 +485,54 @@ _dtmfToneWhenDialing
 checkProfileSoundOnTouch(context, profile, permissions);
 _soundOnTouch
 
+-------------------------------------------
+
+1. PPApplication.createProfileNotificationChannel(appContext);
+This is channel for main "foreground" notification of PhoneProfilesService. Is used for show permanent notification of activated profile. And is visible all the time PPP running.
+PRIORITY_DEFAULT, PRIORITY_MIN
+For Android < 8: Notification sounds and vibrates, when it is enabled in system.
+For Android >= 8: sound and vibration is disabled (IMPORTANCE_LOW)
+
+2. PPApplication.createMobileCellsRegistrationNotificationChannel(appContext);
+This is channel for "Mobile cells registration" function. It is also permanent notification, visible only during mobile cells registration.
+PRIORITY_MAX - change to PRIORITY_DEFAULT
+For Android < 8: Notification sounds and vibrates, when it is enabled in system.
+For Android >= 8: sound and vibration is disabled (IMPORTANCE_LOW)
+
+3. PPApplication.createInformationNotificationChannel(appContext);
+This is channel for non-permananet notification. Is for informations notifications.
+PRIORITY_MAX - change to PRIORITY_DEFAULT
+For Android < 8: Notification sounds and vibrates, when it is enabled in system.
+For Android >= 8: sound is enabled, vibration is disabled (IMPORTANCE_LOW)
+
+4. PPApplication.createExclamationNotificationChannel(appContext);
+This is channel for non-permananet notification. Is for exclamations notifications.
+PRIORITY_MAX
+For Android < 8: Notification sounds and vibrates, when it is enabled in system.
+For Android >= 8: sound and vibration is enabled (IMPORTANCE_DEFAULT)
+
+5. PPApplication.createGrantPermissionNotificationChannel(appContext);
+This is channel for non-permananet notification. Is for notifications, when some permission is needed and is not granted.
+PRIORITY_MAX
+For Android < 8: Notification sounds and vibrates, when it is enabled in system.
+For Android >= 8: sound and vibration is enabled (IMPORTANCE_DEFAULT)
+
+6. PPApplication.createNotifyEventStartNotificationChannel(appContext);
+This is channel for event start notifications, when in Event/Start of event/Other parameters is configured "Notification sound" and/or "Notifiy by vybration" and "Repeat notification" is enabled.
+PRIORITY_MAX - change to PRIORITY_DEFAULT
+For Android < 8: Notification sounds and vibrates, when it is enabled in system.
+For Android >= 8: sound and vibration is disabled (IMPORTANCE_LOW)
+
+7. PPApplication.createMobileCellsNewCellNotificationChannel(appContext);
+This is channel for non-permanent notification, used, when is enabled Settings/MobileSells scanning/Show notification for detection of not used mobile cells
+PRIORITY_MAX
+For Android < 8: Notification sounds and vibrates, when it is enabled in system.
+For Android >= 8: sound and vibration is enabled (IMPORTANCE_DEFAULT)
+
+8. PPApplication.createDonationNotificationChannel(appContext);
+This is channel for non-permanent notification, used, for notification abount Donation.
+PRIORITY_MAX - change to PRIORITY_DEFAULT
+For Android < 8: Notification sounds and vibrates, when it is enabled in system.
+For Android >= 8: sound is enabled, vibration is disabled (IMPORTANCE_LOW)
+
 
