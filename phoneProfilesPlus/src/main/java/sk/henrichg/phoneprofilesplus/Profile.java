@@ -2075,7 +2075,7 @@ public class Profile {
         */
 //    }
 
-//    private static int getMaximumScreenBrightnessSetting (Context context)
+//    static int getMaximumScreenBrightnessSetting (Context context)
 //    {
 //        return context.getResources().getInteger(com.android.internal.R.integer.config_screenBrightnessSettingMaximum);
         /*
@@ -2115,8 +2115,12 @@ public class Profile {
     private static int getBrightnessValue_A9(int percentage, int minValue, int maxValue) {
         int value = Math.round((GAMMA_SPACE_MAX+1) / 100f * (float)(percentage + 1));
         int systemValue = convertGammaToLinear(value, minValue, maxValue);
-        if (systemValue > 255)
-            systemValue = 255;
+
+        int maximumValue = 255;
+        if (PPApplication.romIsOnePlus)
+            maximumValue = 1023;
+        if (systemValue > maximumValue)
+            systemValue = maximumValue;
 
         PPApplication.logE("Profile.getBrightnessValue_A9", "percentage="+percentage);
         PPApplication.logE("Profile.getBrightnessValue_A9", "systemValue="+systemValue);
@@ -2180,6 +2184,8 @@ public class Profile {
         //if (maximumValue-minimumValue > 255) {
             minimumValue = 0;
             maximumValue = 255;
+            if (PPApplication.romIsOnePlus)
+                maximumValue = 1023;
         //}
 
         int value;
@@ -2286,9 +2292,14 @@ public class Profile {
                 //if (maximumValue-minimumValue > 255) {
                 minimumValue = 0;
                 maximumValue = 255;
+                if (PPApplication.romIsOnePlus)
+                    maximumValue = 1023;
                 //}
 
-                value = (getBrightnessValue_A9(percentage, minimumValue, maximumValue) - 128) / 128f;
+                if (PPApplication.romIsOnePlus)
+                    value = (getBrightnessValue_A9(percentage, minimumValue, maximumValue) - 512) / 512f;
+                else
+                    value = (getBrightnessValue_A9(percentage, minimumValue, maximumValue) - 128) / 128f;
             }
         }
 

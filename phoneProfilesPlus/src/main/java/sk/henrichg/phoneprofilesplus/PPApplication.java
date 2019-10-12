@@ -61,6 +61,7 @@ public class PPApplication extends Application {
     static final boolean romIsEMUI = isEMUI();
     static final boolean romIsSamsung = isSamsung();
     static final boolean romIsLG = isLG();
+    static final boolean romIsOnePlus = isOnePlus();
 
     static final String PACKAGE_NAME = "sk.henrichg.phoneprofilesplus";
     static final String PACKAGE_NAME_EXTENDER = "sk.henrichg.phoneprofilesplusextender";
@@ -704,8 +705,8 @@ public class PPApplication extends Application {
         PPApplication.logE("##### PPApplication.onCreate", "romIsEMUI="+romIsEMUI);
         PPApplication.logE("##### PPApplication.onCreate", "romIsSamsung="+romIsSamsung);
         PPApplication.logE("##### PPApplication.onCreate", "romIsLG="+romIsLG);
+        PPApplication.logE("##### PPApplication.onCreate", "romIsOnePlus="+romIsOnePlus);
         PPApplication.logE("##### PPApplication.onCreate", "model="+Build.MODEL);
-
 
         if (checkAppReplacingState())
             return;
@@ -2306,6 +2307,15 @@ public class PPApplication extends Application {
         return Build.BRAND.equalsIgnoreCase("lge") ||
                 Build.MANUFACTURER.equalsIgnoreCase("lge") ||
                 Build.FINGERPRINT.toLowerCase().contains("lge");
+    }
+
+    private static boolean isOnePlus() {
+        //PPApplication.logE("PPApplication.isOnePlus", "brand="+Build.BRAND);
+        //PPApplication.logE("PPApplication.isOnePlus", "manufacturer="+Build.MANUFACTURER);
+        //PPApplication.logE("PPApplication.isOnePlus", "fingerprint="+Build.FINGERPRINT);
+        return Build.BRAND.equalsIgnoreCase("oneplus") ||
+                Build.MANUFACTURER.equalsIgnoreCase("oneplus") ||
+                Build.FINGERPRINT.toLowerCase().contains("oneplus");
     }
 
     static boolean hasSystemFeature(Context context, String feature) {
