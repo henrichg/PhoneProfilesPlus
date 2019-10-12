@@ -2098,13 +2098,17 @@ public class Profile {
 //    }
 
     ////// from AOSP and changed for PPP
-    private static final int GAMMA_SPACE_MAX = 1023;
+    private static final int GAMMA_SPACE_MAX_256 = 1023;
+    private static final int GAMMA_SPACE_MAX_1024 = 4095;
 
     private static int getBrightnessPercentage_A9(int settingsValue, int minValue, int maxValue) {
         final int value;
 
         value = convertLinearToGamma(settingsValue, minValue, maxValue);
-        int percentage = Math.round(getPercentage(value, 0, GAMMA_SPACE_MAX) * 100);
+        int spaceMax = GAMMA_SPACE_MAX_256;
+        if (PPApplication.romIsOnePlus)
+            spaceMax = GAMMA_SPACE_MAX_1024;
+        int percentage = Math.round(getPercentage(value, 0, spaceMax) * 100);
 
         PPApplication.logE("Profile.getBrightnessPercentage_A9", "settingsValue="+settingsValue);
         PPApplication.logE("Profile.getBrightnessPercentage_A9", "percentage="+percentage);
@@ -2113,7 +2117,10 @@ public class Profile {
     }
 
     private static int getBrightnessValue_A9(int percentage, int minValue, int maxValue) {
-        int value = Math.round((GAMMA_SPACE_MAX+1) / 100f * (float)(percentage + 1));
+        int spaceMax = GAMMA_SPACE_MAX_256;
+        if (PPApplication.romIsOnePlus)
+            spaceMax = GAMMA_SPACE_MAX_1024;
+        int value = Math.round((spaceMax+1) / 100f * (float)(percentage + 1));
         int systemValue = convertGammaToLinear(value, minValue, maxValue);
 
         int maximumValue = 255;
@@ -2155,12 +2162,18 @@ public class Profile {
         } else {
             ret = _A * MathUtils.log(normalizedVal - _B) + _C;
         }
-        return Math.round(MathUtils.lerp(0, GAMMA_SPACE_MAX, ret));
+        int spaceMax = GAMMA_SPACE_MAX_256;
+        if (PPApplication.romIsOnePlus)
+            spaceMax = GAMMA_SPACE_MAX_1024;
+        return Math.round(MathUtils.lerp(0, spaceMax, ret));
     }
 
     @SuppressWarnings("SameParameterValue")
     private static int convertGammaToLinear(int val, int min, int max) {
-        final float normalizedVal = MathUtils.norm(0, GAMMA_SPACE_MAX, val);
+        int spaceMax = GAMMA_SPACE_MAX_256;
+        if (PPApplication.romIsOnePlus)
+            spaceMax = GAMMA_SPACE_MAX_1024;
+        final float normalizedVal = MathUtils.norm(0, spaceMax, val);
         final float ret;
         if (normalizedVal <= _R) {
             ret = MathUtils.sq(normalizedVal / _R);
@@ -2193,6 +2206,8 @@ public class Profile {
         if (percentage == BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET) {
             // brightness is not set, change it to default manual brightness value
             int defaultValue = 128;
+            if (PPApplication.romIsOnePlus)
+                defaultValue = 512;
             if (Build.VERSION.SDK_INT > 28) {
                 PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT > 28");
                 defaultValue = getBrightnessValue_A9(50, minimumValue, maximumValue);
@@ -2203,7 +2218,7 @@ public class Profile {
                 defaultValue = getBrightnessValue_A9(50, minimumValue, maximumValue);
             }
             else
-            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG) && (!PPApplication.romIsOnePlus)) {
+            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
                 PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and !Samsung and !LG");
                 defaultValue = getBrightnessValue_A9(50, minimumValue, maximumValue);
             }
@@ -2232,7 +2247,7 @@ public class Profile {
                 value = getBrightnessValue_A9(percentage, minimumValue, maximumValue);
             }
             else
-            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG) && (!PPApplication.romIsOnePlus)) {
+            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
                 PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and !Samsung and !LG");
                 value = getBrightnessValue_A9(percentage, minimumValue, maximumValue);
             }
@@ -2272,7 +2287,7 @@ public class Profile {
                 exponentialLevel = true;
             }
             else
-            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG) && (!PPApplication.romIsOnePlus)) {
+            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
                 PPApplication.logE("Profile.convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=true - SDK_INT == 28 and !Samsung and !LG");
                 exponentialLevel = true;
             }
@@ -2329,7 +2344,7 @@ public class Profile {
                 percentage = getBrightnessPercentage_A9(value, minValue, maxValue);
             }
             else
-            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG) && (!PPApplication.romIsOnePlus)) {
+            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
                 PPApplication.logE("Profile.convertBrightnessToPercents", "getBrightnessPercentage_A9 called - SDK_INT == 28 and !Samsung and !LG");
                 percentage = getBrightnessPercentage_A9(value, minValue, maxValue);
             }
