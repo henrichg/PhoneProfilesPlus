@@ -2099,52 +2099,7 @@ public class Profile {
 
     ////// from AOSP and changed for PPP
     private static final int GAMMA_SPACE_MAX_256 = 1023;
-    private static final int GAMMA_SPACE_MAX_1024 = 4095;
-
-    private static int getBrightnessPercentage_A9(int settingsValue, int minValue, int maxValue) {
-        final int value;
-
-        value = convertLinearToGamma(settingsValue, minValue, maxValue);
-        int spaceMax = GAMMA_SPACE_MAX_256;
-        if (PPApplication.romIsOnePlus)
-            spaceMax = GAMMA_SPACE_MAX_1024;
-        int percentage = Math.round(getPercentage(value, 0, spaceMax) * 100);
-
-        PPApplication.logE("Profile.getBrightnessPercentage_A9", "settingsValue="+settingsValue);
-        PPApplication.logE("Profile.getBrightnessPercentage_A9", "percentage="+percentage);
-
-        return percentage;
-    }
-
-    private static int getBrightnessValue_A9(int percentage, int minValue, int maxValue) {
-        int spaceMax = GAMMA_SPACE_MAX_256;
-        if (PPApplication.romIsOnePlus)
-            spaceMax = GAMMA_SPACE_MAX_1024;
-        int value = Math.round((spaceMax+1) / 100f * (float)(percentage + 1));
-        int systemValue = convertGammaToLinear(value, minValue, maxValue);
-
-        int maximumValue = 255;
-        if (PPApplication.romIsOnePlus)
-            maximumValue = 1023;
-        if (systemValue > maximumValue)
-            systemValue = maximumValue;
-
-        PPApplication.logE("Profile.getBrightnessValue_A9", "percentage="+percentage);
-        PPApplication.logE("Profile.getBrightnessValue_A9", "systemValue="+systemValue);
-
-        return systemValue;
-    }
-
-    @SuppressWarnings("SameParameterValue")
-    private static float getPercentage(int value, int min, int max) {
-        if (value > max) {
-            return 1.0f;
-        }
-        if (value < min) {
-            return 0.0f;
-        }
-        return ((float)value - min) / (max - min);
-    }
+    //private static final int GAMMA_SPACE_MAX_1024 = 4095;
 
     // Hybrid Log Gamma constant values
     private static final float _R = 0.5f;
@@ -2162,18 +2117,18 @@ public class Profile {
         } else {
             ret = _A * MathUtils.log(normalizedVal - _B) + _C;
         }
-        int spaceMax = GAMMA_SPACE_MAX_256;
-        if (PPApplication.romIsOnePlus)
-            spaceMax = GAMMA_SPACE_MAX_1024;
-        return Math.round(MathUtils.lerp(0, spaceMax, ret));
+        //int spaceMax = GAMMA_SPACE_MAX_256;
+        //if (PPApplication.romIsOnePlus)
+        //    spaceMax = GAMMA_SPACE_MAX_1024;
+        return Math.round(MathUtils.lerp(0, GAMMA_SPACE_MAX_256, ret));
     }
 
     @SuppressWarnings("SameParameterValue")
     private static int convertGammaToLinear(int val, int min, int max) {
-        int spaceMax = GAMMA_SPACE_MAX_256;
-        if (PPApplication.romIsOnePlus)
-            spaceMax = GAMMA_SPACE_MAX_1024;
-        final float normalizedVal = MathUtils.norm(0, spaceMax, val);
+        //int spaceMax = GAMMA_SPACE_MAX_256;
+        //if (PPApplication.romIsOnePlus)
+        //    spaceMax = GAMMA_SPACE_MAX_1024;
+        final float normalizedVal = MathUtils.norm(0, GAMMA_SPACE_MAX_256, val);
         final float ret;
         if (normalizedVal <= _R) {
             ret = MathUtils.sq(normalizedVal / _R);
@@ -2184,6 +2139,57 @@ public class Profile {
         // in order to derive the correct setting value.
         return Math.round(MathUtils.lerp(min, max, ret / 12));
     }
+
+    @SuppressWarnings("SameParameterValue")
+    private static float getPercentage(int value, int min, int max) {
+        if (value > max) {
+            return 1.0f;
+        }
+        if (value < min) {
+            return 0.0f;
+        }
+        return ((float)value - min) / (max - min);
+    }
+
+    private static int getBrightnessPercentage_A9(int settingsValue, int minValue, int maxValue) {
+        final int value;
+        int _settingsValue = settingsValue;
+        if (PPApplication.romIsOnePlus)
+            _settingsValue = settingsValue / 4; // convert from 1024 to 256
+
+        value = convertLinearToGamma(_settingsValue, minValue, maxValue);
+        //int spaceMax = GAMMA_SPACE_MAX_256;
+        //if (PPApplication.romIsOnePlus)
+        //    spaceMax = GAMMA_SPACE_MAX_1024;
+        int percentage = Math.round(getPercentage(value, 0, GAMMA_SPACE_MAX_256) * 100);
+
+        PPApplication.logE("Profile.getBrightnessPercentage_A9", "settingsValue="+settingsValue);
+        PPApplication.logE("Profile.getBrightnessPercentage_A9", "percentage="+percentage);
+
+        return percentage;
+    }
+
+    private static int getBrightnessValue_A9(int percentage, int minValue, int maxValue) {
+        //int spaceMax = GAMMA_SPACE_MAX_256;
+        //if (PPApplication.romIsOnePlus)
+        //    spaceMax = GAMMA_SPACE_MAX_1024;
+        int value = Math.round((GAMMA_SPACE_MAX_256+1) / 100f * (float)(percentage + 1));
+        int systemValue = convertGammaToLinear(value, minValue, maxValue);
+        if (PPApplication.romIsOnePlus)
+            systemValue = systemValue * 4; // convert from 256 to 1024
+
+        int maximumValue = 255;
+        if (PPApplication.romIsOnePlus)
+            maximumValue = 1023;
+        if (systemValue > maximumValue)
+            systemValue = maximumValue;
+
+        PPApplication.logE("Profile.getBrightnessValue_A9", "percentage="+percentage);
+        PPApplication.logE("Profile.getBrightnessValue_A9", "systemValue="+systemValue);
+
+        return systemValue;
+    }
+
     ///////////////
 
     static int convertPercentsToBrightnessManualValue(int percentage, Context context)
