@@ -382,7 +382,7 @@ public class PPApplication extends Application {
                                         //+"|[CALL] EventsHandler.handleEvents"
                                         //+"|%%%%%%% DataWrapper.doHandleEvents"
                                         //+"|[CALL] DataWrapper.doHandleEvents"
-                                        +"|DataWrapper.pauseAllEvents"
+                                        //+"|DataWrapper.pauseAllEvents"
                                         //+"|EventPreferencesCall"
                                         //+"|MissedCallEventEndBroadcastReceiver"
 
@@ -471,11 +471,11 @@ public class PPApplication extends Application {
 
                                         //+"|SearchCalendarEventsWorker"
 
-                                        //+"|Profile.getBrightnessPercentage_A9"
-                                        //+"|Profile.getBrightnessValue_A9"
-                                        //+"|Profile.convertPercentsToBrightnessManualValue"
-                                        //+"|Profile.convertPercentsToBrightnessAdaptiveValue"
-                                        //+"|Profile.convertBrightnessToPercents"
+                                        +"|Profile.getBrightnessPercentage_A9"
+                                        +"|Profile.getBrightnessValue_A9"
+                                        +"|Profile.convertPercentsToBrightnessManualValue"
+                                        +"|Profile.convertPercentsToBrightnessAdaptiveValue"
+                                        +"|Profile.convertBrightnessToPercents"
 
                                         //+"|EditorProfileListFragment.refreshGUI"
                                         //+"|EditorEventListFragment.refreshGUI"

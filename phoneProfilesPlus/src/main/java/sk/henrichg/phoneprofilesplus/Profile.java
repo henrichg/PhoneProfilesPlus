@@ -2155,7 +2155,7 @@ public class Profile {
     }
 
     private static int getBrightnessPercentage_A9(int settingsValue, int minValue, int maxValue) {
-        final float value;
+        /*final float value;
         float _settingsValue = settingsValue;
         if (PPApplication.romIsOnePlus)
             _settingsValue = settingsValue / 4; // convert from 1024 to 256
@@ -2164,7 +2164,12 @@ public class Profile {
         //int spaceMax = GAMMA_SPACE_MAX_256;
         //if (PPApplication.romIsOnePlus)
         //    spaceMax = GAMMA_SPACE_MAX_1024;
-        int percentage = Math.round(getPercentage(value, 0, GAMMA_SPACE_MAX_256) * 100);
+        int percentage = Math.round(getPercentage(value, 0, GAMMA_SPACE_MAX_256) * 100);*/
+
+        int _settingsValue = settingsValue;
+        if (PPApplication.romIsOnePlus)
+            _settingsValue = Math.round(settingsValue / 4f); // convert from 1024 to 256
+        int percentage = BrightnessLookup.lookup(_settingsValue, true);
 
         PPApplication.logE("Profile.getBrightnessPercentage_A9", "settingsValue="+settingsValue);
         PPApplication.logE("Profile.getBrightnessPercentage_A9", "percentage="+percentage);
@@ -2177,16 +2182,21 @@ public class Profile {
         //if (PPApplication.romIsOnePlus)
         //    spaceMax = GAMMA_SPACE_MAX_1024;
         //int value = Math.round((GAMMA_SPACE_MAX_256+1) / 100f * (float)(percentage + 1));
-        float value = (GAMMA_SPACE_MAX_256+1) / 100f * (float)(percentage + 1);
+        /*float value = (GAMMA_SPACE_MAX_256+1) / 100f * (float)(percentage + 1);
         float systemValue = convertGammaToLinear(value, minValue, maxValue);
         if (PPApplication.romIsOnePlus)
             systemValue = systemValue * 4; // convert from 256 to 1024
+        PPApplication.logE("Profile.getBrightnessValue_A9", "float systemValue="+systemValue);
 
         int maximumValue = 255;
         if (PPApplication.romIsOnePlus)
             maximumValue = 1023;
         if (systemValue > maximumValue)
-            systemValue = maximumValue;
+            systemValue = maximumValue;*/
+
+        int systemValue = BrightnessLookup.lookup(percentage, false);
+        if (PPApplication.romIsOnePlus)
+            systemValue = systemValue * 4; // convert from 256 to 1024
 
         PPApplication.logE("Profile.getBrightnessValue_A9", "percentage="+percentage);
         PPApplication.logE("Profile.getBrightnessValue_A9", "systemValue="+systemValue);
