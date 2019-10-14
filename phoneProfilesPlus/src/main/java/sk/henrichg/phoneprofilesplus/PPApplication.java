@@ -382,7 +382,7 @@ public class PPApplication extends Application {
                                         //+"|[CALL] EventsHandler.handleEvents"
                                         //+"|%%%%%%% DataWrapper.doHandleEvents"
                                         //+"|[CALL] DataWrapper.doHandleEvents"
-                                        //+"|DataWrapper.pauseAllEvents"
+                                        +"|DataWrapper.pauseAllEvents"
                                         //+"|EventPreferencesCall"
                                         //+"|MissedCallEventEndBroadcastReceiver"
 

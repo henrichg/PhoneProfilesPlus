@@ -85,29 +85,33 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             dataWrapper.invalidateDataWrapper();
 
             int statusRes = GlobalGUIRoutines.getThemeEventStopStatusIndicator(context);
-            switch (_eventStatus)
-            {
-                case Event.ESTATUS_RUNNING:
-                    if (event._isInDelayEnd)
-                        statusRes = R.drawable.ic_event_status_running_delay;
-                    else
-                        statusRes = R.drawable.ic_event_status_running;
-                    break;
-                case Event.ESTATUS_PAUSE:
-                    if (!Event.getGlobalEventsRunning(editorFragment.getActivity()) || (manualProfileActivation && !event._forceRun))
-                        statusRes = R.drawable.ic_event_status_pause_manual_activation;
-                    else
-                    if (event._isInDelayStart)
-                        statusRes = R.drawable.ic_event_status_pause_delay;
-                    else
-                        statusRes = R.drawable.ic_event_status_pause;
-                    break;
-                case Event.ESTATUS_STOP:
-                    //if (isRunnable)
+            if (!Event.getGlobalEventsRunning(editorFragment.getActivity())) {
+                if (_eventStatus != Event.ESTATUS_STOP)
+                    statusRes = R.drawable.ic_event_status_pause_manual_activation;
+            }
+            else {
+                switch (_eventStatus) {
+                    case Event.ESTATUS_RUNNING:
+                        if (event._isInDelayEnd)
+                            statusRes = R.drawable.ic_event_status_running_delay;
+                        else
+                            statusRes = R.drawable.ic_event_status_running;
+                        break;
+                    case Event.ESTATUS_PAUSE:
+                        if (!Event.getGlobalEventsRunning(editorFragment.getActivity()) || (manualProfileActivation && !event._forceRun))
+                            statusRes = R.drawable.ic_event_status_pause_manual_activation;
+                        else if (event._isInDelayStart)
+                            statusRes = R.drawable.ic_event_status_pause_delay;
+                        else
+                            statusRes = R.drawable.ic_event_status_pause;
+                        break;
+                    case Event.ESTATUS_STOP:
+                        //if (isRunnable)
                         statusRes = GlobalGUIRoutines.getThemeEventStopStatusIndicator(context);
-                    //else
-                    //    statusRes = R.drawable.ic_event_status_stop_not_runnable;
-                    break;
+                        //else
+                        //    statusRes = R.drawable.ic_event_status_stop_not_runnable;
+                        break;
+                }
             }
             eventStatus.setImageResource(statusRes);
 

@@ -1051,6 +1051,8 @@ public class DataWrapper {
                     int status = event.getStatusFromDB(context);
                     PPApplication.logE("DataWrapper.pauseAllEvents", "event._name=" + event._name);
                     PPApplication.logE("DataWrapper.pauseAllEvents", "status=" + status);
+                    PPApplication.logE("DataWrapper.pauseAllEvents", "event._forceRun=" + event._forceRun);
+                    PPApplication.logE("DataWrapper.pauseAllEvents", "event._noPauseByManualActivation=" + event._noPauseByManualActivation);
 
                     if (status == Event.ESTATUS_RUNNING) {
                         if (!(event._forceRun && event._noPauseByManualActivation)) {
@@ -1077,11 +1079,10 @@ public class DataWrapper {
         Event.setEventsBlocked(context, blockEvents);
     }
 
-    private void pauseAllEventsFromMainThread(@SuppressWarnings("SameParameterValue") final boolean noSetSystemEvent,
-                                              @SuppressWarnings("SameParameterValue") final boolean blockEvents) {
+    private void pauseAllEventsForGlobalStopEvents() {
         final DataWrapper dataWrapper = copyDataWrapper();
 
-        PPApplication.startHandlerThread("DataWrapper.pauseAllEventsFromMainThread");
+        PPApplication.startHandlerThread("DataWrapper.pauseAllEventsForGlobalStopEvents");
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
@@ -1095,11 +1096,11 @@ public class DataWrapper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DataWrapper.pauseAllEventsFromMainThread");
+                    PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DataWrapper.pauseAllEventsForGlobalStopEvents");
 
-                    dataWrapper.pauseAllEvents(noSetSystemEvent, blockEvents);
+                    dataWrapper.pauseAllEvents(true, false);
 
-                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DataWrapper.pauseAllEventsFromMainThread");
+                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DataWrapper.pauseAllEventsForGlobalStopEvents");
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
@@ -4515,7 +4516,7 @@ public class DataWrapper {
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     PPApplication.logE("DataWrapper.runStopEventsWithAlert", "stop");
-                    if (runStopEvents(true)) {
+                    if (globalRunStopEvents(true)) {
                         PPApplication.showProfileNotification(/*activity.getApplicationContext()*/true);
                         if (activity instanceof EditorProfilesActivity)
                             ((EditorProfilesActivity) activity).refreshGUI(true, false, true, 0, 0);
@@ -4547,7 +4548,7 @@ public class DataWrapper {
                 dialog.show();
         }
         else {
-            if (runStopEvents(false)) {
+            if (globalRunStopEvents(false)) {
                 PPApplication.showProfileNotification(/*activity.getApplicationContext()*/true);
                 if (activity instanceof EditorProfilesActivity)
                     ((EditorProfilesActivity) activity).refreshGUI(true, false, true, 0, 0);
@@ -4559,7 +4560,7 @@ public class DataWrapper {
         }
     }
 
-    private boolean runStopEvents(boolean stop) {
+    private boolean globalRunStopEvents(boolean stop) {
         if (stop) {
             if (Event.getGlobalEventsRunning(context)) {
                 addActivityLog(ALTYPE_RUN_EVENTS_DISABLE, null, null, null, 0);
@@ -4567,9 +4568,11 @@ public class DataWrapper {
                 // no setup for next start
                 resetAllEventsInDelayStart(false);
                 resetAllEventsInDelayEnd(false);
-                // no set system events, unblock all events, no activate return profile
-                pauseAllEventsFromMainThread(true, false/*, false*/);
+
                 Event.setGlobalEventsRunning(context, false);
+
+                // no set system events, unblock all events, no activate return profile
+                pauseAllEventsForGlobalStopEvents();
 
                 /*Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
