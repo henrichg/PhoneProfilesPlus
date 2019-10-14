@@ -2108,7 +2108,7 @@ public class Profile {
     private static final float _C = 0.55991073f;
 
     @SuppressWarnings("SameParameterValue")
-    private static int convertLinearToGamma(int val, int min, int max) {
+    private static float convertLinearToGamma(float val, float min, float max) {
         // For some reason, HLG normalizes to the range [0, 12] rather than [0, 1]
         final float normalizedVal = MathUtils.norm(min, max, val) * 12;
         final float ret;
@@ -2120,11 +2120,12 @@ public class Profile {
         //int spaceMax = GAMMA_SPACE_MAX_256;
         //if (PPApplication.romIsOnePlus)
         //    spaceMax = GAMMA_SPACE_MAX_1024;
-        return Math.round(MathUtils.lerp(0, GAMMA_SPACE_MAX_256, ret));
+        //return Math.round(MathUtils.lerp(0, GAMMA_SPACE_MAX_256, ret));
+        return MathUtils.lerp(0, GAMMA_SPACE_MAX_256, ret);
     }
 
     @SuppressWarnings("SameParameterValue")
-    private static int convertGammaToLinear(int val, int min, int max) {
+    private static float convertGammaToLinear(float val, float min, float max) {
         //int spaceMax = GAMMA_SPACE_MAX_256;
         //if (PPApplication.romIsOnePlus)
         //    spaceMax = GAMMA_SPACE_MAX_1024;
@@ -2137,23 +2138,25 @@ public class Profile {
         }
         // HLG is normalized to the range [0, 12], so we need to re-normalize to the range [0, 1]
         // in order to derive the correct setting value.
-        return Math.round(MathUtils.lerp(min, max, ret / 12));
+        //return Math.round(MathUtils.lerp(min, max, ret / 12));
+        return MathUtils.lerp(min, max, ret / 12);
     }
 
     @SuppressWarnings("SameParameterValue")
-    private static float getPercentage(int value, int min, int max) {
+    private static float getPercentage(float value, float min, float max) {
         if (value > max) {
             return 1.0f;
         }
         if (value < min) {
             return 0.0f;
         }
-        return ((float)value - min) / (max - min);
+        //return ((float)value - min) / (max - min);
+        return (value - min) / (max - min);
     }
 
     private static int getBrightnessPercentage_A9(int settingsValue, int minValue, int maxValue) {
-        final int value;
-        int _settingsValue = settingsValue;
+        final float value;
+        float _settingsValue = settingsValue;
         if (PPApplication.romIsOnePlus)
             _settingsValue = settingsValue / 4; // convert from 1024 to 256
 
@@ -2173,8 +2176,9 @@ public class Profile {
         //int spaceMax = GAMMA_SPACE_MAX_256;
         //if (PPApplication.romIsOnePlus)
         //    spaceMax = GAMMA_SPACE_MAX_1024;
-        int value = Math.round((GAMMA_SPACE_MAX_256+1) / 100f * (float)(percentage + 1));
-        int systemValue = convertGammaToLinear(value, minValue, maxValue);
+        //int value = Math.round((GAMMA_SPACE_MAX_256+1) / 100f * (float)(percentage + 1));
+        float value = (GAMMA_SPACE_MAX_256+1) / 100f * (float)(percentage + 1);
+        float systemValue = convertGammaToLinear(value, minValue, maxValue);
         if (PPApplication.romIsOnePlus)
             systemValue = systemValue * 4; // convert from 256 to 1024
 
@@ -2187,7 +2191,7 @@ public class Profile {
         PPApplication.logE("Profile.getBrightnessValue_A9", "percentage="+percentage);
         PPApplication.logE("Profile.getBrightnessValue_A9", "systemValue="+systemValue);
 
-        return systemValue;
+        return Math.round(systemValue);
     }
 
     ///////////////
