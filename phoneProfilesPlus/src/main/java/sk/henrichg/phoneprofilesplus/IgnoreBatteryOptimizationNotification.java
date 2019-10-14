@@ -44,9 +44,9 @@ class IgnoreBatteryOptimizationNotification {
                         ApplicationPreferences.getSharedPreferences(appContext);
                         boolean show = ApplicationPreferences.preferences.getBoolean(PREF_SHOW_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ON_START, true);
                         PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 1=" + show);
-                        //show = show && DataWrapper.getIsManualProfileActivation(false, appContext);
                         if (Event.getGlobalEventsRunning(appContext)) {
-                            PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 2=" + show);
+                            //show = show && DataWrapper.getIsManualProfileActivation(false, appContext);
+                            //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 2=" + show);
                             DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
                             show = show && (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_ALL, false) != 0);
                             PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 3=" + show);
