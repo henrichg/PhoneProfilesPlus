@@ -6364,10 +6364,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 final String countQuery;
                 String eventTypeChecked;
                 if (onlyRunning)
-                    eventTypeChecked = KEY_E_STATUS + "=2" + " AND ";  //  only running events
+                    eventTypeChecked = KEY_E_STATUS + "=2";  //  only running events
                 else
-                    eventTypeChecked = KEY_E_STATUS + "!=0" + " AND ";  //  only not stopped events
+                    eventTypeChecked = KEY_E_STATUS + "!=0";  //  only not stopped events
                 if (eventType != ETYPE_ALL) {
+                    eventTypeChecked = eventTypeChecked  + " AND ";
                     if (eventType == ETYPE_TIME)
                         eventTypeChecked = eventTypeChecked + KEY_E_TIME_ENABLED + "=1";
                     else if (eventType == ETYPE_BATTERY)

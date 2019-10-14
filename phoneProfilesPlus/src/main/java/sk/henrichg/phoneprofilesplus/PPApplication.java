@@ -103,6 +103,7 @@ public class PPApplication extends Application {
                                          +"|ShutdownBroadcastReceiver"
 
                                          +"|PhoneProfilesService.onConfigurationChanged"
+                                         +"|IgnoreBatteryOptimizationNotification"
 
                                          /*+"|DatabaseHandler.onUpgrade"
                                          +"|EditorProfilesActivity.doImportData"

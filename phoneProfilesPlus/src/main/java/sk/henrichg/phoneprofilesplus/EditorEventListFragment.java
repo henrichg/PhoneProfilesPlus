@@ -575,6 +575,7 @@ public class EditorEventListFragment extends Fragment
             List<EventTimeline> eventTimelineList = activityDataWrapper.getEventTimelineList(true);
             if (event.getStatusFromDB(activityDataWrapper.context) == Event.ESTATUS_STOP) {
                 // pause event
+                IgnoreBatteryOptimizationNotification.showNotification(activityDataWrapper.context.getApplicationContext());
                 // not needed to use handlerThread, profile is not activated (activateReturnProfile=false)
                 event.pauseEvent(activityDataWrapper, eventTimelineList, false, false,
                         false, /*false,*/ null, false, false);
