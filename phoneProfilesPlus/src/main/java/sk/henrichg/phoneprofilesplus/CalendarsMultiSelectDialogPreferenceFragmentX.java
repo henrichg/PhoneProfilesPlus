@@ -166,6 +166,8 @@ public class CalendarsMultiSelectDialogPreferenceFragmentX extends PreferenceDia
                         }
                         cur.close();
                     }
+
+                    getValueCMSDP(_calendarList, notForUnselect);
                 }
 
                 return null;
@@ -177,8 +179,6 @@ public class CalendarsMultiSelectDialogPreferenceFragmentX extends PreferenceDia
 
                 preference.calendarList = new ArrayList<>(_calendarList);
                 //Log.d("CalendarsMultiSelectDialogPreference.refreshListView","calendarList.size()="+calendarList.size());
-
-                preference.getValueCMSDP(notForUnselect);
 
                 if (listAdapter == null) {
                     listAdapter = new CalendarsMultiSelectPreferenceAdapterX(prefContext, preference.calendarList);
@@ -192,6 +192,44 @@ public class CalendarsMultiSelectDialogPreferenceFragmentX extends PreferenceDia
             }
 
         }.execute();
+    }
+
+    private void getValueCMSDP(List<CalendarEvent> _calendarList, boolean notForUnselect)
+    {
+        //Log.d("CalendarsMultiSelectDialogPreference.getValueCMSDP","notForUnselect="+notForUnselect);
+
+        //Log.d("CalendarsMultiSelectDialogPreference.getValueCMSDP","value="+value);
+        //Log.d("CalendarsMultiSelectDialogPreference.getValueCMSDP","calendarList.size()="+calendarList.size());
+        String[] splits = preference.value.split("\\|");
+        for (CalendarEvent calendar : _calendarList)
+        {
+            calendar.checked = false;
+            if (notForUnselect) {
+                for (String split : splits) {
+                    try {
+                        long calendarId = Long.parseLong(split);
+                        //Log.d("CalendarsMultiSelectDialogPreference.getValueCMSDP", "calendar.calendarId=" + calendar.calendarId);
+                        //Log.d("CalendarsMultiSelectDialogPreference.getValueCMSDP", "calendarId=" + calendarId);
+                        if (calendar.calendarId == calendarId)
+                            calendar.checked = true;
+                    } catch (Exception ignored) {
+                    }
+                }
+            }
+        }
+
+        // move checked on top
+        int i = 0;
+        int ich = 0;
+        while (i < _calendarList.size()) {
+            CalendarEvent aCalendar = _calendarList.get(i);
+            if (aCalendar.checked) {
+                _calendarList.remove(i);
+                _calendarList.add(ich, aCalendar);
+                ich++;
+            }
+            i++;
+        }
     }
 
 }

@@ -407,11 +407,24 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
                 //if (android.os.Build.VERSION.SDK_INT >= 18) {
                 _bluetoothList.add(0, new BluetoothDeviceData(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE, "", BluetoothDevice.DEVICE_TYPE_DUAL, false, 0, false, false));
                 _bluetoothList.add(0, new BluetoothDeviceData(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE, "", BluetoothDevice.DEVICE_TYPE_DUAL, false, 0, false, false));
-            /*}
-            else {
-                _bluetoothList.add(0, new BluetoothDeviceData(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE, "", 0, false, 0));
-                _bluetoothList.add(0, new BluetoothDeviceData(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE, "", 0, false, 0));
-            }*/
+                /*}
+                else {
+                    _bluetoothList.add(0, new BluetoothDeviceData(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE, "", 0, false, 0));
+                    _bluetoothList.add(0, new BluetoothDeviceData(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE, "", 0, false, 0));
+                }*/
+
+                // move checked on top
+                int i = 0;
+                int ich = 0;
+                while (i < _bluetoothList.size()) {
+                    BluetoothDeviceData bluetoothData = _bluetoothList.get(i);
+                    if (preference.isBluetoothNameSelected(bluetoothData.getName())) {
+                        _bluetoothList.remove(i);
+                        _bluetoothList.add(ich, bluetoothData);
+                        ich++;
+                    }
+                    i++;
+                }
 
                 return null;
             }

@@ -124,8 +124,9 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
                         }
                     }
                 }
-                // move checked on top
                 applicationList.addAll(cachedApplicationList);
+
+                // move checked on top
                 int i = 0;
                 int ich = 0;
                 while (i < applicationList.size()) {

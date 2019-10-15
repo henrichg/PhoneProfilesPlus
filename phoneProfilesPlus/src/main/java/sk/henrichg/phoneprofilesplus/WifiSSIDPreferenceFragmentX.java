@@ -390,6 +390,19 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
                 _SSIDList.add(0, new WifiSSIDData(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE, "", false, false, false));
                 _SSIDList.add(0, new WifiSSIDData(EventPreferencesWifi.ALL_SSIDS_VALUE, "", false, false, false));
 
+                // move checked on top
+                int i = 0;
+                int ich = 0;
+                while (i < _SSIDList.size()) {
+                    WifiSSIDData ssidData = _SSIDList.get(i);
+                    if (preference.isSSIDSelected(ssidData.ssid)) {
+                        _SSIDList.remove(i);
+                        _SSIDList.add(ich, ssidData);
+                        ich++;
+                    }
+                    i++;
+                }
+
                 return null;
             }
 

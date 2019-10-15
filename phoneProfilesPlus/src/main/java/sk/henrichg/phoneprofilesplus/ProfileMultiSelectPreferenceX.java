@@ -16,7 +16,7 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
 
     ProfileMultiSelectPreferenceFragmentX fragment;
 
-    private String value;
+    String value;
     private String defaultValue;
     private boolean savedInstanceState;
 
@@ -71,25 +71,7 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
     {
         value = getPersistedString((String)defaultValue);
         this.defaultValue = (String)defaultValue;
-        getValuePMSDP();
         setSummaryPMSDP();
-    }
-
-    void getValuePMSDP()
-    {
-        PPApplication.logE("ProfileMultiSelectPreferenceX.getValueAMSDP","value="+value);
-
-        for (Profile profile : dataWrapper.profileList)
-            profile._checked = false;
-
-        if (!value.isEmpty()) {
-            String[] splits = value.split("\\|");
-            for (String split : splits) {
-                Profile profile = dataWrapper.getProfileById(Long.parseLong(split), false, false, false);
-                if (profile != null)
-                    profile._checked = true;
-            }
-        }
     }
 
     private void setSummaryPMSDP()
@@ -221,7 +203,6 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
     void resetSummary() {
         if (!savedInstanceState) {
             value = getPersistedString(defaultValue);
-            getValuePMSDP();
             setSummaryPMSDP();
         }
         savedInstanceState = false;
@@ -263,7 +244,6 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
         super.onRestoreInstanceState(myState.getSuperState());
         value = myState.value;
         defaultValue = myState.defaultValue;
-        getValuePMSDP();
         setSummaryPMSDP();
         //notifyChanged();
     }

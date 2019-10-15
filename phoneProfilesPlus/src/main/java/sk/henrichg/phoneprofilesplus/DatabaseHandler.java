@@ -7837,7 +7837,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_G_NAME + "," +
                         KEY_G_CHECKED +
                         " FROM " + TABLE_GEOFENCES +
-                        " ORDER BY " + KEY_G_NAME + " ASC";
+                        " ORDER BY " + /*KEY_G_CHECKED + " DESC," +*/ KEY_G_NAME + " ASC";
 
                 //SQLiteDatabase db = this.getWritableDatabase();
                 SQLiteDatabase db = getMyWritableDatabase();

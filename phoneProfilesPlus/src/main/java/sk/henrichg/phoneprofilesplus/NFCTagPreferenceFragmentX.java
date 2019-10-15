@@ -270,6 +270,19 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
                 Collections.sort(_nfcTagList, new NFCTagPreferenceFragmentX.SortList());
 
+                // move checked on top
+                int i = 0;
+                int ich = 0;
+                while (i < _nfcTagList.size()) {
+                    NFCTag nfcTag = _nfcTagList.get(i);
+                    if (preference.isNfcTagSelected(nfcTag._name)) {
+                        _nfcTagList.remove(i);
+                        _nfcTagList.add(ich, nfcTag);
+                        ich++;
+                    }
+                    i++;
+                }
+
                 return null;
             }
 

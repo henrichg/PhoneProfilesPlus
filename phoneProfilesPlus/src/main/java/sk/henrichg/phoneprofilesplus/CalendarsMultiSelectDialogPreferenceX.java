@@ -40,38 +40,7 @@ public class CalendarsMultiSelectDialogPreferenceX extends DialogPreference
         // Get the persistent value
         value = getPersistedString((String)defaultValue);
         this.defaultValue = (String)defaultValue;
-
-        getValueCMSDP(true);
         setSummaryCMSDP();
-    }
-
-    void getValueCMSDP(boolean notForUnselect)
-    {
-        //Log.d("CalendarsMultiSelectDialogPreference.getValueCMSDP","notForUnselect="+notForUnselect);
-
-        // change checked state by value
-        if (calendarList != null)
-        {
-            //Log.d("CalendarsMultiSelectDialogPreference.getValueCMSDP","value="+value);
-            //Log.d("CalendarsMultiSelectDialogPreference.getValueCMSDP","calendarList.size()="+calendarList.size());
-            String[] splits = value.split("\\|");
-            for (CalendarEvent calendar : calendarList)
-            {
-                calendar.checked = false;
-                if (notForUnselect) {
-                    for (String split : splits) {
-                        try {
-                            long calendarId = Long.parseLong(split);
-                            //Log.d("CalendarsMultiSelectDialogPreference.getValueCMSDP", "calendar.calendarId=" + calendar.calendarId);
-                            //Log.d("CalendarsMultiSelectDialogPreference.getValueCMSDP", "calendarId=" + calendarId);
-                            if (calendar.calendarId == calendarId)
-                                calendar.checked = true;
-                        } catch (Exception ignored) {
-                        }
-                    }
-                }
-            }
-        }
     }
 
     static String getSummary(String value, Context context) {
@@ -190,7 +159,6 @@ public class CalendarsMultiSelectDialogPreferenceX extends DialogPreference
         value = myState.value;
         defaultValue = myState.defaultValue;
 
-        getValueCMSDP(true);
         setSummaryCMSDP();
         //notifyChanged();
     }

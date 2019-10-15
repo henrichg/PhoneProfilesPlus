@@ -70,7 +70,7 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
                 preference.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator(preference.dataWrapper.context));
                 Collections.sort(preference.dataWrapper.profileList, new ProfileMultiSelectPreferenceFragmentX.AlphabeticallyComparator());
 
-                preference.getValuePMSDP();
+                getValuePMSDP();
 
                 return null;
             }
@@ -111,6 +111,37 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
             else
                 return 0;
         }
+    }
+
+    private void getValuePMSDP()
+    {
+        PPApplication.logE("ProfileMultiSelectPreferenceX.getValueAMSDP","value="+preference.value);
+
+        for (Profile profile : preference.dataWrapper.profileList)
+            profile._checked = false;
+
+        if (!preference.value.isEmpty()) {
+            String[] splits = preference.value.split("\\|");
+            for (String split : splits) {
+                Profile profile = preference.dataWrapper.getProfileById(Long.parseLong(split), false, false, false);
+                if (profile != null)
+                    profile._checked = true;
+            }
+        }
+
+        // move checked on top
+        int i = 0;
+        int ich = 0;
+        while (i < preference.dataWrapper.profileList.size()) {
+            Profile profile = preference.dataWrapper.profileList.get(i);
+            if (profile._checked) {
+                preference.dataWrapper.profileList.remove(i);
+                preference.dataWrapper.profileList.add(ich, profile);
+                ich++;
+            }
+            i++;
+        }
+
     }
 
 }
