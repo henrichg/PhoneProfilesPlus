@@ -1312,9 +1312,9 @@
     <string name="email_debug_log_files_subject">Fichiers journaux de débogage</string>
     <string name="toast_debug_log_files_not_exists">Les fichiers journaux de débogage n\'existent pas</string>
     <string name="menu_email_to_author">Envoyer un courriel à l\'auteur</string>
-    <string name="ignore_battery_optimization_notification_title">Battery optimization configuration</string>
-    <string name="ignore_battery_optimization_notification_text">Please click here and add PhoneProfilesPlus to \"Not optimized\". It is required for working good with the screen off.</string>
-    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>
+    <string name="ignore_battery_optimization_notification_title">Configuration de l\'optimisation de la batterie</string>
+    <string name="ignore_battery_optimization_notification_text">Veuillez cliquer ici et ajouter PhoneProfilesPlus à \"Non optimisé\". C\'est nécessaire pour qu\'il fonctionne correctement avec l\'écran éteint.</string>
+    <string name="ignore_battery_optimization_notification_disable_button">Ne plus afficher</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

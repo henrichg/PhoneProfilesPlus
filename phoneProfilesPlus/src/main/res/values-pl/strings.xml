@@ -1312,9 +1312,9 @@
     <string name="email_debug_log_files_subject">Pliki z logami</string>
     <string name="toast_debug_log_files_not_exists">Pliki logu/debugowania nie istnieją</string>
     <string name="menu_email_to_author">Wyślij e-mail do autora</string>
-    <string name="ignore_battery_optimization_notification_title">Battery optimization configuration</string>
-    <string name="ignore_battery_optimization_notification_text">Please click here and add PhoneProfilesPlus to \"Not optimized\". It is required for working good with the screen off.</string>
-    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>
+    <string name="ignore_battery_optimization_notification_title">Konfiguracja optymalizacji baterii</string>
+    <string name="ignore_battery_optimization_notification_text">Proszę kliknij tutaj i dodaj PhoneProfilesPlus do \"nie optymalizowanych\". Jest to wymagane do prawidłowej pracy programu w czasie, gdy ekran jest włączony.</string>
+    <string name="ignore_battery_optimization_notification_disable_button">Nie pokazuj więcej</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

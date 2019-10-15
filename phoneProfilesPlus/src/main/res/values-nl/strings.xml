@@ -1312,9 +1312,9 @@
     <string name="email_debug_log_files_subject">Debug logbestand</string>
     <string name="toast_debug_log_files_not_exists">Debug logbestanden bestaan niet</string>
     <string name="menu_email_to_author">E-mail aan auteur</string>
-    <string name="ignore_battery_optimization_notification_title">Battery optimization configuration</string>
-    <string name="ignore_battery_optimization_notification_text">Please click here and add PhoneProfilesPlus to \"Not optimized\". It is required for working good with the screen off.</string>
-    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>
+    <string name="ignore_battery_optimization_notification_title">Batterij optimalisatie configuratie</string>
+    <string name="ignore_battery_optimization_notification_text">Klik hier en voeg PhoneProfilesPlus toe aan \"Niet geoptimaliseerd\". Dit is nodig om PhoneProfilesPlus goed te laten werken met het scherm uit.</string>
+    <string name="ignore_battery_optimization_notification_disable_button">Niet opnieuw weergeven</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

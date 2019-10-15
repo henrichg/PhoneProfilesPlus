@@ -1306,15 +1306,15 @@
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">По имени вышки</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">По длительности подключения</string>
     <string name="menu_export_and_email">Настройки резервной копии и электронной почты</string>
-    <string name="menu_export_and_email_to_author">Backup and e-mail settings to author</string>
+    <string name="menu_export_and_email_to_author">Сделать резервную копию настроек и отправить их автору по e-mail</string>
     <string name="menu_email_debug_logs_to_author">Отправить файлы журнала отладки разработчику</string>
     <string name="menu_support">Поддержка</string>
     <string name="email_debug_log_files_subject">Файл журнала отладки</string>
     <string name="toast_debug_log_files_not_exists">Файлы журнала отладки отсутствуют</string>
     <string name="menu_email_to_author">Отправить письмо автору</string>
-    <string name="ignore_battery_optimization_notification_title">Battery optimization configuration</string>
-    <string name="ignore_battery_optimization_notification_text">Please click here and add PhoneProfilesPlus to \"Not optimized\". It is required for working good with the screen off.</string>
-    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>
+    <string name="ignore_battery_optimization_notification_title">Настройка оптимизации батареи</string>
+    <string name="ignore_battery_optimization_notification_text">Нажмите сюда и добавьте PhoneProfilesPlus в список \"Не экономят заряд\". Это нужно для правильной работы программы при выключенном экране.</string>
+    <string name="ignore_battery_optimization_notification_disable_button">Больше не показывать</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
