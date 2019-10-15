@@ -4412,6 +4412,7 @@ public class PhoneProfilesService extends Service
                                 //    iconSmallResource = R.drawable.ic_profile_default;
                                 iconSmallResource = R.drawable.ic_profile_default_notify_color;
                                 try {
+                                    //noinspection ConstantConditions
                                     iconSmallResource = Profile.profileIconNotifyColorId.get(iconIdentifier);
                                 } catch (Exception ignored) {
                                 }
@@ -4426,6 +4427,7 @@ public class PhoneProfilesService extends Service
                             //    iconSmallResource = R.drawable.ic_profile_default_notify;
                             iconSmallResource = R.drawable.ic_profile_default_notify;
                             try {
+                                //noinspection ConstantConditions
                                 iconSmallResource = Profile.profileIconNotifyId.get(iconIdentifier);
                             } catch (Exception ignored) {
                             }
@@ -4445,6 +4447,7 @@ public class PhoneProfilesService extends Service
                             //    iconSmallResource = R.drawable.ic_profile_default;
                             iconSmallResource = R.drawable.ic_profile_default_notify_color;
                             try {
+                                //noinspection ConstantConditions
                                 iconSmallResource = Profile.profileIconNotifyColorId.get(iconIdentifier);
                             } catch (Exception ignored) {
                             }
@@ -4467,6 +4470,7 @@ public class PhoneProfilesService extends Service
                             //    iconSmallResource = R.drawable.ic_profile_default_notify;
                             iconSmallResource = R.drawable.ic_profile_default_notify;
                             try {
+                                //noinspection ConstantConditions
                                 iconSmallResource = Profile.profileIconNotifyId.get(iconIdentifier);
                             } catch (Exception ignored) {
                             }
