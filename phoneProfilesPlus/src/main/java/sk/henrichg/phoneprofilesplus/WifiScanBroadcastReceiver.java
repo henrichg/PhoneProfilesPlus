@@ -19,17 +19,20 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
         //PPApplication.logE("@@@ WifiScanBroadcastReceiver.onReceive", "----- start");
         CallsCounter.logCounter(context, "WifiScanBroadcastReceiver.onReceive", "WifiScanBroadcastReceiver_onReceive");
 
-        if (!PPApplication.getApplicationStarted(context, true))
-            // application is not started
-            return;
-        if (!ApplicationPreferences.applicationEventWifiEnableScanning(context))
-            // scanning is disabled
-            return;
-
         if (intent == null)
             return;
 
         final Context appContext = context.getApplicationContext();
+
+        if (!PPApplication.getApplicationStarted(appContext, true))
+            // application is not started
+            return;
+
+        if (WifiBluetoothScanner.getForceOneWifiScan(appContext) != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
+            if (!ApplicationPreferences.applicationEventWifiEnableScanning(appContext))
+                // scanning is disabled
+                return;
+        }
 
         if (intent.getAction() != null) {
             if (intent.getAction().equals(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)) {

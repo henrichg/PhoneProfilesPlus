@@ -325,6 +325,7 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
                 }
 
                 List<BluetoothDeviceData> scanResults = BluetoothScanWorker.getScanResults(prefContext);
+                PPApplication.logE("BluetoothNamePreferenceFragmentX.refreshListView", "scanResults="+scanResults);
                 if (scanResults != null) {
                     for (BluetoothDeviceData device : scanResults) {
                         if (!device.getName().isEmpty()) {

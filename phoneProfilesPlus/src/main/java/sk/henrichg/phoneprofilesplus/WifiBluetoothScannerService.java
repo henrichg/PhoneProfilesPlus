@@ -26,14 +26,14 @@ public class WifiBluetoothScannerService extends IntentService
     @Override
     protected void onHandleIntent(Intent intent) {
         //context = getApplicationContext();
-        CallsCounter.logCounter(this, "WifiBluetoothScannerService.doWakefulWork", "ScannerService_doWakefulWork");
+        CallsCounter.logCounter(this, "WifiBluetoothScannerService.onHandleIntent", "ScannerService_onHandleIntent");
 
         if (intent == null) {
-            PPApplication.logE("%%%% WifiBluetoothScannerService.doWakefulWork", "intent=null");
+            PPApplication.logE("%%%% WifiBluetoothScannerService.onHandleIntent", "intent=null");
             return;
         }
 
-        PPApplication.logE("%%%% WifiBluetoothScannerService.doWakefulWork", "-- START ------------");
+        PPApplication.logE("%%%% WifiBluetoothScannerService.onHandleIntent", "-- START ------------");
 
         String scannerType = intent.getStringExtra(EXTRA_SCANNER_TYPE);
         PPApplication.logE("%%%% WifiBluetoothScannerService.onHandleIntent", "scannerType="+scannerType);
@@ -41,8 +41,7 @@ public class WifiBluetoothScannerService extends IntentService
         WifiBluetoothScanner wifiBluetoothScanner = new WifiBluetoothScanner(this);
         wifiBluetoothScanner.doScan(scannerType);
 
-        PPApplication.logE("%%%% WifiBluetoothScannerService.doWakefulWork", "-- END ------------");
-
+        PPApplication.logE("%%%% WifiBluetoothScannerService.onHandleIntent", "-- END ------------");
     }
 
 }

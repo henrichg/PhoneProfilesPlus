@@ -459,7 +459,7 @@ public class BluetoothScanWorker extends Worker {
     }
 
     @SuppressLint("NewApi")
-    static void startLEScan(Context context)
+    static void startLEScan(final Context context)
     {
         PPApplication.logE("BluetoothScanWorker.startLEScan", "xxx");
 
@@ -472,57 +472,32 @@ public class BluetoothScanWorker extends Worker {
 
                 if (bluetooth != null) {
                     if (Permissions.checkLocation(context)) {
-
-                        boolean startScan = false;
-
-                        //if ((android.os.Build.VERSION.SDK_INT >= 21)) {
-                        if (WifiBluetoothScanner.bluetoothLEScanner == null)
-                            WifiBluetoothScanner.bluetoothLEScanner = bluetooth.getBluetoothLeScanner();
-                        //if (WifiBluetoothScanner.bluetoothLEScanCallback21 == null)
-                        //    WifiBluetoothScanner.bluetoothLEScanCallback21 = new BluetoothLEScanCallback21(context);
-
-                        //WifiBluetoothScanner.leScanner.stopScan(WifiBluetoothScanner.leScanCallback21);
-
-                        ScanSettings.Builder builder = new ScanSettings.Builder();
-
-                        tmpScanLEResults = null;
-
-                        int forceScan = WifiBluetoothScanner.getForceOneBluetoothScan(context);
-                        if (forceScan == WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)
-                            builder.setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY);
-                        else
-                            builder.setScanMode(ScanSettings.SCAN_MODE_BALANCED);
-
-                        if (bluetooth.isOffloadedScanBatchingSupported())
-                            builder.setReportDelay(ApplicationPreferences.applicationEventBluetoothLEScanDuration(context) * 1000);
-                        ScanSettings settings = builder.build();
-
-                        List<ScanFilter> filters = new ArrayList<>();
                         try {
+                            if (WifiBluetoothScanner.bluetoothLEScanner == null)
+                                WifiBluetoothScanner.bluetoothLEScanner = bluetooth.getBluetoothLeScanner();
+
+                            ScanSettings.Builder builder = new ScanSettings.Builder();
+
+                            tmpScanLEResults = null;
+
+                            int forceScan = WifiBluetoothScanner.getForceOneBluetoothScan(context);
+                            if (forceScan == WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)
+                                builder.setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY);
+                            else
+                                builder.setScanMode(ScanSettings.SCAN_MODE_BALANCED);
+
+                            if (bluetooth.isOffloadedScanBatchingSupported())
+                                builder.setReportDelay(ApplicationPreferences.applicationEventBluetoothLEScanDuration(context) * 1000);
+                            ScanSettings settings = builder.build();
+
+                            List<ScanFilter> filters = new ArrayList<>();
+
                             WifiBluetoothScanner.bluetoothLEScanner.startScan(filters, settings, new BluetoothLEScanCallback21(context));
-                            startScan = true;
+                            setWaitForLEResults(context, true);
 
                             //PPApplication.logE("BluetoothScanWorker.startLEScan", "scanStarted=" + startScan);
                         } catch (Exception ignored) {
                         }
-                        /*} else {
-                            //if (WifiBluetoothScanner.bluetoothLEScanCallback18 == null)
-                            //    WifiBluetoothScanner.bluetoothLEScanCallback18 = new BluetoothLEScanCallback18(context);
-
-                            //bluetooth.stopLeScan(WifiBluetoothScanner.leScanCallback18);
-
-                            tmpScanLEResults = null;
-
-                            startScan = bluetooth.startLeScan(new BluetoothLEScanCallback18(context));
-
-                            if (!startScan) {
-                                if (getBluetoothEnabledForScan(context)) {
-                                    bluetooth.disable();
-                                }
-                            }
-                        }*/
-
-                        setWaitForLEResults(context, startScan);
                     }
                     setLEScanRequest(context, false);
                 }
@@ -531,7 +506,7 @@ public class BluetoothScanWorker extends Worker {
     }
 
     @SuppressLint("NewApi")
-    static void stopLEScan(Context context) {
+    static void stopLEScan(final Context context) {
         PPApplication.logE("BluetoothScanWorker.stopLEScan", "xxx");
         if (WifiBluetoothScanner.bluetoothLESupported(context)) {
             if (bluetooth == null)
@@ -541,16 +516,14 @@ public class BluetoothScanWorker extends Worker {
                 if (bluetooth.getState() == BluetoothAdapter.STATE_ON) {
                     try {
                         //if ((android.os.Build.VERSION.SDK_INT >= 21)) {
+                        PPApplication.logE("BluetoothScanWorker.stopLEScan", "WifiBluetoothScanner.bluetoothLEScanner="+WifiBluetoothScanner.bluetoothLEScanner);
                         if (WifiBluetoothScanner.bluetoothLEScanner == null)
                             WifiBluetoothScanner.bluetoothLEScanner = bluetooth.getBluetoothLeScanner();
-                        //if (WifiBluetoothScanner.bluetoothLEScanCallback21 == null)
-                        //    WifiBluetoothScanner.bluetoothLEScanCallback21 = new BluetoothLEScanCallback21(context);
+
+                        PPApplication.logE("BluetoothScanWorker.stopLEScan", "WifiBluetoothScanner.bluetoothLEScanner="+WifiBluetoothScanner.bluetoothLEScanner);
+
                         WifiBluetoothScanner.bluetoothLEScanner.stopScan(new BluetoothLEScanCallback21(context));
-                        /*} else {
-                            //if (WifiBluetoothScanner.bluetoothLEScanCallback18 == null)
-                            //    WifiBluetoothScanner.bluetoothLEScanCallback18 = new BluetoothLEScanCallback18(context);
-                            bluetooth.stopLeScan(new BluetoothLEScanCallback18(context));
-                        }*/
+
                         PPApplication.logE("BluetoothScanWorker.stopLEScan", "stopped");
                     } catch (Exception ignored) {}
                 }

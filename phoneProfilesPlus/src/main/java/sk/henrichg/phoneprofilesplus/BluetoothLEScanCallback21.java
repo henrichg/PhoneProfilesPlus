@@ -26,17 +26,23 @@ class BluetoothLEScanCallback21 extends ScanCallback {
     public void onScanResult(int callbackType, ScanResult result) {
         CallsCounter.logCounter(context, "BluetoothLEScanCallback21.onScanResult", "BluetoothLEScanCallback21.onScanResult");
 
-        if (!PPApplication.getApplicationStarted(context, true))
-            // application is not started
-            return;
-        if (!ApplicationPreferences.applicationEventBluetoothEnableScanning(context))
-            // scanning is disabled
-            return;
+        final BluetoothDevice _device = result.getDevice();
 
-        PPApplication.logE("BluetoothLEScanCallback21.onScanResult", "xxx");
+        if (_device == null)
+            return;
 
         final Context appContext = context.getApplicationContext();
-        final BluetoothDevice _device = result.getDevice();
+
+        if (!PPApplication.getApplicationStarted(appContext, true))
+            // application is not started
+            return;
+        if (WifiBluetoothScanner.getForceOneBluetoothScan(appContext) != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
+            if (!ApplicationPreferences.applicationEventBluetoothEnableScanning(appContext))
+                // scanning is disabled
+                return;
+        }
+
+        PPApplication.logE("BluetoothLEScanCallback21.onScanResult", "xxx");
 
         PPApplication.startHandlerThread("BluetoothLEScanCallback21.onScanResult.onReceive.1");
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -86,16 +92,23 @@ class BluetoothLEScanCallback21 extends ScanCallback {
     public void onBatchScanResults(List<ScanResult> results) {
         CallsCounter.logCounter(context, "BluetoothLEScanCallback21.onBatchScanResults", "BluetoothLEScanCallback21.onBatchScanResults");
 
-        if (!PPApplication.getApplicationStarted(context, true))
+        if ((results == null) || (results.size() == 0))
+            return;
+
+        final Context appContext = context.getApplicationContext();
+
+        if (!PPApplication.getApplicationStarted(appContext, true))
             // application is not started
             return;
-        if (!ApplicationPreferences.applicationEventBluetoothEnableScanning(context))
-            // scanning is disabled
-            return;
+
+        if (WifiBluetoothScanner.getForceOneLEBluetoothScan(appContext) != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
+            if (!ApplicationPreferences.applicationEventBluetoothEnableScanning(appContext))
+                // scanning is disabled
+                return;
+        }
 
         PPApplication.logE("BluetoothLEScanCallback21.onBatchScanResults", "xxx");
 
-        final Context appContext = context.getApplicationContext();
         final List<ScanResult> _results = new ArrayList<>(results);
 
         PPApplication.startHandlerThread("BluetoothLEScanCallback21.onReceive.1");

@@ -280,9 +280,6 @@ public class PPApplication extends Application {
                                          //+"|WifiConnectionBroadcastReceiver"
                                          //+"|%%%% WifiBluetoothScanner.doScan"
                                          //+"|$$$W WifiBluetoothScanner"
-                                         //+"|$$$B WifiBluetoothScanner"
-                                         //+"|$$$BCL WifiBluetoothScanner"
-                                         //+"|$$$BLE WifiBluetoothScanner"
                                          //+"|[WiFi] DataWrapper.doHandleEvents"
 
                                          /*+"|BluetoothScanWorker.doWork"
@@ -301,9 +298,14 @@ public class PPApplication extends Application {
                                         //+"|BluetoothConnectedDevices"
                                         //+"|BluetoothConnectionBroadcastReceiver"
                                         //+"|BluetoothStateChangedBroadcastReceiver"
-                                        //+"|BluetoothScanBroadcastReceiver"
-                                        //+"|BluetoothScanWorker"
-                                        //+"|$$$B WifiBluetoothScanner.doScan"
+                                        +"|BluetoothScanBroadcastReceiver"
+                                        +"|BluetoothLEScanCallback21"
+                                        +"|BluetoothLEScanBroadcastReceiver"
+                                        +"|BluetoothScanWorker"
+                                        +"|$$$B WifiBluetoothScanner"
+                                        +"|$$$BCL WifiBluetoothScanner"
+                                        +"|$$$BLE WifiBluetoothScanner"
+                                        +"|WifiBluetoothScannerService"
 
                                          //+"|PostDelayedBroadcastReceiver.onReceive"
 
@@ -471,17 +473,18 @@ public class PPApplication extends Application {
 
                                         //+"|SearchCalendarEventsWorker"
 
-                                        +"|Profile.getBrightnessPercentage_A9"
-                                        +"|Profile.getBrightnessValue_A9"
-                                        +"|Profile.convertPercentsToBrightnessManualValue"
-                                        +"|Profile.convertPercentsToBrightnessAdaptiveValue"
-                                        +"|Profile.convertBrightnessToPercents"
+                                        //+"|Profile.getBrightnessPercentage_A9"
+                                        //+"|Profile.getBrightnessValue_A9"
+                                        //+"|Profile.convertPercentsToBrightnessManualValue"
+                                        //+"|Profile.convertPercentsToBrightnessAdaptiveValue"
+                                        //+"|Profile.convertBrightnessToPercents"
 
                                         //+"|EditorProfileListFragment.refreshGUI"
                                         //+"|EditorEventListFragment.refreshGUI"
 
-                                        +"|[BRS] SettingsContentObserver.onChange"
-                                        +"|----- ActivateProfileHelper.execute"
+                                        //+"|[BRS] SettingsContentObserver.onChange"
+                                        //+"|----- ActivateProfileHelper.execute"
+                                        +"|BluetoothNamePreferenceFragmentX"
             ;
 
 

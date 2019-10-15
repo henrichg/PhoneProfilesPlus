@@ -20,17 +20,19 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
 
         CallsCounter.logCounter(context, "BluetoothScanBroadcastReceiver.onReceive", "BluetoothScanBroadcastReceiver_onReceive");
 
+        if (intent == null)
+            return;
+
         final Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(appContext, true))
             // application is not started
             return;
-        if (!ApplicationPreferences.applicationEventBluetoothEnableScanning(context))
-            // scanning is disabled
-            return;
-
-        if (intent == null)
-            return;
+        if (WifiBluetoothScanner.getForceOneBluetoothScan(appContext) != WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED) {
+            if (!ApplicationPreferences.applicationEventBluetoothEnableScanning(appContext))
+                // scanning is disabled
+                return;
+        }
 
         final String action = intent.getAction();
 
