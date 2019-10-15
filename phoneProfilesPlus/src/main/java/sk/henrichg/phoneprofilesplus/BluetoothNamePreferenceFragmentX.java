@@ -207,6 +207,7 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
             preference.persistValue();
         }
         else {
+            preference.customBluetoothList.clear();
             preference.resetSummary();
         }
 
@@ -501,11 +502,13 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
                                         found = true;
                                 }
                             }
+                            PPApplication.logE("BluetoothNamePreferenceFragmentX.refreshListView", "preference.value="+preference.value);
                             if (found) {
                                 if (!preference.value.isEmpty())
                                     preference.value = preference.value + "|";
                                 preference.value = preference.value + bluetoothName.getText().toString();
                             }
+                            PPApplication.logE("BluetoothNamePreferenceFragmentX.refreshListView", "preference.value="+preference.value);
                             for (BluetoothDeviceData customBluetoothName : preference.customBluetoothList) {
                                 if (customBluetoothName.getName().equalsIgnoreCase(btName)) {
                                     customBluetoothName.name = bluetoothName.getText().toString();

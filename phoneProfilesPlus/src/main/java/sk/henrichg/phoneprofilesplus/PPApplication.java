@@ -298,14 +298,14 @@ public class PPApplication extends Application {
                                         //+"|BluetoothConnectedDevices"
                                         //+"|BluetoothConnectionBroadcastReceiver"
                                         //+"|BluetoothStateChangedBroadcastReceiver"
-                                        +"|BluetoothScanBroadcastReceiver"
+                                        /*+"|BluetoothScanBroadcastReceiver"
                                         +"|BluetoothLEScanCallback21"
                                         +"|BluetoothLEScanBroadcastReceiver"
                                         +"|BluetoothScanWorker"
                                         +"|$$$B WifiBluetoothScanner"
                                         +"|$$$BCL WifiBluetoothScanner"
                                         +"|$$$BLE WifiBluetoothScanner"
-                                        +"|WifiBluetoothScannerService"
+                                        +"|WifiBluetoothScannerService"*/
 
                                          //+"|PostDelayedBroadcastReceiver.onReceive"
 

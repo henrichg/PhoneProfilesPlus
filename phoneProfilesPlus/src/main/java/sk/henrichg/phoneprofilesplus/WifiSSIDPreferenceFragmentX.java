@@ -198,6 +198,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
             preference.persistValue();
         }
         else {
+            preference.customSSIDList.clear();
             preference.resetSummary();
         }
 
