@@ -3672,7 +3672,7 @@ public class PhoneProfilesService extends Service
                                 PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "global event run is enabled, first start events");
 
                                 if (_activateProfiles) {
-                                    if (!dataWrapper.getIsManualProfileActivation(false, appContext)) {
+                                    if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
                                         ////// unblock all events for first start
                                         //     that may be blocked in previous application run
                                         dataWrapper.pauseAllEvents(true, false);
@@ -3742,7 +3742,7 @@ public class PhoneProfilesService extends Service
                         if (Event.getGlobalEventsRunning(appContext)) {
                             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
-                            if (!dataWrapper.getIsManualProfileActivation(false, appContext)) {
+                            if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
                                 PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "xRESTART EVENTS AFTER WAIT FOR END OF START");
                                 dataWrapper.restartEventsWithRescan(_activateProfiles, false, false);
 
