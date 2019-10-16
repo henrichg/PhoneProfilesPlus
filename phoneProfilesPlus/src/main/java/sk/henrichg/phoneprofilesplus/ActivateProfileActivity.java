@@ -255,6 +255,12 @@ public class ActivateProfileActivity extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(showTargetHelpsBroadcastReceiver);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(finishBroadcastReceiver);
+
+        if (targetHelpsSequenceStarted) {
+            if (ActivatorTargetHelpsActivity.activity != null)
+                ActivatorTargetHelpsActivity.activity.finish();
+            targetHelpsSequenceStarted = false;
+        }
     }
 
     @Override
