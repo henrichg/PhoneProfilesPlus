@@ -52,6 +52,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
         public void onReceive( Context context, Intent intent ) {
             if (ActivateProfileActivity.this.isFinishing())
                 return;
+            if (ActivateProfileActivity.this.isDestroyed())
+                return;
 
             boolean forActivity = intent.getBooleanExtra(EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, false);
             if (forActivity)
@@ -246,6 +248,16 @@ public class ActivateProfileActivity extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).registerReceiver(finishBroadcastReceiver,
                 new IntentFilter(PPApplication.PACKAGE_NAME + ".FinishActivatorBroadcastReceiver"));
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (targetHelpsSequenceStarted) {
+            if (ActivatorTargetHelpsActivity.activity != null)
+                ActivatorTargetHelpsActivity.activity.finish();
+            targetHelpsSequenceStarted = false;
+        }
     }
 
     @Override
