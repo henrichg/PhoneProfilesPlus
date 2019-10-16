@@ -257,6 +257,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
     }
 
+    /*
     @Override
     protected void onPause() {
         super.onPause();
@@ -266,6 +267,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
             targetHelpsSequenceStarted = false;
         }
     }
+    */
 
     @Override
     protected void onStop()
