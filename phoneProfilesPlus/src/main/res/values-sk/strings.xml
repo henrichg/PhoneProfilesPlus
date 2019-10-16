@@ -1280,7 +1280,7 @@
     <string name="not_used_mobile_cells_detected_connection_time">Zariadenie bolo pripojené:</string>
     <string name="not_used_mobile_cells_detected_last_running_events_label">Pridajte ju k udalostiam:</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistrationInfo_summary">Registrácia buniek slúži na registráciu mobilných buniek pre túto udalosť. Registrácia bude prebiehať na pozadí. Počas vykonávania registrácie sa odporúča nemeniť umiestnenie zariadenia.</string>
-    <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotificationEnabled">Zobrazovať notifikáciu o zistenej nepoužívanej mobilnej bunky</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotificationEnabled">Zobrazovať notifikáciu o zistenej nepoužívanej mobilnej bunke</string>
     <string name="about_application_help_me_with_translation">Prosím pomôžte mi s prekladom. Ďakujem.</string>
     <string name="event_preferences_time_timeType">Typ času</string>
     <string name="event_preference_sensor_time_type_exact">Presný čas</string>
