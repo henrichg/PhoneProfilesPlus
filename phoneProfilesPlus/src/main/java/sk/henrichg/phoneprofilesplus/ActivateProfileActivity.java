@@ -55,13 +55,20 @@ public class ActivateProfileActivity extends AppCompatActivity {
             if (ActivateProfileActivity.this.isDestroyed())
                 return;
 
-            boolean forActivity = intent.getBooleanExtra(EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, false);
-            if (forActivity)
-                ActivateProfileActivity.this.showTargetHelps();
-            else {
-                Fragment fragment = ActivateProfileActivity.this.getSupportFragmentManager().findFragmentById(R.id.activate_profile_list);
-                if (fragment != null) {
-                    ((ActivateProfileListFragment) fragment).showTargetHelps();
+            ApplicationPreferences.getSharedPreferences(context.getApplicationContext());
+
+            if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||
+                    ApplicationPreferences.preferences.getBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, true) ||
+                    ApplicationPreferences.preferences.getBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, true)) {
+
+                boolean forActivity = intent.getBooleanExtra(EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, false);
+                if (forActivity)
+                    ActivateProfileActivity.this.showTargetHelps();
+                else {
+                    Fragment fragment = ActivateProfileActivity.this.getSupportFragmentManager().findFragmentById(R.id.activate_profile_list);
+                    if (fragment != null) {
+                        ((ActivateProfileListFragment) fragment).showTargetHelps();
+                    }
                 }
             }
         }
