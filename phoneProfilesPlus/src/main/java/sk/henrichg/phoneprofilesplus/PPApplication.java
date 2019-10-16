@@ -75,7 +75,7 @@ public class PPApplication extends Application {
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && BuildConfig.DEBUG;
-    static final boolean logIntoFile = true;
+    static final boolean logIntoFile = false;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && BuildConfig.DEBUG;
     private static final boolean rootToolsDebug = false;
@@ -203,8 +203,10 @@ public class PPApplication extends Application {
                                          //+"|PhoneProfilesPrefsActivity"
                                          //+"|PhoneProfilesPrefsActivity.onCreate"
                                          //+"|PhoneProfilesPrefsActivity.onStart"
-                                         //+"|PhoneProfilesPrefsActivity.onStop"
-                                         //+"|PhoneProfilesPrefsActivity.finish"
+                                         +"|PhoneProfilesPrefsActivity.onStop"
+                                         +"|PhoneProfilesPrefsActivity.finish"
+                                         +"|PhoneProfilesPrefsActivity.doPreferenceChanges"
+                                         +"|EditorProfilesActivity.onActivityResult"
                                          //+"|PhoneProfilesPrefsFragment.onCreate"
                                          //+"|PhoneProfilesPrefsFragment.onCreatePreferences"
                                          //+"|PhoneProfilesPrefsFragment.updateSharedPreferences"

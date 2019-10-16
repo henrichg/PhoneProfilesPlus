@@ -195,8 +195,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         }, 500);
         PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesPrefsActivity.onStop");
         ActivateProfileHelper.updateGUI(getApplicationContext(), true, true);
-
-        doPreferenceChanges();
     }
 
     @Override
@@ -228,7 +226,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     public void finish() {
         PPApplication.logE("PhoneProfilesPrefsActivity.finish", "xxx");
 
-        //doPreferenceChanges();
+        doPreferenceChanges();
 
         // for startActivityForResult
         Intent returnIntent = new Intent();
