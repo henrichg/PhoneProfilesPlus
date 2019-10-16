@@ -51,6 +51,11 @@ class SettingsContentObserver  extends ContentObserver {
         PPApplication.logE("SettingsContentObserver.volumeChangeDetect", "channel=" + volumeStream + " previousVolume=" + previousVolume);
         PPApplication.logE("SettingsContentObserver.volumeChangeDetect", "internalChange="+RingerModeChangeReceiver.internalChange);
 
+        if (volumeStream == AudioManager.STREAM_RING) {
+            PPApplication.logE("[VOL] SettingsContentObserver.volumeChangeDetect", "currentVolume=" + currentVolume);
+            PPApplication.logE("[VOL] SettingsContentObserver.volumeChangeDetect", "maxVolume=" + audioManager.getStreamMaxVolume(AudioManager.STREAM_RING));
+        }
+
         int delta=previousVolume-currentVolume;
 
         if(delta>0)
