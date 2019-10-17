@@ -2400,6 +2400,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 ApplicationPreferences.preferences.getBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, true) ||
                 ApplicationPreferences.preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, true) ||
                 ApplicationPreferences.preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, true) ||
+                ApplicationPreferences.preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, true) ||
                 ApplicationPreferences.preferences.getBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, true) ||
                 ApplicationPreferences.preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, true) ||
                 ApplicationPreferences.preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, true)) {
@@ -2625,6 +2626,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                             editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
                             if (filterProfilesSelectedItem == DSI_PROFILES_SHOW_IN_ACTIVATOR)
                                 editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
+                            if (filterProfilesSelectedItem == DSI_PROFILES_ALL)
+                                editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
                         }
                         else {
                             editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, false);

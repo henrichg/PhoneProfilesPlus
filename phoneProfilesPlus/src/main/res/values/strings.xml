@@ -1418,6 +1418,8 @@
     <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>
 
     <string name="show_profile_in_activator_alert_message">Show profile in Activator?</string>
+    <string name="editor_activity_targetHelps_showInActivator_title">Show profile in Activator</string>
+    <string name="editor_activity_targetHelps_showInActivator_description">Click this to configure profile parameter \"Show in Activator\".</string>
 
     <!-- **************************************************************************************** -->
 
