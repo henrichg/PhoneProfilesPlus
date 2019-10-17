@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  Single List Item Design -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/profile_list_item_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="1dp"
+    android:paddingEnd="1dp"
+    android:paddingTop="9dp"
+    android:paddingBottom="9dp"
+    android:orientation="horizontal"
+    android:clickable="true"
+    android:background="?attr/selectableItemBackground"
+    android:focusable="true">
+
+    <LinearLayout 
+            android:id="@+id/profile_list_item_buttons_root"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:orientation="horizontal" >
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/profile_list_item_show_in_activator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_marginEnd="3dp"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="@string/profile_preferences_showInActivator"
+            android:src="@drawable/ic_show_in_activator"/>
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/profile_list_item_edit_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="@string/preference_item_edit_menu"
+            android:src="?attr/editItemMenuIcon"/>
+
+    </LinearLayout>
+    
+    <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/profile_list_item_buttons_root"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="4dp" >
+    
+        <ImageView
+            android:id="@+id/profile_list_item_profile_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="3dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/profile_preferences_profileIcon"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_profile_default" />
+
+        <TextView
+            android:id="@+id/profile_list_item_profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@id/profile_list_item_profile_icon"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:text="@string/profile_name_default"
+            android:textSize="15sp"/>
+
+    </RelativeLayout>
+    
+</RelativeLayout>
+

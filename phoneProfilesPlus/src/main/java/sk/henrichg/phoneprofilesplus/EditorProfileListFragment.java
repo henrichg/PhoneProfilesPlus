@@ -954,6 +954,11 @@ public class EditorProfileListFragment extends Fragment
             listView.setAdapter(null);
     }
 
+    void changeShowInActivator(Profile profile) {
+        DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
+        profileListAdapter.notifyDataSetChanged();
+    }
+
     void showTargetHelps() {
         /*if (Build.VERSION.SDK_INT <= 19)
             // TapTarget.forToolbarMenuItem FC :-(

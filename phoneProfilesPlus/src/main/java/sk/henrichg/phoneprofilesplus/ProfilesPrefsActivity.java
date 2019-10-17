@@ -263,7 +263,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             else {
                 profile = dataWrapper.getPredefinedProfile(predefinedProfileIndex-1, false, getBaseContext());
             }
-            profile._showInActivator = true;
+            //profile._showInActivator = true;
             showSaveMenu = true;
         }
         else

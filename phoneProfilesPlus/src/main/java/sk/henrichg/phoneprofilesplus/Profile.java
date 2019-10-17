@@ -188,7 +188,7 @@ public class Profile {
     static final HashMap<String, Boolean> defaultValuesBoolean;
     static {
         defaultValuesBoolean = new HashMap<>();
-        defaultValuesBoolean.put("prf_pref_showInActivator", true);
+        defaultValuesBoolean.put("prf_pref_showInActivator", false);
         defaultValuesBoolean.put("prf_pref_showInActivator_notShow", false);
         defaultValuesBoolean.put("prf_pref_askForDuration", false);
         defaultValuesBoolean.put("prf_pref_durationNotificationVibrate", false);

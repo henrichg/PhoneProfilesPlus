@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 class EditorProfileListViewHolder extends RecyclerView.ViewHolder
@@ -22,6 +23,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
     private final TextView profileName;
     private ImageView profileIndicator;
     private final AppCompatImageButton profileItemEditMenu;
+    private final AppCompatImageButton showInActivatorButton;
 
     private Profile profile;
     private final EditorProfileListFragment editorFragment;
@@ -38,6 +40,10 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
             dragHandle = itemView.findViewById(R.id.profile_list_drag_handle);
         else
             dragHandle = null;
+        if (filterType == EditorProfileListFragment.FILTER_TYPE_ALL)
+            showInActivatorButton = itemView.findViewById(R.id.profile_list_item_show_in_activator);
+        else
+            showInActivatorButton = null;
 
         profileName = itemView.findViewById(R.id.profile_list_item_profile_name);
         profileIcon = itemView.findViewById(R.id.profile_list_item_profile_icon);
@@ -81,8 +87,8 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
         }
 
         String indicators = "";
-        if (profile._showInActivator)
-            indicators = "[A]";
+        //if (profile._showInActivator)
+        //    indicators = "[A]";
         Spannable _profileName = DataWrapper.getProfileNameWithManualIndicator(profile,
                                     false, /*profile._checked &&
                                     (!applicationEditorHeader),*/
@@ -124,6 +130,29 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
                 editorFragment.showEditMenu(profileItemEditMenu);
             }
         });
+
+        if (showInActivatorButton != null) {
+            if (profile._showInActivator)
+                showInActivatorButton.setImageResource(R.drawable.ic_show_in_activator);
+            else
+                showInActivatorButton.setImageResource(R.drawable.ic_not_show_in_activator);
+            TooltipCompat.setTooltipText(showInActivatorButton, context.getString(R.string.profile_preferences_showInActivator));
+            showInActivatorButton.setTag(profile);
+            showInActivatorButton.setOnClickListener(new View.OnClickListener() {
+
+                public void onClick(View v) {
+                    final Profile profile = (Profile)v.getTag();
+                    if (profile != null) {
+                        profile._showInActivator = !profile._showInActivator;
+                        if (profile._showInActivator)
+                            showInActivatorButton.setImageResource(R.drawable.ic_show_in_activator);
+                        else
+                            showInActivatorButton.setImageResource(R.drawable.ic_not_show_in_activator);
+                        editorFragment.changeShowInActivator(profile);
+                    }
+                }
+            });
+        }
     }
 
     @Override

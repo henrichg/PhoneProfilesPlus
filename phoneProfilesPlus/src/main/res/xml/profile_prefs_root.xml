@@ -23,7 +23,7 @@
         <SwitchPreferenceCompat
             app:key="prf_pref_showInActivator"
             app:title="@string/profile_preferences_showInActivator"
-            app:defaultValue="true"
+            app:defaultValue="false"
             app:layout="@layout/mp_preference_material_widget" />
     </PreferenceCategory>
 

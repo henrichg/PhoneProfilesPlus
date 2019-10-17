@@ -540,7 +540,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         Preference showInActivatorPreference = prefMng.findPreference(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR);
         if (showInActivatorPreference != null) {
-            showInActivatorPreference.setTitle("[A] " + getResources().getString(R.string.profile_preferences_showInActivator));
+            showInActivatorPreference.setTitle(/*"[A] " + */getResources().getString(R.string.profile_preferences_showInActivator));
             boolean value = preferences.getBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, false);
             setSummary(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, value);
         }

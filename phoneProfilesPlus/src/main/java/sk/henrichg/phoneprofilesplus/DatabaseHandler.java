@@ -4450,6 +4450,38 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    void updateProfileShowInActivator(Profile profile) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                db.beginTransaction();
+                try {
+                    ContentValues values = new ContentValues();
+                    values.put(KEY_SHOW_IN_ACTIVATOR, profile._showInActivator);
+
+                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                            new String[]{String.valueOf(profile._id)});
+
+                    db.setTransactionSuccessful();
+                } catch (Exception e) {
+                    //Error in between database transaction
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
 // EVENTS --------------------------------------------------------------------------------
 
     // Adding new event
