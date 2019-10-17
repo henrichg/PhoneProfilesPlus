@@ -1371,6 +1371,58 @@ class ActivateProfileHelper {
         });
     }
 
+    private static void setAlwaysOnDisplay(Context context, final int value) {
+        final Context appContext = context.getApplicationContext();
+        PPApplication.startHandlerThreadAlwaysOnDisplay();
+        final Handler handler = new Handler(PPApplication.handlerThreadAlwaysOnDisplay.getLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_setAlwaysOnDisplay");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
+
+                    if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, null, false, appContext).allowed
+                            == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        /* not working (private secure settings) :-/
+                        if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                            Settings.System.putInt(context.getContentResolver(), "aod_mode", value);
+                        }
+                        else*/
+                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(appContext)) &&
+                                (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                            synchronized (PPApplication.rootMutex) {
+                                String command1 = "settings put system " + "aod_mode" + " " + value;
+                                //if (PPApplication.isSELinuxEnforcing())
+                                //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                                Command command = new Command(0, false, command1); //, command2);
+                                try {
+                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                    PPApplication.commandWait(command);
+                                /*} catch (RootDeniedException e) {
+                                PPApplication.rootMutex.rootGranted = false;
+                                Log.e("ActivateProfileHelper.setNotificationLed", Log.getStackTraceString(e));*/
+                                } catch (Exception e) {
+                                    Log.e("ActivateProfileHelper.setAlwaysOnDisplay", Log.getStackTraceString(e));
+                                }
+                            }
+                        }
+                    }
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
+                    }
+                }
+            }
+        });
+    }
+
     private static void changeRingerModeForVolumeEqual0(Profile profile, AudioManager audioManager) {
         PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "volumeRingtoneChange=" + profile.getVolumeRingtoneChange());
         PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "volumeRingtoneValue=" + profile.getVolumeRingtoneValue());
@@ -2520,21 +2572,15 @@ class ActivateProfileHelper {
         */
 
         if (android.os.Build.VERSION.SDK_INT >= 26) {
-            // set sound on touch
-            if (Permissions.checkProfileAlwaysOnDisplay(context, profile, null)) {
-                try { //TODO this requires root
-                    switch (profile._alwaysOnDisplay) {
-                        case 1:
-                            // settings put system aod_mode 1
-                            Settings.System.putInt(context.getContentResolver(), "aod_mode", 1);
-                            break;
-                        case 2:
-                            // settings put system aod_mode 0
-                            Settings.System.putInt(context.getContentResolver(), "aod_mode", 0);
-                            break;
-                    }
-                } catch (Exception e) {
-                    Log.e("ActivateProfileHelper.execute", Log.getStackTraceString(e));
+            // set always on display
+            if (profile._alwaysOnDisplay != 0) {
+                switch (profile._alwaysOnDisplay) {
+                    case 1:
+                        setAlwaysOnDisplay(context, 1);
+                        break;
+                    case 2:
+                        setAlwaysOnDisplay(context, 0);
+                        break;
                 }
             }
         }

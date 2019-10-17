@@ -9728,6 +9728,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
                             }
 
+                            if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ALWAYS_ON_DISPLAY))) != 0) &&
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, null, false, context).allowed
+                                            == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(KEY_ALWAYS_ON_DISPLAY, 0);
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
+                            }
+
                         } while (profilesCursor.moveToNext());
                     }
 

@@ -1422,7 +1422,7 @@
     <string name="editor_activity_targetHelps_showInActivator_title">Show profile in Activator</string>
     <string name="editor_activity_targetHelps_showInActivator_description">Click this to configure profile parameter \"Show in Activator\".</string>
 
-    <string name="profile_preferences_alwaysOnDisplay">Always-On display</string>
+    <string name="profile_preferences_alwaysOnDisplay">(R) Always-On display</string>
     <string name="permission_why_profile_always_on_display">for enable/disable Always-On display</string>
 
     <!-- **************************************************************************************** -->
