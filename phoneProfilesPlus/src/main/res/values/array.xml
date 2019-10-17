@@ -1073,5 +1073,15 @@
         <item>@string/array_show_profile_in_activator_not_show</item>
         <item>@string/array_show_profile_in_activator_show</item>
     </string-array>
+    <string-array name="alwaysOnDisplayArray">
+        <item>@string/array_pref_no_change</item>
+        <item>@string/array_pref_hardwareModeArray_on</item>
+        <item>@string/array_pref_hardwareModeArray_off</item>
+    </string-array>
+    <string-array name="alwaysOnDisplayValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 
 </resources>

@@ -68,14 +68,14 @@
         app:entries="@array/wallpaperForArray"
         app:entryValues="@array/wallpaperForValues"
         app:layout="@layout/mp_preference_material_widget" />
-
-    <Preference
+    <ListPreference
         app:title="@string/profile_preferences_lockDevice"
-        app:key="prf_pref_lockDeviceCategoryRoot"
-        app:widgetLayout="@layout/start_activity_preference"
-        app:layout="@layout/mp_preference_material_widget"
-        app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsLockDevice" />
-
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_lockDevice"
+        app:defaultValue="0"
+        app:entries="@array/lockDeviceArray"
+        app:entryValues="@array/lockDeviceValues"
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_alwaysOnDisplay"
         app:summary="@string/array_pref_no_change"

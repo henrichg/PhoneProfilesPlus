@@ -105,6 +105,7 @@ public class Profile {
     String _volumeAccessibility;
     String _volumeBluetoothSCO;
     long _afterDurationProfile;
+    int _alwaysOnDisplay;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -184,6 +185,7 @@ public class Profile {
     static final String PREF_PROFILE_VOLUME_ACCESSIBILITY = "prf_pref_volumeAccessibility";
     static final String PREF_PROFILE_VOLUME_BLUETOOTH_SCO = "prf_pref_volumeBluetoothSCO";
     static final String PREF_PROFILE_AFTER_DURATION_PROFILE = "prf_pref_afterDurationProfile";
+    static final String PREF_PROFILE_ALWAYS_ON_DISPLAY = "prf_pref_alwaysOnDisplay";
 
     static final HashMap<String, Boolean> defaultValuesBoolean;
     static {
@@ -263,6 +265,7 @@ public class Profile {
         defaultValuesString.put("prf_pref_volumeAccessibility", "-1|1|0");
         defaultValuesString.put("prf_pref_volumeBluetoothSCO", "-1|1|0");
         defaultValuesString.put("prf_pref_afterDurationProfile", String.valueOf(PROFILE_NO_ACTIVATE));
+        defaultValuesString.put("prf_pref_alwaysOnDisplay", "0");
     }
 
     static final int RINGERMODE_RING = 1;
@@ -799,7 +802,8 @@ public class Profile {
                    String volumeDTMF,
                    String volumeAccessibility,
                    String volumeBluetoothSCO,
-                   long afterDurationProfile)
+                   long afterDurationProfile,
+                   int alwaysOnDisplay)
     {
         this._id = id;
         this._name = name;
@@ -872,6 +876,7 @@ public class Profile {
         this._volumeAccessibility = volumeAccessibility;
         this._volumeBluetoothSCO = volumeBluetoothSCO;
         this._afterDurationProfile = afterDurationProfile;
+        this._alwaysOnDisplay = alwaysOnDisplay;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -949,7 +954,8 @@ public class Profile {
                    String volumeDTMF,
                    String volumeAccessibility,
                    String volumeBluetoothSCO,
-                   long afterDurationProfile)
+                   long afterDurationProfile,
+                   int alwaysOnDisplay)
     {
         this._name = name;
         this._icon = icon;
@@ -1021,6 +1027,7 @@ public class Profile {
         this._volumeAccessibility = volumeAccessibility;
         this._volumeBluetoothSCO = volumeBluetoothSCO;
         this._afterDurationProfile = afterDurationProfile;
+        this._alwaysOnDisplay = alwaysOnDisplay;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1100,6 +1107,7 @@ public class Profile {
         this._volumeAccessibility = profile._volumeAccessibility;
         this._volumeBluetoothSCO = profile._volumeBluetoothSCO;
         this._afterDurationProfile = profile._afterDurationProfile;
+        this._alwaysOnDisplay = profile._alwaysOnDisplay;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -1351,6 +1359,8 @@ public class Profile {
                 this._volumeAccessibility = withProfile._volumeAccessibility;
             if (withProfile.getVolumeBluetoothSCOChange())
                 this._volumeBluetoothSCO = withProfile._volumeBluetoothSCO;
+            if (withProfile._alwaysOnDisplay != 0)
+                this._alwaysOnDisplay = withProfile._alwaysOnDisplay;
 
             // set merged profile as activated
             DatabaseHandler.getInstance(dataWrapper.context).activateProfile(withProfile);
@@ -1515,6 +1525,8 @@ public class Profile {
             if (!this._volumeAccessibility.equals(withProfile._volumeAccessibility))
                 return false;
             if (!this._volumeBluetoothSCO.equals(withProfile._volumeBluetoothSCO))
+                return false;
+            if (this._alwaysOnDisplay != withProfile._alwaysOnDisplay)
                 return false;
 
             return true;
@@ -2716,6 +2728,7 @@ public class Profile {
         profile._volumeDTMF = preferences.getString(PREF_PROFILE_VOLUME_DTMF, getVolumeLevelString(70, maximumValueDTMF)+"|0|0");
         profile._volumeAccessibility = preferences.getString(PREF_PROFILE_VOLUME_ACCESSIBILITY, getVolumeLevelString(80, maximumValueAccessibility)+"|0|0");
         profile._volumeBluetoothSCO = preferences.getString(PREF_PROFILE_VOLUME_BLUETOOTH_SCO, getVolumeLevelString(80, maximumValueBluetoothSCO)+"|0|0");
+        profile._alwaysOnDisplay = Integer.parseInt(preferences.getString(PREF_PROFILE_ALWAYS_ON_DISPLAY, "0"));
 
         return profile;
     }
@@ -2787,6 +2800,7 @@ public class Profile {
         editor.putString(PREF_PROFILE_VOLUME_DTMF, profile._volumeDTMF);
         editor.putString(PREF_PROFILE_VOLUME_ACCESSIBILITY, profile._volumeAccessibility);
         editor.putString(PREF_PROFILE_VOLUME_BLUETOOTH_SCO, profile._volumeBluetoothSCO);
+        editor.putString(PREF_PROFILE_ALWAYS_ON_DISPLAY, String.valueOf(profile._alwaysOnDisplay));
 
         editor.apply();
     }
@@ -2872,7 +2886,8 @@ public class Profile {
                     profile._volumeDTMF,
                     profile._volumeAccessibility,
                     profile._volumeBluetoothSCO,
-                    profile._afterDurationProfile);
+                    profile._afterDurationProfile,
+                    profile._alwaysOnDisplay);
 
             boolean zenModeMapped = false;
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE) {
@@ -3001,6 +3016,8 @@ public class Profile {
                 mappedProfile._volumeAccessibility = sharedProfile._volumeAccessibility;
             if (profile.getVolumeBluetoothSCOSharedProfile())
                 mappedProfile._volumeBluetoothSCO = sharedProfile._volumeBluetoothSCO;
+            if (profile._alwaysOnDisplay == SHARED_PROFILE_VALUE)
+                mappedProfile._alwaysOnDisplay = sharedProfile._alwaysOnDisplay;
 
             mappedProfile._iconBitmap = profile._iconBitmap;
             mappedProfile._preferencesIndicator = profile._preferencesIndicator;
@@ -3823,6 +3840,20 @@ public class Profile {
             return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY))
+        {
+            if (android.os.Build.VERSION.SDK_INT >= 26) {
+                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+            }
+            else {
+                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
+            }
+            checked = true;
+        }
+        if (checked && (profile == null))
+            return preferenceAllowed;
+
+        if (preferenceKey.equals(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY))
         {
             if (android.os.Build.VERSION.SDK_INT >= 26) {
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;

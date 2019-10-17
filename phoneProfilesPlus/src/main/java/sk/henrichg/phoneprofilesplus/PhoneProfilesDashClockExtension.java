@@ -409,6 +409,15 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_LOCK_DEVICE, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                     indicator1 = addIntoIndicator(indicator1, "lck");
             }
+            // always on display
+            if (profile._alwaysOnDisplay != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._alwaysOnDisplay == 1) || (profile._alwaysOnDisplay == 3))
+                        indicator1 = addIntoIndicator(indicator1, "ao1");
+                    if (profile._alwaysOnDisplay == 2)
+                        indicator1 = addIntoIndicator(indicator1, "ao0");
+                }
+            }
             // disable wifi scanning
             if (profile._applicationDisableWifiScanning != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {

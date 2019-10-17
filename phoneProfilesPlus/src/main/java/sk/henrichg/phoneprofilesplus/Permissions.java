@@ -67,6 +67,7 @@ class Permissions {
     //static final int PERMISSION_LOG_TO_FILE = 37;
     static final int PERMISSION_EVENT_BLUETOOTH_SWITCH_PREFERENCES = 38;
     static final int PERMISSION_EVENT_TIME_PREFERENCES = 39;
+    static final int PERMISSION_PROFILE_ALWAYS_ON_DISPLAY = 40;
 
     static final int GRANT_TYPE_PROFILE = 1;
     //static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -244,6 +245,7 @@ class Permissions {
             checkProfileLockDevice(context, profile, permissions);
             checkProfileDtmfToneWhenDialing(context, profile, permissions);
             checkProfileSoundOnTouch(context, profile, permissions);
+            checkProfileAlwaysOnDisplay(context, profile, permissions);
 
             return permissions;
         }
@@ -841,6 +843,27 @@ class Permissions {
                 if (grantedDrawOverlays)
                     setShowRequestDrawOverlaysPermission(context, true);
                 return grantedWriteSettings && grantedDrawOverlays;
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        else
+            return true;
+    }
+
+    static boolean checkProfileAlwaysOnDisplay(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+        if (profile == null) return true;
+        if (android.os.Build.VERSION.SDK_INT >= 26) {
+            try {
+                if (profile._alwaysOnDisplay != 0) {
+                    boolean granted = Settings.System.canWrite(context);
+                    if (granted)
+                        setShowRequestWriteSettingsPermission(context, true);
+                    else if (permissions != null)
+                        permissions.add(new PermissionType(PERMISSION_PROFILE_ALWAYS_ON_DISPLAY, permission.WRITE_SETTINGS));
+                    return granted;
+                } else
+                    return true;
             } catch (Exception e) {
                 return false;
             }

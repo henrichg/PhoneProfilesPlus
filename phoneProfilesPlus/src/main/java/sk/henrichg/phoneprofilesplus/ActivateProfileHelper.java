@@ -2519,6 +2519,26 @@ class ActivateProfileHelper {
         }
         */
 
+        if (android.os.Build.VERSION.SDK_INT >= 26) {
+            // set sound on touch
+            if (Permissions.checkProfileAlwaysOnDisplay(context, profile, null)) {
+                try { //TODO this requires root
+                    switch (profile._alwaysOnDisplay) {
+                        case 1:
+                            // settings put system aod_mode 1
+                            Settings.System.putInt(context.getContentResolver(), "aod_mode", 1);
+                            break;
+                        case 2:
+                            // settings put system aod_mode 0
+                            Settings.System.putInt(context.getContentResolver(), "aod_mode", 0);
+                            break;
+                    }
+                } catch (Exception e) {
+                    Log.e("ActivateProfileHelper.execute", Log.getStackTraceString(e));
+                }
+            }
+        }
+
         // close all applications
         if (profile._deviceCloseAllApplications == 1) {
             if (!PPApplication.blockProfileEventActions) {

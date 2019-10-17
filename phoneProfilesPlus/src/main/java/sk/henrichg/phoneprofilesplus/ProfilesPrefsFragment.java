@@ -1843,6 +1843,19 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 summary = summary + title + ": <b>" + value + "</b>";
             }
+            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, R.string.profile_preferences_alwaysOnDisplay, false, context);
+            if (!title.isEmpty()) {
+                _bold = true;
+                //noinspection ConstantConditions
+                if (!summary.isEmpty()) summary = summary +" • ";
+
+                String value = GlobalGUIRoutines.getListPreferenceString(
+                        preferences.getString(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY)),
+                        R.array.alwaysOnDisplayValues, R.array.alwaysOnDisplayArray, context);
+
+                summary = summary + title + ": <b>" + value + "</b>";
+            }
         }
 
         if (key.equals(PREF_FORCE_STOP_APPLICATIONS_CATEGORY)) {
@@ -2299,7 +2312,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_LOCK_DEVICE) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS) ||
                 key.equals(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING) ||
-                key.equals(Profile.PREF_PROFILE_SOUND_ON_TOUCH))
+                key.equals(Profile.PREF_PROFILE_SOUND_ON_TOUCH) ||
+                key.equals(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY))
         {
             PreferenceAllowed preferenceAllowed;
             if (key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING))
@@ -2717,6 +2731,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_VOLUME_DTMF);
         setSummary(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY);
         setSummary(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO);
+        setSummary(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY);
     }
 
     private boolean getEnableVolumeNotificationByRingtone(String ringtoneValue) {
