@@ -1417,6 +1417,8 @@
     <string name="ignore_battery_optimization_notification_text">Please click here and add PhoneProfilesPlus to \"Not optimized\". It is required for working good with the screen off.</string>
     <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>
 
+    <string name="show_profile_in_activator_alert_message">Show profile in Activator?</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>

@@ -143,11 +143,6 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
                 public void onClick(View v) {
                     final Profile profile = (Profile)v.getTag();
                     if (profile != null) {
-                        profile._showInActivator = !profile._showInActivator;
-                        if (profile._showInActivator)
-                            showInActivatorButton.setImageResource(R.drawable.ic_show_in_activator);
-                        else
-                            showInActivatorButton.setImageResource(R.drawable.ic_not_show_in_activator);
                         editorFragment.changeShowInActivator(profile);
                     }
                 }
