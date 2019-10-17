@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -958,10 +959,10 @@ public class EditorProfileListFragment extends Fragment
         //noinspection ConstantConditions
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
         dialogBuilder.setTitle(getResources().getString(R.string.profile_string_0) + ": " + profile._name);
-        dialogBuilder.setMessage(R.string.show_profile_in_activator_alert_message);
+        //dialogBuilder.setMessage(R.string.show_profile_in_activator_alert_message);
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
 
-        dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+        /*dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
                 profile._showInActivator = true;
@@ -976,7 +977,19 @@ public class EditorProfileListFragment extends Fragment
                 DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
                 profileListAdapter.notifyDataSetChanged();
             }
-        });
+        });*/
+
+        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+        int show = profile._showInActivator ? 1 : 0;
+        dialogBuilder.setSingleChoiceItems(R.array.showProfileInActivatorArray, show, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        profile._showInActivator = which == 1;
+                        DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
+                        profileListAdapter.notifyDataSetChanged();
+                        dialog.dismiss();
+                    }
+                });
         AlertDialog dialog = dialogBuilder.create();
         /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override

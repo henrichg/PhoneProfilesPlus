@@ -1069,4 +1069,9 @@
         <item>@string/array_mobile_cells_pref_dlg_cell_sort_by_name</item>
         <item>@string/array_mobile_cells_pref_dlg_cell_sort_by_connection</item>
     </string-array>
+    <string-array name="showProfileInActivatorArray">
+        <item>@string/array_show_profile_in_activator_not_show</item>
+        <item>@string/array_show_profile_in_activator_show</item>
+    </string-array>
+
 </resources>
