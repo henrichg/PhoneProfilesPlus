@@ -429,7 +429,7 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_LOCK_DEVICE, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                     drawables[countDrawables++] = R.drawable.ic_profile_pref_lock;
             }
-/*
+
             // always on display
             if (profile._alwaysOnDisplay != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -443,7 +443,7 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
-*/
+
             // disable wifi scanning
             if (profile._applicationDisableWifiScanning != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {

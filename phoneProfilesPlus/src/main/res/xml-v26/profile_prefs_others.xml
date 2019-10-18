@@ -76,6 +76,13 @@
         app:entries="@array/lockDeviceArray"
         app:entryValues="@array/lockDeviceValues"
         app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="prf_pref_alwaysOnDisplayInfo"
+        app:title="@string/profile_preferences_alwaysOnDisplay"
+        app:summary="@string/profile_preferences_notificationLedInfo_summary"
+        app:widgetLayout="@layout/info_preference"
+        app:dependency="prf_pref_alwaysOnDisplay"
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_alwaysOnDisplay"
         app:summary="@string/array_pref_no_change"
