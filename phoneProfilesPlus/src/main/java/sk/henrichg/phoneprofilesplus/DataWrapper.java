@@ -761,8 +761,12 @@ public class DataWrapper {
         }
 
         if (restartEvents) {
-            shortcutIntent = new Intent(context.getApplicationContext(), ActionForExternalApplicationActivity.class);
-            shortcutIntent.setAction(ActionForExternalApplicationActivity.ACTION_RESTART_EVENTS);
+            /*shortcutIntent = new Intent(context.getApplicationContext(), ActionForExternalApplicationActivity.class);
+            shortcutIntent.setAction(ActionForExternalApplicationActivity.ACTION_RESTART_EVENTS);*/
+            shortcutIntent = new Intent(context.getApplicationContext(), BackgroundActivateProfileActivity.class);
+            shortcutIntent.setAction(Intent.ACTION_MAIN);
+            shortcutIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SHORTCUT);
+            shortcutIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, Profile.RESTART_EVENTS_PROFILE_ID);
         }
         else {
             shortcutIntent = new Intent(context.getApplicationContext(), BackgroundActivateProfileActivity.class);
