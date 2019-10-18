@@ -492,6 +492,7 @@ public class PPApplication extends Application {
                                         //+"|BluetoothNamePreferenceFragmentX"
 
                                         //+"|[VOL] SettingsContentObserver"
+                                        +"|[BAT] DataWrapper.doHandleEvents"
             ;
 
 

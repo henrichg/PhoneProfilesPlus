@@ -2169,7 +2169,7 @@ public class DataWrapper {
         if (event._eventPreferencesBattery._enabled) {
             if (Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 boolean isPowerSaveMode = isPowerSaveMode(context);
-                PPApplication.logE("*** DataWrapper.doHandleEvents", "isPowerSaveMode=" + isPowerSaveMode);
+                PPApplication.logE("[BAT] DataWrapper.doHandleEvents", "isPowerSaveMode=" + isPowerSaveMode);
 
                 boolean isCharging;
                 int batteryPct;
@@ -2187,20 +2187,20 @@ public class DataWrapper {
                     batteryPassed = false;
 
                     int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-                    PPApplication.logE("*** DataWrapper.doHandleEvents", "status=" + status);
+                    PPApplication.logE("[BAT] DataWrapper.doHandleEvents", "status=" + status);
                     isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
                             status == BatteryManager.BATTERY_STATUS_FULL;
-                    PPApplication.logE("*** DataWrapper.doHandleEvents", "isCharging=" + isCharging);
+                    PPApplication.logE("[BAT] DataWrapper.doHandleEvents", "isCharging=" + isCharging);
                     plugged = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
-                    PPApplication.logE("*** DataWrapper.doHandleEvents", "plugged=" + plugged);
+                    PPApplication.logE("[BAT] DataWrapper.doHandleEvents", "plugged=" + plugged);
 
                     int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
                     int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-                    PPApplication.logE("*** DataWrapper.doHandleEvents", "level=" + level);
-                    PPApplication.logE("*** DataWrapper.doHandleEvents", "scale=" + scale);
+                    PPApplication.logE("[BAT] DataWrapper.doHandleEvents", "level=" + level);
+                    PPApplication.logE("[BAT] DataWrapper.doHandleEvents", "scale=" + scale);
 
                     batteryPct = Math.round(level / (float) scale * 100);
-                    PPApplication.logE("*** DataWrapper.doHandleEvents", "batteryPct=" + batteryPct);
+                    PPApplication.logE("[BAT] DataWrapper.doHandleEvents", "batteryPct=" + batteryPct);
 
                     if ((batteryPct >= event._eventPreferencesBattery._levelLow) &&
                             (batteryPct <= event._eventPreferencesBattery._levelHight))
@@ -2214,36 +2214,46 @@ public class DataWrapper {
                         else
                         if (event._eventPreferencesBattery._charging == 2)
                             batteryPassed = batteryPassed && (!isCharging);
+                        PPApplication.logE("[BAT] DataWrapper.doHandleEvents", "event._eventPreferencesBattery._plugged=" + event._eventPreferencesBattery._plugged);
                         if ((event._eventPreferencesBattery._plugged != null) &&
                             (!event._eventPreferencesBattery._plugged.isEmpty())) {
                             String[] splits = event._eventPreferencesBattery._plugged.split("\\|");
+                            PPApplication.logE("[BAT] DataWrapper.doHandleEvents", "splits.length=" + splits.length);
                             if (splits.length > 0) {
                                 boolean passed = false;
+                                boolean ok = false;
                                 for (String split : splits) {
                                     try {
                                         int plug = Integer.valueOf(split);
                                         if ((plug == 1) && (plugged == BatteryManager.BATTERY_PLUGGED_AC)) {
                                             passed = true;
+                                            ok = true;
                                             break;
                                         }
                                         if ((plug == 2) && (plugged == BatteryManager.BATTERY_PLUGGED_USB)) {
                                             passed = true;
+                                            ok = true;
                                             break;
                                         }
                                         if ((plug == 3) && (plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS)) {
                                             passed = true;
+                                            ok = true;
                                             break;
                                         }
                                     } catch (Exception ignored) {
                                     }
                                 }
-                                batteryPassed = batteryPassed && passed;
+                                if (ok)
+                                    batteryPassed = batteryPassed && passed;
                             }
                         }
                     } else if (event._eventPreferencesBattery._powerSaveMode)
                         batteryPassed = batteryPassed && isPowerSaveMode;
                 } else
                     notAllowedBattery = true;
+
+                PPApplication.logE("[BAT] DataWrapper.doHandleEvents", "notAllowedBattery=" + notAllowedBattery);
+                PPApplication.logE("[BAT] DataWrapper.doHandleEvents", "batteryPassed=" + batteryPassed);
 
                 if (!notAllowedBattery) {
                     if (batteryPassed)
