@@ -721,7 +721,7 @@ public class DataWrapper {
                 //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.getPackageName());
                 int iconResource = Profile.getIconResource(iconIdentifier);
                 //profileBitmap = BitmapFactory.decodeResource(context.getResources(), iconResource);
-                profileBitmap = BitmapManipulator.getBitmapFromResource(iconResource, context);
+                profileBitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
             }
         } else {
             Resources resources = context.getResources();
@@ -732,7 +732,7 @@ public class DataWrapper {
             if (profileBitmap == null) {
                 int iconResource = R.drawable.ic_profile_default;
                 //profileBitmap = BitmapFactory.decodeResource(context.getResources(), iconResource);
-                profileBitmap = BitmapManipulator.getBitmapFromResource(iconResource, context);
+                profileBitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
             }
         }
 

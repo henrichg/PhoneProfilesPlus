@@ -241,7 +241,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                                 //if (applicationWidgetOneRowIconLightness.equals("100"))
                                 //    monochromeValue = 0xFF;
                                 //Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_widget_restart_events);
-                                Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, context);
+                                Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
                                 bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
                                 remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
                             }

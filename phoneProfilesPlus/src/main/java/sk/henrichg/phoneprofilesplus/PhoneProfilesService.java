@@ -4459,7 +4459,7 @@ public class PhoneProfilesService extends Service
                             //    iconLargeResource = R.drawable.ic_profile_default;
                             int iconLargeResource = Profile.getIconResource(iconIdentifier);
                             //Bitmap largeIcon = BitmapFactory.decodeResource(appContext.getResources(), iconLargeResource);
-                            Bitmap largeIcon = BitmapManipulator.getBitmapFromResource(iconLargeResource, appContext);
+                            Bitmap largeIcon = BitmapManipulator.getBitmapFromResource(iconLargeResource, true, appContext);
                             contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
                             if ((android.os.Build.VERSION.SDK_INT >= 24) && (!useDecorator)/* && (contentView != null)*/)
                                 contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
@@ -4482,7 +4482,7 @@ public class PhoneProfilesService extends Service
                             //    iconLargeResource = R.drawable.ic_profile_default;
                             int iconLargeResource = Profile.getIconResource(iconIdentifier);
                             //Bitmap largeIcon = BitmapFactory.decodeResource(appContext.getResources(), iconLargeResource);
-                            Bitmap largeIcon = BitmapManipulator.getBitmapFromResource(iconLargeResource, appContext);
+                            Bitmap largeIcon = BitmapManipulator.getBitmapFromResource(iconLargeResource, true, appContext);
                             contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
                             if ((android.os.Build.VERSION.SDK_INT >= 24) && (!useDecorator)/* && (contentView != null)*/)
                                 contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);

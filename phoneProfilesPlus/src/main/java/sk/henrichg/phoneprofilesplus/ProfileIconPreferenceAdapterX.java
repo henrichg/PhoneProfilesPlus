@@ -83,7 +83,7 @@ class ProfileIconPreferenceAdapterX extends BaseAdapter {
         int iconRes = Profile.profileIconId[position];
         if (iconResName.equals(preference.imageIdentifier) && preference.isImageResourceID && preference.useCustomColor) {
             //Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), iconRes);
-            Bitmap bitmap = BitmapManipulator.getBitmapFromResource(iconRes, context);
+            Bitmap bitmap = BitmapManipulator.getBitmapFromResource(iconRes, true, context);
             bitmap = BitmapManipulator.recolorBitmap(bitmap, preference.customColor/*, context*/);
             holder.icon.setImageBitmap(bitmap);
         }

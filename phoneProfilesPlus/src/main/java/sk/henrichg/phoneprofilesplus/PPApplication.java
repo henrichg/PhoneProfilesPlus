@@ -493,6 +493,9 @@ public class PPApplication extends Application {
 
                                         //+"|[VOL] SettingsContentObserver"
                                         +"|[BAT] DataWrapper.doHandleEvents"
+
+                                        //+"|ShortcutCreatorListFragment"
+                                        //+"|BitmapManipulator"
             ;
 
 
