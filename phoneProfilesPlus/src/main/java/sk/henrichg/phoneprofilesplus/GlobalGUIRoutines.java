@@ -67,6 +67,8 @@ class GlobalGUIRoutines {
     static final String EXPORT_APP_PREF_FILENAME = "ApplicationPreferences.backup";
     static final String EXPORT_DEF_PROFILE_PREF_FILENAME = "DefaultProfilePreferences.backup";
 
+    static final int ICON_SIZE_DP = 50;
+
     // https://stackoverflow.com/questions/40221711/android-context-getresources-updateconfiguration-deprecated
     // but my solution working also in Android 8.1
     public static void setLanguage(Context context)//, boolean restart)

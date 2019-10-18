@@ -135,9 +135,8 @@ public class WallpaperViewPreferenceX extends Preference {
 
     private Bitmap getBitmap() {
         if (!imageIdentifier.startsWith("-")) {
-            Resources resources = prefContext.getResources();
-            int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
-            int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
+            int height = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
+            int width = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
             return BitmapManipulator.resampleBitmapUri(imageIdentifier, width, height, false, true, prefContext);
         }
         else

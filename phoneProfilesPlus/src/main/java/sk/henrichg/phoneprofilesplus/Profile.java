@@ -2438,9 +2438,8 @@ public class Profile {
         {
             releaseIconBitmap();
 
-            Resources resources = context.getResources();
-            int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
-            int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
+            int height = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
+            int width = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
             //Log.d("---- Profile.generateIconBitmap","resampleBitmapUri");
             _iconBitmap = BitmapManipulator.resampleBitmapUri(getIconIdentifier(), width, height, true, false, context);
 

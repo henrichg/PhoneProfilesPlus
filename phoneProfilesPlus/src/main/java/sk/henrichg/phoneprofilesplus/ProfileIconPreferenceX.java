@@ -81,9 +81,8 @@ public class ProfileIconPreferenceX extends DialogPreference {
     }
 
     private Bitmap getBitmap() {
-        Resources resources = prefContext.getResources();
-        int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
-        int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
+        int height = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
+        int width = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
         return BitmapManipulator.resampleBitmapUri(imageIdentifier, width, height, true, false, prefContext);
     }
 

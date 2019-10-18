@@ -354,14 +354,16 @@ class BitmapManipulator {
             int height;
             int width;
             if (appIconSize) {
-                Resources resources = context.getResources();
-                height = (int) resources.getDimension(android.R.dimen.app_icon_size);
-                width = (int) resources.getDimension(android.R.dimen.app_icon_size);
+                height = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
+                width = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
             }
             else {
                 height = (int) drawable.getIntrinsicHeight();
                 width = (int) drawable.getIntrinsicWidth();
             }
+            PPApplication.logE("BitmapManipulator.getBitmapFromDrawable", "width="+width);
+            PPApplication.logE("BitmapManipulator.getBitmapFromDrawable", "height="+height);
+            PPApplication.logE("BitmapManipulator.getBitmapFromDrawable", "50dp="+GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP));
             Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
             drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());

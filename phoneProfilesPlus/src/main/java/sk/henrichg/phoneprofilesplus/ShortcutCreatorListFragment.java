@@ -303,9 +303,8 @@ public class ShortcutCreatorListFragment extends Fragment {
                             //shortcutOverlayBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_shortcut_overlay);
                             shortcutOverlayBitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_shortcut_overlay, false, context);
                     } else {
-                        Resources resources = getResources();
-                        int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
-                        int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
+                        int height = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
+                        int width = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
                         //Log.d("---- ShortcutCreatorListFragment.generateIconBitmap","resampleBitmapUri");
                         profileBitmap = BitmapManipulator.resampleBitmapUri(iconIdentifier, width, height, true, false, context);
                         if (profileBitmap == null) {

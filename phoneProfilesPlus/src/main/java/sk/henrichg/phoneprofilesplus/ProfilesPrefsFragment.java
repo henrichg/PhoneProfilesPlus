@@ -815,9 +815,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 //}*/
 
-                Resources resources = getResources();
-                int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
-                int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
+                int height = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
+                int width = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
                 if (BitmapManipulator.checkBitmapSize(selectedImage.toString(), width, height, getContext())) {
                     ProfileIconPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_ICON);
                     if (preference != null) {
