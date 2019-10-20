@@ -88,14 +88,14 @@ class ApplicationsCache {
                 Object appIcon = applicationIconsLru.get(newInfo.packageName + "/" + newInfo.activityName);
                 if (appIcon == null){
                     Drawable icon = applicationInfo.loadIcon(packageManager);
-                    Bitmap bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true, context);
+                    Bitmap bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true);
                     if (bitmap != null) {
                         appIcon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
                         applicationIconsLru.put(newInfo.packageName + "/" + newInfo.activityName, appIcon);
                     }
                     else {
                         icon = ContextCompat.getDrawable(context, R.drawable.ic_empty);
-                        bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true, context);
+                        bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true);
                         if (bitmap != null) {
                             appIcon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
                             applicationIconsLru.put(newInfo.packageName + "/" + newInfo.activityName, appIcon);
@@ -105,14 +105,14 @@ class ApplicationsCache {
                 appIcon = applicationNoShortcutIconsLru.get(newInfo.packageName + "/" + newInfo.activityName);
                 if (appIcon == null){
                     Drawable icon = applicationInfo.loadIcon(packageManager);
-                    Bitmap bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true, context);
+                    Bitmap bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true);
                     if (bitmap != null) {
                         appIcon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
                         applicationNoShortcutIconsLru.put(newInfo.packageName + "/" + newInfo.activityName, appIcon);
                     }
                     else {
                         icon = ContextCompat.getDrawable(context, R.drawable.ic_empty);
-                        bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true, context);
+                        bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true);
                         if (bitmap != null) {
                             appIcon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
                             applicationNoShortcutIconsLru.put(newInfo.packageName + "/" + newInfo.activityName, appIcon);
@@ -158,14 +158,14 @@ class ApplicationsCache {
                 Object appIcon = applicationIconsLru.get(newInfo.packageName + "/" + newInfo.activityName);
                 if (appIcon == null){
                     Drawable icon = shortcutInfo.loadIcon(packageManager);
-                    Bitmap bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true, context);
+                    Bitmap bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true);
                     if (bitmap != null) {
                         appIcon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
                         applicationIconsLru.put(newInfo.packageName + "/" + newInfo.activityName, appIcon);
                     }
                     else {
                         icon = ContextCompat.getDrawable(context, R.drawable.ic_empty);
-                        bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true, context);
+                        bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true);
                         if (bitmap != null) {
                             appIcon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
                             applicationIconsLru.put(newInfo.packageName + "/" + newInfo.activityName, appIcon);

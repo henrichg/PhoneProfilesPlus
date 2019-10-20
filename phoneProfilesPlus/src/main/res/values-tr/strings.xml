@@ -1315,6 +1315,12 @@
     <string name="ignore_battery_optimization_notification_title">Pilin en iyi duruma getirilme ayarı</string>
     <string name="ignore_battery_optimization_notification_text">Buraya dokunun ve PhoneProfilesPlus\'ı \"En iyi duruma getirme!\" listesine ekleyin. Ekran kapalıyken çalışmanın devam edebilmesi için bu lüzumludur.</string>
     <string name="ignore_battery_optimization_notification_disable_button">Bunu bir daha gösterme</string>
+    <string name="array_show_profile_in_activator_not_show">\"Muharrik\" içinde gösterilmesin</string>
+    <string name="array_show_profile_in_activator_show">\"Muharrik\" içinde göster</string>
+    <string name="editor_activity_targetHelps_showInActivator_title">Tercihi \"Muharrik\" içinde göster</string>
+    <string name="editor_activity_targetHelps_showInActivator_description">\"Muharrik içinde göster\" değerini ayarlamak için buna dokunun.</string>
+    <string name="profile_preferences_alwaysOnDisplay">(R) Ekran Her Zaman Açık</string>
+    <string name="permission_why_profile_always_on_display">Ekran Her Zaman Açık özelliğini açmak/kapamak için</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

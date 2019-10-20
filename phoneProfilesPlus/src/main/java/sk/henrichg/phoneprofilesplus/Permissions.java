@@ -851,8 +851,8 @@ class Permissions {
             return true;
     }
 
-    static boolean checkProfileAlwaysOnDisplay(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
-        if (profile == null) return true;
+    private static void checkProfileAlwaysOnDisplay(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+        if (profile == null) return;// true;
         if (android.os.Build.VERSION.SDK_INT >= 26) {
             try {
                 if (profile._alwaysOnDisplay != 0) {
@@ -861,15 +861,15 @@ class Permissions {
                         setShowRequestWriteSettingsPermission(context, true);
                     else if (permissions != null)
                         permissions.add(new PermissionType(PERMISSION_PROFILE_ALWAYS_ON_DISPLAY, permission.WRITE_SETTINGS));
-                    return granted;
-                } else
-                    return true;
+                    //return granted;
+                }// else
+                    //return true;
             } catch (Exception e) {
-                return false;
+                //return false;
             }
         }
-        else
-            return true;
+        //else
+        //    return true;
     }
 
     static boolean checkProfileLockDevice(Context context, Profile profile, ArrayList<PermissionType>  permissions) {

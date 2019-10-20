@@ -1315,6 +1315,12 @@
     <string name="ignore_battery_optimization_notification_title">Configuration de l\'optimisation de la batterie</string>
     <string name="ignore_battery_optimization_notification_text">Veuillez cliquer ici et ajouter PhoneProfilesPlus à \"Non optimisé\". C\'est nécessaire pour qu\'il fonctionne correctement avec l\'écran éteint.</string>
     <string name="ignore_battery_optimization_notification_disable_button">Ne plus afficher</string>
+    <string name="array_show_profile_in_activator_not_show">Non affiché dans l\'activation</string>
+    <string name="array_show_profile_in_activator_show">Afficher dans l\'Activateur</string>
+    <string name="editor_activity_targetHelps_showInActivator_title">Afficher le profil dans l\'activateur</string>
+    <string name="editor_activity_targetHelps_showInActivator_description">Cliquez ici pour configurer le paramètre de profil \"Afficher dans l\'activateur\".</string>
+    <string name="profile_preferences_alwaysOnDisplay">(R) Affichage permanent</string>
+    <string name="permission_why_profile_always_on_display">pour activer/désactiver l\'affichage permanent</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

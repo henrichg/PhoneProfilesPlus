@@ -1315,6 +1315,12 @@
     <string name="ignore_battery_optimization_notification_title">Konfigurace optimalizace baterie</string>
     <string name="ignore_battery_optimization_notification_text">Prosím klikněte sem a přidejte PhoneProfilesPlus do \"Neoptimalizované\". Je to vyžadováno pro správnou funkci s vypnutou obrazovkou.</string>
     <string name="ignore_battery_optimization_notification_disable_button">Příště nezobrazovat</string>
+    <string name="array_show_profile_in_activator_not_show">Nezobrazit v Aktivátoru</string>
+    <string name="array_show_profile_in_activator_show">Zobrazit v Aktivátoru</string>
+    <string name="editor_activity_targetHelps_showInActivator_title">Zobrazit profil v Aktivátoru</string>
+    <string name="editor_activity_targetHelps_showInActivator_description">Klikněte sem pro konfiguraci parametru \"Zobrazit v Aktivátoru\".</string>
+    <string name="profile_preferences_alwaysOnDisplay">(R) Always-On displej</string>
+    <string name="permission_why_profile_always_on_display">pro zapnutí/vypnutí Always-On displej</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

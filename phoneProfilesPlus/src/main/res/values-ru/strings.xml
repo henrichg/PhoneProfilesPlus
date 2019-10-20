@@ -1315,6 +1315,12 @@
     <string name="ignore_battery_optimization_notification_title">Настройка оптимизации батареи</string>
     <string name="ignore_battery_optimization_notification_text">Нажмите сюда и добавьте PhoneProfilesPlus в список \"Не экономят заряд\". Это нужно для правильной работы программы при выключенном экране.</string>
     <string name="ignore_battery_optimization_notification_disable_button">Больше не показывать</string>
+    <string name="array_show_profile_in_activator_not_show">Не показывать в Активаторе</string>
+    <string name="array_show_profile_in_activator_show">Показывать в Активаторе</string>
+    <string name="editor_activity_targetHelps_showInActivator_title">Показывать профиль в Активаторе</string>
+    <string name="editor_activity_targetHelps_showInActivator_description">Нажмите сюда, чтобы настроить параметр профиля \"Показывать в Активаторе\".</string>
+    <string name="profile_preferences_alwaysOnDisplay">(R) Always-On display</string>
+    <string name="permission_why_profile_always_on_display">для включения/отключения функции Always-On display</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

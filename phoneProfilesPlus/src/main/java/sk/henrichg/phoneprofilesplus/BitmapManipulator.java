@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -341,7 +340,7 @@ class BitmapManipulator {
     }
     */
 
-    static Bitmap getBitmapFromDrawable(Drawable drawable, boolean appIconSize, Context context) {
+    static Bitmap getBitmapFromDrawable(Drawable drawable, boolean appIconSize/*, Context context*/) {
         if (drawable instanceof BitmapDrawable) {
             PPApplication.logE("BitmapManipulator.getBitmapFromDrawable", "is BitmapDrawable");
             return ((BitmapDrawable)drawable).getBitmap();
@@ -358,8 +357,8 @@ class BitmapManipulator {
                 width = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
             }
             else {
-                height = (int) drawable.getIntrinsicHeight();
-                width = (int) drawable.getIntrinsicWidth();
+                height = drawable.getIntrinsicHeight();
+                width = drawable.getIntrinsicWidth();
             }
             PPApplication.logE("BitmapManipulator.getBitmapFromDrawable", "width="+width);
             PPApplication.logE("BitmapManipulator.getBitmapFromDrawable", "height="+height);
@@ -378,7 +377,7 @@ class BitmapManipulator {
     static Bitmap getBitmapFromResource(int drawableRes, boolean appIconSize, Context context) {
         Drawable drawable = ContextCompat.getDrawable(context, drawableRes);
         PPApplication.logE("BitmapManipulator.getBitmapFromResource", "drawable="+drawable);
-        return getBitmapFromDrawable(drawable, appIconSize, context);
+        return getBitmapFromDrawable(drawable, appIconSize/*, context*/);
     }
 
     static Bitmap grayScaleBitmap(Bitmap bitmap)

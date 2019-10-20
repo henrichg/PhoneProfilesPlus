@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
@@ -1845,7 +1844,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, R.string.profile_preferences_alwaysOnDisplay, false, context);
             if (!title.isEmpty()) {
                 _bold = true;
-                //noinspection ConstantConditions
                 if (!summary.isEmpty()) summary = summary +" • ";
 
                 String value = GlobalGUIRoutines.getListPreferenceString(
