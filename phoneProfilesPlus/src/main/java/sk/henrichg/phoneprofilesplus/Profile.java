@@ -2178,7 +2178,7 @@ public class Profile {
         int percentage = Math.round(getPercentage(value, 0, GAMMA_SPACE_MAX_256) * 100);*/
 
         int _settingsValue = settingsValue;
-        if (PPApplication.romIsOnePlus)
+        if (PPApplication.romIsOnePlus && (Build.VERSION.SDK_INT >= 26))
             _settingsValue = Math.round(settingsValue / 4f); // convert from 1024 to 256
         int percentage = BrightnessLookup.lookup(_settingsValue, true);
 
@@ -2206,7 +2206,7 @@ public class Profile {
             systemValue = maximumValue;*/
 
         int systemValue = BrightnessLookup.lookup(percentage, false);
-        if (PPApplication.romIsOnePlus)
+        if (PPApplication.romIsOnePlus && (Build.VERSION.SDK_INT >= 26))
             systemValue = systemValue * 4; // convert from 256 to 1024
 
         PPApplication.logE("Profile.getBrightnessValue_A9", "percentage="+percentage);
@@ -2228,7 +2228,7 @@ public class Profile {
         //if (maximumValue-minimumValue > 255) {
             minimumValue = 0;
             maximumValue = 255;
-            if (PPApplication.romIsOnePlus)
+        if (PPApplication.romIsOnePlus && (Build.VERSION.SDK_INT >= 26))
                 maximumValue = 1023;
         //}
 
@@ -2237,7 +2237,7 @@ public class Profile {
         if (percentage == BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET) {
             // brightness is not set, change it to default manual brightness value
             int defaultValue = 128;
-            if (PPApplication.romIsOnePlus)
+            if (PPApplication.romIsOnePlus && (Build.VERSION.SDK_INT >= 26))
                 defaultValue = 512;
             if (Build.VERSION.SDK_INT > 28) {
                 PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT > 28");
