@@ -543,9 +543,6 @@
                 <action android:name="sk.henrichg.phoneprofilesplus.NEW_MOBILE_CELLS_NOTIFICATION_DELETED"/>
             </intent-filter>
         </receiver>
-        -->
-
-        <!--
         <receiver
             android:name=".SIPCallBroadcastReceiver"
             android:enabled="true"
@@ -554,8 +551,15 @@
                 <action android:name="sk.henrichg.phoneprofilesplus.INCOMING_SIPCALL"/>
             </intent-filter>
         </receiver>
+        <receiver
+            android:name=".StartLauncherFromNotificationReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="sk.henrichg.phoneprofilesplus.ACTION_START_LAUNCHER_FROM_NOTIFICATION"/>
+            </intent-filter>
+        </receiver>
         -->
-
 
         <!-- main service -->
         <service

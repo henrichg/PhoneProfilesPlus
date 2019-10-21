@@ -94,7 +94,7 @@ public class PhoneProfilesService extends Service
     private WifiStateChangedBroadcastReceiver wifiStateChangedBroadcastReceiver = null;
     private NotUsedMobileCellsNotificationDisableReceiver notUsedMobileCellsNotificationDisableReceiver = null;
     private DonationBroadcastReceiver donationBroadcastReceiver = null;
-    private StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = null;
+    //private StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = null;
     private IgnoreBatteryOptimizationDisableReceiver ignoreBatteryOptimizationDisableReceiver = null;
 
     private BatteryBroadcastReceiver batteryEventReceiver = null;
@@ -406,6 +406,17 @@ public class PhoneProfilesService extends Service
         } catch (Exception ignored) {
         }
 
+        /*
+        if (startLauncherFromNotificationReceiver != null) {
+            try {
+                getApplicationContext().unregisterReceiver(startLauncherFromNotificationReceiver);
+                startLauncherFromNotificationReceiver = null;
+            } catch (Exception e) {
+                startLauncherFromNotificationReceiver = null;
+            }
+        }
+        */
+
         synchronized (PPApplication.phoneProfilesServiceMutex) {
             instance = null;
         }
@@ -712,18 +723,6 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered donationBroadcastReceiver");
-            if (startLauncherFromNotificationReceiver != null) {
-                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER startLauncherFromNotificationReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER startLauncherFromNotificationReceiver");
-                try {
-                    appContext.unregisterReceiver(startLauncherFromNotificationReceiver);
-                    startLauncherFromNotificationReceiver = null;
-                } catch (Exception e) {
-                    startLauncherFromNotificationReceiver = null;
-                }
-            }
-            else
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered startLauncherFromNotificationReceiver");
             if (ignoreBatteryOptimizationDisableReceiver != null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER ignoreBatteryOptimizationDisableReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER ignoreBatteryOptimizationDisableReceiver");
@@ -1012,17 +1011,6 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered donationBroadcastReceiver");
-
-            if (startLauncherFromNotificationReceiver == null) {
-                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER startLauncherFromNotificationReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER startLauncherFromNotificationReceiver");
-                startLauncherFromNotificationReceiver = new StartLauncherFromNotificationReceiver();
-                IntentFilter intentFilter5 = new IntentFilter();
-                intentFilter5.addAction(ACTION_START_LAUNCHER_FROM_NOTIFICATION);
-                appContext.registerReceiver(startLauncherFromNotificationReceiver, intentFilter5);
-            }
-            else
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered startLauncherFromNotificationReceiver");
 
             if (ignoreBatteryOptimizationDisableReceiver == null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER ignoreBatteryOptimizationDisableReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
@@ -4693,7 +4681,16 @@ public class PhoneProfilesService extends Service
             //if (BuildConfig.DEBUG)
             //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
 
-            PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","runningInForeground="+runningInForeground);
+        /*
+        if (startLauncherFromNotificationReceiver == null) {
+            startLauncherFromNotificationReceiver = new StartLauncherFromNotificationReceiver();
+            IntentFilter intentFilter5 = new IntentFilter();
+            intentFilter5.addAction(ACTION_START_LAUNCHER_FROM_NOTIFICATION);
+            getApplicationContext().registerReceiver(startLauncherFromNotificationReceiver, intentFilter5);
+        }
+        */
+
+        PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","runningInForeground="+runningInForeground);
 
             if (!runningInForeground) {
                 //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
