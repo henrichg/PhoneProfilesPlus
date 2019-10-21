@@ -23,6 +23,7 @@ import android.util.Log;
 
 import java.io.InputStream;
 
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 
 class BitmapManipulator {
@@ -375,7 +376,8 @@ class BitmapManipulator {
     }
 
     static Bitmap getBitmapFromResource(int drawableRes, boolean appIconSize, Context context) {
-        Drawable drawable = ContextCompat.getDrawable(context, drawableRes);
+        //Drawable drawable = ContextCompat.getDrawable(context, drawableRes);
+        Drawable drawable = AppCompatResources.getDrawable(context, drawableRes);
         PPApplication.logE("BitmapManipulator.getBitmapFromResource", "drawable="+drawable);
         return getBitmapFromDrawable(drawable, appIconSize/*, context*/);
     }
