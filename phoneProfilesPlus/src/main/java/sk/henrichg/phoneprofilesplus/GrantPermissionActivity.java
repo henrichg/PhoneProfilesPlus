@@ -584,15 +584,17 @@ public class GrantPermissionActivity extends AppCompatActivity {
             showRequestAccessNotificationPolicy = false;
             showRequestDrawOverlays = false;
 
-            for (Permissions.PermissionType permissionType : permissions) {
-                if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
-                    showRequestWriteSettings = true;
-                }
-                if (permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY)) {
-                    showRequestAccessNotificationPolicy = true;
-                }
-                if (permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
-                    showRequestDrawOverlays = true;
+            if (permissions != null) {
+                for (Permissions.PermissionType permissionType : permissions) {
+                    if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
+                        showRequestWriteSettings = true;
+                    }
+                    if (permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY)) {
+                        showRequestAccessNotificationPolicy = true;
+                    }
+                    if (permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
+                        showRequestDrawOverlays = true;
+                    }
                 }
             }
 
@@ -1259,27 +1261,29 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
             if (!finishActivity) {
                 boolean granted = false;
-                for (Permissions.PermissionType permissionType : permissions) {
-                    if (permissionType.permission.equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                        granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
-                    }
-                    if (permissionType.permission.equals(Manifest.permission.READ_PHONE_STATE)) {
-                        granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
-                    }
-                    if (permissionType.permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                        granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
-                    }
-                    if (permissionType.permission.equals(Manifest.permission.READ_CALENDAR)) {
-                        granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
-                    }
-                    if (permissionType.permission.equals(Manifest.permission.READ_CONTACTS)) {
-                        granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
-                    }
-                    if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION)) {
-                        granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
-                    }
-                    if (permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
-                        granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
+                if (permissions != null) {
+                    for (Permissions.PermissionType permissionType : permissions) {
+                        if (permissionType.permission.equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                            granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
+                        }
+                        if (permissionType.permission.equals(Manifest.permission.READ_PHONE_STATE)) {
+                            granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
+                        }
+                        if (permissionType.permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                            granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
+                        }
+                        if (permissionType.permission.equals(Manifest.permission.READ_CALENDAR)) {
+                            granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
+                        }
+                        if (permissionType.permission.equals(Manifest.permission.READ_CONTACTS)) {
+                            granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
+                        }
+                        if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                            granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
+                        }
+                        if (permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                            granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
+                        }
                     }
                 }
                 if (granted)
@@ -1294,6 +1298,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
     private void requestPermissions(int iteration, boolean withRationale) {
         PPApplication.logE("GrantPermissionActivity.requestPermission","iteration="+iteration);
 
+        if (permissions == null)
+            return;
         if (isFinishing())
             return;
 
@@ -1468,10 +1474,12 @@ public class GrantPermissionActivity extends AppCompatActivity {
     }
 
     private void removePermission(final String permission) {
-        for (Permissions.PermissionType permissionType : permissions) {
-            if (permissionType.permission.equals(permission)) {
-                permissions.remove(permissionType);
-                break;
+        if (permissions != null) {
+            for (Permissions.PermissionType permissionType : permissions) {
+                if (permissionType.permission.equals(permission)) {
+                    permissions.remove(permissionType);
+                    break;
+                }
             }
         }
     }
@@ -1584,14 +1592,16 @@ public class GrantPermissionActivity extends AppCompatActivity {
             //finishAffinity();
             finish();
             Permissions.removeEventNotification(context);
-            for (Permissions.PermissionType permissionType : permissions) {
-                if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION) ||
-                    permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
-                    PPApplication.restartWifiScanner(context, false);
-                    PPApplication.restartBluetoothScanner(context, false);
-                    PPApplication.restartGeofenceScanner(context, false);
-                    PPApplication.restartTwilightScanner(context);
-                    break;
+            if (permissions != null) {
+                for (Permissions.PermissionType permissionType : permissions) {
+                    if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION) ||
+                            permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                        PPApplication.restartWifiScanner(context, false);
+                        PPApplication.restartBluetoothScanner(context, false);
+                        PPApplication.restartGeofenceScanner(context, false);
+                        PPApplication.restartTwilightScanner(context);
+                        break;
+                    }
                 }
             }
             //dataWrapper.restartEvents(false, true/*, false*/, false);
