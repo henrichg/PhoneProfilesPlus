@@ -1315,12 +1315,12 @@
     <string name="ignore_battery_optimization_notification_title">Batterij optimalisatie configuratie</string>
     <string name="ignore_battery_optimization_notification_text">Klik hier en voeg PhoneProfilesPlus toe aan \"Niet geoptimaliseerd\". Dit is nodig om PhoneProfilesPlus goed te laten werken met het scherm uit.</string>
     <string name="ignore_battery_optimization_notification_disable_button">Niet opnieuw weergeven</string>
-    <string name="array_show_profile_in_activator_not_show">Not show in Activator</string>
-    <string name="array_show_profile_in_activator_show">Show in Activator</string>
-    <string name="editor_activity_targetHelps_showInActivator_title">Show profile in Activator</string>
-    <string name="editor_activity_targetHelps_showInActivator_description">Click this to configure profile parameter \"Show in Activator\".</string>
-    <string name="profile_preferences_alwaysOnDisplay">(R) Always-On display</string>
-    <string name="permission_why_profile_always_on_display">for enable/disable Always-On display</string>
+    <string name="array_show_profile_in_activator_not_show">Niet zichtbaar in Activator</string>
+    <string name="array_show_profile_in_activator_show">Zichtbaar in Activator</string>
+    <string name="editor_activity_targetHelps_showInActivator_title">Profiel in Activator weergeven</string>
+    <string name="editor_activity_targetHelps_showInActivator_description">Klik hier om de profielparamer \"Zichtbaar in Activator\" te configureren.</string>
+    <string name="profile_preferences_alwaysOnDisplay">(R) Altijd aan schermweergave</string>
+    <string name="permission_why_profile_always_on_display">voor in- of uitschakelen van Altijd aan schermweergave</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
