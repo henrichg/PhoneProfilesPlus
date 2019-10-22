@@ -283,16 +283,17 @@ public class EditorEventListFragment extends Fragment
 
         bottomToolbar = view.findViewById(R.id.editor_list_bottom_bar);
 
-        final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_events_list_fragment))
-                .getLayoutTransition();
-        layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
-        //layoutTransition.setDuration(500);
+        if (!GlobalGUIRoutines.areSystemAnimationsEnabled(getActivity().getApplicationContext())) {
+            final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_events_list_fragment))
+                    .getLayoutTransition();
+            layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
+            //layoutTransition.setDuration(500);
 
-        listView.addOnScrollListener(new HidingRecyclerViewScrollListener() {
-            @Override
-            public void onHide() {
-                //if ((activatedProfileHeader.getMeasuredHeight() >= headerHeight - 4) &&
-                //    (activatedProfileHeader.getMeasuredHeight() <= headerHeight + 4))
+            listView.addOnScrollListener(new HidingRecyclerViewScrollListener() {
+                @Override
+                public void onHide() {
+                    //if ((activatedProfileHeader.getMeasuredHeight() >= headerHeight - 4) &&
+                    //    (activatedProfileHeader.getMeasuredHeight() <= headerHeight + 4))
 //                if (!hideAnimatorHeader.isRunning()) {
 //                    hideAnimatorHeader.start();
 //                }
@@ -300,17 +301,18 @@ public class EditorEventListFragment extends Fragment
 //                    showAnimatorBottomBar.start();
 //                }
 
-                if (!layoutTransition.isRunning()) {
-                    //final int firstVisibleItem = ((LinearLayoutManager) listView.getLayoutManager()).findFirstVisibleItemPosition();
-                    //if (firstVisibleItem != 0)
+                    if (!layoutTransition.isRunning()) {
+                        //final int firstVisibleItem = ((LinearLayoutManager) listView.getLayoutManager()).findFirstVisibleItemPosition();
+                        //if (firstVisibleItem != 0)
                         activatedProfileHeader.setVisibility(View.GONE);
 
-                    bottomToolbar.setVisibility(View.VISIBLE);
+                        bottomToolbar.setVisibility(View.VISIBLE);
+                    }
                 }
-            }
-            @Override
-            public void onShow() {
-                //if (activatedProfileHeader.getMeasuredHeight() == 0)
+
+                @Override
+                public void onShow() {
+                    //if (activatedProfileHeader.getMeasuredHeight() == 0)
 //                if (!showAnimatorHeader.isRunning()) {
 //                    showAnimatorHeader.start();
 //                }
@@ -318,15 +320,16 @@ public class EditorEventListFragment extends Fragment
 //                    hideAnimatorBottomBar.start();
 //                }
 
-                if (!layoutTransition.isRunning()) {
-                    //final int firstVisibleItem = ((LinearLayoutManager) listView.getLayoutManager()).findFirstVisibleItemPosition();
-                    //if (firstVisibleItem == 0)
+                    if (!layoutTransition.isRunning()) {
+                        //final int firstVisibleItem = ((LinearLayoutManager) listView.getLayoutManager()).findFirstVisibleItemPosition();
+                        //if (firstVisibleItem == 0)
                         activatedProfileHeader.setVisibility(View.VISIBLE);
 
-                    bottomToolbar.setVisibility(View.GONE);
+                        bottomToolbar.setVisibility(View.GONE);
+                    }
                 }
-            }
-        });
+            });
+        }
 
         textViewNoData = view.findViewById(R.id.editor_events_list_empty);
         progressBar = view.findViewById(R.id.editor_events_list_linla_progress);

@@ -18,6 +18,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.Html;
 import android.text.Spannable;
@@ -1194,4 +1195,23 @@ class GlobalGUIRoutines {
 
     }
 
+    static boolean areSystemAnimationsEnabled(Context context) {
+        float duration, transition;
+        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            duration = Settings.Global.getFloat(
+                    context.getContentResolver(),
+                    Settings.Global.ANIMATOR_DURATION_SCALE, 1);
+            transition = Settings.Global.getFloat(
+                    context.getContentResolver(),
+                    Settings.Global.TRANSITION_ANIMATION_SCALE, 1);
+        /*} else {
+            duration = Settings.System.getFloat(
+                    context.getContentResolver(),
+                    Settings.System.ANIMATOR_DURATION_SCALE, 1);
+            transition = Settings.System.getFloat(
+                    context.getContentResolver(),
+                    Settings.System.TRANSITION_ANIMATION_SCALE, 1);
+        }*/
+        return (duration != 0 && transition != 0);
+    }
 }
