@@ -215,75 +215,75 @@ public class EditorEventListFragment extends Fragment
         listView.setHasFixedSize(true);
 
         activatedProfileHeader = view.findViewById(R.id.activated_profile_header);
-        /*if (activatedProfileHeader != null) {
-            Handler handler = new Handler(getActivity().getMainLooper());
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (getActivity() == null)
-                        return;
-
-                    headerHeight = activatedProfileHeader.getMeasuredHeight();
-                    //Log.e("EditorProfileListFragment.doOnViewCreated", "headerHeight="+headerHeight);
-                    hideAnimatorHeader = ValueAnimator.ofInt(headerHeight / 4, 0);
-                    hideAnimatorHeader.setDuration(500);
-                    hideAnimatorHeader.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                        @Override
-                        public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                            int val = (Integer) valueAnimator.getAnimatedValue();
-                            //Log.e("hideAnimator.onAnimationUpdate", "val="+val);
-                            ViewGroup.LayoutParams layoutParams = activatedProfileHeader.getLayoutParams();
-                            layoutParams.height = val * 4;
-                            activatedProfileHeader.setLayoutParams(layoutParams);
-                        }
-                    });
-                    showAnimatorHeader = ValueAnimator.ofInt(0, headerHeight / 4);
-                    showAnimatorHeader.setDuration(500);
-                    showAnimatorHeader.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                        @Override
-                        public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                            int val = (Integer) valueAnimator.getAnimatedValue();
-                            //Log.e("showAnimator.onAnimationUpdate", "val="+val);
-                            ViewGroup.LayoutParams layoutParams = activatedProfileHeader.getLayoutParams();
-                            layoutParams.height = val * 4;
-                            activatedProfileHeader.setLayoutParams(layoutParams);
-                        }
-                    });
-
-                    bottomBarHeight = bottomToolbar.getMeasuredHeight();
-                    //Log.e("EditorProfileListFragment.doOnViewCreated", "headerHeight="+headerHeight);
-                    hideAnimatorBottomBar = ValueAnimator.ofInt(bottomBarHeight / 4, 0);
-                    hideAnimatorBottomBar.setDuration(500);
-                    hideAnimatorBottomBar.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                        @Override
-                        public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                            int val = (Integer) valueAnimator.getAnimatedValue();
-                            //Log.e("hideAnimator.onAnimationUpdate", "val="+val);
-                            ViewGroup.LayoutParams layoutParams = bottomToolbar.getLayoutParams();
-                            layoutParams.height = val * 4;
-                            bottomToolbar.setLayoutParams(layoutParams);
-                        }
-                    });
-                    showAnimatorBottomBar = ValueAnimator.ofInt(0, bottomBarHeight / 4);
-                    showAnimatorBottomBar.setDuration(500);
-                    showAnimatorBottomBar.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                        @Override
-                        public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                            int val = (Integer) valueAnimator.getAnimatedValue();
-                            //Log.e("showAnimator.onAnimationUpdate", "val="+val);
-                            ViewGroup.LayoutParams layoutParams = bottomToolbar.getLayoutParams();
-                            layoutParams.height = val * 4;
-                            bottomToolbar.setLayoutParams(layoutParams);
-                        }
-                    });
-
-                }
-            }, 200);
-        }*/
-
         bottomToolbar = view.findViewById(R.id.editor_list_bottom_bar);
 
         if (!GlobalGUIRoutines.areSystemAnimationsEnabled(getActivity().getApplicationContext())) {
+            /*if (activatedProfileHeader != null) {
+                Handler handler = new Handler(getActivity().getMainLooper());
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (getActivity() == null)
+                            return;
+
+                        headerHeight = activatedProfileHeader.getMeasuredHeight();
+                        //Log.e("EditorProfileListFragment.doOnViewCreated", "headerHeight="+headerHeight);
+                        hideAnimatorHeader = ValueAnimator.ofInt(headerHeight / 4, 0);
+                        hideAnimatorHeader.setDuration(500);
+                        hideAnimatorHeader.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                            @Override
+                            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                                int val = (Integer) valueAnimator.getAnimatedValue();
+                                //Log.e("hideAnimator.onAnimationUpdate", "val="+val);
+                                ViewGroup.LayoutParams layoutParams = activatedProfileHeader.getLayoutParams();
+                                layoutParams.height = val * 4;
+                                activatedProfileHeader.setLayoutParams(layoutParams);
+                            }
+                        });
+                        showAnimatorHeader = ValueAnimator.ofInt(0, headerHeight / 4);
+                        showAnimatorHeader.setDuration(500);
+                        showAnimatorHeader.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                            @Override
+                            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                                int val = (Integer) valueAnimator.getAnimatedValue();
+                                //Log.e("showAnimator.onAnimationUpdate", "val="+val);
+                                ViewGroup.LayoutParams layoutParams = activatedProfileHeader.getLayoutParams();
+                                layoutParams.height = val * 4;
+                                activatedProfileHeader.setLayoutParams(layoutParams);
+                            }
+                        });
+
+                        bottomBarHeight = bottomToolbar.getMeasuredHeight();
+                        //Log.e("EditorProfileListFragment.doOnViewCreated", "headerHeight="+headerHeight);
+                        hideAnimatorBottomBar = ValueAnimator.ofInt(bottomBarHeight / 4, 0);
+                        hideAnimatorBottomBar.setDuration(500);
+                        hideAnimatorBottomBar.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                            @Override
+                            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                                int val = (Integer) valueAnimator.getAnimatedValue();
+                                //Log.e("hideAnimator.onAnimationUpdate", "val="+val);
+                                ViewGroup.LayoutParams layoutParams = bottomToolbar.getLayoutParams();
+                                layoutParams.height = val * 4;
+                                bottomToolbar.setLayoutParams(layoutParams);
+                            }
+                        });
+                        showAnimatorBottomBar = ValueAnimator.ofInt(0, bottomBarHeight / 4);
+                        showAnimatorBottomBar.setDuration(500);
+                        showAnimatorBottomBar.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                            @Override
+                            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                                int val = (Integer) valueAnimator.getAnimatedValue();
+                                //Log.e("showAnimator.onAnimationUpdate", "val="+val);
+                                ViewGroup.LayoutParams layoutParams = bottomToolbar.getLayoutParams();
+                                layoutParams.height = val * 4;
+                                bottomToolbar.setLayoutParams(layoutParams);
+                            }
+                        });
+
+                    }
+                }, 200);
+            }*/
+
             final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_events_list_fragment))
                     .getLayoutTransition();
             layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
