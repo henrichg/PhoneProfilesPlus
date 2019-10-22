@@ -217,7 +217,7 @@ public class EditorEventListFragment extends Fragment
         activatedProfileHeader = view.findViewById(R.id.activated_profile_header);
         bottomToolbar = view.findViewById(R.id.editor_list_bottom_bar);
 
-        if (!GlobalGUIRoutines.areSystemAnimationsEnabled(getActivity().getApplicationContext())) {
+        if (GlobalGUIRoutines.areSystemAnimationsEnabled(getActivity().getApplicationContext())) {
             /*if (activatedProfileHeader != null) {
                 Handler handler = new Handler(getActivity().getMainLooper());
                 handler.postDelayed(new Runnable() {
