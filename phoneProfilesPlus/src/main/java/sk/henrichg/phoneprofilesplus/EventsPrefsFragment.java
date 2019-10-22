@@ -14,6 +14,8 @@ import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -24,6 +26,7 @@ import androidx.preference.PreferenceDialogFragmentCompat;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 import androidx.preference.PreferenceScreen;
+import androidx.recyclerview.widget.RecyclerView;
 
 @SuppressWarnings("WeakerAccess")
 public class EventsPrefsFragment extends PreferenceFragmentCompat
@@ -84,6 +87,14 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         //initPreferenceFragment();
+    }
+
+    @Override
+    public RecyclerView onCreateRecyclerView (LayoutInflater inflater, ViewGroup parent, Bundle state) {
+        final RecyclerView view = super.onCreateRecyclerView(inflater, parent, state);
+        view.setItemAnimator(null);
+        view.setLayoutAnimation(null);
+        return view;
     }
 
     @Override

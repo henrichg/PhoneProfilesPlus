@@ -13,6 +13,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 
 import java.util.concurrent.TimeUnit;
 
@@ -28,6 +30,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.SwitchPreferenceCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.PeriodicWorkRequest;
 
 class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
@@ -93,6 +96,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         //initPreferenceFragment();
+    }
+
+    @Override
+    public RecyclerView onCreateRecyclerView (LayoutInflater inflater, ViewGroup parent, Bundle state) {
+        final RecyclerView view = super.onCreateRecyclerView(inflater, parent, state);
+        view.setItemAnimator(null);
+        view.setLayoutAnimation(null);
+        return view;
     }
 
     @Override

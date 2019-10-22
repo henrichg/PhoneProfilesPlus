@@ -18,6 +18,8 @@ import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,6 +33,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.SwitchPreferenceCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import me.drakeet.support.toast.ToastCompat;
 
 @SuppressWarnings("WeakerAccess")
@@ -83,6 +86,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         //initPreferenceFragment();
+    }
+
+    @Override
+    public RecyclerView onCreateRecyclerView (LayoutInflater inflater, ViewGroup parent, Bundle state) {
+        final RecyclerView view = super.onCreateRecyclerView(inflater, parent, state);
+        view.setItemAnimator(null);
+        view.setLayoutAnimation(null);
+        return view;
     }
 
     @Override
