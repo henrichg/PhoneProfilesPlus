@@ -13,6 +13,7 @@ android {
         versionCode ppVersions.publishVersionCode
         versionName ppVersions.publishVersion
         multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
 
         resConfigs "en", "af", "ar", "bn-rIN", "bg", "ca", "cs", "da", "de", "el", "es", "et", "fa",
                 "fi", "fr", "ga-rIN", "hi", "hr", "hu", "in", "is", "it", "iw", "ja", "ko", "ku",
