@@ -14,7 +14,6 @@ import java.util.List;
 
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.collection.LruCache;
-import androidx.core.content.ContextCompat;
 
 class ApplicationsCache {
 

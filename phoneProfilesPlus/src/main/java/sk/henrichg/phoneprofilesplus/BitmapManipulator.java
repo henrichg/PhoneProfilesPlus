@@ -24,7 +24,6 @@ import android.util.Log;
 import java.io.InputStream;
 
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.content.ContextCompat;
 
 class BitmapManipulator {
 
