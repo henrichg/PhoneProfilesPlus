@@ -29,6 +29,7 @@ dependencies {
     //compileOnly fileTree(dir: 'libs', include: ['*.jar'])
     //implementation 'com.nineoldandroids:library:2.4.0'
     api "androidx.appcompat:appcompat:$ppVersions.appcompatXLib"
+    api "androidx.appcompat:appcompat-resources:$ppVersions.appcompatXLib"
     //api 'me.drakeet.support:toastcompat:1.1.0'
 }
 

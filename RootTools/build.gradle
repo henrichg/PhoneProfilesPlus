@@ -27,4 +27,5 @@ android {
 dependencies {
     implementation project(':RootShell')
     api "androidx.appcompat:appcompat:$ppVersions.appcompatXLib"
+    api "androidx.appcompat:appcompat-resources:$ppVersions.appcompatXLib"
 }
