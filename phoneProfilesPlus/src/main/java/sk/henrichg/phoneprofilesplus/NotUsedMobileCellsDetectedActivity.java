@@ -300,6 +300,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
             DatabaseHandler db;
             List<MobileCellsData> _cellsList = null;
             String cellName;
+            List<Event> _eventList = new ArrayList<>();
 
             @Override
             protected void onPreExecute()
@@ -317,7 +318,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                 if (!_cellsList.isEmpty())
                     cellName = _cellsList.get(0).name;
 
-                eventList.clear();
+                //eventList.clear();
 
                 String[] eventIds = lastRunningEvents.split("\\|");
                 for (String eventId : eventIds) {
@@ -325,7 +326,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                         Event event = db.getEvent(Long.valueOf(eventId));
                         if (event != null) {
                             event.setStatus(1); // use status of event for checkbox status
-                            eventList.add(event);
+                            _eventList.add(event);
                         }
                     }
                 }
@@ -336,7 +337,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                         Event event = db.getEvent(Long.valueOf(eventId));
                         if (event != null) {
                             event.setStatus(1); // use status of event for checkbox status
-                            eventList.add(event);
+                            _eventList.add(event);
                         }
                     }
                 }
@@ -355,6 +356,9 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                         GlobalGUIRoutines.timeDateStringFromTimestamp(NotUsedMobileCellsDetectedActivity.this, lastConnectedTime));
                 if (!cellName.isEmpty())
                     cellNameTextView.setText(cellName);
+
+                eventList.clear();
+                eventList.addAll(_eventList);
 
                 NotUsedMobileCellsDetectedAdapter notUsedMobileCellsDetectedAdapter =
                         new NotUsedMobileCellsDetectedAdapter(NotUsedMobileCellsDetectedActivity.this, eventList);
