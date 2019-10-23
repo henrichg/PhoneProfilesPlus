@@ -28,7 +28,7 @@ class TwilightScanner {
 
     //private static final String TAG = "TwilightScanner";
     //private static final boolean DEBUG = false;
-    private static final String ACTION_UPDATE_TWILIGHT_STATE = "sk.henrichg.phoneprofilesplus.ACTION_UPDATE_TWILIGHT_STATE";
+    private static final String ACTION_UPDATE_TWILIGHT_STATE = PPApplication.PACKAGE_NAME + ".TwilightScanner.ACTION_UPDATE_TWILIGHT_STATE";
 
     private final Object mLock = new Object();
 

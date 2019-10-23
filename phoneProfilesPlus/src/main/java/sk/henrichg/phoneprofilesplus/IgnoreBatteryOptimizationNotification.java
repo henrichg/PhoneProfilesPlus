@@ -18,7 +18,7 @@ import static android.content.Context.POWER_SERVICE;
 class IgnoreBatteryOptimizationNotification {
 
     private static final String PREF_SHOW_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ON_START = "show_ignore_battery_optimization_notification_on_start";
-    static final String IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_DISABLE_ACTION = PPApplication.PACKAGE_NAME + ".IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_DISABLE_ACTION";
+    static final String IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_DISABLE_ACTION = PPApplication.PACKAGE_NAME + ".IgnoreBatteryOptimizationNotification.DISABLE_ACTION";
 
     static void showNotification(Context context) {
         if (Build.VERSION.SDK_INT >= 23) {

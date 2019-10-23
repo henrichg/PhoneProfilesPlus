@@ -15,12 +15,12 @@ import static android.content.Context.POWER_SERVICE;
 
 public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
 
-    static final String ACTION_REMOVE_BRIGHTNESS_VIEW = PPApplication.PACKAGE_NAME + ".ACTION_REMOVE_BRIGHTNESS_VIEW";
-    //static final String ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE = PPApplication.PACKAGE_NAME + ".ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE";
-    //static final String ACTION_DISABLE_SCREEN_TIMEOUT_INTERNAL_CHANGE_TO_FALSE = PPApplication.PACKAGE_NAME + ".ACTION_DISABLE_SCREEN_TIMEOUT_INTERNAL_CHANGE_TO_FALSE";
-    static final String ACTION_HANDLE_EVENTS = PPApplication.PACKAGE_NAME + ".ACTION_HANDLE_EVENTS";
-    static final String ACTION_RESTART_EVENTS = PPApplication.PACKAGE_NAME + ".ACTION_RESTART_EVENTS";
-    static final String ACTION_START_WIFI_SCAN = PPApplication.PACKAGE_NAME + ".ACTION_START_WIFI_SCAN";
+    static final String ACTION_REMOVE_BRIGHTNESS_VIEW = PPApplication.PACKAGE_NAME + ".PostDelayedBroadcastReceiver.ACTION_REMOVE_BRIGHTNESS_VIEW";
+    //static final String ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE = PPApplication.PACKAGE_NAME + ".PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE";
+    //static final String ACTION_DISABLE_SCREEN_TIMEOUT_INTERNAL_CHANGE_TO_FALSE = PPApplication.PACKAGE_NAME + ".PostDelayedBroadcastReceiver.ACTION_DISABLE_SCREEN_TIMEOUT_INTERNAL_CHANGE_TO_FALSE";
+    static final String ACTION_HANDLE_EVENTS = PPApplication.PACKAGE_NAME + ".PostDelayedBroadcastReceiver.ACTION_HANDLE_EVENTS";
+    static final String ACTION_RESTART_EVENTS = PPApplication.PACKAGE_NAME + ".PostDelayedBroadcastReceiver.ACTION_RESTART_EVENTS";
+    static final String ACTION_START_WIFI_SCAN = PPApplication.PACKAGE_NAME + ".PostDelayedBroadcastReceiver.ACTION_START_WIFI_SCAN";
 
     private static final String EXTRA_SENSOR_TYPE = "sensor_type";
     static final String EXTRA_UNBLOCK_EVENTS_RUN = "unblock_events_run";

@@ -80,7 +80,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
     private static final String EXTRA_WITH_RATIONALE = PPApplication.PACKAGE_NAME + ".EXTRA_WITH_RATIONALE";
 
-    static final String NOTIFICATION_DELETED_ACTION = PPApplication.PACKAGE_NAME + ".PERMISSIONS_NOTIFICATION_DELETED";
+    static final String NOTIFICATION_DELETED_ACTION = PPApplication.PACKAGE_NAME + ".GrantPermissionActivity.PERMISSIONS_NOTIFICATION_DELETED";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

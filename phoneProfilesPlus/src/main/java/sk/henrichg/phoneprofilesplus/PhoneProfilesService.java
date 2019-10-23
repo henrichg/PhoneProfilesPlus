@@ -143,7 +143,7 @@ public class PhoneProfilesService extends Service
     private SettingsContentObserver settingsContentObserver = null;
     private MobileDataStateChangedContentObserver mobileDataStateChangedContentObserver = null;
 
-    static final String ACTION_START_LAUNCHER_FROM_NOTIFICATION = PPApplication.PACKAGE_NAME + ".ACTION_START_LAUNCHER_FROM_NOTIFICATION";
+    static final String ACTION_START_LAUNCHER_FROM_NOTIFICATION = PPApplication.PACKAGE_NAME + ".PhoneProfilesService.ACTION_START_LAUNCHER_FROM_NOTIFICATION";
 
     static final String ACTION_EVENT_TIME_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".EventTimeBroadcastReceiver";
     static final String ACTION_EVENT_CALENDAR_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".EventCalendarBroadcastReceiver";

@@ -20,10 +20,10 @@ import static android.app.Notification.DEFAULT_VIBRATE;
 
 public class MobileCellsRegistrationService extends Service {
 
-    public static final String ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN = PPApplication.PACKAGE_NAME + ".ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN";
+    public static final String ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN = PPApplication.PACKAGE_NAME + ".MobileCellsRegistrationService.ACTION_COUNTDOWN";
     public static final String EXTRA_COUNTDOWN = "countdown";
-    private static final String ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON = PPApplication.PACKAGE_NAME + ".ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON";
-    public static final String ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELLS = PPApplication.PACKAGE_NAME + ".ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELLS";
+    private static final String ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON = PPApplication.PACKAGE_NAME + ".MobileCellsRegistrationService.ACTION_STOP_BUTTON";
+    public static final String ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELLS = PPApplication.PACKAGE_NAME + ".MobileCellsRegistrationService.ACTION_NEW_CELLS";
     public static final String EXTRA_NEW_CELLS_VALUE = "new_cells_value";
 
     private CountDownTimer countDownTimer = null;

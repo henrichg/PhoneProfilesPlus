@@ -54,8 +54,8 @@ class PhoneStateScanner extends PhoneStateListener {
     static String cellsNameForAutoRegistration = "";
     static private final List<Long> autoRegistrationEventList = Collections.synchronizedList(new ArrayList<Long>());
 
-    static final String NEW_MOBILE_CELLS_NOTIFICATION_DELETED_ACTION = PPApplication.PACKAGE_NAME + ".NEW_MOBILE_CELLS_NOTIFICATION_DELETED";
-    static final String NEW_MOBILE_CELLS_NOTIFICATION_DISABLE_ACTION = PPApplication.PACKAGE_NAME + ".NEW_MOBILE_CELLS_NOTIFICATION_DISABLE_ACTION";
+    static final String NEW_MOBILE_CELLS_NOTIFICATION_DELETED_ACTION = PPApplication.PACKAGE_NAME + ".PhoneStateScanner.NEW_MOBILE_CELLS_NOTIFICATION_DELETED";
+    static final String NEW_MOBILE_CELLS_NOTIFICATION_DISABLE_ACTION = PPApplication.PACKAGE_NAME + ".PhoneStateScanner.NEW_MOBILE_CELLS_NOTIFICATION_DISABLE_ACTION";
 
     static final int NEW_MOBILE_CELLS_NOTIFICATION_ID = 5000000;
 
