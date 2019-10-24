@@ -42,7 +42,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         nlservicereceiver = new NLServiceReceiver();
         IntentFilter filter = new IntentFilter();
-        filter.addAction(ACTION_REQUEST_INTERRUPTION_FILTER);
+        filter.addAction(PPNotificationListenerService.ACTION_REQUEST_INTERRUPTION_FILTER);
         registerReceiver(nlservicereceiver, filter);
     }
 
@@ -335,12 +335,14 @@ public class PPNotificationListenerService extends NotificationListenerService {
         //    return false;
     }
 
+    /*
     private static Intent getInterruptionFilterRequestIntent(final int filter, final Context context) {
-        Intent request = new Intent(ACTION_REQUEST_INTERRUPTION_FILTER);
+        Intent request = new Intent(PPNotificationListenerService.ACTION_REQUEST_INTERRUPTION_FILTER);
         request.putExtra(EXTRA_FILTER, filter);
         request.setPackage(context.getPackageName());
         return request;
     }
+    */
 
     /** Convenience method for sending an {@link android.content.Intent} with {@link #ACTION_REQUEST_INTERRUPTION_FILTER}. */
     @SuppressLint("InlinedApi")
@@ -363,7 +365,10 @@ public class PPNotificationListenerService extends NotificationListenerService {
                         interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALARMS;
                         break;
                 }
-                Intent request = getInterruptionFilterRequestIntent(interruptionFilter, context);
+                //Intent request = getInterruptionFilterRequestIntent(interruptionFilter, context);
+                Intent request = new Intent(PPNotificationListenerService.ACTION_REQUEST_INTERRUPTION_FILTER);
+                request.putExtra(EXTRA_FILTER, interruptionFilter);
+                request.setPackage(context.getPackageName());
                 context.sendBroadcast(request);
             }
         }
@@ -412,7 +417,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
             if ((/*(android.os.Build.VERSION.SDK_INT >= 21) &&*/ (android.os.Build.VERSION.SDK_INT < 23)) || a60) {
                 // Handle being told to change the interruption filter (zen mode).
                 if (!TextUtils.isEmpty(intent.getAction())) {
-                    if (ACTION_REQUEST_INTERRUPTION_FILTER.equals(intent.getAction())) {
+                    if (PPNotificationListenerService.ACTION_REQUEST_INTERRUPTION_FILTER.equals(intent.getAction())) {
                         if (intent.hasExtra(EXTRA_FILTER)) {
                             final int filter = intent.getIntExtra(EXTRA_FILTER, INTERRUPTION_FILTER_ALL);
                             switch (filter) {

@@ -65,7 +65,7 @@ public class MobileCellsRegistrationService extends Service {
 
         context = this;
 
-        //registerReceiver(stopReceiver, new IntentFilter(ACTION_STOP));
+        //registerReceiver(stopReceiver, new IntentFilter(MobileCellsRegistrationService.ACTION_STOP));
 
         removeResultNotification();
         showNotification(getMobileCellsAutoRegistrationRemainingDuration(this));
@@ -83,7 +83,7 @@ public class MobileCellsRegistrationService extends Service {
 
             if (mobileCellsRegistrationStopButtonBroadcastReceiver == null) {
                 IntentFilter intentFilter = new IntentFilter();
-                intentFilter.addAction(ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON);
+                intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON);
                 mobileCellsRegistrationStopButtonBroadcastReceiver =
                         new MobileCellsRegistrationService.MobileCellsRegistrationStopButtonBroadcastReceiver();
                 context.registerReceiver(mobileCellsRegistrationStopButtonBroadcastReceiver, intentFilter);

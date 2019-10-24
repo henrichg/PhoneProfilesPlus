@@ -52,7 +52,7 @@ class TwilightScanner {
         IntentFilter filter = new IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED);
         filter.addAction(Intent.ACTION_TIME_CHANGED);
         filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
-        filter.addAction(ACTION_UPDATE_TWILIGHT_STATE);
+        filter.addAction(TwilightScanner.ACTION_UPDATE_TWILIGHT_STATE);
         context.registerReceiver(mUpdateLocationReceiver, filter);
 
         mLocationHandler.enableLocationUpdates();
