@@ -1545,6 +1545,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             BluetoothScanWorker.setWaitForResults(getApplicationContext(), false);
             BluetoothScanWorker.setWaitForLEResults(getApplicationContext(), false);
             BluetoothScanWorker.setBluetoothEnabledForScan(getApplicationContext(), false);
+            BluetoothScanWorker.setScanKilled(getApplicationContext(), false);
 
         }
         return res;

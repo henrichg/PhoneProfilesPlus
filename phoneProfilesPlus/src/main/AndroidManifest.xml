@@ -576,9 +576,6 @@
             android:permission="android.permission.BIND_REMOTEVIEWS"/>
 
         <!-- IntentServices called from foreground UI -->
-        <service
-            android:name=".WifiBluetoothScannerService"
-            android:exported="false"/>
 
         <!-- other services -->
         <service

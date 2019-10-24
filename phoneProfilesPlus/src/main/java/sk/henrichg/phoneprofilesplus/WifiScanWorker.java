@@ -450,18 +450,8 @@ public class WifiScanWorker extends Worker {
             if (fromDialog)
                 setScanRequest(context, true);
 
-            if (fromDialog) {
-                try {
-                    Intent scanServiceIntent = new Intent(context, WifiBluetoothScannerService.class);
-                    scanServiceIntent.putExtra(WifiBluetoothScannerService.EXTRA_SCANNER_TYPE, WifiBluetoothScanner.SCANNER_TYPE_WIFI);
-                    context.startService(scanServiceIntent);
-                } catch (Exception ignored) {
-                }
-            }
-            else {
-                WifiBluetoothScanner wifiBluetoothScanner = new WifiBluetoothScanner(context);
-                wifiBluetoothScanner.doScan(WifiBluetoothScanner.SCANNER_TYPE_WIFI);
-            }
+            WifiBluetoothScanner wifiBluetoothScanner = new WifiBluetoothScanner(context);
+            wifiBluetoothScanner.doScan(WifiBluetoothScanner.SCANNER_TYPE_WIFI);
         }
         dataWrapper.invalidateDataWrapper();
     }
@@ -476,7 +466,7 @@ public class WifiScanWorker extends Worker {
         setWifiEnabledForScan(context, false);
         setScanRequest(context, false);
         setWaitForResults(context, false);
-        PPApplication.setForceOneWifiScan(context, false);
+        WifiBluetoothScanner.setForceOneWifiScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
     }
     */
 

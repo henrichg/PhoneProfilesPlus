@@ -214,8 +214,18 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
         if ((mSelectorDialog != null) && mSelectorDialog.isShowing())
             mSelectorDialog.dismiss();
 
-        if ((rescanAsyncTask != null) && (!rescanAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)))
+        BluetoothScanWorker.setScanRequest(prefContext, false);
+        BluetoothScanWorker.setWaitForResults(prefContext, false);
+        BluetoothScanWorker.setLEScanRequest(prefContext, false);
+        BluetoothScanWorker.setWaitForLEResults(prefContext, false);
+        BluetoothScanWorker.setScanKilled(prefContext, true);
+        WifiBluetoothScanner.setForceOneBluetoothScan(prefContext, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
+        WifiBluetoothScanner.setForceOneLEBluetoothScan(prefContext, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
+
+        if ((rescanAsyncTask != null) && (!rescanAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED))) {
+            PPApplication.logE("BluetoothNamePreferenceFragmentX.onDialogClosed","cancel asyncTask");
             rescanAsyncTask.cancel(true);
+        }
 
         BluetoothNamePreferenceX.forceRegister = false;
         PPApplication.reregisterReceiversForBluetoothScanner(prefContext);
@@ -308,14 +318,16 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
             protected Void doInBackground(Void... params) {
 
                 if (_forRescan) {
+                    PPApplication.logE("BluetoothNamePreferenceFragmentX.refreshListView","start rescan");
                     WifiBluetoothScanner.setForceOneBluetoothScan(prefContext, WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
                     WifiBluetoothScanner.setForceOneLEBluetoothScan(prefContext, WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
                     BluetoothScanWorker.startScanner(prefContext, true);
 
                     //try { Thread.sleep(200); } catch (InterruptedException e) { }
                     //SystemClock.sleep(200);
-                    PPApplication.sleep(500);
-                    WifiBluetoothScanner.waitForForceOneBluetoothScanEnd(prefContext, this);
+                    //PPApplication.sleep(500);
+                    //WifiBluetoothScanner.waitForForceOneBluetoothScanEnd(prefContext, this);
+                    PPApplication.logE("BluetoothNamePreferenceFragmentX.refreshListView","end rescan");
                 }
 
                 List<BluetoothDeviceData> boundedDevicesList = BluetoothScanWorker.getBoundedDevicesList(prefContext);
@@ -439,6 +451,13 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
                 listAdapter.notifyDataSetChanged();
 
                 if (_forRescan) {
+                    BluetoothScanWorker.setScanRequest(prefContext, false);
+                    BluetoothScanWorker.setWaitForResults(prefContext, false);
+                    BluetoothScanWorker.setLEScanRequest(prefContext, false);
+                    BluetoothScanWorker.setWaitForLEResults(prefContext, false);
+                    WifiBluetoothScanner.setForceOneBluetoothScan(prefContext, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
+                    WifiBluetoothScanner.setForceOneLEBluetoothScan(prefContext, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
+                    BluetoothScanWorker.setScanKilled(prefContext, false);
                     progressLinearLayout.setVisibility(View.GONE);
                     dataRelativeLayout.setVisibility(View.VISIBLE);
                 }

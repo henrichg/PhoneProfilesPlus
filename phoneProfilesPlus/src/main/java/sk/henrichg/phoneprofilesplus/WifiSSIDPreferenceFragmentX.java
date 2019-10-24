@@ -205,6 +205,10 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
         if ((mSelectorDialog != null) && mSelectorDialog.isShowing())
             mSelectorDialog.dismiss();
 
+        WifiScanWorker.setScanRequest(prefContext, false);
+        WifiScanWorker.setWaitForResults(prefContext, false);
+        WifiBluetoothScanner.setForceOneWifiScan(prefContext, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
+
         if ((rescanAsyncTask != null) && (!rescanAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)))
             rescanAsyncTask.cancel(true);
 
@@ -298,15 +302,15 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
             protected Void doInBackground(Void... params) {
 
                 if (_forRescan) {
+                    PPApplication.logE("WifiSSIDPreferenceFragmentX.refreshListView","start rescan");
                     WifiBluetoothScanner.setForceOneWifiScan(prefContext, WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
                     WifiScanWorker.startScanner(prefContext, true);
-                    PPApplication.logE("WifiSSIDPreferenceFragmentX.refreshListView","start waiting for scan end");
 
                     //try { Thread.sleep(200); } catch (InterruptedException e) { }
                     //SystemClock.sleep(200);
-                    PPApplication.sleep(500);
-                    WifiBluetoothScanner.waitForWifiScanEnd(prefContext, this);
-                    PPApplication.logE("WifiSSIDPreferenceFragmentX.refreshListView","end waiting for scan end");
+                    //PPApplication.sleep(500);
+                    //WifiBluetoothScanner.waitForWifiScanEnd(prefContext, this);
+                    PPApplication.logE("WifiSSIDPreferenceFragmentX.refreshListView","end rescan");
                 }
 
                 List<WifiSSIDData> wifiConfigurationList = WifiScanWorker.getWifiConfigurationList(prefContext);
@@ -415,6 +419,9 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
                 listAdapter.notifyDataSetChanged();
 
                 if (_forRescan) {
+                    WifiScanWorker.setScanRequest(prefContext, false);
+                    WifiScanWorker.setWaitForResults(prefContext, false);
+                    WifiBluetoothScanner.setForceOneWifiScan(prefContext, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
                     progressLinearLayout.setVisibility(View.GONE);
                     dataRelativeLayout.setVisibility(View.VISIBLE);
                 }

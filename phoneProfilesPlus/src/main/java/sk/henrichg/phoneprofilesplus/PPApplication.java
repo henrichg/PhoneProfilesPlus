@@ -309,8 +309,7 @@ public class PPApplication extends Application {
                                         +"|BluetoothScanWorker"
                                         +"|$$$B WifiBluetoothScanner"
                                         +"|$$$BCL WifiBluetoothScanner"
-                                        +"|$$$BLE WifiBluetoothScanner"
-                                        +"|WifiBluetoothScannerService"*/
+                                        +"|$$$BLE WifiBluetoothScanner"*/
 
                                          //+"|PostDelayedBroadcastReceiver.onReceive"
 
@@ -497,8 +496,11 @@ public class PPApplication extends Application {
                                         //+"|ShortcutCreatorListFragment"
                                         //+"|BitmapManipulator"
 
-                                        +"|FetchAddressWorker"
-                                        +"|LocationGeofenceEditorActivity.getWorkInfoByIdLiveData"
+                                        //+"|FetchAddressWorker"
+                                        //+"|LocationGeofenceEditorActivity.getWorkInfoByIdLiveData"
+                                        +"|BluetoothNamePreferenceFragmentX.refreshListView"
+                                        +"|WifiSSIDPreferenceFragmentX.refreshListView"
+                                        +"|BluetoothNamePreferenceFragmentX.onDialogClosed"
             ;
 
 

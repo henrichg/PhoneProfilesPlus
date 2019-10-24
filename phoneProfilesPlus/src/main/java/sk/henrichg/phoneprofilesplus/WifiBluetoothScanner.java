@@ -316,6 +316,7 @@ class WifiBluetoothScanner {
                                     BluetoothScanWorker.setWaitForResults(context, false);
                                     BluetoothScanWorker.setWaitForLEResults(context, false);
                                     BluetoothScanWorker.setBluetoothEnabledForScan(context, false);
+                                    BluetoothScanWorker.setScanKilled(context, false);
 
                                     int bluetoothState;
 
@@ -362,7 +363,7 @@ class WifiBluetoothScanner {
                                         ///////// Classic BT scan - end
                                     }
 
-                                    if (leDevicesScan) {
+                                    if (leDevicesScan && !BluetoothScanWorker.getScanKilled(context)) {
                                         ///////// LE BT scan
 
                                         PPApplication.logE("$$$BLE WifiBluetoothScanner.doScan", "LE devices scan");
@@ -443,6 +444,7 @@ class WifiBluetoothScanner {
                     BluetoothScanWorker.setWaitForLEResults(context, false);
                     BluetoothScanWorker.setScanRequest(context, false);
                     BluetoothScanWorker.setLEScanRequest(context, false);
+                    BluetoothScanWorker.setScanKilled(context, false);
 
                     //unlock();
                 }

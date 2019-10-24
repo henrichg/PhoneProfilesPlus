@@ -3641,6 +3641,7 @@ public class PhoneProfilesService extends Service
                             BluetoothScanWorker.setWaitForResults(appContext, false);
                             BluetoothScanWorker.setWaitForLEResults(appContext, false);
                             BluetoothScanWorker.setBluetoothEnabledForScan(appContext, false);
+                            BluetoothScanWorker.setScanKilled(appContext, false);
                         }
 
                         registerReceiversAndWorkers(false);

@@ -47,6 +47,7 @@ public class BluetoothScanWorker extends Worker {
     private static final String PREF_EVENT_BLUETOOTH_LE_SCAN_REQUEST = "eventBluetoothLEScanRequest";
     private static final String PREF_EVENT_BLUETOOTH_WAIT_FOR_LE_RESULTS = "eventBluetoothWaitForLEResults";
     private static final String PREF_EVENT_BLUETOOTH_ENABLED_FOR_SCAN = "eventBluetoothEnabledForScan";
+    private static final String PREF_EVENT_BLUETOOTH_SCAN_KILLED = "eventBluetoothScanKilled";
 
     public BluetoothScanWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
@@ -112,6 +113,7 @@ public class BluetoothScanWorker extends Worker {
         setWaitForResults(context, false);
         setLEScanRequest(context, false);
         setWaitForLEResults(context, false);
+        setScanKilled(context, false);
         WifiBluetoothScanner.setForceOneBluetoothScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
         WifiBluetoothScanner.setForceOneLEBluetoothScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
     }
@@ -186,6 +188,7 @@ public class BluetoothScanWorker extends Worker {
                 setWaitForResults(context, false);
                 setLEScanRequest(context, false);
                 setWaitForLEResults(context, false);
+                setScanKilled(context, true);
                 WifiBluetoothScanner.setForceOneBluetoothScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
                 WifiBluetoothScanner.setForceOneLEBluetoothScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
 
@@ -343,6 +346,7 @@ public class BluetoothScanWorker extends Worker {
         setLEScanRequest(context, false);
         setWaitForResults(context, false);
         setWaitForLEResults(context, false);
+        setScanKilled(context, false);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed !=
                 PreferenceAllowed.PREFERENCE_ALLOWED)
@@ -432,6 +436,19 @@ public class BluetoothScanWorker extends Worker {
             editor.putBoolean(PREF_EVENT_BLUETOOTH_WAIT_FOR_LE_RESULTS, startScan);
             editor.apply();
         }
+    }
+
+    static boolean getScanKilled(Context context) {
+        ApplicationPreferences.getSharedPreferences(context);
+        return ApplicationPreferences.preferences.getBoolean(PREF_EVENT_BLUETOOTH_SCAN_KILLED, false);
+    }
+
+    static void setScanKilled(Context context, boolean startScan)
+    {
+        ApplicationPreferences.getSharedPreferences(context);
+        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+        editor.putBoolean(PREF_EVENT_BLUETOOTH_SCAN_KILLED, startScan);
+        editor.apply();
     }
 
     static void startCLScan(Context context)
@@ -573,21 +590,15 @@ public class BluetoothScanWorker extends Worker {
         PPApplication.logE("$$$ BluetoothScanWorker.startScanner", "xxx");
         DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
         if (fromDialog || ApplicationPreferences.applicationEventBluetoothEnableScanning(context)) {
-
+            setScanKilled(context, false);
+            if (fromDialog) {
+                setScanRequest(context, true);
+                setLEScanRequest(context, true);
+            }
 
             PPApplication.logE("$$$ BluetoothScanWorker.startScanner", "scanning enabled");
-            if (fromDialog) {
-                try {
-                    Intent scanServiceIntent = new Intent(context, WifiBluetoothScannerService.class);
-                    scanServiceIntent.putExtra(WifiBluetoothScannerService.EXTRA_SCANNER_TYPE, WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
-                    context.startService(scanServiceIntent);
-                } catch (Exception ignored) {
-                }
-            }
-            else {
-                WifiBluetoothScanner wifiBluetoothScanner = new WifiBluetoothScanner(context);
-                wifiBluetoothScanner.doScan(WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
-            }
+            WifiBluetoothScanner wifiBluetoothScanner = new WifiBluetoothScanner(context);
+            wifiBluetoothScanner.doScan(WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
         }
         dataWrapper.invalidateDataWrapper();
     }
