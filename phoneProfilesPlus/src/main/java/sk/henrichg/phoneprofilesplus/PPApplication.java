@@ -496,6 +496,9 @@ public class PPApplication extends Application {
 
                                         //+"|ShortcutCreatorListFragment"
                                         //+"|BitmapManipulator"
+
+                                        +"|FetchAddressWorker"
+                                        +"|LocationGeofenceEditorActivity.getWorkInfoByIdLiveData"
             ;
 
 

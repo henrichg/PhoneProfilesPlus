@@ -579,9 +579,6 @@
         <service
             android:name=".WifiBluetoothScannerService"
             android:exported="false"/>
-        <service
-            android:name=".FetchAddressIntentService"
-            android:exported="false"/>
 
         <!-- other services -->
         <service

@@ -10,8 +10,6 @@ import android.content.res.Configuration;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.ResultReceiver;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -40,10 +38,16 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.Observer;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 
 public class LocationGeofenceEditorActivity extends AppCompatActivity
                                      implements GoogleApiClient.ConnectionCallbacks,
@@ -67,12 +71,12 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
     private static final String STATE_RESOLVING_ERROR = "resolving_error";
 
-    public static final int SUCCESS_RESULT = 0;
-    public static final int FAILURE_RESULT = 1;
-    public static final String RECEIVER = PPApplication.PACKAGE_NAME + ".RECEIVER";
-    public static final String RESULT_DATA_KEY = PPApplication.PACKAGE_NAME + ".RESULT_DATA_KEY";
-    public static final String LOCATION_DATA_EXTRA = PPApplication.PACKAGE_NAME + ".LOCATION_DATA_EXTRA";
-    public static final String UPDATE_NAME_EXTRA = PPApplication.PACKAGE_NAME + ".UPDATE_NAME_EXTRA";
+    static final int SUCCESS_RESULT = 0;
+    static final int FAILURE_RESULT = 1;
+    static final String RESULT_CODE = PPApplication.PACKAGE_NAME + ".RESULT_CODE";
+    static final String RESULT_DATA_KEY = PPApplication.PACKAGE_NAME + ".RESULT_DATA_KEY";
+    static final String LOCATION_DATA_EXTRA = PPApplication.PACKAGE_NAME + ".LOCATION_DATA_EXTRA";
+    static final String UPDATE_NAME_EXTRA = PPApplication.PACKAGE_NAME + ".UPDATE_NAME_EXTRA";
 
     /**
      * The desired interval for location updates. Inexact. Updates may be more or less frequent.
@@ -92,7 +96,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     private long geofenceId;
     private Geofence geofence;
 
-    private AddressResultReceiver mResultReceiver;
+    //private AddressResultReceiver mResultReceiver;
     //private boolean mAddressRequested = false;
 
     private EditText geofenceNameEditText;
@@ -142,7 +146,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
 
-        mResultReceiver = new AddressResultReceiver(new Handler(getMainLooper()));
+        //mResultReceiver = new AddressResultReceiver(new Handler(getMainLooper()));
 
         // Create a GoogleApiClient instance
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -600,41 +604,65 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     }
 
     private void startIntentService(boolean updateName) {
-        Intent intent = new Intent(this, FetchAddressIntentService.class);
+        /*Intent intent = new Intent(this, FetchAddressIntentService.class);
         intent.putExtra(RECEIVER, mResultReceiver);
         intent.putExtra(LOCATION_DATA_EXTRA, mLocation);
         intent.putExtra(UPDATE_NAME_EXTRA, updateName);
-        startService(intent);
-    }
+        startService(intent);*/
 
-    @SuppressLint("ParcelCreator")
-    private class AddressResultReceiver extends ResultReceiver {
+        String sLocation = FetchAddressWorker.serializeLocation(mLocation);
+        Data workData = new Data.Builder()
+                .putString(LOCATION_DATA_EXTRA, sLocation)
+                .putBoolean(UPDATE_NAME_EXTRA, updateName)
+                .build();
 
-        AddressResultReceiver(Handler handler) {
-            super(handler);
-        }
+        OneTimeWorkRequest fetchAddressWorker =
+                new OneTimeWorkRequest.Builder(FetchAddressWorker.class)
+                        .setInputData(workData)
+                        .build();
 
-        @Override
-        protected void onReceiveResult(int resultCode, Bundle resultData) {
-            boolean enableAddressButton = false;
-            if (resultCode == LocationGeofenceEditorActivity.SUCCESS_RESULT) {
-                // Display the address string
-                // or an error message sent from the intent service.
-                String addressOutput = resultData.getString(RESULT_DATA_KEY);
-                addressText.setText(addressOutput);
+        WorkManager workManager = WorkManager.getInstance(getApplicationContext());
+        workManager.enqueue(fetchAddressWorker);
 
-                if (resultData.getBoolean(UPDATE_NAME_EXTRA, false))
-                    geofenceNameEditText.setText(addressOutput);
+        workManager.getWorkInfoByIdLiveData(fetchAddressWorker.getId())
+                .observe(this, new Observer<WorkInfo>() {
+                    @Override
+                    public void onChanged(@Nullable WorkInfo workInfo) {
+                        PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "xxx");
 
-                updateEditedMarker(false);
+                        if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                            PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "WorkInfo.State.SUCCEEDED");
 
-                enableAddressButton = true;
-            }
+                            Data outputData = workInfo.getOutputData();
+                            PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "outputData="+outputData);
 
-            GlobalGUIRoutines.setImageButtonEnabled(enableAddressButton, addressButton, R.drawable.ic_button_location_address, getApplicationContext());
+                            int resultCode = outputData.getInt(RESULT_CODE, FAILURE_RESULT);
+                            PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "resultCode="+resultCode);
 
-            //mAddressRequested = false;
-        }
+                            boolean enableAddressButton = false;
+                            if (resultCode == SUCCESS_RESULT) {
+                                PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "resultCode="+resultCode);
+
+                                // Display the address string
+                                // or an error message sent from the intent service.
+                                String addressOutput = outputData.getString(RESULT_DATA_KEY);
+                                PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "addressOutput="+addressOutput);
+
+                                addressText.setText(addressOutput);
+
+                                if (outputData.getBoolean(UPDATE_NAME_EXTRA, false))
+                                    geofenceNameEditText.setText(addressOutput);
+
+                                updateEditedMarker(false);
+
+                                enableAddressButton = true;
+                            }
+
+                            GlobalGUIRoutines.setImageButtonEnabled(enableAddressButton, addressButton, R.drawable.ic_button_location_address, getApplicationContext());
+                        }
+                    }
+                });
+
     }
 
 
