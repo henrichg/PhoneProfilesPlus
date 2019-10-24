@@ -4246,12 +4246,8 @@ public class DataWrapper {
             if (activity instanceof ActivateProfileActivity)
                 finish = ApplicationPreferences.applicationClose(context);
             else
-            //noinspection RedundantIfStatement
-            if (activity instanceof RestartEventsFromNotificationActivity) {
-                finish = true;
-            }
-            else
-                finish = false;
+                finish = (activity instanceof RestartEventsFromNotificationActivity) ||
+                        (activity instanceof BackgroundActivateProfileActivity);
             PPApplication.logE("DataWrapper.restartEventsWithAlert", "finish="+finish);
             if (finish) {
                 final Handler handler = new Handler(context.getMainLooper());
