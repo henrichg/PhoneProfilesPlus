@@ -347,8 +347,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         if (useAlarmClockEnabled != ApplicationPreferences.applicationUseAlarmClock(appContext)) {
             PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "use alarm clock enabled changed");
-            // unblockEventsRun must be true to reset alarms
-            PPApplication.restartEvents(appContext, true, true);
+            /*if (DataWrapper.getIsManualProfileActivation(false, appContext))
+                x
+            else*/
+                // unblockEventsRun must be true to reset alarms
+                PPApplication.restartEvents(appContext, true, true);
         }
 
         /*
