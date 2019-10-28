@@ -11352,36 +11352,52 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             try {
                 startRunningImportExport();
 
+                FileInputStream src = null;
+                FileOutputStream dst = null;
                 try {
+                    try {
 
-                    File sd = Environment.getExternalStorageDirectory();
-                    File data = Environment.getDataDirectory();
+                        File sd = Environment.getExternalStorageDirectory();
+                        File data = Environment.getDataDirectory();
 
-                    File dataDB = new File(data, GlobalGUIRoutines.DB_FILEPATH + "/" + DATABASE_NAME);
-                    File exportedDB = new File(sd, PPApplication.EXPORT_PATH + "/" + EXPORT_DBFILENAME);
+                        File dataDB = new File(data, GlobalGUIRoutines.DB_FILEPATH + "/" + DATABASE_NAME);
+                        File exportedDB = new File(sd, PPApplication.EXPORT_PATH + "/" + EXPORT_DBFILENAME);
 
-                    if (dataDB.exists()) {
-                        // close db
-                        close();
+                        if (dataDB.exists()) {
+                            // close db
+                            close();
 
-                        File exportDir = new File(sd, PPApplication.EXPORT_PATH);
-                        if (!(exportDir.exists() && exportDir.isDirectory())) {
-                            //noinspection ResultOfMethodCallIgnored
-                            exportDir.mkdirs();
+                            File exportDir = new File(sd, PPApplication.EXPORT_PATH);
+                            if (!(exportDir.exists() && exportDir.isDirectory())) {
+                                //noinspection ResultOfMethodCallIgnored
+                                exportDir.mkdirs();
+                            }
+
+                            src = new FileInputStream(dataDB);
+                            dst = new FileOutputStream(exportedDB);
+
+                            FileChannel srcCh = new FileInputStream(dataDB).getChannel();
+                            FileChannel dstCh = new FileOutputStream(exportedDB).getChannel();
+                            dstCh.force(true);
+
+                            dstCh.transferFrom(srcCh, 0, srcCh.size());
+
+                            dst.flush();
+
+                            src.close();
+                            dst.close();
+
+                            ret = 1;
                         }
-
-                        FileChannel src = new FileInputStream(dataDB).getChannel();
-                        FileChannel dst = new FileOutputStream(exportedDB).getChannel();
-                        dst.transferFrom(src, 0, src.size());
-                        src.close();
-                        dst.close();
-
-                        ret = 1;
+                    } catch (Exception e) {
+                        Log.e("DatabaseHandler.exportDB", Log.getStackTraceString(e));
                     }
-                } catch (Exception e) {
-                    Log.e("DatabaseHandler.exportDB", Log.getStackTraceString(e));
+                } finally {
+                    if (src != null)
+                        src.close();
+                    if (dst != null)
+                        dst.close();
                 }
-
             } catch (Exception ignored) {}
             return ret;
         } finally {
