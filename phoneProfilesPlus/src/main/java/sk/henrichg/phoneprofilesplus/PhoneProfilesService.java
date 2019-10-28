@@ -4798,15 +4798,25 @@ public class PhoneProfilesService extends Service
     private void disableKeyguard()
     {
         PPApplication.logE("$$$ disableKeyguard","keyguardLock="+keyguardLock);
-        if ((keyguardLock != null) && Permissions.hasPermission(getApplicationContext(), Manifest.permission.DISABLE_KEYGUARD))
-            keyguardLock.disableKeyguard();
+        if ((keyguardLock != null) && Permissions.hasPermission(getApplicationContext(), Manifest.permission.DISABLE_KEYGUARD)) {
+            try {
+                keyguardLock.disableKeyguard();
+            } catch (Exception e) {
+                Log.e("PhoneProfilesService", Log.getStackTraceString(e));
+            }
+        }
     }
 
     private void reenableKeyguard()
     {
         PPApplication.logE("$$$ reenableKeyguard","keyguardLock="+keyguardLock);
-        if ((keyguardLock != null) && Permissions.hasPermission(getApplicationContext(), Manifest.permission.DISABLE_KEYGUARD))
-            keyguardLock.reenableKeyguard();
+        if ((keyguardLock != null) && Permissions.hasPermission(getApplicationContext(), Manifest.permission.DISABLE_KEYGUARD)) {
+            try {
+                keyguardLock.reenableKeyguard();
+            } catch (Exception e) {
+                Log.e("PhoneProfilesService", Log.getStackTraceString(e));
+            }
+        }
     }
 
     //--------------------------------------
