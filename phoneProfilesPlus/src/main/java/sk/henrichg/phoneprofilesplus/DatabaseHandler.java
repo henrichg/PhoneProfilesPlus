@@ -8707,7 +8707,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     boolean isMobileCellSaved(int mobileCell) {
         importExportLock.lock();
         try {
