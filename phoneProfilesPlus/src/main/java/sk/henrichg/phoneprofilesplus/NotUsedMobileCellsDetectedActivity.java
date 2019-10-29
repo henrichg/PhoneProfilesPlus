@@ -300,7 +300,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
             DatabaseHandler db;
             List<MobileCellsData> _cellsList = null;
             String cellName;
-            List<Event> _eventList = new ArrayList<>();
+            final List<Event> _eventList = new ArrayList<>();
 
             @Override
             protected void onPreExecute()

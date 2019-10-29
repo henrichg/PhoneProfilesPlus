@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.wifi.WifiManager;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -200,7 +199,7 @@ class WifiBluetoothScanner {
                                     PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "waiting for scan end");
 
                                     // wait for scan end
-                                    waitForWifiScanEnd(context, null);
+                                    waitForWifiScanEnd(context);
 
                                     PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "scan ended");
 
@@ -667,7 +666,7 @@ class WifiBluetoothScanner {
         return bluetoothState;
     }
 
-    static void waitForWifiScanEnd(Context context, AsyncTask<Void, Integer, Void> asyncTask)
+    private static void waitForWifiScanEnd(Context context/*, AsyncTask<Void, Integer, Void> asyncTask*/)
     {
         long start = SystemClock.uptimeMillis();
         do {
@@ -675,11 +674,11 @@ class WifiBluetoothScanner {
                     (WifiScanWorker.getWaitForResults(context)))) {
                 break;
             }
-            if (asyncTask != null)
+            /*if (asyncTask != null)
             {
                 if (asyncTask.isCancelled())
                     break;
-            }
+            }*/
 
             //try { Thread.sleep(100); } catch (InterruptedException e) { }
             SystemClock.sleep(100);
@@ -730,6 +729,7 @@ class WifiBluetoothScanner {
         }
     }
 
+    /*
     static void waitForForceOneBluetoothScanEnd(Context context, AsyncTask<Void, Integer, Void> asyncTask) {
         long start = SystemClock.uptimeMillis();
         do {
@@ -778,6 +778,7 @@ class WifiBluetoothScanner {
         // save ScanCallback.onBatchScanResults
         BluetoothScanWorker.finishLEScan(context);
     }
+    */
 
     @SuppressLint("InlinedApi")
     static boolean bluetoothLESupported(Context context) {

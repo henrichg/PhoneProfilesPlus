@@ -86,7 +86,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
                         getConnectedDevices(appContext);
 
-                        if (device != null) {
+                        //if (device != null) {
 
                             PPApplication.logE("$$$ BluetoothConnectionBroadcastReceiver.onReceive", "action=" + action);
 
@@ -147,7 +147,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                                     PPApplication.logE("@@@ BluetoothConnectionBroadcastReceiver.onReceive", "not start EventsHandler, scanner is running");
                                 //}
                             }
-                        }
+                        //}
 
                         PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothConnectionBroadcastReceiver.onReceive");
                     } finally {

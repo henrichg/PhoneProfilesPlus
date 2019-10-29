@@ -19,9 +19,10 @@ import androidx.work.Data;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+@SuppressWarnings("WeakerAccess")
 public class FetchAddressWorker extends Worker {
 
-    final Context context;
+    private final Context context;
 
     public FetchAddressWorker(
             @NonNull Context context,
