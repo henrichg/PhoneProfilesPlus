@@ -50,10 +50,18 @@ public class ActivateProfileActivity extends AppCompatActivity {
     private final BroadcastReceiver showTargetHelpsBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive( Context context, Intent intent ) {
-            if (ActivateProfileActivity.this.isFinishing())
+            if (ActivateProfileActivity.this.isFinishing()) {
+                if (ActivatorTargetHelpsActivity.activity != null)
+                    ActivatorTargetHelpsActivity.activity.finish();
+                ActivatorTargetHelpsActivity.activity = null;
                 return;
-            if (ActivateProfileActivity.this.isDestroyed())
+            }
+            if (ActivateProfileActivity.this.isDestroyed()) {
+                if (ActivatorTargetHelpsActivity.activity != null)
+                    ActivatorTargetHelpsActivity.activity.finish();
+                ActivatorTargetHelpsActivity.activity = null;
                 return;
+            }
 
             ApplicationPreferences.getSharedPreferences(context.getApplicationContext());
 
@@ -70,6 +78,11 @@ public class ActivateProfileActivity extends AppCompatActivity {
                         ((ActivateProfileListFragment) fragment).showTargetHelps();
                     }
                 }
+            }
+            else {
+                if (ActivatorTargetHelpsActivity.activity != null)
+                    ActivatorTargetHelpsActivity.activity.finish();
+                ActivatorTargetHelpsActivity.activity = null;
             }
         }
     };
@@ -280,6 +293,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
         if (targetHelpsSequenceStarted) {
             if (ActivatorTargetHelpsActivity.activity != null)
                 ActivatorTargetHelpsActivity.activity.finish();
+            ActivatorTargetHelpsActivity.activity = null;
             targetHelpsSequenceStarted = false;
         }
     }
