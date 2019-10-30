@@ -46,6 +46,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.pm.PackageInfoCompat;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.multidex.MultiDex;
@@ -980,7 +981,8 @@ public class PPApplication extends Application {
     */
 
     static int getVersionCode(PackageInfo pInfo) {
-        return pInfo.versionCode;
+        //return pInfo.versionCode;
+        return (int) PackageInfoCompat.getLongVersionCode(pInfo);
     }
 
     //--------------------------------------------------------------
@@ -1870,8 +1872,8 @@ public class PPApplication extends Application {
                     Matcher matcher = compile.matcher(line);
                     if (matcher.find()) {
                         synchronized (PPApplication.serviceListMutex) {
-                            //noinspection unchecked
-                            serviceListMutex.serviceList.add(new Pair(matcher.group(1), matcher.group(2)));
+                            //serviceListMutex.serviceList.add(new Pair(matcher.group(1), matcher.group(2)));
+                            serviceListMutex.serviceList.add(Pair.create(matcher.group(1), matcher.group(2)));
                             //PPApplication.logE("$$$ WifiAP", "PhoneProfilesService.getServicesList - matcher.group(1)="+matcher.group(1));
                             //PPApplication.logE("$$$ WifiAP", "PhoneProfilesService.getServicesList - matcher.group(2)="+matcher.group(2));
                         }

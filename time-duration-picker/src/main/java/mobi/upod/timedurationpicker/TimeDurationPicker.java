@@ -3,6 +3,7 @@ package mobi.upod.timedurationpicker;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
@@ -311,7 +312,12 @@ public class TimeDurationPicker extends FrameLayout {
     }
 
     private void applyTextAppearance(Context context, int resId, final TextView[] targetViews) {
-        for (TextView view : targetViews) view.setTextAppearance(context, resId);
+        if (Build.VERSION.SDK_INT < 23) {
+            for (TextView view : targetViews) view.setTextAppearance(context, resId);
+        }
+        else {
+            for (TextView view : targetViews) view.setTextAppearance(resId);
+        }
     }
 
     private void applyIcon(TypedArray attrs, int attributeIndex, ImageView targetView) {

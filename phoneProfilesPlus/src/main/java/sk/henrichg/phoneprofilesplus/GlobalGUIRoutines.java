@@ -87,17 +87,17 @@ class GlobalGUIRoutines {
                 else
                     appLocale = new Locale(langSplit[0], langSplit[1]);
             } else {
-                //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                //    appLocale = Resources.getSystem().getConfiguration().getLocales().get(0);
-                //else
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                    appLocale = Resources.getSystem().getConfiguration().getLocales().get(0);
+                else
                     appLocale = Resources.getSystem().getConfiguration().locale;
             }
 
             Locale.setDefault(appLocale);
             Configuration appConfig = new Configuration();
-            //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            //    appConfig.setLocale(appLocale);
-            //else
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                appConfig.setLocale(appLocale);
+            else
                 appConfig.locale = appLocale;
 
             //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
@@ -125,11 +125,11 @@ class GlobalGUIRoutines {
                 else
                     appLocale = new Locale(langSplit[0], langSplit[1]);
             } else {
-                //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                //    appLocale = Resources.getSystem().getConfiguration().getLocales().get(0);
-                //} else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    appLocale = Resources.getSystem().getConfiguration().getLocales().get(0);
+                } else {
                     appLocale = Resources.getSystem().getConfiguration().locale;
-                //}
+                }
             }
             // get collator for application locale
             return Collator.getInstance(appLocale);

@@ -4520,7 +4520,7 @@ public class PhoneProfilesService extends Service
 
             if (Build.VERSION.SDK_INT < 29) {
                 if (notificationDarkBackground) {
-                    int color = getResources().getColor(R.color.notificationDarkBackgroundColor);
+                    int color = ContextCompat.getColor(this, R.color.notificationDarkBackgroundColor);
                     contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
                     if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
                         contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);

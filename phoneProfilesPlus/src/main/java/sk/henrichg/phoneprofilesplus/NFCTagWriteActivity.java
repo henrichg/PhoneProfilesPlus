@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import me.drakeet.support.toast.ToastCompat;
 
 public class NFCTagWriteActivity extends AppCompatActivity {
@@ -97,7 +98,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
                     int[] attrs = {R.attr.activityTextColor};
                     TypedArray ta = obtainStyledAttributes(attrs);
                     int color = ta.getResourceId(0, android.R.color.black);
-                    writableTextView.setTextColor(getResources().getColor(color));
+                    writableTextView.setTextColor(ContextCompat.getColor(getBaseContext(), color));
                     ta.recycle();
 
                     if (nfcManager.tagRead) {
