@@ -1202,18 +1202,18 @@ class ActivateProfileHelper {
 
                                 RingerModeChangeReceiver.internalChange = true;
 
-                                setRingerMode(context, profile, audioManager, true, /*linkUnlink,*/ forProfileActivation);
+                                //setRingerMode(context, profile, audioManager, true, forProfileActivation);
                                 PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange=" + RingerModeChangeReceiver.internalChange);
                                 // !!! DO NOT CALL setVolumes before setRingerMode(..., firsCall:false).
                                 //     Ringer mode must be changed before call of setVolumes() because is checked in setVolumes().
-                                setRingerMode(context, profile, audioManager, false, /*linkUnlink,*/ forProfileActivation);
+                                setRingerMode(context, profile, audioManager, /*false,*/ forProfileActivation);
                                 PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange=" + RingerModeChangeReceiver.internalChange);
                                 PPApplication.sleep(500);
                                 setVolumes(context, profile, audioManager, linkUnlink, forProfileActivation, true);
                                 PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange=" + RingerModeChangeReceiver.internalChange);
                                 if (getSystemZenMode(context/*, -1*/) == ActivateProfileHelper.ZENMODE_PRIORITY) {
                                     //PPApplication.sleep(500);
-                                    setRingerMode(context, profile, audioManager, false, /*linkUnlink,*/ forProfileActivation);
+                                    setRingerMode(context, profile, audioManager, /*false,*/ forProfileActivation);
                                 }
 
                                 //try { Thread.sleep(500); } catch (InterruptedException e) { }
@@ -1559,7 +1559,7 @@ class ActivateProfileHelper {
         //(vibrateWhenRinging == 1);
     }
 
-    private static void setRingerMode(Context context, Profile profile, AudioManager audioManager, boolean firstCall, boolean forProfileActivation)
+    private static void setRingerMode(Context context, Profile profile, AudioManager audioManager, /*boolean firstCall,*/ boolean forProfileActivation)
     {
         //PPApplication.logE("@@@ ActivateProfileHelper.setRingerMode", "audioM.ringerMode=" + audioManager.getRingerMode());
 
@@ -1574,8 +1574,8 @@ class ActivateProfileHelper {
             }
         }
 
-        if (firstCall)
-            return;
+        //if (firstCall)
+        //    return;
 
         ringerMode = getRingerMode(context);
         zenMode = getZenMode(context);
