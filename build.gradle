@@ -26,7 +26,7 @@ allprojects {
             dirs 'libs'
         }
     }
-    tasks.withType(JavaCompile) {
-        options.compilerArgs << "-Xlint:deprecation" << "-Xlint:unchecked"
-    }
+//    tasks.withType(JavaCompile) {
+//        options.compilerArgs << "-Xlint:deprecation" << "-Xlint:unchecked"
+//    }
 }
