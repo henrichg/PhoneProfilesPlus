@@ -1203,7 +1203,7 @@ class ActivateProfileHelper {
                                 RingerModeChangeReceiver.internalChange = true;
 
                                 //setRingerMode(context, profile, audioManager, true, forProfileActivation);
-                                PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange=" + RingerModeChangeReceiver.internalChange);
+                                //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange=" + RingerModeChangeReceiver.internalChange);
                                 // !!! DO NOT CALL setVolumes before setRingerMode(..., firsCall:false).
                                 //     Ringer mode must be changed before call of setVolumes() because is checked in setVolumes().
                                 setRingerMode(context, profile, audioManager, /*false,*/ forProfileActivation);
