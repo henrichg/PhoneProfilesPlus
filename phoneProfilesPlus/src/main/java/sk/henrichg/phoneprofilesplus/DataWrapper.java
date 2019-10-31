@@ -4338,7 +4338,7 @@ public class DataWrapper {
         {
             if (Event.getEventsBlocked(context)) {
                 if (Event.getForceRunEventRunning(context))
-                    manualIndicators = "[\u00BB]";
+                    manualIndicators = "[»]";
                 else
                     manualIndicators = "[M]";
             }

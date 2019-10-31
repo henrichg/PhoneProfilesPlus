@@ -135,7 +135,7 @@ class AddEventAdapter extends BaseAdapter {
             //    eventPriority = "[P:" + "5" + "] ";
 
             if (event._forceRun)
-                eventName = eventName + "\n" + eventPriority + "[\u00BB]";
+                eventName = eventName + "\n" + eventPriority + "[»]";
             else
                 eventName = eventName + "\n" + eventPriority;
 

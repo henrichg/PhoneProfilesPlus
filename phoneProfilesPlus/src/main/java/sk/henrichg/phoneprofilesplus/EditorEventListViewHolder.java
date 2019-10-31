@@ -182,14 +182,14 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             if (eventStartOrder.isEmpty() && eventPriority.isEmpty()) {
                 if (event._forceRun) {
                     addedLF = true;
-                    _eventName = event._name + "\n" + "[\u00BB]";
+                    _eventName = event._name + "\n" + "[»]";
                 } else
                     _eventName = event._name;
             }
             else {
                 addedLF = true;
                 if (event._forceRun) {
-                    _eventName = event._name + "\n" + eventStartOrder + eventPriority + "[\u00BB]";
+                    _eventName = event._name + "\n" + eventStartOrder + eventPriority + "[»]";
                 } else
                     _eventName = event._name + "\n" + eventStartOrder + eventPriority;
             }

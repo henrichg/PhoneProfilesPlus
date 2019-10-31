@@ -479,7 +479,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                 /*if (android.os.Build.VERSION.SDK_INT >= 16)
                     status = "\u23E9";
                 else*/
-                    status = "[\u00BB]";
+                    status = "[»]";
             }
             else
             {
