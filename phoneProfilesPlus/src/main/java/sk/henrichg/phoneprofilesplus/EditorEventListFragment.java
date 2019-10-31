@@ -1343,6 +1343,9 @@ public class EditorEventListFragment extends Fragment
                 event._forceRun = which == 1;
                 DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
                 eventListAdapter.notifyDataSetChanged();
+
+                EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
+
                 dialog.dismiss();
             }
         });
