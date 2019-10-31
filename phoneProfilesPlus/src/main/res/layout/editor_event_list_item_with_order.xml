@@ -14,33 +14,33 @@
     android:background="?attr/selectableItemBackground"
     android:focusable="true">
 
-    <LinearLayout 
-            android:id="@+id/event_list_item_buttons_root"
+    <LinearLayout
+        android:id="@+id/event_list_item_buttons_root"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:orientation="vertical"
+        android:layout_marginTop="5dp" >
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/event_list_item_edit_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:orientation="horizontal"
-            android:layout_marginTop="5dp" >
+            android:layout_marginBottom="10dp"
+            android:padding="5dp"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="@string/preference_item_edit_menu"
+            android:src="?attr/editItemMenuIcon"/>
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/event_list_item_ignore_manual_activation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:layout_marginEnd="3dp"
             android:background="?attr/selectableItemBackground"
             android:contentDescription="@string/profile_preferences_showInActivator"
             android:src="@drawable/ic_ignore_manual_activation"/>
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/event_list_item_edit_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:background="?attr/selectableItemBackground"
-            android:contentDescription="@string/preference_item_edit_menu"
-            android:src="?attr/editItemMenuIcon"/>
 
     </LinearLayout>
     
