@@ -1331,4 +1331,24 @@ public class EditorEventListFragment extends Fragment
         return _eventsOrderType;
     }
 
+    void updateEventForceRun(final Event event) {
+        //noinspection ConstantConditions
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+        dialogBuilder.setTitle(getResources().getString(R.string.event_string_0) + ": " + event._name);
+        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+        int noPause = event._forceRun ? 1 : 0;
+        dialogBuilder.setSingleChoiceItems(R.array.ignoreManualActivationArray, noPause, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                event._forceRun = which == 1;
+                DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
+                eventListAdapter.notifyDataSetChanged();
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = dialogBuilder.create();
+        if (!getActivity().isFinishing())
+            dialog.show();
+    }
+
 }

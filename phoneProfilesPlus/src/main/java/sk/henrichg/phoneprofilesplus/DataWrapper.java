@@ -4337,11 +4337,10 @@ public class DataWrapper {
         if (addEventName && (dataWrapper != null))
         {
             if (Event.getEventsBlocked(context)) {
-                if (Event.getForceRunEventRunning(context)) {
+                if (Event.getForceRunEventRunning(context))
                     manualIndicators = "[\u00BB]";
-                } else {
+                else
                     manualIndicators = "[M]";
-                }
             }
 
             String _eventName = getLastStartedEventName(eventTimelineList, dataWrapper, fromDB);

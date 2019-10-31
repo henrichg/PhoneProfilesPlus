@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 class EditorEventListViewHolder extends RecyclerView.ViewHolder
@@ -31,6 +32,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
     private final TextView profileEndName;
     private ImageView profileEndIndicator;
     private final AppCompatImageButton eventItemEditMenu;
+    private final AppCompatImageButton ignoreManualActivationButton;
 
     private Event event;
     private final EditorEventListFragment editorFragment;
@@ -57,6 +59,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
         profileStartIcon = itemView.findViewById(R.id.event_list_item_profile_start_icon);
         profileEndName = itemView.findViewById(R.id.event_list_item_profile_end_name);
         profileEndIcon = itemView.findViewById(R.id.event_list_item_profile_end_icon);
+        ignoreManualActivationButton = itemView.findViewById(R.id.event_list_item_ignore_manual_activation);
         if (ApplicationPreferences.applicationEditorPrefIndicator(context))
         {
             eventPreferencesDescription  = itemView.findViewById(R.id.event_list_item_preferences_description);
@@ -408,8 +411,22 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 }
             });
 
-        }
+            if (event._forceRun)
+                ignoreManualActivationButton.setImageResource(R.drawable.ic_ignore_manual_activation);
+            else
+                ignoreManualActivationButton.setImageResource(R.drawable.ic_not_show_in_activator);
+            TooltipCompat.setTooltipText(ignoreManualActivationButton, context.getString(R.string.event_preferences_ForceRun));
+            ignoreManualActivationButton.setTag(event);
+            ignoreManualActivationButton.setOnClickListener(new View.OnClickListener() {
 
+                public void onClick(View v) {
+                    final Event event = (Event)v.getTag();
+                    if (event != null) {
+                        editorFragment.updateEventForceRun(event);
+                    }
+                }
+            });
+        }
     }
 
     @Override

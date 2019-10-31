@@ -133,9 +133,10 @@ class AddEventAdapter extends BaseAdapter {
                 eventPriority = "[P:" + (event._priority + Event.EPRIORITY_HIGHEST) + "] ";
             //else
             //    eventPriority = "[P:" + "5" + "] ";
-            if (event._forceRun) {
+
+            if (event._forceRun)
                 eventName = eventName + "\n" + eventPriority + "[\u00BB]";
-            } else
+            else
                 eventName = eventName + "\n" + eventPriority;
 
             if (!event._startWhenActivatedProfile.isEmpty()) {

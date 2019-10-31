@@ -1425,6 +1425,11 @@
     <string name="profile_preferences_alwaysOnDisplay">(R) Always-On display</string>
     <string name="permission_why_profile_always_on_display">for enable/disable Always-On display</string>
 
+    <string name="array_ignore_manual_activation_not_ignore">Do not ignore manual profile activation</string>
+    <string name="array_ignore_manual_activation_ignore">Ignore manual profile activation</string>
+    <string name="editor_activity_targetHelps_ignoreManualActivation_title">Ignore manual profile activation</string>
+    <string name="editor_activity_targetHelps_ignoreManualActivation_description">Click this to configure event parameter \"[»] Ignore manual activation\".</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>

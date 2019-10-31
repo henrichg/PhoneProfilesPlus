@@ -7219,6 +7219,39 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    void updateEventForceRun(Event event) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                db.beginTransaction();
+                try {
+                    ContentValues values = new ContentValues();
+                    values.put(KEY_E_FORCE_RUN, event._forceRun);
+
+                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                            new String[]{String.valueOf(event._id)});
+
+                    db.setTransactionSuccessful();
+                } catch (Exception e) {
+                    //Error in between database transaction
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+
 // EVENT TIMELINE ------------------------------------------------------------------
 
     // Adding time line

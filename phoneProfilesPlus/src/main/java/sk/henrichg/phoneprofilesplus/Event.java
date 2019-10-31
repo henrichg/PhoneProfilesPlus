@@ -1057,7 +1057,6 @@ class Event {
         if (preference != null)
             preference.setTitle("[»] " + context.getString(R.string.event_preferences_ForceRun));
 
-
         setSummary(prefMng, PREF_EVENT_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_NAME, preferences, context);
         setSummary(prefMng, PREF_EVENT_PROFILE_START, preferences, context);
