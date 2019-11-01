@@ -561,6 +561,7 @@ public class PPApplication extends Application {
     //static final int LOCATION_SETTINGS_FOR_MOBILE_CELLS_SCANNING_NOTIFICATION_ID = 700440;
     static final int IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ID = 700441;
 
+    // shared preferences names !!! Configure also in res/xml/phoneprofiles_backup_scheme.xml !!!
     static final String APPLICATION_PREFS_NAME = "phone_profile_preferences";
     //static final String SHARED_PROFILE_PREFS_NAME = "profile_preferences_default_profile";
     static final String ACTIVATED_PROFILE_PREFS_NAME = "profile_preferences_activated_profile";
