@@ -1136,7 +1136,8 @@ public class EditorEventListFragment extends Fragment
         boolean showTargetHelpsDefaultProfile = ApplicationPreferences.preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, true);
         if (showTargetHelps || showTargetHelpsDefaultProfile ||
                 ApplicationPreferences.preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, true) ||
-                ApplicationPreferences.preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, true)) {
+                ApplicationPreferences.preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, true) ||
+                ApplicationPreferences.preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_STATUS, true)) {
 
             //Log.d("EditorEventListFragment.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
@@ -1230,6 +1231,7 @@ public class EditorEventListFragment extends Fragment
                                 editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, false);
                                 if (filterType == FILTER_TYPE_START_ORDER)
                                     editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
+                                editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_STATUS, false);
                                 editor.apply();
                             }
                         });

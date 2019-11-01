@@ -2406,7 +2406,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 ApplicationPreferences.preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, true) ||
                 ApplicationPreferences.preferences.getBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, true) ||
                 ApplicationPreferences.preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, true) ||
-                ApplicationPreferences.preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, true)) {
+                ApplicationPreferences.preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, true) ||
+                ApplicationPreferences.preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_STATUS, true)) {
 
             //Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
@@ -2543,7 +2544,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         } // not in action bar?
 
                         targets.add(
-                                TapTarget.forView(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLichtIcon_title), getString(R.string.editor_activity_targetHelps_trafficLichtIcon_description))
+                                TapTarget.forView(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLightIcon_title), getString(R.string.editor_activity_targetHelps_trafficLightIcon_description))
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
@@ -2598,7 +2599,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         } // not in action bar?
 
                         targets.add(
-                                TapTarget.forView(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLichtIcon_title), getString(R.string.editor_activity_targetHelps_trafficLichtIcon_description))
+                                TapTarget.forView(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLightIcon_title), getString(R.string.editor_activity_targetHelps_trafficLightIcon_description))
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
@@ -2623,7 +2624,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }
                 if (showTargetHelpsRunStopIndicator) {
                     targets.add(
-                            TapTarget.forView(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLichtIcon_title), getString(R.string.editor_activity_targetHelps_trafficLichtIcon_description))
+                            TapTarget.forView(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLightIcon_title), getString(R.string.editor_activity_targetHelps_trafficLightIcon_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
@@ -2672,6 +2673,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, false);
                             if (filterEventsSelectedItem == DSI_EVENTS_START_ORDER)
                                 editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
+                            editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_STATUS, false);
                         }
                         editor.apply();
                     }
