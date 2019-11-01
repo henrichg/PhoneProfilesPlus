@@ -1523,7 +1523,14 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }
                 prefEdit.apply();
                 if (what == 1) {
-                    PPApplication.setSavedVersionCode(getApplicationContext(), 0);
+                    // save version code
+                    try {
+                        Context appContext = getApplicationContext();
+                        PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
+                        int actualVersionCode = PPApplication.getVersionCode(pInfo);
+                        PPApplication.setSavedVersionCode(appContext, actualVersionCode);
+                    } catch (Exception ignored) {
+                    }
                 }
             }/* catch (FileNotFoundException ignored) {
                 // no error, this is OK
@@ -1637,11 +1644,11 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                         if (!appSettingsError) {
                             ApplicationPreferences.getSharedPreferences(dataWrapper.context);
-                            Editor editor = ApplicationPreferences.preferences.edit();
+                            /*Editor editor = ApplicationPreferences.preferences.edit();
                             editor.putInt(SP_EDITOR_PROFILES_VIEW_SELECTED_ITEM, 0);
                             editor.putInt(SP_EDITOR_EVENTS_VIEW_SELECTED_ITEM, 0);
                             editor.putInt(EditorEventListFragment.SP_EDITOR_ORDER_SELECTED_ITEM, 0);
-                            editor.apply();
+                            editor.apply();*/
 
                             Permissions.setAllShowRequestPermissions(getApplicationContext(), true);
 

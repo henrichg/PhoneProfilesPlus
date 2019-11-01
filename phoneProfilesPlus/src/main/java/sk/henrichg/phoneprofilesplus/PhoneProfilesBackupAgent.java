@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.backup.BackupAgentHelper;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.os.Handler;
 import android.os.PowerManager;
 
@@ -69,7 +70,13 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
                     PPApplication.logE("PPApplication.exitApp", "from PhoneProfilesBackupAgent.onRestoreFinished shutdown=false");
                     PPApplication.exitApp(false, appContext, dataWrapper, null, false/*, false, false*/);
 
-                    PPApplication.setSavedVersionCode(appContext, 0);
+                    // save version code
+                    try {
+                        PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
+                        int actualVersionCode = PPApplication.getVersionCode(pInfo);
+                        PPApplication.setSavedVersionCode(appContext, actualVersionCode);
+                    } catch (Exception ignored) {
+                    }
 
                     Permissions.setAllShowRequestPermissions(appContext, true);
                     IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(appContext, true);
