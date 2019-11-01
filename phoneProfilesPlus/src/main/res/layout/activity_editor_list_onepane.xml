@@ -74,7 +74,6 @@
                         android:layout_marginEnd="@dimen/run_stop_indicator_margin_end"
                         android:layout_marginTop="2dp"
                         android:padding="5dp"
-                        android:layout_toEndOf="@id/editor_filter_spinner"
                         android:adjustViewBounds="true"
                         android:contentDescription="@string/run_stop_events_indicator"
                         android:scaleType="fitEnd"

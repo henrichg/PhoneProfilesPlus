@@ -116,6 +116,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     public static final String PREF_START_TARGET_HELPS = "editor_profiles_activity_start_target_helps";
     public static final String PREF_START_TARGET_HELPS_DEFAULT_PROFILE = "editor_profile_activity_start_target_helps_default_profile";
     public static final String PREF_START_TARGET_HELPS_FILTER_SPINNER = "editor_profile_activity_start_target_helps_filter_spinner";
+    public static final String PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR = "editor_profile_activity_start_target_helps_run_stop_indicator";
 
     private Toolbar editorToolbar;
     //Toolbar bottomToolbar;
@@ -2395,8 +2396,9 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         boolean startTargetHelps = ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true);
         boolean showTargetHelpsFilterSpinner = ApplicationPreferences.preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_FILTER_SPINNER, true);
+        boolean showTargetHelpsRunStopIndicator = ApplicationPreferences.preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR, true);
 
-        if (startTargetHelps || showTargetHelpsFilterSpinner ||
+        if (startTargetHelps || showTargetHelpsFilterSpinner || showTargetHelpsRunStopIndicator ||
                 ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS_DEFAULT_PROFILE, true) ||
                 ApplicationPreferences.preferences.getBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, true) ||
                 ApplicationPreferences.preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, true) ||
@@ -2408,12 +2410,13 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             //Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
-            if (startTargetHelps || showTargetHelpsFilterSpinner) {
+            if (startTargetHelps || showTargetHelpsFilterSpinner || showTargetHelpsRunStopIndicator) {
                 //Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
                 Editor editor = ApplicationPreferences.preferences.edit();
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
                 editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_FILTER_SPINNER, false);
+                editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR, false);
                 editor.apply();
 
                 //TypedValue tv = new TypedValue();
@@ -2433,15 +2436,28 @@ public class EditorProfilesActivity extends AppCompatActivity
 //                    textColor = R.color.tabTargetHelpTextColor_dark;
                 boolean tintTarget = !appTheme.equals("white");
 
-                Rect filterSpinnerTarget = new Rect(0, 0, filterSpinner.getHeight(), filterSpinner.getHeight());
                 int[] screenLocation = new int[2];
+
                 filterSpinner.getLocationOnScreen(screenLocation);
                 //filterSpinner.getLocationInWindow(screenLocation);
+                Rect filterSpinnerTarget = new Rect(0, 0, filterSpinner.getHeight(), filterSpinner.getHeight());
                 filterSpinnerTarget.offset(screenLocation[0] + 100, screenLocation[1]);
+
+                /*
+                eventsRunStopIndicator.getLocationOnScreen(screenLocation);
+                //eventsRunStopIndicator.getLocationInWindow(screenLocation);
+                Rect eventRunStopIndicatorTarget = new Rect(0, 0, eventsRunStopIndicator.getHeight(), eventsRunStopIndicator.getHeight());
+                eventRunStopIndicatorTarget.offset(screenLocation[0], screenLocation[1]);
+                */
 
                 final TapTargetSequence sequence = new TapTargetSequence(this);
                 List<TapTarget> targets = new ArrayList<>();
                 if (startTargetHelps) {
+
+                    // do not add it again
+                    showTargetHelpsFilterSpinner = false;
+                    showTargetHelpsRunStopIndicator = false;
+
                     if (Event.getGlobalEventsRunning(getApplicationContext())) {
                         /*targets.add(
                             TapTarget.forToolbarNavigationIcon(editorToolbar, getString(R.string.editor_activity_targetHelps_navigationIcon_title), getString(R.string.editor_activity_targetHelps_navigationIcon_description))
@@ -2512,6 +2528,30 @@ public class EditorProfilesActivity extends AppCompatActivity
                             ++id;
                         } catch (Exception ignored) {
                         } // not in action bar?
+                        try {
+                            targets.add(
+                                    TapTarget.forToolbarMenuItem(editorToolbar, R.id.important_info, getString(R.string.editor_activity_targetHelps_importantInfoButton_title), getString(R.string.editor_activity_targetHelps_importantInfoButton_description))
+                                            .outerCircleColor(outerCircleColor)
+                                            .targetCircleColor(targetCircleColor)
+                                            .textColor(textColor)
+                                            .tintTarget(tintTarget)
+                                            .drawShadow(true)
+                                            .id(id)
+                            );
+                            ++id;
+                        } catch (Exception ignored) {
+                        } // not in action bar?
+
+                        targets.add(
+                                TapTarget.forView(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLichtIcon_title), getString(R.string.editor_activity_targetHelps_trafficLichtIcon_description))
+                                        .outerCircleColor(outerCircleColor)
+                                        .targetCircleColor(targetCircleColor)
+                                        .textColor(textColor)
+                                        .tintTarget(false)
+                                        .drawShadow(true)
+                                        .id(id)
+                        );
+                        ++id;
                     } else {
                         /*targets.add(
                                 TapTarget.forToolbarNavigationIcon(editorToolbar, getString(R.string.editor_activity_targetHelps_navigationIcon_title), getString(R.string.editor_activity_targetHelps_navigationIcon_description))
@@ -2556,44 +2596,41 @@ public class EditorProfilesActivity extends AppCompatActivity
                             ++id;
                         } catch (Exception ignored) {
                         } // not in action bar?
-                        try {
-                            targets.add(
-                                    TapTarget.forToolbarMenuItem(editorToolbar, R.id.important_info, getString(R.string.editor_activity_targetHelps_importantInfoButton_title), getString(R.string.editor_activity_targetHelps_importantInfoButton_description))
-                                            .outerCircleColor(outerCircleColor)
-                                            .targetCircleColor(targetCircleColor)
-                                            .textColor(textColor)
-                                            .tintTarget(tintTarget)
-                                            .drawShadow(true)
-                                            .id(id)
-                            );
-                            ++id;
-                        } catch (Exception ignored) {
-                        } // not in action bar?
+
+                        targets.add(
+                                TapTarget.forView(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLichtIcon_title), getString(R.string.editor_activity_targetHelps_trafficLichtIcon_description))
+                                        .outerCircleColor(outerCircleColor)
+                                        .targetCircleColor(targetCircleColor)
+                                        .textColor(textColor)
+                                        .tintTarget(false)
+                                        .drawShadow(true)
+                                        .id(id)
+                        );
+                        ++id;
                     }
                 }
-                else {
-                    try {
-                        /*targets.add(
-                            TapTarget.forToolbarNavigationIcon(editorToolbar, getString(R.string.editor_activity_targetHelps_navigationIcon_title), getString(R.string.editor_activity_targetHelps_navigationIcon_description))
+                if (showTargetHelpsFilterSpinner) {
+                    targets.add(
+                            TapTarget.forBounds(filterSpinnerTarget, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
+                                    .transparentTarget(true)
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
                                     .tintTarget(tintTarget)
                                     .drawShadow(true)
                                     .id(1)
-                        );*/
-                        targets.add(
-                                TapTarget.forBounds(filterSpinnerTarget, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
-                                        .transparentTarget(true)
-                                        .outerCircleColor(outerCircleColor)
-                                        .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
-                                        .tintTarget(tintTarget)
-                                        .drawShadow(true)
-                                        .id(1)
-                        );
-                    } catch (Exception ignored) {
-                    } // not in action bar?
+                    );
+                }
+                if (showTargetHelpsRunStopIndicator) {
+                    targets.add(
+                            TapTarget.forView(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLichtIcon_title), getString(R.string.editor_activity_targetHelps_trafficLichtIcon_description))
+                                    .outerCircleColor(outerCircleColor)
+                                    .targetCircleColor(targetCircleColor)
+                                    .textColor(textColor)
+                                    .tintTarget(false)
+                                    .drawShadow(true)
+                                    .id(1)
+                    );
                 }
 
                 sequence.targets(targets);
