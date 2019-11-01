@@ -375,7 +375,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
         boolean startTargetHelpsOrder = ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS_ORDER, true);
         boolean startTargetHelpsShowInActivator = ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, true);
 
-        if (startTargetHelps || startTargetHelpsOrder) {
+        if (startTargetHelps || startTargetHelpsOrder || startTargetHelpsShowInActivator) {
 
             //Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
@@ -391,6 +391,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 //                    textColor = R.color.tabTargetHelpTextColor_dark;
             boolean tintTarget = !appTheme.equals("white");
 
+            final TapTargetSequence sequence = new TapTargetSequence(activity);
+
             if (startTargetHelps) {
                 //Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
@@ -403,16 +405,15 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                 listItemView.getLocationOnScreen(screenLocation);
                 //listItemView.getLocationInWindow(screenLocation);
 
-                final TapTargetSequence sequence = new TapTargetSequence(activity);
-
                 if (filterType == EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR) {
                     View dragHandle = listItemView.findViewById(R.id.profile_list_drag_handle);
                     profileItemTarget.offset(screenLocation[0] + 100 + dragHandle.getWidth(), screenLocation[1]);
 
                     editor.putBoolean(PREF_START_TARGET_HELPS_ORDER, false);
                     editor.apply();
+
+                    // do not add it again
                     startTargetHelpsOrder = false;
-                    startTargetHelpsShowInActivator = false;
 
                     sequence.targets(
                             TapTarget.forBounds(profileItemTarget, activity.getString(R.string.editor_activity_targetHelps_profilePreferences_title), activity.getString(R.string.editor_activity_targetHelps_profilePreferences_description))
@@ -438,13 +439,13 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .drawShadow(true)
                                     .id(3)
                     );
-                }
-                else
-                if (filterType == EditorProfileListFragment.FILTER_TYPE_ALL) {
+                } else if (filterType == EditorProfileListFragment.FILTER_TYPE_ALL) {
                     profileItemTarget.offset(screenLocation[0] + 100, screenLocation[1]);
 
                     editor.putBoolean(PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
                     editor.apply();
+
+                    // do not add it again
                     startTargetHelpsShowInActivator = false;
 
                     sequence.targets(
@@ -471,8 +472,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .drawShadow(true)
                                     .id(3)
                     );
-                }
-                else {
+                } else {
                     profileItemTarget.offset(screenLocation[0] + 100, screenLocation[1]);
 
                     sequence.targets(
@@ -493,29 +493,9 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .id(2)
                     );
                 }
-                sequence.listener(new TapTargetSequence.Listener() {
-                    // This listener will tell us when interesting(tm) events happen in regards
-                    // to the sequence
-                    @Override
-                    public void onSequenceFinish() {
-                        //targetHelpsSequenceStarted = false;
-                    }
 
-                    @Override
-                    public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
-                        //Log.d("TapTargetView", "Clicked on " + lastTarget.id());
-                    }
-
-                    @Override
-                    public void onSequenceCanceled(TapTarget lastTarget) {
-                        //targetHelpsSequenceStarted = false;
-                    }
-                });
-                sequence.continueOnCancel(true)
-                        .considerOuterCircleCanceled(true);
-                //targetHelpsSequenceStarted = true;
-                sequence.start();
             }
+
             if (startTargetHelpsOrder) {
                 //Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 if (filterType == EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR) {
@@ -523,7 +503,6 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                     editor.putBoolean(PREF_START_TARGET_HELPS_ORDER, false);
                     editor.apply();
 
-                    final TapTargetSequence sequence = new TapTargetSequence(activity);
                     sequence.targets(
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_drag_handle), activity.getString(R.string.editor_activity_targetHelps_profileOrderHandler_title), activity.getString(R.string.editor_activity_targetHelps_profileOrderHandler_description))
                                     .outerCircleColor(outerCircleColor)
@@ -533,30 +512,9 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .drawShadow(true)
                                     .id(1)
                     );
-                    sequence.listener(new TapTargetSequence.Listener() {
-                        // This listener will tell us when interesting(tm) events happen in regards
-                        // to the sequence
-                        @Override
-                        public void onSequenceFinish() {
-                            //targetHelpsSequenceStarted = false;
-                        }
-
-                        @Override
-                        public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
-                            //Log.d("TapTargetView", "Clicked on " + lastTarget.id());
-                        }
-
-                        @Override
-                        public void onSequenceCanceled(TapTarget lastTarget) {
-                            //targetHelpsSequenceStarted = false;
-                        }
-                    });
-                    sequence.continueOnCancel(true)
-                            .considerOuterCircleCanceled(true);
-                    //targetHelpsSequenceStarted = true;
-                    sequence.start();
                 }
             }
+
             if (startTargetHelpsShowInActivator) {
                 //Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 if (filterType == EditorProfileListFragment.FILTER_TYPE_ALL) {
@@ -564,7 +522,6 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                     editor.putBoolean(PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
                     editor.apply();
 
-                    final TapTargetSequence sequence = new TapTargetSequence(activity);
                     sequence.targets(
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_show_in_activator), activity.getString(R.string.editor_activity_targetHelps_showInActivator_title), activity.getString(R.string.editor_activity_targetHelps_showInActivator_description))
                                     .outerCircleColor(outerCircleColor)
@@ -574,32 +531,33 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .drawShadow(true)
                                     .id(1)
                     );
-                    sequence.listener(new TapTargetSequence.Listener() {
-                        // This listener will tell us when interesting(tm) events happen in regards
-                        // to the sequence
-                        @Override
-                        public void onSequenceFinish() {
-                            //targetHelpsSequenceStarted = false;
-                        }
-
-                        @Override
-                        public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
-                            //Log.d("TapTargetView", "Clicked on " + lastTarget.id());
-                        }
-
-                        @Override
-                        public void onSequenceCanceled(TapTarget lastTarget) {
-                            //targetHelpsSequenceStarted = false;
-                        }
-                    });
-                    sequence.continueOnCancel(true)
-                            .considerOuterCircleCanceled(true);
-                    //targetHelpsSequenceStarted = true;
-                    sequence.start();
                 }
             }
-        }
 
+            sequence.listener(new TapTargetSequence.Listener() {
+                // This listener will tell us when interesting(tm) events happen in regards
+                // to the sequence
+                @Override
+                public void onSequenceFinish() {
+                    //targetHelpsSequenceStarted = false;
+                }
+
+                @Override
+                public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+                    //Log.d("TapTargetView", "Clicked on " + lastTarget.id());
+                }
+
+                @Override
+                public void onSequenceCanceled(TapTarget lastTarget) {
+                    //targetHelpsSequenceStarted = false;
+                }
+            });
+            sequence.continueOnCancel(true)
+                    .considerOuterCircleCanceled(true);
+            //targetHelpsSequenceStarted = true;
+            sequence.start();
+
+        }
     }
 
 }

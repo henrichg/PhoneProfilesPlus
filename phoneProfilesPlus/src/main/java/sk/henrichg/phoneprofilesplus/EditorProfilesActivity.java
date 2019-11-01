@@ -2529,19 +2529,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                             ++id;
                         } catch (Exception ignored) {
                         } // not in action bar?
-                        try {
-                            targets.add(
-                                    TapTarget.forToolbarMenuItem(editorToolbar, R.id.important_info, getString(R.string.editor_activity_targetHelps_importantInfoButton_title), getString(R.string.editor_activity_targetHelps_importantInfoButton_description))
-                                            .outerCircleColor(outerCircleColor)
-                                            .targetCircleColor(targetCircleColor)
-                                            .textColor(textColor)
-                                            .tintTarget(tintTarget)
-                                            .drawShadow(true)
-                                            .id(id)
-                            );
-                            ++id;
-                        } catch (Exception ignored) {
-                        } // not in action bar?
 
                         targets.add(
                                 TapTarget.forView(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLightIcon_title), getString(R.string.editor_activity_targetHelps_trafficLightIcon_description))
@@ -2587,6 +2574,19 @@ public class EditorProfilesActivity extends AppCompatActivity
                         try {
                             targets.add(
                                     TapTarget.forToolbarMenuItem(editorToolbar, R.id.menu_activity_log, getString(R.string.editor_activity_targetHelps_activityLog_title), getString(R.string.editor_activity_targetHelps_activityLog_description))
+                                            .outerCircleColor(outerCircleColor)
+                                            .targetCircleColor(targetCircleColor)
+                                            .textColor(textColor)
+                                            .tintTarget(tintTarget)
+                                            .drawShadow(true)
+                                            .id(id)
+                            );
+                            ++id;
+                        } catch (Exception ignored) {
+                        } // not in action bar?
+                        try {
+                            targets.add(
+                                    TapTarget.forToolbarMenuItem(editorToolbar, R.id.important_info, getString(R.string.editor_activity_targetHelps_importantInfoButton_title), getString(R.string.editor_activity_targetHelps_importantInfoButton_description))
                                             .outerCircleColor(outerCircleColor)
                                             .targetCircleColor(targetCircleColor)
                                             .textColor(textColor)

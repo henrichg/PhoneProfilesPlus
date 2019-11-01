@@ -374,162 +374,160 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 //                    textColor = R.color.tabTargetHelpTextColor_dark;
             boolean tintTarget = !appTheme.equals("white");
 
-            if (startTargetHelps || startTargetHelpsOrder || startTargetHelpsStatus) {
-                //Log.d("EditorEventListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");
+            //Log.d("EditorEventListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
-                SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-                editor.putBoolean(PREF_START_TARGET_HELPS, false);
-                editor.putBoolean(PREF_START_TARGET_HELPS_STATUS, false);
-                editor.apply();
+            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            editor.putBoolean(PREF_START_TARGET_HELPS, false);
+            editor.putBoolean(PREF_START_TARGET_HELPS_STATUS, false);
+            editor.apply();
 
-                Rect eventItemTarget = new Rect(0, 0, listItemView.getHeight(), listItemView.getHeight());
-                int[] screenLocation = new int[2];
-                listItemView.getLocationOnScreen(screenLocation);
-                //listItemView.getLocationInWindow(screenLocation);
+            Rect eventItemTarget = new Rect(0, 0, listItemView.getHeight(), listItemView.getHeight());
+            int[] screenLocation = new int[2];
+            listItemView.getLocationOnScreen(screenLocation);
+            //listItemView.getLocationInWindow(screenLocation);
 
-                final TapTargetSequence sequence = new TapTargetSequence(activity);
+            final TapTargetSequence sequence = new TapTargetSequence(activity);
 
-                if (startTargetHelps) {
+            if (startTargetHelps) {
+                // do not add it again
+                startTargetHelpsStatus = false;
+
+                if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
+                    View view = listItemView.findViewById(R.id.event_list_drag_handle);
+                    eventItemTarget.offset(screenLocation[0] + 80 + view.getWidth(), screenLocation[1]);
+
+                    editor.putBoolean(PREF_START_TARGET_HELPS_ORDER, false);
+                    editor.apply();
+
                     // do not add it again
-                    startTargetHelpsStatus = false;
+                    startTargetHelpsOrder = false;
 
-                    if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
-                        View view = listItemView.findViewById(R.id.event_list_drag_handle);
-                        eventItemTarget.offset(screenLocation[0] + 80 + view.getWidth(), screenLocation[1]);
-
-                        editor.putBoolean(PREF_START_TARGET_HELPS_ORDER, false);
-                        editor.apply();
-
-                        // do not add it again
-                        startTargetHelpsOrder = false;
-
-                        sequence.targets(
-                                TapTarget.forBounds(eventItemTarget, activity.getString(R.string.editor_activity_targetHelps_eventPreferences_title), activity.getString(R.string.editor_activity_targetHelps_eventPreferences_description))
-                                        .transparentTarget(true)
-                                        .outerCircleColor(outerCircleColor)
-                                        .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
-                                        .tintTarget(tintTarget)
-                                        .drawShadow(true)
-                                        .id(1),
-                                TapTarget.forView(listItemView.findViewById(R.id.event_list_item_ignore_manual_activation), activity.getString(R.string.editor_activity_targetHelps_ignoreManualActivation_title), activity.getString(R.string.editor_activity_targetHelps_ignoreManualActivation_description))
-                                        .outerCircleColor(outerCircleColor)
-                                        .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
-                                        .tintTarget(tintTarget)
-                                        .drawShadow(true)
-                                        .id(2),
-                                TapTarget.forView(listItemView.findViewById(R.id.event_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_eventMenu_title), activity.getString(R.string.editor_activity_targetHelps_eventMenu_description))
-                                        .outerCircleColor(outerCircleColor)
-                                        .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
-                                        .tintTarget(tintTarget)
-                                        .drawShadow(true)
-                                        .id(3),
-                                TapTarget.forView(listItemView.findViewById(R.id.event_list_drag_handle), activity.getString(R.string.editor_activity_targetHelps_eventOrderHandler_title), activity.getString(R.string.editor_activity_targetHelps_eventOrderHandler_description))
-                                        .outerCircleColor(outerCircleColor)
-                                        .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
-                                        .tintTarget(tintTarget)
-                                        .drawShadow(true)
-                                        .id(4),
-                                TapTarget.forView(listItemView.findViewById(R.id.event_list_item_status), activity.getString(R.string.editor_activity_targetHelps_eventStatusIcon_title), activity.getString(R.string.editor_activity_targetHelps_eventStatusIcon_description))
-                                        .outerCircleColor(outerCircleColor)
-                                        .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
-                                        .tintTarget(false)
-                                        .drawShadow(true)
-                                        .id(5)
-                        );
-                    } else {
-                        eventItemTarget.offset(screenLocation[0] + 80, screenLocation[1]);
-
-                        sequence.targets(
-                                TapTarget.forBounds(eventItemTarget, activity.getString(R.string.editor_activity_targetHelps_eventPreferences_title), activity.getString(R.string.editor_activity_targetHelps_eventPreferences_description))
-                                        .transparentTarget(true)
-                                        .outerCircleColor(outerCircleColor)
-                                        .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
-                                        .tintTarget(tintTarget)
-                                        .drawShadow(true)
-                                        .id(1),
-                                TapTarget.forView(listItemView.findViewById(R.id.event_list_item_ignore_manual_activation), activity.getString(R.string.editor_activity_targetHelps_ignoreManualActivation_title), activity.getString(R.string.editor_activity_targetHelps_ignoreManualActivation_description))
-                                        .outerCircleColor(outerCircleColor)
-                                        .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
-                                        .tintTarget(tintTarget)
-                                        .drawShadow(true)
-                                        .id(2),
-                                TapTarget.forView(listItemView.findViewById(R.id.event_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_eventMenu_title), activity.getString(R.string.editor_activity_targetHelps_eventMenu_description))
-                                        .outerCircleColor(outerCircleColor)
-                                        .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
-                                        .tintTarget(tintTarget)
-                                        .drawShadow(true)
-                                        .id(3),
-                                TapTarget.forView(listItemView.findViewById(R.id.event_list_item_status), activity.getString(R.string.editor_activity_targetHelps_eventStatusIcon_title), activity.getString(R.string.editor_activity_targetHelps_eventStatusIcon_description))
-                                        .outerCircleColor(outerCircleColor)
-                                        .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
-                                        .tintTarget(false)
-                                        .drawShadow(true)
-                                        .id(4)
-                        );
-                    }
-                }
-
-                if (startTargetHelpsOrder) {
-                    if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
-                        editor.putBoolean(PREF_START_TARGET_HELPS_ORDER, false);
-                        editor.apply();
-
-                        sequence.targets(
-                                TapTarget.forView(listItemView.findViewById(R.id.event_list_drag_handle), activity.getString(R.string.editor_activity_targetHelps_eventOrderHandler_title), activity.getString(R.string.editor_activity_targetHelps_eventOrderHandler_description))
-                                        .outerCircleColor(outerCircleColor)
-                                        .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
-                                        .tintTarget(tintTarget)
-                                        .drawShadow(true)
-                                        .id(1)
-                        );
-                    }
-                }
-
-                if (startTargetHelpsStatus) {
                     sequence.targets(
+                            TapTarget.forBounds(eventItemTarget, activity.getString(R.string.editor_activity_targetHelps_eventPreferences_title), activity.getString(R.string.editor_activity_targetHelps_eventPreferences_description))
+                                    .transparentTarget(true)
+                                    .outerCircleColor(outerCircleColor)
+                                    .targetCircleColor(targetCircleColor)
+                                    .textColor(textColor)
+                                    .tintTarget(tintTarget)
+                                    .drawShadow(true)
+                                    .id(1),
+                            TapTarget.forView(listItemView.findViewById(R.id.event_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_eventMenu_title), activity.getString(R.string.editor_activity_targetHelps_eventMenu_description))
+                                    .outerCircleColor(outerCircleColor)
+                                    .targetCircleColor(targetCircleColor)
+                                    .textColor(textColor)
+                                    .tintTarget(tintTarget)
+                                    .drawShadow(true)
+                                    .id(2),
+                            TapTarget.forView(listItemView.findViewById(R.id.event_list_item_ignore_manual_activation), activity.getString(R.string.editor_activity_targetHelps_ignoreManualActivation_title), activity.getString(R.string.editor_activity_targetHelps_ignoreManualActivation_description))
+                                    .outerCircleColor(outerCircleColor)
+                                    .targetCircleColor(targetCircleColor)
+                                    .textColor(textColor)
+                                    .tintTarget(tintTarget)
+                                    .drawShadow(true)
+                                    .id(3),
+                            TapTarget.forView(listItemView.findViewById(R.id.event_list_drag_handle), activity.getString(R.string.editor_activity_targetHelps_eventOrderHandler_title), activity.getString(R.string.editor_activity_targetHelps_eventOrderHandler_description))
+                                    .outerCircleColor(outerCircleColor)
+                                    .targetCircleColor(targetCircleColor)
+                                    .textColor(textColor)
+                                    .tintTarget(tintTarget)
+                                    .drawShadow(true)
+                                    .id(4),
                             TapTarget.forView(listItemView.findViewById(R.id.event_list_item_status), activity.getString(R.string.editor_activity_targetHelps_eventStatusIcon_title), activity.getString(R.string.editor_activity_targetHelps_eventStatusIcon_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
                                     .tintTarget(false)
                                     .drawShadow(true)
+                                    .id(5)
+                    );
+                } else {
+                    eventItemTarget.offset(screenLocation[0] + 80, screenLocation[1]);
+
+                    sequence.targets(
+                            TapTarget.forBounds(eventItemTarget, activity.getString(R.string.editor_activity_targetHelps_eventPreferences_title), activity.getString(R.string.editor_activity_targetHelps_eventPreferences_description))
+                                    .transparentTarget(true)
+                                    .outerCircleColor(outerCircleColor)
+                                    .targetCircleColor(targetCircleColor)
+                                    .textColor(textColor)
+                                    .tintTarget(tintTarget)
+                                    .drawShadow(true)
+                                    .id(1),
+                            TapTarget.forView(listItemView.findViewById(R.id.event_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_eventMenu_title), activity.getString(R.string.editor_activity_targetHelps_eventMenu_description))
+                                    .outerCircleColor(outerCircleColor)
+                                    .targetCircleColor(targetCircleColor)
+                                    .textColor(textColor)
+                                    .tintTarget(tintTarget)
+                                    .drawShadow(true)
+                                    .id(2),
+                            TapTarget.forView(listItemView.findViewById(R.id.event_list_item_ignore_manual_activation), activity.getString(R.string.editor_activity_targetHelps_ignoreManualActivation_title), activity.getString(R.string.editor_activity_targetHelps_ignoreManualActivation_description))
+                                    .outerCircleColor(outerCircleColor)
+                                    .targetCircleColor(targetCircleColor)
+                                    .textColor(textColor)
+                                    .tintTarget(tintTarget)
+                                    .drawShadow(true)
+                                    .id(3),
+                            TapTarget.forView(listItemView.findViewById(R.id.event_list_item_status), activity.getString(R.string.editor_activity_targetHelps_eventStatusIcon_title), activity.getString(R.string.editor_activity_targetHelps_eventStatusIcon_description))
+                                    .outerCircleColor(outerCircleColor)
+                                    .targetCircleColor(targetCircleColor)
+                                    .textColor(textColor)
+                                    .tintTarget(false)
+                                    .drawShadow(true)
+                                    .id(4)
+                    );
+                }
+            }
+
+            if (startTargetHelpsOrder) {
+                if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
+                    editor.putBoolean(PREF_START_TARGET_HELPS_ORDER, false);
+                    editor.apply();
+
+                    sequence.targets(
+                            TapTarget.forView(listItemView.findViewById(R.id.event_list_drag_handle), activity.getString(R.string.editor_activity_targetHelps_eventOrderHandler_title), activity.getString(R.string.editor_activity_targetHelps_eventOrderHandler_description))
+                                    .outerCircleColor(outerCircleColor)
+                                    .targetCircleColor(targetCircleColor)
+                                    .textColor(textColor)
+                                    .tintTarget(tintTarget)
+                                    .drawShadow(true)
                                     .id(1)
                     );
                 }
-
-                sequence.listener(new TapTargetSequence.Listener() {
-                    // This listener will tell us when interesting(tm) events happen in regards
-                    // to the sequence
-                    @Override
-                    public void onSequenceFinish() {
-                        //targetHelpsSequenceStarted = false;
-                    }
-
-                    @Override
-                    public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
-                        //Log.d("TapTargetView", "Clicked on " + lastTarget.id());
-                    }
-
-                    @Override
-                    public void onSequenceCanceled(TapTarget lastTarget) {
-                        //targetHelpsSequenceStarted = false;
-                    }
-                });
-                sequence.continueOnCancel(true)
-                        .considerOuterCircleCanceled(true);
-                //targetHelpsSequenceStarted = true;
-                sequence.start();
             }
+
+            if (startTargetHelpsStatus) {
+                sequence.targets(
+                        TapTarget.forView(listItemView.findViewById(R.id.event_list_item_status), activity.getString(R.string.editor_activity_targetHelps_eventStatusIcon_title), activity.getString(R.string.editor_activity_targetHelps_eventStatusIcon_description))
+                                .outerCircleColor(outerCircleColor)
+                                .targetCircleColor(targetCircleColor)
+                                .textColor(textColor)
+                                .tintTarget(false)
+                                .drawShadow(true)
+                                .id(1)
+                );
+            }
+
+            sequence.listener(new TapTargetSequence.Listener() {
+                // This listener will tell us when interesting(tm) events happen in regards
+                // to the sequence
+                @Override
+                public void onSequenceFinish() {
+                    //targetHelpsSequenceStarted = false;
+                }
+
+                @Override
+                public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+                    //Log.d("TapTargetView", "Clicked on " + lastTarget.id());
+                }
+
+                @Override
+                public void onSequenceCanceled(TapTarget lastTarget) {
+                    //targetHelpsSequenceStarted = false;
+                }
+            });
+            sequence.continueOnCancel(true)
+                    .considerOuterCircleCanceled(true);
+            //targetHelpsSequenceStarted = true;
+            sequence.start();
         }
     }
 
