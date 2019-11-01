@@ -117,6 +117,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     public static final String PREF_START_TARGET_HELPS_DEFAULT_PROFILE = "editor_profile_activity_start_target_helps_default_profile";
     public static final String PREF_START_TARGET_HELPS_FILTER_SPINNER = "editor_profile_activity_start_target_helps_filter_spinner";
     public static final String PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR = "editor_profile_activity_start_target_helps_run_stop_indicator";
+    public static final String PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION = "editor_profile_activity_start_target_helps_bottom_navigation";
 
     private Toolbar editorToolbar;
     //Toolbar bottomToolbar;
@@ -131,6 +132,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     //private ImageView drawerHeaderFilterImage;
     //private TextView drawerHeaderFilterTitle;
     //private TextView drawerHeaderFilterSubtitle;
+    private BottomNavigationView bottomNavigationView;
 
     //private String[] drawerItemsTitle;
     //private String[] drawerItemsSubtitle;
@@ -391,7 +393,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         drawerLayout.addDrawerListener(drawerToggle);
         */
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.editor_list_bottom_navigation);
+        bottomNavigationView = findViewById(R.id.editor_list_bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -2397,8 +2399,9 @@ public class EditorProfilesActivity extends AppCompatActivity
         boolean startTargetHelps = ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true);
         boolean showTargetHelpsFilterSpinner = ApplicationPreferences.preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_FILTER_SPINNER, true);
         boolean showTargetHelpsRunStopIndicator = ApplicationPreferences.preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR, true);
+        boolean showTargetHelpsBottomNavigation = ApplicationPreferences.preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION, true);
 
-        if (startTargetHelps || showTargetHelpsFilterSpinner || showTargetHelpsRunStopIndicator ||
+        if (startTargetHelps || showTargetHelpsFilterSpinner || showTargetHelpsRunStopIndicator || showTargetHelpsBottomNavigation ||
                 ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS_DEFAULT_PROFILE, true) ||
                 ApplicationPreferences.preferences.getBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, true) ||
                 ApplicationPreferences.preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, true) ||
@@ -2411,13 +2414,14 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             //Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
-            if (startTargetHelps || showTargetHelpsFilterSpinner || showTargetHelpsRunStopIndicator) {
+            if (startTargetHelps || showTargetHelpsFilterSpinner || showTargetHelpsRunStopIndicator || showTargetHelpsBottomNavigation) {
                 //Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
                 Editor editor = ApplicationPreferences.preferences.edit();
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
                 editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_FILTER_SPINNER, false);
                 editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR, false);
+                editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION, false);
                 editor.apply();
 
                 //TypedValue tv = new TypedValue();
@@ -2458,6 +2462,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     // do not add it again
                     showTargetHelpsFilterSpinner = false;
                     showTargetHelpsRunStopIndicator = false;
+                    showTargetHelpsBottomNavigation = false;
 
                     if (Event.getGlobalEventsRunning(getApplicationContext())) {
                         /*targets.add(
@@ -2540,6 +2545,27 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         .id(id)
                         );
                         ++id;
+
+                        targets.add(
+                                TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_profiles_view), getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_title), getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_description))
+                                        .outerCircleColor(outerCircleColor)
+                                        .targetCircleColor(targetCircleColor)
+                                        .textColor(textColor)
+                                        .tintTarget(true)
+                                        .drawShadow(true)
+                                        .id(id)
+                        );
+                        ++id;
+                        targets.add(
+                                TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_events_view), getString(R.string.editor_activity_targetHelps_bottomNavigationEvents_title), getString(R.string.editor_activity_targetHelps_bottomNavigationEvents_description))
+                                        .outerCircleColor(outerCircleColor)
+                                        .targetCircleColor(targetCircleColor)
+                                        .textColor(textColor)
+                                        .tintTarget(true)
+                                        .drawShadow(true)
+                                        .id(id)
+                        );
+                        ++id;
                     } else {
                         /*targets.add(
                                 TapTarget.forToolbarNavigationIcon(editorToolbar, getString(R.string.editor_activity_targetHelps_navigationIcon_title), getString(R.string.editor_activity_targetHelps_navigationIcon_description))
@@ -2608,6 +2634,28 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         .id(id)
                         );
                         ++id;
+
+                        targets.add(
+                                TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_profiles_view), getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_title), getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_description))
+                                        .outerCircleColor(outerCircleColor)
+                                        .targetCircleColor(targetCircleColor)
+                                        .textColor(textColor)
+                                        .tintTarget(true)
+                                        .drawShadow(true)
+                                        .id(id)
+                        );
+                        ++id;
+                        targets.add(
+                                TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_events_view), getString(R.string.editor_activity_targetHelps_bottomNavigationEvents_title), getString(R.string.editor_activity_targetHelps_bottomNavigationEvents_description))
+                                        .outerCircleColor(outerCircleColor)
+                                        .targetCircleColor(targetCircleColor)
+                                        .textColor(textColor)
+                                        .tintTarget(true)
+                                        .drawShadow(true)
+                                        .id(id)
+                        );
+                        ++id;
+
                     }
                 }
                 if (showTargetHelpsFilterSpinner) {
@@ -2631,6 +2679,26 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     .tintTarget(false)
                                     .drawShadow(true)
                                     .id(1)
+                    );
+                }
+                if (showTargetHelpsBottomNavigation) {
+                    targets.add(
+                            TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_profiles_view), getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_title), getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_description))
+                                    .outerCircleColor(outerCircleColor)
+                                    .targetCircleColor(targetCircleColor)
+                                    .textColor(textColor)
+                                    .tintTarget(true)
+                                    .drawShadow(true)
+                                    .id(1)
+                    );
+                    targets.add(
+                            TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_events_view), getString(R.string.editor_activity_targetHelps_bottomNavigationEvents_title), getString(R.string.editor_activity_targetHelps_bottomNavigationEvents_description))
+                                    .outerCircleColor(outerCircleColor)
+                                    .targetCircleColor(targetCircleColor)
+                                    .textColor(textColor)
+                                    .tintTarget(true)
+                                    .drawShadow(true)
+                                    .id(2)
                     );
                 }
 

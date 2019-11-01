@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<resources >
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Match 56dp default ActionBar height on portrait orientation -->
     <!--<dimen name="naw_drawer_margin_offset">-8dp</dimen>-->
     <!-- Default screen margins, per the Android Design guidelines.
@@ -24,5 +24,7 @@
     <dimen name="important_info_text_size">16sp</dimen>
 
     <dimen name="editor_bottom_bar_height">67dp</dimen>
+
+    <dimen name="design_bottom_navigation_height" tools:override="true">48dp</dimen>
 
 </resources>

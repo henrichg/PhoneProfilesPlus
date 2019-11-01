@@ -16,6 +16,7 @@
         app:elevation="0dp"
         app:itemIconTint="@drawable/bottom_navigation_colors"
         app:itemTextColor="@drawable/bottom_navigation_colors"
+        app:labelVisibilityMode="unlabeled"
         app:menu="@menu/editor_bottom_navigation_menu" />
 
     <RelativeLayout
