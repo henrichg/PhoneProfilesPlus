@@ -1321,6 +1321,10 @@
     <string name="editor_activity_targetHelps_showInActivator_description">\"Muharrik içinde göster\" değerini ayarlamak için buna dokunun.</string>
     <string name="profile_preferences_alwaysOnDisplay">(R) Ekran Her Zaman Açık</string>
     <string name="permission_why_profile_always_on_display">Ekran Her Zaman Açık özelliğini açmak/kapamak için</string>
+    <string name="array_ignore_manual_activation_not_ignore">El ile tercihi faaliyete geçirme ihmal edilmesin</string>
+    <string name="array_ignore_manual_activation_ignore">El ile tercihi faaliyete geçirme ihmal edilsin</string>
+    <string name="editor_activity_targetHelps_ignoreManualActivation_title">El ile tercihi faaliyete geçirme ihmal edilsin</string>
+    <string name="editor_activity_targetHelps_ignoreManualActivation_description">\"El ile faaliyete geçirmeyi ihmal\" değerini ayarlamak için buna dokunun.</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

@@ -1321,6 +1321,10 @@
     <string name="editor_activity_targetHelps_showInActivator_description">Klikněte sem pro konfiguraci parametru \"Zobrazit v Aktivátoru\".</string>
     <string name="profile_preferences_alwaysOnDisplay">(R) Always-On displej</string>
     <string name="permission_why_profile_always_on_display">pro zapnutí/vypnutí Always-On displej</string>
+    <string name="array_ignore_manual_activation_not_ignore">Neignoruj manuální aktivaci profilu</string>
+    <string name="array_ignore_manual_activation_ignore">Ignoruj manuální aktivaci profilu</string>
+    <string name="editor_activity_targetHelps_ignoreManualActivation_title">Ignoruj manuální aktivaci profilu</string>
+    <string name="editor_activity_targetHelps_ignoreManualActivation_description">Klikněte sem pro konfiguraci parametru \"[»] Ignoruj manuální aktivaci \".</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

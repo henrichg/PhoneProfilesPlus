@@ -1321,6 +1321,10 @@
     <string name="editor_activity_targetHelps_showInActivator_description">Klik hier om de profielparamer \"Zichtbaar in Activator\" te configureren.</string>
     <string name="profile_preferences_alwaysOnDisplay">(R) Altijd aan schermweergave</string>
     <string name="permission_why_profile_always_on_display">voor in- of uitschakelen van Altijd aan schermweergave</string>
+    <string name="array_ignore_manual_activation_not_ignore">Handmatige profiel activeren niet negeren</string>
+    <string name="array_ignore_manual_activation_ignore">Handmatig activeren negeren</string>
+    <string name="editor_activity_targetHelps_ignoreManualActivation_title">Handmatig activeren negeren</string>
+    <string name="editor_activity_targetHelps_ignoreManualActivation_description">Klik hier om de event parameter \"[»] Negeren handmatige activeren\" in te stellen.</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

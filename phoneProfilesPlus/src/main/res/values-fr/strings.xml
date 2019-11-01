@@ -1321,6 +1321,10 @@
     <string name="editor_activity_targetHelps_showInActivator_description">Cliquez ici pour configurer le paramètre de profil \"Afficher dans l\'activateur\".</string>
     <string name="profile_preferences_alwaysOnDisplay">(R) Affichage permanent</string>
     <string name="permission_why_profile_always_on_display">pour activer/désactiver l\'affichage permanent</string>
+    <string name="array_ignore_manual_activation_not_ignore">Ne pas ignorer l\'activation manuelle du profil</string>
+    <string name="array_ignore_manual_activation_ignore">Ignorer l\'activation manuelle du profil</string>
+    <string name="editor_activity_targetHelps_ignoreManualActivation_title">Ignorer l\'activation manuelle du profil</string>
+    <string name="editor_activity_targetHelps_ignoreManualActivation_description">Cliquez ici pour configurer le paramètre \"[»] Ignorer l\'activation manuelle\".</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

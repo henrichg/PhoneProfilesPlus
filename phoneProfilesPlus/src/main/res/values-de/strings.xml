@@ -1322,6 +1322,10 @@ und die Systemlautstärke zu ändern</string>
     <string name="editor_activity_targetHelps_showInActivator_description">Click this to configure profile parameter \"Show in Activator\".</string>
     <string name="profile_preferences_alwaysOnDisplay">(R) Always-On display</string>
     <string name="permission_why_profile_always_on_display">um das Always-On Display an-/auszuschalten</string>
+    <string name="array_ignore_manual_activation_not_ignore">Manuelle Profilaktivierung nicht ignorieren</string>
+    <string name="array_ignore_manual_activation_ignore">Manuelle Profilaktivierung ignorieren</string>
+    <string name="editor_activity_targetHelps_ignoreManualActivation_title">Manuelle Profilaktivierung ignorieren</string>
+    <string name="editor_activity_targetHelps_ignoreManualActivation_description">Hier klicken, um den Ereignisparameter „[\"] Manuelle Aktivierung ignorieren” zu konfigurieren.</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
