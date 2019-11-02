@@ -42,6 +42,8 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static android.view.View.GONE;
+
 public class EditorEventListFragment extends Fragment
                                         implements OnStartDragItemListener {
 
@@ -55,6 +57,7 @@ public class EditorEventListFragment extends Fragment
     TextView textViewNoData;
     private LinearLayout progressBar;
     private AppCompatSpinner orderSpinner;
+    private ImageView profilePrefIndicatorImageView;
 
     private EditorEventListAdapter eventListAdapter;
     private ItemTouchHelper itemTouchHelper;
@@ -176,16 +179,8 @@ public class EditorEventListFragment extends Fragment
         View rootView;
 
         boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context);
-        //boolean applicationEditorHeader = ApplicationPreferences.applicationEditorHeader(activityDataWrapper.context);
 
-        //rootView = inflater.inflate(R.layout.editor_event_list, container, false);
-        if (applicationEditorPrefIndicator/* && applicationEditorHeader*/)
-            rootView = inflater.inflate(R.layout.editor_event_list, container, false);
-        else
-        //if (applicationEditorHeader)
-            rootView = inflater.inflate(R.layout.editor_event_list_no_indicator, container, false);
-        //else
-        //    rootView = inflater.inflate(R.layout.editor_event_list_no_header, container, false);
+        rootView = inflater.inflate(R.layout.editor_event_list, container, false);
 
         return rootView;
     }
@@ -203,7 +198,10 @@ public class EditorEventListFragment extends Fragment
     @SuppressWarnings("ConstantConditions")
     private void doOnViewCreated(View view/*, Bundle savedInstanceState*/)
     {
-        //super.onActivityCreated(savedInstanceState);
+        profilePrefIndicatorImageView = view.findViewById(R.id.activated_profile_pref_indicator);
+        if (!ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context))
+            profilePrefIndicatorImageView.setVisibility(GONE);
+
 
         activeProfileName = view.findViewById(R.id.activated_profile_name);
         activeProfileIcon = view.findViewById(R.id.activated_profile_icon);
@@ -851,7 +849,6 @@ public class EditorEventListFragment extends Fragment
                 if (profile._iconBitmap != null)
                     activeProfileIcon.setImageBitmap(profile._iconBitmap);
                 else {
-                    //int res = getResources().getIdentifier(profile.getIconIdentifier(), "drawable", getActivity().getPackageName());
                     int res = Profile.getIconResource(profile.getIconIdentifier());
                     activeProfileIcon.setImageResource(res); // icon resource
                 }
@@ -864,19 +861,13 @@ public class EditorEventListFragment extends Fragment
 
         if (ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context))
         {
-            //noinspection ConstantConditions
-            ImageView profilePrefIndicatorImageView = getActivity().findViewById(R.id.activated_profile_pref_indicator);
-            if (profilePrefIndicatorImageView != null)
-            {
-                //profilePrefIndicatorImageView.setImageBitmap(ProfilePreferencesIndicator.paint(profile, getActivity().getBaseContext()));
-                if (profile == null)
+            if (profile == null)
+                profilePrefIndicatorImageView.setImageResource(R.drawable.ic_empty);
+            else {
+                if (profile._preferencesIndicator != null)
+                    profilePrefIndicatorImageView.setImageBitmap(profile._preferencesIndicator);
+                else
                     profilePrefIndicatorImageView.setImageResource(R.drawable.ic_empty);
-                else {
-                    if (profile._preferencesIndicator != null)
-                        profilePrefIndicatorImageView.setImageBitmap(profile._preferencesIndicator);
-                    else
-                        profilePrefIndicatorImageView.setImageResource(R.drawable.ic_empty);
-                }
             }
         }
 

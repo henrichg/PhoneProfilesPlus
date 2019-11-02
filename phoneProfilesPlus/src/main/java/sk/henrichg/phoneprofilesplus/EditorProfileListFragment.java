@@ -56,6 +56,7 @@ public class EditorProfileListFragment extends Fragment
     private Toolbar bottomToolbar;
     TextView textViewNoData;
     private LinearLayout progressBar;
+    private ImageView profilePrefIndicatorImageView;
 
     private EditorProfileListAdapter profileListAdapter;
     private ItemTouchHelper itemTouchHelper;
@@ -149,16 +150,7 @@ public class EditorProfileListFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView;
 
-        boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context);
-        //boolean applicationEditorHeader = ApplicationPreferences.applicationEditorHeader(activityDataWrapper.context);
-
-        if (applicationEditorPrefIndicator/* && applicationEditorHeader*/)
-            rootView = inflater.inflate(R.layout.editor_profile_list, container, false);
-        else
-        //if (applicationEditorHeader)
-            rootView = inflater.inflate(R.layout.editor_profile_list_no_indicator, container, false);
-        //else
-        //    rootView = inflater.inflate(R.layout.editor_profile_list_no_header, container, false);
+        rootView = inflater.inflate(R.layout.editor_profile_list, container, false);
 
         return rootView;
     }
@@ -166,6 +158,7 @@ public class EditorProfileListFragment extends Fragment
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         doOnViewCreated(view/*, savedInstanceState*/);
 
         boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
@@ -177,13 +170,10 @@ public class EditorProfileListFragment extends Fragment
     @SuppressLint("InflateParams")
     private void doOnViewCreated(View view/*, Bundle savedInstanceState*/)
     {
-        //super.onActivityCreated(savedInstanceState);
+        profilePrefIndicatorImageView = view.findViewById(R.id.activated_profile_pref_indicator);
+        if (!ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context))
+            profilePrefIndicatorImageView.setVisibility(GONE);
 
-    /*	activeProfileName = getActivity().findViewById(R.id.activated_profile_name);
-        activeProfileIcon = getActivity().findViewById(R.id.activated_profile_icon);
-        listView = getActivity().findViewById(R.id.editor_profiles_list);
-        listView.setEmptyView(getActivity().findViewById(R.id.editor_profiles_list_empty));
-    */
         activeProfileName = view.findViewById(R.id.activated_profile_name);
         activeProfileIcon = view.findViewById(R.id.activated_profile_icon);
 
@@ -741,7 +731,6 @@ public class EditorProfileListFragment extends Fragment
                 if (profile._iconBitmap != null)
                     activeProfileIcon.setImageBitmap(profile._iconBitmap);
                 else {
-                    //int res = getResources().getIdentifier(profile.getIconIdentifier(), "drawable", getActivity().getPackageName());
                     int res = Profile.getIconResource(profile.getIconIdentifier());
                     activeProfileIcon.setImageResource(res); // icon resource
                 }
@@ -754,19 +743,13 @@ public class EditorProfileListFragment extends Fragment
 
         if (ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context))
         {
-            //noinspection ConstantConditions
-            ImageView profilePrefIndicatorImageView = getActivity().findViewById(R.id.activated_profile_pref_indicator);
-            if (profilePrefIndicatorImageView != null)
-            {
-                //profilePrefIndicatorImageView.setImageBitmap(ProfilePreferencesIndicator.paint(profile, getActivity().getBaseContext()));
-                if (profile == null)
+            if (profile == null)
+                profilePrefIndicatorImageView.setImageResource(R.drawable.ic_empty);
+            else {
+                if (profile._preferencesIndicator != null)
+                    profilePrefIndicatorImageView.setImageBitmap(profile._preferencesIndicator);
+                else
                     profilePrefIndicatorImageView.setImageResource(R.drawable.ic_empty);
-                else {
-                    if (profile._preferencesIndicator != null)
-                        profilePrefIndicatorImageView.setImageBitmap(profile._preferencesIndicator);
-                    else
-                        profilePrefIndicatorImageView.setImageResource(R.drawable.ic_empty);
-                }
             }
         }
 
