@@ -334,7 +334,6 @@ public class PhoneProfilesService extends Service
             Crashlytics.setInt(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, ApplicationPreferences.applicationEventOrientationScanInterval(appContext));
         } catch (Exception ignored) {}
 
-        /*
         ApplicationPreferences.getSharedPreferences(appContext);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         /*editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS, true);
@@ -346,19 +345,21 @@ public class PhoneProfilesService extends Service
         editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR, true);
         editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION, true);
         editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, true);
-        editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, true);
+        editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, true);*/
         editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, true);
-        editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, true);
+        /*editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, true);
         editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, true);
-        editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, true);
+        editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, true);*/
         editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, true);
-        editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_STATUS, true);
+        /*editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_STATUS, true);
         editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS, true);
         editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS_SAVE, true);
         editor.putBoolean(EventsPrefsActivity.PREF_START_TARGET_HELPS, true);
         //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
+
+         */
         editor.apply();
-        */
+
 
 
         //PPApplication.initPhoneProfilesServiceMessenger(appContext);

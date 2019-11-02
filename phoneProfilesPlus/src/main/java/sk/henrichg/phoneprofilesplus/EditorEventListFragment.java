@@ -989,7 +989,15 @@ public class EditorEventListFragment extends Fragment
                             ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
                     updateHeader(profile);
                 }
-                eventListAdapter.setFilterType(filterType);
+                eventListAdapter = new EditorEventListAdapter(this, activityDataWrapper, filterType, this);
+
+                // added touch helper for drag and drop items
+                ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(eventListAdapter, false, false);
+                itemTouchHelper = new ItemTouchHelper(callback);
+                itemTouchHelper.attachToRecyclerView(listView);
+
+                listView.setAdapter(eventListAdapter);
+
                 eventListAdapter.notifyDataSetChanged();
             }
         }

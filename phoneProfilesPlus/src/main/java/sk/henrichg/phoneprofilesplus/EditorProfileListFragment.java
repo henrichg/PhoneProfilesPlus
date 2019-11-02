@@ -303,10 +303,10 @@ public class EditorProfileListFragment extends Fragment
                 } else {
                     listView.setAdapter(profileListAdapter);
                     // update activity for activated profile
-                    fragment.listView.getRecycledViewPool().clear();
                     Profile profile = activityDataWrapper.getActivatedProfile(true,
                             ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
                     updateHeader(profile);
+                    fragment.listView.getRecycledViewPool().clear();
                     profileListAdapter.notifyDataSetChanged(false);
                 }
             }
@@ -318,11 +318,21 @@ public class EditorProfileListFragment extends Fragment
                 else
                     EditorProfileListFragment.sortByPOrder(activityDataWrapper.profileList);
                 // update activity for activated profile
-                fragment.listView.getRecycledViewPool().clear();
                 Profile profile = activityDataWrapper.getActivatedProfile(true,
                         ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
                 updateHeader(profile);
-                profileListAdapter.setFilterType(filterType);
+
+                fragment.listView.getRecycledViewPool().clear();
+
+                fragment.profileListAdapter = new EditorProfileListAdapter(fragment, fragment.activityDataWrapper, filterType, fragment);
+
+                // added touch helper for drag and drop items
+                ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(fragment.profileListAdapter, false, false);
+                fragment.itemTouchHelper = new ItemTouchHelper(callback);
+                fragment.itemTouchHelper.attachToRecyclerView(fragment.listView);
+
+                fragment.listView.setAdapter(fragment.profileListAdapter);
+
                 profileListAdapter.notifyDataSetChanged(false);
             }
         }
