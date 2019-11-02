@@ -535,4 +535,18 @@ PRIORITY_MAX - change to PRIORITY_DEFAULT
 For Android < 8: Notification sounds and vibrates, when it is enabled in system.
 For Android >= 8: sound is enabled, vibration is disabled (IMPORTANCE_LOW)
 
+----------------------------------------
+
+Optimalizacia Editora a priprava na ViewPager:
+
+- Mozes pre Editor pouzit pre profily jeden jediny layout. Lisia sa len indikatorom v headeri.
+  Ten mozes krasne schovavat, ak su vypnute indikatory
+- Potom uz nie je problem vytvorit jeden jediny fragment pre profily a jeden jediny pre udalosti.
+  Netreba pri zmene fiktra vytvarat nanovo cely fragment.
+  Na zmenu filtra len do prislusneho fragmentu posles nove parametre, ktore teraz davas ago argumenty pri vytvarani fragmentu.
+- Ked toto budes mat, nebude sa pri kasdej zmene filtra znova nacitatavat zoznam profilov a udalosti z databazy.
+  Lebo adapter ich filtruje sam, podla nastaveneho filtra v aktivite.
+  Treba akurat vyriesit zmenu poradia profilov a udalosti.
+  Totizto v AsyncTasku ich sortujem.
+- Potom bude omnoho jednoduchsie spravit ten ViewPager pre Editor.
 
