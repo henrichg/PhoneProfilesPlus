@@ -49,6 +49,7 @@ public class EditorProfileListFragment extends Fragment
 
     public DataWrapper activityDataWrapper;
 
+    private View rootView;
     private RelativeLayout activatedProfileHeader;
     RecyclerView listView;
     private TextView activeProfileName;
@@ -148,8 +149,6 @@ public class EditorProfileListFragment extends Fragment
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView;
-
         rootView = inflater.inflate(R.layout.editor_profile_list, container, false);
 
         return rootView;
@@ -159,7 +158,7 @@ public class EditorProfileListFragment extends Fragment
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        doOnViewCreated(view/*, savedInstanceState*/);
+        doOnViewCreated(view, true);
 
         boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
         if (startTargetHelps)
@@ -168,7 +167,7 @@ public class EditorProfileListFragment extends Fragment
 
     @SuppressWarnings("ConstantConditions")
     @SuppressLint("InflateParams")
-    private void doOnViewCreated(View view/*, Bundle savedInstanceState*/)
+    private void doOnViewCreated(View view, boolean fromOnViewCreated)
     {
         profilePrefIndicatorImageView = view.findViewById(R.id.activated_profile_pref_indicator);
         if (!ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context))
@@ -295,25 +294,48 @@ public class EditorProfileListFragment extends Fragment
             }
         });
 
-        synchronized (activityDataWrapper.profileList) {
-            if (!activityDataWrapper.profileListFilled) {
-                LoadProfileListAsyncTask asyncTask = new LoadProfileListAsyncTask(this, filterType);
-                this.asyncTaskContext = new WeakReference<>(asyncTask);
-                asyncTask.execute();
-            } else {
-                listView.setAdapter(profileListAdapter);
-
+        if (fromOnViewCreated) {
+            synchronized (activityDataWrapper.profileList) {
+                if (!activityDataWrapper.profileListFilled) {
+                    LoadProfileListAsyncTask asyncTask = new LoadProfileListAsyncTask(this, filterType);
+                    this.asyncTaskContext = new WeakReference<>(asyncTask);
+                    asyncTask.execute();
+                } else {
+                    listView.setAdapter(profileListAdapter);
+                    // update activity for activated profile
+                    fragment.listView.getRecycledViewPool().clear();
+                    Profile profile = activityDataWrapper.getActivatedProfile(true,
+                            ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
+                    updateHeader(profile);
+                    profileListAdapter.notifyDataSetChanged(false);
+                }
+            }
+        }
+        else {
+            synchronized (activityDataWrapper.profileList) {
+                if (filterType != EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
+                    EditorProfileListFragment.sortAlphabetically(activityDataWrapper.profileList);
+                else
+                    EditorProfileListFragment.sortByPOrder(activityDataWrapper.profileList);
                 // update activity for activated profile
                 fragment.listView.getRecycledViewPool().clear();
                 Profile profile = activityDataWrapper.getActivatedProfile(true,
                         ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
                 updateHeader(profile);
+                profileListAdapter.setFilterType(filterType);
                 profileListAdapter.notifyDataSetChanged(false);
-                //if (!ApplicationPreferences.applicationEditorHeader(fragment.activityDataWrapper.context))
-                //    setProfileSelection(profile);
             }
         }
 
+    }
+
+    void changeFragmentFilter(int profilesFilterType, boolean startTargetHelps) {
+        filterType = profilesFilterType;
+
+        doOnViewCreated(rootView, false);
+
+        if (startTargetHelps)
+            showTargetHelps();
     }
 
     private static class LoadProfileListAsyncTask extends AsyncTask<Void, Void, Void> {

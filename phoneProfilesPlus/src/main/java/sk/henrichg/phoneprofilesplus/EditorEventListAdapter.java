@@ -23,7 +23,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
     private EditorEventListFragment fragment;
     private DataWrapper activityDataWrapper;
-    private final int filterType;
+    private int filterType;
     //boolean released = false;
     //private int defaultColor;
 
@@ -279,6 +279,10 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
             activityDataWrapper.eventList.clear();
         }
         notifyDataSetChanged();
+    }
+
+    void setFilterType (int filterType) {
+        this.filterType = filterType;
     }
 
     public void notifyDataSetChanged(boolean refreshIcons) {

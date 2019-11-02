@@ -972,7 +972,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     }
     */
 
-    private void _selectFilterItem(int selectedView, int position, boolean fromClickListener, boolean startTargetHelps) {
+    private void selectFilterItem(int selectedView, int position, boolean fromClickListener, boolean startTargetHelps) {
         PPApplication.logE("EditorProfilesActivity.selectFilterItem", "editorSelectedView="+editorSelectedView);
         PPApplication.logE("EditorProfilesActivity.selectFilterItem", "selectedView="+selectedView);
         PPApplication.logE("EditorProfilesActivity.selectFilterItem", "position="+position);
@@ -990,16 +990,18 @@ public class EditorProfilesActivity extends AppCompatActivity
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
         if ((selectedView != editorSelectedView) || (position != filterSelectedItem) || (fragment == null))
         {
-            // stop running AsyncTask
-            if (fragment instanceof EditorProfileListFragment) {
-                if (((EditorProfileListFragment)fragment).isAsyncTaskPendingOrRunning()) {
-                    ((EditorProfileListFragment)fragment).stopRunningAsyncTask();
-                }
-            }
-            else
-            if (fragment instanceof EditorEventListFragment) {
-                if (((EditorEventListFragment)fragment).isAsyncTaskPendingOrRunning()) {
-                    ((EditorEventListFragment)fragment).stopRunningAsyncTask();
+            boolean viewChanged = (selectedView != editorSelectedView) || (fragment == null);
+
+            if (viewChanged) {
+                // stop running AsyncTask
+                if (fragment instanceof EditorProfileListFragment) {
+                    if (((EditorProfileListFragment) fragment).isAsyncTaskPendingOrRunning()) {
+                        ((EditorProfileListFragment) fragment).stopRunningAsyncTask();
+                    }
+                } else if (fragment instanceof EditorEventListFragment) {
+                    if (((EditorEventListFragment) fragment).isAsyncTaskPendingOrRunning()) {
+                        ((EditorEventListFragment) fragment).stopRunningAsyncTask();
+                    }
                 }
             }
 
@@ -1035,38 +1037,56 @@ public class EditorProfilesActivity extends AppCompatActivity
                         case DSI_PROFILES_ALL:
                             profilesFilterType = EditorProfileListFragment.FILTER_TYPE_ALL;
                             PPApplication.logE("EditorProfilesActivity.selectFilterItem", "profilesFilterType=FILTER_TYPE_ALL");
-                            fragment = new EditorProfileListFragment();
-                            arguments = new Bundle();
-                            arguments.putInt(EditorProfileListFragment.FILTER_TYPE_ARGUMENT, profilesFilterType);
-                            arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
-                            fragment.setArguments(arguments);
-                            getSupportFragmentManager().beginTransaction()
-                                    .replace(R.id.editor_list_container, fragment, "EditorProfileListFragment")
-                                    .commitAllowingStateLoss();
+                            if (viewChanged) {
+                                fragment = new EditorProfileListFragment();
+                                arguments = new Bundle();
+                                arguments.putInt(EditorProfileListFragment.FILTER_TYPE_ARGUMENT, profilesFilterType);
+                                arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                                fragment.setArguments(arguments);
+                                getSupportFragmentManager().beginTransaction()
+                                        .replace(R.id.editor_list_container, fragment, "EditorProfileListFragment")
+                                        .commitAllowingStateLoss();
+                            }
+                            else {
+                                EditorProfileListFragment displayedFragment = (EditorProfileListFragment)fragment;
+                                displayedFragment.changeFragmentFilter(profilesFilterType, startTargetHelps);
+                            }
                             break;
                         case DSI_PROFILES_SHOW_IN_ACTIVATOR:
                             profilesFilterType = EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR;
                             PPApplication.logE("EditorProfilesActivity.selectFilterItem", "profilesFilterType=FILTER_TYPE_SHOW_IN_ACTIVATOR");
-                            fragment = new EditorProfileListFragment();
-                            arguments = new Bundle();
-                            arguments.putInt(EditorProfileListFragment.FILTER_TYPE_ARGUMENT, profilesFilterType);
-                            arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
-                            fragment.setArguments(arguments);
-                            getSupportFragmentManager().beginTransaction()
-                                    .replace(R.id.editor_list_container, fragment, "EditorProfileListFragment")
-                                    .commitAllowingStateLoss();
+                            if (viewChanged) {
+                                fragment = new EditorProfileListFragment();
+                                arguments = new Bundle();
+                                arguments.putInt(EditorProfileListFragment.FILTER_TYPE_ARGUMENT, profilesFilterType);
+                                arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                                fragment.setArguments(arguments);
+                                getSupportFragmentManager().beginTransaction()
+                                        .replace(R.id.editor_list_container, fragment, "EditorProfileListFragment")
+                                        .commitAllowingStateLoss();
+                            }
+                            else {
+                                EditorProfileListFragment displayedFragment = (EditorProfileListFragment)fragment;
+                                displayedFragment.changeFragmentFilter(profilesFilterType, startTargetHelps);
+                            }
                             break;
                         case DSI_PROFILES_NO_SHOW_IN_ACTIVATOR:
                             profilesFilterType = EditorProfileListFragment.FILTER_TYPE_NO_SHOW_IN_ACTIVATOR;
                             PPApplication.logE("EditorProfilesActivity.selectFilterItem", "profilesFilterType=FILTER_TYPE_NO_SHOW_IN_ACTIVATOR");
-                            fragment = new EditorProfileListFragment();
-                            arguments = new Bundle();
-                            arguments.putInt(EditorProfileListFragment.FILTER_TYPE_ARGUMENT, profilesFilterType);
-                            arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
-                            fragment.setArguments(arguments);
-                            getSupportFragmentManager().beginTransaction()
-                                    .replace(R.id.editor_list_container, fragment, "EditorProfileListFragment")
-                                    .commitAllowingStateLoss();
+                            if (viewChanged) {
+                                fragment = new EditorProfileListFragment();
+                                arguments = new Bundle();
+                                arguments.putInt(EditorProfileListFragment.FILTER_TYPE_ARGUMENT, profilesFilterType);
+                                arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                                fragment.setArguments(arguments);
+                                getSupportFragmentManager().beginTransaction()
+                                        .replace(R.id.editor_list_container, fragment, "EditorProfileListFragment")
+                                        .commitAllowingStateLoss();
+                            }
+                            else {
+                                EditorProfileListFragment displayedFragment = (EditorProfileListFragment)fragment;
+                                displayedFragment.changeFragmentFilter(profilesFilterType, startTargetHelps);
+                            }
                             break;
                     }
                     break;
@@ -1075,86 +1095,110 @@ public class EditorProfilesActivity extends AppCompatActivity
                         case DSI_EVENTS_START_ORDER:
                             eventsFilterType = EditorEventListFragment.FILTER_TYPE_START_ORDER;
                             PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_START_ORDER");
-                            fragment = new EditorEventListFragment();
-                            arguments = new Bundle();
-                            arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
-                            //arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, EditorEventListFragment.ORDER_TYPE_START_ORDER);
-                            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsOrderType=ORDER_TYPE_START_ORDER");
-                            arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
-                            fragment.setArguments(arguments);
-                            getSupportFragmentManager().beginTransaction()
-                                    .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
-                                    .commitAllowingStateLoss();
+                            if (viewChanged) {
+                                fragment = new EditorEventListFragment();
+                                arguments = new Bundle();
+                                arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
+                                arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                                fragment.setArguments(arguments);
+                                getSupportFragmentManager().beginTransaction()
+                                        .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
+                                        .commitAllowingStateLoss();
+                            }
+                            else {
+                                EditorEventListFragment displayedFragment = (EditorEventListFragment)fragment;
+                                displayedFragment.changeFragmentFilter(eventsFilterType, startTargetHelps);
+                            }
                             break;
                         case DSI_EVENTS_ALL:
                             eventsFilterType = EditorEventListFragment.FILTER_TYPE_ALL;
                             PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_ALL");
-                            fragment = new EditorEventListFragment();
-                            arguments = new Bundle();
-                            arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
-                            //arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, eventsOrderType);
-                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsOrderType="+eventsOrderType);
-                            arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
-                            fragment.setArguments(arguments);
-                            getSupportFragmentManager().beginTransaction()
-                                    .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
-                                    .commitAllowingStateLoss();
+                            if (viewChanged) {
+                                fragment = new EditorEventListFragment();
+                                arguments = new Bundle();
+                                arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
+                                arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                                fragment.setArguments(arguments);
+                                getSupportFragmentManager().beginTransaction()
+                                        .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
+                                        .commitAllowingStateLoss();
+                            }
+                            else {
+                                EditorEventListFragment displayedFragment = (EditorEventListFragment)fragment;
+                                displayedFragment.changeFragmentFilter(eventsFilterType, startTargetHelps);
+                            }
                             break;
                         case DSI_EVENTS_NOT_STOPPED:
                             eventsFilterType = EditorEventListFragment.FILTER_TYPE_NOT_STOPPED;
                             PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_NOT_STOPPED");
-                            fragment = new EditorEventListFragment();
-                            arguments = new Bundle();
-                            arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
-                            //arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, eventsOrderType);
-                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsOrderType="+eventsOrderType);
-                            arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
-                            fragment.setArguments(arguments);
-                            getSupportFragmentManager().beginTransaction()
-                                    .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
-                                    .commitAllowingStateLoss();
+                            if (viewChanged) {
+                                fragment = new EditorEventListFragment();
+                                arguments = new Bundle();
+                                arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
+                                arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                                fragment.setArguments(arguments);
+                                getSupportFragmentManager().beginTransaction()
+                                        .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
+                                        .commitAllowingStateLoss();
+                            }
+                            else {
+                                EditorEventListFragment displayedFragment = (EditorEventListFragment)fragment;
+                                displayedFragment.changeFragmentFilter(eventsFilterType, startTargetHelps);
+                            }
                             break;
                         case DSI_EVENTS_RUNNING:
                             eventsFilterType = EditorEventListFragment.FILTER_TYPE_RUNNING;
                             PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_RUNNING");
-                            fragment = new EditorEventListFragment();
-                            arguments = new Bundle();
-                            arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
-                            //arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, eventsOrderType);
-                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsOrderType="+eventsOrderType);
-                            arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
-                            fragment.setArguments(arguments);
-                            getSupportFragmentManager().beginTransaction()
-                                    .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
-                                    .commitAllowingStateLoss();
+                            if (viewChanged) {
+                                fragment = new EditorEventListFragment();
+                                arguments = new Bundle();
+                                arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
+                                arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                                fragment.setArguments(arguments);
+                                getSupportFragmentManager().beginTransaction()
+                                        .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
+                                        .commitAllowingStateLoss();
+                            }
+                            else {
+                                EditorEventListFragment displayedFragment = (EditorEventListFragment)fragment;
+                                displayedFragment.changeFragmentFilter(eventsFilterType, startTargetHelps);
+                            }
                             break;
                         case DSI_EVENTS_PAUSED:
                             eventsFilterType = EditorEventListFragment.FILTER_TYPE_PAUSED;
                             PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_PAUSED");
-                            fragment = new EditorEventListFragment();
-                            arguments = new Bundle();
-                            arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
-                            //arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, eventsOrderType);
-                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsOrderType="+eventsOrderType);
-                            arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
-                            fragment.setArguments(arguments);
-                            getSupportFragmentManager().beginTransaction()
-                                    .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
-                                    .commitAllowingStateLoss();
+                            if (viewChanged) {
+                                fragment = new EditorEventListFragment();
+                                arguments = new Bundle();
+                                arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
+                                arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                                fragment.setArguments(arguments);
+                                getSupportFragmentManager().beginTransaction()
+                                        .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
+                                        .commitAllowingStateLoss();
+                            }
+                            else {
+                                EditorEventListFragment displayedFragment = (EditorEventListFragment)fragment;
+                                displayedFragment.changeFragmentFilter(eventsFilterType, startTargetHelps);
+                            }
                             break;
                         case DSI_EVENTS_STOPPED:
                             eventsFilterType = EditorEventListFragment.FILTER_TYPE_STOPPED;
                             PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_STOPPED");
-                            fragment = new EditorEventListFragment();
-                            arguments = new Bundle();
-                            arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
-                            //arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, eventsOrderType);
-                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsOrderType="+eventsOrderType);
-                            arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
-                            fragment.setArguments(arguments);
-                            getSupportFragmentManager().beginTransaction()
-                                    .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
-                                    .commitAllowingStateLoss();
+                            if (viewChanged) {
+                                fragment = new EditorEventListFragment();
+                                arguments = new Bundle();
+                                arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
+                                arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                                fragment.setArguments(arguments);
+                                getSupportFragmentManager().beginTransaction()
+                                        .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
+                                        .commitAllowingStateLoss();
+                            }
+                            else {
+                                EditorEventListFragment displayedFragment = (EditorEventListFragment)fragment;
+                                displayedFragment.changeFragmentFilter(eventsFilterType, startTargetHelps);
+                            }
                             break;
                     }
                     break;
@@ -1178,24 +1222,6 @@ public class EditorProfilesActivity extends AppCompatActivity
         // set filter status bar title
         //setStatusBarTitle();
         
-    }
-
-    private void selectFilterItem(final int selectedView, final int position, final boolean fromClickListener, final boolean startTargetHelps) {
-        /*// Close drawer
-        if (ApplicationPreferences.applicationEditorAutoCloseDrawer(getApplicationContext()) && (!orientationChange))
-            drawerLayout.closeDrawer(drawerRoot);*/
-
-        /*
-        // this fixes drawer close lag
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                _selectFilterItem(position, removePreferences, startTargetHelps);
-            }
-        }, 200);
-        */
-
-        _selectFilterItem(selectedView, position, fromClickListener, startTargetHelps);
     }
 
     @Override

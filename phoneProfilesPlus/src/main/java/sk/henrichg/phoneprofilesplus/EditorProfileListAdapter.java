@@ -23,7 +23,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
     private EditorProfileListFragment fragment;
     private DataWrapper activityDataWrapper;
-    private final int filterType;
+    private int filterType;
 
     private final OnStartDragItemListener mDragStartListener;
 
@@ -257,6 +257,10 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
         notifyDataSetChanged();
     }
     */
+
+    void setFilterType (int filterType) {
+        this.filterType = filterType;
+    }
 
     public Profile getActivatedProfile()
     {

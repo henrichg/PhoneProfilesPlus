@@ -499,9 +499,12 @@ public class PPApplication extends Application {
 
                                         //+"|FetchAddressWorker"
                                         //+"|LocationGeofenceEditorActivity.getWorkInfoByIdLiveData"
-                                        +"|BluetoothNamePreferenceFragmentX.refreshListView"
-                                        +"|WifiSSIDPreferenceFragmentX.refreshListView"
-                                        +"|BluetoothNamePreferenceFragmentX.onDialogClosed"
+                                        //+"|BluetoothNamePreferenceFragmentX.refreshListView"
+                                        //+"|WifiSSIDPreferenceFragmentX.refreshListView"
+                                        //+"|BluetoothNamePreferenceFragmentX.onDialogClosed"
+
+                                        +"|[OPT] EditorProfileListFragment"
+                                        +"|[OPT] EditorEventListFragment"
             ;
 
 

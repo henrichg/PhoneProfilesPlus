@@ -49,6 +49,7 @@ public class EditorEventListFragment extends Fragment
 
     public DataWrapper activityDataWrapper;
 
+    private View rootView;
     private RelativeLayout activatedProfileHeader;
     RecyclerView listView;
     private TextView activeProfileName;
@@ -176,10 +177,6 @@ public class EditorEventListFragment extends Fragment
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView;
-
-        boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context);
-
         rootView = inflater.inflate(R.layout.editor_event_list, container, false);
 
         return rootView;
@@ -188,7 +185,7 @@ public class EditorEventListFragment extends Fragment
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        doOnViewCreated(view/*, savedInstanceState*/);
+        doOnViewCreated(view, true);
 
         boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
         if (startTargetHelps)
@@ -196,7 +193,7 @@ public class EditorEventListFragment extends Fragment
     }
 
     @SuppressWarnings("ConstantConditions")
-    private void doOnViewCreated(View view/*, Bundle savedInstanceState*/)
+    private void doOnViewCreated(View view, boolean fromOnViewCreated)
     {
         profilePrefIndicatorImageView = view.findViewById(R.id.activated_profile_pref_indicator);
         if (!ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context))
@@ -391,7 +388,7 @@ public class EditorEventListFragment extends Fragment
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ((GlobalGUIRoutines.HighlightedSpinnerAdapter)orderSpinner.getAdapter()).setSelection(position);
                 if (position != orderSelectedItem)
-                    changeEventOrder(position);
+                    changeEventOrder(position, false);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -407,7 +404,17 @@ public class EditorEventListFragment extends Fragment
 
         PPApplication.logE("EditorEventListFragment.doOnViewCreated", "orderSelectedItem="+orderSelectedItem);
         // first must be set eventsOrderType
-        changeEventOrder(orderSelectedItem/*, savedInstanceState != null*/);
+        changeEventOrder(orderSelectedItem, fromOnViewCreated);
+    }
+
+    void changeFragmentFilter(int eventsFilterType, boolean startTargetHelps) {
+        filterType = eventsFilterType;
+
+        doOnViewCreated(rootView, false);
+
+        if (startTargetHelps)
+            showTargetHelps();
+
     }
 
     private static class LoadEventListAsyncTask extends AsyncTask<Void, Void, Void> {
@@ -944,7 +951,7 @@ public class EditorEventListFragment extends Fragment
     }
     */
 
-    private void changeListOrder(int orderType)
+    private void changeListOrder(int orderType, boolean fromOnViewCreated)
     {
         if (isAsyncTaskPendingOrRunning()) {
             this.asyncTaskContext.get().cancel(true);
@@ -952,30 +959,40 @@ public class EditorEventListFragment extends Fragment
 
         this.orderType = orderType;
 
-        synchronized (activityDataWrapper.eventList) {
-            if (!activityDataWrapper.eventListFilled) {
-                LoadEventListAsyncTask asyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
-                this.asyncTaskContext = new WeakReference<>(asyncTask);
-                asyncTask.execute();
-            } else {
-                sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
-                listView.setAdapter(eventListAdapter);
+        if (fromOnViewCreated) {
+            synchronized (activityDataWrapper.eventList) {
+                if (!activityDataWrapper.eventListFilled) {
+                    LoadEventListAsyncTask asyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
+                    this.asyncTaskContext = new WeakReference<>(asyncTask);
+                    asyncTask.execute();
+                } else {
+                    sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
+                    listView.setAdapter(eventListAdapter);
+                    synchronized (activityDataWrapper.profileList) {
+                        Profile profile = activityDataWrapper.getActivatedProfileFromDB(true,
+                                ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
+                        updateHeader(profile);
+                    }
+                    eventListAdapter.notifyDataSetChanged();
+                }
+            }
+        }
+        else {
+            PPApplication.logE("[OPT] EditorEventListFragment.changeListOrder", "xxx");
+            synchronized (activityDataWrapper.eventList) {
+                if (filterType == FILTER_TYPE_START_ORDER)
+                    EditorEventListFragment.sortList(activityDataWrapper.eventList, ORDER_TYPE_START_ORDER, activityDataWrapper);
+                else
+                    EditorEventListFragment.sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
                 synchronized (activityDataWrapper.profileList) {
                     Profile profile = activityDataWrapper.getActivatedProfileFromDB(true,
                             ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
                     updateHeader(profile);
                 }
+                eventListAdapter.setFilterType(filterType);
                 eventListAdapter.notifyDataSetChanged();
             }
         }
-
-        /*if (eventListAdapter != null) {
-            listView.getRecycledViewPool().clear();
-            synchronized (activityDataWrapper.eventList) {
-                sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
-            }
-            eventListAdapter.notifyDataSetChanged();
-        }*/
     }
 
     private static void sortList(List<Event> eventList, int orderType, DataWrapper _dataWrapper)
@@ -1271,7 +1288,7 @@ public class EditorEventListFragment extends Fragment
         }
     }
 
-    private void changeEventOrder(int position/*, boolean orientationChange*/) {
+    private void changeEventOrder(int position, boolean fromOnViewCreated) {
         orderSelectedItem = position;
 
         if (filterType != EditorEventListFragment.FILTER_TYPE_START_ORDER) {
@@ -1289,7 +1306,7 @@ public class EditorEventListFragment extends Fragment
         PPApplication.logE("EditorProfilesActivity.changeEventOrder", "orderSelectedItem="+orderSelectedItem);
         PPApplication.logE("EditorProfilesActivity.changeEventOrder", "_eventsOrderType="+_eventsOrderType);
 
-        changeListOrder(_eventsOrderType);
+        changeListOrder(_eventsOrderType, fromOnViewCreated);
 
         orderSpinner.setSelection(orderSelectedItem);
 
