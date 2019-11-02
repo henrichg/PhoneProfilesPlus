@@ -307,7 +307,7 @@ public class EditorProfileListFragment extends Fragment
                         Profile profile = activityDataWrapper.getActivatedProfile(true,
                                 ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
                         updateHeader(profile);
-                        fragment.listView.getRecycledViewPool().clear();
+                        listView.getRecycledViewPool().clear();
                         profileListAdapter.notifyDataSetChanged(false);
                     }
                     else {
@@ -320,16 +320,16 @@ public class EditorProfileListFragment extends Fragment
                                 ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
                         updateHeader(profile);
 
-                        fragment.listView.getRecycledViewPool().clear();
+                        listView.getRecycledViewPool().clear();
 
-                        fragment.profileListAdapter = new EditorProfileListAdapter(fragment, fragment.activityDataWrapper, filterType, fragment);
+                        profileListAdapter = new EditorProfileListAdapter(fragment, activityDataWrapper, filterType, fragment);
 
                         // added touch helper for drag and drop items
-                        ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(fragment.profileListAdapter, false, false);
-                        fragment.itemTouchHelper = new ItemTouchHelper(callback);
-                        fragment.itemTouchHelper.attachToRecyclerView(fragment.listView);
+                        ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(profileListAdapter, false, false);
+                        itemTouchHelper = new ItemTouchHelper(callback);
+                        itemTouchHelper.attachToRecyclerView(listView);
 
-                        fragment.listView.setAdapter(fragment.profileListAdapter);
+                        listView.setAdapter(profileListAdapter);
 
                         profileListAdapter.notifyDataSetChanged(false);
                     }

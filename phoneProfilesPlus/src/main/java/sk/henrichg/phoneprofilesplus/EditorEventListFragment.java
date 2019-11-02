@@ -974,6 +974,7 @@ public class EditorEventListFragment extends Fragment
                                     ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
                             updateHeader(profile);
                         }
+                        listView.getRecycledViewPool().clear();
                         eventListAdapter.notifyDataSetChanged();
                     }
                     else {
@@ -986,6 +987,9 @@ public class EditorEventListFragment extends Fragment
                                     ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
                             updateHeader(profile);
                         }
+
+                        listView.getRecycledViewPool().clear();
+
                         eventListAdapter = new EditorEventListAdapter(this, activityDataWrapper, filterType, this);
 
                         // added touch helper for drag and drop items
