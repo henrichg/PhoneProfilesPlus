@@ -966,14 +966,37 @@ public class EditorEventListFragment extends Fragment
                     this.asyncTaskContext = new WeakReference<>(asyncTask);
                     asyncTask.execute();
                 } else {
-                    sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
-                    listView.setAdapter(eventListAdapter);
-                    synchronized (activityDataWrapper.profileList) {
-                        Profile profile = activityDataWrapper.getActivatedProfileFromDB(true,
-                                ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
-                        updateHeader(profile);
+                    if (eventListAdapter != null) {
+                        sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
+                        listView.setAdapter(eventListAdapter);
+                        synchronized (activityDataWrapper.profileList) {
+                            Profile profile = activityDataWrapper.getActivatedProfileFromDB(true,
+                                    ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
+                            updateHeader(profile);
+                        }
+                        eventListAdapter.notifyDataSetChanged();
                     }
-                    eventListAdapter.notifyDataSetChanged();
+                    else {
+                        if (filterType == FILTER_TYPE_START_ORDER)
+                            EditorEventListFragment.sortList(activityDataWrapper.eventList, ORDER_TYPE_START_ORDER, activityDataWrapper);
+                        else
+                            EditorEventListFragment.sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
+                        synchronized (activityDataWrapper.profileList) {
+                            Profile profile = activityDataWrapper.getActivatedProfileFromDB(true,
+                                    ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
+                            updateHeader(profile);
+                        }
+                        eventListAdapter = new EditorEventListAdapter(this, activityDataWrapper, filterType, this);
+
+                        // added touch helper for drag and drop items
+                        ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(eventListAdapter, false, false);
+                        itemTouchHelper = new ItemTouchHelper(callback);
+                        itemTouchHelper.attachToRecyclerView(listView);
+
+                        listView.setAdapter(eventListAdapter);
+
+                        eventListAdapter.notifyDataSetChanged();
+                    }
                 }
             }
         }
