@@ -800,7 +800,7 @@ public class EditorEventListFragment extends Fragment
 
                     listView.getRecycledViewPool().clear();
 
-                    activityDataWrapper.stopAllEventsFromMainThread(true, false);
+                    activityDataWrapper.stopAllEventsFromMainThread(true, true);
 
                     eventListAdapter.clear();
                     // this is in eventListAdapter.clear()

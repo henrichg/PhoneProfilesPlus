@@ -728,7 +728,7 @@ public class EditorProfileListFragment extends Fragment
 
                     listView.getRecycledViewPool().clear();
 
-                    activityDataWrapper.stopAllEventsFromMainThread(true, true);
+                    activityDataWrapper.stopAllEventsFromMainThread(true, false);
                     profileListAdapter.clearNoNotify();
                     DatabaseHandler.getInstance(activityDataWrapper.context).deleteAllProfiles();
                     DatabaseHandler.getInstance(activityDataWrapper.context).unlinkAllEvents();
