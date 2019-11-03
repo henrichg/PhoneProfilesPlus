@@ -43,6 +43,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 public class EditorEventListFragment extends Fragment
                                         implements OnStartDragItemListener {
@@ -301,7 +302,7 @@ public class EditorEventListFragment extends Fragment
                         //if (firstVisibleItem != 0)
                         activatedProfileHeader.setVisibility(View.GONE);
 
-                        bottomToolbar.setVisibility(View.VISIBLE);
+                        bottomToolbar.setVisibility(VISIBLE);
                     }
                 }
 
@@ -318,7 +319,7 @@ public class EditorEventListFragment extends Fragment
                     if (!layoutTransition.isRunning()) {
                         //final int firstVisibleItem = ((LinearLayoutManager) listView.getLayoutManager()).findFirstVisibleItemPosition();
                         //if (firstVisibleItem == 0)
-                        activatedProfileHeader.setVisibility(View.VISIBLE);
+                        activatedProfileHeader.setVisibility(VISIBLE);
 
                         bottomToolbar.setVisibility(View.GONE);
                     }
@@ -369,7 +370,7 @@ public class EditorEventListFragment extends Fragment
         if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
             orderLayout.setVisibility(View.GONE);
         else
-            orderLayout.setVisibility(View.VISIBLE);
+            orderLayout.setVisibility(VISIBLE);
 
         ApplicationPreferences.getSharedPreferences(getActivity());
         orderSelectedItem = ApplicationPreferences.preferences.getInt(SP_EDITOR_ORDER_SELECTED_ITEM, 0);
@@ -451,8 +452,8 @@ public class EditorEventListFragment extends Fragment
                 progressBarRunnable = new Runnable() {
                     @Override
                     public void run() {
-                        fragment.textViewNoData.setVisibility(GONE);
-                        fragment.progressBar.setVisibility(View.VISIBLE);
+                        //fragment.textViewNoData.setVisibility(GONE);
+                        fragment.progressBar.setVisibility(VISIBLE);
                     }
                 };
                 progressBarHandler.postDelayed(progressBarRunnable, 100);
@@ -492,6 +493,9 @@ public class EditorEventListFragment extends Fragment
                 _dataWrapper.fillEventList();
                 // set local event list into activity dataWrapper
                 fragment.activityDataWrapper.copyEventList(_dataWrapper);
+
+                if (fragment.activityDataWrapper.eventList.size() == 0)
+                    fragment.textViewNoData.setVisibility(VISIBLE);
 
                 // get local eventTimelineList
                 _dataWrapper.getEventTimelineList(true);
@@ -891,7 +895,7 @@ public class EditorEventListFragment extends Fragment
 
         String newDisplayedText = (String)activatedProfileHeader.getTag();
         if (!newDisplayedText.equals(oldDisplayedText))
-            activatedProfileHeader.setVisibility(View.VISIBLE);
+            activatedProfileHeader.setVisibility(VISIBLE);
     }
 
     void updateListView(Event event, boolean newEvent, boolean refreshIcons, boolean setPosition, long loadEventId)

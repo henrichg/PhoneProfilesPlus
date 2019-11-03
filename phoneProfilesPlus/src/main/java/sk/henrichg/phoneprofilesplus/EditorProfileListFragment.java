@@ -409,7 +409,7 @@ public class EditorProfileListFragment extends Fragment
                 progressBarRunnable = new Runnable() {
                     @Override
                     public void run() {
-                        fragment.textViewNoData.setVisibility(GONE);
+                        //fragment.textViewNoData.setVisibility(GONE);
                         fragment.progressBar.setVisibility(View.VISIBLE);
                     }
                 };
@@ -456,6 +456,9 @@ public class EditorProfileListFragment extends Fragment
                 _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
                 // set local profile list into activity dataWrapper
                 fragment.activityDataWrapper.copyProfileList(_dataWrapper);
+
+                if (fragment.activityDataWrapper.profileList.size() == 0)
+                    fragment.textViewNoData.setVisibility(View.VISIBLE);
 
                 fragment.profileListAdapter = new EditorProfileListAdapter(fragment, fragment.activityDataWrapper, _filterType, fragment);
 

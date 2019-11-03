@@ -284,7 +284,7 @@ public class ActivateProfileListFragment extends Fragment {
                 progressBarRunnable = new Runnable() {
                     @Override
                     public void run() {
-                        fragment.textViewNoData.setVisibility(View.GONE);
+                        //fragment.textViewNoData.setVisibility(View.GONE);
                         fragment.progressBar.setVisibility(View.VISIBLE);
                     }
                 };
@@ -344,12 +344,13 @@ public class ActivateProfileListFragment extends Fragment {
 
                 if (fragment.activityDataWrapper.profileList.size() == 0)
                 {
+                    fragment.textViewNoData.setVisibility(View.VISIBLE);
+
                     // no profile in list, start Editor
 
                     //noinspection ConstantConditions
                     Intent intent = new Intent(fragment.getActivity().getBaseContext(), EditorProfilesActivity.class);
                     intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_ACTIVATOR_START);
-                    //noinspection ConstantConditions
                     fragment.getActivity().startActivity(intent);
 
                     try {

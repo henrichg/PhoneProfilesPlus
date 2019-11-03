@@ -12,6 +12,7 @@ import android.graphics.drawable.Icon;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -110,6 +111,9 @@ public class ShortcutCreatorListFragment extends Fragment {
 
         final boolean applicationActivatorPrefIndicator;
 
+        Handler progressBarHandler;
+        Runnable progressBarRunnable;
+
         private class ProfileComparator implements Comparator<Profile> {
             public int compare(Profile lhs, Profile rhs) {
                 if (GlobalGUIRoutines.collator != null)
@@ -132,11 +136,18 @@ public class ShortcutCreatorListFragment extends Fragment {
         {
             super.onPreExecute();
 
-            ShortcutCreatorListFragment fragment = this.fragmentWeakRef.get();
+            final ShortcutCreatorListFragment fragment = this.fragmentWeakRef.get();
 
             if ((fragment != null) && (fragment.isAdded())) {
-                fragment.textViewNoData.setVisibility(View.GONE);
-                fragment.progressBar.setVisibility(View.VISIBLE);
+                progressBarHandler = new Handler(this.dataWrapper.context.getMainLooper());
+                progressBarRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        //fragment.textViewNoData.setVisibility(GONE);
+                        fragment.progressBar.setVisibility(View.VISIBLE);
+                    }
+                };
+                progressBarHandler.postDelayed(progressBarRunnable, 100);
             }
         }
 
@@ -159,6 +170,7 @@ public class ShortcutCreatorListFragment extends Fragment {
             ShortcutCreatorListFragment fragment = this.fragmentWeakRef.get(); 
             
             if ((fragment != null) && (fragment.isAdded())) {
+                progressBarHandler.removeCallbacks(progressBarRunnable);
                 fragment.progressBar.setVisibility(View.GONE);
 
                 // get local profileList
@@ -166,6 +178,9 @@ public class ShortcutCreatorListFragment extends Fragment {
 
                 // set copy local profile list into activity profilesDataWrapper
                 fragment.activityDataWrapper.copyProfileList(this.dataWrapper);
+
+                if (fragment.activityDataWrapper.profileList.size() == 0)
+                    fragment.textViewNoData.setVisibility(View.VISIBLE);
 
                 fragment.profileListAdapter = new ShortcutCreatorListAdapter(fragment, fragment.activityDataWrapper);
                 fragment.listView.setAdapter(fragment.profileListAdapter);
