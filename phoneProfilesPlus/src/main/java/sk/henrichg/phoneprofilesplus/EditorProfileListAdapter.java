@@ -258,9 +258,11 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
     }
     */
 
+    /*
     void setFilterType (int filterType) {
         this.filterType = filterType;
     }
+    */
 
     public Profile getActivatedProfile()
     {

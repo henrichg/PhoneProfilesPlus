@@ -103,7 +103,7 @@ public class EditorEventListFragment extends Fragment
     private int filterType = FILTER_TYPE_ALL;
     private int orderType = ORDER_TYPE_EVENT_NAME;
 
-    static final String SP_EDITOR_ORDER_SELECTED_ITEM = "editor_order_selected_item";
+    private static final String SP_EDITOR_ORDER_SELECTED_ITEM = "editor_order_selected_item";
 
     /**
      * The fragment's current callback objects

@@ -281,9 +281,11 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
         notifyDataSetChanged();
     }
 
+    /*
     void setFilterType (int filterType) {
         this.filterType = filterType;
     }
+    */
 
     public void notifyDataSetChanged(boolean refreshIcons) {
         if (refreshIcons) {
