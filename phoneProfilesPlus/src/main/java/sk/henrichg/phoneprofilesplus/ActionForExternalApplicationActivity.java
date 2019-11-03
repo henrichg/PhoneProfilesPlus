@@ -22,7 +22,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
     private long profile_id = 0;
     private long event_id = 0;
 
-    // !!! do not add activity name into this actions !!!!
+    // !!! do change this actions, these are for Tasker !!!!
     private static final String ACTION_ACTIVATE_PROFILE = PPApplication.PACKAGE_NAME + ".ACTION_ACTIVATE_PROFILE";
     private static final String ACTION_RESTART_EVENTS = PPApplication.PACKAGE_NAME + ".ACTION_RESTART_EVENTS";
     private static final String ACTION_ENABLE_RUN_FOR_EVENT = PPApplication.PACKAGE_NAME + ".ACTION_ENABLE_RUN_FOR_EVENT";
