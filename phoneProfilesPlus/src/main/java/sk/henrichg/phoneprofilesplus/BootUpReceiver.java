@@ -75,6 +75,9 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 // service is started by PPApplication
                                 PPApplication.logE("BootUpReceiver.onReceive", "activate profiles");
 
+                                if (PhoneProfilesService.getInstance() != null)
+                                    PhoneProfilesService.getInstance().removeRestartEventsForFirstStartHandler(true);
+
                                 final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
                                 dataWrapper.addActivityLog(DataWrapper.ALTYPE_APPLICATION_START_ON_BOOT, null, null, null, 0);
 

@@ -377,26 +377,28 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             PPApplication.sleep(2000);
                         }
 
-                        //if (restartService) {
-                            //PPApplication.sleep(3000);
-                            if (PPApplication.getApplicationStarted(appContext, false)) {
-                                // application was started before upgrade
-                                if (!PPApplication.getApplicationStarted(appContext, true)) {
-                                    // service is not started, start it
-                                    PPApplication.logE("PackageReplacedReceiver.onReceive", "PP service is not started, start it");
-                                    restartService = true;
-                                    startService(dataWrapper);
-                                }
-                                else {
-                                    PPApplication.logE("PackageReplacedReceiver.onReceive", "PP service is started");
-                                    restartService = false;
-                                }
-                            }
-                        //}
+                        if (!PPApplication.getApplicationStarted(appContext, true)) {
+                            // service is not started, start it
+                            PPApplication.logE("PackageReplacedReceiver.onReceive", "PP service is not started, start it");
+                            startService(dataWrapper);
+                            restartService = true;
+                        }
+                        else {
+                            PPApplication.logE("PackageReplacedReceiver.onReceive", "PP service is started");
+                            if (restartService)
+                                startService(dataWrapper);
+                        }
+
                         if (!restartService) {
+                            // restart service is not set, only restart events.
+
                             //PPApplication.sleep(3000);
                             if (PPApplication.getApplicationStarted(appContext, true)) {
                                 // service is started by PPApplication
+
+                                if (PhoneProfilesService.getInstance() != null)
+                                    PhoneProfilesService.getInstance().removeRestartEventsForFirstStartHandler(true);
+
                                 final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
                                 dataWrapper.addActivityLog(DataWrapper.ALTYPE_APPLICATION_START, null, null, null, 0);
 

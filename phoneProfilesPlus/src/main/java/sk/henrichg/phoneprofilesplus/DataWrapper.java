@@ -1735,7 +1735,13 @@ public class DataWrapper {
 
     private void showToastAfterActivation(Profile profile)
     {
-        //Log.d("DataWrapper.showToastAfterActivation", "xxx");
+        boolean waitForEndOfStart = true;
+        if (PhoneProfilesService.getInstance() != null)
+            waitForEndOfStart = PhoneProfilesService.getInstance().getWaitForEndOfStart();
+
+        if (waitForEndOfStart)
+            return;
+
         try {
             String profileName = getProfileNameWithManualIndicatorAsString(profile, true, "", false, false, this, false, context);
             Toast msg = ToastCompat.makeText(context.getApplicationContext(),
