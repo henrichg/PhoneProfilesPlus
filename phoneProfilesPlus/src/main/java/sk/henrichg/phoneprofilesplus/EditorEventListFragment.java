@@ -426,6 +426,9 @@ public class EditorEventListFragment extends Fragment
 
         final boolean applicationEditorPrefIndicator;
 
+        Handler progressBarHandler;
+        Runnable progressBarRunnable;
+
         private LoadEventListAsyncTask (EditorEventListFragment fragment, int filterType, int orderType) {
             fragmentWeakRef = new WeakReference<>(fragment);
             _filterType = filterType;
@@ -441,11 +444,18 @@ public class EditorEventListFragment extends Fragment
         {
             super.onPreExecute();
 
-            EditorEventListFragment fragment = this.fragmentWeakRef.get();
+            final EditorEventListFragment fragment = this.fragmentWeakRef.get();
 
             if ((fragment != null) && (fragment.isAdded())) {
-                fragment.textViewNoData.setVisibility(View.GONE);
-                fragment.progressBar.setVisibility(View.VISIBLE);
+                progressBarHandler = new Handler(_dataWrapper.context.getMainLooper());
+                progressBarRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        fragment.textViewNoData.setVisibility(GONE);
+                        fragment.progressBar.setVisibility(View.VISIBLE);
+                    }
+                };
+                progressBarHandler.postDelayed(progressBarRunnable, 100);
             }
         }
 
@@ -470,6 +480,7 @@ public class EditorEventListFragment extends Fragment
             EditorEventListFragment fragment = fragmentWeakRef.get();
             
             if ((fragment != null) && (fragment.isAdded())) {
+                progressBarHandler.removeCallbacks(progressBarRunnable);
                 fragment.progressBar.setVisibility(View.GONE);
 
                 // get local profileList

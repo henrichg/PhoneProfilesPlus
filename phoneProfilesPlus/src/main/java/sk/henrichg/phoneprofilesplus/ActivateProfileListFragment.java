@@ -250,6 +250,9 @@ public class ActivateProfileListFragment extends Fragment {
         //private final boolean applicationActivatorHeader;
         private final boolean applicationActivatorGridLayout;
 
+        Handler progressBarHandler;
+        Runnable progressBarRunnable;
+
         private class ProfileComparator implements Comparator<Profile> {
             public int compare(Profile lhs, Profile rhs) {
                 int res = 0;
@@ -274,30 +277,24 @@ public class ActivateProfileListFragment extends Fragment {
         {
             super.onPreExecute();
 
-            ActivateProfileListFragment fragment = this.fragmentWeakRef.get();
+            final ActivateProfileListFragment fragment = this.fragmentWeakRef.get();
 
             if ((fragment != null) && (fragment.isAdded())) {
-                fragment.textViewNoData.setVisibility(View.GONE);
-                fragment.progressBar.setVisibility(View.VISIBLE);
-                /*if (fragment.gridViewDivider != null)
-                    fragment.gridViewDivider.setBackgroundResource(
-                            GlobalGUIRoutines.getThemeActivatorGridDividerColor(false, fragment.getActivity()));*/
+                progressBarHandler = new Handler(this.dataWrapper.context.getMainLooper());
+                progressBarRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        fragment.textViewNoData.setVisibility(View.GONE);
+                        fragment.progressBar.setVisibility(View.VISIBLE);
+                    }
+                };
+                progressBarHandler.postDelayed(progressBarRunnable, 100);
             }
         }
 
         @Override
         protected Void doInBackground(Void... params) {
             this.dataWrapper.fillProfileList(true, applicationActivatorPrefIndicator);
-
-            /*if (!applicationActivatorHeader)
-            {
-                Profile profile = this.dataWrapper.getActivatedProfile(false, false);
-                if ((profile != null) && (!profile._showInActivator))
-                {
-                    profile._showInActivator = true;
-                    profile._porder = -1;
-                }
-            }*/
 
             if (applicationActivatorGridLayout) {
                 int count = 0;
@@ -332,6 +329,7 @@ public class ActivateProfileListFragment extends Fragment {
             final ActivateProfileListFragment fragment = this.fragmentWeakRef.get();
             
             if ((fragment != null) && (fragment.isAdded())) {
+                progressBarHandler.removeCallbacks(progressBarRunnable);
                 fragment.progressBar.setVisibility(View.GONE);
 
                 // get local profileList
