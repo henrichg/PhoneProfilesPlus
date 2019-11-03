@@ -550,3 +550,63 @@ Optimalizacia Editora a priprava na ViewPager:
   Totizto v AsyncTasku ich sortujem.
 - Potom bude omnoho jednoduchsie spravit ten ViewPager pre Editor.
 
+----------------------------------------
+
+rve sa spusti v PPApplication.onCreate PPService s parametrami:
+
+	serviceIntent.putExtra(PhoneProfilesService.EXTRA_INITIALIZE_START, true);
+	serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
+
+Cize nema sa aktivovat profil. Kukni sa, ci sa a ako sa to dodrzuje.
+
+PPService.onCreate zobrazi notifikaciu.
+
+Zavola sa PPService.onStartCommand a ten zavola doForFirstStart. Toto sa vola vzdy ked z onStartCommand.
+Cize kazde startService ho zavola.
+
+doForFirstStart:
+- ak je serviceRunning true a nejde o start na boot, na package replace a nie je to initializaStart,
+  tak dFirstStart hend skonci. Toto pri prvom starte PPService z PPApplication neplati, lebo initializeStart je true
+  a serviceRunning je false. Ved ide o prve spustenie servisu.
+- nastavi sa serviceRun na true
+
+- Nastaveny je waitForEndOfStart = true. To este z onCreate. Pozri, na co sluzi.
+
+- Spravi sa prvy handler PPApplication.handlerThread v ktorom sa vsetko inicializuje, lebo initializeStart je true.
+  Tu sa aj registuju vsetky servisy a workery.
+  Tu sa aj spustaju udalosti. Zavola sa DataWrapper.firstStartEvents. Lebo initializeStart je true.
+
+- Spravi sa druhy handler PPApplication.handlerThread, ale postDelayed 30 sekund.
+  Tu sa nastavi waitForEndOfStart = false a zavola sa DataWrapper.restartEventsWithRescan.
+
+waitForEndOfStart:
+- Ten ak je true, tak EventsHandler.handleEvents aktivuje Profile.PROFILE_NO_ACTIVATE.
+  Toto, ale len ak sa nespusti ziadna udalost.
+  Cize ma to iba vylucit, aby sa pri starte PPService neaktivoval default profil.
+  V tomto pripade by sa nemal zobrazovat toast o tomto.
+  OPRAVENE.
+
+Co sa stane, ak pride broadcast BOOT_COMPLETED:
+- Uz sa spravili veci, co sa stanu po starte PPService.
+- Spusti sa handler PPApplication.handlerThread.
+  !!! Tu je problem, ze sa spusti skor, ako ten druhy postDelayed z PPService. !!!
+  !!! Ten urobi uplne to iste co ten druhy z PPService. Cize ja by som tu ten druhy z PPService zhodil. !!!
+  OPRAVENE.
+
+Co sa stane, ak pride broadcast MY_PACKAGE_REPLACED:
+- Uz sa spravili veci, co sa stanu po starte PPService.
+
+- Spusti sa prvy handler PPApplication.handlerThread.
+  Tu sa nastavuju aplikacne parametre podla verzie. Pri vacsine sa nastavi restartService = true. Cize ma sa PPService restartovat.
+
+- Spusti sa druhy handler PPApplication.handlerThread, ale postDelayed 15 sekund.
+  Ak nie je nastartovany service, nastartuje sa. Tymto osetrujem, keby nahodou service nebol z PPApplication nastartovany.
+  Neviem preco sa to stava, ale obcas ano.
+  Ak je servis nastartovany, spustia sa udalosti. Zavola sa DataWrapper.firstStartEvents.
+  !! TOTO CELE PREROB, TU SA MUSI RESTARTOVAT SERVIS, ked je restartService = true. ||
+  !! Ak je restartService = false, sprav toto: nastav waitForEndOfStart = false a zavolak sa DataWrapper.restartEventsWithRescan. !!
+  !!   Ale musis zhodit druhy handler z PPService. !!
+  OPRAVENE.
+
+Este remove druhy handler z PPService na zaciatku doFirstStart. To keby nahodou bol uz spusteny.
+OPRAVENE.
