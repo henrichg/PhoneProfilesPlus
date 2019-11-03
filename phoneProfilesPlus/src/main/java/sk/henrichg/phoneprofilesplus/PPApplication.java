@@ -2358,12 +2358,9 @@ public class PPApplication extends Application {
     private static boolean isEMUIROM() {
         String emuiRomName = getEmuiRomName();
         PPApplication.logE("PPApplication.isEMUIROM", "emuiRomName="+emuiRomName);
-        String romName = "";
-        if (emuiRomName != null)
-            romName = emuiRomName.toLowerCase();
 
-        return (romName.indexOf("emotionui_") == 0) ||
-                Build.DISPLAY.toLowerCase().contains("emui2.3") || "EMUI 2.3".equalsIgnoreCase(emuiRomName);
+        return (emuiRomName.length() != 0) ||
+                Build.DISPLAY.toLowerCase().contains("emui2.3");// || "EMUI 2.3".equalsIgnoreCase(emuiRomName);
     }
 
     private static boolean isSamsung() {
