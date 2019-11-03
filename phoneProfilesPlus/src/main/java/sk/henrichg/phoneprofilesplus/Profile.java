@@ -2178,10 +2178,10 @@ public class Profile {
         int percentage = Math.round(getPercentage(value, 0, GAMMA_SPACE_MAX_256) * 100);*/
 
         int _settingsValue = settingsValue;
-        if (PPApplication.romIsOnePlus && (Build.VERSION.SDK_INT >= 26))
+        if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 26))
             _settingsValue = Math.round(settingsValue / 4f); // convert from 1024 to 256
         else
-        if (PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
+        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
             _settingsValue = Math.round(settingsValue / 16f); // convert from 4096 to 256
         int percentage = BrightnessLookup.lookup(_settingsValue, true);
 
@@ -2209,10 +2209,10 @@ public class Profile {
             systemValue = maximumValue;*/
 
         int systemValue = BrightnessLookup.lookup(percentage, false);
-        if (PPApplication.romIsOnePlus && (Build.VERSION.SDK_INT >= 26))
+        if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 26))
             systemValue = systemValue * 4; // convert from 256 to 1024
         else
-        if (PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
+        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
             systemValue = systemValue * 16; // convert from 256 to 4096
 
         PPApplication.logE("Profile.getBrightnessValue_A9", "percentage="+percentage);
@@ -2234,10 +2234,10 @@ public class Profile {
         //if (maximumValue-minimumValue > 255) {
             minimumValue = 0;
             maximumValue = 255;
-        if (PPApplication.romIsOnePlus && (Build.VERSION.SDK_INT >= 26))
+        if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 26))
             maximumValue = 1023;
         else
-        if (PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
+        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
             maximumValue = 4096;
         //}
 
@@ -2246,10 +2246,10 @@ public class Profile {
         if (percentage == BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET) {
             // brightness is not set, change it to default manual brightness value
             int defaultValue = 128;
-            if (PPApplication.romIsOnePlus && (Build.VERSION.SDK_INT >= 26))
+            if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 26))
                 defaultValue = 512;
             else
-            if (PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
+            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
                 defaultValue = 2048;
             if (Build.VERSION.SDK_INT > 28) {
                 PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT > 28");
@@ -2261,7 +2261,7 @@ public class Profile {
                 defaultValue = getBrightnessValue_A9(50/*, minimumValue, maximumValue*/);
             }
             else
-            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
+            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
                 PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and !Samsung and !LG");
                 defaultValue = getBrightnessValue_A9(50/*, minimumValue, maximumValue*/);
             }
@@ -2290,7 +2290,7 @@ public class Profile {
                 value = getBrightnessValue_A9(percentage/*, minimumValue, maximumValue*/);
             }
             else
-            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
+            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
                 PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and !Samsung and !LG");
                 value = getBrightnessValue_A9(percentage/*, minimumValue, maximumValue*/);
             }
@@ -2330,7 +2330,7 @@ public class Profile {
                 exponentialLevel = true;
             }
             else
-            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
+            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
                 PPApplication.logE("Profile.convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=true - SDK_INT == 28 and !Samsung and !LG");
                 exponentialLevel = true;
             }
@@ -2354,10 +2354,10 @@ public class Profile {
 //                    maximumValue = 1023;
                 //}
 
-                if (PPApplication.romIsOnePlus)
+                if (PPApplication.deviceIsOnePlus)
                     value = (getBrightnessValue_A9(percentage/*, minimumValue, maximumValue*/) - 512) / 512f;
                 else
-                if (PPApplication.romIsMIUI)
+                if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
                     value = (getBrightnessValue_A9(percentage/*, minimumValue, maximumValue*/) - 2048) / 2048f;
                 else
                     value = (getBrightnessValue_A9(percentage/*, minimumValue, maximumValue*/) - 128) / 128f;
@@ -2390,7 +2390,7 @@ public class Profile {
                 percentage = getBrightnessPercentage_A9(value/*, minValue, maxValue*/);
             }
             else
-            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.romIsSamsung) && (!PPApplication.romIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
+            if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
                 PPApplication.logE("Profile.convertBrightnessToPercents", "getBrightnessPercentage_A9 called - SDK_INT == 28 and !Samsung and !LG");
                 percentage = getBrightnessPercentage_A9(value/*, minValue, maxValue*/);
             }

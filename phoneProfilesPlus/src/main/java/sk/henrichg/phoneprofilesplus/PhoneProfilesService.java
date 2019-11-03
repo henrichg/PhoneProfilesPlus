@@ -4223,7 +4223,7 @@ public class PhoneProfilesService extends Service
                 uiModeManager.setNightMode(UiModeManager.MODE_NIGHT_NO);
             }*/
 
-            boolean useDecorator = (!PPApplication.romIsMIUI) || (Build.VERSION.SDK_INT >= 26);
+            boolean useDecorator = (!(PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) || (Build.VERSION.SDK_INT >= 26);
             useDecorator = useDecorator && notificationUseDecoration;
 
             boolean notificationDarkBackground = false;
@@ -4263,7 +4263,7 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationDarkBackground="+notificationDarkBackground);
             }
 
-            if (PPApplication.romIsMIUI) {
+            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
                 if (android.os.Build.VERSION.SDK_INT >= 24) {
                     if (!useDecorator)
                         contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_miui_no_decorator);
@@ -4279,7 +4279,7 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("PhoneProfilesService._showProfileNotification", "miui");
             }
             else
-            if (PPApplication.romIsEMUI) {
+            if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
                 if (android.os.Build.VERSION.SDK_INT >= 24) {
                     if (!useDecorator)
                         contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_emui_no_decorator);
@@ -4294,7 +4294,7 @@ public class PhoneProfilesService extends Service
                     contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_emui);
             }
             else
-            if (PPApplication.romIsSamsung) {
+            if (PPApplication.deviceIsSamsung) {
                 if (android.os.Build.VERSION.SDK_INT >= 24) {
                     if (!useDecorator)
                         contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_samsung_no_decorator);

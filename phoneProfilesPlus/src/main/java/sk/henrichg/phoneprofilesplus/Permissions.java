@@ -671,7 +671,7 @@ class Permissions {
                 }
                 if (grantedWriteSettings) {
                     if (profile._deviceBluetooth != 0) {
-                        if (PPApplication.romIsEMUI) {
+                        if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
                             if (android.os.Build.VERSION.SDK_INT >= 28) {
                                 grantedWriteSettings = Settings.System.canWrite(context);
                                 if (grantedWriteSettings)
@@ -732,7 +732,7 @@ class Permissions {
     }
 
     static boolean checkBluetoothForEMUI(Context context) {
-        if (PPApplication.romIsEMUI) {
+        if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
             if (android.os.Build.VERSION.SDK_INT >= 28) {
                 try {
                     boolean grantedWriteSettings = Settings.System.canWrite(context);
