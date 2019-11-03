@@ -76,7 +76,7 @@ public class PPApplication extends Application {
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && BuildConfig.DEBUG;
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && BuildConfig.DEBUG;
     private static final boolean rootToolsDebug = false;
@@ -103,8 +103,8 @@ public class PPApplication extends Application {
                                          +"|PhoneProfilesBackupAgent"
                                          +"|ShutdownBroadcastReceiver"
 
-                                         +"|PhoneProfilesService.onConfigurationChanged"
-                                         +"|IgnoreBatteryOptimizationNotification"
+                                         //+"|PhoneProfilesService.onConfigurationChanged"
+                                         //+"|IgnoreBatteryOptimizationNotification"
 
                                          /*+"|DatabaseHandler.onUpgrade"
                                          +"|EditorProfilesActivity.doImportData"
@@ -503,8 +503,8 @@ public class PPApplication extends Application {
                                         //+"|WifiSSIDPreferenceFragmentX.refreshListView"
                                         //+"|BluetoothNamePreferenceFragmentX.onDialogClosed"
 
-                                        +"|[OPT] EditorProfileListFragment"
-                                        +"|[OPT] EditorEventListFragment"
+                                        //+"|[OPT] EditorProfileListFragment"
+                                        //+"|[OPT] EditorEventListFragment"
             ;
 
 
@@ -734,7 +734,12 @@ public class PPApplication extends Application {
         PPApplication.logE("##### PPApplication.onCreate", "romIsSamsung="+romIsSamsung);
         PPApplication.logE("##### PPApplication.onCreate", "romIsLG="+romIsLG);
         PPApplication.logE("##### PPApplication.onCreate", "romIsOnePlus="+romIsOnePlus);
+
+        PPApplication.logE("##### PPApplication.onCreate", "manufacturer="+Build.MANUFACTURER);
         PPApplication.logE("##### PPApplication.onCreate", "model="+Build.MODEL);
+        PPApplication.logE("##### PPApplication.onCreate", "display="+Build.DISPLAY);
+        PPApplication.logE("##### PPApplication.onCreate", "brand="+Build.BRAND);
+        PPApplication.logE("##### PPApplication.onCreate", "fingerprint="+Build.FINGERPRINT);
 
         if (checkAppReplacingState())
             return;
