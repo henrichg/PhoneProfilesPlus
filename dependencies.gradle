@@ -21,8 +21,8 @@
 //        for API level >= 26
 
 ext.ppVersions = [
-    publishVersion: '4.1.3.1b',
-    publishVersionCode: 5259,
+    publishVersion: '4.1.4',
+    publishVersionCode: 5260,
 
     minSdk: 21,
     targetSdk: 28,
