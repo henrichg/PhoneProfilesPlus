@@ -69,7 +69,7 @@ public class PhoneProfilesService extends Service
 {
     private static volatile PhoneProfilesService instance = null;
     private boolean serviceHasFirstStart = false;
-    private boolean serviceRunning = false;
+    //private boolean serviceRunning = false;
     private boolean runningInForeground = false;
     private boolean waitForEndOfStart = true;
 
@@ -298,7 +298,7 @@ public class PhoneProfilesService extends Service
         }
 
         serviceHasFirstStart = false;
-        serviceRunning = false;
+        //serviceRunning = false;
         runningInForeground = false;
         waitForEndOfStart = true;
         //ApplicationPreferences.forceNotUseAlarmClock = false;
@@ -436,7 +436,7 @@ public class PhoneProfilesService extends Service
         }
 
         serviceHasFirstStart = false;
-        serviceRunning = false;
+        //serviceRunning = false;
         runningInForeground = false;
         waitForEndOfStart = true;
     }
@@ -3488,13 +3488,15 @@ public class PhoneProfilesService extends Service
         if (startOnPackageReplace)
             PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_START_ON_PACKAGE_REPLACE");
 
-        PPApplication.logE("PhoneProfilesService.doForFirstStart", "serviceRunning="+serviceRunning);
+        //PPApplication.logE("PhoneProfilesService.doForFirstStart", "serviceRunning="+serviceRunning);
 
-        if (serviceRunning && /*onlyStart &&*/ !startOnBoot && !startOnPackageReplace) {
+        /*
+        if (serviceRunning && !startOnBoot && !startOnPackageReplace && !initializeStart) {
             PPApplication.logE("PhoneProfilesService.doForFirstStart", "service already running");
             PPApplication.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart END");
             return;// true;
         }
+        */
 
         /*
         if ((!startOnPackageReplace) && PPApplication.isNewVersion(getApplicationContext())) {
@@ -3504,7 +3506,7 @@ public class PhoneProfilesService extends Service
         }
         */
 
-        serviceRunning = true;
+        //serviceRunning = true;
 
         removeRestartEventsForFirstStartHandler(false);
 
