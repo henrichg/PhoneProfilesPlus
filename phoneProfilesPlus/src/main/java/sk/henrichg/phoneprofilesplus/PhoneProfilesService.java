@@ -376,16 +376,6 @@ public class PhoneProfilesService extends Service
         //notificationMediaPlayer = null;
 
         PPApplication.logE("$$$ PhoneProfilesService.onCreate", "OK created");
-
-        PPApplication.startHandlerThread("PhoneProfilesService.doForFirstStart");
-        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                DatabaseHandler.getInstance(appContext).activateProfile(null);
-                ActivateProfileHelper.updateGUI(appContext, false, true);
-            }
-        });
     }
 
     @Override
@@ -3509,6 +3499,9 @@ public class PhoneProfilesService extends Service
         removeRestartEventsForFirstStartHandler(false);
 
         final Context appContext = getApplicationContext();
+
+        DatabaseHandler.getInstance(appContext).activateProfile(null);
+        ActivateProfileHelper.updateGUI(appContext, false, true);
 
         //if (onlyStart) {
             final boolean _startOnBoot = startOnBoot;
