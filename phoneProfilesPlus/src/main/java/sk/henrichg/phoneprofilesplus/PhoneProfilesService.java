@@ -173,7 +173,7 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_START_ON_BOOT = "start_on_boot";
     static final String EXTRA_START_ON_PACKAGE_REPLACE = "start_on_package_replace";
     //static final String EXTRA_ONLY_START = "only_start";
-    static final String EXTRA_INITIALIZE_START = "initialize_start";
+    static final String EXTRA_DEACTIVATE_PROFILE = "deactivate_profile";
     static final String EXTRA_ACTIVATE_PROFILES = "activate_profiles";
     //static final String EXTRA_SET_SERVICE_FOREGROUND = "set_service_foreground";
     //static final String EXTRA_CLEAR_SERVICE_FOREGROUND = "clear_service_foreground";
@@ -376,6 +376,16 @@ public class PhoneProfilesService extends Service
         //notificationMediaPlayer = null;
 
         PPApplication.logE("$$$ PhoneProfilesService.onCreate", "OK created");
+
+        PPApplication.startHandlerThread("PhoneProfilesService.doForFirstStart");
+        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                DatabaseHandler.getInstance(appContext).activateProfile(null);
+                ActivateProfileHelper.updateGUI(appContext, false, true);
+            }
+        });
     }
 
     @Override
@@ -3451,7 +3461,7 @@ public class PhoneProfilesService extends Service
         PPApplication.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart START");
 
         //boolean onlyStart = true;
-        boolean initializeStart = false;
+        boolean deactivateProfile = false;
         boolean activateProfiles = false;
         boolean startOnBoot = false;
         boolean startOnPackageReplace = false;
@@ -3461,7 +3471,7 @@ public class PhoneProfilesService extends Service
         // - EXTRA_ACTIVATE_PROFILES = false, configured is in PPApplication.OnCreate()
         if (intent != null) {
             //onlyStart = intent.getBooleanExtra(EXTRA_ONLY_START, true);
-            initializeStart = intent.getBooleanExtra(EXTRA_INITIALIZE_START, false);
+            deactivateProfile = intent.getBooleanExtra(EXTRA_DEACTIVATE_PROFILE, false);
             activateProfiles = intent.getBooleanExtra(EXTRA_ACTIVATE_PROFILES, false);
             startOnBoot = intent.getBooleanExtra(EXTRA_START_ON_BOOT, false);
             startOnPackageReplace = intent.getBooleanExtra(EXTRA_START_ON_PACKAGE_REPLACE, false);
@@ -3469,8 +3479,8 @@ public class PhoneProfilesService extends Service
 
         //if (onlyStart)
         //    PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_ONLY_START");
-        if (initializeStart)
-            PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_INITIALIZE_START");
+        if (deactivateProfile)
+            PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_DEACTIVATE_PROFILE");
         if (activateProfiles)
             PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_ACTIVATE_PROFILES");
         if (startOnBoot)
@@ -3480,7 +3490,7 @@ public class PhoneProfilesService extends Service
 
         PPApplication.logE("PhoneProfilesService.doForFirstStart", "serviceRunning="+serviceRunning);
 
-        if (serviceRunning && /*onlyStart &&*/ !startOnBoot && !startOnPackageReplace && !initializeStart) {
+        if (serviceRunning && /*onlyStart &&*/ !startOnBoot && !startOnPackageReplace) {
             PPApplication.logE("PhoneProfilesService.doForFirstStart", "service already running");
             PPApplication.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart END");
             return;// true;
@@ -3500,14 +3510,11 @@ public class PhoneProfilesService extends Service
 
         final Context appContext = getApplicationContext();
 
-        DatabaseHandler.getInstance(appContext).activateProfile(null);
-        ActivateProfileHelper.updateGUI(appContext, false, true);
-
         //if (onlyStart) {
             final boolean _startOnBoot = startOnBoot;
             final boolean _startOnPackageReplace = startOnPackageReplace;
-            final boolean _initializeStart = initializeStart;
             final boolean _activateProfiles = activateProfiles;
+            final boolean _deactivateProfile = deactivateProfile;
             PPApplication.startHandlerThread("PhoneProfilesService.doForFirstStart");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
@@ -3524,6 +3531,11 @@ public class PhoneProfilesService extends Service
                         }
 
                         PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.doForFirstStart");
+
+                        if (_deactivateProfile) {
+                            DatabaseHandler.getInstance(appContext).activateProfile(null);
+                            ActivateProfileHelper.updateGUI(appContext, false, true);
+                        }
 
                         // is called from PPApplication
                         //PPApplication.initRoot();
@@ -3554,12 +3566,12 @@ public class PhoneProfilesService extends Service
                         GlobalGUIRoutines.setLanguage(appContext);
                         GlobalGUIRoutines.switchNightMode(getApplicationContext(), true);
 
-                        if (_startOnBoot || _startOnPackageReplace || _initializeStart) {
+                        //if (_startOnBoot || _startOnPackageReplace || _initializeStart) {
                             // restart first start
                             serviceHasFirstStart = false;
-                        }
+                        //}
 
-                        if (serviceHasFirstStart) {
+                        /*if (serviceHasFirstStart) {
                             PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "application already started");
 
                             PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneProfilesService.doForFirstStart");
@@ -3571,7 +3583,7 @@ public class PhoneProfilesService extends Service
                             }
                             PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "PhoneProfilesService.doForFirstStart.2 END");
                             return;
-                        }
+                        }*/
 
                         serviceHasFirstStart = true;
 
@@ -3580,7 +3592,7 @@ public class PhoneProfilesService extends Service
                         PPApplication.createNotificationChannels(appContext);
                         dataWrapper.setDynamicLauncherShortcuts();
 
-                        if (_startOnBoot || _startOnPackageReplace || _initializeStart) {
+                        //if (_startOnBoot || _startOnPackageReplace || _initializeStart) {
                             PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "application not started, start it");
 
                             //Permissions.clearMergedPermissions(appContext);
@@ -3653,12 +3665,12 @@ public class PhoneProfilesService extends Service
                             BluetoothScanWorker.setWaitForLEResults(appContext, false);
                             BluetoothScanWorker.setBluetoothEnabledForScan(appContext, false);
                             BluetoothScanWorker.setScanKilled(appContext, false);
-                        }
+                        //}
 
                         registerReceiversAndWorkers(false);
                         DonationBroadcastReceiver.setAlarm(appContext);
 
-                        if (_startOnBoot || _startOnPackageReplace || _initializeStart) {
+                        //if (_startOnBoot || _startOnPackageReplace || _initializeStart) {
                             PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "application started");
 
                             if (_startOnBoot)
@@ -3691,7 +3703,7 @@ public class PhoneProfilesService extends Service
 
                                 dataWrapper.activateProfileOnBoot();
                             }
-                        }
+                        //}
 
                         /*
                         if (!_startOnBoot && !_startOnPackageReplace && !_initializeStart) {

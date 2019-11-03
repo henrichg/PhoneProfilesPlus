@@ -458,7 +458,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
             PPApplication.setApplicationStarted(dataWrapper.context, true);
             Intent serviceIntent = new Intent(dataWrapper.context, PhoneProfilesService.class);
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_INITIALIZE_START, true);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
             PPApplication.startPPService(dataWrapper.context, serviceIntent);
