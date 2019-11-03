@@ -29,12 +29,14 @@ import com.stericson.RootShell.RootShell;
 import com.stericson.RootShell.execution.Command;
 import com.stericson.RootTools.RootTools;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
@@ -653,6 +655,8 @@ public class PPApplication extends Application {
 
     static final String CRASHLYTICS_LOG_DEVICE_ROOTED = "DEVICE_ROOTED";
 
+    static final String SYS_PROP_MOD_VERSION = "ro.modversion";
+
     public static boolean isScreenOn;
 
 //    static private FirebaseAnalytics firebaseAnalytics;
@@ -740,6 +744,11 @@ public class PPApplication extends Application {
         PPApplication.logE("##### PPApplication.onCreate", "display="+Build.DISPLAY);
         PPApplication.logE("##### PPApplication.onCreate", "brand="+Build.BRAND);
         PPApplication.logE("##### PPApplication.onCreate", "fingerprint="+Build.FINGERPRINT);
+        PPApplication.logE("##### PPApplication.onCreate", "type="+Build.TYPE);
+
+        PPApplication.logE("##### PPApplication.onCreate", "modVersion="+getReadableModVersion());
+        PPApplication.logE("##### PPApplication.onCreate", "osVersion="+System.getProperty("os.version"));
+
 
         if (checkAppReplacingState())
             return;
@@ -2355,6 +2364,44 @@ public class PPApplication extends Application {
         return Build.BRAND.equalsIgnoreCase("oneplus") ||
                 Build.MANUFACTURER.equalsIgnoreCase("oneplus") ||
                 Build.FINGERPRINT.toLowerCase().contains("oneplus");
+    }
+
+    public static String getReadableModVersion() {
+        String modVer = getSystemProperty(SYS_PROP_MOD_VERSION);
+        return (modVer == null || modVer.length() == 0 ? "Unknown" : modVer);
+    }
+
+    private static String getSystemProperty(String propName)
+    {
+        String line;
+        BufferedReader input = null;
+        try
+        {
+            Process p = Runtime.getRuntime().exec("getprop " + propName);
+            input = new BufferedReader(new InputStreamReader(p.getInputStream()), 1024);
+            line = input.readLine();
+            input.close();
+        }
+        catch (IOException ex)
+        {
+            Log.e("PPApplication.getSystemProperty", "Unable to read sysprop " + propName, ex);
+            return null;
+        }
+        finally
+        {
+            if(input != null)
+            {
+                try
+                {
+                    input.close();
+                }
+                catch (IOException e)
+                {
+                    Log.e("PPApplication.getSystemProperty", "Exception while closing InputStream", e);
+                }
+            }
+        }
+        return line;
     }
 
     static boolean hasSystemFeature(Context context, String feature) {
