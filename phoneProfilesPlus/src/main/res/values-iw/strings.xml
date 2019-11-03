@@ -1328,6 +1328,14 @@
     <string name="array_ignore_manual_activation_ignore">Ignore manual profile activation</string>
     <string name="editor_activity_targetHelps_ignoreManualActivation_title">Ignore manual profile activation</string>
     <string name="editor_activity_targetHelps_ignoreManualActivation_description">Click this to configure event parameter \"[»] Ignore manual activation\".</string>
+    <string name="editor_activity_targetHelps_trafficLightIcon_title">\"Traffic light\" icon</string>
+    <string name="editor_activity_targetHelps_trafficLightIcon_description">Click this to show information about colors of this \"traffic light\" icon, representing global events run status.</string>
+    <string name="editor_activity_targetHelps_eventStatusIcon_title">Event status indicator</string>
+    <string name="editor_activity_targetHelps_eventStatusIcon_description">Click this to show information about displayed type of this icon, representing run status of event.</string>
+    <string name="editor_activity_targetHelps_bottomNavigationProfiles_title">Profiles</string>
+    <string name="editor_activity_targetHelps_bottomNavigationProfiles_description">Click this to display list of configured profiles.</string>
+    <string name="editor_activity_targetHelps_bottomNavigationEvents_title">Events</string>
+    <string name="editor_activity_targetHelps_bottomNavigationEvents_description">Click this to display list of configured events.</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

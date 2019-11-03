@@ -1321,10 +1321,18 @@
     <string name="editor_activity_targetHelps_showInActivator_description">Натисніть тут щоб налаштувати параметр профілю \"Показувати в Активаторі\".</string>
     <string name="profile_preferences_alwaysOnDisplay">(R) Завжди на екрані</string>
     <string name="permission_why_profile_always_on_display">для увімк/вимк \"Завжди на екрані\"</string>
-    <string name="array_ignore_manual_activation_not_ignore">Do not ignore manual profile activation</string>
-    <string name="array_ignore_manual_activation_ignore">Ignore manual profile activation</string>
-    <string name="editor_activity_targetHelps_ignoreManualActivation_title">Ignore manual profile activation</string>
-    <string name="editor_activity_targetHelps_ignoreManualActivation_description">Click this to configure event parameter \"[»] Ignore manual activation\".</string>
+    <string name="array_ignore_manual_activation_not_ignore">Не ігнорувати ручну активацію профілю</string>
+    <string name="array_ignore_manual_activation_ignore">Ігнорувати ручну активацію профілю</string>
+    <string name="editor_activity_targetHelps_ignoreManualActivation_title">Ігнорувати ручну активацію профілю</string>
+    <string name="editor_activity_targetHelps_ignoreManualActivation_description">Натисніть тут, щоб налаштувати параметр події \"[»] Ігнорувати ручну активацію\".</string>
+    <string name="editor_activity_targetHelps_trafficLightIcon_title">Іконка \"Світлофор\"</string>
+    <string name="editor_activity_targetHelps_trafficLightIcon_description">Натисніть тут, щоб показати інформацію про кольори значка \"світлофор\", що представляє стан подій.</string>
+    <string name="editor_activity_targetHelps_eventStatusIcon_title">Індикатор стану події</string>
+    <string name="editor_activity_targetHelps_eventStatusIcon_description">Натисніть тут, щоб відобразити інформацію про тип цієї іконки, яка показує стан події.</string>
+    <string name="editor_activity_targetHelps_bottomNavigationProfiles_title">Профілі</string>
+    <string name="editor_activity_targetHelps_bottomNavigationProfiles_description">Натисніть тут для відображення списку налаштованих профілів.</string>
+    <string name="editor_activity_targetHelps_bottomNavigationEvents_title">Події</string>
+    <string name="editor_activity_targetHelps_bottomNavigationEvents_description">Натисніть тут для відображення списку налаштованих подій.</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

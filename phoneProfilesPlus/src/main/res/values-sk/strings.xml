@@ -1325,6 +1325,14 @@
     <string name="array_ignore_manual_activation_ignore">Ignoruj manuálnu aktiváciu profilu</string>
     <string name="editor_activity_targetHelps_ignoreManualActivation_title">Ignoruj manuálnu aktiváciu profilu</string>
     <string name="editor_activity_targetHelps_ignoreManualActivation_description">Kliknite sem pre konfiguráciu parametra \"[»] Ignoruj manuálnu aktiváciu\".</string>
+    <string name="editor_activity_targetHelps_trafficLightIcon_title">Ikona \"Semafór\"</string>
+    <string name="editor_activity_targetHelps_trafficLightIcon_description">Kliknite sem pre zobrazenie informácií o farbách tejto ikony \"semafóra\", reprezentujúce globálny stav behu udalostí.</string>
+    <string name="editor_activity_targetHelps_eventStatusIcon_title">Indikátor stavu udalosti</string>
+    <string name="editor_activity_targetHelps_eventStatusIcon_description">Kliknite sem pre zobrazenie informácií o zobrazenom type tejto ikony, reprezentujúceho stav udalosti.</string>
+    <string name="editor_activity_targetHelps_bottomNavigationProfiles_title">Profily</string>
+    <string name="editor_activity_targetHelps_bottomNavigationProfiles_description">Kliknite sem pre zobrazenie zoznamu nakonfigurovaných profilov.</string>
+    <string name="editor_activity_targetHelps_bottomNavigationEvents_title">Udalosti</string>
+    <string name="editor_activity_targetHelps_bottomNavigationEvents_description">Kliknite sem pre zobrazenie zoznamu nakonfigurovaných udalostí.</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
