@@ -72,7 +72,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                         PPApplication.logE("PPApplication.startHandlerThread", "START run - from=BluetoothScanBroadcastReceiver.onReceive");
 
                         if (BluetoothScanWorker.bluetooth == null)
-                            BluetoothScanWorker.bluetooth = BluetoothScanWorker.getBluetoothAdapter(appContext);
+                            BluetoothScanWorker.bluetooth = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(appContext);
 
                         if (BluetoothScanWorker.bluetooth != null) {
                             int forceOneScan = WifiBluetoothScanner.getForceOneBluetoothScan(appContext);

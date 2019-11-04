@@ -40,7 +40,7 @@ class BluetoothConnectedDevices {
     private static boolean okHEALTH = false;
 
     static void getConnectedDevices(final Context context) {
-        final BluetoothAdapter bluetoothAdapter = BluetoothScanWorker.getBluetoothAdapter(context);
+        final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
         if (bluetoothAdapter != null) {
             if (!bluetoothAdapter.isEnabled())
                 return;

@@ -554,7 +554,7 @@ public class DataWrapper {
                 PPApplication.setLastActivatedProfile(context, profile._id);
             }
             else {
-                PPApplication.logE("DataWrapper.setProfileActive", "profile="+profile);
+                PPApplication.logE("DataWrapper.setProfileActive", "profile=null");
                 PPApplication.setLastActivatedProfile(context, 0);
             }
         }
@@ -2896,7 +2896,7 @@ public class DataWrapper {
 
                 boolean done = false;
 
-                BluetoothAdapter bluetooth = BluetoothScanWorker.getBluetoothAdapter(context);
+                BluetoothAdapter bluetooth = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
                 if (bluetooth != null) {
                     boolean isBluetoothEnabled = bluetooth.isEnabled();
 
@@ -3644,7 +3644,7 @@ public class DataWrapper {
                         // ignore for bluetooth scanning
 
 
-                        BluetoothAdapter bluetoothAdapter = BluetoothScanWorker.getBluetoothAdapter(context);
+                        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
                         if (bluetoothAdapter != null) {
                             boolean enabled = bluetoothAdapter.isEnabled();
                             PPApplication.logE("-###- DataWrapper.doHandleEvents", "bluetoothState=" + enabled);

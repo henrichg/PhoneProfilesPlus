@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothManager;
 import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanSettings;
 import android.content.Context;
@@ -79,7 +78,7 @@ public class BluetoothScanWorker extends Worker {
         }
 
         if (bluetooth == null)
-            bluetooth = getBluetoothAdapter(context);
+            bluetooth = BluetoothAdapter.getDefaultAdapter(); //getBluetoothAdapter(context);
 
         if (Event.getGlobalEventsRunning(context))
         {
@@ -325,11 +324,12 @@ public class BluetoothScanWorker extends Worker {
 
     //------------------------------------------------------------
 
+    /*
     static BluetoothAdapter getBluetoothAdapter(Context context) {
         BluetoothAdapter adapter;
-        /*if (android.os.Build.VERSION.SDK_INT < 18)
-            adapter = BluetoothAdapter.getDefaultAdapter();
-        else {*/
+        //if (android.os.Build.VERSION.SDK_INT < 18)
+        //    adapter = BluetoothAdapter.getDefaultAdapter();
+        //else {
         BluetoothManager bluetoothManager = (BluetoothManager)context.getSystemService(Context.BLUETOOTH_SERVICE);
         if (bluetoothManager != null)
             adapter = bluetoothManager.getAdapter();
@@ -338,6 +338,7 @@ public class BluetoothScanWorker extends Worker {
         //}
         return adapter;
     }
+    */
 
     public static void initialize(Context context, boolean clearScanResult)
     {
@@ -352,7 +353,7 @@ public class BluetoothScanWorker extends Worker {
             return;
 
         if (bluetooth == null)
-            bluetooth = getBluetoothAdapter(context);
+            bluetooth = BluetoothAdapter.getDefaultAdapter(); //getBluetoothAdapter(context);
         if (bluetooth == null)
             return;
 
@@ -453,7 +454,7 @@ public class BluetoothScanWorker extends Worker {
     static void startCLScan(Context context)
     {
         if (bluetooth == null)
-            bluetooth = getBluetoothAdapter(context);
+            bluetooth = BluetoothAdapter.getDefaultAdapter(); //getBluetoothAdapter(context);
 
         if (bluetooth != null) {
             if (bluetooth.isDiscovering())
@@ -478,10 +479,10 @@ public class BluetoothScanWorker extends Worker {
         }
     }
 
-    static void stopCLScan(Context context) {
+    static void stopCLScan() {
         PPApplication.logE("BluetoothScanWorker.stopCLScan", "xxx");
         if (bluetooth == null)
-            bluetooth = getBluetoothAdapter(context);
+            bluetooth = BluetoothAdapter.getDefaultAdapter(); //getBluetoothAdapter(context);
         if (bluetooth != null) {
             if (bluetooth.isDiscovering()) {
                 bluetooth.cancelDiscovery();
@@ -500,7 +501,7 @@ public class BluetoothScanWorker extends Worker {
             synchronized (PPApplication.bluetoothLEScanMutex) {
 
                 if (bluetooth == null)
-                    bluetooth = getBluetoothAdapter(context);
+                    bluetooth = BluetoothAdapter.getDefaultAdapter(); //getBluetoothAdapter(context);
 
                 if (bluetooth != null) {
                     if (Permissions.checkLocation(context)) {
@@ -542,7 +543,7 @@ public class BluetoothScanWorker extends Worker {
         PPApplication.logE("BluetoothScanWorker.stopLEScan", "xxx");
         if (WifiBluetoothScanner.bluetoothLESupported(context)) {
             if (bluetooth == null)
-                bluetooth = getBluetoothAdapter(context);
+                bluetooth = BluetoothAdapter.getDefaultAdapter(); //getBluetoothAdapter(context);
 
             if (bluetooth != null) {
                 if (bluetooth.getState() == BluetoothAdapter.STATE_ON) {
@@ -644,7 +645,7 @@ public class BluetoothScanWorker extends Worker {
         List<BluetoothDeviceData> boundedDevicesList  = new ArrayList<>();
 
         if (bluetooth == null)
-            bluetooth = getBluetoothAdapter(context);
+            bluetooth = BluetoothAdapter.getDefaultAdapter(); //getBluetoothAdapter(context);
 
         if (bluetooth != null) {
             if (Permissions.hasPermission(context, Manifest.permission.BLUETOOTH)) {

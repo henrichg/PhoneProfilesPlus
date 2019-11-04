@@ -661,7 +661,7 @@ public class PPApplication extends Application {
 
     static final String CRASHLYTICS_LOG_DEVICE_ROOTED = "DEVICE_ROOTED";
 
-    static final String SYS_PROP_MOD_VERSION = "ro.modversion";
+    private static final String SYS_PROP_MOD_VERSION = "ro.modversion";
 
     public static boolean isScreenOn;
 
@@ -2404,11 +2404,12 @@ public class PPApplication extends Application {
                 Build.FINGERPRINT.toLowerCase().contains("oneplus");
     }
 
-    public static String getReadableModVersion() {
+    private static String getReadableModVersion() {
         String modVer = getSystemProperty(SYS_PROP_MOD_VERSION);
         return (modVer == null || modVer.length() == 0 ? "Unknown" : modVer);
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static String getSystemProperty(String propName)
     {
         String line;

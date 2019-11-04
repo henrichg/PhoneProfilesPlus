@@ -285,7 +285,7 @@ class WifiBluetoothScanner {
                             PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "scan=true");
 
                             if (BluetoothScanWorker.bluetooth == null)
-                                BluetoothScanWorker.bluetooth = BluetoothScanWorker.getBluetoothAdapter(context);
+                                BluetoothScanWorker.bluetooth = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
 
                             if (BluetoothScanWorker.bluetooth != null) {
                                 if (BluetoothScanWorker.getBluetoothEnabledForScan(context)) {
@@ -697,7 +697,7 @@ class WifiBluetoothScanner {
         } while (SystemClock.uptimeMillis() - start < classicBTScanDuration * 1000);
 
         BluetoothScanWorker.finishCLScan(context);
-        BluetoothScanWorker.stopCLScan(context);
+        BluetoothScanWorker.stopCLScan();
     }
 
     private static void waitForLEBluetoothScanEnd(Context context)
