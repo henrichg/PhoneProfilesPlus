@@ -8,4 +8,6 @@ class EventTimeline {
     @SuppressWarnings("unused")
     int _eorder; // is required !!! used is in DatabaseHandler as field KEY_ET_EORDER
 
+    EventTimeline() {}
+
 }

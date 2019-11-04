@@ -9,4 +9,6 @@ class MobileCell {
     String _lastRunningEvents;
     String _lastPausedEvents;
     boolean _doNotDetect;
+
+    MobileCell() {}
 }

@@ -8,16 +8,18 @@ import androidx.annotation.NonNull;
 @SuppressWarnings("unused")
 class TwilightState {
 
-    private final boolean mIsNight;
-    private final long mYesterdaySunrise;
-    private final long mYesterdaySunset;
-    private final long mTodaySunrise;
-    private final long mTodaySunset;
-    private final long mTomorrowSunrise;
-    private final long mTomorrowSunset;
+    private boolean mIsNight;
+    private long mYesterdaySunrise;
+    private long mYesterdaySunset;
+    private long mTodaySunrise;
+    private long mTodaySunset;
+    private long mTomorrowSunrise;
+    private long mTomorrowSunset;
 
     private long[] mDaysSunrise = new long[9];
     private long[] mDaysSunset = new long[9];
+
+    TwilightState() {}
 
     TwilightState(boolean isNight,
                   long yesterdaySunrise, long yesterdaySunset,

@@ -6,4 +6,7 @@ class Geofence {
     double _longitude;
     float _radius;
     String _name;
+
+    Geofence() {}
+
 }

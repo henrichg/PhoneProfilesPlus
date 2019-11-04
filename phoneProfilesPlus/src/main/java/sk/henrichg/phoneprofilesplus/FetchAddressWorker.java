@@ -3,11 +3,8 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.text.TextUtils;
 import android.util.Log;
-
-import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,70 +35,54 @@ public class FetchAddressWorker extends Worker {
         PPApplication.logE("FetchAddressWorker.doWork", "xxx");
         Data outputData;
 
-        boolean error = false;
-
         // Get the input
         // Get the location passed to this service through an extra.
-        String sLocation = getInputData().getString(LocationGeofenceEditorActivity.LOCATION_DATA_EXTRA);
-        Location location = null;
-        if ((sLocation == null) || sLocation.isEmpty())
-            error = true;
-        else {
-            location = deserializeLocation(sLocation);
-            if (location == null)
-                error = true;
+        double latitude = getInputData().getDouble(LocationGeofenceEditorActivity.LATITUDE_EXTRA, 0);
+        double longitude = getInputData().getDouble(LocationGeofenceEditorActivity.LONGITUDE_EXTRA, 0);
+        boolean updateName = getInputData().getBoolean(LocationGeofenceEditorActivity.UPDATE_NAME_EXTRA, false);
+
+        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+
+        List<Address> addresses = null;
+
+        try {
+            addresses = geocoder.getFromLocation(latitude, longitude,
+                    // In this sample, get just a single address.
+                    1);
+        } catch (IOException ioException) {
+            // Catch network or other I/O problems.
+            Log.e("FetchAddressWorker.doWork", "Service not available", ioException);
+        } catch (IllegalArgumentException illegalArgumentException) {
+            // Catch invalid latitude or longitude values.
+            Log.e("FetchAddressWorker.doWork", "Invalid location. " +
+                    "Latitude = " + latitude +
+                    ", Longitude = " +
+                    longitude, illegalArgumentException);
         }
-        PPApplication.logE("FetchAddressWorker.doWork", "error="+error);
-        if (error) {
-            outputData = generateResult(LocationGeofenceEditorActivity.FAILURE_RESULT, "No location data provided", false);
-        }
-        else {
-            boolean updateName = getInputData().getBoolean(LocationGeofenceEditorActivity.UPDATE_NAME_EXTRA, false);
 
-            Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+        // Handle case where no address was found.
+        if (addresses == null || addresses.size()  == 0) {
+            //if (errorMessage.isEmpty()) {
+            //Log.e("FetchAddressIntentService.onHandleIntent", "No address found");
+            //}
+            outputData = generateResult(LocationGeofenceEditorActivity.FAILURE_RESULT,
+                    getApplicationContext().getString(R.string.event_preferences_location_no_address_found),
+                    updateName);
+        } else {
+            Address address = addresses.get(0);
+            ArrayList<String> addressFragments = new ArrayList<>();
 
-            List<Address> addresses = null;
-
-            try {
-                addresses = geocoder.getFromLocation(location.getLatitude(),
-                        location.getLongitude(),
-                        // In this sample, get just a single address.
-                        1);
-            } catch (IOException ioException) {
-                // Catch network or other I/O problems.
-                Log.e("FetchAddressWorker.doWork", "Service not available", ioException);
-            } catch (IllegalArgumentException illegalArgumentException) {
-                // Catch invalid latitude or longitude values.
-                Log.e("FetchAddressWorker.doWork", "Invalid location. " +
-                        "Latitude = " + location.getLatitude() +
-                        ", Longitude = " +
-                        location.getLongitude(), illegalArgumentException);
+            // Fetch the address lines using getAddressLine,
+            // join them, and send them to the thread.
+            for(int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
+                addressFragments.add(address.getAddressLine(i));
             }
-
-            // Handle case where no address was found.
-            if (addresses == null || addresses.size()  == 0) {
-                //if (errorMessage.isEmpty()) {
-                //Log.e("FetchAddressIntentService.onHandleIntent", "No address found");
-                //}
-                outputData = generateResult(LocationGeofenceEditorActivity.FAILURE_RESULT,
-                        getApplicationContext().getString(R.string.event_preferences_location_no_address_found),
-                        updateName);
-            } else {
-                Address address = addresses.get(0);
-                ArrayList<String> addressFragments = new ArrayList<>();
-
-                // Fetch the address lines using getAddressLine,
-                // join them, and send them to the thread.
-                for(int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
-                    addressFragments.add(address.getAddressLine(i));
-                }
-                String lineSeparator = System.getProperty("line.separator");
-                if (lineSeparator == null)
-                    lineSeparator = "\n";
-                outputData = generateResult(LocationGeofenceEditorActivity.SUCCESS_RESULT,
-                        TextUtils.join(lineSeparator, addressFragments),
-                        updateName);
-            }
+            String lineSeparator = System.getProperty("line.separator");
+            if (lineSeparator == null)
+                lineSeparator = "\n";
+            outputData = generateResult(LocationGeofenceEditorActivity.SUCCESS_RESULT,
+                    TextUtils.join(lineSeparator, addressFragments),
+                    updateName);
         }
 
         //if (outputData == null)
@@ -124,17 +105,5 @@ public class FetchAddressWorker extends Worker {
                 .build();
     }
 
-
-    // Serialize a single object.
-    static String serializeLocation(Location myClass) {
-        Gson gson = new Gson();
-        return gson.toJson(myClass);
-    }
-
-    // Deserialize to single object.
-    private static Location deserializeLocation(String jsonString) {
-        Gson gson = new Gson();
-        return gson.fromJson(jsonString, Location.class);
-    }
 
 }

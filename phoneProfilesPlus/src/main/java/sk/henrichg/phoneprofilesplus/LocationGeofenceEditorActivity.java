@@ -75,7 +75,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     static final int FAILURE_RESULT = 1;
     static final String RESULT_CODE = PPApplication.PACKAGE_NAME + ".RESULT_CODE";
     static final String RESULT_DATA_KEY = PPApplication.PACKAGE_NAME + ".RESULT_DATA_KEY";
-    static final String LOCATION_DATA_EXTRA = PPApplication.PACKAGE_NAME + ".LOCATION_DATA_EXTRA";
+    static final String LATITUDE_EXTRA = PPApplication.PACKAGE_NAME + ".LATITUDE_EXTRA";
+    static final String LONGITUDE_EXTRA = PPApplication.PACKAGE_NAME + ".LONGITUDE_EXTRA";
     static final String UPDATE_NAME_EXTRA = PPApplication.PACKAGE_NAME + ".UPDATE_NAME_EXTRA";
 
     /**
@@ -610,9 +611,9 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         intent.putExtra(UPDATE_NAME_EXTRA, updateName);
         startService(intent);*/
 
-        String sLocation = FetchAddressWorker.serializeLocation(mLocation);
         Data workData = new Data.Builder()
-                .putString(LOCATION_DATA_EXTRA, sLocation)
+                .putDouble(LATITUDE_EXTRA, mLocation.getLatitude())
+                .putDouble(LONGITUDE_EXTRA, mLocation.getLongitude())
                 .putBoolean(UPDATE_NAME_EXTRA, updateName)
                 .build();
 

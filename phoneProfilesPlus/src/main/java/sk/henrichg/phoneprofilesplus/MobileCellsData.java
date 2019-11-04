@@ -2,17 +2,17 @@ package sk.henrichg.phoneprofilesplus;
 
 class MobileCellsData {
 
-    final int cellId;
+    int cellId;
     String name;
     boolean connected;
-    final boolean _new;
-    final long lastConnectedTime;
-    final String lastRunningEvents;
-    final String lastPausedEvents;
+    boolean _new;
+    long lastConnectedTime;
+    String lastRunningEvents;
+    String lastPausedEvents;
     boolean doNotDetect;
 
-    //MobileCellsData() {
-    //}
+    MobileCellsData() {
+    }
 
     MobileCellsData(int cellId, String name, boolean connected, boolean _new, long lastConnectedTime,
                     String lastRunningEvents, String lastPausedEvents, boolean doNotDetect)
