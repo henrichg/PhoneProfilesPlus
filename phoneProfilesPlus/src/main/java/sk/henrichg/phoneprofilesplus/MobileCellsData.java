@@ -11,6 +11,7 @@ class MobileCellsData {
     String lastPausedEvents;
     boolean doNotDetect;
 
+    @SuppressWarnings("unused")
     MobileCellsData() {
     }
 

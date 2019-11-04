@@ -5,6 +5,7 @@ class NFCTag {
     String _uid;
     String _name;
 
+    @SuppressWarnings("unused")
     NFCTag() {}
 
     NFCTag(long id, String name, String uid)
