@@ -382,7 +382,7 @@ public class PhoneProfilesService extends Service
         handler.post(new Runnable() {
             @Override
             public void run() {
-                DatabaseHandler.getInstance(appContext).activateProfile(null);
+                DatabaseHandler.getInstance(appContext).deactivateProfile();
                 ActivateProfileHelper.updateGUI(appContext, false, true);
             }
         });
@@ -3535,7 +3535,7 @@ public class PhoneProfilesService extends Service
                         PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.doForFirstStart");
 
                         if (_deactivateProfile) {
-                            DatabaseHandler.getInstance(appContext).activateProfile(null);
+                            DatabaseHandler.getInstance(appContext).deactivateProfile();
                             ActivateProfileHelper.updateGUI(appContext, false, true);
                         }
 

@@ -103,6 +103,8 @@ public class PPApplication extends Application {
                                          +"|PhoneProfilesService.stopReceiver"
                                          +"|PhoneProfilesService.onDestroy"
                                          +"|DataWrapper.firstStartEvents"
+                                         //+"|DataWrapper.setProfileActive"
+                                         //+"|DataWrapper.activateProfileOnBoot"
                                          +"|BootUpReceiver"
                                          +"|PackageReplacedReceiver"
                                          +"|PhoneProfilesBackupAgent"
@@ -597,6 +599,7 @@ public class PPApplication extends Application {
     private static final String PREF_NOTIFICATION_PROFILE_NAME = "notification_profile_name";
     private static final String PREF_WIDGET_PROFILE_NAME = "widget_profile_name";
     private static final String PREF_ACTIVITY_PROFILE_NAME = "activity_profile_name";
+    private static final String PREF_LAST_ACTIVATED_PROFILE = "last_activated_profile";
 
     // scanner start/stop types
     static final int SCANNER_START_GEOFENCE_SCANNER = 1;
@@ -1360,6 +1363,20 @@ public class PPApplication extends Application {
         ApplicationPreferences.getSharedPreferences(context);
         Editor editor = ApplicationPreferences.preferences.edit();
         editor.putString(PREF_ACTIVITY_PROFILE_NAME + "_" + activityType, activityProfileName);
+        editor.apply();
+    }
+
+    static public long getLastActivatedProfile(Context context)
+    {
+        ApplicationPreferences.getSharedPreferences(context);
+        return ApplicationPreferences.preferences.getLong(PREF_LAST_ACTIVATED_PROFILE, 0);
+    }
+
+    static public void setLastActivatedProfile(Context context, long profileId)
+    {
+        ApplicationPreferences.getSharedPreferences(context);
+        Editor editor = ApplicationPreferences.preferences.edit();
+        editor.putLong(PREF_LAST_ACTIVATED_PROFILE, profileId);
         editor.apply();
     }
 

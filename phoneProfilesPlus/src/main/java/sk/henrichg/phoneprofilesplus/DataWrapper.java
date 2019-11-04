@@ -548,8 +548,15 @@ public class DataWrapper {
                 _profile._checked = false;
             }
 
-            if (profile != null)
+            if (profile != null) {
                 profile._checked = true;
+                PPApplication.logE("DataWrapper.setProfileActive", "profile._name="+profile._name);
+                PPApplication.setLastActivatedProfile(context, profile._id);
+            }
+            else {
+                PPApplication.logE("DataWrapper.setProfileActive", "profile="+profile);
+                PPApplication.setLastActivatedProfile(context, 0);
+            }
         }
     }
 
@@ -1201,7 +1208,7 @@ public class DataWrapper {
     {
         if (ApplicationPreferences.applicationActivate(context))
         {
-            Profile profile = DatabaseHandler.getInstance(context).getActivatedProfile();
+            /*Profile profile = DatabaseHandler.getInstance(context).getActivatedProfile();
             long profileId;
             if (profile != null)
                 profileId = profile._id;
@@ -1211,6 +1218,15 @@ public class DataWrapper {
                 if (profileId == Profile.PROFILE_NO_ACTIVATE)
                     profileId = 0;
             }
+            */
+            long profileId = PPApplication.getLastActivatedProfile(context);
+            PPApplication.logE("DataWrapper.activateProfileOnBoot", "lastActivatedProfile="+profileId);
+            if (profileId == 0) {
+                profileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context));
+                if (profileId == Profile.PROFILE_NO_ACTIVATE)
+                    profileId = 0;
+            }
+
             activateProfile(profileId, PPApplication.STARTUP_SOURCE_BOOT, null/*, ""*/);
         }
         else
@@ -1914,7 +1930,12 @@ public class DataWrapper {
         Profile profile;
 
         // for activated profile is recommended update of activity
-        profile = getActivatedProfile(false, false);
+        if (startupSource == PPApplication.STARTUP_SOURCE_BOOT) {
+            long profileId = PPApplication.getLastActivatedProfile(context);
+            profile = getProfileById(profileId, false, false, false);
+        }
+        else
+            profile = getActivatedProfile(false, false);
 
         boolean actProfile = false;
         //boolean interactive = false;
