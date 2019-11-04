@@ -14,3 +14,5 @@
 /phoneProfilesPlus/build
 /phoneProfilesPlus/google-services.json
 /phoneProfilesPlus/fabric.properties
+/phoneProfilesPlus/src/debug/res/values/google_maps_api.xml
+/phoneProfilesPlus/src/release/res/values/google_maps_api.xml
