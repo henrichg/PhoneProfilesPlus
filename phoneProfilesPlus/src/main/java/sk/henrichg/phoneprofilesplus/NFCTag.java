@@ -5,6 +5,7 @@ class NFCTag {
     String _uid;
     String _name;
 
+    // constructor is required for GSon !!!
     @SuppressWarnings("unused")
     NFCTag() {}
 

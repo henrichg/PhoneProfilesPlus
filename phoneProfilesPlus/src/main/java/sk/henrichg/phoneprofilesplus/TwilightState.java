@@ -5,7 +5,6 @@ import java.util.Date;
 
 import androidx.annotation.NonNull;
 
-@SuppressWarnings("unused")
 class TwilightState {
 
     private boolean mIsNight;
@@ -19,6 +18,8 @@ class TwilightState {
     private long[] mDaysSunrise = new long[9];
     private long[] mDaysSunset = new long[9];
 
+    // constructor is required for GSon !!!
+    @SuppressWarnings("unused")
     TwilightState() {}
 
     TwilightState(boolean isNight,

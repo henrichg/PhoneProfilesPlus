@@ -11,6 +11,7 @@ class MobileCellsData {
     String lastPausedEvents;
     boolean doNotDetect;
 
+    // constructor is required for GSon !!!
     @SuppressWarnings("unused")
     MobileCellsData() {
     }
