@@ -10,7 +10,6 @@ import android.content.res.Configuration;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
-import android.text.AutoGrowArray;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -580,14 +579,6 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
                 if (setMapCamera) {
                     if (editedRadius != null) {
-                        /*float currentZoomLevel = getZoomLevel(editedRadius);
-                        float animateZoom = currentZoomLevel + 5;
-                        PPApplication.logE("LocationGeofenceEditorActivity.updateEditedMarker", "currentZoomLevel="+currentZoomLevel);
-                        PPApplication.logE("LocationGeofenceEditorActivity.updateEditedMarker", "animateZoom="+animateZoom);
-
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(editedGeofence, animateZoom));
-                        mMap.animateCamera(CameraUpdateFactory.zoomTo(currentZoomLevel), 2000, null);*/
-
                         float zoom = getCircleZoomValue(mLocation.getLatitude(), mLocation.getLongitude(), geofence._radius,
                                                         mMap.getMinZoomLevel(), mMap.getMaxZoomLevel());
                         PPApplication.logE("LocationGeofenceEditorActivity.updateEditedMarker", "zoom="+zoom);
@@ -831,16 +822,6 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
     private boolean isSmaller(BigDecimal number) {
         return number.compareTo(BigDecimal.valueOf(MIN_RADIUS)) < 0;
-    }
-
-    public float getZoomLevel(Circle circle) {
-        float zoomLevel=0;
-        if (circle != null){
-            double radius = circle.getRadius();
-            double scale = radius / 500;
-            zoomLevel =(int) (16 - Math.log(scale) / Math.log(2));
-        }
-        return zoomLevel +.5f;
     }
 
     private float getCircleZoomValue(double latitude, double longitude, double radius,
