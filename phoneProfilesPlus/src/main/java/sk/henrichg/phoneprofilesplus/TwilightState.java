@@ -15,8 +15,8 @@ class TwilightState {
     private long mTomorrowSunrise;
     private long mTomorrowSunset;
 
-    private long[] mDaysSunrise = new long[9];
-    private long[] mDaysSunset = new long[9];
+    private final long[] mDaysSunrise = new long[9];
+    private final long[] mDaysSunset = new long[9];
 
     // constructor is required for GSon !!!
     @SuppressWarnings("unused")
@@ -44,6 +44,7 @@ class TwilightState {
     /**
      * Returns true if it is currently night time.
      */
+    @SuppressWarnings("unused")
     boolean isNight() {
         return mIsNight;
     }
