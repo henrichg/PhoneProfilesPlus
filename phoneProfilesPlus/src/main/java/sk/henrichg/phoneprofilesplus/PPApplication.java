@@ -277,7 +277,7 @@ public class PPApplication extends Application {
                                          //+"|GeofenceScannerJob"
                                          //+"|GeofenceScannerJob.scheduleJob"
                                          //+"|GeofenceScannerJob.onRunJob"
-                                         //+"|LocationGeofenceEditorActivity"
+                                         +"|LocationGeofenceEditorActivity.updateEditedMarker"
                                          //+"|LocationModeChangedBroadcastReceiver"
                                          //+"|PhoneProfilesService.scheduleGeofenceScannerJob"
                                          //+"|PhoneProfilesService.startGeofenceScanner"

@@ -10,13 +10,12 @@ import android.content.res.Configuration;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
-import android.service.autofill.FieldClassification;
+import android.text.AutoGrowArray;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -27,6 +26,7 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -255,7 +255,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
                 if (persist) {
                     geofence._radius = numberPicker.getNumber().floatValue();
-                    updateEditedMarker(false);
+                    updateEditedMarker(true);
                 }
             }
         });
@@ -578,8 +578,27 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                 }
                 radiusValue.setText(String.valueOf(Math.round(geofence._radius)));
 
-                if (setMapCamera)
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(editedGeofence));
+                if (setMapCamera) {
+                    if (editedRadius != null) {
+                        /*float currentZoomLevel = getZoomLevel(editedRadius);
+                        float animateZoom = currentZoomLevel + 5;
+                        PPApplication.logE("LocationGeofenceEditorActivity.updateEditedMarker", "currentZoomLevel="+currentZoomLevel);
+                        PPApplication.logE("LocationGeofenceEditorActivity.updateEditedMarker", "animateZoom="+animateZoom);
+
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(editedGeofence, animateZoom));
+                        mMap.animateCamera(CameraUpdateFactory.zoomTo(currentZoomLevel), 2000, null);*/
+
+                        float zoom = getCircleZoomValue(mLocation.getLatitude(), mLocation.getLongitude(), geofence._radius,
+                                                        mMap.getMinZoomLevel(), mMap.getMaxZoomLevel());
+                        PPApplication.logE("LocationGeofenceEditorActivity.updateEditedMarker", "zoom="+zoom);
+                        if (zoom > 16)
+                            zoom = 16;
+                        mMap.animateCamera(CameraUpdateFactory.zoomTo(zoom));//, 1000, null);
+                    }
+                    else {
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(editedGeofence));
+                    }
+                }
             }
         }
     }
@@ -812,6 +831,39 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
     private boolean isSmaller(BigDecimal number) {
         return number.compareTo(BigDecimal.valueOf(MIN_RADIUS)) < 0;
+    }
+
+    public float getZoomLevel(Circle circle) {
+        float zoomLevel=0;
+        if (circle != null){
+            double radius = circle.getRadius();
+            double scale = radius / 500;
+            zoomLevel =(int) (16 - Math.log(scale) / Math.log(2));
+        }
+        return zoomLevel +.5f;
+    }
+
+    private float getCircleZoomValue(double latitude, double longitude, double radius,
+                                   float minZoom, float maxZoom) {
+        LatLng position = new LatLng(latitude, longitude);
+        float currZoom = (minZoom + maxZoom) / 2;
+        CameraUpdate camera = CameraUpdateFactory.newLatLngZoom(position, currZoom);
+        mMap.moveCamera(camera);
+        float[] results = new float[1];
+        LatLng topLeft = mMap.getProjection().getVisibleRegion().farLeft;
+        LatLng topRight = mMap.getProjection().getVisibleRegion().farRight;
+        Location.distanceBetween(topLeft.latitude, topLeft.longitude, topRight.latitude,
+                                    topRight.longitude, results);
+        // Difference between visible width in meters and 2.5 * radius.
+        double delta = results[0] - 2.5 * radius;
+        double accuracy = 10; // 10 meters.
+        if (delta < -accuracy)
+            return getCircleZoomValue(latitude, longitude, radius, minZoom, currZoom);
+        else
+        if (delta > accuracy)
+            return getCircleZoomValue(latitude, longitude, radius, currZoom, maxZoom);
+        else
+            return currZoom;
     }
 
 }
