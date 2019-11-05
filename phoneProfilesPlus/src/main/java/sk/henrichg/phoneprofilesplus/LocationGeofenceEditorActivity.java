@@ -10,7 +10,9 @@ import android.content.res.Configuration;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.service.autofill.FieldClassification;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,8 +39,11 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.math.BigDecimal;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.content.ContextCompat;
@@ -104,8 +109,16 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     private AppCompatImageButton addressButton;
     private TextView addressText;
     private Button okButton;
-    private TextView radiusLabel;
+    //private TextView radiusLabel;
+    private TextView radiusValue;
+    private PPNumberPicker numberPicker;
 
+    private AlertDialog valueDialog;
+
+    private static int MIN_RADIUS = 20;
+    private static int MAX_RADIUS = 500 * 1000;
+
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         GlobalGUIRoutines.setTheme(this, false, false/*, false*/);
@@ -207,8 +220,77 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         //noinspection ConstantConditions
         mapFragment.getMapAsync(this);
 
-        radiusLabel = findViewById(R.id.location_pref_dlg_radius_seekbar_label);
+        //radiusLabel = findViewById(R.id.location_pref_dlg_radius_seekbar_label);
 
+        TextView radiusLabel = findViewById(R.id.location_pref_dlg_radius_label);
+        radiusLabel.setText(getString(R.string.event_preferences_location_radius_label) + ":");
+
+        radiusValue = findViewById(R.id.location_pref_dlg_radius_value);
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        dialogBuilder.setTitle(R.string.event_preferences_location_radius_label);
+        dialogBuilder.setCancelable(true);
+
+        dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                boolean persist = true;
+                BigDecimal number = numberPicker.getEnteredNumber();
+                if (isSmaller(number) || isBigger(number)) {
+                /*String errorText = context.getString(R.string.number_picker_min_max_error, String.valueOf(preference.mMin), String.valueOf(preference.mMax));
+                mNumberPicker.getErrorView().setText(errorText);
+                mNumberPicker.getErrorView().show();*/
+                    persist = false;
+                } else if (isSmaller(number)) {
+                /*String errorText = context.getString(R.string.number_picker_min_error, String.valueOf(preference.mMin));
+                mNumberPicker.getErrorView().setText(errorText);
+                mNumberPicker.getErrorView().show();*/
+                    persist = false;
+                } else if (isBigger(number)) {
+                /*String errorText = context.getString(R.string.number_picker_max_error, String.valueOf(preference.mMax));
+                mNumberPicker.getErrorView().setText(errorText);
+                mNumberPicker.getErrorView().show();*/
+                    persist = false;
+                }
+
+                if (persist) {
+                    geofence._radius = numberPicker.getNumber().floatValue();
+                    updateEditedMarker(false);
+                }
+            }
+        });
+        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+
+        LayoutInflater inflater = getLayoutInflater();
+        @SuppressLint("InflateParams")
+        View layout = inflater.inflate(R.layout.activity_better_number_pref_dialog, null);
+        dialogBuilder.setView(layout);
+
+        numberPicker = layout.findViewById(R.id.better_number_picker);
+        // Initialize state
+        numberPicker.setMin(BigDecimal.valueOf(MIN_RADIUS));
+        numberPicker.setMax(BigDecimal.valueOf(MAX_RADIUS));
+        numberPicker.setPlusMinusVisibility(View.INVISIBLE);
+        numberPicker.setDecimalVisibility(View.INVISIBLE);
+        //mNumberPicker.setLabelText(getContext().getString(R.string.minutes_label_description));
+        numberPicker.setNumber(Math.round(geofence._radius), null, null);
+        if (ApplicationPreferences.applicationTheme(this, true).equals("dark"))
+            numberPicker.setTheme(R.style.BetterPickersDialogFragment);
+        else
+            numberPicker.setTheme(R.style.BetterPickersDialogFragment_Light);
+
+        valueDialog = dialogBuilder.create();
+
+        radiusValue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!(isFinishing()))
+                    valueDialog.show();
+            }
+        });
+
+
+        /*
         // seekBar is logarithmic
         SeekBar radiusSeekBar = findViewById(R.id.location_pref_dlg_radius_seekbar);
         final float minRadius = 20;
@@ -237,6 +319,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
             }
         });
+        */
 
         geofenceNameEditText = findViewById(R.id.location_editor_geofence_name);
         geofenceNameEditText.setText(geofence._name);
@@ -493,7 +576,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                     editedRadius.setRadius(geofence._radius);
                     editedRadius.setCenter(editedGeofence);
                 }
-                radiusLabel.setText(String.valueOf(Math.round(geofence._radius)));
+                radiusValue.setText(String.valueOf(Math.round(geofence._radius)));
 
                 if (setMapCamera)
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(editedGeofence));
@@ -721,6 +804,14 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             else
                 throw e;
         }
+    }
+
+    private boolean isBigger(BigDecimal number) {
+        return number.compareTo(BigDecimal.valueOf(MAX_RADIUS)) > 0;
+    }
+
+    private boolean isSmaller(BigDecimal number) {
+        return number.compareTo(BigDecimal.valueOf(MIN_RADIUS)) < 0;
     }
 
 }

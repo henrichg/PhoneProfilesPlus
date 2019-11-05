@@ -1326,13 +1326,14 @@
     <string name="editor_activity_targetHelps_ignoreManualActivation_title">Игнорировать ручную активацию профиля</string>
     <string name="editor_activity_targetHelps_ignoreManualActivation_description">Нажмите сюда, чтобы настроить параметр события \"[»] Игнорировать ручную активацию\".</string>
     <string name="editor_activity_targetHelps_trafficLightIcon_title">Значок \"Светофор\"</string>
-    <string name="editor_activity_targetHelps_trafficLightIcon_description">Нажмите сюда, чтобы получить информацию о цветах \"светофора\", отображающего глобальный статус запуска событий.</string>
+    <string name="editor_activity_targetHelps_trafficLightIcon_description">Нажмите на него, чтобы получить информацию о цветах \"светофора\", отображающих глобальный статус запуска событий.</string>
     <string name="editor_activity_targetHelps_eventStatusIcon_title">Индикатор состояния события</string>
-    <string name="editor_activity_targetHelps_eventStatusIcon_description">Нажмите сюда, чтобы получить информацию о типе этой иконки, отображающей состояние события.</string>
+    <string name="editor_activity_targetHelps_eventStatusIcon_description">Нажмите на него, чтобы получить информацию о том, какое состояние события отображает эта иконка.</string>
     <string name="editor_activity_targetHelps_bottomNavigationProfiles_title">Профили</string>
     <string name="editor_activity_targetHelps_bottomNavigationProfiles_description">Нажмите сюда, чтобы отобразить список настроенных профилей.</string>
     <string name="editor_activity_targetHelps_bottomNavigationEvents_title">События</string>
     <string name="editor_activity_targetHelps_bottomNavigationEvents_description">Нажмите сюда, чтобы отобразить список настроенных событий.</string>
+    <string name="event_preferences_location_radius_label">Radius (meters)</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

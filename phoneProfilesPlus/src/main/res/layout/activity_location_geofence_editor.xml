@@ -78,6 +78,19 @@
                 android:layout_centerVertical="true"
                 android:text="@string/event_preferences_location_radius" />
 
+            <TextView
+                android:id="@+id/location_pref_dlg_radius_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/location_pref_dlg_radius_label"
+                android:textColor="@color/accent"
+                android:textSize="18sp"
+                android:text="0"
+                android:clickable="true"
+                android:focusable="true" />
+            <!--
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -103,6 +116,7 @@
                     tools:ignore="UnusedAttribute"/>
 
             </RelativeLayout>
+            -->
 
         </RelativeLayout>
 
