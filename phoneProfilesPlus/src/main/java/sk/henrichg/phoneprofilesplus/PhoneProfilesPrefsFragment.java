@@ -359,7 +359,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         boolean ok = false;
                         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                         //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        intent.setData(Uri.parse("package:sk.henrichg.phoneprofilesplus"));
+                        intent.setData(Uri.parse("package:"+getActivity().getPackageName()));
                         if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
                             try {
                                 startActivityForResult(intent, RESULT_APPLICATION_PERMISSIONS);
@@ -404,7 +404,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             try {
                                 @SuppressLint("InlinedApi")
                                 Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
-                                intent.setData(Uri.parse("package:sk.henrichg.phoneprofilesplus"));
+                                intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
                                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                 startActivityForResult(intent, RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
                                 ok = true;
@@ -506,7 +506,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             try {
                                 @SuppressLint("InlinedApi")
                                 Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-                                intent.setData(Uri.parse("package:sk.henrichg.phoneprofilesplus"));
+                                intent.setData(Uri.parse("package:"+getActivity().getPackageName()));
                                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                 startActivityForResult(intent, RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS);
                                 ok = true;

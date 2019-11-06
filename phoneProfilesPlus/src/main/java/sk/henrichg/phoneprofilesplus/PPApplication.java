@@ -268,7 +268,7 @@ public class PPApplication extends Application {
 
                                          //+"|ActivateProfileHelper.setAirplaneMode_SDK17"
                                          //+"|ActivateProfileHelper.executeForRadios"
-                                         +"|$$$ WifiAP"
+                                         //+"|$$$ WifiAP"
 
 
                                          //+"|DeviceIdleModeBroadcastReceiver"
@@ -277,7 +277,7 @@ public class PPApplication extends Application {
                                          //+"|GeofenceScannerJob"
                                          //+"|GeofenceScannerJob.scheduleJob"
                                          //+"|GeofenceScannerJob.onRunJob"
-                                         +"|LocationGeofenceEditorActivity.updateEditedMarker"
+                                         //+"|LocationGeofenceEditorActivity.updateEditedMarker"
                                          //+"|LocationModeChangedBroadcastReceiver"
                                          //+"|PhoneProfilesService.scheduleGeofenceScannerJob"
                                          //+"|PhoneProfilesService.startGeofenceScanner"

@@ -1311,6 +1311,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         if (GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS, getApplicationContext())) {
                             writeSettingsFound = true;
                             final Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                            intent.setData(Uri.parse("package:" + getPackageName()));
                             intent.putExtra(EXTRA_WITH_RATIONALE, withRationale);
                             startActivityForResult(intent, WRITE_SETTINGS_REQUEST_CODE);
                             break;
@@ -1371,6 +1372,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         if (GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION, getApplicationContext())) {
                             drawOverlaysFound = true;
                             final Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                            intent.setData(Uri.parse("package:" + getPackageName()));
                             intent.putExtra(EXTRA_WITH_RATIONALE, withRationale);
                             startActivityForResult(intent, DRAW_OVERLAYS_REQUEST_CODE);
                             break;
@@ -1424,7 +1426,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     Permissions.saveAllPermissions(getApplicationContext(), false);
                     Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                     //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                    intent.setData(Uri.parse("package:sk.henrichg.phoneprofilesplus"));
+                    intent.setData(Uri.parse("package"+getPackageName()));
                     if (GlobalGUIRoutines.activityIntentExists(intent, getApplicationContext())) {
                         intent.putExtra(EXTRA_WITH_RATIONALE, false);
                         startActivityForResult(intent, Permissions.REQUEST_CODE/*_FORCE_GRANT*/ + grantType);
