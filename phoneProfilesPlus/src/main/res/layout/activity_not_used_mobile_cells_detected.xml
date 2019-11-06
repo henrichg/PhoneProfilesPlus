@@ -37,14 +37,13 @@
         android:hint="@string/mobile_cells_registration_cell_name_hint"
         android:textColor="?attr/colorAccent"
         android:textColorHint="?attr/colorAccent"
+        android:background="?attr/selectableItemBackground"
         android:textSize="18sp"/>
 
     <TextView
         android:id="@+id/not_used_mobile_cells_dlg_last_running_events_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
         android:text="@string/not_used_mobile_cells_detected_last_running_events_label"
         android:textSize="16sp" />
 

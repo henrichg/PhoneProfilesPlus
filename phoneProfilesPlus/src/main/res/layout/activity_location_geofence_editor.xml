@@ -86,6 +86,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_toEndOf="@id/location_pref_dlg_radius_label"
                 android:textColor="@color/accent"
+                android:background="?attr/selectableItemBackground"
                 android:textSize="18sp"
                 android:text="0"
                 android:clickable="true"

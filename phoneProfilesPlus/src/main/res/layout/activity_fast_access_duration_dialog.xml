@@ -64,6 +64,7 @@
                     android:layout_weight="1"
                     android:textSize="18sp"
                     android:textColor="?attr/colorAccent"
+                    android:background="?attr/selectableItemBackground"
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:clickable="true"
@@ -222,6 +223,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
+            android:padding="5dp"
             android:text="@string/fast_access_duration_activate_without_button_2"
             android:textColor="@color/action_button_text_color"
             android:background="?attr/selectableItemBackground" />

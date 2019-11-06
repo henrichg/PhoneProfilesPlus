@@ -159,6 +159,7 @@
                     android:hint="@string/mobile_cells_pref_dlg_cell_name_hint"
                     android:textSize="17sp"
                     android:textColor="?attr/colorAccent"
+                    android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true" />
 
@@ -210,6 +211,7 @@
                     android:layout_toStartOf = "@id/mobile_cells_pref_dlg_sort"
                     android:textSize="17sp"
                     android:textColor="?attr/colorAccent"
+                    android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"/>
 

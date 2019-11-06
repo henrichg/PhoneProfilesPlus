@@ -14,9 +14,7 @@
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:clickable="true"
-        android:focusable="true" >
+        android:paddingBottom="10dp" >
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/applications_editor_dialog_filter_spinner"
@@ -153,7 +151,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="?attr/colorAccent"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    android:background="?attr/selectableItemBackground" />
 
             </LinearLayout>
 
