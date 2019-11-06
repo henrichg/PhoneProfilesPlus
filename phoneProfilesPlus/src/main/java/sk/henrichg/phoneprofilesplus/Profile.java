@@ -3362,6 +3362,9 @@ public class Profile {
                 }
                 else
                 if (Build.VERSION.SDK_INT < 28) {
+                    if (WifiApManager.canExploitWifiTethering(context))
+                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                    else
                     if (PPApplication.isRooted(fromUIThread)) {
                         // device is rooted
 
@@ -3396,9 +3399,6 @@ public class Profile {
                             preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                         }
                     }
-                    else
-                    if (WifiApManager.canExploitWifiTethering(context))
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                     else
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                 }

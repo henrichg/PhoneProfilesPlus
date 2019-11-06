@@ -3485,8 +3485,16 @@ class ActivateProfileHelper {
             PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-API < 26");
             wifiApManager.setWifiApState(enable);
         }
-        else {
+        else
+        if (Build.VERSION.SDK_INT < 28) {
             PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-API >= 26");
+            if (WifiApManager.canExploitWifiTethering(context)) {
+                if (enable)
+                    wifiApManager.startTethering();
+                else
+                    wifiApManager.stopTethering();
+            }
+            else
             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
                     (PPApplication.isRooted(false) && PPApplication.serviceBinaryExists(false))) {
                 PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-rooted");
@@ -3496,17 +3504,17 @@ class ActivateProfileHelper {
                     if (serviceManager != null) {
                         transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setWifiApEnabled");
                     }
-                    PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-serviceManager="+serviceManager);
-                    PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-transactionCode="+transactionCode);
+                    PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-serviceManager=" + serviceManager);
+                    PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-transactionCode=" + transactionCode);
 
                     if (transactionCode != -1) {
                         if (enable) {
                             WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                            PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-wifiManager="+wifiManager);
+                            PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-wifiManager=" + wifiManager);
                             if (wifiManager != null) {
                                 int wifiState = wifiManager.getWifiState();
                                 boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
-                                PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-isWifiEnabled="+isWifiEnabled);
+                                PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-isWifiEnabled=" + isWifiEnabled);
                                 if (isWifiEnabled) {
                                     PPApplication.logE("#### setWifiEnabled", "from ActivateProfileHelper.setWifiAP");
                                     wifiManager.setWifiEnabled(false);
@@ -3524,9 +3532,9 @@ class ActivateProfileHelper {
                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                     PPApplication.commandWait(command);
                                     PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-root command end");
-                                /*} catch (RootDeniedException e) {
-                                    PPApplication.rootMutex.rootGranted = false;
-                                    Log.e("ActivateProfileHelper.setWifiAP", Log.getStackTraceString(e));*/
+                            /*} catch (RootDeniedException e) {
+                                PPApplication.rootMutex.rootGranted = false;
+                                Log.e("ActivateProfileHelper.setWifiAP", Log.getStackTraceString(e));*/
                                 } catch (Exception e) {
                                     Log.e("ActivateProfileHelper.setWifiAP", Log.getStackTraceString(e));
                                     PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-root command error");
@@ -3534,17 +3542,17 @@ class ActivateProfileHelper {
                             }
                         }
                     }
-                } catch(Exception e) {
+                } catch (Exception e) {
                     Log.e("ActivateProfileHelper.setWifiAP", Log.getStackTraceString(e));
                     PPApplication.logE("$$$ WifiAP", Log.getStackTraceString(e));
                 }
             }
-            else {
-                if (enable)
-                    wifiApManager.startTethering();
-                else
-                    wifiApManager.stopTethering();
-            }
+        }
+        else {
+            if (enable)
+                wifiApManager.startTethering();
+            else
+                wifiApManager.stopTethering();
         }
     }
 
