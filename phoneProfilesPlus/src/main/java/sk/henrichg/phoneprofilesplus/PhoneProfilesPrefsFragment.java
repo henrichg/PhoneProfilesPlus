@@ -16,6 +16,8 @@ import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+//import com.judemanutd.autostarter.AutoStartPermissionHelper;
+
 import java.util.concurrent.TimeUnit;
 
 import androidx.appcompat.app.AlertDialog;
@@ -66,7 +68,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS = "applicationBatteryOptimization";
     //private static final String PREF_APPLICATION_LANGUAGE_24 = "applicationLanguage24";
     //static final int RESULT_LOCALE_SETTINGS = 1996;
-    //private static final String PREF_AUTOSTART_MANAGER = "applicationAutoStartManager";
+    private static final String PREF_AUTOSTART_MANAGER = "applicationAutoStartManager";
     private static final String PREF_WIFI_KEEP_ON_SYSTEM_SETTINGS = "applicationEventWiFiKeepOnSystemSettings";
     private static final int RESULT_WIFI_KEEP_ON_SETTINGS = 1999;
     private static final String PREF_NOTIFICATION_SYSTEM_SETTINGS = "notificationSystemSettings";
@@ -937,13 +939,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         /*preference = findPreference(PREF_AUTOSTART_MANAGER);
         if (preference != null) {
-            if (KillerManager.isActionAvailable(getActivity(), KillerManager.Actions.ACTION_AUTOSTART)) {
+            final AutoStartPermissionHelper autoStartPermissionHelper = AutoStartPermissionHelper.getInstance();
+            if (autoStartPermissionHelper.isAutoStartPermissionAvailable(getActivity())) {
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @SuppressWarnings("ConstantConditions")
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
                         try {
-                            KillerManager.doActionAutoStart(getActivity());
+                            autoStartPermissionHelper.getAutoStartPermission(getActivity());
                         }catch (Exception e) {
                             PPApplication.logE("PhoneProfilesPrefsFragment.onActivityCreated", Log.getStackTraceString(e));
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
@@ -1691,7 +1694,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
         setSummary(PREF_DRAW_OVERLAYS_PERMISSIONS);
         setSummary(PREF_APPLICATION_PERMISSIONS);
-        //setSummary(PREF_AUTOSTART_MANAGER);
+        setSummary(PREF_AUTOSTART_MANAGER);
         setSummary(PREF_NOTIFICATION_SYSTEM_SETTINGS);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR);
         setSummary(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE_USAGE);

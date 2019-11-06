@@ -1547,8 +1547,6 @@
     <!--<string name="nfc_tag_pref_dlg_read_tag_uid">Read tag UID</string>-->
     <!--<string name="phone_profiles_pref_applicationPowerManager">Power manager</string>-->
     <!--<string name="phone_profiles_pref_applicationPowerManager_summary">Allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications. Without this, PhoneProfilesPlus will not working in background.</string>-->
-    <!--<string name="phone_profiles_pref_systemAutoStartManager">Automatic start manager</string>-->
-    <!--<string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>-->
     <!--<string name="important_info_power_manager">Concerning problems with run of PhoneProfilesPlus in background, click here to allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications.</string>-->
     <!--    <string name="permission_why_install_tone">for save tone into storage</string>-->
     <!--    <string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>-->
@@ -1571,6 +1569,8 @@
     <!--    <string name="permissions_for_log_to_file_text2">Please grant them in next dialog. Debug log will then be written.</string>-->
     <!--    <string name="permission_why_log_to_file">for write debug log into log.txt and crash.txt</string>-->
     <!--    <string name="permissions_for_log_to_file_big_text_notification">Write debug log into log.txt and crash.txt requires some permissions to be granted.</string>-->
+<!--    <string name="phone_profiles_pref_systemAutoStartManager">Automatic start manager</string>-->
+<!--    <string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>-->
 
 
 </resources>
