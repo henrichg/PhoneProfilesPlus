@@ -351,7 +351,7 @@ public class WifiScanWorker extends Worker {
         fillWifiConfigurationList(context);
     }
 
-    public static void lock()
+    public static void lock(Context context)
     {
         //if (android.os.Build.VERSION.SDK_INT >= 23)
         //    PPApplication.logE("$$$ WifiScanWorker.lock","idleMode="+powerManager.isDeviceIdleMode());
@@ -361,7 +361,7 @@ public class WifiScanWorker extends Worker {
 
         // initialise the locks
         if (wifiLock == null)
-        x    wifiLock = wifi.createWifiLock(WifiManager.WIFI_MODE_SCAN_ONLY , "WifiScanWifiLock");
+            wifiLock = wifi.createWifiLock(WifiManager.WIFI_MODE_SCAN_ONLY , "WifiScanWifiLock");
 
         try {
             if (!wifiLock.isHeld())
@@ -415,7 +415,7 @@ public class WifiScanWorker extends Worker {
 
     static void startScan(Context context)
     {
-        lock(); // lock wakeLock and wifiLock, then scan.
+        lock(context); // lock wakeLock and wifiLock, then scan.
         // unlock() is then called at the end of the onReceive function of WifiScanBroadcastReceiver
         try {
             if (wifi == null)

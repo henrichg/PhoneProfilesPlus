@@ -557,7 +557,7 @@ class WifiBluetoothScanner {
                     {
                         WifiScanWorker.setWifiEnabledForScan(context, true);
                         WifiScanWorker.setScanRequest(dataWrapper.context, true);
-                        WifiScanWorker.lock();
+                        WifiScanWorker.lock(dataWrapper.context);
                         final WifiManager _wifi = wifi;
                         wifiBluetoothChangeHandler.post(new Runnable() {
                             @Override
