@@ -356,9 +356,12 @@ public class WifiScanWorker extends Worker {
         //if (android.os.Build.VERSION.SDK_INT >= 23)
         //    PPApplication.logE("$$$ WifiScanWorker.lock","idleMode="+powerManager.isDeviceIdleMode());
 
+        if (wifi == null)
+            wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+
         // initialise the locks
         if (wifiLock == null)
-            wifiLock = wifi.createWifiLock(WifiManager.WIFI_MODE_SCAN_ONLY , "WifiScanWifiLock");
+        x    wifiLock = wifi.createWifiLock(WifiManager.WIFI_MODE_SCAN_ONLY , "WifiScanWifiLock");
 
         try {
             if (!wifiLock.isHeld())
@@ -415,6 +418,9 @@ public class WifiScanWorker extends Worker {
         lock(); // lock wakeLock and wifiLock, then scan.
         // unlock() is then called at the end of the onReceive function of WifiScanBroadcastReceiver
         try {
+            if (wifi == null)
+                wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+
             //TODO from SDK documentation: The ability for apps to trigger scan requests will be removed in a future release. :-/
             boolean startScan = wifi.startScan();
             PPApplication.logE("$$$ WifiScanWorker.startScan", "scanStarted=" + startScan);
