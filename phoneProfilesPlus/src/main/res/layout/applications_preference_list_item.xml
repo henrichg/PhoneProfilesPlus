@@ -48,7 +48,7 @@
             android:scaleType="center"
             android:src="?attr/dragHandleIcon"
             android:clickable="true"
-            android:focusable="true" />
+            android:focusable="true"/>
 
         <ImageView
             android:id="@+id/applications_pref_dlg_item_icon"

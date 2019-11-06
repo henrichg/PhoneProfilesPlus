@@ -7,8 +7,10 @@
     android:layout_height="wrap_content"
     android:layout_marginEnd="10dp"
     android:layout_marginTop="10dp"
+    android:padding="5dp"
     android:layout_gravity="end"
     android:textColor="@color/action_button_text_color"
+    android:background="?attr/selectableItemBackground"
     android:text="@string/button_close"
     app:textAllCaps="true" />
 

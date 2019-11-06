@@ -78,7 +78,8 @@
                         android:adjustViewBounds="true"
                         android:contentDescription="@string/run_stop_events_indicator"
                         android:scaleType="fitEnd"
-                        android:src="@drawable/ic_run_events_indicator_stopped" />
+                        android:src="@drawable/ic_run_events_indicator_stopped"
+                        android:background="?attr/selectableItemBackground" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
                         android:id="@+id/editor_filter_spinner"

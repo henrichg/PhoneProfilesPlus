@@ -105,7 +105,8 @@
                     android:text="@string/popup_window_events_status_show_info"
                     android:textSize="16sp"
                     android:id="@+id/event_status_popup_window_text7"
-                    android:textColor="?attr/colorAccent"/>
+                    android:textColor="?attr/colorAccent"
+                    android:background="?attr/selectableItemBackground"/>
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/event_status_popup_window_checkbox"

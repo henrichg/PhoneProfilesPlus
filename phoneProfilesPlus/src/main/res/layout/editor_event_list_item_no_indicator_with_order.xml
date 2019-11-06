@@ -85,7 +85,8 @@
                 android:src="?attr/eventStopStatusIndicator"
                 android:paddingStart="2dp"
                 android:paddingEnd="2dp"
-                android:paddingTop="2dp" />
+                android:paddingTop="2dp"
+                android:background="?attr/selectableItemBackground" />
 
             <TextView
                 android:id="@+id/event_list_item_event_name"
