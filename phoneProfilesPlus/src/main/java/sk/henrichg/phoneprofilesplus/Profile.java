@@ -2181,7 +2181,7 @@ public class Profile {
         if (PPApplication.deviceIsOnePlus)
             _settingsValue = Math.round(settingsValue / 4f); // convert from 1024 to 256
         else
-        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
+        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
             _settingsValue = Math.round(settingsValue / 16f); // convert from 4096 to 256
         int percentage = BrightnessLookup.lookup(_settingsValue, true);
 
@@ -2212,7 +2212,7 @@ public class Profile {
         if (PPApplication.deviceIsOnePlus)
             systemValue = systemValue * 4; // convert from 256 to 1024
         else
-        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
+        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
             systemValue = systemValue * 16; // convert from 256 to 4096
 
         PPApplication.logE("Profile.getBrightnessValue_A9", "percentage="+percentage);
