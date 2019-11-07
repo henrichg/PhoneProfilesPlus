@@ -223,8 +223,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
         eventsRunStopIndicator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RunStopIndicatorPopupWindow popup = new RunStopIndicatorPopupWindow(
-                        R.string.editor_activity_targetHelps_trafficLightIcon_title, getDataWrapper(), ActivateProfileActivity.this);
+                RunStopIndicatorPopupWindow popup = new RunStopIndicatorPopupWindow(getDataWrapper(), ActivateProfileActivity.this);
 
                 View contentView = popup.getContentView();
                 contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);

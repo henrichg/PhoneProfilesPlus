@@ -42,7 +42,6 @@
     <string name="phone_profiles_pref_applicationHeader">عرض الوضع النشط</string>
     <string name="phone_profiles_pref_applicationAlert">تأكيد تنشيط الوضع</string>
     <string name="phone_profiles_pref_notificationsToast">إظهار رسالة الإشعار المنبثقة</string>
-    <string name="phone_profiles_pref_notificationStatusBar">إظهار إشعار شريط الحالة</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle">نمط أيقونة الإشعار</string>
     <string name="profile_preferences_category_profileIdentification">شكل الوضع</string>
     <string name="profile_preferences_category_volumes">درجات الصوت</string>
@@ -289,8 +288,6 @@
     <string name="event_preferences_category_eventSMSParameters">استشعار الرسائل النصية القصيرة / رسائل الوسائط المتعددة</string>
     <string name="event_preferences_sms_contacts">جهات الاتصال</string>
     <string name="toast_events_restarted">اعادة بدء الأحداث</string>
-    <string name="phone_profiles_pref_notificationStatusBarPermanent">إخطار مستمر</string>
-    <string name="phone_profiles_pref_notificationStatusBarCancel">الغاء بعد</string>
     <string name="event_name_background_profile">الوضع الافتراضي</string>
     <string name="phone_profiles_pref_applicationEventWifiRescan">إعادة البحث عن Wi-Fi</string>
     <string name="phone_profiles_pref_applicationEventBluetoothRescan">إعادة البحث عن بلوتوث</string>
@@ -712,9 +709,6 @@
     <string name="profile_preferences_volumeNotificationVolume0_NowConfigured">التكوين الحالي:</string>
     <string name="profile_preferences_volumeRingtone0Info_title">حجم النغمات = 0</string>
     <string name="profile_preferences_volumeRingtone0Info_summary">إذا تم ضبط مستوى صوت نغمة الرنين على \"0\" ، فإنه يقوم بتحويل الهاتف للوضع الصامت. و يتم تجاهل حجم صوت إشعارات الهاتف.</string>
-    <string name="phone_profiles_pref_notificationStatusBarInfo_title">معلومات مهمة!</string>
-    <string name="phone_profiles_pref_notificationStatusBarInfo_summary">مطلوب تشغيل إعلام شريط الحالة المستمر لكي يعمل البرنامج بشكل صحيح. مع الإشعار ، لكي يتم تغيير البرنامج إلى منطقة \"الخدمة الأمامية\" ، والتي لا يقتلها نظام أندرويد. لكي يتم تشغيل البرنامج بشكل دائم.</string>
-    <string name="phone_profiles_pref_notificationStatusBarRequired">Required for PhoneProfilesService background service</string>
     <string name="event_preferences_event_priorityInfo_summary">وظيفة الأولوية: لن يبدأ الحدث إذا كان حدث آخر قيد التشغيل ذا أولوية أعلى.</string>
     <string name="profile_preferences_preferenceTypesInfo_title">Type of preferences</string>
     <string name="event_preference_sensor_time_summary">سيبدأ هذا الإستشعار في حدث بواسطة الوقت.\nوتكون عوامل التشغيل: وقت البدء ، وقت الانتهاء ، أيام الأسبوع.</string>
@@ -811,7 +805,6 @@
     <string name="profile_preferences_zenMode_totalSilence_summary">كل الإشعارات صامتة</string>
     <string name="array_pref_applicationDisableScanning_disabled">تعطيل البحث</string>
     <string name="array_pref_applicationDisableScanning_enabled">Scanning enabled</string>
-    <string name="phone_profiles_pref_notificationStatusBarNotEnabled_summary">لم يتم تمكين إشعار شريط الحالة!</string>
     <string name="duration_pref_dlg_duration_label">المدة الزمنية:</string>
     <string name="duration_pref_dlg_activation_end_label">نهاية التنشيط:</string>
     <string name="important_info_profile_zenModeM">وضع عدم الإزعاج  في وضع الرنين يتطلب تمكين الوصول للبرنامج  في إعدادات نظام الوصول إلى الإشعارات. انقر هنا وقم بتمكينة.</string>
@@ -951,7 +944,6 @@
     <string name="donation_thanks_dialog">Thank you for donating.\nI really appreciate it.</string>
     <string name="donation_google_android_market_not_supported">In-App Donations are not supported. Is Google Play Store installed correctly?</string>
     <string name="donation_google_error">خطأ.</string>
-    <string name="button_close">إغلق</string>
     <string name="fast_access_duration_activate_without_button_2">تنشيط دون مدة</string>
     <string name="profileicon_pref_dlg_customIconButton">أيقونة مخصصة</string>
     <string name="mobile_cells_registration_cell_name_hint">انقر لتعيين اسم الشبكة</string>
@@ -1432,8 +1424,6 @@
     <!--<string name="nfc_tag_pref_dlg_read_tag_uid">Read tag UID</string>-->
     <!--<string name="phone_profiles_pref_applicationPowerManager">Power manager</string>-->
     <!--<string name="phone_profiles_pref_applicationPowerManager_summary">Allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications. Without this, PhoneProfilesPlus will not working in background.</string>-->
-    <!--<string name="phone_profiles_pref_systemAutoStartManager">Automatic start manager</string>-->
-    <!--<string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>-->
     <!--<string name="important_info_power_manager">Concerning problems with run of PhoneProfilesPlus in background, click here to allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications.</string>-->
     <!--    <string name="permission_why_install_tone">for save tone into storage</string>-->
     <!--    <string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>-->
@@ -1456,4 +1446,14 @@
     <!--    <string name="permissions_for_log_to_file_text2">Please grant them in next dialog. Debug log will then be written.</string>-->
     <!--    <string name="permission_why_log_to_file">for write debug log into log.txt and crash.txt</string>-->
     <!--    <string name="permissions_for_log_to_file_big_text_notification">Write debug log into log.txt and crash.txt requires some permissions to be granted.</string>-->
+    <!--    <string name="phone_profiles_pref_systemAutoStartManager">Automatic start manager</string>-->
+    <!--    <string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBar">Show status bar notification</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarPermanent">Ongoing notification</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarCancel">Cancel after</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarInfo_title">Important information!</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Ongoing status bar notification is required for PhoneProfilesService to operate properly. With notification, PhoneProfilesService is changed to \"foreground service,\" which is not killed by Android. PhoneProfilesService must run permanently.</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarRequired">Required for PhoneProfilesService background service</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarNotEnabled_summary">Status bar notification is not enabled!</string>-->
+    <!--    <string name="button_close">Close</string>-->
 </resources>

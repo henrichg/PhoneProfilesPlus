@@ -97,6 +97,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                                     restartService = true;
                                 }
+                                /*
                                 if (actualVersionCode <= 2500) {
                                     // for old packages hide profile notification from status bar if notification is disabled
                                     ApplicationPreferences.getSharedPreferences(appContext);
@@ -111,6 +112,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                         }
                                     }
                                 }
+                                */
                                 if (actualVersionCode <= 2700) {
                                     ApplicationPreferences.getSharedPreferences(appContext);
                                     SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
@@ -330,6 +332,25 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                         editor.putInt(EditorProfilesActivity.SP_EDITOR_EVENTS_VIEW_SELECTED_ITEM, filterEventsSelectedItem);
 
                                         editor.apply();
+                                    }
+                                }
+
+                                if (actualVersionCode <= 5300) {
+                                    // for old packages hide profile notification from status bar if notification is disabled
+                                    ApplicationPreferences.getSharedPreferences(appContext);
+                                    if (Build.VERSION.SDK_INT < 26) {
+                                        boolean notificationStatusBar = ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, true);
+                                        boolean notificationStatusBarPermanent = ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, true);
+                                        if (!(notificationStatusBar && notificationStatusBarPermanent)) {
+                                            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                                            PPApplication.logE("PackageReplacedReceiver.onReceive", "status bar is not permanent, set it!!");
+                                            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, false);
+                                            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, false);
+                                            editor.putString(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE, "2");
+                                            editor.apply();
+
+                                            restartService = true;
+                                        }
                                     }
                                 }
 

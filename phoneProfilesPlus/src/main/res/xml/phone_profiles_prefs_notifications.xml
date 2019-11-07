@@ -13,6 +13,7 @@
         app:key="categoryNotificationsStatusBar"
         app:title="@string/phone_profiles_pref_notificationStatusBarNew"
         app:layout="@layout/mp_preference_category" >
+        <!--
         <Preference
             app:key="notificationStatusBarInfo"
             app:title="@string/phone_profiles_pref_notificationStatusBarInfo_title"
@@ -42,17 +43,16 @@
             app:dMax="300"
             app:dependency="notificationStatusBarPermanent"
             app:layout="@layout/mp_preference_material_widget" />
+        -->
         <SwitchPreferenceCompat
             app:key="notificationShowInStatusBar"
             app:title="@string/phone_profiles_pref_notificationShowInStatusBar"
             app:defaultValue="true"
-            app:dependency="notificationStatusBar"
             app:layout="@layout/mp_preference_material_widget" />
         <SwitchPreferenceCompat
             app:key="notificationHideInLockscreen"
             app:title="@string/phone_profiles_pref_notificationHideInLockscreen"
             app:defaultValue="false"
-            app:dependency="notificationStatusBar"
             app:layout="@layout/mp_preference_material_widget" />
         <ListPreference
             app:title="@string/phone_profiles_pref_notificationLayoutType"
@@ -61,7 +61,6 @@
             app:defaultValue="0"
             app:entries="@array/notificationLayoutTypeArray"
             app:entryValues="@array/notificationLayoutTypeValues"
-            app:dependency="notificationStatusBar"
             app:layout="@layout/mp_preference_material_widget" />
         <Preference
             app:key="notificationStatusBarStyleInfo"
@@ -76,13 +75,11 @@
             app:defaultValue="1"
             app:entries="@array/notificationIconStyleArray"
             app:entryValues="@array/notificationIconStyleValues"
-            app:dependency="notificationStatusBar"
             app:layout="@layout/mp_preference_material_widget" />
         <SwitchPreferenceCompat
             app:key="notificationPrefIndicator"
             app:title="@string/phone_profiles_pref_notificationPrefIndicator"
             app:defaultValue="true"
-            app:dependency="notificationStatusBar"
             app:layout="@layout/mp_preference_material_widget" />
         <ListPreference
             app:title="@string/phone_profiles_pref_notificationBackgroundColor"
@@ -91,7 +88,6 @@
             app:defaultValue="0"
             app:entries="@array/notificationBackgroundColorArray"
             app:entryValues="@array/notificationBackgroundColorValues"
-            app:dependency="notificationStatusBar"
             app:layout="@layout/mp_preference_material_widget" />
         <ListPreference
             app:title="@string/phone_profiles_pref_notificationTextColor"
@@ -100,13 +96,11 @@
             app:defaultValue="0"
             app:entries="@array/notificationTextColorArray"
             app:entryValues="@array/notificationTextColorValues"
-            app:dependency="notificationStatusBar"
             app:layout="@layout/mp_preference_material_widget" />
         <SwitchPreferenceCompat
             app:key="notificationUseDecoration"
             app:title="@string/phone_profiles_pref_notificationUseDecoration"
             app:defaultValue="true"
-            app:dependency="notificationStatusBar"
             app:layout="@layout/mp_preference_material_widget" />
         <SwitchPreferenceCompat
             app:key="notificationShowButtonExit"

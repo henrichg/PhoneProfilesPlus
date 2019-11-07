@@ -42,7 +42,6 @@
     <string name="phone_profiles_pref_applicationHeader">Aktív profil mutatása</string>
     <string name="phone_profiles_pref_applicationAlert">Profil aktiválás előtt engedély kérés</string>
     <string name="phone_profiles_pref_notificationsToast">Felugró értesítések megjelenítése</string>
-    <string name="phone_profiles_pref_notificationStatusBar">Állapotsáv-értesítések megjelenítése</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle">Értesítési ikon stílusa</string>
     <string name="profile_preferences_category_profileIdentification">Profil azonosítása</string>
     <string name="profile_preferences_category_volumes">Hangerő</string>
@@ -289,8 +288,6 @@
     <string name="event_preferences_category_eventSMSParameters">SMS/MMS-érzékelő</string>
     <string name="event_preferences_sms_contacts">Kapcsolatok</string>
     <string name="toast_events_restarted">Események újra indítása</string>
-    <string name="phone_profiles_pref_notificationStatusBarPermanent">Folyamatos jelentés</string>
-    <string name="phone_profiles_pref_notificationStatusBarCancel">Mégse múlva</string>
     <string name="event_name_background_profile">Alapértelmezett profil</string>
     <string name="phone_profiles_pref_applicationEventWifiRescan">Wi-Fi újraellenőrzése</string>
     <string name="phone_profiles_pref_applicationEventBluetoothRescan">Bluetooth újraellenőrzése</string>
@@ -712,9 +709,6 @@
     <string name="profile_preferences_volumeNotificationVolume0_NowConfigured">Jelenleg konfigurálva:</string>
     <string name="profile_preferences_volumeRingtone0Info_title">Csengőhang hangereje = 0</string>
     <string name="profile_preferences_volumeRingtone0Info_summary">Csengetési hangerő = 0 beállítása a készüléken a csendes módhoz. Értesítési hangerő kihagyva.</string>
-    <string name="phone_profiles_pref_notificationStatusBarInfo_title">Fontos információ!</string>
-    <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Folyamatos állapotjelzés szükséges a PhoneProfilesService szolgáltatáshoz. Értesítéskor a PhoneProfilesService \"új szolgáltatás\" -ra változik. Ezt a szolgáltatást nem lövi le az Android. PhoneProfilesService-nek folyamatosan futnia kell.</string>
-    <string name="phone_profiles_pref_notificationStatusBarRequired">Szükséges a PhoneProfilesService háttérben működéséhez</string>
     <string name="event_preferences_event_priorityInfo_summary">Kiemelt funkciók: esemény nem fog elindulni, ha a magasabb prioritású esemény már fut.</string>
     <string name="profile_preferences_preferenceTypesInfo_title">Beállítási lehetőségek</string>
     <string name="event_preference_sensor_time_summary">Esemény idejéhez köti annak kezdését. Paraméterek: Kezdési időpont, befejezési időpont, a hét napjait.</string>
@@ -811,7 +805,6 @@
     <string name="profile_preferences_zenMode_totalSilence_summary">Minden értesítés néma</string>
     <string name="array_pref_applicationDisableScanning_disabled">Keresés letiltáva</string>
     <string name="array_pref_applicationDisableScanning_enabled">Keresés engedélyezve</string>
-    <string name="phone_profiles_pref_notificationStatusBarNotEnabled_summary">Státusz sor értesítések nincsenek engedélyezve!</string>
     <string name="duration_pref_dlg_duration_label">Időtartam:</string>
     <string name="duration_pref_dlg_activation_end_label">Aktiválás vége:</string>
     <string name="important_info_profile_zenModeM">\"Ne zavarj\" profil \"Csengő mód\" - ban szükség van, a PhoneProfilesPlus a \"Értesítések hozzáférés\"-hez a rendszer beállításaiban. Kattintson ide, és engedélyezze a PhoneProfilesPlus-t.</string>
@@ -951,7 +944,6 @@
     <string name="donation_thanks_dialog">Köszönöm az adományt. \nI Igazán méltányolom ezt.</string>
     <string name="donation_google_android_market_not_supported">In-App adományok nem támogatottak. A Google Play Áruház telepítve?</string>
     <string name="donation_google_error">Hiba.</string>
-    <string name="button_close">Bezár</string>
     <string name="fast_access_duration_activate_without_button_2">Aktiválás időtartam nélkül</string>
     <string name="profileicon_pref_dlg_customIconButton">Egyéni ikon</string>
     <string name="mobile_cells_registration_cell_name_hint">Ide kattintva adhatja meg a cella nevét</string>
@@ -1432,8 +1424,6 @@
     <!--<string name="nfc_tag_pref_dlg_read_tag_uid">Read tag UID</string>-->
     <!--<string name="phone_profiles_pref_applicationPowerManager">Power manager</string>-->
     <!--<string name="phone_profiles_pref_applicationPowerManager_summary">Allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications. Without this, PhoneProfilesPlus will not working in background.</string>-->
-    <!--<string name="phone_profiles_pref_systemAutoStartManager">Automatic start manager</string>-->
-    <!--<string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>-->
     <!--<string name="important_info_power_manager">Concerning problems with run of PhoneProfilesPlus in background, click here to allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications.</string>-->
     <!--    <string name="permission_why_install_tone">for save tone into storage</string>-->
     <!--    <string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>-->
@@ -1456,4 +1446,14 @@
     <!--    <string name="permissions_for_log_to_file_text2">Please grant them in next dialog. Debug log will then be written.</string>-->
     <!--    <string name="permission_why_log_to_file">for write debug log into log.txt and crash.txt</string>-->
     <!--    <string name="permissions_for_log_to_file_big_text_notification">Write debug log into log.txt and crash.txt requires some permissions to be granted.</string>-->
+    <!--    <string name="phone_profiles_pref_systemAutoStartManager">Automatic start manager</string>-->
+    <!--    <string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBar">Show status bar notification</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarPermanent">Ongoing notification</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarCancel">Cancel after</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarInfo_title">Important information!</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Ongoing status bar notification is required for PhoneProfilesService to operate properly. With notification, PhoneProfilesService is changed to \"foreground service,\" which is not killed by Android. PhoneProfilesService must run permanently.</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarRequired">Required for PhoneProfilesService background service</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarNotEnabled_summary">Status bar notification is not enabled!</string>-->
+    <!--    <string name="button_close">Close</string>-->
 </resources>

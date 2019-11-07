@@ -702,7 +702,7 @@ class Event {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 preference.setSummary(value);
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_PROFILE_START)||key.equals(PREF_EVENT_PROFILE_END))
@@ -717,23 +717,23 @@ class Event {
                 }
                 preference.setSummary(lProfileId);
                 if (key.equals(PREF_EVENT_PROFILE_START))
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, (lProfileId != 0) && (lProfileId != Profile.PROFILE_NO_ACTIVATE), true, true, lProfileId == 0, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, (lProfileId != 0) && (lProfileId != Profile.PROFILE_NO_ACTIVATE), true, lProfileId == 0, false);
                 else
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, (lProfileId != 0) && (lProfileId != Profile.PROFILE_NO_ACTIVATE), true, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, (lProfileId != 0) && (lProfileId != Profile.PROFILE_NO_ACTIVATE), false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE))
         {
             ProfileMultiSelectPreferenceX preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_NOTIFICATION_SOUND_START) ||
             key.equals(PREF_EVENT_NOTIFICATION_SOUND_END))
         {
             Preference preference = prefMng.findPreference(key);
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), true, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), false, false, false);
         }
         if (key.equals(PREF_EVENT_PRIORITY_APP_SETTINGS)) {
             Preference preference = prefMng.findPreference(key);
@@ -747,7 +747,7 @@ class Event {
                             context.getString(R.string.phone_profiles_pref_eventUsePriorityAppSettings_summary);
                 }
                 preference.setSummary(summary);
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, applicationEventUsePriority, true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, applicationEventUsePriority, false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_PRIORITY))
@@ -759,10 +759,10 @@ class Event {
                     int index = listPreference.findIndexOfValue(value);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                     listPreference.setSummary(summary);
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, !value.equals("0"), true, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, !value.equals("0"), false, false, false);
                 } else {
                     listPreference.setSummary(R.string.event_preferences_priority_notUse);
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, false, true, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, false, false, false, false);
                 }
                 listPreference.setEnabled(applicationEventUsePriority);
             }
@@ -774,7 +774,7 @@ class Event {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
-                GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_DELAY_START))
@@ -786,7 +786,7 @@ class Event {
             } catch (Exception e) {
                 delay = 0;
             }
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 0, true, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 0, false, false, false);
         }
         if (key.equals(PREF_EVENT_DELAY_END))
         {
@@ -797,7 +797,7 @@ class Event {
             } catch (Exception e) {
                 delay = 0;
             }
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 0, true, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 0, false, false, false);
         }
         /*
         if (key.equals(PREF_EVENT_NOTIFICATION_REPEAT_INTERVAL)) {
@@ -823,7 +823,7 @@ class Event {
             key.equals(PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION)) {
 
             Preference preference = prefMng.findPreference(key);
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, value.equals("true"), true, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, value.equals("true"), false, false, false);
         }
 
     }
@@ -895,7 +895,7 @@ class Event {
                                 notificationSoundStartChanged ||
                                 notificationVibrateStartChanged ||
                                 notificationRepeatStartChanged);
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, false, false);
                 if (bold) {
                     String summary = "";
                     //if (forceRunChanged)
@@ -946,7 +946,7 @@ class Event {
                 boolean bold = (delayEndChanged ||
                                 notificationSoundEndChanged ||
                                 notificationVibrateEndChanged);
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, false, false);
                 if (bold) {
                     String summary = "";
                     if (delayEndChanged) {

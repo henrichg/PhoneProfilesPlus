@@ -42,7 +42,6 @@
     <string name="phone_profiles_pref_applicationHeader">显示激活的情景</string>
     <string name="phone_profiles_pref_applicationAlert">确定激活情景</string>
     <string name="phone_profiles_pref_notificationsToast">显示Toast通知</string>
-    <string name="phone_profiles_pref_notificationStatusBar">显示状态栏通知</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle">通知图标样式</string>
     <string name="profile_preferences_category_profileIdentification">情景标记</string>
     <string name="profile_preferences_category_volumes">音量</string>
@@ -289,8 +288,6 @@
     <string name="event_preferences_category_eventSMSParameters">短信/彩信传感器</string>
     <string name="event_preferences_sms_contacts">联系人</string>
     <string name="toast_events_restarted">事件已启动</string>
-    <string name="phone_profiles_pref_notificationStatusBarPermanent">正在显示的通知</string>
-    <string name="phone_profiles_pref_notificationStatusBarCancel">以下时间后取消</string>
     <string name="event_name_background_profile">默认情景</string>
     <string name="phone_profiles_pref_applicationEventWifiRescan">重新扫描 Wi-Fi</string>
     <string name="phone_profiles_pref_applicationEventBluetoothRescan">重新扫描蓝牙</string>
@@ -712,9 +709,6 @@
     <string name="profile_preferences_volumeNotificationVolume0_NowConfigured">当前配置：</string>
     <string name="profile_preferences_volumeRingtone0Info_title">铃声音量 = 0</string>
     <string name="profile_preferences_volumeRingtone0Info_summary">铃声音量 = 0 将设备设置为静音模式。通知音量设置将被忽略。</string>
-    <string name="phone_profiles_pref_notificationStatusBarInfo_title">重要信息！</string>
-    <string name="phone_profiles_pref_notificationStatusBarInfo_summary">要使PhoneProfilesService正常运行，需要状态栏持续通知。通过通知，PhoneProfilesService将更改为“前台服务”，而不会被Android杀死。 PhoneProfilesService必须永久运行。</string>
-    <string name="phone_profiles_pref_notificationStatusBarRequired">后台服务 PhoneProfilesService 必需</string>
     <string name="event_preferences_event_priorityInfo_summary">优先权功能：如果正在运行具有较高优先级的事件，本事件将不会启动。</string>
     <string name="profile_preferences_preferenceTypesInfo_title">设置类型</string>
     <string name="event_preference_sensor_time_summary">此传感器用于按时间启动事件。参数：开始时间、结束时间、周内日。</string>
@@ -811,7 +805,6 @@
     <string name="profile_preferences_zenMode_totalSilence_summary">所有通知都静音</string>
     <string name="array_pref_applicationDisableScanning_disabled">扫描已禁用</string>
     <string name="array_pref_applicationDisableScanning_enabled">扫描已禁用</string>
-    <string name="phone_profiles_pref_notificationStatusBarNotEnabled_summary">状态栏通知未启用！</string>
     <string name="duration_pref_dlg_duration_label">持续时间︰</string>
     <string name="duration_pref_dlg_activation_end_label">激活结束：</string>
     <string name="important_info_profile_zenModeM">配置文件中的“请勿打扰”/“振铃模式”需要在“通知访问”系统设置中启用PhoneProfilesPlus。单击此处并启用。</string>
@@ -951,7 +944,6 @@
     <string name="donation_thanks_dialog">感谢您的捐赠。n我对此很感激。</string>
     <string name="donation_google_android_market_not_supported">应用内捐赠不受支持，是否正确安装了 Google Play 商店？</string>
     <string name="donation_google_error">错误。</string>
-    <string name="button_close">关闭</string>
     <string name="fast_access_duration_activate_without_button_2">激活没有持续时间</string>
     <string name="profileicon_pref_dlg_customIconButton">自定义图标</string>
     <string name="mobile_cells_registration_cell_name_hint">单击以设置基站名称</string>
@@ -1432,8 +1424,6 @@
     <!--<string name="nfc_tag_pref_dlg_read_tag_uid">Read tag UID</string>-->
     <!--<string name="phone_profiles_pref_applicationPowerManager">Power manager</string>-->
     <!--<string name="phone_profiles_pref_applicationPowerManager_summary">Allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications. Without this, PhoneProfilesPlus will not working in background.</string>-->
-    <!--<string name="phone_profiles_pref_systemAutoStartManager">Automatic start manager</string>-->
-    <!--<string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>-->
     <!--<string name="important_info_power_manager">Concerning problems with run of PhoneProfilesPlus in background, click here to allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications.</string>-->
     <!--    <string name="permission_why_install_tone">for save tone into storage</string>-->
     <!--    <string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>-->
@@ -1456,4 +1446,14 @@
     <!--    <string name="permissions_for_log_to_file_text2">Please grant them in next dialog. Debug log will then be written.</string>-->
     <!--    <string name="permission_why_log_to_file">for write debug log into log.txt and crash.txt</string>-->
     <!--    <string name="permissions_for_log_to_file_big_text_notification">Write debug log into log.txt and crash.txt requires some permissions to be granted.</string>-->
+    <!--    <string name="phone_profiles_pref_systemAutoStartManager">Automatic start manager</string>-->
+    <!--    <string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBar">Show status bar notification</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarPermanent">Ongoing notification</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarCancel">Cancel after</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarInfo_title">Important information!</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Ongoing status bar notification is required for PhoneProfilesService to operate properly. With notification, PhoneProfilesService is changed to \"foreground service,\" which is not killed by Android. PhoneProfilesService must run permanently.</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarRequired">Required for PhoneProfilesService background service</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarNotEnabled_summary">Status bar notification is not enabled!</string>-->
+    <!--    <string name="button_close">Close</string>-->
 </resources>

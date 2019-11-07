@@ -90,7 +90,8 @@
                 android:textSize="18sp"
                 android:text="0"
                 android:clickable="true"
-                android:focusable="true" />
+                android:focusable="true"
+                tools:ignore="HardcodedText" />
             <!--
             <RelativeLayout
                 android:layout_width="match_parent"

@@ -42,7 +42,6 @@
     <string name="phone_profiles_pref_applicationHeader">Pokaż aktywny profil</string>
     <string name="phone_profiles_pref_applicationAlert">Potwierdź aktywację profilu</string>
     <string name="phone_profiles_pref_notificationsToast">Pokaż powiadomienie</string>
-    <string name="phone_profiles_pref_notificationStatusBar">Pokaż informację na pasku powiadomień</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle">Styl ikony powiadomień</string>
     <string name="profile_preferences_category_profileIdentification">Identyfikatory profilu</string>
     <string name="profile_preferences_category_volumes">Głośności</string>
@@ -289,8 +288,6 @@
     <string name="event_preferences_category_eventSMSParameters">Czujnik SMS/MMS</string>
     <string name="event_preferences_sms_contacts">Kontakty</string>
     <string name="toast_events_restarted">Zdarzenia zrestartowane</string>
-    <string name="phone_profiles_pref_notificationStatusBarPermanent">Bieżące powiadomienie</string>
-    <string name="phone_profiles_pref_notificationStatusBarCancel">Anuluj po (s)</string>
     <string name="event_name_background_profile">Domyślny profil</string>
     <string name="phone_profiles_pref_applicationEventWifiRescan">Skanuj Wi-Fi</string>
     <string name="phone_profiles_pref_applicationEventBluetoothRescan">Skanuj Bluetooth</string>
@@ -712,9 +709,6 @@
     <string name="profile_preferences_volumeNotificationVolume0_NowConfigured">Obecnie skonfigurowane:</string>
     <string name="profile_preferences_volumeRingtone0Info_title">Głośność dzwonka = 0</string>
     <string name="profile_preferences_volumeRingtone0Info_summary">Jeśli głośność dzwonka jest ustawiona na \"0\" konfiguruje to urządzenie w tryb cichy. Dźwięk powiadomień jest ignorowany.</string>
-    <string name="phone_profiles_pref_notificationStatusBarInfo_title">Ważne informacje!</string>
-    <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Do poprawnego działania PhoneProfilesService wymagane jest trwające powiadomienie paska statusu. Z powiadomieniem PhoneProfilesService jest zmieniony na \"usługę pierwszego planu\", która nie jest zabijana przez system Android. PhoneProfilesService musi być uruchomiony stale.</string>
-    <string name="phone_profiles_pref_notificationStatusBarRequired">Wymagany dla usługi PhoneProfilesService w tle</string>
     <string name="event_preferences_event_priorityInfo_summary">Funkcjonalność priorytetu: Zdarzenie nie rozpocznie się, jeżeli inne zdarzenie ma wyższy priorytet.</string>
     <string name="profile_preferences_preferenceTypesInfo_title">Typ preferencji</string>
     <string name="event_preference_sensor_time_summary">Ten sensor rozpocznie zdarzenie przez czas. Parametry: Czas rozpoczęcia, Czas zakończenia, Dni tygodnia.</string>
@@ -811,7 +805,6 @@
     <string name="profile_preferences_zenMode_totalSilence_summary">Wyciszone wszystkie powiadomienia</string>
     <string name="array_pref_applicationDisableScanning_disabled">Skanowanie wyłączone</string>
     <string name="array_pref_applicationDisableScanning_enabled">Skanowanie włączone</string>
-    <string name="phone_profiles_pref_notificationStatusBarNotEnabled_summary">Powiadomienia na pasku statusu są wyłączone!</string>
     <string name="duration_pref_dlg_duration_label">Czas trwania:</string>
     <string name="duration_pref_dlg_activation_end_label">Koniec aktywacji:</string>
     <string name="important_info_profile_zenModeM">\"Nie przeszkadzaj\" w profilu \"Tryb dzwonka\" wymaga włączenia \"Dostępu do powiadomień\" dla PhoneProfilesPlus w ustawieniach systemu. Kliknij tutaj i włącz.</string>
@@ -951,7 +944,6 @@
     <string name="donation_thanks_dialog">Dziękuję za darowiznę.\nNaprawdę to doceniam.</string>
     <string name="donation_google_android_market_not_supported">Darowizny w aplikacji nie są obsługiwane. Czy sklep Google Play jest poprawnie zainstalowany?</string>
     <string name="donation_google_error">Błąd.</string>
-    <string name="button_close">Zamknij</string>
     <string name="fast_access_duration_activate_without_button_2">Aktywuj bez czekania</string>
     <string name="profileicon_pref_dlg_customIconButton">Ikona niestandardowa</string>
     <string name="mobile_cells_registration_cell_name_hint">Kliknij, aby ustawić nazwę stacji</string>
@@ -1432,8 +1424,6 @@
     <!--<string name="nfc_tag_pref_dlg_read_tag_uid">Read tag UID</string>-->
     <!--<string name="phone_profiles_pref_applicationPowerManager">Power manager</string>-->
     <!--<string name="phone_profiles_pref_applicationPowerManager_summary">Allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications. Without this, PhoneProfilesPlus will not working in background.</string>-->
-    <!--<string name="phone_profiles_pref_systemAutoStartManager">Automatic start manager</string>-->
-    <!--<string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>-->
     <!--<string name="important_info_power_manager">Concerning problems with run of PhoneProfilesPlus in background, click here to allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications.</string>-->
     <!--    <string name="permission_why_install_tone">for save tone into storage</string>-->
     <!--    <string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>-->
@@ -1456,4 +1446,14 @@
     <!--    <string name="permissions_for_log_to_file_text2">Please grant them in next dialog. Debug log will then be written.</string>-->
     <!--    <string name="permission_why_log_to_file">for write debug log into log.txt and crash.txt</string>-->
     <!--    <string name="permissions_for_log_to_file_big_text_notification">Write debug log into log.txt and crash.txt requires some permissions to be granted.</string>-->
+    <!--    <string name="phone_profiles_pref_systemAutoStartManager">Automatic start manager</string>-->
+    <!--    <string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBar">Show status bar notification</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarPermanent">Ongoing notification</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarCancel">Cancel after</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarInfo_title">Important information!</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Ongoing status bar notification is required for PhoneProfilesService to operate properly. With notification, PhoneProfilesService is changed to \"foreground service,\" which is not killed by Android. PhoneProfilesService must run permanently.</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarRequired">Required for PhoneProfilesService background service</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarNotEnabled_summary">Status bar notification is not enabled!</string>-->
+    <!--    <string name="button_close">Close</string>-->
 </resources>

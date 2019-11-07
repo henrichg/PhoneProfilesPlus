@@ -26,7 +26,7 @@ class ApplicationPreferences {
     static final String PREF_NOTIFICATION_STATUS_BAR  = "notificationStatusBar";
     static final String PREF_NOTIFICATION_STATUS_BAR_STYLE  = "notificationStatusBarStyle";
     static final String PREF_NOTIFICATION_STATUS_BAR_PERMANENT  = "notificationStatusBarPermanent";
-    static final String PREF_NOTIFICATION_STATUS_BAR_CANCEL  = "notificationStatusBarCancel";
+    //static final String PREF_NOTIFICATION_STATUS_BAR_CANCEL  = "notificationStatusBarCancel";
     static final String PREF_NOTIFICATION_SHOW_IN_STATUS_BAR  = "notificationShowInStatusBar";
     static final String PREF_NOTIFICATION_TEXT_COLOR = "notificationTextColor";
     static final String PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR = "applicationWidgetListPrefIndicator";
@@ -236,6 +236,7 @@ class ApplicationPreferences {
         return getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_TOAST, true);
     }
 
+    /*
     static boolean notificationStatusBar(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_STATUS_BAR, true);
     }
@@ -247,6 +248,7 @@ class ApplicationPreferences {
     static String notificationStatusBarCancel(Context context) {
         return getSharedPreferences(context).getString(PREF_NOTIFICATION_STATUS_BAR_CANCEL, "10");
     }
+    */
 
     static String notificationStatusBarStyle(Context context) {
         return getSharedPreferences(context).getString(PREF_NOTIFICATION_STATUS_BAR_STYLE, "1");

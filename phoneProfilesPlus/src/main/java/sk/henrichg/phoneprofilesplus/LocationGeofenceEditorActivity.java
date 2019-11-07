@@ -114,8 +114,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
     private AlertDialog valueDialog;
 
-    private static int MIN_RADIUS = 20;
-    private static int MAX_RADIUS = 500 * 1000;
+    private static final int MIN_RADIUS = 20;
+    private static final int MAX_RADIUS = 500 * 1000;
 
     @SuppressLint("SetTextI18n")
     @Override

@@ -198,7 +198,7 @@ class EventPreferencesCall extends EventPreferences {
         if (key.equals(PREF_EVENT_CALL_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
             }
         }
 
@@ -232,7 +232,7 @@ class EventPreferencesCall extends EventPreferences {
         if (key.equals(PREF_EVENT_CALL_PERMANENT_RUN)) {
             SwitchPreferenceCompat permanentRunPreference = prefMng.findPreference(key);
             if (permanentRunPreference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(permanentRunPreference, true, preferences.getBoolean(key, false), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(permanentRunPreference, true, preferences.getBoolean(key, false), false, false, false);
             }
             String callEvent = preferences.getString(PREF_EVENT_CALL_EVENT, "-1");
             if (!callEvent.equals(String.valueOf(CALL_EVENT_MISSED_CALL)) &&
@@ -257,7 +257,7 @@ class EventPreferencesCall extends EventPreferences {
             } catch (Exception e) {
                 delay = 5;
             }
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 5, true, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 5, false, false, false);
         }
         if (key.equals(PREF_EVENT_CALL_INSTALL_EXTENDER)) {
             Preference preference = prefMng.findPreference(key);
@@ -281,20 +281,20 @@ class EventPreferencesCall extends EventPreferences {
         Preference preference = prefMng.findPreference(PREF_EVENT_CALL_CONTACT_GROUPS);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_CONTACT_GROUPS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_CALL_CONTACTS);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_CONTACTS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_CALL_CONTACT_LIST_TYPE);
         if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, true, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, true, !isRunnable, false);
         boolean isAccessibilityEnabled = event._eventPreferencesCall.isAccessibilityServiceEnabled(context) == 1;
         preference = prefMng.findPreference(PREF_EVENT_CALL_ACCESSIBILITY_SETTINGS);
         if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, true, true, !isAccessibilityEnabled, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, true, !isAccessibilityEnabled, false);
     }
 
     @Override
@@ -340,7 +340,7 @@ class EventPreferencesCall extends EventPreferences {
             if (preference != null) {
                 boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_CALL_ENABLED, false);
                 boolean runnable = tmp.isRunnable(context) && (tmp.isAccessibilityServiceEnabled(context) == 1);
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, true, false, !runnable, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, !runnable, false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
             }
         } else {
@@ -387,7 +387,7 @@ class EventPreferencesCall extends EventPreferences {
         boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_CALL_ENABLED, false);
         Preference preference = prefMng.findPreference(PREF_EVENT_CALL_ACCESSIBILITY_SETTINGS);
         if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, true, true, !accessibilityEnabled, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, true, !accessibilityEnabled, false);
 
         setCategorySummary(prefMng, preferences, context);
     }

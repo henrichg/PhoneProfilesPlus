@@ -389,7 +389,7 @@ class GlobalGUIRoutines {
     */
 
     static void setPreferenceTitleStyleX(androidx.preference.Preference preference, boolean enabled,
-                                         boolean bold, boolean addBullet,
+                                         boolean bold, //boolean addBullet,
                                          boolean underline, boolean errorColor, boolean systemSettings)
     {
         if (preference != null) {
@@ -397,13 +397,13 @@ class GlobalGUIRoutines {
             if (systemSettings) {
                 String s = title.toString();
                 if (!s.contains("(S)")) {
-                    if (bold && addBullet)
+                    if (bold/* && addBullet*/)
                         title = TextUtils.concat("• (S) ", title);
                     else
                         title = TextUtils.concat("(S) ", title);
                 }
             }
-            if (addBullet) {
+            //if (addBullet) {
                 if (bold) {
                     String s = title.toString();
                     if (!s.startsWith("• "))
@@ -413,7 +413,7 @@ class GlobalGUIRoutines {
                     if (s.startsWith("• "))
                         title = TextUtils.replace(title, new String[]{"• "}, new CharSequence[]{""});
                 }
-            }
+            //}
             Spannable sbt = new SpannableString(title);
             Object[] spansToRemove = sbt.getSpans(0, title.length(), Object.class);
             for (Object span : spansToRemove) {
@@ -426,7 +426,7 @@ class GlobalGUIRoutines {
                     //sbt.setSpan(new RelativeSizeSpan(1.05f), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
                 if (underline) {
-                    if (bold && addBullet)
+                    if (bold/* && addBullet*/)
                         sbt.setSpan(new UnderlineSpan(), 2, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     else
                         sbt.setSpan(new UnderlineSpan(), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

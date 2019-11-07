@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.KeyguardManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -39,7 +38,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
-import android.os.SystemClock;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.ContactsContract;
@@ -128,7 +126,7 @@ public class PhoneProfilesService extends Service
     private EventDelayEndBroadcastReceiver eventDelayEndBroadcastReceiver = null;
     private ProfileDurationAlarmBroadcastReceiver profileDurationAlarmBroadcastReceiver = null;
     private SMSEventEndBroadcastReceiver smsEventEndBroadcastReceiver = null;
-    private NotificationCancelAlarmBroadcastReceiver notificationCancelAlarmBroadcastReceiver = null;
+    //private NotificationCancelAlarmBroadcastReceiver notificationCancelAlarmBroadcastReceiver = null;
     private NFCEventEndBroadcastReceiver nfcEventEndBroadcastReceiver = null;
     private RunApplicationWithDelayBroadcastReceiver runApplicationWithDelayBroadcastReceiver = null;
     private MissedCallEventEndBroadcastReceiver missedCallEventEndBroadcastReceiver = null;
@@ -156,7 +154,7 @@ public class PhoneProfilesService extends Service
     static final String ACTION_EVENT_DELAY_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".EventDelayEndBroadcastReceiver";
     static final String ACTION_PROFILE_DURATION_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".ProfileDurationAlarmBroadcastReceiver";
     static final String ACTION_SMS_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".SMSEventEndBroadcastReceiver";
-    private static final String ACTION_NOTIFICATION_CANCEL_ALARM_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".NotificationCancelAlarmBroadcastReceiver";
+    //private static final String ACTION_NOTIFICATION_CANCEL_ALARM_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".NotificationCancelAlarmBroadcastReceiver";
     static final String ACTION_NFC_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".NFCEventEndBroadcastReceiver";
     static final String ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".RunApplicationWithDelayBroadcastReceiver";
     static final String ACTION_MISSED_CALL_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".MissedCallEventEndBroadcastReceiver";
@@ -322,8 +320,8 @@ public class PhoneProfilesService extends Service
 
         try {
             if ((Build.VERSION.SDK_INT < 26)) {
-                Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, ApplicationPreferences.notificationStatusBar(this));
-                Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, ApplicationPreferences.notificationStatusBarPermanent(this));
+                //Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, ApplicationPreferences.notificationStatusBar(this));
+                //Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, ApplicationPreferences.notificationStatusBarPermanent(this));
                 Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar(this));
             }
             Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, ApplicationPreferences.applicationEventWifiEnableScanning(appContext));
@@ -410,13 +408,13 @@ public class PhoneProfilesService extends Service
         reenableKeyguard();
 
         try {
-            if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBarPermanent(getApplicationContext()))
+            //if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBarPermanent(getApplicationContext()))
                 stopForeground(true);
-            else {
+            /*else {
                 NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                 if (notificationManager != null)
                     notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
-            }
+            }*/
         } catch (Exception ignored) {
         }
 
@@ -641,6 +639,7 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered profileDurationAlarmBroadcastReceiver");
+            /*
             if (notificationCancelAlarmBroadcastReceiver != null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER notificationCancelAlarmBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER notificationCancelAlarmBroadcastReceiver");
@@ -653,6 +652,7 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered notificationCancelAlarmBroadcastReceiver");
+            */
             if (runApplicationWithDelayBroadcastReceiver != null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER runApplicationWithDelayBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER runApplicationWithDelayBroadcastReceiver");
@@ -930,6 +930,7 @@ public class PhoneProfilesService extends Service
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered profileDurationAlarmBroadcastReceiver");
 
+            /*
             if (notificationCancelAlarmBroadcastReceiver == null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER notificationCancelAlarmBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER notificationCancelAlarmBroadcastReceiver");
@@ -940,6 +941,7 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered notificationCancelAlarmBroadcastReceiver");
+            */
 
             if (runApplicationWithDelayBroadcastReceiver == null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER runApplicationWithDelayBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
@@ -4134,8 +4136,9 @@ public class PhoneProfilesService extends Service
 
         final Context appContext = getApplicationContext();
 
-        if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBar(appContext))
-        {
+        //if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBar(appContext))
+        //if (true)
+        //{
             PPApplication.logE("PhoneProfilesService._showProfileNotification", "show enabled");
 
             // intent to LauncherActivity, for click on notification
@@ -4195,7 +4198,7 @@ public class PhoneProfilesService extends Service
             }
 
             boolean notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar(appContext);
-            boolean notificationStatusBarPermanent = ApplicationPreferences.notificationStatusBarPermanent(appContext);
+            //boolean notificationStatusBarPermanent = ApplicationPreferences.notificationStatusBarPermanent(appContext);
             //boolean notificationDarkBackground = ApplicationPreferences.notificationDarkBackground(appContext);
             boolean notificationUseDecoration = ApplicationPreferences.notificationUseDecoration(appContext);
             boolean notificationPrefIndicator = ApplicationPreferences.notificationPrefIndicator(appContext);
@@ -4682,24 +4685,24 @@ public class PhoneProfilesService extends Service
                     phoneProfilesNotification.defaults &= ~DEFAULT_VIBRATE;
                 }
 
-                if ((Build.VERSION.SDK_INT >= 26) || notificationStatusBarPermanent) {
+                //if ((Build.VERSION.SDK_INT >= 26) || notificationStatusBarPermanent) {
                     //notification.flags |= Notification.FLAG_NO_CLEAR;
                     phoneProfilesNotification.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
-                } else {
-                    setAlarmForNotificationCancel(appContext);
-                }
+                /*} else {
+                //    setAlarmForNotificationCancel(appContext);
+                }*/
 
-                if ((Build.VERSION.SDK_INT >= 26) || notificationStatusBarPermanent) {
+                //if ((Build.VERSION.SDK_INT >= 26) || notificationStatusBarPermanent) {
                     startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
                     runningInForeground = true;
-                }
+                /*}
                 else {
                     NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
                     if (notificationManager != null)
                         notificationManager.notify(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
-                }
+                }*/
             }
-        }
+        //}
         /*else
         {
             if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBarPermanent(appContext))
@@ -4763,14 +4766,14 @@ public class PhoneProfilesService extends Service
         }
         else {*/
             try {
-                final Context appContext = getApplicationContext();
-                if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBarPermanent(appContext))
+                //final Context appContext = getApplicationContext();
+                //if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBarPermanent(appContext))
                     stopForeground(true);
-                else {
+                /*else {
                     NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
                     if (notificationManager != null)
                         notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
-                }
+                }*/
             } catch (Exception ignored) {
             }
             runningInForeground = false;
@@ -4797,6 +4800,7 @@ public class PhoneProfilesService extends Service
     }
     */
 
+    /*
     private void setAlarmForNotificationCancel(Context context)
     {
         if (Build.VERSION.SDK_INT >= 26)
@@ -4818,14 +4822,15 @@ public class PhoneProfilesService extends Service
         if (alarmManager != null) {
             long time = SystemClock.elapsedRealtime() + Integer.valueOf(notificationStatusBarCancel) * 1000;
             // not needed exact for removing notification
-            /*if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME, time, pendingIntent);
-            if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
-                alarmManager.setExact(AlarmManager.ELAPSED_REALTIME, time, pendingIntent);
-            else*/
+            /if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+            //    alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME, time, pendingIntent);
+            //if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+            //    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME, time, pendingIntent);
+            //else
             alarmManager.set(AlarmManager.ELAPSED_REALTIME, time, pendingIntent);
         }
     }
+    */
 
     //--------------------------
 

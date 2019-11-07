@@ -12,8 +12,8 @@ import androidx.appcompat.widget.SwitchCompat;
 class EventStatusPopupWindow extends GuiInfoPopupWindow {
 
     @SuppressLint("SetTextI18n")
-    EventStatusPopupWindow(int titleStringId, final EditorEventListFragment fragment, Event event) {
-        super(R.layout.event_status_popup_window, titleStringId, fragment.getActivity());
+    EventStatusPopupWindow(final EditorEventListFragment fragment, Event event) {
+        super(R.layout.event_status_popup_window, R.string.editor_event_list_item_event_status, fragment.getActivity());
 
         // Disable default animation
         setAnimationStyle(0);

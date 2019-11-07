@@ -374,7 +374,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     if (editorFragment.getActivity() == null)
                         return;
 
-                    EventStatusPopupWindow popup = new EventStatusPopupWindow(R.string.editor_event_list_item_event_status, editorFragment, _event);
+                    EventStatusPopupWindow popup = new EventStatusPopupWindow(editorFragment, _event);
 
                     View contentView = popup.getContentView();
                     contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);

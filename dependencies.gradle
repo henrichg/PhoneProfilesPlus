@@ -19,10 +19,11 @@
 // 5082 = move Editor events filter "Running", because was added "Not stopped" filter
 // 5250 = also use ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED
 //        for API level >= 26
+// 5300 = PPService as foreground also for android < 26
 
 ext.ppVersions = [
     publishVersion: '4.1.4.2b',
-    publishVersionCode: 5273,
+    publishVersionCode: 5275,
 
     minSdk: 21,
     targetSdk: 28,

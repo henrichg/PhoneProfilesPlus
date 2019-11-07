@@ -42,7 +42,6 @@
     <string name="phone_profiles_pref_applicationHeader">Zobrazit aktivní profil</string>
     <string name="phone_profiles_pref_applicationAlert">Dotazovat se na aktivaci profilu</string>
     <string name="phone_profiles_pref_notificationsToast">Oznamovat bublinou</string>
-    <string name="phone_profiles_pref_notificationStatusBar">Oznamovat ve stavové liště</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle">Styl oznamovací ikony</string>
     <string name="profile_preferences_category_profileIdentification">Identifikace profilu</string>
     <string name="profile_preferences_category_volumes">Hlasitosti</string>
@@ -289,8 +288,6 @@
     <string name="event_preferences_category_eventSMSParameters">SMS/MMS senzor</string>
     <string name="event_preferences_sms_contacts">Kontakty</string>
     <string name="toast_events_restarted">Události restartovány</string>
-    <string name="phone_profiles_pref_notificationStatusBarPermanent">Probíhajíci notifikace</string>
-    <string name="phone_profiles_pref_notificationStatusBarCancel">Zruš po</string>
     <string name="event_name_background_profile">Předvolený profil</string>
     <string name="phone_profiles_pref_applicationEventWifiRescan">Přeskenuj Wi-Fi</string>
     <string name="phone_profiles_pref_applicationEventBluetoothRescan">Přeskenuj Bluetooth</string>
@@ -712,9 +709,6 @@
     <string name="profile_preferences_volumeNotificationVolume0_NowConfigured">Aktuálně nakonfigurován:</string>
     <string name="profile_preferences_volumeRingtone0Info_title">Hlasitost vyzvánění = 0</string>
     <string name="profile_preferences_volumeRingtone0Info_summary">Hlasitost vyzvánění = 0 nakonfiguruje zařízení do tichého režimu. Hlasitost notifikací se ignoruje.</string>
-    <string name="phone_profiles_pref_notificationStatusBarInfo_title">Důležitá informace!</string>
-    <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Probíhající notifikace je vyžadována pro službu PhoneProfilesService. S notifikaci se PhoneProfilesService změní na \"služba v popředí\". A tento typ služby není zastaven Androidem. PhoneProfilesService musí stále běžet.</string>
-    <string name="phone_profiles_pref_notificationStatusBarRequired">Vyžadováno pro službu v pozadí PhoneProfilesService</string>
     <string name="event_preferences_event_priorityInfo_summary">Funkcionalita priority: událost se nespustí, pokud je spuštěna událost s vyšší prioritou.</string>
     <string name="profile_preferences_preferenceTypesInfo_title">Typy parametrů</string>
     <string name="event_preference_sensor_time_summary">Tento senzor je pro start události podle času. Parametry: Čas začátku, Čas konce, Dny v týdnu.</string>
@@ -811,7 +805,6 @@
     <string name="profile_preferences_zenMode_totalSilence_summary">Tiché všechny notifikace</string>
     <string name="array_pref_applicationDisableScanning_disabled">Skenování zakázáno</string>
     <string name="array_pref_applicationDisableScanning_enabled">Skenování povoleno</string>
-    <string name="phone_profiles_pref_notificationStatusBarNotEnabled_summary">Notifikace ve stavovém řádku není povolena!</string>
     <string name="duration_pref_dlg_duration_label">Trvání:</string>
     <string name="duration_pref_dlg_activation_end_label">Konec aktivace:</string>
     <string name="important_info_profile_zenModeM">\"Nerušit\" v \"Módu vyzvánění\" profil vyžaduje povolení PhoneProfilesPlus v systémovém nastavení \"Přístup k oznámením\". Klikněte zde a povolte PhoneProfilesPlus.</string>
@@ -951,7 +944,6 @@
     <string name="donation_thanks_dialog">Děkuji za darování.\nOpravdu si toho vážím.</string>
     <string name="donation_google_android_market_not_supported">Platby z aplikací nejsou podporovány. Jste si jistý, že je Obchod Google Play správně nainstalován?</string>
     <string name="donation_google_error">Chyba.</string>
-    <string name="button_close">Zavřít</string>
     <string name="fast_access_duration_activate_without_button_2">Aktivovat bez trvání</string>
     <string name="profileicon_pref_dlg_customIconButton">Vlastní ikona</string>
     <string name="mobile_cells_registration_cell_name_hint">Klepnutím nastavíte název buňky</string>
@@ -1432,8 +1424,6 @@
     <!--<string name="nfc_tag_pref_dlg_read_tag_uid">Read tag UID</string>-->
     <!--<string name="phone_profiles_pref_applicationPowerManager">Power manager</string>-->
     <!--<string name="phone_profiles_pref_applicationPowerManager_summary">Allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications. Without this, PhoneProfilesPlus will not working in background.</string>-->
-    <!--<string name="phone_profiles_pref_systemAutoStartManager">Automatic start manager</string>-->
-    <!--<string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>-->
     <!--<string name="important_info_power_manager">Concerning problems with run of PhoneProfilesPlus in background, click here to allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications.</string>-->
     <!--    <string name="permission_why_install_tone">for save tone into storage</string>-->
     <!--    <string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>-->
@@ -1456,4 +1446,14 @@
     <!--    <string name="permissions_for_log_to_file_text2">Please grant them in next dialog. Debug log will then be written.</string>-->
     <!--    <string name="permission_why_log_to_file">for write debug log into log.txt and crash.txt</string>-->
     <!--    <string name="permissions_for_log_to_file_big_text_notification">Write debug log into log.txt and crash.txt requires some permissions to be granted.</string>-->
+    <!--    <string name="phone_profiles_pref_systemAutoStartManager">Automatic start manager</string>-->
+    <!--    <string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBar">Show status bar notification</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarPermanent">Ongoing notification</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarCancel">Cancel after</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarInfo_title">Important information!</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Ongoing status bar notification is required for PhoneProfilesService to operate properly. With notification, PhoneProfilesService is changed to \"foreground service,\" which is not killed by Android. PhoneProfilesService must run permanently.</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarRequired">Required for PhoneProfilesService background service</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarNotEnabled_summary">Status bar notification is not enabled!</string>-->
+    <!--    <string name="button_close">Close</string>-->
 </resources>

@@ -82,6 +82,7 @@ class DialogHelpPopupWindowX extends GuiInfoPopupWindow {
                 HorizontalPosition.ALIGN_RIGHT, x, y, false);
     }
 
+    @SuppressWarnings("SameParameterValue")
     static void showPopup(ImageView helpIcon, int titleStringId, Activity activity, final Dialog dialog, int helpTextResource) {
         String helpString = activity.getString(helpTextResource);
         showPopup(helpIcon, titleStringId, activity, dialog, helpString);

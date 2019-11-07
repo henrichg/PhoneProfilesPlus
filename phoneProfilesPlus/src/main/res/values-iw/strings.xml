@@ -42,7 +42,6 @@
     <string name="phone_profiles_pref_applicationHeader">הצג את הפרופיל המופעל</string>
     <string name="phone_profiles_pref_applicationAlert">לאשר הפעלת פרופיל</string>
     <string name="phone_profiles_pref_notificationsToast">הצגת התראת toast</string>
-    <string name="phone_profiles_pref_notificationStatusBar">להציג הודעות בסרגל הסטטוס</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle">סגנון איקון ההתראה</string>
     <string name="profile_preferences_category_profileIdentification">מזהה פרופיל</string>
     <string name="profile_preferences_category_volumes">עוצמות קול</string>
@@ -289,8 +288,6 @@
     <string name="event_preferences_category_eventSMSParameters">SMS/MMS sensor</string>
     <string name="event_preferences_sms_contacts">אנשי קשר</string>
     <string name="toast_events_restarted">אירועים הופעלו מחדש</string>
-    <string name="phone_profiles_pref_notificationStatusBarPermanent">חיווי קבוע</string>
-    <string name="phone_profiles_pref_notificationStatusBarCancel">ביטול לאחר</string>
     <string name="event_name_background_profile">פרופיל ברירת מחדל</string>
     <string name="phone_profiles_pref_applicationEventWifiRescan">סריקה מחדש של Wi-Fi</string>
     <string name="phone_profiles_pref_applicationEventBluetoothRescan">סריקה מחדש של Bluetooth</string>
@@ -715,9 +712,6 @@
     <string name="profile_preferences_volumeNotificationVolume0_NowConfigured">ההגדרות כעת:</string>
     <string name="profile_preferences_volumeRingtone0Info_title">עוצמת צלצול = 0</string>
     <string name="profile_preferences_volumeRingtone0Info_summary">עוצמת צלצול = 0 מגדירה את המכשיר למצב שקט. המערכת מתעלמת מעוצמת צליל ההודעות.</string>
-    <string name="phone_profiles_pref_notificationStatusBarInfo_title">מידע חשוב!</string>
-    <string name="phone_profiles_pref_notificationStatusBarInfo_summary">הודעות קבועות בשורת המצב נדרשות עבור שירות PhoneProfilesService. כאשר מוגדרות לשירות PhoneProfilesService הודעות קבועות, הוא הופך ל\"שירות שבקידמה\". סוג זה של שירות לא מופסק על ידי אנדרואיד. PhoneProfilesService חייב לפעול בקביעות.</string>
-    <string name="phone_profiles_pref_notificationStatusBarRequired">נדרש לשירות הרקע PhoneProfilesService</string>
     <string name="event_preferences_event_priorityInfo_summary">פונקציונליות עדיפות: האירוע לא יופעל אם כבר פועל אירוע בעל עדיפות גבוהה יותר.</string>
     <string name="profile_preferences_preferenceTypesInfo_title">סוג של העדפות</string>
     <string name="event_preference_sensor_time_summary">חיישן זה הוא לצורך תחילת האירוע עפ\"י זמן. פרמטרים: שעת התחלה, שעת סיום, ימי השבוע.</string>
@@ -814,7 +808,6 @@
     <string name="profile_preferences_zenMode_totalSilence_summary">השתקת כל ההודעות</string>
     <string name="array_pref_applicationDisableScanning_disabled">סריקה מושבתת</string>
     <string name="array_pref_applicationDisableScanning_enabled">סריקה מאופשרת</string>
-    <string name="phone_profiles_pref_notificationStatusBarNotEnabled_summary">הודעות בסרגל המצב מושבתות!</string>
     <string name="duration_pref_dlg_duration_label">משך:</string>
     <string name="duration_pref_dlg_activation_end_label">סיום ההפעלה:</string>
     <string name="important_info_profile_zenModeM">\"נא לא להפריע\" פרופיל \"הצלצול מצב\" דורש הפעלת PhoneProfilesPlus בהגדרות המערכת \"הודעה על גישה\". לחץ כאן ולאפשר PhoneProfilesPlus.</string>
@@ -954,7 +947,6 @@
     <string name="donation_thanks_dialog">תודה על תרומתך. \n אני מעריך זאת.</string>
     <string name="donation_google_android_market_not_supported">לא ניתן לשלם מתוך היישום. האם חנות Google Play מותקנת כהלכה?</string>
     <string name="donation_google_error">Error.</string>
-    <string name="button_close">Close</string>
     <string name="fast_access_duration_activate_without_button_2">Activate without duration</string>
     <string name="profileicon_pref_dlg_customIconButton">Custom icon</string>
     <string name="mobile_cells_registration_cell_name_hint">Click to set cell name</string>
@@ -1435,8 +1427,6 @@
     <!--<string name="nfc_tag_pref_dlg_read_tag_uid">Read tag UID</string>-->
     <!--<string name="phone_profiles_pref_applicationPowerManager">Power manager</string>-->
     <!--<string name="phone_profiles_pref_applicationPowerManager_summary">Allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications. Without this, PhoneProfilesPlus will not working in background.</string>-->
-    <!--<string name="phone_profiles_pref_systemAutoStartManager">Automatic start manager</string>-->
-    <!--<string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>-->
     <!--<string name="important_info_power_manager">Concerning problems with run of PhoneProfilesPlus in background, click here to allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications.</string>-->
     <!--    <string name="permission_why_install_tone">for save tone into storage</string>-->
     <!--    <string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>-->
@@ -1459,4 +1449,14 @@
     <!--    <string name="permissions_for_log_to_file_text2">Please grant them in next dialog. Debug log will then be written.</string>-->
     <!--    <string name="permission_why_log_to_file">for write debug log into log.txt and crash.txt</string>-->
     <!--    <string name="permissions_for_log_to_file_big_text_notification">Write debug log into log.txt and crash.txt requires some permissions to be granted.</string>-->
+    <!--    <string name="phone_profiles_pref_systemAutoStartManager">Automatic start manager</string>-->
+    <!--    <string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBar">Show status bar notification</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarPermanent">Ongoing notification</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarCancel">Cancel after</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarInfo_title">Important information!</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Ongoing status bar notification is required for PhoneProfilesService to operate properly. With notification, PhoneProfilesService is changed to \"foreground service,\" which is not killed by Android. PhoneProfilesService must run permanently.</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarRequired">Required for PhoneProfilesService background service</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarNotEnabled_summary">Status bar notification is not enabled!</string>-->
+    <!--    <string name="button_close">Close</string>-->
 </resources>
