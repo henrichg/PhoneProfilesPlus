@@ -385,7 +385,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
             //Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
-            String appTheme = ApplicationPreferences.applicationTheme(activity, true);
+            //String appTheme = ApplicationPreferences.applicationTheme(activity, true);
             int outerCircleColor = R.color.tabTargetHelpOuterCircleColor;
 //                if (appTheme.equals("dark"))
 //                    outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;

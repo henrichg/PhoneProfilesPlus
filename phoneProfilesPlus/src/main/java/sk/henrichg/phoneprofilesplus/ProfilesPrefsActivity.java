@@ -632,7 +632,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         ApplicationPreferences.getSharedPreferences(this);
 
-        String applicationTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
+        //String applicationTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
 
         if (showSaveMenu) {
             if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS_SAVE, true)) {

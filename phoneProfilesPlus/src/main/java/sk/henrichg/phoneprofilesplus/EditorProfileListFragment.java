@@ -1063,7 +1063,7 @@ public class EditorProfileListFragment extends Fragment
                 editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, false);
                 editor.apply();
 
-                String appTheme = ApplicationPreferences.applicationTheme(getActivity(), true);
+                //String appTheme = ApplicationPreferences.applicationTheme(getActivity(), true);
                 int outerCircleColor = R.color.tabTargetHelpOuterCircleColor;
 //                if (appTheme.equals("dark"))
 //                    outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;

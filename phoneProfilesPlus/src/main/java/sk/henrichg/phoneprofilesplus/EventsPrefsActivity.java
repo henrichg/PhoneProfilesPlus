@@ -623,7 +623,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
             //final Display display = getWindowManager().getDefaultDisplay();
 
-            String appTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
+            //String appTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
             int outerCircleColor = R.color.tabTargetHelpOuterCircleColor;
 //                if (appTheme.equals("dark"))
 //                    outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;

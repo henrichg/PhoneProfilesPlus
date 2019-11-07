@@ -480,7 +480,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
                 editor.apply();
 
-                String appTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
+                //String appTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
                 int outerCircleColor = R.color.tabTargetHelpOuterCircleColor;
 //                if (appTheme.equals("dark"))
 //                    outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;

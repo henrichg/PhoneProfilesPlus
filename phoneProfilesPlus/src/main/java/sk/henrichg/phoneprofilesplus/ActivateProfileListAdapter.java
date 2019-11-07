@@ -283,7 +283,7 @@ class ActivateProfileListAdapter extends BaseAdapter
 
             final TapTargetSequence sequence = new TapTargetSequence(ActivatorTargetHelpsActivity.activity);
 
-            String appTheme = ApplicationPreferences.applicationTheme(activity, true);
+            //String appTheme = ApplicationPreferences.applicationTheme(activity, true);
             int outerCircleColor = R.color.tabTargetHelpOuterCircleColor;
 //                if (appTheme.equals("dark"))
 //                    outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;
