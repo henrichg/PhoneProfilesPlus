@@ -2178,7 +2178,7 @@ public class Profile {
         int percentage = Math.round(getPercentage(value, 0, GAMMA_SPACE_MAX_256) * 100);*/
 
         int _settingsValue = settingsValue;
-        if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 26))
+        if (PPApplication.deviceIsOnePlus)
             _settingsValue = Math.round(settingsValue / 4f); // convert from 1024 to 256
         else
         if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
@@ -2209,7 +2209,7 @@ public class Profile {
             systemValue = maximumValue;*/
 
         int systemValue = BrightnessLookup.lookup(percentage, false);
-        if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 26))
+        if (PPApplication.deviceIsOnePlus)
             systemValue = systemValue * 4; // convert from 256 to 1024
         else
         if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
@@ -2234,7 +2234,7 @@ public class Profile {
         //if (maximumValue-minimumValue > 255) {
             minimumValue = 0;
             maximumValue = 255;
-        if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 26))
+        if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 28))
             maximumValue = 1023;
         else
         if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
@@ -2246,7 +2246,7 @@ public class Profile {
         if (percentage == BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET) {
             // brightness is not set, change it to default manual brightness value
             int defaultValue = 128;
-            if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 26))
+            if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 28))
                 defaultValue = 512;
             else
             if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
