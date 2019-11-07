@@ -1333,7 +1333,7 @@
     <string name="editor_activity_targetHelps_bottomNavigationProfiles_description">Klikněte sem pro zobrazení seznamu nakonfigurovaných profilů.</string>
     <string name="editor_activity_targetHelps_bottomNavigationEvents_title">Události</string>
     <string name="editor_activity_targetHelps_bottomNavigationEvents_description">Klikněte zde pro zobrazení seznamu nakonfigurovaných událostí.</string>
-    <string name="event_preferences_location_radius_label">Radius (meters)</string>
+    <string name="event_preferences_location_radius_label">Poloměr (v metrech)</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

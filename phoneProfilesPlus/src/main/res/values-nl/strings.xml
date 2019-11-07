@@ -1333,7 +1333,7 @@
     <string name="editor_activity_targetHelps_bottomNavigationProfiles_description">Klik hier om de lijst van geconfigureerde profielen te tonen.</string>
     <string name="editor_activity_targetHelps_bottomNavigationEvents_title">Events</string>
     <string name="editor_activity_targetHelps_bottomNavigationEvents_description">Klik hier om de lijst van geconfigureerde events te tonen.</string>
-    <string name="event_preferences_location_radius_label">Radius (meters)</string>
+    <string name="event_preferences_location_radius_label">Straal (meters)</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
