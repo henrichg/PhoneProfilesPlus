@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <include layout="@layout/popup_window_close" />
+        <include layout="@layout/popup_window_title" />
 
         <ScrollView
             android:id="@+id/dialog_help_popup_window_scroll_view"

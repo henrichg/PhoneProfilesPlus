@@ -8,15 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroupOverlay;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageButton;
 
 class GuiInfoPopupWindow extends RelativePopupWindow {
 
     final View popupView;
     private final Activity activity;
 
-    GuiInfoPopupWindow(int layoutId, Activity _activity) {
+    GuiInfoPopupWindow(int layoutId, int titleStringId, Activity _activity) {
         activity = _activity;
         popupView = LayoutInflater.from(activity).inflate(layoutId, null);
         setContentView(popupView);
@@ -36,12 +38,29 @@ class GuiInfoPopupWindow extends RelativePopupWindow {
         }
         */
 
+        /*
         popupView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dismiss();
             }
         });
+        */
+
+        TextView titleText = popupView.findViewById(R.id.popup_window_title);
+        if (titleText != null) {
+            titleText.setText(titleStringId);
+        }
+
+        AppCompatImageButton closeButton = popupView.findViewById(R.id.popup_window_close);
+        if (closeButton != null) {
+            closeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dismiss();
+                }
+            });
+        }
 
         setOnDismissListener(new OnDismissListener() {
             @Override

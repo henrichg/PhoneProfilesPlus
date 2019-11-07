@@ -484,7 +484,8 @@ public class EditorProfilesActivity extends AppCompatActivity
         eventsRunStopIndicator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RunStopIndicatorPopupWindow popup = new RunStopIndicatorPopupWindow(getDataWrapper(), EditorProfilesActivity.this);
+                RunStopIndicatorPopupWindow popup = new RunStopIndicatorPopupWindow(
+                        R.string.editor_activity_targetHelps_trafficLightIcon_title, getDataWrapper(), EditorProfilesActivity.this);
 
                 View contentView = popup.getContentView();
                 contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);

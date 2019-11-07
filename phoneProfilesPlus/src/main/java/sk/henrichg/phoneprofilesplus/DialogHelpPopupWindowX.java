@@ -11,8 +11,8 @@ class DialogHelpPopupWindowX extends GuiInfoPopupWindow {
 
     private final Dialog dialog;
 
-    private DialogHelpPopupWindowX(final Activity activity, final Dialog _dialog, String helpString) {
-        super(R.layout.dialog_help_popup_window, activity);
+    private DialogHelpPopupWindowX(int titleStringId, final Activity activity, final Dialog _dialog, String helpString) {
+        super(R.layout.dialog_help_popup_window, titleStringId, activity);
 
         dialog = _dialog;
 
@@ -40,8 +40,8 @@ class DialogHelpPopupWindowX extends GuiInfoPopupWindow {
         });
     }
 
-    static void showPopup(ImageView helpIcon, Activity activity, final Dialog dialog, String helpString) {
-        DialogHelpPopupWindowX popup = new DialogHelpPopupWindowX(activity, dialog, helpString);
+    static void showPopup(ImageView helpIcon, int titleStringId, Activity activity, final Dialog dialog, String helpString) {
+        DialogHelpPopupWindowX popup = new DialogHelpPopupWindowX(titleStringId, activity, dialog, helpString);
 
         View contentView = popup.getContentView();
         contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
@@ -82,8 +82,8 @@ class DialogHelpPopupWindowX extends GuiInfoPopupWindow {
                 HorizontalPosition.ALIGN_RIGHT, x, y, false);
     }
 
-    static void showPopup(ImageView helpIcon, Activity activity, final Dialog dialog, int helpTextResource) {
+    static void showPopup(ImageView helpIcon, int titleStringId, Activity activity, final Dialog dialog, int helpTextResource) {
         String helpString = activity.getString(helpTextResource);
-        showPopup(helpIcon, activity, dialog, helpString);
+        showPopup(helpIcon, titleStringId, activity, dialog, helpString);
     }
 }

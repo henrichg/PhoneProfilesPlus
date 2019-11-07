@@ -50,7 +50,7 @@ public class CalendarSearchStringPreferenceFragmentX extends PreferenceDialogFra
                                 getString(R.string.pref_dlg_info_about_wildcards_3) + "\n" +
                                 "\u2022 " + getString(R.string.pref_dlg_info_about_wildcards_4)
                         ;
-                DialogHelpPopupWindowX.showPopup(helpIcon, (Activity)prefContext, getDialog(), helpString);
+                DialogHelpPopupWindowX.showPopup(helpIcon, R.string.menu_help, (Activity)prefContext, getDialog(), helpString);
             }
         });
 

@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <include layout="@layout/popup_window_close" />
+        <include layout="@layout/popup_window_title" />
 
         <ScrollView
             android:id="@+id/run_stop_indicator_popup_window_scroll_view"
@@ -29,6 +29,7 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp">
 
+                <!--
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -36,6 +37,7 @@
                     android:textSize="16sp"
                     android:id="@+id/run_stop_indicator_popup_window_text1"
                     android:drawablePadding="6dp" />
+                -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

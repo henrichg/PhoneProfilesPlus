@@ -11,8 +11,8 @@ import androidx.appcompat.widget.SwitchCompat;
 
 class RunStopIndicatorPopupWindow extends GuiInfoPopupWindow {
 
-    RunStopIndicatorPopupWindow(final DataWrapper dataWrapper, final Activity activity) {
-        super(R.layout.run_stop_indicator_popup_window, activity);
+    RunStopIndicatorPopupWindow(int titleStringId, final DataWrapper dataWrapper, final Activity activity) {
+        super(R.layout.run_stop_indicator_popup_window, titleStringId, activity);
 
         // Disable default animation
         setAnimationStyle(0);

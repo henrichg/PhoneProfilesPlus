@@ -243,7 +243,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         helpIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogHelpPopupWindowX.showPopup(helpIcon, (Activity)prefContext, getDialog(), R.string.mobile_cells_pref_dlg_help);
+                DialogHelpPopupWindowX.showPopup(helpIcon, R.string.menu_help, (Activity)prefContext, getDialog(), R.string.mobile_cells_pref_dlg_help);
             }
         });
 

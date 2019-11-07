@@ -151,7 +151,7 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
         helpIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogHelpPopupWindowX.showPopup(helpIcon, (Activity)prefContext, getDialog(), R.string.nfc_tag_pref_dlg_help);
+                DialogHelpPopupWindowX.showPopup(helpIcon, R.string.menu_help, (Activity)prefContext, getDialog(), R.string.nfc_tag_pref_dlg_help);
             }
         });
 
