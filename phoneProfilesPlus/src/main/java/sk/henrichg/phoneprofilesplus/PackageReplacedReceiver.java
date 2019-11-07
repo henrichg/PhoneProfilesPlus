@@ -337,8 +337,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                                 if (actualVersionCode <= 5300) {
                                     // for old packages hide profile notification from status bar if notification is disabled
-                                    ApplicationPreferences.getSharedPreferences(appContext);
                                     if (Build.VERSION.SDK_INT < 26) {
+                                        ApplicationPreferences.getSharedPreferences(appContext);
                                         boolean notificationStatusBar = ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, true);
                                         boolean notificationStatusBarPermanent = ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, true);
                                         if (!(notificationStatusBar && notificationStatusBarPermanent)) {
