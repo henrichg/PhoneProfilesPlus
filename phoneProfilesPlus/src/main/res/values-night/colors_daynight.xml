@@ -32,9 +32,9 @@
     <color name="editorFilterTitleColor">#FFFFFFFF</color>
     <color name="editorFilterBackgroundColor">#FF272727</color>
 
-    <color name="tabTargetHelpOuterCircleColor">#FF272727</color>
-    <color name="tabTargetHelpTargetCircleColor">#FF7F7F7F</color>
-    <color name="tabTargetHelpTextColor">#FFFFFFFF</color>
+    <color name="tabTargetHelpOuterCircleColor">#FFE99B7F</color>
+    <color name="tabTargetHelpTargetCircleColor">#FF202020</color>
+    <color name="tabTargetHelpTextColor">#FF000000</color>
 
     <color name="fastScrollTrackPP">#FF5F5F5F</color>
     <color name="fastScrollThumbPP">#FFE99B7F</color>

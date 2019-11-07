@@ -116,8 +116,8 @@ public class EditorProfilesActivity extends AppCompatActivity
     public static final String PREF_START_TARGET_HELPS = "editor_profiles_activity_start_target_helps";
     public static final String PREF_START_TARGET_HELPS_DEFAULT_PROFILE = "editor_profile_activity_start_target_helps_default_profile";
     public static final String PREF_START_TARGET_HELPS_FILTER_SPINNER = "editor_profile_activity_start_target_helps_filter_spinner";
-    private static final String PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR = "editor_profile_activity_start_target_helps_run_stop_indicator";
-    private static final String PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION = "editor_profile_activity_start_target_helps_bottom_navigation";
+    static final String PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR = "editor_profile_activity_start_target_helps_run_stop_indicator";
+    static final String PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION = "editor_profile_activity_start_target_helps_bottom_navigation";
 
     private Toolbar editorToolbar;
     //Toolbar bottomToolbar;
@@ -2462,7 +2462,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 //final Display display = getWindowManager().getDefaultDisplay();
 
-                String appTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
+                //String appTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
                 int outerCircleColor = R.color.tabTargetHelpOuterCircleColor;
 //                if (appTheme.equals("dark"))
 //                    outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;
@@ -2472,7 +2472,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                 int textColor = R.color.tabTargetHelpTextColor;
 //                if (appTheme.equals("dark"))
 //                    textColor = R.color.tabTargetHelpTextColor_dark;
-                boolean tintTarget = !appTheme.equals("white");
 
                 int[] screenLocation = new int[2];
 
@@ -2503,7 +2502,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
-                                    .tintTarget(tintTarget)
+                                    .tintTarget(true)
                                     .drawShadow(true)
                                     .id(1)
                         );*/
@@ -2513,7 +2512,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
-                                        .tintTarget(tintTarget)
+                                        .tintTarget(true)
                                         .drawShadow(true)
                                         .id(1)
                         );
@@ -2522,7 +2521,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
-                                        .tintTarget(tintTarget)
+                                        .tintTarget(true)
                                         .drawShadow(true)
                                         .id(2)
                         );
@@ -2534,7 +2533,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                             .outerCircleColor(outerCircleColor)
                                             .targetCircleColor(targetCircleColor)
                                             .textColor(textColor)
-                                            .tintTarget(tintTarget)
+                                            .tintTarget(true)
                                             .drawShadow(true)
                                             .id(id)
                             );
@@ -2547,7 +2546,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                             .outerCircleColor(outerCircleColor)
                                             .targetCircleColor(targetCircleColor)
                                             .textColor(textColor)
-                                            .tintTarget(tintTarget)
+                                            .tintTarget(true)
                                             .drawShadow(true)
                                             .id(id)
                             );
@@ -2560,7 +2559,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                             .outerCircleColor(outerCircleColor)
                                             .targetCircleColor(targetCircleColor)
                                             .textColor(textColor)
-                                            .tintTarget(tintTarget)
+                                            .tintTarget(true)
                                             .drawShadow(true)
                                             .id(id)
                             );
@@ -2605,7 +2604,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
-                                        .tintTarget(tintTarget)
+                                        .tintTarget(true)
                                         .drawShadow(true)
                                         .id(1)
                         );*/
@@ -2615,7 +2614,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
-                                        .tintTarget(tintTarget)
+                                        .tintTarget(true)
                                         .drawShadow(true)
                                         .id(1)
                         );
@@ -2624,7 +2623,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
-                                        .tintTarget(tintTarget)
+                                        .tintTarget(true)
                                         .drawShadow(true)
                                         .id(2)
                         );
@@ -2636,7 +2635,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                             .outerCircleColor(outerCircleColor)
                                             .targetCircleColor(targetCircleColor)
                                             .textColor(textColor)
-                                            .tintTarget(tintTarget)
+                                            .tintTarget(true)
                                             .drawShadow(true)
                                             .id(id)
                             );
@@ -2649,7 +2648,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                             .outerCircleColor(outerCircleColor)
                                             .targetCircleColor(targetCircleColor)
                                             .textColor(textColor)
-                                            .tintTarget(tintTarget)
+                                            .tintTarget(true)
                                             .drawShadow(true)
                                             .id(id)
                             );
@@ -2698,7 +2697,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
-                                    .tintTarget(tintTarget)
+                                    .tintTarget(true)
                                     .drawShadow(true)
                                     .id(1)
                     );

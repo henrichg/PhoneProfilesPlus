@@ -656,7 +656,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 int textColor = R.color.tabTargetHelpTextColor;
 //                if (appTheme.equals("dark"))
 //                    textColor = R.color.tabTargetHelpTextColor_dark;
-                boolean tintTarget = !applicationTheme.equals("white");
+                //boolean tintTarget = !applicationTheme.equals("white");
 
                 final TapTargetSequence sequence = new TapTargetSequence(this);
                 if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
@@ -673,7 +673,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
-                                        .tintTarget(tintTarget)
+                                        .tintTarget(true)
                                         .drawShadow(true)
                                         .id(id)
                         );
@@ -685,7 +685,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
-                                        .tintTarget(tintTarget)
+                                        .tintTarget(true)
                                         .drawShadow(true)
                                         .id(id)
                         );
@@ -703,7 +703,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
-                                        .tintTarget(tintTarget)
+                                        .tintTarget(true)
                                         .drawShadow(true)
                                         .id(id)
                         );

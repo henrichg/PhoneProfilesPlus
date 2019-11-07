@@ -395,7 +395,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
             int textColor = R.color.tabTargetHelpTextColor;
 //                if (appTheme.equals("dark"))
 //                    textColor = R.color.tabTargetHelpTextColor_dark;
-            boolean tintTarget = !appTheme.equals("white");
+            //boolean tintTarget = !appTheme.equals("white");
 
             final TapTargetSequence sequence = new TapTargetSequence(activity);
 
@@ -427,21 +427,21 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
-                                    .tintTarget(tintTarget)
+                                    .tintTarget(true)
                                     .drawShadow(true)
                                     .id(1),
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_profileMenu_title), activity.getString(R.string.editor_activity_targetHelps_profileMenu_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
-                                    .tintTarget(tintTarget)
+                                    .tintTarget(true)
                                     .drawShadow(true)
                                     .id(2),
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_drag_handle), activity.getString(R.string.editor_activity_targetHelps_profileOrderHandler_title), activity.getString(R.string.editor_activity_targetHelps_profileOrderHandler_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
-                                    .tintTarget(tintTarget)
+                                    .tintTarget(true)
                                     .drawShadow(true)
                                     .id(3)
                     );
@@ -460,21 +460,21 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
-                                    .tintTarget(tintTarget)
+                                    .tintTarget(true)
                                     .drawShadow(true)
                                     .id(1),
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_show_in_activator), activity.getString(R.string.editor_activity_targetHelps_showInActivator_title), activity.getString(R.string.editor_activity_targetHelps_showInActivator_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
-                                    .tintTarget(tintTarget)
+                                    .tintTarget(true)
                                     .drawShadow(true)
                                     .id(2),
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_profileMenu_title), activity.getString(R.string.editor_activity_targetHelps_profileMenu_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
-                                    .tintTarget(tintTarget)
+                                    .tintTarget(true)
                                     .drawShadow(true)
                                     .id(3)
                     );
@@ -487,14 +487,14 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
-                                    .tintTarget(tintTarget)
+                                    .tintTarget(true)
                                     .drawShadow(true)
                                     .id(1),
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_profileMenu_title), activity.getString(R.string.editor_activity_targetHelps_profileMenu_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
-                                    .tintTarget(tintTarget)
+                                    .tintTarget(true)
                                     .drawShadow(true)
                                     .id(2)
                     );
@@ -514,7 +514,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
-                                    .tintTarget(tintTarget)
+                                    .tintTarget(true)
                                     .drawShadow(true)
                                     .id(1)
                     );
@@ -533,7 +533,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
-                                    .tintTarget(tintTarget)
+                                    .tintTarget(true)
                                     .drawShadow(true)
                                     .id(1)
                     );

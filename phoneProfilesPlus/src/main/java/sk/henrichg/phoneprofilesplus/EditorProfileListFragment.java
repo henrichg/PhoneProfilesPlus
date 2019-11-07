@@ -1073,7 +1073,7 @@ public class EditorProfileListFragment extends Fragment
                 int textColor = R.color.tabTargetHelpTextColor;
 //                if (appTheme.equals("dark"))
 //                    textColor = R.color.tabTargetHelpTextColor_dark;
-                boolean tintTarget = !appTheme.equals("white");
+                //boolean tintTarget = !appTheme.equals("white");
 
                 final TapTargetSequence sequence = new TapTargetSequence(getActivity());
                 List<TapTarget> targets = new ArrayList<>();
@@ -1085,7 +1085,7 @@ public class EditorProfileListFragment extends Fragment
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
-                                        .tintTarget(tintTarget)
+                                        .tintTarget(true)
                                         .drawShadow(true)
                                         .id(id)
                         );
@@ -1098,7 +1098,7 @@ public class EditorProfileListFragment extends Fragment
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
-                                        .tintTarget(tintTarget)
+                                        .tintTarget(true)
                                         .drawShadow(true)
                                         .id(id)
                         );
@@ -1113,7 +1113,7 @@ public class EditorProfileListFragment extends Fragment
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
-                                        .tintTarget(tintTarget)
+                                        .tintTarget(true)
                                         .drawShadow(true)
                                         .id(id)
                         );

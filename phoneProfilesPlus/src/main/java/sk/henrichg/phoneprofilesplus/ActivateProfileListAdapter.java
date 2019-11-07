@@ -293,7 +293,7 @@ class ActivateProfileListAdapter extends BaseAdapter
             int textColor = R.color.tabTargetHelpTextColor;
 //                if (appTheme.equals("dark"))
 //                    textColor = R.color.tabTargetHelpTextColor_dark;
-            boolean tintTarget = !appTheme.equals("white");
+            //boolean tintTarget = !appTheme.equals("white");
 
             sequence.targets(
                     TapTarget.forBounds(profileItemTarget, activity.getString(R.string.activator_activity_targetHelps_activateProfile_title), activity.getString(R.string.activator_activity_targetHelps_activateProfile_description))
@@ -301,7 +301,7 @@ class ActivateProfileListAdapter extends BaseAdapter
                             .outerCircleColor(outerCircleColor)
                             .targetCircleColor(targetCircleColor)
                             .textColor(textColor)
-                            .tintTarget(tintTarget)
+                            .tintTarget(true)
                             .drawShadow(true)
                             .id(1)
             );

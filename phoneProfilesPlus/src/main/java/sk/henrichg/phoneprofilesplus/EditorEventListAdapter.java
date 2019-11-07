@@ -378,7 +378,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
             int textColor = R.color.tabTargetHelpTextColor;
 //                if (appTheme.equals("dark"))
 //                    textColor = R.color.tabTargetHelpTextColor_dark;
-            boolean tintTarget = !appTheme.equals("white");
+            //boolean tintTarget = !appTheme.equals("white");
 
             //Log.d("EditorEventListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
@@ -414,28 +414,28 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
-                                    .tintTarget(tintTarget)
+                                    .tintTarget(true)
                                     .drawShadow(true)
                                     .id(1),
                             TapTarget.forView(listItemView.findViewById(R.id.event_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_eventMenu_title), activity.getString(R.string.editor_activity_targetHelps_eventMenu_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
-                                    .tintTarget(tintTarget)
+                                    .tintTarget(true)
                                     .drawShadow(true)
                                     .id(2),
                             TapTarget.forView(listItemView.findViewById(R.id.event_list_item_ignore_manual_activation), activity.getString(R.string.editor_activity_targetHelps_ignoreManualActivation_title), activity.getString(R.string.editor_activity_targetHelps_ignoreManualActivation_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
-                                    .tintTarget(tintTarget)
+                                    .tintTarget(true)
                                     .drawShadow(true)
                                     .id(3),
                             TapTarget.forView(listItemView.findViewById(R.id.event_list_drag_handle), activity.getString(R.string.editor_activity_targetHelps_eventOrderHandler_title), activity.getString(R.string.editor_activity_targetHelps_eventOrderHandler_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
-                                    .tintTarget(tintTarget)
+                                    .tintTarget(true)
                                     .drawShadow(true)
                                     .id(4),
                             TapTarget.forView(listItemView.findViewById(R.id.event_list_item_status), activity.getString(R.string.editor_activity_targetHelps_eventStatusIcon_title), activity.getString(R.string.editor_activity_targetHelps_eventStatusIcon_description))
@@ -455,21 +455,21 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
-                                    .tintTarget(tintTarget)
+                                    .tintTarget(true)
                                     .drawShadow(true)
                                     .id(1),
                             TapTarget.forView(listItemView.findViewById(R.id.event_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_eventMenu_title), activity.getString(R.string.editor_activity_targetHelps_eventMenu_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
-                                    .tintTarget(tintTarget)
+                                    .tintTarget(true)
                                     .drawShadow(true)
                                     .id(2),
                             TapTarget.forView(listItemView.findViewById(R.id.event_list_item_ignore_manual_activation), activity.getString(R.string.editor_activity_targetHelps_ignoreManualActivation_title), activity.getString(R.string.editor_activity_targetHelps_ignoreManualActivation_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
-                                    .tintTarget(tintTarget)
+                                    .tintTarget(true)
                                     .drawShadow(true)
                                     .id(3),
                             TapTarget.forView(listItemView.findViewById(R.id.event_list_item_status), activity.getString(R.string.editor_activity_targetHelps_eventStatusIcon_title), activity.getString(R.string.editor_activity_targetHelps_eventStatusIcon_description))
@@ -493,7 +493,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
-                                    .tintTarget(tintTarget)
+                                    .tintTarget(true)
                                     .drawShadow(true)
                                     .id(1)
                     );
