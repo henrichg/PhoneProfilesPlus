@@ -715,47 +715,51 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                         .setInputData(workData)
                         .build();
 
-        WorkManager workManager = WorkManager.getInstance(getApplicationContext());
-        workManager.enqueue(fetchAddressWorker);
+        try {
+            WorkManager workManager = WorkManager.getInstance(getApplicationContext());
+            workManager.enqueue(fetchAddressWorker);
 
-        workManager.getWorkInfoByIdLiveData(fetchAddressWorker.getId())
-                .observe(this, new Observer<WorkInfo>() {
-                    @Override
-                    public void onChanged(@Nullable WorkInfo workInfo) {
-                        PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "xxx");
+            workManager.getWorkInfoByIdLiveData(fetchAddressWorker.getId())
+                    .observe(this, new Observer<WorkInfo>() {
+                        @Override
+                        public void onChanged(@Nullable WorkInfo workInfo) {
+                            PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "xxx");
 
-                        if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
-                            PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "WorkInfo.State.SUCCEEDED");
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                                PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "WorkInfo.State.SUCCEEDED");
 
-                            Data outputData = workInfo.getOutputData();
-                            PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "outputData="+outputData);
+                                Data outputData = workInfo.getOutputData();
+                                PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "outputData=" + outputData);
 
-                            int resultCode = outputData.getInt(RESULT_CODE, FAILURE_RESULT);
-                            PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "resultCode="+resultCode);
+                                int resultCode = outputData.getInt(RESULT_CODE, FAILURE_RESULT);
+                                PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "resultCode=" + resultCode);
 
-                            boolean enableAddressButton = false;
-                            if (resultCode == SUCCESS_RESULT) {
-                                PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "resultCode="+resultCode);
+                                boolean enableAddressButton = false;
+                                if (resultCode == SUCCESS_RESULT) {
+                                    PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "resultCode=" + resultCode);
 
-                                // Display the address string
-                                // or an error message sent from the intent service.
-                                String addressOutput = outputData.getString(RESULT_DATA_KEY);
-                                PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "addressOutput="+addressOutput);
+                                    // Display the address string
+                                    // or an error message sent from the intent service.
+                                    String addressOutput = outputData.getString(RESULT_DATA_KEY);
+                                    PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "addressOutput=" + addressOutput);
 
-                                addressText.setText(addressOutput);
+                                    addressText.setText(addressOutput);
 
-                                if (outputData.getBoolean(UPDATE_NAME_EXTRA, false))
-                                    geofenceNameEditText.setText(addressOutput);
+                                    if (outputData.getBoolean(UPDATE_NAME_EXTRA, false))
+                                        geofenceNameEditText.setText(addressOutput);
 
-                                updateEditedMarker(false);
+                                    updateEditedMarker(false);
 
-                                enableAddressButton = true;
+                                    enableAddressButton = true;
+                                }
+
+                                GlobalGUIRoutines.setImageButtonEnabled(enableAddressButton, addressButton, R.drawable.ic_button_location_address, getApplicationContext());
                             }
-
-                            GlobalGUIRoutines.setImageButtonEnabled(enableAddressButton, addressButton, R.drawable.ic_button_location_address, getApplicationContext());
                         }
-                    }
-                });
+                    });
+        } catch (Exception e) {
+            Log.e("LocationGeofenceEditorActivity.startIntentService", Log.getStackTraceString(e));
+        }
 
     }
 
