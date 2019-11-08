@@ -34,6 +34,8 @@
         android:id="@+id/write_nfc_tag_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         android:layout_gravity="center_horizontal"
         android:background="?attr/selectableItemBackground"
         android:textColor="@color/action_button_text_color"

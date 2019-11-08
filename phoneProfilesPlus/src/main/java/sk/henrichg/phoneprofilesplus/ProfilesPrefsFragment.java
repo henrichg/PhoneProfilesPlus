@@ -1782,7 +1782,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME,
                                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME));
-                if (value != null) {
+                if ((value != null) &&
+                        (!value.equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME)))){
                     String[] splits = value.split("\\|");
 
                     summary = summary + title + ": <b>" + context.getString(R.string.applications_multiselect_summary_text_selected) + " " + splits.length + "</b>";
@@ -1810,7 +1811,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME,
                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME));
-                if (value != null) {
+                if ((value != null) &&
+                        (!value.equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME)))){
                     String[] splits = value.split("\\|");
 
                     summary = summary + title + ": <b>" + context.getString(R.string.applications_multiselect_summary_text_selected) + " " + splits.length + "</b>";

@@ -115,8 +115,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp">
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp">
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/applications_editor_dialog_addIntent"
@@ -143,6 +143,7 @@
                     android:id="@+id/applications_editor_dialog_startApplicationDelay_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
                     android:textSize="15sp"
                     android:text="@string/applications_editor_dialog_startApplicationDelay" />
 
@@ -150,6 +151,8 @@
                     android:id="@+id/applications_editor_dialog_startApplicationDelay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="-5dp"
+                    android:padding="5dp"
                     android:textColor="?attr/colorAccent"
                     android:textSize="18sp"
                     android:background="?attr/selectableItemBackground" />
