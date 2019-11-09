@@ -3573,10 +3573,12 @@ public class PhoneProfilesService extends Service
                         PPApplication.serviceBinaryExists(false);
                         PPApplication.getServicesList();
 
-                        // get list of TRANSACTIONS for "phone"
-                        Object serviceManager = PPApplication.getServiceManager("phone");
-                        if (serviceManager != null) {
-                            PPApplication.getTransactionCode(String.valueOf(serviceManager), "");
+                        if (PPApplication.logEnabled()) {
+                            // get list of TRANSACTIONS for "phone"
+                            Object serviceManager = PPApplication.getServiceManager("phone");
+                            if (serviceManager != null) {
+                                PPApplication.getTransactionCode(String.valueOf(serviceManager), "");
+                            }
                         }
 
                         GlobalGUIRoutines.setLanguage(appContext);
