@@ -116,7 +116,7 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:resizeableActivity="false"
+        android:resizeableActivity="true"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
         <!-- android:resizeableActivity="false"
            disabled multi window support
