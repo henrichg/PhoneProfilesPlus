@@ -16,7 +16,7 @@ class EventStatusPopupWindow extends GuiInfoPopupWindow {
         super(R.layout.event_status_popup_window, R.string.editor_event_list_item_event_status, fragment.getActivity());
 
         // Disable default animation
-        setAnimationStyle(0);
+        //setAnimationStyle(0);
 
         final TextView textView = popupView.findViewById(R.id.event_status_popup_window_text7);
         textView.setClickable(true);

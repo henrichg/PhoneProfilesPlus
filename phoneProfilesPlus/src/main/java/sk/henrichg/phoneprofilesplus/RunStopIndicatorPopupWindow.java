@@ -15,7 +15,7 @@ class RunStopIndicatorPopupWindow extends GuiInfoPopupWindow {
         super(R.layout.run_stop_indicator_popup_window, R.string.editor_activity_targetHelps_trafficLightIcon_title, activity);
 
         // Disable default animation
-        setAnimationStyle(0);
+        //setAnimationStyle(0);
 
         final TextView textView = popupView.findViewById(R.id.run_stop_indicator_popup_window_important_info);
         textView.setClickable(true);

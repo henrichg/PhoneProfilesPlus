@@ -28,6 +28,9 @@ class GuiInfoPopupWindow extends RelativePopupWindow {
         setOutsideTouchable(true);
         setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+        setAnimationStyle(R.style.popup_window_animation);
+        //update(0, 0, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
         ViewGroup root = (ViewGroup) activity.getWindow().getDecorView().getRootView();
         applyDim(root);
 

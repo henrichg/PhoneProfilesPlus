@@ -17,7 +17,7 @@ class DialogHelpPopupWindowX extends GuiInfoPopupWindow {
         dialog = _dialog;
 
         // Disable default animation
-        setAnimationStyle(0);
+        //setAnimationStyle(0);
 
         if (dialog.getWindow() != null) {
             ViewGroup root = (ViewGroup) dialog.getWindow().getDecorView().getRootView();

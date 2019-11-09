@@ -96,4 +96,9 @@
         <item name="android:textColor">@color/text_view_color</item>
     </style>
 
+    <style name="popup_window_animation">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+    </style>
+
 </resources>
