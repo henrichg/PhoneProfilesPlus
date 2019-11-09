@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Base.Theme.PhoneProfilesTheme_activator_dayNight" parent="Theme.AppCompat.DayNight.Dialog">
+
+        <!-- disable initial empty screen - useful for dark theme -->
+        <item name="android:windowDisablePreview">true</item>
+
+        <item name="windowNoTitle">true</item>
+
+        <!-- customize the color palette -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primaryDark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="colorAccentDisabled">@color/accent_disabled</item>
+
+        <item name="android:textViewStyle">@style/TextViewTheme</item>
+        <item name="android:windowBackground">@color/activityBackgroundColor</item>
+        <item name="activityBackgroundColor">@color/activityBackgroundColor</item>
+        <item name="activityTextColor">@color/activityTextColor</item>
+        <item name="activitySecondaryTextColor">@color/activitySecondaryTextColor</item>
+        <item name="activityDisabledTextColor">@color/activityDisabledTextColor</item>
+        <item name="activityCommandBackgroundColor">@color/activityCommandBackgroundColor</item>
+
+        <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="toolbarPopupMenu">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="bottomToolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+
+        <item name="actionNewProfileIcon">@drawable/ic_action_new_profile</item>
+        <item name="actionDeleteAllIcon">@drawable/ic_action_delete_all</item>
+        <item name="actionEditProfilesIcon">@drawable/ic_action_edit_profiles</item>
+<!--        <item name="activityPopupBackground">@color/activityPopupBackground</item>-->
+        <item name="dragHandleIcon">@drawable/ic_drag_handle</item>
+        <item name="actionProfilePrefSave">@drawable/ic_action_profile_pref_save</item>
+<!--        <item name="actionProfilePrefCancel">@drawable/ic_action_profile_pref_cancel</item>-->
+<!--        <item name="actionProfileButtonTextStyle">@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse</item>-->
+        <!--<item name="navigationDrawerBackground">@color/navigationDrawerBackground</item>-->
+        <!--<item name="navigationDrawerInsetForeground">@color/navigationDrawerInsetForeground</item>-->
+        <!--<item name="navigationDrawerText">@color/navigationDrawerTextColor</item>-->
+<!--        <item name="navigationDrawerSubText">@color/navigationDrawerSubTextColor</item> -->
+        <!--<item name="navigationDrawerItemBackgroundColor">@color/navigationDrawerItemBackground</item>-->
+        <!--<item name="navigationDrawerItemBackgroundPressedColor">@color/navigationDrawerItemBackgroundPressed</item>-->
+<!--        <item name="filterStatusBarBackground">@color/primary</item>-->
+<!--         <item name="editorDrawerSpinner">@style/editorDrawerSpinnerStyle</item>   --> 
+<!--        <item name="preferenceDialogBackground">@color/preferenceDialogBackground</item>-->
+        <item name="editItemMenuIcon">@drawable/ic_list_item_edit_menu</item>
+        <item name="actionEventsRestartIcon">@drawable/ic_action_events_restart</item>
+        <item name="importantInfoEventsRestartIcon">@drawable/ic_important_info_events_restart</item>
+<!--        <item name="android:actionModeBackground">?attr/colorPrimary</item>-->
+<!--        <item name="actionModeBackground">?attr/colorPrimary</item>-->
+<!--        <item name="actionModeCloseButtonStyle">@style/NoCloseButton</item>-->
+<!--        <item name="android:actionModeCloseButtonStyle">@style/NoCloseButton</item>-->
+        <!--<item name="editorDrawerListHeaderBackground">@drawable/editor_drawer_list_header_background</item>-->
+<!--        <item name="editorDrawerListHeaderTitle">@color/editorDrawerListHeaderTitleColor</item>-->
+        <!--<item name="editorDrawerFilterHeaderBg">@drawable/ic_events_drawer_filter_header_bg</item>-->
+        <item name="dialogDivider">@color/dialog_divider</item>
+        <!--<item name="actionActivityLogIcon">@drawable/ic_action_activity_log</item>-->
+        <item name="actionActivityLogReloadIcon">@drawable/ic_action_activity_log_reload</item>
+        <item name="actionActivityLogPlayIcon">@drawable/ic_action_play</item>
+        <item name="actionActivityLogPauseIcon">@drawable/ic_action_activity_log_pause</item>
+        <item name="alertDialogTheme">@style/AlertDialogStyleDayNight</item>
+        <item name="dialogTheme">@style/DialogStyleDayNight</item>
+        <!--<item name="actionSharedProfileIcon">@drawable/ic_action_shared_profile</item>-->
+        <item name="actionHelpIcon">@drawable/ic_action_help</item>
+        <item name="fastScrollTrackPP">@color/fastScrollTrackPP</item>
+        <item name="fastScrollThumbPP">@color/fastScrollThumbPP</item>
+        <item name="fastScrollPopupBackgroundPP">@color/fastScrollPopupBackgroundPP</item>
+        <item name="fastScrollPopupTextPP">@color/fastScrollPopupTextPP</item>
+        <item name="actionDefaultProfile">@drawable/ic_action_default_profile</item>
+        <item name="actionRunStopEventsIcon">@drawable/ic_action_play</item>
+        <item name="editorSpinnerDropDownTextColor">@color/activityTextColor</item>
+        <item name="editorFilterTitleColor">@color/editorFilterTitleColor</item>
+        <item name="runEventsIndicatorAll">@drawable/ic_run_events_indicator_all</item>
+        <item name="buttonBackground">@drawable/pp_button_background</item>
+<!--        <item name="eventPauseTextColor">@color/eventPauseTextColor</item>-->
+        <item name="eventStopTextColor">@color/eventStopTextColor</item>
+        <item name="eventStopStatusIndicator">@drawable/ic_event_status_stop</item>
+<!--        <item name="eventInDelayTextColor">@color/eventInDelayTextColor</item>-->
+        <item name="sensorPassStatusPassed">@color/sensor_pass_status_passed</item>
+        <item name="sensorPassStatusNotPassed">@color/sensor_pass_status_not_passed</item>
+        <item name="sensorPassStatusWaiting">@color/sensor_pass_status_waiting</item>
+        <item name="activityLogTypeOther">@color/altype_other</item>
+        <item name="infoPreferenceIcon">@drawable/ic_info_preference_icon</item>
+        <item name="exclamationPreferenceIcon">@drawable/ic_exclamation_preference_icon</item>
+
+    </style>
+
+</resources>

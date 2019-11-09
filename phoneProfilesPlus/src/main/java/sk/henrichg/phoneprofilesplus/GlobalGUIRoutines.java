@@ -140,14 +140,14 @@ class GlobalGUIRoutines {
         }*/
     }
 
-    public static void setTheme(Activity activity, boolean forPopup, boolean withToolbar/*, boolean withDrawerLayout*/)
+    public static void setTheme(Activity activity, boolean forPopup, boolean withToolbar/*, boolean withDrawerLayout*/, boolean forActivator)
     {
-        int theme = getTheme(forPopup, withToolbar, /*withDrawerLayout,*/ activity);
+        int theme = getTheme(forPopup, withToolbar, /*withDrawerLayout,*/ forActivator, activity);
         if (theme != 0)
             activity.setTheme(theme);
     }
 
-    static int getTheme(boolean forPopup, boolean withToolbar, /*boolean withDrawerLayout,*/ Context context) {
+    static int getTheme(boolean forPopup, boolean withToolbar, /*boolean withDrawerLayout,*/ boolean forActivator, Context context) {
         switch (ApplicationPreferences.applicationTheme(context, false)) {
             /*case "color":
                 if (forPopup) {
@@ -262,6 +262,10 @@ class GlobalGUIRoutines {
                         return R.style.Theme_PhoneProfilesTheme_color;
                 }*/
         }
+        if (forActivator) {
+            return R.style.ActivatorTheme_dayNight;
+        }
+        else
         if (forPopup) {
             if (withToolbar)
                 return R.style.PopupTheme_withToolbar_dayNight;
@@ -965,7 +969,7 @@ class GlobalGUIRoutines {
         //final TypedValue value = new TypedValue();
         //context.getTheme().resolveAttribute(R.attr.eventStopStatusIndicator, value, true);
         //return value.data;
-        int theme = GlobalGUIRoutines.getTheme(false, false, /*false,*/ context);
+        int theme = GlobalGUIRoutines.getTheme(false, false, /*false,*/ false, context);
         if (theme != 0) {
             TypedArray a = context.getTheme().obtainStyledAttributes(theme, new int[]{R.attr.eventStopStatusIndicator});
             return a.getResourceId(0, 0);

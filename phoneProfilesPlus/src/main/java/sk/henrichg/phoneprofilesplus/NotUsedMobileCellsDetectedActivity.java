@@ -69,7 +69,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
 
         // set theme and language for dialog alert ;-)
         // not working on Android 2.3.x
-        GlobalGUIRoutines.setTheme(this, true, false/*, false*/);
+        GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false);
         GlobalGUIRoutines.setLanguage(this);
 
         PPApplication.logE("NotUsedMobileCellsDetectedActivity.onStart", "xxx");

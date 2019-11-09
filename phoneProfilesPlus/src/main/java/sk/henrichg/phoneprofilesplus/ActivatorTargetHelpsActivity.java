@@ -29,8 +29,8 @@ public class ActivatorTargetHelpsActivity extends AppCompatActivity {
             return;
         }*/
 
-        GlobalGUIRoutines.setTheme(this, true, true/*, false*/);
-        GlobalGUIRoutines.setLanguage(this);
+        //GlobalGUIRoutines.setTheme(this, true, true/*, false*/);
+        //GlobalGUIRoutines.setLanguage(this);
 
         Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".ShowActivatorTargetHelpsBroadcastReceiver");
         intent.putExtra(ActivateProfileActivity.EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, true);

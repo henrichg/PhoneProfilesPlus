@@ -379,7 +379,7 @@ public class ActivateProfileListFragment extends Fragment {
                         if (fragment.getActivity() != null)
                             ((ActivateProfileActivity)fragment.getActivity()).startTargetHelpsActivity();
                     }
-                }, 1000);
+                }, 500);
 
             }
         }

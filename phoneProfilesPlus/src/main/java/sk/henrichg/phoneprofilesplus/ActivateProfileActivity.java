@@ -6,16 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.WindowManager.LayoutParams;
 import android.widget.ImageView;
 
 import com.getkeepsafe.taptargetview.TapTarget;
@@ -101,11 +96,12 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
         PPApplication.logE("ActivateProfileActivity.onCreate", "xxx");
 
-        GlobalGUIRoutines.setTheme(this, true, true/*, false*/);
+        GlobalGUIRoutines.setTheme(this, true, true/*, false*/, true);
         GlobalGUIRoutines.setLanguage(this);
 
-    // set window dimensions ----------------------------------------------------------
+    // set window dimensions - not needed, Activator uses Dialog theme ------------------------------
 
+    /*
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND, WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         LayoutParams params = getWindow().getAttributes();
         params.alpha = 1.0f;
@@ -115,10 +111,10 @@ public class ActivateProfileActivity extends AppCompatActivity {
         int actionBarHeight;
 
         // display dimensions
-        DisplayMetrics displaymetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        float popupWidth = displaymetrics.widthPixels;
-        float popupMaxHeight = displaymetrics.heightPixels;
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        float popupWidth = displayMetrics.widthPixels;
+        float popupMaxHeight = displayMetrics.heightPixels;
         //Display display = getWindowManager().getDefaultDisplay();
         //float popupWidth = display.getWidth();
         //popupMaxHeight = display.getHeight();
@@ -195,7 +191,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
         // set popup window dimensions
         getWindow().setLayout((int) (popupWidth + 0.5f), (int) (popupHeight + 0.5f));
-
+    */
 
     //-----------------------------------------------------------------------------------
 
@@ -307,6 +303,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean ret = super.onPrepareOptionsMenu(menu);
 
         // change global events run/stop menu item title
         MenuItem menuItem = menu.findItem(R.id.menu_restart_events);
@@ -316,7 +313,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
             menuItem.setEnabled(PPApplication.getApplicationStarted(getApplicationContext(), true));
         }
 
-        return super.onPrepareOptionsMenu(menu);
+        return ret;
     }
 
 
@@ -437,11 +434,6 @@ public class ActivateProfileActivity extends AppCompatActivity {
     }
 
     public void startTargetHelpsActivity() {
-        /*if (Build.VERSION.SDK_INT <= 19)
-            // TapTarget.forToolbarMenuItem FC :-(
-            // Toolbar.findViewById() returns null
-            return;*/
-
         ApplicationPreferences.getSharedPreferences(this);
 
         if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||

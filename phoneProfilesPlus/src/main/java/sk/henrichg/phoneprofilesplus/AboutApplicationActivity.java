@@ -31,7 +31,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, false/*, false*/); // must by called before super.onCreate()
+        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false); // must by called before super.onCreate()
         GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
