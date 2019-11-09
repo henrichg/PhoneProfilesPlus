@@ -280,7 +280,7 @@ public class ActivateProfileListFragment extends Fragment {
             final ActivateProfileListFragment fragment = this.fragmentWeakRef.get();
 
             if ((fragment != null) && (fragment.isAdded())) {
-                /*progressBarHandler = new Handler(this.dataWrapper.context.getMainLooper());
+                progressBarHandler = new Handler(this.dataWrapper.context.getMainLooper());
                 progressBarRunnable = new Runnable() {
                     @Override
                     public void run() {
@@ -288,8 +288,8 @@ public class ActivateProfileListFragment extends Fragment {
                         fragment.progressBar.setVisibility(View.VISIBLE);
                     }
                 };
-                progressBarHandler.postDelayed(progressBarRunnable, 100);*/
-                fragment.progressBar.setVisibility(View.VISIBLE);
+                progressBarHandler.postDelayed(progressBarRunnable, 100);
+                //fragment.progressBar.setVisibility(View.VISIBLE);
             }
         }
 
@@ -330,7 +330,7 @@ public class ActivateProfileListFragment extends Fragment {
             final ActivateProfileListFragment fragment = this.fragmentWeakRef.get();
             
             if ((fragment != null) && (fragment.isAdded())) {
-                //progressBarHandler.removeCallbacks(progressBarRunnable);
+                progressBarHandler.removeCallbacks(progressBarRunnable);
                 fragment.progressBar.setVisibility(View.GONE);
 
                 // get local profileList

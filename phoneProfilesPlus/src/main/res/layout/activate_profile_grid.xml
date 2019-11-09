@@ -104,7 +104,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical"
-            android:visibility="gone" >
+            android:visibility="invisible" >
 
             <ProgressBar
                 android:id="@+id/act_prof_list_progress"
