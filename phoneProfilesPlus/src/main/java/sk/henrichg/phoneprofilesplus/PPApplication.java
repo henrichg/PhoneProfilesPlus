@@ -110,6 +110,9 @@ public class PPApplication extends Application {
                                          +"|PhoneProfilesBackupAgent"
                                          +"|ShutdownBroadcastReceiver"
 
+                                         // for list of TRANSACTION_* for "phone" service
+                                         //+"|[LIST] PPApplication.getTransactionCode"
+
                                          //+"|PhoneProfilesService.onConfigurationChanged"
                                          //+"|IgnoreBatteryOptimizationNotification"
 
@@ -268,8 +271,10 @@ public class PPApplication extends Application {
 
                                          //+"|ActivateProfileHelper.setAirplaneMode_SDK17"
                                          //+"|ActivateProfileHelper.executeForRadios"
-                                         //+"|$$$ WifiAP"
-
+                                         +"|ActivateProfileHelper.setMobileData"
+                                        //+"|ActivateProfileHelper.doExecuteForRadios"
+                                        //+"|CmdMobileData.isEnabled"
+                                        //+"|$$$ WifiAP"
 
                                          //+"|DeviceIdleModeBroadcastReceiver"
 
@@ -347,10 +352,6 @@ public class PPApplication extends Application {
                                          */
                                          //+"|@@@ EventsHandler.handleEvents"
                                          //+"|EventsHandler.doEndService"
-
-                                         //+"|ActivateProfileHelper.doExecuteForRadios"
-                                         //+"|CmdMobileData.isEnabled"
-                                         //+"|$$$ WifiAP"
 
                                          //+"|RunApplicationWithDelayBroadcastReceiver"
 
@@ -1901,6 +1902,31 @@ public class PPApplication extends Application {
             else
                 serviceListMutex.serviceList.clear();
         }
+
+        try
+        {
+            //noinspection RegExpRedundantEscape
+            Pattern compile = Pattern.compile("^[0-9]+\\s+([a-zA-Z0-9_\\-\\.]+): \\[(.*)\\]$");
+            Process p=Runtime.getRuntime().exec("service list");
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                Matcher matcher = compile.matcher(line);
+                if (matcher.find()) {
+                    synchronized (PPApplication.serviceListMutex) {
+                        //serviceListMutex.serviceList.add(new Pair(matcher.group(1), matcher.group(2)));
+                        serviceListMutex.serviceList.add(Pair.create(matcher.group(1), matcher.group(2)));
+                        //PPApplication.logE("$$$ WifiAP", "PhoneProfilesService.getServicesList - matcher.group(1)="+matcher.group(1));
+                        //PPApplication.logE("$$$ WifiAP", "PhoneProfilesService.getServicesList - matcher.group(2)="+matcher.group(2));
+                    }
+                }
+            }
+        }
+        catch (Exception e) {
+            Log.e("PPApplication.getServicesList", Log.getStackTraceString(e));
+        }
+
+        /*
         synchronized (PPApplication.rootMutex) {
             //noinspection RegExpRedundantEscape
             final Pattern compile = Pattern.compile("^[0-9]+\\s+([a-zA-Z0-9_\\-\\.]+): \\[(.*)\\]$");
@@ -1927,6 +1953,7 @@ public class PPApplication extends Application {
                 Log.e("PPApplication.getServicesList", Log.getStackTraceString(e));
             }
         }
+        */
     }
 
     static Object getServiceManager(String serviceType) {
@@ -1952,15 +1979,22 @@ public class PPApplication extends Application {
                 while (iField < length) {
                     Field field = declaredFields2[iField];
                     String name = field.getName();
-                    if (/*name == null ||*/ !name.equals("TRANSACTION_" + method)) {
+                    if (method.isEmpty()) {
+                        if (name.contains("TRANSACTION_"))
+                            PPApplication.logE("[LIST] PPApplication.getTransactionCode", "field.getName()="+name);
                         iField++;
-                    } else {
-                        try {
-                            field.setAccessible(true);
-                            code = field.getInt(field);
-                            break;
-                        } catch (Exception e) {
-                            Log.e("PPApplication.getTransactionCode", Log.getStackTraceString(e));
+                    }
+                    else {
+                        if (/*name == null ||*/ !name.equals("TRANSACTION_" + method)) {
+                            iField++;
+                        } else {
+                            try {
+                                field.setAccessible(true);
+                                code = field.getInt(field);
+                                break;
+                            } catch (Exception e) {
+                                Log.e("PPApplication.getTransactionCode", Log.getStackTraceString(e));
+                            }
                         }
                     }
                 }

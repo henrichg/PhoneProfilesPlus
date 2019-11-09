@@ -361,6 +361,14 @@ public class PhoneProfilesService extends Service
         editor.apply();
         */
 
+        /* moved to doFirstStart after PPApplication.getServiceList()
+        // get list of TRANSACTIONS for "phone"
+        Object serviceManager = PPApplication.getServiceManager("phone");
+        if (serviceManager != null) {
+            PPApplication.getTransactionCode(String.valueOf(serviceManager), "");
+        }
+       */
+
         //PPApplication.initPhoneProfilesServiceMessenger(appContext);
 
         keyguardManager = (KeyguardManager)appContext.getSystemService(Activity.KEYGUARD_SERVICE);
@@ -3564,6 +3572,12 @@ public class PhoneProfilesService extends Service
                         PPApplication.settingsBinaryExists(false);
                         PPApplication.serviceBinaryExists(false);
                         PPApplication.getServicesList();
+
+                        // get list of TRANSACTIONS for "phone"
+                        Object serviceManager = PPApplication.getServiceManager("phone");
+                        if (serviceManager != null) {
+                            PPApplication.getTransactionCode(String.valueOf(serviceManager), "");
+                        }
 
                         GlobalGUIRoutines.setLanguage(appContext);
                         GlobalGUIRoutines.switchNightMode(getApplicationContext(), true);
