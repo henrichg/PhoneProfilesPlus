@@ -3205,8 +3205,18 @@ public class Profile {
                             }
                         }
 
-                        //if (serviceBinaryExists() && telephonyServiceExists(context, PREF_PROFILE_DEVICE_MOBILE_DATA))
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                        //preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+
+                        if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA)) {
+                            if (PPApplication.serviceBinaryExists(fromUIThread))
+                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                            else
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
+                        } else {
+                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                            preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                        }
+
                     }
                     else
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;

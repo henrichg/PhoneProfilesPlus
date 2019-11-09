@@ -932,9 +932,6 @@ class ActivateProfileHelper {
                             PPApplication.commandWait(command);
                             PPApplication.logE("ActivateProfileHelper.setMediaVolume", "set media volume");
                             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, 0);
-                                /*} catch (RootDeniedException ee) {
-                                    PPApplication.rootMutex.rootGranted = false;
-                                    Log.e("ActivateProfileHelper.setVolumes", Log.getStackTraceString(ee));*/
                         } catch (Exception ee) {
                             Log.e("ActivateProfileHelper.setMediaVolume", Log.getStackTraceString(ee));
                         }
@@ -1072,9 +1069,6 @@ class ActivateProfileHelper {
                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                         PPApplication.commandWait(command);
                                         PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
-                                    /*} catch (RootDeniedException e) {
-                                        PPApplication.rootMutex.rootGranted = false;
-                                        Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));*/
                                     } catch (Exception e) {
                                         Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
                                     }
@@ -1296,9 +1290,6 @@ class ActivateProfileHelper {
                                     try {
                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                         PPApplication.commandWait(command);
-                                /*} catch (RootDeniedException e) {
-                                    PPApplication.rootMutex.rootGranted = false;
-                                    Log.e("ActivateProfileHelper.setNotificationLed", Log.getStackTraceString(e));*/
                                     } catch (Exception e) {
                                         Log.e("ActivateProfileHelper.setNotificationLed", Log.getStackTraceString(e));
                                     }
@@ -1348,9 +1339,6 @@ class ActivateProfileHelper {
                                         try {
                                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                             PPApplication.commandWait(command);
-                                    /*} catch (RootDeniedException e) {
-                                        PPApplication.rootMutex.rootGranted = false;
-                                        Log.e("ActivateProfileHelper.setHeadsUpNotifications", Log.getStackTraceString(e));*/
                                         } catch (Exception e) {
                                             Log.e("ActivateProfileHelper.setHeadsUpNotifications", Log.getStackTraceString(e));
                                         }
@@ -1403,9 +1391,6 @@ class ActivateProfileHelper {
                                 try {
                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                     PPApplication.commandWait(command);
-                                /*} catch (RootDeniedException e) {
-                                PPApplication.rootMutex.rootGranted = false;
-                                Log.e("ActivateProfileHelper.setNotificationLed", Log.getStackTraceString(e));*/
                                 } catch (Exception e) {
                                     Log.e("ActivateProfileHelper.setAlwaysOnDisplay", Log.getStackTraceString(e));
                                 }
@@ -2055,9 +2040,6 @@ class ActivateProfileHelper {
                             try {
                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                 PPApplication.commandWait(command);
-                        /*} catch (RootDeniedException e) {
-                            PPApplication.rootMutex.rootGranted = false;
-                            Log.e("ActivateProfileHelper.executeRootForAdaptiveBrightness", Log.getStackTraceString(e));*/
                             } catch (Exception e) {
                                 Log.e("ActivateProfileHelper.executeRootForAdaptiveBrightness", Log.getStackTraceString(e));
                             }
@@ -3130,191 +3112,194 @@ class ActivateProfileHelper {
 
     private static void setMobileData(Context context, boolean enable)
     {
-        //if (android.os.Build.VERSION.SDK_INT >= 21)
-        //{
-            // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.MODIFY_PHONE_STATE
-            // not working :-/
-            /*if (Permissions.hasPermission(context, Manifest.permission.MODIFY_PHONE_STATE)) {
-                if (android.os.Build.VERSION.SDK_INT == 21)
-                {
-                    Method dataConnSwitchMethod;
-                    Class<?> telephonyManagerClass;
-                    Object ITelephonyStub;
-                    Class<?> ITelephonyClass;
-
-                    TelephonyManager telephonyManager = (TelephonyManager) context
-                            .getSystemService(Context.TELEPHONY_SERVICE);
-                    if (telephonyManager != null) {
-                        try {
-                            telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
-                            Method getITelephonyMethod = telephonyManagerClass.getDeclaredMethod("getITelephony");
-                            getITelephonyMethod.setAccessible(true);
-                            ITelephonyStub = getITelephonyMethod.invoke(telephonyManager);
-                            ITelephonyClass = Class.forName(ITelephonyStub.getClass().getName());
-                            dataConnSwitchMethod = ITelephonyClass.getDeclaredMethod("setDataEnabled", Boolean.TYPE);
-
-                            dataConnSwitchMethod.setAccessible(true);
-                            dataConnSwitchMethod.invoke(ITelephonyStub, enable);
-
-                        } catch (Exception ignored) {
-                        }
-                    }
-                }
-                else
-                {
-                    Method setDataEnabledMethod;
-                    Class<?> telephonyManagerClass;
-
-                    TelephonyManager telephonyManager = (TelephonyManager) context
-                            .getSystemService(Context.TELEPHONY_SERVICE);
-                    if (telephonyManager != null) {
-                        try {
-                            telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
-                            setDataEnabledMethod = telephonyManagerClass.getDeclaredMethod("setDataEnabled", Boolean.TYPE);
-                            setDataEnabledMethod.setAccessible(true);
-
-                            setDataEnabledMethod.invoke(telephonyManager, enable);
-
-                        } catch (Exception ignored) {
-                        }
-                    }
-                }
-            }
-            else*/
-            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
-                    (PPApplication.isRooted(false)))
+        // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.MODIFY_PHONE_STATE
+        // not working :-/
+        /*if (Permissions.hasPermission(context, Manifest.permission.MODIFY_PHONE_STATE)) {
+            if (android.os.Build.VERSION.SDK_INT == 21)
             {
-                synchronized (PPApplication.rootMutex) {
-                    String command1 = "svc data " + (enable ? "enable" : "disable");
-                    PPApplication.logE("ActivateProfileHelper.setMobileData", "command=" + command1);
-                    Command command = new Command(0, false, command1)/* {
-                    @Override
-                    public void commandOutput(int id, String line) {
-                        super.commandOutput(id, line);
-                        PPApplication.logE("ActivateProfileHelper.setMobileData","shell output="+line);
-                    }
+                Method dataConnSwitchMethod;
+                Class<?> telephonyManagerClass;
+                Object ITelephonyStub;
+                Class<?> ITelephonyClass;
 
-                    @Override
-                    public void commandTerminated(int id, String reason) {
-                        super.commandTerminated(id, reason);
-                        PPApplication.logE("ActivateProfileHelper.setMobileData","terminated="+reason);
-                    }
-
-                    @Override
-                    public void commandCompleted(int id, int exitCode) {
-                        super.commandCompleted(id, exitCode);
-                        PPApplication.logE("ActivateProfileHelper.setMobileData","completed="+exitCode);
-                    }
-                    }*/;
+                TelephonyManager telephonyManager = (TelephonyManager) context
+                        .getSystemService(Context.TELEPHONY_SERVICE);
+                if (telephonyManager != null) {
                     try {
-                        RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
-                        PPApplication.commandWait(command);
-                        PPApplication.logE("ActivateProfileHelper.setMobileData", "after wait");
-                    /*} catch (RootDeniedException e) {
-                        PPApplication.rootMutex.rootGranted = false;
-                        Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));*/
-                    } catch (Exception e) {
-                        Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
-                    }
+                        telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
+                        Method getITelephonyMethod = telephonyManagerClass.getDeclaredMethod("getITelephony");
+                        getITelephonyMethod.setAccessible(true);
+                        ITelephonyStub = getITelephonyMethod.invoke(telephonyManager);
+                        ITelephonyClass = Class.forName(ITelephonyStub.getClass().getName());
+                        dataConnSwitchMethod = ITelephonyClass.getDeclaredMethod("setDataEnabled", Boolean.TYPE);
 
-                    /*
-                    int state = 0;
-                    try {
-                        // Get the current state of the mobile network.
-                        state = enable ? 1 : 0;
-                        // Get the value of the "TRANSACTION_setDataEnabled" field.
-                        String transactionCode = PPApplication.getTransactionCode(context, "TRANSACTION_setDataEnabled");
-                        //Log.e("ActivateProfileHelper.setMobileData", "transactionCode="+transactionCode);
-                        // Android 5.1+ (API 22) and later.
-                        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-                            //Log.e("ActivateProfileHelper.setMobileData", "dual SIM?");
-                            SubscriptionManager mSubscriptionManager = SubscriptionManager.from(context);
-                            // Loop through the subscription list i.e. SIM list.
-                            for (int i = 0; i < mSubscriptionManager.getActiveSubscriptionInfoCountMax(); i++) {
-                                if (transactionCode != null && transactionCode.length() > 0) {
-                                    // Get the active subscription ID for a given SIM card.
-                                    int subscriptionId = mSubscriptionManager.getActiveSubscriptionInfoList().get(i).getSubscriptionId();
-                                    //Log.e("ActivateProfileHelper.setMobileData", "subscriptionId="+subscriptionId);
-                                    String command1 = "service call phone " + transactionCode + " i32 " + subscriptionId + " i32 " + state;
-                                    Command command = new Command(0, false, command1);
-                                    try {
-                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                        commandWait(command);
-                                    } catch (RootDeniedException e) {
-                                        PPApplication.rootMutex.rootGranted = false;
-                                        Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
-                                    } catch (Exception e) {
-                                        Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
-                                    }
-                                }
-                            }
-                        } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
-                            //Log.e("ActivateProfileHelper.setMobileData", "NO dual SIM?");
-                            // Android 5.0 (API 21) only.
-                            if (transactionCode != null && transactionCode.length() > 0) {
-                                String command1 = "service call phone " + transactionCode + " i32 " + state;
-                                Command command = new Command(0, false, command1);
-                                try {
-                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                    commandWait(command);
-                                } catch (RootDeniedException e) {
-                                    PPApplication.rootMutex.rootGranted = false;
-                                    Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
-                                } catch (Exception e) {
-                                    Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
-                                }
-                            }
-                        }
-                    } catch(Exception e) {
-                        Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
-                    }
-                    */
-                }
-            }
-        /*}
-        else
-        {
-            ConnectivityManager connectivityManager = null;
-            try {
-                connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            } catch (Exception ignored) {
-                // java.lang.NullPointerException: missing IConnectivityManager
-                // Dual SIM?? Bug in Android ???
-            }
-            if (connectivityManager != null) {
-                boolean OK = false;
-                try {
-                    final Class<?> connectivityManagerClass = Class.forName(connectivityManager.getClass().getName());
-                    final Field iConnectivityManagerField = connectivityManagerClass.getDeclaredField("mService");
-                    iConnectivityManagerField.setAccessible(true);
-                    final Object iConnectivityManager = iConnectivityManagerField.get(connectivityManager);
-                    final Class<?> iConnectivityManagerClass = Class.forName(iConnectivityManager.getClass().getName());
-                    final Method setMobileDataEnabledMethod = iConnectivityManagerClass.getDeclaredMethod("setMobileDataEnabled", Boolean.TYPE);
-                    setMobileDataEnabledMethod.setAccessible(true);
-
-                    setMobileDataEnabledMethod.invoke(iConnectivityManager, enable);
-
-                    OK = true;
-
-                } catch (Exception ignored) {
-                }
-
-                if (!OK) {
-                    try {
-                        //noinspection JavaReflectionMemberAccess
-                        @SuppressLint("PrivateApi")
-                        Method setMobileDataEnabledMethod = ConnectivityManager.class.getDeclaredMethod("setMobileDataEnabled", boolean.class);
-
-                        setMobileDataEnabledMethod.setAccessible(true);
-                        setMobileDataEnabledMethod.invoke(connectivityManager, enable);
-
-                        //OK = true;
+                        dataConnSwitchMethod.setAccessible(true);
+                        dataConnSwitchMethod.invoke(ITelephonyStub, enable);
 
                     } catch (Exception ignored) {
                     }
                 }
             }
-        }*/
+            else
+            {
+                Method setDataEnabledMethod;
+                Class<?> telephonyManagerClass;
+
+                TelephonyManager telephonyManager = (TelephonyManager) context
+                        .getSystemService(Context.TELEPHONY_SERVICE);
+                if (telephonyManager != null) {
+                    try {
+                        telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
+                        setDataEnabledMethod = telephonyManagerClass.getDeclaredMethod("setDataEnabled", Boolean.TYPE);
+                        setDataEnabledMethod.setAccessible(true);
+
+                        setDataEnabledMethod.invoke(telephonyManager, enable);
+
+                    } catch (Exception ignored) {
+                    }
+                }
+            }
+        }
+        else*/
+        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
+                (PPApplication.isRooted(false)))
+        {
+/*            synchronized (PPApplication.rootMutex) {
+                String command1 = "svc data " + (enable ? "enable" : "disable");
+                PPApplication.logE("ActivateProfileHelper.setMobileData", "command=" + command1);
+                Command command = new Command(0, false, command1);// {
+//                @Override
+//                public void commandOutput(int id, String line) {
+//                    super.commandOutput(id, line);
+//                    PPApplication.logE("ActivateProfileHelper.setMobileData","shell output="+line);
+//                }
+//
+//                @Override
+//                public void commandTerminated(int id, String reason) {
+//                    super.commandTerminated(id, reason);
+//                    PPApplication.logE("ActivateProfileHelper.setMobileData","terminated="+reason);
+//                }
+//
+//                @Override
+//                public void commandCompleted(int id, int exitCode) {
+//                    super.commandCompleted(id, exitCode);
+//                    PPApplication.logE("ActivateProfileHelper.setMobileData","completed="+exitCode);
+//                }
+//                };
+                try {
+                    RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
+                    PPApplication.commandWait(command);
+                    PPApplication.logE("ActivateProfileHelper.setMobileData", "after wait");
+                } catch (Exception e) {
+                    Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                }
+*/
+                // Get the value of the "TRANSACTION_setDataEnabled" field.
+                Object serviceManager = PPApplication.getServiceManager("phone");
+                int transactionCode = -1;
+                if (serviceManager != null) {
+                    transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDataEnabled");
+                }
+
+                int state = enable ? 1 : 0;
+
+                if (transactionCode != -1) {
+                    // Android 6?
+                    if (Build.VERSION.SDK_INT >= 23) {
+                        SubscriptionManager mSubscriptionManager = (SubscriptionManager)context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                        //SubscriptionManager.from(context);
+                        if (mSubscriptionManager != null) {
+                            List<SubscriptionInfo> subscriptionList = null;
+                            try {
+                                // Loop through the subscription list i.e. SIM list.
+                                subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                            } catch (SecurityException ignored) {
+                            }
+                            if (subscriptionList != null) {
+                                for (int i = 0; i < mSubscriptionManager.getActiveSubscriptionInfoCountMax(); i++) {
+                                    // Get the active subscription ID for a given SIM card.
+                                    SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+                                    if (subscriptionInfo != null) {
+                                        int subscriptionId = subscriptionInfo.getSubscriptionId();
+                                        synchronized (PPApplication.rootMutex) {
+                                            String command1 = PPApplication.getServiceCommand("phone", transactionCode, subscriptionId, state);
+                                            if (command1 != null) {
+                                                Command command = new Command(0, false, command1);
+                                                try {
+                                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                                    PPApplication.commandWait(command);
+                                                } catch (Exception e) {
+                                                    Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        synchronized (PPApplication.rootMutex) {
+                            String command1 = PPApplication.getServiceCommand("phone", transactionCode, state);
+                            if (command1 != null) {
+                                Command command = new Command(0, false, command1);
+                                try {
+                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                    PPApplication.commandWait(command);
+                                } catch (Exception e) {
+                                    Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                                }
+                            }
+                        }
+                    }
+                }
+/*
+                int state = 0;
+                try {
+                    // Get the current state of the mobile network.
+                    state = enable ? 1 : 0;
+                    // Get the value of the "TRANSACTION_setDataEnabled" field.
+                    String transactionCode = PPApplication.getTransactionCode(context, "TRANSACTION_setDataEnabled");
+                    //Log.e("ActivateProfileHelper.setMobileData", "transactionCode="+transactionCode);
+                    // Android 5.1+ (API 22) and later.
+                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+                        //Log.e("ActivateProfileHelper.setMobileData", "dual SIM?");
+                        SubscriptionManager mSubscriptionManager = SubscriptionManager.from(context);
+                        // Loop through the subscription list i.e. SIM list.
+                        for (int i = 0; i < mSubscriptionManager.getActiveSubscriptionInfoCountMax(); i++) {
+                            if (transactionCode != null && transactionCode.length() > 0) {
+                                // Get the active subscription ID for a given SIM card.
+                                int subscriptionId = mSubscriptionManager.getActiveSubscriptionInfoList().get(i).getSubscriptionId();
+                                //Log.e("ActivateProfileHelper.setMobileData", "subscriptionId="+subscriptionId);
+                                String command1 = "service call phone " + transactionCode + " i32 " + subscriptionId + " i32 " + state;
+                                Command command = new Command(0, false, command1);
+                                try {
+                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                    commandWait(command);
+                                } catch (Exception e) {
+                                    Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                                }
+                            }
+                        }
+                    } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
+                        //Log.e("ActivateProfileHelper.setMobileData", "NO dual SIM?");
+                        // Android 5.0 (API 21) only.
+                        if (transactionCode != null && transactionCode.length() > 0) {
+                            String command1 = "service call phone " + transactionCode + " i32 " + state;
+                            Command command = new Command(0, false, command1);
+                            try {
+                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                commandWait(command);
+                            } catch (Exception e) {
+                                Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                            }
+                        }
+                    }
+                } catch(Exception e) {
+                    Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                }
+            }
+*/
+        }
     }
 
     /*
@@ -3352,9 +3337,6 @@ class ActivateProfileHelper {
                     try {
                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                         commandWait(command);
-                    } catch (RootDeniedException e) {
-                        PPApplication.rootMutex.rootGranted = false;
-                        Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
                     } catch (Exception e) {
                         Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
                     }
@@ -3427,9 +3409,6 @@ class ActivateProfileHelper {
                                                 try {
                                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                                     PPApplication.commandWait(command);
-                                            /*} catch (RootDeniedException e) {
-                                                PPApplication.rootMutex.rootGranted = false;
-                                                Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));*/
                                                 } catch (Exception e) {
                                                     Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
                                                 }
@@ -3447,9 +3426,6 @@ class ActivateProfileHelper {
                                 try {
                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                     PPApplication.commandWait(command);
-                                /*} catch (RootDeniedException e) {
-                                    PPApplication.rootMutex.rootGranted = false;
-                                    Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));*/
                                 } catch (Exception e) {
                                     Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
                                 }
@@ -3533,9 +3509,6 @@ class ActivateProfileHelper {
                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                     PPApplication.commandWait(command);
                                     PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-root command end");
-                            /*} catch (RootDeniedException e) {
-                                PPApplication.rootMutex.rootGranted = false;
-                                Log.e("ActivateProfileHelper.setWifiAP", Log.getStackTraceString(e));*/
                                 } catch (Exception e) {
                                     Log.e("ActivateProfileHelper.setWifiAP", Log.getStackTraceString(e));
                                     PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-root command error");
@@ -3577,9 +3550,6 @@ class ActivateProfileHelper {
                     try {
                         RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
                         PPApplication.commandWait(command);
-                    //} catch (RootDeniedException e) {
-                    //    PPApplication.rootMutex.rootGranted = false;
-                    //    Log.e("ActivateProfileHelper.setNFC", Log.getStackTraceString(e));
                     } catch (Exception e) {
                         Log.e("ActivateProfileHelper.setNFC", Log.getStackTraceString(e));
                     }
@@ -3689,9 +3659,6 @@ class ActivateProfileHelper {
                         try {
                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                             PPApplication.commandWait(command);
-                        /*} catch (RootDeniedException e) {
-                            PPApplication.rootMutex.rootGranted = false;
-                            Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));*/
                         } catch (Exception e) {
                             Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
                             PPApplication.logE("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
@@ -3891,9 +3858,6 @@ class ActivateProfileHelper {
                 try {
                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                     PPApplication.commandWait(command);
-                /*} catch (RootDeniedException e) {
-                    PPApplication.rootMutex.rootGranted = false;
-                    Log.e("ActivateProfileHelper.setAirplaneMode_SDK17", Log.getStackTraceString(e));*/
                 } catch (Exception e) {
                     Log.e("ActivateProfileHelper.setAirplaneMode_SDK17", Log.getStackTraceString(e));
                 }
@@ -3966,9 +3930,6 @@ class ActivateProfileHelper {
                                             try {
                                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                                 PPApplication.commandWait(command);
-                                        /*} catch (RootDeniedException e) {
-                                            PPApplication.rootMutex.rootGranted = false;
-                                            Log.e("ActivateProfileHelper.setPowerSaveMode", Log.getStackTraceString(e));*/
                                             } catch (Exception e) {
                                                 Log.e("ActivateProfileHelper.setPowerSaveMode", Log.getStackTraceString(e));
                                             }

@@ -303,9 +303,6 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
                                     try {
                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                         PPApplication.commandWait(command);
-                                /*} catch (RootDeniedException e) {
-                                    PPApplication.rootMutex.rootGranted = false;
-                                    Log.e("BrightnessDialogPreferenceX.setAdaptiveBrightness", Log.getStackTraceString(e));*/
                                     } catch (Exception e) {
                                         Log.e("BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness", Log.getStackTraceString(e));
                                     }

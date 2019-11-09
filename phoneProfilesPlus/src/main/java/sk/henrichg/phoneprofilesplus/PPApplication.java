@@ -1856,9 +1856,6 @@ public class PPApplication extends Application {
                 RootTools.getShell(false).add(command);
                 commandWait(command);
                 suVersionChecked = true;
-            } catch (RootDeniedException e) {
-                PPApplication.rootMutex.rootGranted = false;
-                Log.e("PPApplication.getSUVersion", Log.getStackTraceString(e));
             } catch (Exception e) {
                 Log.e("PPApplication.getSUVersion", Log.getStackTraceString(e));
             }
