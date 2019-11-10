@@ -1433,6 +1433,9 @@
 
     <string name="event_preferences_location_radius_label">Radius (meters)</string>
 
+    <string name="toast_predefined_profiles_generated">Predefined profiles generated</string>
+    <string name="toast_predefined_events_generated">Predefined events generated</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>

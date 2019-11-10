@@ -439,7 +439,7 @@ public class PPApplication extends Application {
 
                                         //+"|EventPreferencesCalendar.saveStartEndTime"
 
-                                        //+"|DatabaseHandler.importDB"
+                                        +"|DatabaseHandler.importDB"
                                         //+ "|ApplicationsMultiSelectDialogPreference.getValueAMSDP"
                                         //+ "|ApplicationsDialogPreference"
                                         //+ "|ApplicationEditorDialogAdapter"

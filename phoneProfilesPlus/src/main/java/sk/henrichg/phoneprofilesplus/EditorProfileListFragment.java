@@ -486,14 +486,14 @@ public class EditorProfileListFragment extends Fragment
                     PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfileListFragment.LoadProfileListAsyncTask");
                     ActivateProfileHelper.updateGUI(_dataWrapper.context, true, true);
                     Toast msg = ToastCompat.makeText(_dataWrapper.context.getApplicationContext(),
-                            fragment.getResources().getString(R.string.toast_default_profiles_generated),
+                            fragment.getResources().getString(R.string.toast_predefined_profiles_generated),
                             Toast.LENGTH_SHORT);
                     msg.show();
                 }
                 if (defaultEventsGenerated)
                 {
                     Toast msg = ToastCompat.makeText(_dataWrapper.context.getApplicationContext(),
-                            fragment.getResources().getString(R.string.toast_default_events_generated),
+                            fragment.getResources().getString(R.string.toast_predefined_events_generated),
                             Toast.LENGTH_SHORT);
                     msg.show();
                 }

@@ -9931,6 +9931,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     File exportedDB = new File(sd, applicationDataPath + "/" + EXPORT_DBFILENAME);
 
                     if (exportedDB.exists()) {
+                        PPApplication.logE("DatabaseHandler.importDB", "exportedDB.getAbsolutePath()="+exportedDB.getAbsolutePath());
                         SQLiteDatabase exportedDBObj = SQLiteDatabase.openDatabase(exportedDB.getAbsolutePath(), null, SQLiteDatabase.OPEN_READONLY);
 
                         if (exportedDBObj.getVersion() <= DATABASE_VERSION) {
