@@ -1069,10 +1069,12 @@
         <item>@string/array_mobile_cells_pref_dlg_cell_sort_by_name</item>
         <item>@string/array_mobile_cells_pref_dlg_cell_sort_by_connection</item>
     </string-array>
+<!--
     <string-array name="showProfileInActivatorArray">
         <item>@string/array_show_profile_in_activator_not_show</item>
         <item>@string/array_show_profile_in_activator_show</item>
     </string-array>
+-->
     <string-array name="alwaysOnDisplayArray">
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_hardwareModeArray_on</item>
@@ -1083,9 +1085,10 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+<!--
     <string-array name="ignoreManualActivationArray">
         <item>@string/array_ignore_manual_activation_not_ignore</item>
         <item>@string/array_ignore_manual_activation_ignore</item>
     </string-array>
-
+-->
 </resources>

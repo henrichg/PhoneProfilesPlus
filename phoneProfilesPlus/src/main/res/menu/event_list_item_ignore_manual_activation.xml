@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/event_list_item_not_ignore_manual_activation"
+        android:title="@string/array_ignore_manual_activation_not_ignore"
+        android:icon="@drawable/ic_not_show_in_activator"
+        android:orderInCategory="100" />
+    <item android:id="@+id/event_list_item_ignore_manual_activation"
+        android:title="@string/array_ignore_manual_activation_ignore"
+        android:icon="@drawable/ic_ignore_manual_activation"
+        android:orderInCategory="101" />
+</menu>

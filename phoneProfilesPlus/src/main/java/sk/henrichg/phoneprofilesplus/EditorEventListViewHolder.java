@@ -420,10 +420,11 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             ignoreManualActivationButton.setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(View v) {
-                    final Event event = (Event)v.getTag();
+                    editorFragment.showIgnoreManualActivationMenu(ignoreManualActivationButton);
+                    /*final Event event = (Event)v.getTag();
                     if (event != null) {
                         editorFragment.updateEventForceRun(event);
-                    }
+                    }*/
                 }
             });
         }

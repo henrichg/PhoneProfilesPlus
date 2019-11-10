@@ -28,6 +28,8 @@ import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
 import java.lang.ref.WeakReference;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -1011,6 +1013,60 @@ public class EditorProfileListFragment extends Fragment
             listView.setAdapter(null);
     }
 
+    @SuppressWarnings("RedundantArrayCreation")
+    void showShowInActivatorMenu(View view)
+    {
+        //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
+        Context context = view.getContext();
+        PopupMenu popup;
+        //if (android.os.Build.VERSION.SDK_INT >= 19)
+        popup = new PopupMenu(context, view, Gravity.END);
+        //else
+        //    popup = new PopupMenu(context, view);
+        //noinspection ConstantConditions
+        getActivity().getMenuInflater().inflate(R.menu.profile_list_item_show_in_activator, popup.getMenu());
+
+        // show icons
+        try {
+            Field field = popup.getClass().getDeclaredField("mPopup");
+            field.setAccessible(true);
+            Object menuPopupHelper = field.get(popup);
+            @SuppressLint("PrivateApi")
+            Class<?> cls = Class.forName("com.android.internal.view.menu.MenuPopupHelper");
+            Method method = cls.getDeclaredMethod("setForceShowIcon", new Class[]{boolean.class});
+            method.setAccessible(true);
+            method.invoke(menuPopupHelper, new Object[]{true});
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        final Profile profile = (Profile)view.getTag();
+
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
+            public boolean onMenuItemClick(android.view.MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.profile_list_item_menu_not_show_in_activator:
+                        profile._showInActivator = false;
+                        DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
+                        profileListAdapter.notifyDataSetChanged();
+                        return true;
+                    case R.id.profile_list_item_menu_show_in_activator:
+                        profile._showInActivator = true;
+                        DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
+                        profileListAdapter.notifyDataSetChanged();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+
+
+        popup.show();
+    }
+
+    /*
     void changeShowInActivator(final Profile profile) {
         //noinspection ConstantConditions
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
@@ -1030,6 +1086,7 @@ public class EditorProfileListFragment extends Fragment
         if (!getActivity().isFinishing())
             dialog.show();
     }
+    */
 
     void showTargetHelps() {
         /*if (Build.VERSION.SDK_INT <= 19)

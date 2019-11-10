@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.animation.LayoutTransition;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -26,6 +27,8 @@ import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
 import java.lang.ref.WeakReference;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -1391,6 +1394,62 @@ public class EditorEventListFragment extends Fragment
         return _eventsOrderType;
     }
 
+    @SuppressWarnings("RedundantArrayCreation")
+    void showIgnoreManualActivationMenu(View view)
+    {
+        //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
+        Context context = view.getContext();
+        PopupMenu popup;
+        //if (android.os.Build.VERSION.SDK_INT >= 19)
+        popup = new PopupMenu(context, view, Gravity.END);
+        //else
+        //    popup = new PopupMenu(context, view);
+        //noinspection ConstantConditions
+        getActivity().getMenuInflater().inflate(R.menu.event_list_item_ignore_manual_activation, popup.getMenu());
+
+        // show icons
+        try {
+            Field field = popup.getClass().getDeclaredField("mPopup");
+            field.setAccessible(true);
+            Object menuPopupHelper = field.get(popup);
+            @SuppressLint("PrivateApi")
+            Class<?> cls = Class.forName("com.android.internal.view.menu.MenuPopupHelper");
+            Method method = cls.getDeclaredMethod("setForceShowIcon", new Class[]{boolean.class});
+            method.setAccessible(true);
+            method.invoke(menuPopupHelper, new Object[]{true});
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        final Event event = (Event)view.getTag();
+
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
+            public boolean onMenuItemClick(android.view.MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.event_list_item_not_ignore_manual_activation:
+                        event._forceRun = false;
+                        DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
+                        eventListAdapter.notifyDataSetChanged();
+                        EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
+                        return true;
+                    case R.id.event_list_item_ignore_manual_activation:
+                        event._forceRun = true;
+                        DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
+                        eventListAdapter.notifyDataSetChanged();
+                        EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+
+
+        popup.show();
+    }
+
+    /*
     void updateEventForceRun(final Event event) {
         //noinspection ConstantConditions
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
@@ -1413,5 +1472,6 @@ public class EditorEventListFragment extends Fragment
         if (!getActivity().isFinishing())
             dialog.show();
     }
+    */
 
 }

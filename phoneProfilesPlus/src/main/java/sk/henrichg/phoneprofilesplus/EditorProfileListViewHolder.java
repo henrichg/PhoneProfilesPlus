@@ -141,10 +141,11 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
             showInActivatorButton.setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(View v) {
-                    final Profile profile = (Profile)v.getTag();
+                    editorFragment.showShowInActivatorMenu(showInActivatorButton);
+                    /*final Profile profile = (Profile)v.getTag();
                     if (profile != null) {
                         editorFragment.changeShowInActivator(profile);
-                    }
+                    }*/
                 }
             });
         }
