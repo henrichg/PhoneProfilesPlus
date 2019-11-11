@@ -64,7 +64,7 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
         final float scale = getResources().getDisplayMetrics().density;
 
         // add list items height
-        int profileCount = DatabaseHandler.getInstance(getApplicationContext()).getProfilesCount(false);
+        int profileCount = DatabaseHandler.getInstance(getApplicationContext()).getProfilesCount(/*false*/);
         ++profileCount; // for restart events
         if (profileCount > 0) {
             popupHeight = popupHeight + (60f * scale * profileCount); // item
