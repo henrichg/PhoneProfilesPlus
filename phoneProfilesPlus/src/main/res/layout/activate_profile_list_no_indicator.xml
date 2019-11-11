@@ -53,16 +53,16 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginStart="9dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="9dp">
 
         <ListView
             android:id="@+id/act_prof_profiles_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingStart="10dip"
-            android:paddingEnd="10dip"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
             android:clipToPadding="false"
             android:drawSelectorOnTop="true"
             android:scrollbarStyle="outsideOverlay"

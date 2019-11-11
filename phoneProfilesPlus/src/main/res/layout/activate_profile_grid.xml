@@ -69,7 +69,11 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:paddingStart="15dip"
+        android:paddingEnd="15dip"
+        android:paddingTop="5dp"
+        android:paddingBottom="8dp" >
 
         <GridView
             android:id="@+id/act_prof_profiles_grid"
@@ -81,10 +85,6 @@
             android:verticalSpacing="1dp"
             android:numColumns="3"
             android:stretchMode="columnWidth"
-            android:paddingStart="15dip"
-            android:paddingEnd="15dip"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:clipToPadding="false"
             android:scrollbarStyle="outsideOverlay"
             android:drawSelectorOnTop="true"/>
