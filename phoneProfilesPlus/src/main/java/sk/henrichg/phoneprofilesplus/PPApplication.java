@@ -389,8 +389,8 @@ public class PPApplication extends Application {
 
                                         //+"|EventPreferencesActivity.savePreferences"
 
-                                        //+"|PhoneCallReceiver"
-                                        //+"|PhoneCallBroadcastReceiver"
+                                        +"|PhoneCallReceiver"
+                                        +"|PhoneCallBroadcastReceiver"
                                         //+"|PhoneCallBroadcastReceiver.callAnswered"
 
                                         //+"|#### EventsHandler.handleEvents"

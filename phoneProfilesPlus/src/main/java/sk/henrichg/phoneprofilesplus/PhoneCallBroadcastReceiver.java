@@ -98,11 +98,17 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
     }
 
     private static void setLinkUnlinkNotificationVolume(final int linkMode, final Context context) {
+        PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "RingerModeChangeReceiver.notUnlinkVolumes="+RingerModeChangeReceiver.notUnlinkVolumes);
         if (!RingerModeChangeReceiver.notUnlinkVolumes) {
-            if (ActivateProfileHelper.getMergedRingNotificationVolumes(context) && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context)) {
-                if (ActivateProfileHelper.isAudibleSystemRingerMode(audioManager, context)) {
+            boolean unlinkEnabled = ActivateProfileHelper.getMergedRingNotificationVolumes(context) && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context);
+            PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "unlinkEnabled="+unlinkEnabled);
+            if (unlinkEnabled) {
+                boolean audibleSystemRingerMode = ActivateProfileHelper.isAudibleSystemRingerMode(audioManager, context);
+                PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "audibleSystemRingerMode="+audibleSystemRingerMode);
+                if (audibleSystemRingerMode) {
                     DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
                     final Profile profile = dataWrapper.getActivatedProfile(false, false);
+                    PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "profile="+profile);
                     if (profile != null) {
                         ActivateProfileHelper.executeForVolumes(profile, linkMode, false, context);
                     }
