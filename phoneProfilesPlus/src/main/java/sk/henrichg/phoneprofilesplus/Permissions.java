@@ -788,6 +788,7 @@ class Permissions {
             try {
                 boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
                 if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
+                    PPApplication.logE("Permissions.checkProfileAccessNotificationPolicy", "ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS exists");
                     if ((profile._volumeRingerMode != 0) ||
                             profile.getVolumeRingtoneChange() ||
                             profile.getVolumeNotificationChange() ||
