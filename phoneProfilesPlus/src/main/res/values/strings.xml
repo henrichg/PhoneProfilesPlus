@@ -169,7 +169,6 @@
     <string name="editor_drawer_order_label">Order events by:</string>
     <string name="editor_drawer_order_event_name">Event name</string>
     <string name="editor_drawer_order_profile_name">Profile name</string>
-    <string name="toast_default_profiles_generated">Default profiles generated</string>
     <string name="default_profile_name_home">Home</string>
     <string name="default_profile_name_outdoor">Outdoor</string>
     <string name="default_profile_name_work">Work</string>
@@ -258,7 +257,6 @@
     <string name="event_preferences_peripheral_type">Accessories type</string>
     <string name="array_event_pref_peripheralType_wired_headset">Wired hands-free</string>
     <string name="array_event_pref_peripheralType_bluetooth_headset">Bluetooth hands-free</string>
-    <string name="toast_default_events_generated">Default events generated</string>
     <string name="default_event_name_during_the_week">During the week</string>
     <string name="default_event_name_weekend">Weekend</string>
     <string name="default_event_name_during_the_work">During work</string>
@@ -1182,16 +1180,12 @@
     <string name="permission_granted">Granted</string>
     <string name="menu_dark_theme_on">Switch on dark theme</string>
     <string name="menu_dark_theme_off">Switch off dark theme</string>
-    <string name="about_application_translations2">contact:</string>
-    <string name="about_application_translations_subject">translation</string>
-    <string name="important_info_translations">Please help me with translation, thank you:</string>
 
     <string name="important_info_email_body_device">Device:</string>
     <string name="important_info_email_body_android_version">Android version:</string>
     <string name="important_info_email_body_problems">Problems:</string>
     <string name="important_info_email_body_questions">Questions:</string>
     <string name="important_info_email_body_suggestions">Suggestions:</string>
-    <string name="important_info_email_body_translation_language_to">Language to translate:</string>
 
     <string name="about_application_support">Support:</string>
     <string name="about_application_support2">contact:</string>
@@ -1575,5 +1569,11 @@
 <!--    <string name="phone_profiles_pref_notificationStatusBarRequired">Required for PhoneProfilesService background service</string>-->
 <!--    <string name="phone_profiles_pref_notificationStatusBarNotEnabled_summary">Status bar notification is not enabled!</string>-->
 <!--    <string name="button_close">Close</string>-->
+<!--    <string name="toast_default_profiles_generated">Default profiles generated</string>-->
+<!--    <string name="toast_default_events_generated">Default events generated</string>-->
+<!--    <string name="about_application_translations2">contact:</string>-->
+<!--    <string name="about_application_translations_subject">translation</string>-->
+<!--    <string name="important_info_translations">Please help me with translation, thank you:</string>-->
+<!--    <string name="important_info_email_body_translation_language_to">Language to translate:</string>-->
 
 </resources>

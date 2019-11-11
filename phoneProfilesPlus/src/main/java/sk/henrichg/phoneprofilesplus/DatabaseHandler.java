@@ -3624,7 +3624,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Getting profiles Count
-    int getProfilesCount(boolean forActivator) {
+    int getProfilesCount(/*boolean forActivator*/) {
         importExportLock.lock();
         try {
             int r = 0;
@@ -3632,9 +3632,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 startRunningCommand();
 
                 final String countQuery;
-                if (forActivator)
-                    countQuery = "SELECT  count(*) FROM " + TABLE_PROFILES + " WHERE " + KEY_SHOW_IN_ACTIVATOR + "=1";
-                else
+                //if (forActivator)
+                //    countQuery = "SELECT  count(*) FROM " + TABLE_PROFILES + " WHERE " + KEY_SHOW_IN_ACTIVATOR + "=1";
+                //else
                     countQuery = "SELECT  count(*) FROM " + TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();

@@ -25,8 +25,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class AboutApplicationActivity extends AppCompatActivity {
 
-    static final int EMAIL_BODY_SUPPORT = 1;
-    static final int EMAIL_BODY_TRANSLATIONS = 2;
+    //static final int EMAIL_BODY_SUPPORT = 1;
+    //static final int EMAIL_BODY_TRANSLATIONS = 2;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -106,7 +106,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 getString(R.string.about_application_support),
                 getString(R.string.about_application_support2),
                 getString(R.string.about_application_support_subject),
-                getEmailBodyText(EMAIL_BODY_SUPPORT, this),
+                getEmailBodyText(/*EMAIL_BODY_SUPPORT, */this),
                 false,this);
 
         text = findViewById(R.id.about_application_translations);
@@ -415,10 +415,10 @@ public class AboutApplicationActivity extends AppCompatActivity {
         textView.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
-    static String getEmailBodyText(int bodyType, Context context) {
-        String body = "";
-        switch (bodyType) {
-            case EMAIL_BODY_SUPPORT:
+    static String getEmailBodyText(/*int bodyType, */Context context) {
+        String body;
+        //switch (bodyType) {
+        //    case EMAIL_BODY_SUPPORT:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1)
                     body = context.getString(R.string.important_info_email_body_device) + " " +
                             Settings.Global.getString(context.getContentResolver(), Settings.Global.DEVICE_NAME) +
@@ -435,12 +435,11 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 body = body + context.getString(R.string.important_info_email_body_problems) + " \n";
                 body = body + context.getString(R.string.important_info_email_body_questions) + " \n";
                 body = body + context.getString(R.string.important_info_email_body_suggestions) + " \n\n";
-                break;
+        /*        break;
             case EMAIL_BODY_TRANSLATIONS:
-                //body = context.getString(R.string.important_info_email_body_translation_language_from) + " \n";
-                body = /*body +*/ context.getString(R.string.important_info_email_body_translation_language_to) + " \n\n";
+                body = context.getString(R.string.important_info_email_body_translation_language_to) + " \n\n";
                 break;
-        }
+        }*/
         return body;
     }
 

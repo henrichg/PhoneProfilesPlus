@@ -829,7 +829,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 } catch (Exception ignored) {
                 }
                 intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.about_application_support_subject));
-                intent.putExtra(Intent.EXTRA_TEXT, AboutApplicationActivity.getEmailBodyText(AboutApplicationActivity.EMAIL_BODY_SUPPORT, this));
+                intent.putExtra(Intent.EXTRA_TEXT, AboutApplicationActivity.getEmailBodyText(/*AboutApplicationActivity.EMAIL_BODY_SUPPORT, */this));
                 try {
                     startActivity(Intent.createChooser(intent, getString(R.string.email_chooser)));
                 } catch (Exception ignored) {}

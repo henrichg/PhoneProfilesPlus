@@ -39,6 +39,7 @@
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_contact" />
 
+        <!--
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,6 +47,20 @@
             android:text="@string/important_info_translations"
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_translations" />
+        -->
+        <TextView
+            android:id="@+id/activity_info_translations_thanks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_application_help_me_with_translation"
+            android:textSize="@dimen/important_info_text_size"/>
+        <TextView
+            android:id="@+id/activity_info_translations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="@string/about_application_translations"
+            android:textSize="@dimen/important_info_text_size"/>
 
         <!-- NEWS -->
 
