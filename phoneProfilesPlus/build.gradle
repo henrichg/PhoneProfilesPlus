@@ -69,7 +69,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta3'
 
     implementation "androidx.work:work-runtime:$ppVersions.workXLib"
-    implementation "androidx.work:work-gcm:$ppVersions.workXLib"
+    //implementation "androidx.work:work-gcm:$ppVersions.workXLib"
 
     implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
