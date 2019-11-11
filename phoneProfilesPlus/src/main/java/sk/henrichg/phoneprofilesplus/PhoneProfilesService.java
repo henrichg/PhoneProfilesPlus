@@ -45,6 +45,7 @@ import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.style.CharacterStyle;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -4354,8 +4355,16 @@ public class PhoneProfilesService extends Service
                 //PPApplication.logE("PhoneProfilesService.showProfileNotification", "profile != null");
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
-                pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, dataWrapper, false, appContext);
                 profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, dataWrapper, false, appContext);
+                //pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, dataWrapper, false, appContext);
+                // get string from spannable
+                Spannable sbt = new SpannableString(profileName);
+                Object[] spansToRemove = sbt.getSpans(0, profileName.length(), Object.class);
+                for (Object span : spansToRemove) {
+                    if (span instanceof CharacterStyle)
+                        sbt.removeSpan(span);
+                }
+                pName = sbt.toString();
 
                 if (inHandlerThread) {
                     //if (notificationStatusBarStyle.equals("0"))
@@ -4480,8 +4489,8 @@ public class PhoneProfilesService extends Service
                             contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
                     } else {
                         PPApplication.logE("PhoneProfilesService._showProfileNotification", "icon has NOT changed color");
+
                         if (notificationStatusBarStyle.equals("0")) {
-                            // colorful icon
                             PPApplication.logE("PhoneProfilesService._showProfileNotification", "enabled is colorful icon in status bar");
                             //iconSmallResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier + "_notify_color", "drawable", dataWrapper.context.getPackageName());
                             //if (iconSmallResource == 0)
@@ -4492,19 +4501,8 @@ public class PhoneProfilesService extends Service
                                 iconSmallResource = Profile.profileIconNotifyColorId.get(iconIdentifier);
                             } catch (Exception ignored) {
                             }
-                            notificationBuilder.setSmallIcon(iconSmallResource);
-
-                            //int iconLargeResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier, "drawable", dataWrapper.context.getPackageName());
-                            //if (iconLargeResource == 0)
-                            //    iconLargeResource = R.drawable.ic_profile_default;
-                            int iconLargeResource = Profile.getIconResource(iconIdentifier);
-                            //Bitmap largeIcon = BitmapFactory.decodeResource(appContext.getResources(), iconLargeResource);
-                            Bitmap largeIcon = BitmapManipulator.getBitmapFromResource(iconLargeResource, true, appContext);
-                            contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
-                            if ((android.os.Build.VERSION.SDK_INT >= 24) && (!useDecorator)/* && (contentView != null)*/)
-                                contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
-                        } else {
-                            // native icon
+                        }
+                        else {
                             PPApplication.logE("PhoneProfilesService._showProfileNotification", "colorful icon in status bar is disabled");
                             //iconSmallResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier + "_notify", "drawable", dataWrapper.context.getPackageName());
                             //if (iconSmallResource == 0)
@@ -4515,18 +4513,18 @@ public class PhoneProfilesService extends Service
                                 iconSmallResource = Profile.profileIconNotifyId.get(iconIdentifier);
                             } catch (Exception ignored) {
                             }
-                            notificationBuilder.setSmallIcon(iconSmallResource);
-
-                            //int iconLargeResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier, "drawable", dataWrapper.context.getPackageName());
-                            //if (iconLargeResource == 0)
-                            //    iconLargeResource = R.drawable.ic_profile_default;
-                            int iconLargeResource = Profile.getIconResource(iconIdentifier);
-                            //Bitmap largeIcon = BitmapFactory.decodeResource(appContext.getResources(), iconLargeResource);
-                            Bitmap largeIcon = BitmapManipulator.getBitmapFromResource(iconLargeResource, true, appContext);
-                            contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
-                            if ((android.os.Build.VERSION.SDK_INT >= 24) && (!useDecorator)/* && (contentView != null)*/)
-                                contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
                         }
+                        notificationBuilder.setSmallIcon(iconSmallResource);
+
+                        //int iconLargeResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier, "drawable", dataWrapper.context.getPackageName());
+                        //if (iconLargeResource == 0)
+                        //    iconLargeResource = R.drawable.ic_profile_default;
+                        int iconLargeResource = Profile.getIconResource(iconIdentifier);
+                        //Bitmap largeIcon = BitmapFactory.decodeResource(appContext.getResources(), iconLargeResource);
+                        Bitmap largeIcon = BitmapManipulator.getBitmapFromResource(iconLargeResource, true, appContext);
+                        contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
+                        if ((android.os.Build.VERSION.SDK_INT >= 24) && (!useDecorator)/* && (contentView != null)*/)
+                            contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
                     }
                 } else {
                     PPApplication.logE("PhoneProfilesService._showProfileNotification", "profile icon is custom - external picture");
