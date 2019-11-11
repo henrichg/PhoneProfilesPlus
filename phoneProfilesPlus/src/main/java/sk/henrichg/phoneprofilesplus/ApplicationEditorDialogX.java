@@ -464,8 +464,11 @@ class ApplicationEditorDialogX
         Intent intent = new Intent(activity, ApplicationEditorIntentActivityX.class);
         intent.putExtra(EXTRA_APPLICATION, application);
         PPIntent ppIntent;
-        if ((application != null) && application.intentId > 0)
+        if ((application != null) && application.intentId > 0) {
             ppIntent = DatabaseHandler.getInstance(preference.context.getApplicationContext()).getIntent(application.intentId);
+            if (ppIntent == null)
+                ppIntent = new PPIntent();
+        }
         else
             ppIntent = new PPIntent();
         intent.putExtra(EXTRA_PP_INTENT, ppIntent);
