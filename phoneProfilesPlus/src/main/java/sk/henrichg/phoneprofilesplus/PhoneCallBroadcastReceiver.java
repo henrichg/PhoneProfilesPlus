@@ -110,6 +110,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
                     final Profile profile = dataWrapper.getActivatedProfile(false, false);
                     PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "profile="+profile);
                     if (profile != null) {
+                        PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "profile._name="+profile._name);
                         ActivateProfileHelper.executeForVolumes(profile, linkMode, false, context);
                     }
                     dataWrapper.invalidateDataWrapper();
