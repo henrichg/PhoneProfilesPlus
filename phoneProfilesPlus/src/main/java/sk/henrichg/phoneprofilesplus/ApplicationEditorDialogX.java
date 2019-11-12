@@ -541,6 +541,7 @@ class ApplicationEditorDialogX
         applicationList.remove(application);
 
         if (position == selectedPosition) {
+            // deleted selected intent
             Button positive = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
             positive.setEnabled(false);
             selectedPosition = -1;
@@ -549,6 +550,7 @@ class ApplicationEditorDialogX
                 editedApplication.intentId = 0;
         }
         else if (position < selectedPosition) {
+            // deleted intent before selected intent
             // move up selected position index
             --selectedPosition;
         }
