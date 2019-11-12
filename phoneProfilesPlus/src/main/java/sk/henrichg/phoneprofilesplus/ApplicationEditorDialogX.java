@@ -535,9 +535,10 @@ class ApplicationEditorDialogX
             }
         }
 
-        applicationList.remove(application);
-
+        // position of deleting application
         int position = applicationList.indexOf(application);
+
+        applicationList.remove(application);
 
         if (position == selectedPosition) {
             Button positive = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
@@ -546,6 +547,10 @@ class ApplicationEditorDialogX
             updateSelectedAppViews();
             if (editedApplication != null)
                 editedApplication.intentId = 0;
+        }
+        else if (position < selectedPosition) {
+            // move up selected position index
+            --selectedPosition;
         }
 
         listView.getRecycledViewPool().clear();
