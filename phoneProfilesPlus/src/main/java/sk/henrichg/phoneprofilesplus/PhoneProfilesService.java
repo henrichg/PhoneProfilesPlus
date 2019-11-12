@@ -69,7 +69,7 @@ public class PhoneProfilesService extends Service
     private static volatile PhoneProfilesService instance = null;
     private boolean serviceHasFirstStart = false;
     //private boolean serviceRunning = false;
-    private boolean runningInForeground = false;
+    //private boolean runningInForeground = false;
     private boolean waitForEndOfStart = true;
 
     private Handler restartEventsForFirstStartHandler;
@@ -302,7 +302,7 @@ public class PhoneProfilesService extends Service
 
         serviceHasFirstStart = false;
         //serviceRunning = false;
-        runningInForeground = false;
+        //runningInForeground = false;
         waitForEndOfStart = true;
         //ApplicationPreferences.forceNotUseAlarmClock = false;
 
@@ -323,7 +323,7 @@ public class PhoneProfilesService extends Service
 
         //if (Build.VERSION.SDK_INT >= 26)
         // show empty notification to avoid ANR in api level 26
-        showProfileNotification(true);
+        showProfileNotification(true, true);
 
         PPApplication.setNotificationProfileName(appContext, "");
         PPApplication.setWidgetProfileName(appContext, 1, "");
@@ -467,7 +467,7 @@ public class PhoneProfilesService extends Service
 
         serviceHasFirstStart = false;
         //serviceRunning = false;
-        runningInForeground = false;
+        //runningInForeground = false;
         waitForEndOfStart = true;
     }
 
@@ -3844,7 +3844,7 @@ public class PhoneProfilesService extends Service
             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "showProfileNotification()");
             // do not call this from handlerThread. In Android 8 handlerThread is not called
             // when for service is not displayed foreground notification
-            showProfileNotification(false);
+            showProfileNotification(false, true);
         //}
 
         //if (!PPApplication.getApplicationStarted(getApplicationContext(), false)) {
@@ -4152,7 +4152,7 @@ public class PhoneProfilesService extends Service
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         PPApplication.logE("PhoneProfilesService.onConfigurationChanged", "xxx");
-        showProfileNotification(true);
+        showProfileNotification(true, false);
         PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesService.obConfigurationChanged");
         ActivateProfileHelper.updateGUI(getApplicationContext(), true, true);
     }
@@ -4731,7 +4731,7 @@ public class PhoneProfilesService extends Service
 
                 //if ((Build.VERSION.SDK_INT >= 26) || notificationStatusBarPermanent) {
                     startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
-                    runningInForeground = true;
+                    //runningInForeground = true;
                 /*}
                 else {
                     NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -4752,7 +4752,7 @@ public class PhoneProfilesService extends Service
         }*/
     }
 
-    void showProfileNotification(final boolean refresh) {
+    void showProfileNotification(final boolean refresh, boolean forServiceStart) {
         //if (Build.VERSION.SDK_INT >= 26) {
             //if (BuildConfig.DEBUG)
             //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
@@ -4766,9 +4766,10 @@ public class PhoneProfilesService extends Service
         }
         */
 
-        PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","runningInForeground="+runningInForeground);
+        //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","runningInForeground="+runningInForeground);
 
-            if (!runningInForeground) {
+            //if (!runningInForeground) {
+            if (forServiceStart) {
                 //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
                 _showProfileNotification(null, false, dataWrapper, true);
@@ -4813,7 +4814,7 @@ public class PhoneProfilesService extends Service
                 }*/
             } catch (Exception ignored) {
             }
-            runningInForeground = false;
+            //runningInForeground = false;
         //}
     }
 

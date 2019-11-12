@@ -189,8 +189,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (PhoneProfilesService.getInstance() != null)
-                    PhoneProfilesService.getInstance().showProfileNotification(true);
+                PPApplication.showProfileNotification(true);
             }
         }, 500);
         PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesPrefsActivity.onStop");
