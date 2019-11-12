@@ -85,6 +85,10 @@ public class PhoneProfilesService extends Service
     LockDeviceActivity lockDeviceActivity = null;
     int screenTimeoutBeforeDeviceLock = 0;
 
+    private static final StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = new StartLauncherFromNotificationReceiver();
+    private static final RefreshActivitiesBroadcastReceiver refreshActivitiesBroadcastReceiver = new RefreshActivitiesBroadcastReceiver();
+    private static final DashClockBroadcastReceiver dashClockBroadcastReceiver = new DashClockBroadcastReceiver();
+
     private PermissionsNotificationDeletedReceiver permissionsNotificationDeletedReceiver = null;
     private StartEventNotificationDeletedReceiver startEventNotificationDeletedReceiver = null;
     private NotUsedMobileCellsNotificationDeletedReceiver notUsedMobileCellsNotificationDeletedReceiver = null;
@@ -304,20 +308,29 @@ public class PhoneProfilesService extends Service
 
         final Context appContext = getApplicationContext();
 
+        appContext.registerReceiver(stopReceiver, new IntentFilter(PhoneProfilesService.ACTION_STOP));
+        //LocalBroadcastManager.getInstance(this).registerReceiver(stopReceiver, new IntentFilter(ACTION_STOP));
+        LocalBroadcastManager.getInstance(appContext).registerReceiver(commandReceiver, new IntentFilter(ACTION_COMMAND));
+
+        IntentFilter intentFilter5 = new IntentFilter();
+        intentFilter5.addAction(PhoneProfilesService.ACTION_START_LAUNCHER_FROM_NOTIFICATION);
+        appContext.registerReceiver(startLauncherFromNotificationReceiver, intentFilter5);
+
+        LocalBroadcastManager.getInstance(appContext).registerReceiver(refreshActivitiesBroadcastReceiver,
+                new IntentFilter(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver"));
+        LocalBroadcastManager.getInstance(appContext).registerReceiver(dashClockBroadcastReceiver,
+                new IntentFilter(PPApplication.PACKAGE_NAME + ".DashClockBroadcastReceiver"));
+
+        //if (Build.VERSION.SDK_INT >= 26)
+        // show empty notification to avoid ANR in api level 26
+        showProfileNotification(true);
+
         PPApplication.setNotificationProfileName(appContext, "");
         PPApplication.setWidgetProfileName(appContext, 1, "");
         PPApplication.setWidgetProfileName(appContext, 2, "");
         PPApplication.setWidgetProfileName(appContext, 3, "");
         PPApplication.setWidgetProfileName(appContext, 4, "");
         PPApplication.setWidgetProfileName(appContext, 5, "");
-
-        //if (Build.VERSION.SDK_INT >= 26)
-        // show empty notification to avoid ANR in api level 26
-        showProfileNotification(true);
-
-        registerReceiver(stopReceiver, new IntentFilter(PhoneProfilesService.ACTION_STOP));
-        //LocalBroadcastManager.getInstance(this).registerReceiver(stopReceiver, new IntentFilter(ACTION_STOP));
-        LocalBroadcastManager.getInstance(this).registerReceiver(commandReceiver, new IntentFilter(ACTION_COMMAND));
 
         try {
             if ((Build.VERSION.SDK_INT < 26)) {
@@ -400,11 +413,13 @@ public class PhoneProfilesService extends Service
 
         PPApplication.logE("PhoneProfilesService.onDestroy", "xxx");
 
+        Context appContext = getApplicationContext();
+
         try {
-            unregisterReceiver(commandReceiver);
+            LocalBroadcastManager.getInstance(appContext).unregisterReceiver(commandReceiver);
         } catch (Exception ignored) {}
         try {
-            unregisterReceiver(stopReceiver);
+            appContext.unregisterReceiver(stopReceiver);
         } catch (Exception ignored) {}
 
         unregisterReceiversAndWorkers();
@@ -424,6 +439,16 @@ public class PhoneProfilesService extends Service
             }*/
         } catch (Exception ignored) {
         }
+
+        try {
+            appContext.unregisterReceiver(startLauncherFromNotificationReceiver);
+        } catch (Exception ignored) {}
+        try {
+            LocalBroadcastManager.getInstance(appContext).unregisterReceiver(refreshActivitiesBroadcastReceiver);
+        } catch (Exception ignored) {}
+        try {
+            LocalBroadcastManager.getInstance(appContext).unregisterReceiver(dashClockBroadcastReceiver);
+        } catch (Exception ignored) {}
 
         /*
         if (startLauncherFromNotificationReceiver != null) {

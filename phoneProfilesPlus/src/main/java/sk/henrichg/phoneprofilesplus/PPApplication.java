@@ -726,10 +726,6 @@ public class PPApplication extends Application {
     public static boolean sLookCocktailPanelEnabled = false;
     //public static boolean sLookCocktailBarEnabled = false;
 
-    private static final StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = new StartLauncherFromNotificationReceiver();
-    private static final RefreshActivitiesBroadcastReceiver refreshActivitiesBroadcastReceiver = new RefreshActivitiesBroadcastReceiver();
-    private static final DashClockBroadcastReceiver dashClockBroadcastReceiver = new DashClockBroadcastReceiver();
-
     public static final Random requestCodeForAlarm = new Random();
 
 
@@ -877,15 +873,6 @@ public class PPApplication extends Application {
         //resetLog();
 
         //firstStartServiceStarted = false;
-
-        IntentFilter intentFilter5 = new IntentFilter();
-        intentFilter5.addAction(PhoneProfilesService.ACTION_START_LAUNCHER_FROM_NOTIFICATION);
-        getApplicationContext().registerReceiver(startLauncherFromNotificationReceiver, intentFilter5);
-
-        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(PPApplication.refreshActivitiesBroadcastReceiver,
-                new IntentFilter(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver"));
-        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(PPApplication.dashClockBroadcastReceiver,
-                new IntentFilter(PPApplication.PACKAGE_NAME + ".DashClockBroadcastReceiver"));
 
         startHandlerThread("PPApplication.onCreate");
         startHandlerThreadInternalChangeToFalse();
