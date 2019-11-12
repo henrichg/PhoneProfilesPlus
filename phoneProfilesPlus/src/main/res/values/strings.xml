@@ -1430,6 +1430,8 @@
     <string name="toast_predefined_profiles_generated">Predefined profiles generated</string>
     <string name="toast_predefined_events_generated">Predefined events generated</string>
 
+    <string name="tooltip_options_menu">Options menu</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>

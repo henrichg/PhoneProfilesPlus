@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.TooltipCompat;
 
 class MobileCellsPreferenceAdapterX extends BaseAdapter
 {
@@ -137,6 +138,7 @@ class MobileCellsPreferenceAdapterX extends BaseAdapter
             holder.itemEditMenu.setVisibility(View.GONE);
         else
             holder.itemEditMenu.setVisibility(View.VISIBLE);
+        TooltipCompat.setTooltipText(holder.itemEditMenu, context.getString(R.string.tooltip_options_menu));
         holder.itemEditMenu.setTag(preference.filteredCellsList.get(position).cellId);
         final ImageView itemEditMenu = holder.itemEditMenu;
         holder.itemEditMenu.setOnClickListener(new View.OnClickListener() {

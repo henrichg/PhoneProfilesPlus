@@ -358,6 +358,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 }
             }
 
+            TooltipCompat.setTooltipText(eventItemEditMenu, context.getString(R.string.tooltip_options_menu));
             eventItemEditMenu.setTag(event);
             eventItemEditMenu.setOnClickListener(new View.OnClickListener() {
 
@@ -366,6 +367,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 }
             });
 
+            TooltipCompat.setTooltipText(eventStatus, context.getString(R.string.editor_event_list_item_event_status));
             final ImageView _eventStatusView = eventStatus;
             final Event _event = this.event;
             eventStatus.setOnClickListener(new View.OnClickListener() {

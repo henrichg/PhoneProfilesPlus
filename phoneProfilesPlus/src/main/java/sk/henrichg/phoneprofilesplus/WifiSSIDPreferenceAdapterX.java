@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.TooltipCompat;
 
 class WifiSSIDPreferenceAdapterX extends BaseAdapter
 {
@@ -18,7 +19,7 @@ class WifiSSIDPreferenceAdapterX extends BaseAdapter
     //int selectedRBIndex = -1;
 
     private final LayoutInflater inflater;
-    //private Context context;
+    private Context context;
 
     WifiSSIDPreferenceAdapterX(Context context, WifiSSIDPreferenceX preference)
     {
@@ -26,7 +27,7 @@ class WifiSSIDPreferenceAdapterX extends BaseAdapter
 
         // Cache the LayoutInflate to avoid asking for a new one each time.
         inflater = LayoutInflater.from(context);
-        //this.context = context; 
+        this.context = context;
     }
 
     public int getCount() {
@@ -109,6 +110,7 @@ class WifiSSIDPreferenceAdapterX extends BaseAdapter
             holder.itemEditMenu.setVisibility(View.GONE);
         else
             holder.itemEditMenu.setVisibility(View.VISIBLE);
+        TooltipCompat.setTooltipText(holder.itemEditMenu, context.getString(R.string.tooltip_options_menu));
         holder.itemEditMenu.setTag(position);
         final ImageView itemEditMenu = holder.itemEditMenu;
         holder.itemEditMenu.setOnClickListener(new View.OnClickListener() {

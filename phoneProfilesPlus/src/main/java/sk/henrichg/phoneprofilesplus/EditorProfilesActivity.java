@@ -53,6 +53,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.Toolbar;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
@@ -481,6 +482,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         });
 
         eventsRunStopIndicator = findViewById(R.id.editor_list_run_stop_indicator);
+        TooltipCompat.setTooltipText(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLightIcon_title));
         eventsRunStopIndicator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

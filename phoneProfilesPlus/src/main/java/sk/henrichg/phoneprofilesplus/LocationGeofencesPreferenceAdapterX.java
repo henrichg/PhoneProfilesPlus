@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.TooltipCompat;
 
 class LocationGeofencesPreferenceAdapterX extends CursorAdapter {
 
@@ -25,9 +26,12 @@ class LocationGeofencesPreferenceAdapterX extends CursorAdapter {
     //public RadioButton selectedRB;
     private final LocationGeofencePreferenceFragmentX preferenceFragment;
 
+    final private Context context;
+
     LocationGeofencesPreferenceAdapterX(Context context, Cursor cursor, LocationGeofencePreferenceFragmentX preferenceFragment) {
         super(context, cursor, 0);
 
+        this.context = context;
         this.preferenceFragment = preferenceFragment;
 
         KEY_G_ID = cursor.getColumnIndex(DatabaseHandler.KEY_G_ID);
@@ -104,6 +108,7 @@ class LocationGeofencesPreferenceAdapterX extends CursorAdapter {
             });
         }
 
+        TooltipCompat.setTooltipText(rowData.itemEditMenu, context.getString(R.string.tooltip_options_menu));
         rowData.itemEditMenu.setTag(id);
         final ImageView itemEditMenu = rowData.itemEditMenu;
         rowData.itemEditMenu.setOnClickListener(new View.OnClickListener() {

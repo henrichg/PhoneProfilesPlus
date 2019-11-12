@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 class ApplicationsDialogPreferenceViewHolderX extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -95,6 +96,7 @@ class ApplicationsDialogPreferenceViewHolderX extends RecyclerView.ViewHolder im
         textViewStartApplicationDelay.setText(text);
         setTextStyle(textViewStartApplicationDelay, errorColor);
 
+        TooltipCompat.setTooltipText(imageViewMenu, context.getString(R.string.tooltip_options_menu));
         imageViewMenu.setTag(application);
         imageViewMenu.setOnClickListener(new View.OnClickListener() {
 

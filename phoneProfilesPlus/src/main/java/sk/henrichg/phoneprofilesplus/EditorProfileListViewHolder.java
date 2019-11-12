@@ -123,6 +123,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
                 profileIndicator.setImageBitmap(profile._preferencesIndicator);
         }
 
+        TooltipCompat.setTooltipText(profileItemEditMenu, context.getString(R.string.tooltip_options_menu));
         profileItemEditMenu.setTag(profile);
         profileItemEditMenu.setOnClickListener(new View.OnClickListener() {
 

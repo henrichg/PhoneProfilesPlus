@@ -21,6 +21,7 @@ import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -216,6 +217,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(R.string.title_activity_activator);
 
         eventsRunStopIndicator = findViewById(R.id.act_prof_run_stop_indicator);
+        TooltipCompat.setTooltipText(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLightIcon_title));
         eventsRunStopIndicator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

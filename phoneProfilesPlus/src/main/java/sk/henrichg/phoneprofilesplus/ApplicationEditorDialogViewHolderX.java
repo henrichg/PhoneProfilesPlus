@@ -1,12 +1,14 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 class ApplicationEditorDialogViewHolderX extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -67,6 +69,7 @@ class ApplicationEditorDialogViewHolderX extends RecyclerView.ViewHolder impleme
         radioBtn.setTag(position);
 
         if (imageViewMenu != null) {
+            TooltipCompat.setTooltipText(imageViewMenu, dialog.activity.getString(R.string.tooltip_options_menu));
             imageViewMenu.setTag(position);
             imageViewMenu.setOnClickListener(new View.OnClickListener() {
 
