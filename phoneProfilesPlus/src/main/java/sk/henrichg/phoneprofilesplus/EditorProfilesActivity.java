@@ -977,8 +977,21 @@ public class EditorProfilesActivity extends AppCompatActivity
         PPApplication.logE("EditorProfilesActivity.selectFilterItem", "selectedView="+selectedView);
         PPApplication.logE("EditorProfilesActivity.selectFilterItem", "position="+position);
 
+        boolean viewChanged = false;
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+        if (fragment instanceof EditorProfileListFragment) {
+            if (selectedView != 0)
+                viewChanged = true;
+        } else
+        if (fragment instanceof EditorEventListFragment) {
+            if (selectedView != 1)
+                viewChanged = true;
+        }
+        else
+            viewChanged = true;
+
         int filterSelectedItem;
-        if (editorSelectedView == 0) {
+        if (selectedView == 0) {
             PPApplication.logE("EditorProfilesActivity.selectFilterItem", "filterProfilesSelectedItem=" + filterProfilesSelectedItem);
             filterSelectedItem = filterProfilesSelectedItem;
         }
@@ -987,11 +1000,8 @@ public class EditorProfilesActivity extends AppCompatActivity
             filterSelectedItem = filterEventsSelectedItem;
         }
 
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
-        if ((selectedView != editorSelectedView) || (position != filterSelectedItem) || (fragment == null))
+        if (viewChanged || (position != filterSelectedItem))
         {
-            boolean viewChanged = (selectedView != editorSelectedView) || (fragment == null);
-
             if (viewChanged) {
                 // stop running AsyncTask
                 if (fragment instanceof EditorProfileListFragment) {
@@ -1048,6 +1058,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         .commitAllowingStateLoss();
                             }
                             else {
+                                //noinspection ConstantConditions
                                 EditorProfileListFragment displayedFragment = (EditorProfileListFragment)fragment;
                                 displayedFragment.changeFragmentFilter(profilesFilterType, startTargetHelps);
                             }
@@ -1066,6 +1077,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         .commitAllowingStateLoss();
                             }
                             else {
+                                //noinspection ConstantConditions
                                 EditorProfileListFragment displayedFragment = (EditorProfileListFragment)fragment;
                                 displayedFragment.changeFragmentFilter(profilesFilterType, startTargetHelps);
                             }
@@ -1084,6 +1096,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         .commitAllowingStateLoss();
                             }
                             else {
+                                //noinspection ConstantConditions
                                 EditorProfileListFragment displayedFragment = (EditorProfileListFragment)fragment;
                                 displayedFragment.changeFragmentFilter(profilesFilterType, startTargetHelps);
                             }
@@ -1106,6 +1119,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         .commitAllowingStateLoss();
                             }
                             else {
+                                //noinspection ConstantConditions
                                 EditorEventListFragment displayedFragment = (EditorEventListFragment)fragment;
                                 displayedFragment.changeFragmentFilter(eventsFilterType, startTargetHelps);
                             }
@@ -1124,6 +1138,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         .commitAllowingStateLoss();
                             }
                             else {
+                                //noinspection ConstantConditions
                                 EditorEventListFragment displayedFragment = (EditorEventListFragment)fragment;
                                 displayedFragment.changeFragmentFilter(eventsFilterType, startTargetHelps);
                             }
@@ -1142,6 +1157,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         .commitAllowingStateLoss();
                             }
                             else {
+                                //noinspection ConstantConditions
                                 EditorEventListFragment displayedFragment = (EditorEventListFragment)fragment;
                                 displayedFragment.changeFragmentFilter(eventsFilterType, startTargetHelps);
                             }
@@ -1160,6 +1176,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         .commitAllowingStateLoss();
                             }
                             else {
+                                //noinspection ConstantConditions
                                 EditorEventListFragment displayedFragment = (EditorEventListFragment)fragment;
                                 displayedFragment.changeFragmentFilter(eventsFilterType, startTargetHelps);
                             }
@@ -1178,6 +1195,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         .commitAllowingStateLoss();
                             }
                             else {
+                                //noinspection ConstantConditions
                                 EditorEventListFragment displayedFragment = (EditorEventListFragment)fragment;
                                 displayedFragment.changeFragmentFilter(eventsFilterType, startTargetHelps);
                             }
@@ -1196,6 +1214,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         .commitAllowingStateLoss();
                             }
                             else {
+                                //noinspection ConstantConditions
                                 EditorEventListFragment displayedFragment = (EditorEventListFragment)fragment;
                                 displayedFragment.changeFragmentFilter(eventsFilterType, startTargetHelps);
                             }
