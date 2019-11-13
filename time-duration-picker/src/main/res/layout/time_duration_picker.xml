@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.TimeDurationPicker.Unit"
-                android:text="@string/time_duration_picker_hour"
+                android:text="@string/time_duration_picker_hour_sign"
                 tools:ignore="HardcodedText"/>
 
             <TextView
@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.TimeDurationPicker.Unit"
-                android:text="@string/time_duration_picker_minute"
+                android:text="@string/time_duration_picker_minute_sign"
                 tools:ignore="HardcodedText"/>
 
             <TextView
@@ -65,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.TimeDurationPicker.Unit"
-                android:text="@string/time_duration_picker_second"
+                android:text="@string/time_duration_picker_second_sign"
                 tools:ignore="HardcodedText"/>
         </LinearLayout>
 
