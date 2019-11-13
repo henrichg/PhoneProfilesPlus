@@ -1459,7 +1459,9 @@
     <string name="backspace_button_tooltip">Backspace</string>
     <string name="clear_button_tooltip">Clear</string>
 
-    <string name="number_picker_delete">Delete</string>
+    <string name="time_duration_picker_hour">h</string>
+    <string name="time_duration_picker_minute">m</string>
+    <string name="time_duration_picker_second">s</string>
 
     <!-- **************************************************************************************** -->
 
