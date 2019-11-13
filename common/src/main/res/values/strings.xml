@@ -1456,7 +1456,8 @@
     <string name="applications_editor_dialog_edit_delay_tooltip">Edit delay</string>
     <string name="location_pref_dlg_edit_radius_tooltip">Edit radius</string>
     <string name="time_pref_dlg_edit_time_tooltip">Edit time</string>
-
+    <string name="backspace_button_tooltip">Backspace</string>
+    <string name="clear_button_tooltip">Clear</string>
 
     <string name="number_picker_delete">Delete</string>
 

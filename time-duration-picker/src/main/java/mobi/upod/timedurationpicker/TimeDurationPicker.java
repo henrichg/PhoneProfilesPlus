@@ -13,6 +13,8 @@ import android.widget.*;
 
 import java.util.Locale;
 
+import androidx.appcompat.widget.TooltipCompat;
+
 /**
  * Control that allows the user to easily input a time duration made up of hours, minutes and seconds, like known from
  * the Lollipop stock timer app.
@@ -88,7 +90,9 @@ public class TimeDurationPicker extends FrameLayout {
         unitLabelViews = new TextView[] { hoursLabel, minutesLabel, secondsLabel };
 
         backspaceButton = findViewById(R.id.backspace);
+        TooltipCompat.setTooltipText(backspaceButton, mContext.getString(R.string.backspace_button_tooltip));
         clearButton = findViewById(R.id.clear);
+        TooltipCompat.setTooltipText(clearButton, mContext.getString(R.string.clear_button_tooltip));
 
         separatorView = findViewById(R.id.separator);
 

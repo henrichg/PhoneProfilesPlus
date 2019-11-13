@@ -3,7 +3,8 @@
     <declare-styleable name="BetterPickersDialogFragment">
         <attr name="bpTextColor" format="reference"/>
         <attr name="bpTitleColor" format="reference"/>
-        <attr name="bpDeleteIcon" format="reference"/>
+        <attr name="bpBackspaceIcon" format="reference"/>
+        <attr name="bpClearIcon" format="reference"/>
         <attr name="bpCheckIcon" format="reference"/>
         <attr name="bpKeyBackground" format="reference"/>
         <attr name="bpButtonBackground" format="reference"/>

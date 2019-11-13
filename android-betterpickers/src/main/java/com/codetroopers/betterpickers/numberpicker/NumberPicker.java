@@ -24,9 +24,10 @@ import java.math.BigInteger;
 import java.text.DecimalFormat;
 
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.appcompat.widget.TooltipCompat;
 
-public class NumberPicker extends LinearLayout implements Button.OnClickListener,
-        Button.OnLongClickListener {
+public class NumberPicker extends LinearLayout implements Button.OnClickListener/*,
+                                                            Button.OnLongClickListener*/ {
 
     @SuppressWarnings("WeakerAccess")
     protected final int mInputSize = 20;
@@ -41,7 +42,9 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     @SuppressWarnings("WeakerAccess")
     protected Button mRight;
     @SuppressWarnings("WeakerAccess")
-    protected ImageButton mDelete;
+    protected ImageButton mBackspace;
+    @SuppressWarnings("WeakerAccess")
+    protected ImageButton mClear;
     @SuppressWarnings("WeakerAccess")
     protected NumberView mEnteredNumber;
     @SuppressWarnings("WeakerAccess")
@@ -62,7 +65,8 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     private int mKeyBackgroundResId;
     private int mButtonBackgroundResId;
     private int mDividerColor;
-    private int mDeleteDrawableSrcResId;
+    private int mBackspaceDrawableSrcResId;
+    private int mClearDrawableSrcResId;
     private int mTheme = -1;
 
     protected BigDecimal mMinNumber = null;
@@ -95,7 +99,8 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         mTextColor = getResources().getColorStateList(R.color.dialog_text_color_holo_dark);
         mKeyBackgroundResId = R.drawable.key_background_dark;
         mButtonBackgroundResId = R.drawable.button_background_dark;
-        mDeleteDrawableSrcResId = R.drawable.ic_backspace_dark_bp;
+        mBackspaceDrawableSrcResId = R.drawable.ic_backspace_dark_bp;
+        mClearDrawableSrcResId = R.drawable.ic_clear_dark_bp;
         mDividerColor = getResources().getColor(R.color.default_divider_color_dark);
     }
 
@@ -119,7 +124,8 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
             mKeyBackgroundResId = a.getResourceId(R.styleable.BetterPickersDialogFragment_bpKeyBackground, mKeyBackgroundResId);
             mButtonBackgroundResId = a.getResourceId(R.styleable.BetterPickersDialogFragment_bpButtonBackground, mButtonBackgroundResId);
             mDividerColor = a.getColor(R.styleable.BetterPickersDialogFragment_bpDividerColor, mDividerColor);
-            mDeleteDrawableSrcResId = a.getResourceId(R.styleable.BetterPickersDialogFragment_bpDeleteIcon, mDeleteDrawableSrcResId);
+            mBackspaceDrawableSrcResId = a.getResourceId(R.styleable.BetterPickersDialogFragment_bpBackspaceIcon, mBackspaceDrawableSrcResId);
+            mClearDrawableSrcResId = a.getResourceId(R.styleable.BetterPickersDialogFragment_bpClearIcon, mClearDrawableSrcResId);
 
             a.recycle();
         }
@@ -145,9 +151,13 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
             mRight.setTextColor(mTextColor);
             mRight.setBackgroundResource(mKeyBackgroundResId);
         }
-        if (mDelete != null) {
-            mDelete.setBackgroundResource(mButtonBackgroundResId);
-            mDelete.setImageDrawable(AppCompatResources.getDrawable(mContext, mDeleteDrawableSrcResId));
+        if (mBackspace != null) {
+            //mBackspace.setBackgroundResource(mButtonBackgroundResId);
+            mBackspace.setImageDrawable(AppCompatResources.getDrawable(mContext, mBackspaceDrawableSrcResId));
+        }
+        if (mClear != null) {
+            //mDelete.setBackgroundResource(mButtonBackgroundResId);
+            mClear.setImageDrawable(AppCompatResources.getDrawable(mContext, mClearDrawableSrcResId));
         }
         if (mEnteredNumber != null) {
             mEnteredNumber.setTheme(mTheme);
@@ -173,9 +183,13 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         View v3 = findViewById(R.id.third);
         View v4 = findViewById(R.id.fourth);
         mEnteredNumber = findViewById(R.id.number_text);
-        mDelete = findViewById(R.id.delete);
-        mDelete.setOnClickListener(this);
-        mDelete.setOnLongClickListener(this);
+        mBackspace = findViewById(R.id.backspace);
+        TooltipCompat.setTooltipText(mBackspace, mContext.getString(R.string.backspace_button_tooltip));
+        mBackspace.setOnClickListener(this);
+        //mDelete.setOnLongClickListener(this);
+        mClear = findViewById(R.id.clear);
+        TooltipCompat.setTooltipText(mClear, mContext.getString(R.string.clear_button_tooltip));
+        mClear.setOnClickListener(this);
 
         mNumbers[1] = v1.findViewById(R.id.key_left);
         mNumbers[2] = v1.findViewById(R.id.key_middle);
@@ -259,10 +273,13 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     /**
      * Update the delete button to determine whether it is able to be clicked.
      */
-    private void updateDeleteButton() {
+    private void updateDeleteButtons() {
         boolean enabled = mInputPointer != -1;
-        if (mDelete != null) {
-            mDelete.setEnabled(enabled);
+        if (mBackspace != null) {
+            mBackspace.setEnabled(enabled);
+        }
+        if (mClear != null) {
+            mClear.setEnabled(enabled);
         }
     }
 
@@ -280,7 +297,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
         mError.hideImmediately();
         doOnClick(v);
-        updateDeleteButton();
+        updateDeleteButtons();
     }
 
     @SuppressWarnings("WeakerAccess")
@@ -289,7 +306,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         if (val != null) {
             // A number was pressed
             addClickedNumber(val);
-        } else if (v == mDelete) {
+        } else if (v == mBackspace) {
             if (mInputPointer >= 0) {
                 //noinspection ManualArrayCopy
                 for (int i = 0; i < mInputPointer; i++) {
@@ -298,6 +315,10 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
                 mInput[mInputPointer] = -1;
                 mInputPointer--;
             }
+        } else if (v == mClear) {
+            mError.hideImmediately();
+            reset();
+            updateKeypad();
         } else if (v == mLeft) {
             onLeftClicked();
         } else if (v == mRight) {
@@ -306,6 +327,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         updateKeypad();
     }
 
+    /*
     @Override
     public boolean onLongClick(View v) {
         v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
@@ -318,6 +340,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         }
         return false;
     }
+    */
 
     private void updateKeypad() {
         // Update state of keypad
@@ -327,7 +350,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         // enable/disable the "set" key
         enableSetButton();
         // Update the backspace button
-        updateDeleteButton();
+        updateDeleteButtons();
     }
 
     /**
