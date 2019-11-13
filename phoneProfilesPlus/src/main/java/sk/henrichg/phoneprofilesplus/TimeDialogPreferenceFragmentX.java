@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 import mobi.upod.timedurationpicker.TimeDurationPicker;
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
@@ -43,6 +44,7 @@ public class TimeDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
         super.onBindDialogView(view);
 
         mValue = view.findViewById(R.id.time_pref_dlg_value);
+        TooltipCompat.setTooltipText(mValue, getString(R.string.time_pref_dlg_edit_time_tooltip));
         mSeekBarHours = view.findViewById(R.id.time_pref_dlg_hours);
         mSeekBarMinutes = view.findViewById(R.id.time_pref_dlg_minutes);
 

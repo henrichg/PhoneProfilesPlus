@@ -1452,6 +1452,11 @@
     <string name="wifi_ssid_pref_dlg_select_button_tooltip">Select SSID</string>
     <string name="location_settings_button_tooltip">Location settings</string>
     <string name="mobile_cells_pref_dlg_button_tooltip">Sort cell list</string>
+    <string name="duration_pref_dlg_edit_duration_tooltip">Edit duration</string>
+    <string name="applications_editor_dialog_edit_delay_tooltip">Edit delay</string>
+    <string name="location_pref_dlg_edit_radius_tooltip">Edit radius</string>
+    <string name="time_pref_dlg_edit_time_tooltip">Edit time</string>
+
 
     <string name="number_picker_delete">Delete</string>
 

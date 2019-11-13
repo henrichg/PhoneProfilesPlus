@@ -226,6 +226,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         radiusLabel.setText(getString(R.string.event_preferences_location_radius_label) + ":");
 
         radiusValue = findViewById(R.id.location_pref_dlg_radius_value);
+        TooltipCompat.setTooltipText(radiusValue, getString(R.string.location_pref_dlg_edit_radius_tooltip));
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         dialogBuilder.setTitle(R.string.event_preferences_location_radius_label);

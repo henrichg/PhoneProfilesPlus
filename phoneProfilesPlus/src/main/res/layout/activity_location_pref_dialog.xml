@@ -83,7 +83,8 @@
                 android:id="@+id/location_pref_dlg_et_btn2"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp">
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/location_pref_dlg_add"

@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 import mobi.upod.timedurationpicker.TimeDurationPicker;
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
@@ -92,6 +93,7 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
 
         TextView mTextViewRange = layout.findViewById(R.id.duration_pref_dlg_range);
         mValue = layout.findViewById(R.id.duration_pref_dlg_value);
+        TooltipCompat.setTooltipText(mValue, getString(R.string.duration_pref_dlg_edit_duration_tooltip));
         mSeekBarHours = layout.findViewById(R.id.duration_pref_dlg_hours);
         mSeekBarMinutes = layout.findViewById(R.id.duration_pref_dlg_minutes);
         mSeekBarSeconds = layout.findViewById(R.id.duration_pref_dlg_seconds);
