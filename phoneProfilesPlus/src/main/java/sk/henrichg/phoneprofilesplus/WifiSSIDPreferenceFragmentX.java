@@ -31,6 +31,7 @@ import java.util.List;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 @SuppressWarnings("WeakerAccess")
@@ -75,6 +76,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
         dataRelativeLayout = view.findViewById(R.id.wifi_ssid_pref_dlg_rella_data);
 
         addIcon = view.findViewById(R.id.wifi_ssid_pref_dlg_addIcon);
+        TooltipCompat.setTooltipText(addIcon, getString(R.string.wifi_ssid_pref_dlg_add_button_tooltip));
         addIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,6 +131,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
         });
 
         final ImageView helpIcon = view.findViewById(R.id.wifi_ssid_pref_dlg_helpIcon);
+        TooltipCompat.setTooltipText(helpIcon, getString(R.string.help_button_tooltip));
         helpIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,6 +146,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
         });
 
         ImageView changeSelectionIcon = view.findViewById(R.id.wifi_ssid_pref_dlg_changeSelection);
+        TooltipCompat.setTooltipText(changeSelectionIcon, getString(R.string.wifi_ssid_pref_dlg_select_button_tooltip));
         changeSelectionIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -186,6 +190,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
 
         locationEnabledStatusTextView = view.findViewById(R.id.wifi_ssid_pref_dlg_locationEnableStatus);
         locationSystemSettingsButton = view.findViewById(R.id.wifi_ssid_pref_dlg_locationSystemSettingsButton);
+        TooltipCompat.setTooltipText(locationSystemSettingsButton, getString(R.string.location_settings_button_tooltip));
 
         setLocationEnableStatus();
 

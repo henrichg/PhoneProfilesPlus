@@ -26,6 +26,7 @@ import java.util.List;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -217,6 +218,7 @@ class ApplicationEditorDialogX
         });
 
         addButton  = layout.findViewById(R.id.applications_editor_dialog_addIntent);
+        TooltipCompat.setTooltipText(addButton, activity.getString(R.string.applications_editor_dialog_add_button_tooltip));
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

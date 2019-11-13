@@ -45,6 +45,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
@@ -368,6 +369,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         });
 
         AppCompatImageButton myLocationButton = findViewById(R.id.location_editor_my_location);
+        TooltipCompat.setTooltipText(myLocationButton, getString(R.string.location_editor_set_to_my_location_button_tooltip));
         myLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -378,6 +380,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         });
 
         addressButton = findViewById(R.id.location_editor_address_btn);
+        TooltipCompat.setTooltipText(addressButton, getString(R.string.location_editor_rename_with_address_button_tooltip));
         addressButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

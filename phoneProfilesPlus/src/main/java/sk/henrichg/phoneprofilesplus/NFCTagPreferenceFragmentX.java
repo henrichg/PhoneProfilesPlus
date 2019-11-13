@@ -24,6 +24,7 @@ import java.util.List;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 @SuppressWarnings("WeakerAccess")
@@ -62,6 +63,7 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
         //dataRelativeLayout = layout.findViewById(R.id.nfc_tag_pref_dlg_rella_data);
 
         addIcon = view.findViewById(R.id.nfc_tag_pref_dlg_addIcon);
+        TooltipCompat.setTooltipText(addIcon, getString(R.string.nfc_tag_pref_dlg_add_button_tooltip));
         addIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,7 +125,7 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
             helpText.setVisibility(View.VISIBLE);
         }
         else {
-            helpIcon.setImageResource(R.drawable.ic_button_profileicon_help);
+            helpIcon.setImageResource(R.drawable.ic_button_help);
             helpText.setVisibility(View.GONE);
         }
         helpIcon.setOnClickListener(new View.OnClickListener() {
@@ -133,7 +135,7 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 int visibility = helpText.getVisibility();
                 if (visibility == View.VISIBLE) {
-                    helpIcon.setImageResource(R.drawable.ic_button_profileicon_help);
+                    helpIcon.setImageResource(R.drawable.ic_button_help);
                     visibility = View.GONE;
                     editor.putBoolean(PREF_SHOW_HELP, false);
                 }
@@ -148,6 +150,7 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
         });
         */
         final ImageView helpIcon = view.findViewById(R.id.nfc_tag_pref_dlg_helpIcon);
+        TooltipCompat.setTooltipText(helpIcon, getString(R.string.help_button_tooltip));
         helpIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,6 +160,7 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
 
         ImageView changeSelectionIcon = view.findViewById(R.id.nfc_tag_pref_dlg_changeSelection);
+        TooltipCompat.setTooltipText(changeSelectionIcon, getString(R.string.nfc_tag_pref_dlg_select_button_tooltip));
         changeSelectionIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

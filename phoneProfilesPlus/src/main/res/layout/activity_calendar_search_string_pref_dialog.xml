@@ -15,7 +15,7 @@
         android:padding="5dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/ic_button_profileicon_help"
+        android:src="@drawable/ic_button_help"
         android:background="?attr/selectableItemBackground"
         android:contentDescription="@string/menu_help"/>
 

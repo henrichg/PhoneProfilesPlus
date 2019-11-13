@@ -80,7 +80,7 @@
                 android:layout_centerVertical="true"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_button_profileicon_help"
+                android:src="@drawable/ic_button_help"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:contentDescription="@string/menu_help"

@@ -32,6 +32,7 @@ import java.util.List;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
@@ -147,6 +148,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         });
 
         final AppCompatImageButton editIcon = view.findViewById(R.id.mobile_cells_pref_dlg_rename);
+        TooltipCompat.setTooltipText(editIcon, getString(R.string.mobile_cells_pref_dlg_rename_cell_button_tooltip));
         editIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -178,6 +180,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
             }
         });
         AppCompatImageButton changeSelectionIcon = view.findViewById(R.id.mobile_cells_pref_dlg_changeSelection);
+        TooltipCompat.setTooltipText(changeSelectionIcon, getString(R.string.mobile_cells_pref_dlg_select_button_tooltip));
         changeSelectionIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -217,6 +220,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
             }
         });
         final AppCompatImageButton sortIcon = view.findViewById(R.id.mobile_cells_pref_dlg_sort);
+        TooltipCompat.setTooltipText(sortIcon, getString(R.string.mobile_cells_pref_dlg_button_tooltip));
         sortIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -240,6 +244,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         });
 
         final AppCompatImageButton helpIcon = view.findViewById(R.id.mobile_cells_pref_dlg_helpIcon);
+        TooltipCompat.setTooltipText(helpIcon, getString(R.string.help_button_tooltip));
         helpIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -267,6 +272,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
             rescanButton.setEnabled(false);
 
         addCellButton = view.findViewById(R.id.mobile_cells_pref_dlg_addCellButton);
+        TooltipCompat.setTooltipText(addCellButton, getString(R.string.mobile_cells_pref_dlg_add_button_tooltip));
         addCellButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -279,6 +285,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
 
         locationEnabledStatusTextView = view.findViewById(R.id.mobile_cells_pref_dlg_locationEnableStatus);
         locationSystemSettingsButton = view.findViewById(R.id.mobile_cells_pref_dlg_locationSystemSettingsButton);
+        TooltipCompat.setTooltipText(locationSystemSettingsButton, getString(R.string.location_settings_button_tooltip));
 
         setLocationEnableStatus();
 

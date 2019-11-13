@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 @SuppressWarnings("WeakerAccess")
@@ -57,6 +58,7 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
             preference.setNegativeButtonText(null);*/
 
         AppCompatImageButton addButton = view.findViewById(R.id.location_pref_dlg_add);
+        TooltipCompat.setTooltipText(addButton, getString(R.string.location_pref_dlg_add_button_tooltip));
 
         ListView geofencesListView = view.findViewById(R.id.location_pref_dlg_listview);
 
@@ -139,6 +141,7 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
 
         locationEnabledStatusTextView = view.findViewById(R.id.location_pref_dlg_locationEnableStatus);
         locationSystemSettingsButton = view.findViewById(R.id.location_pref_dlg_locationSystemSettingsButton);
+        TooltipCompat.setTooltipText(locationSystemSettingsButton, getString(R.string.location_settings_button_tooltip));
 
         setLocationEnableStatus();
 

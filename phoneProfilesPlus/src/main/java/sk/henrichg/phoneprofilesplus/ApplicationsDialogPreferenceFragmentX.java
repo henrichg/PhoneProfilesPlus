@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import java.util.List;
 
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -51,6 +52,7 @@ public class ApplicationsDialogPreferenceFragmentX extends PreferenceDialogFragm
         super.onBindDialogView(view);
 
         AppCompatImageButton addButton = view.findViewById(R.id.applications_pref_dlg_add);
+        TooltipCompat.setTooltipText(addButton, getString(R.string.applications_pref_dlg_add_button_tooltip));
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         applicationsListView = view.findViewById(R.id.applications_pref_dlg_listview);

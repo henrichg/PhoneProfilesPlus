@@ -23,6 +23,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
 
 public class ApplicationEditorIntentActivityX extends AppCompatActivity {
@@ -205,6 +206,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
         categoryArray = getResources().getStringArray(R.array.applicationEditorIntentCategoryArray);
         categoryIndices = new boolean[categoryArray.length];
         AppCompatImageButton intentCategoryButton = findViewById(R.id.application_editor_intent_category_btn);
+        TooltipCompat.setTooltipText(intentCategoryButton, getString(R.string.application_editor_intent_edit_category_button_tooltip));
         intentCategoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -265,6 +267,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
         flagArray = getResources().getStringArray(R.array.applicationEditorIntentFlagArray);
         flagIndices = new boolean[flagArray.length];
         AppCompatImageButton intentFlagsButton = findViewById(R.id.application_editor_intent_flags_btn);
+        TooltipCompat.setTooltipText(intentFlagsButton, getString(R.string.application_editor_intent_edit_flags_button_tooltip));
         intentFlagsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

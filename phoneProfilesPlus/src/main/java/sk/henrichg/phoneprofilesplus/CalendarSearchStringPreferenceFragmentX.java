@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 @SuppressWarnings("WeakerAccess")
@@ -38,6 +39,7 @@ public class CalendarSearchStringPreferenceFragmentX extends PreferenceDialogFra
         editText.setText(preference.value);
 
         final ImageView helpIcon = view.findViewById(R.id.calendar_search_string_pref_dlg_helpIcon);
+        TooltipCompat.setTooltipText(helpIcon, getString(R.string.help_button_tooltip));
         helpIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

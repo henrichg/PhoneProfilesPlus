@@ -122,7 +122,7 @@
                     android:layout_marginEnd="10dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ic_button_profileicon_help"
+                    android:src="@drawable/ic_button_help"
                     android:background="?attr/selectableItemBackground"
                     android:contentDescription="@string/menu_help"/>
 
@@ -199,7 +199,7 @@
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_button_sort"
                     android:background="?attr/selectableItemBackground"
-                    android:contentDescription="@string/mobile_cells_pref_dlg_rename_icon"/>
+                    android:contentDescription="@string/mobile_cells_pref_dlg_sort_icon"/>
 
                 <TextView
                     android:id="@+id/mobile_cells_pref_dlg_cells_filter_name"
