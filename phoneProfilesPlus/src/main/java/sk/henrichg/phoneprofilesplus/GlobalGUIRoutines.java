@@ -1041,14 +1041,14 @@ class GlobalGUIRoutines {
         if (ApplicationPreferences.applicationTheme(activity, true).equals("white")) {
             timeDurationPicker.setDisplayTextAppearance(R.style.TextAppearance_TimeDurationPicker_Display);
             timeDurationPicker.setUnitTextAppearance(R.style.TextAppearance_TimeDurationPicker_Unit);
-            timeDurationPicker.setBackspaceIcon(ContextCompat.getDrawable(activity, R.drawable.ic_backspace_light_bp));
-            timeDurationPicker.setClearIcon(ContextCompat.getDrawable(activity, R.drawable.ic_clear_light_tdp));
+            timeDurationPicker.setBackspaceIcon(ContextCompat.getDrawable(activity, R.drawable.ic_backspace_light));
+            timeDurationPicker.setClearIcon(ContextCompat.getDrawable(activity, R.drawable.ic_clear_light));
         }
         else {
             timeDurationPicker.setDisplayTextAppearance(R.style.TextAppearance_TimeDurationPicker_Display_Dark);
             timeDurationPicker.setUnitTextAppearance(R.style.TextAppearance_TimeDurationPicker_Unit_Dark);
-            timeDurationPicker.setBackspaceIcon(ContextCompat.getDrawable(activity, R.drawable.ic_backspace_bp));
-            timeDurationPicker.setClearIcon(ContextCompat.getDrawable(activity, R.drawable.ic_clear_tdp));
+            timeDurationPicker.setBackspaceIcon(ContextCompat.getDrawable(activity, R.drawable.ic_backspace));
+            timeDurationPicker.setClearIcon(ContextCompat.getDrawable(activity, R.drawable.ic_clear));
         }
         timeDurationPicker.setDurationDisplayBackgroundColor(getThemeEditorFilterBackgroundColor(activity));
         //timeDurationPicker.setSeparatorColor(GlobalGUIRoutines.getThemeDialogDividerColor(activity));

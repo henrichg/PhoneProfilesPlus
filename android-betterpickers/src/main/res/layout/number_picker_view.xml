@@ -37,7 +37,7 @@
                         android:singleLine="true"
                         android:ellipsize="none"
                         style="@style/medium_light"
-                        android:text="@string/number_picker_seperator"
+                        android:text="@string/number_picker_separator"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"/>
                 <com.codetroopers.betterpickers.widget.ZeroTopPaddingTextView
@@ -73,9 +73,9 @@
                 android:layout_width="wrap_content"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_backspace_dark"
+                android:src="@drawable/ic_backspace_dark_bp"
                 android:background="@drawable/key_background_dark"
-                android:contentDescription="@string/number_delete"
+                android:contentDescription="@string/number_picker_delete"
                 android:layout_height="match_parent"/>
     </LinearLayout>
     <View

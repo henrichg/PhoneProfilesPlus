@@ -12,11 +12,13 @@
             <option value="$PROJECT_DIR$/RootShell" />
             <option value="$PROJECT_DIR$/RootTools" />
             <option value="$PROJECT_DIR$/android-betterpickers" />
+            <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/phoneProfilesPlus" />
             <option value="$PROJECT_DIR$/time-duration-picker" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
+        <option name="testRunner" value="PLATFORM" />
       </GradleProjectSettings>
     </option>
   </component>

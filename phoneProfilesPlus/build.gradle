@@ -98,6 +98,7 @@ dependencies {
     implementation 'me.drakeet.support:toastcompat:1.1.0'
     //implementation 'com.llew.huawei:verifier:1.1.2'
 
+    implementation project(':common')
     implementation project(':RootShell')
     implementation project(':RootTools')
     implementation project(':android-betterpickers')

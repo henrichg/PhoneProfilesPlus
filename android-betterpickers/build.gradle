@@ -31,5 +31,7 @@ dependencies {
     api "androidx.appcompat:appcompat:$ppVersions.appcompatXLib"
     api "androidx.appcompat:appcompat-resources:$ppVersions.appcompatXLib"
     //api 'me.drakeet.support:toastcompat:1.1.0'
+
+    implementation project(':common')
 }
 

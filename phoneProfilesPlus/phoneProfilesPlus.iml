@@ -182,6 +182,7 @@
     <orderEntry type="module" module-name="RootTools" />
     <orderEntry type="module" module-name="android-betterpickers" />
     <orderEntry type="module" module-name="time-duration-picker" />
+    <orderEntry type="module" module-name="common" />
     <orderEntry type="module" module-name="RootShell" />
   </component>
 </module>

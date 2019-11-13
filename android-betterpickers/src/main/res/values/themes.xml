@@ -5,7 +5,7 @@
         <item name="bpDialogBackground">@drawable/dialog_full_holo_dark</item>
         <item name="bpTitleColor">@color/dialog_text_color_holo_dark</item>
         <item name="bpTextColor">@color/dialog_text_color_holo_dark</item>
-        <item name="bpDeleteIcon">@drawable/ic_backspace_dark</item>
+        <item name="bpDeleteIcon">@drawable/ic_backspace_dark_bp</item>
         <item name="bpKeyBackground">@drawable/key_background_dark</item>
         <item name="bpButtonBackground">@drawable/button_background_dark</item>
         <item name="bpTitleDividerColor">@color/default_keyboard_indicator_color_dark</item>
@@ -17,7 +17,7 @@
         <item name="bpDialogBackground">@drawable/dialog_full_holo_light</item>
         <item name="bpTitleColor">@color/dialog_text_color_holo_light</item>
         <item name="bpTextColor">@color/dialog_text_color_holo_light</item>
-        <item name="bpDeleteIcon">@drawable/ic_backspace_light</item>
+        <item name="bpDeleteIcon">@drawable/ic_backspace_light_bp</item>
         <item name="bpKeyBackground">@drawable/key_background_light</item>
         <item name="bpButtonBackground">@drawable/button_background_light</item>
         <item name="bpTitleDividerColor">@color/default_keyboard_indicator_color_dark</item>

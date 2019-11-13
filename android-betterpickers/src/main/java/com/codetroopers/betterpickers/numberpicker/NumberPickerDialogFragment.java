@@ -191,17 +191,17 @@ public class NumberPickerDialogFragment extends DialogFragment {
             public void onClick(View view) {
                 BigDecimal number = mPicker.getEnteredNumber();
                 if (mMinNumber != null && mMaxNumber != null && (isSmaller(number) || isBigger(number))) {
-                    String errorText = getString(R.string.min_max_error, mMinNumber, mMaxNumber);
+                    String errorText = getString(R.string.number_picker_min_max_error, mMinNumber, mMaxNumber);
                     mPicker.getErrorView().setText(errorText);
                     mPicker.getErrorView().show();
                     return;
                 } else if (mMinNumber != null && isSmaller(number)) {
-                    String errorText = getString(R.string.min_error, mMinNumber);
+                    String errorText = getString(R.string.number_picker_min_error, mMinNumber);
                     mPicker.getErrorView().setText(errorText);
                     mPicker.getErrorView().show();
                     return;
                 } else if (mMaxNumber != null && isBigger(number)) {
-                    String errorText = getString(R.string.max_error, mMaxNumber);
+                    String errorText = getString(R.string.number_picker_max_error, mMaxNumber);
                     mPicker.getErrorView().setText(errorText);
                     mPicker.getErrorView().show();
                     return;

@@ -95,7 +95,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         mTextColor = getResources().getColorStateList(R.color.dialog_text_color_holo_dark);
         mKeyBackgroundResId = R.drawable.key_background_dark;
         mButtonBackgroundResId = R.drawable.button_background_dark;
-        mDeleteDrawableSrcResId = R.drawable.ic_backspace_dark;
+        mDeleteDrawableSrcResId = R.drawable.ic_backspace_dark_bp;
         mDividerColor = getResources().getColor(R.color.default_divider_color_dark);
     }
 
@@ -203,7 +203,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
 
         Resources res = mContext.getResources();
         mLeft.setText(res.getString(R.string.number_picker_plus_minus));
-        mRight.setText(res.getString(R.string.number_picker_seperator));
+        mRight.setText(res.getString(R.string.number_picker_separator));
         mLeft.setOnClickListener(this);
         mRight.setOnClickListener(this);
         mLabel = findViewById(R.id.label);
