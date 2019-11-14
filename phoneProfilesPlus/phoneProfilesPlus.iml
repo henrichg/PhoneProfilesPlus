@@ -179,10 +179,10 @@
     <orderEntry type="library" name="Gradle: com.simplecityapps:recyclerview-fastscroll:2.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: dev.doubledot.doki:library:0.0.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: dev.doubledot.doki:api:0.0.1@aar" level="project" />
+    <orderEntry type="module" module-name="common" />
+    <orderEntry type="module" module-name="RootShell" />
     <orderEntry type="module" module-name="RootTools" />
     <orderEntry type="module" module-name="android-betterpickers" />
     <orderEntry type="module" module-name="time-duration-picker" />
-    <orderEntry type="module" module-name="common" />
-    <orderEntry type="module" module-name="RootShell" />
   </component>
 </module>
