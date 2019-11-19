@@ -77,7 +77,7 @@ public class PPApplication extends Application {
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && BuildConfig.DEBUG;
-    static final boolean logIntoFile = true;
+    static final boolean logIntoFile = false;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && BuildConfig.DEBUG;
     private static final boolean rootToolsDebug = false;
@@ -201,8 +201,8 @@ public class PPApplication extends Application {
                                          //+"|Permissions.grantProfilePermissions"
                                          //+"|Permissions.checkProfileVibrateWhenRinging"
                                          //+"|Permissions.checkVibrateWhenRinging"
-                                         +"|ActivateProfileHelper.executeForVolumes"
-                                         +"|Permissions.checkProfileAccessNotificationPolicy"
+                                         //+"|ActivateProfileHelper.executeForVolumes"
+                                         //+"|Permissions.checkProfileAccessNotificationPolicy"
                                          //+"|ActivateProfileHelper.setZenMode"
                                          //+"|ActivateProfileHelper.setRingerMode"
                                          //+"|ActivateProfileHelper.setVolumes"
@@ -271,7 +271,7 @@ public class PPApplication extends Application {
 
                                          //+"|ActivateProfileHelper.setAirplaneMode_SDK17"
                                          //+"|ActivateProfileHelper.executeForRadios"
-                                         +"|ActivateProfileHelper.setMobileData"
+                                         //+"|ActivateProfileHelper.setMobileData"
                                         //+"|ActivateProfileHelper.doExecuteForRadios"
                                         //+"|CmdMobileData.isEnabled"
                                         //+"|$$$ WifiAP"
@@ -389,8 +389,8 @@ public class PPApplication extends Application {
 
                                         //+"|EventPreferencesActivity.savePreferences"
 
-                                        +"|PhoneCallReceiver"
-                                        +"|PhoneCallBroadcastReceiver"
+                                        //+"|PhoneCallReceiver"
+                                        //+"|PhoneCallBroadcastReceiver"
                                         //+"|PhoneCallBroadcastReceiver.callAnswered"
 
                                         //+"|#### EventsHandler.handleEvents"
@@ -439,7 +439,7 @@ public class PPApplication extends Application {
 
                                         //+"|EventPreferencesCalendar.saveStartEndTime"
 
-                                        +"|DatabaseHandler.importDB"
+                                        //+"|DatabaseHandler.importDB"
                                         //+ "|ApplicationsMultiSelectDialogPreference.getValueAMSDP"
                                         //+ "|ApplicationsDialogPreference"
                                         //+ "|ApplicationEditorDialogAdapter"

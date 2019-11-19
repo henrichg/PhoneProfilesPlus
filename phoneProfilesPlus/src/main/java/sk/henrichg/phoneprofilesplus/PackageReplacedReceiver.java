@@ -314,7 +314,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                 }
 
                                 if (actualVersionCode <= 5250) {
-                                    if (oldVersionCode < 5210) {
+                                    if (oldVersionCode <= 5210) {
                                         ApplicationPreferences.getSharedPreferences(appContext);
                                         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
 
@@ -335,21 +335,23 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     }
                                 }
 
-                                if (actualVersionCode <= 5300) {
-                                    // for old packages hide profile notification from status bar if notification is disabled
-                                    if (Build.VERSION.SDK_INT < 26) {
-                                        ApplicationPreferences.getSharedPreferences(appContext);
-                                        boolean notificationStatusBar = ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, true);
-                                        boolean notificationStatusBarPermanent = ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, true);
-                                        if (!(notificationStatusBar && notificationStatusBarPermanent)) {
-                                            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-                                            PPApplication.logE("PackageReplacedReceiver.onReceive", "status bar is not permanent, set it!!");
-                                            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, false);
-                                            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, false);
-                                            editor.putString(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE, "2");
-                                            editor.apply();
+                                if (actualVersionCode <= 5310) {
+                                    if (oldVersionCode <= 5300) {
+                                        // for old packages hide profile notification from status bar if notification is disabled
+                                        if (Build.VERSION.SDK_INT < 26) {
+                                            ApplicationPreferences.getSharedPreferences(appContext);
+                                            boolean notificationStatusBar = ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, true);
+                                            boolean notificationStatusBarPermanent = ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, true);
+                                            if (!(notificationStatusBar && notificationStatusBarPermanent)) {
+                                                SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                                                PPApplication.logE("PackageReplacedReceiver.onReceive", "status bar is not permanent, set it!!");
+                                                editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, false);
+                                                editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, false);
+                                                editor.putString(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE, "2");
+                                                editor.apply();
 
-                                            restartService = true;
+                                                restartService = true;
+                                            }
                                         }
                                     }
                                 }
