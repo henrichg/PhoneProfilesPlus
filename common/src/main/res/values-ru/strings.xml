@@ -1347,7 +1347,7 @@
     <string name="applications_editor_dialog_edit_delay_tooltip">Изменить задержку</string>
     <string name="location_pref_dlg_edit_radius_tooltip">Изменить радиус</string>
     <string name="time_pref_dlg_edit_time_tooltip">Изменить время</string>
-    <string name="backspace_button_tooltip">Backspace</string>
+    <string name="backspace_button_tooltip">Назад</string>
     <string name="clear_button_tooltip">Очистить</string>
     <string name="time_duration_picker_hour_sign">ч</string>
     <string name="time_duration_picker_minute_sign">м</string>
