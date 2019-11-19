@@ -1271,6 +1271,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 */
+        preference = findPreference("applicationWidgetLauncher");
+        if (preference != null) {
+            preference.setTitle(preference.getTitle() + " (" + getString(R.string.widget_label_icon) +
+                                    ", " + getString(R.string.widget_label_one_row) + ")");
+        }
     }
 
     @Override
