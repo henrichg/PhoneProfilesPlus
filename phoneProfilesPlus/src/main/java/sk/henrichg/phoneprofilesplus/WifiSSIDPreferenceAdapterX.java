@@ -19,7 +19,7 @@ class WifiSSIDPreferenceAdapterX extends BaseAdapter
     //int selectedRBIndex = -1;
 
     private final LayoutInflater inflater;
-    private Context context;
+    private final Context context;
 
     WifiSSIDPreferenceAdapterX(Context context, WifiSSIDPreferenceX preference)
     {
