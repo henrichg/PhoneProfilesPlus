@@ -2250,30 +2250,26 @@ public class DataWrapper {
                             PPApplication.logE("[BAT] DataWrapper.doHandleEvents", "splits.length=" + splits.length);
                             if (splits.length > 0) {
                                 boolean passed = false;
-                                boolean ok = false;
                                 for (String split : splits) {
                                     try {
                                         int plug = Integer.valueOf(split);
+                                        PPApplication.logE("[BAT] DataWrapper.doHandleEvents", "plug=" + plug);
                                         if ((plug == 1) && (plugged == BatteryManager.BATTERY_PLUGGED_AC)) {
                                             passed = true;
-                                            ok = true;
                                             break;
                                         }
                                         if ((plug == 2) && (plugged == BatteryManager.BATTERY_PLUGGED_USB)) {
                                             passed = true;
-                                            ok = true;
                                             break;
                                         }
                                         if ((plug == 3) && (plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS)) {
                                             passed = true;
-                                            ok = true;
                                             break;
                                         }
                                     } catch (Exception ignored) {
                                     }
                                 }
-                                if (ok)
-                                    batteryPassed = batteryPassed && passed;
+                                batteryPassed = batteryPassed && passed;
                             }
                         }
                     } else if (event._eventPreferencesBattery._powerSaveMode)
