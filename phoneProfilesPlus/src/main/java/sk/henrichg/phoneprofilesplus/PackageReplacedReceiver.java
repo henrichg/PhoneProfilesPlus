@@ -335,7 +335,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     }
                                 }
 
-                                if (actualVersionCode <= 5310) {
+                                if (actualVersionCode <= 5320) {
                                     if (oldVersionCode <= 5300) {
                                         // for old packages hide profile notification from status bar if notification is disabled
                                         if (Build.VERSION.SDK_INT < 26) {
