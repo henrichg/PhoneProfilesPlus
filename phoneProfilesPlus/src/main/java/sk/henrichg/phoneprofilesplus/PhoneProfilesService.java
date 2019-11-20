@@ -3544,7 +3544,7 @@ public class PhoneProfilesService extends Service
 
         removeRestartEventsForFirstStartHandler(false);
 
-        final Context appContext = getApplicationContext();
+        //final Context appContext = getApplicationContext();
 
         //if (onlyStart) {
             final boolean _startOnBoot = startOnBoot;
@@ -3557,6 +3557,8 @@ public class PhoneProfilesService extends Service
                 @Override
                 public void run() {
                     PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "PhoneProfilesService.doForFirstStart START");
+
+                    Context appContext = getApplicationContext();
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
@@ -3784,6 +3786,8 @@ public class PhoneProfilesService extends Service
                         @Override
                         public void run() {
                             PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "PhoneProfilesService.doForFirstStart.2 START");
+
+                            Context appContext = getApplicationContext();
 
                             PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                             PowerManager.WakeLock wakeLock = null;
