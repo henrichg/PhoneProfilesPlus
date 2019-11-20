@@ -84,8 +84,12 @@ class GlobalGUIRoutines {
                 String[] langSplit = lang.split("-");
                 if (langSplit.length == 1)
                     appLocale = new Locale(lang);
-                else
-                    appLocale = new Locale(langSplit[0], langSplit[1]);
+                else {
+                    if ((langSplit[0].equals("sr")) && (langSplit[1].equals("Latn")))
+                        appLocale = new Locale.Builder().setLanguage("sr").setScript("Latn").build();
+                    else
+                        appLocale = new Locale(langSplit[0], langSplit[1]);
+                }
             } else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
                     appLocale = Resources.getSystem().getConfiguration().getLocales().get(0);

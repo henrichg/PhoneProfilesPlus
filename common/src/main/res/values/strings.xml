@@ -1463,6 +1463,38 @@
     <string name="time_duration_picker_minute_sign">m</string>
     <string name="time_duration_picker_second_sign">s</string>
 
+    <string name="phone_profiles_pref_applicationLanguage_af" translatable="false">Afrikaans</string>
+    <string name="phone_profiles_pref_applicationLanguage_sr_Latn" translatable="false">Srpski (latinski)</string>
+    <string name="phone_profiles_pref_applicationLanguage_bn_IN" translatable="false">বাঙালি</string>
+    <string name="phone_profiles_pref_applicationLanguage_et" translatable="false">Eestlane</string>
+    <string name="phone_profiles_pref_applicationLanguage_fi" translatable="false">Suomalainen</string>
+    <string name="phone_profiles_pref_applicationLanguage_ga_IE" translatable="false">Gaeilge</string>
+    <string name="phone_profiles_pref_applicationLanguage_hr" translatable="false">Hrvatski</string>
+    <string name="phone_profiles_pref_applicationLanguage_is" translatable="false">Íslensku</string>
+    <string name="phone_profiles_pref_applicationLanguage_ku" translatable="false">Kurdî</string>
+    <string name="phone_profiles_pref_applicationLanguage_lb" translatable="false">Lëtzebuergesch</string>
+    <string name="phone_profiles_pref_applicationLanguage_lv" translatable="false">Latvis</string>
+    <string name="phone_profiles_pref_applicationLanguage_ms" translatable="false">Melayu</string>
+    <string name="phone_profiles_pref_applicationLanguage_no" translatable="false">Norsk</string>
+    <string name="phone_profiles_pref_applicationLanguage_th" translatable="false">ไทย</string>
+    <string name="phone_profiles_pref_applicationLanguage_vi" translatable="false">Tiếng Việt</string>
+
+    <string name="array_pref_value_af" translatable="false">af</string>
+    <string name="array_pref_value_sr_Latn" translatable="false">sr-Latn</string>
+    <string name="array_pref_value_bn_IN" translatable="false">bn-IN</string>
+    <string name="array_pref_value_et" translatable="false">et</string>
+    <string name="array_pref_value_fi" translatable="false">fi</string>
+    <string name="array_pref_value_ga_IE" translatable="false">ga-IE</string>
+    <string name="array_pref_value_hr" translatable="false">hr</string>
+    <string name="array_pref_value_is" translatable="false">is</string>
+    <string name="array_pref_value_ku" translatable="false">ku</string>
+    <string name="array_pref_value_lb" translatable="false">lb</string>
+    <string name="array_pref_value_lv" translatable="false">lv</string>
+    <string name="array_pref_value_ms" translatable="false">ms</string>
+    <string name="array_pref_value_no" translatable="false">no</string>
+    <string name="array_pref_value_th" translatable="false">th</string>
+    <string name="array_pref_value_vi" translatable="false">vi</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
