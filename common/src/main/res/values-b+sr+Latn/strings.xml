@@ -205,8 +205,8 @@
     <string name="restart_events_alert_title">Restartuj događaje</string>
     <string name="restart_events_alert_message">Da li ste sigurni?</string>
     <string name="event_preferences_ForceRun_summary">Pokreni događaj i ako je već ručno pokrenut profil</string>
-    <string name="event_preferences_category_startOfEvent">Pokreni događaj</string>
-    <string name="event_preferences_category_endOfEvent">Kraj događaja</string>
+    <string name="event_preferences_category_startOfEvent">Početak događaja</string>
+    <string name="event_preferences_category_endOfEvent">Završetak događaja</string>
     <string name="event_preference_profile_undone">Opozovi</string>
     <string name="event_preferences_priority">Prioritet</string>
     <string name="array_event_pref_priorityVeryHigh">[P:9] Vrlo visok</string>
@@ -306,7 +306,7 @@
     <string name="array_event_pref_bluetoothConnectionType_notInFront">Nije u blizini ( u dometu skeniranja)</string>
     <string name="event_preferences_call_contact_groups">Kontaktirajte grupe</string>
     <string name="event_preferences_sms_contact_groups">Kontaktirajte grupe</string>
-    <string name="title_activity_activity_log">Log aktivnosti</string>
+    <string name="title_activity_activity_log">Dnevnik aktivnosti</string>
     <string name="menu_activity_log">Log aktivnosti</string>
     <string name="altype_profileActivation">aktiviranje profila</string>
     <string name="altype_afterDuration_undoProfile">posle isticanja trajanja - vrati profil</string>
@@ -388,7 +388,7 @@
     <string name="permission_group_name_storage">Memor. prostor</string>
     <string name="permission_group_name_phone">Telefon</string>
     <string name="permissions_alert_title">Potrebne dozvole</string>
-    <string name="permissions_for_profile_text1">Aktiviraj profil</string>
+    <string name="permissions_for_profile_text1">Aktiviranje profila</string>
     <string name="permissions_for_profile_text1m">Neki profili</string>
     <string name="permissions_for_profile_text2">zahteva ove dozvole:</string>
     <string name="permissions_for_profile_text3">Omogućite ih u sledećem dijalogu. Profil će onda biti aktiviran.</string>
@@ -396,8 +396,8 @@
     <string name="permissions_for_profile_big_text_notification">potrebne su neke dozvole da se omoguće.</string>
     <string name="permissions_notification_text">Potrebne dozvole</string>
     <string name="toast_tone_installation_installed_ok">Zvuk \"PhoneProfiles Silent\" je instaliran.</string>
-    <string name="toast_tone_installation_installed_error">Greška pri instalaciji tona \"PhoneProfiles Silent\"!</string>
-    <string name="toast_permissions_granted">Dozvole su uvek omogućene</string>
+    <string name="toast_tone_installation_installed_error">Greška pri instalaciji zvuka \"PhoneProfiles Silent\"!</string>
+    <string name="toast_permissions_granted">Dozvole su već omogućene</string>
     <string name="toast_permissions_not_granted">Dozvole nisu odobrene</string>
     <string name="permissions_for_wallpaper_text1">Odabir pozadine zahteva određene dozvole.</string>
     <string name="permissions_for_wallpaper_text2">Omogućite ih u sledećem dijalogu. Onda možete izabrati pozadinu u galeriji.</string>
@@ -623,7 +623,7 @@
     <string name="info_notification_event_priority_new">Svaki događaj ima \"prioritet\". Događaj neće započeti ako događaj koji već radi ima viši prioritet.</string>
     <string name="info_notification_event_start_order">Događaj radi u \"Redosled rada\". Možete promenti redosled izvršenja u editoru pregledu događaja \"Redosled rada\". Jednostavno prevučete gore/dole sa \"Nalogodavac\".</string>
     <string name="info_notification_event_start_order_handler_icon">Redosled izvršavanja:</string>
-    <string name="info_notification_activate_profile_from_tasker">Možete aktivirati profil putem Taskera. Podesite zadatak \"Sistem\"/\"Pošalji nameru\" sa prametrima:</string>
+    <string name="info_notification_activate_profile_from_tasker">Možete aktivirati profil putem Taskera. Podesite zadatak \"Sistem\"/\"Pošalji nameru\" sa parametrima:</string>
     <string name="phone_profiles_pref_notificationHideInLockscreen">Sakriti u zaključanom ekranu</string>
     <string name="phone_profiles_pref_deleteOldActivityLogs">Obriši stare dnevnike aktivnosti ( u danima)</string>
     <string name="phone_profiles_pref_applicationWidgetIconBackground">Providnost pozadine ( vidžet)</string>
@@ -640,7 +640,7 @@
     <string name="event_preferences_priority_notUse">Ne koristi</string>
     <string name="event_type_nfc">NFC</string>
     <string name="event_preferences_category_eventNFCParameters">NFC Senzor</string>
-    <string name="event_preferences_nfc_nfcTags">NFC Tag</string>
+    <string name="event_preferences_nfc_nfcTags">NFC Tagovi</string>
     <string name="nfc_tag_pref_dlg_hint">Ime taga</string>
     <string name="nfc_tag_pref_dlg_help">Morate upisati ime taga u sam NFC tag.\"Upiši u NFC tag\" se nalazi u meniju za svako ime taga.</string>
     <string name="nfc_tag_pref_dlg_menu_writeToNfcTag">Zapis u NFC tag</string>
@@ -799,7 +799,7 @@
     <string name="array_pref_zenModeArray_off">Isklj</string>
     <string name="array_pref_zenModeArray_offButVibration">Isključi sa vibracijom</string>
     <string name="array_pref_zenModeArray_totalSilence">Potpuna tišina</string>
-    <string name="profile_preferences_zenMode_off_summary">Prikaži sva obaveštenja</string>
+    <string name="profile_preferences_zenMode_off_summary">Uznemiravaj sa svim obaveštenja</string>
     <string name="profile_preferences_zenMode_totalSilence_summary">Isključi zvuk za sva obaveštenja</string>
     <string name="array_pref_applicationDisableScanning_disabled">Skeniranje je onemogućeno</string>
     <string name="array_pref_applicationDisableScanning_enabled">Moguće je obaviti skeniranje</string>
