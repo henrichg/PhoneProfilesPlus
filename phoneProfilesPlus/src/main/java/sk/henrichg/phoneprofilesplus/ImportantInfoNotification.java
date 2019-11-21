@@ -25,35 +25,48 @@ class ImportantInfoNotification {
         PPApplication.logE("ImportantInfoNotification.showInfoNotification","xxx");
         int packageVersionCode = 0;
         int savedVersionCode = 0;
+        int show = 0;
         try {
             PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             packageVersionCode = PPApplication.getVersionCode(pInfo);
             savedVersionCode = getShowInfoNotificationOnStartVersion(context);
-            if ((packageVersionCode > savedVersionCode)/* || PPApplication.newExtender*/){
-                //Log.d("ImportantInfoNotification.showInfoNotification","show");
-                //boolean show = (versionCode >= VERSION_CODE_FOR_NEWS);
-                boolean show = canShowNotification(packageVersionCode, savedVersionCode, context);
+            if ((packageVersionCode > savedVersionCode)){
+                show = canShowNotification(packageVersionCode, savedVersionCode, context);
                 PPApplication.logE("ImportantInfoNotification.showInfoNotification", "show="+show);
-                setShowInfoNotificationOnStart(context, show, packageVersionCode);
+                setShowInfoNotificationOnStart(context, show != 0, packageVersionCode);
             }
-            else
+            else {
+                int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
+                PPApplication.logE("ImportantInfoNotification.showInfoNotification", "extenderVersion="+extenderVersion);
+                if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST))
+                    show = 2;
+                PPApplication.logE("ImportantInfoNotification.showInfoNotification", "show="+show);
+
                 setShowInfoNotificationOnStartVersion(context, packageVersionCode);
+            }
         } catch (Exception ignored) {
         }
 
         if ((savedVersionCode == 0) || getShowInfoNotificationOnStart(context, packageVersionCode)) {
             PPApplication.logE("ImportantInfoNotification.showInfoNotification", "show notification");
 
-            showNotification(context, savedVersionCode == 0,
-                    context.getString(R.string.info_notification_title),
-                    context.getString(R.string.info_notification_text));
+            if (show == 1)
+                showNotification(context, savedVersionCode == 0,
+                        context.getString(R.string.info_notification_title),
+                        context.getString(R.string.info_notification_text));
+            else
+            if (show == 2)
+                showNotification(context, savedVersionCode == 0,
+                        context.getString(R.string.info_notification_title),
+                        context.getString(R.string.important_info_accessibility_service_new_version));
 
             setShowInfoNotificationOnStart(context, false, packageVersionCode);
         }
     }
 
-    static private boolean canShowNotification(int packageVersionCode, int savedVersionCode, Context context) {
+    static private int canShowNotification(int packageVersionCode, int savedVersionCode, Context context) {
         boolean news = false;
+        boolean newExtender = false;
 
         PPApplication.logE("ImportantInfoNotification.canShowNotification", "packageVersionCode="+packageVersionCode);
 
@@ -119,13 +132,20 @@ class ImportantInfoNotification {
             //}
         }
 
-        if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST))
-            news = true;
+        if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)) {
+            newExtender = true;
+        }
 
         if (afterInstall)
             news = true;
 
-        return news;
+        if (newExtender)
+            return 2;
+        else
+        if (news)
+            return 1;
+        else
+            return 0;
     }
 
     static private void showNotification(Context context, boolean firstInstallation, String title, String text) {
