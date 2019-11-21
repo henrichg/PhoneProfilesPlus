@@ -22,8 +22,8 @@
 // 5300 = PPService as foreground also for android < 26
 
 ext.ppVersions = [
-    publishVersion: '4.1.4.5b',
-    publishVersionCode: 5322,
+    publishVersion: '4.1.4.5',
+    publishVersionCode: 5330,
 
     minSdk: 21,
     targetSdk: 28,
