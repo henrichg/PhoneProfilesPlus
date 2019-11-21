@@ -1464,7 +1464,7 @@
     <string name="time_duration_picker_second_sign">s</string>
 
     <string name="phone_profiles_pref_applicationLanguage_af" translatable="false">Afrikaans</string>
-    <string name="phone_profiles_pref_applicationLanguage_sr_Latn" translatable="false">Srpski (latinski)</string>
+    <string name="phone_profiles_pref_applicationLanguage_sr_Latn" translatable="false">Srpski (Latinica)</string>
     <string name="phone_profiles_pref_applicationLanguage_bn_IN" translatable="false">বাঙালি</string>
     <string name="phone_profiles_pref_applicationLanguage_et" translatable="false">Eestlane</string>
     <string name="phone_profiles_pref_applicationLanguage_fi" translatable="false">Suomalainen</string>
