@@ -2323,7 +2323,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals("categoryNotificationsRoot")) {
             //summary = summary + getString(R.string.phone_profiles_pref_notificationsToast);
             if (Build.VERSION.SDK_INT >= 26) {
-                if (!summary.isEmpty()) summary = summary + " • ";
+                //if (!summary.isEmpty()) summary = summary + " • ";
                 summary = summary + getString(R.string.phone_profiles_pref_notificationSystemSettings);
             }
             /*else {
