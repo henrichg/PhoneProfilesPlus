@@ -33,7 +33,7 @@
         app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity$PhoneProfilesPrefsPermissions" />
 
     <Preference
-        app:title="@string/phone_profiles_pref_category_notifications"
+        app:title="@string/phone_profiles_pref_category_status_bar"
         app:key="categoryNotificationsRoot"
         app:widgetLayout="@layout/start_activity_preference"
         app:layout="@layout/mp_preference_material_widget"

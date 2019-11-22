@@ -2,17 +2,8 @@
 <androidx.preference.PreferenceScreen
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:key="categoryNotifications"
-    app:title="@string/phone_profiles_pref_category_notifications">
+    app:title="@string/phone_profiles_pref_category_status_bar">
 
-    <SwitchPreferenceCompat
-        app:key="notificationsToast"
-        app:title="@string/phone_profiles_pref_notificationsToast"
-        app:defaultValue="true"
-        app:layout="@layout/mp_preference_material_widget" />
-    <PreferenceCategory
-        app:key="categoryNotificationsStatusBar"
-        app:title="@string/phone_profiles_pref_notificationStatusBarNew"
-        app:layout="@layout/mp_preference_category" >
         <!--
         <Preference
             app:key="notificationStatusBarInfo"
@@ -107,6 +98,5 @@
             app:title="@string/phone_profiles_pref_notificationShowButtonExit"
             app:defaultValue="false"
             app:layout="@layout/mp_preference_material_widget" />
-    </PreferenceCategory>
-    
+
 </androidx.preference.PreferenceScreen>

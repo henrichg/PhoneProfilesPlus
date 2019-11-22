@@ -49,13 +49,22 @@
     <PreferenceCategory
         app:title="@string/phone_profiles_pref_manualProfileActivation"
         app:layout="@layout/mp_preference_category" >
-
         <SwitchPreferenceCompat
             app:key="applicationAlert"
             app:title="@string/phone_profiles_pref_applicationAlert"
             app:defaultValue="true"
             app:layout="@layout/mp_preference_material_widget" />
-
     </PreferenceCategory>
-    
+
+    <PreferenceCategory
+        app:key="applicationProfileActivationOtherCategory"
+        app:title="@string/phone_profiles_pref_applicationOtherParametersCategory"
+        app:layout="@layout/mp_preference_category" >
+        <SwitchPreferenceCompat
+            app:key="notificationsToast"
+            app:title="@string/phone_profiles_pref_notificationsToast"
+            app:defaultValue="true"
+            app:layout="@layout/mp_preference_material_widget" />
+    </PreferenceCategory>
+
 </androidx.preference.PreferenceScreen>

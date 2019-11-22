@@ -38,7 +38,6 @@
     <string name="phone_profiles_pref_category_gui">Application interface</string>
     <string name="phone_profiles_pref_category_activation">Profile activation</string>
     <string name="phone_profiles_pref_category_start">Application start</string>
-    <string name="phone_profiles_pref_category_notifications">Notifications</string>
     <string name="phone_profiles_pref_applicationActivate">Activate profile on startup</string>
     <string name="phone_profiles_pref_applicationClose">Close after activating profile</string>
     <string name="phone_profiles_pref_applicationPrefIndicator">Preferences indicator</string>
@@ -1494,6 +1493,8 @@
     <string name="array_pref_value_no" translatable="false">no</string>
     <string name="array_pref_value_th" translatable="false">th</string>
     <string name="array_pref_value_vi" translatable="false">vi</string>
+
+    <string name="phone_profiles_pref_category_status_bar">Status bar</string>
 
     <!-- **************************************************************************************** -->
 

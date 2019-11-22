@@ -548,7 +548,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         @Override
         void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
             PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsNotifications");
-            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_TOAST, fromPreference.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_TOAST, true));
+            //editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_TOAST, fromPreference.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_TOAST, true));
             //editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, fromPreference.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, true));
             //editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, fromPreference.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, true));
             //editor.putString(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_CANCEL, fromPreference.getString(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_CANCEL, "10"));
@@ -589,6 +589,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE_NOTIFICATION_SOUND, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE_NOTIFICATION_SOUND, ""));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE_NOTIFICATION_VIBRATE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE_NOTIFICATION_VIBRATE, false));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_ALERT, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_ALERT, true));
+            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_TOAST, fromPreference.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_TOAST, true));
         }
 
     }
