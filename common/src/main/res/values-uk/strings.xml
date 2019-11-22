@@ -35,7 +35,6 @@
     <string name="phone_profiles_pref_category_gui">Інтерфейс додатку</string>
     <string name="phone_profiles_pref_category_activation">Активація профілю</string>
     <string name="phone_profiles_pref_category_start">Запуск додатку</string>
-    <string name="phone_profiles_pref_category_notifications">Сповіщення</string>
     <string name="phone_profiles_pref_applicationActivate">Активувати профіль при запуску</string>
     <string name="phone_profiles_pref_applicationClose">Закрити після активації профілю</string>
     <string name="phone_profiles_pref_applicationPrefIndicator">Показувати індикатор налаштувань</string>
@@ -1352,6 +1351,7 @@
     <string name="time_duration_picker_hour_sign">г</string>
     <string name="time_duration_picker_minute_sign">хв</string>
     <string name="time_duration_picker_second_sign">сек</string>
+    <string name="phone_profiles_pref_category_status_bar">Status bar</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

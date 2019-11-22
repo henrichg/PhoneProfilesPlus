@@ -35,7 +35,6 @@
     <string name="phone_profiles_pref_category_gui">आवेदन इंटरफ़ेस</string>
     <string name="phone_profiles_pref_category_activation">प्रोफ़ाइल ऐक्टिवेशन</string>
     <string name="phone_profiles_pref_category_start">आवेदन प्रारंभ</string>
-    <string name="phone_profiles_pref_category_notifications">अधिसूचनाऐ</string>
     <string name="phone_profiles_pref_applicationActivate">स्टार्टअप पर प्रोफ़ाइल सक्रिय करें</string>
     <string name="phone_profiles_pref_applicationClose">प्रोफ़ाइल को सक्रिय करने के बाद बंद करें</string>
     <string name="phone_profiles_pref_applicationPrefIndicator">प्राथमिकताएँ संकेतक</string>
@@ -1352,6 +1351,7 @@
     <string name="time_duration_picker_hour_sign">h</string>
     <string name="time_duration_picker_minute_sign">m</string>
     <string name="time_duration_picker_second_sign">s</string>
+    <string name="phone_profiles_pref_category_status_bar">Status bar</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

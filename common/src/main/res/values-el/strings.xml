@@ -35,7 +35,6 @@
     <string name="phone_profiles_pref_category_gui">Περιβάλλον εφαρμογής</string>
     <string name="phone_profiles_pref_category_activation">Ενεργοποίηση προφίλ</string>
     <string name="phone_profiles_pref_category_start">Έναρξη εφαρμογής</string>
-    <string name="phone_profiles_pref_category_notifications">Ειδοποιήσεις</string>
     <string name="phone_profiles_pref_applicationActivate">Ενεργοποίηση προφιλ κατά την εκκίνηση</string>
     <string name="phone_profiles_pref_applicationClose">Έξοδος μετά την ενεργοποίηση προφίλ</string>
     <string name="phone_profiles_pref_applicationPrefIndicator">Ένδειξη επιλογών</string>
@@ -1352,6 +1351,7 @@
     <string name="time_duration_picker_hour_sign">h</string>
     <string name="time_duration_picker_minute_sign">m</string>
     <string name="time_duration_picker_second_sign">s</string>
+    <string name="phone_profiles_pref_category_status_bar">Status bar</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

@@ -35,7 +35,6 @@
     <string name="phone_profiles_pref_category_gui">應用程式介面</string>
     <string name="phone_profiles_pref_category_activation">設定檔啟動</string>
     <string name="phone_profiles_pref_category_start">應用程式啟動</string>
-    <string name="phone_profiles_pref_category_notifications">通知</string>
     <string name="phone_profiles_pref_applicationActivate">在開機時啟動設定檔</string>
     <string name="phone_profiles_pref_applicationClose">啟用設定檔後關閉程式</string>
     <string name="phone_profiles_pref_applicationPrefIndicator">偏好設定指示器</string>
@@ -1352,6 +1351,7 @@
     <string name="time_duration_picker_hour_sign">h</string>
     <string name="time_duration_picker_minute_sign">m</string>
     <string name="time_duration_picker_second_sign">s</string>
+    <string name="phone_profiles_pref_category_status_bar">Status bar</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

@@ -35,7 +35,6 @@
     <string name="phone_profiles_pref_category_gui">Izgled aplikacije</string>
     <string name="phone_profiles_pref_category_activation">Aktiviranje profila</string>
     <string name="phone_profiles_pref_category_start">Aplikacija je startovala</string>
-    <string name="phone_profiles_pref_category_notifications">Obaveštenja</string>
     <string name="phone_profiles_pref_applicationActivate">Aktiviraj profil na početku</string>
     <string name="phone_profiles_pref_applicationClose">Zatvori nakon aktiviranja profila</string>
     <string name="phone_profiles_pref_applicationPrefIndicator">Podešavanje indikatora</string>
@@ -580,7 +579,7 @@
     <string name="permissions_access_notification_policy_not_allowed_confirm">Niste omogućili \"Ne uznemiravaj pristup\". Nikada ne pitaj ponovo?</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Ne uznemiravaj pristup</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Potraži \"PhoneProfilesPlus\" aplikaciju i omogući je.</string>
-    <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Dodajte „PhoneProfilesPlus“ u „Not Optimized“. Ako imate problema s aktiviranjem profila događaja ili ostavite uređaj neko vrijeme bez napajanja sa isključenim ekranom.</string>
+    <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Dodajte „PhoneProfilesPlus“ u „Ne optimizovano“. Ako imate problema s aktiviranjem profila događaja ili ostavite uređaj neko vrijeme bez napajanja sa isključenim ekranom.</string>
     <string name="profile_preferences_deviceWallpaperFor">Postavi pozadinu za</string>
     <string name="array_pref_device_wallpaper_homescreen">Početni ekran</string>
     <string name="array_pref_device_wallpaper_lockscreen">Zaključani ekran</string>
@@ -855,7 +854,7 @@
     <string name="important_info_quick_guide_sensors_7"><![CDATA[<b> Senzor poziva: </b> Početak i kraj putem podešenih kontakata. Na primer, kada vam uređaj zvoni.]]></string>
     <string name="important_info_quick_guide_sensors_8"><![CDATA[<b> Senzor dodatne opreme: </b> Pokrenite događaj kada su, na primer, povezane slušalice.]]></string>
     <string name="important_info_quick_guide_sensors_9"><![CDATA[<b>NFC senzor:</b> Pokretanje događaja sa NFC tagom.]]></string>
-    <string name="important_info_quick_guide_events_3">Ako ručno aktivirate profil ( ne sa događajem) svi događaji koji rade će se završiti (pauzirati). Događaji se neće pokrenuti tokom ručne aktivacije. Svakako možete da da zaobiđete ovo opciju sa podešavanjima \"Ignoriši ručnu aktivaciju\" u parametrima događaja.</string>
+    <string name="important_info_quick_guide_events_3">Ako ručno aktivirate profil ( ne sa događajem) svi događaji koji rade će se završiti (pauzirati). Događaji se neće pokrenuti tokom ručne aktivacije. Svakako možete da da zaobiđete ovu opciju sa podešavanjima \"Ignoriši ručnu aktivaciju\" u parametrima događaja.</string>
     <string name="important_info_quick_guide_editor_1">Profili i događaji su podešeni u uređivaču (Editoru), na koji se možete pozvati putem Aktivatora. Unutar uređivača možete dodavati, duplirati, ažurirati i brisati profile i događaje. Uređivač ima levi bočni panel koji vam omogućuje promenu prikaza uređivača. Koristite ga za prebacivanje između liste profila i događaja.</string>
     <string name="event_preferences_noPauseByManualActivation">Nemojte pauzirati tokom ručne aktivacije</string>
     <string name="event_preferences_noPauseByManualActivation_summary">Nemojte pauzirate ovaj pokrenuti događaj ako je profil ručno aktiviran</string>
@@ -953,7 +952,7 @@
     <string name="profile_multiselect_summary_text_not_selected">Nema odabranih</string>
     <string name="notification_channel_activated_profile">Aktiviran profil</string>
     <string name="notification_channel_activated_profile_description_ppp">Prikaži aktiviran profil sa započetim događajem.</string>
-    <string name="notification_channel_activated_profile_description_pp">Prikaži aktiviran profil.</string>
+    <string name="notification_channel_activated_profile_description_pp">Prikazuje aktiviran profil.</string>
     <string name="notification_channel_mobile_cells_registration_description">Prikaži vreme čekanja prijave na mobilnu ćeliju.</string>
     <string name="notification_channel_information">Informacije</string>
     <string name="notification_channel_exclamation">Upozorenje</string>
@@ -970,7 +969,7 @@
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">Za omogućavanje parametra \"Prislino zaustavi aplikacije\" klikni ovde za instalaciju PhoneProfilesPlusExtender-a.</string>
     <string name="event_preferences_applications_PPPExtender_new_version_summary">Nova verzija PhoneProfilesPlusExtender-a je neophodna. Klikni ovde za ažuriranje.</string>
     <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettings_title">Podešavanje pristupačnosti</string>
-    <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary">Za omogućavanje parametra \"Prisilno zaustavi aplikacije\" dozvolite \"Pristupačnost\" u sistemskim podešavanjima PhoneProfilesPlusExtender-a.</string>
+    <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary">Za omogućavanje parametra \"Prisilno zaustavi aplikacije\" dozvolite \"Pristupačnost\" u sistemskim podešavanjima za PhoneProfilesPlusExtender.</string>
     <string name="shortcut_activate_profile">Aktiviraj profil:</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary">Radi samo kada je ekran uključen i otključan.</string>
     <string name="important_info_contact">Ako imate problema, pitanja ili sugestije pišite mi na e-mail:</string>
@@ -991,7 +990,7 @@
     <string name="not_saved_changes_alert_title">Podešavanja su promenjena</string>
     <string name="not_saved_changes_alert_message">Sačuvaj promene?</string>
     <string name="export_profiles_alert_message">Rezervna kopija će biti sačuvana u memorijskom prostoru uređaja u folderu</string>
-    <string name="export_profiles_alert_message_note">Napomena: Rezervna kopija sadrživa osetljive privatne podatke. Delite ovde podatke sa drugim liima u Zip formatu zaštićene šifrom.</string>
+    <string name="export_profiles_alert_message_note">Napomena: Rezervna kopija sadrži osetljive privatne podatke. Delite ovde podatke sa drugim licima u Zip formatu zaštićene šifrom.</string>
     <string name="alert_button_backup">Uradi rez. kopiju</string>
     <string name="important_info_privacy_policy_backup_files">Politika privatnosti je promenjena. Naročito za kopiju podataka kreiranu sa funkcijom za rezervne kopije.</string>
     <string name="important_info_privacy_policy_backup_files_2">Klikni ovde za prikaz Politike privatnosti.</string>
@@ -1223,7 +1222,7 @@
     <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_not_merged">Vaš uređaj nema povezane nivoe glasnoće za zvuke zvona i obaveštenja. Klikni ovde za podešavanje razdvajanja.</string>
     <string name="phone_profiles_pref_applicationPowerParametersCategory">Baterija i napajanje</string>
     <string name="phone_profiles_pref_applicationOtherParametersCategory">Ostalo</string>
-    <string name="activity_log_header_log_time">Евидентирај време</string>
+    <string name="activity_log_header_log_time">Evidentiraj vreme</string>
     <string name="activity_log_header_data_type">Tip podataka</string>
     <string name="activity_log_header_data">Podaci</string>
     <string name="profile_preferences_volumeDTMF">DTMFzvukovi glasnoća</string>
@@ -1352,6 +1351,7 @@
     <string name="time_duration_picker_hour_sign">h</string>
     <string name="time_duration_picker_minute_sign">m</string>
     <string name="time_duration_picker_second_sign">s</string>
+    <string name="phone_profiles_pref_category_status_bar">Statusni bar</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

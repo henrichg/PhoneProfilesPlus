@@ -35,7 +35,6 @@
     <string name="phone_profiles_pref_category_gui">어플리케이션 인터페이스</string>
     <string name="phone_profiles_pref_category_activation">프로필 활성화</string>
     <string name="phone_profiles_pref_category_start">어플리케이션 시작</string>
-    <string name="phone_profiles_pref_category_notifications">알림</string>
     <string name="phone_profiles_pref_applicationActivate">시작 시 활성 프로필</string>
     <string name="phone_profiles_pref_applicationClose">프로필 활성화 후 종료</string>
     <string name="phone_profiles_pref_applicationPrefIndicator">환경 설정 표시기</string>
@@ -1352,6 +1351,7 @@
     <string name="time_duration_picker_hour_sign">h</string>
     <string name="time_duration_picker_minute_sign">m</string>
     <string name="time_duration_picker_second_sign">s</string>
+    <string name="phone_profiles_pref_category_status_bar">Status bar</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

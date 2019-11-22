@@ -35,7 +35,6 @@
     <string name="phone_profiles_pref_category_gui">Interfejs aplikacji</string>
     <string name="phone_profiles_pref_category_activation">Aktywacja profilu</string>
     <string name="phone_profiles_pref_category_start">Uruchamianie aplikacji</string>
-    <string name="phone_profiles_pref_category_notifications">Powiadomienia</string>
     <string name="phone_profiles_pref_applicationActivate">Aktywuj profil podczas uruchomienia</string>
     <string name="phone_profiles_pref_applicationClose">Zamknij po aktywacji profilu</string>
     <string name="phone_profiles_pref_applicationPrefIndicator">Ikonka preferencji</string>
@@ -1352,6 +1351,7 @@
     <string name="time_duration_picker_hour_sign">h</string>
     <string name="time_duration_picker_minute_sign">m</string>
     <string name="time_duration_picker_second_sign">s</string>
+    <string name="phone_profiles_pref_category_status_bar">Status bar</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

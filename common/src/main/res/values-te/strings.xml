@@ -35,7 +35,6 @@
     <string name="phone_profiles_pref_category_gui">అప్లికేషన్ ఇంటర్ఫేస్</string>
     <string name="phone_profiles_pref_category_activation">ప్రొఫైల్ యాటివేషన్</string>
     <string name="phone_profiles_pref_category_start">అప్లికేషన్ ప్రారంభం</string>
-    <string name="phone_profiles_pref_category_notifications">ప్రకటనలు</string>
     <string name="phone_profiles_pref_applicationActivate">స్టార్ట్అప్లో ప్రొఫైల్ను సక్రియం</string>
     <string name="phone_profiles_pref_applicationClose">ప్రొఫైల్ యాక్టివేట్ చేసిన తర్వాత క్లొస్</string>
     <string name="phone_profiles_pref_applicationPrefIndicator">ప్రాధాన్యతలు సూచిక</string>
@@ -1352,6 +1351,7 @@
     <string name="time_duration_picker_hour_sign">h</string>
     <string name="time_duration_picker_minute_sign">m</string>
     <string name="time_duration_picker_second_sign">s</string>
+    <string name="phone_profiles_pref_category_status_bar">Status bar</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

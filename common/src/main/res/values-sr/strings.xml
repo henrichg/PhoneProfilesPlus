@@ -35,7 +35,6 @@
     <string name="phone_profiles_pref_category_gui">Изглед апликације</string>
     <string name="phone_profiles_pref_category_activation">Активирање профила</string>
     <string name="phone_profiles_pref_category_start">Почетак апликације</string>
-    <string name="phone_profiles_pref_category_notifications">Обавештења</string>
     <string name="phone_profiles_pref_applicationActivate">Активирај профил на почетку</string>
     <string name="phone_profiles_pref_applicationClose">Затвори после активирања профила</string>
     <string name="phone_profiles_pref_applicationPrefIndicator">Индикатор подешавања</string>
@@ -1352,6 +1351,7 @@
     <string name="time_duration_picker_hour_sign">h</string>
     <string name="time_duration_picker_minute_sign">m</string>
     <string name="time_duration_picker_second_sign">s</string>
+    <string name="phone_profiles_pref_category_status_bar">Status bar</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

@@ -35,7 +35,6 @@
     <string name="phone_profiles_pref_category_gui">Uygulama arayüzü</string>
     <string name="phone_profiles_pref_category_activation">Tercihi Faaliyete Geçir</string>
     <string name="phone_profiles_pref_category_start">Uygulama Başlat</string>
-    <string name="phone_profiles_pref_category_notifications">Bildirimler</string>
     <string name="phone_profiles_pref_applicationActivate">Tercihi cihaz açılırken faal yap</string>
     <string name="phone_profiles_pref_applicationClose">Tercihi faaliyete geçirdikten sonra pencereyi kapat</string>
     <string name="phone_profiles_pref_applicationPrefIndicator">Ayarlar göstergesi</string>
@@ -1352,6 +1351,7 @@
     <string name="time_duration_picker_hour_sign">h</string>
     <string name="time_duration_picker_minute_sign">m</string>
     <string name="time_duration_picker_second_sign">s</string>
+    <string name="phone_profiles_pref_category_status_bar">Status bar</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

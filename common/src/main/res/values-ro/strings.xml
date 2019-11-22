@@ -35,7 +35,6 @@
     <string name="phone_profiles_pref_category_gui">Interfaţă aplicaţie</string>
     <string name="phone_profiles_pref_category_activation">Activare profil</string>
     <string name="phone_profiles_pref_category_start">Pornire aplicație</string>
-    <string name="phone_profiles_pref_category_notifications">Notificări</string>
     <string name="phone_profiles_pref_applicationActivate">Activează profilul la pornire</string>
     <string name="phone_profiles_pref_applicationClose">Închide după activarea profilului</string>
     <string name="phone_profiles_pref_applicationPrefIndicator">Indicator de preferinţe</string>
@@ -1352,6 +1351,7 @@
     <string name="time_duration_picker_hour_sign">h</string>
     <string name="time_duration_picker_minute_sign">m</string>
     <string name="time_duration_picker_second_sign">s</string>
+    <string name="phone_profiles_pref_category_status_bar">Status bar</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

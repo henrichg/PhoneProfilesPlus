@@ -35,7 +35,6 @@
     <string name="phone_profiles_pref_category_gui">Applikationsgränssnitt</string>
     <string name="phone_profiles_pref_category_activation">Profilaktivering</string>
     <string name="phone_profiles_pref_category_start">Applikationsstart</string>
-    <string name="phone_profiles_pref_category_notifications">Notifieringar</string>
     <string name="phone_profiles_pref_applicationActivate">Aktivera profil vid start</string>
     <string name="phone_profiles_pref_applicationClose">Stäng efter att ha aktiverat profilen</string>
     <string name="phone_profiles_pref_applicationPrefIndicator">Egenskapsindikator</string>
@@ -1352,6 +1351,7 @@
     <string name="time_duration_picker_hour_sign">h</string>
     <string name="time_duration_picker_minute_sign">m</string>
     <string name="time_duration_picker_second_sign">s</string>
+    <string name="phone_profiles_pref_category_status_bar">Status bar</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

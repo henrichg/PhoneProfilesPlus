@@ -35,7 +35,6 @@
     <string name="phone_profiles_pref_category_gui">App-Thema</string>
     <string name="phone_profiles_pref_category_activation">Profil-Aktivierung</string>
     <string name="phone_profiles_pref_category_start">App starten</string>
-    <string name="phone_profiles_pref_category_notifications">Benachrichtigungen</string>
     <string name="phone_profiles_pref_applicationActivate">Profil beim Start aktivieren</string>
     <string name="phone_profiles_pref_applicationClose">Nach Profil-Aktivierung schließen</string>
     <string name="phone_profiles_pref_applicationPrefIndicator">Präferenzen kennzeichnen</string>
@@ -1353,6 +1352,7 @@ und die Systemlautstärke zu ändern</string>
     <string name="time_duration_picker_hour_sign">h</string>
     <string name="time_duration_picker_minute_sign">m</string>
     <string name="time_duration_picker_second_sign">s</string>
+    <string name="phone_profiles_pref_category_status_bar">Statusleiste</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
