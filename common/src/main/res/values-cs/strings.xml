@@ -361,7 +361,7 @@
     <string name="wifi_ssid_pref_dlg_info_about_wildcards">v SSID,</string>
     <string name="bluetooth_name_pref_dlg_info_about_wildcards">v názvu Bluetooth,</string>
     <string name="calendar_pref_dlg_info_about_wildcards">v hledaném řetězci,</string>
-    <string name="pref_dlg_info_about_wildcards_3">přidejte \"\" před tyto znaky.</string>
+    <string name="pref_dlg_info_about_wildcards_3">přidejte \"\u005C\" před tyto znaky.</string>
     <string name="important_info_profile_settings">Některé parametry profilu vyžadují změny nastavení v systémových Nastaveních. Tyto parametry jsou označena jako \"(S)\".</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_title">Přístup k notifikacím</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Povol PhoneProfilesPlus v systémovém nastavení \"Přístup k notifikacím\", pro povolení parametru profilu \"Typy vyrušení\".</string>

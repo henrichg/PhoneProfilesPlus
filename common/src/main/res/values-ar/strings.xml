@@ -361,7 +361,7 @@
     <string name="wifi_ssid_pref_dlg_info_about_wildcards">بإسم الشبكة,</string>
     <string name="bluetooth_name_pref_dlg_info_about_wildcards">في اسم البلوتوث،</string>
     <string name="calendar_pref_dlg_info_about_wildcards">في دالة البحث ،</string>
-    <string name="pref_dlg_info_about_wildcards_3">add \"\" around these characters.</string>
+    <string name="pref_dlg_info_about_wildcards_3">add \"\u005C\" around these characters.</string>
     <string name="important_info_profile_settings">تتطلب بعض إعدادات الوضع عمل تغييرات في إعدادات النظام. هذه الإعدادات تحمل علامة \"(S)\".</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_title">الوصول إلي الإشعارات</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_summary">To enable \"Interruptions type\" profile parameters, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>
