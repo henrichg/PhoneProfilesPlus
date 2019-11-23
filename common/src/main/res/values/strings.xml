@@ -165,7 +165,6 @@
     <string name="editor_drawer_list_item_events_paused">Paused</string>
     <string name="editor_drawer_list_item_events_stopped">Stopped</string>
     <string name="profile_preferences_deviceAutosync">Auto. synchronization</string>
-    <string name="editor_drawer_order_label">Order events by:</string>
     <string name="editor_drawer_order_event_name">Event name</string>
     <string name="editor_drawer_order_profile_name">Profile name</string>
     <string name="default_profile_name_home">Home</string>
@@ -1495,6 +1494,9 @@
     <string name="array_pref_value_vi" translatable="false">vi</string>
 
     <string name="phone_profiles_pref_category_status_bar">Status bar</string>
+    <string name="editor_drawer_title_events_order">Order</string>
+    <string name="editor_activity_targetHelps_orderSpinner_title">Order filter</string>
+    <string name="editor_activity_targetHelps_orderSpinner_description">Click this to switch between order of Events view.</string>
 
     <!-- **************************************************************************************** -->
 
@@ -1641,5 +1643,6 @@
 <!--    <string name="about_application_translations_subject">translation</string>-->
 <!--    <string name="important_info_translations">Please help me with translation, thank you:</string>-->
 <!--    <string name="important_info_email_body_translation_language_to">Language to translate:</string>-->
+<!--    <string name="editor_drawer_order_label">Order events by:</string>-->
 
 </resources>

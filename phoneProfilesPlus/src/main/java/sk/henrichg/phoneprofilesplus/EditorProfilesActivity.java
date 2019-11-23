@@ -2462,6 +2462,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 ApplicationPreferences.preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, true) ||
                 ApplicationPreferences.preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, true) ||
                 ApplicationPreferences.preferences.getBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, true) ||
+                ApplicationPreferences.preferences.getBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_ORDER_SPINNER, true) ||
                 ApplicationPreferences.preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, true) ||
                 ApplicationPreferences.preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, true) ||
                 ApplicationPreferences.preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_STATUS, true)) {
@@ -2495,7 +2496,6 @@ public class EditorProfilesActivity extends AppCompatActivity
 //                    textColor = R.color.tabTargetHelpTextColor_dark;
 
                 int[] screenLocation = new int[2];
-
                 filterSpinner.getLocationOnScreen(screenLocation);
                 //filterSpinner.getLocationInWindow(screenLocation);
                 Rect filterSpinnerTarget = new Rect(0, 0, filterSpinner.getHeight(), filterSpinner.getHeight());

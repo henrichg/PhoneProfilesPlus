@@ -365,6 +365,7 @@ public class PhoneProfilesService extends Service
         editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, true);
         editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, true);
         editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, true);
+        editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_ORDER_SPINNER, true);
         editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, true);
         editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, true);
         editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_STATUS, true);

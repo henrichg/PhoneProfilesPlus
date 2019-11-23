@@ -6,9 +6,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -102,6 +104,7 @@ public class EditorEventListFragment extends Fragment
 
     public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "editor_event_list_fragment_start_target_helps";
+    public static final String PREF_START_TARGET_HELPS_ORDER_SPINNER = "editor_profile_activity_start_target_helps_order_spinner";
 
     private int filterType = FILTER_TYPE_ALL;
     private int orderType = ORDER_TYPE_EVENT_NAME;
@@ -369,20 +372,34 @@ public class EditorEventListFragment extends Fragment
             }
         });
 
+        /*
         LinearLayout orderLayout = view.findViewById(R.id.editor_list_bottom_bar_order_root);
         if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
             orderLayout.setVisibility(View.GONE);
         else
             orderLayout.setVisibility(VISIBLE);
+         */
 
         ApplicationPreferences.getSharedPreferences(getActivity());
         orderSelectedItem = ApplicationPreferences.preferences.getInt(SP_EDITOR_ORDER_SELECTED_ITEM, 0);
 
         orderSpinner = view.findViewById(R.id.editor_list_bottom_bar_order);
+        if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
+            orderSpinner.setVisibility(View.INVISIBLE); // MUST BE INVISIBLE, required for shoTargetHelps().
+        else
+            orderSpinner.setVisibility(VISIBLE);
+
+        String[] orderItems = new String[] {
+                getString(R.string.editor_drawer_title_events_order) + " - " + getString(R.string.editor_drawer_order_start_order),
+                getString(R.string.editor_drawer_title_events_order) + " - " + getString(R.string.editor_drawer_order_event_name),
+                getString(R.string.editor_drawer_title_events_order) + " - " + getString(R.string.editor_drawer_order_profile_name),
+                getString(R.string.editor_drawer_title_events_order) + " - " + getString(R.string.editor_drawer_order_priority)
+        };
+
         GlobalGUIRoutines.HighlightedSpinnerAdapter orderSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 getActivity(),
                 R.layout.highlighted_spinner,
-                getResources().getStringArray(R.array.orderEventsArray));
+                orderItems);
         orderSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
         orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getActivity()/*.getBaseContext()*/, R.color.highlighted_spinner_all));
@@ -398,13 +415,13 @@ public class EditorEventListFragment extends Fragment
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-        TextView orderLabel = view.findViewById(R.id.editor_list_bottom_bar_order_title);
+        /*TextView orderLabel = view.findViewById(R.id.editor_list_bottom_bar_order_title);
         orderLabel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 orderSpinner.performClick();
             }
-        });
+        });*/
 
         PPApplication.logE("EditorEventListFragment.doOnViewCreated", "orderSelectedItem="+orderSelectedItem);
         // first must be set eventsOrderType
@@ -1195,20 +1212,23 @@ public class EditorEventListFragment extends Fragment
 
         boolean showTargetHelps = ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true);
         boolean showTargetHelpsDefaultProfile = ApplicationPreferences.preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, true);
-        if (showTargetHelps || showTargetHelpsDefaultProfile ||
+        boolean showTargetHelpsOrderSpinner = ApplicationPreferences.preferences.getBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_ORDER_SPINNER, true);
+        if (showTargetHelps || showTargetHelpsDefaultProfile || showTargetHelpsOrderSpinner ||
                 ApplicationPreferences.preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, true) ||
                 ApplicationPreferences.preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, true) ||
                 ApplicationPreferences.preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_STATUS, true)) {
 
             //Log.d("EditorEventListFragment.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
-            if (showTargetHelps || showTargetHelpsDefaultProfile) {
+            if (showTargetHelps || showTargetHelpsDefaultProfile || showTargetHelpsOrderSpinner) {
 
                 //Log.d("EditorEventListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
                 editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, false);
+                if (filterType != FILTER_TYPE_START_ORDER)
+                    editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_ORDER_SPINNER, false);
                 editor.apply();
 
                 //String appTheme = ApplicationPreferences.applicationTheme(getActivity(), true);
@@ -1222,6 +1242,13 @@ public class EditorEventListFragment extends Fragment
 //                if (appTheme.equals("dark"))
 //                    textColor = R.color.tabTargetHelpTextColor_dark;
                 //boolean tintTarget = !appTheme.equals("white");
+
+                int[] screenLocation = new int[2];
+                orderSpinner.getLocationOnScreen(screenLocation);
+                //orderSpinner.getLocationInWindow(screenLocation);
+                Rect orderSpinnerTarget = new Rect(0, 0, orderSpinner.getHeight(), orderSpinner.getHeight());
+                Log.e("+++++++++++ EditorEventListFragment,showTargetHelps", "orderSpinner.getHeight()="+orderSpinner.getHeight());
+                orderSpinnerTarget.offset(screenLocation[0] + 100, screenLocation[1]);
 
                 final TapTargetSequence sequence = new TapTargetSequence(getActivity());
                 List<TapTarget> targets = new ArrayList<>();
@@ -1268,6 +1295,24 @@ public class EditorEventListFragment extends Fragment
                         ++id;
                     } catch (Exception ignored) {
                     } // not in action bar?
+                }
+                if (showTargetHelpsOrderSpinner) {
+                    if (filterType != FILTER_TYPE_START_ORDER) {
+                        try {
+                            targets.add(
+                                    TapTarget.forBounds(orderSpinnerTarget, getString(R.string.editor_activity_targetHelps_orderSpinner_title), getString(R.string.editor_activity_targetHelps_orderSpinner_description))
+                                            .transparentTarget(true)
+                                            .outerCircleColor(outerCircleColor)
+                                            .targetCircleColor(targetCircleColor)
+                                            .textColor(textColor)
+                                            .tintTarget(true)
+                                            .drawShadow(true)
+                                            .id(1)
+                            );
+                            ++id;
+                        } catch (Exception ignored) {
+                        } // not in action bar?
+                    }
                 }
 
                 sequence.targets(targets)
