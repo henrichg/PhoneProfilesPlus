@@ -130,7 +130,6 @@
     <string name="editor_drawer_list_item_events_paused">Wartend</string>
     <string name="editor_drawer_list_item_events_stopped">Gestoppt</string>
     <string name="profile_preferences_deviceAutosync">Autom. Synchronisieren</string>
-    <string name="editor_drawer_order_label">Ereignisse sortieren nach:</string>
     <string name="editor_drawer_order_event_name">Ereignis-Name</string>
     <string name="editor_drawer_order_profile_name">Profil-Name</string>
     <string name="default_profile_name_home">Startseite</string>
@@ -1353,6 +1352,9 @@ und die Systemlautstärke zu ändern</string>
     <string name="time_duration_picker_minute_sign">m</string>
     <string name="time_duration_picker_second_sign">s</string>
     <string name="phone_profiles_pref_category_status_bar">Statusleiste</string>
+    <string name="editor_drawer_title_events_order">Order</string>
+    <string name="editor_activity_targetHelps_orderSpinner_title">Events order</string>
+    <string name="editor_activity_targetHelps_orderSpinner_description">Click this to switch between order of Events view.</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1489,4 +1491,5 @@ und die Systemlautstärke zu ändern</string>
     <!--    <string name="about_application_translations_subject">translation</string>-->
     <!--    <string name="important_info_translations">Please help me with translation, thank you:</string>-->
     <!--    <string name="important_info_email_body_translation_language_to">Language to translate:</string>-->
+    <!--    <string name="editor_drawer_order_label">Order events by:</string>-->
 </resources>

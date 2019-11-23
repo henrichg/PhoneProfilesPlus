@@ -130,7 +130,6 @@
     <string name="editor_drawer_list_item_events_paused">מושהה</string>
     <string name="editor_drawer_list_item_events_stopped">עצר</string>
     <string name="profile_preferences_deviceAutosync">סינכרון אוטומטי</string>
-    <string name="editor_drawer_order_label">סידור אירועים לפי:</string>
     <string name="editor_drawer_order_event_name">שם האירוע</string>
     <string name="editor_drawer_order_profile_name">שם פרופיל</string>
     <string name="default_profile_name_home">בבית</string>
@@ -181,11 +180,11 @@
     <string name="event_preferences_battery_charging">בטעינה</string>
     <string name="pref_event_battery_level">מפלס</string>
     <string name="pref_event_battery_charging">בטעינה</string>
-    <string name="event_preferences_category_eventTimeParameters">Time sensor</string>
-    <string name="event_preferences_category_eventBatteryParameters">Battery sensor</string>
+    <string name="event_preferences_category_eventTimeParameters">חיישן הזמן</string>
+    <string name="event_preferences_category_eventBatteryParameters">חיישן סוללה</string>
     <string name="contacts_multiselect_summary_text_selected">נבחרו</string>
     <string name="contacts_multiselect_summary_text_not_selected">לא נבחרו</string>
-    <string name="event_preferences_category_eventCallParameters">Call sensor</string>
+    <string name="event_preferences_category_eventCallParameters">חיישן שיחה</string>
     <string name="event_preferences_call_contacts">אנשי קשר</string>
     <string name="event_preferences_call_event">אירוע שיחה</string>
     <string name="array_event_pref_ringing">מצלצל</string>
@@ -229,7 +228,7 @@
     <string name="default_profile_name_battery_low">סוללה חלשה</string>
     <string name="calendars_multiselect_summary_text_selected">נבחרו</string>
     <string name="calendars_multiselect_summary_text_not_selected">לא נבחרו</string>
-    <string name="event_preferences_category_eventCalendarParameters">Calendar sensor</string>
+    <string name="event_preferences_category_eventCalendarParameters">חיישן לוח שנה</string>
     <string name="event_preferences_calendar_calendars">יומנים</string>
     <string name="event_type_calendar">יומן</string>
     <string name="event_preferences_calendar_search_field">שדה חיפוש</string>
@@ -244,7 +243,7 @@
     <string name="array_event_pref_priorityHigher">[8] גבוה</string>
     <string name="array_event_pref_priorityHighest">[10] הגבוה ביותר</string>
     <string name="event_type_wifi">Wi-Fi</string>
-    <string name="event_preferences_category_eventWifiParameters">Wi-Fi sensor</string>
+    <string name="event_preferences_category_eventWifiParameters">חיישן Wifi</string>
     <string name="event_preferences_wifi_ssid">SSID</string>
     <string name="pref_event_wifi_ssid">SSID</string>
     <string name="array_event_pref_wifiConnectionType_connected">מחובר</string>
@@ -255,7 +254,7 @@
     <string name="profile_preference_profile_end_no_activate">אין הפעלה</string>
     <string name="profile_preference_profile_not_set">הפרופיל אינו מוגדר</string>
     <string name="event_type_screen">מסך</string>
-    <string name="event_preferences_category_eventScreenParameters">Screen sensor</string>
+    <string name="event_preferences_category_eventScreenParameters">חיישן מסך</string>
     <string name="event_preferences_screen_event_type">סוג האירוע</string>
     <string name="event_preferences_delayStart">השהייה</string>
     <string name="profile_preferences_duration">משך</string>
@@ -272,7 +271,7 @@
     <string name="event_preferences_screen_start_when_unlocked">הפעלה בעת פתיחת נעילה</string>
     <string name="event_preferences_screen_end_when_unlocked">סיום בעת פתיחת נעילה</string>
     <string name="event_type_bluetooth">Bluetooth</string>
-    <string name="event_preferences_category_eventBluetoothParameters">Bluetooth sensor</string>
+    <string name="event_preferences_category_eventBluetoothParameters">חיישן בלוטוס</string>
     <string name="event_preferences_bluetooth_adapter_name">שם Bluetooth</string>
     <string name="array_event_pref_bluetoothConnectionType_connected">מחובר</string>
     <string name="array_event_pref_bluetoothConnectionType_inFront">בקרבת מקום (בטווח סריקה)</string>
@@ -282,7 +281,7 @@
     <string name="wifi_ssid_pref_dlg_rescan_button">סריקה מחדש</string>
     <string name="event_type_sms">SMS</string>
     <string name="pref_event_sms_contactListType">רשימה</string>
-    <string name="event_preferences_category_eventSMSParameters">SMS/MMS sensor</string>
+    <string name="event_preferences_category_eventSMSParameters">חיישן SMS/MMS</string>
     <string name="event_preferences_sms_contacts">אנשי קשר</string>
     <string name="toast_events_restarted">אירועים הופעלו מחדש</string>
     <string name="event_name_background_profile">פרופיל ברירת מחדל</string>
@@ -377,7 +376,7 @@
     <string name="applications_multiselect_summary_text_selected">נבחרו</string>
     <string name="applications_multiselect_summary_text_not_selected">לא נבחרו</string>
     <string name="event_type_notifications">התראות</string>
-    <string name="event_preferences_category_eventNotificationsParameters">Notification sensor</string>
+    <string name="event_preferences_category_eventNotificationsParameters">חיישן הודעה</string>
     <string name="event_preferences_notifications_applications">יישומים</string>
     <string name="event_preferences_volumeNotificationsAccessSettings_summary">To enable Notification sensor, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>
     <string name="array_pref_zenModeArray_alarms">מעורר/אזעקה בלבד</string>
@@ -1355,6 +1354,9 @@
     <string name="time_duration_picker_minute_sign">m</string>
     <string name="time_duration_picker_second_sign">s</string>
     <string name="phone_profiles_pref_category_status_bar">Status bar</string>
+    <string name="editor_drawer_title_events_order">Order</string>
+    <string name="editor_activity_targetHelps_orderSpinner_title">Events order</string>
+    <string name="editor_activity_targetHelps_orderSpinner_description">Click this to switch between order of Events view.</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1491,4 +1493,5 @@
     <!--    <string name="about_application_translations_subject">translation</string>-->
     <!--    <string name="important_info_translations">Please help me with translation, thank you:</string>-->
     <!--    <string name="important_info_email_body_translation_language_to">Language to translate:</string>-->
+    <!--    <string name="editor_drawer_order_label">Order events by:</string>-->
 </resources>

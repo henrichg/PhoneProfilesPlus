@@ -130,7 +130,6 @@
     <string name="editor_drawer_list_item_events_paused">Призупинені</string>
     <string name="editor_drawer_list_item_events_stopped">Неактивні</string>
     <string name="profile_preferences_deviceAutosync">Авто синхронізація</string>
-    <string name="editor_drawer_order_label">Сортувати події по:</string>
     <string name="editor_drawer_order_event_name">Назва події</string>
     <string name="editor_drawer_order_profile_name">Назва профілю</string>
     <string name="default_profile_name_home">Дім</string>
@@ -325,8 +324,8 @@
     <string name="altype_dataImport">відновлення налаштувань</string>
     <string name="array_event_pref_calendarSearchField_location">Місцезнаходження</string>
     <string name="profile_preferences_vibrationOnTouch">Вібрація при торканні</string>
-    <string name="phone_profiles_pref_notificationShowInStatusBar">Показувати в статус-барі</string>
-    <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Показувати в статус-барі та на екрані блокування</string>
+    <string name="phone_profiles_pref_notificationShowInStatusBar">Показати в рядку стану</string>
+    <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Показувати в рядку стану та на екрані блокування</string>
     <string name="menu_activity_log_reload">Перезавантаження</string>
     <string name="event_preferences_atEndDo">І зробити</string>
     <string name="array_pref_atEndDo_none">Нічого</string>
@@ -1351,7 +1350,10 @@
     <string name="time_duration_picker_hour_sign">г</string>
     <string name="time_duration_picker_minute_sign">хв</string>
     <string name="time_duration_picker_second_sign">сек</string>
-    <string name="phone_profiles_pref_category_status_bar">Status bar</string>
+    <string name="phone_profiles_pref_category_status_bar">Рядок стану</string>
+    <string name="editor_drawer_title_events_order">Order</string>
+    <string name="editor_activity_targetHelps_orderSpinner_title">Events order</string>
+    <string name="editor_activity_targetHelps_orderSpinner_description">Click this to switch between order of Events view.</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1488,4 +1490,5 @@
     <!--    <string name="about_application_translations_subject">translation</string>-->
     <!--    <string name="important_info_translations">Please help me with translation, thank you:</string>-->
     <!--    <string name="important_info_email_body_translation_language_to">Language to translate:</string>-->
+    <!--    <string name="editor_drawer_order_label">Order events by:</string>-->
 </resources>
