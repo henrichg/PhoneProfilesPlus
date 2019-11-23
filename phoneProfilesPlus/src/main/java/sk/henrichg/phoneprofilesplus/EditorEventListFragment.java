@@ -390,15 +390,15 @@ public class EditorEventListFragment extends Fragment
             orderSpinner.setVisibility(VISIBLE);
 
         String[] orderItems = new String[] {
-                getString(R.string.editor_drawer_title_events_order) + " - " + getString(R.string.editor_drawer_order_start_order),
-                getString(R.string.editor_drawer_title_events_order) + " - " + getString(R.string.editor_drawer_order_event_name),
-                getString(R.string.editor_drawer_title_events_order) + " - " + getString(R.string.editor_drawer_order_profile_name),
-                getString(R.string.editor_drawer_title_events_order) + " - " + getString(R.string.editor_drawer_order_priority)
+                getString(R.string.editor_drawer_title_events_order) + ": " + getString(R.string.editor_drawer_order_start_order),
+                getString(R.string.editor_drawer_title_events_order) + ": " + getString(R.string.editor_drawer_order_event_name),
+                getString(R.string.editor_drawer_title_events_order) + ": " + getString(R.string.editor_drawer_order_profile_name),
+                getString(R.string.editor_drawer_title_events_order) + ": " + getString(R.string.editor_drawer_order_priority)
         };
 
         GlobalGUIRoutines.HighlightedSpinnerAdapter orderSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 getActivity(),
-                R.layout.highlighted_spinner,
+                R.layout.highlighted_order_spinner,
                 orderItems);
         orderSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
