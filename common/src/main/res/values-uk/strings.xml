@@ -683,7 +683,7 @@
     <string name="event_preferences_sensorsInfo_title">Призначення датчиків</string>
     <string name="event_preferences_sensorsInfo_summary">Подію буде запущено, тільки якщо параметри всіх увімкнених датчиків будуть виконані. Запущена подія завершиться, якщо будь-які параметри увімкнених датчиків не виконуються. Перевіряйте тільки ті датчики, які потрібні для цієї події. Назви увімкнених датчиків виділені жирним текстом.\n\n Деякі параметри датчика є обов\'язковими. Обов\'язкові параметри помічені підкресленням. Якщо будь-які обов\'язкові параметри не встановлені, подія не запуститься і параметр \"Увімкнути датчик\" буде скинуто.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Кольорова іконка</string>
-    <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Деякі пристрої не підтримують кольорові іконки в панелі сповіщень.</string>
+    <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Деякі пристрої не підтримують кольорові іконки в рядку стану.</string>
     <string name="pref_dlg_change_selection_title">Змінити вибір</string>
     <string name="array_pref_change_selection_unselect_all">Прибрати всі</string>
     <string name="array_pref_change_selection_mobile_cells_select_by_name">Обрати за ім\'ям вишки</string>
@@ -762,7 +762,7 @@
     <string name="about_application_privacy_policy">Політика приватності:</string>
     <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">Цей профіль буде активовано, якщо немає будь-яких подій.</string>
     <string name="altype_applicationStartOnBoot">запуск при увімкненні</string>
-    <string name="profile_preferences_hideStatusBarIcon">Приховати іконку статус бару</string>
+    <string name="profile_preferences_hideStatusBarIcon">Приховати іконку в рядку стану</string>
     <string name="profile_preferences_lockDevice">Блокування телефону</string>
     <string name="array_pref_lockDevice_root">(R) Потрібен ROOT</string>
     <string name="array_pref_lockDevice_screenOff">Використовуйте швидке вимкнення екрану</string>
@@ -1030,8 +1030,8 @@
     <string name="phone_profiles_pref_applicationEventScanningDisabledByProfile">Сканування вимкнуто профілем.</string>
     <string name="alert_message_enable_event_check_box">Не запитувати знову</string>
     <string name="phone_profiles_pref_applicationUseAlarmClock">Використовувати будильник</string>
-    <string name="phone_profiles_pref_applicationUseAlarmClock_summary">Термін дії профілю й події, датчик часу, датчик календаря, затримка старту та закінчення події не є вірними коли екран вимкнуто. Аби все було чітко треба увімкнути цей параметр. В строці статусу з\'явиться іконка будильнику.</string>
-    <string name="important_info_useAlarmClock">Термін дії профілю й події, датчик часу, датчик календаря, затримка старту та закінчення події не є вірними коли екран вимкнуто. Увімкніть в налаштуваннях додатку \"Система\"→\"Використовувати будильник\" щоб все було точним. В строці статусу з\'явиться іконка будильнику.</string>
+    <string name="phone_profiles_pref_applicationUseAlarmClock_summary">Термін дії профілю й події, датчик часу, датчик календаря, затримка старту та закінчення події не є вірними коли екран вимкнуто. Аби все було чітко треба увімкнути цей параметр. В рядку стану з\'явиться іконка будильнику.</string>
+    <string name="important_info_useAlarmClock">Термін дії профілю й події, датчик часу, датчик календаря, затримка старту та закінчення події не є вірними коли екран вимкнуто. Увімкніть в налаштуваннях додатку \"Система\"→\"Використовувати будильник\" щоб все було точним. В рядку стану з\'явиться іконка будильнику.</string>
     <string name="nfc_tag_pref_dlg_change_tag_name">Змінити ім\'я</string>
     <string name="event_preferences_not_set_underlined_parameters">Деякі підкреслені параметри не налаштовано!</string>
     <string name="permission_group_name_draw_overlays_miui">Показувати спливаюче вікно</string>
@@ -1351,9 +1351,9 @@
     <string name="time_duration_picker_minute_sign">хв</string>
     <string name="time_duration_picker_second_sign">сек</string>
     <string name="phone_profiles_pref_category_status_bar">Рядок стану</string>
-    <string name="editor_drawer_title_events_order">Order</string>
-    <string name="editor_activity_targetHelps_orderSpinner_title">Events order</string>
-    <string name="editor_activity_targetHelps_orderSpinner_description">Click this to switch between order of Events view.</string>
+    <string name="editor_drawer_title_events_order">Порядок</string>
+    <string name="editor_activity_targetHelps_orderSpinner_title">Порядок подій</string>
+    <string name="editor_activity_targetHelps_orderSpinner_description">Натисніть тут щоб змінити порядок вигляду подій.</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

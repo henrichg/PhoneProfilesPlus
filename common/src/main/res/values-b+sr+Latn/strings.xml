@@ -360,7 +360,7 @@
     <string name="wifi_ssid_pref_dlg_info_about_wildcards">u SSID imenu,</string>
     <string name="bluetooth_name_pref_dlg_info_about_wildcards">u Bluetooth imenu,</string>
     <string name="calendar_pref_dlg_info_about_wildcards">u nizu pretrage</string>
-    <string name="pref_dlg_info_about_wildcards_3">add \"\u005C\" around these characters.</string>
+    <string name="pref_dlg_info_about_wildcards_3">dodaj \"\u005C\" oko ovih znakova.</string>
     <string name="important_info_profile_settings">Neki profili zahtevaju promene sistemskih podešavanja. Ova podešavanja su označena sa \"(S)\".</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_title">Pristup obaveštenjima</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Da omogućite \"tip prekida\" parametre profila, omogućite PhoneProfilesPlus \"Pristup obaveštenjima\" u sistemskim podešavanjima.</string>
@@ -1351,9 +1351,9 @@
     <string name="time_duration_picker_minute_sign">m</string>
     <string name="time_duration_picker_second_sign">s</string>
     <string name="phone_profiles_pref_category_status_bar">Statusni bar</string>
-    <string name="editor_drawer_title_events_order">Order</string>
-    <string name="editor_activity_targetHelps_orderSpinner_title">Events order</string>
-    <string name="editor_activity_targetHelps_orderSpinner_description">Click this to switch between order of Events view.</string>
+    <string name="editor_drawer_title_events_order">Redosled</string>
+    <string name="editor_activity_targetHelps_orderSpinner_title">Redosled događaja</string>
+    <string name="editor_activity_targetHelps_orderSpinner_description">Klikni ovde za prebacivanje između pregleda redosleda događaja.</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

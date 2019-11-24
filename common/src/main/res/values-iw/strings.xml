@@ -216,7 +216,7 @@
     <string name="event_type_peripheral">אביזרים</string>
     <string name="array_event_pref_peripheralType_deskDock">התקן עגינה שולחני</string>
     <string name="array_event_pref_peripheralType_carDock">התקן עגינה ברכב</string>
-    <string name="event_preferences_category_eventPeripheralParameters">Accessories sensor</string>
+    <string name="event_preferences_category_eventPeripheralParameters">חיישן אביזרים</string>
     <string name="event_preferences_peripheral_type">סוג אביזרים</string>
     <string name="array_event_pref_peripheralType_wired_headset">דיבורית חוטית</string>
     <string name="array_event_pref_peripheralType_bluetooth_headset">דיבורית Bluetooth</string>
@@ -378,7 +378,7 @@
     <string name="event_type_notifications">התראות</string>
     <string name="event_preferences_category_eventNotificationsParameters">חיישן הודעה</string>
     <string name="event_preferences_notifications_applications">יישומים</string>
-    <string name="event_preferences_volumeNotificationsAccessSettings_summary">To enable Notification sensor, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>
+    <string name="event_preferences_volumeNotificationsAccessSettings_summary">יש לאפשר ל-PhoneProfilesPlus \"גישה להודעות\" בהגדרות המערכת, כדי לאפשר מאפייני הודעות.</string>
     <string name="array_pref_zenModeArray_alarms">מעורר/אזעקה בלבד</string>
     <string name="profile_preferences_zenMode_alarms_summary">התפרצויות מעורר/אזעקה בלבד</string>
     <string name="phone_profiles_pref_applicationShortcutEmblem">הוספת סמל לקיצור הדרך</string>
@@ -451,7 +451,7 @@
     <string name="profile_preferences_category_others">אחרים</string>
     <string name="event_preferences_category_startOfEventOthers">פרמטרים אחרים</string>
     <string name="event_type_applications">יישומים</string>
-    <string name="event_preferences_category_eventApplicationsParameters">Application sensor</string>
+    <string name="event_preferences_category_eventApplicationsParameters">חיישן יישום</string>
     <string name="event_preferences_applications_applications">יישומים</string>
     <string name="event_preferences_applications_AccessibilitySettings_title">הגדרות נגישות</string>
     <string name="brightness_pref_dialog_adaptive_level_root_required">שינוי ברמת הסתגלנות מחייב הרשאות ROOT.</string>
@@ -479,7 +479,7 @@
     <string name="important_info_how_does_volume_separation_work_title">איך עובדת \"ביטול קישור עוצמות קול הצלצול וההתראות\":</string>
     <string name="important_info_how_does_volume_separation_work">הפעלת פרופיל קובעת את עוצמת הקול של המכשיר עפ\"י הגדרת עוצמת השמע של הודעות בפרופיל. כאשר מזוהה צלצול של שיחה, עוצמת הצלצול נקבעת כמוגדר בפרופיל. לאחר סיום השיחה, מותאמת עוצמת השמע חזרה לעוצמת צליל הודעה המוגדרת בפרופיל.</string>
     <string name="event_type_locations">מיקום</string>
-    <string name="event_preferences_category_eventLocationsParameters">Location sensor</string>
+    <string name="event_preferences_category_eventLocationsParameters">חיישן מיקום</string>
     <string name="event_preferences_locations_location">מיקום</string>
     <string name="event_preferences_locations_location_not_selected">לא נבחר</string>
     <string name="event_preferences_locations_cant_delete_location_title">מחיקת מיקום</string>
@@ -501,7 +501,7 @@
     <string name="menu_activity_log_clear">מחיקת יומן הרישום</string>
     <string name="activity_log_clear_alert_title">מחיקת יומן הפעילות</string>
     <string name="activity_log_clear_alert_message">את/ה בטוח/ה?</string>
-    <string name="phone_profiles_pref_category_location">Location scanning</string>
+    <string name="phone_profiles_pref_category_location">סריקת מיקום</string>
     <string name="phone_profiles_pref_eventLocationAppSettings_summary">הגדרת פרמטרים של מיקום בהגדרות היישום.</string>
     <string name="phone_profiles_pref_applicationEventLocationScanInterval">מרווח סריקת המיקום (דקות)</string>
     <string name="phone_profiles_pref_applicationEventLocationScanInPowerSaveMode">סריקת מיקום במצב חיסכון בצריכת חשמל</string>
@@ -533,7 +533,7 @@
     <string name="profile_preferences_notificationLed_23">נורית התראות (אדום)</string>
     <string name="profile_preferences_notificationLedInfo_summary">ניסיוני. ייתכן שלא יפעל במכשיר שלך</string>
     <string name="event_type_orientation">כיוון מסך</string>
-    <string name="event_preferences_category_eventOrientationParameters">Orientation sensor</string>
+    <string name="event_preferences_category_eventOrientationParameters">חיישן כיוון המכשיר</string>
     <string name="event_preferences_orientation_display">תצוגה</string>
     <string name="event_preferences_orientation_sides">צדדים</string>
     <string name="array_event_pref_orientationSides_displayUp">תצוגה ישרה</string>
@@ -550,7 +550,7 @@
     <string name="event_preferences_orientation_ignoreForApplications">התעלמות עבור יישומים</string>
     <string name="applications_preference_applicationType_application">יישום</string>
     <string name="applications_preference_applicationType_shortcut">קיצור דרך</string>
-    <string name="phone_profiles_pref_eventWifiAppSettings_summary">Setup Wi-Fi scanning parameters in application settings.</string>
+    <string name="phone_profiles_pref_eventWifiAppSettings_summary">הגדרת פרמטרים של Wi-Fi בהגדרות יישום.</string>
     <string name="phone_profiles_pref_eventBluetoothAppSettings_summary">Setup Bluetooth scanning parameters in application settings.</string>
     <string name="phone_profiles_pref_category_orientation_scanning">סריקת כיוון המכשיר</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanInterval">מרווח סריקת כיוון המכשיר (שניות)</string>

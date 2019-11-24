@@ -1351,9 +1351,9 @@
     <string name="time_duration_picker_minute_sign">м</string>
     <string name="time_duration_picker_second_sign">с</string>
     <string name="phone_profiles_pref_category_status_bar">Строка состояния</string>
-    <string name="editor_drawer_title_events_order">Order</string>
-    <string name="editor_activity_targetHelps_orderSpinner_title">Events order</string>
-    <string name="editor_activity_targetHelps_orderSpinner_description">Click this to switch between order of Events view.</string>
+    <string name="editor_drawer_title_events_order">Порядок</string>
+    <string name="editor_activity_targetHelps_orderSpinner_title">Порядок событий</string>
+    <string name="editor_activity_targetHelps_orderSpinner_description">Нажмите сюда, чтобы изменить порядок отображения событий.</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

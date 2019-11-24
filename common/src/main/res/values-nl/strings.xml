@@ -1351,9 +1351,9 @@
     <string name="time_duration_picker_minute_sign">m</string>
     <string name="time_duration_picker_second_sign">s</string>
     <string name="phone_profiles_pref_category_status_bar">Statusbalk</string>
-    <string name="editor_drawer_title_events_order">Order</string>
-    <string name="editor_activity_targetHelps_orderSpinner_title">Events order</string>
-    <string name="editor_activity_targetHelps_orderSpinner_description">Click this to switch between order of Events view.</string>
+    <string name="editor_drawer_title_events_order">Volgorde</string>
+    <string name="editor_activity_targetHelps_orderSpinner_title">Events volgorde</string>
+    <string name="editor_activity_targetHelps_orderSpinner_description">Klik dit om de volgorde van de Eventsweergave te wisselen.</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
