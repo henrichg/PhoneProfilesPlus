@@ -4274,7 +4274,7 @@ public class PhoneProfilesService extends Service
             useDecorator = useDecorator && notificationUseDecoration;
 
             boolean notificationDarkBackground = false;
-            if (Build.VERSION.SDK_INT < 29) {
+            //if (Build.VERSION.SDK_INT < 29) {
                 if (notificationBackgroundColor.equals("1")) {
                     notificationDarkBackground = true;
                 } else if (notificationBackgroundColor.equals("2")) {
@@ -4294,7 +4294,7 @@ public class PhoneProfilesService extends Service
                 }
                 PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationDarkBackground="+notificationDarkBackground);
                 useDecorator = useDecorator && (!notificationDarkBackground) && (!notificationBackgroundColor.equals("2"));
-            }
+            /*}
             else {
                 int nightModeFlags =
                         appContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
@@ -4308,7 +4308,7 @@ public class PhoneProfilesService extends Service
                         break;
                 }
                 PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationDarkBackground="+notificationDarkBackground);
-            }
+            }*/
 
             if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
                 if (android.os.Build.VERSION.SDK_INT >= 24) {
@@ -4597,7 +4597,7 @@ public class PhoneProfilesService extends Service
                     contentView.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);
             }
 
-            if (Build.VERSION.SDK_INT < 29) {
+            //if (Build.VERSION.SDK_INT < 29) {
                 if (notificationDarkBackground) {
                     int color = ContextCompat.getColor(this, R.color.notificationDarkBackgroundColor);
                     contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
@@ -4620,7 +4620,7 @@ public class PhoneProfilesService extends Service
                     if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
                         contentView.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
                 }
-            }
+            //}
 
             contentViewLarge.setTextViewText(R.id.notification_activated_profile_name, profileName);
             if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)

@@ -1608,10 +1608,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_TOAST);
         //if (Build.VERSION.SDK_INT < 26)
         //    setSummary(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR);
-        if (Build.VERSION.SDK_INT < 29) {
+        //if (Build.VERSION.SDK_INT < 29) {
             setSummary(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR);
             setSummary(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR);
-        }
+        //}
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE);
 
@@ -1932,7 +1932,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
-        if (Build.VERSION.SDK_INT < 29) {
+        //if (Build.VERSION.SDK_INT < 29) {
             if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR)) {
                 String backgroundColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
                 Preference _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR);
@@ -1946,11 +1946,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (_preference != null)
                     _preference.setEnabled(useDecoration && backgroundColor.equals("0"));
             }
-        }
+        //}
         if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION)) {
             boolean useDecoration = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, true);
             String backgroundColor = "0";
-            if (Build.VERSION.SDK_INT < 29)
+            //if (Build.VERSION.SDK_INT < 29)
                 backgroundColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
             Preference _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT);
             if (_preference != null)
