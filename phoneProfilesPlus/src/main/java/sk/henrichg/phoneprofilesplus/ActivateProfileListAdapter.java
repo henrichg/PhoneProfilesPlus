@@ -262,6 +262,9 @@ class ActivateProfileListAdapter extends BaseAdapter
         //if (fragment.targetHelpsSequenceStarted)
         //    return;
 
+        if (ActivatorTargetHelpsActivity.activity == null)
+            return;
+
         ApplicationPreferences.getSharedPreferences(activity);
 
         if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
