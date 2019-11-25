@@ -50,6 +50,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
@@ -117,6 +118,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
     private static final int MIN_RADIUS = 20;
     private static final int MAX_RADIUS = 500 * 1000;
+
+    private static final String FETCH_ADDRESS_WORK_TAG = "fetchAddressWork";
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -721,7 +724,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
         try {
             WorkManager workManager = WorkManager.getInstance(getApplicationContext());
-            workManager.enqueue(fetchAddressWorker);
+            workManager.enqueueUniqueWork(FETCH_ADDRESS_WORK_TAG, ExistingWorkPolicy.REPLACE, fetchAddressWorker);
 
             workManager.getWorkInfoByIdLiveData(fetchAddressWorker.getId())
                     .observe(this, new Observer<WorkInfo>() {
