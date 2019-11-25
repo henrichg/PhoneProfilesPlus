@@ -4686,7 +4686,7 @@ public class PhoneProfilesService extends Service
                 }
 
                 PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationBackgroundColor="+notificationBackgroundColor);
-                if ((Build.VERSION.SDK_INT < 29) || (!notificationBackgroundColor.equals("2"))) {
+                //if ((Build.VERSION.SDK_INT < 29) || (!notificationBackgroundColor.equals("2"))) {
                     if (notificationTextColor.equals("1")/* && (!notificationDarkBackground)*/) {
                         PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationTextColor="+notificationTextColor);
                         contentViewLarge.setTextColor(R.id.notification_activated_profile_name,
@@ -4702,7 +4702,7 @@ public class PhoneProfilesService extends Service
                             contentView.setTextColor(R.id.notification_activated_profile_name,
                                     ContextCompat.getColorStateList(appContext, R.color.widget_text_color_white));
                     }
-                }
+                //}
             }
 
             if (android.os.Build.VERSION.SDK_INT >= 24) {
