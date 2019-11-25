@@ -4686,19 +4686,23 @@ public class PhoneProfilesService extends Service
                 }
 
                 PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationBackgroundColor="+notificationBackgroundColor);
-                if ((Build.VERSION.SDK_INT < 29) || notificationBackgroundColor.equals("0")) {
+                //if ((Build.VERSION.SDK_INT < 29) || notificationBackgroundColor.equals("0")) {
                     if (notificationTextColor.equals("1")/* && (!notificationDarkBackground)*/) {
                         PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationTextColor="+notificationTextColor);
-                        contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
+                        contentViewLarge.setTextColor(R.id.notification_activated_profile_name,
+                                ContextCompat.getColorStateList(appContext, R.color.widget_text_color_black));
                         if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
-                            contentView.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
+                            contentView.setTextColor(R.id.notification_activated_profile_name,
+                                    ContextCompat.getColorStateList(appContext, R.color.widget_text_color_black));
                     } else if (notificationTextColor.equals("2")/* || notificationDarkBackground*/) {
                         PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationTextColor="+notificationTextColor);
-                        contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
+                        contentViewLarge.setTextColor(R.id.notification_activated_profile_name,
+                                ContextCompat.getColorStateList(appContext, R.color.widget_text_color_white));
                         if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
-                            contentView.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
+                            contentView.setTextColor(R.id.notification_activated_profile_name,
+                                    ContextCompat.getColorStateList(appContext, R.color.widget_text_color_white));
                     }
-                }
+                //}
             }
 
             if (android.os.Build.VERSION.SDK_INT >= 24) {
