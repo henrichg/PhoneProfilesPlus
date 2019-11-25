@@ -21,6 +21,7 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
+import android.location.Location;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
@@ -2079,8 +2080,10 @@ class ActivateProfileHelper {
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity"));
                         context.startActivity(intent);
+                        PPApplication.logE("ActivateProfileHelper.executeForInteractivePreferences", "1. OK");
                     } catch (Exception e) {
                         ok = false;
+                        PPApplication.logE("ActivateProfileHelper.executeForInteractivePreferences", "1. ERROR" + Log.getStackTraceString(e));
                     }
                     if (!ok) {
                         ok = true;
@@ -2090,8 +2093,10 @@ class ActivateProfileHelper {
                             final ComponentName componentName = new ComponentName("com.android.phone", "com.android.phone.Settings");
                             intent.setComponent(componentName);
                             context.startActivity(intent);
+                            PPApplication.logE("ActivateProfileHelper.executeForInteractivePreferences", "2. OK");
                         } catch (Exception e) {
                             ok = false;
+                            PPApplication.logE("ActivateProfileHelper.executeForInteractivePreferences", "2. ERROR" + Log.getStackTraceString(e));
                         }
                     }
                     if (!ok) {
@@ -2099,7 +2104,9 @@ class ActivateProfileHelper {
                             final Intent intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             context.startActivity(intent);
-                        } catch (Exception ignored) {
+                            PPApplication.logE("ActivateProfileHelper.executeForInteractivePreferences", "3. OK");
+                        } catch (Exception e) {
+                            PPApplication.logE("ActivateProfileHelper.executeForInteractivePreferences", "3. ERROR" + Log.getStackTraceString(e));
                         }
                     }
                 }
