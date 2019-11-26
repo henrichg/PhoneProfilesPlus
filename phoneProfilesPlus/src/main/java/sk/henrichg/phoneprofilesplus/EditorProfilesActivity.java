@@ -2495,11 +2495,11 @@ public class EditorProfilesActivity extends AppCompatActivity
 //                if (appTheme.equals("dark"))
 //                    textColor = R.color.tabTargetHelpTextColor_dark;
 
-                int[] screenLocation = new int[2];
-                filterSpinner.getLocationOnScreen(screenLocation);
+                //int[] screenLocation = new int[2];
+                //filterSpinner.getLocationOnScreen(screenLocation);
                 //filterSpinner.getLocationInWindow(screenLocation);
-                Rect filterSpinnerTarget = new Rect(0, 0, filterSpinner.getHeight(), filterSpinner.getHeight());
-                filterSpinnerTarget.offset(screenLocation[0] + 100, screenLocation[1]);
+                //Rect filterSpinnerTarget = new Rect(0, 0, filterSpinner.getHeight(), filterSpinner.getHeight());
+                //filterSpinnerTarget.offset(screenLocation[0] + 100, screenLocation[1]);
 
                 /*
                 eventsRunStopIndicator.getLocationOnScreen(screenLocation);
@@ -2528,7 +2528,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     .id(1)
                         );*/
                         targets.add(
-                                TapTarget.forBounds(filterSpinnerTarget, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
+                                //TapTarget.forBounds(filterSpinnerTarget, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
+                                TapTarget.forView(filterSpinner, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
                                         .transparentTarget(true)
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
@@ -2630,7 +2631,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         .id(1)
                         );*/
                         targets.add(
-                                TapTarget.forBounds(filterSpinnerTarget, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
+                                //TapTarget.forBounds(filterSpinnerTarget, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
+                                TapTarget.forView(filterSpinner, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
                                         .transparentTarget(true)
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
@@ -2713,7 +2715,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }
                 if (showTargetHelpsFilterSpinner) {
                     targets.add(
-                            TapTarget.forBounds(filterSpinnerTarget, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
+                            //TapTarget.forBounds(filterSpinnerTarget, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
+                            TapTarget.forView(filterSpinner, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
                                     .transparentTarget(true)
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)

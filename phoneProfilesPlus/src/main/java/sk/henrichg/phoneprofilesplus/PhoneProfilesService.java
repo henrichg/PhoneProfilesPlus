@@ -349,7 +349,6 @@ public class PhoneProfilesService extends Service
             Crashlytics.setInt(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, ApplicationPreferences.applicationEventOrientationScanInterval(appContext));
         } catch (Exception ignored) {}
 
-        /*
         ApplicationPreferences.getSharedPreferences(appContext);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS, true);
@@ -374,7 +373,6 @@ public class PhoneProfilesService extends Service
         editor.putBoolean(EventsPrefsActivity.PREF_START_TARGET_HELPS, true);
         //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
         editor.apply();
-        */
 
         /* moved to doFirstStart after PPApplication.getServiceList()
         // get list of TRANSACTIONS for "phone"
