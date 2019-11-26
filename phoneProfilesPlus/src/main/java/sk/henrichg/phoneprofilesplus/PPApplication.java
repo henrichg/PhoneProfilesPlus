@@ -103,7 +103,7 @@ public class PPApplication extends Application {
                                          +"|PhoneProfilesService.onDestroy"
                                          +"|DataWrapper.firstStartEvents"
                                          //+"|DataWrapper.setProfileActive"
-                                         //+"|DataWrapper.activateProfileOnBoot"
+                                         +"|DataWrapper.activateProfileOnBoot"
                                          +"|BootUpReceiver"
                                          +"|PackageReplacedReceiver"
                                          +"|PhoneProfilesBackupAgent"
@@ -184,7 +184,7 @@ public class PPApplication extends Application {
                                          +"|[XXX] ScreenOnOffBroadcastReceiver.onReceive"
                                          */
 
-                                         //+"|DataWrapper.activateProfileFromMainThread"
+                                         +"|DataWrapper.activateProfileFromMainThread"
                                          //+"|ActivateProfileHelper.execute"
                                          //+"|Profile.convertPercentsToBrightnessManualValue"
                                          //+"|Profile.convertPercentsToBrightnessAdaptiveValue"

@@ -1658,9 +1658,9 @@ public class DataWrapper {
 
         PPApplication.logE("$$$ DataWrapper._activateProfile","before update GUI");
 
-        PPApplication.showProfileNotification(/*context*/false);
+        PPApplication.showProfileNotification(/*context*/startupSource == PPApplication.STARTUP_SOURCE_BOOT);
         PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper._activateProfile");
-        ActivateProfileHelper.updateGUI(context, true, false);
+        ActivateProfileHelper.updateGUI(context, true, startupSource == PPApplication.STARTUP_SOURCE_BOOT);
 
         PPApplication.logE("$$$ DataWrapper._activateProfile","after update GUI");
 
