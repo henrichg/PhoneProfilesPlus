@@ -2654,6 +2654,19 @@ public class EditorProfilesActivity extends AppCompatActivity
                         int id = 3;
                         try {
                             targets.add(
+                                    TapTarget.forToolbarMenuItem(editorToolbar, R.id.menu_run_stop_events, getString(R.string.editor_activity_targetHelps_runStopEvents_title), getString(R.string.editor_activity_targetHelps_runStopEvents_description))
+                                            .outerCircleColor(outerCircleColor)
+                                            .targetCircleColor(targetCircleColor)
+                                            .textColor(textColor)
+                                            .tintTarget(true)
+                                            .drawShadow(true)
+                                            .id(id)
+                            );
+                            ++id;
+                        } catch (Exception ignored) {
+                        } // not in action bar?
+                        try {
+                            targets.add(
                                     TapTarget.forToolbarMenuItem(editorToolbar, R.id.menu_activity_log, getString(R.string.editor_activity_targetHelps_activityLog_title), getString(R.string.editor_activity_targetHelps_activityLog_description))
                                             .outerCircleColor(outerCircleColor)
                                             .targetCircleColor(targetCircleColor)
