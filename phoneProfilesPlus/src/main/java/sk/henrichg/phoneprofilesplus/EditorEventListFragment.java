@@ -6,11 +6,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -1243,12 +1241,13 @@ public class EditorEventListFragment extends Fragment
 //                    textColor = R.color.tabTargetHelpTextColor_dark;
                 //boolean tintTarget = !appTheme.equals("white");
 
-                int[] screenLocation = new int[2];
-                orderSpinner.getLocationOnScreen(screenLocation);
+                //int[] screenLocation = new int[2];
+                //orderSpinner.getLocationOnScreen(screenLocation);
                 //orderSpinner.getLocationInWindow(screenLocation);
-                Rect orderSpinnerTarget = new Rect(0, 0, orderSpinner.getHeight(), orderSpinner.getHeight());
-                Log.e("+++++++++++ EditorEventListFragment,showTargetHelps", "orderSpinner.getHeight()="+orderSpinner.getHeight());
-                orderSpinnerTarget.offset(screenLocation[0] + 100, screenLocation[1]);
+                //Rect orderSpinnerTarget = new Rect(0, 0, orderSpinner.getHeight(), orderSpinner.getHeight());
+                //Log.e("+++++++++++ EditorEventListFragment.showTargetHelps", "orderSpinner.getHeight()="+orderSpinner.getHeight());
+                //orderSpinnerTarget.offset(screenLocation[0] + 100, screenLocation[1]);
+                //Log.e("+++++++++++ EditorEventListFragment.showTargetHelps", "orderSpinnerTarget="+orderSpinnerTarget);
 
                 final TapTargetSequence sequence = new TapTargetSequence(getActivity());
                 List<TapTarget> targets = new ArrayList<>();
@@ -1300,7 +1299,8 @@ public class EditorEventListFragment extends Fragment
                     if (filterType != FILTER_TYPE_START_ORDER) {
                         try {
                             targets.add(
-                                    TapTarget.forBounds(orderSpinnerTarget, getString(R.string.editor_activity_targetHelps_orderSpinner_title), getString(R.string.editor_activity_targetHelps_orderSpinner_description))
+                                    //TapTarget.forBounds(orderSpinnerTarget, getString(R.string.editor_activity_targetHelps_orderSpinner_title), getString(R.string.editor_activity_targetHelps_orderSpinner_description))
+                                    TapTarget.forView(orderSpinner, getString(R.string.editor_activity_targetHelps_orderSpinner_title), getString(R.string.editor_activity_targetHelps_orderSpinner_description))
                                             .transparentTarget(true)
                                             .outerCircleColor(outerCircleColor)
                                             .targetCircleColor(targetCircleColor)
