@@ -40,7 +40,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2402;
+    private static final int DATABASE_VERSION = 2403;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -2909,6 +2909,36 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }
 
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_ALWAYS_ON_DISPLAY + "=0");
+        }
+
+        if (oldVersion < 2403)
+        {
+            final String selectQuery = "SELECT " + KEY_ID + "," +
+                        KEY_VOLUME_RINGER_MODE + "," +
+                        KEY_VOLUME_ZEN_MODE +
+                    " FROM " + TABLE_PROFILES;
+
+            Cursor cursor = db.rawQuery(selectQuery, null);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    long id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ID)));
+                    int ringerMode = cursor.getInt(cursor.getColumnIndex(KEY_VOLUME_RINGER_MODE));
+                    int zenMode = cursor.getInt(cursor.getColumnIndex(KEY_VOLUME_ZEN_MODE));
+
+                    if ((ringerMode == 5) && (zenMode == 0)) {
+                        ringerMode = 0;
+
+                        db.execSQL("UPDATE " + TABLE_PROFILES +
+                                " SET " + KEY_VOLUME_RINGER_MODE + "=" + ringerMode + ", " +
+                                            KEY_VOLUME_ZEN_MODE + "=1" + " " +
+                                "WHERE " + KEY_ID + "=" + id);
+                    }
+
+                } while (cursor.moveToNext());
+            }
+
+            cursor.close();
         }
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
@@ -10212,6 +10242,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         }
                                         if (exportedDBObj.getVersion() < 2402) {
                                             values.put(KEY_ALWAYS_ON_DISPLAY, 0);
+                                        }
+
+                                        if (exportedDBObj.getVersion() < 2403) {
+                                            if ((ringerMode == 5) && (zenMode == 0)) {
+                                                values.remove(KEY_VOLUME_RINGER_MODE);
+                                                values.remove(KEY_VOLUME_ZEN_MODE);
+                                                values.put(KEY_VOLUME_RINGER_MODE, 0);
+                                                values.put(KEY_VOLUME_ZEN_MODE, 1);
+                                            }
                                         }
 
                                         ///////////////////////////////////////////////////////

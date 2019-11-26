@@ -29,7 +29,7 @@
         app:title="@string/profile_preferences_volumeZenModeM"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_volumeZenMode"
-        app:defaultValue="0"
+        app:defaultValue="1"
         app:entries="@array/zenModeArray"
         app:entryValues="@array/zenModeValues"
         app:layout="@layout/mp_preference_material_widget" />

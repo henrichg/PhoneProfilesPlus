@@ -440,7 +440,6 @@
         <item>3</item>
     </string-array>
     <string-array name="zenModeArray" tools:ignore="InconsistentArrays">
-        <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_zenModeArray_all</item>
         <item>@string/array_pref_zenModeArray_allWithVibration</item>
         <item>@string/array_pref_zenModeArray_priority</item>
@@ -448,7 +447,6 @@
         <item>@string/array_pref_zenModeArray_none</item>
     </string-array>
     <string-array name="zenModeValues" tools:ignore="InconsistentArrays">
-        <item>0</item>
         <item>1</item>
         <item>4</item>
         <item>2</item>

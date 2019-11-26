@@ -205,7 +205,7 @@ public class Profile {
         defaultValuesString.put("prf_pref_afterDurationDo", "0");
         defaultValuesString.put("prf_pref_durationNotificationSound", "");
         defaultValuesString.put("prf_pref_volumeRingerMode", "0");
-        defaultValuesString.put("prf_pref_volumeZenMode", "0");
+        defaultValuesString.put("prf_pref_volumeZenMode", "1");
         defaultValuesString.put("prf_pref_vibrationOnTouch", "0");
         defaultValuesString.put("prf_pref_volumeRingtone", "-1|1|0");
         defaultValuesString.put("prf_pref_volumeNotification", "-1|1|0");

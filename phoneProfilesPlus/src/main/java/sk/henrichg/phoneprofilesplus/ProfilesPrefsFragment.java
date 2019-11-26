@@ -292,11 +292,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context.getApplicationContext(), false);
         PPApplication.logE("ProfilesPrefsFragment.onActivityCreated","canEnableZenMode="+canEnableZenMode);
 
-        ListPreference zenModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
+        /*ListPreference zenModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
         if (zenModePreference != null) {
             String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, "");
             zenModePreference.setEnabled((value.equals("5")) && canEnableZenMode);
-        }
+        }*/
 
         Preference notificationAccessPreference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS);
         if (notificationAccessPreference != null) {
@@ -1000,32 +1000,37 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 String defaultValue = Profile.defaultValuesString.get(key);
                 String value = preferences.getString(key, defaultValue);
                 if (value != null) {
-                    if (key.equals(Profile.PREF_PROFILE_VOLUME_RINGTONE) ||
-                            key.equals(Profile.PREF_PROFILE_VOLUME_NOTIFICATION) ||
-                            key.equals(Profile.PREF_PROFILE_VOLUME_MEDIA) ||
-                            key.equals(Profile.PREF_PROFILE_VOLUME_ALARM) ||
-                            key.equals(Profile.PREF_PROFILE_VOLUME_SYSTEM) ||
-                            key.equals(Profile.PREF_PROFILE_VOLUME_VOICE) ||
-                            key.equals(Profile.PREF_PROFILE_VOLUME_DTMF) ||
-                            key.equals(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY) ||
-                            key.equals(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO)) {
-                        if (VolumeDialogPreferenceX.changeEnabled(value))
-                            title = getString(preferenceTitleId);
-                    } else
-                    if (key.equals(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS)) {
-                        if (BrightnessDialogPreferenceX.changeEnabled(value))
-                            title = getString(preferenceTitleId);
-                    } else {
-                        if (!value.equals(defaultValue)) {
-                            if (key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING) &&
-                                    (android.os.Build.VERSION.SDK_INT == 23))
-                                title = "(R) "+getString(R.string.profile_preferences_vibrateWhenRinging);
-                            else
-                            if (key.equals(Profile.PREF_PROFILE_DURATION))
-                                title = context.getString(R.string.profile_preferences_duration);
-                            else
+                    switch (key) {
+                        case Profile.PREF_PROFILE_VOLUME_RINGTONE:
+                        case Profile.PREF_PROFILE_VOLUME_NOTIFICATION:
+                        case Profile.PREF_PROFILE_VOLUME_MEDIA:
+                        case Profile.PREF_PROFILE_VOLUME_ALARM:
+                        case Profile.PREF_PROFILE_VOLUME_SYSTEM:
+                        case Profile.PREF_PROFILE_VOLUME_VOICE:
+                        case Profile.PREF_PROFILE_VOLUME_DTMF:
+                        case Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY:
+                        case Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO:
+                            if (VolumeDialogPreferenceX.changeEnabled(value))
                                 title = getString(preferenceTitleId);
-                        }
+                            break;
+                        case Profile.PREF_PROFILE_DEVICE_BRIGHTNESS:
+                            if (BrightnessDialogPreferenceX.changeEnabled(value))
+                                title = getString(preferenceTitleId);
+                            break;
+                        case Profile.PREF_PROFILE_VOLUME_ZEN_MODE:
+                            title = getString(preferenceTitleId);
+                            break;
+                        default:
+                            if (!value.equals(defaultValue)) {
+                                if (key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING) &&
+                                        (Build.VERSION.SDK_INT == 23))
+                                    title = "(R) " + getString(R.string.profile_preferences_vibrateWhenRinging);
+                                else if (key.equals(Profile.PREF_PROFILE_DURATION))
+                                    title = context.getString(R.string.profile_preferences_duration);
+                                else
+                                    title = getString(preferenceTitleId);
+                            }
+                            break;
                     }
                 }
             }
@@ -2101,6 +2106,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, false);
+                if (sValue.equals("5")) {
+                    // do not disturb
+                    Object zenModeValue = preferences.getString(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, "");
+                    setSummary(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, zenModeValue);
+                }
             }
         }
         if (key.equals(Profile.PREF_PROFILE_VOLUME_ZEN_MODE))
@@ -2155,7 +2165,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         @SuppressLint("InlinedApi")
                         boolean addS = !((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
                                 GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
-                        GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, addS);
+                        GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, true, false, false, addS);
                     }
                     listPreference.setEnabled(iRingerMode == 5);
                 }
