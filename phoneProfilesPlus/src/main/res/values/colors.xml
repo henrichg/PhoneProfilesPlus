@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="notificationDarkBackgroundColor">#FF202020</color>
+    <color name="notificationBlackBackgroundColor">#FF000000</color>
 
     <color name="altype_profile">#FF0000FF</color>
     <color name="altype_eventStart">#FF00C000</color>
@@ -8,5 +9,7 @@
     <color name="altype_eventDelayStartEnd">#FFFFB000</color>
 
     <color name="lockDevice_textColor">#FFFFFFFF</color>
+
+<!--    <color name="notification_background_color_default">#FFFFFFFF</color>-->
 
 </resources>

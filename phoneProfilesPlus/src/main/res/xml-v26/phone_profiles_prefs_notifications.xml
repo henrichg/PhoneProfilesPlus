@@ -45,6 +45,14 @@
             app:entries="@array/notificationBackgroundColorArray"
             app:entryValues="@array/notificationBackgroundColorValues"
             app:layout="@layout/mp_preference_material_widget" />
+<!--        <com.jaredrummler.android.colorpicker.ColorPreferenceCompat-->
+<!--            app:title="@string/phone_profiles_pref_notificationBackgroundCustomColor"-->
+<!--            app:key="notificationBackgroundCustomColor"-->
+<!--            app:defaultValue="@color/notification_background_color_default"-->
+<!--            app:cpv_allowPresets="false"-->
+<!--            app:cpv_dialogType="custom"-->
+<!--            app:cpv_dialogTitle="@string/phone_profiles_pref_notificationBackgroundCustomColor"-->
+<!--            app:iconSpaceReserved="false"/>-->
         <ListPreference
             app:title="@string/phone_profiles_pref_notificationTextColor"
             app:summary="@string/array_pref_no_change"

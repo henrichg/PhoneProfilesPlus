@@ -1502,6 +1502,10 @@
     <string name="samsung_edge_panel_name" translatable="false">PhoneProfiles Plus</string>
     <string name="samsung_edge_panel_description">Profile activation or Restart events with Samsung Edge panel</string>
 
+    <string name="phone_profiles_pref_notificationBackgroundColor_black">Black</string>
+<!--    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>-->
+<!--    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>-->
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>

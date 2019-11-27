@@ -1295,7 +1295,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        PPApplication.logE("PhoneProfilesPrefsFragment.onSharedPreferenceChanged", "xxx");
+        PPApplication.logE("PhoneProfilesPrefsFragment.onSharedPreferenceChanged", "key="+key);
+
         setSummary(key);
         try {
             SharedPreferences.Editor editor = applicationPreferences.edit();
@@ -1611,6 +1612,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         //if (Build.VERSION.SDK_INT < 29) {
             setSummary(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR);
             setSummary(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR);
+//            setSummary(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR);
         //}
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE);
@@ -1937,7 +1939,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 String backgroundColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
                 Preference _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR);
                 if (_preference != null)
-                    _preference.setEnabled(backgroundColor.equals("0"));
+                    _preference.setEnabled(backgroundColor.equals("0") || backgroundColor.equals("3"));
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION);
                 if (_preference != null)
                     _preference.setEnabled(backgroundColor.equals("0"));
@@ -1945,11 +1947,15 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT);
                 if (_preference != null)
                     _preference.setEnabled(useDecoration && backgroundColor.equals("0"));
+//
+//                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR);
+//                if (_preference != null)
+//                    _preference.setEnabled(backgroundColor.equals("3"));
             }
         //}
         if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION)) {
             boolean useDecoration = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, true);
-            String backgroundColor = "0";
+            String backgroundColor;// = "0";
             //if (Build.VERSION.SDK_INT < 29)
                 backgroundColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
             Preference _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT);
@@ -2018,6 +2024,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
         }
 
+//        if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR)) {
+//            return;
+//        }
+//
         // Do not bind toggles.
         if (preference instanceof CheckBoxPreference || preference instanceof SwitchPreferenceCompat) {
             return;

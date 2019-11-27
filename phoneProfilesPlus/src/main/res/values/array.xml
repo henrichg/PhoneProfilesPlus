@@ -907,12 +907,16 @@
     <string-array name="notificationBackgroundColorArray">
         <item>@string/phone_profiles_pref_notificationBackgroundColor_android</item>
         <item>@string/phone_profiles_pref_notificationBackgroundColor_dark</item>
+        <item>@string/phone_profiles_pref_notificationBackgroundColor_black</item>-
         <item>@string/phone_profiles_pref_notificationBackgroundColor_nightMode</item>
+<!--        <item>@string/phone_profiles_pref_notificationBackgroundColor_custom</item>-->
     </string-array>
     <string-array name="notificationBackgroundColorValues">
         <item>0</item>
         <item>1</item>
+        <item>3</item>
         <item>2</item>
+<!--        <item>4</item>-->
     </string-array>
 <!--    <string-array name="nightModeOffThemeArray">
         <item>@string/phone_profiles_pref_applicationTheme_color</item>
