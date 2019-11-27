@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<cocktail-provider
-    label="@string/samsung_edge_name"
-    decription="@string/samsung_edge_description"
+<!--suppress XmlUnusedNamespaceDeclaration -->
+<cocktail-provider  xmlns:android="http://schemas.android.com/apk/res/android"
+    label="@string/samsung_edge_panel_name"
+    decription="@string/samsung_edge_panel_description"
     previewImage="@drawable/samsung_edge_panel"
     updatePeriodMills="0"
     configure="sk.henrichg.phoneprofilesplus.EditorProfilesActivity"
