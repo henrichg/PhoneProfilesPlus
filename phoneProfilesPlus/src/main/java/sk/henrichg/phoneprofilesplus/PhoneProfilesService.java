@@ -4282,6 +4282,7 @@ public class PhoneProfilesService extends Service
                         notificationTextColor = "2";
                         break;
                     case "2":
+                    case "4":
                         int nightModeFlags =
                                 appContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                         switch (nightModeFlags) {
@@ -4297,13 +4298,14 @@ public class PhoneProfilesService extends Service
                             case Configuration.UI_MODE_NIGHT_UNDEFINED:
                                 break;
                         }
-//                    case "4":
+//                    case "5":
 //                        notificationDarkBackground = true;
 //                        notificationTextColor = "2";
 //                        break;
                 }
                 PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationDarkBackground="+notificationDarkBackground);
-                useDecorator = useDecorator && (!notificationDarkBackground) && (!notificationBackgroundColor.equals("2"));
+                useDecorator = useDecorator && (!notificationDarkBackground) &&
+                                                (!(notificationBackgroundColor.equals("2") || notificationBackgroundColor.equals("4")));
             /*}
             else {
                 int nightModeFlags =
@@ -4678,9 +4680,10 @@ public class PhoneProfilesService extends Service
                 contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.GONE);
             }
 
-            if ((Build.VERSION.SDK_INT < 29) || (!notificationBackgroundColor.equals("2"))) {
+            if ((Build.VERSION.SDK_INT < 29) ||
+                    (!(notificationBackgroundColor.equals("2") || notificationBackgroundColor.equals("4")))) {
                 if (notificationDarkBackground) {
-                    if (notificationBackgroundColor.equals("3")) {
+                    if (notificationBackgroundColor.equals("3") || notificationBackgroundColor.equals("4")) {
                         int color = ContextCompat.getColor(this, R.color.notificationBlackBackgroundColor);
                         contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
                         if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)

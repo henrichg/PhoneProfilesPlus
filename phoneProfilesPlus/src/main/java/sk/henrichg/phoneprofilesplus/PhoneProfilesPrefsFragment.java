@@ -1276,6 +1276,19 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             preference.setTitle(preference.getTitle() + " (" + getString(R.string.widget_label_icon) +
                                     ", " + getString(R.string.widget_label_one_row) + ")");
         }
+
+        if (Build.VERSION.SDK_INT < 29) {
+            ListPreference listPreference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR);
+            if (listPreference != null) {
+                CharSequence[] entries = listPreference.getEntries();
+                entries[3] = getString(R.string.phone_profiles_pref_notificationBackgroundColor_nightMode) + " (" +
+                        getString(R.string.phone_profiles_pref_notificationBackgroundColor_dark) + ")";
+                entries[4] = getString(R.string.phone_profiles_pref_notificationBackgroundColor_nightMode) + " (" +
+                        getString(R.string.phone_profiles_pref_notificationBackgroundColor_black) + ")";
+                listPreference.setEntries(entries);
+                setSummary(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR);
+            }
+        }
     }
 
     @Override
@@ -1939,7 +1952,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 String backgroundColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
                 Preference _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR);
                 if (_preference != null)
-                    _preference.setEnabled(backgroundColor.equals("0") || backgroundColor.equals("3"));
+                    _preference.setEnabled(backgroundColor.equals("0")/* || backgroundColor.equals("3")*/);
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION);
                 if (_preference != null)
                     _preference.setEnabled(backgroundColor.equals("0"));
