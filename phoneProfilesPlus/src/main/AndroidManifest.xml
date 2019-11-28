@@ -104,6 +104,9 @@
     <uses-feature
         android:name="android.hardware.sensor.proximity"
         android:required="false"/>
+    <uses-feature
+        android:name="android.hardware.sensor.light"
+        android:required="false"/>
 
     <application
         android:name=".PPApplication"

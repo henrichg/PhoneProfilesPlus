@@ -1506,6 +1506,11 @@
 <!--    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>-->
 <!--    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>-->
 
+    <string name="event_preferences_orientation_checkLight">Check light</string>
+    <string name="event_preferences_orientation_light">Light</string>
+    <string name="event_preferences_orientation_light_min">Light (minimal value)</string>
+    <string name="event_preferences_orientation_light_max">Light (maximal value)</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>

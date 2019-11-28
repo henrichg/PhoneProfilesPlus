@@ -344,7 +344,7 @@ class Event {
 
     private void createEventPreferencesOrientation()
     {
-        this._eventPreferencesOrientation = new EventPreferencesOrientation(this, false, "", "", 0, "");
+        this._eventPreferencesOrientation = new EventPreferencesOrientation(this, false, "", "", 0, false, "0", "0", "");
     }
 
     private void createEventPreferencesMobileCells()

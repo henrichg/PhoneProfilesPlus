@@ -41,6 +41,31 @@
         app:entryValues="@array/eventOrientationDistanceTypeValues"
         app:dependency="eventOrientationEnabled"
         app:layout="@layout/mp_preference_material_widget" />
+    <SwitchPreferenceCompat
+        app:key="eventOrientationCheckLight"
+        app:title="@string/event_preferences_orientation_checkLight"
+        app:defaultValue="false"
+        app:dependency="eventOrientationEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
+        app:key="eventOrientationLightMin"
+        app:summary="@string/event_preferences_orientation_light_min"
+        app:title="@string/event_preferences_orientation_light_min"
+        app:defaultValue="0"
+        app:min="0"
+        app:max="100"
+        app:dependency="eventOrientationEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
+        app:key="eventOrientationLightMax"
+        app:summary="@string/event_preferences_orientation_light_max"
+        app:title="@string/event_preferences_orientation_light_max"
+        app:defaultValue="0"
+        app:min="0"
+        app:max="100"
+        app:dependency="eventOrientationEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="eventOrientationInstallExtender"
         app:title="@string/extender_app_name"

@@ -209,6 +209,7 @@ public class PhoneProfilesService extends Service
     private float[] mGravity = new float[3];
     private float[] mGeomagnetic = new float[3];
     private float mMaxProximityDistance;
+    private float mMaxLightDistance;
     private float mGravityZ = 0;  //gravity acceleration along the z axis
 
     private PhoneStateScanner phoneStateScanner = null;
@@ -5106,6 +5107,7 @@ public class PhoneProfilesService extends Service
         else
             return null;
     }
+
     /*
     private Sensor getOrientationSensor(Context context) {
         synchronized (PPApplication.orientationScannerMutex) {
@@ -5114,6 +5116,15 @@ public class PhoneProfilesService extends Service
             return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
         }
     }*/
+
+    private Sensor getLightSensor(Context context) {
+        if (mOrientationSensorManager == null)
+            mOrientationSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+        if (mOrientationSensorManager != null)
+            return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        else
+            return null;
+    }
 
     @SuppressLint("NewApi")
     private void startListeningOrientationSensors() {
@@ -5153,6 +5164,17 @@ public class PhoneProfilesService extends Service
                 else
                     mOrientationSensorManager.registerListener(this, magneticField, 1000000 * interval);
             }
+
+            Sensor light = getLightSensor(getApplicationContext());
+            PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","light="+light);
+            if (light != null) {
+                mMaxLightDistance = light.getMaximumRange();
+                if (/*(android.os.Build.VERSION.SDK_INT >= 19) &&*/ (light.getFifoMaxEventCount() > 0))
+                    mOrientationSensorManager.registerListener(this, light, 200000 * interval, 1000000 * interval);
+                else
+                    mOrientationSensorManager.registerListener(this, light, 1000000 * interval);
+            }
+
             Sensor proximity = getProximitySensor(getApplicationContext());
             PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","proximity="+proximity);
             if (proximity != null) {
@@ -5162,6 +5184,7 @@ public class PhoneProfilesService extends Service
                 else
                     mOrientationSensorManager.registerListener(this, proximity, 1000000 * interval);
             }
+
             //Sensor orientation = PPApplication.getOrientationSensor(this);
             //PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","orientation="+orientation);
             mStartedOrientationSensors = true;
@@ -5295,6 +5318,8 @@ public class PhoneProfilesService extends Service
         }
         if ((sensorType == Sensor.TYPE_ACCELEROMETER) || (sensorType == Sensor.TYPE_MAGNETIC_FIELD)) {
             if (getMagneticFieldSensor(this) != null) {
+                //PPApplication.logE("PhoneProfilesService.onSensorChanged", "magnetic value="+event.values[0]);
+
                 if (sensorType == Sensor.TYPE_ACCELEROMETER) {
                     mGravity = exponentialSmoothing(event.values, mGravity, 0.2f);
                 }
@@ -5402,6 +5427,8 @@ public class PhoneProfilesService extends Service
                 }
             }
             else {
+                PPApplication.logE("PhoneProfilesService.onSensorChanged", "accelerometer value="+event.values[0]);
+
                 if (event.timestamp - tmpSideTimestamp >= 250000000L /*1000000000L*/) {
                     tmpSideTimestamp = event.timestamp;
 
@@ -5439,6 +5466,11 @@ public class PhoneProfilesService extends Service
                     }
                 }
             }
+        }
+        if (sensorType == Sensor.TYPE_LIGHT) {
+            PPApplication.logE("PhoneProfilesService.onSensorChanged", "light value="+event.values[0]);
+            PPApplication.logE("PhoneProfilesService.onSensorChanged", "light mMaxLightDistance="+mMaxLightDistance);
+
         }
     }
 

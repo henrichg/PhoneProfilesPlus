@@ -40,7 +40,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2403;
+    private static final int DATABASE_VERSION = 2405;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -315,6 +315,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_NOTIFICATION_VIBRATE_END = "notificationVibrateEnd";
     private static final String KEY_E_BATTERY_PLUGGED = "batteryPlugged";
     private static final String KEY_E_TIME_TYPE = "timeType";
+    private static final String KEY_E_ORIENTATION_CHECK_LIGHT = "orientationCheckLight";
+    private static final String KEY_E_ORIENTATION_LIGHT_MIN = "orientationLightMin";
+    private static final String KEY_E_ORIENTATION_LIGHT_MAX = "orientationLightMax";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -675,7 +678,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_NOTIFICATION_SOUND_END + " TEXT,"
                 + KEY_E_NOTIFICATION_VIBRATE_END + " INTEGER,"
                 + KEY_E_BATTERY_PLUGGED + " TEXT,"
-                + KEY_E_TIME_TYPE + " INTEGER"
+                + KEY_E_TIME_TYPE + " INTEGER,"
+                + KEY_E_ORIENTATION_CHECK_LIGHT + " INTEGER,"
+                + KEY_E_ORIENTATION_LIGHT_MIN + " INTEGER,"
+                + KEY_E_ORIENTATION_LIGHT_MAX + " INTEGER"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -2939,6 +2945,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }
 
             cursor.close();
+        }
+
+        if (oldVersion < 2404)
+        {
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ORIENTATION_CHECK_LIGHT + " INTEGER");
+
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ORIENTATION_CHECK_LIGHT + "=0");
+        }
+        if (oldVersion < 2405)
+        {
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ORIENTATION_LIGHT_MIN + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ORIENTATION_LIGHT_MAX + " INTEGER");
+
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ORIENTATION_LIGHT_MIN + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ORIENTATION_LIGHT_MAX + "=0");
         }
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
@@ -5476,7 +5497,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_ORIENTATION_DISTANCE,
                         KEY_E_ORIENTATION_DISPLAY,
                         KEY_E_ORIENTATION_IGNORE_APPLICATIONS,
-                        KEY_E_ORIENTATION_SENSOR_PASSED
+                        KEY_E_ORIENTATION_SENSOR_PASSED,
+                        KEY_E_ORIENTATION_CHECK_LIGHT,
+                        KEY_E_ORIENTATION_LIGHT_MIN,
+                        KEY_E_ORIENTATION_LIGHT_MAX
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -5492,6 +5516,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._sides = cursor.getString(cursor.getColumnIndex(KEY_E_ORIENTATION_SIDES));
                 eventPreferences._distance = cursor.getInt(cursor.getColumnIndex(KEY_E_ORIENTATION_DISTANCE));
                 eventPreferences._display = cursor.getString(cursor.getColumnIndex(KEY_E_ORIENTATION_DISPLAY));
+                eventPreferences._checkLight = cursor.getInt(cursor.getColumnIndex(KEY_E_ORIENTATION_CHECK_LIGHT)) == 1;
+                eventPreferences._lightMin = String.valueOf(cursor.getInt(cursor.getColumnIndex(KEY_E_ORIENTATION_LIGHT_MIN)));
+                eventPreferences._lightMax = String.valueOf(cursor.getInt(cursor.getColumnIndex(KEY_E_ORIENTATION_LIGHT_MAX)));
                 eventPreferences._ignoredApplications = cursor.getString(cursor.getColumnIndex(KEY_E_ORIENTATION_IGNORE_APPLICATIONS));
                 eventPreferences.setSensorPassed(Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_ORIENTATION_SENSOR_PASSED))));
             }
@@ -5866,6 +5893,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_ORIENTATION_SIDES, eventPreferences._sides);
         values.put(KEY_E_ORIENTATION_DISTANCE, eventPreferences._distance);
         values.put(KEY_E_ORIENTATION_DISPLAY, eventPreferences._display);
+        values.put(KEY_E_ORIENTATION_CHECK_LIGHT, (eventPreferences._checkLight) ? 1 : 0);
+        values.put(KEY_E_ORIENTATION_LIGHT_MIN, eventPreferences._lightMin);
+        values.put(KEY_E_ORIENTATION_LIGHT_MAX, eventPreferences._lightMax);
         values.put(KEY_E_ORIENTATION_IGNORE_APPLICATIONS, eventPreferences._ignoredApplications);
         values.put(KEY_E_ORIENTATION_SENSOR_PASSED, eventPreferences.getSensorPassed());
 
@@ -9833,6 +9863,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 boolean hasAccelerometer = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null);
                                 boolean hasMagneticField = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null);
                                 boolean hasProximity = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY) != null);
+                                boolean hasLight = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT) != null);
 
                                 boolean enabled = hasAccelerometer && hasMagneticField;
                                 if (!enabled) {
@@ -9853,6 +9884,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 if (!enabled) {
                                     values.clear();
                                     values.put(KEY_E_ORIENTATION_DISTANCE, 0);
+                                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ID))))});
+                                }
+                                enabled = hasLight;
+                                if (!enabled) {
+                                    values.clear();
+                                    values.put(KEY_E_ORIENTATION_CHECK_LIGHT, 0);
                                     db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                                             new String[]{String.valueOf(Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ID))))});
                                 }
@@ -11110,6 +11148,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                                             if (exportedDBObj.getVersion() < 2390) {
                                                 values.put(KEY_E_NOTIFICATION_DURATION, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 2404) {
+                                                values.put(KEY_E_ORIENTATION_CHECK_LIGHT, 0);
+                                            }
+                                            if (exportedDBObj.getVersion() < 2405) {
+                                                values.put(KEY_E_ORIENTATION_LIGHT_MIN, 0);
+                                                values.put(KEY_E_ORIENTATION_LIGHT_MAX, 0);
                                             }
 
                                             // Inserting Row do db z SQLiteOpenHelper
