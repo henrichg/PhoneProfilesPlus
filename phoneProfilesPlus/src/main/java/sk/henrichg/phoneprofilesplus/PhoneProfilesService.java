@@ -4974,12 +4974,13 @@ public class PhoneProfilesService extends Service
     // Location ----------------------------------------------------------------
 
     public static boolean isLocationEnabled(Context context) {
+        boolean enabled = false;
         if (Build.VERSION.SDK_INT >= 28) {
             LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
             if (lm != null)
-                return lm.isLocationEnabled();
+                enabled = lm.isLocationEnabled();
             else
-                return true;
+                enabled = true;
         }
         else {
             int locationMode = 0;
@@ -4987,8 +4988,10 @@ public class PhoneProfilesService extends Service
                 locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
             } catch (Settings.SettingNotFoundException ignored) {
             }
-            return  locationMode != Settings.Secure.LOCATION_MODE_OFF;
+            enabled = locationMode != Settings.Secure.LOCATION_MODE_OFF;
         }
+        PPApplication.logE("PhoneProfilesService.isLocationEnabled", "enabled="+enabled);
+        return enabled;
     }
 
     public static boolean isWifiSleepPolicySetToNever(Context context) {
