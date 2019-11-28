@@ -54,7 +54,7 @@
         app:title="@string/event_preferences_orientation_light_min"
         app:defaultValue="0"
         app:min="0"
-        app:max="100"
+        app:max="10000"
         app:dependency="eventOrientationEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
@@ -63,7 +63,7 @@
         app:title="@string/event_preferences_orientation_light_max"
         app:defaultValue="0"
         app:min="0"
-        app:max="100"
+        app:max="10000"
         app:dependency="eventOrientationEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference

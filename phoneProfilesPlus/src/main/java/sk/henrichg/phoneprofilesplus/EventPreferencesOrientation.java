@@ -638,4 +638,13 @@ class EventPreferencesOrientation extends EventPreferences {
     {
     }
     */
+
+    static int convertLightToSensor(float light, float maxLight) {
+        return (int)Math.round(light / maxLight * 10000.0);
+    }
+
+    /*static float convertPercentsToLight(long percentage, float maxLight) {
+        return Math.round(maxLight / 100 * percentage);
+    }*/
+
 }

@@ -232,6 +232,7 @@ public class PhoneProfilesService extends Service
     int mDisplayUp = DEVICE_ORIENTATION_UNKNOWN;
     int mSideUp = DEVICE_ORIENTATION_UNKNOWN;
     int mDeviceDistance = DEVICE_ORIENTATION_UNKNOWN;
+    int mLight = 0;
 
     private int tmpSideUp = DEVICE_ORIENTATION_UNKNOWN;
     private long tmpSideTimestamp = 0;
@@ -5266,6 +5267,8 @@ public class PhoneProfilesService extends Service
                         if (mSideUp == DEVICE_ORIENTATION_UNKNOWN)
                             PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) unknown side.");
 
+                        PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(L) light="+mLight);
+
                         PPApplication.logE("@@@ PhoneProfilesService.runEventsHandlerForOrientationChange", "-----------");
 
                         // start events handler
@@ -5295,8 +5298,8 @@ public class PhoneProfilesService extends Service
         //    return;
 
         if (sensorType == Sensor.TYPE_PROXIMITY) {
-            PPApplication.logE("PhoneProfilesService.onSensorChanged", "proximity value="+event.values[0]);
-            PPApplication.logE("PhoneProfilesService.onSensorChanged", "proximity mMaxProximityDistance="+mMaxProximityDistance);
+            //PPApplication.logE("PhoneProfilesService.onSensorChanged", "proximity value=" + event.values[0]);
+            //PPApplication.logE("PhoneProfilesService.onSensorChanged", "proximity mMaxProximityDistance=" + mMaxProximityDistance);
             //if ((event.values[0] == 0) || (event.values[0] == mMaxProximityDistance)) {
             //if (event.timestamp - tmpDistanceTimestamp >= 250000000L /*1000000000L*/) {
             //    tmpDistanceTimestamp = event.timestamp;
@@ -5427,7 +5430,7 @@ public class PhoneProfilesService extends Service
                 }
             }
             else {
-                PPApplication.logE("PhoneProfilesService.onSensorChanged", "accelerometer value="+event.values[0]);
+                //PPApplication.logE("PhoneProfilesService.onSensorChanged", "accelerometer value="+event.values[0]);
 
                 if (event.timestamp - tmpSideTimestamp >= 250000000L /*1000000000L*/) {
                     tmpSideTimestamp = event.timestamp;
@@ -5468,9 +5471,12 @@ public class PhoneProfilesService extends Service
             }
         }
         if (sensorType == Sensor.TYPE_LIGHT) {
-            PPApplication.logE("PhoneProfilesService.onSensorChanged", "light value="+event.values[0]);
-            PPApplication.logE("PhoneProfilesService.onSensorChanged", "light mMaxLightDistance="+mMaxLightDistance);
+            //PPApplication.logE("PhoneProfilesService.onSensorChanged", "light value="+event.values[0]);
+            //PPApplication.logE("PhoneProfilesService.onSensorChanged", "light mMaxLightDistance="+mMaxLightDistance);
 
+            mLight = EventPreferencesOrientation.convertLightToSensor(event.values[0], mMaxLightDistance);
+            //PPApplication.logE("PhoneProfilesService.onSensorChanged", "light mLight="+mLight);
+            runEventsHandlerForOrientationChange(appContext);
         }
     }
 
