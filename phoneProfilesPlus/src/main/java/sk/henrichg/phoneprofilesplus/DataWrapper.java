@@ -3385,8 +3385,8 @@ public class DataWrapper {
                                     notAllowedOrientation = true;
                             }
                             if (!lApplicationPassed) {
-                                boolean lDisplayPassed = true;
-                                boolean lSidePassed = true;
+                                boolean lDisplayPassed = false;
+                                boolean lSidePassed = false;
 
                                 SensorManager sensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
                                 boolean hasAccelerometer = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null);
@@ -3395,11 +3395,12 @@ public class DataWrapper {
                                 boolean hasLight = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT) != null);
 
                                 boolean enabledAll = (hasAccelerometer) && (hasMagneticField);
+
                                 if (hasAccelerometer) {
                                     if (!event._eventPreferencesOrientation._display.isEmpty()) {
                                         String[] splits = event._eventPreferencesOrientation._display.split("\\|");
                                         if (splits.length > 0) {
-                                            lDisplayPassed = false;
+                                            //lDisplayPassed = false;
                                             for (String split : splits) {
                                                 try {
                                                     int side = Integer.valueOf(split);
@@ -3418,7 +3419,7 @@ public class DataWrapper {
                                     if (!event._eventPreferencesOrientation._sides.isEmpty()) {
                                         String[] splits = event._eventPreferencesOrientation._sides.split("\\|");
                                         if (splits.length > 0) {
-                                            lSidePassed = false;
+                                            //lSidePassed = false;
                                             for (String split : splits) {
                                                 try {
                                                     int side = Integer.valueOf(split);
@@ -3440,14 +3441,14 @@ public class DataWrapper {
                                     }
                                 }
 
-                                boolean lDistancePassed = true;
+                                boolean lDistancePassed = false;
                                 if (hasProximity) {
                                     if (event._eventPreferencesOrientation._distance != 0) {
                                         lDistancePassed = event._eventPreferencesOrientation._distance == PhoneProfilesService.getInstance().mDeviceDistance;
                                     }
                                 }
 
-                                boolean lLightPassed = true;
+                                boolean lLightPassed = false;
                                 if (hasLight) {
                                     if (event._eventPreferencesOrientation._checkLight) {
                                         int light = PhoneProfilesService.getInstance().mLight;
@@ -3469,7 +3470,7 @@ public class DataWrapper {
                                     PPApplication.logE("[OriSensor] DataWrapper.doHandleEvents", "lLightPassed=" + lLightPassed);
                                 }
 
-                                orientationPassed = lDisplayPassed && lSidePassed && lDistancePassed && lLightPassed;
+                                orientationPassed = lDisplayPassed || lSidePassed || lDistancePassed || lLightPassed;
                             }
                         } else {
                             notAllowedOrientation = true;

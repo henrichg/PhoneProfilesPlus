@@ -1508,8 +1508,8 @@
 
     <string name="event_preferences_orientation_checkLight">Check light</string>
     <string name="event_preferences_orientation_light">Light</string>
-    <string name="event_preferences_orientation_light_min">Light (minimal value)</string>
-    <string name="event_preferences_orientation_light_max">Light (maximal value)</string>
+    <string name="event_preferences_orientation_light_min">Light - minimal value (0)</string>
+    <string name="event_preferences_orientation_light_max">Light - maximal value (10000)</string>
 
     <!-- **************************************************************************************** -->
 

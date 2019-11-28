@@ -340,9 +340,6 @@ class EventPreferencesOrientation extends EventPreferences {
                 key.equals(PREF_EVENT_ORIENTATION_LIGHT_MIN) ||
                 key.equals(PREF_EVENT_ORIENTATION_LIGHT_MAX))
         {
-            SwitchPreferenceCompat _preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_CHECK_LIGHT);
-            GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, true, preferences.getBoolean(PREF_EVENT_ORIENTATION_CHECK_LIGHT, false), false, false, false);
-
             if (preferences.getBoolean(PREF_EVENT_ORIENTATION_CHECK_LIGHT, false)) {
                 BetterNumberPickerPreferenceX preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MIN);
                 if (preference != null) {
@@ -424,6 +421,12 @@ class EventPreferencesOrientation extends EventPreferences {
         if (distancePreference != null) {
             int index = distancePreference.findIndexOfValue(distancePreference.getValue());
             GlobalGUIRoutines.setPreferenceTitleStyleX(distancePreference, enabled, index > 0, true, !isRunnable, false);
+        }
+
+        SwitchPreferenceCompat checkLightPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_CHECK_LIGHT);
+        if (checkLightPreference != null) {
+            boolean bold = checkLightPreference.isChecked();
+            GlobalGUIRoutines.setPreferenceTitleStyleX(checkLightPreference, enabled, bold, true, !isRunnable, false);
         }
     }
 
@@ -546,16 +549,24 @@ class EventPreferencesOrientation extends EventPreferences {
         boolean runnable = super.isRunnable(context);
 
         SensorManager sensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+        boolean magneticSensor = false;
+        boolean lightSensor = false;
+        if (sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null)
+            magneticSensor = true;
+        if (sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT) != null)
+            lightSensor = true;
+        boolean lightEnabled = _checkLight && lightSensor;
 
-        if ((sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null))
-            runnable = runnable && (!_display.isEmpty() || !_sides.isEmpty() || (_distance != 0));
+        if (magneticSensor)
+            runnable = runnable && (!_display.isEmpty() || !_sides.isEmpty() || (_distance != 0) || lightEnabled);
         else
-            runnable = runnable && (!_display.isEmpty() || (_distance != 0));
-
+            runnable = runnable && (!_display.isEmpty() || (_distance != 0) || lightEnabled);
+        /*
         if (_checkLight) {
             if ((sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT) == null))
                 runnable = false;
         }
+       */
 
         return runnable;
     }
