@@ -75,7 +75,7 @@ sa nastavujú globálne v nastavenaich aplikácie.
 Do nastavení aplikácie sa dá dostať cez menu Editora, položka "Nastavenia". Dá sa ku konkrétnym obrazovkám tohoto nastavenia dostať
 aj z parametrov profilu a udalosti.
 Senzory, ktoré vyžadujú skenery: "Senzor polohy", "Senzor Wi-Fi", "Senzor Bluetooth", "Senzor mobilných buniek", "Senzor orientácie".
-Každý skener má kopu parametrov, treba si ch pozrieť. Ak nepoužívate niektorý z týchto senzorov v udalostiach, skenery nič nerobia
+Každý skener má kopu parametrov, treba si ich pozrieť. Ak nepoužívate niektorý z týchto senzorov v udalostiach, skenery nič nerobia
 aj ked sú povolené. Takéto skenery, ale, môžete v ich nastavenaich zakázať. Majú na to parameter.
 
 Potom ešte existujú parametre profilov a senzory udalostí, ktoré vyžadujú "PhoneProfilesPlusExtender". Je to ďalšia open-source aplikácia,
