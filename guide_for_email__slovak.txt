@@ -92,7 +92,9 @@ Google zároveň kopu aplikácií s tymito funkciami vyhodil z Google Play a dok
 
 Nové udalosti sa dajú pridávať. Slúži na to ikona "plus" v spodnom paneli Editora. Otvorí to dialóg so zoznamom prednastavenych udalostí
 a ako prvá bude prázdna udalosť.
-Udalosti sa dajú aj duplikovať a vymazávať. Na toto je zasa, pre každú udalosť v Editore, ikona menu.
+Udalosti sa dajú aj duplikovať, vymazávať a zastavit ich beh. Na toto je zasa, pre každú udalosť v Editore, ikona menu.
+Zastavenie behu udalosti znamená že sa nastaví je stav na "Zastavená". To isté je možné spraviť aj v parametroch udalosti, položka
+"Povoľ beh". Zastavené udalosti sa nikdy nespustia.
 
 PPP má špeciálny parameter: "Povoľ beh udalostí". Tento parameter nie je v aplikačných nastaveniach, je v menu Editora. Či je beh udalostí
 povolený signalizuje semafórik v Aktivátore a Editore. Kliknite na túto ikonu alebo v menu Editora na položku "Zastav udalosti" a môžete
