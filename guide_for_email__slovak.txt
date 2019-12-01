@@ -62,12 +62,12 @@ nastavené.
 
 Ešte je tam jedna sekcia a to "Parametre senzorov". Práve tieto parametre slúžia na určenie, kedy sa udalosť spustí a zastaví.
 V zozname udalostí sa zobrazujú názvy udalostí, ich stav, stav senzorov a čo sa má spraviť na štart a koniec udalosti.
-Každá udalosž musí mať aspoň 1 senzor. Môže ich mať aj viac. Medzi senzormi je logický AND, čiže musia byť splnené podmienky všetkých
+Každá udalosť musí mať aspoň 1 senzor. Môže ich mať aj viac. Medzi senzormi je logický AND, čiže musia byť splnené podmienky všetkých
 senzorov, aby sa udalosť spustila. Ak nie je splnený niektorý senzor, udalosť sa ukončí, ak bežala.
 Či sú senzory splnené určuje ich farba v zozname udalostí. Ak je červená, senzor nie je splnený, ak zelená, je splnený. Oranžová
 farba je iniciačná farba, musí sa o chvíľu zmeniť na červenú alebo zelenú.
 
-Jednotlivé parametre senzorov sa menia senzor od senzora. Jedniný spoločný parameter je "Povoľ senzor". Ten určuje, či udalosť 
+Jednotlivé parametre senzorov sa menia senzor od senzora. Jediný spoločný parameter je "Povoľ senzor". Ten určuje, či udalosť
 príslušný senzor použije.
 
 Niektoré senzory vyžadujú tzv. skenery. Skener je funkcia v PPP, ktorou sa snímajú hodnoty pre príslušný senzor. Parametre skenerov
