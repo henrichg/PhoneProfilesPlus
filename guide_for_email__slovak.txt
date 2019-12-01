@@ -23,6 +23,10 @@ Dá sa určiť poradie profilov v Aktivátore, vo widgetoch. Stačí v Editore p
 Či sa má profil zobrazovať v Aktivátore, widgetoch, sa robí buď v parametroch profilu v parameteri "Zobrazuj v Aktivátore" alebo 
 keď je nastavený filter na "Profily - Všetky", ikonou hneď pred ikonou menu každého profilu v Editore.
 
+Nové profily sa dajú pridávať. Slúži na to ikona "plus" v spodnom paneli Editora. Otvorí to dialóg so zoznamom prednastavených profilov
+a ako prvý je, prázdny profil.
+Profily sa dajú aj duplikovať a vymazávať. Na toto je zasa, pre každý profil v Editore, ikona menu.
+
 Prednastavené udalosti sú všetky šedé, čiže je zakázaný ich beh. To signalizuje aj ich ikona stavu. 
 Tá sa zobrazuje hneď pred názvom udalosti. Keď na ikonu stavu kliknete, zobrazí sa okienko s vysvetlením čo ktorá ikona znamená.
 Udalosti sa nedá zmeniť status zo "Zastavená", ak nemá splnené svoje podmienky (má červené texty v jej parametroch).
@@ -86,8 +90,19 @@ Extender bol vytvorený preto, lebo Google zakázal aplikácie v Google Play, kt
 Tasker ma výnimku od tohoto obmedzenia, ale ten má cez milión stiahnutí, PPP ma len cez 50000. Takže som to ani neskúšal, napísať Googlu.
 Google zároveň kopu aplikácií s tymito funkciami vyhodil z Google Play a dokonca hrozilo zrušenie Google developer konta.
 
+Nové udalosti sa dajú pridávať. Slúži na to ikona "plus" v spodnom paneli Editora. Otvorí to dialóg so zoznamom prednastavenych udalostí
+a ako prvá bude prázdna udalosť.
+Udalosti sa dajú aj duplikovať a vymazávať. Na toto je zasa, pre každú udalosť v Editore, ikona menu.
 
+PPP má špeciálny parameter: "Povoľ beh udalostí". Tento parameter nie je v aplikačných nastaveniach, je v menu Editora. Či je beh udalostí
+povolený signalizuje semafórik v Aktivátore a Editore. Kliknite na túto ikonu alebo v menu Editora na položku "Zastav udalosti" a môžete
+beh udalostí zakázať. Nebudú sa udalosti spúšťať, bude fungovať len manuálna aktivácia profilu.
+Ak je beh udalostí zakázaný, dá sa znova povoliť kliknutím na semafórik alebo na ikonu "play" v hornom paneli Editora.
+Čo znamená ktorá farba semafórika zistíte kliknutím na neho. Otvorí sa o tom malé okno.
 
+Ešte existuje špeciálny profil, takzvaný "Predvolený profil". Jeho parametre sa dajú nastaviť v nastaveniach aplikácie alebo ikonou
+úplne vpravo v spodnom paneli Editora. Otvorí to obrazovku "Nastavenia"/"Aktivácia profilu".
+Tento profil sa aktivuje, ak nebeží žiadna udalosť.
 
 
 
