@@ -1,7 +1,7 @@
 Po prvom spustení aplikácie sa, okrem pomocných klikacích bublín, a zobrazenia "Dôležité informácie", vygenerujú prednastavené
 profily a udalosti.
 Ak sú profily červené, nemajú splnené mejaké podmienky. Aké sú to, zistíte kliknutím v Editore na príslušný profil.
-Ma začiatku v parametroch profilu sa píše červeným písmom, čo nie je splnené. Treba to splniť. 
+Na začiatku v parametroch profilu sa píše červeným písmom, čo nie je splnené. Treba to splniť.
 Ak ide o právo, treba kliknúť na ten príslušný červený text a povoliť žiadané právo.
 Ostatné červené texty skôr píšu o tom, že niečo profil nemá vyplnené. Treba to vyplniť.
 Toto isté platí aj pre udalosti a ich parametre.
