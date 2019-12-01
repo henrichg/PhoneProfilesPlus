@@ -3762,10 +3762,12 @@ public class Profile {
         {
             SensorManager sensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
             boolean hasAccelerometer = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null);
-            boolean hasMagneticField = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null);
+            //boolean hasMagneticField = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null);
             boolean hasProximity = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY) != null);
+            boolean hasLight = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT) != null);
 
-            boolean enabled = hasAccelerometer && hasMagneticField && hasProximity;
+            boolean enabled = hasAccelerometer;
+            enabled = enabled || hasProximity || hasLight;
             if (enabled)
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
