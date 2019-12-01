@@ -1,0 +1,95 @@
+Po prvom spustení aplikácie sa, okrem pomocných klikacích bublín, a zobrazenia "Dôležité informácie", vygenerujú prednastavené
+profily a udalosti.
+Ak sú profily červené, nemajú splnené mejaké podmienky. Aké sú to, zistíte kliknutím v Editore na príslušný profil.
+Ma začiatku v parametroch profilu sa píše červeným písmom, čo nie je splnené. Treba to splniť. 
+Ak ide o právo, treba kliknúť na ten príslušný červený text a povoliť žiadané právo.
+Ostatné červené texty skôr píšu o tom, že niečo profil nemá vyplnené. Treba to vyplniť.
+Toto isté platí aj pre udalosti a ich parametre.
+
+Profily určujú, ako sa má mobil nastaviť. Keď pozriete parametre profilu, sú tam všetko položky, ktoré určujú ako sa má ktorá vlastosť
+v mobile nastaviť, ak sa profil aktivuje.
+Profily sa dajú len aktivovať, je to jednorázová funkcia. Nie je nijako zaručené, že vlastnosti profilu budú dodržané navždy.
+Užívateľ ich môže kedykoľvek zmeniť v nastavenaich mobilu, hw. tkačítkami, inou aplikáciou (napríklad Tasker).
+Notifikácia PPP zobrazuje, ktorý profil je momentálne aktivovaný. V zátvorke môže byť názov udalosti, ktorá profil aktivovala.
+Ak niečo v mobile parametre zmení, notifikácia PPP sa tým vôbec nezmení.
+
+Profil sa dá aktivovať manuálne alebo udalosťou. Ak je profil aktivovaný manuálne, notifikácia PPP o tom informuje
+textom [M]. Ak je aktivovaný udalosťou, v zátvorke je názov udalosti, ktorá profil aktivovala.
+Je možné, že sa spustí viac udalostí naraz. V takom prípade, sa v zátvorke zobrazuje názov posledne spustenej udalosti.
+Manuálnu aktiváciu profilu môžete spraviť z Aktivátora, Editora (každý profil má pri sebe ikonu menu, odtiaľ sa dajú profily aj aktivovať),
+widgetu, pri Samsungoch z bočného panelu, z Taskera a podobnych aplikácií.
+Dá sa určiť poradie profilov v Aktivátore, vo widgetoch. Stačí v Editore prepnúť filter (je hneď pod textom Editor) na 
+"Profil - Zobrazené v Aktivátore". Vtedy majú profily tzv. handler úplne naľavo. Stačí ten handler presúvať hore/dolu.
+Či sa má profil zobrazovať v Aktivátore, widgetoch, sa robí buď v parametroch profilu v parameteri "Zobrazuj v Aktivátore" alebo 
+keď je nastavený filter na "Profily - Všetky", ikonou hneď pred ikonou menu každého profilu v Editore.
+
+Prednastavené udalosti sú všetky šedé, čiže je zakázaný ich beh. To signalizuje aj ich ikona stavu. 
+Tá sa zobrazuje hneď pred názvom udalosti. Keď na ikonu stavu kliknete, zobrazí sa okienko s vysvetlením čo ktorá ikona znamená.
+Udalosti sa nedá zmeniť status zo "Zastavená", ak nemá splnené svoje podmienky (má červené texty v jej parametroch).
+
+Udalosti slúžia na aktiváciu profilu. Iba v udalosti je určené KEDY sa spustí. Udalosť môže byť pozastavená, spustená, zakázaná, ... 
+Všetky stavy udalosti sú napísané v malom okienku, ked kliknete na ikonu stavu udalosti.
+Tak ako pri profiloch, aj pri udalostiach sa zobrazuje hore filter zobrazenia.
+Aj udalosti majú svoje poradie. Volá sa "Poradie štartu". Dá sa na to prepnúť tým filtrom do stavu "Udalosti - Poradie štartu". Vtedy 
+sa aj udalostiam zobrazuje handler, ktorým môžete presúvaním hore/dolu meniť poradie štartu udalosti. Poradie je veľmi dôležité, 
+určuje, v akom poradí sa budú spúšťať udalosti ak dôjde ku súčasnému spusteniu viac ako jednej udalosti. 
+
+Okrem poradia spustenia majú udalosti aj tzv. "Prioritu". Tá neurčuje poradie spustenia, určuje, či sa vôbec môže udalosť spustiť.
+Ak už beží udalosť s vyššou prioritou, udalosť, ktorá má nižšiu sa nespustí.
+
+Každá udalosť sa môže spustiť alebo ukončiť (existuje výnimka, ale tú teraz nebudem popisovať).
+Štart udalosti a Koniec udalosti. Štartom sa rozumie, čo sa má spraviť, ak sa udalosť spustí, Koncom sa rozumie, čo sa má spraviť,
+ak sa udalosť ukončí. V parametroch udalosti (keď kliknete na udalosť v Editore) sú to dve rôzne sekcie. "Štart udalosti" a 
+"Koniec udalosti". 
+
+V sekcii "Štart udalosti" je povinný parameter "Aktivovať profil". Určuje, aký profil sa udalosťou, pri jej štarte, aktivuje.
+
+Ďalej je možné nastaviť, aby udalosť ignorovala manuálnu aktiváciu profilu. Totižto normálne je spúšťanie udalostí zakázané, ak 
+je nejaký profil aktivovaný manuálne (z Aktivátora, Editora, widgetu, bočnéh panela Samsung, Taskera a pod.). Týmto parametrom
+udalosti je možné toto obísť.
+
+V sekcii "Koniec udalosti" sa nastavuje, čo sa má spraviť, keď udalosť skončí. Tu "Aktivovať profil" nie je povinný, nie je potreba 
+nejaký aktivovať. Ďalším parametrom tu je parameter "A urobiť". Tu sa dá nastaviť, čo ešte spraviť na ukončenie udalosti. Prednastavené 
+tu je "Reštart udalostí".
+
+Co je "Reštart udalostí": slúži na reštartovanie behu udalostí. Všetky udalosti sa zastavia a znova sa spustia tie, ktoré sa spustiť majú.
+Tu práve môže dôjsť k hromadnému spusteniu udalostí na jeden krát, preto je dôležité "Poradie štartu".
+Reštart udalostí je možné vyvolať aj ručne z Aktivátora, Editora, notifikácie, widgetu, bočného panelu Samsung, Taskera. Vypadá ako 
+ikona udalosti so symblom "play".
+
+Ďalej je v "A urobiť" hodnota "Vráť späť profil". Tá aktivuje späť profil, ktorý bol aktivovaný pred spustením udalosti, ktorá to ma 
+nastavené.
+
+Ešte je tam jedna sekcia a to "Parametre senzorov". Práve tieto parametre slúžia na určenie, kedy sa udalosť spustí a zastaví.
+V zozname udalostí sa zobrazujú názvy udalostí, ich stav, stav senzorov a čo sa má spraviť na štart a koniec udalosti.
+Každá udalosž musí mať aspoň 1 senzor. Môže ich mať aj viac. Medzi senzormi je logický AND, čiže musia byť splnené podmienky všetkých
+senzorov, aby sa udalosť spustila. Ak nie je splnený niektorý senzor, udalosť sa ukončí, ak bežala.
+Či sú senzory splnené určuje ich farba v zozname udalostí. Ak je červená, senzor nie je splnený, ak zelená, je splnený. Oranžová
+farba je iniciačná farba, musí sa o chvíľu zmeniť na červenú alebo zelenú.
+
+Jednotlivé parametre senzorov sa menia senzor od senzora. Jedniný spoločný parameter je "Povoľ senzor". Ten určuje, či udalosť 
+príslušný senzor použije.
+
+Niektoré senzory vyžadujú tzv. skenery. Skener je funkcia v PPP, ktorou sa snímajú hodnoty pre príslušný senzor. Parametre skenerov
+sa nastavujú globálne v nastavenaich aplikácie.
+Do nastavení aplikácie sa dá dostať cez menu Editora, položka "Nastavenia". Dá sa ku konkrétnym obrazovkám tohoto nastavenia dostať
+aj z parametrov profilu a udalosti.
+Senzory, ktoré vyžadujú skenery: "Senzor polohy", "Senzor Wi-Fi", "Senzor Bluetooth", "Senzor mobilných buniek", "Senzor orientácie".
+Každý skener má kopu parametrov, treba si ch pozrieť. Ak nepoužívate niektorý z týchto senzorov v udalostiach, skenery nič nerobia
+aj ked sú povolené. Takéto skenery, ale, môžete v ich nastavenaich zakázať. Majú na to parameter.
+
+Potom ešte existujú parametre profilov a senzory udalostí, ktoré vyžadujú "PhoneProfilesPlusExtender". Je to ďalšia open-source aplikácia,
+ktorú musíte nainštalovať, ak je vyžadovaná. Ako sa inštaluje je napísané v príslušných parametroch profilu, senzoroch udalosti.
+Extender je potrebný pre tieto parametre: parameter profilu: "Vynútiť zastavenie aplikácií", "Zamknutie zariadenia", parameter udalosti: 
+"Senzor aplikácií", "Senzor orientácie", "Senzor SMS/MMS", "Senzor hovoru".
+Extender bol vytvorený preto, lebo Google zakázal aplikácie v Google Play, ktoré používajú funkciu Dostupnosť a práva pre Hovory a SMS/MMS.
+Tasker ma výnimku od tohoto obmedzenia, ale ten má cez milión stiahnutí, PPP ma len cez 50000. Takže som to ani neskúšal, napísať Googlu.
+Google zároveň kopu aplikácií s tymito funkciami vyhodil z Google Play a dokonca hrozilo zrušenie Google developer konta.
+
+
+
+
+
+
+
+
