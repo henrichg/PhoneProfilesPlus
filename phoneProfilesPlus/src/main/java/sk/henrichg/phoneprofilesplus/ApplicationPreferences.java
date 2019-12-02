@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
 
+import androidx.core.content.ContextCompat;
+
 class ApplicationPreferences {
 
     static SharedPreferences preferences = null;
@@ -145,7 +147,7 @@ class ApplicationPreferences {
     //static final String PREF_APPLICATION_NIGHT_MODE_OFF_THEME = "applicationNightModeOffTheme";
     static final String PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED = "applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled";
     static final String PREF_APPLICATION_SAMSUNG_EDGE_VERTICAL_POSITION = "applicationSamsungEdgeVerticalPosition";
-//    static final String PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR = "notificationBackgroundCustomColor";
+    static final String PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR = "notificationBackgroundCustomColor";
 
     //static boolean forceNotUseAlarmClock = false;
 
@@ -738,8 +740,8 @@ class ApplicationPreferences {
         return getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_VERTICAL_POSITION, "0");
     }
 
-//    static int notificationBackgroundCustomColor(Context context) {
-//        return getSharedPreferences(context).getInt(PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR, 0xFFFFFF);
-//    }
+    static int notificationBackgroundCustomColor(Context context) {
+        return getSharedPreferences(context).getInt(PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR, ContextCompat.getColor(context, R.color.notification_background_color_default));
+    }
 
 }

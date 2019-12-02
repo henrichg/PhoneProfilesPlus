@@ -90,6 +90,8 @@ dependencies {
     implementation 'com.getkeepsafe.taptargetview:taptargetview:1.13.0'
     implementation 'com.simplecityapps:recyclerview-fastscroll:2.0.0'
 //    implementation 'com.jaredrummler:colorpicker:1.1.0'
+//    implementation "com.github.skydoves:colorpickerpreference:2.0.0"
+    implementation 'com.github.Kunzisoft:AndroidClearChroma:2.3'
 
     implementation('dev.doubledot.doki:library:0.0.1@aar') {
         transitive = true

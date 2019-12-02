@@ -10,6 +10,6 @@
 
     <color name="lockDevice_textColor">#FFFFFFFF</color>
 
-<!--    <color name="notification_background_color_default">#FFFFFFFF</color>-->
+    <color name="notification_background_color_default">#FFFFFFFF</color>
 
 </resources>

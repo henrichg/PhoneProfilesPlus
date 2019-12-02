@@ -18,6 +18,8 @@ import android.view.ViewGroup;
 
 //import com.judemanutd.autostarter.AutoStartPermissionHelper;
 
+//import com.kunzisoft.androidclearchroma.ChromaPreferenceCompat;
+
 import java.util.concurrent.TimeUnit;
 
 import androidx.appcompat.app.AlertDialog;
@@ -159,6 +161,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         {
             ((ColorChooserPreferenceX)preference).fragment = new ColorChooserPreferenceFragmentX();
             dialogFragment = ((ColorChooserPreferenceX)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
+        if (preference instanceof CustomColorDialogPreferenceX)
+        {
+            ((CustomColorDialogPreferenceX)preference).fragment = new CustomColorDialogPreferenceFragmentX();
+            dialogFragment = ((CustomColorDialogPreferenceX)preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
@@ -1625,7 +1635,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         //if (Build.VERSION.SDK_INT < 29) {
             setSummary(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR);
             setSummary(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR);
-//            setSummary(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR);
+            setSummary(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR);
         //}
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE);
@@ -1960,10 +1970,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT);
                 if (_preference != null)
                     _preference.setEnabled(useDecoration && backgroundColor.equals("0"));
-//
-//                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR);
-//                if (_preference != null)
-//                    _preference.setEnabled(backgroundColor.equals("3"));
+
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR);
+                if (_preference != null)
+                    _preference.setEnabled(backgroundColor.equals("5"));
             }
         //}
         if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION)) {
@@ -2037,10 +2047,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
         }
 
-//        if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR)) {
-//            return;
-//        }
-//
+        if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR)) {
+            return;
+        }
+
         // Do not bind toggles.
         if (preference instanceof CheckBoxPreference || preference instanceof SwitchPreferenceCompat) {
             return;
