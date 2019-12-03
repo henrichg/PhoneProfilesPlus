@@ -4685,10 +4685,24 @@ public class PhoneProfilesService extends Service
                         int greenCustom = Color.green(notificationBackgroundCustomColor);
                         int blueCustom = Color.blue(notificationBackgroundCustomColor);
 
-                        if ((redCustom <= redDark) && (greenCustom <= greenDark) && (blueCustom <= blueDark))
-                            restartEventsId =  R.drawable.ic_widget_restart_events_dark;
-                        else
+
+                        if (PPApplication.logEnabled()) {
+                            PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "redDark=" + redDark);
+                            PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "greeDark=" + greenDark);
+                            PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "blueDark=" + blueDark);
+                            PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "redCustom=" + redCustom);
+                            PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "greeCustom=" + greenCustom);
+                            PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "blueCustom=" + blueCustom);
+                        }
+
+                        if ((redCustom <= redDark) && (greenCustom <= greenDark) && (blueCustom <= blueDark)) {
+                            PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "dark restart events");
+                            restartEventsId = R.drawable.ic_widget_restart_events_dark;
+                        }
+                        else {
+                            PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "light restart events");
                             restartEventsId = R.drawable.ic_widget_restart_events;
+                        }
                     }
                     else
                     if (!notificationBackgroundColor.equals("1")) {
@@ -4735,7 +4749,9 @@ public class PhoneProfilesService extends Service
 
             if ((Build.VERSION.SDK_INT < 29) ||
                     (!(notificationBackgroundColor.equals("2") || notificationBackgroundColor.equals("4")))) {
+                PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "background not 2 or 4");
                 if (notificationDarkBackground) {
+                    PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "dark background");
                     if (notificationBackgroundColor.equals("3") || notificationBackgroundColor.equals("4")) {
                         int color = ContextCompat.getColor(this, R.color.notificationBlackBackgroundColor);
                         contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
@@ -4750,11 +4766,13 @@ public class PhoneProfilesService extends Service
                     }
                 }
                 else if (notificationBackgroundColor.equals("5")) {
+                    PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "background color 5");
                     contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", notificationBackgroundCustomColor);
                     if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
                         contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", notificationBackgroundCustomColor);
                 }
                 else {
+                    PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "transparent background");
                     //int color = getResources().getColor(R.color.notificationBackground);
                     contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", Color.TRANSPARENT);
                     if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
@@ -4763,15 +4781,15 @@ public class PhoneProfilesService extends Service
 
                 PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationBackgroundColor="+notificationBackgroundColor);
                 //if ((Build.VERSION.SDK_INT < 29) || (!notificationBackgroundColor.equals("2"))) {
+                    PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationTextColor="+notificationTextColor);
+                    PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "notificationTextColor="+notificationTextColor);
                     if (notificationTextColor.equals("1")/* && (!notificationDarkBackground)*/) {
-                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationTextColor="+notificationTextColor);
                         contentViewLarge.setTextColor(R.id.notification_activated_profile_name,
                                 ContextCompat.getColorStateList(appContext, R.color.widget_text_color_black));
                         if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
                             contentView.setTextColor(R.id.notification_activated_profile_name,
                                     ContextCompat.getColorStateList(appContext, R.color.widget_text_color_black));
                     } else if (notificationTextColor.equals("2")/* || notificationDarkBackground*/) {
-                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationTextColor="+notificationTextColor);
                         contentViewLarge.setTextColor(R.id.notification_activated_profile_name,
                                 ContextCompat.getColorStateList(appContext, R.color.widget_text_color_white));
                         if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
@@ -5030,7 +5048,7 @@ public class PhoneProfilesService extends Service
     // Location ----------------------------------------------------------------
 
     public static boolean isLocationEnabled(Context context) {
-        boolean enabled = false;
+        boolean enabled;
         if (Build.VERSION.SDK_INT >= 28) {
             LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
             if (lm != null)

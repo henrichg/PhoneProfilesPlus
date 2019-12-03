@@ -2,15 +2,9 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.provider.Settings;
 import android.util.AttributeSet;
-
-import com.kunzisoft.androidclearchroma.IndicatorMode;
-import com.kunzisoft.androidclearchroma.colormode.ColorMode;
-import com.kunzisoft.androidclearchroma.view.ChromaColorView;
 
 import androidx.preference.DialogPreference;
 
@@ -18,7 +12,6 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
 
     CustomColorDialogPreferenceFragmentX fragment;
 
-    private final Context _context;
     int chromaColorMode;
     int chromaIndicatorMode;
 
@@ -31,8 +24,6 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
 
     public CustomColorDialogPreferenceX(Context context, AttributeSet attrs) {
         super(context, attrs);
-
-        _context = context;
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
                 R.styleable.ChromaPreference);
@@ -78,6 +69,7 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
 
     private void setSummaryCCDP(int value)
     {
+        /*
         int redColor = Color.red(value);
         int greenColor = Color.green(value);
         int blueColor = Color.blue(value);
@@ -87,6 +79,8 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
                          Integer.toHexString(blueColor);
 
         setSummary(summary.toUpperCase());
+        */
+        setSummary(Integer.toHexString(value).toUpperCase().substring(2));
     }
 
     @Override

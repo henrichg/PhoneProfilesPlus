@@ -1,33 +1,19 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
-import android.os.Handler;
-import android.provider.Settings;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.SeekBar;
-import android.widget.TextView;
 
 import com.kunzisoft.androidclearchroma.IndicatorMode;
 import com.kunzisoft.androidclearchroma.colormode.ColorMode;
 import com.kunzisoft.androidclearchroma.view.ChromaColorView;
-import com.stericson.RootShell.execution.Command;
-import com.stericson.RootShell.execution.Shell;
-import com.stericson.RootTools.RootTools;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 @SuppressWarnings("WeakerAccess")
 public class CustomColorDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
-    private Context context;
     private CustomColorDialogPreferenceX preference;
 
     ChromaColorView chromaColorView;
@@ -36,7 +22,6 @@ public class CustomColorDialogPreferenceFragmentX extends PreferenceDialogFragme
     @Override
     protected View onCreateDialogView(Context context)
     {
-        this.context = context;
         preference = (CustomColorDialogPreferenceX) getPreference();
         preference.fragment = this;
 
