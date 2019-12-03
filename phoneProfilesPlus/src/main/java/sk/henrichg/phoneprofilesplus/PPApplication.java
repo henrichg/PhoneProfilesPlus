@@ -77,7 +77,7 @@ public class PPApplication extends Application {
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && BuildConfig.DEBUG;
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && BuildConfig.DEBUG;
     private static final boolean rootToolsDebug = false;
@@ -98,7 +98,7 @@ public class PPApplication extends Application {
                                          //+"|PhoneProfilesService.isServiceRunningInForeground"
                                          //+"|PhoneProfilesService.showProfileNotification"
                                          //+"|PhoneProfilesService._showProfileNotification"
-                                         +"|[CUST] PhoneProfilesService._showProfileNotification"
+                                         //+"|[CUST] PhoneProfilesService._showProfileNotification"
                                          //+"|PPApplication.createProfileNotificationChannel"
                                          +"|PhoneProfilesService.stopReceiver"
                                          +"|PhoneProfilesService.onDestroy"
@@ -272,7 +272,7 @@ public class PPApplication extends Application {
 
                                          //+"|ActivateProfileHelper.setAirplaneMode_SDK17"
                                          //+"|ActivateProfileHelper.executeForRadios"
-                                         //+"|ActivateProfileHelper.setMobileData"
+                                         +"|ActivateProfileHelper.setMobileData"
                                         //+"|ActivateProfileHelper.doExecuteForRadios"
                                         //+"|CmdMobileData.isEnabled"
                                         //+"|$$$ WifiAP"
@@ -520,9 +520,9 @@ public class PPApplication extends Application {
 
                                         //+"|PhoneProfilesService.isLocationEnabled"
 
-                                        +"|PhoneProfilesPrefsFragment.updateSharedPreferences"
-                                        +"|CustomColorDialogPreferenceX"
-                                        +"|CustomColorDialogPreferenceFragmentX"
+                                        //+"|PhoneProfilesPrefsFragment.updateSharedPreferences"
+                                        //+"|CustomColorDialogPreferenceX"
+                                        //+"|CustomColorDialogPreferenceFragmentX"
             ;
 
 
