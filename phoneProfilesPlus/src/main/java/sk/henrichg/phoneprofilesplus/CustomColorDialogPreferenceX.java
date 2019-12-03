@@ -6,6 +6,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 
+import com.kunzisoft.androidclearchroma.ChromaUtil;
+
 import androidx.preference.DialogPreference;
 
 public class CustomColorDialogPreferenceX extends DialogPreference {
@@ -69,18 +71,7 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
 
     private void setSummaryCCDP(int value)
     {
-        /*
-        int redColor = Color.red(value);
-        int greenColor = Color.green(value);
-        int blueColor = Color.blue(value);
-
-        String summary = Integer.toHexString(redColor) +
-                         Integer.toHexString(greenColor) +
-                         Integer.toHexString(blueColor);
-
-        setSummary(summary.toUpperCase());
-        */
-        setSummary(Integer.toHexString(value).toUpperCase().substring(2));
+        setSummary(ChromaUtil.getFormattedColorString(value, false));
     }
 
     @Override
