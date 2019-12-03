@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.Settings;
@@ -9,6 +10,7 @@ import android.util.AttributeSet;
 
 import com.kunzisoft.androidclearchroma.IndicatorMode;
 import com.kunzisoft.androidclearchroma.colormode.ColorMode;
+import com.kunzisoft.androidclearchroma.view.ChromaColorView;
 
 import androidx.preference.DialogPreference;
 
@@ -56,27 +58,35 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
             value = getPersistedInt(0xFFFFFFFF);
             this.defaultValue = 0xFFFFFF;
         }
-        setSummaryCCDP();
+        setSummaryCCDP(value);
     }
 
     void persistValue() {
         if (shouldPersist()) {
             persistInt(value);
-            setSummaryCCDP();
+            setSummaryCCDP(value);
         }
     }
 
     void resetSummary() {
         if (!savedInstanceState) {
             value = getPersistedInt(defaultValue);
-            setSummaryCCDP();
+            setSummaryCCDP(value);
         }
         savedInstanceState = false;
     }
 
-    private void setSummaryCCDP()
+    private void setSummaryCCDP(int value)
     {
-        setSummary(Integer.toHexString(value).toUpperCase());
+        int redColor = Color.red(value);
+        int greenColor = Color.green(value);
+        int blueColor = Color.blue(value);
+
+        String summary = Integer.toHexString(redColor) +
+                         Integer.toHexString(greenColor) +
+                         Integer.toHexString(blueColor);
+
+        setSummary(summary.toUpperCase());
     }
 
     @Override
@@ -91,8 +101,14 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
         }*/
 
         final CustomColorDialogPreferenceX.SavedState myState = new CustomColorDialogPreferenceX.SavedState(superState);
-        myState.value = value;
-        myState.defaultValue = defaultValue;
+        if (fragment != null) {
+            myState.value = fragment.chromaColorView.getCurrentColor();
+            myState.defaultValue = defaultValue;
+        }
+        else {
+            myState.value = value;
+            myState.defaultValue = defaultValue;
+        }
         return myState;
     }
 
@@ -102,7 +118,10 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
         if (!state.getClass().equals(SavedState.class)) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
-            setSummaryCCDP();
+            int value = this.value;
+            if (fragment != null)
+                fragment.chromaColorView.setCurrentColor(value);
+            setSummaryCCDP(value);
             return;
         }
 
@@ -112,7 +131,9 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
         value = myState.value;
         defaultValue = myState.defaultValue;
 
-        setSummaryCCDP();
+        if (fragment != null)
+            fragment.chromaColorView.setCurrentColor(value);
+        setSummaryCCDP(value);
     }
 
     // SavedState class

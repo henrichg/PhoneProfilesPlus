@@ -30,7 +30,7 @@ public class CustomColorDialogPreferenceFragmentX extends PreferenceDialogFragme
     private Context context;
     private CustomColorDialogPreferenceX preference;
 
-    private ChromaColorView chromaColorView;
+    ChromaColorView chromaColorView;
 
     @SuppressLint("InflateParams")
     @Override

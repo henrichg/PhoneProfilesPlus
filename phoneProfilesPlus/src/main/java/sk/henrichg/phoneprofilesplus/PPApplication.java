@@ -98,6 +98,7 @@ public class PPApplication extends Application {
                                          //+"|PhoneProfilesService.isServiceRunningInForeground"
                                          //+"|PhoneProfilesService.showProfileNotification"
                                          //+"|PhoneProfilesService._showProfileNotification"
+                                         +"|[CUST] PhoneProfilesService._showProfileNotification"
                                          //+"|PPApplication.createProfileNotificationChannel"
                                          +"|PhoneProfilesService.stopReceiver"
                                          +"|PhoneProfilesService.onDestroy"

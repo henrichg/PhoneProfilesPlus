@@ -4252,6 +4252,7 @@ public class PhoneProfilesService extends Service
             String notificationStatusBarStyle = ApplicationPreferences.notificationStatusBarStyle(appContext);
             String notificationTextColor = ApplicationPreferences.notificationTextColor(appContext);
             String notificationBackgroundColor = ApplicationPreferences.notificationBackgroundColor(appContext);
+            int notificationBackgroundCustomColor = ApplicationPreferences.notificationBackgroundCustomColor(appContext);
 
             Notification.Builder notificationBuilder;
 
@@ -4307,7 +4308,7 @@ public class PhoneProfilesService extends Service
                 }
                 PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationDarkBackground="+notificationDarkBackground);
                 useDecorator = useDecorator && (!notificationDarkBackground) &&
-                                                (!(notificationBackgroundColor.equals("2") || notificationBackgroundColor.equals("4")));
+                    (!(notificationBackgroundColor.equals("2") || notificationBackgroundColor.equals("4") || notificationBackgroundColor.equals("5")));
             /*}
             else {
                 int nightModeFlags =
@@ -4636,10 +4637,60 @@ public class PhoneProfilesService extends Service
                 if (Build.VERSION.SDK_INT < 29) {
                     if (notificationDarkBackground)
                         restartEventsId =  R.drawable.ic_widget_restart_events_dark;
-                    else
-                        restartEventsId = R.drawable.ic_widget_restart_events;
+                    else {
+                        if (notificationBackgroundColor.equals("5")) {
+//                            int color = ContextCompat.getColor(this, R.color.notificationDarkBackgroundColor);
+//                            int redDark = Color.red(color);
+//                            int greenDark = Color.green(color);
+//                            int blueDark = Color.blue(color);
+                            int redDark = 60;
+                            int greenDark = 60;
+                            int blueDark = 60;
+                            int redCustom = Color.red(notificationBackgroundCustomColor);
+                            int greenCustom = Color.green(notificationBackgroundCustomColor);
+                            int blueCustom = Color.blue(notificationBackgroundCustomColor);
+
+                            if (PPApplication.logEnabled()) {
+                                PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "redDark=" + redDark);
+                                PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "greeDark=" + greenDark);
+                                PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "blueDark=" + blueDark);
+                                PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "redCustom=" + redCustom);
+                                PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "greeCustom=" + greenCustom);
+                                PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "blueCustom=" + blueCustom);
+                            }
+
+                            if ((redCustom <= redDark) && (greenCustom <= greenDark) && (blueCustom <= blueDark)) {
+                                PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "dark restart events");
+                                restartEventsId = R.drawable.ic_widget_restart_events_dark;
+                            }
+                            else {
+                                PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "light restart events");
+                                restartEventsId = R.drawable.ic_widget_restart_events;
+                            }
+                        }
+                        else
+                            restartEventsId = R.drawable.ic_widget_restart_events;
+                    }
                 }
                 else {
+                    if (notificationBackgroundColor.equals("5")) {
+//                            int color = ContextCompat.getColor(this, R.color.notificationDarkBackgroundColor);
+//                            int redDark = Color.red(color);
+//                            int greenDark = Color.green(color);
+//                            int blueDark = Color.blue(color);
+                        int redDark = 60;
+                        int greenDark = 60;
+                        int blueDark = 60;
+                        int redCustom = Color.red(notificationBackgroundCustomColor);
+                        int greenCustom = Color.green(notificationBackgroundCustomColor);
+                        int blueCustom = Color.blue(notificationBackgroundCustomColor);
+
+                        if ((redCustom <= redDark) && (greenCustom <= greenDark) && (blueCustom <= blueDark))
+                            restartEventsId =  R.drawable.ic_widget_restart_events_dark;
+                        else
+                            restartEventsId = R.drawable.ic_widget_restart_events;
+                    }
+                    else
                     if (!notificationBackgroundColor.equals("1")) {
                         int nightModeFlags =
                                 appContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
@@ -4697,6 +4748,11 @@ public class PhoneProfilesService extends Service
                         if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
                             contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
                     }
+                }
+                else if (notificationBackgroundColor.equals("5")) {
+                    contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", notificationBackgroundCustomColor);
+                    if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
+                        contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", notificationBackgroundCustomColor);
                 }
                 else {
                     //int color = getResources().getColor(R.color.notificationBackground);

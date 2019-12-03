@@ -45,13 +45,13 @@
             app:entries="@array/notificationBackgroundColorArray"
             app:entryValues="@array/notificationBackgroundColorValues"
             app:layout="@layout/mp_preference_material_widget" />
-<!--        <sk.henrichg.phoneprofilesplus.CustomColorDialogPreferenceX-->
-<!--            app:key="notificationBackgroundCustomColor"-->
-<!--            app:title="@string/phone_profiles_pref_notificationBackgroundCustomColor"-->
-<!--            app:defaultValue="@color/notification_background_color_default"-->
-<!--            app:chromaColorMode="ARGB"-->
-<!--            app:chromaIndicatorMode="HEX"-->
-<!--            app:layout="@layout/mp_preference_material_widget" />-->
+        <sk.henrichg.phoneprofilesplus.CustomColorDialogPreferenceX
+            app:key="notificationBackgroundCustomColor"
+            app:title="@string/phone_profiles_pref_notificationBackgroundCustomColor"
+            app:defaultValue="@color/notification_background_color_default"
+            app:chromaColorMode="RGB"
+            app:chromaIndicatorMode="HEX"
+            app:layout="@layout/mp_preference_material_widget" />
         <ListPreference
             app:title="@string/phone_profiles_pref_notificationTextColor"
             app:summary="@string/array_pref_no_change"

@@ -1962,7 +1962,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 String backgroundColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
                 Preference _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR);
                 if (_preference != null)
-                    _preference.setEnabled(backgroundColor.equals("0")/* || backgroundColor.equals("3")*/);
+                    _preference.setEnabled(backgroundColor.equals("0") || backgroundColor.equals("5"));
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION);
                 if (_preference != null)
                     _preference.setEnabled(backgroundColor.equals("0"));
