@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
@@ -10,17 +11,40 @@
         android:layout_alignParentStart="true"
         android:background="@drawable/acch_color_background"/>
 
-    <ScrollView
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/acch_color_view">
-        <LinearLayout
-            android:id="@+id/acch_channel_container"
-            android:layout_width="match_parent"
+        android:layout_toEndOf="@id/acch_color_view"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/acch_color_edit"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical"/>
-    </ScrollView>
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center_horizontal"
+            android:digits="0123456789ABCDEF"
+            android:maxLength="6"
+            android:inputType="textCapCharacters|textNoSuggestions"
+            android:importantForAutofill="no"
+            tools:ignore="LabelFor,UnusedAttribute"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/acch_channel_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical"/>
+
+        </ScrollView>
+
+    </LinearLayout>
 
 </RelativeLayout>
