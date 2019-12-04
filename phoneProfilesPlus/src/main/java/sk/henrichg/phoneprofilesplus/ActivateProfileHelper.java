@@ -3222,7 +3222,7 @@ class ActivateProfileHelper {
             if (transactionCode != -1) {
                 PPApplication.logE("ActivateProfileHelper.setMobileData", "transactionCode="+transactionCode);
 
-                // Android 6?
+                // Android 5.1?
                 if (Build.VERSION.SDK_INT >= 22) {
                     SubscriptionManager mSubscriptionManager = (SubscriptionManager)context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                     //SubscriptionManager.from(context);
@@ -3375,8 +3375,8 @@ class ActivateProfileHelper {
                 }
 
                 if (transactionCode != -1) {
-                    // Android 6?
-                    if (Build.VERSION.SDK_INT >= 23) {
+                    // Android 5.1?
+                    if (Build.VERSION.SDK_INT >= 22) {
                         SubscriptionManager mSubscriptionManager = (SubscriptionManager)context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                                 //SubscriptionManager.from(context);
                         if (mSubscriptionManager != null) {
