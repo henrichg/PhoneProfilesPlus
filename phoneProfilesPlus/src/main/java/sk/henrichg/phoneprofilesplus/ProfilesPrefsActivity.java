@@ -606,8 +606,10 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 PPApplication.logE("$$$ restartEvents","from ProfilesPrefsActivity.savePreferences");
                 PPApplication.setBlockProfileEventActions(true);
                 if (Event.getGlobalEventsRunning(getApplicationContext())) {
-                    if (!DataWrapper.getIsManualProfileActivation(false, getApplicationContext()))
-                        dataWrapper.restartEvents(false, true, true, true, true);
+                    if (!DataWrapper.getIsManualProfileActivation(false, getApplicationContext())) {
+                        //dataWrapper.restartEvents(false, true, true, true, true);
+                        dataWrapper.restartEventsWithRescan(false, true, false);
+                    }
                     else {
                         if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
                             dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EDITOR, false, null);

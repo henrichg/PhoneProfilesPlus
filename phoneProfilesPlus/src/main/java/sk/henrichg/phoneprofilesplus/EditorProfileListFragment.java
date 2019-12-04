@@ -621,8 +621,10 @@ public class EditorProfileListFragment extends Fragment
             PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfileListFragment.deleteProfile");
             ActivateProfileHelper.updateGUI(activityDataWrapper.context, true, true);
         }
-        else
-            activityDataWrapper.restartEvents(false, true, true, true, true);
+        else {
+            //activityDataWrapper.restartEvents(false, true, true, true, true);
+            activityDataWrapper.restartEventsWithRescan(false, true, false);
+        }
 
         activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
 

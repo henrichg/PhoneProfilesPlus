@@ -58,7 +58,8 @@ public class TimeChangedReceiver extends BroadcastReceiver {
 
                             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
                             //dataWrapper.clearSensorsStartTime();
-                            dataWrapper.restartEvents(false, true, false, false, false);
+                            //dataWrapper.restartEvents(false, true, false, false, false);
+                            dataWrapper.restartEventsWithRescan(false, false, false);
 
                             PPApplication.logE("PPApplication.startHandlerThread", "END run - from=TimeChangedReceiver.onReceive");
                         }
