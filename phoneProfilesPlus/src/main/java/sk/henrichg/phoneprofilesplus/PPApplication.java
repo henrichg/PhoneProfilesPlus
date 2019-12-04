@@ -276,6 +276,7 @@ public class PPApplication extends Application {
                                          //+"|ActivateProfileHelper.setAirplaneMode_SDK17"
                                          //+"|ActivateProfileHelper.executeForRadios"
                                          +"|ActivateProfileHelper.setMobileData"
+                                         +"|ActivateProfileHelper.doExecuteForRadios"
                                         //+"|ActivateProfileHelper.doExecuteForRadios"
                                         //+"|CmdMobileData.isEnabled"
                                         //+"|$$$ WifiAP"

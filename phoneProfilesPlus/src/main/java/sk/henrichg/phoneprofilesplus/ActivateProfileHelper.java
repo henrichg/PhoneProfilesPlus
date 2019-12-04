@@ -144,6 +144,8 @@ class ActivateProfileHelper {
                     PPApplication.sleep(200);
                 }
             }
+            else
+                PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "_deviceMobileData NOT ALLOWED");
         }
 
         // setup WiFi AP
@@ -3119,6 +3121,8 @@ class ActivateProfileHelper {
 
     private static void setMobileData(Context context, boolean enable)
     {
+        PPApplication.logE("ActivateProfileHelper.setMobileData", "xxx");
+
         // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.MODIFY_PHONE_STATE
         // not working :-/
         /*if (Permissions.hasPermission(context, Manifest.permission.MODIFY_PHONE_STATE)) {
@@ -3171,6 +3175,8 @@ class ActivateProfileHelper {
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
                 (PPApplication.isRooted(false)))
         {
+            PPApplication.logE("ActivateProfileHelper.setMobileData", "ask for root enabled and is rooted");
+
 /*            synchronized (PPApplication.rootMutex) {
                 String command1 = "svc data " + (enable ? "enable" : "disable");
                 PPApplication.logE("ActivateProfileHelper.setMobileData", "command=" + command1);
@@ -3215,11 +3221,14 @@ class ActivateProfileHelper {
             int state = enable ? 1 : 0;
 
             if (transactionCode != -1) {
+                PPApplication.logE("ActivateProfileHelper.setMobileData", "transactionCode > -1");
+
                 // Android 6?
                 if (Build.VERSION.SDK_INT >= 23) {
                     SubscriptionManager mSubscriptionManager = (SubscriptionManager)context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                     //SubscriptionManager.from(context);
                     if (mSubscriptionManager != null) {
+                        PPApplication.logE("ActivateProfileHelper.setMobileData", "mSubscriptionManager != null");
                         List<SubscriptionInfo> subscriptionList = null;
                         try {
                             // Loop through the subscription list i.e. SIM list.
@@ -3250,9 +3259,15 @@ class ActivateProfileHelper {
                                         }
                                     }
                                 }
+                                else
+                                    PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionInfo == null");
                             }
                         }
+                        else
+                            PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionList == null");
                     }
+                    else
+                        PPApplication.logE("ActivateProfileHelper.setMobileData", "mSubscriptionManager == null");
                 } else {
                     synchronized (PPApplication.rootMutex) {
                         String command1 = PPApplication.getServiceCommand("phone", transactionCode, state);
@@ -3268,6 +3283,8 @@ class ActivateProfileHelper {
                     }
                 }
             }
+            else
+                PPApplication.logE("ActivateProfileHelper.setMobileData", "transactionCode == -1");
         }
     }
 
