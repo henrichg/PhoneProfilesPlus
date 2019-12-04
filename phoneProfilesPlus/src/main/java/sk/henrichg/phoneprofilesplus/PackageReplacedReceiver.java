@@ -361,7 +361,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     String notificationBackgroundColor = ApplicationPreferences.preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
                                     SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                                     if (!ApplicationPreferences.preferences.contains(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR))
-                                        editor.putInt(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR, 0xFFFFFF);
+                                        editor.putInt(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR, 0xFFFFFFFF);
                                     if (!ApplicationPreferences.preferences.contains(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE))
                                         editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE, false);
                                     if (notificationBackgroundColor.equals("2")) {

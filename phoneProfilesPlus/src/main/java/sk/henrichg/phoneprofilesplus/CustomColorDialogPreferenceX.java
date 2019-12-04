@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -91,6 +92,10 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
             color = fragment.chromaColorView.getCurrentColor();
         else
             color = value;
+        PPApplication.logE("CustomColorDialogPreferenceX.setColorInWidget", "value="+ChromaUtil.getFormattedColorString(color, false));
+
+        PPApplication.logE("CustomColorDialogPreferenceX.setColorInWidget", "colorPreview="+colorPreview);
+        PPApplication.logE("CustomColorDialogPreferenceX.setColorInWidget", "backgroundPreview="+backgroundPreview);
 
         try {
             if (colorPreview != null) {
@@ -120,6 +125,13 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
     }
 
     @Override
+    protected Object onGetDefaultValue(TypedArray ta, int index)
+    {
+        super.onGetDefaultValue(ta, index);
+        return Color.parseColor(ta.getString(index));
+    }
+
+    @Override
     protected void onSetInitialValue(Object defaultValue)
     {
         // Get the persistent value and correct it for the minimum value.
@@ -130,8 +142,13 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
         }
         else {
             value = getPersistedInt(0xFFFFFFFF);
-            this.defaultValue = 0xFFFFFF;
+            this.defaultValue = 0xFFFFFFFF;
         }
+        PPApplication.logE("CustomColorDialogPreferenceX.onSetInitialValue", "value="+value);
+        PPApplication.logE("CustomColorDialogPreferenceX.onSetInitialValue", "0xFFFFFF="+(0xFFFFFF));
+        PPApplication.logE("CustomColorDialogPreferenceX.onSetInitialValue", "0xFFFFFFFF="+(0xFFFFFFFF));
+
+        setColorInWidget();
         setSummaryCCDP(value);
     }
 

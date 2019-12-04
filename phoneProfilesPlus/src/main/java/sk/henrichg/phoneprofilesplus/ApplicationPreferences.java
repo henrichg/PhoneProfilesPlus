@@ -744,7 +744,7 @@ class ApplicationPreferences {
     }
 
     static int notificationBackgroundCustomColor(Context context) {
-        return getSharedPreferences(context).getInt(PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR, ContextCompat.getColor(context, R.color.notification_background_color_default));
+        return getSharedPreferences(context).getInt(PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR, 0xFFFFFFFF);
     }
 
     static boolean notificationNightMode(Context context) {
