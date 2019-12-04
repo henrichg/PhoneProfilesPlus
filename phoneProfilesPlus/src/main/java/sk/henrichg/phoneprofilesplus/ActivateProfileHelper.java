@@ -3220,7 +3220,7 @@ class ActivateProfileHelper {
             int state = enable ? 1 : 0;
 
             if (transactionCode != -1) {
-                PPApplication.logE("ActivateProfileHelper.setMobileData", "transactionCode > -1");
+                PPApplication.logE("ActivateProfileHelper.setMobileData", "transactionCode="+transactionCode);
 
                 // Android 6?
                 if (Build.VERSION.SDK_INT >= 23) {
@@ -3270,10 +3270,11 @@ class ActivateProfileHelper {
                 } else {
                     synchronized (PPApplication.rootMutex) {
                         String command1 = PPApplication.getServiceCommand("phone", transactionCode, state);
+                        PPApplication.logE("ActivateProfileHelper.setMobileData", "command1="+command1);
                         if (command1 != null) {
                             Command command = new Command(0, false, command1);
                             try {
-                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
                                 PPApplication.commandWait(command);
                             } catch (Exception e) {
                                 Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));

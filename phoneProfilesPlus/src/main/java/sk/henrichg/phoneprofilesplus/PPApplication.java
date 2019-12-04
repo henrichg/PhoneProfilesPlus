@@ -525,8 +525,8 @@ public class PPApplication extends Application {
                                         //+"|PhoneProfilesService.isLocationEnabled"
 
                                         //+"|PhoneProfilesPrefsFragment.updateSharedPreferences"
-                                        +"|CustomColorDialogPreferenceX"
-                                        +"|CustomColorDialogPreferenceFragmentX"
+                                        //+"|CustomColorDialogPreferenceX"
+                                        //+"|CustomColorDialogPreferenceFragmentX"
             ;
 
 
