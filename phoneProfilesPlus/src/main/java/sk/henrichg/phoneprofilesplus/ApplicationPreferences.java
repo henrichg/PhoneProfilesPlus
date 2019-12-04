@@ -5,8 +5,6 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
 
-import androidx.core.content.ContextCompat;
-
 class ApplicationPreferences {
 
     static SharedPreferences preferences = null;

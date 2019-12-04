@@ -21,7 +21,6 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
-import android.location.Location;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.RingtoneManager;

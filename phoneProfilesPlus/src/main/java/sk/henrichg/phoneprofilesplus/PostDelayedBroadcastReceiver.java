@@ -129,7 +129,7 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
 
             if (action.equals(ACTION_RESTART_EVENTS)) {
                 final boolean unblockEventsRun = intent.getBooleanExtra(EXTRA_UNBLOCK_EVENTS_RUN, false);
-                final boolean reactivateProfile = intent.getBooleanExtra(EXTRA_REACTIVATE_PROFILE, false);
+                //final boolean reactivateProfile = intent.getBooleanExtra(EXTRA_REACTIVATE_PROFILE, false);
                 final int logType = intent.getIntExtra(EXTRA_LOG_TYPE, DataWrapper.ALTYPE_UNDEFINED);
 
                 PPApplication.startHandlerThreadRestartEventsWithDelay();

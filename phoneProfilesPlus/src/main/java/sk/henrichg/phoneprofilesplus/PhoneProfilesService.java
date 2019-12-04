@@ -4128,7 +4128,7 @@ public class PhoneProfilesService extends Service
                         if (intent.getBooleanExtra(EXTRA_RESTART_EVENTS, false)) {
                             PPApplication.logE("$$$ PhoneProfilesService.doCommand", "EXTRA_RESTART_EVENTS");
                             final boolean unblockEventsRun = intent.getBooleanExtra(PostDelayedBroadcastReceiver.EXTRA_UNBLOCK_EVENTS_RUN, false);
-                            final boolean reactivateProfile = intent.getBooleanExtra(PostDelayedBroadcastReceiver.EXTRA_REACTIVATE_PROFILE, false);
+                            //final boolean reactivateProfile = intent.getBooleanExtra(PostDelayedBroadcastReceiver.EXTRA_REACTIVATE_PROFILE, false);
                             final Context appContext = getApplicationContext();
                             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
                             //dataWrapper.restartEvents(unblockEventsRun, true, reactivateProfile, false, false);
@@ -4670,30 +4670,34 @@ public class PhoneProfilesService extends Service
 
             //if (Build.VERSION.SDK_INT < 29) {
                 PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "background not 2 or 4");
-                if (notificationBackgroundColor.equals("3")) {
-                    int color = ContextCompat.getColor(this, R.color.notificationBlackBackgroundColor);
-                    contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
-                    if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
-                        contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
-                }
-                else if (notificationBackgroundColor.equals("1")) {
-                    int color = ContextCompat.getColor(this, R.color.notificationDarkBackgroundColor);
-                    contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
-                    if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
-                        contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
-                }
-                else if (notificationBackgroundColor.equals("5")) {
-                    PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "background color 5");
-                    contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", notificationBackgroundCustomColor);
-                    if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
-                        contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", notificationBackgroundCustomColor);
-                }
-                else {
-                    PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "transparent background");
-                    //int color = getResources().getColor(R.color.notificationBackground);
-                    contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", Color.TRANSPARENT);
-                    if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
-                        contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", Color.TRANSPARENT);
+                switch (notificationBackgroundColor) {
+                    case "3": {
+                        int color = ContextCompat.getColor(this, R.color.notificationBlackBackgroundColor);
+                        contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
+                        if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
+                            contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
+                        break;
+                    }
+                    case "1": {
+                        int color = ContextCompat.getColor(this, R.color.notificationDarkBackgroundColor);
+                        contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
+                        if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
+                            contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
+                        break;
+                    }
+                    case "5":
+                        PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "background color 5");
+                        contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", notificationBackgroundCustomColor);
+                        if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
+                            contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", notificationBackgroundCustomColor);
+                        break;
+                    default:
+                        PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "transparent background");
+                        //int color = getResources().getColor(R.color.notificationBackground);
+                        contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", Color.TRANSPARENT);
+                        if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
+                            contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", Color.TRANSPARENT);
+                        break;
                 }
 
                 PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationBackgroundColor="+notificationBackgroundColor);

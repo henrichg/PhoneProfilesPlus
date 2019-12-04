@@ -13,7 +13,6 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.LabeledIntent;
 import android.content.pm.PackageInfo;
 import android.content.pm.ResolveInfo;
-import android.graphics.Rect;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.AsyncTask;

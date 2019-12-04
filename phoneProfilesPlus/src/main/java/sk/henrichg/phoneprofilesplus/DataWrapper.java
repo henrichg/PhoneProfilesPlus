@@ -4030,15 +4030,15 @@ public class DataWrapper {
         PPApplication.logE("%%% DataWrapper.doHandleEvents","--- end --------------------------");
     }
 
-    private void _restartEvents(final boolean unblockEventsRun, final boolean notClearActivatedProfile,
-                                final boolean reactivateProfile, final boolean log)
+    private void _restartEvents(final boolean unblockEventsRun, /*final boolean notClearActivatedProfile,*/
+                                /*final boolean reactivateProfile,*/ final boolean log)
     {
         PPApplication.logE("DataWrapper._restartEvents", "xxx");
 
         if (log)
             addActivityLog(ALTYPE_RESTART_EVENTS, null, null, null, 0);
 
-        if ((Event.getEventsBlocked(context) && (!unblockEventsRun)) || (!reactivateProfile)) {
+        if ((Event.getEventsBlocked(context) && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
             EventsHandler eventsHandler = new EventsHandler(context);
             // this do not perform restart, only SENSOR_TYPE_RESTART_EVENTS perform restart
             // this is used also in TimeChangedReceiver for not reactivate profile when time changed (reactivateProfile = false)
@@ -4075,22 +4075,23 @@ public class DataWrapper {
             Event.setForceRunEventRunning(context, false);
         }
 
-        if (!notClearActivatedProfile) {
+        /*if (!notClearActivatedProfile) {
             DatabaseHandler.getInstance(context).deactivateProfile();
             setProfileActive(null);
-        }
+        }*/
 
         EventsHandler eventsHandler = new EventsHandler(context);
         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS);
     }
 
-    private void restartEvents(final boolean unblockEventsRun, final boolean notClearActivatedProfile,
-                       final boolean reactivateProfile, final boolean log, final boolean useHandler)
+    private void restartEvents(final boolean unblockEventsRun, /*final boolean notClearActivatedProfile,*/
+                       /*final boolean reactivateProfile,*/ final boolean log/*, final boolean useHandler*/)
     {
         if (!Event.getGlobalEventsRunning(context))
             // events are globally stopped
             return;
 
+        /*
         PPApplication.logE("DataWrapper.restartEvents", "useHandler="+useHandler);
 
         if (useHandler) {
@@ -4125,7 +4126,8 @@ public class DataWrapper {
             });
         }
         else
-            _restartEvents(unblockEventsRun, notClearActivatedProfile, reactivateProfile, log);
+        */
+            _restartEvents(unblockEventsRun, /*notClearActivatedProfile, reactivateProfile,*/ log);
     }
 
     private void _restartEventsWithRescan(/*boolean forceRestart, */boolean unblockEventsRun, boolean log) {
@@ -4134,7 +4136,7 @@ public class DataWrapper {
         resetAllEventsInDelayEnd(false);
         // ignore manual profile activation
         // and unblock forceRun events
-        restartEvents(unblockEventsRun, true, true, log, false);
+        restartEvents(unblockEventsRun, /*true, true,*/ log/*, false*/);
 
         //if (forceRestart || ApplicationPreferences.applicationEventWifiRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
             PPApplication.restartWifiScanner(context, false);
