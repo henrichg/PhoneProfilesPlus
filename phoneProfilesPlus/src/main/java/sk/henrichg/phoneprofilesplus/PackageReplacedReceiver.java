@@ -356,6 +356,29 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     }
                                 }
 
+                                if (actualVersionCode <= 5400) {
+                                    ApplicationPreferences.getSharedPreferences(appContext);
+                                    String notificationBackgroundColor = ApplicationPreferences.preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
+                                    SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                                    if (!ApplicationPreferences.preferences.contains(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR))
+                                        editor.putInt(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR, 0xFFFFFF);
+                                    if (!ApplicationPreferences.preferences.contains(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE))
+                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE, false);
+                                    if (notificationBackgroundColor.equals("2")) {
+                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE, true);
+                                        editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "1");
+                                    }
+                                    else
+                                    if (notificationBackgroundColor.equals("4")) {
+                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE, true);
+                                        editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "3");
+                                        editor.apply();
+                                    }
+                                    editor.apply();
+
+                                    restartService = true;
+                                }
+
                                 PPApplication.logE("PackageReplacedReceiver.onReceive", "restartService="+restartService);
                             }
                         } catch (Exception ignored) {

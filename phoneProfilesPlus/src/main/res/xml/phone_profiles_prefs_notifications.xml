@@ -72,6 +72,11 @@
             app:title="@string/phone_profiles_pref_notificationPrefIndicator"
             app:defaultValue="true"
             app:layout="@layout/mp_preference_material_widget" />
+        <SwitchPreferenceCompat
+            app:key="notificationNightMode"
+            app:title="@string/phone_profiles_pref_notificationNightMode"
+            app:defaultValue="true"
+            app:layout="@layout/mp_preference_material_widget" />
         <ListPreference
             app:title="@string/phone_profiles_pref_notificationBackgroundColor"
             app:summary="@string/phone_profiles_pref_notificationBackgroundColor_android"

@@ -25,11 +25,11 @@ class ApplicationPreferences {
     //static final String PREF_APPLICATION_ACTIVATOR_HEADER = "applicationActivatorHeader";
     //static final String PREF_APPLICATION_EDITOR_HEADER = "applicationEditorHeader";
     static final String PREF_NOTIFICATION_TOAST = "notificationsToast";
-    static final String PREF_NOTIFICATION_STATUS_BAR  = "notificationStatusBar";
-    static final String PREF_NOTIFICATION_STATUS_BAR_STYLE  = "notificationStatusBarStyle";
-    static final String PREF_NOTIFICATION_STATUS_BAR_PERMANENT  = "notificationStatusBarPermanent";
+    static final String PREF_NOTIFICATION_STATUS_BAR = "notificationStatusBar";
+    static final String PREF_NOTIFICATION_STATUS_BAR_STYLE = "notificationStatusBarStyle";
+    static final String PREF_NOTIFICATION_STATUS_BAR_PERMANENT = "notificationStatusBarPermanent";
     //static final String PREF_NOTIFICATION_STATUS_BAR_CANCEL  = "notificationStatusBarCancel";
-    static final String PREF_NOTIFICATION_SHOW_IN_STATUS_BAR  = "notificationShowInStatusBar";
+    static final String PREF_NOTIFICATION_SHOW_IN_STATUS_BAR = "notificationShowInStatusBar";
     static final String PREF_NOTIFICATION_TEXT_COLOR = "notificationTextColor";
     static final String PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR = "applicationWidgetListPrefIndicator";
     static final String PREF_APPLICATION_WIDGET_LIST_HEADER = "applicationWidgetListHeader";
@@ -50,8 +50,8 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_BACKGROUND_PROFILE = "applicationBackgroundProfile";
     static final String PREF_APPLICATION_BACKGROUND_PROFILE_NOTIFICATION_SOUND = "applicationBackgroundProfileNotificationSound";
     static final String PREF_APPLICATION_BACKGROUND_PROFILE_NOTIFICATION_VIBRATE = "applicationBackgroundProfileNotificationVibrate";
-    static final String PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT= "applicationActivatorGridLayout";
-    static final String PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT= "applicationWidgetListGridLayout";
+    static final String PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT = "applicationActivatorGridLayout";
+    static final String PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT = "applicationWidgetListGridLayout";
     static final String PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL = "applicationEventBluetoothScanInterval";
     static final String PREF_APPLICATION_EVENT_WIFI_RESCAN = "applicationEventWifiRescan";
     static final String PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN = "applicationEventBluetoothRescan";
@@ -148,6 +148,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED = "applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled";
     static final String PREF_APPLICATION_SAMSUNG_EDGE_VERTICAL_POSITION = "applicationSamsungEdgeVerticalPosition";
     static final String PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR = "notificationBackgroundCustomColor";
+    static final String PREF_NOTIFICATION_NIGHT_MODE = "notificationNightMode";
 
     //static boolean forceNotUseAlarmClock = false;
 
@@ -196,8 +197,8 @@ class ApplicationPreferences {
         String applicationTheme = getSharedPreferences(context).getString(PREF_APPLICATION_THEME, defaultValue);
         if (applicationTheme.equals("light") ||
                 applicationTheme.equals("material") ||
-                applicationTheme.equals("color")  ||
-                applicationTheme.equals("dlight")){
+                applicationTheme.equals("color") ||
+                applicationTheme.equals("dlight")) {
             applicationTheme = defaultValue;
             SharedPreferences.Editor editor = getSharedPreferences(context).edit();
             editor.putString(PREF_APPLICATION_THEME, applicationTheme);
@@ -226,6 +227,7 @@ class ApplicationPreferences {
     static public boolean applicationEditorPrefIndicator(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EDITOR_PREF_INDICATOR, true);
     }
+
     /*
     static boolean applicationActivatorHeader(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_ACTIVATOR_HEADER, true);
@@ -348,6 +350,7 @@ class ApplicationPreferences {
     static String applicationBackgroundProfileNotificationSound(Context context) {
         return getSharedPreferences(context).getString(PREF_APPLICATION_BACKGROUND_PROFILE_NOTIFICATION_SOUND, "");
     }
+
     static boolean applicationBackgroundProfileNotificationVibrate(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_BACKGROUND_PROFILE_NOTIFICATION_VIBRATE, false);
     }
@@ -394,7 +397,7 @@ class ApplicationPreferences {
 
     static String applicationPowerSaveModeInternal(Context context) {
         //if (Build.VERSION.SDK_INT >= 21)
-            return getSharedPreferences(context).getString(PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL, "3");
+        return getSharedPreferences(context).getString(PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL, "3");
         //else
         //    return getSharedPreferences(context).getString(PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL, "0");
     }
@@ -570,7 +573,7 @@ class ApplicationPreferences {
     }
 
     static boolean applicationEventBluetoothScanIfBluetoothOff(Context context) {
-            return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IF_BLUETOOTH_OFF, true);
+        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IF_BLUETOOTH_OFF, true);
     }
 
     static boolean applicationEventWifiEnableScanning(Context context) {
@@ -621,7 +624,7 @@ class ApplicationPreferences {
         //if (forceNotUseAlarmClock)
         //    return false;
         //else
-            return getSharedPreferences(context).getBoolean(PREF_APPLICATION_USE_ALARM_CLOCK, false);
+        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_USE_ALARM_CLOCK, false);
     }
 
     static boolean applicationNeverAskForGrantRoot(Context context) {
@@ -742,6 +745,10 @@ class ApplicationPreferences {
 
     static int notificationBackgroundCustomColor(Context context) {
         return getSharedPreferences(context).getInt(PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR, ContextCompat.getColor(context, R.color.notification_background_color_default));
+    }
+
+    static boolean notificationNightMode(Context context) {
+        return getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_NIGHT_MODE, false);
     }
 
 }
