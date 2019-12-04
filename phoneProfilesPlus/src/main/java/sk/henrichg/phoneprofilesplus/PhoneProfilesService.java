@@ -3807,7 +3807,7 @@ public class PhoneProfilesService extends Service
 
                                     if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
                                         PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "xRESTART EVENTS AFTER WAIT FOR END OF START");
-                                        dataWrapper.restartEventsWithRescan(_activateProfiles, false, false);
+                                        dataWrapper.restartEventsWithRescan(true, _activateProfiles, false, false);
 
                                         dataWrapper.invalidateDataWrapper();
                                     }
@@ -3996,6 +3996,7 @@ public class PhoneProfilesService extends Service
                         if (intent.getBooleanExtra(EXTRA_START_STOP_SCANNER, false)) {
                             PPApplication.logE("$$$ PhoneProfilesService.doCommand", "EXTRA_START_STOP_SCANNER");
                             final boolean forScreenOn = intent.getBooleanExtra(EXTRA_FOR_SCREEN_ON, false);
+                            PPApplication.logE("$$$ PhoneProfilesService.doCommand", "forScreenOn="+forScreenOn);
                             switch (intent.getIntExtra(EXTRA_START_STOP_SCANNER_TYPE, 0)) {
                                 case PPApplication.SCANNER_START_GEOFENCE_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_START_GEOFENCE_SCANNER");

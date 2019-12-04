@@ -110,6 +110,9 @@ public class PPApplication extends Application {
                                          +"|PhoneProfilesBackupAgent"
                                          +"|ShutdownBroadcastReceiver"
 
+                                         //+"|DataWrapper.restartEventsWithAlert"
+                                         //+"|DataWrapper.restartEventsWithDelay"
+
                                          // for list of TRANSACTION_* for "phone" service
                                          //+"|[LIST] PPApplication.getTransactionCode"
 
