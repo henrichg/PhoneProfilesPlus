@@ -1,0 +1,16 @@
+<resources>
+    <string name="acch_channel_alpha" translatable="false">A</string>
+    <string name="acch_channel_red" translatable="false">R</string>
+    <string name="acch_channel_green" translatable="false">G</string>
+    <string name="acch_channel_blue" translatable="false">B</string>
+
+    <string name="acch_channel_hue" translatable="false">H</string>
+    <string name="acch_channel_saturation" translatable="false">S</string>
+    <string name="acch_channel_value" translatable="false">V</string>
+    <string name="acch_channel_lightness" translatable="false">L</string>
+
+    <string name="acch_channel_cyan" translatable="false">C</string>
+    <string name="acch_channel_magenta" translatable="false">M</string>
+    <string name="acch_channel_yellow" translatable="false">Y</string>
+    <string name="acch_channel_black" translatable="false">K</string>
+</resources>

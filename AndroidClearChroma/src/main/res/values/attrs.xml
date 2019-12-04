@@ -1,0 +1,37 @@
+<resources>
+    <attr name="chromaColorMode" format="enum">
+        <enum name="RGB" value="0"/>
+        <enum name="HSV" value="1"/>
+        <enum name="ARGB" value="2"/>
+        <enum name="CMYK" value="3"/>
+        <enum name="CMYK255" value="4"/>
+        <enum name="HSL" value="5"/>
+    </attr>
+
+    <attr name="chromaIndicatorMode" format="enum">
+        <enum name="DECIMAL" value="0"/>
+        <enum name="HEX" value="1"/>
+    </attr>
+
+    <attr name="chromaShapePreview" format="enum">
+        <enum name="CIRCLE" value="0"/>
+        <enum name="SQUARE" value="1"/>
+        <enum name="ROUNDED_SQUARE" value="2"/>
+    </attr>
+
+    <attr name="chromaInitialColor" format="reference|color"/>
+
+    <declare-styleable name="ChromaPreference">
+        <attr name="chromaInitialColor"/>
+        <attr name="chromaColorMode" />
+        <attr name="chromaIndicatorMode" />
+        <attr name="chromaShapePreview"/>
+    </declare-styleable>
+
+    <declare-styleable name="ChromaColorView">
+        <attr name="chromaInitialColor"/>
+        <attr name="chromaColorMode" />
+        <attr name="chromaIndicatorMode" />
+    </declare-styleable>
+
+</resources>

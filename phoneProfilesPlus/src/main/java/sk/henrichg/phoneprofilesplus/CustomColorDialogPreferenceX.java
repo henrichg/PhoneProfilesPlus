@@ -2,20 +2,35 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import com.kunzisoft.androidclearchroma.ChromaUtil;
 
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.preference.DialogPreference;
+import androidx.preference.PreferenceViewHolder;
 
 public class CustomColorDialogPreferenceX extends DialogPreference {
 
     CustomColorDialogPreferenceFragmentX fragment;
 
-    int chromaColorMode;
-    int chromaIndicatorMode;
+    final int chromaColorMode;
+    final int chromaIndicatorMode;
+
+    private AppCompatImageView backgroundPreview;
+    private AppCompatImageView colorPreview;
 
     // Custom xml attributes.
     int value;
@@ -35,7 +50,73 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
         chromaIndicatorMode = typedArray.getInteger(
                 R.styleable.ChromaPreference_chromaIndicatorMode, 1);
 
+        setWidgetLayoutResource(R.layout.dialog_custom_color_preference); // resource na layout custom preference - TextView-ImageView
+
         typedArray.recycle();
+    }
+
+    @Override
+    public void onBindViewHolder(PreferenceViewHolder holder)
+    {
+        super.onBindViewHolder(holder);
+
+        backgroundPreview = (AppCompatImageView)holder.findViewById(R.id.dialog_color_chooser_pref_background_preview);
+        colorPreview = (AppCompatImageView)holder.findViewById(R.id.dialog_color_chooser_pref_color_preview);
+
+        setColorInWidget();
+    }
+
+    private Bitmap getRoundedCroppedBitmap(Bitmap bitmap, int widthLight, int heightLight, float radius) {
+        Bitmap output = Bitmap.createBitmap(widthLight, heightLight, Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(output);
+        Paint paintColor = new Paint();
+        paintColor.setFlags(Paint.ANTI_ALIAS_FLAG);
+
+        RectF rectF = new RectF(new Rect(0, 0, widthLight, heightLight));
+
+        canvas.drawRoundRect(rectF, radius, radius, paintColor);
+
+        Paint paintImage = new Paint();
+        paintImage.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
+        canvas.drawBitmap(bitmap, -(bitmap.getWidth() - widthLight)/2 , -(bitmap.getHeight() - heightLight)/2, paintImage);
+
+        return output;
+    }
+
+    private void setColorInWidget() {
+
+        int color;
+        if (fragment != null)
+            color = fragment.chromaColorView.getCurrentColor();
+        else
+            color = value;
+
+        try {
+            if (colorPreview != null) {
+                int shapeWidth = getContext().getResources()
+                        .getDimensionPixelSize(R.dimen.acch_shape_preference_width);
+                float radius = shapeWidth / 2;
+
+                colorPreview.setImageResource(R.drawable.acch_circle);
+
+                // Update color
+                colorPreview.getDrawable()
+                        .setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.MULTIPLY));
+
+                // Bitmap to crop for background
+                Bitmap draughtboard = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.acch_draughtboard);
+                //noinspection SuspiciousNameCombination
+                draughtboard = getRoundedCroppedBitmap(draughtboard, shapeWidth, shapeWidth, radius);
+                backgroundPreview.setImageBitmap(draughtboard);
+
+                colorPreview.invalidate();
+                backgroundPreview.invalidate();
+            }
+            //setSummary(summaryPreference);
+        } catch (Exception e) {
+            Log.e(getClass().getSimpleName(), "Cannot update preview: " + e.toString());
+        }
     }
 
     @Override
@@ -57,6 +138,7 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
     void persistValue() {
         if (shouldPersist()) {
             persistInt(value);
+            setColorInWidget();
             setSummaryCCDP(value);
         }
     }
