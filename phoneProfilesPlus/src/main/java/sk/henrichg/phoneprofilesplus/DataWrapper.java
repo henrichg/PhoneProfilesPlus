@@ -1010,7 +1010,7 @@ public class DataWrapper {
         }
         PPApplication.logE("$$$ restartEvents", "from DataWrapper.stopEventsForProfile");
         //restartEvents(false, true, true, true, true);
-        restartEventsWithRescan(false, true, false);
+        restartEventsWithRescan(false, true, true, false);
     }
 
     void stopEventsForProfileFromMainThread(final Profile profile,
@@ -1239,7 +1239,7 @@ public class DataWrapper {
         if (startedFromService) {
             if (ApplicationPreferences.applicationStartEvents(context)) {
                 //restartEvents(false, false, true, false, useHandler);
-                restartEventsWithRescan(/*true, */false, useHandler, false);
+                restartEventsWithRescan(/*true, */false, useHandler, false, false);
             }
             else {
                 Event.setGlobalEventsRunning(context, false);
@@ -1248,7 +1248,7 @@ public class DataWrapper {
         }
         else {
             //restartEvents(false, false, true, false, useHandler);
-            restartEventsWithRescan(/*true, */false, useHandler, false);
+            restartEventsWithRescan(/*true, */false, useHandler, false, false);
         }
     }
 
@@ -4128,13 +4128,13 @@ public class DataWrapper {
             _restartEvents(unblockEventsRun, notClearActivatedProfile, reactivateProfile, log);
     }
 
-    private void _restartEventsWithRescan(/*boolean forceRestart, */boolean unblockEventsRun) {
+    private void _restartEventsWithRescan(/*boolean forceRestart, */boolean unblockEventsRun, boolean log) {
         // remove all event delay alarms
         resetAllEventsInDelayStart(false);
         resetAllEventsInDelayEnd(false);
         // ignore manual profile activation
         // and unblock forceRun events
-        restartEvents(unblockEventsRun, true, true, true, false);
+        restartEvents(unblockEventsRun, true, true, log, false);
 
         //if (forceRestart || ApplicationPreferences.applicationEventWifiRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
             PPApplication.restartWifiScanner(context, false);
@@ -4151,7 +4151,7 @@ public class DataWrapper {
         PPApplication.restartTwilightScanner(context);
     }
 
-    void restartEventsWithRescan(/*final boolean forceRestart, */final boolean unblockEventsRun, boolean useHandler, boolean showToast)
+    void restartEventsWithRescan(/*final boolean forceRestart, */final boolean unblockEventsRun, boolean useHandler, final boolean log, boolean showToast)
     {
         PPApplication.logE("$$$ DataWrapper.restartEventsWithRescan","xxx");
 
@@ -4173,7 +4173,7 @@ public class DataWrapper {
 
                         PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DataWrapper.restartEventsWithRescan");
 
-                        dataWrapper._restartEventsWithRescan(/*forceRestart, */unblockEventsRun);
+                        dataWrapper._restartEventsWithRescan(/*forceRestart, */unblockEventsRun, log);
 
                         PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DataWrapper.restartEventsWithRescan");
                     } finally {
@@ -4188,7 +4188,7 @@ public class DataWrapper {
             });
         }
         else
-            _restartEventsWithRescan(/*forceRestart, */unblockEventsRun);
+            _restartEventsWithRescan(/*forceRestart, */unblockEventsRun, log);
 
         if (showToast) {
             if (ApplicationPreferences.notificationsToast(context)) {
@@ -4247,7 +4247,7 @@ public class DataWrapper {
                         PPApplication.startPPService(context, serviceIntent);
                     }
 
-                    restartEventsWithRescan(/*true, */true, true, true);
+                    restartEventsWithRescan(/*true, */true, true, true,true);
                 }
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
@@ -4306,7 +4306,7 @@ public class DataWrapper {
                 });
             }
 
-            restartEventsWithRescan(/*true, */true, true, true);
+            restartEventsWithRescan(/*true, */true, true, true, true);
         }
     }
 

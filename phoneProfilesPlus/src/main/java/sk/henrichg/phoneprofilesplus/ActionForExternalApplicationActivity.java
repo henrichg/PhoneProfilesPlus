@@ -116,7 +116,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     }
                     break;
                 case ACTION_RESTART_EVENTS:
-                    dataWrapper.restartEventsWithRescan(/*true, */true, true, true);
+                    dataWrapper.restartEventsWithRescan(/*true, */true, true, true, true);
                     dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
                     break;
                 case ACTION_ENABLE_RUN_FOR_EVENT:
@@ -143,7 +143,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                         event.pauseEvent(_dataWrapper, eventTimelineList, true, false,
                                                 false, /*true,*/ null, false, false); // activate return profile
                                         //_dataWrapper.restartEvents(false, true, true, true, false);
-                                        _dataWrapper.restartEventsWithRescan(/*true, */false, false, true);
+                                        _dataWrapper.restartEventsWithRescan(/*true, */false, false, true, true);
 
                                         PPApplication.logE("PPApplication.startHandlerThread", "END run - from=ActionForExternalApplicationActivity.onStart.1");
                                     } finally {
@@ -205,7 +205,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                         event.stopEvent(_dataWrapper, eventTimelineList, true, false,
                                                 true/*, true*/); // activate return profile
                                         //_dataWrapper.restartEvents(false, true, true, true, false);
-                                        _dataWrapper.restartEventsWithRescan(/*true, */false, false, true);
+                                        _dataWrapper.restartEventsWithRescan(/*true, */false, false, true, true);
 
                                         PPApplication.logE("PPApplication.startHandlerThread", "END run - from=ActionForExternalApplicationActivity.onStart.2");
                                     } finally {

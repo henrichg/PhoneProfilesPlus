@@ -150,7 +150,7 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
                             if (logType != DataWrapper.ALTYPE_UNDEFINED)
                                 dataWrapper.addActivityLog(logType, null, null, null, 0);
                             //dataWrapper.restartEvents(unblockEventsRun, true, reactivateProfile, true, false);
-                            dataWrapper.restartEventsWithRescan(/*true, */unblockEventsRun, false, false);
+                            dataWrapper.restartEventsWithRescan(/*true, */unblockEventsRun, false, true, false);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

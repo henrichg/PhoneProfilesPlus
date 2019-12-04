@@ -623,7 +623,7 @@ public class EditorProfileListFragment extends Fragment
         }
         else {
             //activityDataWrapper.restartEvents(false, true, true, true, true);
-            activityDataWrapper.restartEventsWithRescan(false, true, false);
+            activityDataWrapper.restartEventsWithRescan(false, true, true, false);
         }
 
         activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();

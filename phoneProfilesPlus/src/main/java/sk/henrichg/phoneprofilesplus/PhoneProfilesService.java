@@ -3807,7 +3807,7 @@ public class PhoneProfilesService extends Service
 
                                     if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
                                         PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "xRESTART EVENTS AFTER WAIT FOR END OF START");
-                                        dataWrapper.restartEventsWithRescan(/*true, */_activateProfiles, false, false);
+                                        dataWrapper.restartEventsWithRescan(/*true, */_activateProfiles, false, true, false);
 
                                         dataWrapper.invalidateDataWrapper();
                                     }
@@ -4132,7 +4132,7 @@ public class PhoneProfilesService extends Service
                             final Context appContext = getApplicationContext();
                             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
                             //dataWrapper.restartEvents(unblockEventsRun, true, reactivateProfile, false, false);
-                            dataWrapper.restartEventsWithRescan(unblockEventsRun, false, false);
+                            dataWrapper.restartEventsWithRescan(unblockEventsRun, false, false, false);
                             dataWrapper.invalidateDataWrapper();
                         }
 

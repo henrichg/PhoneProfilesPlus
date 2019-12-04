@@ -633,7 +633,7 @@ public class EditorEventListFragment extends Fragment
             // restart events
             PPApplication.logE("$$$ restartEvents","from EditorEventListFragment.runStopEvent");
             //activityDataWrapper.restartEvents(false, true, true, true, true);
-            activityDataWrapper.restartEventsWithRescan(/*true, */false, true, false);
+            activityDataWrapper.restartEventsWithRescan(/*true, */false, true, true, false);
 
             /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -709,7 +709,7 @@ public class EditorEventListFragment extends Fragment
         // restart events
         PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.deleteEvent");
         //activityDataWrapper.restartEvents(false, true, true, true, true);
-        activityDataWrapper.restartEventsWithRescan(/*true, */false, true, false);
+        activityDataWrapper.restartEventsWithRescan(/*true, */false, true, true, false);
 
         eventListAdapter.notifyDataSetChanged();
 

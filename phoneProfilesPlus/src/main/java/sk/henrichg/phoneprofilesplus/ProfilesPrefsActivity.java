@@ -608,7 +608,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 if (Event.getGlobalEventsRunning(getApplicationContext())) {
                     if (!DataWrapper.getIsManualProfileActivation(false, getApplicationContext())) {
                         //dataWrapper.restartEvents(false, true, true, true, true);
-                        dataWrapper.restartEventsWithRescan(false, true, false);
+                        dataWrapper.restartEventsWithRescan(false, true, true, false);
                     }
                     else {
                         if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
