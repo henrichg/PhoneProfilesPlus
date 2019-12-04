@@ -51,9 +51,9 @@ public class ChannelView extends RelativeLayout {
 
     private void init(Context context) {
         View rootView = inflate(context, R.layout.acch_channel_row, this);
-        label = rootView.findViewById(R.id.label);
-        progressView = rootView.findViewById(R.id.progress_text);
-        seekbar = rootView.findViewById(R.id.seekbar);
+        label = rootView.findViewById(R.id.acch_label);
+        progressView = rootView.findViewById(R.id.acch_progress_text);
+        seekbar = rootView.findViewById(R.id.acch_seekbar);
     }
 
     private void bindViews() {
@@ -84,7 +84,7 @@ public class ChannelView extends RelativeLayout {
 
     private void setProgress(TextView view, int progress) {
         view.setText(indicatorMode == IndicatorMode.HEX
-                ? Integer.toHexString(progress)
+                ? Integer.toHexString(progress).toUpperCase()
                 : String.valueOf(progress));
     }
 

@@ -6,9 +6,14 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -18,6 +23,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatImageView;
 
+import com.kunzisoft.androidclearchroma.ChromaUtil;
 import com.kunzisoft.androidclearchroma.IndicatorMode;
 import com.kunzisoft.androidclearchroma.R;
 import com.kunzisoft.androidclearchroma.colormode.Channel;
@@ -33,33 +39,40 @@ import java.util.List;
  */
 public class ChromaColorView extends RelativeLayout {
 
+    private final Context context;
+
     private @ColorInt
     int currentColor = Color.GRAY;
     private ColorMode colorMode = ColorMode.RGB;
     private IndicatorMode indicatorMode = IndicatorMode.DECIMAL;
 
     private AppCompatImageView colorView;
+    private EditText colorEdit;
 
     private OnColorChangedListener mOnColorChangedListener;
 
     public ChromaColorView(Context context) {
         super(context);
+        this.context = context;
         init(context, null);
     }
 
     public ChromaColorView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.context = context;
         init(context, attrs);
     }
 
     public ChromaColorView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        this.context = context;
         init(context, attrs);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public ChromaColorView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        this.context = context;
         init(context, attrs);
     }
 
@@ -83,15 +96,17 @@ public class ChromaColorView extends RelativeLayout {
 
         View root = inflate(context, R.layout.acch_chroma_color, this);
 
-        colorView = root.findViewById(R.id.color_view);
+        colorView = root.findViewById(R.id.acch_color_view);
+        colorEdit = root.findViewById(R.id.acch_color_edit);
         createView();
     }
 
     private void createView() {
         Drawable colorViewDrawable = new ColorDrawable(currentColor);
         colorView.setImageDrawable(colorViewDrawable);
+        colorEdit.setText(String.format("%06X", 0xFFFFFF & currentColor));
 
-        ViewGroup channelContainer = findViewById(R.id.channel_container);
+        ViewGroup channelContainer = findViewById(R.id.acch_channel_container);
         channelContainer.removeAllViews();
 
         List<Channel> channels = colorMode.getColorMode().getChannels();
@@ -112,6 +127,43 @@ public class ChromaColorView extends RelativeLayout {
             channelViews.add(channelView);
         }
 
+        colorEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                //Log.e("ChromaColorView.afterTextChanged", "not initialize");
+                if (editable.length() == 6) {
+                    String color = "#FF" + editable.toString();
+                    //Log.e("ChromaColorView.afterTextChanged", "color="+color);
+                    //Log.e("ChromaColorView.afterTextChanged", "currentColor="+currentColor);
+                    int editedColor = Color.parseColor(color);
+                    //Log.e("ChromaColorView.afterTextChanged", "editedColor="+editedColor);
+
+                    if (currentColor != editedColor) {
+                        //Log.e("ChromaColorView.afterTextChanged", "color changed");
+                        setCurrentColor(editedColor);
+                    }
+                    //else
+                    //    Log.e("ChromaColorView.afterTextChanged", "color not changed");
+                }
+            }
+        });
+
+        colorView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(colorEdit.getWindowToken(), 0);
+            }
+        });
+
         ChannelView.OnProgressChangedListener seekBarChangeListener = new ChannelView.OnProgressChangedListener() {
             @Override
             public void onProgressChanged() {
@@ -127,6 +179,7 @@ public class ChromaColorView extends RelativeLayout {
                 // Change view for visibility of color
                 Drawable colorViewDrawable = new ColorDrawable(currentColor);
                 colorView.setImageDrawable(colorViewDrawable);
+                colorEdit.setText(String.format("%06X", 0xFFFFFF & currentColor));
             }
         };
 

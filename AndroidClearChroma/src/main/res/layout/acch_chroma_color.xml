@@ -1,19 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/color_view"
+        android:id="@+id/acch_color_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxHeight="@dimen/acch_color_view_height"
         android:background="@drawable/acch_color_background"
-        android:layout_above="@+id/channel_container"
-        android:layout_alignParentTop="true" />
+        android:layout_above="@+id/acch_color_edit"
+        android:layout_alignParentTop="true"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <EditText
+        android:id="@+id/acch_color_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_above="@id/acch_channel_container"
+        android:layout_centerHorizontal="true"
+        android:digits="0123456789ABCDEF"
+        android:maxLength="6"
+        android:inputType="textCapCharacters|textNoSuggestions"
+        android:importantForAutofill="no"
+        tools:ignore="LabelFor,UnusedAttribute"/>
 
     <LinearLayout
-        android:id="@+id/channel_container"
+        android:id="@+id/acch_channel_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"

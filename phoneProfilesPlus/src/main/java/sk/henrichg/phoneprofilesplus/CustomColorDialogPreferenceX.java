@@ -92,10 +92,6 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
             color = fragment.chromaColorView.getCurrentColor();
         else
             color = value;
-        PPApplication.logE("CustomColorDialogPreferenceX.setColorInWidget", "value="+ChromaUtil.getFormattedColorString(color, false));
-
-        PPApplication.logE("CustomColorDialogPreferenceX.setColorInWidget", "colorPreview="+colorPreview);
-        PPApplication.logE("CustomColorDialogPreferenceX.setColorInWidget", "backgroundPreview="+backgroundPreview);
 
         try {
             if (colorPreview != null) {
@@ -145,8 +141,6 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
             this.defaultValue = 0xFFFFFFFF;
         }
         PPApplication.logE("CustomColorDialogPreferenceX.onSetInitialValue", "value="+value);
-        PPApplication.logE("CustomColorDialogPreferenceX.onSetInitialValue", "0xFFFFFF="+(0xFFFFFF));
-        PPApplication.logE("CustomColorDialogPreferenceX.onSetInitialValue", "0xFFFFFFFF="+(0xFFFFFFFF));
 
         setColorInWidget();
         setSummaryCCDP(value);
