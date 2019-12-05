@@ -4230,6 +4230,9 @@ public class PhoneProfilesService extends Service
             if (Build.MANUFACTURER.equals("HMD Global"))
                 // clear it for redraw icon in "Glance view" for "HMD Global" mobiles
                 clearProfileNotification();
+            if (PPApplication.deviceIsLG && (Build.VERSION.SDK_INT == 28))
+                // clear it for redraw icon in "Glance view" for LG with Android 9
+                clearProfileNotification();
 
             if (refresh)
                 PPApplication.logE("PhoneProfilesService._showProfileNotification", "refresh");
