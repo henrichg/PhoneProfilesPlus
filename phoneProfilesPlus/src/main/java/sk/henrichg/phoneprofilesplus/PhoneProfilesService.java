@@ -4494,6 +4494,7 @@ public class PhoneProfilesService extends Service
                                 //    iconSmallResource = R.drawable.ic_profile_default;
                                 iconSmallResource = R.drawable.ic_profile_default_notify_color;
                                 try {
+                                    //noinspection ConstantConditions
                                     iconSmallResource = Profile.profileIconNotifyColorId.get(iconIdentifier);
                                 } catch (Exception ignored) {
                                 }
@@ -4508,6 +4509,7 @@ public class PhoneProfilesService extends Service
                             //    iconSmallResource = R.drawable.ic_profile_default_notify;
                             iconSmallResource = R.drawable.ic_profile_default_notify;
                             try {
+                                //noinspection ConstantConditions
                                 iconSmallResource = Profile.profileIconNotifyId.get(iconIdentifier);
                             } catch (Exception ignored) {
                             }
@@ -4527,6 +4529,7 @@ public class PhoneProfilesService extends Service
                             //    iconSmallResource = R.drawable.ic_profile_default;
                             iconSmallResource = R.drawable.ic_profile_default_notify_color;
                             try {
+                                //noinspection ConstantConditions
                                 iconSmallResource = Profile.profileIconNotifyColorId.get(iconIdentifier);
                             } catch (Exception ignored) {
                             }
@@ -4538,6 +4541,7 @@ public class PhoneProfilesService extends Service
                             //    iconSmallResource = R.drawable.ic_profile_default_notify;
                             iconSmallResource = R.drawable.ic_profile_default_notify;
                             try {
+                                //noinspection ConstantConditions
                                 iconSmallResource = Profile.profileIconNotifyId.get(iconIdentifier);
                             } catch (Exception ignored) {
                             }
@@ -4616,14 +4620,14 @@ public class PhoneProfilesService extends Service
 
                 int restartEventsId;
                 if (notificationBackgroundColor.equals("1") || notificationBackgroundColor.equals("3")) {
-                    if (notificationNightMode && (useNightColor == 1))
+                    if (!notificationNightMode || (useNightColor == 1))
                         restartEventsId = R.drawable.ic_widget_restart_events_dark;
                     else
                         restartEventsId = R.drawable.ic_widget_restart_events;
                 }
                 else
                 if (notificationBackgroundColor.equals("5")) {
-                    if (notificationNightMode && (useNightColor == 1)) {
+                    if (!notificationNightMode || (useNightColor == 1)) {
                         int redDark = 60;
                         int greenDark = 60;
                         int blueDark = 60;
@@ -4652,7 +4656,7 @@ public class PhoneProfilesService extends Service
                         restartEventsId = R.drawable.ic_widget_restart_events;
                 }
                 else {
-                    if (notificationNightMode && (useNightColor == 1) && (Build.VERSION.SDK_INT >= 29))
+                    if ((!notificationNightMode || (useNightColor == 1)) && (Build.VERSION.SDK_INT >= 29))
                         restartEventsId = R.drawable.ic_widget_restart_events_dark;
                     else
                         restartEventsId = R.drawable.ic_widget_restart_events;
@@ -4679,7 +4683,7 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "background not 2 or 4");
                 switch (notificationBackgroundColor) {
                     case "3":
-                        if (notificationNightMode && (useNightColor == 1)) {
+                        if (!notificationNightMode || (useNightColor == 1)) {
                             int color = ContextCompat.getColor(this, R.color.notificationBlackBackgroundColor);
                             contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
                             if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
@@ -4692,7 +4696,7 @@ public class PhoneProfilesService extends Service
                         }
                         break;
                     case "1":
-                        if (notificationNightMode && (useNightColor == 1)) {
+                        if (!notificationNightMode || (useNightColor == 1)) {
                             int color = ContextCompat.getColor(this, R.color.notificationDarkBackgroundColor);
                             contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
                             if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
@@ -4705,7 +4709,7 @@ public class PhoneProfilesService extends Service
                         }
                         break;
                     case "5":
-                        if (notificationNightMode && (useNightColor == 1)) {
+                        if (!notificationNightMode || (useNightColor == 1)) {
                             PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "background color 5");
                             contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", notificationBackgroundCustomColor);
                             if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
