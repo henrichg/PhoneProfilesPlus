@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -464,6 +465,10 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
     @Override
     public void onConnected(Bundle connectionHint) {
+        try {
+            int version = GoogleApiAvailability.getInstance().getApkVersion(this.getApplicationContext());
+            Crashlytics.setInt(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
+        } catch (Exception ignored) {}
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         getLastLocation();
         startLocationUpdates();
@@ -475,11 +480,19 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         // Disable any UI components that depend on Google APIs
         // until onConnected() is called.
         Log.i("LocationGeofenceEditorActivity", "Connection suspended");
+        try {
+            int version = GoogleApiAvailability.getInstance().getApkVersion(this.getApplicationContext());
+            Crashlytics.setInt(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
+        } catch (Exception ignored) {}
         //mGoogleApiClient.connect();
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult result) {
+        try {
+            int version = GoogleApiAvailability.getInstance().getApkVersion(this.getApplicationContext());
+            Crashlytics.setInt(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
+        } catch (Exception ignored) {}
         //noinspection StatementWithEmptyBody
         if (mResolvingError) {
             // Already attempting to resolve an error.

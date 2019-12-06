@@ -134,6 +134,7 @@ public class PPApplication extends Application {
                                          //+"|##### ScreenOnOffBroadcastReceiver.onReceive"
                                          //+"|@@@ ScreenOnOffBroadcastReceiver.onReceive"
                                          //+"|[XXX] ScreenOnOffBroadcastReceiver.onReceive"
+                                         +"|ScreenOnOffBroadcastReceiver.onReceive"
 
                                          //+"|PPApplication.startHandlerThread"
 
@@ -675,6 +676,7 @@ public class PPApplication extends Application {
     static final String EXTRA_APPLICATIONS = "extra_applications";
 
     static final String CRASHLYTICS_LOG_DEVICE_ROOTED = "DEVICE_ROOTED";
+    static final String CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION = "GOOGLE_PLAY_SERVICES_VERSION";
 
     private static final String SYS_PROP_MOD_VERSION = "ro.modversion";
 

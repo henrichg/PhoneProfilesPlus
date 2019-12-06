@@ -263,8 +263,8 @@
     <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Aktivuj predvolený profil</string>
     <string name="phone_profiles_pref_applicationGridLayout">Mriežkové rozloženie</string>
     <string name="menu_help">Pomoc</string>
-    <string name="array_event_pref_eventScreenEventType_screenOn">Zapla sa</string>
-    <string name="array_event_pref_eventScreenEventType_screenOff">Vypla sa</string>
+    <string name="array_event_pref_eventScreenEventType_screenOn">Zapnutie obrazovky</string>
+    <string name="array_event_pref_eventScreenEventType_screenOff">Vypnutie obrazovky</string>
     <string name="pref_event_screen_startWhenUnlocked">Štart, keď je odomknuté</string>
     <string name="pref_event_screen_endWhenUnlocked">Koniec, keď je odomknuté</string>
     <string name="event_preferences_screen_start_when_unlocked">Štart, keď je odomknuté</string>
