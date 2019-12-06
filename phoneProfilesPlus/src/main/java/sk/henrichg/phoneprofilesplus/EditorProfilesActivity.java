@@ -550,6 +550,9 @@ public class EditorProfilesActivity extends AppCompatActivity
     {
         super.onStart();
 
+        Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".FinishActivatorBroadcastReceiver");
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+
         LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
                 new IntentFilter(PPApplication.PACKAGE_NAME + ".RefreshEditorGUIBroadcastReceiver"));
         LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,

@@ -254,6 +254,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
         PPApplication.logE("ActivateProfileActivity.onStart", "xxx");
 
+        Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".FinishEditorBroadcastReceiver");
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+
         LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
                 new IntentFilter(PPApplication.PACKAGE_NAME + ".RefreshActivatorGUIBroadcastReceiver"));
         LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
