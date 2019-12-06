@@ -289,6 +289,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         if (largeLayout)
         {
             Intent intent = new Intent(context, EditorProfilesActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, intent,
                                                         PendingIntent.FLAG_UPDATE_CURRENT);
             widget.setOnClickPendingIntent(R.id.widget_profile_list_header_profile_root, pendingIntent);

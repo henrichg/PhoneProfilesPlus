@@ -19,7 +19,7 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
                 // intent to LauncherActivity, for click on notification
                 Intent launcherIntent = new Intent(appContext, LauncherActivity.class);
                 // clear all opened activities
-                launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK/*|Intent.FLAG_ACTIVITY_NO_ANIMATION*/);
                 // setup startupSource
                 launcherIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
                 appContext.startActivity(launcherIntent);

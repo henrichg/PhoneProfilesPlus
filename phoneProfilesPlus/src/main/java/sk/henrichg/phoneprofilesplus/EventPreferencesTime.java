@@ -1200,6 +1200,7 @@ class EventPreferencesTime extends EventPreferences {
             if (/*(android.os.Build.VERSION.SDK_INT >= 21) &&*/
                     applicationUseAlarmClock) {
                 Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
                 alarmManager.setAlarmClock(clockInfo, pendingIntent);

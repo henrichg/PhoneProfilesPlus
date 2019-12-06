@@ -351,6 +351,7 @@ public class ActivateProfileListFragment extends Fragment {
 
                     //noinspection ConstantConditions
                     Intent intent = new Intent(fragment.getActivity().getBaseContext(), EditorProfilesActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_ACTIVATOR_START);
                     fragment.getActivity().startActivity(intent);
 

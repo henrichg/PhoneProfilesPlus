@@ -175,7 +175,13 @@ public class EditorProfilesActivity extends AppCompatActivity
     private final BroadcastReceiver finishBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive( Context context, Intent intent ) {
-            EditorProfilesActivity.this.finish();
+            PPApplication.logE("EditorProfilesActivity.finishBroadcastReceiver", "xxx");
+            String action = intent.getAction();
+            if (action.equals(PPApplication.ACTION_FINISH_ACTIVITY)) {
+                String what = intent.getStringExtra(PPApplication.EXTRA_WHAT_FINISH);
+                if (what.equals("editor"))
+                    EditorProfilesActivity.this.finishAffinity();
+            }
         }
     };
 
@@ -543,15 +549,19 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
         });
         */
+
+        getApplicationContext().registerReceiver(finishBroadcastReceiver, new IntentFilter(PPApplication.ACTION_FINISH_ACTIVITY));
     }
 
     @Override
     protected void onStart()
     {
         super.onStart();
+        PPApplication.logE("EditorProfilesActivity.onStart", "xxx");
 
-        Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".FinishActivatorBroadcastReceiver");
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
+        intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, "activator");
+        getApplicationContext().sendBroadcast(intent);
 
         LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
                 new IntentFilter(PPApplication.PACKAGE_NAME + ".RefreshEditorGUIBroadcastReceiver"));
@@ -559,9 +569,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                 new IntentFilter(PPApplication.PACKAGE_NAME + ".ShowEditorTargetHelpsBroadcastReceiver"));
 
         refreshGUI(true, false, true, 0, 0);
-
-        LocalBroadcastManager.getInstance(this).registerReceiver(finishBroadcastReceiver,
-                new IntentFilter(PPApplication.PACKAGE_NAME + ".FinishEditorBroadcastReceiver"));
 
         // this is for list widget header
         if (!PPApplication.getApplicationStarted(getApplicationContext(), true))
@@ -604,10 +611,10 @@ public class EditorProfilesActivity extends AppCompatActivity
     protected void onStop()
     {
         super.onStop();
+        PPApplication.logE("EditorProfilesActivity.onStop", "xxx");
 
         LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(showTargetHelpsBroadcastReceiver);
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(finishBroadcastReceiver);
 
         if ((addProfileDialog != null) && (addProfileDialog.mDialog != null) && addProfileDialog.mDialog.isShowing())
             addProfileDialog.mDialog.dismiss();
@@ -646,6 +653,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 contactsCache.clearCache(true);
             contactsCache = null;
         }
+
+        getApplicationContext().unregisterReceiver(finishBroadcastReceiver);
     }
 
     @Override

@@ -110,6 +110,10 @@ public class PPApplication extends Application {
                                          +"|PhoneProfilesBackupAgent"
                                          +"|ShutdownBroadcastReceiver"
 
+                                         +"|EditorProfilesActivity.finishBroadcastReceiver"
+                                         +"|EditorProfilesActivity.onStart"
+                                         +"|EditorProfilesActivity.onStop"
+
                                          //+"|DataWrapper.restartEventsWithAlert"
                                          //+"|DataWrapper.restartEventsWithDelay"
 
@@ -659,6 +663,8 @@ public class PPApplication extends Application {
     static final String ACCESSIBILITY_SERVICE_PERMISSION = PPApplication.PACKAGE_NAME_EXTENDER + ".ACCESSIBILITY_SERVICE_PERMISSION";
 
     static final String ACTION_DONATION = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_DONATION";
+    static final String ACTION_FINISH_ACTIVITY = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_FINISH_ACTIVITY";
+    static final String EXTRA_WHAT_FINISH = "what_finish";
 
     static final String EXTRA_REGISTRATION_APP = "registration_app";
     static final String EXTRA_REGISTRATION_TYPE = "registration_type";

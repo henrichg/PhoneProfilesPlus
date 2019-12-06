@@ -86,7 +86,12 @@ public class ActivateProfileActivity extends AppCompatActivity {
     private final BroadcastReceiver finishBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive( Context context, Intent intent ) {
-            ActivateProfileActivity.this.finish();
+            String action = intent.getAction();
+            if (action.equals(PPApplication.ACTION_FINISH_ACTIVITY)) {
+                String what = intent.getStringExtra(PPApplication.EXTRA_WHAT_FINISH);
+                if (what.equals("activator"))
+                    ActivateProfileActivity.this.finishAffinity();
+            }
         }
     };
 
@@ -246,6 +251,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
             }
         });
 
+        getApplicationContext().registerReceiver(finishBroadcastReceiver, new IntentFilter(PPApplication.ACTION_FINISH_ACTIVITY));
     }
 
     @Override
@@ -254,8 +260,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
         PPApplication.logE("ActivateProfileActivity.onStart", "xxx");
 
-        Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".FinishEditorBroadcastReceiver");
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
+        intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, "editor");
+        getApplicationContext().sendBroadcast(intent);
 
         LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
                 new IntentFilter(PPApplication.PACKAGE_NAME + ".RefreshActivatorGUIBroadcastReceiver"));
@@ -265,9 +272,6 @@ public class ActivateProfileActivity extends AppCompatActivity {
         refreshGUI(true, false);
 
         //-----------------------------------------------------------------------------------------
-
-        LocalBroadcastManager.getInstance(this).registerReceiver(finishBroadcastReceiver,
-                new IntentFilter(PPApplication.PACKAGE_NAME + ".FinishActivatorBroadcastReceiver"));
 
     }
 
@@ -289,7 +293,6 @@ public class ActivateProfileActivity extends AppCompatActivity {
         super.onStop();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(showTargetHelpsBroadcastReceiver);
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(finishBroadcastReceiver);
 
         if (targetHelpsSequenceStarted) {
             if (ActivatorTargetHelpsActivity.activity != null)
@@ -299,6 +302,11 @@ public class ActivateProfileActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        getApplicationContext().unregisterReceiver(finishBroadcastReceiver);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -327,7 +335,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
         switch (item.getItemId()) {
         case R.id.menu_edit_profiles:
             Intent intent = new Intent(getApplicationContext(), EditorProfilesActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_ACTIVATOR);
             getApplicationContext().startActivity(intent);
 

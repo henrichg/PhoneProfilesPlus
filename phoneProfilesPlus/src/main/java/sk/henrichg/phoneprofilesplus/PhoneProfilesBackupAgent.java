@@ -7,8 +7,6 @@ import android.content.pm.PackageInfo;
 import android.os.Handler;
 import android.os.PowerManager;
 
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 public class PhoneProfilesBackupAgent extends BackupAgentHelper {
 
     @Override
@@ -26,10 +24,12 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
 
         final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
-        Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".FinishActivatorBroadcastReceiver");
-        LocalBroadcastManager.getInstance(appContext).sendBroadcast(intent);
-        intent = new Intent(PPApplication.PACKAGE_NAME + ".FinishEditorBroadcastReceiver");
-        LocalBroadcastManager.getInstance(appContext).sendBroadcast(intent);
+        Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
+        intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, "activator");
+        appContext.sendBroadcast(intent);
+        intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
+        intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, "editor");
+        appContext.sendBroadcast(intent);
         /*
         ActivateProfileActivity activateProfileActivity = ActivateProfileActivity.getInstance();
         if (activateProfileActivity != null)
