@@ -90,8 +90,11 @@ public class ActivateProfileActivity extends AppCompatActivity {
             String action = intent.getAction();
             if (action.equals(PPApplication.ACTION_FINISH_ACTIVITY)) {
                 String what = intent.getStringExtra(PPApplication.EXTRA_WHAT_FINISH);
-                if (what.equals("activator"))
-                    ActivateProfileActivity.this.finishAffinity();
+                if (what.equals("activator")) {
+                    try {
+                        ActivateProfileActivity.this.finishAffinity();
+                    } catch (Exception ignored) {}
+                }
             }
         }
     };
