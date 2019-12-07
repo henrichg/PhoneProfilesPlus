@@ -9,7 +9,9 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.os.SystemClock;
-import android.view.WindowManager;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver {
 
@@ -75,8 +77,6 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
     {
         final Context appContext = context.getApplicationContext();
 
-        long delayTime = SystemClock.elapsedRealtime() + lockDelay;
-
         //Intent intent = new Intent(context, PostDelayedBroadcastReceiver.class);
         Intent intent = new Intent();
         intent.setAction(ACTION_LOCK_DEVICE_AFTER_SCREEN_OFF);
@@ -86,12 +86,36 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
 
         AlarmManager alarmManager = (AlarmManager) appContext.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
-            if (android.os.Build.VERSION.SDK_INT >= 23)
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, delayTime, pendingIntent);
-            else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, delayTime, pendingIntent);
-            //else
-            //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, delayTime, pendingIntent);
+            if (/*(android.os.Build.VERSION.SDK_INT >= 21) &&*/
+                    ApplicationPreferences.applicationUseAlarmClock(context)) {
+
+                Calendar now = Calendar.getInstance();
+                now.add(Calendar.MILLISECOND, lockDelay);
+                long alarmTime = now.getTimeInMillis();
+
+                if (PPApplication.logEnabled()) {
+                    @SuppressLint("SimpleDateFormat")
+                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                    String result = sdf.format(alarmTime);
+                    PPApplication.logE("LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "alarmTime=" + result);
+                }
+
+                Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
+                alarmManager.setAlarmClock(clockInfo, pendingIntent);
+            }
+            else {
+                long alarmTime = SystemClock.elapsedRealtime() + lockDelay;
+
+                if (android.os.Build.VERSION.SDK_INT >= 23)
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                else //if (android.os.Build.VERSION.SDK_INT >= 19)
+                    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                //else
+                //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, delayTime, pendingIntent);
+            }
         }
     }
 

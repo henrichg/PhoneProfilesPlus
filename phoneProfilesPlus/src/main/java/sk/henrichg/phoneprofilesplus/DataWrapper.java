@@ -2859,20 +2859,36 @@ public class DataWrapper {
                     KeyguardManager kgMgr = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
                     keyguardShowing = kgMgr.isKeyguardLocked();
                 }
+                PPApplication.logE("[Screen] DataWrapper.doHandleEvents", "PPApplication.isScreenOn="+PPApplication.isScreenOn);
                 PPApplication.logE("[Screen] DataWrapper.doHandleEvents", "keyguardShowing="+keyguardShowing);
 
                 if (event._eventPreferencesScreen._eventType == EventPreferencesScreen.ETYPE_SCREENON) {
-                    // screen is on
+                    // event type = screen is on
                     if (event._eventPreferencesScreen._whenUnlocked)
                         // passed if screen is on and unlocked
-                        screenPassed = PPApplication.isScreenOn && (!keyguardShowing);
+                        if (PPApplication.isScreenOn) {
+                            screenPassed = !keyguardShowing;
+                        }
+                        else
+                        if (!PPApplication.isScreenOn) {
+                            screenPassed = !keyguardShowing;
+                        }
+                        //screenPassed = PPApplication.isScreenOn && (!keyguardShowing);
                     else
                         screenPassed = PPApplication.isScreenOn;
                 } else {
-                    // screen is off
-                    if (event._eventPreferencesScreen._whenUnlocked)
+                    // event type = screen is off
+                    if (event._eventPreferencesScreen._whenUnlocked) {
                         // passed if screen is off and locked
-                        screenPassed = (!PPApplication.isScreenOn) && keyguardShowing;
+                        if (!PPApplication.isScreenOn) {
+                            screenPassed = keyguardShowing;
+                        }
+                        else
+                        if (PPApplication.isScreenOn) {
+                            screenPassed = keyguardShowing;
+                        }
+                        //screenPassed = (!PPApplication.isScreenOn) && keyguardShowing;
+                    }
                     else
                         screenPassed = !PPApplication.isScreenOn;
                 }
