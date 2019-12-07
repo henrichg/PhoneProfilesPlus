@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.provider.Settings;
 
 import static android.content.Context.POWER_SERVICE;
 
@@ -56,6 +57,9 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                         PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen off");
                         PPApplication.logE("[XXX] ScreenOnOffBroadcastReceiver.onReceive", "restartAllScanners");
                         PPApplication.isScreenOn = false;
+
+                        int time = Settings.Secure.getInt(appContext.getContentResolver(), "lock_screen_lock_after_timeout", 5000);
+                        PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "time="+time);
 
                         PPApplication.restartAllScanners(appContext, true);
 

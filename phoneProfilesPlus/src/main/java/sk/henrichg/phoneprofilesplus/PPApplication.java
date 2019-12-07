@@ -110,9 +110,9 @@ public class PPApplication extends Application {
                                          +"|PhoneProfilesBackupAgent"
                                          +"|ShutdownBroadcastReceiver"
 
-                                         +"|EditorProfilesActivity.finishBroadcastReceiver"
-                                         +"|EditorProfilesActivity.onStart"
-                                         +"|EditorProfilesActivity.onStop"
+                                         //+"|EditorProfilesActivity.finishBroadcastReceiver"
+                                         //+"|EditorProfilesActivity.onStart"
+                                         //+"|EditorProfilesActivity.onStop"
 
                                          //+"|DataWrapper.restartEventsWithAlert"
                                          //+"|DataWrapper.restartEventsWithDelay"
