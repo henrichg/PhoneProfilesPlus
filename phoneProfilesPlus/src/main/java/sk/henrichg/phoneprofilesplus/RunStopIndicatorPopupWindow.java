@@ -23,7 +23,7 @@ class RunStopIndicatorPopupWindow extends GuiInfoPopupWindow {
             @Override
             public void onClick(View v) {
                 Intent intentLaunch = new Intent(activity, ImportantInfoActivity.class);
-                intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, 0);
+                intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, false);
                 intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SCROLL_TO, R.id.activity_info_notification_event_not_started);
                 activity.startActivity(intentLaunch);
 

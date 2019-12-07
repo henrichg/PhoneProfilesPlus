@@ -1214,7 +1214,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     Intent intentLaunch = new Intent(getActivity(), ImportantInfoActivity.class);
-                    intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, 0);
+                    intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, false);
                     intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SCROLL_TO, R.id.activity_info_notification_how_does_volume_separation_work_title);
                     startActivity(intentLaunch);
                     return false;
