@@ -266,9 +266,7 @@
     <string name="array_event_pref_eventScreenEventType_screenOn">Allumer l\'écran</string>
     <string name="array_event_pref_eventScreenEventType_screenOff">Éteindre l\'écran</string>
     <string name="pref_event_screen_startWhenUnlocked">Démarrer au déverrouillage</string>
-    <string name="pref_event_screen_endWhenUnlocked">Fin quand débloqué</string>
     <string name="event_preferences_screen_start_when_unlocked">Début quand débloqué</string>
-    <string name="event_preferences_screen_end_when_unlocked">Fin quand débloqué</string>
     <string name="event_type_bluetooth">Bluetooth</string>
     <string name="event_preferences_category_eventBluetoothParameters">Capteur bluetooth</string>
     <string name="event_preferences_bluetooth_adapter_name">Nom Bluetooth</string>
@@ -716,7 +714,6 @@
     <string name="event_preference_sensor_bluetooth_summary">Ce capteur est pour démarrer un événement par nom Bluetooth. Paramètres : Type de connexion (autour, connecté, …), type d’appareil (classique, basse énergie, …), nom de Bluetooth.</string>
     <string name="event_preference_sensor_mobile_cells_summary">Ce capteur est pour démarrer un événement par antenne relais. Paramètres : Antenne, démarrer quand on ne capte plus l\'antenne.</string>
     <string name="event_preference_sensor_accessories_summary">Ce capteur est pour démarrer un événement par l’accessoire connecté (dock voiture, mains libres, casque, …). Paramètres : Type d’accessoires.</string>
-    <string name="event_preference_sensor_screen_summary">Ce capteur est pour démarrer un événement par allumage/extinction de l\'écran. Paramètres : Type d’événement (allumage, extinction, …), fin lorsque déverrouillé (fin de l’événement au déverrouillage de l’appareil).</string>
     <string name="event_preference_sensor_notification_summary">Ce capteur est pour démarrer un événement sur notification provenant d’applications. Paramètres : Applications, fin sur suppression de la notification, exécution permanente,  durée.</string>
     <string name="event_preference_sensor_application_summary">Ce capteur est pour démarrer un événement par l’application au premier plan. Paramètres : Applications.</string>
     <string name="event_preference_sensor_orientation_summary">Ce capteur est pour démarrer un événement selon l’orientation de l’appareil. Paramètres : Affichage (haut, bas), côtés (horizontale, vers le haut), Distance (près, loin, utilisé le capteur de proximité), ignorer pour des applications (au premier plan).</string>
@@ -1354,6 +1351,17 @@
     <string name="editor_activity_targetHelps_runStopEvents_title">Enable run events</string>
     <string name="editor_activity_targetHelps_runStopEvents_description">Click this to enable run of events. Without this, configured events will not be running.</string>
     <string name="samsung_edge_panel_description">Profile activation or Restart events with Samsung Edge panel</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_black">Black</string>
+    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>
+    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>
+    <string name="event_preferences_orientation_checkLight">Check light</string>
+    <string name="event_preferences_orientation_light">Light</string>
+    <string name="event_preferences_orientation_light_min">Light - minimal value (0)</string>
+    <string name="event_preferences_orientation_light_max">Light - maximal value (10000)</string>
+    <string name="pref_event_screen_endWhenLocked">End when locked</string>
+    <string name="event_preferences_screen_end_when_locked">End when locked</string>
+    <string name="event_preference_sensor_screen_summary">This sensor will start an event by screen on/off. Parameters: Event type (screen on, screen off), Start when unlocked/End when locked (event starts when device is unlocked/ends when is locked).</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1491,4 +1499,6 @@
     <!--    <string name="important_info_translations">Please help me with translation, thank you:</string>-->
     <!--    <string name="important_info_email_body_translation_language_to">Language to translate:</string>-->
     <!--    <string name="editor_drawer_order_label">Order events by:</string>-->
+    <!--    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>-->
+    <!--    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>-->
 </resources>

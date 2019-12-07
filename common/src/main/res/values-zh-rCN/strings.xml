@@ -266,9 +266,7 @@
     <string name="array_event_pref_eventScreenEventType_screenOn">点亮屏幕</string>
     <string name="array_event_pref_eventScreenEventType_screenOff">关闭屏幕</string>
     <string name="pref_event_screen_startWhenUnlocked">解锁时启动</string>
-    <string name="pref_event_screen_endWhenUnlocked">解锁时关闭</string>
     <string name="event_preferences_screen_start_when_unlocked">解锁时启动</string>
-    <string name="event_preferences_screen_end_when_unlocked">解锁时关闭</string>
     <string name="event_type_bluetooth">蓝牙</string>
     <string name="event_preferences_category_eventBluetoothParameters">蓝牙传感器</string>
     <string name="event_preferences_bluetooth_adapter_name">蓝牙名称</string>
@@ -716,7 +714,6 @@
     <string name="event_preference_sensor_bluetooth_summary">此传感器用于按蓝牙名称启动事件。参数：连接类型 (周边，已连接等)，扫描设备类型 (经典，低耗电等)，蓝牙名称。</string>
     <string name="event_preference_sensor_mobile_cells_summary">此传感器用于按连接的移动网络 (基站) 启动事件。参数：网络，在网络之外启动事件</string>
     <string name="event_preference_sensor_accessories_summary">此传感器用于按与附件的连接启动事件 (车载底座，无线免提，耳麦等) 运行事件。参数：附件类型。</string>
-    <string name="event_preference_sensor_screen_summary">此传感器用于按屏幕的打开/关闭启动时间。参数：时间类型 (屏幕打开，屏幕关闭等)，解锁时结束 (解锁设备时结束事件)。</string>
     <string name="event_preference_sensor_notification_summary">此传感器用于按程序发出的通知启动事件。参数：程序，移除时终止 (移除通知是终止事件运行)，常驻运行，时间段 (时间运行时间段)。</string>
     <string name="event_preference_sensor_application_summary">此传感器用于按前台运行的应用程序启动事件。参数：应用程序。</string>
     <string name="event_preference_sensor_orientation_summary">此传感器用于按设备的方向启动事件。参数：显示 (向上，向下)，Sides (Horizontal, side up)，距离 (远，近，使用距离传感器检测)，忽略应用程序 (前台)。</string>
@@ -1354,6 +1351,17 @@
     <string name="editor_activity_targetHelps_runStopEvents_title">Enable run events</string>
     <string name="editor_activity_targetHelps_runStopEvents_description">Click this to enable run of events. Without this, configured events will not be running.</string>
     <string name="samsung_edge_panel_description">Profile activation or Restart events with Samsung Edge panel</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_black">Black</string>
+    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>
+    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>
+    <string name="event_preferences_orientation_checkLight">Check light</string>
+    <string name="event_preferences_orientation_light">Light</string>
+    <string name="event_preferences_orientation_light_min">Light - minimal value (0)</string>
+    <string name="event_preferences_orientation_light_max">Light - maximal value (10000)</string>
+    <string name="pref_event_screen_endWhenLocked">End when locked</string>
+    <string name="event_preferences_screen_end_when_locked">End when locked</string>
+    <string name="event_preference_sensor_screen_summary">This sensor will start an event by screen on/off. Parameters: Event type (screen on, screen off), Start when unlocked/End when locked (event starts when device is unlocked/ends when is locked).</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1491,4 +1499,6 @@
     <!--    <string name="important_info_translations">Please help me with translation, thank you:</string>-->
     <!--    <string name="important_info_email_body_translation_language_to">Language to translate:</string>-->
     <!--    <string name="editor_drawer_order_label">Order events by:</string>-->
+    <!--    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>-->
+    <!--    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>-->
 </resources>

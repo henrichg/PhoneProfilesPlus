@@ -266,9 +266,7 @@
     <string name="array_event_pref_eventScreenEventType_screenOn">Zapnutie obrazovky</string>
     <string name="array_event_pref_eventScreenEventType_screenOff">Vypnutie obrazovky</string>
     <string name="pref_event_screen_startWhenUnlocked">Štart, keď je odomknuté</string>
-    <string name="pref_event_screen_endWhenUnlocked">Koniec, keď je odomknuté</string>
     <string name="event_preferences_screen_start_when_unlocked">Štart, keď je odomknuté</string>
-    <string name="event_preferences_screen_end_when_unlocked">Koniec, keď je odomknuté</string>
     <string name="event_type_bluetooth">Bluetooth</string>
     <string name="event_preferences_category_eventBluetoothParameters">Senzor Bluetooth</string>
     <string name="event_preferences_bluetooth_adapter_name">Meno Bluetooth</string>
@@ -716,7 +714,6 @@
     <string name="event_preference_sensor_bluetooth_summary">Tento senzor je pre štart udalosti podľa mena Bluetooth. Parametre: Typ pripojenia (V okolí, Pripojené, atď.), Skenované typy zariadení (Klasické, Nízkoenergetické, atď.), Meno Bluetooth.</string>
     <string name="event_preference_sensor_mobile_cells_summary">Tento senzor je pre štart udalosti podľa pripojených mobilných buniek (veží). Parametre: Bunky, Štart keď je mimo mobilných buniek.</string>
     <string name="event_preference_sensor_accessories_summary">Tento senzor je pre štart udalosti podľa pripojeného príslušenstva (autosúprava, drôtové handsfree, slúchadlá, atď.). Parametre: Typ príslušenstva.</string>
-    <string name="event_preference_sensor_screen_summary">Tento senzor je pre štart udalosti podľa zapnutia/vypnutia obrazovky. Parametre: Typ udalosti (vypla sa, zapla sa, atď.), Koniec keď je odomknuté (udalosť skončí na odomknutie zariadenia).</string>
     <string name="event_preference_sensor_notification_summary">Tento senzor je pre štart udalosti podľa notifikácie z aplikácií. Parametre: Aplikácie, Koniec, ak odstránený (koniec udalosti na odstránenie notifikácie), Trvalý beh, Trvanie (dĺžka behu udalosti).</string>
     <string name="event_preference_sensor_application_summary">Tento senzor je pre štart udalosti podľa aplikácie v popredí. Parametre: Aplikácie.</string>
     <string name="event_preference_sensor_orientation_summary">Tento senzor je pre štart udalosti podľa orientácie zariadenia. Parametre: Obrazovka (Hore, Dolu), Strany (Horizontálne, strana hore), Priblíženie (V blízkosti, Ďaleko; použitý je senzor priblíženia), ignorovať pre aplikácie (v popredí).</string>
@@ -835,7 +832,7 @@
     <string name="important_info_important_info_tab">Dôležité informácie</string>
     <string name="important_info_quick_guide_1">PhoneProfilesPlus (PPP) má dve zložky:</string>
     <string name="important_info_quick_guide_2"><![CDATA[<b>PROFILY:</b> Určujú, ako zmeniť nastavenia zariadenia.]]></string>
-    <string name="important_info_quick_guide_3"><![CDATA[<b>UDALOSTI:</b> Určujú, kedy je sa zmenia nastavenia zariadenia.]]></string>
+    <string name="important_info_quick_guide_3"><![CDATA[<b>UDALOSTI:</b> Určujú, kedy sa zmenia nastavenia zariadenia.]]></string>
     <string name="important_info_quick_guide_profiles_1"><b>PROFILY:</b> Umožňujú konfigurovať nastavenie zariadenia ako režim zvonenia, hlasitosť, tóny zvonenie a oznámenia, prepínanie rádií (Wi-Fi, Bluetooth, mobilné dáta, atď.). Po aktivovaní profilu príslušné nastavenia sú trvalé. Ak chcete nastavenia zmeniť, musí byť aktivovaný iný profil.</string>
     <string name="important_info_quick_guide_profiles_2">Profily je možné aktivovať manuálne alebo udalosťou.</string>
     <string name="important_info_quick_guide_profiles_3">Môžete manuálne aktivovať profil cez PPP Aktivátor (pop-up okno so zoznamom dostupných profilov). Aktivátor je možné zobraziť cez domovskú ikonu PPP, PPP notifikáciu, PPP miniaplikácie a pre zariadenia Samsung Edge z panela Edge. Môžete tiež priamo aktivovať profil cez PPP 4 x 4 widget, odkaz na profil alebo na zariadeniach Samsung Edge z panela Edge.</string>
@@ -898,7 +895,7 @@
     <string name="duration_pref_dlg_activation_hours_label">Hodiny:</string>
     <string name="duration_pref_dlg_activation_minutes_label">Minúty:</string>
     <string name="duration_pref_dlg_activation_seconds_label">Sekundy:</string>
-    <string name="preferences_durationNotificationSoundInfo_summary">Táto notifikácia používa mediálny kanál. Preto používa hlasitosť médií.</string>
+    <string name="preferences_durationNotificationSoundInfo_summary">Táto notifikácia používa kanál médií. Preto používa hlasitosť médií.</string>
     <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary">Prosím, zapnite Polohu a Vyhľadávanie Wi-Fi v nastaveniach systému. Bez toho Wi-Fi skenovanie nebude fungovať.</string>
     <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Prosím, zapnite Polohu a Vyhľadávanie Bluetooth v nastaveniach systému. Bez toho, skenovanie Bluetooth nebude fungovať.</string>
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">Systémové nastavenie \"Ponechať Wi-Fi zapnuté\"</string>
@@ -1354,6 +1351,17 @@
     <string name="editor_activity_targetHelps_runStopEvents_title">Povoľ beh udalostí</string>
     <string name="editor_activity_targetHelps_runStopEvents_description">Kliknite sem pre povolenie behu udalostí. Bez toho, nakonfigurované udalosti nebudú bežať.</string>
     <string name="samsung_edge_panel_description">Aktivácia profilu alebo Reštart udalostí so Samsung bočným panelom</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_black">Black</string>
+    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>
+    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>
+    <string name="event_preferences_orientation_checkLight">Check light</string>
+    <string name="event_preferences_orientation_light">Light</string>
+    <string name="event_preferences_orientation_light_min">Light - minimal value (0)</string>
+    <string name="event_preferences_orientation_light_max">Light - maximal value (10000)</string>
+    <string name="pref_event_screen_endWhenLocked">End when locked</string>
+    <string name="event_preferences_screen_end_when_locked">End when locked</string>
+    <string name="event_preference_sensor_screen_summary">This sensor will start an event by screen on/off. Parameters: Event type (screen on, screen off), Start when unlocked/End when locked (event starts when device is unlocked/ends when is locked).</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1491,4 +1499,6 @@
     <!--    <string name="important_info_translations">Please help me with translation, thank you:</string>-->
     <!--    <string name="important_info_email_body_translation_language_to">Language to translate:</string>-->
     <!--    <string name="editor_drawer_order_label">Order events by:</string>-->
+    <!--    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>-->
+    <!--    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>-->
 </resources>

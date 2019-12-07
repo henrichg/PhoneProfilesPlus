@@ -266,9 +266,7 @@
     <string name="array_event_pref_eventScreenEventType_screenOn">Képernyő Be</string>
     <string name="array_event_pref_eventScreenEventType_screenOff">Kijelző kikapcsolása</string>
     <string name="pref_event_screen_startWhenUnlocked">Indít amikor nyitva</string>
-    <string name="pref_event_screen_endWhenUnlocked">Vége amikor nyitva</string>
     <string name="event_preferences_screen_start_when_unlocked">Indít amikor nyitva</string>
-    <string name="event_preferences_screen_end_when_unlocked">Vége amikor nyitva</string>
     <string name="event_type_bluetooth">Bluetooth</string>
     <string name="event_preferences_category_eventBluetoothParameters">Bluetooth-érzékelő</string>
     <string name="event_preferences_bluetooth_adapter_name">Bluetooth-név</string>
@@ -716,7 +714,6 @@
     <string name="event_preference_sensor_bluetooth_summary">Esemény indításához, a Bluetooth-név kell. Paraméterek: Kapcsolat típusa (Körül, Connected,…), Ellenőrzi eszköz típusát (klasszikus, alacsony energia-,…), Bluetooth-név.</string>
     <string name="event_preference_sensor_mobile_cells_summary">Esemény indításához csatlakozni kell egy adott mobil cellához (adó torony). Paraméterek: Cellák, Indítás adott cellákon kívül.</string>
     <string name="event_preference_sensor_accessories_summary">Esemény indításához adott külső tartozékhoz csatlakoztatva (autós tartó, vezetékes fülhallgató, fejhallgató,…). Paraméterek: Tartozék típusa.</string>
-    <string name="event_preference_sensor_screen_summary">Esemény indításához a kijelző be/ki kapcsolt állapota kell. Paraméterek: Esemény típusa (a kijelző be-, a kijelző kikapcsolva,…), véget ér az esemény, amikor a készülék ki van nyitva.</string>
     <string name="event_preference_sensor_notification_summary">Esemény elindul ha egy alkalmazás értesítést küld. Paraméterek: Alkalmazások, vége amikor eltávolították (értesítés eltávolítása a rendezvény végéig), észrevételen futás, időtartama (esemény időtartama alatt fut).</string>
     <string name="event_preference_sensor_application_summary">Az esemény elindul ha egy alkalmazás az előtérbe kerül. Paraméterek: Alkalmazások.</string>
     <string name="event_preference_sensor_orientation_summary">Esemény kezdéséhez a készülék bizonyos pozíciója kell. Paraméterek: Kijelző (fel, le), Oldalak (vízszintes, oldalsó fel), a távolság (közel, távol, használ a közelség érzékelőt), figyelmen kívül hagyása ha az alkalmazások (az előtérben van).</string>
@@ -1354,6 +1351,17 @@
     <string name="editor_activity_targetHelps_runStopEvents_title">Enable run events</string>
     <string name="editor_activity_targetHelps_runStopEvents_description">Click this to enable run of events. Without this, configured events will not be running.</string>
     <string name="samsung_edge_panel_description">Profile activation or Restart events with Samsung Edge panel</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_black">Black</string>
+    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>
+    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>
+    <string name="event_preferences_orientation_checkLight">Check light</string>
+    <string name="event_preferences_orientation_light">Light</string>
+    <string name="event_preferences_orientation_light_min">Light - minimal value (0)</string>
+    <string name="event_preferences_orientation_light_max">Light - maximal value (10000)</string>
+    <string name="pref_event_screen_endWhenLocked">End when locked</string>
+    <string name="event_preferences_screen_end_when_locked">End when locked</string>
+    <string name="event_preference_sensor_screen_summary">This sensor will start an event by screen on/off. Parameters: Event type (screen on, screen off), Start when unlocked/End when locked (event starts when device is unlocked/ends when is locked).</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1491,4 +1499,6 @@
     <!--    <string name="important_info_translations">Please help me with translation, thank you:</string>-->
     <!--    <string name="important_info_email_body_translation_language_to">Language to translate:</string>-->
     <!--    <string name="editor_drawer_order_label">Order events by:</string>-->
+    <!--    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>-->
+    <!--    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>-->
 </resources>

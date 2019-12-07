@@ -266,9 +266,7 @@
     <string name="array_event_pref_eventScreenEventType_screenOn">Schermo acceso</string>
     <string name="array_event_pref_eventScreenEventType_screenOff">Schermo spento</string>
     <string name="pref_event_screen_startWhenUnlocked">Avvia quando sbloccato</string>
-    <string name="pref_event_screen_endWhenUnlocked">Termina quando sbloccato</string>
     <string name="event_preferences_screen_start_when_unlocked">Avvia quando sbloccato</string>
-    <string name="event_preferences_screen_end_when_unlocked">Termina quando sbloccato</string>
     <string name="event_type_bluetooth">Bluetooth</string>
     <string name="event_preferences_category_eventBluetoothParameters">Sensore Bluetooth</string>
     <string name="event_preferences_bluetooth_adapter_name">Nome Bluetooth</string>
@@ -716,7 +714,6 @@
     <string name="event_preference_sensor_bluetooth_summary">Questo sensore serve per avviare eventi legati alle connessioni Bluetooth. Parametri: Tipo di connessione(Collegato, Nelle vicinanze, …), Tipo di dispositivi rilevati (Normale, Basso consumo energetico), Nome Bluetooth.</string>
     <string name="event_preference_sensor_mobile_cells_summary">Questo sensore serve per avviare eventi legati alle celle mobili. Parametri: Celle, Avvia quando sei fuori dalla cella.</string>
     <string name="event_preference_sensor_accessories_summary">Questo sensore serve per avviare eventi legati agli accessori connessi (Supporto da auto, Vivavoce cablato Cuffie, …). Parametri: Tipo di accessorio.</string>
-    <string name="event_preference_sensor_screen_summary">Questo sensore serve per avviare eventi legati allo stato dello schermo. Parametri: Tipo di evento (Schermo spento, Schermo acceso), Termina quando sbloccato (l\'evento termina quando il dispositivo viene sbloccato).</string>
     <string name="event_preference_sensor_notification_summary">Questo sensore serve per avviare eventi legati a notifiche da parte di applicazioni. Parametri: Applicazioni, Termina quando rimosso (l\'evento termina viene rimossa la notifica), Esecuzione permanente, Durata (durata dell\'evento).</string>
     <string name="event_preference_sensor_application_summary">Questo sensore serve per avviare eventi legati alle applicazioni in primo piano. Parametri: Applicazioni.</string>
     <string name="event_preference_sensor_orientation_summary">Questo sensore serve per avviare eventi legati all\'orientamento del dispositivo. Parametri: Schermo (su, giù), Lati (Orizzontale, Lato destro su,…), Distanza (Vicino, Lontano; usa il sensore di prossimità), Ignora per applicazioni (in primo piano).</string>
@@ -1355,6 +1352,17 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="editor_activity_targetHelps_runStopEvents_title">Abilita eventi esecuzione</string>
     <string name="editor_activity_targetHelps_runStopEvents_description">Clicca questo per abilitare l\'esecuzione degli eventi. Senza di questo, gli eventi configurati non si eseguiranno.</string>
     <string name="samsung_edge_panel_description">Profile activation or Restart events with Samsung Edge panel</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_black">Black</string>
+    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>
+    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>
+    <string name="event_preferences_orientation_checkLight">Check light</string>
+    <string name="event_preferences_orientation_light">Light</string>
+    <string name="event_preferences_orientation_light_min">Light - minimal value (0)</string>
+    <string name="event_preferences_orientation_light_max">Light - maximal value (10000)</string>
+    <string name="pref_event_screen_endWhenLocked">End when locked</string>
+    <string name="event_preferences_screen_end_when_locked">End when locked</string>
+    <string name="event_preference_sensor_screen_summary">This sensor will start an event by screen on/off. Parameters: Event type (screen on, screen off), Start when unlocked/End when locked (event starts when device is unlocked/ends when is locked).</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1492,4 +1500,6 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <!--    <string name="important_info_translations">Please help me with translation, thank you:</string>-->
     <!--    <string name="important_info_email_body_translation_language_to">Language to translate:</string>-->
     <!--    <string name="editor_drawer_order_label">Order events by:</string>-->
+    <!--    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>-->
+    <!--    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>-->
 </resources>

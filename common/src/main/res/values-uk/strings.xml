@@ -266,9 +266,7 @@
     <string name="array_event_pref_eventScreenEventType_screenOn">Увімкнення</string>
     <string name="array_event_pref_eventScreenEventType_screenOff">Вимкнення</string>
     <string name="pref_event_screen_startWhenUnlocked">Запустити при розблокуванні</string>
-    <string name="pref_event_screen_endWhenUnlocked">Завершити при розблокуванні</string>
     <string name="event_preferences_screen_start_when_unlocked">Запустити при розблокуванні</string>
-    <string name="event_preferences_screen_end_when_unlocked">Завершити при розблокуванні</string>
     <string name="event_type_bluetooth">Bluetooth</string>
     <string name="event_preferences_category_eventBluetoothParameters">Датчик Bluetooth</string>
     <string name="event_preferences_bluetooth_adapter_name">ім\'я Bluetooth</string>
@@ -716,7 +714,6 @@
     <string name="event_preference_sensor_bluetooth_summary">Цей датчик обробляє події Bluetooth. Параметри: \"Тип з\'єднання\" (поруч, підключено і т.д.), \"Тип сканованих пристроїв\" (звичайні, з низькою енергоспоживаністю і т.д.), \"Ім\'я Bluetooth-пристрою\".</string>
     <string name="event_preference_sensor_mobile_cells_summary">Цей датчик запускає події якщо є підключення до мобільних вишок. Параметри: \"Вишки\", \"Запускати при від\'єднанні від вишок\".</string>
     <string name="event_preference_sensor_accessories_summary">Цей датчик запускає події по підключеному аксесуару (док-станція, гарнітура, навушники і т.д.). Параметри: \"Тип аксесуарів\".</string>
-    <string name="event_preference_sensor_screen_summary">Цей датчик обробляє події вкл/вимк дисплея. Параметри: \"Тип події\" (увімкнення дисплея, вимкнення дисплея), \"Завершувати при розблокуванні\" (коли пристрій розблоковується, подія завершується).</string>
     <string name="event_preference_sensor_notification_summary">Цей датчик обробляє події сповіщень від додатків. Параметри: \"Додатки\", \"Завершувати при видаленні\" (при видаленні сповіщення подія завершується), \"Постійний запуск\", \"Тривалість\" (події запуску).</string>
     <string name="event_preference_sensor_application_summary">Цей датчик запускає подію по додатку на передньому плані. Параметри: \"Додатки\".</string>
     <string name="event_preference_sensor_orientation_summary">Цей датчик запускає подію у орієнтації пристрою. Параметри: \"Екран\" ( Екраном догори, екраном вниз), \"Сторони\" (горизонтально, певною стороною догори), \" Відстань\" (поруч, далеко; використовується датчик наближення), \"Ігнорувати для додатків\" (на передньому плані).</string>
@@ -1354,6 +1351,17 @@
     <string name="editor_activity_targetHelps_runStopEvents_title">Дозволити запуск подій</string>
     <string name="editor_activity_targetHelps_runStopEvents_description">Натисніть тут, щоб дозволити запуск подій. Без цього, налаштовані події не будуть працювати.</string>
     <string name="samsung_edge_panel_description">Активація профілю або Перезавантаження подій в панелі Samsung Edge</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_black">Black</string>
+    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>
+    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>
+    <string name="event_preferences_orientation_checkLight">Check light</string>
+    <string name="event_preferences_orientation_light">Light</string>
+    <string name="event_preferences_orientation_light_min">Light - minimal value (0)</string>
+    <string name="event_preferences_orientation_light_max">Light - maximal value (10000)</string>
+    <string name="pref_event_screen_endWhenLocked">End when locked</string>
+    <string name="event_preferences_screen_end_when_locked">End when locked</string>
+    <string name="event_preference_sensor_screen_summary">This sensor will start an event by screen on/off. Parameters: Event type (screen on, screen off), Start when unlocked/End when locked (event starts when device is unlocked/ends when is locked).</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1491,4 +1499,6 @@
     <!--    <string name="important_info_translations">Please help me with translation, thank you:</string>-->
     <!--    <string name="important_info_email_body_translation_language_to">Language to translate:</string>-->
     <!--    <string name="editor_drawer_order_label">Order events by:</string>-->
+    <!--    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>-->
+    <!--    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>-->
 </resources>

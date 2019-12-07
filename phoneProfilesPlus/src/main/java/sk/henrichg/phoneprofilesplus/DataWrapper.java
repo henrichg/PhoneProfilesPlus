@@ -2862,15 +2862,17 @@ public class DataWrapper {
                 PPApplication.logE("[Screen] DataWrapper.doHandleEvents", "keyguardShowing="+keyguardShowing);
 
                 if (event._eventPreferencesScreen._eventType == EventPreferencesScreen.ETYPE_SCREENON) {
+                    // screen is on
                     if (event._eventPreferencesScreen._whenUnlocked)
-                        // passed if screen is on and unlocked => start only when unlocked
+                        // passed if screen is on and unlocked
                         screenPassed = PPApplication.isScreenOn && (!keyguardShowing);
                     else
                         screenPassed = PPApplication.isScreenOn;
                 } else {
+                    // screen is off
                     if (event._eventPreferencesScreen._whenUnlocked)
-                        // passed if screen is off or locked => locked is the same as screen off
-                        screenPassed = (!PPApplication.isScreenOn) || keyguardShowing;
+                        // passed if screen is off and locked
+                        screenPassed = (!PPApplication.isScreenOn) && keyguardShowing;
                     else
                         screenPassed = !PPApplication.isScreenOn;
                 }

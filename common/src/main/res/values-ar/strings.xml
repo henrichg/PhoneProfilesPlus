@@ -266,9 +266,7 @@
     <string name="array_event_pref_eventScreenEventType_screenOn">فتح الشاشة</string>
     <string name="array_event_pref_eventScreenEventType_screenOff">غلق الشاشة</string>
     <string name="pref_event_screen_startWhenUnlocked">البدء عند الغاء القفل</string>
-    <string name="pref_event_screen_endWhenUnlocked">إنهاء عند فتح الشاشة</string>
     <string name="event_preferences_screen_start_when_unlocked">البدء عند الغاء القفل</string>
-    <string name="event_preferences_screen_end_when_unlocked">إنهاء عند فتح الشاشة</string>
     <string name="event_type_bluetooth">Bluetooth</string>
     <string name="event_preferences_category_eventBluetoothParameters">استشعار البلوتوث</string>
     <string name="event_preferences_bluetooth_adapter_name">اسم البلوتوث</string>
@@ -716,7 +714,6 @@
     <string name="event_preference_sensor_bluetooth_summary">سيبدأ هذا الإستشعار في حدث باسم البلوتوث. عوامل التشغيل: نوع إتصال البلوتوث (قريب ، متصل ، إلخ.) ، نوع الهاتف الموجود (تقليدي ، طاقة منخفضة ، إلخ) ، اسم البلوتوث.</string>
     <string name="event_preference_sensor_mobile_cells_summary">سيبدأ هذا الإستشعار في حدث ما بواسطة الشبكة الخلوية (أبراج الإتصال). عوامل التشغيل: الأبراج ، في نطاق تغطية البرج ، خارج نطاق تغطية البرج.</string>
     <string name="event_preference_sensor_accessories_summary">سيبدأ هذا الإستشعار في حدث ما بواسطة ملحق متصل (كار دوك ، هاندفري ، سماعات الرأس ، إلخ). عوامل التشغيل: نوع الملحقات.</string>
-    <string name="event_preference_sensor_screen_summary">\"سيبدأ هذا الإستشعار في تشغيل / إيقاف الشاشة. عوامل التشغيل: نوع الحدث (الشاشة قيد التشغيل ، إيقاف الشاشة ، وما إلى ذلك) ، الإنهاء عند إلغاء القفل (ينتهي الحدث عند إلغاء قفل الهاتف).</string>
     <string name="event_preference_sensor_notification_summary">سيبدأ الإستشعار في هذا الحدث عن طريق الإشعارات الواردة من التطبيقات عوامل التشغيل: التطبيقات ، إنهاء عند الرفض (نهاية الحدث عند رفض الإخطار) ، التشغيل الدائم ، المدة (مدة تشغيل الحدث).</string>
     <string name="event_preference_sensor_application_summary">سيبدأ الإستشعار في هذا الحدث عن طريق وجود التطبيق في المقدمة. عوامل التشغيل: التطبيقات.</string>
     <string name="event_preference_sensor_orientation_summary">سيبدأ هذا الإستشار في حدث ما حسب اتجاه الهاتف. عوامل التشغيل: العرض (أعلى ، أسفل) ، الجانبين (أفقي ، جانبي لأعلى) ، المسافة (قريب ، بعيد ؛ يتم إستخدام مستشعر القرب) ، تجاهل للتطبيقات (في المقدمة).</string>
@@ -1354,6 +1351,17 @@
     <string name="editor_activity_targetHelps_runStopEvents_title">Enable run events</string>
     <string name="editor_activity_targetHelps_runStopEvents_description">Click this to enable run of events. Without this, configured events will not be running.</string>
     <string name="samsung_edge_panel_description">Profile activation or Restart events with Samsung Edge panel</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_black">Black</string>
+    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>
+    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>
+    <string name="event_preferences_orientation_checkLight">Check light</string>
+    <string name="event_preferences_orientation_light">Light</string>
+    <string name="event_preferences_orientation_light_min">Light - minimal value (0)</string>
+    <string name="event_preferences_orientation_light_max">Light - maximal value (10000)</string>
+    <string name="pref_event_screen_endWhenLocked">End when locked</string>
+    <string name="event_preferences_screen_end_when_locked">End when locked</string>
+    <string name="event_preference_sensor_screen_summary">This sensor will start an event by screen on/off. Parameters: Event type (screen on, screen off), Start when unlocked/End when locked (event starts when device is unlocked/ends when is locked).</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1491,4 +1499,6 @@
     <!--    <string name="important_info_translations">Please help me with translation, thank you:</string>-->
     <!--    <string name="important_info_email_body_translation_language_to">Language to translate:</string>-->
     <!--    <string name="editor_drawer_order_label">Order events by:</string>-->
+    <!--    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>-->
+    <!--    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>-->
 </resources>

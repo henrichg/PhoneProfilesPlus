@@ -266,9 +266,7 @@
     <string name="array_event_pref_eventScreenEventType_screenOn">Zaslon uključen</string>
     <string name="array_event_pref_eventScreenEventType_screenOff">Isključi zaslon</string>
     <string name="pref_event_screen_startWhenUnlocked">Pokreni kad je otključan</string>
-    <string name="pref_event_screen_endWhenUnlocked">Završi kad je otključan</string>
     <string name="event_preferences_screen_start_when_unlocked">Pokreni kad je otključan</string>
-    <string name="event_preferences_screen_end_when_unlocked">Završi kad je otključan</string>
     <string name="event_type_bluetooth">Bluetooth</string>
     <string name="event_preferences_category_eventBluetoothParameters">Bluetooth senzor</string>
     <string name="event_preferences_bluetooth_adapter_name">Bluetooth naziv</string>
@@ -716,7 +714,6 @@
     <string name="event_preference_sensor_bluetooth_summary">Ovaj senzor će pokrenuti događaj na osnovu imena Bluetooth-a. Parametri: Vrsta konekcije ( U blizini, Povezano, itd.), Skenirana vrsta uređaja ( Klasični, mali potrošač, itd.), Ime Bluetootha.</string>
     <string name="event_preference_sensor_mobile_cells_summary">Ovaj senzor će pokrenuti događaj na osnovu povezanih mobilnih ćelija ( antene). Parametri: Ćelije, Pokreni kada je izvan ćelije.</string>
     <string name="event_preference_sensor_accessories_summary">Ovaj senzor će pokrenuti događaj na osnovu povezanih dodatnih uređaja ( dok u autu, spikerfon, slušalice, itd.). Parametri: Vrsta dodatnog uređaja.</string>
-    <string name="event_preference_sensor_screen_summary">Ovaj senzor će pokrenuti događaj na osnovu uklj./isklj. zaslona. Parametri: Vrsta događaja ( uklj. zaslon, isklj. zaslon, itd.). Završi kada je otključan ( događaj se završava kada je uređaj otključan).</string>
     <string name="event_preference_sensor_notification_summary">Ovaj senzor će pokrenuti događaj na osnovu obaveštenja iz aplikacija. Parametri: Aplikacije, Završi kad je otkazano ( završi događaj po otkazanom obaveštenju), Trajni rad, Trajanje ( trajanje rada događaja).</string>
     <string name="event_preference_sensor_application_summary">Ovaj senzor će startovati događaj sa aplikacijom koja je u prvom planu. Parametri: Aplikacije.</string>
     <string name="event_preference_sensor_orientation_summary">Ovaj senzor će startovati događaj na osnovu orijentacije uređaja. Parametri: zaslon ( Gore, dole) Stranice ( Horizontalno, uspravno) Razmak ( Pored, udaljeno, upotreba senzora blizine), ignoriši aplikacije ( u prvom planu).</string>
@@ -1354,6 +1351,17 @@
     <string name="editor_activity_targetHelps_runStopEvents_title">Omogući rad događaja</string>
     <string name="editor_activity_targetHelps_runStopEvents_description">Klikni ovdje da bi omogućio rad događaja. Bez ovoga, podešeni događaji neće moći da rade.</string>
     <string name="samsung_edge_panel_description">Aktivacija profila ili Restart događaja preko Samsung Edge ploče</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_black">Black</string>
+    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>
+    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>
+    <string name="event_preferences_orientation_checkLight">Check light</string>
+    <string name="event_preferences_orientation_light">Light</string>
+    <string name="event_preferences_orientation_light_min">Light - minimal value (0)</string>
+    <string name="event_preferences_orientation_light_max">Light - maximal value (10000)</string>
+    <string name="pref_event_screen_endWhenLocked">End when locked</string>
+    <string name="event_preferences_screen_end_when_locked">End when locked</string>
+    <string name="event_preference_sensor_screen_summary">This sensor will start an event by screen on/off. Parameters: Event type (screen on, screen off), Start when unlocked/End when locked (event starts when device is unlocked/ends when is locked).</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1491,4 +1499,6 @@
     <!--    <string name="important_info_translations">Please help me with translation, thank you:</string>-->
     <!--    <string name="important_info_email_body_translation_language_to">Language to translate:</string>-->
     <!--    <string name="editor_drawer_order_label">Order events by:</string>-->
+    <!--    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>-->
+    <!--    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>-->
 </resources>

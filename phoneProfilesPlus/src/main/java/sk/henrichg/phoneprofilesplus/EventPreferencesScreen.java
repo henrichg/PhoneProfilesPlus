@@ -94,7 +94,7 @@ class EventPreferencesScreen extends EventPreferences {
                     if (this._eventType == 0)
                         descr = descr + " • <b>" + context.getString(R.string.pref_event_screen_startWhenUnlocked) + "</b>";
                     else
-                        descr = descr + " • <b>" + context.getString(R.string.pref_event_screen_endWhenUnlocked) + "</b>";
+                        descr = descr + " • <b>" + context.getString(R.string.pref_event_screen_startWhenLocked) + "</b>";
                 }
             }
         }
@@ -213,7 +213,7 @@ class EventPreferencesScreen extends EventPreferences {
             if (value == 0)
                 whenUnlockedPreference.setTitle(R.string.event_preferences_screen_start_when_unlocked);
             else
-                whenUnlockedPreference.setTitle(R.string.event_preferences_screen_end_when_unlocked);
+                whenUnlockedPreference.setTitle(R.string.event_preferences_screen_start_when_locked);
         }
     }
 

@@ -266,9 +266,7 @@
     <string name="array_event_pref_eventScreenEventType_screenOn">Zapnutí obrazovky</string>
     <string name="array_event_pref_eventScreenEventType_screenOff">Vypnutí obrazovky</string>
     <string name="pref_event_screen_startWhenUnlocked">Start, když je odemčeno</string>
-    <string name="pref_event_screen_endWhenUnlocked">Konec, když je odemčeno</string>
     <string name="event_preferences_screen_start_when_unlocked">Start, když je odemčeno</string>
-    <string name="event_preferences_screen_end_when_unlocked">Konec, když je odemčeno</string>
     <string name="event_type_bluetooth">Bluetooth</string>
     <string name="event_preferences_category_eventBluetoothParameters">Senzor Bluetooth</string>
     <string name="event_preferences_bluetooth_adapter_name">Jméno Bluetooth</string>
@@ -716,7 +714,6 @@
     <string name="event_preference_sensor_bluetooth_summary">Tento senzor je pro start události podle jména Bluetooth. Parametry: Typ připojení (V okolí, Připojeno, atd.), Naskenované typy zařízení (Klasické, Nízkoenergetické, atd.), Jméno Bluetooth.</string>
     <string name="event_preference_sensor_mobile_cells_summary">Tento senzor je pro start události podle připojených mobilních buněk (věží). Parametry: Buňky, Start, když je mimo mobilní buňky.</string>
     <string name="event_preference_sensor_accessories_summary">Tento senzor je pro start události podle připojeného příslušenství (autosada, drátové handsfree, sluchátka, atd.). Parametry: Typ příslušenství.</string>
-    <string name="event_preference_sensor_screen_summary">Tento senzor je pro start události podle zapnutí/vypnutí obrazovky. Parametry: Typ události (vypnula se, zapnula se, atd.), Konec, když je odemčené (událost skončí při odemknutí zařízení).</string>
     <string name="event_preference_sensor_notification_summary">Tento senzor je pro start události podle notifikací z aplikací. Parametry: Aplikace, Konec, pokud odstraněn (konec události na odstranění notifikace), Trvalý běh, Trvání (délka běhu události).</string>
     <string name="event_preference_sensor_application_summary">Tento senzor je pro start události podle aplikace v popředí. Parametry: Aplikace.</string>
     <string name="event_preference_sensor_orientation_summary">Tento senzor je pro start události podle orientace zařízení. Parametry: Obrazovka (Nahoru, Dolů), Strany (Horizontální, strana nahoře), Přiblížení (V blízkosti, Daleko; použitý je senzor přiblížení), ignorovat pro aplikace (v popředí).</string>
@@ -1354,6 +1351,17 @@
     <string name="editor_activity_targetHelps_runStopEvents_title">Povol běh událostí</string>
     <string name="editor_activity_targetHelps_runStopEvents_description">Klikněte sem pro povolení běhu událostí. Bez toho, nakonfigurované události nebudou běžet.</string>
     <string name="samsung_edge_panel_description">Aktivace profilu nebo Restart událostí se Samsung bočním panelem</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_black">Black</string>
+    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>
+    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>
+    <string name="event_preferences_orientation_checkLight">Check light</string>
+    <string name="event_preferences_orientation_light">Light</string>
+    <string name="event_preferences_orientation_light_min">Light - minimal value (0)</string>
+    <string name="event_preferences_orientation_light_max">Light - maximal value (10000)</string>
+    <string name="pref_event_screen_endWhenLocked">End when locked</string>
+    <string name="event_preferences_screen_end_when_locked">End when locked</string>
+    <string name="event_preference_sensor_screen_summary">This sensor will start an event by screen on/off. Parameters: Event type (screen on, screen off), Start when unlocked/End when locked (event starts when device is unlocked/ends when is locked).</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1491,4 +1499,6 @@
     <!--    <string name="important_info_translations">Please help me with translation, thank you:</string>-->
     <!--    <string name="important_info_email_body_translation_language_to">Language to translate:</string>-->
     <!--    <string name="editor_drawer_order_label">Order events by:</string>-->
+    <!--    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>-->
+    <!--    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>-->
 </resources>

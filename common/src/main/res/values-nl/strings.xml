@@ -266,9 +266,7 @@
     <string name="array_event_pref_eventScreenEventType_screenOn">Scherm Aan</string>
     <string name="array_event_pref_eventScreenEventType_screenOff">Scherm uit</string>
     <string name="pref_event_screen_startWhenUnlocked">Starten wanneer ontgrendeld</string>
-    <string name="pref_event_screen_endWhenUnlocked">Einde wanneer ontgrendeld</string>
     <string name="event_preferences_screen_start_when_unlocked">Starten wanneer ontgrendeld</string>
-    <string name="event_preferences_screen_end_when_unlocked">Einde wanneer ontgrendeld</string>
     <string name="event_type_bluetooth">Bluetooth</string>
     <string name="event_preferences_category_eventBluetoothParameters">Bluetooth sensor</string>
     <string name="event_preferences_bluetooth_adapter_name">Bluetooth naam</string>
@@ -716,7 +714,6 @@
     <string name="event_preference_sensor_bluetooth_summary">Deze sensor is voor het starten van een event door Bluetooth-naam. Parameters: Verbindingstype (Dichtbij, Verbonden, enz.), gescand apparaattype (Classic, lage energie [Le], etc), Bluetooth-naam.</string>
     <string name="event_preference_sensor_mobile_cells_summary">Deze sensor is voor het starten van een event door verbonden zendmast cellen. Parameters: Cellen, Start wanneer buiten de cellen.</string>
     <string name="event_preference_sensor_accessories_summary">Deze sensor is voor het starten van een event bij verbinden accessoire (car dock, handsfree, koptelefoon, enz.). Parameters: Accessoire type.</string>
-    <string name="event_preference_sensor_screen_summary">Deze sensor is voor het starten van een event door het scherm aan/uit te zetten. Parameters: Event type (scherm aan, scherm uit, enz.), eindigen wanneer ontgrendeld (event eindigt bij ontgrendelen).</string>
     <string name="event_preference_sensor_notification_summary">Deze sensor is voor event start door programmameldingen. Parameters: Programma\'s, Einde als verwijderd (einde event als melding wordt verwijderd), Voortdurend ingeschakeld, Duur (event-inschakelduur).</string>
     <string name="event_preference_sensor_application_summary">Deze sensor is voor event start door programma op de voorgrond. Parameters: Programma.</string>
     <string name="event_preference_sensor_orientation_summary">Deze sensor is voor event start door oriëntatie van apparaat. Parameters: Scherm (Boven, onder), Zijden (Horizontaal, zijkant boven), Afstand (Nabij, veraf; gebruikt de nabijheidssensor), Negeer voor programma\'s (in de voorgrond).</string>
@@ -1354,6 +1351,17 @@
     <string name="editor_activity_targetHelps_runStopEvents_title">Events uitvoeren inschakelen</string>
     <string name="editor_activity_targetHelps_runStopEvents_description">Klik hier om uitvoeren events te activeren. Als je dit niet doet worden geconfigureerde events niet uitgevoerd.</string>
     <string name="samsung_edge_panel_description">Profiel activeren of herstarten events met Samsung Edge paneel</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_black">Black</string>
+    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>
+    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>
+    <string name="event_preferences_orientation_checkLight">Check light</string>
+    <string name="event_preferences_orientation_light">Light</string>
+    <string name="event_preferences_orientation_light_min">Light - minimal value (0)</string>
+    <string name="event_preferences_orientation_light_max">Light - maximal value (10000)</string>
+    <string name="pref_event_screen_endWhenLocked">End when locked</string>
+    <string name="event_preferences_screen_end_when_locked">End when locked</string>
+    <string name="event_preference_sensor_screen_summary">This sensor will start an event by screen on/off. Parameters: Event type (screen on, screen off), Start when unlocked/End when locked (event starts when device is unlocked/ends when is locked).</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1491,4 +1499,6 @@
     <!--    <string name="important_info_translations">Please help me with translation, thank you:</string>-->
     <!--    <string name="important_info_email_body_translation_language_to">Language to translate:</string>-->
     <!--    <string name="editor_drawer_order_label">Order events by:</string>-->
+    <!--    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>-->
+    <!--    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>-->
 </resources>
