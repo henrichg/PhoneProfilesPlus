@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
@@ -52,6 +53,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         PPApplication.logE("PhoneProfilesPrefsActivity.onCreate", "savedInstanceState="+savedInstanceState);
 
         setContentView(R.layout.activity_preferences);
+        setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
 
         Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
         setSupportActionBar(toolbar);

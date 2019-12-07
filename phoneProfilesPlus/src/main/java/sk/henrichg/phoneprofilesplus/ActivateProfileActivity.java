@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -210,6 +211,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
         //long nanoTimeStart = PPApplication.startMeasuringRunTime();
 
         setContentView(R.layout.activity_activate_profile);
+        setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
+
 
         //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 

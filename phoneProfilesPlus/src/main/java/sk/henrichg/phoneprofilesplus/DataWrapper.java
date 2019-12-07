@@ -2849,6 +2849,8 @@ public class DataWrapper {
 
         if (event._eventPreferencesScreen._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+                PPApplication.logE("[Screen] DataWrapper.doHandleEvents", "xxx");
+
                 //boolean isScreenOn;
                 //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                 boolean keyguardShowing = false;
@@ -2857,6 +2859,7 @@ public class DataWrapper {
                     KeyguardManager kgMgr = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
                     keyguardShowing = kgMgr.isKeyguardLocked();
                 }
+                PPApplication.logE("[Screen] DataWrapper.doHandleEvents", "keyguardShowing="+keyguardShowing);
 
                 if (event._eventPreferencesScreen._eventType == EventPreferencesScreen.ETYPE_SCREENON) {
                     if (event._eventPreferencesScreen._whenUnlocked)
@@ -2871,6 +2874,8 @@ public class DataWrapper {
                     else
                         screenPassed = !PPApplication.isScreenOn;
                 }
+
+                PPApplication.logE("[Screen] DataWrapper.doHandleEvents", "screenPassed="+screenPassed);
 
                 if (!notAllowedScreen) {
                     if (screenPassed)

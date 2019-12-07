@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -37,6 +38,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_about_application);
+        setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
 
         /*
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {

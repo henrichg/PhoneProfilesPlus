@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.database.Cursor;
@@ -29,6 +30,7 @@ public class ActivityLogActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_activity_log);
+        setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
 
         /*
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {

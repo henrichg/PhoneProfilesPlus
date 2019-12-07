@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -203,6 +204,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             setContentView(R.layout.activity_editor_list_onepane_19);
         else*/
             setContentView(R.layout.activity_editor_list_onepane);
+        setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
 
         //drawerLayout = findViewById(R.id.editor_list_drawer_layout);
 

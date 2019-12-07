@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -79,6 +80,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_application_editor_intent);
+        setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
 
         /*
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {

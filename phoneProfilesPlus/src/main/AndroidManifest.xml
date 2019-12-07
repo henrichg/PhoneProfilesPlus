@@ -175,9 +175,9 @@
             </intent-filter>
         </activity>
 <!--        android:taskAffinity="sk.henrichg.phoneprofilesplus.popup"-->
+<!--        android:excludeFromRecents="true"-->
         <activity
             android:name=".ActivateProfileActivity"
-            android:excludeFromRecents="true"
             android:label="@string/title_activity_activator"
             android:theme="@style/PopupTheme_withToolbar_dayNight">
         </activity>

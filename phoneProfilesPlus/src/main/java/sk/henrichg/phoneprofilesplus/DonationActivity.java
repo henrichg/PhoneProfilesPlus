@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -24,6 +25,7 @@ public class DonationActivity extends AppCompatActivity implements BillingProvid
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_donation);
+        setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
 
         /*
         if Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
