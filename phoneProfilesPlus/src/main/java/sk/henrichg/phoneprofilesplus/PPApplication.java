@@ -138,9 +138,9 @@ public class PPApplication extends Application {
                                          //+"|##### ScreenOnOffBroadcastReceiver.onReceive"
                                          //+"|@@@ ScreenOnOffBroadcastReceiver.onReceive"
                                          //+"|[XXX] ScreenOnOffBroadcastReceiver.onReceive"
-                                         +"|ScreenOnOffBroadcastReceiver.onReceive"
-                                         +"|[Screen] DataWrapper.doHandleEvents"
-                                         +"|LockDeviceAfterScreenOffBroadcastReceiver"
+                                         //+"|ScreenOnOffBroadcastReceiver.onReceive"
+                                         //+"|[Screen] DataWrapper.doHandleEvents"
+                                         //+"|LockDeviceAfterScreenOffBroadcastReceiver"
 
                                          //+"|PPApplication.startHandlerThread"
 
