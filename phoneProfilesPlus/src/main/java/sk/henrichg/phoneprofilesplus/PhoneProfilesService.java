@@ -323,9 +323,14 @@ public class PhoneProfilesService extends Service
         LocalBroadcastManager.getInstance(appContext).registerReceiver(dashClockBroadcastReceiver,
                 new IntentFilter(PPApplication.PACKAGE_NAME + ".DashClockBroadcastReceiver"));
 
+        PPApplication.logE("PhoneProfilesService.onCreate", "before show profile notification");
+
         //if (Build.VERSION.SDK_INT >= 26)
         // show empty notification to avoid ANR in api level 26
         showProfileNotification(true, true);
+
+        PPApplication.logE("PhoneProfilesService.onCreate", "after show profile notification");
+
 
         PPApplication.setNotificationProfileName(appContext, "");
         PPApplication.setWidgetProfileName(appContext, 1, "");
@@ -388,7 +393,7 @@ public class PhoneProfilesService extends Service
 
         //PPApplication.initPhoneProfilesServiceMessenger(appContext);
 
-        keyguardManager = (KeyguardManager)appContext.getSystemService(Activity.KEYGUARD_SERVICE);
+        keyguardManager = (KeyguardManager)appContext.getSystemService(Context.KEYGUARD_SERVICE);
         if (keyguardManager != null)
             //noinspection deprecation
             keyguardLock = keyguardManager.newKeyguardLock("phoneProfilesPlus.keyguardLock");
@@ -3564,7 +3569,7 @@ public class PhoneProfilesService extends Service
                     if (appContext == null)
                         return;
 
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
@@ -3891,7 +3896,7 @@ public class PhoneProfilesService extends Service
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
@@ -3927,7 +3932,7 @@ public class PhoneProfilesService extends Service
 
                             boolean secureKeyguard;
                             if (keyguardManager == null)
-                                keyguardManager = (KeyguardManager) appContext.getSystemService(Activity.KEYGUARD_SERVICE);
+                                keyguardManager = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
                             if (keyguardManager != null) {
                                 secureKeyguard = keyguardManager.isKeyguardSecure();
                                 PPApplication.logE("$$$ PhoneProfilesService.doCommand", "secureKeyguard=" + secureKeyguard);
@@ -4423,8 +4428,10 @@ public class PhoneProfilesService extends Service
                 iconBitmap = null;
                 preferencesIndicator = null;
             }
-            PPApplication.logE("PhoneProfilesService._showProfileNotification", "isIconResourceID="+isIconResourceID);
-            PPApplication.logE("PhoneProfilesService._showProfileNotification", "iconBitmap="+iconBitmap);
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("PhoneProfilesService._showProfileNotification", "isIconResourceID=" + isIconResourceID);
+                PPApplication.logE("PhoneProfilesService._showProfileNotification", "iconBitmap=" + iconBitmap);
+            }
 
             PPApplication.setNotificationProfileName(appContext, pName);
 
@@ -4730,22 +4737,34 @@ public class PhoneProfilesService extends Service
                         break;
                 }
 
-                PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationBackgroundColor="+notificationBackgroundColor);
-                PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationTextColor="+notificationTextColor);
-                PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "notificationTextColor="+notificationTextColor);
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationBackgroundColor=" + notificationBackgroundColor);
+                    PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationTextColor=" + notificationTextColor);
+                    PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "notificationTextColor=" + notificationTextColor);
+                }
                 if (notificationTextColor.equals("1")/* && (!notificationDarkBackground)*/) {
-                    contentViewLarge.setTextColor(R.id.notification_activated_profile_name,
-                            ContextCompat.getColorStateList(appContext, R.color.widget_text_color_black));
+                    if (PPApplication.romIsEMUI && (Build.VERSION.SDK_INT < 24))
+                        contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
+                    else
+                        contentViewLarge.setTextColor(R.id.notification_activated_profile_name,
+                                ContextCompat.getColorStateList(appContext, R.color.widget_text_color_black));
                     if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
                         contentView.setTextColor(R.id.notification_activated_profile_name,
                                 ContextCompat.getColorStateList(appContext, R.color.widget_text_color_black));
                 } else if (notificationTextColor.equals("2")/* || notificationDarkBackground*/) {
-                    contentViewLarge.setTextColor(R.id.notification_activated_profile_name,
-                            ContextCompat.getColorStateList(appContext, R.color.widget_text_color_white));
+                    PPApplication.logE("PhoneProfilesService._showProfileNotification", "before set text color");
+                    if (PPApplication.romIsEMUI && (Build.VERSION.SDK_INT < 24))
+                        contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
+                    else
+                        contentViewLarge.setTextColor(R.id.notification_activated_profile_name,
+                                ContextCompat.getColorStateList(appContext, R.color.widget_text_color_white));
+                    PPApplication.logE("PhoneProfilesService._showProfileNotification", "after set text color");
                     if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
                         contentView.setTextColor(R.id.notification_activated_profile_name,
                                 ContextCompat.getColorStateList(appContext, R.color.widget_text_color_white));
                 }
+
+                PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "after set text color");
             //}
 
             if (android.os.Build.VERSION.SDK_INT >= 24) {
@@ -4772,13 +4791,22 @@ public class PhoneProfilesService extends Service
                 //else
                 //    notificationBuilder.setCustomContentView(contentViewLarge);
             }
-            else
+            else {
+                PPApplication.logE("PhoneProfilesService._showProfileNotification", "setContent");
                 notificationBuilder.setContent(contentViewLarge);
+            }
+
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("PhoneProfilesService._showProfileNotification", "useDecorator=" + useDecorator);
+                PPApplication.logE("PhoneProfilesService._showProfileNotification", "ApplicationPreferences.notificationShowButtonExit(appContext)=" + ApplicationPreferences.notificationShowButtonExit(appContext));
+            }
 
             if (/*(Build.VERSION.SDK_INT >= 24) &&*/
                     (ApplicationPreferences.notificationShowButtonExit(appContext)) &&
                     useDecorator) {
                 // add action button to stop application
+
+                PPApplication.logE("PhoneProfilesService._showProfileNotification", "add action button");
 
                 // intent to LauncherActivity, for click on notification
                 Intent exitAppIntent = new Intent(appContext, ExitApplicationActivity.class);
@@ -4794,11 +4822,14 @@ public class PhoneProfilesService extends Service
                 notificationBuilder.addAction(actionBuilder.build());
             }
 
+            PPApplication.logE("PhoneProfilesService._showProfileNotification", "setOnlyAlertOnce=true");
             notificationBuilder.setOnlyAlertOnce(true);
 
             Notification phoneProfilesNotification;
             try {
+                PPApplication.logE("PhoneProfilesService._showProfileNotification", "before build");
                 phoneProfilesNotification = notificationBuilder.build();
+                PPApplication.logE("PhoneProfilesService._showProfileNotification", "after build");
             } catch (Exception e) {
                 phoneProfilesNotification = null;
                 PPApplication.logE("PhoneProfilesService._showProfileNotification", "build crash="+ Log.getStackTraceString(e));
@@ -4824,6 +4855,7 @@ public class PhoneProfilesService extends Service
                 }*/
 
                 //if ((Build.VERSION.SDK_INT >= 26) || notificationStatusBarPermanent) {
+                    PPApplication.logE("PhoneProfilesService._showProfileNotification", "startForeground()");
                     startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
                     //runningInForeground = true;
                 /*}
@@ -4860,7 +4892,7 @@ public class PhoneProfilesService extends Service
         }
         */
 
-        //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","runningInForeground="+runningInForeground);
+        PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","forServiceStart="+forServiceStart);
 
             //if (!runningInForeground) {
             if (forServiceStart) {
@@ -4873,6 +4905,8 @@ public class PhoneProfilesService extends Service
 
         //if (BuildConfig.DEBUG)
         //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
+
+        PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","before run handler");
 
         PPApplication.startHandlerThreadProfileNotification();
         final Handler handler = new Handler(PPApplication.handlerThreadProfileNotification.getLooper());
@@ -5110,7 +5144,7 @@ public class PhoneProfilesService extends Service
 
     private Sensor getAccelerometerSensor(Context context) {
         if (mOrientationSensorManager == null)
-            mOrientationSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+            mOrientationSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         if (mOrientationSensorManager != null)
             return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         else
@@ -5119,7 +5153,7 @@ public class PhoneProfilesService extends Service
 
     private Sensor getMagneticFieldSensor(Context context) {
         if (mOrientationSensorManager == null)
-            mOrientationSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+            mOrientationSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         if (mOrientationSensorManager != null)
             return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         else
@@ -5128,7 +5162,7 @@ public class PhoneProfilesService extends Service
 
     private Sensor getProximitySensor(Context context) {
         if (mOrientationSensorManager == null)
-            mOrientationSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+            mOrientationSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         if (mOrientationSensorManager != null)
             return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         else
@@ -5146,7 +5180,7 @@ public class PhoneProfilesService extends Service
 
     private Sensor getLightSensor(Context context) {
         if (mOrientationSensorManager == null)
-            mOrientationSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+            mOrientationSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         if (mOrientationSensorManager != null)
             return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         else
@@ -5156,7 +5190,7 @@ public class PhoneProfilesService extends Service
     @SuppressLint("NewApi")
     private void startListeningOrientationSensors() {
         if (mOrientationSensorManager == null)
-            mOrientationSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+            mOrientationSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
         if (!mStartedOrientationSensors) {
 
@@ -5249,7 +5283,7 @@ public class PhoneProfilesService extends Service
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
+                    PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
@@ -6126,7 +6160,7 @@ public class PhoneProfilesService extends Service
 
     public void playNotificationSound (final String notificationSound, final boolean notificationVibrate) {
         if (notificationVibrate) {
-            Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+            Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             if ((vibrator != null) && vibrator.hasVibrator()) {
                 PPApplication.logE("PhoneProfilesService.playNotificationSound", "vibration");
                 try {

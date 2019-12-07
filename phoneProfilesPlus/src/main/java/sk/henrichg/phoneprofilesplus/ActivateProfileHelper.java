@@ -480,7 +480,7 @@ class ActivateProfileHelper {
             @Override
             public void run() {
 
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
@@ -1156,7 +1156,7 @@ class ActivateProfileHelper {
             @Override
             public void run() {
 
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
@@ -1264,7 +1264,7 @@ class ActivateProfileHelper {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
@@ -1317,7 +1317,7 @@ class ActivateProfileHelper {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
@@ -1368,7 +1368,7 @@ class ActivateProfileHelper {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
@@ -1720,7 +1720,7 @@ class ActivateProfileHelper {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
@@ -1824,7 +1824,7 @@ class ActivateProfileHelper {
                         // not start applications after boot
                         return;
 
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
@@ -2023,7 +2023,7 @@ class ActivateProfileHelper {
             @Override
             public void run() {
 
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
@@ -3876,7 +3876,7 @@ class ActivateProfileHelper {
                 public void run() {
                     if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
-                        PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {
@@ -3957,7 +3957,7 @@ class ActivateProfileHelper {
 
                 PPApplication.logE("ActivateProfileHelper.lockDevice", "profile._lockDevice="+profile._lockDevice);
 
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {

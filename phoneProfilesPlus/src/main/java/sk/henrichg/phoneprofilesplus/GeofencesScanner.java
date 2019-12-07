@@ -157,7 +157,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 handler6.post(new Runnable() {
                     @Override
                     public void run() {
-                        PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
+                        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {
@@ -487,7 +487,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                                     PowerManager.WakeLock wakeLock = null;
                                     try {
                                         if (powerManager != null) {

@@ -857,7 +857,7 @@ public class DataWrapper {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
+                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
@@ -1023,7 +1023,7 @@ public class DataWrapper {
             @Override
             public void run() {
 
-                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
+                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
@@ -1099,7 +1099,7 @@ public class DataWrapper {
             @Override
             public void run() {
 
-                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
+                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
@@ -1153,7 +1153,7 @@ public class DataWrapper {
             @Override
             public void run() {
 
-                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
+                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
@@ -1707,7 +1707,7 @@ public class DataWrapper {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
+                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
@@ -3398,7 +3398,7 @@ public class DataWrapper {
                                 boolean lDisplayPassed = false;
                                 boolean lSidePassed = false;
 
-                                SensorManager sensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+                                SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
                                 boolean hasAccelerometer = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null);
                                 boolean hasMagneticField = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null);
                                 boolean hasProximity = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY) != null);
@@ -4172,7 +4172,7 @@ public class DataWrapper {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
+                    PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {

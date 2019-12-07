@@ -41,7 +41,7 @@ public class CalendarProviderChangedBroadcastReceiver extends BroadcastReceiver 
                     @Override
                     public void run() {
 
-                        PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {

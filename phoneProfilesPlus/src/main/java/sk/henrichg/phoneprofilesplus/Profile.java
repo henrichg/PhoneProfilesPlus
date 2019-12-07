@@ -3684,7 +3684,7 @@ public class Profile {
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_KEYGUARD))
         {
             boolean secureKeyguard;
-            KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Activity.KEYGUARD_SERVICE);
+            KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
             if (keyguardManager != null) {
                 secureKeyguard = keyguardManager.isKeyguardSecure();
                 if (secureKeyguard) {
@@ -3760,7 +3760,7 @@ public class Profile {
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING))
         {
-            SensorManager sensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+            SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
             boolean hasAccelerometer = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null);
             //boolean hasMagneticField = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null);
             boolean hasProximity = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY) != null);

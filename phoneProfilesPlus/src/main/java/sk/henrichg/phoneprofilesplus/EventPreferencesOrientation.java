@@ -189,7 +189,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 }
                 descr = descr + context.getString(R.string.event_preferences_orientation_display) + ": <b>" + selectedSides + "</b>";
 
-                SensorManager sensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+                SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
 
                 if ((sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null)) {
                     selectedSides = context.getString(R.string.applications_multiselect_summary_text_not_selected);
@@ -548,7 +548,7 @@ class EventPreferencesOrientation extends EventPreferences {
 
         boolean runnable = super.isRunnable(context);
 
-        SensorManager sensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+        SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         boolean magneticSensor = false;
         boolean lightSensor = false;
         if (sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null)
@@ -573,7 +573,7 @@ class EventPreferencesOrientation extends EventPreferences {
 
     @Override
     public void checkPreferences(PreferenceManager prefMng, Context context) {
-        SensorManager sensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+        SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         boolean hasAccelerometer = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null);
         boolean hasMagneticField = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null);
         boolean hasProximity = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY) != null);

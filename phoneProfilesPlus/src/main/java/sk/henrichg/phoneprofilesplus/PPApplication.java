@@ -884,7 +884,7 @@ public class PPApplication extends Application {
         Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(getApplicationContext(), actualVersionCode));
         //}
 
-        PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
+        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         if (pm != null)
             isScreenOn = pm.isInteractive();
         else
@@ -2606,7 +2606,7 @@ public class PPApplication extends Application {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
+                        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {

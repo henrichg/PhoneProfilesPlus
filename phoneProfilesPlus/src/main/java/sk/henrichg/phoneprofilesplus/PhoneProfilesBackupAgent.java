@@ -57,7 +57,7 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
             public void run() {
                 PPApplication.logE("PhoneProfilesBackupAgent.onRestoreFinished", "in handler");
 
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {

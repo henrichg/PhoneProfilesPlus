@@ -335,7 +335,7 @@ class PhoneStateScanner extends PhoneStateListener {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
@@ -378,7 +378,7 @@ class PhoneStateScanner extends PhoneStateListener {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
@@ -499,7 +499,7 @@ class PhoneStateScanner extends PhoneStateListener {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
@@ -563,7 +563,7 @@ class PhoneStateScanner extends PhoneStateListener {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
@@ -639,7 +639,7 @@ class PhoneStateScanner extends PhoneStateListener {
         else
             PPApplication.logE("PhoneStateScanner.doAutoRegistration", "cellIdToRegister=NOT valid");
 
-        PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
+        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         PowerManager.WakeLock wakeLock = null;
         try {
             if (powerManager != null) {
@@ -867,7 +867,7 @@ class PhoneStateScanner extends PhoneStateListener {
 
                     boolean isShown = false;
                     if (Build.VERSION.SDK_INT >= 23) {
-                        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+                        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                         StatusBarNotification[] notifications = mNotificationManager.getActiveNotifications();
                         for (StatusBarNotification notification : notifications) {
                             if (notification.getId() == _registeredCell + NEW_MOBILE_CELLS_NOTIFICATION_ID) {
@@ -927,7 +927,7 @@ class PhoneStateScanner extends PhoneStateListener {
                         mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
                         mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 
-                        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+                        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                         if (mNotificationManager != null)
                             mNotificationManager.notify(_registeredCell + NEW_MOBILE_CELLS_NOTIFICATION_ID, mBuilder.build());
                     }

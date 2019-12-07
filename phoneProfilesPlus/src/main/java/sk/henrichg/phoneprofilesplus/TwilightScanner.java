@@ -43,8 +43,7 @@ class TwilightScanner {
         this.context = context;
 
         mAlarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        mLocationManager = (LocationManager) context.getSystemService(
-                Context.LOCATION_SERVICE);
+        mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         mLocationHandler = new LocationHandler();
     }
 
@@ -88,7 +87,7 @@ class TwilightScanner {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                             PowerManager.WakeLock wakeLock = null;
                             try {
                                 if (powerManager != null) {

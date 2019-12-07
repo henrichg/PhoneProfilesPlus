@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.Activity;
+import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -35,7 +37,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
@@ -43,21 +45,31 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    PPApplication.logE("PPApplication.startHandlerThread", "START run - from=ScreenOnOffBroadcastReceiver.onReceive");
-
-                    PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "start of handler post");
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=ScreenOnOffBroadcastReceiver.onReceive");
+                        PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "start of handler post");
+                    }
 
                     if ((action != null) && action.equals(Intent.ACTION_SCREEN_ON)) {
-                        PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen on");
-                        PPApplication.logE("[XXX] ScreenOnOffBroadcastReceiver.onReceive", "restartAllScanners");
+                        if (PPApplication.logEnabled()) {
+                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen on");
+                            PPApplication.logE("[XXX] ScreenOnOffBroadcastReceiver.onReceive", "restartAllScanners");
+                        }
                         PPApplication.isScreenOn = true;
 
                         PPApplication.restartAllScanners(appContext, true);
                     } else if ((action != null) && action.equals(Intent.ACTION_SCREEN_OFF)) {
-                        PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen off");
-                        PPApplication.logE("[XXX] ScreenOnOffBroadcastReceiver.onReceive", "restartAllScanners");
+                        if (PPApplication.logEnabled()) {
+                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen off");
+                            PPApplication.logE("[XXX] ScreenOnOffBroadcastReceiver.onReceive", "restartAllScanners");
+                        }
                         PPApplication.isScreenOn = false;
 
+                        KeyguardManager keyguardManager = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
+                        if (keyguardManager != null) {
+                            boolean secureKeyguard = keyguardManager.isKeyguardSecure();
+                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "secureKeyguard=" + secureKeyguard);
+                        }
                         int time = Settings.Secure.getInt(appContext.getContentResolver(), "lock_screen_lock_after_timeout", 5000);
                         PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "time="+time);
 
@@ -135,9 +147,10 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                         }
                     }
 
-                    PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "end of handler post");
-
-                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=ScreenOnOffBroadcastReceiver.onReceive");
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "end of handler post");
+                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=ScreenOnOffBroadcastReceiver.onReceive");
+                    }
                 }
                 finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
