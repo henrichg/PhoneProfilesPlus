@@ -69,9 +69,14 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                         if (keyguardManager != null) {
                             boolean secureKeyguard = keyguardManager.isKeyguardSecure();
                             PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "secureKeyguard=" + secureKeyguard);
+
+                            if (secureKeyguard) {
+                                int lockDeviceTime = Settings.Secure.getInt(appContext.getContentResolver(), "lock_screen_lock_after_timeout", 5000);
+                                PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "lockDeviceTime="+lockDeviceTime);
+                                if (lockDeviceTime > 0)
+                                    LockDeviceAfterScreenOffBroadcastReceiver.setAlarm(lockDeviceTime, appContext);
+                            }
                         }
-                        int time = Settings.Secure.getInt(appContext.getContentResolver(), "lock_screen_lock_after_timeout", 5000);
-                        PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "time="+time);
 
                         PPApplication.restartAllScanners(appContext, true);
 

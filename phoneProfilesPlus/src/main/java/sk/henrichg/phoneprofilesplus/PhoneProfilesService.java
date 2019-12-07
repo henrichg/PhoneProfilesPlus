@@ -142,6 +142,7 @@ public class PhoneProfilesService extends Service
     private AlarmClockBroadcastReceiver alarmClockBroadcastReceiver = null;
     private AlarmClockEventEndBroadcastReceiver alarmClockEventEndBroadcastReceiver = null;
     private NotificationEventEndBroadcastReceiver notificationEventEndBroadcastReceiver = null;
+    private LockDeviceAfterScreenOffBroadcastReceiver lockDeviceAfterScreenOffBroadcastReceiver = null;
 
     private PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
     private DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
@@ -740,7 +741,7 @@ public class PhoneProfilesService extends Service
                 }
             }
             else
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered pppExtenderBroadcastReceiver");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered postDelayedBroadcastReceiver");
             if (pppExtenderBroadcastReceiver != null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER pppExtenderBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER pppExtenderBroadcastReceiver");
@@ -789,6 +790,18 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered ignoreBatteryOptimizationDisableReceiver");
+            if (lockDeviceAfterScreenOffBroadcastReceiver != null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER lockDeviceAfterScreenOffBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER lockDeviceAfterScreenOffBroadcastReceiver");
+                try {
+                    appContext.unregisterReceiver(lockDeviceAfterScreenOffBroadcastReceiver);
+                    lockDeviceAfterScreenOffBroadcastReceiver = null;
+                } catch (Exception e) {
+                    lockDeviceAfterScreenOffBroadcastReceiver = null;
+                }
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered lockDeviceAfterScreenOffBroadcastReceiver");
         }
         if (register) {
             if (permissionsNotificationDeletedReceiver == null) {
@@ -1078,6 +1091,18 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered ignoreBatteryOptimizationDisableReceiver");
+
+            if (lockDeviceAfterScreenOffBroadcastReceiver == null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER lockDeviceAfterScreenOffBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER lockDeviceAfterScreenOffBroadcastReceiver");
+
+                lockDeviceAfterScreenOffBroadcastReceiver = new LockDeviceAfterScreenOffBroadcastReceiver();
+                IntentFilter intentFilter14 = new IntentFilter();
+                intentFilter14.addAction(LockDeviceAfterScreenOffBroadcastReceiver.ACTION_LOCK_DEVICE_AFTER_SCREEN_OFF);
+                appContext.registerReceiver(lockDeviceAfterScreenOffBroadcastReceiver, intentFilter14);
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered lockDeviceAfterScreenOffBroadcastReceiver");
         }
     }
 

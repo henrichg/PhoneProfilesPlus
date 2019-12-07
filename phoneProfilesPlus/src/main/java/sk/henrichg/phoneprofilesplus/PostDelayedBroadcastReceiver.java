@@ -32,7 +32,7 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
         PPApplication.logE("##### PostDelayedBroadcastReceiver.onReceive", "xxx");
 
         CallsCounter.logCounter(context, "PostDelayedBroadcastReceiver.onReceive", "PostDelayedBroadcastReceiver_onReceive");
-        CallsCounter.logCounterNoInc(context, "PostDelayedBroadcastReceiver.onReceive->action="+intent.getAction(), "BatteryBroadcastReceiver_onReceive");
+        CallsCounter.logCounterNoInc(context, "PostDelayedBroadcastReceiver.onReceive->action="+intent.getAction(), "PostDelayedBroadcastReceiver_onReceive");
 
         final Context appContext = context.getApplicationContext();
 
