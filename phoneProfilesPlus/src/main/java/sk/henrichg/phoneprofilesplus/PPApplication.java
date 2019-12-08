@@ -759,27 +759,28 @@ public class PPApplication extends Application {
 
         instance = this;
 
-        PPApplication.logE("##### PPApplication.onCreate", "deviceIsXiaomi="+deviceIsXiaomi);
-        PPApplication.logE("##### PPApplication.onCreate", "deviceIsHuawei="+deviceIsHuawei);
-        PPApplication.logE("##### PPApplication.onCreate", "deviceIsSamsung="+deviceIsSamsung);
-        PPApplication.logE("##### PPApplication.onCreate", "deviceIsLG="+deviceIsLG);
-        PPApplication.logE("##### PPApplication.onCreate", "deviceIsOnePlus="+deviceIsOnePlus);
+        if (logEnabled()) {
+            PPApplication.logE("##### PPApplication.onCreate", "deviceIsXiaomi=" + deviceIsXiaomi);
+            PPApplication.logE("##### PPApplication.onCreate", "deviceIsHuawei=" + deviceIsHuawei);
+            PPApplication.logE("##### PPApplication.onCreate", "deviceIsSamsung=" + deviceIsSamsung);
+            PPApplication.logE("##### PPApplication.onCreate", "deviceIsLG=" + deviceIsLG);
+            PPApplication.logE("##### PPApplication.onCreate", "deviceIsOnePlus=" + deviceIsOnePlus);
 
-        PPApplication.logE("##### PPApplication.onCreate", "romIsMIUI="+romIsMIUI);
-        PPApplication.logE("##### PPApplication.onCreate", "romIsEMUI="+romIsEMUI);
-        PPApplication.logE("##### PPApplication.onCreate", "-- romIsEMUI="+isEMUIROM());
-        PPApplication.logE("##### PPApplication.onCreate", "-- romIsMIUI="+isMIUIROM());
+            PPApplication.logE("##### PPApplication.onCreate", "romIsMIUI=" + romIsMIUI);
+            PPApplication.logE("##### PPApplication.onCreate", "romIsEMUI=" + romIsEMUI);
+            PPApplication.logE("##### PPApplication.onCreate", "-- romIsEMUI=" + isEMUIROM());
+            PPApplication.logE("##### PPApplication.onCreate", "-- romIsMIUI=" + isMIUIROM());
 
-        PPApplication.logE("##### PPApplication.onCreate", "manufacturer="+Build.MANUFACTURER);
-        PPApplication.logE("##### PPApplication.onCreate", "model="+Build.MODEL);
-        PPApplication.logE("##### PPApplication.onCreate", "display="+Build.DISPLAY);
-        PPApplication.logE("##### PPApplication.onCreate", "brand="+Build.BRAND);
-        PPApplication.logE("##### PPApplication.onCreate", "fingerprint="+Build.FINGERPRINT);
-        PPApplication.logE("##### PPApplication.onCreate", "type="+Build.TYPE);
+            PPApplication.logE("##### PPApplication.onCreate", "manufacturer=" + Build.MANUFACTURER);
+            PPApplication.logE("##### PPApplication.onCreate", "model=" + Build.MODEL);
+            PPApplication.logE("##### PPApplication.onCreate", "display=" + Build.DISPLAY);
+            PPApplication.logE("##### PPApplication.onCreate", "brand=" + Build.BRAND);
+            PPApplication.logE("##### PPApplication.onCreate", "fingerprint=" + Build.FINGERPRINT);
+            PPApplication.logE("##### PPApplication.onCreate", "type=" + Build.TYPE);
 
-        PPApplication.logE("##### PPApplication.onCreate", "modVersion="+getReadableModVersion());
-        PPApplication.logE("##### PPApplication.onCreate", "osVersion="+System.getProperty("os.version"));
-
+            PPApplication.logE("##### PPApplication.onCreate", "modVersion=" + getReadableModVersion());
+            PPApplication.logE("##### PPApplication.onCreate", "osVersion=" + System.getProperty("os.version"));
+        }
 
         if (checkAppReplacingState())
             return;
