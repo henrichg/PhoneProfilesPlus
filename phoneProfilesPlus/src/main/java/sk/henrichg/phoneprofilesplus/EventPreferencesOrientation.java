@@ -217,6 +217,10 @@ class EventPreferencesOrientation extends EventPreferences {
                     descr = descr + " • " + context.getString(R.string.event_preferences_orientation_light) + ": <b>" +
                                     this._lightMin  + "-" + this._lightMax + "</b>";
                 }
+                else {
+                    descr = descr + " • " + context.getString(R.string.event_preferences_orientation_light) + ": <b>" +
+                            context.getString(R.string.event_preferences_orientation_light_not_enabled) + "</b>";
+                }
 
                 String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                 int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());

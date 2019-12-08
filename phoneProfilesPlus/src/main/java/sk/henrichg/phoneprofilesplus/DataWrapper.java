@@ -3422,10 +3422,12 @@ public class DataWrapper {
 
                                 boolean enabledAll = (hasAccelerometer) && (hasMagneticField);
 
+                                boolean configuredDisplay = false;
                                 if (hasAccelerometer) {
                                     if (!event._eventPreferencesOrientation._display.isEmpty()) {
                                         String[] splits = event._eventPreferencesOrientation._display.split("\\|");
                                         if (splits.length > 0) {
+                                            configuredDisplay = true;
                                             //lDisplayPassed = false;
                                             for (String split : splits) {
                                                 try {
@@ -3441,10 +3443,12 @@ public class DataWrapper {
                                     }
                                 }
 
+                                boolean configuredSide = false;
                                 if (enabledAll) {
                                     if (!event._eventPreferencesOrientation._sides.isEmpty()) {
                                         String[] splits = event._eventPreferencesOrientation._sides.split("\\|");
                                         if (splits.length > 0) {
+                                            configuredSide = true;
                                             //lSidePassed = false;
                                             for (String split : splits) {
                                                 try {
@@ -3468,15 +3472,19 @@ public class DataWrapper {
                                 }
 
                                 boolean lDistancePassed = false;
+                                boolean configuredDistance = false;
                                 if (hasProximity) {
                                     if (event._eventPreferencesOrientation._distance != 0) {
+                                        configuredDistance = true;
                                         lDistancePassed = event._eventPreferencesOrientation._distance == PhoneProfilesService.getInstance().mDeviceDistance;
                                     }
                                 }
 
                                 boolean lLightPassed = false;
+                                boolean configuredLight = false;
                                 if (hasLight) {
                                     if (event._eventPreferencesOrientation._checkLight) {
+                                        configuredLight = true;
                                         int light = PhoneProfilesService.getInstance().mLight;
                                         int min = Integer.parseInt(event._eventPreferencesOrientation._lightMin);
                                         int max = Integer.parseInt(event._eventPreferencesOrientation._lightMax);
@@ -3490,13 +3498,36 @@ public class DataWrapper {
                                 }
 
                                 if (PPApplication.logEnabled()) {
+                                    PPApplication.logE("[OriSensor] DataWrapper.doHandleEvents", "configuredDisplay=" + configuredDisplay);
+                                    PPApplication.logE("[OriSensor] DataWrapper.doHandleEvents", "configuredSide=" + configuredSide);
+                                    PPApplication.logE("[OriSensor] DataWrapper.doHandleEvents", "configuredDistance=" + configuredDistance);
+                                    PPApplication.logE("[OriSensor] DataWrapper.doHandleEvents", "configuredLight=" + configuredLight);
+
+                                    PPApplication.logE("[OriSensor] DataWrapper.doHandleEvents", "hasAccelerometer=" + hasAccelerometer);
+                                    PPApplication.logE("[OriSensor] DataWrapper.doHandleEvents", "hasMagneticField=" + hasMagneticField);
+                                    PPApplication.logE("[OriSensor] DataWrapper.doHandleEvents", "hasProximity=" + hasProximity);
+                                    PPApplication.logE("[OriSensor] DataWrapper.doHandleEvents", "hasLight=" + hasLight);
+
                                     PPApplication.logE("[OriSensor] DataWrapper.doHandleEvents", "lDisplayPassed=" + lDisplayPassed);
                                     PPApplication.logE("[OriSensor] DataWrapper.doHandleEvents", "lSidePassed=" + lSidePassed);
                                     PPApplication.logE("[OriSensor] DataWrapper.doHandleEvents", "lDistancePassed=" + lDistancePassed);
                                     PPApplication.logE("[OriSensor] DataWrapper.doHandleEvents", "lLightPassed=" + lLightPassed);
                                 }
 
-                                orientationPassed = lDisplayPassed || lSidePassed || lDistancePassed || lLightPassed;
+                                if (configuredDisplay || configuredSide || configuredDistance || configuredLight) {
+                                    orientationPassed = true;
+                                    if (configuredDisplay)
+                                        orientationPassed = orientationPassed && lDisplayPassed;
+                                    if (configuredSide)
+                                        orientationPassed = orientationPassed && lSidePassed;
+                                    if (configuredDistance)
+                                        orientationPassed = orientationPassed && lDistancePassed;
+                                    if (configuredLight)
+                                        orientationPassed = orientationPassed && lLightPassed;
+                                }
+                                else
+                                    notAllowedOrientation = true;
+                                //orientationPassed = lDisplayPassed || lSidePassed || lDistancePassed || lLightPassed;
                             }
                         } else {
                             notAllowedOrientation = true;

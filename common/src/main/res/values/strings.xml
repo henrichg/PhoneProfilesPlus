@@ -1508,6 +1508,7 @@
     <string name="event_preferences_orientation_light">Light</string>
     <string name="event_preferences_orientation_light_min">Light - minimal value (0)</string>
     <string name="event_preferences_orientation_light_max">Light - maximal value (10000)</string>
+    <string name="event_preferences_orientation_light_not_enabled">not enabled</string>
 
     <string name="pref_event_screen_startWhenLocked">Start when locked</string>
     <string name="event_preferences_screen_start_when_locked">Start when locked</string>

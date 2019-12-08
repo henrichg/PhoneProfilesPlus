@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.KeyguardManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -5170,8 +5169,17 @@ public class PhoneProfilesService extends Service
     private Sensor getAccelerometerSensor(Context context) {
         if (mOrientationSensorManager == null)
             mOrientationSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        if (mOrientationSensorManager != null)
+        if (mOrientationSensorManager != null) {
+            //Sensor sensor = mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            //if (sensor != null) {
+            //    if (sensor.getPower() > 0)
+            //        return sensor;
+            //    else
+            //        return null;
+            //}
+            //return null;
             return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        }
         else
             return null;
     }
@@ -5179,8 +5187,17 @@ public class PhoneProfilesService extends Service
     private Sensor getMagneticFieldSensor(Context context) {
         if (mOrientationSensorManager == null)
             mOrientationSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        if (mOrientationSensorManager != null)
+        if (mOrientationSensorManager != null) {
+            //Sensor sensor = mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+            //if (sensor != null) {
+            //    if (sensor.getPower() > 0)
+            //        return sensor;
+            //    else
+            //        return null;
+            //}
+            //return null;
             return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        }
         else
             return null;
     }
@@ -5188,8 +5205,17 @@ public class PhoneProfilesService extends Service
     private Sensor getProximitySensor(Context context) {
         if (mOrientationSensorManager == null)
             mOrientationSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        if (mOrientationSensorManager != null)
+        if (mOrientationSensorManager != null) {
+            //Sensor sensor = mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+            //if (sensor != null) {
+            //    if (sensor.getPower() > 0)
+            //        return sensor;
+            //    else
+            //        return null;
+            //}
+            //return null;
             return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        }
         else
             return null;
     }
@@ -5206,8 +5232,17 @@ public class PhoneProfilesService extends Service
     private Sensor getLightSensor(Context context) {
         if (mOrientationSensorManager == null)
             mOrientationSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        if (mOrientationSensorManager != null)
+        if (mOrientationSensorManager != null) {
+            //Sensor sensor = mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+            //if (sensor != null) {
+            //    if (sensor.getPower() > 0)
+            //        return sensor;
+            //    else
+            //        return null;
+            //}
+            //return null;
             return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        }
         else
             return null;
     }
@@ -5397,7 +5432,7 @@ public class PhoneProfilesService extends Service
                     tmpDeviceDistance = DEVICE_ORIENTATION_DEVICE_IS_FAR;
 
                 if (tmpDeviceDistance != mDeviceDistance) {
-                    PPApplication.logE("PhoneProfilesService.onSensorChanged", "proximity - send broadcast");
+                    PPApplication.logE("PhoneProfilesService.onSensorChanged", "mProximity="+mProximity);
                     mDeviceDistance = tmpDeviceDistance;
                     runEventsHandlerForOrientationChange(appContext);
                 }
