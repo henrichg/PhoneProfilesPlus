@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -35,6 +36,14 @@ public class ExitApplicationActivity extends AppCompatActivity {
         dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 PPApplication.logE("ExitApplicationActivity.onStart", "exit");
+
+                IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(getApplicationContext(), true);
+                SharedPreferences settings = ApplicationPreferences.getSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
+                editor.apply();
+
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
                 PPApplication.logE("PPApplication.exitApp", "from ExitApplicationActivity.onStart shutdown=false");
                 PPApplication.exitApp(true, getApplicationContext(), dataWrapper, ExitApplicationActivity.this, false/*, true, true*/);
