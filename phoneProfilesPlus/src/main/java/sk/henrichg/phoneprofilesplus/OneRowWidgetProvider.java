@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.RemoteViews;
 
 import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 public class OneRowWidgetProvider extends AppWidgetProvider {
 
@@ -158,11 +159,11 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         blueBorder = redBorder;
                         if (applicationWidgetOneRowRoundedCorners) {
                             PPApplication.logE("OneRowWidgetProvider.onUpdate", "rounded corners");
-                            remoteViews.setViewVisibility(R.id.widget_one_row_background, View.VISIBLE);
+                            remoteViews.setViewVisibility(R.id.widget_one_row_background, VISIBLE);
                             remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, View.INVISIBLE);
                             if (applicationWidgetOneRowShowBorder) {
                                 PPApplication.logE("OneRowWidgetProvider.onUpdate", "VISIBLE border");
-                                remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, View.VISIBLE);
+                                remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, VISIBLE);
                             }
                             else {
                                 PPApplication.logE("OneRowWidgetProvider.onUpdate", "GONE border");
@@ -182,7 +183,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, View.INVISIBLE);
                             if (applicationWidgetOneRowShowBorder) {
                                 PPApplication.logE("OneRowWidgetProvider.onUpdate", "VISIBLE border");
-                                remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, View.VISIBLE);
+                                remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, VISIBLE);
                             }
                             else {
                                 PPApplication.logE("OneRowWidgetProvider.onUpdate", "GONE border");
@@ -226,8 +227,10 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             if (profile._preferencesIndicator == null)
                                 //remoteViews.setImageViewResource(R.id.widget_one_row_header_profile_pref_indicator, R.drawable.ic_empty);
                                 remoteViews.setViewVisibility(R.id.widget_one_row_header_profile_pref_indicator, GONE);
-                            else
+                            else {
                                 remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_pref_indicator, profile._preferencesIndicator);
+                                remoteViews.setViewVisibility(R.id.widget_one_row_header_profile_pref_indicator, VISIBLE);
+                            }
                         }
 
                         if (Event.getGlobalEventsRunning(context) && PPApplication.getApplicationStarted(context, true)) {
@@ -260,7 +263,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         PPApplication.logE("OneRowWidgetProvider.onUpdate", "events running="+Event.getGlobalEventsRunning(context));
                         PPApplication.logE("OneRowWidgetProvider.onUpdate", "application started="+PPApplication.getApplicationStarted(context, true));
                         if (Event.getGlobalEventsRunning(context) && PPApplication.getApplicationStarted(context, true)) {
-                            remoteViews.setViewVisibility(R.id.widget_one_row_header_restart_events, View.VISIBLE);
+                            remoteViews.setViewVisibility(R.id.widget_one_row_header_restart_events, VISIBLE);
                             Intent intentRE = new Intent(context, RestartEventsFromNotificationActivity.class);
                             PendingIntent pIntentRE = PendingIntent.getActivity(context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
                             remoteViews.setOnClickPendingIntent(R.id.widget_one_row_header_restart_events, pIntentRE);

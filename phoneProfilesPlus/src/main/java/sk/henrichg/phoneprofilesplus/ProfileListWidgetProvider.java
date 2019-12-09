@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.RemoteViews;
 
 import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 public class ProfileListWidgetProvider extends AppWidgetProvider {
 
@@ -245,8 +246,10 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             widget.setTextViewText(R.id.widget_profile_list_header_profile_name, profileName);
             if (applicationWidgetListPrefIndicator)
             {
-                if (profile._preferencesIndicator != null)
+                if (profile._preferencesIndicator != null) {
                     widget.setImageViewBitmap(R.id.widget_profile_list_header_profile_pref_indicator, profile._preferencesIndicator);
+                    widget.setViewVisibility(R.id.widget_profile_list_header_profile_pref_indicator, VISIBLE);
+                }
                 else
                     widget.setViewVisibility(R.id.widget_profile_list_header_profile_pref_indicator, GONE);
                     //widget.setImageViewResource(R.id.widget_profile_list_header_profile_pref_indicator, R.drawable.ic_empty);
