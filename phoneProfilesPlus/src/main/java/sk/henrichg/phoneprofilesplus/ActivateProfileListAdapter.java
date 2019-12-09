@@ -132,7 +132,8 @@ class ActivateProfileListAdapter extends BaseAdapter
         if (refreshIcons) {
             for (Profile profile : activityDataWrapper.profileList) {
                 activityDataWrapper.refreshProfileIcon(profile, true,
-                        ApplicationPreferences.applicationActivatorPrefIndicator(activityDataWrapper.context));
+                        //ApplicationPreferences.applicationActivatorPrefIndicator(activityDataWrapper.context));
+                        ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
             }
         }
         notifyDataSetChanged();
@@ -160,7 +161,8 @@ class ActivateProfileListAdapter extends BaseAdapter
             LayoutInflater inflater = LayoutInflater.from(fragment.getActivity());
             if (!applicationActivatorGridLayout)
             {
-                boolean applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator(fragment.getActivity());
+                //boolean applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator(fragment.getActivity());
+                boolean applicationActivatorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(fragment.getActivity());
                 if (applicationActivatorPrefIndicator)
                     vi = inflater.inflate(R.layout.activate_profile_list_item, parent, false);
                 else
@@ -238,7 +240,8 @@ class ActivateProfileListAdapter extends BaseAdapter
             }
 
             if (holder.profileIndicator != null) {
-                if ((ApplicationPreferences.applicationActivatorPrefIndicator(fragment.getActivity())) && (!applicationActivatorGridLayout)) {
+                //if ((ApplicationPreferences.applicationActivatorPrefIndicator(fragment.getActivity())) && (!applicationActivatorGridLayout)) {
+                if ((ApplicationPreferences.applicationEditorPrefIndicator(fragment.getActivity())) && (!applicationActivatorGridLayout)) {
                     if (profile._preferencesIndicator != null) {
                         //profilePrefIndicatorImageView.setImageBitmap(null);
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());

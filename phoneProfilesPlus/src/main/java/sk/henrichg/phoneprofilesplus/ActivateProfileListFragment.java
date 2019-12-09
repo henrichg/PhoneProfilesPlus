@@ -76,7 +76,8 @@ public class ActivateProfileListFragment extends Fragment {
         View rootView;
 
         boolean applicationActivatorGridLayout = ApplicationPreferences.applicationActivatorGridLayout(activityDataWrapper.context);
-        boolean applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator(activityDataWrapper.context);
+        //boolean applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator(activityDataWrapper.context);
+        boolean applicationActivatorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context);
         //boolean applicationActivatorHeader = ApplicationPreferences.applicationActivatorHeader(activityDataWrapper.context);
 
         if (!applicationActivatorGridLayout)
@@ -267,7 +268,8 @@ public class ActivateProfileListFragment extends Fragment {
             //noinspection ConstantConditions
             this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false);
 
-            applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator(dataWrapper.context);
+            //applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator(dataWrapper.context);
+            applicationActivatorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(dataWrapper.context);
             //applicationActivatorHeader = ApplicationPreferences.applicationActivatorHeader(this.dataWrapper.context);
             applicationActivatorGridLayout = ApplicationPreferences.applicationActivatorGridLayout(this.dataWrapper.context);
         }
@@ -401,7 +403,8 @@ public class ActivateProfileListFragment extends Fragment {
     {
         //long nanoTimeStart = PPApplication.startMeasuringRunTime();
 
-        Profile profile = activityDataWrapper.getActivatedProfile(true, ApplicationPreferences.applicationActivatorPrefIndicator(activityDataWrapper.context));
+        //Profile profile = activityDataWrapper.getActivatedProfile(true, ApplicationPreferences.applicationActivatorPrefIndicator(activityDataWrapper.context));
+        Profile profile = activityDataWrapper.getActivatedProfile(true, ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
 
         updateHeader(profile);
         setProfileSelection(profile, false);
@@ -472,7 +475,8 @@ public class ActivateProfileListFragment extends Fragment {
             }
         }
 
-        if (ApplicationPreferences.applicationActivatorPrefIndicator(activityDataWrapper.context))
+        //if (ApplicationPreferences.applicationActivatorPrefIndicator(activityDataWrapper.context))
+        if (ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context))
         {
             //noinspection ConstantConditions
             ImageView profilePrefIndicatorImageView = getActivity().findViewById(R.id.act_prof_activated_profile_pref_indicator);
@@ -593,8 +597,10 @@ public class ActivateProfileListFragment extends Fragment {
             profileFromAdapter._checked = false;
 
         if (profileFromDB != null) {
+            //Profile profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
+            //        ApplicationPreferences.applicationActivatorPrefIndicator(activityDataWrapper.context), false);
             Profile profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
-                    ApplicationPreferences.applicationActivatorPrefIndicator(activityDataWrapper.context), false);
+                    ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context), false);
             if (profileFromDataWrapper != null)
                 profileFromDataWrapper._checked = true;
             updateHeader(profileFromDataWrapper);

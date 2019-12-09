@@ -226,6 +226,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     restartService = true;
                                 }*/
 
+                                /*
                                 if (actualVersionCode <= 4400) {
                                     ApplicationPreferences.getSharedPreferences(appContext);
                                     if (!ApplicationPreferences.preferences.contains(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR)) {
@@ -244,6 +245,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                         restartService = true;
                                     }
                                 }
+                                */
 
                                 if (actualVersionCode <= 4550) {
                                     ApplicationPreferences.getSharedPreferences(appContext);

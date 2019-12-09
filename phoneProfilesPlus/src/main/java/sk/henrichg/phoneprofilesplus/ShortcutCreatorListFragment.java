@@ -128,7 +128,8 @@ public class ShortcutCreatorListFragment extends Fragment {
             //noinspection ConstantConditions
             this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false);
 
-            applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator(this.dataWrapper.context);
+            //applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator(this.dataWrapper.context);
+            applicationActivatorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(this.dataWrapper.context);
         }
 
         @Override

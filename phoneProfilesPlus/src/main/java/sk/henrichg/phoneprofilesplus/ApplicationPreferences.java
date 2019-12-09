@@ -29,7 +29,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_LONG_PRESS_ACTIVATION = "applicationLongClickActivation";
     static final String PREF_APPLICATION_LANGUAGE = "applicationLanguage";
     static final String PREF_APPLICATION_THEME = "applicationTheme";
-    static final String PREF_APPLICATION_ACTIVATOR_PREF_INDICATOR = "applicationActivatorPrefIndicator";
+    //static final String PREF_APPLICATION_ACTIVATOR_PREF_INDICATOR = "applicationActivatorPrefIndicator";
     static final String PREF_APPLICATION_EDITOR_PREF_INDICATOR = "applicationEditorPrefIndicator";
     //static final String PREF_APPLICATION_ACTIVATOR_HEADER = "applicationActivatorHeader";
     //static final String PREF_APPLICATION_EDITOR_HEADER = "applicationEditorHeader";
@@ -120,7 +120,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_USE_ALARM_CLOCK = "applicationUseAlarmClock";
     static final String PREF_NOTIFICATION_SHOW_BUTTON_EXIT = "notificationShowButtonExit";
     static final String PREF_APPLICATION_BACKGROUND_PROFILE_USAGE = "applicationBackgroundProfileUsage";
-    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR = "applicationWidgetOneRowPrefIndicator";
+    //static final String PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR = "applicationWidgetOneRowPrefIndicator";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND = "applicationWidgetOneRowBackground";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B = "applicationWidgetOneRowLightnessB";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T = "applicationWidgetOneRowLightnessT";
@@ -220,9 +220,11 @@ class ApplicationPreferences {
         return applicationTheme;
     }
 
+    /*
     static boolean applicationActivatorPrefIndicator(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_ACTIVATOR_PREF_INDICATOR, true);
     }
+    */
 
     static public boolean applicationEditorPrefIndicator(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EDITOR_PREF_INDICATOR, true);
@@ -635,9 +637,11 @@ class ApplicationPreferences {
         return getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_SHOW_BUTTON_EXIT, false);
     }
 
+    /*
     static boolean applicationWidgetOneRowPrefIndicator(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR, true);
     }
+    */
 
     static String applicationWidgetOneRowBackground(Context context) {
         return getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, "25");

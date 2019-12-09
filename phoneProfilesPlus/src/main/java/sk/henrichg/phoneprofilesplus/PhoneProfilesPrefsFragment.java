@@ -1625,7 +1625,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_APPLICATION_LANGUAGE);
         setSummary(ApplicationPreferences.PREF_APPLICATION_THEME);
         //setSummary(ApplicationPreferences.PREF_APPLICATION_NIGHT_MODE_OFF_THEME);
-        setSummary(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_PREF_INDICATOR);
+        //setSummary(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_PREF_INDICATOR);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR);
         //setSummary(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_HEADER);
         //setSummary(ApplicationPreferences.PREF_APPLICATION_EDITOR_HEADER);
@@ -1702,7 +1702,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             setSummary(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS);
             setSummary(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_VERTICAL_POSITION);
         }
-        setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR);
+        //setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T);

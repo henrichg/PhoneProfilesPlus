@@ -54,7 +54,8 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
         
         View vi = convertView;
 
-        boolean applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator(fragment.getActivity());
+        //boolean applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator(fragment.getActivity());
+        boolean applicationActivatorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(fragment.getActivity());
 
         if (convertView == null)
         {

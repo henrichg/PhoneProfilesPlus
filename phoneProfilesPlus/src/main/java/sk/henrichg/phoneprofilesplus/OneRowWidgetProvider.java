@@ -33,7 +33,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 String applicationWidgetOneRowIconLightness = ApplicationPreferences.applicationWidgetOneRowIconLightness(context);
                 String applicationWidgetOneRowIconColor = ApplicationPreferences.applicationWidgetOneRowIconColor(context);
                 boolean applicationWidgetOneRowCustomIconLightness = ApplicationPreferences.applicationWidgetOneRowCustomIconLightness(context);
-                boolean applicationWidgetOneRowPrefIndicator = ApplicationPreferences.applicationWidgetOneRowPrefIndicator(context);
+                //boolean applicationWidgetOneRowPrefIndicator = ApplicationPreferences.applicationWidgetOneRowPrefIndicator(context);
+                boolean applicationWidgetOneRowPrefIndicator = ApplicationPreferences.applicationWidgetListPrefIndicator(context);
                 boolean applicationWidgetOneRowBackgroundType = ApplicationPreferences.applicationWidgetOneRowBackgroundType(context);
                 String applicationWidgetOneRowBackgroundColor = ApplicationPreferences.applicationWidgetOneRowBackgroundColor(context);
                 String applicationWidgetOneRowLightnessB = ApplicationPreferences.applicationWidgetOneRowLightnessB(context);
@@ -56,8 +57,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         applicationWidgetOneRowIconColor.equals("1"), monochromeValue,
                         applicationWidgetOneRowCustomIconLightness);
 
-                Profile profile = dataWrapper.getActivatedProfile(true,
-                        applicationWidgetOneRowPrefIndicator);
+                Profile profile = dataWrapper.getActivatedProfile(true, applicationWidgetOneRowPrefIndicator);
 
                 try {
                     if (!refreshWidget) {

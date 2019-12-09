@@ -1514,6 +1514,10 @@
     <string name="event_preferences_screen_start_when_locked">Start when locked</string>
     <string name="event_preference_sensor_screen_summary">This sensor will start an event by screen on/off. Parameters: Event type (screen on, screen off), Start when unlocked/locked (event starts when device is unlocked/locked).</string>
 
+    <string name="phone_profiles_pref_applicationPrefIndicator_summary">Display profile preference indicators in Activator, Editor, shortcut</string>
+    <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">Display profile preference indicators in notification</string>
+    <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Display profile preference indicators in widgets</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>

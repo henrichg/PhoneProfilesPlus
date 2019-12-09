@@ -5,8 +5,9 @@
     app:title="@string/phone_profiles_pref_category_widget_one_row">
 
     <SwitchPreferenceCompat
-        app:key="applicationWidgetOneRowPrefIndicator"
+        app:key="applicationWidgetListPrefIndicator"
         app:title="@string/phone_profiles_pref_applicationPrefIndicator"
+        app:summary="@string/phone_profiles_pref_applicationPrefIndicatorForWidget_summary"
         app:defaultValue="true"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference

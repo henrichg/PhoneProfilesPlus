@@ -70,6 +70,7 @@
         <SwitchPreferenceCompat
             app:key="notificationPrefIndicator"
             app:title="@string/phone_profiles_pref_notificationPrefIndicator"
+            app:summary="@string/phone_profiles_pref_applicationPrefIndicatorForNotification_summary"
             app:defaultValue="true"
             app:layout="@layout/mp_preference_material_widget" />
         <SwitchPreferenceCompat

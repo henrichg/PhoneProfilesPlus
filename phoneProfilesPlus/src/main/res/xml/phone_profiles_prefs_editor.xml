@@ -7,6 +7,7 @@
     <SwitchPreferenceCompat
         app:key="applicationEditorPrefIndicator"
         app:title="@string/phone_profiles_pref_applicationPrefIndicator"
+        app:summary="@string/phone_profiles_pref_applicationPrefIndicator_summary"
         app:defaultValue="true"
         app:layout="@layout/mp_preference_material_widget" />
     <!--
