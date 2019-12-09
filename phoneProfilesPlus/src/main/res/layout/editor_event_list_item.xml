@@ -101,7 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="11dp"
-            android:layout_marginTop="-5dp"
+            android:layout_marginTop="-8dp"
             android:layout_below="@id/event_list_item_preferences_description"
             android:layout_toEndOf="@id/event_list_item_status" >
 
@@ -154,7 +154,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="11dp"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="3dp"
             android:layout_below="@id/event_list_item_profile_start_icon_root"
             android:layout_toEndOf="@id/event_list_item_status" >
 
