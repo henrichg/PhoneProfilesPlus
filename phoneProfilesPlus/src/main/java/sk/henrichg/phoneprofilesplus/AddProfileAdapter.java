@@ -90,6 +90,8 @@ class AddProfileAdapter extends BaseAdapter {
                 holder.profileLabel.setText(context.getString(R.string.new_empty_profile));
             else
                 holder.profileLabel.setText(profile._name);
+
+
             holder.profileIcon.setVisibility(View.VISIBLE);
             if (profile.getIsIconResourceID())
             {
@@ -107,11 +109,16 @@ class AddProfileAdapter extends BaseAdapter {
                 holder.profileIcon.setImageBitmap(profile._iconBitmap);
             if (applicationEditorPrefIndicator) {
                 if (holder.profileIndicator != null) {
-                    holder.profileIndicator.setVisibility(View.VISIBLE);
-                    if (profile._preferencesIndicator != null)
-                        holder.profileIndicator.setImageBitmap(profile._preferencesIndicator);
+                    if (position == 0)
+                        holder.profileIndicator.setVisibility(View.GONE);
                     else
-                        holder.profileIndicator.setImageResource(R.drawable.ic_empty);
+                    if (profile._preferencesIndicator != null) {
+                        holder.profileIndicator.setImageBitmap(profile._preferencesIndicator);
+                        holder.profileIndicator.setVisibility(View.VISIBLE);
+                    }
+                    else
+                        //holder.profileIndicator.setImageResource(R.drawable.ic_empty);
+                        holder.profileIndicator.setVisibility(View.GONE);
                 }
             }
         }
@@ -122,8 +129,8 @@ class AddProfileAdapter extends BaseAdapter {
             holder.profileIcon.setImageResource(R.drawable.ic_empty);
             if (applicationEditorPrefIndicator) {
                 if (holder.profileIndicator != null) {
-                    holder.profileIndicator.setVisibility(View.VISIBLE);
-                    holder.profileIndicator.setImageResource(R.drawable.ic_empty);
+                    holder.profileIndicator.setVisibility(View.GONE);
+                    //holder.profileIndicator.setImageResource(R.drawable.ic_empty);
                 }
             }
         }

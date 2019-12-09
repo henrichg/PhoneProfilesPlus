@@ -19,7 +19,7 @@
         android:focusable="false" />
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
@@ -37,93 +37,117 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/event_pref_dlg_item_event_name"
+            android:layout_marginTop="5dp"
             android:textSize="11sp"
             android:scrollHorizontally="true"
             tools:ignore="SmallSp"/>
 
-        <ImageView
-            android:id="@+id/event_pref_dlg_item_profile_start_icon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/event_pref_dlg_item_preferences_description"
-            android:contentDescription="@string/editor_event_list_item_profile_start_icon"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
+        <RelativeLayout
+            android:id="@+id/event_pref_dlg_item_profile_start_icon_root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="-5dp"
-            android:src="@drawable/ic_profile_default" />
+            android:layout_below="@id/event_pref_dlg_item_preferences_description" >
 
-        <TextView
-            android:id="@+id/event_pref_dlg_item_profile_start_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/event_pref_dlg_item_profile_start_icon"
-            android:layout_toEndOf="@id/event_pref_dlg_item_profile_start_icon"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:text="@string/profile_preference_profile_not_set"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            android:maxLines="1"/>
+            <ImageView
+                android:id="@+id/event_pref_dlg_item_profile_start_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:contentDescription="@string/editor_event_list_item_profile_start_icon"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_profile_default" />
 
-        <ImageView
-            android:id="@+id/event_pref_dlg_item_profile_start_pref_indicator"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/event_pref_dlg_item_profile_start_icon">
+
+                <TextView
+                    android:id="@+id/event_pref_dlg_item_profile_start_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="@string/profile_preference_profile_not_set"
+                    android:textSize="15sp"
+                    android:ellipsize="end"
+                    android:maxLines="1"/>
+
+                <ImageView
+                    android:id="@+id/event_pref_dlg_item_profile_start_pref_indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:layout_marginTop="2dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/empty_string"
+                    android:scaleType="@integer/profilePrefIndicatorScaleType"
+                    android:src="@drawable/ic_profile_pref_volume_on"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:layout_marginBottom="2dp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:layout_marginTop="2dp"
-            android:layout_below="@id/event_pref_dlg_item_profile_start_name"
-            android:layout_toEndOf="@id/event_pref_dlg_item_profile_start_icon"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/empty_string"
-            android:scaleType="@integer/profilePrefIndicatorScaleType"
-            android:src="@drawable/ic_profile_pref_volume_on"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:layout_marginBottom="2dp" />
-
-        <ImageView
-            android:id="@+id/event_pref_dlg_item_profile_end_icon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/event_pref_dlg_item_profile_start_icon"
-            android:contentDescription="@string/editor_event_list_item_profile_end_icon"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/ic_profile_default" />
-
-        <TextView
-            android:id="@+id/event_pref_dlg_item_profile_end_name"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@id/event_pref_dlg_item_profile_end_icon"
-            android:layout_toEndOf="@id/event_pref_dlg_item_profile_end_icon"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:text="@string/profile_preference_profile_not_set"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            android:maxLines="1"/>
+            android:layout_marginTop="0dp"
+            android:layout_below="@id/event_pref_dlg_item_profile_start_icon_root" >
 
-        <ImageView
-            android:id="@+id/event_pref_dlg_item_profile_end_pref_indicator"
-            android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:layout_marginTop="2dp"
-            android:layout_below="@id/event_pref_dlg_item_profile_end_name"
-            android:layout_toEndOf="@id/event_pref_dlg_item_profile_end_icon"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/empty_string"
-            android:scaleType="@integer/profilePrefIndicatorScaleType"
-            android:src="@drawable/ic_profile_pref_volume_on"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:layout_marginBottom="2dp" />
+            <ImageView
+                android:id="@+id/event_pref_dlg_item_profile_end_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:contentDescription="@string/editor_event_list_item_profile_end_icon"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:src="@drawable/ic_profile_default" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/event_pref_dlg_item_profile_end_icon">
+
+                <TextView
+                    android:id="@+id/event_pref_dlg_item_profile_end_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="@string/profile_preference_profile_not_set"
+                    android:textSize="15sp"
+                    android:ellipsize="end"
+                    android:maxLines="1"/>
+
+                <ImageView
+                    android:id="@+id/event_pref_dlg_item_profile_end_pref_indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:layout_marginTop="2dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/empty_string"
+                    android:scaleType="@integer/profilePrefIndicatorScaleType"
+                    android:src="@drawable/ic_profile_pref_volume_on"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:layout_marginBottom="2dp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

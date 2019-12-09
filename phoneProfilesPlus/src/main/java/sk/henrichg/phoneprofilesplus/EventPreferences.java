@@ -102,8 +102,12 @@ class EventPreferences {
                 return String.format("<font color=\"#%s\">%s</font> ", colorString, sensorTitle);
             }
         }
-        else
+        else {
+            //int labelColor = GlobalGUIRoutines.getThemeTextColor(context);
+            //String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
+            //return String.format("<font color=\"#%s\">%s</font> ", colorString, sensorTitle);
             return sensorTitle;
+        }
     }
 
     @SuppressWarnings("unused")

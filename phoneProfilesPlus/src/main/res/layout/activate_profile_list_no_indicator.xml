@@ -30,7 +30,7 @@
             android:id="@+id/act_prof_activated_profile_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
             android:layout_toEndOf="@id/act_prof_activated_profile_icon"

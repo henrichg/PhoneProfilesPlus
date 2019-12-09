@@ -61,31 +61,35 @@
             android:scaleType="fitCenter"
             android:src="@drawable/ic_profile_default" />
 
-        <TextView
-            android:id="@+id/profile_list_item_profile_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@id/profile_list_item_profile_icon"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:text="@string/profile_name_default"
-            android:textSize="15sp"/>
-
-        <ImageView
-            android:id="@+id/profile_list_profile_pref_indicator"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:layout_marginTop="2dp"
-            android:layout_below="@id/profile_list_item_profile_name"
-            android:layout_toEndOf="@id/profile_list_item_profile_icon"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/empty_string"
-            android:scaleType="@integer/profilePrefIndicatorScaleType"
-            android:src="@drawable/ic_profile_pref_volume_on"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/profile_list_item_profile_icon" >
 
+            <TextView
+                android:id="@+id/profile_list_item_profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:text="@string/profile_name_default"
+                android:textSize="15sp"/>
+
+            <ImageView
+                android:id="@+id/profile_list_profile_pref_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_marginTop="2dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/empty_string"
+                android:scaleType="@integer/profilePrefIndicatorScaleType"
+                android:src="@drawable/ic_profile_pref_volume_on"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp" />
+
+        </LinearLayout>
     </RelativeLayout>
 
 </RelativeLayout>

@@ -55,51 +55,38 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_profile_default" />
 
-            <TextView
-                android:id="@+id/widget_profile_list_header_profile_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_toEndOf="@id/widget_profile_list_header_profile_icon"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:text="@string/profile_name_default"
-                android:textColor="#33b5e5"
-                android:textSize="16sp"
-                android:ellipsize="end"
-                android:maxLines="1"/>
-
-            <!--<TextView
-                android:id="@+id/widget_profile_list_header_profile_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_toEndOf="@id/widget_profile_list_header_profile_icon"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:shadowColor="#ffffffff"
-                android:shadowDx="1"
-                android:shadowDy="1"
-                android:shadowRadius="3"
-                android:text="@string/profile_name_default"
-                android:textColor="#33b5e5"
-                android:textSize="16sp"
-                android:ellipsize="end"
-                android:maxLines="1"/>-->
-
-            <ImageView
-                android:id="@+id/widget_profile_list_header_profile_pref_indicator"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:layout_marginTop="2dp"
-                android:layout_below="@id/widget_profile_list_header_profile_name"
-                android:layout_toEndOf="@id/widget_profile_list_header_profile_icon"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/empty_string"
-                android:scaleType="@integer/profilePrefIndicatorScaleType"
-                android:src="@drawable/ic_empty"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/widget_profile_list_header_profile_icon" >
+
+                <TextView
+                    android:id="@+id/widget_profile_list_header_profile_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:text="@string/profile_name_default"
+                    android:textColor="#33b5e5"
+                    android:textSize="16sp"
+                    android:ellipsize="end"
+                    android:maxLines="1"/>
+
+                <ImageView
+                    android:id="@+id/widget_profile_list_header_profile_pref_indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:layout_marginTop="2dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/empty_string"
+                    android:scaleType="@integer/profilePrefIndicatorScaleType"
+                    android:src="@drawable/ic_empty"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp" />
+
+            </LinearLayout>
 
         </RelativeLayout>
 

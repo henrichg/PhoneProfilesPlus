@@ -1224,59 +1224,6 @@ class Event {
         if (!description.isEmpty())
             description = "<ul>" + description + "</ul>";
 
-
-        /*description = description + _eventPreferencesTime.getPreferencesDescription(true, addPassStatus, context);
-
-        if (_eventPreferencesCalendar._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesCalendar.getPreferencesDescription(true, addPassStatus, context);
-
-        if (_eventPreferencesBattery._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesBattery.getPreferencesDescription(true, addPassStatus, context);
-
-        if (_eventPreferencesCall._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesCall.getPreferencesDescription(true, addPassStatus, context);
-
-        if (_eventPreferencesSMS._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesSMS.getPreferencesDescription(true, addPassStatus, context);
-
-        if (_eventPreferencesRadioSwitch._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesRadioSwitch.getPreferencesDescription(true, addPassStatus, context);
-
-        if (_eventPreferencesLocation._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesLocation.getPreferencesDescription(true, addPassStatus, context);
-
-        if (_eventPreferencesWifi._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesWifi.getPreferencesDescription(true, addPassStatus, context);
-
-        if (_eventPreferencesBluetooth._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesBluetooth.getPreferencesDescription(true, addPassStatus, context);
-
-        if (_eventPreferencesMobileCells._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesMobileCells.getPreferencesDescription(true, addPassStatus, context);
-
-        if (_eventPreferencesPeripherals._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesPeripherals.getPreferencesDescription(true, addPassStatus, context);
-
-        if (_eventPreferencesScreen._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesScreen.getPreferencesDescription(true, addPassStatus, context);
-
-        if (_eventPreferencesNotification._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesNotification.getPreferencesDescription(true, addPassStatus, context);
-
-        if (_eventPreferencesApplication._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesApplication.getPreferencesDescription(true, addPassStatus, context);
-
-        if (_eventPreferencesOrientation._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesOrientation.getPreferencesDescription(true, addPassStatus, context);
-
-        if (_eventPreferencesNFC._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesNFC.getPreferencesDescription(true, addPassStatus, context);
-
-        if (_eventPreferencesAlarmClock._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesAlarmClock.getPreferencesDescription(true, addPassStatus, context);*/
-
-        //description = description.replace(' ', '\u00A0');
-
         return description;
     }
 

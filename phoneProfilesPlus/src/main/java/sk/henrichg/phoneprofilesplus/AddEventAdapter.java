@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -123,21 +125,22 @@ class AddEventAdapter extends BaseAdapter {
 
         final Event event = (Event)getItem(position);
 
-        if (event != null)
-        {
+        if (event != null) {
             String eventName = event._name;
             if (position == 0)
                 eventName = context.getString(R.string.new_empty_event);
-            String eventPriority = "";
-            if (ApplicationPreferences.applicationEventUsePriority(context))
-                eventPriority = "[P:" + (event._priority + Event.EPRIORITY_HIGHEST) + "] ";
-            //else
-            //    eventPriority = "[P:" + "5" + "] ";
+            if (ApplicationPreferences.applicationEventUsePriority(context)) {
+                String eventPriority = "[P:" + (event._priority + Event.EPRIORITY_HIGHEST) + "] ";
 
-            if (event._forceRun)
-                eventName = eventName + "\n" + eventPriority + "[»]";
-            else
-                eventName = eventName + "\n" + eventPriority;
+                if (event._forceRun)
+                    eventName = eventName + "\n" + eventPriority + "[»]";
+                else
+                    eventName = eventName + "\n" + eventPriority;
+            }
+            else {
+                if (event._forceRun)
+                    eventName = eventName + "\n" + "[»]";
+            }
 
             if (!event._startWhenActivatedProfile.isEmpty()) {
                 String[] splits = event._startWhenActivatedProfile.split("\\|");
@@ -157,18 +160,21 @@ class AddEventAdapter extends BaseAdapter {
             else
                 sbt.setSpan(new RelativeSizeSpan(0.8f), event._name.length(), eventName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             holder.eventName.setText(sbt);
-            //holder.eventName.setText(eventName);
 
             if (applicationEditorPrefIndicator)
             {
                 if (holder.eventPreferencesDescription != null) {
-                    if (position == 0)
-                        //holder.eventPreferencesDescription.setVisibility(View.GONE);
-                        holder.eventPreferencesDescription.setText(R.string.empty_string);
+                    if (position == 0) {
+                        holder.eventPreferencesDescription.setVisibility(View.GONE);
+
+                        RelativeLayout.LayoutParams parameter =  (RelativeLayout.LayoutParams) holder.eventName.getLayoutParams();
+                        parameter.setMargins(0, 0, 0, 25); // left, top, right, bottom
+                        holder.eventName.setLayoutParams(parameter);
+                    }
                     else {
                         String eventPrefDescription = event.getPreferencesDescription(vi.getContext(), false);
                         holder.eventPreferencesDescription.setText(GlobalGUIRoutines.fromHtml(eventPrefDescription, true, false, 0, 0));
-                        //holder.eventPreferencesDescription.setVisibility(View.VISIBLE);
+                        holder.eventPreferencesDescription.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -207,10 +213,14 @@ class AddEventAdapter extends BaseAdapter {
                     //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                     //profilePrefIndicatorImageView.setImageBitmap(bitmap);
                     if (holder.profileStartIndicator != null) {
-                        if (profile._preferencesIndicator != null)
+                        if (profile._preferencesIndicator != null) {
                             holder.profileStartIndicator.setImageBitmap(profile._preferencesIndicator);
-                        else
-                            holder.profileStartIndicator.setImageResource(R.drawable.ic_empty);
+                            holder.profileStartIndicator.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            //holder.profileStartIndicator.setImageResource(R.drawable.ic_empty);
+                            holder.profileStartIndicator.setVisibility(View.GONE);
+                        }
                     }
                 }
             }
@@ -230,8 +240,10 @@ class AddEventAdapter extends BaseAdapter {
                     //profilePrefIndicatorImageView.setImageBitmap(null);
                     //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                     //profilePrefIndicatorImageView.setImageBitmap(bitmap);
-                    if (holder.profileStartIndicator != null)
-                        holder.profileStartIndicator.setImageResource(R.drawable.ic_empty);
+                    if (holder.profileStartIndicator != null) {
+                        //holder.profileStartIndicator.setImageResource(R.drawable.ic_empty);
+                        holder.profileStartIndicator.setVisibility(View.GONE);
+                    }
                 }
             }
 
@@ -275,10 +287,14 @@ class AddEventAdapter extends BaseAdapter {
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                         //profilePrefIndicatorImageView.setImageBitmap(bitmap);
                         if (holder.profileEndIndicator != null) {
-                            if (profile._preferencesIndicator != null)
+                            if (profile._preferencesIndicator != null) {
                                 holder.profileEndIndicator.setImageBitmap(profile._preferencesIndicator);
-                            else
-                                holder.profileEndIndicator.setImageResource(R.drawable.ic_empty);
+                                holder.profileEndIndicator.setVisibility(View.VISIBLE);
+                            }
+                            else {
+                                //holder.profileEndIndicator.setImageResource(R.drawable.ic_empty);
+                                holder.profileEndIndicator.setVisibility(View.GONE);
+                            }
                         }
                     }
                 } else {
