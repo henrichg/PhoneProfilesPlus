@@ -168,7 +168,7 @@ class AddEventAdapter extends BaseAdapter {
                         holder.eventPreferencesDescription.setVisibility(View.GONE);
 
                         RelativeLayout.LayoutParams parameter =  (RelativeLayout.LayoutParams) holder.eventName.getLayoutParams();
-                        parameter.setMargins(0, 0, 0, 25); // left, top, right, bottom
+                        parameter.setMargins(0, 0, 0, 35); // left, top, right, bottom
                         holder.eventName.setLayoutParams(parameter);
                     }
                     else {
