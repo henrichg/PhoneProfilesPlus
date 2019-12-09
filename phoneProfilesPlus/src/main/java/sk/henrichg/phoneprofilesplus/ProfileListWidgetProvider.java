@@ -18,6 +18,8 @@ import android.text.SpannableString;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import static android.view.View.GONE;
+
 public class ProfileListWidgetProvider extends AppWidgetProvider {
 
     private DataWrapper dataWrapper;
@@ -246,7 +248,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 if (profile._preferencesIndicator != null)
                     widget.setImageViewBitmap(R.id.widget_profile_list_header_profile_pref_indicator, profile._preferencesIndicator);
                 else
-                    widget.setImageViewResource(R.id.widget_profile_list_header_profile_pref_indicator, R.drawable.ic_empty);
+                    widget.setViewVisibility(R.id.widget_profile_list_header_profile_pref_indicator, GONE);
+                    //widget.setImageViewResource(R.id.widget_profile_list_header_profile_pref_indicator, R.drawable.ic_empty);
             }
             if (largeLayout)
             {

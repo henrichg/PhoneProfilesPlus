@@ -103,10 +103,21 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
                 //profilePrefIndicatorImageView.setImageBitmap(null);
                 //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                 //profilePrefIndicatorImageView.setImageBitmap(bitmap);
-                holder.profileIndicator.setImageBitmap(profile._preferencesIndicator);
+                if (profile._name.equals(activityDataWrapper.context.getString(R.string.menu_restart_events)))
+                    holder.profileIndicator.setVisibility(View.GONE);
+                else {
+                    holder.profileIndicator.setVisibility(View.VISIBLE);
+                    holder.profileIndicator.setImageBitmap(profile._preferencesIndicator);
+                }
             }
-            else
-                holder.profileIndicator.setImageResource(R.drawable.ic_empty);
+            else {
+                if (profile._name.equals(activityDataWrapper.context.getString(R.string.menu_restart_events)))
+                    holder.profileIndicator.setVisibility(View.GONE);
+                else {
+                    holder.profileIndicator.setVisibility(View.VISIBLE);
+                    holder.profileIndicator.setImageResource(R.drawable.ic_empty);
+                }
+            }
         }
         
         return vi;

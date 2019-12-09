@@ -82,8 +82,7 @@ class FastAccessDurationProfileAdapter extends BaseAdapter {
             holder = new FastAccessDurationProfileAdapter.ViewHolder();
             holder.profileIcon = vi.findViewById(R.id.profile_pref_dlg_item_icon);
             holder.profileLabel = vi.findViewById(R.id.profile_pref_dlg_item_label);
-            if (applicationEditorPrefIndicator)
-                holder.profileIndicator = vi.findViewById(R.id.profile_pref_dlg_item_indicator);
+            holder.profileIndicator = vi.findViewById(R.id.profile_pref_dlg_item_indicator);
             holder.radioBtn = vi.findViewById(R.id.profile_pref_dlg_item_radiobtn);
             vi.setTag(holder);
         }
@@ -128,11 +127,13 @@ class FastAccessDurationProfileAdapter extends BaseAdapter {
                 holder.profileIcon.setImageBitmap(profile._iconBitmap);
             if (applicationEditorPrefIndicator) {
                 if (holder.profileIndicator != null) {
-                    holder.profileIndicator.setVisibility(View.VISIBLE);
-                    if (profile._preferencesIndicator != null)
+                    if (profile._preferencesIndicator != null) {
+                        holder.profileIndicator.setVisibility(View.VISIBLE);
                         holder.profileIndicator.setImageBitmap(profile._preferencesIndicator);
+                    }
                     else
-                        holder.profileIndicator.setImageResource(R.drawable.ic_empty);
+                        //holder.profileIndicator.setImageResource(R.drawable.ic_empty);
+                        holder.profileIndicator.setVisibility(View.GONE);
                 }
             }
         }
@@ -144,8 +145,9 @@ class FastAccessDurationProfileAdapter extends BaseAdapter {
                 holder.profileLabel.setText(vi.getResources().getString(R.string.profile_preference_profile_end_no_activate));
                 //holder.profileIcon.setImageResource(R.drawable.ic_empty);
                 holder.profileIcon.setVisibility(View.GONE);
-                if (applicationEditorPrefIndicator)
+                //if (applicationEditorPrefIndicator)
                     //holder.profileIndicator.setImageResource(R.drawable.ic_empty);
+                if (holder.profileIndicator != null)
                     holder.profileIndicator.setVisibility(View.GONE);
             }
             else
@@ -159,6 +161,10 @@ class FastAccessDurationProfileAdapter extends BaseAdapter {
                         holder.profileIndicator.setVisibility(View.VISIBLE);
                         holder.profileIndicator.setImageResource(R.drawable.ic_empty);
                     }
+                }
+                else {
+                    if (holder.profileIndicator != null)
+                        holder.profileIndicator.setVisibility(View.GONE);
                 }
             }
         }

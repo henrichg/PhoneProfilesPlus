@@ -14,6 +14,8 @@ import android.text.SpannableString;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import static android.view.View.GONE;
+
 public class OneRowWidgetProvider extends AppWidgetProvider {
 
     boolean refreshWidget = true;
@@ -222,7 +224,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         remoteViews.setTextViewText(R.id.widget_one_row_header_profile_name, profileName);
                         if (applicationWidgetOneRowPrefIndicator) {
                             if (profile._preferencesIndicator == null)
-                                remoteViews.setImageViewResource(R.id.widget_one_row_header_profile_pref_indicator, R.drawable.ic_empty);
+                                //remoteViews.setImageViewResource(R.id.widget_one_row_header_profile_pref_indicator, R.drawable.ic_empty);
+                                remoteViews.setViewVisibility(R.id.widget_one_row_header_profile_pref_indicator, GONE);
                             else
                                 remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_pref_indicator, profile._preferencesIndicator);
                         }

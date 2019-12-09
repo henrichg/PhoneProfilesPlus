@@ -8,6 +8,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.util.TypedValue;
+import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -174,9 +175,11 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                         row.setImageViewBitmap(R.id.widget_profile_list_profile_pref_indicator, profile._preferencesIndicator);
                     else
                         row.setImageViewResource(R.id.widget_profile_list_profile_pref_indicator, R.drawable.ic_empty);
+                    row.setViewVisibility(R.id.widget_profile_list_profile_pref_indicator, View.VISIBLE);
                 }
                 else
-                    row.setImageViewResource(R.id.widget_profile_list_profile_pref_indicator, R.drawable.ic_empty);
+                    //row.setImageViewResource(R.id.widget_profile_list_profile_pref_indicator, R.drawable.ic_empty);
+                    row.setViewVisibility(R.id.widget_profile_list_profile_pref_indicator, View.GONE);
             }
 
             Intent i = new Intent();

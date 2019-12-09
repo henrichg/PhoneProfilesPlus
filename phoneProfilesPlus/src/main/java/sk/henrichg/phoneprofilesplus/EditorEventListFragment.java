@@ -904,7 +904,8 @@ public class EditorEventListFragment extends Fragment
         if (ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context))
         {
             if (profile == null)
-                profilePrefIndicatorImageView.setImageResource(R.drawable.ic_empty);
+                //profilePrefIndicatorImageView.setImageResource(R.drawable.ic_empty);
+                profilePrefIndicatorImageView.setVisibility(GONE);
             else {
                 if (profile._preferencesIndicator != null)
                     profilePrefIndicatorImageView.setImageBitmap(profile._preferencesIndicator);

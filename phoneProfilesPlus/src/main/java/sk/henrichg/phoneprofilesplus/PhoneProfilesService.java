@@ -4655,10 +4655,13 @@ public class PhoneProfilesService extends Service
             notificationBuilder.setContentText(profileName);
 
             try {
-                if ((preferencesIndicator != null) && (notificationPrefIndicator))
+                if ((preferencesIndicator != null) && (notificationPrefIndicator)) {
                     contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_pref_indicator, preferencesIndicator);
+                    contentViewLarge.setViewVisibility(R.id.notification_activated_profile_pref_indicator, View.VISIBLE);
+                }
                 else
-                    contentViewLarge.setImageViewResource(R.id.notification_activated_profile_pref_indicator, R.drawable.ic_empty);
+                    //contentViewLarge.setImageViewResource(R.id.notification_activated_profile_pref_indicator, R.drawable.ic_empty);
+                    contentViewLarge.setViewVisibility(R.id.notification_activated_profile_pref_indicator, View.GONE);
             } catch (Exception ignored) {}
 
             if (Event.getGlobalEventsRunning(getBaseContext().getApplicationContext()) &&

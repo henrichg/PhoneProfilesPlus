@@ -298,7 +298,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         profileName = layout.findViewById(R.id.fast_access_duration_dlg_profile_name);
         profileIcon = layout.findViewById(R.id.fast_access_duration_dlg_profile_icon);
         profileIndicators = layout.findViewById(R.id.fast_access_duration_dlg_profile_pref_indicator);
-        if (!ApplicationPreferences.applicationActivatorPrefIndicator(mDataWrapper.context))
+        if (!ApplicationPreferences.applicationEditorPrefIndicator(mDataWrapper.context))
             profileIndicators.setVisibility(View.GONE);
         profileView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -381,17 +381,20 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
     {
         PPApplication.logE("FastAccessDurationDialog.updateProfileView", "mProfile="+mProfile);
 
+        boolean showIndicators = ApplicationPreferences.applicationEditorPrefIndicator(mDataWrapper.context);
+
         if (mProfile == null)
         {
             profileName.setText(mActivity.getString(R.string.profile_preference_profile_end_no_activate));
             profileIcon.setImageResource(R.drawable.ic_profile_default);
-            profileIndicators.setImageResource(R.drawable.ic_empty);
+            if (showIndicators)
+                profileIndicators.setImageResource(R.drawable.ic_empty);
+            else
+                profileIndicators.setVisibility(View.GONE);
         }
         else
         {
             if (mAfterDoProfile != Profile.PROFILE_NO_ACTIVATE) {
-
-                boolean showIndicators = ApplicationPreferences.applicationActivatorPrefIndicator(mDataWrapper.context);
 
                 Profile afterDoProfile = mDataWrapper.getProfileById(mAfterDoProfile, true, showIndicators, false);
                 if (afterDoProfile != null) {
@@ -414,6 +417,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                             profileIndicators.setImageResource(R.drawable.ic_empty);
                         else*/
                             {
+                                profileIndicators.setVisibility(View.VISIBLE);
                                 if (afterDoProfile._preferencesIndicator != null)
                                     profileIndicators.setImageBitmap(afterDoProfile._preferencesIndicator);
                                 else
@@ -421,17 +425,25 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                             }
                         }
                     }
+                    else
+                        profileIndicators.setVisibility(View.GONE);
                 }
                 else {
                     profileName.setText(mActivity.getString(R.string.profile_preference_profile_end_no_activate));
                     profileIcon.setImageResource(R.drawable.ic_profile_default);
-                    profileIndicators.setImageResource(R.drawable.ic_empty);
+                    if (showIndicators)
+                        profileIndicators.setImageResource(R.drawable.ic_empty);
+                    else
+                        profileIndicators.setVisibility(View.GONE);
                 }
             }
             else {
                 profileName.setText(mActivity.getString(R.string.profile_preference_profile_end_no_activate));
                 profileIcon.setImageResource(R.drawable.ic_profile_default);
-                profileIndicators.setImageResource(R.drawable.ic_empty);
+                //if (showIndicators)
+                //    profileIndicators.setImageResource(R.drawable.ic_empty);
+                //else
+                    profileIndicators.setVisibility(View.GONE);
             }
         }
 
