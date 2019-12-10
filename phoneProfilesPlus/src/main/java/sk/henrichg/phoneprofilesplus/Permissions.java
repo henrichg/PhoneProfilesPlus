@@ -466,16 +466,16 @@ class Permissions {
                 boolean grantedWriteSettings = Settings.System.canWrite(context);
                 if (grantedWriteSettings)
                     setShowRequestWriteSettingsPermission(context, true);
-                boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
-                if (grantedDrawOverlays)
-                    setShowRequestDrawOverlaysPermission(context, true);
+                //boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
+                //if (grantedDrawOverlays)
+                //    setShowRequestDrawOverlaysPermission(context, true);
                 if (permissions != null) {
                     if (!grantedWriteSettings)
                         permissions.add(new PermissionType(PERMISSION_BRIGHTNESS_PREFERENCE, permission.WRITE_SETTINGS));
-                    if (!grantedDrawOverlays)
-                        permissions.add(new PermissionType(PERMISSION_BRIGHTNESS_PREFERENCE, permission.SYSTEM_ALERT_WINDOW));
+                    //if (!grantedDrawOverlays)
+                    //    permissions.add(new PermissionType(PERMISSION_BRIGHTNESS_PREFERENCE, permission.SYSTEM_ALERT_WINDOW));
                 }
-                return grantedWriteSettings && grantedDrawOverlays;
+                return grantedWriteSettings; //&& grantedDrawOverlays;
             } catch (Exception e) {
                 return false;
             }
@@ -492,16 +492,16 @@ class Permissions {
                     boolean grantedWriteSettings = Settings.System.canWrite(context);
                     if (grantedWriteSettings)
                         setShowRequestWriteSettingsPermission(context, true);
-                    boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
-                    if (grantedDrawOverlays)
-                        setShowRequestDrawOverlaysPermission(context, true);
+                    //boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
+                    //if (grantedDrawOverlays)
+                    //    setShowRequestDrawOverlaysPermission(context, true);
                     if (permissions != null) {
                         if (!grantedWriteSettings)
                             permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_BRIGHTNESS, permission.WRITE_SETTINGS));
-                        if (!grantedDrawOverlays)
-                            permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_BRIGHTNESS, permission.SYSTEM_ALERT_WINDOW));
+                        //if (!grantedDrawOverlays)
+                        //    permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_BRIGHTNESS, permission.SYSTEM_ALERT_WINDOW));
                     }
-                    return grantedWriteSettings && grantedDrawOverlays;
+                    return grantedWriteSettings; //&& grantedDrawOverlays;
                 } else
                     return true;
             } catch (Exception e) {

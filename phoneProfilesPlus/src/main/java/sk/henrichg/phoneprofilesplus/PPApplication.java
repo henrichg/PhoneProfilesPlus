@@ -717,7 +717,7 @@ public class PPApplication extends Application {
     public static Handler restartEventsWithDelayHandler = null;
 
     public static Handler toastHandler;
-    public static Handler brightnessHandler;
+    //public static Handler brightnessHandler;
     public static Handler screenTimeoutHandler;
 
     public static final PhoneProfilesServiceMutex phoneProfilesServiceMutex = new PhoneProfilesServiceMutex();
@@ -920,7 +920,7 @@ public class PPApplication extends Application {
         startHandlerThreadAlwaysOnDisplay();
 
         toastHandler = new Handler(getMainLooper());
-        brightnessHandler = new Handler(getMainLooper());
+        //brightnessHandler = new Handler(getMainLooper());
         screenTimeoutHandler = new Handler(getMainLooper());
 
         /*
@@ -2516,20 +2516,18 @@ public class PPApplication extends Application {
                 if (dataWrapper != null)
                     dataWrapper.addActivityLog(DataWrapper.ALTYPE_APPLICATION_EXIT, null, null, null, 0);
 
-                if (PPApplication.brightnessHandler != null) {
+                /*if (PPApplication.brightnessHandler != null) {
                     PPApplication.brightnessHandler.post(new Runnable() {
                         public void run() {
                             ActivateProfileHelper.removeBrightnessView(context);
-
                         }
                     });
-                }
+                }*/
                 if (PPApplication.screenTimeoutHandler != null) {
                     PPApplication.screenTimeoutHandler.post(new Runnable() {
                         public void run() {
                             ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(context);
-                            ActivateProfileHelper.removeBrightnessView(context);
-
+                            //ActivateProfileHelper.removeBrightnessView(context);
                         }
                     });
                 }

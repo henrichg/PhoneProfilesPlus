@@ -2405,6 +2405,19 @@ class ActivateProfileHelper {
                         }
                     }
 
+                    Intent intent = new Intent(context, BackgroundBrightnessActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //this is important
+
+                    float brightnessValue;
+                    if (profile.getDeviceBrightnessAutomatic() || (!profile.getDeviceBrightnessChangeLevel()))
+                        brightnessValue = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
+                    else
+                        brightnessValue= profile.getDeviceBrightnessManualValue(context) / (float) 255;
+                    intent.putExtra(BackgroundBrightnessActivity.EXTRA_BRIGHTNESS_VALUE, brightnessValue);
+
+                    context.startActivity(intent);
+
+                    /*
                     if (PPApplication.brightnessHandler != null) {
                         PPApplication.brightnessHandler.post(new Runnable() {
                             public void run() {
@@ -2414,6 +2427,7 @@ class ActivateProfileHelper {
                         });
                     }// else
                     //    createBrightnessView(context);
+                    */
                 } catch (Exception ignored) {}
             }
         }
@@ -2793,6 +2807,7 @@ class ActivateProfileHelper {
         }
     }
 
+    /*
     @SuppressLint("RtlHardcoded")
     private static void createBrightnessView(Profile profile, Context context)
     {
@@ -2820,7 +2835,7 @@ class ActivateProfileHelper {
                 WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                         1, 1,
                         type,
-                        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE /*| WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE*/,
+                        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, //| WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                         PixelFormat.TRANSLUCENT
                 );
                 if (profile.getDeviceBrightnessAutomatic() || (!profile.getDeviceBrightnessChangeLevel()))
@@ -2834,26 +2849,24 @@ class ActivateProfileHelper {
                     PhoneProfilesService.getInstance().brightnessView = null;
                 }
 
-                /*
-                final Handler handler = new Handler(appContext.getMainLooper());
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        PPApplication.logE("ActivateProfileHelper.createBrightnessView", "remove brightness view");
-
-                        WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
-                        if (windowManager != null) {
-                            if ((PhoneProfilesService.getInstance() != null) && (PhoneProfilesService.getInstance().brightnessView != null)) {
-                                try {
-                                    windowManager.removeView(PhoneProfilesService.getInstance().brightnessView);
-                                } catch (Exception ignored) {
-                                }
-                                PhoneProfilesService.getInstance().brightnessView = null;
-                            }
-                        }
-                    }
-                }, 5000);
-                */
+//                final Handler handler = new Handler(appContext.getMainLooper());
+//                handler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        PPApplication.logE("ActivateProfileHelper.createBrightnessView", "remove brightness view");
+//
+//                        WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
+//                        if (windowManager != null) {
+//                            if ((PhoneProfilesService.getInstance() != null) && (PhoneProfilesService.getInstance().brightnessView != null)) {
+//                                try {
+//                                    windowManager.removeView(PhoneProfilesService.getInstance().brightnessView);
+//                                } catch (Exception ignored) {
+//                                }
+//                                PhoneProfilesService.getInstance().brightnessView = null;
+//                            }
+//                        }
+//                    }
+//                }, 5000);
                 PostDelayedBroadcastReceiver.setAlarm(
                         PostDelayedBroadcastReceiver.ACTION_REMOVE_BRIGHTNESS_VIEW,5, context);
             }
@@ -2874,6 +2887,7 @@ class ActivateProfileHelper {
             }
         }
     }
+    */
 
     static void updateGUI(Context context, boolean alsoEditor, boolean refresh)
     {
