@@ -1,7 +1,16 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +36,14 @@ public class QuickGuideHelpFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_quick_guide, container, false);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        final Activity activity = getActivity();
+        if (activity == null)
+            return;
 
         TextView textView = view.findViewById(R.id.activity_info_quick_guide_sensors_texts);
         String text = "<ul>";
@@ -50,6 +64,45 @@ public class QuickGuideHelpFragment extends Fragment {
         text = text + "<li>" + getString(R.string.important_info_quick_guide_3) + "</li>";
         text = text + "</ol>";
         textView.setText(GlobalGUIRoutines.fromHtml(text, false, true, 1, 17));
+
+        AboutApplicationActivity.emailMe((TextView) view.findViewById(R.id.activity_info_notification_contact),
+                getString(R.string.important_info_contact),
+                "", getString(R.string.about_application_support_subject),
+                AboutApplicationActivity.getEmailBodyText(/*AboutApplicationActivity.EMAIL_BODY_SUPPORT, */activity),
+                true, activity);
+
+        TextView translationTextView = view.findViewById(R.id.activity_info_translations);
+        String str1 = getString(R.string.about_application_translations);
+        String str2 = str1 + " https://crowdin.com/project/phoneprofilesplus";
+        Spannable spannable = new SpannableString(str2);
+        //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                ds.setColor(ds.linkColor);    // you can use custom color
+                ds.setUnderlineText(false);    // this remove the underline
+            }
+
+            @Override
+            public void onClick(@NonNull View textView) {
+                String url = "https://crowdin.com/project/phoneprofilesplus";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                try {
+                    startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
+                } catch (Exception ignored) {}
+            }
+        };
+        spannable.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+        translationTextView.setText(spannable);
+        translationTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        /*AboutApplicationActivity.emailMe((TextView) view.findViewById(R.id.activity_info_translations),
+                getString(R.string.important_info_translations),
+                getString(R.string.about_application_translations2),
+                getString(R.string.about_application_translations_subject),
+                AboutApplicationActivity.getEmailBodyText(AboutApplicationActivity.EMAIL_BODY_TRANSLATIONS, activity),
+                true, activity);*/
 
         if ((scrollTo != 0) && (savedInstanceState == null)) {
             final ScrollView scrollView = view.findViewById(R.id.fragment_important_info_scroll_view);

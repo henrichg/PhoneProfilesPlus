@@ -16,9 +16,59 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="@string/important_info_how_to_show"
+            android:textSize="@dimen/important_info_text_size"
+            android:id="@+id/activity_info_notification_how_to_show"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="@string/important_info_orange_text"
+            android:textSize="@dimen/important_info_text_size"
+            android:id="@+id/activity_info_notification_orange_text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="@string/important_info_contact"
+            android:textSize="@dimen/important_info_text_size"
+            android:id="@+id/activity_info_notification_contact" />
+
+        <!--
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="@string/important_info_translations"
+            android:textSize="@dimen/important_info_text_size"
+            android:id="@+id/activity_info_translations" />
+        -->
+        <TextView
+            android:id="@+id/activity_info_translations_thanks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_application_help_me_with_translation"
+            android:textSize="@dimen/important_info_text_size"/>
+        <TextView
+            android:id="@+id/activity_info_translations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="@string/about_application_translations"
+            android:textSize="@dimen/important_info_text_size"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/activity_info_quick_guide_text_1"
             android:text="@string/important_info_quick_guide_1"
             android:textSize="@dimen/important_info_text_size"
+            android:textStyle="bold"
+            android:paddingTop="10dp"
             android:paddingBottom="10dp" />
         <TextView
             android:layout_width="wrap_content"
