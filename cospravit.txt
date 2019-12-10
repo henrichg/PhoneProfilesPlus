@@ -569,3 +569,4 @@ Optimalizacia Editora a priprava na ViewPager:
 Totot vypada, ze je to vsetko, ale odporucam pozriet v kode, co je vsetko volane.
 Pozri kedy je to volane (Android verzia) a hladaj to v nastaveniach systemu.
 
+Hladaj: R.string.setting_screen_not_found_alert
