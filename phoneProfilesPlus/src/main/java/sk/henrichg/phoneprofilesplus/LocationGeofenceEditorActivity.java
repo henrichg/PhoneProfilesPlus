@@ -601,12 +601,16 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
                 if (setMapCamera) {
                     if (editedRadius != null) {
-                        float zoom = getCircleZoomValue(mLocation.getLatitude(), mLocation.getLongitude(), geofence._radius,
-                                                        mMap.getMinZoomLevel(), mMap.getMaxZoomLevel());
-                        PPApplication.logE("LocationGeofenceEditorActivity.updateEditedMarker", "zoom="+zoom);
-                        if (zoom > 16)
-                            zoom = 16;
-                        mMap.animateCamera(CameraUpdateFactory.zoomTo(zoom));//, 1000, null);
+                        try {
+                            float zoom = getCircleZoomValue(mLocation.getLatitude(), mLocation.getLongitude(), geofence._radius,
+                                                                mMap.getMinZoomLevel(), mMap.getMaxZoomLevel());
+                            PPApplication.logE("LocationGeofenceEditorActivity.updateEditedMarker", "zoom=" + zoom);
+                            if (zoom > 16)
+                                zoom = 16;
+                            mMap.animateCamera(CameraUpdateFactory.zoomTo(zoom));//, 1000, null);
+                        } catch (Exception e) {
+                            mMap.moveCamera(CameraUpdateFactory.newLatLng(editedGeofence));
+                        }
                     }
                     else {
                         mMap.moveCamera(CameraUpdateFactory.newLatLng(editedGeofence));
