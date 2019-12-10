@@ -570,3 +570,9 @@ Totot vypada, ze je to vsetko, ale odporucam pozriet v kode, co je vsetko volane
 Pozri kedy je to volane (Android verzia) a hladaj to v nastaveniach systemu.
 
 Hladaj: R.string.setting_screen_not_found_alert
+
+--------------------------------------
+
+https://mail.google.com/mail/u/0/#inbox/FMfcgxwGCGzLSzHXNSXxmMFsKjrPZZMT
+Pozri, cele je to v implementation 'com.google.firebase:firebase-analytics:17.2.1'
+Musia to upgradnut, inac ho budem musiet vyhodit.
