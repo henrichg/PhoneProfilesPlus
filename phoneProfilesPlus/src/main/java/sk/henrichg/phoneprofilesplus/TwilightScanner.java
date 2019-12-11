@@ -449,13 +449,39 @@ class TwilightScanner {
                     PPApplication.logE("TwilightScanner.updateTwilightState", "Next update in " + (nextUpdate - now.getTimeInMillis()) + " ms");
 
                 Intent updateIntent = new Intent(ACTION_UPDATE_TWILIGHT_STATE);
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                        context, 0, updateIntent, 0);
-                mAlarmManager.cancel(pendingIntent);
+
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, updateIntent, PendingIntent.FLAG_NO_CREATE);
+                if (pendingIntent != null) {
+                    PPApplication.logE("EventPreferencesSMS.removeAlarm", "alarm found");
+
+                    mAlarmManager.cancel(pendingIntent);
+                    pendingIntent.cancel();
+                }
+
+                pendingIntent = PendingIntent.getBroadcast(context, 0, updateIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                if (/*(android.os.Build.VERSION.SDK_INT >= 21) &&*/
+                        ApplicationPreferences.applicationUseAlarmClock(context)) {
+                    Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                    editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(nextUpdate, infoPendingIntent);
+                    mAlarmManager.setAlarmClock(clockInfo, pendingIntent);
+                }
+                else {
+                    if (android.os.Build.VERSION.SDK_INT >= 23)
+                        mAlarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, nextUpdate, pendingIntent);
+                    else //if (android.os.Build.VERSION.SDK_INT >= 19)
+                        mAlarmManager.setExact(AlarmManager.RTC_WAKEUP, nextUpdate, pendingIntent);
+                    //else
+                    //    mAlarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                }
+                /*
+                pendingIntent = PendingIntent.getBroadcast(context, 0, updateIntent, 0);
                 if (android.os.Build.VERSION.SDK_INT >= 23)
                     mAlarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, nextUpdate, pendingIntent);
                 else
                     mAlarmManager.setExact(AlarmManager.RTC_WAKEUP, nextUpdate, pendingIntent);
+                 */
             }
         }
     }
