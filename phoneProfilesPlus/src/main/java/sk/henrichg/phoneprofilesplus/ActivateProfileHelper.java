@@ -2849,26 +2849,25 @@ class ActivateProfileHelper {
                     PhoneProfilesService.getInstance().brightnessView = null;
                 }
 
-//                final Handler handler = new Handler(appContext.getMainLooper());
-//                handler.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        PPApplication.logE("ActivateProfileHelper.createBrightnessView", "remove brightness view");
-//
-//                        WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
-//                        if (windowManager != null) {
-//                            if ((PhoneProfilesService.getInstance() != null) && (PhoneProfilesService.getInstance().brightnessView != null)) {
-//                                try {
-//                                    windowManager.removeView(PhoneProfilesService.getInstance().brightnessView);
-//                                } catch (Exception ignored) {
-//                                }
-//                                PhoneProfilesService.getInstance().brightnessView = null;
-//                            }
-//                        }
-//                    }
-//                }, 5000);
-                PostDelayedBroadcastReceiver.setAlarm(
-                        PostDelayedBroadcastReceiver.ACTION_REMOVE_BRIGHTNESS_VIEW,5, context);
+                final Handler handler = new Handler(appContext.getMainLooper());
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        PPApplication.logE("ActivateProfileHelper.createBrightnessView", "remove brightness view");
+
+                        WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
+                        if (windowManager != null) {
+                            if ((PhoneProfilesService.getInstance() != null) && (PhoneProfilesService.getInstance().brightnessView != null)) {
+                                try {
+                                    windowManager.removeView(PhoneProfilesService.getInstance().brightnessView);
+                                } catch (Exception ignored) {
+                                }
+                                PhoneProfilesService.getInstance().brightnessView = null;
+                            }
+                        }
+                    }
+                }, 5000);
+//                PostDelayedBroadcastReceiver.setAlarm(PostDelayedBroadcastReceiver.ACTION_REMOVE_BRIGHTNESS_VIEW,5, context);
             }
         }
     }

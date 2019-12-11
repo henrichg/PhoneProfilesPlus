@@ -584,11 +584,9 @@ EventPreferencesTime -> raz denne v presny cas, pouziva aj AlarmClock
 TwilightScanner -> raz denne v presny cas, pouziva aj AlarmClock
 
 
-Tieto by som uz teraz mohol spravit cez WorkManagera:
-
-Event.setDealyStartAlarm -> cas od now() + delay, pouziva aj AlarmClock
-Event.setDealyEndAlarm -> cas od now() + delay, pouziva aj AlarmClock
-GeofencesScannerSwitchGPSBroadcastReceiver -> cas od now() + delay, pouziva aj AlarmClock
+Tieto maju od uzivatela parameter duration, delay:
+Event.setDelayStartAlarm -> cas od now() + delay, pouziva aj AlarmClock
+Event.setDelayEndAlarm -> cas od now() + delay, pouziva aj AlarmClock
 ProfileDurationAlarmBroadcastReceiver -> cas od now() + delay, pouziva aj AlarmClock
 RunApplicationWithDelayBroadcastReceiver -> cas od now() + delay, pouziva aj AlarmClock
 
@@ -603,10 +601,6 @@ LockDeviceAfterScreenOffBroadcastReceiver -> cas od now() + delay, pouziva aj Al
 
 Tento sa pouziva pre repeat zvukovu a vibracnu notifikaciu startu udalosti:
 StartEventNotificationBroadcastReceiver -> cas od now() + delay, pouziva aj AlarmClock
-
-PostDelayedBroadcastReceiver.setAlarm() ->  cas od now() + delay, nepouziva AlarmClock
-PostDelayedBroadcastReceiver.setAlarmForHandleEvents() ->  cas od now() + delay, nepouziva AlarmClock
-PostDelayedBroadcastReceiver.setAlarmForRestartEvents() ->  cas od now() + delay, nepouziva AlarmClock
 
 --------------------------------------
 

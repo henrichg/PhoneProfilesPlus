@@ -10,12 +10,15 @@ import android.content.pm.PackageManager;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.os.SystemClock;
 import android.provider.Settings;
 
 import java.util.List;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
+import static android.content.Context.POWER_SERVICE;
 
 class WifiBluetoothScanner {
 
@@ -207,7 +210,32 @@ class WifiBluetoothScanner {
                                         PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "no data received from scanner");
                                         if (getForceOneWifiScan(context) != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                                         {
-                                            PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER, 5, context);
+                                            PPApplication.startHandlerThread("WifiBluetoothScanner.doScan");
+                                            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                                            handler.postDelayed(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
+                                                    PowerManager.WakeLock wakeLock = null;
+                                                    try {
+                                                        if (powerManager != null) {
+                                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":WifiBluetoothScanner_doScan");
+                                                            wakeLock.acquire(10 * 60 * 1000);
+                                                        }
+
+                                                        // start events handler
+                                                        EventsHandler eventsHandler = new EventsHandler(context);
+                                                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
+                                                    } finally {
+                                                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                                                            try {
+                                                                wakeLock.release();
+                                                            } catch (Exception ignored) {}
+                                                        }
+                                                    }
+                                                }
+                                            }, 5000);
+                                            //PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER, 5, context);
                                         }
                                     }
                                 }

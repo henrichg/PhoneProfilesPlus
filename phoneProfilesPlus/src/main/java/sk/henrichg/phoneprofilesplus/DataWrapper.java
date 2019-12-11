@@ -50,9 +50,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SwitchCompat;
 import me.drakeet.support.toast.ToastCompat;
 
-import static android.content.Context.POWER_SERVICE;
-import static android.content.Context.SENSOR_SERVICE;
-
 public class DataWrapper {
 
     public final Context context;
@@ -4373,33 +4370,37 @@ public class DataWrapper {
     {
         PPApplication.logE("DataWrapper.restartEventsWithDelay","xxx");
 
-        //final DataWrapper dataWrapper = copyDataWrapper();
+        final DataWrapper dataWrapper = copyDataWrapper();
 
         if (clearOld) {
-            /*PPApplication.startHandlerThreadRestartEventsWithDelay();
+            PPApplication.startHandlerThreadRestartEventsWithDelay();
             PPApplication.restartEventsWithDelayHandler.removeCallbacksAndMessages(null);
             PPApplication.restartEventsWithDelayHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     PPApplication.logE("DataWrapper.restartEventsWithDelay", "restart");
-                    if (logType != DatabaseHandler.ALTYPE_UNDEFINED)
+                    if (logType != ALTYPE_UNDEFINED)
                         dataWrapper.addActivityLog(logType, null, null, null, 0);
-                    dataWrapper.restartEvents(unblockEventsRun, true, true, false);
+                    //dataWrapper.restartEvents(unblockEventsRun, true, true, false);
+                    dataWrapper.restartEventsWithRescan(/*true, */unblockEventsRun, false, true, false);
                 }
-            }, delay * 1000);*/
-            PostDelayedBroadcastReceiver.setAlarmForRestartEvents(delay, true, unblockEventsRun, /*reactivateProfile,*/ logType, context);
+            }, delay * 1000);
+            //PostDelayedBroadcastReceiver.setAlarmForRestartEvents(delay, true, unblockEventsRun, /*reactivateProfile,*/ logType, context);
         }
         else {
-            /*PPApplication.startHandlerThread("DataWrapper.restartEventsWithDelay");
+            PPApplication.startHandlerThread("DataWrapper.restartEventsWithDelay");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     PPApplication.logE("DataWrapper.restartEventsWithDelay", "restart");
-                    dataWrapper.restartEvents(unblockEventsRun, true, true, false);
+                    if (logType != ALTYPE_UNDEFINED)
+                        dataWrapper.addActivityLog(logType, null, null, null, 0);
+                    //dataWrapper.restartEvents(unblockEventsRun, true, true, false);
+                    dataWrapper.restartEventsWithRescan(/*true, */unblockEventsRun, false, true, false);
                 }
-            }, delay * 1000);*/
-            PostDelayedBroadcastReceiver.setAlarmForRestartEvents(delay, false, unblockEventsRun, /*reactivateProfile,*/ logType, context);
+            }, delay * 1000);
+            //PostDelayedBroadcastReceiver.setAlarmForRestartEvents(delay, false, unblockEventsRun, /*reactivateProfile,*/ logType, context);
         }
     }
 

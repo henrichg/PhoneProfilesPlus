@@ -78,7 +78,7 @@ public class PhoneProfilesService extends Service
     @SuppressWarnings("deprecation")
     private KeyguardManager.KeyguardLock keyguardLock = null;
 
-    BrightnessView brightnessView = null;
+    //BrightnessView brightnessView = null;
     BrightnessView keepScreenOnView = null;
 
     LockDeviceActivity lockDeviceActivity = null;
@@ -137,7 +137,6 @@ public class PhoneProfilesService extends Service
     private StartEventNotificationBroadcastReceiver startEventNotificationBroadcastReceiver = null;
     private GeofencesScannerSwitchGPSBroadcastReceiver geofencesScannerSwitchGPSBroadcastReceiver = null;
     private LockDeviceActivityFinishBroadcastReceiver lockDeviceActivityFinishBroadcastReceiver = null;
-    private PostDelayedBroadcastReceiver postDelayedBroadcastReceiver = null;
     private AlarmClockBroadcastReceiver alarmClockBroadcastReceiver = null;
     private AlarmClockEventEndBroadcastReceiver alarmClockEventEndBroadcastReceiver = null;
     private NotificationEventEndBroadcastReceiver notificationEventEndBroadcastReceiver = null;
@@ -196,6 +195,8 @@ public class PhoneProfilesService extends Service
     //static final String EXTRA_START_LOCATION_UPDATES = "start_location_updates";
     //private static final String EXTRA_STOP_LOCATION_UPDATES = "stop_location_updates";
     static final String EXTRA_RESTART_EVENTS = "restart_events";
+    static final String EXTRA_UNBLOCK_EVENTS_RUN = "unblock_events_run";
+    static final String EXTRA_REACTIVATE_PROFILE = "reactivate_profile";
 
     //-----------------------
 
@@ -729,18 +730,6 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered postDelayedBroadcastReceiver");
-            if (postDelayedBroadcastReceiver != null) {
-                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER postDelayedBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER postDelayedBroadcastReceiver");
-                try {
-                    appContext.unregisterReceiver(postDelayedBroadcastReceiver);
-                    postDelayedBroadcastReceiver = null;
-                } catch (Exception e) {
-                    postDelayedBroadcastReceiver = null;
-                }
-            }
-            else
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered postDelayedBroadcastReceiver");
             if (pppExtenderBroadcastReceiver != null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER pppExtenderBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER pppExtenderBroadcastReceiver");
@@ -1027,23 +1016,6 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered lockDeviceActivityFinishBroadcastReceiver");
-
-            if (postDelayedBroadcastReceiver == null) {
-                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER postDelayedBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER postDelayedBroadcastReceiver");
-
-                postDelayedBroadcastReceiver = new PostDelayedBroadcastReceiver();
-                IntentFilter intentFilter14 = new IntentFilter();
-                intentFilter14.addAction(PostDelayedBroadcastReceiver.ACTION_REMOVE_BRIGHTNESS_VIEW);
-                //intentFilter14.addAction(PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE);
-                //intentFilter14.addAction(PostDelayedBroadcastReceiver.ACTION_DISABLE_SCREEN_TIMEOUT_INTERNAL_CHANGE_TO_FALSE);
-                intentFilter14.addAction(PostDelayedBroadcastReceiver.ACTION_HANDLE_EVENTS);
-                intentFilter14.addAction(PostDelayedBroadcastReceiver.ACTION_RESTART_EVENTS);
-                intentFilter14.addAction(PostDelayedBroadcastReceiver.ACTION_START_WIFI_SCAN);
-                appContext.registerReceiver(postDelayedBroadcastReceiver, intentFilter14);
-            }
-            else
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered postDelayedBroadcastReceiver");
 
             if (pppExtenderBroadcastReceiver == null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER pppExtenderBroadcastReceiver", "PhoneProfilesService_pppExtenderBroadcastReceiver");
@@ -4156,7 +4128,7 @@ public class PhoneProfilesService extends Service
                         else
                         if (intent.getBooleanExtra(EXTRA_RESTART_EVENTS, false)) {
                             PPApplication.logE("$$$ PhoneProfilesService.doCommand", "EXTRA_RESTART_EVENTS");
-                            final boolean unblockEventsRun = intent.getBooleanExtra(PostDelayedBroadcastReceiver.EXTRA_UNBLOCK_EVENTS_RUN, false);
+                            final boolean unblockEventsRun = intent.getBooleanExtra(EXTRA_UNBLOCK_EVENTS_RUN, false);
                             //final boolean reactivateProfile = intent.getBooleanExtra(PostDelayedBroadcastReceiver.EXTRA_REACTIVATE_PROFILE, false);
                             final Context appContext = getApplicationContext();
                             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);

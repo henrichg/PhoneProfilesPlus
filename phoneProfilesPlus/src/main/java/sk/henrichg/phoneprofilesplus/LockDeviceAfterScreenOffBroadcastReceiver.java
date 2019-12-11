@@ -45,7 +45,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PostDelayedBroadcastReceiver_onReceive_ACTION_REMOVE_BRIGHTNESS_VIEW");
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":LockDeviceAfterScreenOffBroadcastReceiver_onReceive_ACTION_LOCK_DEVICE_AFTER_SCREEN_OFF");
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 

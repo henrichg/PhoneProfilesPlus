@@ -9,6 +9,7 @@ import android.bluetooth.le.ScanSettings;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.os.SystemClock;
 import android.util.Log;
 
@@ -28,6 +29,8 @@ import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
+
+import static android.content.Context.POWER_SERVICE;
 
 @SuppressWarnings("WeakerAccess")
 public class BluetoothScanWorker extends Worker {
@@ -913,7 +916,32 @@ public class BluetoothScanWorker extends Worker {
 
                 if (forceOneScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
                 {
-                    PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER, 5, context);
+                    PPApplication.startHandlerThread("BluetoothScanWorker.finishCLScan");
+                    final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            try {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BluetoothScanWorker_finishCLScan");
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
+
+                                // start events handler
+                                EventsHandler eventsHandler = new EventsHandler(context);
+                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER);
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {}
+                                }
+                            }
+                        }
+                    }, 5000);
+                    //PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER, 5, context);
                 }
 
                 WifiBluetoothScanner.tmpBluetoothScanResults = null;
