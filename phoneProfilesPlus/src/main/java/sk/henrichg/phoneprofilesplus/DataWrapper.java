@@ -4368,7 +4368,7 @@ public class DataWrapper {
     void restartEventsWithDelay(int delay, final boolean unblockEventsRun, /*final boolean reactivateProfile,*/
                                 boolean clearOld, final int logType)
     {
-        PPApplication.logE("DataWrapper.restartEventsWithDelay","xxx");
+        PPApplication.logE("[TEST HANDLER] DataWrapper.restartEventsWithDelay","clearOld="+clearOld);
 
         final DataWrapper dataWrapper = copyDataWrapper();
 
@@ -4378,7 +4378,7 @@ public class DataWrapper {
             PPApplication.restartEventsWithDelayHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("DataWrapper.restartEventsWithDelay", "restart");
+                    PPApplication.logE("[TEST HANDLER] DataWrapper.restartEventsWithDelay", "restart from handler");
                     if (logType != ALTYPE_UNDEFINED)
                         dataWrapper.addActivityLog(logType, null, null, null, 0);
                     //dataWrapper.restartEvents(unblockEventsRun, true, true, false);
@@ -4393,7 +4393,7 @@ public class DataWrapper {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("DataWrapper.restartEventsWithDelay", "restart");
+                    PPApplication.logE("[TEST HANDLER] DataWrapper.restartEventsWithDelay", "restart from handler");
                     if (logType != ALTYPE_UNDEFINED)
                         dataWrapper.addActivityLog(logType, null, null, null, 0);
                     //dataWrapper.restartEvents(unblockEventsRun, true, true, false);

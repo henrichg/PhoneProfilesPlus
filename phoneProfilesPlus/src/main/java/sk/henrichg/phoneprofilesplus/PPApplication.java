@@ -52,6 +52,10 @@ import androidx.multidex.MultiDex;
 import dev.doubledot.doki.views.DokiContentView;
 import io.fabric.sdk.android.Fabric;
 
+import static android.os.Process.THREAD_PRIORITY_AUDIO;
+import static android.os.Process.THREAD_PRIORITY_FOREGROUND;
+import static android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE;
+
 public class PPApplication extends Application {
 
     private static PPApplication instance;
@@ -77,7 +81,7 @@ public class PPApplication extends Application {
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && BuildConfig.DEBUG;
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && BuildConfig.DEBUG;
     private static final boolean rootToolsDebug = false;
@@ -116,6 +120,7 @@ public class PPApplication extends Application {
 
                                          //+"|DataWrapper.restartEventsWithAlert"
                                          //+"|DataWrapper.restartEventsWithDelay"
+                                         +"|[TEST HANDLER] DataWrapper.restartEventsWithDelay"
 
                                          // for list of TRANSACTION_* for "phone" service
                                          //+"|[LIST] PPApplication.getTransactionCode"
@@ -154,7 +159,7 @@ public class PPApplication extends Application {
                                          //+"|$$$ EventsHandler.handleEvents"
                                          //+"|[NOTIFY] EventsHandler"
                                          //+"|Profile.mergeProfiles"
-                                         //+"|@@@ Event.pauseEvent"
+                                         +"|@@@ Event.pauseEvent"
                                          //+"|@@@ Event.stopEvent"
                                         //+"|$$$ restartEvents"
                                         //+"|DataWrapper._restartEvents"
@@ -2659,21 +2664,21 @@ public class PPApplication extends Application {
     static void startHandlerThread(String from) {
         PPApplication.logE("PPApplication.startHandlerThread", "from="+from);
         if (handlerThread == null) {
-            handlerThread = new HandlerThread("PPHandlerThread");
+            handlerThread = new HandlerThread("PPHandlerThread", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThread.start();
         }
     }
 
     static void startHandlerThreadPPService() {
         if (handlerThreadPPService == null) {
-            handlerThreadPPService = new HandlerThread("PPHandlerThreadPPService");
+            handlerThreadPPService = new HandlerThread("PPHandlerThreadPPService", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadPPService.start();
         }
     }
 
     static void startHandlerThreadInternalChangeToFalse() {
         if (handlerThreadInternalChangeToFalse == null) {
-            handlerThreadInternalChangeToFalse = new HandlerThread("PPHandlerThreadInternalChangeToFalse");
+            handlerThreadInternalChangeToFalse = new HandlerThread("PPHandlerThreadInternalChangeToFalse", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadInternalChangeToFalse.start();
         }
     }
@@ -2681,7 +2686,7 @@ public class PPApplication extends Application {
     /*
     private static void startHandlerThreadRoot() {
         if (handlerThreadRoot == null) {
-            handlerThreadRoot = new HandlerThread("PPHandlerThreadRoot");
+            handlerThreadRoot = new HandlerThread("PPHandlerThreadRoot", THREAD_PRIORITY_MORE_FAVORABLE); //);;
             handlerThreadRoot.start();
         }
     }
@@ -2689,77 +2694,77 @@ public class PPApplication extends Application {
 
     static void startHandlerThreadWidget() {
         if (handlerThreadWidget == null) {
-            handlerThreadWidget = new HandlerThread("PPHandlerThreadWidget");
+            handlerThreadWidget = new HandlerThread("PPHandlerThreadWidget", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadWidget.start();
         }
     }
 
     static void startHandlerThreadProfileNotification() {
         if (handlerThreadProfileNotification == null) {
-            handlerThreadProfileNotification = new HandlerThread("PPHandlerThreadProfileNotification");
+            handlerThreadProfileNotification = new HandlerThread("PPHandlerThreadProfileNotification", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadProfileNotification.start();
         }
     }
 
     static void startHandlerThreadPlayTone() {
         if (handlerThreadPlayTone == null) {
-            handlerThreadPlayTone = new HandlerThread("PPHandlerThreadPlayTone");
+            handlerThreadPlayTone = new HandlerThread("PPHandlerThreadPlayTone", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadPlayTone.start();
         }
     }
 
     static void startHandlerThreadVolumes() {
         if (handlerThreadVolumes == null) {
-            handlerThreadVolumes = new HandlerThread("handlerThreadVolumes");
+            handlerThreadVolumes = new HandlerThread("handlerThreadVolumes", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadVolumes.start();
         }
     }
 
     static void startHandlerThreadRadios() {
         if (handlerThreadRadios == null) {
-            handlerThreadRadios = new HandlerThread("handlerThreadRadios");
+            handlerThreadRadios = new HandlerThread("handlerThreadRadios", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadRadios.start();
         }
     }
 
     static void startHandlerThreadAdaptiveBrightness() {
         if (handlerThreadAdaptiveBrightness == null) {
-            handlerThreadAdaptiveBrightness = new HandlerThread("handlerThreadAdaptiveBrightness");
+            handlerThreadAdaptiveBrightness = new HandlerThread("handlerThreadAdaptiveBrightness", THREAD_PRIORITY_MORE_FAVORABLE); //);;
             handlerThreadAdaptiveBrightness.start();
         }
     }
 
     static void startHandlerThreadWallpaper() {
         if (handlerThreadWallpaper == null) {
-            handlerThreadWallpaper = new HandlerThread("handlerThreadWallpaper");
+            handlerThreadWallpaper = new HandlerThread("handlerThreadWallpaper", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadWallpaper.start();
         }
     }
 
     static void startHandlerThreadPowerSaveMode() {
         if (handlerThreadPowerSaveMode == null) {
-            handlerThreadPowerSaveMode = new HandlerThread("handlerThreadPowerSaveMode");
+            handlerThreadPowerSaveMode = new HandlerThread("handlerThreadPowerSaveMode", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadPowerSaveMode.start();
         }
     }
 
     static void startHandlerThreadLockDevice() {
         if (handlerThreadLockDevice == null) {
-            handlerThreadLockDevice = new HandlerThread("handlerThreadLockDevice");
+            handlerThreadLockDevice = new HandlerThread("handlerThreadLockDevice", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadLockDevice.start();
         }
     }
 
     static void startHandlerThreadRunApplication() {
         if (handlerThreadRunApplication == null) {
-            handlerThreadRunApplication = new HandlerThread("handlerThreadRunApplication");
+            handlerThreadRunApplication = new HandlerThread("handlerThreadRunApplication", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadRunApplication.start();
         }
     }
 
     static void startHandlerThreadHeadsUpNotifications() {
         if (handlerThreadHeadsUpNotifications == null) {
-            handlerThreadHeadsUpNotifications = new HandlerThread("handlerThreadHeadsUpNotifications");
+            handlerThreadHeadsUpNotifications = new HandlerThread("handlerThreadHeadsUpNotifications", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadHeadsUpNotifications.start();
         }
     }
@@ -2767,7 +2772,7 @@ public class PPApplication extends Application {
     /*
     static void startHandlerThreadMobileCells() {
         if (handlerThreadMobileCells == null) {
-            handlerThreadMobileCells = new HandlerThread("handlerThreadMobileCells");
+            handlerThreadMobileCells = new HandlerThread("handlerThreadMobileCells", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadMobileCells.start();
         }
     }
@@ -2775,7 +2780,7 @@ public class PPApplication extends Application {
 
     static void startHandlerThreadRestartEventsWithDelay() {
         if (handlerThreadRestartEventsWithDelay == null) {
-            handlerThreadRestartEventsWithDelay = new HandlerThread("handlerThreadRestartEventsWithDelay");
+            handlerThreadRestartEventsWithDelay = new HandlerThread("handlerThreadRestartEventsWithDelay", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadRestartEventsWithDelay.start();
             restartEventsWithDelayHandler = new Handler(PPApplication.handlerThreadRestartEventsWithDelay.getLooper());
         }
@@ -2783,21 +2788,21 @@ public class PPApplication extends Application {
 
     static void startHandlerThreadBluetoothConnectedDevices() {
         if (handlerThreadBluetoothConnectedDevices == null) {
-            handlerThreadBluetoothConnectedDevices = new HandlerThread("handlerThreadBluetoothConnectedDevices");
+            handlerThreadBluetoothConnectedDevices = new HandlerThread("handlerThreadBluetoothConnectedDevices", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadBluetoothConnectedDevices.start();
         }
     }
 
     static void startHandlerThreadNotificationLed() {
         if (handlerThreadNotificationLed == null) {
-            handlerThreadNotificationLed = new HandlerThread("handlerThreadNotificationLed");
+            handlerThreadNotificationLed = new HandlerThread("handlerThreadNotificationLed", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadNotificationLed.start();
         }
     }
 
     static void startHandlerThreadAlwaysOnDisplay() {
         if (handlerThreadAlwaysOnDisplay == null) {
-            handlerThreadAlwaysOnDisplay = new HandlerThread("handlerThreadAlwaysOnDisplay");
+            handlerThreadAlwaysOnDisplay = new HandlerThread("handlerThreadAlwaysOnDisplay", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadAlwaysOnDisplay.start();
         }
     }
