@@ -573,6 +573,44 @@ Hladaj: R.string.setting_screen_not_found_alert
 
 --------------------------------------
 
+DonationBroadcastReceiver -> raz denne v presny cas, pouziva aj AlarmClock
+EventPreferencesAlarmClock -> raz denne v presny cas, pouziva aj AlarmClock
+EventPreferencesCalendar -> raz denne v presny cas, pouziva aj AlarmClock
+EventPreferencesCall -> raz denne v presny cas, pouziva aj AlarmClock
+EventPreferencesNFC -> raz denne v presny cas, pouziva aj AlarmClock
+EventPreferencesNotification -> raz denne v presny cas, pouziva aj AlarmClock
+EventPreferencesSMS -> raz denne v presny cas, pouziva aj AlarmClock
+EventPreferencesTime -> raz denne v presny cas, pouziva aj AlarmClock
+TwilightScanner -> raz denne v presny cas, pouziva aj AlarmClock
+
+
+Tieto by som uz teraz mohol spravit cez WorkManagera:
+
+Event.setDealyStartAlarm -> cas od now() + delay, pouziva aj AlarmClock
+Event.setDealyEndAlarm -> cas od now() + delay, pouziva aj AlarmClock
+GeofencesScannerSwitchGPSBroadcastReceiver -> cas od now() + delay, pouziva aj AlarmClock
+ProfileDurationAlarmBroadcastReceiver -> cas od now() + delay, pouziva aj AlarmClock
+RunApplicationWithDelayBroadcastReceiver -> cas od now() + delay, pouziva aj AlarmClock
+
+Tenot sa pouziva na prepinanie GPS on/off:
+GeofencesScannerSwitchGPSBroadcastReceiver -> cas od now() + delay, pouziva aj AlarmClock
+
+Tento sa pouziva na zavretie lock device aktivity:
+LockDeviceActivityFinishBroadcastReceiver -> cas od now() + delay, pouziva aj AlarmClock
+
+Tento sa pouziva na spracovanie udalosti na screen off ale az po jeho loknuti:
+LockDeviceAfterScreenOffBroadcastReceiver -> cas od now() + delay, pouziva aj AlarmClock
+
+Tento sa pouziva pre repeat zvukovu a vibracnu notifikaciu startu udalosti:
+StartEventNotificationBroadcastReceiver -> cas od now() + delay, pouziva aj AlarmClock
+
+PostDelayedBroadcastReceiver.setAlarm() ->  cas od now() + delay, nepouziva AlarmClock
+PostDelayedBroadcastReceiver.setAlarmForHandleEvents() ->  cas od now() + delay, nepouziva AlarmClock
+PostDelayedBroadcastReceiver.setAlarmForRestartEvents() ->  cas od now() + delay, nepouziva AlarmClock
+
+--------------------------------------
+
 https://mail.google.com/mail/u/0/#inbox/FMfcgxwGCGzLSzHXNSXxmMFsKjrPZZMT
 Pozri, cele je to v implementation 'com.google.firebase:firebase-analytics:17.2.1'
 Musia to upgradnut, inac ho budem musiet vyhodit.
+
