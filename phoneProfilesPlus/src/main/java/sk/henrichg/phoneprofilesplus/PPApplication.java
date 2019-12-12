@@ -539,6 +539,8 @@ public class PPApplication extends Application {
                                         //+"|PhoneProfilesPrefsFragment.updateSharedPreferences"
                                         //+"|CustomColorDialogPreferenceX"
                                         //+"|CustomColorDialogPreferenceFragmentX"
+
+                                        +"|[HANDLER] DisableInternalChangeWorker.doWork"
             ;
 
 

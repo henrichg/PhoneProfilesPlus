@@ -22,7 +22,7 @@ public class DisableInternalChangeWorker extends Worker {
     @Override
     public Result doWork() {
 
-        PPApplication.logE("DisableInternalChangeWorker.doWork", "xxx");
+        PPApplication.logE("[HANDLER] DisableInternalChangeWorker.doWork", "xxx");
 
         RingerModeChangeReceiver.internalChange = false;
 

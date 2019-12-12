@@ -386,7 +386,7 @@ public class RingtonePreferenceX extends DialogPreference {
 
                                 OneTimeWorkRequest disableInternalChangeWorker =
                                         new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
-                                                .setInitialDelay(3000, TimeUnit.SECONDS)
+                                                .setInitialDelay(3, TimeUnit.SECONDS)
                                                 .build();
                                 try {
                                     WorkManager workManager = WorkManager.getInstance(prefContext);
@@ -414,7 +414,7 @@ public class RingtonePreferenceX extends DialogPreference {
 
                         OneTimeWorkRequest disableInternalChangeWorker =
                                 new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
-                                        .setInitialDelay(3000, TimeUnit.SECONDS)
+                                        .setInitialDelay(3, TimeUnit.SECONDS)
                                         .build();
                         try {
                             WorkManager workManager = WorkManager.getInstance(prefContext);
@@ -437,7 +437,7 @@ public class RingtonePreferenceX extends DialogPreference {
 
                         OneTimeWorkRequest disableInternalChangeWorker =
                                 new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
-                                        .setInitialDelay(3000, TimeUnit.SECONDS)
+                                        .setInitialDelay(3, TimeUnit.SECONDS)
                                         .build();
                         try {
                             WorkManager workManager = WorkManager.getInstance(prefContext);

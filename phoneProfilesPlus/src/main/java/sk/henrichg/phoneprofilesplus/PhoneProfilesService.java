@@ -5868,7 +5868,7 @@ public class PhoneProfilesService extends Service
 
                     OneTimeWorkRequest disableInternalChangeWorker =
                             new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
-                                    .setInitialDelay(3000, TimeUnit.SECONDS)
+                                    .setInitialDelay(3, TimeUnit.SECONDS)
                                     .build();
                     try {
                         WorkManager workManager = WorkManager.getInstance(getApplicationContext());
@@ -5894,7 +5894,7 @@ public class PhoneProfilesService extends Service
 
                     OneTimeWorkRequest disableInternalChangeWorker =
                             new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
-                                    .setInitialDelay(3000, TimeUnit.SECONDS)
+                                    .setInitialDelay(3, TimeUnit.SECONDS)
                                     .build();
                     try {
                         WorkManager workManager = WorkManager.getInstance(getApplicationContext());
@@ -5948,7 +5948,7 @@ public class PhoneProfilesService extends Service
 
         OneTimeWorkRequest disableInternalChangeWorker =
                 new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
-                        .setInitialDelay(3000, TimeUnit.SECONDS)
+                        .setInitialDelay(3, TimeUnit.SECONDS)
                         .build();
         try {
             WorkManager workManager = WorkManager.getInstance(getApplicationContext());
@@ -6334,7 +6334,7 @@ public class PhoneProfilesService extends Service
 
                                 OneTimeWorkRequest disableInternalChangeWorker =
                                         new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
-                                                .setInitialDelay(3000, TimeUnit.SECONDS)
+                                                .setInitialDelay(3, TimeUnit.SECONDS)
                                                 .build();
                                 try {
                                     WorkManager workManager = WorkManager.getInstance(getApplicationContext());
@@ -6362,7 +6362,7 @@ public class PhoneProfilesService extends Service
 
                         OneTimeWorkRequest disableInternalChangeWorker =
                                 new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
-                                        .setInitialDelay(3000, TimeUnit.SECONDS)
+                                        .setInitialDelay(3, TimeUnit.SECONDS)
                                         .build();
                         try {
                             WorkManager workManager = WorkManager.getInstance(getApplicationContext());
@@ -6386,7 +6386,7 @@ public class PhoneProfilesService extends Service
 
                         OneTimeWorkRequest disableInternalChangeWorker =
                                 new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
-                                        .setInitialDelay(3000, TimeUnit.SECONDS)
+                                        .setInitialDelay(3, TimeUnit.SECONDS)
                                         .build();
                         try {
                             WorkManager workManager = WorkManager.getInstance(getApplicationContext());

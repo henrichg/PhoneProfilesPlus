@@ -1220,9 +1220,10 @@ class ActivateProfileHelper {
                                 //SystemClock.sleep(500);
                                 PPApplication.sleep(500);
 
+                                PPApplication.logE("[HANDLER] DisableInternalChangeWorker.doWork", "called from ActivateProfileHelper");
                                 OneTimeWorkRequest disableInternalChangeWorker =
                                         new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
-                                                .setInitialDelay(3000, TimeUnit.SECONDS)
+                                                .setInitialDelay(3, TimeUnit.SECONDS)
                                                 .build();
                                 try {
                                     WorkManager workManager = WorkManager.getInstance(context);
@@ -2754,7 +2755,7 @@ class ActivateProfileHelper {
 
         OneTimeWorkRequest disableInternalChangeWorker =
                 new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
-                        .setInitialDelay(3000, TimeUnit.SECONDS)
+                        .setInitialDelay(3, TimeUnit.SECONDS)
                         .build();
         try {
             WorkManager workManager = WorkManager.getInstance(context);
