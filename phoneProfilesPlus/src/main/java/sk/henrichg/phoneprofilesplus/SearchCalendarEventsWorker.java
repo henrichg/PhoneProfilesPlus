@@ -52,7 +52,10 @@ public class SearchCalendarEventsWorker extends Worker {
             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SEARCH_CALENDAR_EVENTS);
         }
 
-        PPApplication.startHandlerThreadPPService();
+        PPApplication.logE("SearchCalendarEventsWorker.doWork - handler", "schedule work");
+        scheduleWork(context.getApplicationContext(), false, null, false);
+
+        /*PPApplication.startHandlerThreadPPService();
         final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
         handler.postDelayed(new Runnable() {
             @Override
@@ -60,7 +63,7 @@ public class SearchCalendarEventsWorker extends Worker {
                 PPApplication.logE("SearchCalendarEventsWorker.doWork - handler", "schedule work");
                 scheduleWork(context, false, null, false);
             }
-        }, 500);
+        }, 500);*/
 
         PPApplication.logE("SearchCalendarEventsWorker.doWork", "---------------------------------------- END");
 

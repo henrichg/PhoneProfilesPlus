@@ -343,7 +343,7 @@ public class PPApplication extends Application {
 
                                          //+"|PostDelayedBroadcastReceiver.onReceive"
 
-                                         //+"|WifiScanWorker"
+                                         +"|WifiScanWorker"
                                          //+"|%%%% WifiScanBroadcastReceiver.onReceive"
 
                                          //+"|WifiSSIDPreference.refreshListView"
@@ -719,7 +719,7 @@ public class PPApplication extends Application {
     public static HandlerThread handlerThreadAlwaysOnDisplay = null;
 
     private static HandlerThread handlerThreadRestartEventsWithDelay = null;
-    public static Handler restartEventsWithDelayHandler = null;
+    //public static Handler restartEventsWithDelayHandler = null;
 
     public static Handler toastHandler;
     //public static Handler brightnessHandler;
@@ -919,7 +919,7 @@ public class PPApplication extends Application {
         startHandlerThreadRunApplication();
         startHandlerThreadHeadsUpNotifications();
         //startHandlerThreadMobileCells();
-        startHandlerThreadRestartEventsWithDelay();
+        //startHandlerThreadRestartEventsWithDelay();
         startHandlerThreadBluetoothConnectedDevices();
         startHandlerThreadNotificationLed();
         startHandlerThreadAlwaysOnDisplay();
@@ -2777,7 +2777,7 @@ public class PPApplication extends Application {
         }
     }
     */
-
+    /*
     static void startHandlerThreadRestartEventsWithDelay() {
         if (handlerThreadRestartEventsWithDelay == null) {
             handlerThreadRestartEventsWithDelay = new HandlerThread("handlerThreadRestartEventsWithDelay", THREAD_PRIORITY_MORE_FAVORABLE); //);
@@ -2785,6 +2785,7 @@ public class PPApplication extends Application {
             restartEventsWithDelayHandler = new Handler(PPApplication.handlerThreadRestartEventsWithDelay.getLooper());
         }
     }
+    */
 
     static void startHandlerThreadBluetoothConnectedDevices() {
         if (handlerThreadBluetoothConnectedDevices == null) {

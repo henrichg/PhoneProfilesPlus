@@ -89,15 +89,18 @@ public class BluetoothScanWorker extends Worker {
             startScanner(context, false);
         }
 
-        PPApplication.startHandlerThreadPPService();
+        PPApplication.logE("BluetoothScanWorker.doWork - handler", "schedule work");
+        scheduleWork(context.getApplicationContext(), false, null, false/*, false*/);
+
+        /*PPApplication.startHandlerThreadPPService();
         final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 PPApplication.logE("BluetoothScanWorker.doWork - handler", "schedule work");
-                scheduleWork(context, false, null, false/*, false*/);
+                scheduleWork(context, false, null, false);
             }
-        }, 500);
+        }, 500);*/
 
 
         PPApplication.logE("BluetoothScanWorker.doWork", "---------------------------------------- END");

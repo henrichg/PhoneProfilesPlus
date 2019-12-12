@@ -82,15 +82,18 @@ public class GeofenceScanWorker extends Worker {
             }
         }
 
-        PPApplication.startHandlerThreadPPService();
+        PPApplication.logE("GeofenceScanWorker.doWork - handler", "schedule work");
+        scheduleWork(context.getApplicationContext(), false, null, false/*, false*/);
+
+        /*PPApplication.startHandlerThreadPPService();
         final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 PPApplication.logE("GeofenceScanWorker.doWork - handler", "schedule work");
-                scheduleWork(context, false, null, false/*, false*/);
+                scheduleWork(context, false, null, false);
             }
-        }, 500);
+        }, 500);*/
 
         PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- END");
         return Result.success();
