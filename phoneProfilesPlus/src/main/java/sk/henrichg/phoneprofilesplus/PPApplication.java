@@ -543,7 +543,7 @@ public class PPApplication extends Application {
                                         //+"|CustomColorDialogPreferenceX"
                                         //+"|CustomColorDialogPreferenceFragmentX"
 
-                                        +"|[HANDLER] DisableInternalChangeWorker.doWork"
+                                        //+"|[HANDLER] DisableInternalChangeWorker.doWork"
             ;
 
 

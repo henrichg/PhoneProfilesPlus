@@ -604,12 +604,14 @@ class WifiBluetoothScanner {
                         WifiScanWorker.setScanRequest(dataWrapper.context, true);
                         WifiScanWorker.lock(dataWrapper.context);
                         final WifiManager _wifi = wifi;
+                        PPApplication.logE("[HANDLER] WifiBluetoothScanner.enableWifi", "before start handler");
                         wifiBluetoothChangeHandler.post(new Runnable() {
                             @Override
                             public void run() {
                                 PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
 
                                 PPApplication.logE("$$$ WifiBluetoothScanner.enableWifi", "before enable wifi");
+                                PPApplication.logE("[HANDLER] WifiBluetoothScanner.enableWifi", "before enable wifi");
                                 PPApplication.logE("#### setWifiEnabled", "from WifiBluetoothScanner.enableWifi");
                                 _wifi.setWifiEnabled(true);
                                 PPApplication.logE("$$$ WifiBluetoothScanner.enableWifi", "after enable wifi");
