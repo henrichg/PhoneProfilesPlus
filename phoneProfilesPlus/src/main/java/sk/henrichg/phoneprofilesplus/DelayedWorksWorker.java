@@ -10,8 +10,6 @@ import androidx.work.WorkerParameters;
 @SuppressWarnings("WeakerAccess")
 public class DelayedWorksWorker extends Worker {
 
-    private final Context context;
-
     static final String DELAYED_WORK_AFTER_FIRST_START = "after_first_start";
     static final String DELAYED_WORK_HANDLE_EVENTS = "handle_events";
     static final String DELAYED_WORK_START_WIFI_SCAN = "start_wifi_scan";
@@ -22,7 +20,6 @@ public class DelayedWorksWorker extends Worker {
             @NonNull Context context,
             @NonNull WorkerParameters params) {
         super(context, params);
-        this.context = context;
     }
 
     @NonNull
@@ -55,7 +52,7 @@ public class DelayedWorksWorker extends Worker {
                     PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "PhoneProfilesService.doForFirstStart.2 START");
 
                     PhoneProfilesService instance = PhoneProfilesService.getInstance();
-                    instance.setWaitForEndOfStart(false);
+                    instance.setWaitForEndOfStartToFalse();
 
                     if (Event.getGlobalEventsRunning(appContext)) {
                         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
@@ -106,8 +103,8 @@ public class DelayedWorksWorker extends Worker {
                     if (PPApplication.getApplicationStarted(appContext, true)) {
                         // service is started by PPApplication
 
-                        if (PhoneProfilesService.getInstance() != null)
-                            PhoneProfilesService.getInstance().removeRestartEventsForFirstStartHandler(true);
+                        //if (PhoneProfilesService.getInstance() != null)
+                        //    PhoneProfilesService.getInstance().removeRestartEventsForFirstStartHandler(true);
 
                         dataWrapper.addActivityLog(DataWrapper.ALTYPE_APPLICATION_START, null, null, null, 0);
 

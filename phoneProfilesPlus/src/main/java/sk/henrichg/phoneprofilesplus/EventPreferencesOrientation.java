@@ -28,8 +28,6 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 
-import static android.content.Context.SENSOR_SERVICE;
-
 class EventPreferencesOrientation extends EventPreferences {
 
     String _display;

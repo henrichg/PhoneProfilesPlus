@@ -17,8 +17,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import static android.content.Context.POWER_SERVICE;
-
 public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
     private static List<BluetoothDeviceData> connectedDevices = null;

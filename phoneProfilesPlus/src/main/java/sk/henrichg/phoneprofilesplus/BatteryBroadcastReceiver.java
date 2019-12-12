@@ -8,8 +8,6 @@ import android.os.BatteryManager;
 import android.os.Handler;
 import android.os.PowerManager;
 
-import static android.content.Context.POWER_SERVICE;
-
 public class BatteryBroadcastReceiver extends BroadcastReceiver {
 
     static boolean isCharging = false;

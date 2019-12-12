@@ -7,8 +7,6 @@ import android.location.LocationManager;
 import android.os.Handler;
 import android.os.PowerManager;
 
-import static android.content.Context.POWER_SERVICE;
-
 public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override

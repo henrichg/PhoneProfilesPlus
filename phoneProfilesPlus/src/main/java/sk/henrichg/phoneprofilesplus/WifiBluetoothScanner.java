@@ -10,7 +10,6 @@ import android.content.pm.PackageManager;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Handler;
-import android.os.PowerManager;
 import android.os.SystemClock;
 import android.provider.Settings;
 
@@ -22,8 +21,6 @@ import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
-
-import static android.content.Context.POWER_SERVICE;
 
 class WifiBluetoothScanner {
 

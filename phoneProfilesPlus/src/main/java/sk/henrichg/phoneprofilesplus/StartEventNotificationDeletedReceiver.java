@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
 
-import static android.content.Context.POWER_SERVICE;
-
 public class StartEventNotificationDeletedReceiver extends BroadcastReceiver {
 
     static final String START_EVENT_NOTIFICATION_DELETED_ACTION = PPApplication.PACKAGE_NAME + ".StartEventNotificationDeletedReceiver.ACTION_DELETED";

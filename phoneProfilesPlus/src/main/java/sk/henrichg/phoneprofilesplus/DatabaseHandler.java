@@ -26,8 +26,6 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import static android.content.Context.SENSOR_SERVICE;
-
 public class DatabaseHandler extends SQLiteOpenHelper {
 
 

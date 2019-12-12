@@ -33,9 +33,6 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import static android.content.Context.NOTIFICATION_SERVICE;
-import static android.content.Context.POWER_SERVICE;
-
 class PhoneStateScanner extends PhoneStateListener {
 
     private final Context context;

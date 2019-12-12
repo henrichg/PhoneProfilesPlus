@@ -18,8 +18,6 @@ import android.view.accessibility.AccessibilityManager;
 
 import java.util.List;
 
-import static android.content.Context.POWER_SERVICE;
-
 public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 
     private static final String EXTRA_PACKAGE_NAME = PPApplication.PACKAGE_NAME_EXTENDER + ".package_name";

@@ -9,8 +9,6 @@ import android.os.PowerManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.content.Context.POWER_SERVICE;
-
 // Delete button (X) or "clear all" in notification
 public class NotUsedMobileCellsNotificationDeletedReceiver extends BroadcastReceiver {
 

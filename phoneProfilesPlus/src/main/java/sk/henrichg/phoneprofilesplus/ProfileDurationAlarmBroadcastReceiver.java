@@ -12,8 +12,6 @@ import android.os.SystemClock;
 
 import java.util.Calendar;
 
-import static android.content.Context.POWER_SERVICE;
-
 public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
     private static final String EXTRA_FOR_RESTART_EVENTS = "for_restart_events";

@@ -13,8 +13,6 @@ import android.os.SystemClock;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import static android.content.Context.POWER_SERVICE;
-
 public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 
     @Override

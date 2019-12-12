@@ -6,8 +6,6 @@ import android.database.ContentObserver;
 import android.os.Handler;
 import android.os.PowerManager;
 
-import static android.content.Context.POWER_SERVICE;
-
 class MobileDataStateChangedContentObserver extends ContentObserver {
 
     //public static boolean internalChange = false;

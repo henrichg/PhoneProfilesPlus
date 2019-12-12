@@ -7,8 +7,6 @@ import android.nfc.NfcAdapter;
 import android.os.Handler;
 import android.os.PowerManager;
 
-import static android.content.Context.POWER_SERVICE;
-
 public class NFCStateChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override

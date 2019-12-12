@@ -9,7 +9,6 @@ import android.bluetooth.le.ScanSettings;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
-import android.os.PowerManager;
 import android.os.SystemClock;
 import android.util.Log;
 
@@ -30,8 +29,6 @@ import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
-
-import static android.content.Context.POWER_SERVICE;
 
 @SuppressWarnings("WeakerAccess")
 public class BluetoothScanWorker extends Worker {

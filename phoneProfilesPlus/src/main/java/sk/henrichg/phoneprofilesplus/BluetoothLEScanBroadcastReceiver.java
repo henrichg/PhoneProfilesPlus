@@ -13,8 +13,6 @@ import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
-import static android.content.Context.POWER_SERVICE;
-
 public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
     @Override

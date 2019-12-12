@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import static android.content.Context.POWER_SERVICE;
-
 class BluetoothConnectedDevices {
 
     private static boolean bluetoothHeadsetStarted = false;

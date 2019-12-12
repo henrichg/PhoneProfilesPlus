@@ -30,7 +30,6 @@ import androidx.preference.PreferenceManager;
 
 import static android.app.Notification.DEFAULT_SOUND;
 import static android.app.Notification.DEFAULT_VIBRATE;
-import static android.content.Context.SENSOR_SERVICE;
 
 class Event {
 

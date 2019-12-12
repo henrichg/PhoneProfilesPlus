@@ -22,8 +22,6 @@ import android.text.format.Time;
 import java.util.Calendar;
 import java.util.Iterator;
 
-import static android.content.Context.POWER_SERVICE;
-
 class TwilightScanner {
 
     //private static final String TAG = "TwilightScanner";

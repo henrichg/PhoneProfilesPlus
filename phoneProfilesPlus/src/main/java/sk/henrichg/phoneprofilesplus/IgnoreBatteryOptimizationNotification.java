@@ -13,8 +13,6 @@ import android.provider.Settings;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
-import static android.content.Context.POWER_SERVICE;
-
 class IgnoreBatteryOptimizationNotification {
 
     private static final String PREF_SHOW_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ON_START = "show_ignore_battery_optimization_notification_on_start";

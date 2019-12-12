@@ -6,10 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import me.drakeet.support.toast.ToastCompat;
 
 public class BackgroundBrightnessActivity extends AppCompatActivity {
 
@@ -53,6 +51,7 @@ public class BackgroundBrightnessActivity extends AppCompatActivity {
         handler.sendMessageDelayed(message,200);
     }
 
+    /*
     @Override
     protected void onDestroy()
     {
@@ -61,6 +60,7 @@ public class BackgroundBrightnessActivity extends AppCompatActivity {
         //dataWrapper.invalidateDataWrapper();
         //dataWrapper = null;
     }
+    */
 
     @Override
     public void finish()

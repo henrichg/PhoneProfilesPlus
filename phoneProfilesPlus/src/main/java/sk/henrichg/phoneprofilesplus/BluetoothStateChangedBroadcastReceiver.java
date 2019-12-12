@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
 
-import static android.content.Context.POWER_SERVICE;
-
 public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override

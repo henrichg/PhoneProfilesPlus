@@ -8,8 +8,6 @@ import android.os.PowerManager;
 
 import java.util.Calendar;
 
-import static android.content.Context.POWER_SERVICE;
-
 public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
 
     @Override

@@ -57,8 +57,6 @@ import androidx.work.WorkManager;
 import dev.doubledot.doki.views.DokiContentView;
 import io.fabric.sdk.android.Fabric;
 
-import static android.os.Process.THREAD_PRIORITY_AUDIO;
-import static android.os.Process.THREAD_PRIORITY_FOREGROUND;
 import static android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE;
 
 public class PPApplication extends Application {
@@ -725,7 +723,7 @@ public class PPApplication extends Application {
     public static HandlerThread handlerThreadNotificationLed = null;
     public static HandlerThread handlerThreadAlwaysOnDisplay = null;
 
-    private static HandlerThread handlerThreadRestartEventsWithDelay = null;
+    //private static HandlerThread handlerThreadRestartEventsWithDelay = null;
     //public static Handler restartEventsWithDelayHandler = null;
 
     public static Handler toastHandler;

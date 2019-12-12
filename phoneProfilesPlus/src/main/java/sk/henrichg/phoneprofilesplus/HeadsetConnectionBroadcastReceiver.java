@@ -9,8 +9,6 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.PowerManager;
 
-import static android.content.Context.POWER_SERVICE;
-
 public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
 
     static final String PREF_EVENT_WIRED_HEADSET_CONNECTED = "eventWiredHeadsetConnected";

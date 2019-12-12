@@ -10,8 +10,6 @@ import android.os.PowerManager;
 
 import java.util.ArrayList;
 
-import static android.content.Context.POWER_SERVICE;
-
 public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
 
     @Override

@@ -8,8 +8,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 
-import static android.content.Context.POWER_SERVICE;
-
 public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
 
     @TargetApi(Build.VERSION_CODES.M)

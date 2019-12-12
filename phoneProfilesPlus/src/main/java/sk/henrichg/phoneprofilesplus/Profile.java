@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -27,8 +26,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-
-import static android.content.Context.SENSOR_SERVICE;
 
 public class Profile {
 

@@ -23,8 +23,6 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
     static boolean restartService;
 
-    static final String EXTRA_RESTART_SERVIVCE = "restart_service";
-
     @Override
     public void onReceive(Context context, Intent intent) {
         CallsCounter.logCounter(context, "PackageReplacedReceiver.onReceive", "PackageReplacedReceiver_onReceive");
@@ -511,11 +509,12 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
         }
     }
 
+    /*
     private void startService(DataWrapper dataWrapper) {
         boolean isStarted = PPApplication.getApplicationStarted(dataWrapper.context, false);
 
         PPApplication.logE("PPApplication.exitApp", "from PackageReplacedReceiver.startService shutdown=false");
-        PPApplication.exitApp(false, dataWrapper.context, dataWrapper, null, false/*, false, true*/);
+        PPApplication.exitApp(false, dataWrapper.context, dataWrapper, null, false);
 
         if (isStarted)
         {
@@ -534,5 +533,5 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
             //PPApplication.sleep(2000);
         }
     }
-
+    */
 }

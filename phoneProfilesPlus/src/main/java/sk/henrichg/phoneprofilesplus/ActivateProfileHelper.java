@@ -65,7 +65,6 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 import static android.app.Notification.DEFAULT_VIBRATE;
-import static android.content.Context.POWER_SERVICE;
 
 class ActivateProfileHelper {
 

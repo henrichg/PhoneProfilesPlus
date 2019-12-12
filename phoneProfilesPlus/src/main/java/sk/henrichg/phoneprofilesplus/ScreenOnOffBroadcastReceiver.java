@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -8,8 +7,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
-
-import static android.content.Context.POWER_SERVICE;
 
 public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 

@@ -12,8 +12,6 @@ import android.os.PowerManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.content.Context.POWER_SERVICE;
-
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 class BluetoothLEScanCallback21 extends ScanCallback {
 

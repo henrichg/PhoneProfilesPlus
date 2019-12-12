@@ -76,8 +76,8 @@ public class PhoneProfilesService extends Service
     //private boolean runningInForeground = false;
     private boolean waitForEndOfStart = true;
 
-    private Handler restartEventsForFirstStartHandler;
-    private Runnable restartEventsForFirstStartRunnable;
+    //private Handler restartEventsForFirstStartHandler;
+    //private Runnable restartEventsForFirstStartRunnable;
 
     private KeyguardManager keyguardManager = null;
     @SuppressWarnings("deprecation")
@@ -517,8 +517,8 @@ public class PhoneProfilesService extends Service
         return waitForEndOfStart;
     }
 
-    void setWaitForEndOfStart(boolean value) {
-        waitForEndOfStart = value;
+    void setWaitForEndOfStartToFalse() {
+        waitForEndOfStart = false;
     }
 
     private void registerAllTheTimeRequiredReceivers(boolean register) {
@@ -3554,7 +3554,7 @@ public class PhoneProfilesService extends Service
 
         //serviceRunning = true;
 
-        removeRestartEventsForFirstStartHandler(false);
+        //removeRestartEventsForFirstStartHandler(false);
 
         final Context appContext = getApplicationContext();
 
@@ -3858,7 +3858,7 @@ public class PhoneProfilesService extends Service
 
         //return onlyStart;
     }
-
+    /*
     void removeRestartEventsForFirstStartHandler(boolean disableWaitForEndOfStart) {
         if ((restartEventsForFirstStartHandler != null) &&
             (restartEventsForFirstStartRunnable != null))
@@ -3866,6 +3866,7 @@ public class PhoneProfilesService extends Service
         if (disableWaitForEndOfStart)
             waitForEndOfStart = false;
     }
+    */
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
