@@ -197,6 +197,7 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_RESTART_EVENTS = "restart_events";
     static final String EXTRA_UNBLOCK_EVENTS_RUN = "unblock_events_run";
     static final String EXTRA_REACTIVATE_PROFILE = "reactivate_profile";
+    static final String EXTRA_LOG_TYPE = "log_type";
 
     //-----------------------
 

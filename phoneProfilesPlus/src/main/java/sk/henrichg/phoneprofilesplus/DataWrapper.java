@@ -45,9 +45,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 import me.drakeet.support.toast.ToastCompat;
 
 public class DataWrapper {
@@ -4370,10 +4375,29 @@ public class DataWrapper {
     {
         PPApplication.logE("[TEST HANDLER] DataWrapper.restartEventsWithDelay","clearOld="+clearOld);
 
-        final DataWrapper dataWrapper = copyDataWrapper();
+        //final DataWrapper dataWrapper = copyDataWrapper();
 
         if (clearOld) {
-            PPApplication.startHandlerThreadRestartEventsWithDelay();
+            Data workData = new Data.Builder()
+                    .putBoolean(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun)
+                    .putInt(PhoneProfilesService.EXTRA_LOG_TYPE, logType)
+                    .build();
+
+            OneTimeWorkRequest restartEventsWithDelayWorker =
+                    new OneTimeWorkRequest.Builder(RestartEventsWithDelayWorker.class)
+                            .setInputData(workData)
+                            .setInitialDelay(delay, TimeUnit.SECONDS)
+                            .build();
+            try {
+                WorkManager workManager = WorkManager.getInstance(context);
+
+                workManager.cancelUniqueWork("restartEventsWithDelayWork");
+                workManager.cancelAllWorkByTag("restartEventsWithDelayWork");
+
+                workManager.enqueueUniqueWork("restartEventsWithDelayWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
+            } catch (Exception ignored) {}
+
+            /*PPApplication.startHandlerThreadRestartEventsWithDelay();
             PPApplication.restartEventsWithDelayHandler.removeCallbacksAndMessages(null);
             PPApplication.restartEventsWithDelayHandler.postDelayed(new Runnable() {
                 @Override
@@ -4381,14 +4405,28 @@ public class DataWrapper {
                     PPApplication.logE("[TEST HANDLER] DataWrapper.restartEventsWithDelay", "restart from handler");
                     if (logType != ALTYPE_UNDEFINED)
                         dataWrapper.addActivityLog(logType, null, null, null, 0);
-                    //dataWrapper.restartEvents(unblockEventsRun, true, true, false);
-                    dataWrapper.restartEventsWithRescan(/*true, */unblockEventsRun, false, true, false);
+                    dataWrapper.restartEventsWithRescan(unblockEventsRun, false, true, false);
                 }
-            }, delay * 1000);
+            }, delay * 1000);*/
             //PostDelayedBroadcastReceiver.setAlarmForRestartEvents(delay, true, unblockEventsRun, /*reactivateProfile,*/ logType, context);
         }
         else {
-            PPApplication.startHandlerThread("DataWrapper.restartEventsWithDelay");
+            Data workData = new Data.Builder()
+                    .putBoolean(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun)
+                    .putInt(PhoneProfilesService.EXTRA_LOG_TYPE, logType)
+                    .build();
+
+            OneTimeWorkRequest restartEventsWithDelayWorker =
+                    new OneTimeWorkRequest.Builder(RestartEventsWithDelayWorker.class)
+                            .setInputData(workData)
+                            .setInitialDelay(delay, TimeUnit.SECONDS)
+                            .build();
+            try {
+                WorkManager workManager = WorkManager.getInstance(context);
+                workManager.enqueueUniqueWork("restartEventsWithDelayWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
+            } catch (Exception ignored) {}
+
+            /*PPApplication.startHandlerThread("DataWrapper.restartEventsWithDelay");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.postDelayed(new Runnable() {
                 @Override
@@ -4396,10 +4434,9 @@ public class DataWrapper {
                     PPApplication.logE("[TEST HANDLER] DataWrapper.restartEventsWithDelay", "restart from handler");
                     if (logType != ALTYPE_UNDEFINED)
                         dataWrapper.addActivityLog(logType, null, null, null, 0);
-                    //dataWrapper.restartEvents(unblockEventsRun, true, true, false);
-                    dataWrapper.restartEventsWithRescan(/*true, */unblockEventsRun, false, true, false);
+                    dataWrapper.restartEventsWithRescan(unblockEventsRun, false, true, false);
                 }
-            }, delay * 1000);
+            }, delay * 1000);*/
             //PostDelayedBroadcastReceiver.setAlarmForRestartEvents(delay, false, unblockEventsRun, /*reactivateProfile,*/ logType, context);
         }
     }
