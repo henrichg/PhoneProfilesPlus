@@ -53,9 +53,13 @@ import com.crashlytics.android.Crashlytics;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import static android.app.Notification.DEFAULT_SOUND;
 import static android.app.Notification.DEFAULT_VIBRATE;
@@ -5861,7 +5865,17 @@ public class PhoneProfilesService extends Service
                 } catch (SecurityException e) {
                     PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", " security exception");
                     ringingMediaPlayer = null;
-                    PPApplication.startHandlerThreadInternalChangeToFalse();
+
+                    OneTimeWorkRequest disableInternalChangeWorker =
+                            new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
+                                    .setInitialDelay(3000, TimeUnit.SECONDS)
+                                    .build();
+                    try {
+                        WorkManager workManager = WorkManager.getInstance(getApplicationContext());
+                        workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                    } catch (Exception ignored) {}
+
+                    /*PPApplication.startHandlerThreadInternalChangeToFalse();
                     final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -5869,14 +5883,25 @@ public class PhoneProfilesService extends Service
                             PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "disable ringer mode change internal change");
                             RingerModeChangeReceiver.internalChange = false;
                         }
-                    }, 3000);
+                    }, 3000);*/
                     //PostDelayedBroadcastReceiver.setAlarm(
                     //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, this);
+
                     Permissions.grantPlayRingtoneNotificationPermissions(this, false);
                 } catch (Exception e) {
                     PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", Log.getStackTraceString(e));
                     ringingMediaPlayer = null;
-                    PPApplication.startHandlerThreadInternalChangeToFalse();
+
+                    OneTimeWorkRequest disableInternalChangeWorker =
+                            new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
+                                    .setInitialDelay(3000, TimeUnit.SECONDS)
+                                    .build();
+                    try {
+                        WorkManager workManager = WorkManager.getInstance(getApplicationContext());
+                        workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                    } catch (Exception ignored) {}
+
+                    /*PPApplication.startHandlerThreadInternalChangeToFalse();
                     final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -5884,7 +5909,7 @@ public class PhoneProfilesService extends Service
                             PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "disable ringer mode change internal change");
                             RingerModeChangeReceiver.internalChange = false;
                         }
-                    }, 3000);
+                    }, 3000);*/
                     //PostDelayedBroadcastReceiver.setAlarm(
                     //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, this);
                     Permissions.grantPlayRingtoneNotificationPermissions(this, false);
@@ -5920,7 +5945,17 @@ public class PhoneProfilesService extends Service
             }*/
         //}
         ringingCallIsSimulating = false;
-        PPApplication.startHandlerThreadInternalChangeToFalse();
+
+        OneTimeWorkRequest disableInternalChangeWorker =
+                new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
+                        .setInitialDelay(3000, TimeUnit.SECONDS)
+                        .build();
+        try {
+            WorkManager workManager = WorkManager.getInstance(getApplicationContext());
+            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+        } catch (Exception ignored) {}
+
+        /*PPApplication.startHandlerThreadInternalChangeToFalse();
         final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
         handler.postDelayed(new Runnable() {
             @Override
@@ -5928,7 +5963,7 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("PhoneProfilesService.stopSimulatingRingingCall", "disable ringer mode change internal change");
                 RingerModeChangeReceiver.internalChange = false;
             }
-        }, 3000);
+        }, 3000);*/
         //PostDelayedBroadcastReceiver.setAlarm(
         //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, this);
     }
@@ -6297,14 +6332,23 @@ public class PhoneProfilesService extends Service
                                 notificationIsPlayed = false;
                                 notificationMediaPlayer = null;
 
-                                PPApplication.startHandlerThreadInternalChangeToFalse();
+                                OneTimeWorkRequest disableInternalChangeWorker =
+                                        new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
+                                                .setInitialDelay(3000, TimeUnit.SECONDS)
+                                                .build();
+                                try {
+                                    WorkManager workManager = WorkManager.getInstance(getApplicationContext());
+                                    workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                                } catch (Exception ignored) {}
+
+                                /*PPApplication.startHandlerThreadInternalChangeToFalse();
                                 final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
                                 handler.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
                                         RingerModeChangeReceiver.internalChange = false;
                                     }
-                                }, 3000);
+                                }, 3000);*/
                                 //PostDelayedBroadcastReceiver.setAlarm(
                                 //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, context);
 
@@ -6315,28 +6359,48 @@ public class PhoneProfilesService extends Service
                     } catch (SecurityException e) {
                         PPApplication.logE("PhoneProfilesService.playNotificationSound", "security exception");
                         stopPlayNotificationSound();
-                        PPApplication.startHandlerThreadInternalChangeToFalse();
+
+                        OneTimeWorkRequest disableInternalChangeWorker =
+                                new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
+                                        .setInitialDelay(3000, TimeUnit.SECONDS)
+                                        .build();
+                        try {
+                            WorkManager workManager = WorkManager.getInstance(getApplicationContext());
+                            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                        } catch (Exception ignored) {}
+
+                        /*PPApplication.startHandlerThreadInternalChangeToFalse();
                         final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 RingerModeChangeReceiver.internalChange = false;
                             }
-                        }, 3000);
+                        }, 3000);*/
                         //PostDelayedBroadcastReceiver.setAlarm(
                         //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, this);
                         Permissions.grantPlayRingtoneNotificationPermissions(this, false);
                     } catch (Exception e) {
                         PPApplication.logE("PhoneProfilesService.playNotificationSound", "exception");
                         stopPlayNotificationSound();
-                        PPApplication.startHandlerThreadInternalChangeToFalse();
+
+                        OneTimeWorkRequest disableInternalChangeWorker =
+                                new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
+                                        .setInitialDelay(3000, TimeUnit.SECONDS)
+                                        .build();
+                        try {
+                            WorkManager workManager = WorkManager.getInstance(getApplicationContext());
+                            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                        } catch (Exception ignored) {}
+
+                        /*PPApplication.startHandlerThreadInternalChangeToFalse();
                         final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 RingerModeChangeReceiver.internalChange = false;
                             }
-                        }, 3000);
+                        }, 3000);*/
                         //PostDelayedBroadcastReceiver.setAlarm(
                         //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, this);
                         Permissions.grantPlayRingtoneNotificationPermissions(this, false);

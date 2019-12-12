@@ -120,7 +120,7 @@ public class PPApplication extends Application {
 
                                          //+"|DataWrapper.restartEventsWithAlert"
                                          //+"|DataWrapper.restartEventsWithDelay"
-                                         +"|[TEST HANDLER] DataWrapper.restartEventsWithDelay"
+                                         //+"|[TEST HANDLER] DataWrapper.restartEventsWithDelay"
 
                                          // for list of TRANSACTION_* for "phone" service
                                          //+"|[LIST] PPApplication.getTransactionCode"
@@ -159,7 +159,7 @@ public class PPApplication extends Application {
                                          //+"|$$$ EventsHandler.handleEvents"
                                          //+"|[NOTIFY] EventsHandler"
                                          //+"|Profile.mergeProfiles"
-                                         +"|@@@ Event.pauseEvent"
+                                         //+"|@@@ Event.pauseEvent"
                                          //+"|@@@ Event.stopEvent"
                                         //+"|$$$ restartEvents"
                                         //+"|DataWrapper._restartEvents"
@@ -343,7 +343,7 @@ public class PPApplication extends Application {
 
                                          //+"|PostDelayedBroadcastReceiver.onReceive"
 
-                                         +"|WifiScanWorker"
+                                         //+"|WifiScanWorker"
                                          //+"|%%%% WifiScanBroadcastReceiver.onReceive"
 
                                          //+"|WifiSSIDPreference.refreshListView"
@@ -698,7 +698,7 @@ public class PPApplication extends Application {
 //    static private FirebaseAnalytics firebaseAnalytics;
 
     public static HandlerThread handlerThread = null;
-    public static HandlerThread handlerThreadInternalChangeToFalse = null;
+    //public static HandlerThread handlerThreadInternalChangeToFalse = null;
     public static HandlerThread handlerThreadWidget = null;
     public static HandlerThread handlerThreadProfileNotification = null;
     public static HandlerThread handlerThreadPlayTone = null;
@@ -904,7 +904,7 @@ public class PPApplication extends Application {
         //firstStartServiceStarted = false;
 
         startHandlerThread("PPApplication.onCreate");
-        startHandlerThreadInternalChangeToFalse();
+        //startHandlerThreadInternalChangeToFalse();
         startHandlerThreadPPService();
         //startHandlerThreadRoot();
         startHandlerThreadWidget();
@@ -2676,13 +2676,14 @@ public class PPApplication extends Application {
         }
     }
 
+    /*
     static void startHandlerThreadInternalChangeToFalse() {
         if (handlerThreadInternalChangeToFalse == null) {
             handlerThreadInternalChangeToFalse = new HandlerThread("PPHandlerThreadInternalChangeToFalse", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadInternalChangeToFalse.start();
         }
     }
-
+    */
     /*
     private static void startHandlerThreadRoot() {
         if (handlerThreadRoot == null) {

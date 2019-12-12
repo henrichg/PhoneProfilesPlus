@@ -23,15 +23,12 @@ public class RestartEventsWithDelayWorker extends Worker {
     public Result doWork() {
 
         PPApplication.logE("RestartEventsWithDelayWorker.doWork", "xxx");
-        PPApplication.logE("[TEST HANDLER] DataWrapper.restartEventsWithDelay", "restart from handler");
 
         //Data outputData;
 
         // Get the input
         boolean unblockEventsRun = getInputData().getBoolean(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, false);
         int logType = getInputData().getInt(PhoneProfilesService.EXTRA_LOG_TYPE, 0);
-        PPApplication.logE("[TEST HANDLER] DataWrapper.restartEventsWithDelay", "unblockEventsRun="+unblockEventsRun);
-        PPApplication.logE("[TEST HANDLER] DataWrapper.restartEventsWithDelay", "logType="+logType);
 
         //outputData = generateResult(LocationGeofenceEditorActivity.FAILURE_RESULT,
         //                                    getApplicationContext().getString(R.string.event_preferences_location_no_address_found),

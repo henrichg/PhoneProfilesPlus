@@ -22,9 +22,13 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 public class RingtonePreferenceX extends DialogPreference {
 
@@ -360,7 +364,6 @@ public class RingtonePreferenceX extends DialogPreference {
                         mediaPlayer.start();
                         ringtoneIsPlayed = true;
 
-                        //final Context context = this;
                         playTimer = new Timer();
                         playTimer.schedule(new TimerTask() {
                             @Override
@@ -381,14 +384,23 @@ public class RingtonePreferenceX extends DialogPreference {
                                 ringtoneIsPlayed = false;
                                 mediaPlayer = null;
 
-                                PPApplication.startHandlerThreadInternalChangeToFalse();
+                                OneTimeWorkRequest disableInternalChangeWorker =
+                                        new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
+                                                .setInitialDelay(3000, TimeUnit.SECONDS)
+                                                .build();
+                                try {
+                                    WorkManager workManager = WorkManager.getInstance(prefContext);
+                                    workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                                } catch (Exception ignored) {}
+
+                                /*PPApplication.startHandlerThreadInternalChangeToFalse();
                                 final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
                                 handler.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
                                         RingerModeChangeReceiver.internalChange = false;
                                     }
-                                }, 3000);
+                                }, 3000);*/
                                 //PostDelayedBroadcastReceiver.setAlarm(
                                 //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, prefContext);
 
@@ -399,27 +411,47 @@ public class RingtonePreferenceX extends DialogPreference {
                     } catch (SecurityException e) {
                         PPApplication.logE("RingtonePreferenceX.playRingtone", "security exception");
                         stopPlayRingtone();
-                        PPApplication.startHandlerThreadInternalChangeToFalse();
+
+                        OneTimeWorkRequest disableInternalChangeWorker =
+                                new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
+                                        .setInitialDelay(3000, TimeUnit.SECONDS)
+                                        .build();
+                        try {
+                            WorkManager workManager = WorkManager.getInstance(prefContext);
+                            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                        } catch (Exception ignored) {}
+
+                        /*PPApplication.startHandlerThreadInternalChangeToFalse();
                         final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 RingerModeChangeReceiver.internalChange = false;
                             }
-                        }, 3000);
+                        }, 3000);*/
                         //PostDelayedBroadcastReceiver.setAlarm(
                         //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, prefContext);
                     } catch (Exception e) {
                         PPApplication.logE("RingtonePreferenceX.playRingtone", Log.getStackTraceString(e));
                         stopPlayRingtone();
-                        PPApplication.startHandlerThreadInternalChangeToFalse();
+
+                        OneTimeWorkRequest disableInternalChangeWorker =
+                                new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
+                                        .setInitialDelay(3000, TimeUnit.SECONDS)
+                                        .build();
+                        try {
+                            WorkManager workManager = WorkManager.getInstance(prefContext);
+                            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                        } catch (Exception ignored) {}
+
+                        /*PPApplication.startHandlerThreadInternalChangeToFalse();
                         final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 RingerModeChangeReceiver.internalChange = false;
                             }
-                        }, 3000);
+                        }, 3000);*/
                         //PostDelayedBroadcastReceiver.setAlarm(
                         //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, prefContext);
                     }

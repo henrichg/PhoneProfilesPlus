@@ -55,10 +55,14 @@ import com.stericson.RootTools.RootTools;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import static android.app.Notification.DEFAULT_VIBRATE;
 import static android.content.Context.POWER_SERVICE;
@@ -1216,7 +1220,16 @@ class ActivateProfileHelper {
                                 //SystemClock.sleep(500);
                                 PPApplication.sleep(500);
 
-                                PPApplication.startHandlerThreadInternalChangeToFalse();
+                                OneTimeWorkRequest disableInternalChangeWorker =
+                                        new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
+                                                .setInitialDelay(3000, TimeUnit.SECONDS)
+                                                .build();
+                                try {
+                                    WorkManager workManager = WorkManager.getInstance(context);
+                                    workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                                } catch (Exception ignored) {}
+
+                                /*PPApplication.startHandlerThreadInternalChangeToFalse();
                                 final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
                                 handler.postDelayed(new Runnable() {
                                     @Override
@@ -1224,7 +1237,7 @@ class ActivateProfileHelper {
                                         PPApplication.logE("ActivateProfileHelper.executeForVolumes", "disable ringer mode change internal change");
                                         RingerModeChangeReceiver.internalChange = false;
                                     }
-                                }, 3000);
+                                }, 3000);*/
                                 //PostDelayedBroadcastReceiver.setAlarm(
                                 //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, context);
                             }
@@ -2738,7 +2751,17 @@ class ActivateProfileHelper {
                 break;
         }
         setActivatedProfileScreenTimeout(context, 0);
-        PPApplication.startHandlerThreadInternalChangeToFalse();
+
+        OneTimeWorkRequest disableInternalChangeWorker =
+                new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
+                        .setInitialDelay(3000, TimeUnit.SECONDS)
+                        .build();
+        try {
+            WorkManager workManager = WorkManager.getInstance(context);
+            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+        } catch (Exception ignored) {}
+
+        /*PPApplication.startHandlerThreadInternalChangeToFalse();
         final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
         handler.postDelayed(new Runnable() {
             @Override
@@ -2746,7 +2769,7 @@ class ActivateProfileHelper {
                 PPApplication.logE("ActivateProfileHelper.setScreenTimeout", "disable screen timeout internal change");
                 disableScreenTimeoutInternalChange = false;
             }
-        }, 3000);
+        }, 3000);*/
         //PostDelayedBroadcastReceiver.setAlarm(
         //        PostDelayedBroadcastReceiver.ACTION_DISABLE_SCREEN_TIMEOUT_INTERNAL_CHANGE_TO_FALSE, 3, context);
     }
