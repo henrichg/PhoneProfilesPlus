@@ -390,6 +390,8 @@ public class RingtonePreferenceX extends DialogPreference {
                                                 .build();
                                 try {
                                     WorkManager workManager = WorkManager.getInstance(prefContext);
+                                    workManager.cancelUniqueWork("disableInternalChangeWork");
+                                    workManager.cancelAllWorkByTag("disableInternalChangeWork");
                                     workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                                 } catch (Exception ignored) {}
 
@@ -418,6 +420,8 @@ public class RingtonePreferenceX extends DialogPreference {
                                         .build();
                         try {
                             WorkManager workManager = WorkManager.getInstance(prefContext);
+                            workManager.cancelUniqueWork("disableInternalChangeWork");
+                            workManager.cancelAllWorkByTag("disableInternalChangeWork");
                             workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                         } catch (Exception ignored) {}
 
@@ -441,6 +445,8 @@ public class RingtonePreferenceX extends DialogPreference {
                                         .build();
                         try {
                             WorkManager workManager = WorkManager.getInstance(prefContext);
+                            workManager.cancelUniqueWork("disableInternalChangeWork");
+                            workManager.cancelAllWorkByTag("disableInternalChangeWork");
                             workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                         } catch (Exception ignored) {}
 

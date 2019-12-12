@@ -5892,6 +5892,8 @@ public class PhoneProfilesService extends Service
                                     .build();
                     try {
                         WorkManager workManager = WorkManager.getInstance(getApplicationContext());
+                        workManager.cancelUniqueWork("disableInternalChangeWork");
+                        workManager.cancelAllWorkByTag("disableInternalChangeWork");
                         workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                     } catch (Exception ignored) {}
 
@@ -5918,6 +5920,8 @@ public class PhoneProfilesService extends Service
                                     .build();
                     try {
                         WorkManager workManager = WorkManager.getInstance(getApplicationContext());
+                        workManager.cancelUniqueWork("disableInternalChangeWork");
+                        workManager.cancelAllWorkByTag("disableInternalChangeWork");
                         workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                     } catch (Exception ignored) {}
 
@@ -5972,6 +5976,8 @@ public class PhoneProfilesService extends Service
                         .build();
         try {
             WorkManager workManager = WorkManager.getInstance(getApplicationContext());
+            workManager.cancelUniqueWork("disableInternalChangeWork");
+            workManager.cancelAllWorkByTag("disableInternalChangeWork");
             workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
         } catch (Exception ignored) {}
 
@@ -6358,6 +6364,8 @@ public class PhoneProfilesService extends Service
                                                 .build();
                                 try {
                                     WorkManager workManager = WorkManager.getInstance(getApplicationContext());
+                                    workManager.cancelUniqueWork("disableInternalChangeWork");
+                                    workManager.cancelAllWorkByTag("disableInternalChangeWork");
                                     workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                                 } catch (Exception ignored) {}
 
@@ -6386,6 +6394,8 @@ public class PhoneProfilesService extends Service
                                         .build();
                         try {
                             WorkManager workManager = WorkManager.getInstance(getApplicationContext());
+                            workManager.cancelUniqueWork("disableInternalChangeWork");
+                            workManager.cancelAllWorkByTag("disableInternalChangeWork");
                             workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                         } catch (Exception ignored) {}
 
@@ -6410,6 +6420,8 @@ public class PhoneProfilesService extends Service
                                         .build();
                         try {
                             WorkManager workManager = WorkManager.getInstance(getApplicationContext());
+                            workManager.cancelUniqueWork("disableInternalChangeWork");
+                            workManager.cancelAllWorkByTag("disableInternalChangeWork");
                             workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                         } catch (Exception ignored) {}
 

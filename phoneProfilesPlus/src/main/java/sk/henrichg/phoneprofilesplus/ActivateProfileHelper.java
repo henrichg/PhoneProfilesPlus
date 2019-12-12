@@ -1226,6 +1226,8 @@ class ActivateProfileHelper {
                                                 .build();
                                 try {
                                     WorkManager workManager = WorkManager.getInstance(context);
+                                    workManager.cancelUniqueWork("disableInternalChangeWork");
+                                    workManager.cancelAllWorkByTag("disableInternalChangeWork");
                                     workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                                 } catch (Exception ignored) {}
 
@@ -2758,6 +2760,8 @@ class ActivateProfileHelper {
                         .build();
         try {
             WorkManager workManager = WorkManager.getInstance(context);
+            workManager.cancelUniqueWork("disableInternalChangeWork");
+            workManager.cancelAllWorkByTag("disableInternalChangeWork");
             workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
         } catch (Exception ignored) {}
 
