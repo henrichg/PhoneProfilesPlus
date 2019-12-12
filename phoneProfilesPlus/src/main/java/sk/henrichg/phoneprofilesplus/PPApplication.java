@@ -41,6 +41,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,6 +50,10 @@ import androidx.core.content.pm.PackageInfoCompat;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.multidex.MultiDex;
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 import dev.doubledot.doki.views.DokiContentView;
 import io.fabric.sdk.android.Fabric;
 
@@ -540,7 +545,7 @@ public class PPApplication extends Application {
                                         //+"|CustomColorDialogPreferenceX"
                                         //+"|CustomColorDialogPreferenceFragmentX"
 
-                                        +"|[HANDLER] DisableInternalChangeWorker.doWork"
+                                        //+"|[HANDLER] DisableInternalChangeWorker.doWork"
             ;
 
 
@@ -2811,11 +2816,25 @@ public class PPApplication extends Application {
         }
     }
 
-    static void setBlockProfileEventActions(boolean enable) {
+    static void setBlockProfileEventActions(boolean enable, Context context) {
         // if blockProfileEventActions = true, do not perform any actions, for example ActivateProfileHelper.lockDevice()
         PPApplication.blockProfileEventActions = enable;
         if (enable) {
-            PPApplication.startHandlerThread("PPApplication.setBlockProfileEventActions");
+            Data workData = new Data.Builder()
+                    .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_BLOCK_PROFILE_EVENT_ACTIONS)
+                    .build();
+
+            OneTimeWorkRequest afterFirstStartWorker =
+                    new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                            .setInputData(workData)
+                            .setInitialDelay(30, TimeUnit.SECONDS)
+                            .build();
+            try {
+                WorkManager workManager = WorkManager.getInstance(context.getApplicationContext());
+                workManager.enqueueUniqueWork("setBlockProfileEventsActionWork", ExistingWorkPolicy.REPLACE, afterFirstStartWorker);
+            } catch (Exception ignored) {}
+
+            /*PPApplication.startHandlerThread("PPApplication.setBlockProfileEventActions");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.postDelayed(new Runnable() {
                 @Override
@@ -2827,7 +2846,7 @@ public class PPApplication extends Application {
 
                     PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPApplication.setBlockProfileEventActions");
                 }
-            }, 30000);
+            }, 30000);*/
         }
     }
 

@@ -6,6 +6,13 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
 
+import java.util.concurrent.TimeUnit;
+
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+
 import static android.content.Context.POWER_SERVICE;
 
 public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
@@ -55,7 +62,22 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
                             if (forceOneScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
                             {
-                                PPApplication.startHandlerThread("BluetoothLEScanBroadcastReceiver.onReceive");
+                                Data workData = new Data.Builder()
+                                        .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS)
+                                        .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER)
+                                        .build();
+
+                                OneTimeWorkRequest afterFirstStartWorker =
+                                        new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                                .setInputData(workData)
+                                                .setInitialDelay(5, TimeUnit.SECONDS)
+                                                .build();
+                                try {
+                                    WorkManager workManager = WorkManager.getInstance(context);
+                                    workManager.enqueueUniqueWork("handleEventsBluetoothLEScannerWork", ExistingWorkPolicy.REPLACE, afterFirstStartWorker);
+                                } catch (Exception ignored) {}
+
+                                /*PPApplication.startHandlerThread("BluetoothLEScanBroadcastReceiver.onReceive");
                                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                                 handler.postDelayed(new Runnable() {
                                     @Override
@@ -79,7 +101,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
                                             }
                                         }
                                     }
-                                }, 5000);
+                                }, 5000);*/
                                 //PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER, 5, appContext);
                             }
                         //}

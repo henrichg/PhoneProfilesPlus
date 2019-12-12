@@ -23,6 +23,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
+import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
@@ -919,7 +920,22 @@ public class BluetoothScanWorker extends Worker {
 
                 if (forceOneScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
                 {
-                    PPApplication.startHandlerThread("BluetoothScanWorker.finishCLScan");
+                    Data workData = new Data.Builder()
+                            .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS)
+                            .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER)
+                            .build();
+
+                    OneTimeWorkRequest afterFirstStartWorker =
+                            new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                    .setInputData(workData)
+                                    .setInitialDelay(5, TimeUnit.SECONDS)
+                                    .build();
+                    try {
+                        WorkManager workManager = WorkManager.getInstance(context);
+                        workManager.enqueueUniqueWork("handleEventsBluetoothCLScannerWork", ExistingWorkPolicy.REPLACE, afterFirstStartWorker);
+                    } catch (Exception ignored) {}
+
+                    /*PPApplication.startHandlerThread("BluetoothScanWorker.finishCLScan");
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -943,7 +959,7 @@ public class BluetoothScanWorker extends Worker {
                                 }
                             }
                         }
-                    }, 5000);
+                    }, 5000);*/
                     //PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER, 5, context);
                 }
 

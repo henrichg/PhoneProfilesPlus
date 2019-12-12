@@ -12,10 +12,18 @@ import android.os.Handler;
 import android.os.PowerManager;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 public class PackageReplacedReceiver extends BroadcastReceiver {
 
-    static private boolean restartService;
+    static boolean restartService;
+
+    static final String EXTRA_RESTART_SERVIVCE = "restart_service";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -26,7 +34,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
             restartService = false;
 
-            PPApplication.setBlockProfileEventActions(true);
+            PPApplication.setBlockProfileEventActions(true, context);
 
             final Context appContext = context.getApplicationContext();
 
@@ -397,7 +405,21 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                 }
             });
 
-            PPApplication.startHandlerThread("PackageReplacedReceiver.onReceive.2");
+            Data workData = new Data.Builder()
+                    .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED)
+                    .build();
+
+            OneTimeWorkRequest afterFirstStartWorker =
+                    new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                            .setInputData(workData)
+                            .setInitialDelay(15, TimeUnit.SECONDS)
+                            .build();
+            try {
+                WorkManager workManager = WorkManager.getInstance(context);
+                workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.REPLACE, afterFirstStartWorker);
+            } catch (Exception ignored) {}
+
+            /*PPApplication.startHandlerThread("PackageReplacedReceiver.onReceive.2");
             final Handler handler3 = new Handler(PPApplication.handlerThread.getLooper());
             handler3.postDelayed(new Runnable() {
                 @Override
@@ -413,12 +435,10 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                         PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PackageReplacedReceiver.onReceive.2");
                         PPApplication.logE("PackageReplacedReceiver.onReceive", "restartService="+restartService);
 
-                        /*
-                        ApplicationPreferences.getSharedPreferences(appContext);
-                        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-                        editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "white");
-                        editor.apply();
-                        */
+                        //ApplicationPreferences.getSharedPreferences(appContext);
+                        //SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                        //editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "white");
+                        //editor.apply();
 
                         if (PhoneStateScanner.enabledAutoRegistration) {
                             PhoneStateScanner.stopAutoRegistration(appContext);
@@ -486,7 +506,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                         }
                     }
                 }
-            }, 15000);
+            }, 15000);*/
 
         }
     }

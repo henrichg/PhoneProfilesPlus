@@ -57,6 +57,7 @@ import java.util.concurrent.TimeUnit;
 
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
@@ -202,6 +203,8 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_UNBLOCK_EVENTS_RUN = "unblock_events_run";
     static final String EXTRA_REACTIVATE_PROFILE = "reactivate_profile";
     static final String EXTRA_LOG_TYPE = "log_type";
+    static final String EXTRA_DELAYED_WORK = "delayed_work";
+    static final String EXTRA_SENSOR_TYPE = "sensor_type";
 
     //-----------------------
 
@@ -514,9 +517,9 @@ public class PhoneProfilesService extends Service
         return waitForEndOfStart;
     }
 
-//    void setWaitForEndOfStart(boolean value) {
-//        waitForEndOfStart = value;
-//    }
+    void setWaitForEndOfStart(boolean value) {
+        waitForEndOfStart = value;
+    }
 
     private void registerAllTheTimeRequiredReceivers(boolean register) {
         final Context appContext = getApplicationContext();
@@ -3789,6 +3792,22 @@ public class PhoneProfilesService extends Service
                 }
             });
 
+            Data workData = new Data.Builder()
+                    .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START)
+                    .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, _activateProfiles)
+                    .build();
+
+            OneTimeWorkRequest afterFirstStartWorker =
+                    new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                            .setInputData(workData)
+                            .setInitialDelay(30, TimeUnit.SECONDS)
+                            .build();
+            try {
+                WorkManager workManager = WorkManager.getInstance(appContext);
+                workManager.enqueueUniqueWork("delayedWorkAfterFirstStartWork", ExistingWorkPolicy.REPLACE, afterFirstStartWorker);
+            } catch (Exception ignored) {}
+
+            /*
             PPApplication.startHandlerThread("PhoneProfilesService.doForFirstStart.2");
             restartEventsForFirstStartHandler = new Handler(PPApplication.handlerThread.getLooper());
             restartEventsForFirstStartRunnable =
@@ -3813,7 +3832,7 @@ public class PhoneProfilesService extends Service
 
                                     if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
                                         PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "xRESTART EVENTS AFTER WAIT FOR END OF START");
-                                        dataWrapper.restartEventsWithRescan(/*true, */_activateProfiles, false, true, false);
+                                        dataWrapper.restartEventsWithRescan(_activateProfiles, false, true, false);
 
                                         dataWrapper.invalidateDataWrapper();
                                     }
@@ -3831,6 +3850,7 @@ public class PhoneProfilesService extends Service
                         }
                     };
             restartEventsForFirstStartHandler.postDelayed(restartEventsForFirstStartRunnable, 30000);
+            */
 
         //}
 

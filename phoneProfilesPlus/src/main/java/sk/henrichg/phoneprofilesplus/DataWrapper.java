@@ -1779,7 +1779,7 @@ public class DataWrapper {
     private void activateProfileWithAlert(Profile profile, int startupSource, /*final boolean interactive,*/
                                             Activity activity)
     {
-        PPApplication.setBlockProfileEventActions(false);
+        PPApplication.setBlockProfileEventActions(false, context);
 
         if (/*interactive &&*/ (ApplicationPreferences.applicationActivateWithAlert(context) ||
                             (startupSource == PPApplication.STARTUP_SOURCE_EDITOR)))
@@ -4271,7 +4271,7 @@ public class DataWrapper {
 
         PPApplication.logE("DataWrapper.restartEventsWithAlert", "xxx");
 
-        PPApplication.setBlockProfileEventActions(false);
+        PPApplication.setBlockProfileEventActions(false, context);
 
         if (ApplicationPreferences.applicationRestartEventsWithAlert(context) || (activity instanceof EditorProfilesActivity))
         {
@@ -4394,7 +4394,7 @@ public class DataWrapper {
                 workManager.cancelUniqueWork("restartEventsWithDelayWork");
                 workManager.cancelAllWorkByTag("restartEventsWithDelayWork");
 
-                workManager.enqueueUniqueWork("restartEventsWithDelayWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
+                workManager.enqueueUniqueWork("restartEventsWithDelayClearOldWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
             } catch (Exception ignored) {}
 
             /*PPApplication.startHandlerThreadRestartEventsWithDelay();
@@ -4423,7 +4423,7 @@ public class DataWrapper {
                             .build();
             try {
                 WorkManager workManager = WorkManager.getInstance(context);
-                workManager.enqueueUniqueWork("restartEventsWithDelayWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
+                workManager.enqueueUniqueWork("restartEventsWithDelayNotClearOldWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
             } catch (Exception ignored) {}
 
             /*PPApplication.startHandlerThread("DataWrapper.restartEventsWithDelay");

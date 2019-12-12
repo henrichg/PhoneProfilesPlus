@@ -15,8 +15,13 @@ import android.os.SystemClock;
 import android.provider.Settings;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import static android.content.Context.POWER_SERVICE;
 
@@ -210,7 +215,22 @@ class WifiBluetoothScanner {
                                         PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "no data received from scanner");
                                         if (getForceOneWifiScan(context) != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                                         {
-                                            PPApplication.startHandlerThread("WifiBluetoothScanner.doScan");
+                                            Data workData = new Data.Builder()
+                                                    .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS)
+                                                    .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_WIFI_SCANNER)
+                                                    .build();
+
+                                            OneTimeWorkRequest afterFirstStartWorker =
+                                                    new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                                            .setInputData(workData)
+                                                            .setInitialDelay(5, TimeUnit.SECONDS)
+                                                            .build();
+                                            try {
+                                                WorkManager workManager = WorkManager.getInstance(context);
+                                                workManager.enqueueUniqueWork("handleEventsWifiScannerFromScannerWork", ExistingWorkPolicy.REPLACE, afterFirstStartWorker);
+                                            } catch (Exception ignored) {}
+
+                                            /*PPApplication.startHandlerThread("WifiBluetoothScanner.doScan");
                                             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                                             handler.postDelayed(new Runnable() {
                                                 @Override
@@ -234,7 +254,7 @@ class WifiBluetoothScanner {
                                                         }
                                                     }
                                                 }
-                                            }, 5000);
+                                            }, 5000);*/
                                             //PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER, 5, context);
                                         }
                                     }

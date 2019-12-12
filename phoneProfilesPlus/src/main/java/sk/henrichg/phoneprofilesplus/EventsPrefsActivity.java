@@ -501,7 +501,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
             // restart Events
             PPApplication.logE("$$$ restartEvents","from EventsPrefsActivity.savePreferences");
-            PPApplication.setBlockProfileEventActions(true);
+            PPApplication.setBlockProfileEventActions(true, dataWrapper.context);
             //dataWrapper.restartEvents(false, true, true, true, true);
             dataWrapper.restartEventsWithRescan(/*true, */false, true, true, false);
         }
@@ -546,7 +546,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
                             // restart Events
                             PPApplication.logE("$$$ restartEvents", "from EventsPrefsActivity.savePreferences");
-                            PPApplication.setBlockProfileEventActions(true);
+                            PPApplication.setBlockProfileEventActions(true, dataWrapper.context);
                             //dataWrapper.restartEvents(false, true, true, true, false);
                             dataWrapper.restartEventsWithRescan(/*true, */false, false, true, false);
                         }
@@ -586,7 +586,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
                         // restart Events
                         PPApplication.logE("$$$ restartEvents", "from EventsPrefsActivity.savePreferences");
-                        PPApplication.setBlockProfileEventActions(true);
+                        PPApplication.setBlockProfileEventActions(true, dataWrapper.context);
                         //dataWrapper.restartEvents(false, true, true, true, false);
                         dataWrapper.restartEventsWithRescan(/*true, */false, false, true, false);
 

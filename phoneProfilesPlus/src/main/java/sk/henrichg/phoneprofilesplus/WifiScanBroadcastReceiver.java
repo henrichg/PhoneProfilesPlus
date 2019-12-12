@@ -8,6 +8,12 @@ import android.os.Handler;
 import android.os.PowerManager;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import static android.content.Context.POWER_SERVICE;
 
@@ -101,7 +107,23 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                     if (forceOneScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                                     {
                                         PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "start EventsHandler (1)");
-                                        PPApplication.startHandlerThread("WifiScanBroadcastReceiver.onReceive.2");
+
+                                        Data workData = new Data.Builder()
+                                                .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS)
+                                                .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_WIFI_SCANNER)
+                                                .build();
+
+                                        OneTimeWorkRequest afterFirstStartWorker =
+                                                new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                                        .setInputData(workData)
+                                                        .setInitialDelay(5, TimeUnit.SECONDS)
+                                                        .build();
+                                        try {
+                                            WorkManager workManager = WorkManager.getInstance(appContext);
+                                            workManager.enqueueUniqueWork("handleEventsWifiScannerFromReceiverWork", ExistingWorkPolicy.REPLACE, afterFirstStartWorker);
+                                        } catch (Exception ignored) {}
+
+                                        /*PPApplication.startHandlerThread("WifiScanBroadcastReceiver.onReceive.2");
                                         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                                         handler.postDelayed(new Runnable() {
                                             @Override
@@ -125,7 +147,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                                     }
                                                 }
                                             }
-                                        }, 5000);
+                                        }, 5000);*/
                                         //PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER, 5, appContext);
                                     }
                                 }

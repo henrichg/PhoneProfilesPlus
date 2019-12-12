@@ -9,6 +9,12 @@ import android.os.Handler;
 import android.os.PowerManager;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import static android.content.Context.POWER_SERVICE;
 
@@ -94,8 +100,21 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
                                         // start scan
                                         if (WifiScanWorker.getScanRequest(appContext)) {
-                                            //final Context _context = appContext;
-                                            PPApplication.startHandlerThread("WifiStateChangedBroadcastReceiver.onReceive.2");
+                                            Data workData = new Data.Builder()
+                                                    .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_START_WIFI_SCAN)
+                                                    .build();
+
+                                            OneTimeWorkRequest afterFirstStartWorker =
+                                                    new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                                            .setInputData(workData)
+                                                            .setInitialDelay(5, TimeUnit.SECONDS)
+                                                            .build();
+                                            try {
+                                                WorkManager workManager = WorkManager.getInstance(appContext);
+                                                workManager.enqueueUniqueWork("startWifiScanWork", ExistingWorkPolicy.REPLACE, afterFirstStartWorker);
+                                            } catch (Exception ignored) {}
+
+                                            /*PPApplication.startHandlerThread("WifiStateChangedBroadcastReceiver.onReceive.2");
                                             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                                             handler.postDelayed(new Runnable() {
                                                 @Override
@@ -121,7 +140,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                                         }
                                                     }
                                                 }
-                                            }, 5000);
+                                            }, 5000);*/
                                             //PostDelayedBroadcastReceiver.setAlarm(
                                             //        PostDelayedBroadcastReceiver.ACTION_START_WIFI_SCAN, 5, appContext);
 
