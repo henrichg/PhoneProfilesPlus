@@ -102,14 +102,14 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                                     .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_START_WIFI_SCAN)
                                                     .build();
 
-                                            OneTimeWorkRequest afterFirstStartWorker =
+                                            OneTimeWorkRequest worker =
                                                     new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
                                                             .setInputData(workData)
                                                             .setInitialDelay(5, TimeUnit.SECONDS)
                                                             .build();
                                             try {
                                                 WorkManager workManager = WorkManager.getInstance(appContext);
-                                                workManager.enqueueUniqueWork("startWifiScanWork", ExistingWorkPolicy.REPLACE, afterFirstStartWorker);
+                                                workManager.enqueueUniqueWork("startWifiScanWork", ExistingWorkPolicy.REPLACE, worker);
                                             } catch (Exception ignored) {}
 
                                             /*PPApplication.startHandlerThread("WifiStateChangedBroadcastReceiver.onReceive.2");

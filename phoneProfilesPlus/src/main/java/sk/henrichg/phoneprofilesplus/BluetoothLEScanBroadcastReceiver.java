@@ -65,14 +65,14 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
                                         .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER)
                                         .build();
 
-                                OneTimeWorkRequest afterFirstStartWorker =
+                                OneTimeWorkRequest worker =
                                         new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
                                                 .setInputData(workData)
                                                 .setInitialDelay(5, TimeUnit.SECONDS)
                                                 .build();
                                 try {
                                     WorkManager workManager = WorkManager.getInstance(context);
-                                    workManager.enqueueUniqueWork("handleEventsBluetoothLEScannerWork", ExistingWorkPolicy.REPLACE, afterFirstStartWorker);
+                                    workManager.enqueueUniqueWork("handleEventsBluetoothLEScannerWork", ExistingWorkPolicy.REPLACE, worker);
                                 } catch (Exception ignored) {}
 
                                 /*PPApplication.startHandlerThread("BluetoothLEScanBroadcastReceiver.onReceive");

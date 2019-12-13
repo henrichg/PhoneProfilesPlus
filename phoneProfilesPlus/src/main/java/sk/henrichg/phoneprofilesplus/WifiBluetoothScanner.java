@@ -217,14 +217,14 @@ class WifiBluetoothScanner {
                                                     .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_WIFI_SCANNER)
                                                     .build();
 
-                                            OneTimeWorkRequest afterFirstStartWorker =
+                                            OneTimeWorkRequest worker =
                                                     new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
                                                             .setInputData(workData)
                                                             .setInitialDelay(5, TimeUnit.SECONDS)
                                                             .build();
                                             try {
                                                 WorkManager workManager = WorkManager.getInstance(context);
-                                                workManager.enqueueUniqueWork("handleEventsWifiScannerFromScannerWork", ExistingWorkPolicy.REPLACE, afterFirstStartWorker);
+                                                workManager.enqueueUniqueWork("handleEventsWifiScannerFromScannerWork", ExistingWorkPolicy.REPLACE, worker);
                                             } catch (Exception ignored) {}
 
                                             /*PPApplication.startHandlerThread("WifiBluetoothScanner.doScan");

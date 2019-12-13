@@ -544,6 +544,9 @@ public class PPApplication extends Application {
                                         //+"|CustomColorDialogPreferenceFragmentX"
 
                                         //+"|[HANDLER] DisableInternalChangeWorker.doWork"
+
+                                        +"|[HANDLER] GeofencesScannerSwitchGPSBroadcastReceiver"
+                                        +"|ElapsedAlarmsWorker"
             ;
 
 
@@ -2822,14 +2825,14 @@ public class PPApplication extends Application {
                     .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_BLOCK_PROFILE_EVENT_ACTIONS)
                     .build();
 
-            OneTimeWorkRequest afterFirstStartWorker =
+            OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
                             .setInputData(workData)
                             .setInitialDelay(30, TimeUnit.SECONDS)
                             .build();
             try {
                 WorkManager workManager = WorkManager.getInstance(context.getApplicationContext());
-                workManager.enqueueUniqueWork("setBlockProfileEventsActionWork", ExistingWorkPolicy.REPLACE, afterFirstStartWorker);
+                workManager.enqueueUniqueWork("setBlockProfileEventsActionWork", ExistingWorkPolicy.REPLACE, worker);
             } catch (Exception ignored) {}
 
             /*PPApplication.startHandlerThread("PPApplication.setBlockProfileEventActions");

@@ -111,14 +111,14 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                                 .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_WIFI_SCANNER)
                                                 .build();
 
-                                        OneTimeWorkRequest afterFirstStartWorker =
+                                        OneTimeWorkRequest worker =
                                                 new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
                                                         .setInputData(workData)
                                                         .setInitialDelay(5, TimeUnit.SECONDS)
                                                         .build();
                                         try {
                                             WorkManager workManager = WorkManager.getInstance(appContext);
-                                            workManager.enqueueUniqueWork("handleEventsWifiScannerFromReceiverWork", ExistingWorkPolicy.REPLACE, afterFirstStartWorker);
+                                            workManager.enqueueUniqueWork("handleEventsWifiScannerFromReceiverWork", ExistingWorkPolicy.REPLACE, worker);
                                         } catch (Exception ignored) {}
 
                                         /*PPApplication.startHandlerThread("WifiScanBroadcastReceiver.onReceive.2");

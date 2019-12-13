@@ -4390,10 +4390,8 @@ public class DataWrapper {
                             .build();
             try {
                 WorkManager workManager = WorkManager.getInstance(context);
-
                 workManager.cancelUniqueWork("restartEventsWithDelayWork");
                 workManager.cancelAllWorkByTag("restartEventsWithDelayWork");
-
                 workManager.enqueueUniqueWork("restartEventsWithDelayClearOldWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
             } catch (Exception ignored) {}
 

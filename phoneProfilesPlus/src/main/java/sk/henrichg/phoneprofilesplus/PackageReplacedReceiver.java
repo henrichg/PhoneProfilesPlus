@@ -407,14 +407,14 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                     .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED)
                     .build();
 
-            OneTimeWorkRequest afterFirstStartWorker =
+            OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
                             .setInputData(workData)
                             .setInitialDelay(15, TimeUnit.SECONDS)
                             .build();
             try {
                 WorkManager workManager = WorkManager.getInstance(context);
-                workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.REPLACE, afterFirstStartWorker);
+                workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.REPLACE, worker);
             } catch (Exception ignored) {}
 
             /*PPApplication.startHandlerThread("PackageReplacedReceiver.onReceive.2");

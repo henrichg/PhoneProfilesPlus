@@ -589,21 +589,23 @@ Tieto maju od uzivatela parameter duration, delay:
 - Event.setDelayEndAlarm -> cas od now() + delay, pouziva aj AlarmClock
 - ProfileDurationAlarmBroadcastReceiver -> cas od now() + delay, pouziva aj AlarmClock
 - RunApplicationWithDelayBroadcastReceiver -> cas od now() + delay, pouziva aj AlarmClock
-Tento sa pouziva pre repeat zvukovu a vibracnu notifikaciu startu udalosti:
 - StartEventNotificationBroadcastReceiver -> cas od now() + delay, pouziva aj AlarmClock
 
 Tento sa pouziva na spracovanie udalosti na screen off ale az po jeho loknuti:
 - LockDeviceAfterScreenOffBroadcastReceiver -> cas od now() + delay, pouziva aj AlarmClock,
 uzivatel moze zadat interval, ale len v device Settings.
+HOTOVO
 
 Tento sa pouziva na prepinanie GPS on/off:
 - GeofencesScannerSwitchGPSBroadcastReceiver -> cas od now() + delay, pouziva aj AlarmClock, uzivatel nemoze
 zadat interval, je natvrdo 1 alebo 30 minut, podla toho, ci sa ma pouizvat GPS. Toto je kandidat na WorkManagera.
+HOTOVO
 
 Tento sa pouziva na zavretie lock device aktivity:
 - LockDeviceActivityFinishBroadcastReceiver -> cas od now() + delay, pouziva aj AlarmClock,
 uzivatel nemoe zadat interval, je natvrdo 20 sekund. Toto ma sledovat, ci uzivatel vypol obrazovku
 a ked nie, ma sa LockDeviceActivity zavriet. Toto je kandidat na WorkManagera.
+HOTOVO
 
 --------------------------------------
 
