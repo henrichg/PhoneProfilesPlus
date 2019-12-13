@@ -545,7 +545,7 @@ public class PPApplication extends Application {
 
                                         //+"|[HANDLER] DisableInternalChangeWorker.doWork"
 
-                                        +"|[HANDLER] GeofencesScannerSwitchGPSBroadcastReceiver"
+                                        +"|[HANDLER] RunApplicationWithDelayBroadcastReceiver"
                                         +"|ElapsedAlarmsWorker"
             ;
 

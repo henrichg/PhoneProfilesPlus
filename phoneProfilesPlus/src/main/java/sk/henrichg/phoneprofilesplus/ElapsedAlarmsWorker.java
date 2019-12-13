@@ -12,6 +12,8 @@ public class ElapsedAlarmsWorker extends Worker {
     static final String ELAPSED_ALARMS_GEOFENCE_SCANNER_SWITCH_GPS = "geofence_scanner_swith_gps";
     static final String ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY = "lock_device_finish_activity";
     static final String ELAPSED_ALARMS_LOCK_DEVICE_AFTER_SCREEN_OFF = "lock_device_after_screen_off";
+    static final String ELAPSED_ALARMS_START_EVENT_NOTIFICATION = "start_event_notification";
+    static final String ELAPSED_ALARMS_RUN_APPLICATION_WITH_DELAY = "run_application_with_delay";
 
     Context context;
 
@@ -39,8 +41,8 @@ public class ElapsedAlarmsWorker extends Worker {
 
         PPApplication.logE("ElapsedAlarmsWorker.doWork", "action="+action);
 
-        //boolean activateProfiles = getInputData().getBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
-        //String sensorType = getInputData().getString(PhoneProfilesService.EXTRA_SENSOR_TYPE);
+        long event_id = getInputData().getLong(PPApplication.EXTRA_EVENT_ID, 0);
+        String runApplicationData = getInputData().getString(RunApplicationWithDelayBroadcastReceiver.EXTRA_RUN_APPLICATION_DATA);
 
         //outputData = generateResult(LocationGeofenceEditorActivity.FAILURE_RESULT,
         //                                    getApplicationContext().getString(R.string.event_preferences_location_no_address_found),
@@ -48,7 +50,7 @@ public class ElapsedAlarmsWorker extends Worker {
 
         //return Result.success(outputData);
 
-        //Context appContext = getApplicationContext();
+        Context appContext = context.getApplicationContext();
 
         switch (action) {
             case ELAPSED_ALARMS_GEOFENCE_SCANNER_SWITCH_GPS:
@@ -58,8 +60,13 @@ public class ElapsedAlarmsWorker extends Worker {
                 LockDeviceActivityFinishBroadcastReceiver.doWork();
                 break;
             case ELAPSED_ALARMS_LOCK_DEVICE_AFTER_SCREEN_OFF:
-                final Context appContext = context.getApplicationContext();
                 LockDeviceAfterScreenOffBroadcastReceiver.doWork(false, appContext);
+                break;
+            case ELAPSED_ALARMS_START_EVENT_NOTIFICATION:
+                StartEventNotificationBroadcastReceiver.doWork(false, appContext, event_id);
+                break;
+            case ELAPSED_ALARMS_RUN_APPLICATION_WITH_DELAY:
+                RunApplicationWithDelayBroadcastReceiver.doWork(appContext, runApplicationData);
                 break;
             default:
                 break;
