@@ -172,6 +172,12 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
     static void doWork(Context context, String runApplicationData) {
         PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.doWork", "runApplicationData="+runApplicationData);
 
+        final Context appContext = context.getApplicationContext();
+
+        if (!PPApplication.getApplicationStarted(appContext, true))
+            // application is not started
+            return;
+
         Intent appIntent;
         PackageManager packageManager = context.getPackageManager();
 

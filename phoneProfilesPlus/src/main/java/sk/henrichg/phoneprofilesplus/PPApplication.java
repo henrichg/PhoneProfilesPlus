@@ -545,7 +545,7 @@ public class PPApplication extends Application {
 
                                         //+"|[HANDLER] DisableInternalChangeWorker.doWork"
 
-                                        +"|[HANDLER] RunApplicationWithDelayBroadcastReceiver"
+                                        +"|[HANDLER] ProfileDurationAlarmBroadcastReceiver"
                                         +"|ElapsedAlarmsWorker"
             ;
 
