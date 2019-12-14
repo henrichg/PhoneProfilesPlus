@@ -574,6 +574,10 @@ Hladaj: R.string.setting_screen_not_found_alert
 --------------------------------------
 
 - DonationBroadcastReceiver -> raz denne v presny cas, pouziva aj AlarmClock
+HOTOVO
+- TwilightScanner -> raz denne v presny cas, pouziva aj AlarmClock
+HOTOVO
+
 - EventPreferencesAlarmClock -> raz denne v presny cas, pouziva aj AlarmClock
 - EventPreferencesCalendar -> raz denne v presny cas, pouziva aj AlarmClock
 - EventPreferencesCall -> raz denne v presny cas, pouziva aj AlarmClock
@@ -581,8 +585,7 @@ Hladaj: R.string.setting_screen_not_found_alert
 - EventPreferencesNotification -> raz denne v presny cas, pouziva aj AlarmClock
 - EventPreferencesSMS -> raz denne v presny cas, pouziva aj AlarmClock
 - EventPreferencesTime -> raz denne v presny cas, pouziva aj AlarmClock
-- TwilightScanner -> raz denne v presny cas, pouziva aj AlarmClock
-
+!!! TimeChangedReceive - by mali byt spravene cez restartEvents, co je tam uz volany.
 
 Tieto maju od uzivatela parameter duration, delay:
 - Event.setDelayStartAlarm -> cas od now() + delay, pouziva aj AlarmClock

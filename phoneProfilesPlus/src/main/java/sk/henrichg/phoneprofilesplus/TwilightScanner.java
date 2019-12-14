@@ -16,11 +16,18 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
 import android.os.SystemClock;
+import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 
 import java.util.Calendar;
 import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
+
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 class TwilightScanner {
 
@@ -443,10 +450,68 @@ class TwilightScanner {
                     }
                 }
 
-                if (log)
-                    PPApplication.logE("TwilightScanner.updateTwilightState", "Next update in " + (nextUpdate - now.getTimeInMillis()) + " ms");
+                // remove alarm
+                try {
+                    Intent updateIntent = new Intent(ACTION_UPDATE_TWILIGHT_STATE);
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, updateIntent, PendingIntent.FLAG_NO_CREATE);
+                    if (pendingIntent != null) {
+                        mAlarmManager.cancel(pendingIntent);
+                        pendingIntent.cancel();
+                    }
+                } catch (Exception ignored) {}
+                try {
+                    WorkManager workManager = WorkManager.getInstance(context);
+                    workManager.cancelUniqueWork("elapsedAlarmsTwilightScannerWork");
+                    workManager.cancelAllWorkByTag("elapsedAlarmsTwilightScannerWork");
+                } catch (Exception ignored) {}
 
-                Intent updateIntent = new Intent(ACTION_UPDATE_TWILIGHT_STATE);
+                // set alarm
+                if (ApplicationPreferences.applicationUseAlarmClock(context)) {
+                    Intent updateIntent = new Intent(ACTION_UPDATE_TWILIGHT_STATE);
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, updateIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                    if (log)
+                        PPApplication.logE("TwilightScanner.updateTwilightState",
+                                "nextUpdate=" + DateFormat.getDateFormat(context).format(nextUpdate) +
+                                        " " + DateFormat.getTimeFormat(context).format(nextUpdate));
+
+                    Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                    editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(nextUpdate, infoPendingIntent);
+                    mAlarmManager.setAlarmClock(clockInfo, pendingIntent);
+                }
+                else {
+                    now = Calendar.getInstance();
+                    long elapsedTime = nextUpdate - now.getTimeInMillis();
+
+                    if (log) {
+                        long allSeconds = elapsedTime / 1000;
+                        long hours = allSeconds / 60 / 60;
+                        long minutes = (allSeconds - (hours * 60 * 60)) / 60;
+                        long seconds = allSeconds % 60;
+
+                        PPApplication.logE("TwilightScanner.updateTwilightState", "elapsedTime=" + hours + ":" + minutes + ":" + seconds);
+                    }
+
+                    Data workData = new Data.Builder()
+                            .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, ElapsedAlarmsWorker.ELAPSED_ALARMS_TWILIGHT_SCANNER)
+                            .build();
+
+                    OneTimeWorkRequest worker =
+                            new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
+                                    .setInputData(workData)
+                                    .setInitialDelay(elapsedTime, TimeUnit.MILLISECONDS)
+                                    .build();
+                    try {
+                        WorkManager workManager = WorkManager.getInstance(context);
+                        if (log)
+                            PPApplication.logE("[HANDLER] TwilightScanner.updateTwilightState", "enqueueUniqueWork - elapsedTime="+elapsedTime);
+                        workManager.enqueueUniqueWork("elapsedAlarmsTwilightScannerWork", ExistingWorkPolicy.REPLACE, worker);
+                    } catch (Exception ignored) {}
+                }
+
+                /*Intent updateIntent = new Intent(ACTION_UPDATE_TWILIGHT_STATE);
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, updateIntent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
@@ -457,8 +522,7 @@ class TwilightScanner {
                 }
 
                 pendingIntent = PendingIntent.getBroadcast(context, 0, updateIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                if (/*(android.os.Build.VERSION.SDK_INT >= 21) &&*/
-                        ApplicationPreferences.applicationUseAlarmClock(context)) {
+                if (ApplicationPreferences.applicationUseAlarmClock(context)) {
                     Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -468,18 +532,9 @@ class TwilightScanner {
                 else {
                     if (android.os.Build.VERSION.SDK_INT >= 23)
                         mAlarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, nextUpdate, pendingIntent);
-                    else //if (android.os.Build.VERSION.SDK_INT >= 19)
+                    else
                         mAlarmManager.setExact(AlarmManager.RTC_WAKEUP, nextUpdate, pendingIntent);
-                    //else
-                    //    mAlarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-                }
-                /*
-                pendingIntent = PendingIntent.getBroadcast(context, 0, updateIntent, 0);
-                if (android.os.Build.VERSION.SDK_INT >= 23)
-                    mAlarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, nextUpdate, pendingIntent);
-                else
-                    mAlarmManager.setExact(AlarmManager.RTC_WAKEUP, nextUpdate, pendingIntent);
-                 */
+                }*/
             }
         }
     }
@@ -500,6 +555,18 @@ class TwilightScanner {
             mLocationHandler.requestTwilightUpdate();
         }
     };
+
+    static void doWork() {
+        PPApplication.logE("TwilightScanner.doWork", "xxx");
+
+        if (PhoneProfilesService.getInstance() != null) {
+            TwilightScanner twilightScanner = PhoneProfilesService.getInstance().getTwilightScanner();
+            if (twilightScanner != null) {
+                // Time zone has changed or alarm expired.
+                twilightScanner.mLocationHandler.requestTwilightUpdate();
+            }
+        }
+    }
 
     // A LocationListener to initialize the network location provider. The location updates
     // are handled through the passive location provider.

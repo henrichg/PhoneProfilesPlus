@@ -107,7 +107,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                     WorkManager workManager = WorkManager.getInstance(context);
                     PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.setAlarm", "enqueueUniqueWork - event._repeatNotificationIntervalStart="+event._repeatNotificationIntervalStart);
                     PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.setAlarm", "enqueueUniqueWork - event._id="+event._id);
-                    workManager.enqueueUniqueWork("elapsedAlarmsStartEventNotificationWork"+event._id, ExistingWorkPolicy.REPLACE, worker);
+                    workManager.enqueueUniqueWork("elapsedAlarmsStartEventNotificationWork_"+event._id, ExistingWorkPolicy.REPLACE, worker);
                 } catch (Exception ignored) {}
             }
 

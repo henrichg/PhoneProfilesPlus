@@ -492,8 +492,6 @@ public class PPApplication extends Application {
                                         //+"|EventsPrefsFragment.onResume"
                                         //+"|ActivateProfileHelper.setScreenCarMode"
 
-                                        +"|DonationBroadcastReceiver"
-
                                         //+"|FastAccessDurationDialog.updateProfileView"
 
                                         //+"|NotUsedMobileCellsNotificationDisableReceiver"
@@ -546,6 +544,9 @@ public class PPApplication extends Application {
 
                                         //+"|[HANDLER] Event.setDelayStartAlarm"
                                         //+"|[HANDLER] Event.setDelayEndAlarm"
+                                        //+"|DonationBroadcastReceiver"
+                                        +"|TwilightScanner.updateTwilightState"
+                                        +"|TwilightScanner.doWork"
                                         +"|ElapsedAlarmsWorker"
             ;
 
