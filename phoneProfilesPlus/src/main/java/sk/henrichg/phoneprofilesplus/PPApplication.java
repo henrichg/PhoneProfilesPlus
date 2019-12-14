@@ -427,7 +427,7 @@ public class PPApplication extends Application {
 
                                         //+"|AlarmClockBroadcastReceiver.onReceive"
                                         //+"|NextAlarmClockBroadcastReceiver"
-                                        +"|TimeChangedReceiver"
+                                        //+"|TimeChangedReceiver"
 
                                         //+"|@@@ ScreenOnOffBroadcastReceiver"
                                         //+"|LockDeviceActivity"
@@ -492,7 +492,7 @@ public class PPApplication extends Application {
                                         //+"|EventsPrefsFragment.onResume"
                                         //+"|ActivateProfileHelper.setScreenCarMode"
 
-                                        //+"|DonationBroadcastReceiver"
+                                        +"|DonationBroadcastReceiver"
 
                                         //+"|FastAccessDurationDialog.updateProfileView"
 

@@ -4236,7 +4236,7 @@ public class PhoneProfilesService extends Service
 
         //PPApplication.logE("PhoneProfilesService.showProfileNotification", "no lockRefresh");
 
-        final Context appContext = getApplicationContext();
+        final Context appContext = this; //dataWrapper.context.getApplicationContext();
 
         //if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBar(appContext))
         //if (true)
@@ -4294,8 +4294,8 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("PhoneProfilesService._showProfileNotification", "activated profile changed");
 
             PendingIntent pIntentRE = null;
-            if (Event.getGlobalEventsRunning(getBaseContext().getApplicationContext()) &&
-                    PPApplication.getApplicationStarted(getBaseContext().getApplicationContext(), true)) {
+            if (Event.getGlobalEventsRunning(appContext) &&
+                    PPApplication.getApplicationStarted(appContext, true)) {
                 // intent for restart events
                 Intent intentRE = new Intent(appContext, RestartEventsFromNotificationActivity.class);
                 intentRE.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -4554,7 +4554,7 @@ public class PhoneProfilesService extends Service
                                 notificationBuilder.setSmallIcon(Icon.createWithBitmap(iconBitmap));
                             } else {
                                 PPApplication.logE("PhoneProfilesService._showProfileNotification", "create icon default icon");
-                                //iconSmallResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier + "_notify_color", "drawable", dataWrapper.context.getPackageName());
+                                //iconSmallResource = appContext.getResources().getIdentifier(iconIdentifier + "_notify_color", "drawable", appContext.getPackageName());
                                 //if (iconSmallResource == 0)
                                 //    iconSmallResource = R.drawable.ic_profile_default;
                                 iconSmallResource = R.drawable.ic_profile_default_notify_color;
@@ -4569,7 +4569,7 @@ public class PhoneProfilesService extends Service
                             // native icon
                             PPApplication.logE("PhoneProfilesService._showProfileNotification", "colorful icon in status bar is disabled");
 
-                            //iconSmallResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier + "_notify", "drawable", dataWrapper.context.getPackageName());
+                            //iconSmallResource = appContext.getResources().getIdentifier(iconIdentifier + "_notify", "drawable", appContext.getPackageName());
                             //if (iconSmallResource == 0)
                             //    iconSmallResource = R.drawable.ic_profile_default_notify;
                             iconSmallResource = R.drawable.ic_profile_default_notify;
@@ -4591,7 +4591,7 @@ public class PhoneProfilesService extends Service
 
                         if (notificationStatusBarStyle.equals("0")) {
                             PPApplication.logE("PhoneProfilesService._showProfileNotification", "enabled is colorful icon in status bar");
-                            //iconSmallResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier + "_notify_color", "drawable", dataWrapper.context.getPackageName());
+                            //iconSmallResource = appContext.getResources().getIdentifier(iconIdentifier + "_notify_color", "drawable", appContext.getPackageName());
                             //if (iconSmallResource == 0)
                             //    iconSmallResource = R.drawable.ic_profile_default;
                             iconSmallResource = R.drawable.ic_profile_default_notify_color;
@@ -4603,7 +4603,7 @@ public class PhoneProfilesService extends Service
                         }
                         else {
                             PPApplication.logE("PhoneProfilesService._showProfileNotification", "colorful icon in status bar is disabled");
-                            //iconSmallResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier + "_notify", "drawable", dataWrapper.context.getPackageName());
+                            //iconSmallResource = appContext.getResources().getIdentifier(iconIdentifier + "_notify", "drawable", appContext.getPackageName());
                             //if (iconSmallResource == 0)
                             //    iconSmallResource = R.drawable.ic_profile_default_notify;
                             iconSmallResource = R.drawable.ic_profile_default_notify;
@@ -4615,7 +4615,7 @@ public class PhoneProfilesService extends Service
                         }
                         notificationBuilder.setSmallIcon(iconSmallResource);
 
-                        //int iconLargeResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier, "drawable", dataWrapper.context.getPackageName());
+                        //int iconLargeResource = appContext.getResources().getIdentifier(iconIdentifier, "drawable", appContext.getPackageName());
                         //if (iconLargeResource == 0)
                         //    iconLargeResource = R.drawable.ic_profile_default;
                         int iconLargeResource = Profile.getIconResource(iconIdentifier);
@@ -4689,8 +4689,8 @@ public class PhoneProfilesService extends Service
                     contentViewLarge.setViewVisibility(R.id.notification_activated_profile_pref_indicator, View.GONE);
             } catch (Exception ignored) {}
 
-            if (Event.getGlobalEventsRunning(getBaseContext().getApplicationContext()) &&
-                    PPApplication.getApplicationStarted(getBaseContext().getApplicationContext(), true)) {
+            if (Event.getGlobalEventsRunning(appContext) &&
+                    PPApplication.getApplicationStarted(appContext, true)) {
 
                 PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationBackgroundColor="+notificationBackgroundColor);
 

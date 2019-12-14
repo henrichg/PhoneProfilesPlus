@@ -7,6 +7,8 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.PowerManager;
 import android.text.format.DateFormat;
 
 import java.util.Calendar;
@@ -26,137 +28,151 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
 
             if (intent != null) {
                 final Context appContext = context.getApplicationContext();
-                /*PPApplication.startHandlerThread("DonationBroadcastReceiver.onReceive");
+                PPApplication.startHandlerThread("DonationBroadcastReceiver.onReceive");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
-                    public void run() {*/
+                    public void run() {
 
-                        int daysAfterFirstStart = PPApplication.getDaysAfterFirstStart(appContext) + 1;
-                        int donationNotificationCount = PPApplication.getDonationNotificationCount(appContext);
-                        int daysForNextNotification = PPApplication.getDaysForNextDonationNotification(appContext);
-                        boolean donationDonated = PPApplication.getDonationDonated(appContext);
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DonationBroadcastReceiver_onReceive");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                        if (BuildConfig.DEBUG) {
-                            donationDonated = false;
-                            /*if (donationNotificationCount == 5) {
-                                donationNotificationCount = 3;
-                                daysAfterFirstStart = 120;
-                                PPApplication.setDonationNotificationCount(context, donationNotificationCount);
-                                PPApplication.setDaysAfterFirstStart(context, daysAfterFirstStart);
-                            }*/
-                            //donationNotificationCount = 3;
-                            //daysAfterFirstStart = 1168;
-                            //PPApplication.setDonationNotificationCount(context, donationNotificationCount);
-                            //PPApplication.setDaysAfterFirstStart(context, daysAfterFirstStart);
-                        }
+                            int daysAfterFirstStart = PPApplication.getDaysAfterFirstStart(appContext) + 1;
+                            int donationNotificationCount = PPApplication.getDonationNotificationCount(appContext);
+                            int daysForNextNotification = PPApplication.getDaysForNextDonationNotification(appContext);
+                            boolean donationDonated = PPApplication.getDonationDonated(appContext);
 
-                        PPApplication.logE("DonationBroadcastReceiver.onReceive", "daysAfterFirstStart=" + daysAfterFirstStart);
-                        PPApplication.logE("DonationBroadcastReceiver.onReceive", "donationNotificationCount=" + donationNotificationCount);
-                        PPApplication.logE("DonationBroadcastReceiver.onReceive", "daysForNextNotification=" + daysForNextNotification);
-                        PPApplication.logE("DonationBroadcastReceiver.onReceive", "donationDonated="+donationDonated);
+                            if (BuildConfig.DEBUG) {
+                                donationDonated = false;
+                                /*if (donationNotificationCount == 5) {
+                                    donationNotificationCount = 3;
+                                    daysAfterFirstStart = 120;
+                                    PPApplication.setDonationNotificationCount(context, donationNotificationCount);
+                                    PPApplication.setDaysAfterFirstStart(context, daysAfterFirstStart);
+                                }*/
+                                //donationNotificationCount = 3;
+                                //daysAfterFirstStart = 1168;
+                                //PPApplication.setDonationNotificationCount(context, donationNotificationCount);
+                                //PPApplication.setDaysAfterFirstStart(context, daysAfterFirstStart);
+                            }
 
-                        boolean notify = false;
-                        if (donationNotificationCount == 3) {
-                            daysForNextNotification = daysAfterFirstStart + 90;
-                            PPApplication.setDaysForNextDonationNotification(appContext, daysForNextNotification);
-                            PPApplication.logE("DonationBroadcastReceiver.onReceive", "daysForNextNotification=" + daysForNextNotification);
+                            if (PPApplication.logEnabled()) {
+                                PPApplication.logE("DonationBroadcastReceiver.onReceive", "daysAfterFirstStart=" + daysAfterFirstStart);
+                                PPApplication.logE("DonationBroadcastReceiver.onReceive", "donationNotificationCount=" + donationNotificationCount);
+                                PPApplication.logE("DonationBroadcastReceiver.onReceive", "daysForNextNotification=" + daysForNextNotification);
+                                PPApplication.logE("DonationBroadcastReceiver.onReceive", "donationDonated=" + donationDonated);
+                            }
 
-                            if (daysAfterFirstStart > 7+14+21+42+30) {
-                                // notify old users after 114 days
-                                PPApplication.logE("DonationBroadcastReceiver.onReceive", "notify old users after 114 days");
-                                notify = true;
-
+                            boolean notify = false;
+                            if (donationNotificationCount == 3) {
                                 daysForNextNotification = daysAfterFirstStart + 90;
                                 PPApplication.setDaysForNextDonationNotification(appContext, daysForNextNotification);
                                 PPApplication.logE("DonationBroadcastReceiver.onReceive", "daysForNextNotification=" + daysForNextNotification);
-                            }
-                            else {
-                                PPApplication.setDonationNotificationCount(appContext, donationNotificationCount+1);
-                                PPApplication.logE("DonationBroadcastReceiver.onReceive", "do not notify when donationNotificationCount is 3");
-                            }
-                        }
-                        else {
-                            int daysForOneNotification;
-                            if (donationNotificationCount > 3) {
-                                notify = daysAfterFirstStart >= daysForNextNotification;
-                                if (notify) {
+
+                                if (daysAfterFirstStart > 7 + 14 + 21 + 42 + 30) {
+                                    // notify old users after 114 days
+                                    PPApplication.logE("DonationBroadcastReceiver.onReceive", "notify old users after 114 days");
+                                    notify = true;
+
                                     daysForNextNotification = daysAfterFirstStart + 90;
                                     PPApplication.setDaysForNextDonationNotification(appContext, daysForNextNotification);
                                     PPApplication.logE("DonationBroadcastReceiver.onReceive", "daysForNextNotification=" + daysForNextNotification);
+                                } else {
+                                    PPApplication.setDonationNotificationCount(appContext, donationNotificationCount + 1);
+                                    PPApplication.logE("DonationBroadcastReceiver.onReceive", "do not notify when donationNotificationCount is 3");
                                 }
                             } else {
-                                daysForOneNotification = 7;
-                                for (int i = 1; i <= donationNotificationCount; i++) {
-                                    daysForOneNotification = daysForOneNotification + 7 * (i + 1);
-                                }
-                                PPApplication.logE("DonationBroadcastReceiver.onReceive", "daysForOneNotification=" + daysForOneNotification);
+                                int daysForOneNotification;
+                                if (donationNotificationCount > 3) {
+                                    notify = daysAfterFirstStart >= daysForNextNotification;
+                                    if (notify) {
+                                        daysForNextNotification = daysAfterFirstStart + 90;
+                                        PPApplication.setDaysForNextDonationNotification(appContext, daysForNextNotification);
+                                        PPApplication.logE("DonationBroadcastReceiver.onReceive", "daysForNextNotification=" + daysForNextNotification);
+                                    }
+                                } else {
+                                    daysForOneNotification = 7;
+                                    for (int i = 1; i <= donationNotificationCount; i++) {
+                                        daysForOneNotification = daysForOneNotification + 7 * (i + 1);
+                                    }
+                                    PPApplication.logE("DonationBroadcastReceiver.onReceive", "daysForOneNotification=" + daysForOneNotification);
 
-                                notify = (daysAfterFirstStart > 0) && (daysAfterFirstStart >= daysForOneNotification);
+                                    notify = (daysAfterFirstStart > 0) && (daysAfterFirstStart >= daysForOneNotification);
 
-                                if (notify &&
-                                        ((donationNotificationCount == 0) ||
-                                         (donationNotificationCount == 1))) {
-                                    PPApplication.setDonationNotificationCount(appContext, donationNotificationCount+1);
-                                    PPApplication.logE("DonationBroadcastReceiver.onReceive", "do not notify when donationNotificationCount is 0, 1");
-                                    notify = false;
+                                    if (notify &&
+                                            ((donationNotificationCount == 0) ||
+                                                    (donationNotificationCount == 1))) {
+                                        PPApplication.setDonationNotificationCount(appContext, donationNotificationCount + 1);
+                                        PPApplication.logE("DonationBroadcastReceiver.onReceive", "do not notify when donationNotificationCount is 0, 1");
+                                        notify = false;
+                                    }
                                 }
                             }
-                        }
-                        PPApplication.logE("DonationBroadcastReceiver.onReceive", "notify=" + notify);
+                            PPApplication.logE("DonationBroadcastReceiver.onReceive", "notify=" + notify);
 
-                        if (!donationDonated/* && (donationNotificationCount < MAX_DONATION_NOTIFICATION_COUNT)*/) {
+                            if (!donationDonated/* && (donationNotificationCount < MAX_DONATION_NOTIFICATION_COUNT)*/) {
 
-                            if (notify) {
-                                PPApplication.setDonationNotificationCount(appContext, donationNotificationCount+1);
+                                if (notify) {
+                                    PPApplication.setDonationNotificationCount(appContext, donationNotificationCount + 1);
 
-                                // show notification about "Please donate me."
-                                PPApplication.createDonationNotificationChannel(appContext);
+                                    // show notification about "Please donate me."
+                                    PPApplication.createDonationNotificationChannel(appContext);
 
-                                NotificationCompat.Builder mBuilder;
-                                Intent _intent = new Intent(appContext, DonationActivity.class);
+                                    NotificationCompat.Builder mBuilder;
+                                    Intent _intent = new Intent(appContext, DonationActivity.class);
 
-                                String nTitle = appContext.getString(R.string.about_application_donate_button);
-                                String nText = appContext.getString(R.string.donation_description);
-                                if (android.os.Build.VERSION.SDK_INT < 24) {
-                                    nTitle = appContext.getString(R.string.app_name);
-                                    nText = appContext.getString(R.string.about_application_donate_button) + ": " +
-                                            appContext.getString(R.string.donation_description);
+                                    String nTitle = appContext.getString(R.string.about_application_donate_button);
+                                    String nText = appContext.getString(R.string.donation_description);
+                                    if (android.os.Build.VERSION.SDK_INT < 24) {
+                                        nTitle = appContext.getString(R.string.app_name);
+                                        nText = appContext.getString(R.string.about_application_donate_button) + ": " +
+                                                appContext.getString(R.string.donation_description);
+                                    }
+                                    mBuilder = new NotificationCompat.Builder(appContext, PPApplication.DONATION_CHANNEL)
+                                            .setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor))
+                                            .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                                            .setContentTitle(nTitle) // title for notification
+                                            .setContentText(nText)
+                                            .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
+                                            .setAutoCancel(true); // clear notification after click
+
+                                    PendingIntent pi = PendingIntent.getActivity(appContext, 0, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                    mBuilder.setContentIntent(pi);
+                                    mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                                    //if (android.os.Build.VERSION.SDK_INT >= 21) {
+                                    mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
+                                    mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+                                    //}
+
+                                    Notification notification = mBuilder.build();
+                                    notification.vibrate = null;
+                                    notification.defaults &= ~DEFAULT_VIBRATE;
+
+                                    NotificationManager mNotificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                                    if (mNotificationManager != null)
+                                        mNotificationManager.notify(PPApplication.ABOUT_APPLICATION_DONATE_NOTIFICATION_ID, notification);
                                 }
-                                mBuilder = new NotificationCompat.Builder(appContext, PPApplication.DONATION_CHANNEL)
-                                        .setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor))
-                                        .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
-                                        .setContentTitle(nTitle) // title for notification
-                                        .setContentText(nText)
-                                        .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
-                                        .setAutoCancel(true); // clear notification after click
 
-                                PendingIntent pi = PendingIntent.getActivity(appContext, 0, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                                mBuilder.setContentIntent(pi);
-                                mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-                                //if (android.os.Build.VERSION.SDK_INT >= 21) {
-                                mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
-                                mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-                                //}
-
-                                Notification notification = mBuilder.build();
-                                notification.vibrate = null;
-                                notification.defaults &= ~DEFAULT_VIBRATE;
-
-                                NotificationManager mNotificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                                if (mNotificationManager != null)
-                                    mNotificationManager.notify(PPApplication.ABOUT_APPLICATION_DONATE_NOTIFICATION_ID, notification);
                             }
+                            /*else {
+                                PPApplication.setDonationNotificationCount(context, MAX_DONATION_NOTIFICATION_COUNT);
+                            }*/
 
+                            PPApplication.setDaysAfterFirstStart(appContext, daysAfterFirstStart);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {}
+                            }
                         }
-                        /*else {
-                            PPApplication.setDonationNotificationCount(context, MAX_DONATION_NOTIFICATION_COUNT);
-                        }*/
-
-                        PPApplication.setDaysAfterFirstStart(appContext, daysAfterFirstStart);
-
-                /*    }
-                });*/
+                    }
+                });
             }
 
             setAlarm(context.getApplicationContext());
