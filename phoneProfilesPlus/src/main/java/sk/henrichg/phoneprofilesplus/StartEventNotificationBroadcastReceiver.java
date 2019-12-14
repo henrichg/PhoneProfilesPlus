@@ -52,8 +52,8 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
         } catch (Exception ignored) {}
         try {
             WorkManager workManager = WorkManager.getInstance(context);
-            workManager.cancelUniqueWork("elapsedAlarmsStartEventNotificationWork");
-            workManager.cancelAllWorkByTag("elapsedAlarmsStartEventNotificationWork");
+            workManager.cancelUniqueWork("elapsedAlarmsStartEventNotificationWork_"+event._id);
+            workManager.cancelAllWorkByTag("elapsedAlarmsStartEventNotificationWork_"+event._id);
         } catch (Exception ignored) {}
         PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.removeAlarm", "removed");
     }
@@ -107,7 +107,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                     WorkManager workManager = WorkManager.getInstance(context);
                     PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.setAlarm", "enqueueUniqueWork - event._repeatNotificationIntervalStart="+event._repeatNotificationIntervalStart);
                     PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.setAlarm", "enqueueUniqueWork - event._id="+event._id);
-                    workManager.enqueueUniqueWork("elapsedAlarmsStartEventNotificationWork", ExistingWorkPolicy.REPLACE, worker);
+                    workManager.enqueueUniqueWork("elapsedAlarmsStartEventNotificationWork"+event._id, ExistingWorkPolicy.REPLACE, worker);
                 } catch (Exception ignored) {}
             }
 

@@ -428,7 +428,7 @@ public class PPApplication extends Application {
 
                                         //+"|AlarmClockBroadcastReceiver.onReceive"
                                         //+"|NextAlarmClockBroadcastReceiver"
-                                        //+"|TimeChangedReceiver.onReceive"
+                                        +"|TimeChangedReceiver"
 
                                         //+"|@@@ ScreenOnOffBroadcastReceiver"
                                         //+"|LockDeviceActivity"
@@ -702,6 +702,7 @@ public class PPApplication extends Application {
 
     private static final String SYS_PROP_MOD_VERSION = "ro.modversion";
 
+    public  static long currentTime;
     public static boolean isScreenOn;
 
 //    static private FirebaseAnalytics firebaseAnalytics;
@@ -763,7 +764,7 @@ public class PPApplication extends Application {
     public static boolean sLookCocktailPanelEnabled = false;
     //public static boolean sLookCocktailBarEnabled = false;
 
-    public static final Random requestCodeForAlarm = new Random();
+    //public static final Random requestCodeForAlarm = new Random();
 
 
     @Override
@@ -899,6 +900,8 @@ public class PPApplication extends Application {
         }
         Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(getApplicationContext(), actualVersionCode));
         //}
+
+        currentTime = Calendar.getInstance().getTimeInMillis();
 
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         if (pm != null)

@@ -33,13 +33,24 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
         }
     }
 
+    static int hashData(String runApplicationData) {
+        int sLenght = runApplicationData.length();
+        int sum = 0;
+        for(int i = 0 ; i < sLenght-1 ; i++){
+            sum += runApplicationData.charAt(i)<<(5*i);
+        }
+        return sum;
+    }
+
     @SuppressLint("NewApi")
     static void setDelayAlarm(Context context, int startApplicationDelay, String runApplicationData)
     {
-        //removeDelayAlarm(context);
+        removeDelayAlarm(context, runApplicationData);
 
         if (startApplicationDelay > 0)
         {
+            int requestCode = hashData(runApplicationData); //PPApplication.requestCodeForAlarm.nextInt();
+
             if (ApplicationPreferences.applicationUseAlarmClock(context)) {
                 //Intent intent = new Intent(_context, RunApplicationWithDelayBroadcastReceiver.class);
                 Intent intent = new Intent();
@@ -48,7 +59,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
 
                 intent.putExtra(EXTRA_RUN_APPLICATION_DATA, runApplicationData);
 
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, PPApplication.requestCodeForAlarm.nextInt(), intent, 0);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0);
 
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 if (alarmManager != null) {
@@ -85,7 +96,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                     WorkManager workManager = WorkManager.getInstance(context);
                     PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.setAlarm", "enqueueUniqueWork - startApplicationDelay="+startApplicationDelay);
                     PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.setAlarm", "enqueueUniqueWork - runApplicationData="+runApplicationData);
-                    workManager.enqueueUniqueWork("elapsedAlarmsRunApplicationWithDelayWork", ExistingWorkPolicy.REPLACE, worker);
+                    workManager.enqueueUniqueWork("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode, ExistingWorkPolicy.REPLACE, worker);
                 } catch (Exception ignored) {}
             }
 
@@ -135,9 +146,10 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
         }
     }
 
-    /*
-    static private void removeDelayAlarm(Context context)
+    static void removeDelayAlarm(Context context, String runApplicationData)
     {
+        int requestCode = hashData(runApplicationData);
+
         try {
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
@@ -150,7 +162,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                 intent.setAction(PhoneProfilesService.ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER);
                 //intent.setClass(context, RunApplicationWithDelayBroadcastReceiver.class);
 
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, 0, intent, PendingIntent.FLAG_NO_CREATE);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, requestCode, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
                     PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.removeDelayAlarm", "alarm found");
 
@@ -161,12 +173,11 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
         } catch (Exception ignored) {}
         try {
             WorkManager workManager = WorkManager.getInstance(context);
-            workManager.cancelUniqueWork("elapsedAlarmsRunApplicationWithDelayWork");
-            workManager.cancelAllWorkByTag("elapsedAlarmsRunApplicationWithDelayWork");
+            workManager.cancelUniqueWork("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode);
+            workManager.cancelAllWorkByTag("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode);
         } catch (Exception ignored) {}
         PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.removeAlarm", "removed");
     }
-    */
 
     static void doWork(Context context, String runApplicationData) {
         PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.doWork", "runApplicationData="+runApplicationData);

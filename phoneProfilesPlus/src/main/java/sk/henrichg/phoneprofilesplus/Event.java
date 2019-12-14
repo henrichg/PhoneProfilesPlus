@@ -2043,7 +2043,7 @@ class Event {
                 try {
                     WorkManager workManager = WorkManager.getInstance(_context);
                     PPApplication.logE("[HANDLER] Event.setDelayStartAlarm", "enqueueUniqueWork - this._delayStart="+this._delayStart);
-                    workManager.enqueueUniqueWork("elapsedAlarmsEventDelayStartWork", ExistingWorkPolicy.REPLACE, worker);
+                    workManager.enqueueUniqueWork("elapsedAlarmsEventDelayStartWork_"+((int) this._id), ExistingWorkPolicy.REPLACE, worker);
 
                     Calendar now = Calendar.getInstance();
                     int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
@@ -2159,8 +2159,8 @@ class Event {
         } catch (Exception ignored) {}
         try {
             WorkManager workManager = WorkManager.getInstance(_context);
-            workManager.cancelUniqueWork("elapsedAlarmsEventDelayStartWork");
-            workManager.cancelAllWorkByTag("elapsedAlarmsEventDelayStartWork");
+            workManager.cancelUniqueWork("elapsedAlarmsEventDelayStartWork_"+((int) this._id));
+            workManager.cancelAllWorkByTag("elapsedAlarmsEventDelayStartWork_"+((int) this._id));
         } catch (Exception ignored) {}
         this._isInDelayStart = false;
         this._startStatusTime = 0;
@@ -2257,7 +2257,7 @@ class Event {
                 try {
                     WorkManager workManager = WorkManager.getInstance(_context);
                     PPApplication.logE("[HANDLER] Event.setDelayEndAlarm", "enqueueUniqueWork - this._delayEnd="+this._delayEnd);
-                    workManager.enqueueUniqueWork("elapsedAlarmsEventDelayEndWork", ExistingWorkPolicy.REPLACE, worker);
+                    workManager.enqueueUniqueWork("elapsedAlarmsEventDelayEndWork_"+((int) this._id), ExistingWorkPolicy.REPLACE, worker);
 
                     Calendar now = Calendar.getInstance();
                     int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
@@ -2392,8 +2392,8 @@ class Event {
         } catch (Exception ignored) {}
         try {
             WorkManager workManager = WorkManager.getInstance(_context);
-            workManager.cancelUniqueWork("elapsedAlarmsEventDelayEndWork");
-            workManager.cancelAllWorkByTag("elapsedAlarmsEventDelayEndWork");
+            workManager.cancelUniqueWork("elapsedAlarmsEventDelayEndWork_"+((int) this._id));
+            workManager.cancelAllWorkByTag("elapsedAlarmsEventDelayEndWork_"+((int) this._id));
         } catch (Exception ignored) {}
         this._isInDelayEnd = false;
         DatabaseHandler.getInstance(dataWrapper.context).updateEventInDelayEnd(this);

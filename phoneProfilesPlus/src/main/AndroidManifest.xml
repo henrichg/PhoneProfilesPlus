@@ -418,7 +418,7 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
-        <receiver
+<!--        <receiver
             android:name=".TimeChangedReceiver"
             android:enabled="true"
             android:exported="true">
@@ -428,7 +428,7 @@
 
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
-        </receiver>
+        </receiver> -->
         <receiver android:name=".NextAlarmClockBroadcastReceiver"
                   android:enabled="true"
                   android:exported="true">

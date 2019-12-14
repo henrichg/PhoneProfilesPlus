@@ -51,6 +51,7 @@ import android.widget.RemoteViews;
 
 import com.crashlytics.android.Crashlytics;
 
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -93,6 +94,7 @@ public class PhoneProfilesService extends Service
     private static final RefreshActivitiesBroadcastReceiver refreshActivitiesBroadcastReceiver = new RefreshActivitiesBroadcastReceiver();
     private static final DashClockBroadcastReceiver dashClockBroadcastReceiver = new DashClockBroadcastReceiver();
 
+    private TimeChangedReceiver timeChangedReceiver = null;
     private PermissionsNotificationDeletedReceiver permissionsNotificationDeletedReceiver = null;
     private StartEventNotificationDeletedReceiver startEventNotificationDeletedReceiver = null;
     private NotUsedMobileCellsNotificationDeletedReceiver notUsedMobileCellsNotificationDeletedReceiver = null;
@@ -527,6 +529,16 @@ public class PhoneProfilesService extends Service
         CallsCounter.logCounter(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
         PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "xxx");
         if (!register) {
+            if (timeChangedReceiver != null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER time changed", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER time changed");
+                try {
+                    appContext.unregisterReceiver(timeChangedReceiver);
+                    timeChangedReceiver = null;
+                } catch (Exception e) {
+                    timeChangedReceiver = null;
+                }
+            }
             if (permissionsNotificationDeletedReceiver != null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER permissions notification delete", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER permissions notification delete");
@@ -801,6 +813,20 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered lockDeviceAfterScreenOffBroadcastReceiver");
         }
         if (register) {
+            if (timeChangedReceiver == null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER time changed", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER time changed");
+                PPApplication.currentTime = Calendar.getInstance().getTimeInMillis();
+                timeChangedReceiver = new TimeChangedReceiver();
+                IntentFilter intentFilter5 = new IntentFilter();
+                //intentFilter5.addAction(Intent.ACTION_TIME_TICK);
+                intentFilter5.addAction(Intent.ACTION_TIME_CHANGED);
+                intentFilter5.addAction(Intent.ACTION_TIMEZONE_CHANGED);
+                appContext.registerReceiver(timeChangedReceiver, intentFilter5);
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered time changed");
+
             if (permissionsNotificationDeletedReceiver == null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER permissions notification delete", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER permissions notification delete");
