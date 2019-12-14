@@ -11,8 +11,17 @@ public class EventDelayEndBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### EventDelayEndBroadcastReceiver.onReceive", "xxx");
-
         CallsCounter.logCounter(context, "EventDelayEndBroadcastReceiver.onReceive", "EventDelayEndBroadcastReceiver_onReceive");
+
+        String action = intent.getAction();
+        if (action != null) {
+            PPApplication.logE("EventDelayEndBroadcastReceiver.onReceive", "action=" + action);
+            doWork(true, context);
+        }
+    }
+
+    static void doWork(boolean useHandler, Context context) {
+        PPApplication.logE("[HANDLER] EventDelayEndBroadcastReceiver.doWork", "useHandler="+useHandler);
 
         final Context appContext = context.getApplicationContext();
 
@@ -20,11 +29,8 @@ public class EventDelayEndBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRunning(appContext))
-        {
-            PPApplication.logE("@@@ EventDelayEndBroadcastReceiver.onReceive","xxx");
-
-            PPApplication.startHandlerThread("EventDelayEndBroadcastReceiver.onReceive");
+        if (useHandler) {
+            PPApplication.startHandlerThread("EventDelayEndBroadcastReceiver.doWork");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
@@ -33,27 +39,37 @@ public class EventDelayEndBroadcastReceiver extends BroadcastReceiver {
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EventDelayEndBroadcastReceiver_onReceive");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EventDelayEndBroadcastReceiver_doWork");
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=EventDelayEndBroadcastReceiver.onReceive");
+                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=EventDelayEndBroadcastReceiver.doWork");
 
-                        EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_EVENT_DELAY_END);
+                        if (Event.getGlobalEventsRunning(appContext)) {
+                            PPApplication.logE("EventDelayEndBroadcastReceiver.doWork", "handle events");
+                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_EVENT_DELAY_END);
+                        }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventDelayEndBroadcastReceiver.onReceive");
+                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventDelayEndBroadcastReceiver.doWork");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
                                 wakeLock.release();
-                            } catch (Exception ignored) {}
+                            } catch (Exception ignored) {
+                            }
                         }
                     }
                 }
             });
         }
-
+        else {
+            if (Event.getGlobalEventsRunning(appContext)) {
+                PPApplication.logE("EventDelayEndBroadcastReceiver.doWork", "handle events");
+                EventsHandler eventsHandler = new EventsHandler(appContext);
+                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_EVENT_DELAY_END);
+            }
+        }
     }
 
 }

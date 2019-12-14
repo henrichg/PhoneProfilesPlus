@@ -586,9 +586,11 @@ Hladaj: R.string.setting_screen_not_found_alert
 
 Tieto maju od uzivatela parameter duration, delay:
 - Event.setDelayStartAlarm -> cas od now() + delay, pouziva aj AlarmClock
+HOTOVO
 - Event.setDelayEndAlarm -> cas od now() + delay, pouziva aj AlarmClock
+HOTOVO
 - ProfileDurationAlarmBroadcastReceiver -> cas od now() + delay, pouziva aj AlarmClock
-
+HOTOVO
 - RunApplicationWithDelayBroadcastReceiver -> cas od now() + delay, pouziva aj AlarmClock
 HOTOVO
 - StartEventNotificationBroadcastReceiver -> cas od now() + delay, pouziva aj AlarmClock

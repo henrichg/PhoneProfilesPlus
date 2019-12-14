@@ -29,7 +29,6 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
 
         CallsCounter.logCounter(context, "LockDeviceAfterScreenOffBroadcastReceiver.onReceive", "LockDeviceAfterScreenOffBroadcastReceiver_onReceive");
         CallsCounter.logCounterNoInc(context, "LockDeviceAfterScreenOffBroadcastReceiver.onReceive->action="+intent.getAction(), "LockDeviceAfterScreenOffBroadcastReceiver_onReceive");
-        final Context appContext = context.getApplicationContext();
 
         String action = intent.getAction();
         if (action != null) {

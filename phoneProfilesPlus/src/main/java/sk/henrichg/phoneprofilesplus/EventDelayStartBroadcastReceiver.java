@@ -11,8 +11,17 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### EventDelayStartBroadcastReceiver.onReceive", "xxx");
-
         CallsCounter.logCounter(context, "EventDelayStartBroadcastReceiver.onReceive", "EventDelayStartBroadcastReceiver_onReceive");
+
+        String action = intent.getAction();
+        if (action != null) {
+            PPApplication.logE("EventDelayStartBroadcastReceiver.onReceive", "action=" + action);
+            doWork(true, context);
+        }
+    }
+
+    static void doWork(boolean useHandler, Context context) {
+        PPApplication.logE("[HANDLER] EventDelayStartBroadcastReceiver.doWork", "useHandler="+useHandler);
 
         final Context appContext = context.getApplicationContext();
 
@@ -20,11 +29,8 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRunning(appContext))
-        {
-            PPApplication.logE("@@@ EventDelayStartBroadcastReceiver.onReceive","xxx");
-
-            PPApplication.startHandlerThread("EventDelayStartBroadcastReceiver.onReceive");
+        if (useHandler) {
+            PPApplication.startHandlerThread("EventDelayStartBroadcastReceiver.doWork");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
@@ -33,27 +39,37 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EventDelayStartBroadcastReceiver_onReceive");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EventDelayStartBroadcastReceiver_doWork");
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=EventDelayStartBroadcastReceiver.onReceive");
+                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=EventDelayStartBroadcastReceiver.doWork");
 
-                        EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_EVENT_DELAY_START);
+                        if (Event.getGlobalEventsRunning(appContext)) {
+                            PPApplication.logE("EventDelayStartBroadcastReceiver.doWork", "handle events");
+                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_EVENT_DELAY_START);
+                        }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventDelayStartBroadcastReceiver.onReceive");
+                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventDelayStartBroadcastReceiver.doWork");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
                                 wakeLock.release();
-                            } catch (Exception ignored) {}
+                            } catch (Exception ignored) {
+                            }
                         }
                     }
                 }
             });
         }
-
+        else {
+            if (Event.getGlobalEventsRunning(appContext)) {
+                PPApplication.logE("EventDelayStartBroadcastReceiver.doWork", "handle events");
+                EventsHandler eventsHandler = new EventsHandler(appContext);
+                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_EVENT_DELAY_START);
+            }
+        }
     }
 
 }

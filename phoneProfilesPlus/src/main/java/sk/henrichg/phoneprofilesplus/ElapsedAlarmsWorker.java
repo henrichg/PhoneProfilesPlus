@@ -15,6 +15,8 @@ public class ElapsedAlarmsWorker extends Worker {
     static final String ELAPSED_ALARMS_START_EVENT_NOTIFICATION = "start_event_notification";
     static final String ELAPSED_ALARMS_RUN_APPLICATION_WITH_DELAY = "run_application_with_delay";
     static final String ELAPSED_ALARMS_PROFILE_DURATION = "profile_duration";
+    static final String ELAPSED_ALARMS_EVENT_DELAY_START = "event_delay_start";
+    static final String ELAPSED_ALARMS_EVENT_DELAY_END = "event_delay_end";
 
     Context context;
 
@@ -74,6 +76,12 @@ public class ElapsedAlarmsWorker extends Worker {
                 break;
             case ELAPSED_ALARMS_PROFILE_DURATION:
                 ProfileDurationAlarmBroadcastReceiver.doWork(false, appContext, profileId, forRestartEvents, startupSource);
+                break;
+            case ELAPSED_ALARMS_EVENT_DELAY_START:
+                EventDelayStartBroadcastReceiver.doWork(false, appContext);
+                break;
+            case ELAPSED_ALARMS_EVENT_DELAY_END:
+                EventDelayEndBroadcastReceiver.doWork(false, appContext);
                 break;
             default:
                 break;
