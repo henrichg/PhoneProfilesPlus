@@ -1458,7 +1458,7 @@ public class PPApplication extends Application {
             channel.setSound(null, null);
             channel.setShowBadge(false);
 
-            NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null)
                 notificationManager.createNotificationChannel(channel);
         }
@@ -1485,7 +1485,7 @@ public class PPApplication extends Application {
             channel.setSound(null, null);
             channel.setShowBadge(false);
 
-            NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null)
                 notificationManager.createNotificationChannel(channel);
         }
@@ -1510,7 +1510,7 @@ public class PPApplication extends Application {
             channel.enableVibration(false);
             //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
 
-            NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null)
                 notificationManager.createNotificationChannel(channel);
         }
@@ -1535,7 +1535,7 @@ public class PPApplication extends Application {
             channel.enableVibration(true);
             //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
 
-            NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null)
                 notificationManager.createNotificationChannel(channel);
         }
@@ -1560,7 +1560,7 @@ public class PPApplication extends Application {
             channel.enableVibration(true);
             //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
 
-            NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null)
                 notificationManager.createNotificationChannel(channel);
         }
@@ -1586,7 +1586,7 @@ public class PPApplication extends Application {
             //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
             channel.setSound(null, null);
 
-            NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null)
                 notificationManager.createNotificationChannel(channel);
         }
@@ -1611,7 +1611,7 @@ public class PPApplication extends Application {
             channel.enableVibration(true);
             //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
 
-            NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null)
                 notificationManager.createNotificationChannel(channel);
         }
@@ -1636,7 +1636,7 @@ public class PPApplication extends Application {
             channel.enableVibration(false);
             //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
 
-            NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null)
                 notificationManager.createNotificationChannel(channel);
         }
