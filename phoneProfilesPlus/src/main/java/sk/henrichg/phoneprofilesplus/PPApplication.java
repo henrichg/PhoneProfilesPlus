@@ -40,7 +40,6 @@ import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -702,7 +701,9 @@ public class PPApplication extends Application {
 
     private static final String SYS_PROP_MOD_VERSION = "ro.modversion";
 
-    public  static long currentTime;
+    //public static long lastUptimeTime;
+    //public static long lastEpochTime;
+
     public static boolean isScreenOn;
 
 //    static private FirebaseAnalytics firebaseAnalytics;
@@ -901,7 +902,8 @@ public class PPApplication extends Application {
         Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(getApplicationContext(), actualVersionCode));
         //}
 
-        currentTime = Calendar.getInstance().getTimeInMillis();
+        //lastUptimeTime = SystemClock.elapsedRealtime();
+        //lastEpochTime = System.currentTimeMillis();
 
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         if (pm != null)

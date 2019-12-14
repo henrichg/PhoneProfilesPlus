@@ -24,34 +24,26 @@ public class TimeChangedReceiver extends BroadcastReceiver {
 
                 final Context appContext = context.getApplicationContext();
 
-                /*long oldCurrentTime = PPApplication.currentTime;
-                //if (action.equals(Intent.ACTION_TIME_TICK))
-                    PPApplication.currentTime = Calendar.getInstance().getTimeInMillis();*/
-
                 if (!PPApplication.getApplicationStarted(appContext, true))
                     return;
 
                 boolean timeChanged = true;
 
                 /*if (action.equals(Intent.ACTION_TIME_TICK)) {
-                    Calendar oldCalendar = Calendar.getInstance();
-                    oldCalendar.setTimeInMillis(oldCurrentTime);
-                    //oldCalendar.set(Calendar.SECOND, 0);
-                    oldCalendar.set(Calendar.MILLISECOND, 0);
-
-                    Calendar newCalendar = Calendar.getInstance();
-                    newCalendar.setTimeInMillis(PPApplication.currentTime);
-                    //newCalendar.set(Calendar.SECOND, 0);
-                    newCalendar.set(Calendar.MILLISECOND, 0);
-
-                    if ((newCalendar.getTimeInMillis() - oldCalendar.getTimeInMillis()) < 0) {
-                        PPApplication.logE("TimeChangedReceiver.onReceive", "old is higher");
-                        timeChanged = true;
+                    long uptimeDifference = SystemClock.elapsedRealtime() - PPApplication.lastUptimeTime;
+                    long epochDifference = System.currentTimeMillis() - PPApplication.lastEpochTime;
+                    long timeChange = Math.abs(uptimeDifference - epochDifference);
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("TimeChangedReceiver.onReceive", "uptimeDifference=" + uptimeDifference);
+                        PPApplication.logE("TimeChangedReceiver.onReceive", "epochDifference=" + epochDifference);
+                        PPApplication.logE("TimeChangedReceiver.onReceive", "timeChange=" + timeChange);
                     }
-                    else {
-                        PPApplication.logE("TimeChangedReceiver.onReceive", "old is lower");
-                        timeChanged = (newCalendar.getTimeInMillis() - oldCalendar.getTimeInMillis()) >= (2000 * 60);
-                    }
+
+                    // Time has changed more than 1 minute
+                    timeChanged = timeChange > 1000 * 60;
+
+                    PPApplication.lastUptimeTime = SystemClock.elapsedRealtime();
+                    PPApplication.lastEpochTime = System.currentTimeMillis();
                 }*/
                 if (action.equals(Intent.ACTION_TIME_CHANGED)) {
                     if (!PPApplication.isScreenOn)
@@ -130,4 +122,5 @@ public class TimeChangedReceiver extends BroadcastReceiver {
         //dataWrapper.restartEvents(false, true, false, false, false);
         dataWrapper.restartEventsWithRescan(false, false, false, false);
     }
+
 }

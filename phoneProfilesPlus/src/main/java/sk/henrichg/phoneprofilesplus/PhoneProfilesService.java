@@ -51,7 +51,6 @@ import android.widget.RemoteViews;
 
 import com.crashlytics.android.Crashlytics;
 
-import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -816,7 +815,8 @@ public class PhoneProfilesService extends Service
             if (timeChangedReceiver == null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER time changed", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER time changed");
-                PPApplication.currentTime = Calendar.getInstance().getTimeInMillis();
+                //PPApplication.lastUptimeTime = SystemClock.elapsedRealtime();
+                //PPApplication.lastEpochTime = System.currentTimeMillis();
                 timeChangedReceiver = new TimeChangedReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 //intentFilter5.addAction(Intent.ACTION_TIME_TICK);
