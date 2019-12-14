@@ -75,6 +75,7 @@ class AddEventAdapter extends BaseAdapter {
         RadioButton radioButton;
         TextView eventName;
         TextView eventPreferencesDescription;
+        RelativeLayout profilesRoot;
         ImageView profileStartIcon;
         TextView profileStartName;
         ImageView profileStartIndicator;
@@ -106,8 +107,10 @@ class AddEventAdapter extends BaseAdapter {
             holder.profileStartIcon = vi.findViewById(R.id.event_pref_dlg_item_profile_start_icon);
             holder.profileEndName = vi.findViewById(R.id.event_pref_dlg_item_profile_end_name);
             holder.profileEndIcon = vi.findViewById(R.id.event_pref_dlg_item_profile_end_icon);
+            holder.profilesRoot = vi.findViewById(R.id.event_pref_dlg_item_profile_profiles_root);
             if (applicationEditorPrefIndicator)
             {
+                holder.profilesRoot = vi.findViewById(R.id.event_pref_dlg_item_profile_profiles_root);
                 holder.eventPreferencesDescription  = vi.findViewById(R.id.event_pref_dlg_item_preferences_description);
                 //holder.eventPreferencesDescription.setHorizontallyScrolling(true); // disable auto word wrap :-)
                 holder.profileStartIndicator = vi.findViewById(R.id.event_pref_dlg_item_profile_start_pref_indicator);
@@ -166,14 +169,18 @@ class AddEventAdapter extends BaseAdapter {
                     if (position == 0) {
                         holder.eventPreferencesDescription.setVisibility(View.GONE);
 
-                        RelativeLayout.LayoutParams parameter =  (RelativeLayout.LayoutParams) holder.eventName.getLayoutParams();
-                        parameter.setMargins(0, 0, 0, 35); // left, top, right, bottom
-                        holder.eventName.setLayoutParams(parameter);
+                        RelativeLayout.LayoutParams parameter =  (RelativeLayout.LayoutParams) holder.profilesRoot.getLayoutParams();
+                        parameter.setMargins(0, 0, 0, 0); // left, top, right, bottom
+                        holder.profilesRoot.setLayoutParams(parameter);
                     }
                     else {
+                        holder.eventPreferencesDescription.setVisibility(View.VISIBLE);
                         String eventPrefDescription = event.getPreferencesDescription(vi.getContext(), false);
                         holder.eventPreferencesDescription.setText(GlobalGUIRoutines.fromHtml(eventPrefDescription, true, false, 0, 0));
-                        holder.eventPreferencesDescription.setVisibility(View.VISIBLE);
+
+                        RelativeLayout.LayoutParams parameter =  (RelativeLayout.LayoutParams) holder.profilesRoot.getLayoutParams();
+                        parameter.setMargins(0, -GlobalGUIRoutines.dpToPx(12), 0, 0); // left, top, right, bottom
+                        holder.profilesRoot.setLayoutParams(parameter);
                     }
                 }
             }

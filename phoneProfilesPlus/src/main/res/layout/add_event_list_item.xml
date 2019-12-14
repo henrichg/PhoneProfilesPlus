@@ -36,15 +36,15 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/event_pref_dlg_item_event_name"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:textSize="11sp"
             android:scrollHorizontally="true"
             tools:ignore="SmallSp"/>
 
         <RelativeLayout
-            android:id="@+id/event_pref_dlg_item_profile_start_icon_root"
+            android:id="@+id/event_pref_dlg_item_profile_profiles_root"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-8dp"
             android:layout_below="@id/event_pref_dlg_item_preferences_description" >
 
             <ImageView
@@ -97,8 +97,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:layout_below="@id/event_pref_dlg_item_profile_start_icon_root" >
+            android:layout_below="@id/event_pref_dlg_item_profile_profiles_root" >
 
             <ImageView
                 android:id="@+id/event_pref_dlg_item_profile_end_icon"
