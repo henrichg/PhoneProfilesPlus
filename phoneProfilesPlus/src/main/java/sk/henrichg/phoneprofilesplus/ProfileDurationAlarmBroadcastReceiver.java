@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.os.SystemClock;
 
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;

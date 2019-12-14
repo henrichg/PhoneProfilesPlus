@@ -12,10 +12,6 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
-import android.os.SystemClock;
-//import android.preference.ListPreference;
-//import android.preference.Preference;
-//import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
 
 import java.text.SimpleDateFormat;

@@ -18,7 +18,7 @@ public class ElapsedAlarmsWorker extends Worker {
     static final String ELAPSED_ALARMS_EVENT_DELAY_START = "event_delay_start";
     static final String ELAPSED_ALARMS_EVENT_DELAY_END = "event_delay_end";
 
-    Context context;
+    final Context context;
 
     public ElapsedAlarmsWorker(
             @NonNull Context context,
