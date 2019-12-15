@@ -170,7 +170,7 @@ class AddEventAdapter extends BaseAdapter {
                         holder.eventPreferencesDescription.setVisibility(View.GONE);
 
                         RelativeLayout.LayoutParams parameter =  (RelativeLayout.LayoutParams) holder.profilesRoot.getLayoutParams();
-                        parameter.setMargins(0, 0, 0, 0); // left, top, right, bottom
+                        parameter.setMargins(0, GlobalGUIRoutines.dpToPx(2), 0, 0); // left, top, right, bottom
                         holder.profilesRoot.setLayoutParams(parameter);
                     }
                     else {

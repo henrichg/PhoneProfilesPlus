@@ -3,8 +3,6 @@
     android:id="@+id/event_pref_dlg_item_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="15dp"
-    android:paddingEnd="15dp"
     android:paddingTop="5dp"
     android:paddingBottom="5dp"
     android:orientation="horizontal" >
@@ -19,17 +17,14 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp" >
+        android:layout_height="wrap_content" >
 
         <TextView
             android:id="@+id/event_pref_dlg_item_event_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
+            android:paddingBottom="2dp"
             android:text="@string/event_name_default"
             android:textSize="16sp"
             android:textStyle="bold"
