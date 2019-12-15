@@ -583,10 +583,11 @@ HOTOVO
 HOTOVO
 - EventPreferencesCalendar -> raz denne v presny cas, pouziva aj AlarmClock
 HOTOVO
+- EventPreferencesCall -> raz denne v presny cas, pouziva aj AlarmClock
+HOTOVO
 
 !!! Treba testovat, ci je elapsedTime zaporny. Ak je, daj work bez setInitialDelay().
 !!! TimeChangedReceiver - by mali byt spravene cez restartEvents, co je tam uz volany.
-- EventPreferencesCall -> raz denne v presny cas, pouziva aj AlarmClock
 - EventPreferencesNFC -> raz denne v presny cas, pouziva aj AlarmClock
 - EventPreferencesNotification -> raz denne v presny cas, pouziva aj AlarmClock
 - EventPreferencesSMS -> raz denne v presny cas, pouziva aj AlarmClock

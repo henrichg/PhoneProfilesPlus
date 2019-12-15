@@ -17,11 +17,16 @@ import android.telephony.PhoneNumberUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 class EventPreferencesCall extends EventPreferences {
 
@@ -449,21 +454,28 @@ class EventPreferencesCall extends EventPreferences {
     }
 
     void removeAlarm(Context context) {
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        if (alarmManager != null) {
-            //Intent intent = new Intent(context, MissedCallEventEndBroadcastReceiver.class);
-            Intent intent = new Intent();
-            intent.setAction(PhoneProfilesService.ACTION_MISSED_CALL_EVENT_END_BROADCAST_RECEIVER);
-            //intent.setClass(context, MissedCallEventEndBroadcastReceiver.class);
+        try {
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            if (alarmManager != null) {
+                //Intent intent = new Intent(context, MissedCallEventEndBroadcastReceiver.class);
+                Intent intent = new Intent();
+                intent.setAction(PhoneProfilesService.ACTION_MISSED_CALL_EVENT_END_BROADCAST_RECEIVER);
+                //intent.setClass(context, MissedCallEventEndBroadcastReceiver.class);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
-            if (pendingIntent != null) {
-                PPApplication.logE("EventPreferencesCall.removeAlarm", "alarm found");
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
+                if (pendingIntent != null) {
+                    PPApplication.logE("EventPreferencesCall.removeAlarm", "alarm found");
 
-                alarmManager.cancel(pendingIntent);
-                pendingIntent.cancel();
+                    alarmManager.cancel(pendingIntent);
+                    pendingIntent.cancel();
+                }
             }
-        }
+        } catch (Exception ignored) {}
+        try {
+            WorkManager workManager = WorkManager.getInstance(context);
+            workManager.cancelUniqueWork("elapsedAlarmsCallSensorWork_"+(int)_event._id);
+            workManager.cancelAllWorkByTag("elapsedAlarmsCallSensorWork_"+(int)_event._id);
+        } catch (Exception ignored) {}
     }
 
     @SuppressLint("NewApi")
@@ -477,7 +489,55 @@ class EventPreferencesCall extends EventPreferences {
                     PPApplication.logE("EventPreferencesCall.setAlarm", "endTime=" + result);
                 }
 
-                //Intent intent = new Intent(context, MissedCallEventEndBroadcastReceiver.class);
+                if (ApplicationPreferences.applicationUseAlarmClock(context)) {
+                    //Intent intent = new Intent(context, MissedCallEventEndBroadcastReceiver.class);
+                    Intent intent = new Intent();
+                    intent.setAction(PhoneProfilesService.ACTION_MISSED_CALL_EVENT_END_BROADCAST_RECEIVER);
+                    //intent.setClass(context, MissedCallEventEndBroadcastReceiver.class);
+
+                    //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
+
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                    AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                    if (alarmManager != null) {
+                        Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                        editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
+                        alarmManager.setAlarmClock(clockInfo, pendingIntent);
+                    }
+                }
+                else {
+                    Calendar now = Calendar.getInstance();
+                    long elapsedTime = (alarmTime + Event.EVENT_ALARM_TIME_OFFSET) - now.getTimeInMillis();
+
+                    if (PPApplication.logEnabled()) {
+                        long allSeconds = elapsedTime / 1000;
+                        long hours = allSeconds / 60 / 60;
+                        long minutes = (allSeconds - (hours * 60 * 60)) / 60;
+                        long seconds = allSeconds % 60;
+
+                        PPApplication.logE("EventPreferencesCall.setAlarm", "elapsedTime=" + hours + ":" + minutes + ":" + seconds);
+                    }
+
+                    Data workData = new Data.Builder()
+                            .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, ElapsedAlarmsWorker.ELAPSED_ALARMS_CALL_SENSOR)
+                            .build();
+
+                    OneTimeWorkRequest worker =
+                            new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
+                                    .setInputData(workData)
+                                    .setInitialDelay(elapsedTime, TimeUnit.MILLISECONDS)
+                                    .build();
+                    try {
+                        WorkManager workManager = WorkManager.getInstance(context);
+                        PPApplication.logE("[HANDLER] EventPreferencesCall.setAlarm", "enqueueUniqueWork - elapsedTime="+elapsedTime);
+                        workManager.enqueueUniqueWork("elapsedAlarmsCallSensorWork_"+(int)_event._id, ExistingWorkPolicy.REPLACE, worker);
+                    } catch (Exception ignored) {}
+                }
+
+                /*//Intent intent = new Intent(context, MissedCallEventEndBroadcastReceiver.class);
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_MISSED_CALL_EVENT_END_BROADCAST_RECEIVER);
                 //intent.setClass(context, MissedCallEventEndBroadcastReceiver.class);
@@ -488,8 +548,7 @@ class EventPreferencesCall extends EventPreferences {
 
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 if (alarmManager != null) {
-                    if (/*(android.os.Build.VERSION.SDK_INT >= 21) &&*/
-                            ApplicationPreferences.applicationUseAlarmClock(context)) {
+                    if (ApplicationPreferences.applicationUseAlarmClock(context)) {
                         Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -505,6 +564,7 @@ class EventPreferencesCall extends EventPreferences {
                         //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
                     }
                 }
+                */
             }
         }
     }
