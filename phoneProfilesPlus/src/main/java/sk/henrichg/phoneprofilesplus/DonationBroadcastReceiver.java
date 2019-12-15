@@ -11,7 +11,6 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.text.format.DateFormat;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 

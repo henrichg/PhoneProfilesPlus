@@ -85,6 +85,9 @@ public class ElapsedAlarmsWorker extends Worker {
             case ELAPSED_ALARMS_EVENT_DELAY_END:
                 EventDelayEndBroadcastReceiver.doWork(false, appContext);
                 break;
+            case ELAPSED_ALARMS_DONATION:
+                DonationBroadcastReceiver.doWork(false, appContext);
+                break;
             case ELAPSED_ALARMS_TWILIGHT_SCANNER:
                 TwilightScanner.doWork();
                 break;

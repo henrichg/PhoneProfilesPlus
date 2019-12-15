@@ -96,7 +96,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
         }
     }
 
-    static void doWork(Context appContext) {
+    private static void doWork(Context appContext) {
         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
         dataWrapper.fillProfileList(false, false);
