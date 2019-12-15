@@ -12,9 +12,11 @@ import com.kunzisoft.androidclearchroma.colormode.mode.RGB;
  * Enumeration of each color mode
  * @author JJamet
  */
+@SuppressWarnings("unused")
 public enum ColorMode {
     RGB(0), HSV(1), ARGB(2), CMYK(3), CMYK255(4), HSL(5);
 
+    @SuppressWarnings("CanBeFinal")
     private int i;
 
     /**

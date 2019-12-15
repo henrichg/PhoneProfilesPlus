@@ -61,7 +61,7 @@ public class Runner extends Thread
         {
             if (RootTools.debugMode)
             {
-                Log.e(LOG_TAG, "Problem occured while trying to locate private files directory!");
+                Log.e(LOG_TAG, "Problem occurred while trying to locate private files directory!");
             }
             e.printStackTrace();
         }

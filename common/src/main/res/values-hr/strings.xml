@@ -698,7 +698,6 @@
     <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Vaš uređaj ima povezane glasnoće zvuka zvona i obavijesti. Ako želite razdvajanje zvukova zvona i obavijesti omogućite ovaj parametar.</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings">Koristi prioritet</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">Omogući korištenje parametra \"Prioritet\" u postavkama aplikacije.</string>
-    <string name="phone_profiles_pref_notificationStatusBarNew">Obavijesti u status baru</string>
     <string name="profile_preferences_volumeNotificationVolume0_NowConfigured">Trenutno konfigurirano:</string>
     <string name="profile_preferences_volumeRingtone0Info_title">Jačina melodije zvona = 0</string>
     <string name="profile_preferences_volumeRingtone0Info_summary">Ako je glasnoća zvona nameštena na \"0\", postavlja uređaj u bezvučni mod. Glasnoća obavijesti će biti ignorirana.</string>
@@ -748,7 +747,6 @@
     <string name="editor_activity_targetHelps_eventOrderHandler_description">Prevuci gore/dole sa ovim za promjenu događaja \"Redosled rada\".</string>
     <string name="activator_activity_targetHelps_editor_title" tools:keep="@string/activator_activity_targetHelps_editor_title">Urednik</string>
     <string name="activator_activity_targetHelps_editor_description_ppp">Klikni ovdje za otvaranje Editora, u kojem možete podesiti profile, događaje, promjeniti postavke aplikacije, itd.</string>
-    <string name="activator_activity_targetHelps_editor_description_pp">Klikni ovdje za otvaranje Editora, u kojem možete podesiti profile, događaje, promjeniti postavke aplikacije, itd.</string>
     <string name="activator_activity_targetHelps_activateProfile_title">Aktiviraj Profil</string>
     <string name="activator_activity_targetHelps_activateProfile_description">Klikni ovdje za aktiviranje profila.</string>
     <string name="profile_preference_activity_targetHelps_save_title">Spremi profil</string>
@@ -945,7 +943,6 @@
     <string name="profile_multiselect_summary_text_not_selected">Nema odabranih</string>
     <string name="notification_channel_activated_profile">Aktiviran profil</string>
     <string name="notification_channel_activated_profile_description_ppp">Prikaži aktiviran profil sa započetim događajem.</string>
-    <string name="notification_channel_activated_profile_description_pp">Prikazuje aktiviran profil.</string>
     <string name="notification_channel_mobile_cells_registration_description">Prikaži vreme čekanja prijave na mobilnu ćeliju.</string>
     <string name="notification_channel_information">Informacije</string>
     <string name="notification_channel_exclamation">Upozorenje</string>
@@ -1041,7 +1038,6 @@
     <string name="event_preferences_category_eventAlarmClockParameters">Senzor za budilicu</string>
     <string name="phone_profiles_pref_grantRootPermission">Dozvoli root</string>
     <string name="phone_profiles_pref_grantRootPermission_summary">Dozvolite root za PhoneProfilesPlus. Root je potreban za parametre profila i događaje.</string>
-    <string name="phone_profiles_pref_grantRootPermission_summary_pp">Dozvolite root za PhoneProfilesPlus. Root je potreban za parametre profila.</string>
     <string name="phone_profiles_pref_grantRootPermission_otherManagers">Otvorite Root menadžer u svom uređaju i dozvolite root za PhoneProfilesPlus.</string>
     <string name="preferences_grantRoot_title">Nije odobren root</string>
     <string name="preferences_grantRoot_summary">Nije odobren root. Kliknite ovdje da odobrite root.</string>
@@ -1140,7 +1136,6 @@
     <string name="phone_profiles_pref_notificationBackgroundColor">Boja pozadine</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_android">Izvorno</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">Tamna</string>
-    <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">Po noćnome modu</string>
     <string name="phone_profiles_pref_applicationTheme_nightMode">Po noćnome modu</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Omogućite Lokaciju u postavkama sustava. Bez ovoga skeniranje mobilne ćelije nije moguće.</string>
     <string name="action_for_external_application_notification_title">Podrška za vanjske aplikacije (Tasker)</string>
@@ -1351,17 +1346,21 @@
     <string name="editor_activity_targetHelps_runStopEvents_title">Omogući rad događaja</string>
     <string name="editor_activity_targetHelps_runStopEvents_description">Klikni ovdje da bi omogućio rad događaja. Bez ovoga, podešeni događaji neće moći da rade.</string>
     <string name="samsung_edge_panel_description">Aktivacija profila ili Restart događaja preko Samsung Edge ploče</string>
-    <string name="phone_profiles_pref_notificationBackgroundColor_black">Black</string>
-    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>
-    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>
-    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>
-    <string name="event_preferences_orientation_checkLight">Check light</string>
-    <string name="event_preferences_orientation_light">Light</string>
-    <string name="event_preferences_orientation_light_min">Light - minimal value (0)</string>
-    <string name="event_preferences_orientation_light_max">Light - maximal value (10000)</string>
-    <string name="pref_event_screen_endWhenLocked">End when locked</string>
-    <string name="event_preferences_screen_end_when_locked">End when locked</string>
-    <string name="event_preference_sensor_screen_summary">This sensor will start an event by screen on/off. Parameters: Event type (screen on, screen off), Start when unlocked/End when locked (event starts when device is unlocked/ends when is locked).</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_black">Crno</string>
+    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Proizvoljna boja pozadine</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Prilagođena boja</string>
+    <string name="phone_profiles_pref_notificationNightMode">Koristi noćni režim</string>
+    <string name="event_preferences_orientation_checkLight">Provjeri osvjetljenje</string>
+    <string name="event_preferences_orientation_light">Svjetlo</string>
+    <string name="event_preferences_orientation_light_min">Osvjetljenje - minimalna vrijednost (0)</string>
+    <string name="event_preferences_orientation_light_max">Osvjetljenje - maksimalna vrijednost (10000)</string>
+    <string name="event_preferences_orientation_light_not_enabled">not enabled</string>
+    <string name="pref_event_screen_startWhenLocked">Pokreni kad je zaključan</string>
+    <string name="event_preferences_screen_start_when_locked">Pokreni kad je zaključan</string>
+    <string name="event_preference_sensor_screen_summary">Ovaj senzor će pokrenuti događaj na osnovu uklj./isklj. zaslona. Parametri: Vrsta događaja ( uklj. zaslon, isklj. zaslon). Počinje kada je otključan/zaključan ( događaj započinje kada je uređaj otključan/zaključan).</string>
+    <string name="phone_profiles_pref_applicationPrefIndicator_summary">Display profile preference indicators in Activator, Editor, shortcut</string>
+    <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">Display profile preference indicators in notification</string>
+    <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Display profile preference indicators in widgets</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1501,4 +1500,9 @@
     <!--    <string name="editor_drawer_order_label">Order events by:</string>-->
     <!--    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>-->
     <!--    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarNew">Status bar notification</string>-->
+    <!--    <string name="activator_activity_targetHelps_editor_description_pp">Click this to open Editor, where you can configure profiles, change application settings, etc.</string>-->
+    <!--    <string name="notification_channel_activated_profile_description_pp">Shows the activated profile.</string>-->
+    <!--    <string name="phone_profiles_pref_grantRootPermission_summary_pp">Please grant root for PhoneProfiles. Is required for profile parameters, which requires root.</string>-->
+    <!--    <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">By night mode</string>-->
 </resources>

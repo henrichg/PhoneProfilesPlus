@@ -229,7 +229,7 @@ public class TimeDurationPicker extends FrameLayout {
     }
 
     /**
-     * Sets the text appearance for the small unit lables ("h", "m", "s") in the upper display area.
+     * Sets the text appearance for the small unit labels ("h", "m", "s") in the upper display area.
      * @param resId resource id of the style describing the text appearance.
      */
     @SuppressWarnings("unused")
@@ -484,7 +484,7 @@ public class TimeDurationPicker extends FrameLayout {
      * Encapsulates the digit input logic and text to duration conversion logic.
      */
     private static class TimeDurationString {
-        private TimeDurationPicker timeDurationPicker;
+        private final TimeDurationPicker timeDurationPicker;
         private int timeUnits;
         private int maxDigits = 6;
         private long duration = 0;

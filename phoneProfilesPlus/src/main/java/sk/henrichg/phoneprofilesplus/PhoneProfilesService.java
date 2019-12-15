@@ -4713,10 +4713,10 @@ public class PhoneProfilesService extends Service
 
                         if (PPApplication.logEnabled()) {
                             PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "redDark=" + redDark);
-                            PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "greeDark=" + greenDark);
+                            PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "greenDark=" + greenDark);
                             PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "blueDark=" + blueDark);
                             PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "redCustom=" + redCustom);
-                            PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "greeCustom=" + greenCustom);
+                            PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "greenCustom=" + greenCustom);
                             PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "blueCustom=" + blueCustom);
                         }
 

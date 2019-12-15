@@ -4,6 +4,7 @@ package com.kunzisoft.androidclearchroma.colormode;
  * Channel for manipulate data of element in color mode
  * @author Pavel Sikun
  */
+@SuppressWarnings("unused")
 public final class Channel {
 
     private final int nameResourceId;

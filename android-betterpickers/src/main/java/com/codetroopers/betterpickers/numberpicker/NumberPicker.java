@@ -26,28 +26,19 @@ import java.text.DecimalFormat;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.TooltipCompat;
 
+@SuppressWarnings("WeakerAccess")
 public class NumberPicker extends LinearLayout implements Button.OnClickListener/*,
                                                             Button.OnLongClickListener*/ {
 
-    @SuppressWarnings("WeakerAccess")
     protected final int mInputSize = 20;
-    @SuppressWarnings("WeakerAccess")
     protected final Button[] mNumbers = new Button[10];
-    @SuppressWarnings("WeakerAccess")
     protected int[] mInput = new int[mInputSize];
-    @SuppressWarnings("WeakerAccess")
     protected int mInputPointer = -1;
-    @SuppressWarnings("WeakerAccess")
     protected Button mLeft;
-    @SuppressWarnings("WeakerAccess")
     protected Button mRight;
-    @SuppressWarnings("WeakerAccess")
     protected ImageButton mBackspace;
-    @SuppressWarnings("WeakerAccess")
     protected ImageButton mClear;
-    @SuppressWarnings("WeakerAccess")
     protected NumberView mEnteredNumber;
-    @SuppressWarnings("WeakerAccess")
     protected final Context mContext;
 
     private TextView mLabel;
@@ -92,7 +83,6 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         mContext = context;
         LayoutInflater layoutInflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        //noinspection ConstantConditions
         layoutInflater.inflate(getLayoutId(), this);
 
         // Init defaults
@@ -104,7 +94,6 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         mDividerColor = getResources().getColor(R.color.default_divider_color_dark);
     }
 
-    @SuppressWarnings("WeakerAccess")
     protected int getLayoutId() {
         return R.layout.number_picker_view;
     }
@@ -300,7 +289,6 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         updateDeleteButtons();
     }
 
-    @SuppressWarnings("WeakerAccess")
     protected void doOnClick(View v) {
         Integer val = (Integer) v.getTag(R.id.numbers_key);
         if (val != null) {
@@ -381,7 +369,6 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     }
 
     // Update the number displayed in the picker:
-    @SuppressWarnings("WeakerAccess")
     protected void updateNumber() {
         String numberString = getEnteredNumberString();
         //noinspection RegExpRedundantEscape
@@ -403,7 +390,6 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         }
     }
 
-    @SuppressWarnings("WeakerAccess")
     protected void setLeftRightEnabled() {
         mLeft.setEnabled(true);
         mRight.setEnabled(canAddDecimal());

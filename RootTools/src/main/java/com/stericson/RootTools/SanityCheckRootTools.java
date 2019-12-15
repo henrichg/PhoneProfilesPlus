@@ -372,6 +372,7 @@ public class SanityCheckRootTools extends Activity {
 
                     }
 
+                    @SuppressWarnings("unused")
                     @Override
                     public void commandTerminated(int id, String reason) {
                         synchronized (SanityCheckRootTools.this) {
@@ -390,6 +391,7 @@ public class SanityCheckRootTools extends Activity {
                         }
                     }
 
+                    @SuppressWarnings("unused")
                     @Override
                     public void commandCompleted(int id, int exitCode) {
                         synchronized (SanityCheckRootTools.this) {

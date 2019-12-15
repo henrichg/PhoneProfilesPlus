@@ -809,6 +809,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     }
 
     /* A fragment to display an error dialog */
+    @SuppressWarnings("WeakerAccess")
     public static class ErrorDialogFragment extends DialogFragment {
         public ErrorDialogFragment() { }
 

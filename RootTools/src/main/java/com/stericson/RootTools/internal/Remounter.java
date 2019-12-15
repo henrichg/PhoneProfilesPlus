@@ -172,6 +172,7 @@ public class Remounter
         return false;
     }
 
+    @SuppressWarnings("TryWithIdenticalCatches")
     private Mount findMountPointRecursive(String file)
     {
         try

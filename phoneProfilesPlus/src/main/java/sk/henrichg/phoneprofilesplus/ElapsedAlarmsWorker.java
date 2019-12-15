@@ -9,7 +9,7 @@ import androidx.work.WorkerParameters;
 @SuppressWarnings("WeakerAccess")
 public class ElapsedAlarmsWorker extends Worker {
 
-    static final String ELAPSED_ALARMS_GEOFENCE_SCANNER_SWITCH_GPS = "geofence_scanner_swith_gps";
+    static final String ELAPSED_ALARMS_GEOFENCE_SCANNER_SWITCH_GPS = "geofence_scanner_switch_gps";
     static final String ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY = "lock_device_finish_activity";
     static final String ELAPSED_ALARMS_LOCK_DEVICE_AFTER_SCREEN_OFF = "lock_device_after_screen_off";
     static final String ELAPSED_ALARMS_START_EVENT_NOTIFICATION = "start_event_notification";

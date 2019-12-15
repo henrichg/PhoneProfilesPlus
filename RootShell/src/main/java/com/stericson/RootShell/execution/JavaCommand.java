@@ -48,14 +48,14 @@ public class JavaCommand extends Command
     }
     */
 
-    @SuppressWarnings("EmptyMethod")
+    @SuppressWarnings({"EmptyMethod", "unused"})
     @Override
     public void commandTerminated(int id, String reason)
     {
         // pass
     }
 
-    @SuppressWarnings("EmptyMethod")
+    @SuppressWarnings({"EmptyMethod", "unused"})
     @Override
     public void commandCompleted(int id, int exitCode)
     {

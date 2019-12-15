@@ -244,7 +244,7 @@ class Installer
     /*
      * Note: this method will close any string passed to it
      */
-    @SuppressWarnings("WeakerAccess")
+    @SuppressWarnings({"WeakerAccess", "TryWithIdenticalCatches"})
     protected String getStreamSignature(InputStream is)
     {
         String signature = "";

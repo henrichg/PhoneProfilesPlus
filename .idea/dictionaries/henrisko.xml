@@ -2,10 +2,12 @@
   <dictionary name="henrisko">
     <words>
       <w>!permanent</w>
+      <w>abcdef</w>
       <w>acch</w>
       <w>actionoverflowmenu</w>
       <w>activateprofile</w>
       <w>activitylog</w>
+      <w>adaway</w>
       <w>afterduration</w>
       <w>afterdurationdo</w>
       <w>alarmclock</w>
@@ -17,6 +19,9 @@
       <w>altype</w>
       <w>amdroid</w>
       <w>amdroidalarmclock</w>
+      <w>ampm</w>
+      <w>anbuild</w>
+      <w>androidclearchroma</w>
       <w>angrydoughnuts</w>
       <w>anrwatchdog</w>
       <w>aosp</w>
@@ -29,27 +34,36 @@
       <w>autoregistration</w>
       <w>autorotation</w>
       <w>autostart</w>
+      <w>autostarter</w>
       <w>autosync</w>
+      <w>avoiddirpath</w>
       <w>backgroundprofile</w>
       <w>backgrounprofile</w>
       <w>bahasa</w>
       <w>basestation</w>
+      <w>betterpickers</w>
       <w>bitspin</w>
       <w>bluetoothconnected</w>
       <w>bluetoothinfront</w>
       <w>bluetoothsco</w>
       <w>bottombar</w>
+      <w>boxapplets</w>
       <w>brasil</w>
       <w>browsable</w>
       <w>bssid</w>
+      <w>busybox</w>
       <w>català</w>
       <w>cdma</w>
       <w>chainfire</w>
       <w>clockpackage</w>
+      <w>cmyk</w>
+      <w>codetroopers</w>
       <w>connecttossid</w>
       <w>crashlytics</w>
       <w>crowdin</w>
       <w>ctype</w>
+      <w>cust</w>
+      <w>dalvikvm</w>
       <w>dansk</w>
       <w>dashclock</w>
       <w>dataimport</w>
@@ -59,9 +73,12 @@
       <w>deinitialize</w>
       <w>descr</w>
       <w>deskclock</w>
+      <w>desourced</w>
       <w>deutsch</w>
+      <w>dialpad</w>
       <w>dlight</w>
       <w>doki</w>
+      <w>doubledot</w>
       <w>droom</w>
       <w>dropshadow</w>
       <w>dstart</w>
@@ -70,6 +87,7 @@
       <w>earlybirdalarm</w>
       <w>eatenddo</w>
       <w>edgepanel</w>
+      <w>emailnotification</w>
       <w>emotionui</w>
       <w>emui</w>
       <w>emuirom</w>
@@ -88,20 +106,28 @@
       <w>eventtime</w>
       <w>evernote</w>
       <w>exportdata</w>
+      <w>failsafe</w>
       <w>false;</w>
+      <w>ffffff</w>
+      <w>fffffff</w>
       <w>fgui</w>
       <w>firebase</w>
       <w>français</w>
+      <w>fstype</w>
       <w>funanduseful</w>
       <w>gentlealarm</w>
       <w>geofence</w>
       <w>geofences</w>
+      <w>getevent</w>
       <w>getprop</w>
       <w>gridview</w>
       <w>gron</w>
       <w>gson</w>
+      <w>gsym</w>
       <w>henrich</w>
       <w>henrichg</w>
+      <w>hhmm</w>
+      <w>hhmmss</w>
       <w>hight</w>
       <w>homescreen</w>
       <w>horiz</w>
@@ -110,33 +136,61 @@
       <w>inapp</w>
       <w>incall</w>
       <w>incallui</w>
+      <w>informations</w>
       <w>infront</w>
+      <w>inode</w>
+      <w>inodes</w>
+      <w>islog</w>
       <w>italiano</w>
+      <w>jodd</w>
+      <w>judemanutd</w>
       <w>justany</w>
+      <w>justcreatedfilesdirectory</w>
+      <w>keyevent</w>
       <w>klock</w>
+      <w>kunzisoft</w>
+      <w>latn</w>
+      <w>layouting</w>
+      <w>leakcanary</w>
+      <w>leftright</w>
+      <w>lerp</w>
+      <w>libandroid</w>
+      <w>libsuperuser</w>
       <w>linkmode</w>
       <w>linla</w>
       <w>linlayout</w>
       <w>listview</w>
       <w>listwidget</w>
+      <w>llew</w>
       <w>lockscreen</w>
+      <w>macosx</w>
       <w>magisk</w>
+      <w>masshardt</w>
       <w>mdroid</w>
+      <w>messager</w>
       <w>mimetype</w>
+      <w>minwidth</w>
       <w>miui</w>
       <w>miuirom</w>
+      <w>mmss</w>
+      <w>mobi</w>
       <w>mobitobi</w>
+      <w>modversion</w>
       <w>mono</w>
       <w>multiselect</w>
+      <w>nativetools</w>
       <w>ndef</w>
       <w>nederlands</w>
+      <w>nexec</w>
       <w>notconnected</w>
       <w>notif</w>
       <w>notinfront</w>
       <w>onepane</w>
+      <w>oneplus</w>
       <w>outcall</w>
       <w>pausedlogging</w>
       <w>paypal</w>
+      <w>pdisplay</w>
       <w>pdus</w>
       <w>permcenter</w>
       <w>phelper</w>
@@ -144,25 +198,36 @@
       <w>phoneprofileshelper</w>
       <w>phoneprofilesplus</w>
       <w>phoneprofilesplusextender</w>
+      <w>pidof</w>
+      <w>pids</w>
+      <w>pkgname</w>
       <w>polski</w>
       <w>popupmenu</w>
       <w>porder</w>
       <w>português</w>
       <w>poweron</w>
+      <w>powersaving</w>
       <w>pphelper</w>
       <w>pppe</w>
+      <w>preloader</w>
+      <w>priviliges</w>
+      <w>priyesh</w>
+      <w>proc</w>
       <w>profileactivation</w>
       <w>profiledeleted</w>
       <w>profileicon</w>
       <w>profilepreferenceschanged</w>
+      <w>proleptic</w>
       <w>ptype</w>
       <w>quickboot</w>
       <w>quickscroll</w>
       <w>radiobtn</w>
+      <w>ravenscroft</w>
       <w>realtime</w>
       <w>recents</w>
       <w>reenable</w>
       <w>rella</w>
+      <w>remounter</w>
       <w>reregister</w>
       <w>restartevents</w>
       <w>ringermode</w>
@@ -170,8 +235,10 @@
       <w>română</w>
       <w>rssi</w>
       <w>runevents</w>
+      <w>runnables</w>
       <w>samsung</w>
       <w>scannig</w>
+      <w>schuermann</w>
       <w>screenlayout</w>
       <w>screenoff</w>
       <w>screenon</w>
@@ -182,6 +249,7 @@
       <w>sharedpref</w>
       <w>sharedprofile</w>
       <w>sharedprofilepreferenceschanged</w>
+      <w>sikun</w>
       <w>sipcall</w>
       <w>skus</w>
       <w>slook</w>
@@ -189,9 +257,11 @@
       <w>slovenščina</w>
       <w>sonyericsson</w>
       <w>splunchy</w>
+      <w>squareup</w>
       <w>ssid</w>
       <w>ssids</w>
       <w>startedlogging</w>
+      <w>stericson</w>
       <w>stylers</w>
       <w>supersu</w>
       <w>svenska</w>
@@ -199,10 +269,15 @@
       <w>sysprop</w>
       <w>tasker</w>
       <w>telecom</w>
+      <w>textpadding</w>
+      <w>textsize</w>
       <w>textview</w>
+      <w>theming</w>
+      <w>timedurationpicker</w>
       <w>timelines</w>
       <w>topbar</w>
       <w>topjohnwu</w>
+      <w>toybox</w>
       <w>treme</w>
       <w>true;</w>
       <w>twopane</w>
@@ -210,14 +285,23 @@
       <w>uncheck</w>
       <w>undoprofile</w>
       <w>unselect</w>
+      <w>upod</w>
       <w>urbandroid</w>
+      <w>userid</w>
       <w>vert</w>
+      <w>visibile</w>
+      <w>visiblity</w>
       <w>wcdma</w>
       <w>wificonnected</w>
       <w>wifiinfront</w>
       <w>worldclock</w>
+      <w>xbin</w>
       <w>xiaomi</w>
+      <w>xlint</w>
+      <w>xpansive</w>
       <w>xtreme</w>
+      <w>xxxk</w>
+      <w>xxxm</w>
       <w>zenmode</w>
       <w>čeština</w>
     </words>

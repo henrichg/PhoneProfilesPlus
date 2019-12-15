@@ -18,7 +18,8 @@
             android:paddingTop="@dimen/controlVPadding"
             android:paddingBottom="@dimen/controlVPadding"
             android:paddingLeft="@dimen/controlHPadding"
-            android:paddingRight="@dimen/controlHPadding">
+            android:paddingRight="@dimen/controlHPadding"
+            tools:ignore="RelativeOverlap">
 
             <TextView
                 android:id="@+id/hours"

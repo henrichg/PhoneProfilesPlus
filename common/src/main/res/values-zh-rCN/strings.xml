@@ -698,7 +698,6 @@
     <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">您的设备已关联铃声和通知音量。如果要取消关联音量，请启用此参数。</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings">使用优先级</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">在应用程序设置中启用参数“优先级”的使用。</string>
-    <string name="phone_profiles_pref_notificationStatusBarNew">状态栏通知</string>
     <string name="profile_preferences_volumeNotificationVolume0_NowConfigured">当前配置：</string>
     <string name="profile_preferences_volumeRingtone0Info_title">铃声音量 = 0</string>
     <string name="profile_preferences_volumeRingtone0Info_summary">铃声音量 = 0 将设备设置为静音模式。通知音量设置将被忽略。</string>
@@ -748,7 +747,6 @@
     <string name="editor_activity_targetHelps_eventOrderHandler_description">用此图标拖动事件向上/向下以更改事件“启动顺序”。</string>
     <string name="activator_activity_targetHelps_editor_title" tools:keep="@string/activator_activity_targetHelps_editor_title">编辑器</string>
     <string name="activator_activity_targetHelps_editor_description_ppp">单击此处打开编辑器。在编辑器中您可以配置情景、事件、更改应用程序设置……</string>
-    <string name="activator_activity_targetHelps_editor_description_pp">单击此处打开编辑器。在编辑器中您可以配置情景、更改应用程序设置……</string>
     <string name="activator_activity_targetHelps_activateProfile_title">激活情景</string>
     <string name="activator_activity_targetHelps_activateProfile_description">点击此处激活情景。</string>
     <string name="profile_preference_activity_targetHelps_save_title">保存情景</string>
@@ -945,7 +943,6 @@
     <string name="profile_multiselect_summary_text_not_selected">未选择</string>
     <string name="notification_channel_activated_profile">已激活的配置文件</string>
     <string name="notification_channel_activated_profile_description_ppp">显示已启动事件的激活配置文件。</string>
-    <string name="notification_channel_activated_profile_description_pp">显示激活的配置文件。</string>
     <string name="notification_channel_mobile_cells_registration_description">显示移动小区注册的剩余时间。</string>
     <string name="notification_channel_information">信息</string>
     <string name="notification_channel_exclamation">惊叹</string>
@@ -1041,7 +1038,6 @@
     <string name="event_preferences_category_eventAlarmClockParameters">闹钟传感器</string>
     <string name="phone_profiles_pref_grantRootPermission">授予root权限</string>
     <string name="phone_profiles_pref_grantRootPermission_summary">请为PhoneProfilesPlus授予root权限。需要root的配置文件和事件参数是必需的。</string>
-    <string name="phone_profiles_pref_grantRootPermission_summary_pp">请为PhoneProfiles授予root权限。需要root的配置文件参数是必需的。</string>
     <string name="phone_profiles_pref_grantRootPermission_otherManagers">请打开设备中安装的根管理器，并为PhoneProfilesPlus授予root权限。</string>
     <string name="preferences_grantRoot_title">授予root权限未启用</string>
     <string name="preferences_grantRoot_summary">未启用授予root权限。点击这里授予它。</string>
@@ -1140,7 +1136,6 @@
     <string name="phone_profiles_pref_notificationBackgroundColor">背景颜色</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_android">本地</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">黑暗</string>
-    <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">按夜间模式</string>
     <string name="phone_profiles_pref_applicationTheme_nightMode">按夜间模式</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">请在系统设置中启用位置。如果没有这个，移动基站扫描将无法工作。</string>
     <string name="action_for_external_application_notification_title">外部应用程序支持(Tasker)</string>
@@ -1359,9 +1354,13 @@
     <string name="event_preferences_orientation_light">Light</string>
     <string name="event_preferences_orientation_light_min">Light - minimal value (0)</string>
     <string name="event_preferences_orientation_light_max">Light - maximal value (10000)</string>
-    <string name="pref_event_screen_endWhenLocked">End when locked</string>
-    <string name="event_preferences_screen_end_when_locked">End when locked</string>
-    <string name="event_preference_sensor_screen_summary">This sensor will start an event by screen on/off. Parameters: Event type (screen on, screen off), Start when unlocked/End when locked (event starts when device is unlocked/ends when is locked).</string>
+    <string name="event_preferences_orientation_light_not_enabled">not enabled</string>
+    <string name="pref_event_screen_startWhenLocked">Start when locked</string>
+    <string name="event_preferences_screen_start_when_locked">Start when locked</string>
+    <string name="event_preference_sensor_screen_summary">This sensor will start an event by screen on/off. Parameters: Event type (screen on, screen off), Start when unlocked/locked (event starts when device is unlocked/locked).</string>
+    <string name="phone_profiles_pref_applicationPrefIndicator_summary">Display profile preference indicators in Activator, Editor, shortcut</string>
+    <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">Display profile preference indicators in notification</string>
+    <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Display profile preference indicators in widgets</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1501,4 +1500,9 @@
     <!--    <string name="editor_drawer_order_label">Order events by:</string>-->
     <!--    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>-->
     <!--    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarNew">Status bar notification</string>-->
+    <!--    <string name="activator_activity_targetHelps_editor_description_pp">Click this to open Editor, where you can configure profiles, change application settings, etc.</string>-->
+    <!--    <string name="notification_channel_activated_profile_description_pp">Shows the activated profile.</string>-->
+    <!--    <string name="phone_profiles_pref_grantRootPermission_summary_pp">Please grant root for PhoneProfiles. Is required for profile parameters, which requires root.</string>-->
+    <!--    <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">By night mode</string>-->
 </resources>

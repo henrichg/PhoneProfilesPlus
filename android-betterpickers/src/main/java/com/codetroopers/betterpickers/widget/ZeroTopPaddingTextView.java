@@ -29,11 +29,11 @@ import android.widget.TextView;
 public class ZeroTopPaddingTextView extends TextView {
 
     private static final float NORMAL_FONT_PADDING_RATIO = 0.328f;
-    // the bold fontface has less empty space on the top
+    // the bold font face has less empty space on the top
     private static final float BOLD_FONT_PADDING_RATIO = 0.208f;
 
     private static final float NORMAL_FONT_BOTTOM_PADDING_RATIO = 0.25f;
-    // the bold fontface has less empty space on the top
+    // the bold font face has less empty space on the top
     private static final float BOLD_FONT_BOTTOM_PADDING_RATIO = 0.208f;
 
     // pre-ICS (Droid Sans) has weird empty space on the bottom
@@ -44,8 +44,8 @@ public class ZeroTopPaddingTextView extends TextView {
 
     private int mPaddingRight = 0;
 
-    //private String decimalSeperator = "";
-    //private String timeSeperator = "";
+    //private String decimalSeparator = "";
+    //private String timeSeparator = "";
 
     public ZeroTopPaddingTextView(Context context) {
         this(context, null);
@@ -65,8 +65,8 @@ public class ZeroTopPaddingTextView extends TextView {
 
     @SuppressWarnings("EmptyMethod")
     private void init() {
-        //decimalSeperator = getResources().getString(R.string.number_picker_seperator);
-        //timeSeperator = getResources().getString(R.string.time_picker_time_seperator);
+        //decimalSeparator = getResources().getString(R.string.number_picker_separator);
+        //timeSeparator = getResources().getString(R.string.time_picker_time_separator);
     }
 
     public void updatePadding() {
@@ -87,8 +87,8 @@ public class ZeroTopPaddingTextView extends TextView {
         /*
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH &&
                 getText() != null &&
-                (getText().toString().equals(decimalSeperator) ||
-                        getText().toString().equals(timeSeperator))) {
+                (getText().toString().equals(decimalSeparator) ||
+                        getText().toString().equals(timeSeparator))) {
             bottomPaddingRatio = PRE_ICS_BOTTOM_PADDING_RATIO;
         }
         */

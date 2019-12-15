@@ -698,7 +698,6 @@
     <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Your device has linked volumes for ringtone and notifications. If you want unlinked volumes, enable this parameter.</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings">استخدام الأولوية</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">قم بتمكين استخدام عوامل \"الأولوية\" في إعدادات التطبيق.</string>
-    <string name="phone_profiles_pref_notificationStatusBarNew">إشعار شريط الحالة</string>
     <string name="profile_preferences_volumeNotificationVolume0_NowConfigured">التكوين الحالي:</string>
     <string name="profile_preferences_volumeRingtone0Info_title">حجم النغمات = 0</string>
     <string name="profile_preferences_volumeRingtone0Info_summary">إذا تم ضبط مستوى صوت نغمة الرنين على \"0\" ، فإنه يقوم بتحويل الهاتف للوضع الصامت. و يتم تجاهل حجم صوت إشعارات الهاتف.</string>
@@ -748,7 +747,6 @@
     <string name="editor_activity_targetHelps_eventOrderHandler_description">Drag event up/down with this handler to change the event \"Start order\".</string>
     <string name="activator_activity_targetHelps_editor_title" tools:keep="@string/activator_activity_targetHelps_editor_title">المحرر</string>
     <string name="activator_activity_targetHelps_editor_description_ppp">انقر هنا لفتح المحرر ، حيث يمكنك تكوين الأوضاع والأحداث وتغيير إعدادات التطبيق ، إلخ.</string>
-    <string name="activator_activity_targetHelps_editor_description_pp">Click this to open Editor, where you can configure profiles, change application settings, etc.</string>
     <string name="activator_activity_targetHelps_activateProfile_title">وضع التنشيط</string>
     <string name="activator_activity_targetHelps_activateProfile_description">انقر هنا لتنشيط الوضع.</string>
     <string name="profile_preference_activity_targetHelps_save_title">حفظ الوضع</string>
@@ -945,7 +943,6 @@
     <string name="profile_multiselect_summary_text_not_selected">لا شيء محدد</string>
     <string name="notification_channel_activated_profile">الوضع التشط</string>
     <string name="notification_channel_activated_profile_description_ppp">يظهر الوضع النشط مع الحدث الذي بدأ.</string>
-    <string name="notification_channel_activated_profile_description_pp">عرض الوضع النشط.</string>
     <string name="notification_channel_mobile_cells_registration_description">يظهر الوقت المتبقي لتسجيل الإتصال الخلوي. (الأبراج)</string>
     <string name="notification_channel_information">معلومات</string>
     <string name="notification_channel_exclamation">علامة تعجب</string>
@@ -1041,7 +1038,6 @@
     <string name="event_preferences_category_eventAlarmClockParameters">استشعار المنبه</string>
     <string name="phone_profiles_pref_grantRootPermission">منح إذن الجذر</string>
     <string name="phone_profiles_pref_grantRootPermission_summary">Please grant root for PhoneProfilesPlus. Is required for profile and event parameters, which requires root.</string>
-    <string name="phone_profiles_pref_grantRootPermission_summary_pp">Please grant root for PhoneProfiles. Is required for profile parameters, which requires root.</string>
     <string name="phone_profiles_pref_grantRootPermission_otherManagers">Please open root manager installed in your device and grant root for PhoneProfilesPlus.</string>
     <string name="preferences_grantRoot_title">منح إذن الجذر غير ممكّن</string>
     <string name="preferences_grantRoot_summary">لم يتم تمكين منح إذن الجذر. انقر هنا لمنحه.</string>
@@ -1140,7 +1136,6 @@
     <string name="phone_profiles_pref_notificationBackgroundColor">لون الخلفية</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_android">محلي</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">الأسود</string>
-    <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">عن طريق الوضع الليلي</string>
     <string name="phone_profiles_pref_applicationTheme_nightMode">عن طريق الوضع الليلي</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">يرجى تمكين نظام تحديد المواقع الجغرافية في إعدادات النظام. بدون هذا ، لن يعمل البحث عن ابراج الشبكة الخلوية.</string>
     <string name="action_for_external_application_notification_title">دعم التطبيقات الخارجية (تاسكر)</string>
@@ -1359,9 +1354,13 @@
     <string name="event_preferences_orientation_light">Light</string>
     <string name="event_preferences_orientation_light_min">Light - minimal value (0)</string>
     <string name="event_preferences_orientation_light_max">Light - maximal value (10000)</string>
-    <string name="pref_event_screen_endWhenLocked">End when locked</string>
-    <string name="event_preferences_screen_end_when_locked">End when locked</string>
-    <string name="event_preference_sensor_screen_summary">This sensor will start an event by screen on/off. Parameters: Event type (screen on, screen off), Start when unlocked/End when locked (event starts when device is unlocked/ends when is locked).</string>
+    <string name="event_preferences_orientation_light_not_enabled">not enabled</string>
+    <string name="pref_event_screen_startWhenLocked">Start when locked</string>
+    <string name="event_preferences_screen_start_when_locked">Start when locked</string>
+    <string name="event_preference_sensor_screen_summary">This sensor will start an event by screen on/off. Parameters: Event type (screen on, screen off), Start when unlocked/locked (event starts when device is unlocked/locked).</string>
+    <string name="phone_profiles_pref_applicationPrefIndicator_summary">Display profile preference indicators in Activator, Editor, shortcut</string>
+    <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">Display profile preference indicators in notification</string>
+    <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Display profile preference indicators in widgets</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1501,4 +1500,9 @@
     <!--    <string name="editor_drawer_order_label">Order events by:</string>-->
     <!--    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>-->
     <!--    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarNew">Status bar notification</string>-->
+    <!--    <string name="activator_activity_targetHelps_editor_description_pp">Click this to open Editor, where you can configure profiles, change application settings, etc.</string>-->
+    <!--    <string name="notification_channel_activated_profile_description_pp">Shows the activated profile.</string>-->
+    <!--    <string name="phone_profiles_pref_grantRootPermission_summary_pp">Please grant root for PhoneProfiles. Is required for profile parameters, which requires root.</string>-->
+    <!--    <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">By night mode</string>-->
 </resources>

@@ -19,7 +19,7 @@
         <attr name="android:textColor"/>
         <!-- Size of the text. Recommended dimension type for text is "sp" for scaled-pixels (example: 15sp). -->
         <attr name="android:textSize"/>
-        <!-- Style (bold, italic, bolditalic) for the text. -->
+        <!-- Style (bold, italic, bold&italic) for the text. -->
         <attr name="android:textStyle"/>
         <!-- Typeface (normal, sans, serif, monospace) for the text. -->
         <attr name="android:typeface"/>

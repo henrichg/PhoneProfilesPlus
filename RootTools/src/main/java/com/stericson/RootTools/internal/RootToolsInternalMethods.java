@@ -110,7 +110,7 @@ public final class RootToolsInternalMethods {
         return null;
     }
 
-    @SuppressWarnings("WeakerAccess")
+    @SuppressWarnings({"WeakerAccess", "ConstantConditions"})
     public int parsePermissions(String permission) {
         permission = permission.toLowerCase(Locale.US);
         int tmp;
@@ -166,7 +166,7 @@ public final class RootToolsInternalMethods {
     }
 
     /**
-     * Copys a file to a destination. Because cp is not available on all android devices, we have a
+     * Copy a file to a destination. Because cp is not available on all android devices, we have a
      * fallback on the cat command
      *
      * @param source                 example: /data/data/org.adaway/files/hosts
@@ -243,7 +243,7 @@ public final class RootToolsInternalMethods {
                         commandWait(Shell.startRootShell(), command);
 
                         if (preserveFileAttributes) {
-                            // set premissions of source to destination
+                            // set permissions of source to destination
                             command = new Command(0, false, "chmod " + filePermission + " " + destination);
                             Shell.startRootShell().add(command);
                             commandWait(Shell.startRootShell(), command);
@@ -445,8 +445,8 @@ public final class RootToolsInternalMethods {
         if (path != null && !path.endsWith("/") && !path.equals("")) {
             path += "/";
         } else if (path == null) {
-            //Don't know what the user wants to do...what am I pshycic?
-            throw new Exception("Path is null, please specifiy a path");
+            //Don't know what the user wants to do...what am I psychic?
+            throw new Exception("Path is null, please specify a path");
         }
 
         final List<String> results = new ArrayList<>();
@@ -926,7 +926,7 @@ public final class RootToolsInternalMethods {
                         //We return the first found location.
                         final_symlink = paths.get(0) + symlink[symlink.length - 1];
                     } else {
-                        //we couldnt find a path, return the symlink by itself.
+                        //we could'nt find a path, return the symlink by itself.
                         final_symlink = symlink[symlink.length - 1];
                     }
                 } else {
@@ -947,7 +947,7 @@ public final class RootToolsInternalMethods {
 
     /**
      * This will return an ArrayList of the class Symlink. The class Symlink contains the following
-     * property's: path SymplinkPath
+     * property's: path SymlinkPath
      * <p/>
      * These will provide you with any Symlinks in the given path.
      *
@@ -1016,7 +1016,7 @@ public final class RootToolsInternalMethods {
      * read/write
      */
     public boolean hasEnoughSpaceOnSdCard(long updateSize) {
-        RootTools.log("Checking SDcard size and that it is mounted as RW");
+        RootTools.log("Checking SD card size and that it is mounted as RW");
         String status = Environment.getExternalStorageState();
         if (!status.equals(Environment.MEDIA_MOUNTED)) {
             return false;
@@ -1147,8 +1147,8 @@ public final class RootToolsInternalMethods {
      */
     public boolean isAppletAvailable(String applet, String binaryPath) {
         try {
-            for (String aplet : getBusyBoxApplets(binaryPath)) {
-                if (aplet.equals(applet)) {
+            for (String _applet : getBusyBoxApplets(binaryPath)) {
+                if (_applet.equals(applet)) {
                     return true;
                 }
             }

@@ -441,6 +441,7 @@ public class Shell {
 
             // Replace libsuperuser:Shell.run with manual process execution
             Process process;
+            //noinspection TryWithIdenticalCatches
             try {
                 process = Runtime.getRuntime().exec(internal ? "su -V" : "su -v", null);
                 process.waitFor();
@@ -838,7 +839,7 @@ public class Shell {
                 String line = errorStream.readLine();
 
                 /*
-                 * If we recieve EOF then the shell closed?
+                 * If we receive EOF then the shell closed?
                  */
                 if (line == null) {
                     break;

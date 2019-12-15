@@ -719,13 +719,6 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
     }
 
     static Intent createIntent(PPIntent ppIntent) {
-        /*
-        intent = new Intent("android.intent.action.MAIN");
-        intent.setComponent(new ComponentName("com.kuma.smartnotify","com.kuma.smartnotify.SmartNotifyMain"));
-        intent.putExtra("CARMODEON",true);
-        intent.putExtra("CARMODEOFF",true);
-        */
-
         Intent intent;
         try {
             intent = new Intent();

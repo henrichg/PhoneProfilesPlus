@@ -154,7 +154,7 @@ public final class RootTools {
     }
 
     /**
-     * Copys a file to a destination. Because cp is not available on all android devices, we have a
+     * Copy a file to a destination. Because cp is not available on all android devices, we have a
      * fallback on the cat command
      *
      * @param source                 example: /data/data/org.adaway/files/hosts
@@ -472,7 +472,7 @@ public final class RootTools {
 
     /**
      * This will return an ArrayList of the class Symlink. The class Symlink contains the following
-     * property's: path SymplinkPath
+     * property's: path SymlinkPath
      * <p/>
      * These will provide you with any Symlinks in the given path.
      *
@@ -721,7 +721,7 @@ public final class RootTools {
      * remounted as specified.
      */
     public static boolean remount(String file, String mountType) {
-        // Recieved a request, get an instance of Remounter
+        // Received a request, get an instance of Remounter
         Remounter remounter = new Remounter();
         // send the request.
         return (remounter.remount(file, mountType));
@@ -831,7 +831,7 @@ public final class RootTools {
      * <p/>
      * Example usage:
      * if(islog) {
-     * StrinbBuilder sb = new StringBuilder();
+     * StringBuilder sb = new StringBuilder();
      * // ...
      * // build string
      * // ...

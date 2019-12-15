@@ -13,6 +13,7 @@ import java.util.List;
  * Each value of channel is between 0 and 100
  * @author JJamet
  */
+@SuppressWarnings("unused")
 public class CMYK implements AbstractColorMode {
 
     protected int MAX_VALUE;
@@ -30,6 +31,7 @@ public class CMYK implements AbstractColorMode {
         List<Channel> list = new ArrayList<>();
 
         list.add(new Channel(R.string.acch_channel_cyan, 0, MAX_VALUE, new Channel.ColorExtractor() {
+            @SuppressWarnings("unused")
             @Override
             public int extract(int color) {
                 // C = (1-R'-K) / (1-K)

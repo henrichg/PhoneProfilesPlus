@@ -17,6 +17,7 @@ import com.kunzisoft.androidclearchroma.colormode.Channel;
  * Channel view to show a color channel
  * @author JJamet, Pavel Sikun
  */
+@SuppressWarnings("unused")
 public class ChannelView extends RelativeLayout {
 
     private TextView label;

@@ -525,7 +525,7 @@ public class RootShell {
      * <p/>
      * Example usage:
      * if(islog) {
-     * StrinbBuilder sb = new StringBuilder();
+     * StringBuilder sb = new StringBuilder();
      * // ...
      * // build string
      * // ...

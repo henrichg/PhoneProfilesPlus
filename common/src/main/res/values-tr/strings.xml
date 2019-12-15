@@ -698,7 +698,6 @@
     <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Cihazınızın zil ve bildirim ses seviyeleri birleştirilmiş. Ses seviyelerini ayırmak isterseniz bu değeri işaretleyin.</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings">Öncelik kullan</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">Uygulama ayarlarında \"Öncelik\" değerini kullanmaya izin verin.</string>
-    <string name="phone_profiles_pref_notificationStatusBarNew">Durum çubuğu bildirimi</string>
     <string name="profile_preferences_volumeNotificationVolume0_NowConfigured">Şu anda ayarlanan:</string>
     <string name="profile_preferences_volumeRingtone0Info_title">Zil sesi seviyesi = 0</string>
     <string name="profile_preferences_volumeRingtone0Info_summary">Zil sesi seviyesi = 0 cihazı sessiz moda ayarlar. Bildirim ses seviyesi göz ardı edilir.</string>
@@ -748,7 +747,6 @@
     <string name="editor_activity_targetHelps_eventOrderHandler_description">Durumun \"Başlatma sırası\"nı değiştirmek için bununla durumu yukarı/aşağı sürükleyin.</string>
     <string name="activator_activity_targetHelps_editor_title" tools:keep="@string/activator_activity_targetHelps_editor_title">Düzenleyici</string>
     <string name="activator_activity_targetHelps_editor_description_ppp">Tercihleri, durumları, uygulama ayarlarını vs. ayarlayabileceğiniz Düzenleyici\'yi açmak için buna dokunun.</string>
-    <string name="activator_activity_targetHelps_editor_description_pp">Tercihleri, durumları, uygulama ayarlarını vs. ayarlayabileceğiniz Düzenleyici\'yi açmak için buna dokunun.</string>
     <string name="activator_activity_targetHelps_activateProfile_title">Tercihi faal yap</string>
     <string name="activator_activity_targetHelps_activateProfile_description">Tercihi faal yapmak için buraya dokunun.</string>
     <string name="profile_preference_activity_targetHelps_save_title">Tercihi Kaydet</string>
@@ -945,7 +943,6 @@
     <string name="profile_multiselect_summary_text_not_selected">Seçilmeyen</string>
     <string name="notification_channel_activated_profile">Faal tercih</string>
     <string name="notification_channel_activated_profile_description_ppp">Durum başlarken faaliyete geçen tercihi göster.</string>
-    <string name="notification_channel_activated_profile_description_pp">Faal tercihi göster.</string>
     <string name="notification_channel_mobile_cells_registration_description">Şebeke hücre kaydının geçen süresini gösterir.</string>
     <string name="notification_channel_information">Malumat</string>
     <string name="notification_channel_exclamation">Ünlem işareti</string>
@@ -1041,7 +1038,6 @@
     <string name="event_preferences_category_eventAlarmClockParameters">Çalar saat şartları</string>
     <string name="phone_profiles_pref_grantRootPermission">Kök izni</string>
     <string name="phone_profiles_pref_grantRootPermission_summary">Lutfen, tercih ve durum değerleri için lüzümlu olan PhoneProfilesPlus\'a kök izni verin.</string>
-    <string name="phone_profiles_pref_grantRootPermission_summary_pp">Lütfen, tercih değerleri için lüzümlu olan PhoneProfilesPlus\'a kök izni verin.</string>
     <string name="phone_profiles_pref_grantRootPermission_otherManagers">Lutfen, varsa cihazınıza kurduğunuz kök idare uygulamasını açıp PhoneProfilesPlus\'a kök izni verin.</string>
     <string name="preferences_grantRoot_title">Kök izni verilmemiş</string>
     <string name="preferences_grantRoot_summary">Kök izni verilmedi. İzin vermek için buraya dokunun.</string>
@@ -1140,7 +1136,6 @@
     <string name="phone_profiles_pref_notificationBackgroundColor">Arkaplan rengi</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_android">Cihaz</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">Karanlık</string>
-    <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">Otomatik</string>
     <string name="phone_profiles_pref_applicationTheme_nightMode">Otomatik</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Lutfen Konumu sistem ayarlarında açın. Bu yapılmadan, Şebeke hücreleri tarama çalışmaz.</string>
     <string name="action_for_external_application_notification_title">Dış uygulamalar desteği (Tasker)</string>
@@ -1351,17 +1346,21 @@
     <string name="editor_activity_targetHelps_runStopEvents_title">Durumların çalışmasına izin ver</string>
     <string name="editor_activity_targetHelps_runStopEvents_description">Durumların çalışmasına izin vermek için buraya dokunun. Bu yapılmadan ayarlanan Durumlar çalışmaz.</string>
     <string name="samsung_edge_panel_description">Samsung Edge paneliyle tercihi tahrik et veya Durumları yeniden başlat</string>
-    <string name="phone_profiles_pref_notificationBackgroundColor_black">Black</string>
-    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>
-    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>
-    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>
-    <string name="event_preferences_orientation_checkLight">Check light</string>
-    <string name="event_preferences_orientation_light">Light</string>
-    <string name="event_preferences_orientation_light_min">Light - minimal value (0)</string>
-    <string name="event_preferences_orientation_light_max">Light - maximal value (10000)</string>
-    <string name="pref_event_screen_endWhenLocked">End when locked</string>
-    <string name="event_preferences_screen_end_when_locked">End when locked</string>
-    <string name="event_preference_sensor_screen_summary">This sensor will start an event by screen on/off. Parameters: Event type (screen on, screen off), Start when unlocked/End when locked (event starts when device is unlocked/ends when is locked).</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_black">Siyah</string>
+    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Özel arka plan rengi</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Özel renk</string>
+    <string name="phone_profiles_pref_notificationNightMode">Gece modunu kullan</string>
+    <string name="event_preferences_orientation_checkLight">Parlaklığı kontrol et</string>
+    <string name="event_preferences_orientation_light">Açık</string>
+    <string name="event_preferences_orientation_light_min">Parlaklık - asgari değer (0)</string>
+    <string name="event_preferences_orientation_light_max">Parlaklık - azami değer (10000)</string>
+    <string name="event_preferences_orientation_light_not_enabled">not enabled</string>
+    <string name="pref_event_screen_startWhenLocked">Kilitlendiğinde başlat</string>
+    <string name="event_preferences_screen_start_when_locked">Kilitlendiğinde başlat</string>
+    <string name="event_preference_sensor_screen_summary">Bu Şart, durumun ekranın açılıp-kapanması ile başlangıcı içindir. Değerler: Durum türü (ekran açık, ekran kapalı,…), Kilit açılırken/kapanırken başlat (cihazın kilidi açılırken/kapanırken durumu başlatma).</string>
+    <string name="phone_profiles_pref_applicationPrefIndicator_summary">Display profile preference indicators in Activator, Editor, shortcut</string>
+    <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">Display profile preference indicators in notification</string>
+    <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Display profile preference indicators in widgets</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1501,4 +1500,9 @@
     <!--    <string name="editor_drawer_order_label">Order events by:</string>-->
     <!--    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>-->
     <!--    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarNew">Status bar notification</string>-->
+    <!--    <string name="activator_activity_targetHelps_editor_description_pp">Click this to open Editor, where you can configure profiles, change application settings, etc.</string>-->
+    <!--    <string name="notification_channel_activated_profile_description_pp">Shows the activated profile.</string>-->
+    <!--    <string name="phone_profiles_pref_grantRootPermission_summary_pp">Please grant root for PhoneProfiles. Is required for profile parameters, which requires root.</string>-->
+    <!--    <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">By night mode</string>-->
 </resources>

@@ -35,6 +35,7 @@ import java.util.List;
  * Chroma color view to show a color view with channels
  * @author JJamet
  */
+@SuppressWarnings("unused")
 public class ChromaColorView extends RelativeLayout {
 
     private final Context context;

@@ -79,8 +79,10 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
 
         private final String AVOIDDIRPATH = "stericson" + File.separator + "RootShell" + File.separator;
 
+        @SuppressWarnings("FieldCanBeLocal")
         private final List<File> classFiles;
 
+        @SuppressWarnings("TryWithIdenticalCatches")
         public AnnotationsFinder() throws IOException {
             System.out.println("Discovering root class annotations...");
             classFiles = new ArrayList<>();
@@ -227,6 +229,7 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
             }
         }
 
+        @SuppressWarnings("TryWithIdenticalCatches")
         protected boolean hasClassAnnotation(File file) {
             READ_STATE readState = READ_STATE.STARTING;
             Pattern p = Pattern.compile(" class ([A-Za-z0-9_]+)");

@@ -4,9 +4,11 @@ package com.kunzisoft.androidclearchroma;
  * Indicator mode of color, can be Decimal or Hexadecimal
  * @author Pavel Sikun
  */
+@SuppressWarnings("unused")
 public enum IndicatorMode {
     DECIMAL(0), HEX(1);
 
+    @SuppressWarnings("CanBeFinal")
     private int i;
 
     /**

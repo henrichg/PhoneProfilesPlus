@@ -23,6 +23,7 @@ import java.util.Vector;
 /**
  * Dialog to set alarm time.
  */
+@SuppressWarnings("WeakerAccess")
 public class NumberPickerDialogFragment extends DialogFragment {
 
     private static final String REFERENCE_KEY = "NumberPickerDialogFragment_ReferenceKey";
@@ -67,7 +68,7 @@ public class NumberPickerDialogFragment extends DialogFragment {
      * @param labelText           (optional) text to add as a label
      * @return a Picker!
      */
-    public static NumberPickerDialogFragment newInstance(int reference,
+    static NumberPickerDialogFragment newInstance(int reference,
                                                          int themeResId,
                                                          BigDecimal minNumber,
                                                          BigDecimal maxNumber,
@@ -258,7 +259,7 @@ public class NumberPickerDialogFragment extends DialogFragment {
         }
     }
 
-    public void setOnDismissListener(OnDialogDismissListener ondialogdismisslistener) {
+    void setOnDismissListener(OnDialogDismissListener ondialogdismisslistener) {
         mDismissCallback = ondialogdismisslistener;
     }
 
@@ -274,7 +275,7 @@ public class NumberPickerDialogFragment extends DialogFragment {
      *
      * @param handlers a Vector of handlers
      */
-    public void setNumberPickerDialogHandlersV2(Vector<NumberPickerDialogHandlerV2> handlers) {
+    void setNumberPickerDialogHandlersV2(Vector<NumberPickerDialogHandlerV2> handlers) {
         this.mNumberPickerDialogHandlersV2 = handlers;
     }
 

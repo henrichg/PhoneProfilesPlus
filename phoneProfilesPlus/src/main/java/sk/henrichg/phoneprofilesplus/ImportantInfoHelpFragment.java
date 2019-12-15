@@ -26,6 +26,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+@SuppressWarnings("WeakerAccess")
 public class ImportantInfoHelpFragment extends Fragment {
 
     int scrollTo = 0;

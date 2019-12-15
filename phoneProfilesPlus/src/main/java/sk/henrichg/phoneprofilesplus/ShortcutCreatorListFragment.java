@@ -33,6 +33,7 @@ import androidx.core.content.pm.ShortcutManagerCompat;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.fragment.app.Fragment;
 
+@SuppressWarnings("WeakerAccess")
 public class ShortcutCreatorListFragment extends Fragment {
 
     private DataWrapper activityDataWrapper;

@@ -579,7 +579,7 @@ HOTOVO
 HOTOVO
 
 !!! Treba testovat, ci je elapsedTime zaporny. Ak je, daj work bez setInitialDelay().
-!!! TimeChangedReceive - by mali byt spravene cez restartEvents, co je tam uz volany.
+!!! TimeChangedReceiver - by mali byt spravene cez restartEvents, co je tam uz volany.
 - EventPreferencesAlarmClock -> raz denne v presny cas, pouziva aj AlarmClock
 - EventPreferencesCalendar -> raz denne v presny cas, pouziva aj AlarmClock
 - EventPreferencesCall -> raz denne v presny cas, pouziva aj AlarmClock

@@ -21,7 +21,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.crashlytics.android.Crashlytics;
-//import com.llew.huawei.verifier.LoadedApkHuaWei;
 import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.look.Slook;
 import com.stericson.RootShell.RootShell;

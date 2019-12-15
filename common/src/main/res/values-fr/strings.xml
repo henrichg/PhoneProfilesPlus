@@ -698,7 +698,6 @@
     <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Votre appareil a fusionné le volume de la sonnerie d’appel et les notifications. Activer ce paramètre pour les dissocier.</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings">Priorité d\'utilisation</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">Activer l’utilisation du paramètre \"Priorité\" dans les paramètres de l’application.</string>
-    <string name="phone_profiles_pref_notificationStatusBarNew">Notification de barre d’État</string>
     <string name="profile_preferences_volumeNotificationVolume0_NowConfigured">Actuellement configuré :</string>
     <string name="profile_preferences_volumeRingtone0Info_title">Volume de sonnerie = 0</string>
     <string name="profile_preferences_volumeRingtone0Info_summary">Volume de sonnerie = 0 configure l’appareil en mode silencieux. Le volume de notification est ignoré.</string>
@@ -748,7 +747,6 @@
     <string name="editor_activity_targetHelps_eventOrderHandler_description">Faites glisser l’événement vers le haut ou le bas pour modifier l\'ordre dans l\'activateur.</string>
     <string name="activator_activity_targetHelps_editor_title" tools:keep="@string/activator_activity_targetHelps_editor_title">Éditeur</string>
     <string name="activator_activity_targetHelps_editor_description_ppp">Cliquez sur ce bouton pour ouvrir l’éditeur. Dans l’éditeur, que pouvez configurer les profils, les événements, changer les paramètres de l’application…</string>
-    <string name="activator_activity_targetHelps_editor_description_pp">Cliquez sur ce bouton pour ouvrir l’éditeur. Dans l’éditeur, que pouvez configurer les profils, les événements, changer les paramètres de l’application…</string>
     <string name="activator_activity_targetHelps_activateProfile_title">Activer le profil</string>
     <string name="activator_activity_targetHelps_activateProfile_description">Cliquez sur ce bouton pour activer le profil.</string>
     <string name="profile_preference_activity_targetHelps_save_title">Enregistrer le profil</string>
@@ -945,7 +943,6 @@
     <string name="profile_multiselect_summary_text_not_selected">Aucun sélectionné</string>
     <string name="notification_channel_activated_profile">Profil activé</string>
     <string name="notification_channel_activated_profile_description_ppp">Affiche le profil activé par l\'événement.</string>
-    <string name="notification_channel_activated_profile_description_pp">Affiche le profil actif.</string>
     <string name="notification_channel_mobile_cells_registration_description">Affiche le temps restant du scan des cellules mobiles.</string>
     <string name="notification_channel_information">Information</string>
     <string name="notification_channel_exclamation">Exclamation</string>
@@ -1041,7 +1038,6 @@
     <string name="event_preferences_category_eventAlarmClockParameters">Capteur d\'alarme</string>
     <string name="phone_profiles_pref_grantRootPermission">Autoriser l\'accès racine</string>
     <string name="phone_profiles_pref_grantRootPermission_summary">Veuillez accorder l\'accés racine à PhoneProfilesPlus. C\'est nécessaire pour les paramètres de profil et d\'événement, qui nécessite un root.</string>
-    <string name="phone_profiles_pref_grantRootPermission_summary_pp">Veuillez accorder l\'accés racine à PhoneProfilesPlus. C\'est nécessaire pour les paramètres de profil et d\'événement, qui nécessite un root.</string>
     <string name="phone_profiles_pref_grantRootPermission_otherManagers">Veuillez ouvrir le gestionnaire de rootinstallé dans votre appareil et accorder les droits racine à PhoneProfilesPlus.</string>
     <string name="preferences_grantRoot_title">Accès racine non validé</string>
     <string name="preferences_grantRoot_summary">Accès racine non validé. Cliquez ici pour l\'accorder.</string>
@@ -1140,7 +1136,6 @@
     <string name="phone_profiles_pref_notificationBackgroundColor">Couleur de fond</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_android">Natif</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">Sombre</string>
-    <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">Mode Nuit</string>
     <string name="phone_profiles_pref_applicationTheme_nightMode">Mode Nuit</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Veuillez activer la localisation dans les paramètres du système. Sans cela, le scan des cellules mobiles ne fonctionnera pas.</string>
     <string name="action_for_external_application_notification_title">Support des applications externes (Gestionnaire de tache)</string>
@@ -1348,20 +1343,24 @@
     <string name="editor_drawer_title_events_order">Ordre</string>
     <string name="editor_activity_targetHelps_orderSpinner_title">Ordre des événements</string>
     <string name="editor_activity_targetHelps_orderSpinner_description">Cliquez ici pour naviguer dans l\'ordre des événements.</string>
-    <string name="editor_activity_targetHelps_runStopEvents_title">Enable run events</string>
-    <string name="editor_activity_targetHelps_runStopEvents_description">Click this to enable run of events. Without this, configured events will not be running.</string>
-    <string name="samsung_edge_panel_description">Profile activation or Restart events with Samsung Edge panel</string>
-    <string name="phone_profiles_pref_notificationBackgroundColor_black">Black</string>
-    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>
-    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>
-    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>
-    <string name="event_preferences_orientation_checkLight">Check light</string>
-    <string name="event_preferences_orientation_light">Light</string>
-    <string name="event_preferences_orientation_light_min">Light - minimal value (0)</string>
-    <string name="event_preferences_orientation_light_max">Light - maximal value (10000)</string>
-    <string name="pref_event_screen_endWhenLocked">End when locked</string>
-    <string name="event_preferences_screen_end_when_locked">End when locked</string>
-    <string name="event_preference_sensor_screen_summary">This sensor will start an event by screen on/off. Parameters: Event type (screen on, screen off), Start when unlocked/End when locked (event starts when device is unlocked/ends when is locked).</string>
+    <string name="editor_activity_targetHelps_runStopEvents_title">Activer les événements</string>
+    <string name="editor_activity_targetHelps_runStopEvents_description">Cliquez ici pour activer l\'exécution d\'événements. Sans cela, les événements configurés pourraient ne pas fonctionner.</string>
+    <string name="samsung_edge_panel_description">Actiez le profil ou redémarrez des événements avec le panneau Samsung Edge</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_black">Noir</string>
+    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Couleur d\'arrière-plan personnalisée</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Couleur personnalisée</string>
+    <string name="phone_profiles_pref_notificationNightMode">Utiliser le mode nuit</string>
+    <string name="event_preferences_orientation_checkLight">Vérifier la lumière</string>
+    <string name="event_preferences_orientation_light">Lumière</string>
+    <string name="event_preferences_orientation_light_min">Lumière - valeur minimale (0)</string>
+    <string name="event_preferences_orientation_light_max">Lumière - valeur maximale (10000)</string>
+    <string name="event_preferences_orientation_light_not_enabled">non activé</string>
+    <string name="pref_event_screen_startWhenLocked">Démarrer quand verrouillé</string>
+    <string name="event_preferences_screen_start_when_locked">Démarrer quand verrouillé</string>
+    <string name="event_preference_sensor_screen_summary">Ce capteur démarrera un événement lors de l\'allumage ou l\'extinction de l\'écran. Paramètres : Type d\'événement (écran allumé, écran éteint), Démarrer lorsque déverrouillé ou verrouillé.</string>
+    <string name="phone_profiles_pref_applicationPrefIndicator_summary">Display profile preference indicators in Activator, Editor, shortcut</string>
+    <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">Display profile preference indicators in notification</string>
+    <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Display profile preference indicators in widgets</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1501,4 +1500,9 @@
     <!--    <string name="editor_drawer_order_label">Order events by:</string>-->
     <!--    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>-->
     <!--    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarNew">Status bar notification</string>-->
+    <!--    <string name="activator_activity_targetHelps_editor_description_pp">Click this to open Editor, where you can configure profiles, change application settings, etc.</string>-->
+    <!--    <string name="notification_channel_activated_profile_description_pp">Shows the activated profile.</string>-->
+    <!--    <string name="phone_profiles_pref_grantRootPermission_summary_pp">Please grant root for PhoneProfiles. Is required for profile parameters, which requires root.</string>-->
+    <!--    <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">By night mode</string>-->
 </resources>

@@ -1805,26 +1805,6 @@ class ActivateProfileHelper {
         }
     }
 
-    // not working, returns only calling process :-/
-    // http://stackoverflow.com/questions/30619349/android-5-1-1-and-above-getrunningappprocesses-returns-my-application-packag
-    /*private boolean isRunning(List<ActivityManager.RunningAppProcessInfo> procInfos, String packageName) {
-        PPApplication.logE("ActivateProfileHelper.executeForRunApplications", "procInfos.size()="+procInfos.size());
-        for(int i = 0; i < procInfos.size(); i++)
-        {
-            ActivityManager.RunningAppProcessInfo procInfo = procInfos.get(i);
-            PPApplication.logE("ActivateProfileHelper.executeForRunApplications", "procInfo.processName="+procInfo.processName);
-            if (procInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-                PPApplication.logE("ActivateProfileHelper.executeForRunApplications", "procInfo.importance=IMPORTANCE_FOREGROUND");
-                for (String pkgName : procInfo.pkgList) {
-                    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", "pkgName="+pkgName);
-                    if (pkgName.equals(packageName))
-                        return true;
-                }
-            }
-        }
-        return false;
-    }*/
-
     private static void executeForRunApplications(final Profile profile, final Context context) {
         if (profile._deviceRunApplicationChange == 1)
         {
@@ -1851,7 +1831,7 @@ class ActivateProfileHelper {
                         PackageManager packageManager = context.getPackageManager();
 
                         //ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-                        //List<ActivityManager.RunningAppProcessInfo> procInfos = activityManager.getRunningAppProcesses();
+                        //List<ActivityManager.RunningAppProcessInfo> procInfo = activityManager.getRunningAppProcesses();
 
                         for (String split : splits) {
                             //Log.d("ActivateProfileHelper.executeForRunApplications","app data="+splits[i]);
@@ -1871,7 +1851,7 @@ class ActivateProfileHelper {
                                                 intent = Intent.parseUri(shortcut._intent, 0);
                                                 if (intent != null) {
                                                     //String packageName = intent.getPackage();
-                                                    //if (!isRunning(procInfos, packageName)) {
+                                                    //if (!isRunning(procInfo, packageName)) {
                                                     //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName + ": not running");
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     //Log.d("ActivateProfileHelper.executeForRunApplications","intent="+intent);
@@ -1922,7 +1902,7 @@ class ActivateProfileHelper {
                                     String packageName = Application.getPackageName(split);
                                     intent = packageManager.getLaunchIntentForPackage(packageName);
                                     if (intent != null) {
-                                        //if (!isRunning(procInfos, packageName)) {
+                                        //if (!isRunning(procInfo, packageName)) {
                                         //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName+": not running");
                                         //Log.d("ActivateProfileHelper.executeForRunApplications","intent="+intent);
                                         intent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -3986,7 +3966,7 @@ class ActivateProfileHelper {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PPApplication.logE("ActivateProfileHelper.lockDevice", "in hanlder");
+                PPApplication.logE("ActivateProfileHelper.lockDevice", "in handler");
 
                 if (PPApplication.blockProfileEventActions)
                     // not lock device after boot
@@ -4023,17 +4003,17 @@ class ActivateProfileHelper {
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
                                     (PPApplication.isRooted(false))) {
                                 synchronized (PPApplication.rootMutex) {
-                                /*String command1 = "input keyevent 26";
-                                Command command = new Command(0, false, command1);
-                                try {
-                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                    commandWait(command);
-                                } catch (RootDeniedException e) {
-                                    PPApplication.rootMutex.rootGranted = false;
-                                    Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
-                                } catch (Exception e) {
-                                    Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
-                                }*/
+                                    /*String command1 = "input keyevent 26";
+                                    Command command = new Command(0, false, command1);
+                                    try {
+                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                        commandWait(command);
+                                    } catch (RootDeniedException e) {
+                                        PPApplication.rootMutex.rootGranted = false;
+                                        Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
+                                    } catch (Exception e) {
+                                        Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
+                                    }*/
                                     String command1 = PPApplication.getJavaCommandFile(CmdGoToSleep.class, "power", context, 0);
                                     if (command1 != null) {
                                         Command command = new Command(0, false, command1);

@@ -6,6 +6,7 @@ import androidx.annotation.ColorInt;
  * Callback listener for color changed
  * @author JJamet
  */
+@SuppressWarnings("unused")
 public interface OnColorChangedListener {
 
     /**

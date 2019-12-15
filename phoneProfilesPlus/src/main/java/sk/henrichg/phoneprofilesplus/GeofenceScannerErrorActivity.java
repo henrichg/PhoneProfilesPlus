@@ -82,6 +82,7 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
     // Must be public:
     //   java.lang.IllegalStateException: Fragment sk.henrichg.phoneprofilesplus.GeofenceScannerErrorActivity.ErrorDialogFragment
     //   must be a public static class to be  properly recreated from instance state.
+    @SuppressWarnings("WeakerAccess")
     public static class ErrorDialogFragment extends DialogFragment {
         public ErrorDialogFragment() {
             super();

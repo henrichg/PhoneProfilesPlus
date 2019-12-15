@@ -698,7 +698,6 @@
     <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Ihr Gerät verfügt über verbundene Rufton- und Benachrichtigungs-Lautstärke. Aktivieren Sie diese Option, um sie getrennt festzulegen.</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings">Prioritäten verwenden</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">Verwendung des Parameters „Priorität” in den App-Einstellungen aktivieren.</string>
-    <string name="phone_profiles_pref_notificationStatusBarNew">Benachrichtigung in der Statusleiste</string>
     <string name="profile_preferences_volumeNotificationVolume0_NowConfigured">Derzeit konfiguriert:</string>
     <string name="profile_preferences_volumeRingtone0Info_title">Klingeltonlautstärke = 0</string>
     <string name="profile_preferences_volumeRingtone0Info_summary">Wenn die Klingeltonlautstärke auf „0” eingestellt ist, wird das Gerät für den Lautlosmodus konfiguriert. Die Benachrichtigunglautstärke wird ignoriert.</string>
@@ -748,7 +747,6 @@
     <string name="editor_activity_targetHelps_eventOrderHandler_description">Ereignis nach oben/unten verschieben, um die Startreihenfolge zu ändern.</string>
     <string name="activator_activity_targetHelps_editor_title" tools:keep="@string/activator_activity_targetHelps_editor_title">Editor</string>
     <string name="activator_activity_targetHelps_editor_description_ppp">Hier klicken, um den Editor zu öffnen, in dem Sie Profile, Ereignisse, Anwendungseinstellungen usw. konfigurieren können.</string>
-    <string name="activator_activity_targetHelps_editor_description_pp">Hier klicken, um den Editor zu öffnen, in dem Sie Profile konfigurieren, Anwendungseinstellungen ändern können, usw.</string>
     <string name="activator_activity_targetHelps_activateProfile_title">Aktiviere Profil</string>
     <string name="activator_activity_targetHelps_activateProfile_description">Hier klicken, um ein Profil zu aktivieren.</string>
     <string name="profile_preference_activity_targetHelps_save_title">Speichere das Profil</string>
@@ -945,7 +943,6 @@
     <string name="profile_multiselect_summary_text_not_selected">Keine gewählt.</string>
     <string name="notification_channel_activated_profile">Aktives Profil</string>
     <string name="notification_channel_activated_profile_description_ppp">Zeigt das durch das Event aktivierte Profil.</string>
-    <string name="notification_channel_activated_profile_description_pp">Zeigt das aktivierte Profil.</string>
     <string name="notification_channel_mobile_cells_registration_description">Zeigt die verbleibende Zeit der Mobilzellen Registrierung.</string>
     <string name="notification_channel_information">Info</string>
     <string name="notification_channel_exclamation">Ausnahme aufgetreten</string>
@@ -1041,7 +1038,6 @@
     <string name="event_preferences_category_eventAlarmClockParameters">Wecker Ereignis</string>
     <string name="phone_profiles_pref_grantRootPermission">Root erlauben</string>
     <string name="phone_profiles_pref_grantRootPermission_summary">Bitte gewähren sie root für PhoneProfilesPlus. Es wird für Profil und Ereignis Einstellungen, die root benötigen, benötigt.</string>
-    <string name="phone_profiles_pref_grantRootPermission_summary_pp">Bitte gewähren sie root für PhoneProfilesPlus. Es wird für Profil Einstellungen, die root benötigen, benötigt.</string>
     <string name="phone_profiles_pref_grantRootPermission_otherManagers">Bitte öffnen sie den root Manager des Geräts und gewähren sie root für PhoneProfilesPlus.</string>
     <string name="preferences_grantRoot_title">„Root erlauben” ist aktiviert</string>
     <string name="preferences_grantRoot_summary">„Root erlauben” ist deaktiviert. Hier klicken, um es zu aktivieren.</string>
@@ -1141,7 +1137,6 @@ und die Systemlautstärke zu ändern</string>
     <string name="phone_profiles_pref_notificationBackgroundColor">Hintergrundfarbe</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_android">Standard</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">Dunkel</string>
-    <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">Im Nachtmodus</string>
     <string name="phone_profiles_pref_applicationTheme_nightMode">Im Nachtmodus</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Die Standortbestimmung muss in den Systemeinstellungen aktiviert werden, um Mobilfunkzellen überprüfen zu können.</string>
     <string name="action_for_external_application_notification_title">Unterstützung externer Anwendungen (Tasker)</string>
@@ -1352,17 +1347,21 @@ und die Systemlautstärke zu ändern</string>
     <string name="editor_activity_targetHelps_runStopEvents_title">„Ereignisse ausführen” aktivieren</string>
     <string name="editor_activity_targetHelps_runStopEvents_description">Klicken Sie hier, um das Ausführen von Ereignissen zu aktivieren. Ohne dies werden konfigurierte Ereignisse nicht ausgeführt.</string>
     <string name="samsung_edge_panel_description">Profile activation or Restart events with Samsung Edge panel</string>
-    <string name="phone_profiles_pref_notificationBackgroundColor_black">Black</string>
-    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>
-    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>
-    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_black">Schwarz</string>
+    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Benutzerdefinierte Hintergrundfarbe</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Benutzerdefinierte Farbe</string>
+    <string name="phone_profiles_pref_notificationNightMode">Nachtmodus verwenden</string>
     <string name="event_preferences_orientation_checkLight">Check light</string>
-    <string name="event_preferences_orientation_light">Light</string>
-    <string name="event_preferences_orientation_light_min">Light - minimal value (0)</string>
-    <string name="event_preferences_orientation_light_max">Light - maximal value (10000)</string>
-    <string name="pref_event_screen_endWhenLocked">End when locked</string>
-    <string name="event_preferences_screen_end_when_locked">End when locked</string>
-    <string name="event_preference_sensor_screen_summary">This sensor will start an event by screen on/off. Parameters: Event type (screen on, screen off), Start when unlocked/End when locked (event starts when device is unlocked/ends when is locked).</string>
+    <string name="event_preferences_orientation_light">Hell</string>
+    <string name="event_preferences_orientation_light_min">Hell - Minimaler Wert (0)</string>
+    <string name="event_preferences_orientation_light_max">Hell - Maximaler Wert (10.000)</string>
+    <string name="event_preferences_orientation_light_not_enabled">not enabled</string>
+    <string name="pref_event_screen_startWhenLocked">Starten wenn gesperrt</string>
+    <string name="event_preferences_screen_start_when_locked">Starten wenn gesperrt</string>
+    <string name="event_preference_sensor_screen_summary">This sensor will start an event by screen on/off. Parameters: Event type (screen on, screen off), Start when unlocked/locked (event starts when device is unlocked/locked).</string>
+    <string name="phone_profiles_pref_applicationPrefIndicator_summary">Display profile preference indicators in Activator, Editor, shortcut</string>
+    <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">Display profile preference indicators in notification</string>
+    <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Display profile preference indicators in widgets</string>
     <!-- **************************************************************************************** -->
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1502,4 +1501,9 @@ und die Systemlautstärke zu ändern</string>
     <!--    <string name="editor_drawer_order_label">Order events by:</string>-->
     <!--    <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>-->
     <!--    <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>-->
+    <!--    <string name="phone_profiles_pref_notificationStatusBarNew">Status bar notification</string>-->
+    <!--    <string name="activator_activity_targetHelps_editor_description_pp">Click this to open Editor, where you can configure profiles, change application settings, etc.</string>-->
+    <!--    <string name="notification_channel_activated_profile_description_pp">Shows the activated profile.</string>-->
+    <!--    <string name="phone_profiles_pref_grantRootPermission_summary_pp">Please grant root for PhoneProfiles. Is required for profile parameters, which requires root.</string>-->
+    <!--    <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">By night mode</string>-->
 </resources>

@@ -15,7 +15,7 @@ import com.codetroopers.betterpickers.widget.ZeroTopPaddingTextView;
 public class NumberView extends LinearLayout {
 
     private ZeroTopPaddingTextView mNumber, mDecimal;
-    private ZeroTopPaddingTextView mDecimalSeperator;
+    private ZeroTopPaddingTextView mDecimalSeparator;
     private ZeroTopPaddingTextView mMinusLabel;
     private final Typeface mAndroidClockMonoThin;
     private Typeface mOriginalNumberTypeface;
@@ -72,8 +72,8 @@ public class NumberView extends LinearLayout {
         if (mDecimal != null) {
             mDecimal.setTextColor(mTextColor);
         }
-        if (mDecimalSeperator != null) {
-            mDecimalSeperator.setTextColor(mTextColor);
+        if (mDecimalSeparator != null) {
+            mDecimalSeparator.setTextColor(mTextColor);
         }
         if (mMinusLabel != null) {
             mMinusLabel.setTextColor(mTextColor);
@@ -86,7 +86,7 @@ public class NumberView extends LinearLayout {
 
         mNumber = findViewById(R.id.number);
         mDecimal = findViewById(R.id.decimal);
-        mDecimalSeperator = findViewById(R.id.decimal_separator);
+        mDecimalSeparator = findViewById(R.id.decimal_separator);
         mMinusLabel = findViewById(R.id.minus_label);
         if (mNumber != null) {
             mOriginalNumberTypeface = mNumber.getTypeface();
@@ -151,9 +151,9 @@ public class NumberView extends LinearLayout {
                 mDecimal.setVisibility(View.VISIBLE);
             }
         }
-        if (mDecimalSeperator != null) {
+        if (mDecimalSeparator != null) {
             // Hide separator
-            mDecimalSeperator.setVisibility(showDecimal ? View.VISIBLE : View.GONE);
+            mDecimalSeparator.setVisibility(showDecimal ? View.VISIBLE : View.GONE);
         }
     }
 }
