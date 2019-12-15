@@ -16,11 +16,16 @@ import java.sql.Date;
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 class EventPreferencesTime extends EventPreferences {
 
@@ -494,7 +499,7 @@ class EventPreferencesTime extends EventPreferences {
 
     long computeAlarm(boolean startEvent, Context context)
     {
-        boolean testEvent = (_event._name != null) && _event._name.equals("Plugged In Nighttime");
+        boolean testEvent = (_event._name != null) && _event._name.equals("Time sensor");
         if (testEvent) {
             PPApplication.logE("EventPreferencesTime.computeAlarm", "eventName=" + _event._name);
             PPApplication.logE("EventPreferencesTime.computeAlarm", "startEvent=" + startEvent);
@@ -529,12 +534,17 @@ class EventPreferencesTime extends EventPreferences {
             hoursEndTime.set(Calendar.SECOND, 0);
             hoursEndTime.set(Calendar.MILLISECOND, 0);
 
-            Calendar hoursNowTime = Calendar.getInstance();
+            Calendar nowTime = Calendar.getInstance();
+            nowTime.set(Calendar.DAY_OF_MONTH, 0);
+            nowTime.set(Calendar.MONTH, 0);
+            nowTime.set(Calendar.YEAR, 0);
+
+            /*Calendar hoursNowTime = Calendar.getInstance();
             hoursNowTime.set(Calendar.DAY_OF_MONTH, 0);
             hoursNowTime.set(Calendar.MONTH, 0);
             hoursNowTime.set(Calendar.YEAR, 0);
             hoursNowTime.set(Calendar.SECOND, 0);
-            hoursNowTime.set(Calendar.MILLISECOND, 0);
+            hoursNowTime.set(Calendar.MILLISECOND, 0);*/
 
             Calendar midnightTime = Calendar.getInstance();
             midnightTime.set(Calendar.HOUR_OF_DAY, 0);
@@ -583,8 +593,8 @@ class EventPreferencesTime extends EventPreferences {
                 if (testEvent)
                     PPApplication.logE("EventPreferencesTime.computeAlarm","startTime >= endTime");
 
-                if ((hoursNowTime.getTimeInMillis() >= midnightTime.getTimeInMillis()) &&
-                    (hoursNowTime.getTimeInMillis() <= hoursEndTime.getTimeInMillis())) {
+                if ((nowTime.getTimeInMillis() >= midnightTime.getTimeInMillis()) &&
+                    (nowTime.getTimeInMillis() <= hoursEndTime.getTimeInMillis())) {
                     // now is between midnight and endTime
                     if (testEvent)
                         PPApplication.logE("EventPreferencesTime.computeAlarm","now is between midnight and endTime");
@@ -592,8 +602,8 @@ class EventPreferencesTime extends EventPreferences {
                     calStartTime.add(Calendar.DAY_OF_YEAR, -1);
                 }
                 else
-                if ((hoursNowTime.getTimeInMillis() >= hoursStartTime.getTimeInMillis()) &&
-                    (hoursNowTime.getTimeInMillis() <= midnightMinusOneTime.getTimeInMillis())) {
+                if ((nowTime.getTimeInMillis() >= hoursStartTime.getTimeInMillis()) &&
+                    (nowTime.getTimeInMillis() <= midnightMinusOneTime.getTimeInMillis())) {
                     // now is between startTime and midnight
                     if (testEvent)
                         PPApplication.logE("EventPreferencesTime.computeAlarm","now is between startTime and midnight");
@@ -612,7 +622,7 @@ class EventPreferencesTime extends EventPreferences {
                 if (testEvent)
                     PPApplication.logE("EventPreferencesTime.computeAlarm","startTime < endTime");
 
-                if (hoursNowTime.getTimeInMillis() > hoursEndTime.getTimeInMillis()) {
+                if (nowTime.getTimeInMillis() > hoursEndTime.getTimeInMillis()) {
                     // now is after end time, compute for tomorrow
                     if (testEvent)
                         PPApplication.logE("EventPreferencesTime.computeAlarm", "nowTime > endTime");
@@ -1110,46 +1120,69 @@ class EventPreferencesTime extends EventPreferences {
 
     private void removeAlarm(/*boolean startEvent, */Context context)
     {
-        boolean testEvent = (_event._name != null) && _event._name.equals("Plugged In Nighttime");
+        boolean testEvent = (_event._name != null) && _event._name.equals("Time sensor");
         if (testEvent)
             PPApplication.logE("EventPreferencesTime.removeAlarm", "event="+_event._name);
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        if (alarmManager != null) {
-            //Intent intent = new Intent(context, EventTimeBroadcastReceiver.class);
-            Intent intent = new Intent();
-            intent.setAction(PhoneProfilesService.ACTION_EVENT_TIME_BROADCAST_RECEIVER);
-            //intent.setClass(context, EventPreferencesTime.class);
+        try {
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            if (alarmManager != null) {
+                //Intent intent = new Intent(context, EventTimeBroadcastReceiver.class);
+                Intent intent = new Intent();
+                intent.setAction(PhoneProfilesService.ACTION_EVENT_TIME_BROADCAST_RECEIVER);
+                //intent.setClass(context, EventPreferencesTime.class);
+
+                if (testEvent) {
+                    PPApplication.logE("EventPreferencesTime.removeAlarm", "from alarm clock");
+                    PPApplication.logE("EventPreferencesTime.removeAlarm", "remove start alarm, requestCode="+(int)_event._id);
+                }
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int)_event._id, intent, PendingIntent.FLAG_NO_CREATE);
+                if (testEvent)
+                    PPApplication.logE("EventPreferencesTime.removeAlarm", "pendingIntent="+pendingIntent);
+                if (pendingIntent != null) {
+                    alarmManager.cancel(pendingIntent);
+                    pendingIntent.cancel();
+                    if (testEvent)
+                        PPApplication.logE("EventPreferencesTime.removeAlarm", "event="+_event._name + " alarm removed");
+                }
+
+                if (testEvent)
+                    PPApplication.logE("EventPreferencesTime.removeAlarm", "remove end alarm, requestCode="+(-(int)_event._id));
+                pendingIntent = PendingIntent.getBroadcast(context, -(int)_event._id, intent, PendingIntent.FLAG_NO_CREATE);
+                if (testEvent)
+                    PPApplication.logE("EventPreferencesTime.removeAlarm", "pendingIntent="+pendingIntent);
+                if (pendingIntent != null) {
+                    alarmManager.cancel(pendingIntent);
+                    pendingIntent.cancel();
+                    if (testEvent)
+                        PPApplication.logE("EventPreferencesTime.removeAlarm", "event="+_event._name + " alarm removed");
+                }
+            }
+        } catch (Exception ignored) {}
+        try {
+            WorkManager workManager = WorkManager.getInstance(context);
+
+            if (testEvent) {
+                PPApplication.logE("EventPreferencesTime.removeAlarm", "from work manager");
+                PPApplication.logE("EventPreferencesTime.removeAlarm", "remove start alarm, requestCode="+(int)_event._id);
+            }
+            workManager.cancelUniqueWork("elapsedAlarmsTimeSensorWork_"+(int)_event._id);
+            workManager.cancelAllWorkByTag("elapsedAlarmsTimeSensorWork_"+(int)_event._id);
+            if (testEvent)
+                PPApplication.logE("EventPreferencesTime.removeAlarm", "event="+_event._name + " alarm removed");
 
             if (testEvent)
-                PPApplication.logE("EventPreferencesTime.removeAlarm", "remove start alarm");
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int)_event._id, intent, PendingIntent.FLAG_NO_CREATE);
+                PPApplication.logE("EventPreferencesTime.removeAlarm", "remove end alarm, requestCode="+(-(int)_event._id));
+            workManager.cancelUniqueWork("elapsedAlarmsTimeSensorWork_"+(-(int)_event._id));
+            workManager.cancelAllWorkByTag("elapsedAlarmsTimeSensorWork_"+(-(int)_event._id));
             if (testEvent)
-                PPApplication.logE("EventPreferencesTime.removeAlarm", "pendingIntent="+pendingIntent);
-            if (pendingIntent != null) {
-                alarmManager.cancel(pendingIntent);
-                pendingIntent.cancel();
-                if (testEvent)
-                    PPApplication.logE("EventPreferencesTime.removeAlarm", "event="+_event._name + " alarm removed");
-            }
-
-            if (testEvent)
-                PPApplication.logE("EventPreferencesTime.removeAlarm", "remove end alarm");
-            pendingIntent = PendingIntent.getBroadcast(context, -(int)_event._id, intent, PendingIntent.FLAG_NO_CREATE);
-            if (testEvent)
-                PPApplication.logE("EventPreferencesTime.removeAlarm", "pendingIntent="+pendingIntent);
-            if (pendingIntent != null) {
-                alarmManager.cancel(pendingIntent);
-                pendingIntent.cancel();
-                if (testEvent)
-                    PPApplication.logE("EventPreferencesTime.removeAlarm", "event="+_event._name + " alarm removed");
-            }
-        }
+                PPApplication.logE("EventPreferencesTime.removeAlarm", "event="+_event._name + " alarm removed");
+        } catch (Exception ignored) {}
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
     private void setAlarm(boolean startEvent, long alarmTime, Context context)
     {
-        boolean testEvent = (_event._name != null) && _event._name.equals("Plugged In Nighttime");
+        boolean testEvent = (_event._name != null) && _event._name.equals("Time sensor");
         if (testEvent)
             PPApplication.logE("EventPreferencesTime.setAlarm", "event="+_event._name);
 
@@ -1167,8 +1200,7 @@ class EventPreferencesTime extends EventPreferences {
 
         // not set alarm if alarmTime is over.
         Calendar now = Calendar.getInstance();
-        if (/*(android.os.Build.VERSION.SDK_INT >= 21) &&*/
-                applicationUseAlarmClock) {
+        if (applicationUseAlarmClock) {
             if (now.getTimeInMillis() > (alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET)) {
                 if (testEvent)
                     PPApplication.logE("EventPreferencesTime.setAlarm", "alarm clock is over");
@@ -1183,7 +1215,71 @@ class EventPreferencesTime extends EventPreferences {
             }
         }
 
-        //Intent intent = new Intent(context, EventTimeBroadcastReceiver.class);
+        int requestCode = (int)_event._id;
+        if (!startEvent)
+            requestCode = -(int)_event._id;
+
+        if (testEvent)
+            PPApplication.logE("EventPreferencesTime.setAlarm", "requestCode="+requestCode);
+
+        if (applicationUseAlarmClock) {
+            if (testEvent)
+                PPApplication.logE("EventPreferencesTime.setAlarm", "for alarm clock");
+
+            //Intent intent = new Intent(context, EventTimeBroadcastReceiver.class);
+            Intent intent = new Intent();
+            intent.setAction(PhoneProfilesService.ACTION_EVENT_TIME_BROADCAST_RECEIVER);
+            //intent.setClass(context, EventPreferencesTime.class);
+
+            //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            if (alarmManager != null) {
+                Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
+                alarmManager.setAlarmClock(clockInfo, pendingIntent);
+                if (testEvent)
+                    PPApplication.logE("EventPreferencesTime.setAlarm", "event="+_event._name + " alarm clock set");
+            }
+        }
+        else {
+            if (testEvent)
+                PPApplication.logE("EventPreferencesTime.setAlarm", "for work manager");
+
+            now = Calendar.getInstance();
+            long elapsedTime = (alarmTime + Event.EVENT_ALARM_TIME_OFFSET) - now.getTimeInMillis();
+
+            if (PPApplication.logEnabled() && testEvent) {
+                long allSeconds = elapsedTime / 1000;
+                long hours = allSeconds / 60 / 60;
+                long minutes = (allSeconds - (hours * 60 * 60)) / 60;
+                long seconds = allSeconds % 60;
+
+                PPApplication.logE("EventPreferencesTime.setAlarm", "elapsedTime=" + hours + ":" + minutes + ":" + seconds);
+            }
+
+            Data workData = new Data.Builder()
+                    .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, ElapsedAlarmsWorker.ELAPSED_ALARMS_TIME_SENSOR)
+                    .build();
+
+            OneTimeWorkRequest worker =
+                    new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
+                            .setInputData(workData)
+                            .setInitialDelay(elapsedTime, TimeUnit.MILLISECONDS)
+                            .build();
+            try {
+                WorkManager workManager = WorkManager.getInstance(context);
+                if (testEvent)
+                    PPApplication.logE("[HANDLER] EventPreferencesTime.setAlarm", "enqueueUniqueWork - elapsedTime="+elapsedTime);
+                workManager.enqueueUniqueWork("elapsedAlarmsTimeSensorWork_"+requestCode, ExistingWorkPolicy.REPLACE, worker);
+            } catch (Exception ignored) {}
+        }
+
+        /*//Intent intent = new Intent(context, EventTimeBroadcastReceiver.class);
         Intent intent = new Intent();
         intent.setAction(PhoneProfilesService.ACTION_EVENT_TIME_BROADCAST_RECEIVER);
         //intent.setClass(context, EventPreferencesTime.class);
@@ -1197,8 +1293,7 @@ class EventPreferencesTime extends EventPreferences {
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
-            if (/*(android.os.Build.VERSION.SDK_INT >= 21) &&*/
-                    applicationUseAlarmClock) {
+            if (applicationUseAlarmClock) {
                 Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
                 editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -1217,7 +1312,7 @@ class EventPreferencesTime extends EventPreferences {
                 if (testEvent)
                     PPApplication.logE("EventPreferencesTime.setAlarm", "event="+_event._name + " alarm set");
             }
-        }
+        }*/
     }
 
 }

@@ -11,8 +11,17 @@ public class EventCalendarBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### EventCalendarBroadcastReceiver.onReceive", "xxx");
-
         CallsCounter.logCounter(context, "EventCalendarBroadcastReceiver.onReceive", "EventCalendarBroadcastReceiver_onReceive");
+
+        String action = intent.getAction();
+        if (action != null) {
+            PPApplication.logE("EventCalendarBroadcastReceiver.onReceive", "action=" + action);
+            doWork(true, context);
+        }
+    }
+
+    static void doWork(boolean useHandler, Context context) {
+        PPApplication.logE("[HANDLER] EventCalendarBroadcastReceiver.doWork", "useHandler="+useHandler);
 
         final Context appContext = context.getApplicationContext();
 
@@ -20,51 +29,47 @@ public class EventCalendarBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRunning(appContext))
-        {
-            PPApplication.logE("@@@ EventCalendarBroadcastReceiver.onReceive","xxx");
+        if (useHandler) {
+            PPApplication.startHandlerThread("EventCalendarBroadcastReceiver.doWork");
+            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EventCalendarBroadcastReceiver_doWork");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
-            /*boolean calendarEventsExists = false;
+                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=EventCalendarBroadcastReceiver.doWork");
 
-            DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
-            calendarEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_CALENDAR) > 0;
-            PPApplication.logE("EventCalendarBroadcastReceiver.onReceive","calendarEventsExists="+calendarEventsExists);
-            dataWrapper.invalidateDataWrapper();
-
-            if (calendarEventsExists)
-            {*/
-                PPApplication.startHandlerThread("EventCalendarBroadcastReceiver.onReceive");
-                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = null;
-                        try {
-                            if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EventCalendarBroadcastReceiver_onReceive");
-                                wakeLock.acquire(10 * 60 * 1000);
-                            }
-
-                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=EventCalendarBroadcastReceiver.onReceive");
-
+                        if (Event.getGlobalEventsRunning(appContext)) {
+                            PPApplication.logE("EventCalendarBroadcastReceiver.doWork", "handle events");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR);
+                        }
 
-                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventCalendarBroadcastReceiver.onReceive");
-                        } finally {
-                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                try {
-                                    wakeLock.release();
-                                } catch (Exception ignored) {}
+                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventCalendarBroadcastReceiver.doWork");
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
                             }
                         }
                     }
-                });
-            //}
-
+                }
+            });
         }
-
+        else {
+            if (Event.getGlobalEventsRunning(appContext)) {
+                PPApplication.logE("EventCalendarBroadcastReceiver.doWork", "handle events");
+                EventsHandler eventsHandler = new EventsHandler(appContext);
+                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR);
+            }
+        }
     }
 
 }

@@ -82,7 +82,7 @@ public class PPApplication extends Application {
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && BuildConfig.DEBUG;
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && BuildConfig.DEBUG;
     private static final boolean rootToolsDebug = false;
@@ -424,7 +424,11 @@ public class PPApplication extends Application {
                                         //+"|LauncherActivity"
                                         //+"|ActivateProfileActivity"
 
-                                        //+"|AlarmClockBroadcastReceiver.onReceive"
+                                        //+"|AlarmClockBroadcastReceiver"
+                                        //+"|AlarmClockEventEndBroadcastReceiver"
+                                        //+"|EventPreferencesAlarmClock.removeAlarm"
+                                        //+"|EventPreferencesAlarmClock.setAlarm"
+                                        //+"|EventPreferencesAlarmClock.computeAlarm"
                                         //+"|NextAlarmClockBroadcastReceiver"
                                         //+"|TimeChangedReceiver"
 
@@ -444,19 +448,24 @@ public class PPApplication extends Application {
 
                                         //+"|CalendarProviderChangedBroadcastReceiver"
 
+
+                                        //+"|EventPreferencesTime.computeAlarm"
                                         /*
-                                        +"|EventPreferencesTime.computeAlarm"
                                         +"|EventPreferencesTime.removeSystemEvent"
                                         +"|EventPreferencesTime.setSystemEventForStart"
                                         +"|EventPreferencesTime.setSystemEventForPause"
-                                        //+"|EventPreferencesTime.removeAlarm"
-                                        //+"|EventPreferencesTime.setAlarm"
-                                        +"|[TIME] DataWrapper.doHandleEvents"
-                                        +"|TwilightScanner"
-                                        //+"|EventTimeBroadcastReceiver"
                                         */
+                                        +"|EventPreferencesTime.removeAlarm"
+                                        +"|EventPreferencesTime.setAlarm"
+                                        /*+"|[TIME] DataWrapper.doHandleEvents"
+                                        +"|TwilightScanner"
+                                        +"|TwilightScanner.updateTwilightState"
+                                        +"|TwilightScanner.doWork"
+                                        */
+                                        +"|EventTimeBroadcastReceiver"
 
-                                        //+"|EventPreferencesCalendar.saveStartEndTime"
+                                        //+"|EventPreferencesCalendar"
+                                        //+"|EventCalendarBroadcastReceiver"
 
                                         //+"|DatabaseHandler.importDB"
                                         //+ "|ApplicationsMultiSelectDialogPreference.getValueAMSDP"
@@ -544,8 +553,7 @@ public class PPApplication extends Application {
                                         //+"|[HANDLER] Event.setDelayStartAlarm"
                                         //+"|[HANDLER] Event.setDelayEndAlarm"
                                         //+"|DonationBroadcastReceiver"
-                                        +"|TwilightScanner.updateTwilightState"
-                                        +"|TwilightScanner.doWork"
+                                        //+"|[ALARM] EventsHandler.handleEvents"
                                         +"|ElapsedAlarmsWorker"
             ;
 

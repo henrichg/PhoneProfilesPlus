@@ -19,6 +19,9 @@ public class ElapsedAlarmsWorker extends Worker {
     static final String ELAPSED_ALARMS_EVENT_DELAY_END = "event_delay_end";
     static final String ELAPSED_ALARMS_DONATION = "donation";
     static final String ELAPSED_ALARMS_TWILIGHT_SCANNER = "twilight_scanner";
+    static final String ELAPSED_ALARMS_TIME_SENSOR = "time_sensor";
+    static final String ELAPSED_ALARMS_ALARM_CLOCK_EVENT_END_SENSOR = "alarm_clock_event_end_sensor";
+    static final String ELAPSED_ALARMS_CALENDAR_SENSOR = "calendar_sensor";
 
     final Context context;
 
@@ -90,6 +93,15 @@ public class ElapsedAlarmsWorker extends Worker {
                 break;
             case ELAPSED_ALARMS_TWILIGHT_SCANNER:
                 TwilightScanner.doWork();
+                break;
+            case ELAPSED_ALARMS_TIME_SENSOR:
+                EventTimeBroadcastReceiver.doWork(false, appContext);
+                break;
+            case ELAPSED_ALARMS_ALARM_CLOCK_EVENT_END_SENSOR:
+                AlarmClockEventEndBroadcastReceiver.doWork(false, appContext);
+                break;
+            case ELAPSED_ALARMS_CALENDAR_SENSOR:
+                EventCalendarBroadcastReceiver.doWork(false, appContext);
                 break;
             default:
                 break;

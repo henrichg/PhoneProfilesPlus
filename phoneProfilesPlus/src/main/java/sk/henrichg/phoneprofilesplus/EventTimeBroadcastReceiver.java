@@ -11,8 +11,17 @@ public class EventTimeBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### EventTimeBroadcastReceiver.onReceive", "xxx");
-
         CallsCounter.logCounter(context, "EventTimeBroadcastReceiver.onReceive", "EventTimeBroadcastReceiver_onReceive");
+
+        String action = intent.getAction();
+        if (action != null) {
+            PPApplication.logE("EventTimeBroadcastReceiver.onReceive", "action=" + action);
+            doWork(true, context);
+        }
+    }
+
+    static void doWork(boolean useHandler, Context context) {
+        PPApplication.logE("[HANDLER] EventTimeBroadcastReceiver.doWork", "useHandler="+useHandler);
 
         final Context appContext = context.getApplicationContext();
 
@@ -20,51 +29,47 @@ public class EventTimeBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRunning(appContext))
-        {
-            PPApplication.logE("@@@ EventTimeBroadcastReceiver.onReceive","xxx");
+        if (useHandler) {
+            PPApplication.startHandlerThread("EventTimeBroadcastReceiver.doWork");
+            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EventTimeBroadcastReceiver_doWork");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
-            /*boolean timeEventsExists = false;
+                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=EventTimeBroadcastReceiver.doWork");
 
-            DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
-            timeEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_TIME) > 0;
-            PPApplication.logE("EventTimeBroadcastReceiver.onReceive","timeEventsExists="+timeEventsExists);
-            dataWrapper.invalidateDataWrapper();
-
-            if (timeEventsExists)
-            {*/
-                PPApplication.startHandlerThread("EventTimeBroadcastReceiver.onReceive");
-                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = null;
-                        try {
-                            if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EventTimeBroadcastReceiver_onReceive");
-                                wakeLock.acquire(10 * 60 * 1000);
-                            }
-
-                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=EventTimeBroadcastReceiver.onReceive");
-
+                        if (Event.getGlobalEventsRunning(appContext)) {
+                            PPApplication.logE("EventDelayStartBroadcastReceiver.doWork", "handle events");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_TIME);
+                        }
 
-                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventTimeBroadcastReceiver.onReceive");
-                        } finally {
-                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                try {
-                                    wakeLock.release();
-                                } catch (Exception ignored) {}
+                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventTimeBroadcastReceiver.doWork");
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
                             }
                         }
                     }
-                });
-            //}
-
+                }
+            });
         }
-
+        else {
+            if (Event.getGlobalEventsRunning(appContext)) {
+                PPApplication.logE("EventTimeBroadcastReceiver.doWork", "handle events");
+                EventsHandler eventsHandler = new EventsHandler(appContext);
+                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_TIME);
+            }
+        }
     }
 
 }
