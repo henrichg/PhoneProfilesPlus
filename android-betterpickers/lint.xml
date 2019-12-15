@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="IconDuplicatesConfig">
+        <ignore path="src/main/res/drawable-xhdpi/dialog_full_holo_dark.9.png" />
+        <ignore path="src/main/res/drawable-xhdpi/dialog_full_holo_light.9.png" />
+        <ignore path="src/main/res/drawable-xxhdpi/dialog_full_holo_dark.9.png" />
+        <ignore path="src/main/res/drawable-xxhdpi/dialog_full_holo_light.9.png" />
+    </issue>
+</lint>
