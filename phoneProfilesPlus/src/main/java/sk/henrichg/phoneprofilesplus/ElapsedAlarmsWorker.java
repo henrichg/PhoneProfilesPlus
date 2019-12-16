@@ -23,6 +23,9 @@ public class ElapsedAlarmsWorker extends Worker {
     static final String ELAPSED_ALARMS_ALARM_CLOCK_EVENT_END_SENSOR = "alarm_clock_event_end_sensor";
     static final String ELAPSED_ALARMS_CALENDAR_SENSOR = "calendar_sensor";
     static final String ELAPSED_ALARMS_CALL_SENSOR = "call_sensor";
+    static final String ELAPSED_ALARMS_SMS_EVENT_END_SENSOR = "sms_event_end_sensor";
+    static final String ELAPSED_ALARMS_NFC_EVENT_END_SENSOR = "nfc_event_end_sensor";
+    static final String ELAPSED_ALARMS_NOTIFICATION_EVENT_END_SENSOR = "notification_event_end_sensor";
 
     final Context context;
 
@@ -106,6 +109,15 @@ public class ElapsedAlarmsWorker extends Worker {
                 break;
             case ELAPSED_ALARMS_CALL_SENSOR:
                 MissedCallEventEndBroadcastReceiver.doWork(false, appContext);
+                break;
+            case ELAPSED_ALARMS_SMS_EVENT_END_SENSOR:
+                SMSEventEndBroadcastReceiver.doWork(false, appContext);
+                break;
+            case ELAPSED_ALARMS_NFC_EVENT_END_SENSOR:
+                NFCEventEndBroadcastReceiver.doWork(false, appContext);
+                break;
+            case ELAPSED_ALARMS_NOTIFICATION_EVENT_END_SENSOR:
+                NotificationEventEndBroadcastReceiver.doWork(false, appContext);
                 break;
             default:
                 break;

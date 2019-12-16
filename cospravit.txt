@@ -573,6 +573,8 @@ Hladaj: R.string.setting_screen_not_found_alert
 
 --------------------------------------
 
+!!! Treba testovat, ci je elapsedTime zaporny. Ak je, daj work bez setInitialDelay().
+!!! TimeChangedReceiver - by mali byt spravene cez restartEvents, co je tam uz volany.
 - DonationBroadcastReceiver -> raz denne v presny cas, pouziva aj AlarmClock
 HOTOVO
 - TwilightScanner -> raz denne v presny cas, pouziva aj AlarmClock
@@ -585,12 +587,12 @@ HOTOVO
 HOTOVO
 - EventPreferencesCall -> raz denne v presny cas, pouziva aj AlarmClock
 HOTOVO
-
-!!! Treba testovat, ci je elapsedTime zaporny. Ak je, daj work bez setInitialDelay().
-!!! TimeChangedReceiver - by mali byt spravene cez restartEvents, co je tam uz volany.
-- EventPreferencesNFC -> raz denne v presny cas, pouziva aj AlarmClock
-- EventPreferencesNotification -> raz denne v presny cas, pouziva aj AlarmClock
 - EventPreferencesSMS -> raz denne v presny cas, pouziva aj AlarmClock
+HOTOVO
+- EventPreferencesNFC -> raz denne v presny cas, pouziva aj AlarmClock
+HOTOVO
+- EventPreferencesNotification -> raz denne v presny cas, pouziva aj AlarmClock
+HOTOVO
 
 Tieto maju od uzivatela parameter duration, delay:
 - Event.setDelayStartAlarm -> cas od now() + delay, pouziva aj AlarmClock

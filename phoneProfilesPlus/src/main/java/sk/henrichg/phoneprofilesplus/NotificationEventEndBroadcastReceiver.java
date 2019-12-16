@@ -13,57 +13,63 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
         PPApplication.logE("##### NotificationEventEndBroadcastReceiver.onReceive", "xxx");
         CallsCounter.logCounter(context, "NotificationEventEndBroadcastReceiver.onReceive", "NotificationEventEndBroadcastReceiver_onReceive");
 
+        String action = intent.getAction();
+        if (action != null) {
+            PPApplication.logE("NotificationEventEndBroadcastReceiver.onReceive", "action=" + action);
+            doWork(true, context);
+        }
+    }
+
+    static void doWork(boolean useHandler, Context context) {
+        PPApplication.logE("[HANDLER] NotificationEventEndBroadcastReceiver.doWork", "useHandler="+useHandler);
+
         final Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(appContext, true))
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRunning(appContext))
-        {
-            PPApplication.logE("@@@ NotificationEventEndBroadcastReceiver.onReceive","xxx");
+        if (useHandler) {
+            PPApplication.startHandlerThread("NotificationEventEndBroadcastReceiver.doWork");
+            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":NotificationEventEndBroadcastReceiver_doWork");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
-            /*boolean smsEventsExists = false;
+                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=NotificationEventEndBroadcastReceiver.doWork");
 
-            DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
-            smsEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_SMS) > 0;
-            PPApplication.logE("SMSEventEndBroadcastReceiver.onReceive","smsEventsExists="+smsEventsExists);
-            dataWrapper.invalidateDataWrapper();
-
-            if (smsEventsExists)
-            {*/
-                PPApplication.startHandlerThread("NotificationEventEndBroadcastReceiver.onReceive");
-                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = null;
-                        try {
-                            if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":SMSEventEndBroadcastReceiver_onReceive");
-                                wakeLock.acquire(10 * 60 * 1000);
-                            }
-
-                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=NotificationEventEndBroadcastReceiver.onReceive");
-
+                        if (Event.getGlobalEventsRunning(appContext)) {
+                            PPApplication.logE("NotificationEventEndBroadcastReceiver.doWork", "handle events");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
+                        }
 
-                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=NotificationEventEndBroadcastReceiver.onReceive");
-                        } finally {
-                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                try {
-                                    wakeLock.release();
-                                } catch (Exception ignored) {}
+                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=NotificationEventEndBroadcastReceiver.doWork");
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
                             }
                         }
                     }
-                });
-            //}
-
+                }
+            });
         }
-
+        else {
+            if (Event.getGlobalEventsRunning(appContext)) {
+                PPApplication.logE("NotificationEventEndBroadcastReceiver.doWork", "handle events");
+                EventsHandler eventsHandler = new EventsHandler(appContext);
+                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
+            }
+        }
     }
 
 }
