@@ -1273,34 +1273,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         final Event event = activity.getEventFromPreferences(event_id, newEventMode, predefinedEventIndex);
 
         if (event != null) {
-            // not is runnable
-            if (event.isRunnable(context, false)) {
-                Preference preference = prefMng.findPreference(PRF_NOT_IS_RUNNABLE);
-                if (preference != null) {
-                    PreferenceScreen preferenceCategory = findPreference("rootScreen");
-                    if (preferenceCategory != null)
-                        preferenceCategory.removePreference(preference);
-                }
-            }
-            else {
-                Preference preference = prefMng.findPreference(PRF_NOT_IS_RUNNABLE);
-                if (preference == null) {
-                    PreferenceScreen preferenceCategory = findPreference("rootScreen");
-                    if (preferenceCategory != null) {
-                        preference = new Preference(context);
-                        preference.setKey(PRF_NOT_IS_RUNNABLE);
-                        preference.setWidgetLayoutResource(R.layout.exclamation_preference);
-                        preference.setLayoutResource(R.layout.mp_preference_material_widget);
-                        preference.setOrder(-100);
-                        preferenceCategory.addPreference(preference);
-                    }
-                }
-                if (preference != null) {
-                    Spannable title = new SpannableString(getString(R.string.event_preferences_not_set_underlined_parameters));
-                    title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
-                    preference.setTitle(title);
-                }
-            }
+            int order = 1;
 
             // not enabled some sensor
             if (event.isEnabledSomeSensor(context)) {
@@ -1325,7 +1298,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 if (preference != null) {
-                    Spannable title = new SpannableString(getString(R.string.event_preferences_no_sensor_is_enabled));
+                    String _title = order + ". " + getString(R.string.event_preferences_no_sensor_is_enabled);
+                    ++order;
+                    Spannable title = new SpannableString(_title);
                     title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
                     preference.setTitle(title);
                 }
@@ -1354,7 +1329,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 if (preference != null) {
-                    Spannable title = new SpannableString(getString(R.string.preferences_grantPermissions_title));
+                    String _title = order + ". " + getString(R.string.preferences_grantPermissions_title);
+                    ++order;
+                    Spannable title = new SpannableString(_title);
                     title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
                     preference.setTitle(title);
                     Spannable summary = new SpannableString(getString(R.string.preferences_grantPermissions_summary));
@@ -1400,7 +1377,40 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         stringRes = R.string.preferences_not_installed_PPPExtender_title;
                     else if (accessibilityEnabled == -1)
                         stringRes = R.string.preferences_old_version_PPPExtender_title;
-                    Spannable title = new SpannableString(getString(stringRes));
+                    String _title = order + ". " + getString(stringRes);
+                    ++order;
+                    Spannable title = new SpannableString(_title);
+                    title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
+                    preference.setTitle(title);
+                }
+            }
+
+            // not is runnable
+            if (event.isRunnable(context, false)) {
+                Preference preference = prefMng.findPreference(PRF_NOT_IS_RUNNABLE);
+                if (preference != null) {
+                    PreferenceScreen preferenceCategory = findPreference("rootScreen");
+                    if (preferenceCategory != null)
+                        preferenceCategory.removePreference(preference);
+                }
+            }
+            else {
+                Preference preference = prefMng.findPreference(PRF_NOT_IS_RUNNABLE);
+                if (preference == null) {
+                    PreferenceScreen preferenceCategory = findPreference("rootScreen");
+                    if (preferenceCategory != null) {
+                        preference = new Preference(context);
+                        preference.setKey(PRF_NOT_IS_RUNNABLE);
+                        preference.setWidgetLayoutResource(R.layout.exclamation_preference);
+                        preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                        preference.setOrder(-100);
+                        preferenceCategory.addPreference(preference);
+                    }
+                }
+                if (preference != null) {
+                    String _title = order + ". " + getString(R.string.event_preferences_not_set_underlined_parameters);
+                    ++order;
+                    Spannable title = new SpannableString(_title);
                     title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
                     preference.setTitle(title);
                 }

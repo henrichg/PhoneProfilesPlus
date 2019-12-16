@@ -45,6 +45,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
     private boolean nestedFragment = false;
 
+    //private static final String PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE = "prf_pref_notEnabledAccessibilityService";
+
     private static final String PREF_NOTIFICATION_ACCESS = "prf_pref_volumeNotificationsAccessSettings";
     private static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1980;
 
@@ -2941,6 +2943,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         long profile_id = activity.profile_id;
         if (profile_id != 0) {
+            int order = 1;
+
             int newProfileMode = activity.newProfileMode;
             int predefinedProfileIndex = activity.predefinedProfileIndex;
 
@@ -2970,7 +2974,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 if (preference != null) {
-                    Spannable title = new SpannableString(getString(R.string.preferences_grantPermissions_title));
+                    String _title = order + ". " + getString(R.string.preferences_grantPermissions_title);
+                    ++order;
+                    Spannable title = new SpannableString(_title);
                     title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
                     preference.setTitle(title);
                     Spannable summary = new SpannableString(getString(R.string.preferences_grantPermissions_summary));
@@ -3012,7 +3018,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 if (preference != null) {
-                    Spannable title = new SpannableString(getString(R.string.preferences_grantRoot_title));
+                    String _title = order + ". " + getString(R.string.preferences_grantRoot_title);
+                    ++order;
+                    Spannable title = new SpannableString(_title);
                     title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
                     preference.setTitle(title);
                     Spannable summary = new SpannableString(getString(R.string.preferences_grantRoot_summary));
@@ -3029,6 +3037,45 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     });
                 }
             }
+
+            /*
+            // not enabled accessibility service
+            int accessibilityEnabled = profile.isAccessibilityServiceEnabled(context);
+            if (accessibilityEnabled == 1) {
+                Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
+                if (preference != null) {
+                    PreferenceScreen preferenceCategory = findPreference("rootScreen");
+                    if (preferenceCategory != null)
+                        preferenceCategory.removePreference(preference);
+                }
+            }
+            else {
+                Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
+                if (preference == null) {
+                    PreferenceScreen preferenceCategory = findPreference("rootScreen");
+                    if (preferenceCategory != null) {
+                        preference = new Preference(context);
+                        preference.setKey(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
+                        preference.setWidgetLayoutResource(R.layout.exclamation_preference);
+                        preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                        preference.setOrder(-97);
+                        preferenceCategory.addPreference(preference);
+                    }
+                }
+                if (preference != null) {
+                    int stringRes = R.string.preferences_not_enabled_accessibility_service_title;
+                    if (accessibilityEnabled == -2)
+                        stringRes = R.string.preferences_not_installed_PPPExtender_title;
+                    else if (accessibilityEnabled == -1)
+                        stringRes = R.string.preferences_old_version_PPPExtender_title;
+                    String _title = order + ". " + getString(stringRes);
+                    ++order;
+                    Spannable title = new SpannableString(_title);
+                    title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
+                    preference.setTitle(title);
+                }
+            }
+            */
         }
         else {
             Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
@@ -3043,6 +3090,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
             }
+            /*preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
+            if (preference != null) {
+                PreferenceScreen preferenceCategory = findPreference("rootScreen");
+                if (preferenceCategory != null)
+                    preferenceCategory.removePreference(preference);
+            }*/
         }
 
         PPApplication.logE("ProfilesPrefsFragment.setPermissionsPreference", "END");

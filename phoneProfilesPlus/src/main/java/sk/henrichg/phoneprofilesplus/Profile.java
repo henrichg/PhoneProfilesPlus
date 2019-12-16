@@ -3924,6 +3924,41 @@ public class Profile {
         return preferenceAllowed;
     }
 
+    /*
+    public int isAccessibilityServiceEnabled(Context context) {
+        int accessibilityEnabled = 1;
+        int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
+        if (this._deviceForceStopApplicationChange != 0) {
+            if (extenderVersion == 0)
+                accessibilityEnabled = -2;
+            else
+            if ((Build.VERSION.SDK_INT < 29) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_3_0))
+                accessibilityEnabled = -1;
+            else
+            if ((Build.VERSION.SDK_INT >= 29) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_5_1_2))
+                accessibilityEnabled = -1;
+            else
+            if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context))
+                accessibilityEnabled = 1;
+            else
+                accessibilityEnabled = 0;
+        }
+        if (this._lockDevice == 3) {
+            if (extenderVersion == 0)
+                accessibilityEnabled = -2;
+            else
+            if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_4_0)
+                accessibilityEnabled = -1;
+            else
+            if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context))
+                accessibilityEnabled = 1;
+            else
+                accessibilityEnabled = 0;
+        }
+        return accessibilityEnabled;
+    }
+    */
+
     static long getActivatedProfileForDuration(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
