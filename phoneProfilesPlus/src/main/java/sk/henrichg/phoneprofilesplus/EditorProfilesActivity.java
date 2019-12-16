@@ -32,6 +32,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -745,6 +746,12 @@ public class EditorProfilesActivity extends AppCompatActivity
             menuItem.setVisible(PPApplication.logIntoFile || PPApplication.crashIntoFile);
         }
 
+        menuItem = menu.findItem(R.id.menu_test_crash);
+        if (menuItem != null)
+        {
+            menuItem.setVisible(BuildConfig.DEBUG);
+        }
+
         onNextLayout(editorToolbar, new Runnable() {
             @Override
             public void run() {
@@ -952,6 +959,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                 });*/
                 if (!isFinishing())
                     dialog.show();
+                return true;
+            case R.id.menu_test_crash:
+                //TODO throw new RuntimeException("test Crashlytics + TopExceptionHandler");
+                Crashlytics.getInstance().crash();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

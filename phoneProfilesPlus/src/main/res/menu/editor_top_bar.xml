@@ -73,6 +73,11 @@
         android:title="@string/menu_about_application"
         android:orderInCategory="250"
         app:showAsAction="never" />
+    <item android:id="@+id/menu_test_crash"
+        android:title="Test crash"
+        android:orderInCategory="255"
+        app:showAsAction="never"
+        tools:ignore="HardcodedText" />
     <item android:id="@+id/menu_exit"
         android:title="@string/menu_exit"
         android:orderInCategory="260"
