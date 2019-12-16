@@ -25,20 +25,20 @@ Required external libs
 - Google Material library
 - Google Play services library (GMS): location, maps
 - Google Billing library
-- Firebase Crashlytics library  
+- Firebase Crashlytics library
 - google-gson - https://code.google.com/p/google-gson/
 - TapTargetView - https://github.com/KeepSafe/TapTargetView
 - RecyclerView-FastScroll - https://github.com/timusus/RecyclerView-FastScroll
 - doki - https://github.com/DoubleDotLabs/doki
-- Samsung Look - http://developer.samsung.com/galaxy/edge  
+- Samsung Look - http://developer.samsung.com/galaxy/edge
 - dashclock - https://github.com/romannurik/dashclock
-- ToastCompat - https://github.com/PureWriter/ToastCompat  
+- ToastCompat - https://github.com/PureWriter/ToastCompat
 - RootTools (as module, code modified) - https://github.com/Stericson/RootTools
 - RootShell (as module, code modified) - https://github.com/Stericson/RootShell
 - time-duration-picker (as module, code modified) - https://github.com/svenwiegand/time-duration-picker
-- android-betterpickers (as module, code modified) - https://github.com/code-troopers/android-betterpickers  
+- android-betterpickers (as module, code modified) - https://github.com/code-troopers/android-betterpickers
+- AndroidClearChroma (as module, code modified) - https://github.com/Kunzisoft/AndroidClearChroma
 - RelativePopupWindow (only modified class RelativePopupWindow) - https://github.com/kakajika/RelativePopupWindow
-- SunriseSunset (only modified class SunriseSunset) - https://github.com/caarmen/SunriseSunset  
-- android-hidden-api (downloaded android.jar copied into folder \<android-sdk\>/android-XX) - https://github.com/anggrayudi/android-hidden-api   
+- SunriseSunset (only modified class SunriseSunset) - https://github.com/caarmen/SunriseSunset
+- android-hidden-api (downloaded android.jar copied into folder \<android-sdk\>/android-XX) - https://github.com/anggrayudi/android-hidden-api
 - FreeReflection (only code from https://github.com/tiann/FreeReflection/blob/master/library/src/main/java/me/weishu/reflection/Reflection.java) - https://github.com/tiann/FreeReflection
-- HuaWeiVerifier (for fix "java.lang.IllegalArgumentException: register too many Broadcast Receivers") - https://github.com/llew2011/HuaWeiVerifier    

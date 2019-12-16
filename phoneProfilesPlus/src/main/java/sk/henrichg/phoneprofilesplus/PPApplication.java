@@ -455,14 +455,14 @@ public class PPApplication extends Application {
                                         +"|EventPreferencesTime.setSystemEventForStart"
                                         +"|EventPreferencesTime.setSystemEventForPause"
                                         */
-                                        +"|EventPreferencesTime.removeAlarm"
-                                        +"|EventPreferencesTime.setAlarm"
+                                        //+"|EventPreferencesTime.removeAlarm"
+                                        //+"|EventPreferencesTime.setAlarm"
                                         /*+"|[TIME] DataWrapper.doHandleEvents"
                                         +"|TwilightScanner"
                                         +"|TwilightScanner.updateTwilightState"
                                         +"|TwilightScanner.doWork"
                                         */
-                                        +"|EventTimeBroadcastReceiver"
+                                        //+"|EventTimeBroadcastReceiver"
 
                                         //+"|EventPreferencesCalendar"
                                         //+"|EventCalendarBroadcastReceiver"
@@ -556,7 +556,7 @@ public class PPApplication extends Application {
                                         //+"|[ALARM] EventsHandler.handleEvents"
                                         //+"|EventPreferencesSMS"
                                         //+"|SMSEventEndBroadcastReceiver"
-                                        +"|ElapsedAlarmsWorker"
+                                        //+"|ElapsedAlarmsWorker"
             ;
 
 
