@@ -42,7 +42,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
 
         PPApplication.logE("BluetoothLEScanCallback21.onScanResult", "xxx");
 
-        PPApplication.startHandlerThread("BluetoothLEScanCallback21.onScanResult.onReceive.1");
+        PPApplication.startHandlerThreadBluetoothLECallback();
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
@@ -109,7 +109,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
 
         final List<ScanResult> _results = new ArrayList<>(results);
 
-        PPApplication.startHandlerThread("BluetoothLEScanCallback21.onReceive.1");
+        PPApplication.startHandlerThreadBluetoothLECallback();
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
