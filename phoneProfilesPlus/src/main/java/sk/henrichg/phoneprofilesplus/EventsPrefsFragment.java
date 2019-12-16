@@ -1350,7 +1350,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     Spannable title = new SpannableString(_title);
                     title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
                     preference.setTitle(title);
-                    Spannable summary = new SpannableString(getString(R.string.preferences_grantPermissions_summary));
+                    _title = getString(R.string.preferences_grantPermissions_summary) + " " +
+                                getString(R.string.event_preferences_red_sensors_summary);
+                    Spannable summary = new SpannableString(_title);
                     summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
                     preference.setSummary(summary);
 
@@ -1398,6 +1400,10 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     Spannable title = new SpannableString(_title);
                     title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
                     preference.setTitle(title);
+                    _title = getString(R.string.event_preferences_red_sensors_summary);
+                    Spannable summary = new SpannableString(_title);
+                    summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
+                    preference.setSummary(summary);
                 }
             }
 
@@ -1429,6 +1435,11 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     Spannable title = new SpannableString(_title);
                     title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
                     preference.setTitle(title);
+                    _title = getString(R.string.event_preferences_not_set_underlined_parameters_summary) + " " +
+                                getString(R.string.event_preferences_red_sensors_summary);
+                    Spannable summary = new SpannableString(_title);
+                    summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
+                    preference.setSummary(summary);
                 }
             }
         }
