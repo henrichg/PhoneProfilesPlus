@@ -261,6 +261,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         setPermissionsPreference();
 
+        String summary = getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + " " +
+                            getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
+                            getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3);
+        Preference _preference = prefMng.findPreference("prf_pref_deviceForceStopApplicationInstallExtenderInfo");
+        if (_preference != null)
+            _preference.setSummary(summary);
+        _preference = prefMng.findPreference("prf_pref_lockDeviceInstallExtenderInfo");
+        if (_preference != null)
+            _preference.setSummary(summary);
+
         //if (android.os.Build.VERSION.SDK_INT >= 21)
         //{
         ListPreference ringerModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_RINGER_MODE);

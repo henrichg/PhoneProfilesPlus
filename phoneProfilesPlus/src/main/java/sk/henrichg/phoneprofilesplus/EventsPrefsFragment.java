@@ -291,6 +291,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         setPermissionsPreference();
 
+        String summary = getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + " " +
+                            getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
+                            getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3);
+        Preference _preference = prefMng.findPreference("eventApplicationInstallExtenderInfo");
+        if (_preference != null)
+            _preference.setSummary(summary);
+        _preference = prefMng.findPreference("eventCallInstallExtenderInfo");
+        if (_preference != null)
+            _preference.setSummary(summary);
+        _preference = prefMng.findPreference("eventOrientationInstallExtenderInfo");
+        if (_preference != null)
+            _preference.setSummary(summary);
+        _preference = prefMng.findPreference("eventSMSInstallExtenderInfo");
+        if (_preference != null)
+            _preference.setSummary(summary);
+
         event.checkPreferences(prefMng, context);
 
         Preference notificationAccessPreference = prefMng.findPreference(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS);
