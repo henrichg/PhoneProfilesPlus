@@ -1521,6 +1521,7 @@
     <string name="event_preferences_red_install_PPPExtender">Click here to install it.</string>;
     <string name="install_extender_dialog_title">Install PhoneProfilesPlusExtender</string>
     <string name="alert_button_install">Install</string>
+    <string name="event_preferences_red_enable_PPPExtender">Click here to enable it. Search for PhoneProfilesPLusExtender and allow \"Accessibility\" for it.</string>
 
     <!-- **************************************************************************************** -->
 

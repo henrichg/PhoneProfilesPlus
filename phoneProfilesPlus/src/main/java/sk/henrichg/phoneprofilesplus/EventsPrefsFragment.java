@@ -354,34 +354,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             accessibilityPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    boolean ok = false;
-                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_ACCESSIBILITY_SETTINGS, context)) {
-                        try {
-                            Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-                            startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
-                            ok = true;
-                        } catch (Exception ignored) {}
-                    }
-                    if (!ok) {
-                        if (getActivity() != null) {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
-                            //dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                            //    @Override
-                            //    public void onShow(DialogInterface dialog) {
-                            //        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                            //        if (positive != null) positive.setAllCaps(false);
-                            //        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                            //        if (negative != null) negative.setAllCaps(false);
-                            //    }
-                            //});
-                            if (!getActivity().isFinishing())
-                                dialog.show();
-                        }
-                    }
+                    enableExtender();
                     return false;
                 }
             });
@@ -626,34 +599,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             orientationPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    boolean ok = false;
-                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_ACCESSIBILITY_SETTINGS, context)) {
-                        try {
-                            Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-                            startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
-                            ok = true;
-                        } catch (Exception ignored) {}
-                    }
-                    if (!ok) {
-                        if (getActivity() != null) {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
-                            //dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                            //    @Override
-                            //    public void onShow(DialogInterface dialog) {
-                            //        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                            //        if (positive != null) positive.setAllCaps(false);
-                            //        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                            //        if (negative != null) negative.setAllCaps(false);
-                            //    }
-                            //});
-                            if (!getActivity().isFinishing())
-                                dialog.show();
-                        }
-                    }
+                    enableExtender();
                     return false;
                 }
             });
@@ -750,34 +696,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             smsPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    boolean ok = false;
-                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_ACCESSIBILITY_SETTINGS, context)) {
-                        try {
-                            Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-                            startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
-                            ok = true;
-                        } catch (Exception ignored) {}
-                    }
-                    if (!ok) {
-                        if (getActivity() != null) {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
-                            //dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                            //    @Override
-                            //    public void onShow(DialogInterface dialog) {
-                            //        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                            //        if (positive != null) positive.setAllCaps(false);
-                            //        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                            //        if (negative != null) negative.setAllCaps(false);
-                            //    }
-                            //});
-                            if (!getActivity().isFinishing())
-                                dialog.show();
-                        }
-                    }
+                    enableExtender();
                     return false;
                 }
             });
@@ -844,34 +763,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             callPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    boolean ok = false;
-                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_ACCESSIBILITY_SETTINGS, context)) {
-                        try {
-                            Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-                            startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
-                            ok = true;
-                        } catch (Exception ignored) {}
-                    }
-                    if (!ok) {
-                        if (getActivity() != null) {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
-                            //dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                            //    @Override
-                            //    public void onShow(DialogInterface dialog) {
-                            //        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                            //        if (positive != null) positive.setAllCaps(false);
-                            //        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                            //        if (negative != null) negative.setAllCaps(false);
-                            //    }
-                            //});
-                            if (!getActivity().isFinishing())
-                                dialog.show();
-                        }
-                    }
+                    enableExtender();
                     return false;
                 }
             });
@@ -1456,22 +1348,40 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     Spannable title = new SpannableString(_title);
                     title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
                     preference.setTitle(title);
-                    _title = getString(R.string.event_preferences_red_install_PPPExtender) + " " +
+                    if ((accessibilityEnabled == -1) || (accessibilityEnabled == -2)) {
+                        _title = getString(R.string.event_preferences_red_install_PPPExtender) + " " +
                                 getString(R.string.event_preferences_red_sensors_summary) + " " +
                                 getString(R.string.event_preferences_sensor_parameters_location_summary);
-                    Spannable summary = new SpannableString(_title);
-                    summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
-                    preference.setSummary(summary);
+                        Spannable summary = new SpannableString(_title);
+                        summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
+                        preference.setSummary(summary);
 
-                    preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                        @Override
-                        public boolean onPreferenceClick(Preference preference) {
-                            installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + "\n\n" +
-                                    getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
-                                    getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
-                            return false;
-                        }
-                    });
+                        preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                            @Override
+                            public boolean onPreferenceClick(Preference preference) {
+                                installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + "\n\n" +
+                                        getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
+                                        getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
+                                return false;
+                            }
+                        });
+                    }
+                    else {
+                        _title = getString(R.string.event_preferences_red_enable_PPPExtender) + " " +
+                                getString(R.string.event_preferences_red_sensors_summary) + " " +
+                                getString(R.string.event_preferences_sensor_parameters_location_summary);
+                        Spannable summary = new SpannableString(_title);
+                        summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
+                        preference.setSummary(summary);
+
+                        preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                            @Override
+                            public boolean onPreferenceClick(Preference preference) {
+                                enableExtender();
+                                return false;
+                            }
+                        });
+                    }
                 }
             }
 
@@ -1556,9 +1466,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     }
 
     private void installExtender(String dialogText) {
-        if (getActivity() == null) {
+        if (getActivity() == null)
             return;
-        }
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
         dialogBuilder.setTitle(R.string.install_extender_dialog_title);
@@ -1589,6 +1498,40 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         });*/
         if (!getActivity().isFinishing())
             dialog.show();
+    }
+
+    private void enableExtender() {
+        if (getActivity() == null)
+            return;
+
+        boolean ok = false;
+        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_ACCESSIBILITY_SETTINGS, getActivity())) {
+            try {
+                Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
+                ok = true;
+            } catch (Exception ignored) {}
+        }
+        if (!ok) {
+            if (getActivity() != null) {
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                AlertDialog dialog = dialogBuilder.create();
+                //dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                //    @Override
+                //    public void onShow(DialogInterface dialog) {
+                //        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                //        if (positive != null) positive.setAllCaps(false);
+                //        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                //        if (negative != null) negative.setAllCaps(false);
+                //    }
+                //});
+                if (!getActivity().isFinishing())
+                    dialog.show();
+            }
+        }
     }
 
 }
