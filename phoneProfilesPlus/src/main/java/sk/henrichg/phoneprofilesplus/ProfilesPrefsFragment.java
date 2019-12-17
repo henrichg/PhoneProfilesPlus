@@ -45,6 +45,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
     private boolean nestedFragment = false;
 
+    private boolean afterStartPPPE = false;
+
     //private static final String PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE = "prf_pref_notEnabledAccessibilityService";
 
     private static final String PREF_NOTIFICATION_ACCESS = "prf_pref_volumeNotificationsAccessSettings";
@@ -724,7 +726,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             try {
                                 startActivity(intent);
-                                //afterStartPPPE = true;
+                                afterStartPPPE = true;
                             } catch (Exception ignored) {
                             }
                         }
@@ -767,7 +769,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             try {
                                 startActivity(intent);
-                                //afterStartPPPE = true;
+                                afterStartPPPE = true;
                             } catch (Exception ignored) {
                             }
                         }
@@ -798,6 +800,27 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         PPApplication.logE("ProfilesPrefsFragment.onActivityCreated", "END");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        PPApplication.logE("EventsPrefsFragment.onResume", "xxx");
+
+        if (afterStartPPPE) {
+            afterStartPPPE = false;
+
+            if (getActivity() == null)
+                return;
+
+            final Context context = getActivity().getBaseContext();
+
+            disableDependedPref(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
+            disableDependedPref(Profile.PREF_PROFILE_LOCK_DEVICE);
+            setPermissionsPreference();
+            PPApplication.logE("ActivateProfileHelper.updateGUI", "from ProfilesPrefsFragment.onResume");
+            ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
+        }
     }
 
     @Override
