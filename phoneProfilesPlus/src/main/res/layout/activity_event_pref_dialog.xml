@@ -62,6 +62,8 @@
             android:layout_above="@id/event_pref_dlg_help_linla"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:gravity="center"
             android:clipToPadding="false"
             android:choiceMode="singleChoice"
