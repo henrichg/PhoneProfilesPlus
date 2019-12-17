@@ -1522,4 +1522,9 @@ public class EditorEventListFragment extends Fragment
     }
     */
 
+    void showHeaderAndBottomToolbar() {
+        activatedProfileHeader.setVisibility(VISIBLE);
+        bottomToolbar.setVisibility(VISIBLE);
+    }
+
 }

@@ -45,6 +45,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import me.drakeet.support.toast.ToastCompat;
 
 import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 public class EditorProfileListFragment extends Fragment
                                         implements OnStartDragItemListener {
@@ -1253,6 +1254,11 @@ public class EditorProfileListFragment extends Fragment
             editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
             editor.apply();
         }
+    }
+
+    void showHeaderAndBottomToolbar() {
+        activatedProfileHeader.setVisibility(VISIBLE);
+        bottomToolbar.setVisibility(VISIBLE);
     }
 
 }

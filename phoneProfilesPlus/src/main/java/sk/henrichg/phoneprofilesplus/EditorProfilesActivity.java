@@ -427,6 +427,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
                                 filterSpinner.setAdapter(filterSpinnerAdapter);
                                 selectFilterItem(0, filterProfilesSelectedItem, false, startTargetHelps);
+                                Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+                                if (fragment instanceof EditorProfileListFragment)
+                                    ((EditorProfileListFragment)fragment).showHeaderAndBottomToolbar();
                                 break;
                             case R.id.menu_events_view:
                                 //Log.e("EditorProfilesActivity.onNavigationItemSelected", "menu_events_view");
@@ -445,6 +448,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
                                 filterSpinner.setAdapter(filterSpinnerAdapter);
                                 selectFilterItem(1, filterEventsSelectedItem, false, startTargetHelps);
+                                fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+                                if (fragment instanceof EditorEventListFragment) {
+                                    ((EditorEventListFragment)fragment).showHeaderAndBottomToolbar();
+                                }
                                 break;
                         }
                         return true;
