@@ -81,79 +81,6 @@ Tu mas ako sa to id cita: https://gist.github.com/luixal/5768921.
 
 ----------------------
 
-Brightness in Pie
-
-https://android.googlesource.com/platform/frameworks/base/+/master/packages/SettingsLib/src/com/android/settingslib/display/BrightnessUtils.java
-https://android.googlesource.com/platform/frameworks/base/+/master/packages/SystemUI/src/com/android/systemui/settings/BrightnessController.java
-
-public static final int GAMMA_SPACE_MAX = 1023;
-
-// returns value from 0 to 1
-private double getCurrentBrightness() {
-        final int mMinBrightness = 0;
-        final int mMaxBrightness = 255;
-
-        final int value;
-
-        value = convertLinearToGamma(Settings.System.getInt(mContentResolver,
-                System.SCREEN_BRIGHTNESS, mMinBrightness),
-                mMinBrightness, mMaxBrightness);
-
-        return getPercentage(value, 0, GAMMA_SPACE_MAX);
-    }
-
-private double getPercentage(double value, int min, int max) {
-        if (value > max) {
-            return 1.0;
-        }
-        if (value < min) {
-            return 0.0;
-        }
-        return (value - min) / (max - min);
-    }
-
-private void setCurrentBrightness(double value) {
-    final int mMinBrightness = 0;
-    final int mMaxBrightness = 255;
-
-    final int val = convertGammaToLinear(value, mMinBrightness, mMaxBrightness);
-
-    Settings.System.putInt(mContext.getContentResolver(), System.SCREEN_BRIGHTNESS, val);
-}
-
-// Hybrid Log Gamma constant values
-private static final float R = 0.5f;
-private static final float A = 0.17883277f;
-private static final float B = 0.28466892f;
-private static final float C = 0.55991073f;
-
-public static final int convertLinearToGamma(int val, int min, int max) {
-        // For some reason, HLG normalizes to the range [0, 12] rather than [0, 1]
-        final float normalizedVal = MathUtils.norm(min, max, val) * 12;
-        final float ret;
-        if (normalizedVal <= 1f) {
-            ret = MathUtils.sqrt(normalizedVal) * R;
-        } else {
-            ret = A * MathUtils.log(normalizedVal - B) + C;
-        }
-        return Math.round(MathUtils.lerp(0, GAMMA_SPACE_MAX, ret));
-    }
-
-public static final int convertGammaToLinear(int val, int min, int max) {
-        final float normalizedVal = MathUtils.norm(0, GAMMA_SPACE_MAX, val);
-        final float ret;
-        if (normalizedVal <= R) {
-            ret = MathUtils.sq(normalizedVal / R);
-        } else {
-            ret = MathUtils.exp((normalizedVal - C) / A) + B;
-        }
-        // HLG is normalized to the range [0, 12], so we need to re-normalize to the range [0, 1]
-        // in order to derive the correct setting value.
-        return Math.round(MathUtils.lerp(min, max, ret / 12));
-    }
-
--------------------------------
-
 Direct boot:
 - toto je super na to, aby sa PPP startol aj pri uzamknutej obrazovke.
 - android.intent.action.LOCKED_BOOT_COMPLETED vid:
@@ -171,29 +98,6 @@ Direct boot:
     https://developer.android.com/reference/android/content/Context#moveDatabaseFrom(android.content.Context,%20java.lang.String)
   Alebo, ze by pomohlo toto?
     https://stackoverflow.com/questions/51377089/android-crashlytics-fails-on-direct-boot-due-to-disk-encryption
-
----------------------------------
-Extender:
-- Vypada to, ze parametrov, ktore pouzivaju Extender je stale viac.
-- Co tak spravit daky dialog, z ktoreho sa bude dat Extender managovat?
-- Aby nemuseli byt pri kazdom profil/event parametri 3 dalsie kvoli Extenderu.
-- Pridaj dakde v Editore daku indikaciu, ze je Extender vyzadovany v novej verzii.
-  Nieco uz o tom mas v Important info, notifikacia o tom sa zobrazi po upgrade PPP.
-
-- Zatial pridaj aspon upozornenie, ze je stary Extender. Mozno to uz mam, kukni.
-  Sprav to ako pri pravach a podobne. Pis aj verziu, ktora je vyzadovana.
-
-Kde je treba Extender:
-
-Profily:
-- Force stop application
-- Lock device
-
-Eventy:
-- Call sensor
-- SMS/MMS sensor
-- Application sensor
-- Orientation sensor
 
 ----------------------------------------------
 
@@ -251,185 +155,6 @@ Android Q beta 1 - emulator:
 2019-03-15 19:40:37.527 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at libcore.io.IoBridge.open(IoBridge.java:482)
 2019-03-15 19:40:37.527 9209-9209/sk.henrichg.phoneprofilesplus W/System.err: 	... 18 more
 
-----------------------------------------------------------------
-
-Registracia mobilnych buniek:
-- Kazda udalost ma MobileCellsRegistrationDialogPreferenceX.
-  Ten na Start/Stop button prida/uberie udalostt, pre ktoru sa registracia robi.
-- MobileCellsRegistrationService bezi na pozadi a meria dlzku registracie.
-  V pravidelnych intervaloch posiela broadcast ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN.
-  Ten je len na update GUI v EventsPrefsActivity.
-- Samotnu registraciu robi PhoneStateScanner v doAutoRegistration().
-
-- "Not used mobile cell" detektor som vyhodil. Chcem ho vratit spat.
-- V prvom rade treba vyriesit, aby sa nenotifikoval jeden cell viac krat. Sice uz len jedna
-  notifikacia sa zobrazi, ale stale to dava zvuk.
-- Samotne notifikacie uzivatela otravuju. Treba porozmyslat, ako to spravit inac.
-  Napriklad tak, ze bude len jedna notifikacia, Nie pre kazdu bunku zvlast, ale ze sa bude
-  pamatat: bunka, cas, udalosti, ktorych sa tyka.
-  Notifikacia otvori nie dialog, ale aktivitu, kde sa zobrazi zoznam: bunka, cas a udlaosti.
-  Kliknutim na item zoznamu sa zobrazi uz teraz existujuci dialog. Dialog na OK, Cancel item
-  zo zoznanmu vyhodi.
-- Toto by mohlo eliminovat tieto notifikacie.
-
-------------------------------------------------------------------
-
-Migracia z android-job do WorkManager:
-- android-job jobBuilder.startNow() ->
-
-    OneTimeWorkRequest work = OneTimeWorkRequest.Builder(MyWorker::class.java)
-                .setInputData(inputData)
-                .addTag(JOB_TAG)
-                .build()
-    WorkManager.getInstance().enqueue(work)
-
-- android-job jobBuilder.setExact() ->
-
-    OneTimeWorkRequest save = new OneTimeWorkRequest.Builder(SaveImageToFileWorker.class)
-                .setInitialDelay(20, TimeUnit.MINUTES)
-                .setInputData(inputData)
-                .addTag(JOB_TAG)
-                .build();
-
-- android-job jobBuilder.setPeriodic() ->
-
-    PeriodicWorkRequest workRequest =
-                new PeriodicWorkRequest.Builder(WorkerClass.class, interval, TimeUnit.MINUTES)
-                        .setInputData(inputData)
-                        .addTag(JOB_TAG)
-                        .build();
-
-- android job JobRequest.MIN_INTERVAL ->
-
-    PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS
-
-- android-job jobManager.cancelAllForTag(JOB_TAG) ->
-
-    WorkManager.getInstance().cancelAllWorkByTag(JOB_TAG);
-
-- android-job jobBuilder.setExtras(bundleCompat) ->
-
-    Data imageData = new Data.Builder
-                    .putString(Constants.KEY_IMAGE_URI, imageUriString)
-                    .build();
-
-    OneTimeWorkRequest uploadWorkRequest = new OneTimeWorkRequest.Builder(UploadWorker.class)
-            .setInputData(imageData)
-            .build()
-
-- android-job protected Result onRunJob(@NonNull Params params) params.getStringExtra() ->
-
-    public Result doWork() {
-
-        // Get the input
-        String imageUriInput = getInputData().getString(Constants.KEY_IMAGE_URI)
-
-    }
-
-- android-job WifiScanJob.isJobScheduled ->
-
-    https://stackoverflow.com/questions/51612274/check-if-workmanager-is-scheduled-already/51613101
-
-    WorkManager instance = WorkManager.getInstance();
-    ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosByTag(tag);
-    try {
-        List<WorkInfo> workInfoList = statuses.get();
-        return workInfoList.size() != 0;
-    } catch (ExecutionException e) {
-        e.printStackTrace();
-        return false;
-    } catch (InterruptedException e) {
-        e.printStackTrace();
-        return false;
-    }
-
-- android-job WifiScanJob._cancelJob ->
-
-    https://stackoverflow.com/questions/51612274/check-if-workmanager-is-scheduled-already/51613101
-
-    private static void _cancelJob(final Context context) {
-        if (isJobScheduled()) {
-            try {
-                JobManager jobManager = JobManager.instance();
-
-                PPApplication.logE("WifiScanJob._cancelJob", "START WAIT FOR FINISH");
-                long start = SystemClock.uptimeMillis();
-                do {
-                    if (!isJobScheduled()) {
-                        PPApplication.logE("WifiScanJob._cancelJob", "NOT SCHEDULED");
-                        break;
-                    }
-
-                    // WorkManage code -------------------------
-                    WorkManager instance = WorkManager.getInstance();
-                    ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosByTag(tag);
-                    boolean allFinished = true;
-                    try {
-                        List<WorkInfo> workInfoList = statuses.get();
-                        for (WorkInfo workInfo : workInfoList) {
-                            WorkInfo.State state = workInfo.getState();
-                            if (!state.isFinished()) {
-                                allFinished = false;
-                                break;
-                            }
-                        }
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    //-----------------------------------------
-
-                    if (allFinished) {
-                        PPApplication.logE("WifiScanJob._cancelJob", "FINISHED");
-                        break;
-                    }
-
-                    //try { Thread.sleep(100); } catch (InterruptedException e) { }
-                    SystemClock.sleep(100);
-                } while (SystemClock.uptimeMillis() - start < WifiBluetoothScanner.wifiScanDuration * 1000);
-                PPApplication.logE("WifiScanJob._cancelJob", "END WAIT FOR FINISH");
-
-                setScanRequest(context, false);
-                setWaitForResults(context, false);
-                WifiBluetoothScanner.setForceOneWifiScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
-
-                //jobManager.cancelAllForTag(JOB_TAG_SHORT);
-                jobManager.cancelAllForTag(JOB_TAG);
-
-                PPApplication.logE("WifiScanJob._cancelJob", "CANCELED");
-
-            } catch (Exception ignored) {
-            }
-        }
-    }
-
-- android-job Job.onCancel() ->
-
-    Worker.onStopped()
-
---------------------------------------------------------------------
-
-Classic a LE scanning:
-
-- skener skenuje vzdy Classic aj LE sposobom
-- pozera, ake typy skenovania su nakonfigurovane v udalostiach
-  - ked su classic, skenujem classic skenom
-  - ked su LE skenujem LE skenom
-  - cize vysledkom moze byt, ze skenujem oboma typmi
-- len pre LE scan ziadam zapnutu BT - TOTO POZRI, CI NAHODOU NIE JE NUTNE AJ PRE CLASSIC SCAN
-- pre oboje zapinam Bluetooth, ak je vypnute
-
-- Vypada to tak, ze:
-- LE scan nevie vratit classic BT zariadenie
-- Classic scan skenuje oba typy zariadenia, pre oba vratilo meno BT zariadenia
-
-- Ten device type parameter u udalosti je uplne neprehladny.
-- Hlavne uzivatel nevie, co ma nastavit.
-- Pre oba zapinam BT, pre LE vyzadujem zapnutu lokaciu
-- Co tak teda vyhodit ten device type a proste vzdy skenovat oba typy
-- Potom netreba ani, akeho typu je BT zariadenie, cize mozu sa vyhodit [CL], [DU], [LE] indikatory
-
 ------------------------------------------------------------------------
 
 Permissions vz. Root/G1
@@ -484,56 +209,6 @@ _dtmfToneWhenDialing
 
 checkProfileSoundOnTouch(context, profile, permissions);
 _soundOnTouch
-
--------------------------------------------
-
-1. PPApplication.createProfileNotificationChannel(appContext);
-This is channel for main "foreground" notification of PhoneProfilesService. Is used for show permanent notification of activated profile. And is visible all the time PPP running.
-PRIORITY_DEFAULT, PRIORITY_MIN
-For Android < 8: Notification sounds and vibrates, when it is enabled in system.
-For Android >= 8: sound and vibration is disabled (IMPORTANCE_LOW)
-
-2. PPApplication.createMobileCellsRegistrationNotificationChannel(appContext);
-This is channel for "Mobile cells registration" function. It is also permanent notification, visible only during mobile cells registration.
-PRIORITY_MAX - change to PRIORITY_DEFAULT
-For Android < 8: Notification sounds and vibrates, when it is enabled in system.
-For Android >= 8: sound and vibration is disabled (IMPORTANCE_LOW)
-
-3. PPApplication.createInformationNotificationChannel(appContext);
-This is channel for non-permananet notification. Is for informations notifications.
-PRIORITY_MAX - change to PRIORITY_DEFAULT
-For Android < 8: Notification sounds and vibrates, when it is enabled in system.
-For Android >= 8: sound is enabled, vibration is disabled (IMPORTANCE_LOW)
-
-4. PPApplication.createExclamationNotificationChannel(appContext);
-This is channel for non-permananet notification. Is for exclamations notifications.
-PRIORITY_MAX
-For Android < 8: Notification sounds and vibrates, when it is enabled in system.
-For Android >= 8: sound and vibration is enabled (IMPORTANCE_DEFAULT)
-
-5. PPApplication.createGrantPermissionNotificationChannel(appContext);
-This is channel for non-permananet notification. Is for notifications, when some permission is needed and is not granted.
-PRIORITY_MAX
-For Android < 8: Notification sounds and vibrates, when it is enabled in system.
-For Android >= 8: sound and vibration is enabled (IMPORTANCE_DEFAULT)
-
-6. PPApplication.createNotifyEventStartNotificationChannel(appContext);
-This is channel for event start notifications, when in Event/Start of event/Other parameters is configured "Notification sound" and/or "Notifiy by vybration" and "Repeat notification" is enabled.
-PRIORITY_MAX - change to PRIORITY_DEFAULT
-For Android < 8: Notification sounds and vibrates, when it is enabled in system.
-For Android >= 8: sound and vibration is disabled (IMPORTANCE_LOW)
-
-7. PPApplication.createMobileCellsNewCellNotificationChannel(appContext);
-This is channel for non-permanent notification, used, when is enabled Settings/MobileSells scanning/Show notification for detection of not used mobile cells
-PRIORITY_MAX
-For Android < 8: Notification sounds and vibrates, when it is enabled in system.
-For Android >= 8: sound and vibration is enabled (IMPORTANCE_DEFAULT)
-
-8. PPApplication.createDonationNotificationChannel(appContext);
-This is channel for non-permanent notification, used, for notification abount Donation.
-PRIORITY_MAX - change to PRIORITY_DEFAULT
-For Android < 8: Notification sounds and vibrates, when it is enabled in system.
-For Android >= 8: sound is enabled, vibration is disabled (IMPORTANCE_LOW)
 
 ----------------------------------------
 
@@ -627,4 +302,38 @@ HOTOVO
 https://mail.google.com/mail/u/0/#inbox/FMfcgxwGCGzLSzHXNSXxmMFsKjrPZZMT
 Pozri, cele je to v implementation 'com.google.firebase:firebase-analytics:17.2.1'
 Musia to upgradnut, inac ho budem musiet vyhodit.
+
+--------------------------------------
+
+Extender:
+- Skus spravit tak, ze zavolas Intent na download apk. V URL je cislo verzie, ale typu 5.1.2.1.
+  Cize toto by som musel pouzivat v PPP.
+- Ako stiahnut apk:
+  https://stackoverflow.com/questions/48130430/download-a-file-in-background-without-opening-browser-with-intent
+  https://stackoverflow.com/questions/525204/android-download-intent
+- Testni to a zisti, co sa stane, ked kilknes na tu notifikaciu po stiahnuti.
+- Hlavne pozri na nazov apk po stiahnuti. Ci tam neda cislo, napr. (1), (2) atd.
+- Kliknutie na notifikaciu pos tiahnuti by mala zavolat dalsi Intent na instalaciu apk.
+- Tymto by som mal vyriesenu instalaciu Extendera, ci uz noveho alebo upgrade.
+
+- Vypada to, ze parametrov, ktore pouzivaju Extender je stale viac.
+- Co tak spravit daky dialog, z ktoreho sa bude dat Extender managovat?
+- Aby nemuseli byt pri kazdom profil/event parametri 3 dalsie kvoli Extenderu.
+- Pridaj dakde v Editore daku indikaciu, ze je Extender vyzadovany v novej verzii.
+  Nieco uz o tom mas v Important info, notifikacia o tom sa zobrazi po upgrade PPP.
+
+- Zatial pridaj aspon upozornenie, ze je stary Extender. Mozno to uz mam, kukni.
+  Sprav to ako pri pravach a podobne. Pis aj verziu, ktora je vyzadovana.
+
+Kde je treba Extender:
+
+Profily:
+- Force stop application
+- Lock device
+
+Eventy:
+- Call sensor
+- SMS/MMS sensor
+- Application sensor
+- Orientation sensor
 
