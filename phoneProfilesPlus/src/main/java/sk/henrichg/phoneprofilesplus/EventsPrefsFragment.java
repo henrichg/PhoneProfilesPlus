@@ -1388,7 +1388,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     if (preferenceCategory != null) {
                         preference = new Preference(context);
                         preference.setKey(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
-                        preference.setWidgetLayoutResource(R.layout.exclamation_preference);
+                        preference.setWidgetLayoutResource(R.layout.start_activity_preference);
                         preference.setLayoutResource(R.layout.mp_preference_material_widget);
                         preference.setOrder(-97);
                         preferenceCategory.addPreference(preference);
@@ -1405,11 +1405,25 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     Spannable title = new SpannableString(_title);
                     title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
                     preference.setTitle(title);
-                    _title = getString(R.string.event_preferences_red_sensors_summary) + " " +
+                    _title = getString(R.string.event_preferences_red_install_PPPExtender) + " " +
+                                getString(R.string.event_preferences_red_sensors_summary) + " " +
                                 getString(R.string.event_preferences_sensor_parameters_location_summary);
                     Spannable summary = new SpannableString(_title);
                     summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
                     preference.setSummary(summary);
+
+                    preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                        @Override
+                        public boolean onPreferenceClick(Preference preference) {
+                            String url = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(url));
+                            try {
+                                startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
+                            } catch (Exception ignored) {}
+                            return false;
+                        }
+                    });
                 }
             }
 

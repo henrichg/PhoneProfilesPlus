@@ -1518,6 +1518,7 @@
     <string name="event_preferences_not_set_underlined_parameters_summary">Underlined parameters are required.</string>
     <string name="event_preferences_red_sensors_summary">Check also sensor parameters flagged with red color.</string>
     <string name="event_preferences_sensor_parameters_location_summary">Sensor parameters are under of the main event parameters.</string>
+    <string name="event_preferences_red_install_PPPExtender">Click here to install it.</string>;
 
     <!-- **************************************************************************************** -->
 
