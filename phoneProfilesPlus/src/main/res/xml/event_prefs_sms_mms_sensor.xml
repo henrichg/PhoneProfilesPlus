@@ -62,13 +62,6 @@
         app:widgetLayout="@layout/start_activity_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
-        app:key="eventSMSInstallExtenderInfo"
-        app:title="@string/event_preferences_PPPExtenderInstallInfo_text"
-        app:summary="@string/event_preferences_PPPExtenderInstallInfo_summary"
-        app:dependency="eventSMSEnabled"
-        app:widgetLayout="@layout/info_preference"
-        app:layout="@layout/mp_preference_material_widget" />
-    <Preference
         app:key="eventSMSAccessibilitySettings"
         app:title="@string/event_preferences_applications_AccessibilitySettings_title"
         app:summary="@string/event_preferences_sms_AccessibilitySettingsForExtender_summary"

@@ -19,15 +19,14 @@
         app:widgetLayout="@layout/start_activity_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
-        app:key="prf_pref_lockDeviceInstallExtenderInfo"
-        app:title="@string/event_preferences_PPPExtenderInstallInfo_text"
-        app:summary="@string/event_preferences_PPPExtenderInstallInfo_summary"
-        app:widgetLayout="@layout/info_preference"
-        app:layout="@layout/mp_preference_material_widget" />
-    <Preference
         app:key="prf_pref_lockDeviceAccessibilitySettings"
         app:title="@string/profile_preferences_lockDevice_AccessibilitySettings_title"
         app:summary="@string/profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="prf_pref_lockDeviceLaunchExtender"
+        app:title="@string/event_preferences_applications_LaunchExtender_title"
         app:widgetLayout="@layout/start_activity_preference"
         app:layout="@layout/mp_preference_material_widget" />
 

@@ -49,6 +49,7 @@ class EventPreferencesOrientation extends EventPreferences {
     static final String PREF_EVENT_ORIENTATION_ACCESSIBILITY_SETTINGS = "eventOrientationAccessibilitySettings";
     private static final String PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS = "eventOrientationIgnoredApplications";
     private static final String PREF_EVENT_ORIENTATION_APP_SETTINGS = "eventEnableOrientationScanningAppSettings";
+    static final String PREF_EVENT_ORIENTATION_LAUNCH_EXTENDER = "eventOrientationLaunchExtender";
 
     private static final String PREF_EVENT_ORIENTATION_CATEGORY = "eventOrientationCategoryRoot";
 

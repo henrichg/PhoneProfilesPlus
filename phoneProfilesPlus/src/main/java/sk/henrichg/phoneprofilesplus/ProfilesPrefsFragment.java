@@ -64,6 +64,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_LOCK_DEVICE_CATEGORY = "prf_pref_lockDeviceCategoryRoot";
     private static final String PREF_LOCK_DEVICE_INSTALL_EXTENDER = "prf_pref_lockDeviceInstallExtender";
     private static final String PREF_LOCK_DEVICE_ACCESSIBILITY_SETTINGS = "prf_pref_lockDeviceAccessibilitySettings";
+    private static final String PREF_FORCE_STOP_APPLICATIONS_LAUNCH_EXTENDER = "prf_pref_deviceForceStopApplicationLaunchExtender";
+    private static final String PREF_LOCK_DEVICE_LAUNCH_EXTENDER = "prf_pref_lockDeviceLaunchExtender";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -700,6 +702,92 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     if (negative != null) negative.setAllCaps(false);
                                 }
                             });*/
+                            if (!getActivity().isFinishing())
+                                dialog.show();
+                        }
+                    }
+                    return false;
+                }
+            });
+        }
+        accessibilityPreference = prefMng.findPreference(PREF_FORCE_STOP_APPLICATIONS_LAUNCH_EXTENDER);
+        if (accessibilityPreference != null) {
+            //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            accessibilityPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_3_0) {
+                        PackageManager packageManager = context.getPackageManager();
+                        Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
+                        if (intent != null) {
+                            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            try {
+                                startActivity(intent);
+                                //afterStartPPPE = true;
+                            } catch (Exception ignored) {
+                            }
+                        }
+                    }
+                    else {
+                        if (getActivity() != null) {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                            dialogBuilder.setMessage(R.string.event_preferences_extender_not_installed);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            AlertDialog dialog = dialogBuilder.create();
+                            //dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                            //    @Override
+                            //    public void onShow(DialogInterface dialog) {
+                            //        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                            //        if (positive != null) positive.setAllCaps(false);
+                            //        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                            //        if (negative != null) negative.setAllCaps(false);
+                            //    }
+                            //});
+                            if (!getActivity().isFinishing())
+                                dialog.show();
+                        }
+                    }
+                    return false;
+                }
+            });
+        }
+        accessibilityPreference = prefMng.findPreference(PREF_LOCK_DEVICE_LAUNCH_EXTENDER);
+        if (accessibilityPreference != null) {
+            //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            accessibilityPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_3_0) {
+                        PackageManager packageManager = context.getPackageManager();
+                        Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
+                        if (intent != null) {
+                            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            try {
+                                startActivity(intent);
+                                //afterStartPPPE = true;
+                            } catch (Exception ignored) {
+                            }
+                        }
+                    }
+                    else {
+                        if (getActivity() != null) {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                            dialogBuilder.setMessage(R.string.event_preferences_extender_not_installed);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            AlertDialog dialog = dialogBuilder.create();
+                            //dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                            //    @Override
+                            //    public void onShow(DialogInterface dialog) {
+                            //        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                            //        if (positive != null) positive.setAllCaps(false);
+                            //        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                            //        if (negative != null) negative.setAllCaps(false);
+                            //    }
+                            //});
                             if (!getActivity().isFinishing())
                                 dialog.show();
                         }
@@ -1913,7 +2001,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         ": "+getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
             }
 
-            String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, R.string.profile_preferences_deviceForceStopApplicationsChange, false, context);
+            //String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, R.string.profile_preferences_deviceForceStopApplicationsChange, false, context);
+            String title = context.getString(R.string.profile_preferences_deviceForceStopApplicationsChange);
             int index = 0;
             String sValue = "0";
             if (ok) {

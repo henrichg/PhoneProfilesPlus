@@ -949,6 +949,92 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
             });
         }
+        accessibilityPreference = prefMng.findPreference(EventPreferencesApplication.PREF_EVENT_APPLICATION_LAUNCH_EXTENDER);
+        if (accessibilityPreference != null) {
+            //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            accessibilityPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_3_0) {
+                        PackageManager packageManager = context.getPackageManager();
+                        Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
+                        if (intent != null) {
+                            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            try {
+                                startActivity(intent);
+                                afterStartPPPE = true;
+                            } catch (Exception ignored) {
+                            }
+                        }
+                    }
+                    else {
+                        if (getActivity() != null) {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                            dialogBuilder.setMessage(R.string.event_preferences_extender_not_installed);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            AlertDialog dialog = dialogBuilder.create();
+                            //dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                            //    @Override
+                            //    public void onShow(DialogInterface dialog) {
+                            //        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                            //        if (positive != null) positive.setAllCaps(false);
+                            //        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                            //        if (negative != null) negative.setAllCaps(false);
+                            //    }
+                            //});
+                            if (!getActivity().isFinishing())
+                                dialog.show();
+                        }
+                    }
+                    return false;
+                }
+            });
+        }
+        accessibilityPreference = prefMng.findPreference(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_LAUNCH_EXTENDER);
+        if (accessibilityPreference != null) {
+            //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            accessibilityPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_3_0) {
+                        PackageManager packageManager = context.getPackageManager();
+                        Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
+                        if (intent != null) {
+                            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            try {
+                                startActivity(intent);
+                                afterStartPPPE = true;
+                            } catch (Exception ignored) {
+                            }
+                        }
+                    }
+                    else {
+                        if (getActivity() != null) {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                            dialogBuilder.setMessage(R.string.event_preferences_extender_not_installed);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            AlertDialog dialog = dialogBuilder.create();
+                            //dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                            //    @Override
+                            //    public void onShow(DialogInterface dialog) {
+                            //        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                            //        if (positive != null) positive.setAllCaps(false);
+                            //        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                            //        if (negative != null) negative.setAllCaps(false);
+                            //    }
+                            //});
+                            if (!getActivity().isFinishing())
+                                dialog.show();
+                        }
+                    }
+                    return false;
+                }
+            });
+        }
 
         InfoDialogPreferenceX infoDialogPreference = prefMng.findPreference("eventSensorsInfo");
         if (infoDialogPreference != null) {

@@ -63,13 +63,6 @@
         app:widgetLayout="@layout/start_activity_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
-        app:key="eventCallInstallExtenderInfo"
-        app:title="@string/event_preferences_PPPExtenderInstallInfo_text"
-        app:summary="@string/event_preferences_PPPExtenderInstallInfo_summary"
-        app:dependency="eventCallEnabled"
-        app:widgetLayout="@layout/info_preference"
-        app:layout="@layout/mp_preference_material_widget" />
-    <Preference
         app:key="eventCallAccessibilitySettings"
         app:title="@string/event_preferences_applications_AccessibilitySettings_title"
         app:summary="@string/event_preferences_call_AccessibilitySettingsForExtender_summary"

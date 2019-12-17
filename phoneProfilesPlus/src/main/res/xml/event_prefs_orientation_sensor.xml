@@ -66,6 +66,14 @@
         app:max="10000"
         app:dependency="eventOrientationEnabled"
         app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreferenceX
+        app:defaultValue="@string/dash_string"
+        app:key="eventOrientationIgnoredApplications"
+        app:title="@string/event_preferences_orientation_ignoreForApplications"
+        app:removePPApplications="0"
+        app:systemSettings="accessibility_2.0"
+        app:dependency="eventOrientationEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="eventOrientationInstallExtender"
         app:title="@string/extender_app_name"
@@ -74,26 +82,17 @@
         app:widgetLayout="@layout/start_activity_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
-        app:key="eventOrientationInstallExtenderInfo"
-        app:title="@string/event_preferences_PPPExtenderInstallInfo_text"
-        app:summary="@string/event_preferences_PPPExtenderInstallInfo_summary"
-        app:dependency="eventOrientationEnabled"
-        app:widgetLayout="@layout/info_preference"
-        app:layout="@layout/mp_preference_material_widget" />
-    <Preference
         app:key="eventOrientationAccessibilitySettings"
         app:title="@string/event_preferences_applications_AccessibilitySettings_title"
         app:summary="@string/event_preferences_orientation_AccessibilitySettingsForExtender_summary"
         app:dependency="eventOrientationEnabled"
         app:widgetLayout="@layout/start_activity_preference"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreferenceX
-        app:defaultValue="@string/dash_string"
-        app:key="eventOrientationIgnoredApplications"
-        app:title="@string/event_preferences_orientation_ignoreForApplications"
-        app:removePPApplications="0"
-        app:systemSettings="accessibility_2.0"
+    <Preference
+        app:key="eventOrientationLaunchExtender"
+        app:title="@string/event_preferences_applications_LaunchExtender_title"
         app:dependency="eventOrientationEnabled"
+        app:widgetLayout="@layout/start_activity_preference"
         app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>
