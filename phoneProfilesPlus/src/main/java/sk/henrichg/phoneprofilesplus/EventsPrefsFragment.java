@@ -341,7 +341,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             extenderPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + " " +
+                    installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + "\n\n" +
                             getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
                             getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
                     return false;
@@ -613,7 +613,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             extenderPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + " " +
+                    installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + "\n\n" +
                             getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
                             getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
                     return false;
@@ -737,7 +737,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             extenderPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + " " +
+                    installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + "\n\n" +
                             getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
                             getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
                     return false;
@@ -831,7 +831,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             extenderPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + " " +
+                    installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + "\n\n" +
                             getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
                             getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
                     return false;
@@ -1466,7 +1466,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                         @Override
                         public boolean onPreferenceClick(Preference preference) {
-                            installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + " " +
+                            installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + "\n\n" +
                                     getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
                                     getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
                             return false;

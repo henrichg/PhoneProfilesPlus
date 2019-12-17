@@ -924,7 +924,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoText1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + " " +
+                    installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + "\n\n" +
                             getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
                             getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
                 }
