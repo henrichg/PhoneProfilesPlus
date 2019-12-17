@@ -1519,6 +1519,8 @@
     <string name="event_preferences_red_sensors_summary">Check also sensor parameters flagged with red color.</string>
     <string name="event_preferences_sensor_parameters_location_summary">Sensor parameters are under of the main event parameters.</string>
     <string name="event_preferences_red_install_PPPExtender">Click here to install it.</string>;
+    <string name="install_extender_dialog_title">Install PhoneProfilesPlusExtender</string>
+    <string name="alert_button_install">Install</string>
 
     <!-- **************************************************************************************** -->
 

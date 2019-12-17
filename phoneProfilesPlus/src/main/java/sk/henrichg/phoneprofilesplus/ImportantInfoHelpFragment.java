@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.net.Uri;
@@ -923,12 +924,9 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoText1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String url = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    try {
-                        startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
-                    } catch (Exception ignored) {}
+                    installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + " " +
+                            getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
+                            getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
                 }
             });
         }
@@ -956,6 +954,42 @@ public class ImportantInfoHelpFragment extends Fragment {
                 }, 200);
             }
         }
+    }
+
+    private void installExtender(String dialogText) {
+        if (getActivity() == null) {
+            return;
+        }
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+        dialogBuilder.setTitle(R.string.install_extender_dialog_title);
+        dialogBuilder.setMessage(dialogText);
+        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+
+        dialogBuilder.setPositiveButton(R.string.alert_button_install, new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                String url = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                try {
+                    startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
+                } catch (Exception ignored) {}
+            }
+        });
+        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+        AlertDialog dialog = dialogBuilder.create();
+        /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                if (positive != null) positive.setAllCaps(false);
+                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                if (negative != null) negative.setAllCaps(false);
+            }
+        });*/
+        if (!getActivity().isFinishing())
+            dialog.show();
     }
 
 }

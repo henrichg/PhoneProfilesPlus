@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -36,8 +37,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     private SharedPreferences preferences;
 
     private boolean nestedFragment = false;
-
-    private boolean afterStartPPPE = false;
 
     private Event event;
 
@@ -291,22 +290,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         setPermissionsPreference();
 
-        String summary = getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + " " +
-                            getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
-                            getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3);
-        Preference _preference = prefMng.findPreference("eventApplicationInstallExtenderInfo");
-        if (_preference != null)
-            _preference.setSummary(summary);
-        _preference = prefMng.findPreference("eventCallInstallExtenderInfo");
-        if (_preference != null)
-            _preference.setSummary(summary);
-        _preference = prefMng.findPreference("eventOrientationInstallExtenderInfo");
-        if (_preference != null)
-            _preference.setSummary(summary);
-        _preference = prefMng.findPreference("eventSMSInstallExtenderInfo");
-        if (_preference != null)
-            _preference.setSummary(summary);
-
         event.checkPreferences(prefMng, context);
 
         Preference notificationAccessPreference = prefMng.findPreference(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS);
@@ -358,12 +341,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             extenderPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    String url = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    try {
-                        startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
-                    } catch (Exception ignored) {}
+                    installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + " " +
+                            getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
+                            getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
                     return false;
                 }
             });
@@ -633,12 +613,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             extenderPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    String url = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    try {
-                        startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
-                    } catch (Exception ignored) {}
+                    installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + " " +
+                            getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
+                            getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
                     return false;
                 }
             });
@@ -760,12 +737,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             extenderPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    String url = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    try {
-                        startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
-                    } catch (Exception ignored) {}
+                    installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + " " +
+                            getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
+                            getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
                     return false;
                 }
             });
@@ -822,7 +796,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             try {
                                 startActivity(intent);
-                                afterStartPPPE = true;
                             } catch (Exception ignored) {
                             }
                         }
@@ -858,12 +831,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             extenderPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    String url = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    try {
-                        startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
-                    } catch (Exception ignored) {}
+                    installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + " " +
+                            getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
+                            getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
                     return false;
                 }
             });
@@ -920,7 +890,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             try {
                                 startActivity(intent);
-                                afterStartPPPE = true;
                             } catch (Exception ignored) {
                             }
                         }
@@ -963,7 +932,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             try {
                                 startActivity(intent);
-                                afterStartPPPE = true;
                             } catch (Exception ignored) {
                             }
                         }
@@ -1006,7 +974,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             try {
                                 startActivity(intent);
-                                afterStartPPPE = true;
                             } catch (Exception ignored) {
                             }
                         }
@@ -1051,9 +1018,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         super.onResume();
         PPApplication.logE("EventsPrefsFragment.onResume", "xxx");
 
-        if (afterStartPPPE) {
-            afterStartPPPE = false;
-
+        if (!nestedFragment) {
             if (getActivity() == null)
                 return;
 
@@ -1501,12 +1466,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                         @Override
                         public boolean onPreferenceClick(Preference preference) {
-                            String url = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
-                            Intent i = new Intent(Intent.ACTION_VIEW);
-                            i.setData(Uri.parse(url));
-                            try {
-                                startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
-                            } catch (Exception ignored) {}
+                            installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + " " +
+                                    getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
+                                    getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
                             return false;
                         }
                     });
@@ -1591,6 +1553,42 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         MobileCellsPreferenceX preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELLS);
         if (preference != null)
             preference.refreshListView(true, Integer.MAX_VALUE);
+    }
+
+    private void installExtender(String dialogText) {
+        if (getActivity() == null) {
+            return;
+        }
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+        dialogBuilder.setTitle(R.string.install_extender_dialog_title);
+        dialogBuilder.setMessage(dialogText);
+        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+
+        dialogBuilder.setPositiveButton(R.string.alert_button_install, new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                String url = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                try {
+                    startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
+                } catch (Exception ignored) {}
+            }
+        });
+        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+        AlertDialog dialog = dialogBuilder.create();
+        /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                if (positive != null) positive.setAllCaps(false);
+                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                if (negative != null) negative.setAllCaps(false);
+            }
+        });*/
+        if (!getActivity().isFinishing())
+            dialog.show();
     }
 
 }
