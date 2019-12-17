@@ -48,6 +48,7 @@ import android.view.Surface;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 
+import com.crashlytics.android.Crashlytics;
 import com.stericson.RootShell.execution.Command;
 import com.stericson.RootShell.execution.Shell;
 import com.stericson.RootTools.RootTools;
@@ -2611,6 +2612,8 @@ class ActivateProfileHelper {
         }
         else
             executeForInteractivePreferences(profile, context);
+
+        //TODO Crashlytics.getInstance().crash();
     }
 
     private static void showNotificationForInteractiveParameters(Context context, String title, String text, Intent intent, int notificationId) {

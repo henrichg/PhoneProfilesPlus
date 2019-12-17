@@ -1,6 +1,9 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.util.Log;
+
+import com.crashlytics.android.Crashlytics;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
@@ -21,30 +24,42 @@ public class RestartEventsWithDelayWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
+        try {
+            PPApplication.logE("RestartEventsWithDelayWorker.doWork", "xxx");
 
-        PPApplication.logE("RestartEventsWithDelayWorker.doWork", "xxx");
+            //Data outputData;
 
-        //Data outputData;
+            // Get the input
+            boolean unblockEventsRun = getInputData().getBoolean(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, false);
+            int logType = getInputData().getInt(PhoneProfilesService.EXTRA_LOG_TYPE, 0);
 
-        // Get the input
-        boolean unblockEventsRun = getInputData().getBoolean(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, false);
-        int logType = getInputData().getInt(PhoneProfilesService.EXTRA_LOG_TYPE, 0);
+            //outputData = generateResult(LocationGeofenceEditorActivity.FAILURE_RESULT,
+            //                                    getApplicationContext().getString(R.string.event_preferences_location_no_address_found),
+            //                                    updateName);
 
-        //outputData = generateResult(LocationGeofenceEditorActivity.FAILURE_RESULT,
-        //                                    getApplicationContext().getString(R.string.event_preferences_location_no_address_found),
-        //                                    updateName);
-
-        //return Result.success(outputData);
+            //return Result.success(outputData);
 
 
-        DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
-        if (logType != DataWrapper.ALTYPE_UNDEFINED)
-            dataWrapper.addActivityLog(logType, null, null, null, 0);
-        //dataWrapper.restartEvents(unblockEventsRun, true, true, false);
-        dataWrapper.restartEventsWithRescan(/*true, */unblockEventsRun, false, true, false);
-        dataWrapper.invalidateDataWrapper();
+            DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
+            if (logType != DataWrapper.ALTYPE_UNDEFINED)
+                dataWrapper.addActivityLog(logType, null, null, null, 0);
+            //dataWrapper.restartEvents(unblockEventsRun, true, true, false);
+            dataWrapper.restartEventsWithRescan(/*true, */unblockEventsRun, false, true, false);
+            dataWrapper.invalidateDataWrapper();
 
-        return Result.success();
+            return Result.success();
+        } catch (Exception e) {
+            Log.e("RestartEventsWithDelayWorker.doWork", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
+            /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
+            Runnable r = new Runnable() {
+                public void run() {
+                    android.os.Process.killProcess(android.os.Process.myPid());
+                }
+            };
+            _handler.postDelayed(r, 1000);*/
+            return Result.failure();
+        }
     }
 
     /*

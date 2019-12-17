@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.gson.Gson;
 
@@ -57,53 +58,63 @@ public class BluetoothScanWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-
-        PPApplication.logE("BluetoothScanWorker.doWork", "---------------------------------------- START");
-
-        CallsCounter.logCounter(context, "BluetoothScanWorker.doWork", "BluetoothScanWorker_doWork");
-
-        if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed !=
-                PreferenceAllowed.PREFERENCE_ALLOWED) {
-            cancelWork(context, false, null);
-            PPApplication.logE("BluetoothScanWorker.doWork", "---------------------------------------- END");
-            return Result.success();
-        }
-
-        //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-        if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
-            PPApplication.logE("BluetoothScanWorker.doWork", "update in power save mode is not allowed");
-            cancelWork(context, false, null);
+        try {
             PPApplication.logE("BluetoothScanWorker.doWork", "---------------------------------------- START");
-            return Result.success();
-        }
 
-        if (bluetooth == null)
-            bluetooth = BluetoothAdapter.getDefaultAdapter(); //getBluetoothAdapter(context);
+            CallsCounter.logCounter(context, "BluetoothScanWorker.doWork", "BluetoothScanWorker_doWork");
 
-        if (Event.getGlobalEventsRunning(context))
-        {
-            PPApplication.logE("BluetoothScanWorker.doWork", "start scanner");
-            startScanner(context, false);
-        }
-
-        PPApplication.logE("BluetoothScanWorker.doWork - handler", "schedule work");
-        scheduleWork(context.getApplicationContext(), false, null, false/*, false*/);
-
-        /*PPApplication.startHandlerThreadPPService();
-        final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                PPApplication.logE("BluetoothScanWorker.doWork - handler", "schedule work");
-                scheduleWork(context, false, null, false);
+            if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed !=
+                    PreferenceAllowed.PREFERENCE_ALLOWED) {
+                cancelWork(context, false, null);
+                PPApplication.logE("BluetoothScanWorker.doWork", "---------------------------------------- END");
+                return Result.success();
             }
-        }, 500);*/
 
+            //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
+            boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+            if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
+                PPApplication.logE("BluetoothScanWorker.doWork", "update in power save mode is not allowed");
+                cancelWork(context, false, null);
+                PPApplication.logE("BluetoothScanWorker.doWork", "---------------------------------------- START");
+                return Result.success();
+            }
 
-        PPApplication.logE("BluetoothScanWorker.doWork", "---------------------------------------- END");
+            if (bluetooth == null)
+                bluetooth = BluetoothAdapter.getDefaultAdapter(); //getBluetoothAdapter(context);
 
-        return Result.success();
+            if (Event.getGlobalEventsRunning(context)) {
+                PPApplication.logE("BluetoothScanWorker.doWork", "start scanner");
+                startScanner(context, false);
+            }
+
+            PPApplication.logE("BluetoothScanWorker.doWork - handler", "schedule work");
+            scheduleWork(context.getApplicationContext(), false, null, false/*, false*/);
+
+            /*PPApplication.startHandlerThreadPPService();
+            final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    PPApplication.logE("BluetoothScanWorker.doWork - handler", "schedule work");
+                    scheduleWork(context, false, null, false);
+                }
+            }, 500);*/
+
+            PPApplication.logE("BluetoothScanWorker.doWork", "---------------------------------------- END");
+
+            return Result.success();
+        } catch (Exception e) {
+            Log.e("BluetoothScanWorker.doWork", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
+            /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
+            Runnable r = new Runnable() {
+                public void run() {
+                    android.os.Process.killProcess(android.os.Process.myPid());
+                }
+            };
+            _handler.postDelayed(r, 1000);*/
+            return Result.failure();
+        }
     }
 
     public void onStopped () {

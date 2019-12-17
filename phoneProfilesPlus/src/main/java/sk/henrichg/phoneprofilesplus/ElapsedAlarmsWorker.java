@@ -1,6 +1,9 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.util.Log;
+
+import com.crashlytics.android.Crashlytics;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
@@ -39,91 +42,103 @@ public class ElapsedAlarmsWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
+        try {
+            PPApplication.logE("ElapsedAlarmsWorker.doWork", "xxx");
 
-        PPApplication.logE("ElapsedAlarmsWorker.doWork", "xxx");
+            //Data outputData;
 
-        //Data outputData;
+            // Get the input
+            String action = getInputData().getString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK);
+            if (action == null) {
+                PPApplication.logE("ElapsedAlarmsWorker.doWork", "action ins null");
+                return Result.success();
+            }
 
-        // Get the input
-        String action = getInputData().getString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK);
-        if (action == null) {
-            PPApplication.logE("ElapsedAlarmsWorker.doWork", "action ins null");
+            PPApplication.logE("ElapsedAlarmsWorker.doWork", "action=" + action);
+
+            long eventId = getInputData().getLong(PPApplication.EXTRA_EVENT_ID, 0);
+            String runApplicationData = getInputData().getString(RunApplicationWithDelayBroadcastReceiver.EXTRA_RUN_APPLICATION_DATA);
+            long profileId = getInputData().getLong(PPApplication.EXTRA_PROFILE_ID, 0);
+            boolean forRestartEvents = getInputData().getBoolean(ProfileDurationAlarmBroadcastReceiver.EXTRA_FOR_RESTART_EVENTS, false);
+            int startupSource = getInputData().getInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SERVICE_MANUAL);
+
+            //outputData = generateResult(LocationGeofenceEditorActivity.FAILURE_RESULT,
+            //                                    getApplicationContext().getString(R.string.event_preferences_location_no_address_found),
+            //                                    updateName);
+
+            //return Result.success(outputData);
+
+            Context appContext = context.getApplicationContext();
+
+            switch (action) {
+                case ELAPSED_ALARMS_GEOFENCE_SCANNER_SWITCH_GPS:
+                    GeofencesScannerSwitchGPSBroadcastReceiver.doWork();
+                    break;
+                case ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY:
+                    LockDeviceActivityFinishBroadcastReceiver.doWork();
+                    break;
+                case ELAPSED_ALARMS_LOCK_DEVICE_AFTER_SCREEN_OFF:
+                    LockDeviceAfterScreenOffBroadcastReceiver.doWork(false, appContext);
+                    break;
+                case ELAPSED_ALARMS_START_EVENT_NOTIFICATION:
+                    StartEventNotificationBroadcastReceiver.doWork(false, appContext, eventId);
+                    break;
+                case ELAPSED_ALARMS_RUN_APPLICATION_WITH_DELAY:
+                    RunApplicationWithDelayBroadcastReceiver.doWork(appContext, runApplicationData);
+                    break;
+                case ELAPSED_ALARMS_PROFILE_DURATION:
+                    ProfileDurationAlarmBroadcastReceiver.doWork(false, appContext, profileId, forRestartEvents, startupSource);
+                    break;
+                case ELAPSED_ALARMS_EVENT_DELAY_START:
+                    EventDelayStartBroadcastReceiver.doWork(false, appContext);
+                    break;
+                case ELAPSED_ALARMS_EVENT_DELAY_END:
+                    EventDelayEndBroadcastReceiver.doWork(false, appContext);
+                    break;
+                case ELAPSED_ALARMS_DONATION:
+                    DonationBroadcastReceiver.doWork(false, appContext);
+                    break;
+                case ELAPSED_ALARMS_TWILIGHT_SCANNER:
+                    TwilightScanner.doWork();
+                    break;
+                case ELAPSED_ALARMS_TIME_SENSOR:
+                    EventTimeBroadcastReceiver.doWork(false, appContext);
+                    break;
+                case ELAPSED_ALARMS_ALARM_CLOCK_EVENT_END_SENSOR:
+                    AlarmClockEventEndBroadcastReceiver.doWork(false, appContext);
+                    break;
+                case ELAPSED_ALARMS_CALENDAR_SENSOR:
+                    EventCalendarBroadcastReceiver.doWork(false, appContext);
+                    break;
+                case ELAPSED_ALARMS_CALL_SENSOR:
+                    MissedCallEventEndBroadcastReceiver.doWork(false, appContext);
+                    break;
+                case ELAPSED_ALARMS_SMS_EVENT_END_SENSOR:
+                    SMSEventEndBroadcastReceiver.doWork(false, appContext);
+                    break;
+                case ELAPSED_ALARMS_NFC_EVENT_END_SENSOR:
+                    NFCEventEndBroadcastReceiver.doWork(false, appContext);
+                    break;
+                case ELAPSED_ALARMS_NOTIFICATION_EVENT_END_SENSOR:
+                    NotificationEventEndBroadcastReceiver.doWork(false, appContext);
+                    break;
+                default:
+                    break;
+            }
+
             return Result.success();
+        } catch (Exception e) {
+            Log.e("ElapsedAlarmsWorker.doWork", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
+            /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
+            Runnable r = new Runnable() {
+                public void run() {
+                    android.os.Process.killProcess(android.os.Process.myPid());
+                }
+            };
+            _handler.postDelayed(r, 1000);*/
+            return Result.failure();
         }
-
-        PPApplication.logE("ElapsedAlarmsWorker.doWork", "action="+action);
-
-        long eventId = getInputData().getLong(PPApplication.EXTRA_EVENT_ID, 0);
-        String runApplicationData = getInputData().getString(RunApplicationWithDelayBroadcastReceiver.EXTRA_RUN_APPLICATION_DATA);
-        long profileId = getInputData().getLong(PPApplication.EXTRA_PROFILE_ID, 0);
-        boolean forRestartEvents = getInputData().getBoolean(ProfileDurationAlarmBroadcastReceiver.EXTRA_FOR_RESTART_EVENTS, false);
-        int startupSource = getInputData().getInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SERVICE_MANUAL);
-
-        //outputData = generateResult(LocationGeofenceEditorActivity.FAILURE_RESULT,
-        //                                    getApplicationContext().getString(R.string.event_preferences_location_no_address_found),
-        //                                    updateName);
-
-        //return Result.success(outputData);
-
-        Context appContext = context.getApplicationContext();
-
-        switch (action) {
-            case ELAPSED_ALARMS_GEOFENCE_SCANNER_SWITCH_GPS:
-                GeofencesScannerSwitchGPSBroadcastReceiver.doWork();
-                break;
-            case ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY:
-                LockDeviceActivityFinishBroadcastReceiver.doWork();
-                break;
-            case ELAPSED_ALARMS_LOCK_DEVICE_AFTER_SCREEN_OFF:
-                LockDeviceAfterScreenOffBroadcastReceiver.doWork(false, appContext);
-                break;
-            case ELAPSED_ALARMS_START_EVENT_NOTIFICATION:
-                StartEventNotificationBroadcastReceiver.doWork(false, appContext, eventId);
-                break;
-            case ELAPSED_ALARMS_RUN_APPLICATION_WITH_DELAY:
-                RunApplicationWithDelayBroadcastReceiver.doWork(appContext, runApplicationData);
-                break;
-            case ELAPSED_ALARMS_PROFILE_DURATION:
-                ProfileDurationAlarmBroadcastReceiver.doWork(false, appContext, profileId, forRestartEvents, startupSource);
-                break;
-            case ELAPSED_ALARMS_EVENT_DELAY_START:
-                EventDelayStartBroadcastReceiver.doWork(false, appContext);
-                break;
-            case ELAPSED_ALARMS_EVENT_DELAY_END:
-                EventDelayEndBroadcastReceiver.doWork(false, appContext);
-                break;
-            case ELAPSED_ALARMS_DONATION:
-                DonationBroadcastReceiver.doWork(false, appContext);
-                break;
-            case ELAPSED_ALARMS_TWILIGHT_SCANNER:
-                TwilightScanner.doWork();
-                break;
-            case ELAPSED_ALARMS_TIME_SENSOR:
-                EventTimeBroadcastReceiver.doWork(false, appContext);
-                break;
-            case ELAPSED_ALARMS_ALARM_CLOCK_EVENT_END_SENSOR:
-                AlarmClockEventEndBroadcastReceiver.doWork(false, appContext);
-                break;
-            case ELAPSED_ALARMS_CALENDAR_SENSOR:
-                EventCalendarBroadcastReceiver.doWork(false, appContext);
-                break;
-            case ELAPSED_ALARMS_CALL_SENSOR:
-                MissedCallEventEndBroadcastReceiver.doWork(false, appContext);
-                break;
-            case ELAPSED_ALARMS_SMS_EVENT_END_SENSOR:
-                SMSEventEndBroadcastReceiver.doWork(false, appContext);
-                break;
-            case ELAPSED_ALARMS_NFC_EVENT_END_SENSOR:
-                NFCEventEndBroadcastReceiver.doWork(false, appContext);
-                break;
-            case ELAPSED_ALARMS_NOTIFICATION_EVENT_END_SENSOR:
-                NotificationEventEndBroadcastReceiver.doWork(false, appContext);
-                break;
-            default:
-                break;
-        }
-
-        return Result.success();
     }
 
     /*

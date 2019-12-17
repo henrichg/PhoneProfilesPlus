@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.List;
@@ -35,68 +36,81 @@ public class GeofenceScanWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- START");
+        try {
+            PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- START");
 
-        CallsCounter.logCounter(context, "GeofenceScanWorker.doWork", "GeofenceScanWorker_doWork");
+            CallsCounter.logCounter(context, "GeofenceScanWorker.doWork", "GeofenceScanWorker_doWork");
 
-        if (Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, context).allowed !=
-                PreferenceAllowed.PREFERENCE_ALLOWED) {
-            cancelWork(context, false, null);
-            PPApplication.logE("GeofenceScanWorker.doWork", "return - not allowed geofence scanning");
-            PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- END");
-            return Result.success();
-        }
+            if (Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, context).allowed !=
+                    PreferenceAllowed.PREFERENCE_ALLOWED) {
+                cancelWork(context, false, null);
+                PPApplication.logE("GeofenceScanWorker.doWork", "return - not allowed geofence scanning");
+                PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- END");
+                return Result.success();
+            }
 
-        //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-        if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
-            PPApplication.logE("GeofenceScanWorker.doWork", "update in power save mode is not allowed");
-            cancelWork(context, false,null);
-            PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- END");
-            return Result.success();
-        }
+            //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
+            boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+            if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
+                PPApplication.logE("GeofenceScanWorker.doWork", "update in power save mode is not allowed");
+                cancelWork(context, false, null);
+                PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- END");
+                return Result.success();
+            }
 
-        if (Event.getGlobalEventsRunning(context)) {
-            boolean geofenceScannerUpdatesStarted = false;
-            synchronized (PPApplication.geofenceScannerMutex) {
-                if ((PhoneProfilesService.getInstance() != null) && (PhoneProfilesService.getInstance().getGeofencesScanner() != null)) {
-                    GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
-                    if (scanner.mUpdatesStarted) {
-                        PPApplication.logE("GeofenceScanWorker.doWork", "location updates started - save to DB");
+            if (Event.getGlobalEventsRunning(context)) {
+                boolean geofenceScannerUpdatesStarted = false;
+                synchronized (PPApplication.geofenceScannerMutex) {
+                    if ((PhoneProfilesService.getInstance() != null) && (PhoneProfilesService.getInstance().getGeofencesScanner() != null)) {
+                        GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
+                        if (scanner.mUpdatesStarted) {
+                            PPApplication.logE("GeofenceScanWorker.doWork", "location updates started - save to DB");
 
-                        //if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted())
-                        scanner.updateGeofencesInDB();
+                            //if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted())
+                            scanner.updateGeofencesInDB();
 
-                        geofenceScannerUpdatesStarted = true;
+                            geofenceScannerUpdatesStarted = true;
+                        }
                     }
+                }
+
+                if (geofenceScannerUpdatesStarted) {
+                    PPApplication.logE("GeofenceScanWorker.doWork", "location updates started - start EventsHandler");
+
+                    // start events handler
+                    EventsHandler eventsHandler = new EventsHandler(context);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER);
+
                 }
             }
 
-            if (geofenceScannerUpdatesStarted) {
-                PPApplication.logE("GeofenceScanWorker.doWork", "location updates started - start EventsHandler");
+            PPApplication.logE("GeofenceScanWorker.doWork - handler", "schedule work");
+            scheduleWork(context.getApplicationContext(), false, null, false/*, false*/);
 
-                // start events handler
-                EventsHandler eventsHandler = new EventsHandler(context);
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER);
+            /*PPApplication.startHandlerThreadPPService();
+            final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    PPApplication.logE("GeofenceScanWorker.doWork - handler", "schedule work");
+                    scheduleWork(context, false, null, false);
+                }
+            }, 500);*/
 
-            }
+            PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- END");
+            return Result.success();
+        } catch (Exception e) {
+            Log.e("GeofenceScanWorker.doWork", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
+            /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
+            Runnable r = new Runnable() {
+                public void run() {
+                    android.os.Process.killProcess(android.os.Process.myPid());
+                }
+            };
+            _handler.postDelayed(r, 1000);*/
+            return Result.failure();
         }
-
-        PPApplication.logE("GeofenceScanWorker.doWork - handler", "schedule work");
-        scheduleWork(context.getApplicationContext(), false, null, false/*, false*/);
-
-        /*PPApplication.startHandlerThreadPPService();
-        final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                PPApplication.logE("GeofenceScanWorker.doWork - handler", "schedule work");
-                scheduleWork(context, false, null, false);
-            }
-        }, 500);*/
-
-        PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- END");
-        return Result.success();
     }
 
     public void onStopped () {

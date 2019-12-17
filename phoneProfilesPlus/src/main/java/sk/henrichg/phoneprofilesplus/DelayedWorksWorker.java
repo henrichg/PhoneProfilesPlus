@@ -2,6 +2,10 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.util.Log;
+
+import com.crashlytics.android.Crashlytics;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
@@ -25,52 +29,52 @@ public class DelayedWorksWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
+        try {
+            PPApplication.logE("DelayedWorksWorker.doWork", "xxx");
 
-        PPApplication.logE("RestartEventsWithDelayWorker.doWork", "xxx");
+            //Data outputData;
 
-        //Data outputData;
+            // Get the input
+            String action = getInputData().getString(PhoneProfilesService.EXTRA_DELAYED_WORK);
+            if (action == null)
+                return Result.success();
 
-        // Get the input
-        String action = getInputData().getString(PhoneProfilesService.EXTRA_DELAYED_WORK);
-        if (action == null)
-            return Result.success();
+            boolean activateProfiles = getInputData().getBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
+            String sensorType = getInputData().getString(PhoneProfilesService.EXTRA_SENSOR_TYPE);
 
-        boolean activateProfiles = getInputData().getBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
-        String sensorType = getInputData().getString(PhoneProfilesService.EXTRA_SENSOR_TYPE);
+            //outputData = generateResult(LocationGeofenceEditorActivity.FAILURE_RESULT,
+            //                                    getApplicationContext().getString(R.string.event_preferences_location_no_address_found),
+            //                                    updateName);
 
-        //outputData = generateResult(LocationGeofenceEditorActivity.FAILURE_RESULT,
-        //                                    getApplicationContext().getString(R.string.event_preferences_location_no_address_found),
-        //                                    updateName);
+            //return Result.success(outputData);
 
-        //return Result.success(outputData);
+            Context appContext = getApplicationContext();
 
-        Context appContext = getApplicationContext();
+            switch (action) {
+                case DELAYED_WORK_AFTER_FIRST_START:
+                    if (PhoneProfilesService.getInstance() != null) {
+                        PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "PhoneProfilesService.doForFirstStart.2 START");
 
-        switch (action) {
-            case DELAYED_WORK_AFTER_FIRST_START:
-                if (PhoneProfilesService.getInstance() != null) {
-                    PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "PhoneProfilesService.doForFirstStart.2 START");
+                        PhoneProfilesService instance = PhoneProfilesService.getInstance();
+                        instance.setWaitForEndOfStartToFalse();
 
-                    PhoneProfilesService instance = PhoneProfilesService.getInstance();
-                    instance.setWaitForEndOfStartToFalse();
+                        if (Event.getGlobalEventsRunning(appContext)) {
+                            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
-                    if (Event.getGlobalEventsRunning(appContext)) {
-                        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
-
-                        if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
-                            PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "RESTART EVENTS AFTER WAIT FOR END OF START");
-                            dataWrapper.restartEventsWithRescan(/*true, */activateProfiles, false, true, false);
-                            dataWrapper.invalidateDataWrapper();
+                            if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
+                                PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "RESTART EVENTS AFTER WAIT FOR END OF START");
+                                dataWrapper.restartEventsWithRescan(/*true, */activateProfiles, false, true, false);
+                                dataWrapper.invalidateDataWrapper();
+                            }
                         }
+
+                        PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "PhoneProfilesService.doForFirstStart.2 END");
                     }
+                    break;
+                case DELAYED_WORK_PACKAGE_REPLACED:
+                    PPApplication.logE("DelayedWorksWorker.doWork", "restartService=" + PackageReplacedReceiver.restartService);
 
-                    PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "PhoneProfilesService.doForFirstStart.2 END");
-                }
-                break;
-            case DELAYED_WORK_PACKAGE_REPLACED:
-                PPApplication.logE("DelayedWorksWorker.doWork", "restartService="+PackageReplacedReceiver.restartService);
-
-                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
                 /*
                 ApplicationPreferences.getSharedPreferences(appContext);
@@ -79,80 +83,91 @@ public class DelayedWorksWorker extends Worker {
                 editor.apply();
                 */
 
-                if (PhoneStateScanner.enabledAutoRegistration) {
-                    PhoneStateScanner.stopAutoRegistration(appContext);
-                    PPApplication.sleep(2000);
-                }
+                    if (PhoneStateScanner.enabledAutoRegistration) {
+                        PhoneStateScanner.stopAutoRegistration(appContext);
+                        PPApplication.sleep(2000);
+                    }
 
-                if (!PPApplication.getApplicationStarted(appContext, true)) {
-                    // service is not started, start it
-                    PPApplication.logE("PackageReplacedReceiver.onReceive", "PP service is not started, start it");
-                    startService(dataWrapper);
-                    PackageReplacedReceiver.restartService = true;
-                }
-                else {
-                    PPApplication.logE("PackageReplacedReceiver.onReceive", "PP service is started");
-                    if (PackageReplacedReceiver.restartService)
+                    if (!PPApplication.getApplicationStarted(appContext, true)) {
+                        // service is not started, start it
+                        PPApplication.logE("PackageReplacedReceiver.onReceive", "PP service is not started, start it");
                         startService(dataWrapper);
-                }
+                        PackageReplacedReceiver.restartService = true;
+                    } else {
+                        PPApplication.logE("PackageReplacedReceiver.onReceive", "PP service is started");
+                        if (PackageReplacedReceiver.restartService)
+                            startService(dataWrapper);
+                    }
 
-                if (!PackageReplacedReceiver.restartService) {
-                    // restart service is not set, only restart events.
+                    if (!PackageReplacedReceiver.restartService) {
+                        // restart service is not set, only restart events.
 
-                    //PPApplication.sleep(3000);
-                    if (PPApplication.getApplicationStarted(appContext, true)) {
-                        // service is started by PPApplication
+                        //PPApplication.sleep(3000);
+                        if (PPApplication.getApplicationStarted(appContext, true)) {
+                            // service is started by PPApplication
 
-                        //if (PhoneProfilesService.getInstance() != null)
-                        //    PhoneProfilesService.getInstance().removeRestartEventsForFirstStartHandler(true);
+                            //if (PhoneProfilesService.getInstance() != null)
+                            //    PhoneProfilesService.getInstance().removeRestartEventsForFirstStartHandler(true);
 
-                        dataWrapper.addActivityLog(DataWrapper.ALTYPE_APPLICATION_START, null, null, null, 0);
+                            dataWrapper.addActivityLog(DataWrapper.ALTYPE_APPLICATION_START, null, null, null, 0);
 
-                        // start events
-                        if (Event.getGlobalEventsRunning(appContext)) {
-                            PPApplication.logE("PackageReplacedReceiver.onReceive", "global event run is enabled, first start events");
+                            // start events
+                            if (Event.getGlobalEventsRunning(appContext)) {
+                                PPApplication.logE("PackageReplacedReceiver.onReceive", "global event run is enabled, first start events");
 
-                            if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
+                                if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
+                                    ////// unblock all events for first start
+                                    //     that may be blocked in previous application run
+                                    dataWrapper.pauseAllEvents(true, false);
+                                }
+
+                                dataWrapper.firstStartEvents(true, false);
+                                PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from PackageReplacedReceiver.onReceive");
+                                dataWrapper.updateNotificationAndWidgets(true);
+                            } else {
+                                PPApplication.logE("PackageReplacedReceiver.onReceive", "global event run is not enabled, manually activate profile");
+
                                 ////// unblock all events for first start
                                 //     that may be blocked in previous application run
                                 dataWrapper.pauseAllEvents(true, false);
+
+                                dataWrapper.activateProfileOnBoot();
+                                PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from PackageReplacedReceiver.onReceive");
+                                dataWrapper.updateNotificationAndWidgets(true);
                             }
-
-                            dataWrapper.firstStartEvents(true, false);
-                            PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from PackageReplacedReceiver.onReceive");
-                            dataWrapper.updateNotificationAndWidgets(true);
-                        } else {
-                            PPApplication.logE("PackageReplacedReceiver.onReceive", "global event run is not enabled, manually activate profile");
-
-                            ////// unblock all events for first start
-                            //     that may be blocked in previous application run
-                            dataWrapper.pauseAllEvents(true, false);
-
-                            dataWrapper.activateProfileOnBoot();
-                            PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from PackageReplacedReceiver.onReceive");
-                            dataWrapper.updateNotificationAndWidgets(true);
                         }
                     }
-                }
-                break;
-            case DELAYED_WORK_HANDLE_EVENTS:
-                if (sensorType != null) {
-                    // start events handler
-                    EventsHandler eventsHandler = new EventsHandler(appContext);
-                    eventsHandler.handleEvents(sensorType);
-                }
-                break;
-            case DELAYED_WORK_START_WIFI_SCAN:
-                WifiScanWorker.startScan(appContext);
-                break;
-            case DELAYED_WORK_BLOCK_PROFILE_EVENT_ACTIONS:
-                PPApplication.blockProfileEventActions = false;
-                break;
-            default:
-                break;
-        }
+                    break;
+                case DELAYED_WORK_HANDLE_EVENTS:
+                    if (sensorType != null) {
+                        // start events handler
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        eventsHandler.handleEvents(sensorType);
+                    }
+                    break;
+                case DELAYED_WORK_START_WIFI_SCAN:
+                    WifiScanWorker.startScan(appContext);
+                    break;
+                case DELAYED_WORK_BLOCK_PROFILE_EVENT_ACTIONS:
+                    PPApplication.blockProfileEventActions = false;
+                    break;
+                default:
+                    break;
+            }
 
-        return Result.success();
+            return Result.success();
+        } catch (Exception e) {
+            Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
+            /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
+            Runnable r = new Runnable() {
+                public void run() {
+                    android.os.Process.killProcess(android.os.Process.myPid());
+                }
+            };
+            _handler.postDelayed(r, 1000);*/
+            return Result.failure();
+        }
     }
 
     /*

@@ -32,7 +32,6 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$ppVersions.appcompatXLib"
     implementation "androidx.appcompat:appcompat-resources:$ppVersions.appcompatXLib"
 
-    implementation project(':common')
-
+    //implementation project(':common')
 }
 

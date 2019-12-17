@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.List;
@@ -35,39 +36,51 @@ public class SearchCalendarEventsWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        PPApplication.logE("SearchCalendarEventsWorker.doWork", "---------------------------------------- START");
+        try {
+            PPApplication.logE("SearchCalendarEventsWorker.doWork", "---------------------------------------- START");
 
-        CallsCounter.logCounter(context, "SearchCalendarEventsWorker.doWork", "SearchCalendarEventsWorker_doWork");
+            CallsCounter.logCounter(context, "SearchCalendarEventsWorker.doWork", "SearchCalendarEventsWorker_doWork");
 
-        if (!PPApplication.getApplicationStarted(context, true)) {
-            // application is not started
-            PPApplication.logE("SearchCalendarEventsWorker.doWork", "---------------------------------------- END");
-            return Result.success();
-        }
-
-        if (Event.getGlobalEventsRunning(context))
-        {
-            // start events handler
-            EventsHandler eventsHandler = new EventsHandler(context);
-            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SEARCH_CALENDAR_EVENTS);
-        }
-
-        PPApplication.logE("SearchCalendarEventsWorker.doWork - handler", "schedule work");
-        scheduleWork(context.getApplicationContext(), false, null, false);
-
-        /*PPApplication.startHandlerThreadPPService();
-        final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                PPApplication.logE("SearchCalendarEventsWorker.doWork - handler", "schedule work");
-                scheduleWork(context, false, null, false);
+            if (!PPApplication.getApplicationStarted(context, true)) {
+                // application is not started
+                PPApplication.logE("SearchCalendarEventsWorker.doWork", "---------------------------------------- END");
+                return Result.success();
             }
-        }, 500);*/
 
-        PPApplication.logE("SearchCalendarEventsWorker.doWork", "---------------------------------------- END");
+            if (Event.getGlobalEventsRunning(context)) {
+                // start events handler
+                EventsHandler eventsHandler = new EventsHandler(context);
+                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SEARCH_CALENDAR_EVENTS);
+            }
 
-        return Result.success();
+            PPApplication.logE("SearchCalendarEventsWorker.doWork - handler", "schedule work");
+            scheduleWork(context.getApplicationContext(), false, null, false);
+
+            /*PPApplication.startHandlerThreadPPService();
+            final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    PPApplication.logE("SearchCalendarEventsWorker.doWork - handler", "schedule work");
+                    scheduleWork(context, false, null, false);
+                }
+            }, 500);*/
+
+            PPApplication.logE("SearchCalendarEventsWorker.doWork", "---------------------------------------- END");
+
+            return Result.success();
+        } catch (Exception e) {
+            Log.e("SearchCalendarEventsWorker.doWork", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
+            /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
+            Runnable r = new Runnable() {
+                public void run() {
+                    android.os.Process.killProcess(android.os.Process.myPid());
+                }
+            };
+            _handler.postDelayed(r, 1000);*/
+            return Result.failure();
+        }
     }
 
     public void onStopped () {

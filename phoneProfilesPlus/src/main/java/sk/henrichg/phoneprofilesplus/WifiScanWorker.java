@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.gson.Gson;
 
@@ -49,55 +50,66 @@ public class WifiScanWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
+        try {
+            PPApplication.logE("WifiScanWorker.doWork", "---------------------------------------- START");
 
-        PPApplication.logE("WifiScanWorker.doWork", "---------------------------------------- START");
+            CallsCounter.logCounter(context, "WifiScanWorker.doWork", "WifiScanWorker_doWork");
 
-        CallsCounter.logCounter(context, "WifiScanWorker.doWork", "WifiScanWorker_doWork");
-
-        if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed !=
-                PreferenceAllowed.PREFERENCE_ALLOWED) {
-            cancelWork(context, false, null);
-            PPApplication.logE("WifiScanWorker.doWork", "return - not allowed wifi scanning");
-            PPApplication.logE("WifiScanWorker.doWork", "---------------------------------------- END");
-            return Result.success();
-        }
-
-        //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-        if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
-            cancelWork(context, false, null);
-            PPApplication.logE("WifiScanWorker.doWork", "return - update in power save mode is not allowed");
-            PPApplication.logE("WifiScanWorker.doWork", "---------------------------------------- END");
-            return Result.success();
-        }
-
-        if (wifi == null)
-            wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-
-        if (Event.getGlobalEventsRunning(context))
-        {
-            PPApplication.logE("WifiScanWorker.doWork", "global events running=true");
-
-            PPApplication.logE("WifiScanWorker.doWork", "start scanner");
-            startScanner(context, false);
-        }
-
-        PPApplication.logE("[SCHEDULE] WifiScanWorker.doWork", "schedule work");
-        scheduleWork(context.getApplicationContext(), false, null, false/*, false, false*/);
-
-        /*PPApplication.startHandlerThreadPPService();
-        final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                PPApplication.logE("WifiScanWorker.doWork - handler", "schedule work");
-                scheduleWork(context, false, null, false);
+            if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed !=
+                    PreferenceAllowed.PREFERENCE_ALLOWED) {
+                cancelWork(context, false, null);
+                PPApplication.logE("WifiScanWorker.doWork", "return - not allowed wifi scanning");
+                PPApplication.logE("WifiScanWorker.doWork", "---------------------------------------- END");
+                return Result.success();
             }
-        }, 500);*/
 
-        PPApplication.logE("WifiScanWorker.doWork", "---------------------------------------- END");
+            //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
+            boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+            if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
+                cancelWork(context, false, null);
+                PPApplication.logE("WifiScanWorker.doWork", "return - update in power save mode is not allowed");
+                PPApplication.logE("WifiScanWorker.doWork", "---------------------------------------- END");
+                return Result.success();
+            }
 
-        return Result.success();
+            if (wifi == null)
+                wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+
+            if (Event.getGlobalEventsRunning(context)) {
+                PPApplication.logE("WifiScanWorker.doWork", "global events running=true");
+
+                PPApplication.logE("WifiScanWorker.doWork", "start scanner");
+                startScanner(context, false);
+            }
+
+            PPApplication.logE("[SCHEDULE] WifiScanWorker.doWork", "schedule work");
+            scheduleWork(context.getApplicationContext(), false, null, false/*, false, false*/);
+
+            /*PPApplication.startHandlerThreadPPService();
+            final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    PPApplication.logE("WifiScanWorker.doWork - handler", "schedule work");
+                    scheduleWork(context, false, null, false);
+                }
+            }, 500);*/
+
+            PPApplication.logE("WifiScanWorker.doWork", "---------------------------------------- END");
+
+            return Result.success();
+        } catch (Exception e) {
+            Log.e("WifiScanWorker.doWork", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
+            /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
+            Runnable r = new Runnable() {
+                public void run() {
+                    android.os.Process.killProcess(android.os.Process.myPid());
+                }
+            };
+            _handler.postDelayed(r, 1000);*/
+            return Result.failure();
+        }
     }
 
     public void onStopped () {
