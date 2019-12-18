@@ -8,6 +8,7 @@ import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanSettings;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
@@ -485,7 +486,10 @@ public class BluetoothScanWorker extends Worker {
                     if (getBluetoothEnabledForScan(context)) {
                         PPApplication.logE("BluetoothScanWorker.startCLScan", "disable bluetooth");
                         if (Permissions.checkBluetoothForEMUI(context))
-                            bluetooth.disable();
+                            if (Build.VERSION.SDK_INT >= 26)
+                                CmdBluetooth.setBluetooth(false);
+                            else
+                                bluetooth.disable();
                     }
                 }
                 setWaitForResults(context, startScan);
@@ -622,8 +626,12 @@ public class BluetoothScanWorker extends Worker {
     static public void stopScan(Context context)
     {
         unlock();
-        if (getBluetoothEnabledForScan(context))
-            bluetooth.disable();
+        if (getBluetoothEnabledForScan(context)) {
+            if (Build.VERSION.SDK_INT >= 26)
+                CmdBluetooth.setBluetooth(false);
+            else
+                bluetooth.disable();
+        }
         setBluetoothEnabledForScan(context, false);
         setScanRequest(context, false);
         setWaitForResults(context, false);

@@ -272,13 +272,10 @@ class ActivateProfileHelper {
                             if (setWifiState) {
                                 try {
                                     PPApplication.logE("#### setWifiEnabled", "from ActivateProfileHelper.doExecuteForRadio");
-                                    //PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "isRooted="+PPApplication.isRooted(false));
-                                    //if (PPApplication.isRooted(false)) {
-                                        CmdWifi.setWifi(isWifiEnabled); // Not working ENABLE, disable working without root.
-                                                                          // Maybe only with root, command svc wifi [enable|disable].
-                                    //}
-                                    //else
-                                    //    wifiManager.setWifiEnabled(isWifiEnabled);
+                                    if (Build.VERSION.SDK_INT >= 26)
+                                        CmdWifi.setWifi(isWifiEnabled);
+                                    else
+                                        wifiManager.setWifiEnabled(isWifiEnabled);
                                 } catch (Exception e) {
                                     Log.e("ActivateProfileHelper.doExecuteForRadios", Log.getStackTraceString(e));
                                 }
@@ -408,10 +405,14 @@ class ActivateProfileHelper {
                     }
                     if (setBluetoothState) {
                         try {
-                            if (isBluetoothEnabled)
-                                bluetoothAdapter.enable();
-                            else
-                                bluetoothAdapter.disable();
+                            if (Build.VERSION.SDK_INT >= 26)
+                                CmdBluetooth.setBluetooth(isBluetoothEnabled);
+                            else {
+                                if (isBluetoothEnabled)
+                                    bluetoothAdapter.enable();
+                                else
+                                    bluetoothAdapter.disable();
+                            }
                         } catch (Exception e) {
                             Log.e("ActivateProfileHelper.doExecuteForRadio", Log.getStackTraceString(e));
                         }
@@ -3511,8 +3512,10 @@ class ActivateProfileHelper {
                                 PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-isWifiEnabled=" + isWifiEnabled);
                                 if (isWifiEnabled) {
                                     PPApplication.logE("#### setWifiEnabled", "from ActivateProfileHelper.setWifiAP");
-                                    //wifiManager.setWifiEnabled(false);
-                                    CmdWifi.setWifi(false);
+                                    if (Build.VERSION.SDK_INT >= 26)
+                                        CmdWifi.setWifi(false);
+                                    else
+                                        wifiManager.setWifiEnabled(false);
                                     PPApplication.sleep(1000);
                                 }
                             }

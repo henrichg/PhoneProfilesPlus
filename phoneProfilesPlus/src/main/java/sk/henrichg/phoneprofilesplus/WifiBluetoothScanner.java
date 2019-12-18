@@ -161,8 +161,10 @@ class WifiBluetoothScanner {
                                         PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
                                         //lock();
                                         PPApplication.logE("#### setWifiEnabled", "from WifiBluetoothScanner.doScan 1");
-                                        //WifiScanWorker.wifi.setWifiEnabled(false);
-                                        CmdWifi.setWifi(false);
+                                        if (Build.VERSION.SDK_INT >= 26)
+                                            CmdWifi.setWifi(false);
+                                        else
+                                            WifiScanWorker.wifi.setWifiEnabled(false);
                                         PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
                                     }
                                 });
@@ -272,8 +274,10 @@ class WifiBluetoothScanner {
                                     PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "disable wifi");
                                     //lock();
                                     PPApplication.logE("#### setWifiEnabled", "from WifiBluetoothScanner.doScan 2");
-                                    //WifiScanWorker.wifi.setWifiEnabled(false);
-                                    CmdWifi.setWifi(false);
+                                    if (Build.VERSION.SDK_INT >= 26)
+                                        CmdWifi.setWifi(false);
+                                    else
+                                        WifiScanWorker.wifi.setWifiEnabled(false);
                                 } else
                                     PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "keep enabled wifi");
 
@@ -344,7 +348,10 @@ class WifiBluetoothScanner {
                                             PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
                                             if (Permissions.checkBluetoothForEMUI(context)) {
                                                 //lock();
-                                                BluetoothScanWorker.bluetooth.disable();
+                                                if (Build.VERSION.SDK_INT >= 26)
+                                                    CmdBluetooth.setBluetooth(false);
+                                                else
+                                                    BluetoothScanWorker.bluetooth.disable();
                                             }
                                             PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
                                         }
@@ -468,7 +475,10 @@ class WifiBluetoothScanner {
                                             PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "disable bluetooth");
                                             if (Permissions.checkBluetoothForEMUI(context)) {
                                                 //lock();
-                                                BluetoothScanWorker.bluetooth.disable();
+                                                if (Build.VERSION.SDK_INT >= 26)
+                                                    CmdBluetooth.setBluetooth(false);
+                                                else
+                                                    BluetoothScanWorker.bluetooth.disable();
                                             }
                                         } else
                                             PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "keep enabled bluetooth");
@@ -615,8 +625,10 @@ class WifiBluetoothScanner {
                                 PPApplication.logE("$$$ WifiBluetoothScanner.enableWifi", "before enable wifi");
                                 PPApplication.logE("[HANDLER] WifiBluetoothScanner.enableWifi", "before enable wifi");
                                 PPApplication.logE("#### setWifiEnabled", "from WifiBluetoothScanner.enableWifi");
-                                //_wifi.setWifiEnabled(true);
-                                CmdWifi.setWifi(true);
+                                if (Build.VERSION.SDK_INT >= 26)
+                                    CmdWifi.setWifi(true);
+                                else
+                                    _wifi.setWifiEnabled(true);
                                 PPApplication.logE("$$$ WifiBluetoothScanner.enableWifi", "after enable wifi");
 
                                 PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
@@ -696,7 +708,10 @@ class WifiBluetoothScanner {
 
                             if (Permissions.checkBluetoothForEMUI(context)) {
                                 //lock(); // lock is required for enabling bluetooth
-                                _bluetooth.enable();
+                                if (Build.VERSION.SDK_INT >= 26)
+                                    CmdBluetooth.setBluetooth(true);
+                                else
+                                    _bluetooth.enable();
                             }
 
                             PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");

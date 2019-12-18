@@ -6,6 +6,7 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
@@ -444,8 +445,10 @@ public class WifiScanWorker extends Worker {
                 if (getWifiEnabledForScan(context)) {
                     PPApplication.logE("$$$ WifiScanWorker.startScan", "disable wifi");
                     PPApplication.logE("#### setWifiEnabled", "from WifiScanWorker.startScan 1");
-                    //wifi.setWifiEnabled(false);
-                    CmdWifi.setWifi(false);
+                    if (Build.VERSION.SDK_INT >= 26)
+                        CmdWifi.setWifi(false);
+                    else
+                        wifi.setWifiEnabled(false);
                 }
                 unlock();
             }
@@ -455,8 +458,10 @@ public class WifiScanWorker extends Worker {
             if (getWifiEnabledForScan(context)) {
                 PPApplication.logE("$$$ WifiScanWorker.startScan", "disable wifi");
                 PPApplication.logE("#### setWifiEnabled", "from WifiScanWorker.startScan 2");
-                //wifi.setWifiEnabled(false);
-                CmdWifi.setWifi(false);
+                if (Build.VERSION.SDK_INT >= 26)
+                    CmdWifi.setWifi(false);
+                else
+                    wifi.setWifiEnabled(false);
             }
             unlock();
             setWaitForResults(context, false);
