@@ -1182,7 +1182,7 @@ class EventPreferencesTime extends EventPreferences {
     @SuppressLint({"SimpleDateFormat", "NewApi"})
     private void setAlarm(boolean startEvent, long alarmTime, Context context)
     {
-        boolean testEvent = (_event._name != null) && _event._name.equals("Time sensor");
+        boolean testEvent = (_event._name != null) && _event._name.equals("Noc doma");
         if (testEvent)
             PPApplication.logE("EventPreferencesTime.setAlarm", "event="+_event._name);
 

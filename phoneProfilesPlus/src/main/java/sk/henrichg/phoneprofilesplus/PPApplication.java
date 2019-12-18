@@ -517,11 +517,11 @@ public class PPApplication extends Application {
                                         //+"|Profile.convertPercentsToBrightnessManualValue"
                                         //+"|Profile.convertPercentsToBrightnessAdaptiveValue"
                                         //+"|Profile.convertBrightnessToPercents"
+                                        //+"|[BRS] SettingsContentObserver.onChange"
 
                                         //+"|EditorProfileListFragment.refreshGUI"
                                         //+"|EditorEventListFragment.refreshGUI"
 
-                                        //+"|[BRS] SettingsContentObserver.onChange"
                                         //+"|----- ActivateProfileHelper.execute"
                                         //+"|BluetoothNamePreferenceFragmentX"
 
@@ -558,7 +558,7 @@ public class PPApplication extends Application {
                                         //+"|SMSEventEndBroadcastReceiver"
                                         //+"|ElapsedAlarmsWorker"
                                         //+"|[WIFI] ActivateProfileHelper.doExecuteForRadios"
-                                        +"|CmdWifi.setWifi"
+                                        //+"|CmdWifi.setWifi"
             ;
 
 
