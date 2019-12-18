@@ -161,7 +161,8 @@ class WifiBluetoothScanner {
                                         PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
                                         //lock();
                                         PPApplication.logE("#### setWifiEnabled", "from WifiBluetoothScanner.doScan 1");
-                                        WifiScanWorker.wifi.setWifiEnabled(false);
+                                        //WifiScanWorker.wifi.setWifiEnabled(false);
+                                        CmdWifi.setWifi(false);
                                         PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
                                     }
                                 });
@@ -271,7 +272,8 @@ class WifiBluetoothScanner {
                                     PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "disable wifi");
                                     //lock();
                                     PPApplication.logE("#### setWifiEnabled", "from WifiBluetoothScanner.doScan 2");
-                                    WifiScanWorker.wifi.setWifiEnabled(false);
+                                    //WifiScanWorker.wifi.setWifiEnabled(false);
+                                    CmdWifi.setWifi(false);
                                 } else
                                     PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "keep enabled wifi");
 
@@ -613,7 +615,8 @@ class WifiBluetoothScanner {
                                 PPApplication.logE("$$$ WifiBluetoothScanner.enableWifi", "before enable wifi");
                                 PPApplication.logE("[HANDLER] WifiBluetoothScanner.enableWifi", "before enable wifi");
                                 PPApplication.logE("#### setWifiEnabled", "from WifiBluetoothScanner.enableWifi");
-                                _wifi.setWifiEnabled(true);
+                                //_wifi.setWifiEnabled(true);
+                                CmdWifi.setWifi(true);
                                 PPApplication.logE("$$$ WifiBluetoothScanner.enableWifi", "after enable wifi");
 
                                 PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");

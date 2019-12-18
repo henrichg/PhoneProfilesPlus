@@ -444,7 +444,8 @@ public class WifiScanWorker extends Worker {
                 if (getWifiEnabledForScan(context)) {
                     PPApplication.logE("$$$ WifiScanWorker.startScan", "disable wifi");
                     PPApplication.logE("#### setWifiEnabled", "from WifiScanWorker.startScan 1");
-                    wifi.setWifiEnabled(false);
+                    //wifi.setWifiEnabled(false);
+                    CmdWifi.setWifi(false);
                 }
                 unlock();
             }
@@ -454,7 +455,8 @@ public class WifiScanWorker extends Worker {
             if (getWifiEnabledForScan(context)) {
                 PPApplication.logE("$$$ WifiScanWorker.startScan", "disable wifi");
                 PPApplication.logE("#### setWifiEnabled", "from WifiScanWorker.startScan 2");
-                wifi.setWifiEnabled(false);
+                //wifi.setWifiEnabled(false);
+                CmdWifi.setWifi(false);
             }
             unlock();
             setWaitForResults(context, false);

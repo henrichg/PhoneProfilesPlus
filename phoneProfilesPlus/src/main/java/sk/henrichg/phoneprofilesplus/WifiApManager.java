@@ -58,7 +58,8 @@ final class WifiApManager {
                     boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
                     if (isWifiEnabled) {
                         PPApplication.logE("#### setWifiEnabled", "from WifAPManager.setWifiApState");
-                        mWifiManager.setWifiEnabled(false);
+                        //mWifiManager.setWifiEnabled(false);
+                        CmdWifi.setWifi(false);
                     }
                 }
             }
@@ -143,7 +144,8 @@ final class WifiApManager {
             boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
             if (isWifiEnabled) {
                 PPApplication.logE("#### setWifiEnabled", "from WifiAPManager.startTethering");
-                mWifiManager.setWifiEnabled(false);
+                //mWifiManager.setWifiEnabled(false);
+                CmdWifi.setWifi(false);
             }
         }
         if (mConnectivityManager != null) {

@@ -557,6 +557,8 @@ public class PPApplication extends Application {
                                         //+"|EventPreferencesSMS"
                                         //+"|SMSEventEndBroadcastReceiver"
                                         //+"|ElapsedAlarmsWorker"
+                                        //+"|[WIFI] ActivateProfileHelper.doExecuteForRadios"
+                                        +"|CmdWifi.setWifi"
             ;
 
 
