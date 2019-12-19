@@ -337,3 +337,16 @@ Eventy:
 - Application sensor
 - Orientation sensor
 
+----------------------------------------
+
+Vypnutie dialogov na potvrdenie zapnutie Wi-Fi, Bluetooth:
+
+Z ColorOs:
+  - Developer options
+    - Developer options = enabled
+	- Debuging:
+      - USB debuging = enabled
+    - Apps:
+      - Disables authorization monitoring = enabked
+
+----------------------------------------
