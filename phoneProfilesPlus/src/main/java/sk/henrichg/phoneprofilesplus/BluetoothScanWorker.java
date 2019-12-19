@@ -486,9 +486,9 @@ public class BluetoothScanWorker extends Worker {
                     if (getBluetoothEnabledForScan(context)) {
                         PPApplication.logE("BluetoothScanWorker.startCLScan", "disable bluetooth");
                         if (Permissions.checkBluetoothForEMUI(context))
-                            if (Build.VERSION.SDK_INT >= 26)
-                                CmdBluetooth.setBluetooth(false);
-                            else
+                            //if (Build.VERSION.SDK_INT >= 26)
+                            //    CmdBluetooth.setBluetooth(false);
+                            //else
                                 bluetooth.disable();
                     }
                 }

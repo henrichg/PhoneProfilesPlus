@@ -272,9 +272,9 @@ class ActivateProfileHelper {
                             if (setWifiState) {
                                 try {
                                     PPApplication.logE("#### setWifiEnabled", "from ActivateProfileHelper.doExecuteForRadio");
-                                    if (Build.VERSION.SDK_INT >= 26)
-                                        CmdWifi.setWifi(isWifiEnabled);
-                                    else
+                                    //if (Build.VERSION.SDK_INT >= 26)
+                                    //    CmdWifi.setWifi(isWifiEnabled);
+                                    //else
                                         wifiManager.setWifiEnabled(isWifiEnabled);
                                 } catch (Exception e) {
                                     Log.e("ActivateProfileHelper.doExecuteForRadios", Log.getStackTraceString(e));
@@ -405,14 +405,14 @@ class ActivateProfileHelper {
                     }
                     if (setBluetoothState) {
                         try {
-                            if (Build.VERSION.SDK_INT >= 26)
-                                CmdBluetooth.setBluetooth(isBluetoothEnabled);
-                            else {
+                            //if (Build.VERSION.SDK_INT >= 26)
+                            //    CmdBluetooth.setBluetooth(isBluetoothEnabled);
+                            //else {
                                 if (isBluetoothEnabled)
                                     bluetoothAdapter.enable();
                                 else
                                     bluetoothAdapter.disable();
-                            }
+                            //}
                         } catch (Exception e) {
                             Log.e("ActivateProfileHelper.doExecuteForRadio", Log.getStackTraceString(e));
                         }
@@ -3512,9 +3512,9 @@ class ActivateProfileHelper {
                                 PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-isWifiEnabled=" + isWifiEnabled);
                                 if (isWifiEnabled) {
                                     PPApplication.logE("#### setWifiEnabled", "from ActivateProfileHelper.setWifiAP");
-                                    if (Build.VERSION.SDK_INT >= 26)
-                                        CmdWifi.setWifi(false);
-                                    else
+                                    //if (Build.VERSION.SDK_INT >= 26)
+                                    //    CmdWifi.setWifi(false);
+                                    //else
                                         wifiManager.setWifiEnabled(false);
                                     PPApplication.sleep(1000);
                                 }

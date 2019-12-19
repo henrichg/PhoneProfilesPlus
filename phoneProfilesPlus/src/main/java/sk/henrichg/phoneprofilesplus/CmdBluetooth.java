@@ -30,7 +30,7 @@ public class CmdBluetooth {
                 bluetoothAdapter.disable(packageName, true);
             return true;
         } catch (Throwable e) {
-            PPApplication.logE("CmdWifi.setWifi", Log.getStackTraceString(e));
+            PPApplication.logE("CmdBluetooth.setBluetooth", Log.getStackTraceString(e));
             return false;
         }
     }
