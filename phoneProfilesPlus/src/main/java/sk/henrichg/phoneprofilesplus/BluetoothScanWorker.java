@@ -8,7 +8,6 @@ import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanSettings;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;

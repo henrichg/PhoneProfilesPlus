@@ -1,12 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.bluetooth.IBluetoothManager;
-import android.net.wifi.IWifiManager;
-import android.net.wifi.WifiManager;
 import android.os.ServiceManager;
 import android.util.Log;
 
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class CmdBluetooth {
 
     public static void main(String[] args) {
