@@ -200,7 +200,7 @@ class EventsHandler {
                 if (Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, context.getApplicationContext()).allowed ==
                         PreferenceAllowed.PREFERENCE_ALLOWED) {
                     int eventCount = DatabaseHandler.getInstance(context.getApplicationContext())
-                                        .getTypeEventsCount(DatabaseHandler.ETYPE_CALENDAR, false);
+                            .getTypeEventsCount(DatabaseHandler.ETYPE_CALENDAR, false);
                     if (eventCount > 0)
                         saveCalendarStartEndTime = true;
                 }
@@ -235,8 +235,7 @@ class EventsHandler {
             if (isRestart) {
                 // for restart events, set startTime to 0
                 dataWrapper.clearSensorsStartTime(/*false*/);
-            }
-            else {
+            } else {
                 if (sensorType.equals(SENSOR_TYPE_SMS)) {
                     // search for sms events, save start time
                     PPApplication.logE("EventsHandler.handleEvents", "search for sms events");
@@ -520,13 +519,12 @@ class EventsHandler {
                                     // activate default profile when is not activated profile at end of events
                                     ((!activateProfileAtEnd || ((mergedProfile._id != 0) && (mergedPausedProfile._id == 0))) &&
                                             (activatedProfileId != backgroundProfileId))
-                                    ) {
+                            ) {
                                 notifyBackgroundProfile = true;
                                 mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper/*, false*/);
                                 PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
                             }
-                        }
-                        else {
+                        } else {
                             if ((activatedProfileId != backgroundProfileId) || isRestart) {
                                 notifyBackgroundProfile = true;
                                 mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper/*, false*/);
@@ -557,10 +555,10 @@ class EventsHandler {
             boolean backgroundProfileNotificationVibrate = false;
 
             //if (/*(!isRestart) &&*/ (runningEventCountE > runningEventCountP)) {
-                // only running events is increased, play event notification sound
+            // only running events is increased, play event notification sound
 
-                //EventTimeline eventTimeline = eventTimelineList.get(runningEventCountE - 1);
-                //notifyEventStart = dataWrapper.getEventById(eventTimeline._fkEvent);
+            //EventTimeline eventTimeline = eventTimelineList.get(runningEventCountE - 1);
+            //notifyEventStart = dataWrapper.getEventById(eventTimeline._fkEvent);
             //}
             //else
             if (/*(!isRestart) &&*/ (backgroundProfileId != Profile.PROFILE_NO_ACTIVATE) && notifyBackgroundProfile) {
@@ -574,32 +572,36 @@ class EventsHandler {
 
             PPApplication.logE("$$$ EventsHandler.handleEvents", "mergedProfile._id=" + mergedProfile._id);
             boolean doSleep = false;
-            if (mergedProfile._id != 0) {
-                // activate merged profile
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "#### profileName=" + mergedProfile._name);
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "#### profileId=" + mergedProfile._id);
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "#### _volumeRingerMode=" + mergedProfile._volumeRingerMode);
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "#### _volumeZenMode=" + mergedProfile._volumeZenMode);
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "#### _volumeRingtone=" + mergedProfile._volumeRingtone);
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "#### _volumeNotification=" + mergedProfile._volumeNotification);
-                DatabaseHandler.getInstance(context.getApplicationContext()).saveMergedProfile(mergedProfile);
+
+            if (!restartEventsAtEnd) {
+                if (mergedProfile._id != 0) {
+                    // activate merged profile
+                    PPApplication.logE("$$$ EventsHandler.handleEvents", "#### profileName=" + mergedProfile._name);
+                    PPApplication.logE("$$$ EventsHandler.handleEvents", "#### profileId=" + mergedProfile._id);
+                    PPApplication.logE("$$$ EventsHandler.handleEvents", "#### _volumeRingerMode=" + mergedProfile._volumeRingerMode);
+                    PPApplication.logE("$$$ EventsHandler.handleEvents", "#### _volumeZenMode=" + mergedProfile._volumeZenMode);
+                    PPApplication.logE("$$$ EventsHandler.handleEvents", "#### _volumeRingtone=" + mergedProfile._volumeRingtone);
+                    PPApplication.logE("$$$ EventsHandler.handleEvents", "#### _volumeNotification=" + mergedProfile._volumeNotification);
+                    DatabaseHandler.getInstance(context.getApplicationContext()).saveMergedProfile(mergedProfile);
 
 
-                //if (mergedProfile._id != oldActivatedProfileId)
-                if (!mergedProfile.compareProfile(oldActivatedProfile))
-                    profileChanged = true;
+                    //if (mergedProfile._id != oldActivatedProfileId)
+                    if (!mergedProfile.compareProfile(oldActivatedProfile))
+                        profileChanged = true;
 
-                if ((profileChanged || reactivateProfile) && (!restartEventsAtEnd)) {
-                    dataWrapper.activateProfileFromEvent(mergedProfile._id, false, true, isRestart);
-                    // wait for profile activation
-                    doSleep = true;
-                }
-            } else {
-                if (!restartEventsAtEnd) {
+                    if (profileChanged || reactivateProfile) {
+                        dataWrapper.activateProfileFromEvent(mergedProfile._id, false, true, isRestart);
+                        // wait for profile activation
+                        doSleep = true;
+                    }
+                } else {
                     // update only when will not be do restart events from paused events
                     PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EventsHandler.handleEvents");
                     dataWrapper.updateNotificationAndWidgets(false);
                 }
+            }
+            else {
+                PPApplication.logE("$$$ EventsHandler.handleEvents", "will be called restart events");
             }
 
             /*
