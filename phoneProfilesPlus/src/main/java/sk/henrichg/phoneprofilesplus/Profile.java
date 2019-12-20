@@ -3924,7 +3924,6 @@ public class Profile {
         return preferenceAllowed;
     }
 
-    /*
     public int isAccessibilityServiceEnabled(Context context) {
         int accessibilityEnabled = 1;
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
@@ -3957,7 +3956,6 @@ public class Profile {
         }
         return accessibilityEnabled;
     }
-    */
 
     static long getActivatedProfileForDuration(Context context)
     {

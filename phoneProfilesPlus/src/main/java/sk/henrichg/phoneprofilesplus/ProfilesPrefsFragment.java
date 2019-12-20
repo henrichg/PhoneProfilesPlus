@@ -46,7 +46,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
     private boolean nestedFragment = false;
 
-    //private static final String PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE = "prf_pref_notEnabledAccessibilityService";
+    private static final String PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE = "prf_pref_notEnabledAccessibilityService";
 
     private static final String PREF_NOTIFICATION_ACCESS = "prf_pref_volumeNotificationsAccessSettings";
     private static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1980;
@@ -3085,7 +3085,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
 
-            /*
             // not enabled accessibility service
             int accessibilityEnabled = profile.isAccessibilityServiceEnabled(context);
             if (accessibilityEnabled == 1) {
@@ -3135,10 +3134,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 return false;
                             }
                         });
+                    }
                     else {
-                        _title = getString(R.string.event_preferences_red_enable_PPPExtender) + " " +
-                                getString(R.string.event_preferences_red_sensors_summary) + " " +
-                                getString(R.string.event_preferences_sensor_parameters_location_summary);
+                        _title = getString(R.string.event_preferences_red_enable_PPPExtender);
                         Spannable summary = new SpannableString(_title);
                         summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
                         preference.setSummary(summary);
@@ -3153,7 +3151,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
             }
-            */
         }
         else {
             Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
