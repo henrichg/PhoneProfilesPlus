@@ -75,12 +75,12 @@ public class DelayedWorksWorker extends Worker {
 
                     DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
-                /*
-                ApplicationPreferences.getSharedPreferences(appContext);
-                SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-                editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "white");
-                editor.apply();
-                */
+                    /*
+                    ApplicationPreferences.getSharedPreferences(appContext);
+                    SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                    editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "white");
+                    editor.apply();
+                    */
 
                     if (PhoneStateScanner.enabledAutoRegistration) {
                         PhoneStateScanner.stopAutoRegistration(appContext);
@@ -89,11 +89,11 @@ public class DelayedWorksWorker extends Worker {
 
                     if (!PPApplication.getApplicationStarted(appContext, true)) {
                         // service is not started, start it
-                        PPApplication.logE("PackageReplacedReceiver.onReceive", "PP service is not started, start it");
+                        PPApplication.logE("PackageReplacedReceiver.onReceive - worker", "PP service is not started, start it");
                         startService(dataWrapper);
                         PackageReplacedReceiver.restartService = true;
                     } else {
-                        PPApplication.logE("PackageReplacedReceiver.onReceive", "PP service is started");
+                        PPApplication.logE("PackageReplacedReceiver.onReceive - worker", "PP service is started");
                         if (PackageReplacedReceiver.restartService)
                             startService(dataWrapper);
                     }
@@ -112,7 +112,7 @@ public class DelayedWorksWorker extends Worker {
 
                             // start events
                             if (Event.getGlobalEventsRunning(appContext)) {
-                                PPApplication.logE("PackageReplacedReceiver.onReceive", "global event run is enabled, first start events");
+                                PPApplication.logE("PackageReplacedReceiver.onReceive - worker", "global event run is enabled, first start events");
 
                                 if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
                                     ////// unblock all events for first start
@@ -121,17 +121,17 @@ public class DelayedWorksWorker extends Worker {
                                 }
 
                                 dataWrapper.firstStartEvents(true, false);
-                                PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from PackageReplacedReceiver.onReceive");
+                                PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from PackageReplacedReceiver.onReceive - worker");
                                 dataWrapper.updateNotificationAndWidgets(true);
                             } else {
-                                PPApplication.logE("PackageReplacedReceiver.onReceive", "global event run is not enabled, manually activate profile");
+                                PPApplication.logE("PackageReplacedReceiver.onReceive - worker", "global event run is not enabled, manually activate profile");
 
                                 ////// unblock all events for first start
                                 //     that may be blocked in previous application run
                                 dataWrapper.pauseAllEvents(true, false);
 
                                 dataWrapper.activateProfileOnBoot();
-                                PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from PackageReplacedReceiver.onReceive");
+                                PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from PackageReplacedReceiver.onReceive - worker");
                                 dataWrapper.updateNotificationAndWidgets(true);
                             }
                         }

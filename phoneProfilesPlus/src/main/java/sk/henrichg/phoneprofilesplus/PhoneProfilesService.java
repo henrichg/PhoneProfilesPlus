@@ -76,9 +76,6 @@ public class PhoneProfilesService extends Service
     //private boolean runningInForeground = false;
     private boolean waitForEndOfStart = true;
 
-    //private Handler restartEventsForFirstStartHandler;
-    //private Runnable restartEventsForFirstStartRunnable;
-
     private KeyguardManager keyguardManager = null;
     @SuppressWarnings("deprecation")
     private KeyguardManager.KeyguardLock keyguardLock = null;
@@ -88,6 +85,8 @@ public class PhoneProfilesService extends Service
 
     LockDeviceActivity lockDeviceActivity = null;
     int screenTimeoutBeforeDeviceLock = 0;
+
+    boolean willBeDoRestartEvents = false;
 
     private static final StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = new StartLauncherFromNotificationReceiver();
     private static final RefreshActivitiesBroadcastReceiver refreshActivitiesBroadcastReceiver = new RefreshActivitiesBroadcastReceiver();
@@ -411,6 +410,8 @@ public class PhoneProfilesService extends Service
 
         ringingMediaPlayer = null;
         //notificationMediaPlayer = null;
+
+        willBeDoRestartEvents = false;
 
         PPApplication.logE("$$$ PhoneProfilesService.onCreate", "OK created");
 
@@ -3739,6 +3740,8 @@ public class PhoneProfilesService extends Service
                             BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
                             // not needed clearConnectedDevices(.., true) call it
                             //BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
+
+                            // duration > 30 seconds because in it is 3 x 10 seconds sleep
                             BluetoothConnectedDevices.getConnectedDevices(appContext);
 
                             WifiScanWorker.setScanRequest(appContext, false);
@@ -3809,6 +3812,7 @@ public class PhoneProfilesService extends Service
                         PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "PhoneProfilesService.doForFirstStart END");
 
                         PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneProfilesService.doForFirstStart");
+
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -3816,10 +3820,25 @@ public class PhoneProfilesService extends Service
                             } catch (Exception ignored) {}
                         }
                     }
+
+                    Data workData = new Data.Builder()
+                            .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START)
+                            .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, _activateProfiles)
+                            .build();
+
+                    OneTimeWorkRequest worker =
+                            new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                    .setInputData(workData)
+                                    .setInitialDelay(30, TimeUnit.SECONDS)
+                                    .build();
+                    try {
+                        WorkManager workManager = WorkManager.getInstance(appContext);
+                        workManager.enqueueUniqueWork("delayedWorkAfterFirstStartWork", ExistingWorkPolicy.REPLACE, worker);
+                    } catch (Exception ignored) {}
                 }
             });
 
-            Data workData = new Data.Builder()
+            /*Data workData = new Data.Builder()
                     .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START)
                     .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, _activateProfiles)
                     .build();
@@ -3827,12 +3846,17 @@ public class PhoneProfilesService extends Service
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
                             .setInputData(workData)
-                            .setInitialDelay(30, TimeUnit.SECONDS)
+
+                            // this is another thread then from startHandlerThread, it is from WorkManager.
+                            // getConnectedDevices() = 30 seconds
+                            // for this situation, wait for startHandlerThread() + this work
+                            .setInitialDelay(50, TimeUnit.SECONDS)
+
                             .build();
             try {
                 WorkManager workManager = WorkManager.getInstance(appContext);
                 workManager.enqueueUniqueWork("delayedWorkAfterFirstStartWork", ExistingWorkPolicy.REPLACE, worker);
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {}*/
 
             /*
             PPApplication.startHandlerThread("PhoneProfilesService.doForFirstStart.2");

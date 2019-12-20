@@ -28,7 +28,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
         CallsCounter.logCounter(context, "PackageReplacedReceiver.onReceive", "PackageReplacedReceiver_onReceive");
 
         if ((intent != null) && (intent.getAction() != null) && intent.getAction().equals(Intent.ACTION_MY_PACKAGE_REPLACED)) {
-            PPApplication.logE("##### PackageReplacedReceiver.onReceive", "yyy");
+            PPApplication.logE("##### PackageReplacedReceiver.onReceive", "xxx");
 
             restartService = false;
 
@@ -400,10 +400,24 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             } catch (Exception ignored) {}
                         }
                     }
+
+                    Data workData = new Data.Builder()
+                            .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED)
+                            .build();
+
+                    OneTimeWorkRequest worker =
+                            new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                    .setInputData(workData)
+                                    .setInitialDelay(15, TimeUnit.SECONDS)
+                                    .build();
+                    try {
+                        WorkManager workManager = WorkManager.getInstance(appContext);
+                        workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.REPLACE, worker);
+                    } catch (Exception ignored) {}
                 }
             });
 
-            Data workData = new Data.Builder()
+            /*Data workData = new Data.Builder()
                     .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED)
                     .build();
 
@@ -415,7 +429,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
             try {
                 WorkManager workManager = WorkManager.getInstance(context);
                 workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.REPLACE, worker);
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {}*/
 
             /*PPApplication.startHandlerThread("PackageReplacedReceiver.onReceive.2");
             final Handler handler3 = new Handler(PPApplication.handlerThread.getLooper());

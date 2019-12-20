@@ -4371,13 +4371,17 @@ public class DataWrapper {
     @SuppressLint("NewApi")
     // delay is in seconds, max 5
     void restartEventsWithDelay(int delay, final boolean unblockEventsRun, /*final boolean reactivateProfile,*/
-                                boolean clearOld, final int logType)
+                                /*boolean clearOld,*/ final int logType)
     {
-        PPApplication.logE("[TEST HANDLER] DataWrapper.restartEventsWithDelay","clearOld="+clearOld);
+        PPApplication.logE("[TEST HANDLER] DataWrapper.restartEventsWithDelay","xxx"); //"clearOld="+clearOld);
 
         //final DataWrapper dataWrapper = copyDataWrapper();
 
-        if (clearOld) {
+        /*if (PhoneProfilesService.getInstance() != null) {
+            ++PhoneProfilesService.getInstance().willBeDoRestartEvents;
+        }*/
+
+/*        if (clearOld) {
             Data workData = new Data.Builder()
                     .putBoolean(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun)
                     .putInt(PhoneProfilesService.EXTRA_LOG_TYPE, logType)
@@ -4390,27 +4394,27 @@ public class DataWrapper {
                             .build();
             try {
                 WorkManager workManager = WorkManager.getInstance(context);
-                workManager.cancelUniqueWork("restartEventsWithDelayClearOldWork");
-                workManager.cancelAllWorkByTag("restartEventsWithDelayClearOldWork");
-                workManager.cancelUniqueWork("restartEventsWithDelayNotClearOldWork");
-                workManager.cancelAllWorkByTag("restartEventsWithDelayNotClearOldWork");
+//                workManager.cancelUniqueWork("restartEventsWithDelayClearOldWork");
+//                workManager.cancelAllWorkByTag("restartEventsWithDelayClearOldWork");
+//                workManager.cancelUniqueWork("restartEventsWithDelayNotClearOldWork");
+//                workManager.cancelAllWorkByTag("restartEventsWithDelayNotClearOldWork");
                 workManager.enqueueUniqueWork("restartEventsWithDelayClearOldWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
             } catch (Exception ignored) {}
 
-            /*PPApplication.startHandlerThreadRestartEventsWithDelay();
-            PPApplication.restartEventsWithDelayHandler.removeCallbacksAndMessages(null);
-            PPApplication.restartEventsWithDelayHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    PPApplication.logE("[TEST HANDLER] DataWrapper.restartEventsWithDelay", "restart from handler");
-                    if (logType != ALTYPE_UNDEFINED)
-                        dataWrapper.addActivityLog(logType, null, null, null, 0);
-                    dataWrapper.restartEventsWithRescan(unblockEventsRun, false, true, false);
-                }
-            }, delay * 1000);*/
-            //PostDelayedBroadcastReceiver.setAlarmForRestartEvents(delay, true, unblockEventsRun, /*reactivateProfile,*/ logType, context);
+//            PPApplication.startHandlerThreadRestartEventsWithDelay();
+//            PPApplication.restartEventsWithDelayHandler.removeCallbacksAndMessages(null);
+//            PPApplication.restartEventsWithDelayHandler.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    PPApplication.logE("[TEST HANDLER] DataWrapper.restartEventsWithDelay", "restart from handler");
+//                    if (logType != ALTYPE_UNDEFINED)
+//                        dataWrapper.addActivityLog(logType, null, null, null, 0);
+//                    dataWrapper.restartEventsWithRescan(unblockEventsRun, false, true, false);
+//                }
+//            }, delay * 1000);
+            //PostDelayedBroadcastReceiver.setAlarmForRestartEvents(delay, true, unblockEventsRun, logType, context);
         }
-        else {
+        else {*/
             Data workData = new Data.Builder()
                     .putBoolean(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun)
                     .putInt(PhoneProfilesService.EXTRA_LOG_TYPE, logType)
@@ -4423,7 +4427,8 @@ public class DataWrapper {
                             .build();
             try {
                 WorkManager workManager = WorkManager.getInstance(context);
-                workManager.enqueueUniqueWork("restartEventsWithDelayNotClearOldWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
+                //workManager.enqueueUniqueWork("restartEventsWithDelayNotClearOldWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
+                workManager.enqueueUniqueWork("restartEventsWithDelayWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
             } catch (Exception ignored) {}
 
             /*PPApplication.startHandlerThread("DataWrapper.restartEventsWithDelay");
@@ -4438,7 +4443,7 @@ public class DataWrapper {
                 }
             }, delay * 1000);*/
             //PostDelayedBroadcastReceiver.setAlarmForRestartEvents(delay, false, unblockEventsRun, /*reactivateProfile,*/ logType, context);
-        }
+        //}
     }
 
     void setEventBlocked(Event event, boolean blocked)

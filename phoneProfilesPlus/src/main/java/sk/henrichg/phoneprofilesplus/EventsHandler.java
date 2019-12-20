@@ -7,14 +7,22 @@ import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.telephony.TelephonyManager;
+import android.util.Log;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 
 class EventsHandler {
     
     private final Context context;
+    private PhoneProfilesService ppService = null;
+
     private String sensorType;
 
     private static int oldRingerMode;
@@ -84,6 +92,10 @@ class EventsHandler {
 
             PPApplication.logE("#### EventsHandler.handleEvents", "-- application started --------------------------------");
 
+            if (PhoneProfilesService.getInstance() != null) {
+                ppService = PhoneProfilesService.getInstance();
+            }
+
             //boolean interactive;
 
             this.sensorType = sensorType;
@@ -142,7 +154,7 @@ class EventsHandler {
             */
 
             /*
-            if (PhoneProfilesService.getInstance() != null) {
+            if (ppService != null) {
                 // start of GeofenceScanner
                 if (!PhoneProfilesService.isGeofenceScannerStarted())
                     PPApplication.startGeofenceScanner(context);
@@ -168,7 +180,7 @@ class EventsHandler {
 
             /*
             // start orientation listener only when events exists
-            if (PhoneProfilesService.getInstance() != null) {
+            if (ppService != null) {
                 if (!PhoneProfilesService.isOrientationScannerStarted()) {
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION) > 0)
                         PPApplication.startOrientationScanner(context);
@@ -312,7 +324,6 @@ class EventsHandler {
 
             int runningEventCount0;
             //int runningEventCountP;
-            boolean restartEventsAtEnd = false;
             boolean activateProfileAtEnd = false;
             boolean anyEventPaused = false;
             //Event notifyEventEnd = null;
@@ -324,6 +335,38 @@ class EventsHandler {
                 if (PPApplication.logEnabled()) {
                     PPApplication.logE("$$$ EventsHandler.handleEvents", "restart events");
                     PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "restart events");
+                }
+
+                if (ppService != null) {
+                    // check if exists delayed restart events
+                    boolean exists;
+                    try {
+                        WorkManager instance = WorkManager.getInstance(context.getApplicationContext());
+                        ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosByTag("restartEventsWithDelayWork");
+                        //noinspection TryWithIdenticalCatches
+                        try {
+                            List<WorkInfo> workInfoList = statuses.get();
+                            boolean running = false;
+                            for (WorkInfo workInfo : workInfoList) {
+                                WorkInfo.State state = workInfo.getState();
+                                running = (state == WorkInfo.State.RUNNING) || (state == WorkInfo.State.ENQUEUED);
+                            }
+                            exists = running;
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                            exists = false;
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                            exists = false;
+                        }
+                    } catch (Exception e) {
+                        exists = false;
+                    }
+                    if (!exists) {
+                        // delayed work not exists
+                        PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "delayed work not exists");
+                        ppService.willBeDoRestartEvents = false;
+                    }
                 }
 
                 reactivateProfile = true;
@@ -438,14 +481,18 @@ class EventsHandler {
                             if (_event.notifyEventEnd(!notified))
                                 notified = true;
 
-                            if ((!restartEventsAtEnd) && (_event._atEndDo == Event.EATENDDO_RESTART_EVENTS)) {
+
+                            if ((ppService != null) && (_event._atEndDo == Event.EATENDDO_RESTART_EVENTS)) {
                                 PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "has restart events=");
-                                restartEventsAtEnd = true;
+                                ppService.willBeDoRestartEvents = true;
                             }
                             if ((!activateProfileAtEnd) && ((_event._atEndDo == Event.EATENDDO_UNDONE_PROFILE) || (_event._fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)))
                                 activateProfileAtEnd = true;
 
-                            PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "restartEventsAtEnd=" + restartEventsAtEnd);
+                            if (PPApplication.logEnabled()) {
+                                if (ppService != null)
+                                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "ppService.willBeDoRestartEvents=" + ppService.willBeDoRestartEvents);
+                            }
                         }
                     }
                 }
@@ -507,63 +554,69 @@ class EventsHandler {
             boolean notifyBackgroundProfile = false;
 
             boolean waitForEndOfStart = true;
-            if (PhoneProfilesService.getInstance() != null)
-                waitForEndOfStart = PhoneProfilesService.getInstance().getWaitForEndOfStart();
+            if (ppService != null)
+                waitForEndOfStart = ppService.getWaitForEndOfStart();
 
             if (!DataWrapper.getIsManualProfileActivation(false, context.getApplicationContext())) {
                 if (PPApplication.logEnabled()) {
                     PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "active profile is NOT activated manually");
                     PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "runningEventCount0=" + runningEventCount0);
                     PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "runningEventCountE=" + runningEventCountE);
-                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "restartEventsAtEnd=" + restartEventsAtEnd);
+                    if (ppService != null)
+                        PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "ppService.willBeDoRestartEvents=" + ppService.willBeDoRestartEvents);
                 }
                 // no manual profile activation
-                if ((runningEventCountE == 0) && (!restartEventsAtEnd)) {
-                    // activate default profile, only when will not be do restart events from paused events
+                if (runningEventCountE == 0) {
+                    if ((ppService != null) && (!ppService.willBeDoRestartEvents)) {
+                        // activate default profile, only when will not be do restart events from paused events
 
-                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "no events running");
-                    // no events running
-                    backgroundProfileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context));
-                    if (waitForEndOfStart)
-                        backgroundProfileId = Profile.PROFILE_NO_ACTIVATE;
-                    if (backgroundProfileId != Profile.PROFILE_NO_ACTIVATE) {
-                        PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "default profile is set");
-                        long activatedProfileId = 0;
-                        if (activatedProfile != null)
-                            activatedProfileId = activatedProfile._id;
+                        PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "no events running");
+                        // no events running
+                        backgroundProfileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context));
+                        if (waitForEndOfStart)
+                            backgroundProfileId = Profile.PROFILE_NO_ACTIVATE;
+                        if (backgroundProfileId != Profile.PROFILE_NO_ACTIVATE) {
+                            PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "default profile is set");
+                            long activatedProfileId = 0;
+                            if (activatedProfile != null)
+                                activatedProfileId = activatedProfile._id;
 
-                        if (ApplicationPreferences.applicationBackgroundProfileUsage(context)) {
-                            // do not activate default profile when not any event is paused and no any profile is activated
-                            // for example for screen on/off broadcast, when no any event is running
-                            if (!anyEventPaused && (mergedProfile._id == 0) && (mergedPausedProfile._id == 0))
-                                activateProfileAtEnd = true;
+                            if (ApplicationPreferences.applicationBackgroundProfileUsage(context)) {
+                                // do not activate default profile when not any event is paused and no any profile is activated
+                                // for example for screen on/off broadcast, when no any event is running
+                                if (!anyEventPaused && (mergedProfile._id == 0) && (mergedPausedProfile._id == 0))
+                                    activateProfileAtEnd = true;
 
-                            if (PPApplication.logEnabled()) {
-                                PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "anyEventPaused=" + anyEventPaused);
-                                PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activatedProfileId=" + activatedProfileId);
-                                PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "mergedProfile._id=" + mergedProfile._id);
-                                PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "mergedPausedProfile._id=" + mergedPausedProfile._id);
-                                PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "isRestart=" + isRestart);
-                                PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activateProfileAtEnd=" + activateProfileAtEnd);
-                            }
-                            if ((activatedProfileId == 0) ||
-                                    isRestart ||
-                                    // activate default profile when is not activated profile at end of events
-                                    ((!activateProfileAtEnd || ((mergedProfile._id != 0) && (mergedPausedProfile._id == 0))) &&
-                                            (activatedProfileId != backgroundProfileId))
-                            ) {
-                                notifyBackgroundProfile = true;
-                                mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper/*, false*/);
-                                PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
-                            }
-                        } else {
-                            if ((activatedProfileId != backgroundProfileId) || isRestart) {
-                                notifyBackgroundProfile = true;
-                                mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper/*, false*/);
-                                PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
+                                if (PPApplication.logEnabled()) {
+                                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "anyEventPaused=" + anyEventPaused);
+                                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activatedProfileId=" + activatedProfileId);
+                                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "mergedProfile._id=" + mergedProfile._id);
+                                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "mergedPausedProfile._id=" + mergedPausedProfile._id);
+                                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "isRestart=" + isRestart);
+                                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activateProfileAtEnd=" + activateProfileAtEnd);
+                                }
+                                if ((activatedProfileId == 0) ||
+                                        isRestart ||
+                                        // activate default profile when is not activated profile at end of events
+                                        ((!activateProfileAtEnd || ((mergedProfile._id != 0) && (mergedPausedProfile._id == 0))) &&
+                                                (activatedProfileId != backgroundProfileId))
+                                ) {
+                                    notifyBackgroundProfile = true;
+                                    mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper/*, false*/);
+                                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
+                                }
+                            } else {
+                                if ((activatedProfileId != backgroundProfileId) || isRestart) {
+                                    notifyBackgroundProfile = true;
+                                    mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper/*, false*/);
+                                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
+                                }
                             }
                         }
                     }
+                    else
+                    if (ppService != null)
+                        ppService.willBeDoRestartEvents = false;
                 }
             } else {
                 PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "active profile is activated manually");
@@ -629,7 +682,7 @@ class EventsHandler {
                     doSleep = true;
                 }
             } else {
-                if (!restartEventsAtEnd) {
+                if ((ppService != null) && (!ppService.willBeDoRestartEvents)) {
                     // update only when will not be do restart events from paused events
                     PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EventsHandler.handleEvents");
                     dataWrapper.updateNotificationAndWidgets(false);
@@ -658,8 +711,8 @@ class EventsHandler {
             if (!notified) {
                 // notify default profile
                 if (!backgroundProfileNotificationSound.isEmpty() || backgroundProfileNotificationVibrate) {
-                    if (PhoneProfilesService.getInstance() != null) {
-                        PhoneProfilesService.getInstance().playNotificationSound(backgroundProfileNotificationSound, backgroundProfileNotificationVibrate);
+                    if (ppService != null) {
+                        ppService.playNotificationSound(backgroundProfileNotificationSound, backgroundProfileNotificationVibrate);
                         PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "default profile notified");
                         notified = true;
                     }

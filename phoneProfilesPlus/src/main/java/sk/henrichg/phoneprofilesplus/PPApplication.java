@@ -156,7 +156,7 @@ public class PPApplication extends Application {
 
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
                                          //+"|#### EventsHandler.handleEvents"
-                                         +"|[DEFPROF] EventsHandler"
+                                         //+"|[DEFPROF] EventsHandler"
                                          //+"|$$$ EventsHandler.handleEvents"
                                          //+"|[NOTIFY] EventsHandler"
                                          //+"|Profile.mergeProfiles"
