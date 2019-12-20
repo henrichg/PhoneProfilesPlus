@@ -341,12 +341,12 @@ class EventsHandler {
                         //noinspection TryWithIdenticalCatches
                         try {
                             List<WorkInfo> workInfoList = statuses.get();
-                            boolean running = false;
+                            boolean enqueued = false;
                             for (WorkInfo workInfo : workInfoList) {
                                 WorkInfo.State state = workInfo.getState();
-                                running = (state == WorkInfo.State.RUNNING) || (state == WorkInfo.State.ENQUEUED);
+                                enqueued = state == WorkInfo.State.ENQUEUED;
                             }
-                            exists = running;
+                            exists = enqueued;
                         } catch (ExecutionException e) {
                             e.printStackTrace();
                             exists = false;
