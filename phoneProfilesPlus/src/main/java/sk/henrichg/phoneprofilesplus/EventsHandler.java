@@ -292,9 +292,11 @@ class EventsHandler {
             boolean forDelayStartAlarm = sensorType.equals(SENSOR_TYPE_EVENT_DELAY_START);
             boolean forDelayEndAlarm = sensorType.equals(SENSOR_TYPE_EVENT_DELAY_END);
 
-            //PPApplication.logE("@@@ EventsHandler.handleEvents","isRestart="+isRestart);
-            PPApplication.logE("@@@ EventsHandler.handleEvents", "forDelayStartAlarm=" + forDelayStartAlarm);
-            PPApplication.logE("@@@ EventsHandler.handleEvents", "forDelayEndAlarm=" + forDelayEndAlarm);
+            if (PPApplication.logEnabled()) {
+                //PPApplication.logE("@@@ EventsHandler.handleEvents","isRestart="+isRestart);
+                PPApplication.logE("@@@ EventsHandler.handleEvents", "forDelayStartAlarm=" + forDelayStartAlarm);
+                PPApplication.logE("@@@ EventsHandler.handleEvents", "forDelayEndAlarm=" + forDelayEndAlarm);
+            }
 
             // no refresh notification and widgets
             ActivateProfileHelper.lockRefresh = true;
@@ -319,7 +321,10 @@ class EventsHandler {
             boolean reactivateProfile = false;
 
             if (isRestart) {
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "restart events");
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("$$$ EventsHandler.handleEvents", "restart events");
+                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "restart events");
+                }
 
                 reactivateProfile = true;
 
@@ -332,13 +337,21 @@ class EventsHandler {
                 // 1. pause events
                 dataWrapper.sortEventsByStartOrderDesc();
                 for (Event _event : dataWrapper.eventList) {
-                    PPApplication.logE("EventsHandler.handleEvents", "state PAUSE");
-                    PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
-                    PPApplication.logE("EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("EventsHandler.handleEvents", "state PAUSE");
+                        PPApplication.logE("EventsHandler.handleEvents", "event._name=" + _event._name);
+                        PPApplication.logE("EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
+                    }
 
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
                         // only pause events
                         // pause also paused events
+
+                        if (PPApplication.logEnabled()) {
+                            PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "state PAUSE");
+                            PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "event._name=" + _event._name);
+                            PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
+                        }
 
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
                         dataWrapper.doHandleEvents(_event, true, true, /*interactive,*/ false, false, /*reactivateProfile,*/ mergedProfile, sensorType);
@@ -349,15 +362,6 @@ class EventsHandler {
                             //notifyEventEnd = _event;
                             _event.notifyEventEnd(false);
                         }
-
-                        /*
-                        PPApplication.logE("$$$ EventsHandler.handleEvents", "**** profileName=" + mergedProfile._name);
-                        PPApplication.logE("$$$ EventsHandler.handleEvents", "**** profileId=" + mergedProfile._id);
-                        PPApplication.logE("$$$ EventsHandler.handleEvents", "**** _volumeRingerMode=" + mergedProfile._volumeRingerMode);
-                        PPApplication.logE("$$$ EventsHandler.handleEvents", "**** _volumeZenMode=" + mergedProfile._volumeZenMode);
-                        PPApplication.logE("$$$ EventsHandler.handleEvents", "**** _volumeRingtone=" + mergedProfile._volumeRingtone);
-                        PPApplication.logE("$$$ EventsHandler.handleEvents", "**** _volumeNotification=" + mergedProfile._volumeNotification);
-                        */
                     }
                 }
 
@@ -366,12 +370,20 @@ class EventsHandler {
                 // 2. start events
                 dataWrapper.sortEventsByStartOrderAsc();
                 for (Event _event : dataWrapper.eventList) {
-                    PPApplication.logE("EventsHandler.handleEvents", "state RUNNING");
-                    PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
-                    PPApplication.logE("EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("EventsHandler.handleEvents", "state RUNNING");
+                        PPApplication.logE("EventsHandler.handleEvents", "event.name=" + _event._name);
+                        PPApplication.logE("EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
+                    }
 
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
                         // only start events
+
+                        if (PPApplication.logEnabled()) {
+                            PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "state RUNNING");
+                            PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "event._name=" + _event._name);
+                            PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
+                        }
 
                         // start all events
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
@@ -381,19 +393,13 @@ class EventsHandler {
                         if (running && paused) {
                             _event.notifyEventStart(context, false);
                         }
-
-                        /*
-                        PPApplication.logE("$$$ EventsHandler.handleEvents", "**** profileName=" + mergedProfile._name);
-                        PPApplication.logE("$$$ EventsHandler.handleEvents", "**** profileId=" + mergedProfile._id);
-                        PPApplication.logE("$$$ EventsHandler.handleEvents", "**** _volumeRingerMode=" + mergedProfile._volumeRingerMode);
-                        PPApplication.logE("$$$ EventsHandler.handleEvents", "**** _volumeZenMode=" + mergedProfile._volumeZenMode);
-                        PPApplication.logE("$$$ EventsHandler.handleEvents", "**** _volumeRingtone=" + mergedProfile._volumeRingtone);
-                        PPApplication.logE("$$$ EventsHandler.handleEvents", "**** _volumeNotification=" + mergedProfile._volumeNotification);
-                        */
                     }
                 }
             } else {
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "NO restart events");
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("$$$ EventsHandler.handleEvents", "NO restart events");
+                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "NO restart events");
+                }
 
                 //oldActivatedProfile = dataWrapper.getActivatedProfile();
 
@@ -406,13 +412,21 @@ class EventsHandler {
                 //1. pause events
                 dataWrapper.sortEventsByStartOrderDesc();
                 for (Event _event : dataWrapper.eventList) {
-                    PPApplication.logE("$$$ EventsHandler.handleEvents", "state PAUSE");
-                    PPApplication.logE("$$$ EventsHandler.handleEvents", "event._id=" + _event._id);
-                    PPApplication.logE("$$$ EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("$$$ EventsHandler.handleEvents", "state PAUSE");
+                        PPApplication.logE("$$$ EventsHandler.handleEvents", "event._name=" + _event._name);
+                        PPApplication.logE("$$$ EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
+                    }
 
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
                         // only pause events
                         // pause only running events
+
+                        if (PPApplication.logEnabled()) {
+                            PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "state PAUSE");
+                            PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "event._name=" + _event._name);
+                            PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
+                        }
 
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
                         dataWrapper.doHandleEvents(_event, true, false, /*interactive,*/ forDelayStartAlarm, forDelayEndAlarm, /*reactivateProfile,*/ mergedPausedProfile, sensorType);
@@ -424,10 +438,14 @@ class EventsHandler {
                             if (_event.notifyEventEnd(!notified))
                                 notified = true;
 
-                            if (!restartEventsAtEnd && (_event._atEndDo == Event.EATENDDO_RESTART_EVENTS))
+                            if ((!restartEventsAtEnd) && (_event._atEndDo == Event.EATENDDO_RESTART_EVENTS)) {
+                                PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "has restart events=");
                                 restartEventsAtEnd = true;
-                            if (!activateProfileAtEnd && ((_event._atEndDo == Event.EATENDDO_UNDONE_PROFILE) || (_event._fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)))
+                            }
+                            if ((!activateProfileAtEnd) && ((_event._atEndDo == Event.EATENDDO_UNDONE_PROFILE) || (_event._fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)))
                                 activateProfileAtEnd = true;
+
+                            PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "restartEventsAtEnd=" + restartEventsAtEnd);
                         }
                     }
                 }
@@ -438,13 +456,22 @@ class EventsHandler {
                 mergedProfile.copyProfile(mergedPausedProfile);
                 dataWrapper.sortEventsByStartOrderAsc();
                 for (Event _event : dataWrapper.eventList) {
-                    PPApplication.logE("$$$ EventsHandler.handleEvents", "state RUNNING");
-                    PPApplication.logE("$$$ EventsHandler.handleEvents", "event._id=" + _event._id);
-                    PPApplication.logE("$$$ EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("$$$ EventsHandler.handleEvents", "state RUNNING");
+                        PPApplication.logE("$$$ EventsHandler.handleEvents", "event._name=" + _event._name);
+                        PPApplication.logE("$$$ EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
+                    }
 
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
                         // only start events
                         // start only paused events
+
+                        if (PPApplication.logEnabled()) {
+                            PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "state RUNNING");
+                            PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "event._name=" + _event._name);
+                            PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
+                        }
+
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
                         dataWrapper.doHandleEvents(_event, false, false, /*interactive,*/ forDelayStartAlarm, forDelayEndAlarm, /*true*//*reactivateProfile,*/ mergedProfile, sensorType);
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
@@ -484,9 +511,12 @@ class EventsHandler {
                 waitForEndOfStart = PhoneProfilesService.getInstance().getWaitForEndOfStart();
 
             if (!DataWrapper.getIsManualProfileActivation(false, context.getApplicationContext())) {
-                PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "active profile is NOT activated manually");
-                PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "runningEventCount0=" + runningEventCount0);
-                PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "runningEventCountE=" + runningEventCountE);
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "active profile is NOT activated manually");
+                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "runningEventCount0=" + runningEventCount0);
+                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "runningEventCountE=" + runningEventCountE);
+                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "restartEventsAtEnd=" + restartEventsAtEnd);
+                }
                 // no manual profile activation
                 if ((runningEventCountE == 0) && (!restartEventsAtEnd)) {
                     // activate default profile, only when will not be do restart events from paused events
@@ -508,12 +538,14 @@ class EventsHandler {
                             if (!anyEventPaused && (mergedProfile._id == 0) && (mergedPausedProfile._id == 0))
                                 activateProfileAtEnd = true;
 
-                            PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "anyEventPaused=" + anyEventPaused);
-                            PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activatedProfileId=" + activatedProfileId);
-                            PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "mergedProfile._id=" + mergedProfile._id);
-                            PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "mergedPausedProfile._id=" + mergedPausedProfile._id);
-                            PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "isRestart=" + isRestart);
-                            PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activateProfileAtEnd=" + activateProfileAtEnd);
+                            if (PPApplication.logEnabled()) {
+                                PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "anyEventPaused=" + anyEventPaused);
+                                PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activatedProfileId=" + activatedProfileId);
+                                PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "mergedProfile._id=" + mergedProfile._id);
+                                PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "mergedPausedProfile._id=" + mergedPausedProfile._id);
+                                PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "isRestart=" + isRestart);
+                                PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activateProfileAtEnd=" + activateProfileAtEnd);
+                            }
                             if ((activatedProfileId == 0) ||
                                     isRestart ||
                                     // activate default profile when is not activated profile at end of events
@@ -568,40 +600,40 @@ class EventsHandler {
                 backgroundProfileNotificationVibrate = ApplicationPreferences.applicationBackgroundProfileNotificationVibrate(context);
             }
 
-            PPApplication.logE("$$$ EventsHandler.handleEvents", "mergedProfile=" + mergedProfile);
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("$$$ EventsHandler.handleEvents", "mergedProfile=" + mergedProfile);
+                PPApplication.logE("$$$ EventsHandler.handleEvents", "mergedProfile._id=" + mergedProfile._id);
+            }
 
-            PPApplication.logE("$$$ EventsHandler.handleEvents", "mergedProfile._id=" + mergedProfile._id);
             boolean doSleep = false;
 
-            if (!restartEventsAtEnd) {
-                if (mergedProfile._id != 0) {
-                    // activate merged profile
+            if (mergedProfile._id != 0) {
+                // activate merged profile
+                if (PPApplication.logEnabled()) {
                     PPApplication.logE("$$$ EventsHandler.handleEvents", "#### profileName=" + mergedProfile._name);
                     PPApplication.logE("$$$ EventsHandler.handleEvents", "#### profileId=" + mergedProfile._id);
                     PPApplication.logE("$$$ EventsHandler.handleEvents", "#### _volumeRingerMode=" + mergedProfile._volumeRingerMode);
                     PPApplication.logE("$$$ EventsHandler.handleEvents", "#### _volumeZenMode=" + mergedProfile._volumeZenMode);
                     PPApplication.logE("$$$ EventsHandler.handleEvents", "#### _volumeRingtone=" + mergedProfile._volumeRingtone);
                     PPApplication.logE("$$$ EventsHandler.handleEvents", "#### _volumeNotification=" + mergedProfile._volumeNotification);
-                    DatabaseHandler.getInstance(context.getApplicationContext()).saveMergedProfile(mergedProfile);
+                }
+                DatabaseHandler.getInstance(context.getApplicationContext()).saveMergedProfile(mergedProfile);
 
+                //if (mergedProfile._id != oldActivatedProfileId)
+                if (!mergedProfile.compareProfile(oldActivatedProfile))
+                    profileChanged = true;
 
-                    //if (mergedProfile._id != oldActivatedProfileId)
-                    if (!mergedProfile.compareProfile(oldActivatedProfile))
-                        profileChanged = true;
-
-                    if (profileChanged || reactivateProfile) {
-                        dataWrapper.activateProfileFromEvent(mergedProfile._id, false, true, isRestart);
-                        // wait for profile activation
-                        doSleep = true;
-                    }
-                } else {
+                if (profileChanged || reactivateProfile) {
+                    dataWrapper.activateProfileFromEvent(mergedProfile._id, false, true, isRestart);
+                    // wait for profile activation
+                    doSleep = true;
+                }
+            } else {
+                if (!restartEventsAtEnd) {
                     // update only when will not be do restart events from paused events
                     PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EventsHandler.handleEvents");
                     dataWrapper.updateNotificationAndWidgets(false);
                 }
-            }
-            else {
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "will be called restart events");
             }
 
             /*
