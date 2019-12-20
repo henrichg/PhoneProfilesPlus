@@ -331,12 +331,7 @@ class EventsHandler {
 
             boolean reactivateProfile = false;
 
-            if (isRestart) {
-                if (PPApplication.logEnabled()) {
-                    PPApplication.logE("$$$ EventsHandler.handleEvents", "restart events");
-                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "restart events");
-                }
-
+            if (isRestart || (sensorType.equals(SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK))) {
                 if (ppService != null) {
                     // check if exists delayed restart events
                     boolean exists;
@@ -367,6 +362,13 @@ class EventsHandler {
                         PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "delayed work not exists");
                         ppService.willBeDoRestartEvents = false;
                     }
+                }
+            }
+
+            if (isRestart) {
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("$$$ EventsHandler.handleEvents", "restart events");
+                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "restart events");
                 }
 
                 reactivateProfile = true;

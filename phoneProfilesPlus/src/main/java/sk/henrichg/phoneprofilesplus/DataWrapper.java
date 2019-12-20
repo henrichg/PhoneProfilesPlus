@@ -4143,9 +4143,14 @@ public class DataWrapper {
     private void restartEvents(final boolean unblockEventsRun, /*final boolean notClearActivatedProfile,*/
                        /*final boolean reactivateProfile,*/ final boolean log/*, final boolean useHandler*/)
     {
-        if (!Event.getGlobalEventsRunning(context))
+        if (!Event.getGlobalEventsRunning(context)) {
             // events are globally stopped
+
+            if (PhoneProfilesService.getInstance() != null)
+                PhoneProfilesService.getInstance().willBeDoRestartEvents = false;
+
             return;
+        }
 
         /*
         PPApplication.logE("DataWrapper.restartEvents", "useHandler="+useHandler);
@@ -4375,6 +4380,9 @@ public class DataWrapper {
     {
         PPApplication.logE("[TEST HANDLER] DataWrapper.restartEventsWithDelay","xxx"); //"clearOld="+clearOld);
 
+        if (PhoneProfilesService.getInstance() != null)
+            PhoneProfilesService.getInstance().willBeDoRestartEvents = true;
+
         //final DataWrapper dataWrapper = copyDataWrapper();
 
         /*if (PhoneProfilesService.getInstance() != null) {
@@ -4416,9 +4424,9 @@ public class DataWrapper {
         }
         else {*/
             Data workData = new Data.Builder()
-                    .putBoolean(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun)
-                    .putInt(PhoneProfilesService.EXTRA_LOG_TYPE, logType)
-                    .build();
+                        .putBoolean(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun)
+                        .putInt(PhoneProfilesService.EXTRA_LOG_TYPE, logType)
+                        .build();
 
             OneTimeWorkRequest restartEventsWithDelayWorker =
                     new OneTimeWorkRequest.Builder(RestartEventsWithDelayWorker.class)
