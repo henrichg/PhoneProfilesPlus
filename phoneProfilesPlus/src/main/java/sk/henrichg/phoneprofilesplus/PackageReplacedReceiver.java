@@ -401,6 +401,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                         }
                     }
 
+                    // work for restart service
                     Data workData = new Data.Builder()
                             .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED)
                             .build();
@@ -408,7 +409,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                     OneTimeWorkRequest worker =
                             new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
                                     .setInputData(workData)
-                                    .setInitialDelay(15, TimeUnit.SECONDS)
+                                    .setInitialDelay(3, TimeUnit.SECONDS)
                                     .build();
                     try {
                         WorkManager workManager = WorkManager.getInstance(appContext);

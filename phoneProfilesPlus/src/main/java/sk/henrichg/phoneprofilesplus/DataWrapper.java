@@ -4097,7 +4097,6 @@ public class DataWrapper {
         if ((Event.getEventsBlocked(context) && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
             EventsHandler eventsHandler = new EventsHandler(context);
             // this do not perform restart, only SENSOR_TYPE_RESTART_EVENTS perform restart
-            // this is used also in TimeChangedReceiver for not reactivate profile when time changed (reactivateProfile = false)
             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK);
             return;
         }

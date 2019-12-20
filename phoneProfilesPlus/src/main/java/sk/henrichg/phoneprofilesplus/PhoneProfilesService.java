@@ -3739,7 +3739,6 @@ public class PhoneProfilesService extends Service
                             BluetoothConnectionBroadcastReceiver.clearConnectedDevices(appContext, true);
                             BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
                             // not needed clearConnectedDevices(.., true) call it
-                            //BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
 
                             // duration > 30 seconds because in it is 3 x 10 seconds sleep
                             BluetoothConnectedDevices.getConnectedDevices(appContext);
@@ -3794,19 +3793,6 @@ public class PhoneProfilesService extends Service
                             }
                         //}
 
-                        /*
-                        if (!_startOnBoot && !_startOnPackageReplace && !_initializeStart) {
-                            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "###### not initialize start ######");
-                            if (Event.getGlobalEventsRunning(appContext)) {
-                                PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "global event run is enabled, start events");
-                                dataWrapper.startEventsOnBoot(true, false);
-                            } else {
-                                PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "global event run is not enabled, manually activate profile");
-                                dataWrapper.activateProfileOnBoot();
-                            }
-                        }
-                        */
-
                         dataWrapper.invalidateDataWrapper();
 
                         PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "PhoneProfilesService.doForFirstStart END");
@@ -3821,6 +3807,7 @@ public class PhoneProfilesService extends Service
                         }
                     }
 
+                    // work fo restart events
                     Data workData = new Data.Builder()
                             .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START)
                             .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, _activateProfiles)

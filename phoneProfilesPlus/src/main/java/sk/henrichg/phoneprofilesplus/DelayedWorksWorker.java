@@ -90,8 +90,8 @@ public class DelayedWorksWorker extends Worker {
                     if (!PPApplication.getApplicationStarted(appContext, true)) {
                         // service is not started, start it
                         PPApplication.logE("PackageReplacedReceiver.onReceive - worker", "PP service is not started, start it");
-                        startService(dataWrapper);
-                        PackageReplacedReceiver.restartService = true;
+                        if (startService(dataWrapper))
+                            PackageReplacedReceiver.restartService = true;
                     } else {
                         PPApplication.logE("PackageReplacedReceiver.onReceive - worker", "PP service is started");
                         if (PackageReplacedReceiver.restartService)
@@ -184,13 +184,13 @@ public class DelayedWorksWorker extends Worker {
     }
     */
 
-    private void startService(DataWrapper dataWrapper) {
-        boolean isStarted = PPApplication.getApplicationStarted(dataWrapper.context, false);
+    private boolean startService(DataWrapper dataWrapper) {
+        boolean isApplicationStarted = PPApplication.getApplicationStarted(dataWrapper.context, false);
 
         PPApplication.logE("PPApplication.exitApp", "from DelayedWorksWorker.doWork shutdown=false");
         PPApplication.exitApp(false, dataWrapper.context, dataWrapper, null, false/*, false, true*/);
 
-        if (isStarted)
+        if (isApplicationStarted)
         {
             PPApplication.sleep(2000);
 
@@ -205,7 +205,11 @@ public class DelayedWorksWorker extends Worker {
             PPApplication.startPPService(dataWrapper.context, serviceIntent);
 
             //PPApplication.sleep(2000);
+
+            return true;
         }
+        else
+            return false;
     }
 
 }
