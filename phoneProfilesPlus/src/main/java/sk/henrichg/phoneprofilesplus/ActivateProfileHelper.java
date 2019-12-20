@@ -1203,7 +1203,8 @@ class ActivateProfileHelper {
 
                             PPApplication.logE("ActivateProfileHelper.executeForVolumes", "change ringer mode");
 
-                            if (Permissions.checkProfileAccessNotificationPolicy(context, profile, null)) {
+                            //if (Permissions.checkProfileAccessNotificationPolicy(context, profile, null)) {
+                            if (canChangeZenMode(context, false)) {
 
                                 changeRingerModeForVolumeEqual0(profile, audioManager);
                                 changeNotificationVolumeForVolumeEqual0(context, profile);
@@ -1477,6 +1478,28 @@ class ActivateProfileHelper {
         }
     }
 
+    private static boolean checkAccessNotificationPolicy(Context context) {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            try {
+                boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
+                if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
+                    NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                    boolean granted = false;
+                    if (mNotificationManager != null)
+                        granted = mNotificationManager.isNotificationPolicyAccessGranted();
+                    //if (granted)
+                    //    setShowRequestAccessNotificationPolicyPermission(context, true);
+                    return granted;
+                } else
+                    return true;
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        else
+            return true;
+    }
+
     static boolean canChangeZenMode(Context context, boolean notCheckAccess) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
@@ -1484,7 +1507,8 @@ class ActivateProfileHelper {
                 if (notCheckAccess)
                     return true;
                 else
-                    return Permissions.checkAccessNotificationPolicy(context);
+                    return checkAccessNotificationPolicy(context);
+                    //return Permissions.checkAccessNotificationPolicy(context);
             }
             else
                 return PPNotificationListenerService.isNotificationListenerServiceEnabled(context);

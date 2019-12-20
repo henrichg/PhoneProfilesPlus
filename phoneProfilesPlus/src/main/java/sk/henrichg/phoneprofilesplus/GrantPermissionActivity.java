@@ -53,7 +53,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
     private boolean started = false;
 
     private boolean showRequestWriteSettings = false;
-    private boolean showRequestAccessNotificationPolicy = false;
+    //private boolean showRequestAccessNotificationPolicy = false;
     private boolean showRequestDrawOverlays = false;
     private boolean showRequestReadExternalStorage = false;
     private boolean showRequestReadPhoneState = false;
@@ -72,7 +72,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
     private static final int PERMISSIONS_REQUEST_CODE = 9090;
 
     private static final int WRITE_SETTINGS_REQUEST_CODE = 9091;
-    private static final int ACCESS_NOTIFICATION_POLICY_REQUEST_CODE = 9092;
+    //private static final int ACCESS_NOTIFICATION_POLICY_REQUEST_CODE = 9092;
     private static final int DRAW_OVERLAYS_REQUEST_CODE = 9093;
     //private static final int WRITE_SETTINGS_REQUEST_CODE_FORCE_GRANT = 9094;
     //private static final int ACCESS_NOTIFICATION_POLICY_REQUEST_CODE_FORCE_GRANT = 9095;
@@ -230,14 +230,14 @@ public class GrantPermissionActivity extends AppCompatActivity {
             PPApplication.logE("GrantPermissionActivity.onStart", "withRationale=" + withRationale);
 
             PPApplication.logE("GrantPermissionActivity.onStart", "showRequestWriteSettings=" + showRequestWriteSettings);
-            PPApplication.logE("GrantPermissionActivity.onStart", "showRequestAccessNotificationPolicy=" + showRequestAccessNotificationPolicy);
+            //PPApplication.logE("GrantPermissionActivity.onStart", "showRequestAccessNotificationPolicy=" + showRequestAccessNotificationPolicy);
             PPApplication.logE("GrantPermissionActivity.onStart", "showRequestDrawOverlays=" + showRequestDrawOverlays);
 
             int iteration = 4;
             if (showRequestWriteSettings)
                 iteration = 1;
-            else if (showRequestAccessNotificationPolicy)
-                iteration = 2;
+            //else if (showRequestAccessNotificationPolicy)
+            //    iteration = 2;
             else if (showRequestDrawOverlays)
                 iteration = 3;
 
@@ -271,7 +271,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
     private boolean canShowRationale(Context context, boolean forceGrant) {
         showRequestWriteSettings = false;
-        showRequestAccessNotificationPolicy = false;
+        //showRequestAccessNotificationPolicy = false;
         showRequestDrawOverlays = false;
         showRequestReadExternalStorage = false;
         showRequestReadPhoneState = false;
@@ -289,10 +289,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     showRequestWriteSettings = Permissions.getShowRequestWriteSettingsPermission(context) || forceGrant;
                     whyPermissionType[0][permissionType.type] = true;
                 }
-                if (permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY)) {
+                /*if (permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY)) {
                     showRequestAccessNotificationPolicy = Permissions.getShowRequestAccessNotificationPolicyPermission(context) || forceGrant;
                     whyPermissionType[1][permissionType.type] = true;
-                }
+                }*/
                 if (permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
                     showRequestDrawOverlays = Permissions.getShowRequestDrawOverlaysPermission(context) || forceGrant;
                     whyPermissionType[2][permissionType.type] = true;
@@ -336,7 +336,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestReadContacts ||
                 showRequestAccessCoarseLocation ||
                 showRequestAccessFineLocation ||
-                showRequestAccessNotificationPolicy ||
+                //showRequestAccessNotificationPolicy ||
                 showRequestDrawOverlays);
     }
 
@@ -474,14 +474,14 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     whyString = whyString + whyPermissionString;
                 whyString = whyString + "</li>";
             }
-            if (showRequestAccessNotificationPolicy) {
+            /*if (showRequestAccessNotificationPolicy) {
                 whyString = whyString + "<li>";
                 whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_access_notification_policy) + "</b>";
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[1]);
                 if (whyPermissionString != null)
                     whyString = whyString + whyPermissionString;
                 whyString = whyString + "</li>";
-            }
+            }*/
             if (showRequestDrawOverlays) {
                 whyString = whyString + "<li>";
                 if (!(PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))
@@ -545,8 +545,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     int iteration = 4;
                     if (showRequestWriteSettings)
                         iteration = 1;
-                    else if (showRequestAccessNotificationPolicy)
-                        iteration = 2;
+                    //else if (showRequestAccessNotificationPolicy)
+                    //    iteration = 2;
                     else if (showRequestDrawOverlays)
                         iteration = 3;
                     requestPermissions(iteration, canShowRationale(context, false));
@@ -581,7 +581,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         else {
             PPApplication.logE("GrantPermissionActivity.showRationale", "can not show");
             showRequestWriteSettings = false;
-            showRequestAccessNotificationPolicy = false;
+            //showRequestAccessNotificationPolicy = false;
             showRequestDrawOverlays = false;
 
             if (permissions != null) {
@@ -589,9 +589,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
                         showRequestWriteSettings = true;
                     }
-                    if (permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY)) {
+                    /*if (permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY)) {
                         showRequestAccessNotificationPolicy = true;
-                    }
+                    }*/
                     if (permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
                         showRequestDrawOverlays = true;
                     }
@@ -599,14 +599,14 @@ public class GrantPermissionActivity extends AppCompatActivity {
             }
 
             PPApplication.logE("GrantPermissionActivity.showRationale", "showRequestWriteSettings="+showRequestWriteSettings);
-            PPApplication.logE("GrantPermissionActivity.showRationale", "showRequestAccessNotificationPolicy="+showRequestAccessNotificationPolicy);
+            //PPApplication.logE("GrantPermissionActivity.showRationale", "showRequestAccessNotificationPolicy="+showRequestAccessNotificationPolicy);
             PPApplication.logE("GrantPermissionActivity.showRationale", "showRequestDrawOverlays="+showRequestDrawOverlays);
 
             int iteration = 4;
             if (showRequestWriteSettings)
                 iteration = 1;
-            else if (showRequestAccessNotificationPolicy)
-                iteration = 2;
+            //else if (showRequestAccessNotificationPolicy)
+            //    iteration = 2;
             else if (showRequestDrawOverlays)
                 iteration = 3;
 
@@ -699,9 +699,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     case Permissions.PERMISSION_PLAY_RINGTONE_NOTIFICATION:
                         s = getString(R.string.permission_why_play_ringtone_notification);
                         break;
-                    case Permissions.PERMISSION_PROFILE_ACCESS_NOTIFICATION_POLICY:
-                        s = getString(R.string.permission_why_profile_access_notification_policy);
-                        break;
+//                    case Permissions.PERMISSION_PROFILE_ACCESS_NOTIFICATION_POLICY:
+//                        s = getString(R.string.permission_why_profile_access_notification_policy);
+//                        break;
                     case Permissions.PERMISSION_PROFILE_LOCK_DEVICE:
                         s = getString(R.string.permission_why_profile_lock_device);
                         break;
@@ -985,7 +985,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                             Permissions.setShowRequestWriteSettingsPermission(context, false);
                             if (rationaleAlreadyShown)
                                 removePermission(Manifest.permission.WRITE_SETTINGS);
-                            requestPermissions(2, withRationale);
+                            requestPermissions(3/*2*/, withRationale);
                         }
                     });
                     dialogBuilder.setNegativeButton(R.string.permission_ask_button, new DialogInterface.OnClickListener() {
@@ -994,7 +994,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                             Permissions.setShowRequestWriteSettingsPermission(context, true);
                             if (rationaleAlreadyShown)
                                 removePermission(Manifest.permission.WRITE_SETTINGS);
-                            requestPermissions(2, withRationale);
+                            requestPermissions(3/*2*/, withRationale);
                         }
                     });
                     dialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -1002,7 +1002,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         public void onCancel(DialogInterface dialog) {
                             if (rationaleAlreadyShown)
                                 removePermission(Manifest.permission.WRITE_SETTINGS);
-                            requestPermissions(2, withRationale);
+                            requestPermissions(3/*2*/, withRationale);
                         }
                     });
                     AlertDialog dialog = dialogBuilder.create();
@@ -1028,12 +1028,13 @@ public class GrantPermissionActivity extends AppCompatActivity {
             else {
                 Permissions.setShowRequestWriteSettingsPermission(context, true);
                 //if (requestCode == WRITE_SETTINGS_REQUEST_CODE)
-                    requestPermissions(2, withRationale);
+                    requestPermissions(3/*2*/, withRationale);
                 //else
                 //    finishGrant();
             }
         }
-        if ((requestCode == ACCESS_NOTIFICATION_POLICY_REQUEST_CODE)/* || (requestCode == ACCESS_NOTIFICATION_POLICY_REQUEST_CODE_FORCE_GRANT)*/) {
+/*        if ((requestCode == ACCESS_NOTIFICATION_POLICY_REQUEST_CODE))// || (requestCode == ACCESS_NOTIFICATION_POLICY_REQUEST_CODE_FORCE_GRANT))
+        {
             NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             if (mNotificationManager != null) {
                 if (!mNotificationManager.isNotificationPolicyAccessGranted()) {
@@ -1041,7 +1042,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     //if (!forceGrant) {
                         // set theme and language for dialog alert ;-)
                         // not working on Android 2.3.x
-                        GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false);
+                        GlobalGUIRoutines.setTheme(this, true, true, false);
                         GlobalGUIRoutines.setLanguage(this);
 
                         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -1074,24 +1075,24 @@ public class GrantPermissionActivity extends AppCompatActivity {
                             }
                         });
                         AlertDialog dialog = dialogBuilder.create();
-                        /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                            @Override
-                            public void onShow(DialogInterface dialog) {
-                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                if (positive != null) positive.setAllCaps(false);
-                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                if (negative != null) negative.setAllCaps(false);
-                            }
-                        });*/
+//                        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                            @Override
+//                            public void onShow(DialogInterface dialog) {
+//                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                if (positive != null) positive.setAllCaps(false);
+//                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                if (negative != null) negative.setAllCaps(false);
+//                            }
+//                        });
                         if (!isFinishing())
                             dialog.show();
-                    /*}
-                    else {
-                        //if (requestCode == ACCESS_NOTIFICATION_POLICY_REQUEST_CODE)
-                            requestPermissions(3);
-                        //else
-                        //    finishGrant();
-                    }*/
+//                    }
+//                    else {
+//                        //if (requestCode == ACCESS_NOTIFICATION_POLICY_REQUEST_CODE)
+//                            requestPermissions(3);
+//                        //else
+//                        //    finishGrant();
+//                    }
                 } else {
                     Permissions.setShowRequestAccessNotificationPolicyPermission(context, true);
                     //if (requestCode == ACCESS_NOTIFICATION_POLICY_REQUEST_CODE)
@@ -1107,7 +1108,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 //else
                 //    finishGrant();
             }
-        }
+        }*/
         if ((requestCode == DRAW_OVERLAYS_REQUEST_CODE)/* || (requestCode == DRAW_OVERLAYS_REQUEST_CODE_FORCE_GRANT)*/) {
             if (!Settings.canDrawOverlays(context)) {
                 //forceGrant = false;
@@ -1343,9 +1344,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 }
             }
             if (!writeSettingsFound)
-                requestPermissions(2, withRationale);
+                requestPermissions(3/*2*/, withRationale);
         }
-        else
+        /*else
         if (iteration == 2) {
             boolean accessNotificationPolicyFound = false;
             boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
@@ -1361,7 +1362,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             }
             if (!accessNotificationPolicyFound)
                 requestPermissions(3, withRationale);
-        }
+        }*/
         else
         if (iteration == 3) {
             boolean drawOverlaysFound = false;

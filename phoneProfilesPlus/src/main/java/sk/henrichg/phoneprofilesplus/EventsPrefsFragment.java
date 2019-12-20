@@ -1250,6 +1250,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     if (preferenceCategory != null) {
                         preference = new Preference(context);
                         preference.setKey(PRF_NOT_ENABLED_SOME_SENSOR);
+                        preference.setIconSpaceReserved(false);
                         preference.setWidgetLayoutResource(R.layout.exclamation_preference);
                         preference.setLayoutResource(R.layout.mp_preference_material_widget);
                         preference.setOrder(-99);
@@ -1285,6 +1286,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     if (preferenceCategory != null) {
                         preference = new Preference(context);
                         preference.setKey(PRF_GRANT_PERMISSIONS);
+                        preference.setIconSpaceReserved(false);
                         preference.setWidgetLayoutResource(R.layout.start_activity_preference);
                         preference.setLayoutResource(R.layout.mp_preference_material_widget);
                         preference.setOrder(-98);
@@ -1331,6 +1333,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     if (preferenceCategory != null) {
                         preference = new Preference(context);
                         preference.setKey(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
+                        preference.setIconSpaceReserved(false);
                         preference.setWidgetLayoutResource(R.layout.start_activity_preference);
                         preference.setLayoutResource(R.layout.mp_preference_material_widget);
                         preference.setOrder(-97);
@@ -1401,6 +1404,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     if (preferenceCategory != null) {
                         preference = new Preference(context);
                         preference.setKey(PRF_NOT_IS_RUNNABLE);
+                        preference.setIconSpaceReserved(false);
                         preference.setWidgetLayoutResource(R.layout.exclamation_preference);
                         preference.setLayoutResource(R.layout.mp_preference_material_widget);
                         preference.setOrder(-100);

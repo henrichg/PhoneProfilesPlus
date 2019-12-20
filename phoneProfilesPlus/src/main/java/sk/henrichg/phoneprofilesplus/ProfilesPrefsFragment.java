@@ -67,6 +67,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_LOCK_DEVICE_ACCESSIBILITY_SETTINGS = "prf_pref_lockDeviceAccessibilitySettings";
     private static final String PREF_FORCE_STOP_APPLICATIONS_LAUNCH_EXTENDER = "prf_pref_deviceForceStopApplicationLaunchExtender";
     private static final String PREF_LOCK_DEVICE_LAUNCH_EXTENDER = "prf_pref_lockDeviceLaunchExtender";
+    private static final String PRF_NOTIFICATION_ACCESS_ENABLED = "prf_pref_notificationAccessEnable";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -3014,8 +3015,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (preferenceCategory != null) {
                         preference = new Preference(context);
                         preference.setKey(PRF_GRANT_PERMISSIONS);
-                        preference.setWidgetLayoutResource(R.layout.start_activity_preference);
                         preference.setIconSpaceReserved(false);
+                        preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                        preference.setLayoutResource(R.layout.mp_preference_material_widget);
                         preference.setOrder(-100);
                         preferenceCategory.addPreference(preference);
                     }
@@ -3058,8 +3060,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (preferenceCategory != null) {
                         preference = new Preference(context);
                         preference.setKey(PRF_GRANT_ROOT);
-                        preference.setWidgetLayoutResource(R.layout.start_activity_preference);
                         preference.setIconSpaceReserved(false);
+                        preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                        preference.setLayoutResource(R.layout.mp_preference_material_widget);
                         preference.setOrder(-100);
                         preferenceCategory.addPreference(preference);
                     }
@@ -3085,6 +3088,62 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
 
+            // not enabled notification access
+            if ((profile._volumeRingerMode == 0) || ActivateProfileHelper.canChangeZenMode(context, false)) {
+                Preference preference = prefMng.findPreference(PRF_NOTIFICATION_ACCESS_ENABLED);
+                if (preference != null) {
+                    PreferenceScreen preferenceCategory = findPreference("rootScreen");
+                    if (preferenceCategory != null)
+                        preferenceCategory.removePreference(preference);
+                }
+            }
+            else {
+                Preference preference = prefMng.findPreference(PRF_NOTIFICATION_ACCESS_ENABLED);
+                if (preference == null) {
+                    PreferenceScreen preferenceCategory = findPreference("rootScreen");
+                    if (preferenceCategory != null) {
+                        preference = new Preference(context);
+                        preference.setKey(PRF_NOTIFICATION_ACCESS_ENABLED);
+                        preference.setIconSpaceReserved(false);
+                        preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                        preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                        preference.setOrder(-100);
+                        preferenceCategory.addPreference(preference);
+                    }
+                }
+                if (preference != null) {
+                    String _title = order + ". ";
+                    String _summary;
+                    boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+                    final boolean showDoNotDisturbPermission =
+                            (android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
+                                    GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, getActivity().getApplicationContext());
+                    if (showDoNotDisturbPermission) {
+                        _title = _title + getString(R.string.phone_profiles_pref_accessNotificationPolicyPermissions);
+                        _summary = getString(R.string.profile_preferences_red_volumeNotificationsAccessSettings_summary_2);
+                    }
+                    else {
+                        _title = _title + getString(R.string.profile_preferences_volumeNotificationsAccessSettings_title);
+                        _summary = getString(R.string.profile_preferences_red_volumeNotificationsAccessSettings_summary_1);
+                    }
+                    ++order;
+                    Spannable title = new SpannableString(_title);
+                    title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
+                    preference.setTitle(title);
+                    Spannable summary = new SpannableString(_summary);
+                    summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
+                    preference.setSummary(summary);
+
+                    preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                        @Override
+                        public boolean onPreferenceClick(Preference preference) {
+                            enableNotificationAccess(showDoNotDisturbPermission);
+                            return false;
+                        }
+                    });
+                }
+            }
+
             // not enabled accessibility service
             int accessibilityEnabled = profile.isAccessibilityServiceEnabled(context);
             if (accessibilityEnabled == 1) {
@@ -3102,6 +3161,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (preferenceCategory != null) {
                         preference = new Preference(context);
                         preference.setKey(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
+                        preference.setIconSpaceReserved(false);
                         preference.setWidgetLayoutResource(R.layout.start_activity_preference);
                         preference.setLayoutResource(R.layout.mp_preference_material_widget);
                         preference.setOrder(-97);
@@ -3165,15 +3225,62 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
             }
-            /*preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
+            preference = prefMng.findPreference(PRF_NOTIFICATION_ACCESS_ENABLED);
             if (preference != null) {
                 PreferenceScreen preferenceCategory = findPreference("rootScreen");
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
-            }*/
+            }
+            preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
+            if (preference != null) {
+                PreferenceScreen preferenceCategory = findPreference("rootScreen");
+                if (preferenceCategory != null)
+                    preferenceCategory.removePreference(preference);
+            }
         }
 
         PPApplication.logE("ProfilesPrefsFragment.setPermissionsPreference", "END");
+    }
+
+    private void enableNotificationAccess(boolean showDoNotDisturbPermission) {
+        boolean ok = false;
+        if (showDoNotDisturbPermission) {
+            try {
+                @SuppressLint("InlinedApi")
+                Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+                //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
+                ok = true;
+            } catch (Exception ignored) {}
+        }
+        else
+        if (GlobalGUIRoutines.activityActionExists("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS", getActivity())) {
+            try {
+                Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
+                ok = true;
+            } catch (Exception ignored) {}
+        }
+        if (!ok) {
+            if (getActivity() != null) {
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                AlertDialog dialog = dialogBuilder.create();
+                /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface dialog) {
+                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                        if (positive != null) positive.setAllCaps(false);
+                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                        if (negative != null) negative.setAllCaps(false);
+                    }
+                });*/
+                if (!getActivity().isFinishing())
+                    dialog.show();
+            }
+        }
     }
 
     private void installExtender(String dialogText) {

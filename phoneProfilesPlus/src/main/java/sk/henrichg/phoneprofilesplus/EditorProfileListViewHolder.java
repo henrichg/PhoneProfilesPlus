@@ -73,7 +73,10 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
         }
         else*/
         if ((!isPermissionGranted) ||
-                (Profile.isProfilePreferenceAllowed("-", profile, null, true, context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
+            (Profile.isProfilePreferenceAllowed("-", profile, null, true, context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) ||
+            ((profile._volumeRingerMode != 0) && (!ActivateProfileHelper.canChangeZenMode(context, false))) ||
+            (profile.isAccessibilityServiceEnabled(context) != 1)
+           ) {
             profileName.setTypeface(null, Typeface.NORMAL);
             profileName.setTextSize(15);
             profileName.setTextColor(Color.RED);

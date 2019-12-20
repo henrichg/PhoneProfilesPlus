@@ -50,7 +50,7 @@ class Permissions {
     static final int PERMISSION_PROFILE_NOTIFICATION_LED = 20;
     static final int PERMISSION_PROFILE_VIBRATE_WHEN_RINGING = 21;
     static final int PERMISSION_PLAY_RINGTONE_NOTIFICATION = 22;
-    static final int PERMISSION_PROFILE_ACCESS_NOTIFICATION_POLICY = 23;
+    //static final int PERMISSION_PROFILE_ACCESS_NOTIFICATION_POLICY = 23;
     static final int PERMISSION_PROFILE_LOCK_DEVICE = 24;
     static final int PERMISSION_RINGTONE_PREFERENCE = 25;
     static final int PERMISSION_PROFILE_DTMF_TONE_WHEN_DIALING = 26;
@@ -126,14 +126,14 @@ class Permissions {
     private static final String PREF_SHOW_REQUEST_WRITE_SETTINGS_PERMISSION = "show_request_write_settings_permission";
     //private static final String PREF_MERGED_PERMISSIONS = "merged_permissions";
     //private static final String PREF_MERGED_PERMISSIONS_COUNT = "merged_permissions_count";
-    private static final String PREF_SHOW_REQUEST_ACCESS_NOTIFICATION_POLICY_PERMISSION = "show_request_access_notification_policy_permission";
+    //private static final String PREF_SHOW_REQUEST_ACCESS_NOTIFICATION_POLICY_PERMISSION = "show_request_access_notification_policy_permission";
     private static final String PREF_SHOW_REQUEST_DRAW_OVERLAYS_PERMISSION = "show_request_draw_overlays_permission";
 
     private static final String PREF_PERMISSIONS_CHANGED = "permissionsChanged";
 
     // permission groups
     private static final String PREF_WRITE_SYSTEM_SETTINGS_PERMISSION = "writeSystemSettingsPermission";
-    private static final String PREF_NOTIFICATION_POLICY_PERMISSION = "notificationPolicyPermission";
+    //private static final String PREF_NOTIFICATION_POLICY_PERMISSION = "notificationPolicyPermission";
     private static final String PREF_DRAW_OVERLAY_PERMISSION= "drawOverlayPermission";
     private static final String PREF_CALENDAR_PERMISSION = "calendarPermission";
     private static final String PREF_CAMERA_PERMISSION = "cameraPermission";
@@ -206,14 +206,14 @@ class Permissions {
                         if (!Settings.System.canWrite(context))
                             permissions.add(new PermissionType(_permission.type, _permission.permission));
                         break;
-                    case permission.ACCESS_NOTIFICATION_POLICY:
+                    /*case permission.ACCESS_NOTIFICATION_POLICY:
                         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                         if (mNotificationManager != null) {
                             if (!mNotificationManager.isNotificationPolicyAccessGranted())
                                 permissions.add(new PermissionType(_permission.type, _permission.permission));
                         } else
                             permissions.add(new PermissionType(_permission.type, _permission.permission));
-                        break;
+                        break;*/
                     case permission.SYSTEM_ALERT_WINDOW:
                         if (!Settings.canDrawOverlays(context))
                             permissions.add(new PermissionType(_permission.type, _permission.permission));
@@ -243,7 +243,7 @@ class Permissions {
             checkProfileRadioPreferences(context, profile, permissions);
             checkProfilePhoneBroadcast(context, profile, permissions);
             checkCustomProfileIcon(context, profile, permissions);
-            checkProfileAccessNotificationPolicy(context, profile, permissions);
+            //checkProfileAccessNotificationPolicy(context, profile, permissions);
             checkProfileLockDevice(context, profile, permissions);
             checkProfileDtmfToneWhenDialing(context, profile, permissions);
             checkProfileSoundOnTouch(context, profile, permissions);
@@ -782,7 +782,7 @@ class Permissions {
         }*/
     }
 
-    static boolean checkProfileAccessNotificationPolicy(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+    /*static boolean checkProfileAccessNotificationPolicy(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
@@ -812,9 +812,9 @@ class Permissions {
         }
         else
             return true;
-    }
+    }*/
 
-    static boolean checkAccessNotificationPolicy(Context context) {
+/*    static boolean checkAccessNotificationPolicy(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
                 boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
@@ -834,7 +834,7 @@ class Permissions {
         }
         else
             return true;
-    }
+    }*/
 
     static boolean checkLockDevice(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
@@ -2037,6 +2037,7 @@ class Permissions {
         editor.apply();
     }
 
+    /*
     static boolean getShowRequestAccessNotificationPolicyPermission(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
@@ -2050,6 +2051,7 @@ class Permissions {
         editor.putBoolean(PREF_SHOW_REQUEST_ACCESS_NOTIFICATION_POLICY_PERMISSION, value);
         editor.apply();
     }
+     */
 
     static boolean getShowRequestDrawOverlaysPermission(Context context)
     {
@@ -2067,7 +2069,7 @@ class Permissions {
 
     static void setAllShowRequestPermissions(Context context,
                                              @SuppressWarnings("SameParameterValue") boolean value) {
-        Permissions.setShowRequestAccessNotificationPolicyPermission(context, value);
+        //Permissions.setShowRequestAccessNotificationPolicyPermission(context, value);
         Permissions.setShowRequestWriteSettingsPermission(context, value);
         Permissions.setShowRequestDrawOverlaysPermission(context, value);
     }
@@ -2146,8 +2148,8 @@ class Permissions {
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.putBoolean(PREF_WRITE_SYSTEM_SETTINGS_PERMISSION, Settings.System.canWrite(context));
-        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        editor.putBoolean(PREF_NOTIFICATION_POLICY_PERMISSION, (mNotificationManager != null) && (mNotificationManager.isNotificationPolicyAccessGranted()));
+        //NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        //editor.putBoolean(PREF_NOTIFICATION_POLICY_PERMISSION, (mNotificationManager != null) && (mNotificationManager.isNotificationPolicyAccessGranted()));
         editor.putBoolean(PREF_DRAW_OVERLAY_PERMISSION, Settings.canDrawOverlays(context));
         editor.putBoolean(PREF_CALENDAR_PERMISSION, Permissions.checkCalendar(context));
         editor.putBoolean(PREF_CAMERA_PERMISSION, Permissions.checkCamera(context));
@@ -2183,10 +2185,12 @@ class Permissions {
         return preferences.getBoolean(PREF_WRITE_SYSTEM_SETTINGS_PERMISSION, false);
     }
 
+    /*
     static boolean getNotificationPolicyPermission(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);
         return preferences.getBoolean(PREF_NOTIFICATION_POLICY_PERMISSION, false);
     }
+    */
 
     static boolean getDrawOverlayPermission(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);

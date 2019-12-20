@@ -18,13 +18,13 @@
         app:widgetLayout="@layout/start_activity_preference"
         app:layout="@layout/mp_preference_material_widget">
     </Preference>
-    <Preference
-        app:key="permissionsAccessNotificationPolicyPermissions"
-        app:title="@string/phone_profiles_pref_accessNotificationPolicyPermissions"
-        app:summary="@string/phone_profiles_pref_accessNotificationPolicyPermissions_summary"
-        app:widgetLayout="@layout/start_activity_preference"
-        app:layout="@layout/mp_preference_material_widget" >
-    </Preference>
+<!--    <Preference-->
+<!--        app:key="permissionsAccessNotificationPolicyPermissions"-->
+<!--        app:title="@string/phone_profiles_pref_accessNotificationPolicyPermissions"-->
+<!--        app:summary="@string/phone_profiles_pref_accessNotificationPolicyPermissions_summary"-->
+<!--        app:widgetLayout="@layout/start_activity_preference"-->
+<!--        app:layout="@layout/mp_preference_material_widget" >-->
+<!--    </Preference>-->
     <Preference
         app:key="permissionsDrawOverlaysPermissions"
         app:title="@string/phone_profiles_pref_drawOverlaysPermissions"

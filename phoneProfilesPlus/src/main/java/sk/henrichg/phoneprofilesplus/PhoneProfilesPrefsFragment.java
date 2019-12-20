@@ -51,8 +51,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final int RESULT_APPLICATION_PERMISSIONS = 1990;
     private static final String PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS = "permissionsWriteSystemSettingsPermissions";
     private static final int RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS = 1991;
-    private static final String PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS = "permissionsAccessNotificationPolicyPermissions";
-    private static final int RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS = 1997;
+    //private static final String PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS = "permissionsAccessNotificationPolicyPermissions";
+    //private static final int RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS = 1997;
     private static final String PREF_DRAW_OVERLAYS_PERMISSIONS = "permissionsDrawOverlaysPermissions";
     private static final int RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS = 1998;
     private static final String PREF_GRANT_ROOT_PERMISSION = "permissionsGrantRootPermission";
@@ -476,7 +476,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 });
             }
-            preference = findPreference(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
+            /*preference = findPreference(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
             if (preference != null) {
                 boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
                 if ((!a60) &&
@@ -497,7 +497,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (preferenceCategory != null)
                         preferenceCategory.removePreference(preference);
                 }
-            }
+            }*/
             preference = findPreference(PREF_DRAW_OVERLAYS_PERMISSIONS);
             if (preference != null) {
                 //if (android.os.Build.VERSION.SDK_INT >= 25) {
@@ -842,9 +842,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference = findPreference(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
                     if (preference != null)
                         preferenceCategory.removePreference(preference);
-                    preference = findPreference(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
-                    if (preference != null)
-                        preferenceCategory.removePreference(preference);
+                    //preference = findPreference(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
+                    //if (preference != null)
+                    //    preferenceCategory.removePreference(preference);
                     preference = findPreference(PREF_DRAW_OVERLAYS_PERMISSIONS);
                     if (preference != null)
                         preferenceCategory.removePreference(preference);
@@ -1380,7 +1380,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         if ((requestCode == RESULT_APPLICATION_PERMISSIONS) ||
                 (requestCode == RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS) ||
-                (requestCode == RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS) ||
+                //(requestCode == RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS) ||
                 (requestCode == RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS)) {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -1398,14 +1398,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         if (canWrite)
                             Permissions.setShowRequestWriteSettingsPermission(context, true);
                     }
-                    if (requestCode == RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS) {
+                    /*if (requestCode == RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS) {
                         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                         boolean notificationPolicyGranted = (mNotificationManager != null) && (mNotificationManager.isNotificationPolicyAccessGranted());
                         permissionsChanged = Permissions.getNotificationPolicyPermission(context) != notificationPolicyGranted;
                         PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "notificationPolicyGranted=" + permissionsChanged);
                         if (notificationPolicyGranted)
                             Permissions.setShowRequestAccessNotificationPolicyPermission(context, true);
-                    }
+                    }*/
                     if (requestCode == RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS) {
                         boolean canDrawOverlays = Settings.canDrawOverlays(context);
                         permissionsChanged = Permissions.getDrawOverlayPermission(context) != canDrawOverlays;
@@ -1496,7 +1496,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         } else {
                             setSummary(PREF_APPLICATION_PERMISSIONS);
                             setSummary(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
-                            setSummary(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
+                            //setSummary(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
                             setSummary(PREF_DRAW_OVERLAYS_PERMISSIONS);
 
                             activity.setResult(Activity.RESULT_OK);
@@ -1722,7 +1722,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(PREF_POWER_SAVE_MODE_SETTINGS);
         setSummary(PREF_GRANT_ROOT_PERMISSION);
         setSummary(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
-        setSummary(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
+        //setSummary(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
         setSummary(PREF_DRAW_OVERLAYS_PERMISSIONS);
         setSummary(PREF_APPLICATION_PERMISSIONS);
         setSummary(PREF_AUTOSTART_MANAGER);
@@ -2202,7 +2202,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
                 preference.setSummary(summary);
             }
-            if (key.equals(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS)) {
+            /*if (key.equals(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS)) {
                 String summary;
                 if (Permissions.checkAccessNotificationPolicy(context))
                     summary = getString(R.string.permission_granted);
@@ -2211,7 +2211,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     summary = summary + "\n\n" + getString(R.string.phone_profiles_pref_accessNotificationPolicyPermissions_summary);
                 }
                 preference.setSummary(summary);
-            }
+            }*/
             if (key.equals(PREF_DRAW_OVERLAYS_PERMISSIONS)) {
                 String summary;
                 if (Settings.canDrawOverlays(context))
@@ -2349,8 +2349,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (Build.VERSION.SDK_INT >= 23) {
                 if (!summary.isEmpty()) summary = summary + " • ";
                 summary = summary + getString(R.string.phone_profiles_pref_writeSystemSettingPermissions);
-                if (!summary.isEmpty()) summary = summary + " • ";
-                summary = summary + getString(R.string.phone_profiles_pref_accessNotificationPolicyPermissions);
+                //if (!summary.isEmpty()) summary = summary + " • ";
+                //summary = summary + getString(R.string.phone_profiles_pref_accessNotificationPolicyPermissions);
                 if (!summary.isEmpty()) summary = summary + " • ";
                 summary = summary + getString(R.string.phone_profiles_pref_drawOverlaysPermissions);
                 if (!summary.isEmpty()) summary = summary + " • ";
