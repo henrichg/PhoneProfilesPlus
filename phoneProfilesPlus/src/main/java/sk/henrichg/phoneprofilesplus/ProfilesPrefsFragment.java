@@ -2310,7 +2310,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (preference != null) {
                     String sValue = value.toString();
                     boolean bold = !sValue.equals(Profile.CONNECTTOSSID_JUSTANY);
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, true, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, false, false);
                 }
             }
             else
