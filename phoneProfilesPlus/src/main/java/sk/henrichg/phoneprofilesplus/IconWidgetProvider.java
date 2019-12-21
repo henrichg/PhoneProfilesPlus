@@ -59,7 +59,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         if (!pNameWidget.isEmpty()) {
                             String pName;
                             if (profile != null)
-                                pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, dataWrapper, true, context);
+                                pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper, true, context);
                             else
                                 pName = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
 
@@ -78,8 +78,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     if (profile != null) {
                         isIconResourceID = profile.getIsIconResourceID();
                         iconIdentifier = profile.getIconIdentifier();
-                        pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, false, "", true, true, dataWrapper, false, context);
-                        profileName = DataWrapper.getProfileNameWithManualIndicator(profile, false, "", true, true, dataWrapper, false, context);
+                        pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, false, "", true, true, true, dataWrapper, false, context);
+                        profileName = DataWrapper.getProfileNameWithManualIndicator(profile, false, "", true, true, true, dataWrapper, false, context);
                     } else {
                         // create empty profile and set icon resource
                         profile = new Profile();

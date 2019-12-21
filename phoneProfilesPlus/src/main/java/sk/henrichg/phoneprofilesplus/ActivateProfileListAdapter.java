@@ -220,7 +220,7 @@ class ActivateProfileListAdapter extends BaseAdapter
                             profile._checked &&
                             (!applicationActivatorHeader),*/
                     "", true,
-                    false/*applicationActivatorGridLayout*/,
+                    false/*applicationActivatorGridLayout*/, true,
                     activityDataWrapper, false, activityDataWrapper.context);
             holder.profileName.setText(profileName);
 

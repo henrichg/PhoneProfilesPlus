@@ -35,7 +35,7 @@ public class DashClockBroadcastReceiver extends BroadcastReceiver {
 
                     String pName;
                     if (profile != null)
-                        pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, dataWrapper, false, context);
+                        pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper, false, context);
                     else
                         pName = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
 

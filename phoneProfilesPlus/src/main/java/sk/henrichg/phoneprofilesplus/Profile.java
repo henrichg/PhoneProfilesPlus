@@ -1364,7 +1364,7 @@ public class Profile {
 
             String profileIcon = withProfile._icon;
             dataWrapper.addActivityLog(DataWrapper.ALTYPE_PROFILE_ACTIVATION, null,
-                                    DataWrapper.getProfileNameWithManualIndicatorAsString(withProfile, true, "", false, false, dataWrapper, false, dataWrapper.context),
+                                    DataWrapper.getProfileNameWithManualIndicatorAsString(withProfile, true, "", false, false, false, dataWrapper, false, dataWrapper.context),
                                     profileIcon, 0);
 
             /*
@@ -2555,7 +2555,7 @@ public class Profile {
         }
     }
 
-    Spannable getProfileNameWithDuration(String eventName, String indicators, boolean multiLine, Context context) {
+    Spannable getProfileNameWithDuration(String eventName, String indicators, boolean multiLine, boolean durationInNextLine, Context context) {
         String profileName = _name;
         if (!eventName.isEmpty())
             profileName = profileName + " " + eventName;
@@ -2574,16 +2574,16 @@ public class Profile {
             }
         }
         int startSpan = profileName.length();
-        if (!(indicators.isEmpty() && durationString.isEmpty())) {
+        if (!indicators.isEmpty()) {
             if (multiLine)
+                profileName = profileName + "\n" + indicators;
+            else
+                profileName = profileName + " " + indicators;
+        }
+        if (!durationString.isEmpty()) {
+            if (durationInNextLine)
                 profileName = profileName + "\n";
             else
-                profileName = profileName + " ";
-        }
-        if (!indicators.isEmpty())
-            profileName = profileName + indicators;
-        if (!durationString.isEmpty()) {
-            if (!indicators.isEmpty())
                 profileName = profileName + " ";
             profileName = profileName + durationString;
         }

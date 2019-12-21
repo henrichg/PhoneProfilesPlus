@@ -122,7 +122,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                         monochromeValue);*/
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
-                profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, dataWrapper, false, dataWrapper.context);
+                profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, true, true, dataWrapper, false, dataWrapper.context);
             }
             else
             {
@@ -362,7 +362,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
                 String pName;
                 if (profile != null)
-                    pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, dataWrapper, false, context);
+                    pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper, false, context);
                 else
                     pName = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
 
