@@ -28,7 +28,8 @@
         app:defaultValue="@string/empty_string"
         app:title="@string/event_preferences_sms_contacts"
         app:dependency="eventSMSEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:withoutNumbers="false" />
     <ListPreference
         app:title="@string/event_preferences_contactListType"
         app:summary="@string/array_event_pref_contact_list_type_white_list"

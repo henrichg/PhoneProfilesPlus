@@ -36,6 +36,40 @@
         app:systemSettings="notifications"
         app:dependency="eventNotificationEnabled"
         app:layout="@layout/mp_preference_material_widget" />
+
+    <SwitchPreferenceCompat
+        app:key="eventNotificationCheckContacts"
+        app:title="@string/event_preferences_notifications_checkContacts"
+        app:defaultValue="false"
+        app:dependency="eventNotificationEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.ContactGroupsMultiSelectDialogPreferenceX
+        app:key="eventNotificationContactGroups"
+        app:defaultValue="@string/empty_string"
+        app:title="@string/event_preferences_notifications_contact_groups"
+        app:dependency="eventNotificationEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.ContactsMultiSelectDialogPreferenceX
+        app:key="eventNotificationContacts"
+        app:defaultValue="@string/empty_string"
+        app:title="@string/event_preferences_notifications_contacts"
+        app:dependency="eventNotificationEnabled"
+        app:layout="@layout/mp_preference_material_widget"
+        app:withoutNumbers="true" />
+
+    <SwitchPreferenceCompat
+        app:key="eventNotificationCheckText"
+        app:title="@string/event_preferences_notifications_checkText"
+        app:defaultValue="false"
+        app:dependency="eventNotificationEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+    <EditTextPreference
+        app:key="eventNotificationText"
+        app:summary="@string/event_preferences_notifications_text"
+        app:title="@string/event_preferences_notifications_text"
+        app:dependency="eventNotificationEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <!--<SwitchPreferenceCompat
         app:key="eventNotificationEndWhenRemoved"
         app:title="@string/event_preferences_notifications_end_when_removed"

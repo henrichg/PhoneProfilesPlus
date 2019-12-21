@@ -920,6 +920,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             event._eventPreferencesOrientation.checkPreferences(prefMng, context);
             event._eventPreferencesSMS.checkPreferences(prefMng, context);
             event._eventPreferencesCall.checkPreferences(prefMng, context);
+            event._eventPreferencesNotification.checkPreferences(prefMng, context);
             setPermissionsPreference();
             PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.onResume");
             ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);

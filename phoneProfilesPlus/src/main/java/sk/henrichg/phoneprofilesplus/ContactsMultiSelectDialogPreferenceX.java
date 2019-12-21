@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -15,6 +16,9 @@ public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
     ContactsMultiSelectDialogPreferenceFragmentX fragment;
 
     private final Context _context;
+
+    private final boolean withoutNumbers;
+
     String value = "";
     private String defaultValue;
     private boolean savedInstanceState;
@@ -25,6 +29,12 @@ public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
         super(context, attrs);
 
         _context = context;
+
+        TypedArray locationGeofenceType = context.obtainStyledAttributes(attrs,
+                R.styleable.ContactsMultiSelectDialogPreference, 0, 0);
+        withoutNumbers = locationGeofenceType.getBoolean(R.styleable.ContactsMultiSelectDialogPreference_withoutNumbers, false);
+
+        locationGeofenceType.recycle();
 
         if (EditorProfilesActivity.getContactsCache() == null)
             EditorProfilesActivity.createContactsCache();
@@ -50,7 +60,7 @@ public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
     void getValueCMSDP()
     {
         // change checked state by value
-        contactList = EditorProfilesActivity.getContactsCache().getList();
+        contactList = EditorProfilesActivity.getContactsCache().getList(withoutNumbers);
         if (contactList != null)
         {
             String[] splits = value.split("\\|");
@@ -83,7 +93,7 @@ public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
         }
     }
 
-    static String getSummary(String value, Context context) {
+    static String getSummary(String value, boolean withoutNumbers, Context context) {
         String summary = context.getString(R.string.contacts_multiselect_summary_text_not_selected);
         if (Permissions.checkContacts(context)) {
             if (!value.isEmpty()) {
@@ -107,8 +117,9 @@ public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
                                 //while (phones.moveToNext()) {
                                 if (phones.moveToFirst()) {
                                     found = true;
-                                    summary = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)) + '\n' +
-                                            phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                                    summary = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                                    if (!withoutNumbers)
+                                        summary = summary + "\n" + phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                                     //break;
                                 }
                                 phones.close();
@@ -129,7 +140,7 @@ public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
 
     private void setSummaryCMSDP()
     {
-        setSummary(getSummary(value, _context));
+        setSummary(getSummary(value, withoutNumbers, _context));
     }
 
     @SuppressWarnings("StringConcatenationInLoop")

@@ -329,7 +329,7 @@ class Event {
 
     private void createEventPreferencesNotification()
     {
-        this._eventPreferencesNotification = new EventPreferencesNotification(this, false, "", false, false, 0);
+        this._eventPreferencesNotification = new EventPreferencesNotification(this, false, "", false, false, 0, false, "", "", false, "");
     }
 
     private void createEventPreferencesApplication()

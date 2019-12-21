@@ -10,13 +10,17 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.provider.ContactsContract;
 import android.service.notification.StatusBarNotification;
+import android.telephony.PhoneNumberUtils;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
+import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
@@ -31,6 +35,11 @@ class EventPreferencesNotification extends EventPreferences {
     boolean _inCall;
     boolean _missedCall;
     int _duration;
+    boolean _checkContacts;
+    String _contacts;
+    String _contactGroups;
+    boolean _checkText;
+    String _text;
 
     static final String PREF_EVENT_NOTIFICATION_ENABLED = "eventNotificationEnabled";
     private static final String PREF_EVENT_NOTIFICATION_APPLICATIONS = "eventNotificationApplications";
@@ -38,6 +47,11 @@ class EventPreferencesNotification extends EventPreferences {
     private static final String PREF_EVENT_NOTIFICATION_MISSED_CALL = "eventNotificationMissedCall";
     static final String PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS = "eventNotificationNotificationsAccessSettings";
     private static final String PREF_EVENT_NOTIFICATION_DURATION = "eventNotificationDuration";
+    private static final String PREF_EVENT_NOTIFICATION_CHECK_CONTACTS = "eventNotificationCheckContacts";
+    private static final String PREF_EVENT_NOTIFICATION_CHECK_TEXT = "eventNotificationCheckText";
+    private static final String PREF_EVENT_NOTIFICATION_CONTACT_GROUPS = "eventNotificationContactGroups";
+    private static final String PREF_EVENT_NOTIFICATION_CONTACTS = "eventNotificationContacts";
+    private static final String PREF_EVENT_NOTIFICATION_TEXT = "eventNotificationText";
 
     private static final String PREF_EVENT_NOTIFICATION_CATEGORY = "eventNotificationCategoryRoot";
 
@@ -46,7 +60,13 @@ class EventPreferencesNotification extends EventPreferences {
                                         String applications,
                                         boolean inCall,
                                         boolean missedCall,
-                                        int duration)
+                                        int duration,
+                                        boolean checkContacts,
+                                        String contactGroups,
+                                        String contacts,
+                                        boolean checkText,
+                                        String text
+                                        )
     {
         super(event, enabled);
 
@@ -54,6 +74,11 @@ class EventPreferencesNotification extends EventPreferences {
         this._inCall = inCall;
         this._missedCall = missedCall;
         this._duration = duration;
+        this._checkContacts = checkContacts;
+        this._contacts = contacts;
+        this._contactGroups = contactGroups;
+        this._checkText = checkText;
+        this._text = text;
     }
 
     @Override
@@ -64,6 +89,12 @@ class EventPreferencesNotification extends EventPreferences {
         this._inCall = fromEvent._eventPreferencesNotification._inCall;
         this._missedCall = fromEvent._eventPreferencesNotification._missedCall;
         this._duration = fromEvent._eventPreferencesNotification._duration;
+        this._checkContacts = fromEvent._eventPreferencesNotification._checkContacts;
+        this._contacts = fromEvent._eventPreferencesNotification._contacts;
+        this._contactGroups = fromEvent._eventPreferencesNotification._contactGroups;
+        this._checkText = fromEvent._eventPreferencesNotification._checkText;
+        this._text = fromEvent._eventPreferencesNotification._text;
+
         this.setSensorPassed(fromEvent._eventPreferencesNotification.getSensorPassed());
     }
 
@@ -77,6 +108,11 @@ class EventPreferencesNotification extends EventPreferences {
             editor.putBoolean(PREF_EVENT_NOTIFICATION_IN_CALL, this._inCall);
             editor.putBoolean(PREF_EVENT_NOTIFICATION_MISSED_CALL, this._missedCall);
             editor.putString(PREF_EVENT_NOTIFICATION_DURATION, String.valueOf(this._duration));
+            editor.putBoolean(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS, this._checkContacts);
+            editor.putString(PREF_EVENT_NOTIFICATION_CONTACTS, this._contacts);
+            editor.putString(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS, this._contactGroups);
+            editor.putBoolean(PREF_EVENT_NOTIFICATION_CHECK_TEXT, this._checkText);
+            editor.putString(PREF_EVENT_NOTIFICATION_TEXT, this._text);
             editor.apply();
         //}
     }
@@ -90,6 +126,11 @@ class EventPreferencesNotification extends EventPreferences {
             this._inCall = preferences.getBoolean(PREF_EVENT_NOTIFICATION_IN_CALL, false);
             this._missedCall = preferences.getBoolean(PREF_EVENT_NOTIFICATION_MISSED_CALL, false);
             this._duration = Integer.parseInt(preferences.getString(PREF_EVENT_NOTIFICATION_DURATION, "0"));
+            this._checkContacts = preferences.getBoolean(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS, false);
+            this._contacts = preferences.getString(PREF_EVENT_NOTIFICATION_CONTACTS, "");
+            this._contactGroups = preferences.getString(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS, "");
+            this._checkText = preferences.getBoolean(PREF_EVENT_NOTIFICATION_CHECK_TEXT, false);
+            this._text = preferences.getString(PREF_EVENT_NOTIFICATION_TEXT, "");
         //}
     }
 
@@ -151,6 +192,24 @@ class EventPreferencesNotification extends EventPreferences {
                     if (this._inCall || this._missedCall)
                         descr = descr + " • ";
                     descr = descr + /*"(S) "+*/context.getString(R.string.event_preferences_notifications_applications) + ": <b>" + selectedApplications + "</b>";
+
+                    if (this._checkContacts) {
+                        descr = descr + " • ";
+                        descr = descr + "<b>" + context.getString(R.string.event_preferences_notifications_checkContacts) + "</b>: ";
+
+                        descr = descr + context.getString(R.string.event_preferences_notifications_contact_groups) + ": ";
+                        descr = descr + "<b>" + ContactGroupsMultiSelectDialogPreferenceX.getSummary(_contactGroups, context) + "</b> • ";
+
+                        descr = descr + context.getString(R.string.event_preferences_notifications_contacts) + ": ";
+                        descr = descr + "<b>" + ContactsMultiSelectDialogPreferenceX.getSummary(_contacts, true, context) + "</b>";
+                    }
+                    if (this._checkText) {
+                        descr = descr + " • ";
+                        descr = descr + "<b>" + context.getString(R.string.event_preferences_notifications_checkText) + "</b>: ";
+
+                        descr = descr + context.getString(R.string.event_preferences_notifications_text) + ": ";
+                        descr = descr + "<b>" + _text + "</b>";
+                    }
                     descr = descr + " • ";
                     descr = descr + context.getString(R.string.pref_event_duration) + ": <b>" + GlobalGUIRoutines.getDurationString(this._duration) + "</b>";
                 }
@@ -197,24 +256,61 @@ class EventPreferencesNotification extends EventPreferences {
             }
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 0, false, false, false);
         }
+        if (key.equals(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS)) {
+            Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACTS);
+            if (preference != null) {
+                preference.setEnabled(value.equals("true"));
+            }
+            preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS);
+            if (preference != null) {
+                preference.setEnabled(value.equals("true"));
+            }
+        }
+        if (key.equals(PREF_EVENT_NOTIFICATION_CHECK_TEXT)) {
+            Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_TEXT);
+            if (preference != null) {
+                preference.setEnabled(value.equals("true"));
+            }
+        }
 
         Event event = new Event();
         event.createEventPreferences();
         event._eventPreferencesNotification.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesNotification.isRunnable(context);
         boolean enabled = preferences.getBoolean(PREF_EVENT_NOTIFICATION_ENABLED, false);
-        SwitchPreferenceCompat preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_IN_CALL);
-        if (preference != null) {
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, preferences.getBoolean(PREF_EVENT_NOTIFICATION_IN_CALL, false), true, !isRunnable, false);
+        SwitchPreferenceCompat switchPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_IN_CALL);
+        if (switchPreference != null) {
+            GlobalGUIRoutines.setPreferenceTitleStyleX(switchPreference, enabled, preferences.getBoolean(PREF_EVENT_NOTIFICATION_IN_CALL, false), true, !isRunnable, false);
         }
-        preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_MISSED_CALL);
-        if (preference != null) {
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, preferences.getBoolean(PREF_EVENT_NOTIFICATION_MISSED_CALL, false), true, !isRunnable, false);
+        switchPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_MISSED_CALL);
+        if (switchPreference != null) {
+            GlobalGUIRoutines.setPreferenceTitleStyleX(switchPreference, enabled, preferences.getBoolean(PREF_EVENT_NOTIFICATION_MISSED_CALL, false), true, !isRunnable, false);
         }
         Preference applicationsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
-        if (preference != null) {
+        if (applicationsPreference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_APPLICATIONS, "").isEmpty();
             GlobalGUIRoutines.setPreferenceTitleStyleX(applicationsPreference, enabled, bold, true, !isRunnable, false);
+        }
+        Preference checkContactsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS);
+        if ((checkContactsPreference != null) && prefMng.getSharedPreferences().getBoolean(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS, false)) {
+            Preference _preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS);
+            if (_preference != null) {
+                boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS, "").isEmpty();
+                GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, !isRunnable, false);
+            }
+            _preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACTS);
+            if (_preference != null) {
+                boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_CONTACTS, "").isEmpty();
+                GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, !isRunnable, false);
+            }
+        }
+        Preference checkTextPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CHECK_TEXT);
+        if ((checkTextPreference != null) && prefMng.getSharedPreferences().getBoolean(PREF_EVENT_NOTIFICATION_CHECK_TEXT, false)) {
+            Preference _preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_TEXT);
+            if (_preference != null) {
+                boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_TEXT, "").isEmpty();
+                GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, !isRunnable, false);
+            }
         }
     }
 
@@ -223,13 +319,18 @@ class EventPreferencesNotification extends EventPreferences {
     {
         if (key.equals(PREF_EVENT_NOTIFICATION_ENABLED) ||
             key.equals(PREF_EVENT_NOTIFICATION_IN_CALL) ||
-            key.equals(PREF_EVENT_NOTIFICATION_MISSED_CALL)) {
+            key.equals(PREF_EVENT_NOTIFICATION_MISSED_CALL) ||
+            key.equals(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS) ||
+            key.equals(PREF_EVENT_NOTIFICATION_CHECK_TEXT)) {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, value ? "true": "false", context);
         }
         if (key.equals(PREF_EVENT_NOTIFICATION_APPLICATIONS)||
             key.equals(PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS) ||
-            key.equals(PREF_EVENT_NOTIFICATION_DURATION))
+            key.equals(PREF_EVENT_NOTIFICATION_DURATION) ||
+            key.equals(PREF_EVENT_NOTIFICATION_CONTACTS) ||
+            key.equals(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS) ||
+            key.equals(PREF_EVENT_NOTIFICATION_TEXT))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
@@ -244,6 +345,11 @@ class EventPreferencesNotification extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_APPLICATIONS, preferences, context);
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS, preferences, context);
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_DURATION, preferences, context);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_CHECK_CONTACTS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_CONTACTS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_CONTACT_GROUPS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_CHECK_TEXT, preferences, context);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_TEXT, preferences, context);
     }
 
     @Override
@@ -251,7 +357,9 @@ class EventPreferencesNotification extends EventPreferences {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_NOTIFICATION_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesNotification tmp = new EventPreferencesNotification(this._event, this._enabled,
-                                                        this._applications, this._inCall, this._missedCall, this._duration);
+                                                        this._applications, this._inCall, this._missedCall, this._duration,
+                                                        this._checkContacts, this._contactGroups, this._contacts,
+                                                        this._checkText, this._text);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 
@@ -290,6 +398,12 @@ class EventPreferencesNotification extends EventPreferences {
             ApplicationsMultiSelectDialogPreferenceX applicationsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
             Preference ringingCallPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_IN_CALL);
             Preference missedCallPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_MISSED_CALL);
+            SwitchPreferenceCompat checkContactsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS);
+            Preference contactGroupsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS);
+            Preference contactsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACTS);
+            SwitchPreferenceCompat checkTextPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CHECK_TEXT);
+            Preference textPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_TEXT);
+
             if (applicationsPreference != null) {
                 applicationsPreference.setEnabled(enabled);
                 applicationsPreference.setSummaryAMSDP();
@@ -299,6 +413,24 @@ class EventPreferencesNotification extends EventPreferences {
             }
             if (missedCallPreference != null) {
                 missedCallPreference.setEnabled(enabled);
+            }
+            if (checkContactsPreference != null) {
+                checkContactsPreference.setEnabled(enabled);
+            }
+            if (contactGroupsPreference != null) {
+                boolean checkEnabled = (checkContactsPreference != null) && (checkContactsPreference.isChecked());
+                contactGroupsPreference.setEnabled(enabled && checkEnabled);
+            }
+            if (contactsPreference != null) {
+                boolean checkEnabled = (checkContactsPreference != null) && (checkContactsPreference.isChecked());
+                contactsPreference.setEnabled(enabled && checkEnabled);
+            }
+            if (checkTextPreference != null) {
+                checkTextPreference.setEnabled(enabled);
+            }
+            if (textPreference != null) {
+                boolean checkEnabled = (checkTextPreference != null) && (checkTextPreference.isChecked());
+                textPreference.setEnabled(enabled && checkEnabled);
             }
 
             SharedPreferences preferences = prefMng.getSharedPreferences();
@@ -772,6 +904,86 @@ class EventPreferencesNotification extends EventPreferences {
         }
 
         return null;
+    }
+
+    boolean isContactConfigured(String text, DataWrapper dataWrapper) {
+        boolean phoneNumberFound = false;
+
+        // find phone number in groups
+        String[] splits = this._contactGroups.split("\\|");
+        for (String split : splits) {
+            String[] projection = new String[]{ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID};
+            String selection = ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID + "=? AND "
+                    + ContactsContract.CommonDataKinds.GroupMembership.MIMETYPE + "='"
+                    + ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE + "'";
+            String[] selectionArgs = new String[]{split};
+            Cursor mCursor = dataWrapper.context.getContentResolver().query(ContactsContract.Data.CONTENT_URI, projection, selection, selectionArgs, null);
+            if (mCursor != null) {
+                while (mCursor.moveToNext()) {
+                    String contactId = mCursor.getString(mCursor.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
+                    String[] projection2 = new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
+                    String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?";
+                    String[] selection2Args = new String[]{contactId};
+                    Cursor phones = dataWrapper.context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
+                    if (phones != null) {
+                        while (phones.moveToNext()) {
+                            String _contactName = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+
+                            if (_contactName.equals(text)) {
+                                phoneNumberFound = true;
+                                break;
+                            }
+                        }
+                        phones.close();
+                    }
+                    if (phoneNumberFound)
+                        break;
+                }
+                mCursor.close();
+            }
+            if (phoneNumberFound)
+                break;
+        }
+
+        if (!phoneNumberFound) {
+            // find phone number in contacts
+            splits = this._contacts.split("\\|");
+            for (String split : splits) {
+                String[] splits2 = split.split("#");
+
+                // get phone number from contacts
+                String[] projection = new String[]{ContactsContract.Contacts._ID};
+                String selection = ContactsContract.Contacts._ID + "=?";
+                String[] selectionArgs = new String[]{splits2[0]};
+                Cursor mCursor = dataWrapper.context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, selection, selectionArgs, null);
+                if (mCursor != null) {
+                    while (mCursor.moveToNext()) {
+                        String[] projection2 = new String[]{ContactsContract.CommonDataKinds.Phone._ID, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
+                        String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?" + " and " + ContactsContract.CommonDataKinds.Phone._ID + "=?";
+                        String[] selection2Args = new String[]{splits2[0], splits2[1]};
+                        Cursor phones = dataWrapper.context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
+                        if (phones != null) {
+                            while (phones.moveToNext()) {
+                                String _contactName = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+
+                                if (_contactName.equals(text)) {
+                                    phoneNumberFound = true;
+                                    break;
+                                }
+                            }
+                            phones.close();
+                        }
+                        if (phoneNumberFound)
+                            break;
+                    }
+                    mCursor.close();
+                }
+                if (phoneNumberFound)
+                    break;
+            }
+        }
+
+        return phoneNumberFound;
     }
 
 }

@@ -53,6 +53,9 @@
         <attr format="reference|color" name="insetForeground" />
     </declare-styleable>
     -->
+    <declare-styleable name="ContactsMultiSelectDialogPreference">
+        <attr name="withoutNumbers" format="boolean" />
+    </declare-styleable>
 
     <!-- theme dependent drawables -->
     <attr name="colorAccentDisabled" format="reference" />

@@ -38,7 +38,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2405;
+    private static final int DATABASE_VERSION = 2406;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -316,6 +316,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_ORIENTATION_CHECK_LIGHT = "orientationCheckLight";
     private static final String KEY_E_ORIENTATION_LIGHT_MIN = "orientationLightMin";
     private static final String KEY_E_ORIENTATION_LIGHT_MAX = "orientationLightMax";
+    private static final String KEY_E_NOTIFICATION_CHECK_CONTACTS = "notificationCheckContacts";
+    private static final String KEY_E_NOTIFICATION_CONTACTS = "notificationContacts";
+    private static final String KEY_E_NOTIFICATION_CONTACT_GROUPS = "notificationContactGroups";
+    private static final String KEY_E_NOTIFICATION_CHECK_TEXT = "notificationCheckText";
+    private static final String KEY_E_NOTIFICATION_TEXT = "notificationText";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -679,7 +684,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_TIME_TYPE + " INTEGER,"
                 + KEY_E_ORIENTATION_CHECK_LIGHT + " INTEGER,"
                 + KEY_E_ORIENTATION_LIGHT_MIN + " INTEGER,"
-                + KEY_E_ORIENTATION_LIGHT_MAX + " INTEGER"
+                + KEY_E_ORIENTATION_LIGHT_MAX + " INTEGER,"
+                + KEY_E_NOTIFICATION_CHECK_CONTACTS + " INTEGER,"
+                + KEY_E_NOTIFICATION_CONTACTS + " TEXT,"
+                + KEY_E_NOTIFICATION_CONTACT_GROUPS + " TEXT,"
+                + KEY_E_NOTIFICATION_CHECK_TEXT + " INTEGER,"
+                + KEY_E_NOTIFICATION_TEXT + " TEXT"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1417,7 +1427,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALL_CONTACT_GROUPS + "=\"\"");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SMS_CONTACT_GROUPS + "=\"\"");
         }
-
 
         if (oldVersion < 1203) {
 
@@ -2958,6 +2967,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ORIENTATION_LIGHT_MIN + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ORIENTATION_LIGHT_MAX + "=0");
+        }
+
+        if (oldVersion < 2406)
+        {
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_CHECK_CONTACTS + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_CONTACT_GROUPS + " TEXT");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_CONTACTS + " TEXT");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_CHECK_TEXT + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_TEXT + " TEXT");
+
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_CHECK_CONTACTS + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_CONTACT_GROUPS + "=\"\"");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_CONTACTS + "=\"\"");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_CHECK_TEXT + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_TEXT + "=\"\"");
         }
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
@@ -5411,7 +5435,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         //KEY_E_NOTIFICATION_PERMANENT_RUN,
                         KEY_E_NOTIFICATION_IN_CALL,
                         KEY_E_NOTIFICATION_MISSED_CALL,
-                        KEY_E_NOTIFICATION_SENSOR_PASSED
+                        KEY_E_NOTIFICATION_SENSOR_PASSED,
+                        KEY_E_NOTIFICATION_CHECK_CONTACTS,
+                        KEY_E_NOTIFICATION_CONTACT_GROUPS,
+                        KEY_E_NOTIFICATION_CONTACTS,
+                        KEY_E_NOTIFICATION_CHECK_TEXT,
+                        KEY_E_NOTIFICATION_TEXT
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -5431,6 +5460,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._duration = cursor.getInt(cursor.getColumnIndex(KEY_E_NOTIFICATION_DURATION));
                 //eventPreferences._endWhenRemoved = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_END_WHEN_REMOVED))) == 1);
                 //eventPreferences._permanentRun = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_PERMANENT_RUN))) == 1);
+                eventPreferences._checkContacts = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_CHECK_CONTACTS))) == 1);
+                eventPreferences._contactGroups = cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_CONTACT_GROUPS));
+                eventPreferences._contacts = cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_CONTACTS));
+                eventPreferences._checkText = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_CHECK_TEXT))) == 1);
+                eventPreferences._text = cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_TEXT));
                 eventPreferences.setSensorPassed(Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_SENSOR_PASSED))));
             }
             cursor.close();
@@ -5844,6 +5878,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_NOTIFICATION_DURATION, eventPreferences._duration);
         //values.put(KEY_E_NOTIFICATION_END_WHEN_REMOVED, (eventPreferences._endWhenRemoved) ? 1 : 0);
         //values.put(KEY_E_NOTIFICATION_PERMANENT_RUN, (eventPreferences._permanentRun) ? 1 : 0);
+        values.put(KEY_E_NOTIFICATION_CHECK_CONTACTS, (eventPreferences._checkContacts) ? 1 : 0);
+        values.put(KEY_E_NOTIFICATION_CONTACT_GROUPS, eventPreferences._contactGroups);
+        values.put(KEY_E_NOTIFICATION_CONTACTS, eventPreferences._contacts);
+        values.put(KEY_E_NOTIFICATION_CHECK_TEXT, (eventPreferences._checkText) ? 1 : 0);
+        values.put(KEY_E_NOTIFICATION_TEXT, eventPreferences._text);
         values.put(KEY_E_NOTIFICATION_SENSOR_PASSED, eventPreferences.getSensorPassed());
 
         // updating row
@@ -11154,6 +11193,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                             if (exportedDBObj.getVersion() < 2405) {
                                                 values.put(KEY_E_ORIENTATION_LIGHT_MIN, 0);
                                                 values.put(KEY_E_ORIENTATION_LIGHT_MAX, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 2406) {
+                                                values.put(KEY_E_NOTIFICATION_CHECK_CONTACTS, 0);
+                                                values.put(KEY_E_NOTIFICATION_CONTACT_GROUPS, "");
+                                                values.put(KEY_E_NOTIFICATION_CONTACTS, "");
+                                                values.put(KEY_E_NOTIFICATION_CHECK_TEXT, 0);
+                                                values.put(KEY_E_NOTIFICATION_TEXT, "");
                                             }
 
                                             // Inserting Row do db z SQLiteOpenHelper

@@ -10,12 +10,14 @@ import java.util.List;
 class ContactsCache {
 
     private ArrayList<Contact> contactList;
+    private ArrayList<Contact> contactListWithoutNumber;
     boolean cached;
     private boolean cancelled;
 
     ContactsCache()
     {
         contactList = new ArrayList<>();
+        contactListWithoutNumber = new ArrayList<>();
         cached = false;
     }
 
@@ -26,6 +28,7 @@ class ContactsCache {
         cancelled = false;
 
         contactList.clear();
+        contactListWithoutNumber.clear();
 
         if (Permissions.checkContacts(context)) {
             String[] projection = new String[]{ContactsContract.Contacts.HAS_PHONE_NUMBER,
@@ -68,6 +71,18 @@ class ContactsCache {
                             phones.close();
                         }
                     }
+                    Contact aContact = new Contact();
+                    aContact.contactId = contactId;
+                    aContact.name = name;
+                    aContact.phoneId = 0;
+                    aContact.phoneNumber = "";
+                    try {
+                        aContact.photoId = Long.parseLong(photoId);
+                    } catch (Exception e) {
+                        aContact.photoId = 0;
+                    }
+                    contactListWithoutNumber.add(aContact);
+
                     //}catch(Exception e){}
 
                     if (cancelled)
@@ -93,10 +108,14 @@ class ContactsCache {
     }
     */
 
-    public List<Contact> getList()
+    List<Contact> getList(boolean withoutNumber)
     {
-        if (cached)
-            return contactList;
+        if (cached) {
+            if (withoutNumber)
+                return contactListWithoutNumber;
+            else
+                return contactList;
+        }
         else
             return null;
     }
@@ -156,8 +175,11 @@ class ContactsCache {
     void clearCache(boolean nullList)
     {
         contactList.clear();
-        if (nullList)
+        contactListWithoutNumber.clear();
+        if (nullList) {
             contactList = null;
+            contactListWithoutNumber = null;
+        }
         cached = false;
     }
 

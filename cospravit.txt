@@ -350,3 +350,14 @@ Z ColorOs:
       - Disables authorization monitoring = enabked
 
 ----------------------------------------
+
+Sensor notifikacii:
+- Testuje sa isNotificationActive(), kde sa dava package name. Cize asi viem rozlisovat odkial je ta notifikacia.
+  Ci z hovoru alebo z notifikacie.
+- V texte notifikacie je asi, kto poslal tu spravu, ale je tam len meno. Cize by som musel prechadzat kontakty.
+  Toto iste asi pojde aj pre hovory.
+- Tazke skus pridat do senzora podporu pre texty. Moze si bud nastavit ktore kontakty (checkboxami) alebo vlastny text.
+- Mohol by som tym vyriesit podporu pre RCS a vlastne vsetky komunikatory. Testni to.
+
+----------------------------------------
+
