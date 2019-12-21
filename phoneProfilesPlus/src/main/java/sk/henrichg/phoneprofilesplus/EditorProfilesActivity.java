@@ -1296,9 +1296,12 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         if (requestCode == REQUEST_CODE_ACTIVATE_PROFILE)
         {
-            EditorProfileListFragment fragment = (EditorProfileListFragment)getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
-            if (fragment != null)
-                fragment.doOnActivityResult(requestCode, resultCode, data);
+            Fragment _fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+            if (_fragment instanceof EditorProfileListFragment) {
+                EditorProfileListFragment fragment = (EditorProfileListFragment) getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+                if (fragment != null)
+                    fragment.doOnActivityResult(requestCode, resultCode, data);
+            }
         }
         else
         if (requestCode == REQUEST_CODE_PROFILE_PREFERENCES)
@@ -2195,23 +2198,26 @@ public class EditorProfilesActivity extends AppCompatActivity
     private void redrawProfileListFragment(Profile profile, int newProfileMode /*int predefinedProfileIndex, boolean startTargetHelps*/) {
         // redraw list fragment, notification a widgets
 
-        final EditorProfileListFragment fragment = (EditorProfileListFragment) getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
-        if (fragment != null) {
-            // update profile, this rewrite profile in profileList
-            fragment.activityDataWrapper.updateProfile(profile);
+        Fragment _fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+        if (_fragment instanceof EditorProfileListFragment) {
+            final EditorProfileListFragment fragment = (EditorProfileListFragment) getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+            if (fragment != null) {
+                // update profile, this rewrite profile in profileList
+                fragment.activityDataWrapper.updateProfile(profile);
 
-            boolean newProfile = ((newProfileMode == EditorProfileListFragment.EDIT_MODE_INSERT) ||
-                    (newProfileMode == EditorProfileListFragment.EDIT_MODE_DUPLICATE));
-            fragment.updateListView(profile, newProfile, false, false, 0);
+                boolean newProfile = ((newProfileMode == EditorProfileListFragment.EDIT_MODE_INSERT) ||
+                        (newProfileMode == EditorProfileListFragment.EDIT_MODE_DUPLICATE));
+                fragment.updateListView(profile, newProfile, false, false, 0);
 
-            Profile activeProfile = fragment.activityDataWrapper.getActivatedProfile(true,
+                Profile activeProfile = fragment.activityDataWrapper.getActivatedProfile(true,
                         ApplicationPreferences.applicationEditorPrefIndicator(fragment.activityDataWrapper.context));
-            fragment.updateHeader(activeProfile);
-            PPApplication.showProfileNotification(/*getApplicationContext()*/true);
-            PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfilesActivity.redrawProfileListFragment");
-            ActivateProfileHelper.updateGUI(fragment.activityDataWrapper.context, true, true);
+                fragment.updateHeader(activeProfile);
+                PPApplication.showProfileNotification(/*getApplicationContext()*/true);
+                PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfilesActivity.redrawProfileListFragment");
+                ActivateProfileHelper.updateGUI(fragment.activityDataWrapper.context, true, true);
 
-            fragment.activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
+                fragment.activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
+            }
         }
     }
 
@@ -2336,18 +2342,21 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     private void redrawEventListFragment(Event event, int newEventMode /*int predefinedEventIndex, boolean startTargetHelps*/) {
         // redraw list fragment, notification and widgets
-        EditorEventListFragment fragment = (EditorEventListFragment) getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
-        if (fragment != null) {
-            // update event, this rewrite event in eventList
-            fragment.activityDataWrapper.updateEvent(event);
+        Fragment _fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+        if (_fragment instanceof EditorEventListFragment) {
+            EditorEventListFragment fragment = (EditorEventListFragment) getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+            if (fragment != null) {
+                // update event, this rewrite event in eventList
+                fragment.activityDataWrapper.updateEvent(event);
 
-            boolean newEvent = ((newEventMode == EditorEventListFragment.EDIT_MODE_INSERT) ||
-                    (newEventMode == EditorEventListFragment.EDIT_MODE_DUPLICATE));
-            fragment.updateListView(event, newEvent, false, false, 0);
+                boolean newEvent = ((newEventMode == EditorEventListFragment.EDIT_MODE_INSERT) ||
+                        (newEventMode == EditorEventListFragment.EDIT_MODE_DUPLICATE));
+                fragment.updateListView(event, newEvent, false, false, 0);
 
-            Profile activeProfile = fragment.activityDataWrapper.getActivatedProfileFromDB(true,
-                    ApplicationPreferences.applicationEditorPrefIndicator(fragment.activityDataWrapper.context));
-            fragment.updateHeader(activeProfile);
+                Profile activeProfile = fragment.activityDataWrapper.getActivatedProfileFromDB(true,
+                        ApplicationPreferences.applicationEditorPrefIndicator(fragment.activityDataWrapper.context));
+                fragment.updateHeader(activeProfile);
+            }
         }
     }
 
