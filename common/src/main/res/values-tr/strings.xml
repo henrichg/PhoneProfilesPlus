@@ -571,8 +571,6 @@
     <string name="about_application_source_code">Kaynak kodu:</string>
     <string name="about_application_translations">Tercümeler:</string>
     <string name="about_application_rate_in_googlePlay">Lutfen bu uygulamaya Google Play\'de puan veriniz</string>
-    <string name="permission_group_name_access_notification_policy">Rahatsız Etmeyin Modu\'na erişim</string>
-    <string name="permissions_access_notification_policy_not_allowed_confirm">\"Rahatsız Etmeyin Modu\'na erişim\"e izin vermediniz. Bunun için tekrar sorulmasın mı?</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Rahatsız Etmeyin Modu\'na erişim</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Lutfen \"PhoneProfilesPlus\" uygulamasına \"Uygulama izinleri\" ayarlarında izin verin.</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Eğer şarj aleti veya istasyonunu belli bir müddet çıkarıp ekranı kapattığınız zaman Durumlardan tercih faaliyete geçirmede problem yaşıyorsanız, PhoneProfilesPlus\'ı Güç ayarlarında \"Pil en iyi duruma getirme\" bölümünde \"En iyi duruma getirilmedi\" listesine ilave ediniz.</string>
@@ -927,7 +925,6 @@
     <string name="profile_preferences_applicationDisableMobileCellScanning">Şebeke hücre taramasını kapat</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Döndürme şartı taramasını kapat</string>
     <string name="profile_preferences_headsUpNotifications">(G1) (R) açılan bildirimler</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_text">PhoneProfilesPlusExtender nasıl kurulur</string>
     <string name="event_preferences_PPPExtenderInstallInfo_summary">PhoneProfilesPlusExtender.apk\'nın son sürümünü GitHub\'dan indirin. Daha sonra indirilen apk ilgili bildirime tıklayın ve yükleyin.</string>
     <string name="donation_thanks_dialog">Bağış için teşekkür ederiz.\nGerçekten bunu takdir ediyoruz.</string>
     <string name="donation_google_android_market_not_supported">Uygulama-içi Bağış mümkün değil. Google Play Mağaza doğru yüklenmiş mi?</string>
@@ -1062,7 +1059,6 @@
     <string name="permission_why_profile_notification_led">bildirim ışığını açmak/kapamak için</string>
     <string name="permission_why_profile_vibrate_when_ringing">telefon zili çalarken titreşimi açmak/kapamak için</string>
     <string name="permission_why_play_ringtone_notification">zil ve bildirim seslerini çalmak için</string>
-    <string name="permission_why_profile_access_notification_policy">tercih sesi, zil sesi, bildirim, sistem sesi seviyesini değiştirmek için</string>
     <string name="permission_why_profile_lock_device">cihaz kilidi için</string>
     <string name="permission_why_ringtone_preference">depolamadan zil seslerini yüklemek için</string>
     <string name="permission_why_profile_dtmf_tone_when_dialing">çağrı esnasında DTMF tonunu açmak/kapamak için</string>
@@ -1513,4 +1509,8 @@
     <!--    <string name="notification_channel_activated_profile_description_pp">Shows the activated profile.</string>-->
     <!--    <string name="phone_profiles_pref_grantRootPermission_summary_pp">Please grant root for PhoneProfiles. Is required for profile parameters, which requires root.</string>-->
     <!--    <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">By night mode</string>-->
+    <!--    <string name="permission_group_name_access_notification_policy">Do not disturb access</string>-->
+    <!--    <string name="permissions_access_notification_policy_not_allowed_confirm">You have not enabled \"Do not disturb access\". Never ask again?</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_text">How to install PhoneProfilesPlusExtender</string>-->
+    <!--    <string name="permission_why_profile_access_notification_policy">for change sound profile, change ringing, notification, system volume</string>-->
 </resources>

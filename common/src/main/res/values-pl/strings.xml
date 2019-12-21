@@ -571,8 +571,6 @@
     <string name="about_application_source_code">Kod źródłowy:</string>
     <string name="about_application_translations">Tłumaczenia:</string>
     <string name="about_application_rate_in_googlePlay">Proszę oceń tę aplikację na Google Play</string>
-    <string name="permission_group_name_access_notification_policy">Nie przeszkadzaj dostępowi</string>
-    <string name="permissions_access_notification_policy_not_allowed_confirm">Nie włączyłeś \"Nie przeszkadzaj dostępowi\". Nie pytać ponownie?</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Nie przeszkadzaj dostępowi</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Znajdź na liście \"PhoneProfilesPlus\" i przyznaj uprawnienie.</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Dodaj PhoneProfilesPlus do \"Bez optymalizacji\" jeśli napotykasz problemy z aktywacją profili przez wydarzenia w czasie gdy telefon leży nieruchomo, odłączony od prądu i z wygaszonym ekranem.</string>
@@ -927,7 +925,6 @@
     <string name="profile_preferences_applicationDisableMobileCellScanning">Skanowanie stacji bazowych</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Skanowanie orientacji</string>
     <string name="profile_preferences_headsUpNotifications">(G1) (R) wyskakujące powiadomienia</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_text">Jak zainstalować PhoneProfilesPlusExtender</string>
     <string name="event_preferences_PPPExtenderInstallInfo_summary">Pobierz najnowszą wersję PhoneProfilesPlusExtender.apk z GitHub\'a. Kliknij na powiadomienie o pobraniu apk i zainstaluj ją.</string>
     <string name="donation_thanks_dialog">Dziękuję za darowiznę.\nNaprawdę to doceniam.</string>
     <string name="donation_google_android_market_not_supported">Darowizny w aplikacji nie są obsługiwane. Czy sklep Google Play jest poprawnie zainstalowany?</string>
@@ -1062,7 +1059,6 @@
     <string name="permission_why_profile_notification_led">aby włączyć/wyłączyć powiadomienie LED</string>
     <string name="permission_why_profile_vibrate_when_ringing">aby włączyć/wyłączyć wibrację podczas dzwonka rozmowy</string>
     <string name="permission_why_play_ringtone_notification">aby odtwarzać dźwięki dzwonków i powiadomień</string>
-    <string name="permission_why_profile_access_notification_policy">aby zmieniać profil dźwięków, zmieniać głośność dzwonka, powiadomień i systemu</string>
     <string name="permission_why_profile_lock_device">aby zablokować urządzenie</string>
     <string name="permission_why_ringtone_preference">aby wczytać dzwonki z pamięci masowej</string>
     <string name="permission_why_profile_dtmf_tone_when_dialing">aby włączać/wyłączać enable/disable tony DTMF podczas wybierania numeru</string>
@@ -1513,4 +1509,8 @@
     <!--    <string name="notification_channel_activated_profile_description_pp">Shows the activated profile.</string>-->
     <!--    <string name="phone_profiles_pref_grantRootPermission_summary_pp">Please grant root for PhoneProfiles. Is required for profile parameters, which requires root.</string>-->
     <!--    <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">By night mode</string>-->
+    <!--    <string name="permission_group_name_access_notification_policy">Do not disturb access</string>-->
+    <!--    <string name="permissions_access_notification_policy_not_allowed_confirm">You have not enabled \"Do not disturb access\". Never ask again?</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_text">How to install PhoneProfilesPlusExtender</string>-->
+    <!--    <string name="permission_why_profile_access_notification_policy">for change sound profile, change ringing, notification, system volume</string>-->
 </resources>

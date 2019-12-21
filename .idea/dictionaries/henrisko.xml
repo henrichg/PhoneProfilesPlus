@@ -87,6 +87,7 @@
       <w>earlybirdalarm</w>
       <w>eatenddo</w>
       <w>edgepanel</w>
+      <w>eestlane</w>
       <w>emailnotification</w>
       <w>emotionui</w>
       <w>emui</w>
@@ -115,6 +116,7 @@
       <w>français</w>
       <w>fstype</w>
       <w>funanduseful</w>
+      <w>gaeilge</w>
       <w>gentlealarm</w>
       <w>geofence</w>
       <w>geofences</w>
@@ -131,6 +133,7 @@
       <w>hight</w>
       <w>homescreen</w>
       <w>horiz</w>
+      <w>hrvatski</w>
       <w>huawei</w>
       <w>imageview</w>
       <w>inapp</w>
@@ -149,7 +152,10 @@
       <w>keyevent</w>
       <w>klock</w>
       <w>kunzisoft</w>
+      <w>kurdî</w>
+      <w>latinica</w>
       <w>latn</w>
+      <w>latvis</w>
       <w>layouting</w>
       <w>leakcanary</w>
       <w>leftright</w>
@@ -163,10 +169,12 @@
       <w>listwidget</w>
       <w>llew</w>
       <w>lockscreen</w>
+      <w>lëtzebuergesch</w>
       <w>macosx</w>
       <w>magisk</w>
       <w>masshardt</w>
       <w>mdroid</w>
+      <w>melayu</w>
       <w>messager</w>
       <w>mimetype</w>
       <w>minwidth</w>
@@ -182,6 +190,7 @@
       <w>ndef</w>
       <w>nederlands</w>
       <w>nexec</w>
+      <w>norsk</w>
       <w>notconnected</w>
       <w>notif</w>
       <w>notinfront</w>
@@ -258,11 +267,13 @@
       <w>sonyericsson</w>
       <w>splunchy</w>
       <w>squareup</w>
+      <w>srpski</w>
       <w>ssid</w>
       <w>ssids</w>
       <w>startedlogging</w>
       <w>stericson</w>
       <w>stylers</w>
+      <w>suomalainen</w>
       <w>supersu</w>
       <w>svenska</w>
       <w>sysfs</w>
@@ -275,6 +286,7 @@
       <w>theming</w>
       <w>timedurationpicker</w>
       <w>timelines</w>
+      <w>tiếng</w>
       <w>topbar</w>
       <w>topjohnwu</w>
       <w>toybox</w>
@@ -291,6 +303,7 @@
       <w>vert</w>
       <w>visibile</w>
       <w>visiblity</w>
+      <w>việt</w>
       <w>wcdma</w>
       <w>wificonnected</w>
       <w>wifiinfront</w>
@@ -303,6 +316,7 @@
       <w>xxxk</w>
       <w>xxxm</w>
       <w>zenmode</w>
+      <w>íslensku</w>
       <w>čeština</w>
     </words>
   </dictionary>

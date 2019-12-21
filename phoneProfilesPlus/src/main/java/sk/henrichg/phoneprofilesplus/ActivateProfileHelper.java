@@ -3042,7 +3042,7 @@ class ActivateProfileHelper {
             else
                 return false;
         }
-        else*/
+        else
         if (android.os.Build.VERSION.SDK_INT < 22)
         {
             Method getDataEnabledMethod;
@@ -3073,7 +3073,7 @@ class ActivateProfileHelper {
             else
                 return false;
         }
-        else
+        else*/
         if (android.os.Build.VERSION.SDK_INT < 28)
         {
             TelephonyManager telephonyManager = (TelephonyManager) context

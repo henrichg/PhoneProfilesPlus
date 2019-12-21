@@ -571,8 +571,6 @@
     <string name="about_application_source_code">Исходный код:</string>
     <string name="about_application_translations">Переводы:</string>
     <string name="about_application_rate_in_googlePlay">Пожалуйста, оцените это приложение в Google Play</string>
-    <string name="permission_group_name_access_notification_policy">Функция \"Не беспокоить\"</string>
-    <string name="permissions_access_notification_policy_not_allowed_confirm">Вы не разрешили доступ к функции \"Не беспокоить\". Больше не спрашивать?</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Доступ к функции \"Не беспокоить\"</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Найдите приложение PhoneProfilesPlus и разрешите доступ.</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Если вы испытываете проблемы с активацией профилей или на некоторое время оставляете устройство с выключенным экраном, добавьте PhoneProfilesPlus в список \"Не экономят заряд\".</string>
@@ -927,7 +925,6 @@
     <string name="profile_preferences_applicationDisableMobileCellScanning">Отключить сканирование мобильных вышек</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Отключить сканирование ориентации</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Всплывающие уведомления</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_text">Как установить PhoneProfilesPlusExtender</string>
     <string name="event_preferences_PPPExtenderInstallInfo_summary">Загрузите последнюю версию PhoneProfilesPlusExtender.apk с GitHub. Затем нажмите на уведомление о загруженном apk и установите его.</string>
     <string name="donation_thanks_dialog">Спасибо за помощь.\nЯ действительно ценю это.</string>
     <string name="donation_google_android_market_not_supported">В приложении пожертвования не поддерживаются. Google Play Store установлен правильно?</string>
@@ -1062,7 +1059,6 @@
     <string name="permission_why_profile_notification_led">для включения/отключения LED-уведомления</string>
     <string name="permission_why_profile_vibrate_when_ringing">для включения/отключения вибрации при звонке</string>
     <string name="permission_why_play_ringtone_notification">для воспроизведения звуков звонка и уведомлений</string>
-    <string name="permission_why_profile_access_notification_policy">для изменения звука профиля, уровней громкости звонка, уведомлений, системы</string>
     <string name="permission_why_profile_lock_device">для блокировки устройства</string>
     <string name="permission_why_ringtone_preference">для загрузки мелодий звонка из хранилища</string>
     <string name="permission_why_profile_dtmf_tone_when_dialing">для включения/отключения тонального сигнала при наборе номера</string>
@@ -1361,16 +1357,16 @@
     <string name="phone_profiles_pref_applicationPrefIndicator_summary">Отображать индикаторы настроек профилей в Активаторе, Редакторе, ярлыках</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">Отображать индикаторы настроек профилей в уведомлениях</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Отображать индикаторы настроек профилей в виджетах</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>
+    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk находится в</string>
     <string name="event_preferences_not_set_underlined_parameters_summary">Underlined parameters are required.</string>
-    <string name="event_preferences_red_sensors_summary">Check also sensor parameters flagged with red color.</string>
+    <string name="event_preferences_red_sensors_summary">Проверьте также параметры датчика, выделенные красным цветом.</string>
     <string name="event_preferences_sensor_parameters_location_summary">Sensor parameters are under of the main event parameters.</string>
-    <string name="event_preferences_red_install_PPPExtender">Click here to install it.</string>
-    <string name="install_extender_dialog_title">Install PhoneProfilesPlusExtender</string>
-    <string name="alert_button_install">Install</string>
-    <string name="event_preferences_red_enable_PPPExtender">Click here to enable it. Search for PhoneProfilesPLusExtender and allow \"Accessibility\" for it.</string>
-    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">To enable \"Interruptions type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>
-    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">To enable \"Do not disturb\" profile parameter, allow for PhoneProfilesPlus \"Do not disturb access\" in system settings. Click here to enable it.</string>
+    <string name="event_preferences_red_install_PPPExtender">Нажмите сюда для его установки.</string>
+    <string name="install_extender_dialog_title">Установить PhoneProfilesPlusExtender</string>
+    <string name="alert_button_install">Установить</string>
+    <string name="event_preferences_red_enable_PPPExtender">Для этого нажмите сюда. Найдите в списке PhoneProfilesPLusExtender и включите для него доступ к спец. возможностям.</string>
+    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">Чтобы использовать параметр профиля \"Типы режима оповещения\", разрешите PhoneProfilesPlus доступ к уведомлениям в настройках системы. Для этого нажмите сюда.</string>
+    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">Чтобы использовать параметр профиля \"Не беспокоить\", разрешите PhoneProfilesPlus доступ к функции \"Не беспокоить\" в настройках системы. Для этого нажмите сюда.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>
@@ -1513,4 +1509,8 @@
     <!--    <string name="notification_channel_activated_profile_description_pp">Shows the activated profile.</string>-->
     <!--    <string name="phone_profiles_pref_grantRootPermission_summary_pp">Please grant root for PhoneProfiles. Is required for profile parameters, which requires root.</string>-->
     <!--    <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">By night mode</string>-->
+    <!--    <string name="permission_group_name_access_notification_policy">Do not disturb access</string>-->
+    <!--    <string name="permissions_access_notification_policy_not_allowed_confirm">You have not enabled \"Do not disturb access\". Never ask again?</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_text">How to install PhoneProfilesPlusExtender</string>-->
+    <!--    <string name="permission_why_profile_access_notification_policy">for change sound profile, change ringing, notification, system volume</string>-->
 </resources>

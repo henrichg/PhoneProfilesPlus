@@ -571,8 +571,6 @@
     <string name="about_application_source_code">Forráskód:</string>
     <string name="about_application_translations">Fordítások:</string>
     <string name="about_application_rate_in_googlePlay">Kérjük, értékelje ezt az alkalmazást a Google Playen</string>
-    <string name="permission_group_name_access_notification_policy">Ne zavarjanak mód</string>
-    <string name="permissions_access_notification_policy_not_allowed_confirm">Nincs engedélyezve \"Ne zavarjanak mód\". Ne kérdezze újra?</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Ne zavarjanak mód</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Keresse a meg a \"PhoneProfilesPlus\"-t a következő alkalmazáslistából, és engedélyezze.</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Adja a PhoneProfilesPlus-t a \"Nem optimalizált\" alkalmazásokhoz, ha a profil aktiválása során problémákat tapasztal.</string>
@@ -927,7 +925,6 @@
     <string name="profile_preferences_applicationDisableMobileCellScanning">Mobil cellák ellenőrzés letiltása</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Tájolás vizsgálat letiltása</string>
     <string name="profile_preferences_headsUpNotifications">(G1) (R) felugró értesítések</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_text">Hogyan kell telepíteni PhoneProfilesPlusExtender</string>
     <string name="event_preferences_PPPExtenderInstallInfo_summary">Letölti a legfrissebb változatát a PhoneProfilesPlusExtender.apk-nak a GitHub-ról. Kattintson az értesítésre ahol letöltheti apk-t, majd telepítse azt.</string>
     <string name="donation_thanks_dialog">Köszönöm az adományt. \nI Igazán méltányolom ezt.</string>
     <string name="donation_google_android_market_not_supported">In-App adományok nem támogatottak. A Google Play Áruház telepítve?</string>
@@ -1062,7 +1059,6 @@
     <string name="permission_why_profile_notification_led">ahhoz, hogy engedélyezze / tiltsa az értesítés LED-et</string>
     <string name="permission_why_profile_vibrate_when_ringing">ahhoz, hogy engedélyezze / tiltsa a rezgést csengés közben</string>
     <string name="permission_why_play_ringtone_notification">ahhoz, hogy csengessen és értesítsen hanggal</string>
-    <string name="permission_why_profile_access_notification_policy">ahhoz, hogy változtassa a hang profilt-, csengés-, értesítés-, rendszer hangerejét</string>
     <string name="permission_why_profile_lock_device">eszköz lezárásához</string>
     <string name="permission_why_ringtone_preference">ahhoz, hogy a csengőhangok betöltődjenek a tárolóból</string>
     <string name="permission_why_profile_dtmf_tone_when_dialing">ahhoz, hogy a DTMF hang engedélyezve / letiltva legyen tárcsázáskor</string>
@@ -1513,4 +1509,8 @@
     <!--    <string name="notification_channel_activated_profile_description_pp">Shows the activated profile.</string>-->
     <!--    <string name="phone_profiles_pref_grantRootPermission_summary_pp">Please grant root for PhoneProfiles. Is required for profile parameters, which requires root.</string>-->
     <!--    <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">By night mode</string>-->
+    <!--    <string name="permission_group_name_access_notification_policy">Do not disturb access</string>-->
+    <!--    <string name="permissions_access_notification_policy_not_allowed_confirm">You have not enabled \"Do not disturb access\". Never ask again?</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_text">How to install PhoneProfilesPlusExtender</string>-->
+    <!--    <string name="permission_why_profile_access_notification_policy">for change sound profile, change ringing, notification, system volume</string>-->
 </resources>

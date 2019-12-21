@@ -571,8 +571,6 @@
     <string name="about_application_source_code">Zdrojový kód:</string>
     <string name="about_application_translations">Překlady:</string>
     <string name="about_application_rate_in_googlePlay">Ohodnoťte prosím tuto aplikaci v Google Play</string>
-    <string name="permission_group_name_access_notification_policy">Přístup k nastavení Nerušit</string>
-    <string name="permissions_access_notification_policy_not_allowed_confirm">Nedovolili jste \"Přístup k nastavení Nerušit\". Příště se již neptat?</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Přístup k nastavení Nerušit</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Prosím najděte aplikaci \"PhoneProfilePlus\" a povolte ji.</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Přidejte PhoneProfilesPlus do \"Neoptimalizované\", v případě problémů s aktivací profilu z událostí, pokud nemáte zařízení připojeno, bez pohybu určitou dobu s vypnutou obrazovkou.</string>
@@ -927,7 +925,6 @@
     <string name="profile_preferences_applicationDisableMobileCellScanning">Zakázat skenování mobilních buněk</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Zakázat skenování orientace</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Pop-up notifikace</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_text">Jak nainstalovat PhoneProfilesPlusExtender</string>
     <string name="event_preferences_PPPExtenderInstallInfo_summary">Stáhněte si nejnovější verzi PhoneProfilesPlusExtender.apk z jeho GitHub. Klikněte na notifikaci o staženém apk a nainstalujte ho.</string>
     <string name="donation_thanks_dialog">Děkuji za darování.\nOpravdu si toho vážím.</string>
     <string name="donation_google_android_market_not_supported">Platby z aplikací nejsou podporovány. Jste si jistý, že je Obchod Google Play správně nainstalován?</string>
@@ -1062,7 +1059,6 @@
     <string name="permission_why_profile_notification_led">pro zapnutí/vypnutí oznamovací diody</string>
     <string name="permission_why_profile_vibrate_when_ringing">pro zapnutí/vypnutí vibrování při vyzvánění</string>
     <string name="permission_why_play_ringtone_notification">pro přehrávání zvuku vyzvánění a notifikací</string>
-    <string name="permission_why_profile_access_notification_policy">pro změnu zvukového profilu, změnu hlasitosti vyzvánění, notifikací, systémových zvuků</string>
     <string name="permission_why_profile_lock_device">pro zamknutí zařízení</string>
     <string name="permission_why_ringtone_preference">pro stahování zvuků z úložiště</string>
     <string name="permission_why_profile_dtmf_tone_when_dialing">pro zapnutí/vypnutí DTMF zvuku při vytáčení</string>
@@ -1513,4 +1509,8 @@
     <!--    <string name="notification_channel_activated_profile_description_pp">Shows the activated profile.</string>-->
     <!--    <string name="phone_profiles_pref_grantRootPermission_summary_pp">Please grant root for PhoneProfiles. Is required for profile parameters, which requires root.</string>-->
     <!--    <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">By night mode</string>-->
+    <!--    <string name="permission_group_name_access_notification_policy">Do not disturb access</string>-->
+    <!--    <string name="permissions_access_notification_policy_not_allowed_confirm">You have not enabled \"Do not disturb access\". Never ask again?</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_text">How to install PhoneProfilesPlusExtender</string>-->
+    <!--    <string name="permission_why_profile_access_notification_policy">for change sound profile, change ringing, notification, system volume</string>-->
 </resources>

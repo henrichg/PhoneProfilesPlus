@@ -571,8 +571,6 @@
     <string name="about_application_source_code">源代码：</string>
     <string name="about_application_translations">翻译：</string>
     <string name="about_application_rate_in_googlePlay">请在 Google Play 中为此应用程序打分</string>
-    <string name="permission_group_name_access_notification_policy">访问“勿扰模式”</string>
-    <string name="permissions_access_notification_policy_not_allowed_confirm">您没有启用“访问勿扰模式”，是否以后不再询问？</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">访问“勿扰模式”</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">请搜索“PhoneProfilesPlus”应用程序并为其启用此选项。</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">如果把未插电的设备闲置一段时间后，在运行事件激活情景时遇到问题，请尝试将 PhoneProfilesPlus 添加到“未优化”列表。</string>
@@ -927,7 +925,6 @@
     <string name="profile_preferences_applicationDisableMobileCellScanning">禁用移动基站扫描</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">禁用手机方向扫描</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R)弹出通知</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_text">如何安装PhoneProfilesPlusExtender</string>
     <string name="event_preferences_PPPExtenderInstallInfo_summary">从GitHub下载最新版本的PhoneProfilesPlusExtender.apk。然后单击关于下载apk的通知并安装它。</string>
     <string name="donation_thanks_dialog">感谢您的捐赠。n我对此很感激。</string>
     <string name="donation_google_android_market_not_supported">应用内捐赠不受支持，是否正确安装了 Google Play 商店？</string>
@@ -1062,7 +1059,6 @@
     <string name="permission_why_profile_notification_led">用于启用/禁用通知LED</string>
     <string name="permission_why_profile_vibrate_when_ringing">用于启动/禁用振铃时振动</string>
     <string name="permission_why_play_ringtone_notification">用于播放铃声和通知声音</string>
-    <string name="permission_why_profile_access_notification_policy">用于更改声音配置文件，更改振铃，通知，系统音量</string>
     <string name="permission_why_profile_lock_device">用于锁定设备</string>
     <string name="permission_why_ringtone_preference">用于从存储装载铃声</string>
     <string name="permission_why_profile_dtmf_tone_when_dialing">用于在拨号时启用/禁用DTMF音</string>
@@ -1513,4 +1509,8 @@
     <!--    <string name="notification_channel_activated_profile_description_pp">Shows the activated profile.</string>-->
     <!--    <string name="phone_profiles_pref_grantRootPermission_summary_pp">Please grant root for PhoneProfiles. Is required for profile parameters, which requires root.</string>-->
     <!--    <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">By night mode</string>-->
+    <!--    <string name="permission_group_name_access_notification_policy">Do not disturb access</string>-->
+    <!--    <string name="permissions_access_notification_policy_not_allowed_confirm">You have not enabled \"Do not disturb access\". Never ask again?</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_text">How to install PhoneProfilesPlusExtender</string>-->
+    <!--    <string name="permission_why_profile_access_notification_policy">for change sound profile, change ringing, notification, system volume</string>-->
 </resources>

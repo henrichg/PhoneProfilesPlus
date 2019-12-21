@@ -571,8 +571,6 @@
     <string name="about_application_source_code">Codice sorgente:</string>
     <string name="about_application_translations">Traduzioni:</string>
     <string name="about_application_rate_in_googlePlay">Esprimi la tua opinione su questa applicazione in Google Play</string>
-    <string name="permission_group_name_access_notification_policy">Accesso non disturbare</string>
-    <string name="permissions_access_notification_policy_not_allowed_confirm">Non sei abilitato all\'accesso \"non disturbare\". Non chiedere nuovamente?</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Accesso non disturbare</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Si prega di cercare l\'applicazione \"PhoneProfilePlus\" e attivarla.</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Aggiungere PhoneProfilePlus a \"Non ottimizzato\", quando si incontrano problemi con l\'attivazione di profili dagli eventi, se si lascia il dispositivo scollegato e non in uso per un periodo di tempo, con lo schermo spento.</string>
@@ -928,7 +926,6 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="profile_preferences_applicationDisableMobileCellScanning">Disbilita scansione delle celle mobili</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Disabilita scansione orientamento</string>
     <string name="profile_preferences_headsUpNotifications">(G1) (R) notifiche pop-up</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_text">Come installare PhoneProfilesPlusExtender</string>
     <string name="event_preferences_PPPExtenderInstallInfo_summary">Scarica ultima versione di PhoneProfilesPlusExtender.apk da GitHub. Quindi cliccare su notifica dell\'apk scaricato e installarlo.</string>
     <string name="donation_thanks_dialog">Grazie per aver donato.\nLo apprezzo veramente.</string>
     <string name="donation_google_android_market_not_supported">Donazioni in-App non supportate. Google Play Store è installato correttamente?</string>
@@ -1063,7 +1060,6 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="permission_why_profile_notification_led">for enable/disable notification LED</string>
     <string name="permission_why_profile_vibrate_when_ringing">for enable/disable vibrate when ringing</string>
     <string name="permission_why_play_ringtone_notification">for play ringing and notification sounds</string>
-    <string name="permission_why_profile_access_notification_policy">for change sound profile, change ringing, notification, system volume</string>
     <string name="permission_why_profile_lock_device">for lock device</string>
     <string name="permission_why_ringtone_preference">for load ringtones from storage</string>
     <string name="permission_why_profile_dtmf_tone_when_dialing">for enable/disable DTMF tone when dialing</string>
@@ -1514,4 +1510,8 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <!--    <string name="notification_channel_activated_profile_description_pp">Shows the activated profile.</string>-->
     <!--    <string name="phone_profiles_pref_grantRootPermission_summary_pp">Please grant root for PhoneProfiles. Is required for profile parameters, which requires root.</string>-->
     <!--    <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">By night mode</string>-->
+    <!--    <string name="permission_group_name_access_notification_policy">Do not disturb access</string>-->
+    <!--    <string name="permissions_access_notification_policy_not_allowed_confirm">You have not enabled \"Do not disturb access\". Never ask again?</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_text">How to install PhoneProfilesPlusExtender</string>-->
+    <!--    <string name="permission_why_profile_access_notification_policy">for change sound profile, change ringing, notification, system volume</string>-->
 </resources>

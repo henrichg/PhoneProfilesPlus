@@ -571,8 +571,6 @@
     <string name="about_application_source_code">Quellcode:</string>
     <string name="about_application_translations">Übersetzungen:</string>
     <string name="about_application_rate_in_googlePlay">Bitte bewerten Sie diese App im Google Play-Store</string>
-    <string name="permission_group_name_access_notification_policy">Systemeinstellungen nicht ändern</string>
-    <string name="permissions_access_notification_policy_not_allowed_confirm">Sie haben \"PhoneProfilesPlus\" nicht erlaubt, Systemeinstellungen zu ändern. Diese Nachricht nicht mehr anzeigen?</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Systemeinstellungen nicht ändern</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Bitte suche nach der App \"PhoneProfilesPlus\" und aktiviere sie.</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Sollten Sie ein Problem mit der Aktivierung von Ereignissen haben, wenn Ihr Telefon ruhend, nicht angeschlossen und mit ausgeschaltetem Bildschirm eine Zeit lang ungenutzt ist, dann fügen Sie PhoneProfilePlus zu den \"nicht optimierten\" Apps hinzu.</string>
@@ -927,7 +925,6 @@
     <string name="profile_preferences_applicationDisableMobileCellScanning">Suche nach Mobilfunkzellen deaktivieren</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Bestimmung der Geräteausrichtung deaktivieren</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Popup-Benachrichtigungen</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_text">Wie installiere ich PhoneProfilesPlusExtender</string>
     <string name="event_preferences_PPPExtenderInstallInfo_summary">Laden Sie die neueste Version von PhoneProfilesPlusExtender.apk von GitHub herunter. Anschließend klicken Sie auf die Benachrichtigung über der heruntergeladenen apk und installieren Sie ihn.</string>
     <string name="donation_thanks_dialog">Vielen Dank für Ihre Spende,\nI die ich wirklich zu schätzen weiß.</string>
     <string name="donation_google_android_market_not_supported">In-App-Spenden werden nicht unterstützt. Ist der Google Play Store richtig installiert?</string>
@@ -1062,8 +1059,6 @@
     <string name="permission_why_profile_notification_led">Um die Benachrichtigungs-LED zu aktivieren/deaktivieren</string>
     <string name="permission_why_profile_vibrate_when_ringing">Um das Vibrieren bei eingehenden Anrufen zu aktivieren/deaktivieren</string>
     <string name="permission_why_play_ringtone_notification">Um Klingel- und Benachrichtigungstöne wiederzugeben</string>
-    <string name="permission_why_profile_access_notification_policy">Um das Klangprofil, die Klingeltöne, Benachrichtigungen 
-und die Systemlautstärke zu ändern</string>
     <string name="permission_why_profile_lock_device">Um das Gerät zu sperren</string>
     <string name="permission_why_ringtone_preference">Um Klingeltöne aus dem Speicher zu laden</string>
     <string name="permission_why_profile_dtmf_tone_when_dialing">Um den MFV-Ton beim Wählen zu aktivieren/deaktivieren</string>
@@ -1514,4 +1509,8 @@ und die Systemlautstärke zu ändern</string>
     <!--    <string name="notification_channel_activated_profile_description_pp">Shows the activated profile.</string>-->
     <!--    <string name="phone_profiles_pref_grantRootPermission_summary_pp">Please grant root for PhoneProfiles. Is required for profile parameters, which requires root.</string>-->
     <!--    <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">By night mode</string>-->
+    <!--    <string name="permission_group_name_access_notification_policy">Do not disturb access</string>-->
+    <!--    <string name="permissions_access_notification_policy_not_allowed_confirm">You have not enabled \"Do not disturb access\". Never ask again?</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_text">How to install PhoneProfilesPlusExtender</string>-->
+    <!--    <string name="permission_why_profile_access_notification_policy">for change sound profile, change ringing, notification, system volume</string>-->
 </resources>

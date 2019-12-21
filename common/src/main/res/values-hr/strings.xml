@@ -571,8 +571,6 @@
     <string name="about_application_source_code">Izvorni kȏd:</string>
     <string name="about_application_translations">Prijevodi:</string>
     <string name="about_application_rate_in_googlePlay">Ocijenite ovu aplikaciju na Google Play-u</string>
-    <string name="permission_group_name_access_notification_policy">Ne uznemiravaj pristup</string>
-    <string name="permissions_access_notification_policy_not_allowed_confirm">Niste omogućili \"Ne uznemiravaj pristup\". Nikada ne pitaj ponovo?</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Ne uznemiravaj pristup</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Potraži \"PhoneProfilesPlus\" aplikaciju i omogući je.</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Dodajte „PhoneProfilesPlus“ u „Not Optimized“. Ako imate problema s aktiviranjem profila događaja ili ostavite uređaj neko vrijeme bez napajanja sa isključenim ekranom.</string>
@@ -927,7 +925,6 @@
     <string name="profile_preferences_applicationDisableMobileCellScanning">Onemogući skeniranje mobilne ćelije</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Onemogući skeniranje orijentacije</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Iskačuće obavijesti</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_text">Kako instalirati PhoneProfilesPlusExtender</string>
     <string name="event_preferences_PPPExtenderInstallInfo_summary">Preuzmite poslednju verziju PhoneProfilesPlusExtender.apk sa GitHub sajta. Zatim kliknite na obavijest o preuzetoj aplikaciji za instalaciju.</string>
     <string name="donation_thanks_dialog">Hvala na donaciji,\n jako to cenimo.</string>
     <string name="donation_google_android_market_not_supported">Donacije putem aplikacije nisu podržane. Da li je Google Play Store instalirana pravilno?</string>
@@ -1062,7 +1059,6 @@
     <string name="permission_why_profile_notification_led">za uklj./isklj. LED-a obavijesti</string>
     <string name="permission_why_profile_vibrate_when_ringing">za uklj./isklj. vibraciju kada zvoni</string>
     <string name="permission_why_play_ringtone_notification">za puštanje zvuka zvona i obavijesti</string>
-    <string name="permission_why_profile_access_notification_policy">za promjenu zvučnog profila, promenu zvuka zvona, obavijesti, glasnoće sustava</string>
     <string name="permission_why_profile_lock_device">za zaključavanje uređaja</string>
     <string name="permission_why_ringtone_preference">za učitavanje zvukova zvona iz pohrane</string>
     <string name="permission_why_profile_dtmf_tone_when_dialing">za uklj./isklj. DTMF zvuka prilikom poziva</string>
@@ -1361,16 +1357,16 @@
     <string name="phone_profiles_pref_applicationPrefIndicator_summary">Prikazuje postavke indikatora profila u Aktivatoru, Editoru, prečacu</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">Prikazuje postavke indikatora profila u obavijesti</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Prikazuje postavke indikatora profila u widget-ima</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>
-    <string name="event_preferences_not_set_underlined_parameters_summary">Underlined parameters are required.</string>
-    <string name="event_preferences_red_sensors_summary">Check also sensor parameters flagged with red color.</string>
-    <string name="event_preferences_sensor_parameters_location_summary">Sensor parameters are under of the main event parameters.</string>
-    <string name="event_preferences_red_install_PPPExtender">Click here to install it.</string>
-    <string name="install_extender_dialog_title">Install PhoneProfilesPlusExtender</string>
-    <string name="alert_button_install">Install</string>
-    <string name="event_preferences_red_enable_PPPExtender">Click here to enable it. Search for PhoneProfilesPLusExtender and allow \"Accessibility\" for it.</string>
-    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">To enable \"Interruptions type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>
-    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">To enable \"Do not disturb\" profile parameter, allow for PhoneProfilesPlus \"Do not disturb access\" in system settings. Click here to enable it.</string>
+    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk se nalazi u</string>
+    <string name="event_preferences_not_set_underlined_parameters_summary">Podvučeni parametri su neophodni.</string>
+    <string name="event_preferences_red_sensors_summary">Proverite takođe parametre senzora označene sa crvenom bojom.</string>
+    <string name="event_preferences_sensor_parameters_location_summary">Parametri senzora se nalaze ispod glavnih parametara događaja.</string>
+    <string name="event_preferences_red_install_PPPExtender">Klikni ovde da ih instaliraš.</string>
+    <string name="install_extender_dialog_title">Instaliraj PhoneProfilesPlusExtender</string>
+    <string name="alert_button_install">Instalacija</string>
+    <string name="event_preferences_red_enable_PPPExtender">Klikni ovde da ga omogućiš. Potraži PhoneProfilesPLusExtender i omogući \"Pristupačnost\" za njega.</string>
+    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">Da omogućite \"tip prekida\" parametre profila, omogućite PhoneProfilesPlus \"Pristup obavestima\" u podešavanjima sustava. Klikni ovde da ga omogućiš.</string>
+    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">Da omogućite \"Ne uznemiravaj\" parametar profila, omogućite PhoneProfilesPlus \"Pristup Ne uznemiravaj\" u podešavanjima sustava. Klikni ovde da ga omogućiš.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>
@@ -1513,4 +1509,8 @@
     <!--    <string name="notification_channel_activated_profile_description_pp">Shows the activated profile.</string>-->
     <!--    <string name="phone_profiles_pref_grantRootPermission_summary_pp">Please grant root for PhoneProfiles. Is required for profile parameters, which requires root.</string>-->
     <!--    <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">By night mode</string>-->
+    <!--    <string name="permission_group_name_access_notification_policy">Do not disturb access</string>-->
+    <!--    <string name="permissions_access_notification_policy_not_allowed_confirm">You have not enabled \"Do not disturb access\". Never ask again?</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_text">How to install PhoneProfilesPlusExtender</string>-->
+    <!--    <string name="permission_why_profile_access_notification_policy">for change sound profile, change ringing, notification, system volume</string>-->
 </resources>

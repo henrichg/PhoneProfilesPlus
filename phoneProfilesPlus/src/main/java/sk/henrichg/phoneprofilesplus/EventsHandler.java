@@ -7,7 +7,6 @@ import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import com.google.common.util.concurrent.ListenableFuture;
 

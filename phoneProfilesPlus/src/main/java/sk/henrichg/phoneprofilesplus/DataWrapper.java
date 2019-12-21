@@ -4774,11 +4774,11 @@ public class DataWrapper {
         int batteryPct = -100;
         boolean isPowerSaveMode = false;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
             if (powerManager != null)
                 isPowerSaveMode = powerManager.isPowerSaveMode();
-        }
+        //}
 
         Intent batteryStatus = null;
         try { // Huawei devices: java.lang.IllegalArgumentException: registered too many Broadcast Receivers
