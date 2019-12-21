@@ -1361,9 +1361,17 @@
     <string name="phone_profiles_pref_applicationPrefIndicator_summary">Display profile preference indicators in Activator, Editor, shortcut</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">Display profile preference indicators in notification</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Display profile preference indicators in widgets</string>
+    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>
+    <string name="event_preferences_not_set_underlined_parameters_summary">Underlined parameters are required.</string>
+    <string name="event_preferences_red_sensors_summary">Check also sensor parameters flagged with red color.</string>
+    <string name="event_preferences_sensor_parameters_location_summary">Sensor parameters are under of the main event parameters.</string>
+    <string name="event_preferences_red_install_PPPExtender">Click here to install it.</string>
+    <string name="install_extender_dialog_title">Install PhoneProfilesPlusExtender</string>
+    <string name="alert_button_install">Install</string>
+    <string name="event_preferences_red_enable_PPPExtender">Click here to enable it. Search for PhoneProfilesPLusExtender and allow \"Accessibility\" for it.</string>
+    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">To enable \"Interruptions type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>
+    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">To enable \"Do not disturb\" profile parameter, allow for PhoneProfilesPlus \"Do not disturb access\" in system settings. Click here to enable it.</string>
     <!-- **************************************************************************************** -->
-    <string name="extender_app_name">PhoneProfilesPlusExtender</string>
-    <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：n•配置文件参数“强制停止应用程序”n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>
     <string name="extender_about_application_version">版本：</string>

@@ -359,12 +359,12 @@
     <string name="calendar_pref_dlg_info_about_wildcards">v hľadanom reťazci,</string>
     <string name="pref_dlg_info_about_wildcards_3">pridajte \"\u005C\" pred tieto znaky.</string>
     <string name="important_info_profile_settings">Niektoré parametre profilu vyžadujú zmeny nastavení v systémových Nastaveniach. Tieto parametre sú označená ako \"(S)\".</string>
-    <string name="profile_preferences_volumeNotificationsAccessSettings_title">Prístup k upozorneniam</string>
-    <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Povoľ PhoneProfilesPlus v systémovom nastavení \"Prístup k upozorneniam\", pre povolenie parametru profilu \"Typy vyrušení\".</string>
+    <string name="profile_preferences_volumeNotificationsAccessSettings_title">Prístup k notifikáciám</string>
+    <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Povoľ PhoneProfilesPlus v systémovom nastavení \"Prístup k notifikáciám\", pre povolenie parametru profilu \"Typy vyrušení\".</string>
     <string name="array_pref_zenModeArray_allWithVibration">Všetky s vibráciami</string>
     <string name="array_pref_zenModeArray_priorityWithVibration">Prioritné s vibráciami</string>
     <string name="important_info_news">Novinky</string>
-    <string name="important_info_profile_zenMode">\"Vyrušenia\" v \"Móde zvonenia\" profilu vyžaduje povolenie PhoneProfilesPlus v systémovom nastavení \"Prístup k upozorneniam\". Kliknite sem a povoľte PhoneProfilesPlus.</string>
+    <string name="important_info_profile_zenMode">\"Vyrušenia\" v \"Móde zvonenia\" profilu vyžaduje povolenie PhoneProfilesPlus v systémovom nastavení \"Prístup k notifikáciám\". Kliknite sem a povoľte PhoneProfilesPlus.</string>
     <string name="profile_preferences_zenMode_none_summary">Žiadne vyrušenia, ani budíky</string>
     <string name="profile_preferences_zenMode_priority_summary">Iba prioritné vyrušenia</string>
     <string name="profile_preferences_zenMode_all_summary">Všetky vyrušenia</string>
@@ -375,7 +375,7 @@
     <string name="event_type_notifications">Notifikácie</string>
     <string name="event_preferences_category_eventNotificationsParameters">Senzor notifikácií</string>
     <string name="event_preferences_notifications_applications">Aplikácie</string>
-    <string name="event_preferences_volumeNotificationsAccessSettings_summary">Povoľ PhoneProfilesPlus v systémovom nastavení \"Prístup k upozorneniam\", pre povolenie senzora notifikácií.</string>
+    <string name="event_preferences_volumeNotificationsAccessSettings_summary">Povoľ PhoneProfilesPlus v systémovom nastavení \"Prístup k notifikáciám\", pre povolenie senzora notifikácií.</string>
     <string name="array_pref_zenModeArray_alarms">Len budíky</string>
     <string name="profile_preferences_zenMode_alarms_summary">Iba budíky budú oznamované</string>
     <string name="phone_profiles_pref_applicationShortcutEmblem">Pridávať emblém do odkazu</string>
@@ -797,7 +797,7 @@
     <string name="array_pref_applicationDisableScanning_enabled">Skenovanie povolené</string>
     <string name="duration_pref_dlg_duration_label">Trvanie:</string>
     <string name="duration_pref_dlg_activation_end_label">Koniec aktivácie:</string>
-    <string name="important_info_profile_zenModeM">\"Nerušiť\" v \"Móde zvonenia\" profilu vyžaduje povolenie PhoneProfilesPlus v systémovom nastavení \"Prístup k upozorneniam\". Kliknite sem a povoľte PhoneProfilesPlus.</string>
+    <string name="important_info_profile_zenModeM">\"Nerušiť\" v \"Móde zvonenia\" profilu vyžaduje povolenie PhoneProfilesPlus v systémovom nastavení \"Prístup k notifikáciám\". Kliknite sem a povoľte PhoneProfilesPlus.</string>
     <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">V Android 6 toto systémové nastavenie je možné zmeniť len v rootnutých zariadeniach. Postihnuté sú režimy zvonenia a typy Nerušiť s vybráciou.</string>
     <string name="setting_screen_not_found_alert">Obrazovka nastavenia nebola nájdená.</string>
     <string name="action_for_external_application_notification_no_profile_text">Parameter profile_name chýba alebo je prázdny.</string>
@@ -809,7 +809,7 @@
     <string name="action_for_external_application_notification_no_action">Akcia nie je zadaná.</string>
     <string name="ringtone_preference_not_set">Nenastavené</string>
     <string name="ringtone_preference_default_ringtone">Predvolený vyzváňací tón</string>
-    <string name="ringtone_preference_default_notification">Predvolené zvukové upozornenie</string>
+    <string name="ringtone_preference_default_notification">Predvolená zvuková notifikácia</string>
     <string name="ringtone_preference_default_alarm">Predvolený tón budíka</string>
     <string name="ringtone_preference_none">Žiadny</string>
     <string name="event_preferences_notificationVibrate">Upozorni vibráciami</string>
@@ -831,7 +831,7 @@
     <string name="important_info_quick_guide_1">PhoneProfilesPlus (PPP) má dve zložky:</string>
     <string name="important_info_quick_guide_2"><![CDATA[<b>PROFILY:</b> Určujú, ako zmeniť nastavenia zariadenia.]]></string>
     <string name="important_info_quick_guide_3"><![CDATA[<b>UDALOSTI:</b> Určujú, kedy sa zmenia nastavenia zariadenia.]]></string>
-    <string name="important_info_quick_guide_profiles_1"><b>PROFILY:</b> Umožňujú konfigurovať nastavenie zariadenia ako režim zvonenia, hlasitosť, tóny zvonenie a oznámenia, prepínanie rádií (Wi-Fi, Bluetooth, mobilné dáta, atď.). Po aktivovaní profilu príslušné nastavenia sú trvalé. Ak chcete nastavenia zmeniť, musí byť aktivovaný iný profil.</string>
+    <string name="important_info_quick_guide_profiles_1"><b>PROFILY:</b> Umožňujú konfigurovať nastavenie zariadenia ako režim zvonenia, hlasitosť, tóny zvonenia a notifikácií, prepínanie rádií (Wi-Fi, Bluetooth, mobilné dáta, atď.). Po aktivovaní profilu príslušné nastavenia sú trvalé. Ak chcete nastavenia zmeniť, musí byť aktivovaný iný profil.</string>
     <string name="important_info_quick_guide_profiles_2">Profily je možné aktivovať manuálne alebo udalosťou.</string>
     <string name="important_info_quick_guide_profiles_3">Môžete manuálne aktivovať profil cez PPP Aktivátor (pop-up okno so zoznamom dostupných profilov). Aktivátor je možné zobraziť cez domovskú ikonu PPP, PPP notifikáciu, PPP miniaplikácie a pre zariadenia Samsung Edge z panela Edge. Môžete tiež priamo aktivovať profil cez PPP 4 x 4 widget, odkaz na profil alebo na zariadeniach Samsung Edge z panela Edge.</string>
     <string name="important_info_quick_guide_events_1"><b>UDALOSTI:</b> Umožňujú nakonfigurovať kedy sa profil aktivuje. Udalosti majú začiatok a koniec. Môžete nakonfigurovať, čo sa stane na začiatku udalosti, a čo sa stane po skončení udalosti.</string>
@@ -881,15 +881,15 @@
     <string name="array_pref_change_selection_mobile_cells_select_all_visible">Vybrať všetky viditeľné</string>
     <string name="array_pref_mobile_cells_rename_all_visible">Všetky viditeľné</string>
     <string name="import_profiles_alert_error_database_newer_version">Zálohovaná databáza je v novšej verzii.</string>
-    <string name="phone_profiles_pref_backgroundProfileNotificationSound">Predvolený profil: tón upozornenia</string>
+    <string name="phone_profiles_pref_backgroundProfileNotificationSound">Predvolený profil: tón notifikácie</string>
     <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Predvolený profil: upozorni vibráciami</string>
-    <string name="profile_preferences_durationNotificationSound">Koniec trvania: tón upozornenia</string>
+    <string name="profile_preferences_durationNotificationSound">Koniec trvania: tón notifikácie</string>
     <string name="profile_preferences_durationNotificationVibrate">Koniec trvania: upozorni vibráciami</string>
     <string name="array_event_pref_missed_call">Zmeškaný hovor</string>
     <string name="start_event_notification_title">Spustená udalosť</string>
     <string name="start_event_notification_text1">Názov udalosti</string>
     <string name="event_preferences_notificationRepeat">Opakovaná notifikácia</string>
-    <string name="event_preferences_notificationRepeatInterval">Interval opakovania oznámenia</string>
+    <string name="event_preferences_notificationRepeatInterval">Interval opakovania notifikácie</string>
     <string name="duration_pref_dlg_activation_hours_label">Hodiny:</string>
     <string name="duration_pref_dlg_activation_minutes_label">Minúty:</string>
     <string name="duration_pref_dlg_activation_seconds_label">Sekundy:</string>
@@ -1042,13 +1042,13 @@
     <string name="preferences_grantRoot_title">Root nie je povolený</string>
     <string name="preferences_grantRoot_summary">Root nie je povolený. Kliknite sem pre jeho povolenie.</string>
     <string name="permission_why_profile_vibration_on_touch">pre zapnutie/vypnutie vibrovania pri klepnutí</string>
-    <string name="permission_why_profile_ringtones">pre zmenu tónu zvonenia, oznámenia, budíka</string>
+    <string name="permission_why_profile_ringtones">pre zmenu tónu zvonenia, notifikácie, budíka</string>
     <string name="permission_why_profile_screen_timeout">pre zmenu času do vypnutia obrazovky</string>
     <string name="permission_why_profile_screen_brightness">pre zmenu jasu obrazovky</string>
     <string name="permission_why_profile_autorotation">pre zmenu rotácie obrazovky</string>
     <string name="permission_why_profile_wallpaper">pre zmenu obrázku pozadia</string>
     <string name="permission_why_profile_radio_preferences">pre zapnutie/vypnutie mobilných dát, zmenu typu mobilnej siete, pripojenie k SSID</string>
-    <string name="permission_why_profile_phone_state_broadcast">pre oddelenie hlasitosti zvonenia a oznámení, zapnutie/vypnutie slúchadla počas hovoru</string>
+    <string name="permission_why_profile_phone_state_broadcast">pre oddelenie hlasitosti zvonenia a notifikácií, zapnutie/vypnutie slúchadla počas hovoru</string>
     <string name="permission_why_profile_custom_profile_icon">pre vlastnú ikonu profilu</string>
     <string name="permission_why_export">pre uloženie zálohovaných údajov do úložiska</string>
     <string name="permission_why_import">pre načítanie zálohovaných dát z úložiska</string>
@@ -1061,7 +1061,7 @@
     <string name="permission_why_event_contacts_preference">pre čítanie kontaktov počas konfigurácie</string>
     <string name="permission_why_profile_notification_led">pre zapnutie/vypnutie notifikačnej diódy</string>
     <string name="permission_why_profile_vibrate_when_ringing">pre zapnutie/vypnutie vibrovania pri zvonení</string>
-    <string name="permission_why_play_ringtone_notification">pre prehrávanie zvuku zvonenia a oznámení</string>
+    <string name="permission_why_play_ringtone_notification">pre prehrávanie zvuku zvonenia a notifikácií</string>
     <string name="permission_why_profile_access_notification_policy">pre zmenu zvukového profilu, zmenu hlasitosti zvonenia, notifikácie, systémových zvukov</string>
     <string name="permission_why_profile_lock_device">pre zamknutie zariadenia</string>
     <string name="permission_why_ringtone_preference">pre načítanie zvonení z úložiska</string>
@@ -1139,7 +1139,7 @@
     <string name="phone_profiles_pref_applicationTheme_nightMode">Podľa nočného módu</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Prosím, zapnite Polohu v nastaveniach systému. Bez toho, skenovanie mobilných buniek nebude fungovať.</string>
     <string name="action_for_external_application_notification_title">Podpora externých aplikácií (Tasker)</string>
-    <string name="start_event_notification_text2">Vymažte toto upozornenie, aby sa prestalo zobrazovať.</string>
+    <string name="start_event_notification_text2">Vymažte túto notifikáciu, aby sa prestala zobrazovať.</string>
     <string name="event_preferences_battery_plugged">Typ nabíjačky</string>
     <string name="array_pref_battery_plugged_ac">Akumulátor</string>
     <string name="array_pref_battery_plugged_usb">USB</string>
@@ -1152,8 +1152,8 @@
     <string name="preference_not_allowed_reason_not_granted_g1_permission">neudelené povolenie WRITE_SECURE_SETTINGS</string>
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_setToAlways_summary">Nastavené na Vždy</string>
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary">Nenastavené na Vždy</string>
-    <string name="event_preferences_notificationsAccessSettings_enabled_summary">Prístup k oznámeniam zapnutý</string>
-    <string name="event_preferences_notificationsAccessSettings_disabled_summary">Prístup k oznámeniam vypnutý</string>
+    <string name="event_preferences_notificationsAccessSettings_enabled_summary">Prístup k notifikáciám zapnutý</string>
+    <string name="event_preferences_notificationsAccessSettings_disabled_summary">Prístup k notifikáciám vypnutý</string>
     <!-- DO NOT TRANSLATE words "intent", "broadcast" -->
     <string name="applications_preference_applicationType_intent">intent</string>
     <string name="intent_editor_title">Editor intentu</string>
@@ -1244,7 +1244,7 @@
     <string name="new_event_profiles_not_exists_alert_message1">Profil</string>
     <string name="new_event_profiles_not_exists_alert_message2">neexistuje pre novú udalosť. Vytvoriť?</string>
     <string name="notification_channel_not_used_mobile_cell">Detekcia nepoužitej mobilnej bunky</string>
-    <string name="notification_channel_not_used_mobile_cell_description">Zobrazuje upozornenie na zistenú nepoužívanú mobilnú bunku.</string>
+    <string name="notification_channel_not_used_mobile_cell_description">Zobrazuje notifikáciu na zistenú nepoužívanú mobilnú bunku.</string>
     <string name="notification_not_used_mobile_cell_title">Bola zistená nová mobilná bunka</string>
     <string name="notification_not_used_mobile_cell_text1">Zistené ID mobilnej bunky:</string>
     <string name="notification_not_used_mobile_cell_text2">Kliknite sem a pridajte ju do senzora mobilných buniek udalostí.</string>
@@ -1361,9 +1361,17 @@
     <string name="phone_profiles_pref_applicationPrefIndicator_summary">Display profile preference indicators in Activator, Editor, shortcut</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">Display profile preference indicators in notification</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Display profile preference indicators in widgets</string>
+    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>
+    <string name="event_preferences_not_set_underlined_parameters_summary">Underlined parameters are required.</string>
+    <string name="event_preferences_red_sensors_summary">Check also sensor parameters flagged with red color.</string>
+    <string name="event_preferences_sensor_parameters_location_summary">Sensor parameters are under of the main event parameters.</string>
+    <string name="event_preferences_red_install_PPPExtender">Click here to install it.</string>
+    <string name="install_extender_dialog_title">Install PhoneProfilesPlusExtender</string>
+    <string name="alert_button_install">Install</string>
+    <string name="event_preferences_red_enable_PPPExtender">Click here to enable it. Search for PhoneProfilesPLusExtender and allow \"Accessibility\" for it.</string>
+    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">To enable \"Interruptions type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>
+    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">To enable \"Do not disturb\" profile parameter, allow for PhoneProfilesPlus \"Do not disturb access\" in system settings. Click here to enable it.</string>
     <!-- **************************************************************************************** -->
-    <string name="extender_app_name">PhoneProfilesPlusExtender</string>
-    <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>
     <string name="extender_about_application_version">Verzia:</string>

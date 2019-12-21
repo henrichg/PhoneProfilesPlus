@@ -2219,6 +2219,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                     listPreference.setEnabled(iRingerMode == 5);
                 }
+
+                Preference notificationAccessPreference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS);
+                if (notificationAccessPreference != null) {
+                    PreferenceScreen preferenceCategory = findPreference("prf_pref_soundProfileCategory");
+                    if (preferenceCategory != null)
+                        preferenceCategory.removePreference(notificationAccessPreference);
+                }
             }
             //}
         }

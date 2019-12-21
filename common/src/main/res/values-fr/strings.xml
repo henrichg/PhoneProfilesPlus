@@ -1358,12 +1358,20 @@
     <string name="pref_event_screen_startWhenLocked">Démarrer quand verrouillé</string>
     <string name="event_preferences_screen_start_when_locked">Démarrer quand verrouillé</string>
     <string name="event_preference_sensor_screen_summary">Ce capteur démarrera un événement lors de l\'allumage ou l\'extinction de l\'écran. Paramètres : Type d\'événement (écran allumé, écran éteint), Démarrer lorsque déverrouillé ou verrouillé.</string>
-    <string name="phone_profiles_pref_applicationPrefIndicator_summary">Display profile preference indicators in Activator, Editor, shortcut</string>
-    <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">Display profile preference indicators in notification</string>
-    <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Display profile preference indicators in widgets</string>
+    <string name="phone_profiles_pref_applicationPrefIndicator_summary">Afficher les indicateurs de préférences de profil dans l\'activateur, l\'éditeur, les raccourcis</string>
+    <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">Afficher les indicateurs de préférences du profil dans les notifications</string>
+    <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Afficher les indicateurs de préférences de profil dans les widgets</string>
+    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>
+    <string name="event_preferences_not_set_underlined_parameters_summary">Underlined parameters are required.</string>
+    <string name="event_preferences_red_sensors_summary">Check also sensor parameters flagged with red color.</string>
+    <string name="event_preferences_sensor_parameters_location_summary">Sensor parameters are under of the main event parameters.</string>
+    <string name="event_preferences_red_install_PPPExtender">Click here to install it.</string>
+    <string name="install_extender_dialog_title">Install PhoneProfilesPlusExtender</string>
+    <string name="alert_button_install">Install</string>
+    <string name="event_preferences_red_enable_PPPExtender">Click here to enable it. Search for PhoneProfilesPLusExtender and allow \"Accessibility\" for it.</string>
+    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">To enable \"Interruptions type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>
+    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">To enable \"Do not disturb\" profile parameter, allow for PhoneProfilesPlus \"Do not disturb access\" in system settings. Click here to enable it.</string>
     <!-- **************************************************************************************** -->
-    <string name="extender_app_name">PhoneProfilesPlusExtender</string>
-    <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>
     <string name="extender_about_application_version">Version :</string>
