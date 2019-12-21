@@ -1527,8 +1527,8 @@
 
     <!-- **************************************************************************************** -->
 
-    <string name="extender_app_name">PhoneProfilesPlusExtender</string>
-    <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
+    <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
+    <string name="extender_accessibility_service_name" translatable="false">PhoneProfilesPlusExtender</string>
 
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>

@@ -334,6 +334,7 @@ class EventsHandler {
             if (isRestart || (sensorType.equals(SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK))) {
                 if (ppService != null) {
                     // check if exists delayed restart events
+                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "check if exists delayed restart events");
                     boolean exists;
                     try {
                         WorkManager instance = WorkManager.getInstance(context.getApplicationContext());
