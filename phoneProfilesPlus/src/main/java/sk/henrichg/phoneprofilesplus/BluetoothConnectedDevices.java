@@ -8,8 +8,10 @@ import android.bluetooth.BluetoothHealth;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
 import android.content.Context;
+import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.os.SystemPropertiesProto;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -206,24 +208,45 @@ class BluetoothConnectedDevices {
                 okHEADSET = bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEADSET);
                 PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEADSET start="+okHEADSET);
 
-                okHEALTH = bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEALTH);
-                PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEALTH start="+okHEALTH);
+                if (Build.VERSION.SDK_INT < 29) {
+                    okHEALTH = bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEALTH);
+                    PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEALTH start=" + okHEALTH);
+                }
 
                 // wait for start
-                for (int i = 0; i < 100; i++) {
-                    if (!bluetoothHeadsetStarted || !bluetoothHealthStarted || !bluetoothA2dpStarted)
-                        PPApplication.sleep(100);
-                    else
-                        break;
+                if (Build.VERSION.SDK_INT < 29) {
+                    for (int i = 0; i < 100; i++) {
+                        if ((!bluetoothHeadsetStarted) || (!bluetoothHealthStarted) || (!bluetoothA2dpStarted))
+                            PPApplication.sleep(100);
+                        else
+                            break;
+                    }
+                }
+                else {
+                    for (int i = 0; i < 100; i++) {
+                        if ((!bluetoothHeadsetStarted) || (!bluetoothA2dpStarted))
+                            PPApplication.sleep(100);
+                        else
+                            break;
+                    }
                 }
 
                 // wait for end
-                for (int i = 0; i < 100; i++) {
-                    //if ((bluetoothHeadset != null) || (bluetoothHealth != null) || (bluetoothA2dp != null))
-                    if (!bluetoothHeadsetEnd || !bluetoothHealthEnd || !bluetoothA2dpEnd)
-                        PPApplication.sleep(100);
-                    else
-                        break;
+                if (Build.VERSION.SDK_INT < 29) {
+                    for (int i = 0; i < 100; i++) {
+                        if ((!bluetoothHeadsetEnd) || (!bluetoothHealthEnd) || (!bluetoothA2dpEnd))
+                            PPApplication.sleep(100);
+                        else
+                            break;
+                    }
+                }
+                else {
+                    for (int i = 0; i < 100; i++) {
+                        if ((!bluetoothHeadsetEnd) || (!bluetoothA2dpEnd))
+                            PPApplication.sleep(100);
+                        else
+                            break;
+                    }
                 }
 
                 if (okA2DP && (bluetoothA2dp != null)) {
@@ -236,17 +259,29 @@ class BluetoothConnectedDevices {
                     bluetoothAdapter.closeProfileProxy(BluetoothProfile.HEADSET, bluetoothHeadset);
                 }
 
-                if (okHEALTH && (bluetoothHealth != null)) {
-                    PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEALTH close");
-                    bluetoothAdapter.closeProfileProxy(BluetoothProfile.HEALTH, bluetoothHealth);
+                if (Build.VERSION.SDK_INT < 29) {
+                    if (okHEALTH && (bluetoothHealth != null)) {
+                        PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEALTH close");
+                        bluetoothAdapter.closeProfileProxy(BluetoothProfile.HEALTH, bluetoothHealth);
+                    }
                 }
 
                 // wait for disconnect
-                for (int i = 0; i < 100; i++) {
-                    if ((bluetoothHeadset != null) || (bluetoothHealth != null) || (bluetoothA2dp != null))
-                        PPApplication.sleep(100);
-                    else
-                        break;
+                if (Build.VERSION.SDK_INT < 29) {
+                    for (int i = 0; i < 100; i++) {
+                        if ((bluetoothHeadset != null) || (bluetoothHealth != null) || (bluetoothA2dp != null))
+                            PPApplication.sleep(100);
+                        else
+                            break;
+                    }
+                }
+                else {
+                    for (int i = 0; i < 100; i++) {
+                        if ((bluetoothHeadset != null) || (bluetoothA2dp != null))
+                            PPApplication.sleep(100);
+                        else
+                            break;
+                    }
                 }
 
                 PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "all disconnected?");

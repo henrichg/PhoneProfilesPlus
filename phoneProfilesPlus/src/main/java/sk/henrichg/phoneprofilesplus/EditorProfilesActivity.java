@@ -2654,7 +2654,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                         ++id;
 
                         targets.add(
-                                TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_profiles_view), getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_title), getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_description))
+                                TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_profiles_view), getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_title),
+                                        getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_description) + "\n" +
+                                        getString(R.string.editor_activity_targetHelps_bottomNavigation_description_2))
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
@@ -2664,7 +2666,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                         );
                         ++id;
                         targets.add(
-                                TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_events_view), getString(R.string.editor_activity_targetHelps_bottomNavigationEvents_title), getString(R.string.editor_activity_targetHelps_bottomNavigationEvents_description))
+                                TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_events_view), getString(R.string.editor_activity_targetHelps_bottomNavigationEvents_title),
+                                        getString(R.string.editor_activity_targetHelps_bottomNavigationEvents_description) + "\n" +
+                                        getString(R.string.editor_activity_targetHelps_bottomNavigation_description_2))
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
@@ -2757,7 +2761,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                         ++id;
 
                         targets.add(
-                                TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_profiles_view), getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_title), getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_description))
+                                TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_profiles_view), getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_title),
+                                        getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_description) + "\n" +
+                                        getString(R.string.editor_activity_targetHelps_bottomNavigation_description_2))
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
@@ -2767,7 +2773,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                         );
                         ++id;
                         targets.add(
-                                TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_events_view), getString(R.string.editor_activity_targetHelps_bottomNavigationEvents_title), getString(R.string.editor_activity_targetHelps_bottomNavigationEvents_description))
+                                TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_events_view), getString(R.string.editor_activity_targetHelps_bottomNavigationEvents_title),
+                                        getString(R.string.editor_activity_targetHelps_bottomNavigationEvents_description) + "\n" +
+                                        getString(R.string.editor_activity_targetHelps_bottomNavigation_description_2))
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
@@ -2805,7 +2813,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }
                 if (showTargetHelpsBottomNavigation) {
                     targets.add(
-                            TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_profiles_view), getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_title), getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_description))
+                            TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_profiles_view), getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_title),
+                                    getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_description) + "\n" +
+                                    getString(R.string.editor_activity_targetHelps_bottomNavigation_description_2))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
@@ -2814,7 +2824,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     .id(1)
                     );
                     targets.add(
-                            TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_events_view), getString(R.string.editor_activity_targetHelps_bottomNavigationEvents_title), getString(R.string.editor_activity_targetHelps_bottomNavigationEvents_description))
+                            TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_events_view), getString(R.string.editor_activity_targetHelps_bottomNavigationEvents_title),
+                                    getString(R.string.editor_activity_targetHelps_bottomNavigationEvents_description) + "\n " +
+                                    getString(R.string.editor_activity_targetHelps_bottomNavigation_description_2))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
