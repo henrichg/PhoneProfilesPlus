@@ -51,10 +51,14 @@ class ContactsMultiSelectDialogPreferenceViewHolderX extends RecyclerView.ViewHo
         else
             imageViewPhoto.setImageResource(R.drawable.ic_contacts_multiselect_dialog_preference_no_photo);
         textViewDisplayName.setText(contact.name);
-        if (contact.phoneId != 0)
+        if (contact.phoneId != 0) {
+            textViewPhoneNumber.setVisibility(View.VISIBLE);
             textViewPhoneNumber.setText(contact.phoneNumber);
-        else
+        }
+        else {
+            textViewPhoneNumber.setVisibility(View.GONE);
             textViewPhoneNumber.setText(R.string.empty_string);
+        }
 
         // Tag the CheckBox with the Contact it is displaying, so that we
         // can
