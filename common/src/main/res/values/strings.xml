@@ -1529,10 +1529,12 @@
     <string name="event_preferences_notifications_checkText">Check text</string>
     <string name="event_preferences_notifications_text">Text</string>
 
-    <string name="profile_preferences_red_texts_title">profile preferences red title</string>
-    <string name="profile_preferences_red_texts_text">profile preferences red text</string>
-    <string name="event_preferences_red_texts_title">event preferences red title</string>
-    <string name="event_preferences_red_texts_text">event preferences red text</string>
+    <string name="profile_preferences_red_texts_title">Error in profile preferences</string>
+    <string name="profile_preferences_red_texts_text_1">Profile</string>
+    <string name="event_preferences_red_texts_text_1">Event</string>
+    <string name="event_preferences_red_texts_title">Error in event preferences</string>
+    <string name="preferences_red_texts_text_2">has same errors in it\'s preferences.</string>
+    <string name="preferences_red_texts_text_click">Click this notification to open it.</string>
 
     <!-- **************************************************************************************** -->
 

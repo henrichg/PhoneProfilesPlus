@@ -2939,11 +2939,17 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         if (profile != null) {
             nTitle = context.getString(R.string.profile_preferences_red_texts_title);
-            nText = context.getString(R.string.profile_preferences_red_texts_text);
+            nText = context.getString(R.string.profile_preferences_red_texts_text_1) + " " +
+                    "\"" + profile._name + "\" " +
+                    context.getString(R.string.preferences_red_texts_text_2) + " " +
+                    context.getString(R.string.preferences_red_texts_text_click);
             if (android.os.Build.VERSION.SDK_INT < 24) {
                 nTitle = context.getString(R.string.app_name);
                 nText = context.getString(R.string.profile_preferences_red_texts_title) + ": " +
-                        context.getString(R.string.profile_preferences_red_texts_text);
+                        context.getString(R.string.profile_preferences_red_texts_text_1) + " " +
+                        "\"" + profile._name + "\" " +
+                        context.getString(R.string.preferences_red_texts_text_2) + " " +
+                        context.getString(R.string.preferences_red_texts_text_click);
             }
 
             intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
@@ -2952,11 +2958,17 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         if (event != null) {
             nTitle = context.getString(R.string.event_preferences_red_texts_title);
-            nText = context.getString(R.string.event_preferences_red_texts_text);
+            nText = context.getString(R.string.event_preferences_red_texts_text_1) + " " +
+                    "\"" + event._name + "\" " +
+                    context.getString(R.string.preferences_red_texts_text_2) + " " +
+                    context.getString(R.string.preferences_red_texts_text_click);
             if (android.os.Build.VERSION.SDK_INT < 24) {
                 nTitle = context.getString(R.string.app_name);
                 nText = context.getString(R.string.event_preferences_red_texts_title) + ": " +
-                        context.getString(R.string.event_preferences_red_texts_text);
+                        context.getString(R.string.event_preferences_red_texts_text_1) + " " +
+                        "\"" + event._name + "\" " +
+                        context.getString(R.string.preferences_red_texts_text_2) + " " +
+                        context.getString(R.string.preferences_red_texts_text_click);
             }
 
             intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
