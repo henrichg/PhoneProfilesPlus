@@ -9,7 +9,7 @@
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
     <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/calendar_search_string_pref_dlg_helpIcon"
+        android:id="@+id/search_string_pref_dlg_helpIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="5dp"
@@ -20,14 +20,14 @@
         android:contentDescription="@string/menu_help"/>
 
     <EditText
-        android:id="@+id/calendar_search_string_pref_dlg_editText"
+        android:id="@+id/search_string_pref_dlg_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toStartOf = "@id/calendar_search_string_pref_dlg_helpIcon"
+        android:layout_toStartOf = "@id/search_string_pref_dlg_helpIcon"
         android:layout_centerVertical="true"
         android:selectAllOnFocus="true"
         android:hint="@string/event_preferences_calendar_search_string"
-        android:inputType="textNoSuggestions"
+        android:inputType="textNoSuggestions|textMultiLine"
         android:importantForAutofill="no"
         tools:ignore="UnusedAttribute" />
 

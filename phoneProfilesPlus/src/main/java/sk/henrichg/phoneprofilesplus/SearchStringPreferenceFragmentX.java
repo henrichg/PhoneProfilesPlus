@@ -28,17 +28,17 @@ public class SearchStringPreferenceFragmentX extends PreferenceDialogFragmentCom
         preference.fragment = this;
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        return inflater.inflate(R.layout.activity_calendar_search_string_pref_dialog, null, false);
+        return inflater.inflate(R.layout.activity_search_string_pref_dialog, null, false);
     }
 
     @Override
     protected void onBindDialogView(View view) {
         super.onBindDialogView(view);
 
-        editText = view.findViewById(R.id.calendar_search_string_pref_dlg_editText);
+        editText = view.findViewById(R.id.search_string_pref_dlg_editText);
         editText.setText(preference.value);
 
-        final ImageView helpIcon = view.findViewById(R.id.calendar_search_string_pref_dlg_helpIcon);
+        final ImageView helpIcon = view.findViewById(R.id.search_string_pref_dlg_helpIcon);
         TooltipCompat.setTooltipText(helpIcon, getString(R.string.help_button_tooltip));
         helpIcon.setOnClickListener(new View.OnClickListener() {
             @Override
