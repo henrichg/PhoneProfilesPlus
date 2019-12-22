@@ -277,7 +277,8 @@ public class PPApplication extends Application {
                                          +"|PPNotificationListenerService.onNotificationPosted"
                                          //+"|[NOTIF] EventsHandler.handleEvents"
                                          //+"|[NOTIF] DataWrapper.doHandleEvents"
-                                         //+"|EventPreferencesNotification.isNotificationActive"
+                                         +"|EventPreferencesNotification.isContactConfigured"
+                                         +"|EventPreferencesNotification.isNotificationActive"
                                          //+"|EventPreferencesNotification.isNotificationVisible"
                                          //+"|NotificationEventEndBroadcastReceiver"
 

@@ -11,16 +11,16 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.provider.ContactsContract;
 import android.service.notification.StatusBarNotification;
-import android.telephony.PhoneNumberUtils;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
@@ -649,22 +649,190 @@ class EventPreferencesNotification extends EventPreferences {
 
 
     // search if any configured package names are visible in status bar
-    private StatusBarNotification isNotificationActive(StatusBarNotification[] statusBarNotifications, String packageName, boolean checkEnd) {
+    private StatusBarNotification isNotificationActive(StatusBarNotification[] statusBarNotifications, String packageName, boolean checkEnd, Context context) {
         for (StatusBarNotification statusBarNotification : statusBarNotifications) {
             String _packageName = statusBarNotification.getPackageName();
-            //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "postIme=" + statusBarNotification);
-            if (checkEnd) {
-                if (_packageName.endsWith(packageName)) {
-                    //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName returned=" + _packageName);
-                    return statusBarNotification;
+
+            boolean testText = false;
+            if (_checkContacts)
+                testText = true;
+            if (_checkText)
+                testText = true;
+
+            String notificationTicker = "";
+            String notificationTitle = "";
+            String notificationText = "";
+            if (testText) {
+                testText = false;
+                if (statusBarNotification.getNotification().tickerText != null) {
+                    notificationTicker = statusBarNotification.getNotification().tickerText.toString();
+                    testText = true;
+                }
+                Bundle extras = statusBarNotification.getNotification().extras;
+                if (extras != null) {
+                    if (extras.getString("android.title") != null) {
+                        notificationTitle = extras.getString("android.title");
+                        testText = true;
+                    }
+                    if (extras.getCharSequence("android.text") != null) {
+                        notificationText = extras.getCharSequence("android.text").toString();
+                        testText = true;
+                    }
+                }
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("EventPreferencesNotification.isNotificationActive", "testText=" + testText);
+                    PPApplication.logE("EventPreferencesNotification.isNotificationActive", "notificationTicker=" + notificationTicker);
+                    PPApplication.logE("EventPreferencesNotification.isNotificationActive", "notificationTitle=" + notificationTitle);
+                    PPApplication.logE("EventPreferencesNotification.isNotificationActive", "notificationText=" + notificationText);
                 }
             }
-            else {
-                if (_packageName.equals(packageName)) {
-                    //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName returned=" + _packageName);
-                    return statusBarNotification;
+
+            boolean textFound = false;
+            if (testText) {
+                if (_checkContacts) {
+                    boolean phoneNumberFound = false;
+                    if (!notificationTitle.isEmpty())
+                        phoneNumberFound = isContactConfigured(notificationTitle, context);
+                    else
+                    if (!notificationText.isEmpty())
+                        phoneNumberFound = isContactConfigured(notificationText, context);
+                    else
+                    if (!notificationTicker.isEmpty())
+                        phoneNumberFound = isContactConfigured(notificationTicker, context);
+                    textFound = phoneNumberFound;
+                }
+                if (_checkText) {
+                    String searchText = "";
+                    if (!notificationTitle.isEmpty())
+                        searchText = notificationTitle;
+                    else
+                    if (!notificationText.isEmpty())
+                        searchText = notificationText;
+                    else
+                    if (!notificationTicker.isEmpty())
+                        searchText = notificationTicker;
+
+                    if (!searchText.isEmpty()) {
+                        String[] textSplits = _text.split("\\|");
+
+                        String[] positiveList = new String[textSplits.length];
+                        String[] negativeList = new String[textSplits.length];
+                        int argsId;
+
+                        // positive strings
+                        boolean positiveExists = false;
+                        argsId = 0;
+                        for (String split : textSplits) {
+                            if (!split.isEmpty()) {
+                                String searchPattern = split;
+
+                                if (searchPattern.startsWith("!")) {
+                                    // only positive
+                                    continue;
+                                }
+
+                                // when in searchPattern are not wildcards add %
+                                if (!(searchPattern.contains("%") || searchPattern.contains("_")))
+                                    searchPattern = "%" + searchPattern + "%";
+
+                                searchPattern = searchPattern.replace("\\%", "{^^}");
+                                searchPattern = searchPattern.replace("\\_", "[^^]");
+
+                                searchPattern = searchPattern.replace("%", "(.*)");
+                                searchPattern = searchPattern.replace("_", "(.)");
+
+                                searchPattern = searchPattern.replace("{^^}", "\\%");
+                                searchPattern = searchPattern.replace("[^^]", "\\_");
+
+                                positiveList[argsId] = searchPattern;
+
+                                positiveExists = true;
+
+                                ++argsId;
+                            }
+                        }
+
+                        // negative strings
+                        boolean negativeExists = false;
+                        argsId = 0;
+                        for (String split : textSplits) {
+                            if (!split.isEmpty()) {
+                                String searchPattern = split;
+
+                                if (!searchPattern.startsWith("!")) {
+                                    // only negative
+                                    continue;
+                                }
+
+                                // remove !
+                                searchPattern = searchPattern.substring(1);
+
+                                // when in searchPattern are not wildcards add %
+                                if (!(searchPattern.contains("%") || searchPattern.contains("_")))
+                                    searchPattern = "%" + searchPattern + "%";
+
+                                searchPattern = searchPattern.replace("\\%", "{^^}");
+                                searchPattern = searchPattern.replace("\\_", "[^^]");
+
+                                searchPattern = searchPattern.replace("%", "(.*)");
+                                searchPattern = searchPattern.replace("_", "(.)");
+
+                                searchPattern = searchPattern.replace("{^^}", "\\%");
+                                searchPattern = searchPattern.replace("[^^]", "\\_");
+
+                                negativeList[argsId] = searchPattern;
+
+                                negativeExists = true;
+
+                                ++argsId;
+                            }
+                        }
+
+                        boolean foundPositive = false;
+                        if (positiveExists) {
+                            for (String _positiveText : positiveList) {
+                                if ((_positiveText != null) && (!_positiveText.isEmpty())) {
+                                    if (searchText.toLowerCase().matches(_positiveText.toLowerCase())) {
+                                        foundPositive = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        boolean foundNegative = true;
+                        if (negativeExists) {
+                            for (String _negativeText : negativeList) {
+                                if ((_negativeText != null) && (!_negativeText.isEmpty())) {
+                                    if (searchText.toLowerCase().matches(_negativeText.toLowerCase())) {
+                                        foundNegative = false;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        textFound = foundPositive && foundNegative;
+                    }
                 }
             }
+            PPApplication.logE("EventPreferencesNotification.isNotificationActive", "textFound=" + textFound);
+
+            if (textFound) {
+                //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "postIme=" + statusBarNotification);
+                if (checkEnd) {
+                    if (_packageName.endsWith(packageName)) {
+                        //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName returned=" + _packageName);
+                        return statusBarNotification;
+                    }
+                } else {
+                    if (_packageName.equals(packageName)) {
+                        //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName returned=" + _packageName);
+                        return statusBarNotification;
+                    }
+                }
+            }
+            else
+                return null;
         }
         return null;
     }
@@ -679,7 +847,7 @@ class EventPreferencesNotification extends EventPreferences {
                     StatusBarNotification notification;
                     if (this._inCall) {
                         // Nexus/Pixel??? stock ROM
-                        notification = isNotificationActive(statusBarNotifications, "com.google.android.dialer", false);
+                        notification = isNotificationActive(statusBarNotifications, "com.google.android.dialer", false, context);
                         if (notification != null) {
                             if (_duration != 0) {
                                 long postTime = notification.getPostTime() + this._duration * 1000;
@@ -698,7 +866,7 @@ class EventPreferencesNotification extends EventPreferences {
                                 return true;
                         }
                         // Samsung, MIUI, EMUI, Sony
-                        notification = isNotificationActive(statusBarNotifications, "android.incallui", true);
+                        notification = isNotificationActive(statusBarNotifications, "android.incallui", true, context);
                         if (notification != null) {
                             if (_duration != 0) {
                                 long postTime = notification.getPostTime() + this._duration * 1000;
@@ -719,7 +887,7 @@ class EventPreferencesNotification extends EventPreferences {
                     }
                     if (this._missedCall) {
                         // Samsung, MIUI, Nexus/Pixel??? stock ROM, Sony
-                        notification = isNotificationActive(statusBarNotifications, "com.android.server.telecom", false);
+                        notification = isNotificationActive(statusBarNotifications, "com.android.server.telecom", false, context);
                         if (notification != null) {
                             if (_duration != 0) {
                                 long postTime = notification.getPostTime() + this._duration * 1000;
@@ -738,7 +906,7 @@ class EventPreferencesNotification extends EventPreferences {
                                 return true;
                         }
                         // Samsung One UI
-                        notification = isNotificationActive(statusBarNotifications, "com.samsung.android.dialer", false);
+                        notification = isNotificationActive(statusBarNotifications, "com.samsung.android.dialer", false, context);
                         if (notification != null) {
                             if (_duration != 0) {
                                 long postTime = notification.getPostTime() + this._duration * 1000;
@@ -757,7 +925,7 @@ class EventPreferencesNotification extends EventPreferences {
                                 return true;
                         }
                         // LG
-                        notification = isNotificationActive(statusBarNotifications, "com.android.phone", false);
+                        notification = isNotificationActive(statusBarNotifications, "com.android.phone", false, context);
                         if (notification != null) {
                             if (_duration != 0) {
                                 long postTime = notification.getPostTime() + this._duration * 1000;
@@ -776,7 +944,7 @@ class EventPreferencesNotification extends EventPreferences {
                                 return true;
                         }
                         // EMUI
-                        notification = isNotificationActive(statusBarNotifications, "com.android.contacts", false);
+                        notification = isNotificationActive(statusBarNotifications, "com.android.contacts", false, context);
                         if (notification != null) {
                             if (_duration != 0) {
                                 long postTime = notification.getPostTime() + this._duration * 1000;
@@ -802,7 +970,7 @@ class EventPreferencesNotification extends EventPreferences {
                         String packageName = Application.getPackageName(split);
                         PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "packageName=" + packageName);
                         // search for package name in saved package names
-                        notification = isNotificationActive(statusBarNotifications, packageName, false);
+                        notification = isNotificationActive(statusBarNotifications, packageName, false, context);
                         if (notification != null) {
                             if (_duration != 0) {
                                 long postTime = notification.getPostTime() + this._duration * 1000;
@@ -883,14 +1051,14 @@ class EventPreferencesNotification extends EventPreferences {
 
                 if (this._inCall) {
                     // Nexus/Pixel??? stock ROM
-                    notification = isNotificationActive(statusBarNotifications, "com.google.android.dialer", false);
+                    notification = isNotificationActive(statusBarNotifications, "com.google.android.dialer", false, context);
                     if (notification != null) {
                         //noinspection ConstantConditions
                         if ((newestNotification == null) || (notification.getPostTime() > newestNotification.getPostTime()))
                             newestNotification = notification;
                     }
                     // Samsung, MIUI, EMUI, Sony
-                    notification = isNotificationActive(statusBarNotifications, "android.incallui", true);
+                    notification = isNotificationActive(statusBarNotifications, "android.incallui", true, context);
                     if (notification != null) {
                         if ((newestNotification == null) || (notification.getPostTime() > newestNotification.getPostTime()))
                             newestNotification = notification;
@@ -898,25 +1066,25 @@ class EventPreferencesNotification extends EventPreferences {
                 }
                 if (this._missedCall) {
                     // Samsung, MIUI, Nexus/Pixel??? stock ROM, Sony
-                    notification = isNotificationActive(statusBarNotifications, "com.android.server.telecom", false);
+                    notification = isNotificationActive(statusBarNotifications, "com.android.server.telecom", false, context);
                     if (notification != null) {
                         if ((newestNotification == null) || (notification.getPostTime() > newestNotification.getPostTime()))
                             newestNotification = notification;
                     }
                     // Samsung One UI
-                    notification = isNotificationActive(statusBarNotifications, "com.samsung.android.dialer", false);
+                    notification = isNotificationActive(statusBarNotifications, "com.samsung.android.dialer", false, context);
                     if (notification != null) {
                         if ((newestNotification == null) || (notification.getPostTime() > newestNotification.getPostTime()))
                             newestNotification = notification;
                     }
                     // LG
-                    notification = isNotificationActive(statusBarNotifications, "com.android.phone", false);
+                    notification = isNotificationActive(statusBarNotifications, "com.android.phone", false, context);
                     if (notification != null) {
                         if ((newestNotification == null) || (notification.getPostTime() > newestNotification.getPostTime()))
                             newestNotification = notification;
                     }
                     // EMUI
-                    notification = isNotificationActive(statusBarNotifications, "com.android.contacts", false);
+                    notification = isNotificationActive(statusBarNotifications, "com.android.contacts", false, context);
                     if (notification != null) {
                         if ((newestNotification == null) || (notification.getPostTime() > newestNotification.getPostTime()))
                             newestNotification = notification;
@@ -928,7 +1096,7 @@ class EventPreferencesNotification extends EventPreferences {
                     // get only package name = remove activity
                     String packageName = Application.getPackageName(split);
                     // search for package name in saved package names
-                    notification = isNotificationActive(statusBarNotifications, packageName, false);
+                    notification = isNotificationActive(statusBarNotifications, packageName, false, context);
                     if (notification != null) {
                         if ((newestNotification == null) || (notification.getPostTime() > newestNotification.getPostTime()))
                             newestNotification = notification;
@@ -942,30 +1110,36 @@ class EventPreferencesNotification extends EventPreferences {
         return null;
     }
 
-    boolean isContactConfigured(String text, DataWrapper dataWrapper) {
+    private boolean isContactConfigured(String text, Context context) {
+        PPApplication.logE("EventPreferencesNotification.isContactConfigured", "text=" + text);
+
         boolean phoneNumberFound = false;
 
         // find phone number in groups
         String[] splits = this._contactGroups.split("\\|");
+        PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contactGroups.splits=" + splits.length);
         for (String split : splits) {
             String[] projection = new String[]{ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID};
             String selection = ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID + "=? AND "
                     + ContactsContract.CommonDataKinds.GroupMembership.MIMETYPE + "='"
                     + ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE + "'";
             String[] selectionArgs = new String[]{split};
-            Cursor mCursor = dataWrapper.context.getContentResolver().query(ContactsContract.Data.CONTENT_URI, projection, selection, selectionArgs, null);
+            Cursor mCursor = context.getContentResolver().query(ContactsContract.Data.CONTENT_URI, projection, selection, selectionArgs, null);
+            PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contactGroups mCursor=" + mCursor);
             if (mCursor != null) {
                 while (mCursor.moveToNext()) {
                     String contactId = mCursor.getString(mCursor.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
                     String[] projection2 = new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
                     String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?";
                     String[] selection2Args = new String[]{contactId};
-                    Cursor phones = dataWrapper.context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
+                    Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
+                    PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contactGroups phones=" + phones);
                     if (phones != null) {
                         while (phones.moveToNext()) {
                             String _contactName = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                            PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contactGroups _contactName=" + _contactName);
 
-                            if (_contactName.equals(text)) {
+                            if (text.toLowerCase().contains(_contactName.toLowerCase())) {
                                 phoneNumberFound = true;
                                 break;
                             }
@@ -980,10 +1154,12 @@ class EventPreferencesNotification extends EventPreferences {
             if (phoneNumberFound)
                 break;
         }
+        PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contactGroups phoneNumberFound=" + phoneNumberFound);
 
         if (!phoneNumberFound) {
             // find phone number in contacts
             splits = this._contacts.split("\\|");
+            PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contacts.splits=" + splits.length);
             for (String split : splits) {
                 String[] splits2 = split.split("#");
 
@@ -991,18 +1167,23 @@ class EventPreferencesNotification extends EventPreferences {
                 String[] projection = new String[]{ContactsContract.Contacts._ID};
                 String selection = ContactsContract.Contacts._ID + "=?";
                 String[] selectionArgs = new String[]{splits2[0]};
-                Cursor mCursor = dataWrapper.context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, selection, selectionArgs, null);
+                PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contacts splits2[0]=" + splits2[0]);
+                Cursor mCursor = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, selection, selectionArgs, null);
+                PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contacts mCursor=" + mCursor);
                 if (mCursor != null) {
                     while (mCursor.moveToNext()) {
-                        String[] projection2 = new String[]{ContactsContract.CommonDataKinds.Phone._ID, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
-                        String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?" + " and " + ContactsContract.CommonDataKinds.Phone._ID + "=?";
-                        String[] selection2Args = new String[]{splits2[0], splits2[1]};
-                        Cursor phones = dataWrapper.context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
+                        String[] projection2 = new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
+                        String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?";
+                        String[] selection2Args = new String[]{splits2[0]};
+                        PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contacts splits2[0]=" + splits2[0]);
+                        Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
+                        PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contacts phones=" + phones);
                         if (phones != null) {
                             while (phones.moveToNext()) {
                                 String _contactName = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                                PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contacts _contactName=" + _contactName);
 
-                                if (_contactName.equals(text)) {
+                                if (text.toLowerCase().contains(_contactName.toLowerCase())) {
                                     phoneNumberFound = true;
                                     break;
                                 }
@@ -1018,6 +1199,7 @@ class EventPreferencesNotification extends EventPreferences {
                     break;
             }
         }
+        PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contacts phoneNumberFound=" + phoneNumberFound);
 
         return phoneNumberFound;
     }

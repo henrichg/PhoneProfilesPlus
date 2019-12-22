@@ -80,35 +80,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
         if (sbn.getPackageName().equals(context.getPackageName()))
             return;
 
-        if (PPApplication.logEnabled()) {
-            PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "from=" + sbn.getPackageName());
-
-            @SuppressLint("SimpleDateFormat")
-            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-            String alarmTimeS = sdf.format(sbn.getPostTime());
-            PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "time=" + alarmTimeS);
-
-            if(sbn.getNotification().tickerText !=null) {
-                String ticker = sbn.getNotification().tickerText.toString();
-                PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "ticker=" + ticker);
-            }
-            Bundle extras = sbn.getNotification().extras;
-            if (extras != null) {
-                String title;
-                if (extras.getString("android.title") != null)
-                    title = extras.getString("android.title");
-                else
-                    title = "";
-                String text;
-                if (extras.getCharSequence("android.text") != null)
-                    text = extras.getCharSequence("android.text").toString();
-                else
-                    text = "";
-                PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "title=" + title);
-                PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "text=" + text);
-            }
-        }
-
 //        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
 //        long time = sbn.getPostTime() + gmtOffset;
         //getNotifiedPackages(context);
@@ -120,6 +91,35 @@ public class PPNotificationListenerService extends NotificationListenerService {
             return;
 
         if (Event.getGlobalEventsRunning(context)) {
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "from=" + sbn.getPackageName());
+
+                @SuppressLint("SimpleDateFormat")
+                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                String alarmTimeS = sdf.format(sbn.getPostTime());
+                PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "time=" + alarmTimeS);
+
+                if(sbn.getNotification().tickerText !=null) {
+                    String ticker = sbn.getNotification().tickerText.toString();
+                    PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "ticker=" + ticker);
+                }
+                Bundle extras = sbn.getNotification().extras;
+                if (extras != null) {
+                    String title;
+                    if (extras.getString("android.title") != null)
+                        title = extras.getString("android.title");
+                    else
+                        title = "";
+                    String text;
+                    if (extras.getCharSequence("android.text") != null)
+                        text = extras.getCharSequence("android.text").toString();
+                    else
+                        text = "";
+                    PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "title=" + title);
+                    PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "text=" + text);
+                }
+            }
+
             PPApplication.startHandlerThread("PPNotificationListenerService.onNotificationPosted");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
