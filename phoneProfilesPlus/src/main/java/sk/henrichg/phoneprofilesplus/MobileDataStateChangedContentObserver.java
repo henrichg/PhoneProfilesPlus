@@ -35,7 +35,7 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
 
         PPApplication.logE("##### MobileDataStateChangedContentObserver", "onChange");
 
-        CallsCounter.logCounter(context, "MobileDataStateChangedContentObserver.onChange", "MobileDataStateChangedContentObserver_onChange");
+        //CallsCounter.logCounter(context, "MobileDataStateChangedContentObserver.onChange", "MobileDataStateChangedContentObserver_onChange");
 
         if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY)) {
             boolean actualState = ActivateProfileHelper.isMobileData(context);

@@ -15,7 +15,7 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### DeviceIdleModeBroadcastReceiver.onReceive","xxx");
 
-        CallsCounter.logCounter(context, "DeviceIdleModeBroadcastReceiver.onReceive", "DeviceIdleModeBroadcastReceiver_onReceive");
+        //CallsCounter.logCounter(context, "DeviceIdleModeBroadcastReceiver.onReceive", "DeviceIdleModeBroadcastReceiver_onReceive");
 
         final Context appContext = context.getApplicationContext();
 

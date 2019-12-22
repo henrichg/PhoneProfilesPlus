@@ -13,7 +13,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### LocationModeChangedBroadcastReceiver.onReceive", "xxx");
 
-        CallsCounter.logCounter(context, "LocationModeChangedBroadcastReceiver.onReceive", "LocationModeChangedBroadcastReceiver_onReceive");
+        //CallsCounter.logCounter(context, "LocationModeChangedBroadcastReceiver.onReceive", "LocationModeChangedBroadcastReceiver_onReceive");
 
         final Context appContext = context.getApplicationContext();
 

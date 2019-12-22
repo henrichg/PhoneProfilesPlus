@@ -61,7 +61,7 @@ public class BluetoothScanWorker extends Worker {
         try {
             PPApplication.logE("BluetoothScanWorker.doWork", "---------------------------------------- START");
 
-            CallsCounter.logCounter(context, "BluetoothScanWorker.doWork", "BluetoothScanWorker_doWork");
+            //CallsCounter.logCounter(context, "BluetoothScanWorker.doWork", "BluetoothScanWorker_doWork");
 
             if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed !=
                     PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -120,7 +120,7 @@ public class BluetoothScanWorker extends Worker {
     public void onStopped () {
         PPApplication.logE("BluetoothScanWorker.onStopped", "xxx");
 
-        CallsCounter.logCounter(context, "BluetoothScanWorker.onStopped", "BluetoothScanWorker_onStopped");
+        //CallsCounter.logCounter(context, "BluetoothScanWorker.onStopped", "BluetoothScanWorker_onStopped");
 
         setScanRequest(context, false);
         setWaitForResults(context, false);

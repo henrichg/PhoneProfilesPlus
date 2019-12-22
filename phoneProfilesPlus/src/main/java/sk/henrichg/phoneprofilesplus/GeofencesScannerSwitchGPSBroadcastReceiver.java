@@ -20,7 +20,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
     @Override
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### GeofencesScannerSwitchGPSBroadcastReceiver.onReceive", "xxx");
-        CallsCounter.logCounter(context, "GeofencesScannerSwitchGPSBroadcastReceiver.onReceive", "GeofencesScannerSwitchGPSBroadcastReceiver_onReceive");
+        //CallsCounter.logCounter(context, "GeofencesScannerSwitchGPSBroadcastReceiver.onReceive", "GeofencesScannerSwitchGPSBroadcastReceiver_onReceive");
         doWork();
     }
 

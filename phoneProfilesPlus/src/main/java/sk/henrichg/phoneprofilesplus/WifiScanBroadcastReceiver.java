@@ -21,7 +21,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### WifiScanBroadcastReceiver.onReceive","xxx");
         //PPApplication.logE("@@@ WifiScanBroadcastReceiver.onReceive", "----- start");
-        CallsCounter.logCounter(context, "WifiScanBroadcastReceiver.onReceive", "WifiScanBroadcastReceiver_onReceive");
+        //CallsCounter.logCounter(context, "WifiScanBroadcastReceiver.onReceive", "WifiScanBroadcastReceiver_onReceive");
 
         if (intent == null)
             return;

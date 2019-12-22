@@ -14,7 +14,7 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### WifiConnectionBroadcastReceiver.onReceive", "xxx");
-        CallsCounter.logCounter(context, "WifiConnectionBroadcastReceiver.onReceive", "WifiConnectionBroadcastReceiver_onReceive");
+        //CallsCounter.logCounter(context, "WifiConnectionBroadcastReceiver.onReceive", "WifiConnectionBroadcastReceiver_onReceive");
 
         final Context appContext = context.getApplicationContext();
 

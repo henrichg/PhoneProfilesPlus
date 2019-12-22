@@ -11,7 +11,6 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.os.SystemPropertiesProto;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -36,7 +35,6 @@ class BluetoothConnectedDevices {
     private static boolean okA2DP = false;
     @SuppressWarnings("FieldCanBeLocal")
     private static boolean okHEADSET = false;
-    @SuppressWarnings("FieldCanBeLocal")
     private static boolean okHEALTH = false;
 
     static void getConnectedDevices(final Context context) {

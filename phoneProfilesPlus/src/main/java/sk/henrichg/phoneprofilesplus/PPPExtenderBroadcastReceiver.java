@@ -38,7 +38,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         final Context appContext = context.getApplicationContext();
 
-        CallsCounter.logCounter(context.getApplicationContext(), "PPPExtenderBroadcastReceiver.onReceive", "ForegroundApplicationChangedBroadcastReceiver_onReceive");
+        //CallsCounter.logCounter(context.getApplicationContext(), "PPPExtenderBroadcastReceiver.onReceive", "ForegroundApplicationChangedBroadcastReceiver_onReceive");
 
         if (!PPApplication.getApplicationStarted(appContext, true))
             // application is not started

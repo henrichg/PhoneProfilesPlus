@@ -12,7 +12,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.CalendarContract;
 import android.provider.ContactsContract;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
@@ -20,8 +19,6 @@ import android.util.Log;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;

@@ -39,7 +39,7 @@ public class GeofenceScanWorker extends Worker {
         try {
             PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- START");
 
-            CallsCounter.logCounter(context, "GeofenceScanWorker.doWork", "GeofenceScanWorker_doWork");
+            //CallsCounter.logCounter(context, "GeofenceScanWorker.doWork", "GeofenceScanWorker_doWork");
 
             if (Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, context).allowed !=
                     PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -116,7 +116,7 @@ public class GeofenceScanWorker extends Worker {
     public void onStopped () {
         PPApplication.logE("GeofenceScanWorker.onStopped", "xxx");
 
-        CallsCounter.logCounter(context, "GeofenceScanWorker.onStopped", "GeofenceScanWorker_onStopped");
+        //CallsCounter.logCounter(context, "GeofenceScanWorker.onStopped", "GeofenceScanWorker_onStopped");
     }
 
     private static void _scheduleWork(final Context context, boolean shortInterval/*, final boolean forScreenOn*/) {

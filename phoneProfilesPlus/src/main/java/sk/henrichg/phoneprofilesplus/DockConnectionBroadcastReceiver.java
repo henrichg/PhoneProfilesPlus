@@ -12,7 +12,7 @@ public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### DockConnectionBroadcastReceiver.onReceive", "xxx");
 
-        CallsCounter.logCounter(context, "DockConnectionBroadcastReceiver.onReceive", "DockConnectionBroadcastReceiver_onReceive");
+        //CallsCounter.logCounter(context, "DockConnectionBroadcastReceiver.onReceive", "DockConnectionBroadcastReceiver_onReceive");
 
         final Context appContext = context.getApplicationContext();
 

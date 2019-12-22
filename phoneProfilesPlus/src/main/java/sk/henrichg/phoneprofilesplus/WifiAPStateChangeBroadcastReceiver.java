@@ -10,7 +10,7 @@ public class WifiAPStateChangeBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### WifiAPStateChangeBroadcastReceiver.onReceive", "xxx");
-        CallsCounter.logCounter(context, "WifiAPStateChangeBroadcastReceiver.onReceive", "WifiAPStateChangeBroadcastReceiver_onReceive");
+        //CallsCounter.logCounter(context, "WifiAPStateChangeBroadcastReceiver.onReceive", "WifiAPStateChangeBroadcastReceiver_onReceive");
 
         final Context appContext = context.getApplicationContext();
 

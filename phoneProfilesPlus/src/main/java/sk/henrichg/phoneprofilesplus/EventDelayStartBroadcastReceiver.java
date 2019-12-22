@@ -11,7 +11,7 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### EventDelayStartBroadcastReceiver.onReceive", "xxx");
-        CallsCounter.logCounter(context, "EventDelayStartBroadcastReceiver.onReceive", "EventDelayStartBroadcastReceiver_onReceive");
+        //CallsCounter.logCounter(context, "EventDelayStartBroadcastReceiver.onReceive", "EventDelayStartBroadcastReceiver_onReceive");
 
         String action = intent.getAction();
         if (action != null) {

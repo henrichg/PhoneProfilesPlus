@@ -53,7 +53,7 @@ public class WifiScanWorker extends Worker {
         try {
             PPApplication.logE("WifiScanWorker.doWork", "---------------------------------------- START");
 
-            CallsCounter.logCounter(context, "WifiScanWorker.doWork", "WifiScanWorker_doWork");
+            //CallsCounter.logCounter(context, "WifiScanWorker.doWork", "WifiScanWorker_doWork");
 
             if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed !=
                     PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -115,7 +115,7 @@ public class WifiScanWorker extends Worker {
     public void onStopped () {
         PPApplication.logE("WifiScanWorker.onStopped", "xxx");
 
-        CallsCounter.logCounter(context, "WifiScanWorker.onStopped", "WifiScanWorker_onStopped");
+        //CallsCounter.logCounter(context, "WifiScanWorker.onStopped", "WifiScanWorker_onStopped");
 
         setScanRequest(context, false);
         setWaitForResults(context, false);

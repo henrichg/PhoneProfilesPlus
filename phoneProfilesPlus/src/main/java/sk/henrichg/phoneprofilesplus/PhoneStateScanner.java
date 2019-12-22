@@ -324,7 +324,7 @@ class PhoneStateScanner extends PhoneStateListener {
         super.onCellInfoChanged(cellInfo);
 
         PPApplication.logE("PhoneStateScanner.onCellInfoChanged", "telephonyManager="+telephonyManager);
-        CallsCounter.logCounter(context, "PhoneStateScanner.onCellInfoChanged", "PhoneStateScanner_onCellInfoChanged");
+        //CallsCounter.logCounter(context, "PhoneStateScanner.onCellInfoChanged", "PhoneStateScanner_onCellInfoChanged");
 
         final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThread("PhoneStateScanner.onCellInfoChanged");
@@ -367,7 +367,7 @@ class PhoneStateScanner extends PhoneStateListener {
         super.onServiceStateChanged(serviceState);
 
         PPApplication.logE("PhoneStateScanner.onServiceStateChanged", "telephonyManager=" + telephonyManager);
-        CallsCounter.logCounter(context, "PhoneStateScanner.onServiceStateChanged", "PhoneStateScanner_onServiceStateChanged");
+        //CallsCounter.logCounter(context, "PhoneStateScanner.onServiceStateChanged", "PhoneStateScanner_onServiceStateChanged");
 
         final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThread("PhoneStateScanner.onServiceStateChanged");
@@ -488,7 +488,7 @@ class PhoneStateScanner extends PhoneStateListener {
         super.onCellLocationChanged(location);
 
         PPApplication.logE("PhoneStateScanner.onCellLocationChanged", "telephonyManager="+telephonyManager);
-        CallsCounter.logCounter(context, "PhoneStateScanner.onCellLocationChanged", "PhoneStateScanner_onCellLocationChanged");
+        //CallsCounter.logCounter(context, "PhoneStateScanner.onCellLocationChanged", "PhoneStateScanner_onCellLocationChanged");
 
         final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThread("PhoneStateScanner.onCellLocationChanged");

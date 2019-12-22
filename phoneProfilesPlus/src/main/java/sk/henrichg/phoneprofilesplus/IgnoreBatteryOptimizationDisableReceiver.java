@@ -14,7 +14,7 @@ public class IgnoreBatteryOptimizationDisableReceiver extends BroadcastReceiver 
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### IgnoreBatteryOptimizationDisableReceiver.onReceive", "xxx");
 
-        CallsCounter.logCounter(context, "IgnoreBatteryOptimizationDisableReceiver.onReceive", "IgnoreBatteryOptimizationDisableReceiver_onReceive");
+        //CallsCounter.logCounter(context, "IgnoreBatteryOptimizationDisableReceiver.onReceive", "IgnoreBatteryOptimizationDisableReceiver_onReceive");
 
         IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(context.getApplicationContext(), false);
 

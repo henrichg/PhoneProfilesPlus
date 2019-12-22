@@ -12,7 +12,7 @@ public class NotificationCancelAlarmBroadcastReceiver extends BroadcastReceiver 
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### NotificationCancelAlarmBroadcastReceiver.onReceive", "xxx");
 
-        CallsCounter.logCounter(context, "NotificationCancelAlarmBroadcastReceiver.onReceive", "NotificationCancelAlarmBroadcastReceiver_onReceive");
+        //CallsCounter.logCounter(context, "NotificationCancelAlarmBroadcastReceiver.onReceive", "NotificationCancelAlarmBroadcastReceiver_onReceive");
 
         if (Build.VERSION.SDK_INT >= 26)
             return;

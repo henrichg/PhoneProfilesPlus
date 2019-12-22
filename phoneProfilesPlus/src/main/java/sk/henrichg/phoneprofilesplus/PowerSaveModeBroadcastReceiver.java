@@ -15,7 +15,7 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### PowerSaveModeBroadcastReceiver.onReceive", "xxx");
 
-        CallsCounter.logCounter(context, "PowerSaveModeBroadcastReceiver.onReceive", "PowerSaveModeBroadcastReceiver_onReceive");
+        //CallsCounter.logCounter(context, "PowerSaveModeBroadcastReceiver.onReceive", "PowerSaveModeBroadcastReceiver_onReceive");
 
         final Context appContext = context.getApplicationContext();
 

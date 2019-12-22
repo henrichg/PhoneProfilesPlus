@@ -20,7 +20,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
             if (action.equals(Intent.ACTION_TIMEZONE_CHANGED) ||
                     action.equals(Intent.ACTION_TIME_CHANGED)/* ||
                     action.equals(Intent.ACTION_TIME_TICK)*/) {
-                CallsCounter.logCounter(context, "TimeChangedReceiver.onReceive", "TimeChangedReceiver_onReceive");
+                //CallsCounter.logCounter(context, "TimeChangedReceiver.onReceive", "TimeChangedReceiver_onReceive");
 
                 final Context appContext = context.getApplicationContext();
 

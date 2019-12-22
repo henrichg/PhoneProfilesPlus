@@ -23,7 +23,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### StartEventNotificationBroadcastReceiver.onReceive", "xxx");
-        CallsCounter.logCounter(context, "StartEventNotificationBroadcastReceiver.onReceive", "StartEventNotificationBroadcastReceiver_onReceive");
+        //CallsCounter.logCounter(context, "StartEventNotificationBroadcastReceiver.onReceive", "StartEventNotificationBroadcastReceiver_onReceive");
 
         if (intent != null) {
             final long event_id = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);

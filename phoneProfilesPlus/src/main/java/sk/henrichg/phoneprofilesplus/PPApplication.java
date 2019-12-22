@@ -274,11 +274,11 @@ public class PPApplication extends Application {
                                          //+"|PhoneProfilesService.playNotificationSound"
 
                                          //+"|PPNotificationListenerService"
-                                         +"|PPNotificationListenerService.onNotificationPosted"
+                                         //+"|PPNotificationListenerService.onNotificationPosted"
                                          //+"|[NOTIF] EventsHandler.handleEvents"
                                          //+"|[NOTIF] DataWrapper.doHandleEvents"
-                                         +"|EventPreferencesNotification.isContactConfigured"
-                                         +"|EventPreferencesNotification.isNotificationActive"
+                                         //+"|EventPreferencesNotification.isContactConfigured"
+                                         //+"|EventPreferencesNotification.isNotificationActive"
                                          //+"|EventPreferencesNotification.isNotificationVisible"
                                          //+"|NotificationEventEndBroadcastReceiver"
 

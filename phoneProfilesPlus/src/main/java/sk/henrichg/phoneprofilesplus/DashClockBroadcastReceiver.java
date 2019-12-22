@@ -15,7 +15,7 @@ public class DashClockBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(final Context context, Intent intent) {
         PPApplication.logE("##### DashClockBroadcastReceiver.onReceive", "xxx");
 
-        CallsCounter.logCounter(context, "DashClockBroadcastReceiver.onReceive", "DashClockBroadcastReceiver_onReceive");
+        //CallsCounter.logCounter(context, "DashClockBroadcastReceiver.onReceive", "DashClockBroadcastReceiver_onReceive");
 
         final boolean refresh = (intent == null) || intent.getBooleanExtra(EXTRA_REFRESH, true);
 

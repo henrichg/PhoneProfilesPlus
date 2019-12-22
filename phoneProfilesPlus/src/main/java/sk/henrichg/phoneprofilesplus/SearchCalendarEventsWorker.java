@@ -39,7 +39,7 @@ public class SearchCalendarEventsWorker extends Worker {
         try {
             PPApplication.logE("SearchCalendarEventsWorker.doWork", "---------------------------------------- START");
 
-            CallsCounter.logCounter(context, "SearchCalendarEventsWorker.doWork", "SearchCalendarEventsWorker_doWork");
+            //CallsCounter.logCounter(context, "SearchCalendarEventsWorker.doWork", "SearchCalendarEventsWorker_doWork");
 
             if (!PPApplication.getApplicationStarted(context, true)) {
                 // application is not started
@@ -86,7 +86,7 @@ public class SearchCalendarEventsWorker extends Worker {
     public void onStopped () {
         PPApplication.logE("SearchCalendarEventsWorker.onStopped", "xxx");
 
-        CallsCounter.logCounter(context, "SearchCalendarEventsWorker.onStopped", "SearchCalendarEventsWorker_onStopped");
+        //CallsCounter.logCounter(context, "SearchCalendarEventsWorker.onStopped", "SearchCalendarEventsWorker_onStopped");
     }
 
     private static void _scheduleWork(final Context context, final boolean shortInterval) {

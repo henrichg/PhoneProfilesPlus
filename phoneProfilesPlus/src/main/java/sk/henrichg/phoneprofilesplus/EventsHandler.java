@@ -81,7 +81,7 @@ class EventsHandler {
     
     void handleEvents(String sensorType) {
         synchronized (PPApplication.eventsHandlerMutex) {
-            CallsCounter.logCounter(context, "EventsHandler.handleEvents", "EventsHandler_handleEvents");
+            //CallsCounter.logCounter(context, "EventsHandler.handleEvents", "EventsHandler_handleEvents");
 
             PPApplication.logE("#### EventsHandler.handleEvents", "-- start --------------------------------");
 
@@ -99,7 +99,7 @@ class EventsHandler {
 
             this.sensorType = sensorType;
             PPApplication.logE("#### EventsHandler.handleEvents", "sensorType=" + this.sensorType);
-            CallsCounter.logCounterNoInc(context, "EventsHandler.handleEvents->sensorType=" + this.sensorType, "EventsHandler_handleEvents");
+            //CallsCounter.logCounterNoInc(context, "EventsHandler.handleEvents->sensorType=" + this.sensorType, "EventsHandler_handleEvents");
 
             //restartAtEndOfEvent = false;
 

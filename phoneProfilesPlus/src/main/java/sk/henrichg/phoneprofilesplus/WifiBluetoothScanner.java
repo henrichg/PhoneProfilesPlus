@@ -56,7 +56,7 @@ class WifiBluetoothScanner {
 
     void doScan(String scannerType) {
         synchronized (PPApplication.wifiBluetoothscannerMutex) {
-            CallsCounter.logCounter(context, "WifiBluetoothScanner.doScan", "Scanner_doScan");
+            //CallsCounter.logCounter(context, "WifiBluetoothScanner.doScan", "Scanner_doScan");
 
             if (!PPApplication.getApplicationStarted(context, true))
                 // application is not started

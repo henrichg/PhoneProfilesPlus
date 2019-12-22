@@ -25,7 +25,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### BluetoothConnectionBroadcastReceiver.onReceive", "xxx");
 
-        CallsCounter.logCounter(context, "BluetoothConnectionBroadcastReceiver.onReceive", "BluetoothConnectionBroadcastReceiver_onReceive");
+        //CallsCounter.logCounter(context, "BluetoothConnectionBroadcastReceiver.onReceive", "BluetoothConnectionBroadcastReceiver_onReceive");
 
         final Context appContext = context.getApplicationContext();
 

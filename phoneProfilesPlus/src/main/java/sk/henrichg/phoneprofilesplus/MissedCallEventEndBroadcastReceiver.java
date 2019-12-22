@@ -11,7 +11,7 @@ public class MissedCallEventEndBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### MissedCallEventEndBroadcastReceiver.onReceive", "xxx");
-        CallsCounter.logCounter(context, "MissedCallEventEndBroadcastReceiver.onReceive", "MissedCallEventEndBroadcastReceiver_onReceive");
+        //CallsCounter.logCounter(context, "MissedCallEventEndBroadcastReceiver.onReceive", "MissedCallEventEndBroadcastReceiver_onReceive");
 
         String action = intent.getAction();
         if (action != null) {

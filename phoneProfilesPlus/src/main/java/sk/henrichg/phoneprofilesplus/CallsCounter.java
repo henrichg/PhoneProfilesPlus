@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+@SuppressWarnings("unused")
 class CallsCounter {
 
     private static SharedPreferences preferences = null;

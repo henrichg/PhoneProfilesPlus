@@ -20,7 +20,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
     @Override
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### LockDeviceActivityFinishBroadcastReceiver.onReceive", "xxx");
-        CallsCounter.logCounter(context, "LockDeviceActivityFinishBroadcastReceiver.onReceive", "LockDeviceActivityFinishBroadcastReceiver_onReceive");
+        //CallsCounter.logCounter(context, "LockDeviceActivityFinishBroadcastReceiver.onReceive", "LockDeviceActivityFinishBroadcastReceiver_onReceive");
         doWork();
     }
 

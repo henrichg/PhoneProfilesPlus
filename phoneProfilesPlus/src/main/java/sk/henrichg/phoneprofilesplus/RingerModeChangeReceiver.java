@@ -13,7 +13,7 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### RingerModeChangeReceiver.onReceive", "xxx");
-        CallsCounter.logCounter(context, "RingerModeChangeReceiver.onReceive", "RingerModeChangeReceiver_onReceive");
+        //CallsCounter.logCounter(context, "RingerModeChangeReceiver.onReceive", "RingerModeChangeReceiver_onReceive");
 
         if (!internalChange) {
             PPApplication.logE("RingerModeChangeReceiver.onReceive", "!internalChange");

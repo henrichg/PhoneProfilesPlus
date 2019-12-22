@@ -11,7 +11,7 @@ public class EventCalendarBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### EventCalendarBroadcastReceiver.onReceive", "xxx");
-        CallsCounter.logCounter(context, "EventCalendarBroadcastReceiver.onReceive", "EventCalendarBroadcastReceiver_onReceive");
+        //CallsCounter.logCounter(context, "EventCalendarBroadcastReceiver.onReceive", "EventCalendarBroadcastReceiver_onReceive");
 
         String action = intent.getAction();
         if (action != null) {
