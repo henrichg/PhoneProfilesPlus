@@ -263,7 +263,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setCategorySummary(PREF_FORCE_STOP_APPLICATIONS_CATEGORY, context);
         setCategorySummary(PREF_LOCK_DEVICE_CATEGORY, context);
 
-        setPermissionsPreference();
+        setRedTextToPreferences();
 
         //if (android.os.Build.VERSION.SDK_INT >= 21)
         //{
@@ -743,7 +743,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             disableDependedPref(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
             disableDependedPref(Profile.PREF_PROFILE_LOCK_DEVICE);
-            setPermissionsPreference();
+            setRedTextToPreferences();
             PPApplication.logE("ActivateProfileHelper.updateGUI", "from ProfilesPrefsFragment.onResume");
             ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
         }
@@ -809,7 +809,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         // disable depended preferences
         disableDependedPref(key, value);
 
-        setPermissionsPreference();
+        setRedTextToPreferences();
 
         ProfilesPrefsActivity activity = (ProfilesPrefsActivity)getActivity();
         PPApplication.logE("ProfilesPrefsFragment.onSharedPreferenceChanged", "activity="+activity);
@@ -824,12 +824,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         PPApplication.logE("ProfilesPrefsFragment.doOnActivityResult", "requestCode=" + requestCode);
 
         if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_PROFILE) {
-            setPermissionsPreference();
+            setRedTextToPreferences();
         }
         /*if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_GRANT_ROOT) {
             Log.e("------ ProfilesPrefsFragment.doOnActivityResult", "requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_GRANT_ROOT");
             PPApplication.isRootGranted();
-            setPermissionsPreference();
+            setRedTextToPreferences();
         }*/
         if (requestCode == WallpaperViewPreferenceX.RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && data != null)
         {
@@ -2983,14 +2983,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         disableDependedPref(key, value);
     }
 
-    void setPermissionsPreference() {
+    void setRedTextToPreferences() {
         if (nestedFragment)
             return;
 
         if (getActivity() == null)
             return;
 
-        PPApplication.logE("ProfilesPrefsFragment.setPermissionsPreference", "xxx");
+        PPApplication.logE("ProfilesPrefsFragment.setRedTextToPreferences", "xxx");
 
         final ProfilesPrefsActivity activity = (ProfilesPrefsActivity)getActivity();
 
@@ -3246,7 +3246,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
-        PPApplication.logE("ProfilesPrefsFragment.setPermissionsPreference", "END");
+        PPApplication.logE("ProfilesPrefsFragment.setRedTextToPreferences", "END");
     }
 
     private void enableNotificationAccess(boolean showDoNotDisturbPermission) {

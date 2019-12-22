@@ -288,7 +288,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             }
         }, 200);
 
-        setPermissionsPreference();
+        setRedTextToPreferences();
 
         event.checkPreferences(prefMng, context);
 
@@ -921,7 +921,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             event._eventPreferencesSMS.checkPreferences(prefMng, context);
             event._eventPreferencesCall.checkPreferences(prefMng, context);
             event._eventPreferencesNotification.checkPreferences(prefMng, context);
-            setPermissionsPreference();
+            setRedTextToPreferences();
             PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.onResume");
             ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
         }
@@ -974,7 +974,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         event.setSummary(prefMng, key, sharedPreferences, getActivity());
 
-        setPermissionsPreference();
+        setRedTextToPreferences();
 
         EventsPrefsActivity activity = (EventsPrefsActivity)getActivity();
         PPApplication.logE("EventsPrefsFragment.onSharedPreferenceChanged", "activity="+activity);
@@ -994,7 +994,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         final Context context = getActivity().getBaseContext();
 
         if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_EVENT) {
-            setPermissionsPreference();
+            setRedTextToPreferences();
         }
         if (requestCode == RESULT_NOTIFICATION_ACCESS_SETTINGS) {
             event._eventPreferencesNotification.checkPreferences(prefMng, context);
@@ -1004,7 +1004,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             event._eventPreferencesOrientation.checkPreferences(prefMng, context);
             event._eventPreferencesSMS.checkPreferences(prefMng, context);
             event._eventPreferencesCall.checkPreferences(prefMng, context);
-            setPermissionsPreference();
+            setRedTextToPreferences();
             PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
             ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
         }
@@ -1049,7 +1049,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             }
 
             event._eventPreferencesWifi.checkPreferences(prefMng, context);
-            setPermissionsPreference();
+            setRedTextToPreferences();
             PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
             ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
         }
@@ -1060,7 +1060,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             }
 
             event._eventPreferencesBluetooth.checkPreferences(prefMng, context);
-            setPermissionsPreference();
+            setRedTextToPreferences();
             PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
             ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
         }
@@ -1071,7 +1071,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             }
 
             event._eventPreferencesLocation.checkPreferences(prefMng, context);
-            setPermissionsPreference();
+            setRedTextToPreferences();
             PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
             ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
         }
@@ -1082,7 +1082,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             }
 
             event._eventPreferencesMobileCells.checkPreferences(prefMng, context);
-            setPermissionsPreference();
+            setRedTextToPreferences();
             PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
             ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
         }
@@ -1090,7 +1090,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             PPApplication.restartTwilightScanner(context);
 
             event._eventPreferencesTime.checkPreferences(prefMng, context);
-            setPermissionsPreference();
+            setRedTextToPreferences();
             PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
             ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
         }
@@ -1216,7 +1216,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     }
     */
 
-    private void setPermissionsPreference() {
+    private void setRedTextToPreferences() {
         if (nestedFragment)
             return;
 

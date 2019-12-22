@@ -370,16 +370,16 @@ Permissions.grantProfilePermissions()
   - DataWrapper.activateProfileAfterDuration() = notifikacia
   - EditorProfilesActivity.onActivityResult() = aktivita => zmen na notifikaciu
   - FastAccessDurationDialog() = aktivita => zmen na notifikaciu
-  - ProfilesPrefsFragment.setPermissionsPreference() = aktivta
+  - ProfilesPrefsFragment.setRedTextToPreferences() = aktivta
 
 Permissions.grantEventPermissions()
 - obsahuje aj onlyNotification
 - volane z:
   - DataWrapper.doHandleEvents() = notifikacia
   - EditorProfilesActivity.onActivityResult() = aktivita => zmen na notifikaciu
-  - EditorPrefsFragment.setPermissionsPreference() = aktivita
+  - EditorPrefsFragment.setRedTextToPreferences() = aktivita
 
-Nakoniec to vypada tak, ze ak sa ma zobrazit len notifikacia, treba explicitne testnut, ci ma nieco, co je v setPermissionsPreference(), cervene.
+Nakoniec to vypada tak, ze ak sa ma zobrazit len notifikacia, treba explicitne testnut, ci ma nieco, co je v setRedTextToPreferences(), cervene.
 Ak aspon nieco je cervene, treba spravit notifikaciu, ale zvlastnu a nevolat grant permissions.
 Toto spravit len pre volania, ktore sa volaju s notifikaciou:
 - Permissions.grantProfilePermissions()

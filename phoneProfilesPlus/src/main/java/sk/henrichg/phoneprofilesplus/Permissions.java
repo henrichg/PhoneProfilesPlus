@@ -2292,7 +2292,7 @@ class Permissions {
 
                 if (fragment != null) {
                     grantRootChanged = true;
-                    fragment.setPermissionsPreference();
+                    fragment.setRedTextToPreferences();
                 }
 
                 boolean ok = false;
@@ -2350,7 +2350,7 @@ class Permissions {
             public void onClick(DialogInterface dialog, int which) {
                 if (fragment != null) {
                     grantRootChanged = true;
-                    fragment.setPermissionsPreference();
+                    fragment.setRedTextToPreferences();
                 }
             }
         });

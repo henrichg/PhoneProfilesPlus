@@ -247,7 +247,7 @@ public class PPApplication extends Application {
                                          //+"|ProfilesPrefsFragment.onCreate"
                                          //+"|ProfilesPrefsFragment.onDisplayPreferenceDialog"
                                          //+"|ProfilesPrefsFragment.onActivityCreated"
-                                         //+"|ProfilesPrefsFragment.setPermissionsPreference"
+                                         //+"|ProfilesPrefsFragment.setRedTextToPreferences"
                                          //+"|ProfilesPrefsActivity.getProfileFromPreferences"
                                          /*+"|EventsPrefsActivity"
                                          +"|EventsPrefsFragment"
