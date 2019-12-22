@@ -56,6 +56,15 @@
         app:dependency="eventNotificationEnabled"
         app:layout="@layout/mp_preference_material_widget"
         app:withoutNumbers="true" />
+    <ListPreference
+        app:title="@string/event_preferences_contactListType"
+        app:summary="@string/array_event_pref_contact_list_type_white_list"
+        app:key="eventNotificationContactListType"
+        app:defaultValue="0"
+        app:entries="@array/eventNotificationContactListTypeArray"
+        app:entryValues="@array/eventNotificationContactListTypeValues"
+        app:dependency="eventNotificationEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
 
     <SwitchPreferenceCompat
         app:key="eventNotificationCheckText"
@@ -63,7 +72,7 @@
         app:defaultValue="false"
         app:dependency="eventNotificationEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <EditTextPreference
+    <sk.henrichg.phoneprofilesplus.SearchStringPreferenceX
         app:key="eventNotificationText"
         app:summary="@string/event_preferences_notifications_text"
         app:title="@string/event_preferences_notifications_text"

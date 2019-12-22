@@ -12,10 +12,10 @@ import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 @SuppressWarnings("WeakerAccess")
-public class CalendarSearchStringPreferenceFragmentX extends PreferenceDialogFragmentCompat {
+public class SearchStringPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;
-    private CalendarSearchStringPreferenceX preference;
+    private SearchStringPreferenceX preference;
 
     private EditText editText;
 
@@ -24,7 +24,7 @@ public class CalendarSearchStringPreferenceFragmentX extends PreferenceDialogFra
     protected View onCreateDialogView(Context context)
     {
         prefContext = context;
-        preference = (CalendarSearchStringPreferenceX) getPreference();
+        preference = (SearchStringPreferenceX) getPreference();
         preference.fragment = this;
 
         LayoutInflater inflater = LayoutInflater.from(context);

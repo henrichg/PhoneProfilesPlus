@@ -30,7 +30,7 @@
         app:entryValues="@array/eventCalendarSearchFieldValues"
         app:dependency="eventCalendarEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.CalendarSearchStringPreferenceX
+    <sk.henrichg.phoneprofilesplus.SearchStringPreferenceX
         app:key="eventCalendarSearchString"
         app:summary="@string/event_preferences_calendar_search_string"
         app:title="@string/event_preferences_calendar_search_string"

@@ -6,13 +6,13 @@ import android.util.AttributeSet;
 import androidx.preference.DialogPreference;
 
 @SuppressWarnings("WeakerAccess")
-public class CalendarSearchStringPreferenceX extends DialogPreference {
+public class SearchStringPreferenceX extends DialogPreference {
 
-    CalendarSearchStringPreferenceFragmentX fragment;
+    SearchStringPreferenceFragmentX fragment;
 
     String value = "";
 
-    public CalendarSearchStringPreferenceX(Context context, AttributeSet attrs) {
+    public SearchStringPreferenceX(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

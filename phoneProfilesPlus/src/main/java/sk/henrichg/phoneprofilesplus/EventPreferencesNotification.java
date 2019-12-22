@@ -21,6 +21,7 @@ import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
@@ -38,6 +39,7 @@ class EventPreferencesNotification extends EventPreferences {
     boolean _checkContacts;
     String _contacts;
     String _contactGroups;
+    int _contactListType;
     boolean _checkText;
     String _text;
 
@@ -51,6 +53,7 @@ class EventPreferencesNotification extends EventPreferences {
     private static final String PREF_EVENT_NOTIFICATION_CHECK_TEXT = "eventNotificationCheckText";
     private static final String PREF_EVENT_NOTIFICATION_CONTACT_GROUPS = "eventNotificationContactGroups";
     private static final String PREF_EVENT_NOTIFICATION_CONTACTS = "eventNotificationContacts";
+    private static final String PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE = "eventNotificationContactListType";
     private static final String PREF_EVENT_NOTIFICATION_TEXT = "eventNotificationText";
 
     private static final String PREF_EVENT_NOTIFICATION_CATEGORY = "eventNotificationCategoryRoot";
@@ -65,8 +68,9 @@ class EventPreferencesNotification extends EventPreferences {
                                         String contactGroups,
                                         String contacts,
                                         boolean checkText,
-                                        String text
-                                        )
+                                        String text,
+                                        int contactListType
+                                 )
     {
         super(event, enabled);
 
@@ -79,6 +83,7 @@ class EventPreferencesNotification extends EventPreferences {
         this._contactGroups = contactGroups;
         this._checkText = checkText;
         this._text = text;
+        this._contactListType = contactListType;
     }
 
     @Override
@@ -94,6 +99,7 @@ class EventPreferencesNotification extends EventPreferences {
         this._contactGroups = fromEvent._eventPreferencesNotification._contactGroups;
         this._checkText = fromEvent._eventPreferencesNotification._checkText;
         this._text = fromEvent._eventPreferencesNotification._text;
+        this._contactListType = fromEvent._eventPreferencesNotification._contactListType;
 
         this.setSensorPassed(fromEvent._eventPreferencesNotification.getSensorPassed());
     }
@@ -113,6 +119,7 @@ class EventPreferencesNotification extends EventPreferences {
             editor.putString(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS, this._contactGroups);
             editor.putBoolean(PREF_EVENT_NOTIFICATION_CHECK_TEXT, this._checkText);
             editor.putString(PREF_EVENT_NOTIFICATION_TEXT, this._text);
+            editor.putString(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE, String.valueOf(this._contactListType));
             editor.apply();
         //}
     }
@@ -131,6 +138,7 @@ class EventPreferencesNotification extends EventPreferences {
             this._contactGroups = preferences.getString(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS, "");
             this._checkText = preferences.getBoolean(PREF_EVENT_NOTIFICATION_CHECK_TEXT, false);
             this._text = preferences.getString(PREF_EVENT_NOTIFICATION_TEXT, "");
+            this._contactListType = Integer.parseInt(preferences.getString(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE, "0"));
         //}
     }
 
@@ -201,7 +209,11 @@ class EventPreferencesNotification extends EventPreferences {
                         descr = descr + "<b>" + ContactGroupsMultiSelectDialogPreferenceX.getSummary(_contactGroups, context) + "</b> • ";
 
                         descr = descr + context.getString(R.string.event_preferences_notifications_contacts) + ": ";
-                        descr = descr + "<b>" + ContactsMultiSelectDialogPreferenceX.getSummary(_contacts, true, context) + "</b>";
+                        descr = descr + "<b>" + ContactsMultiSelectDialogPreferenceX.getSummary(_contacts, true, context) + "</b> • ";
+
+                        descr = descr + context.getString(R.string.event_preferences_contactListType) + ": ";
+                        String[] contactListTypes = context.getResources().getStringArray(R.array.eventNotificationContactListTypeArray);
+                        descr = descr + "<b>" + contactListTypes[this._contactListType] + "</b>";
                     }
                     if (this._checkText) {
                         descr = descr + " • ";
@@ -256,12 +268,24 @@ class EventPreferencesNotification extends EventPreferences {
             }
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 0, false, false, false);
         }
+        if (key.equals(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE)) {
+            ListPreference listPreference = prefMng.findPreference(key);
+            if (listPreference != null) {
+                int index = listPreference.findIndexOfValue(value);
+                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                listPreference.setSummary(summary);
+            }
+        }
         if (key.equals(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS)) {
             Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACTS);
             if (preference != null) {
                 preference.setEnabled(value.equals("true"));
             }
             preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS);
+            if (preference != null) {
+                preference.setEnabled(value.equals("true"));
+            }
+            preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE);
             if (preference != null) {
                 preference.setEnabled(value.equals("true"));
             }
@@ -303,6 +327,11 @@ class EventPreferencesNotification extends EventPreferences {
                 boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_CONTACTS, "").isEmpty();
                 GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, !isRunnable, false);
             }
+            _preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE);
+            if (_preference != null) {
+                boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE, "").isEmpty();
+                GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, !isRunnable, false);
+            }
         }
         Preference checkTextPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CHECK_TEXT);
         if ((checkTextPreference != null) && prefMng.getSharedPreferences().getBoolean(PREF_EVENT_NOTIFICATION_CHECK_TEXT, false)) {
@@ -330,7 +359,8 @@ class EventPreferencesNotification extends EventPreferences {
             key.equals(PREF_EVENT_NOTIFICATION_DURATION) ||
             key.equals(PREF_EVENT_NOTIFICATION_CONTACTS) ||
             key.equals(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS) ||
-            key.equals(PREF_EVENT_NOTIFICATION_TEXT))
+            key.equals(PREF_EVENT_NOTIFICATION_TEXT) ||
+            key.equals(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
@@ -350,6 +380,7 @@ class EventPreferencesNotification extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_CONTACT_GROUPS, preferences, context);
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_CHECK_TEXT, preferences, context);
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_TEXT, preferences, context);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE, preferences, context);
     }
 
     @Override
@@ -359,7 +390,7 @@ class EventPreferencesNotification extends EventPreferences {
             EventPreferencesNotification tmp = new EventPreferencesNotification(this._event, this._enabled,
                                                         this._applications, this._inCall, this._missedCall, this._duration,
                                                         this._checkContacts, this._contactGroups, this._contacts,
-                                                        this._checkText, this._text);
+                                                        this._checkText, this._text, this._contactListType);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 
@@ -403,6 +434,7 @@ class EventPreferencesNotification extends EventPreferences {
             Preference contactsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACTS);
             SwitchPreferenceCompat checkTextPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CHECK_TEXT);
             Preference textPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_TEXT);
+            Preference contactListTypePreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE);
 
             if (applicationsPreference != null) {
                 applicationsPreference.setEnabled(enabled);
@@ -424,6 +456,10 @@ class EventPreferencesNotification extends EventPreferences {
             if (contactsPreference != null) {
                 boolean checkEnabled = (checkContactsPreference != null) && (checkContactsPreference.isChecked());
                 contactsPreference.setEnabled(enabled && checkEnabled);
+            }
+            if (contactListTypePreference != null) {
+                boolean checkEnabled = (checkContactsPreference != null) && (checkContactsPreference.isChecked());
+                contactListTypePreference.setEnabled(enabled && checkEnabled);
             }
             if (checkTextPreference != null) {
                 checkTextPreference.setEnabled(enabled);

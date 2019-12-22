@@ -38,7 +38,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2406;
+    private static final int DATABASE_VERSION = 2407;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -321,6 +321,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_NOTIFICATION_CONTACT_GROUPS = "notificationContactGroups";
     private static final String KEY_E_NOTIFICATION_CHECK_TEXT = "notificationCheckText";
     private static final String KEY_E_NOTIFICATION_TEXT = "notificationText";
+    private static final String KEY_E_NOTIFICATION_CONTACT_LIST_TYPE = "notificationContactListType";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -689,7 +690,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_NOTIFICATION_CONTACTS + " TEXT,"
                 + KEY_E_NOTIFICATION_CONTACT_GROUPS + " TEXT,"
                 + KEY_E_NOTIFICATION_CHECK_TEXT + " INTEGER,"
-                + KEY_E_NOTIFICATION_TEXT + " TEXT"
+                + KEY_E_NOTIFICATION_TEXT + " TEXT,"
+                + KEY_E_NOTIFICATION_CONTACT_LIST_TYPE + " INTEGER"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -2982,6 +2984,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_CONTACTS + "=\"\"");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_CHECK_TEXT + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_TEXT + "=\"\"");
+        }
+        if (oldVersion < 2407)
+        {
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_CONTACT_LIST_TYPE + " INTEGER");
+
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_CONTACT_LIST_TYPE + "=0");
         }
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
@@ -5440,7 +5448,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_NOTIFICATION_CONTACT_GROUPS,
                         KEY_E_NOTIFICATION_CONTACTS,
                         KEY_E_NOTIFICATION_CHECK_TEXT,
-                        KEY_E_NOTIFICATION_TEXT
+                        KEY_E_NOTIFICATION_TEXT,
+                        KEY_E_NOTIFICATION_CONTACT_LIST_TYPE
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -5465,6 +5474,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._contacts = cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_CONTACTS));
                 eventPreferences._checkText = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_CHECK_TEXT))) == 1);
                 eventPreferences._text = cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_TEXT));
+                eventPreferences._contactListType = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_CONTACT_LIST_TYPE)));
                 eventPreferences.setSensorPassed(Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_SENSOR_PASSED))));
             }
             cursor.close();
@@ -5883,6 +5893,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_NOTIFICATION_CONTACTS, eventPreferences._contacts);
         values.put(KEY_E_NOTIFICATION_CHECK_TEXT, (eventPreferences._checkText) ? 1 : 0);
         values.put(KEY_E_NOTIFICATION_TEXT, eventPreferences._text);
+        values.put(KEY_E_NOTIFICATION_CONTACT_LIST_TYPE, eventPreferences._contactListType);
         values.put(KEY_E_NOTIFICATION_SENSOR_PASSED, eventPreferences.getSensorPassed());
 
         // updating row
@@ -11201,6 +11212,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                 values.put(KEY_E_NOTIFICATION_CONTACTS, "");
                                                 values.put(KEY_E_NOTIFICATION_CHECK_TEXT, 0);
                                                 values.put(KEY_E_NOTIFICATION_TEXT, "");
+                                            }
+                                            if (exportedDBObj.getVersion() < 2407) {
+                                                values.put(KEY_E_NOTIFICATION_CONTACT_LIST_TYPE, 0);
                                             }
 
                                             // Inserting Row do db z SQLiteOpenHelper
