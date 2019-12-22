@@ -369,7 +369,7 @@ Permissions.grantProfilePermissions()
   - DataWrapper.activateProfileWithAlert() = aktivita
   - DataWrapper.activateProfileAfterDuration() = notifikacia
   - EditorProfilesActivity.onActivityResult() = aktivita
-  - FalstAccesDurationDialog() = aktivita
+  - FastAccessDurationDialog() = aktivita
   - ProfilesPrefsFragment.setPermissionsPreference() = aktivta
 
 Permissions.grantEventPermissions()
