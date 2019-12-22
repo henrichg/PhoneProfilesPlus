@@ -351,13 +351,41 @@ Z ColorOs:
 
 ----------------------------------------
 
-Sensor notifikacii:
-- Testuje sa isNotificationActive(), kde sa dava package name. Cize asi viem rozlisovat odkial je ta notifikacia.
-  Ci z hovoru alebo z notifikacie.
-- V texte notifikacie je asi, kto poslal tu spravu, ale je tam len meno. Cize by som musel prechadzat kontakty.
-  Toto iste asi pojde aj pre hovory.
-- Tazke skus pridat do senzora podporu pre texty. Moze si bud nastavit ktore kontakty (checkboxami) alebo vlastny text.
-- Mohol by som tym vyriesit podporu pre RCS a vlastne vsetky komunikatory. Testni to.
+Permissions.grantPlayRingtoneNotificationPermissions()
+- volane z:
+  - EventsHandler.handleEvents() = notifikacia
+  - PhoneProfilesService.doSimulatingRingingCall() = notifikacia
+
+Permissions.grantRootX():
+- volane z:
+  - PhoneProfilesPrefsFragment.onActivityCreated() - ak je zobrazena polozka v app. settings
+
+Permissions.grantProfilePermissions()
+- obsahuje aj onlyNotification
+- volane z:
+  - ActionForExternalApplicationActivity.onStart() = notifikacia
+  - ActivateProfileFromExternalApplicationActivity.onStart() = notifikacia
+  - DataWrapper.activateProfileFromEvent() = notifikacia
+  - DataWrapper.activateProfileWithAlert() = aktivita
+  - DataWrapper.activateProfileAfterDuration() = notifikacia
+  - EditorProfilesActivity.onActivityResult() = aktivita
+  - FalstAccesDurationDialog() = aktivita
+  - ProfilesPrefsFragment.setPermissionsPreference() = aktivta
+
+Permissions.grantEventPermissions()
+- obsahuje aj onlyNotification
+- volane z:
+  - DataWrapper.doHandleEvents() = notifikacia
+  - EditorProfilesActivity.onActivityResult() = aktivita
+  - EditorPrefsFragment.setPermissionsPreference() = aktivita
+
+Nakoniec to vypada tak, ze ak sa ma zobrazit len notifikacia, treba explicitne testnut, ci ma nieco, co je v setPermissionsPreference(), cervene.
+Ak aspon nieco je cervene, treba spravit notifikaciu, ale zvlastnu a nevolat grant permissions.
+Toto spravit len pre volania, ktore sa volaju s notifikaciou:
+- Permissions.grantProfilePermissions()
+- Permissions.grantEventPermissions()
+
+Samotne notifikacie v GrantPermissionActivity nemamzat. Mozno raz budu treba. Aj tak je tam podpora len pre ringtone, profi a udalost.
 
 ----------------------------------------
 
