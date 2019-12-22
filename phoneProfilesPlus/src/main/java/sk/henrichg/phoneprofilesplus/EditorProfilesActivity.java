@@ -1324,7 +1324,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         redrawProfileListFragment(profile, newProfileMode);
 
                         //Profile mappedProfile = profile; //Profile.getMappedProfile(profile, getApplicationContext());
-                        Permissions.grantProfilePermissions(getApplicationContext(), profile, false, false,
+                        Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
                                 /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, false, true, false);
                     }
                 }
@@ -1374,7 +1374,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     // redraw list fragment , notifications, widgets after finish EventPreferencesActivity
                     redrawEventListFragment(event, newEventMode);
 
-                    Permissions.grantEventPermissions(getApplicationContext(), event, false, false);
+                    Permissions.grantEventPermissions(getApplicationContext(), event, true, false);
                 }
 
                 /*Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);

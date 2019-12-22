@@ -1809,7 +1809,7 @@ public class DataWrapper {
                 //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                 dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                            if (Permissions.grantProfilePermissions(context, _profile, false, false,
+                            if (Permissions.grantProfilePermissions(context, _profile, false, true,
                                     /*false, monochrome, monochromeValue,*/
                                     _startupSource, true, true, false))
                                 _dataWrapper.activateProfileFromMainThread(_profile, false, _startupSource, true, _activity);
@@ -1871,7 +1871,7 @@ public class DataWrapper {
                     GlobalGUIRoutines.setTheme(activity, true, true/*, false*/, false);
                     GlobalGUIRoutines.setLanguage(activity);
 
-                    granted = Permissions.grantProfilePermissions(context, profile, false, false,
+                    granted = Permissions.grantProfilePermissions(context, profile, false, true,
                             /*false, monochrome, monochromeValue,*/
                             startupSource, true, true, false);
                 /*}
