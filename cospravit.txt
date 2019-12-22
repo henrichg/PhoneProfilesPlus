@@ -384,6 +384,8 @@ Ak aspon nieco je cervene, treba spravit notifikaciu, ale zvlastnu a nevolat gra
 Toto spravit len pre volania, ktore sa volaju s notifikaciou:
 - Permissions.grantProfilePermissions()
 - Permissions.grantEventPermissions()
+Ak by sa dalo, tak otvor prislusne preferences ku kazdej noptifikacii. Kada musi byt zvlast pre kazdy profil, udalost. Aby to bolo klikatelne.
+Vid GrantPermissionActivity.showNotification(). Sprav to v EditorProfilesActivity ako staticku metodu.
 
 Samotne notifikacie v GrantPermissionActivity nemamzat. Mozno raz budu treba. Aj tak je tam podpora len pre ringtone, profi a udalost.
 
