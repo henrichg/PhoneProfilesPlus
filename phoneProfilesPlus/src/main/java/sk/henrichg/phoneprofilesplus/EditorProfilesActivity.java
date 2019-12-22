@@ -3,6 +3,8 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -55,6 +57,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
@@ -2907,6 +2910,88 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }, 500);
             }
         }
+    }
+
+    static boolean showRedTextToPreferencesNotification(Profile profile, Event event, Context context) {
+        if ((profile == null) && (event == null))
+            return true;
+
+
+        if ((profile != null) && (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, context)))
+            return true;
+        if ((event != null) && (!EventsPrefsFragment.isRedTextNotificationRequired(event, context)))
+            return true;
+
+        int notificationID = 0;
+
+        String nTitle = "";
+        String nText = "";
+
+        Intent intent = null;
+
+        if (profile != null) {
+            intent = new Intent(context, ProfilesPrefsActivity.class);
+            intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+            intent.putExtra(EditorProfilesActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
+            intent.putExtra(EditorProfilesActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
+        }
+        if (event != null) {
+            intent = new Intent(context, EventsPrefsActivity.class);
+            intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
+            intent.putExtra(PPApplication.EXTRA_EVENT_STATUS, event.getStatus());
+            intent.putExtra(EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_EDIT);
+            intent.putExtra(EXTRA_PREDEFINED_EVENT_INDEX, 0);
+        }
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        if (profile != null) {
+            nTitle = context.getString(R.string.profile_preferences_red_texts_title);
+            nText = context.getString(R.string.profile_preferences_red_texts_text);
+            if (android.os.Build.VERSION.SDK_INT < 24) {
+                nTitle = context.getString(R.string.app_name);
+                nText = context.getString(R.string.profile_preferences_red_texts_title) + ": " +
+                        context.getString(R.string.profile_preferences_red_texts_text);
+            }
+
+            intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+            notificationID = 9999 + (int) profile._id;
+        }
+
+        if (event != null) {
+            nTitle = context.getString(R.string.event_preferences_red_texts_title);
+            nText = context.getString(R.string.event_preferences_red_texts_text);
+            if (android.os.Build.VERSION.SDK_INT < 24) {
+                nTitle = context.getString(R.string.app_name);
+                nText = context.getString(R.string.event_preferences_red_texts_title) + ": " +
+                        context.getString(R.string.event_preferences_red_texts_text);
+            }
+
+            intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
+            notificationID = -(9999 + (int) event._id);
+        }
+
+        PPApplication.createGrantPermissionNotificationChannel(context);
+        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
+                .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
+                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                .setContentTitle(nTitle) // title for notification
+                .setContentText(nText) // message for notification
+                .setAutoCancel(true); // clear notification after click
+        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
+
+        PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(pi);
+
+        mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
+        mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+        mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+
+        NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (mNotificationManager != null)
+            mNotificationManager.notify(notificationID, mBuilder.build());
+
+        return false;
     }
 
 }

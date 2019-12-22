@@ -74,7 +74,7 @@ public class EditorProfileListFragment extends Fragment
     static final int EDIT_MODE_UNDEFINED = 0;
     static final int EDIT_MODE_INSERT = 1;
     static final int EDIT_MODE_DUPLICATE = 2;
-    private static final int EDIT_MODE_EDIT = 3;
+    static final int EDIT_MODE_EDIT = 3;
     static final int EDIT_MODE_DELETE = 4;
 
     static final String FILTER_TYPE_ARGUMENT = "filter_type";

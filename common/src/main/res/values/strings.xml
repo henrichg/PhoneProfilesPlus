@@ -1529,6 +1529,11 @@
     <string name="event_preferences_notifications_checkText">Check text</string>
     <string name="event_preferences_notifications_text">Text</string>
 
+    <string name="profile_preferences_red_texts_title">profile preferences red title</string>
+    <string name="profile_preferences_red_texts_text">profile preferences red text</string>
+    <string name="event_preferences_red_texts_title">event preferences red title</string>
+    <string name="event_preferences_red_texts_text">event preferences red text</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

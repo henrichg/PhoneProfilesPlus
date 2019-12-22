@@ -1216,6 +1216,15 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     }
     */
 
+    static boolean isRedTextNotificationRequired(Event event, Context context) {
+        boolean enabledSomeSensor = event.isEnabledSomeSensor(context);
+        boolean grantedAllPermissions = Permissions.checkEventPermissions(context, event).size() == 0;
+        boolean accessibilyEnabled =  event.isAccessibilityServiceEnabled(context, false) == 1;
+        boolean eventIsRunnable = event.isRunnable(context, false);
+
+        return (!enabledSomeSensor) || (!grantedAllPermissions) || (!accessibilyEnabled) || (!eventIsRunnable);
+    }
+
     private void setRedTextToPreferences() {
         if (nestedFragment)
             return;

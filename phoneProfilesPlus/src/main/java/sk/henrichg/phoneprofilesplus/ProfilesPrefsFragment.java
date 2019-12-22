@@ -2983,6 +2983,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         disableDependedPref(key, value);
     }
 
+    static boolean isRedTextNotificationRequired(Profile profile, Context context) {
+        boolean grantedAllPermissions = Permissions.checkProfilePermissions(context, profile).size() == 0;
+        boolean grantedRoot = Profile.isProfilePreferenceAllowed("-", profile, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
+        boolean enabledNotificationAccess = (profile._volumeRingerMode == 0) || ActivateProfileHelper.canChangeZenMode(context, false);
+        boolean accessibilyEnabled =  profile.isAccessibilityServiceEnabled(context) == 1;
+
+        return (!grantedAllPermissions) || (!grantedRoot) || (!enabledNotificationAccess) || (!accessibilyEnabled);
+    }
+
     void setRedTextToPreferences() {
         if (nestedFragment)
             return;
