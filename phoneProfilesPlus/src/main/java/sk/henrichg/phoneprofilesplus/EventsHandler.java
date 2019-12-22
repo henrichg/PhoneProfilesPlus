@@ -616,9 +616,9 @@ class EventsHandler {
                             }
                         }
                     }
-                    else
-                    if (ppService != null)
-                        ppService.willBeDoRestartEvents = false;
+                    //else
+                    //if (ppService != null)
+                    //    ppService.willBeDoRestartEvents = false;
                 }
             } else {
                 PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "active profile is activated manually");
