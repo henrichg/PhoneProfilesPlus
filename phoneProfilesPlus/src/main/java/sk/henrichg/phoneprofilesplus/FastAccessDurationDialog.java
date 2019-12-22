@@ -107,9 +107,10 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
                 DatabaseHandler.getInstance(mDataWrapper.context).updateProfile(mProfile);
 
-                if (Permissions.grantProfilePermissions(mActivity, mProfile, false, true,
-                        /*true, mMonochrome, mMonochromeValue,*/
-                        mStartupSource, true, true, false))
+                //if (Permissions.grantProfilePermissions(mActivity, mProfile, false, true,
+                //        /*true, mMonochrome, mMonochromeValue,*/
+                //        mStartupSource, true, true, false))
+                if (EditorProfilesActivity.showRedTextToPreferencesNotification(mProfile, null, mActivity.getApplicationContext()))
                     mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, true, mActivity);
                 else
                     mDataWrapper.finishActivity(mStartupSource, true, mActivity);
@@ -321,9 +322,10 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 mProfile._duration = 0;
                 DatabaseHandler.getInstance(mDataWrapper.context).updateProfile(mProfile);
 
-                if (Permissions.grantProfilePermissions(mActivity, mProfile, false, true,
-                        /*true, mMonochrome, mMonochromeValue,*/
-                        mStartupSource, true, true, false))
+                //if (Permissions.grantProfilePermissions(mActivity, mProfile, false, true,
+                //        /*true, mMonochrome, mMonochromeValue,*/
+                //        mStartupSource, true, true, false))
+                if (EditorProfilesActivity.showRedTextToPreferencesNotification(mProfile, null, mActivity.getApplicationContext()))
                     mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, true, mActivity);
                 else
                     mDataWrapper.finishActivity(mStartupSource, true, mActivity);

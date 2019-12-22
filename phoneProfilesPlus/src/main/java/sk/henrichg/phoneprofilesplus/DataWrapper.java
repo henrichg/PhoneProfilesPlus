@@ -570,9 +570,10 @@ public class DataWrapper {
         Profile profile = getProfileById(profile_id, false, false, merged);
         if (profile == null)
             return;
-        if (Permissions.grantProfilePermissions(context, profile, merged, true,
-                /*false, monochrome, monochromeValue,*/
-                startupSource, false,true, false)) {
+        //if (Permissions.grantProfilePermissions(context, profile, merged, true,
+        //        /*false, monochrome, monochromeValue,*/
+        //        startupSource, false,true, false)) {
+        if (EditorProfilesActivity.showRedTextToPreferencesNotification(profile, null, context)) {
             _activateProfile(profile, merged, startupSource, forRestartEvents);
         }
     }
@@ -1809,9 +1810,10 @@ public class DataWrapper {
                 //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                 dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                            if (Permissions.grantProfilePermissions(context, _profile, false, true,
-                                    /*false, monochrome, monochromeValue,*/
-                                    _startupSource, true, true, false))
+                            //if (Permissions.grantProfilePermissions(context, _profile, false, true,
+                            //        /*false, monochrome, monochromeValue,*/
+                            //        _startupSource, true, true, false))
+                            if (EditorProfilesActivity.showRedTextToPreferencesNotification(_profile, null, context))
                                 _dataWrapper.activateProfileFromMainThread(_profile, false, _startupSource, true, _activity);
                             else {
                                 Intent returnIntent = new Intent();
@@ -1865,20 +1867,13 @@ public class DataWrapper {
             }
             else {
                 boolean granted;
-                //if (interactive) {
-                    // set theme and language for dialog alert ;-)
-                    // not working on Android 2.3.x
-                    GlobalGUIRoutines.setTheme(activity, true, true/*, false*/, false);
-                    GlobalGUIRoutines.setLanguage(activity);
+                GlobalGUIRoutines.setTheme(activity, true, true/*, false*/, false);
+                GlobalGUIRoutines.setLanguage(activity);
 
-                    granted = Permissions.grantProfilePermissions(context, profile, false, true,
-                            /*false, monochrome, monochromeValue,*/
-                            startupSource, true, true, false);
-                /*}
-                else
-                    granted = Permissions.grantProfilePermissions(context, profile, false, true,
-                            forGUI, monochrome, monochromeValue,
-                            startupSource, false, null, true);*/
+                //granted = Permissions.grantProfilePermissions(context, profile, false, true,
+                //        /*false, monochrome, monochromeValue,*/
+                //        startupSource, true, true, false);
+                granted = EditorProfilesActivity.showRedTextToPreferencesNotification(profile, null, context);
                 if (granted)
                     activateProfileFromMainThread(profile, false, startupSource, true, activity);
                 else {
@@ -2054,9 +2049,10 @@ public class DataWrapper {
             ActivateProfileHelper.updateGUI(context, true, false);
             return;
         }
-        if (Permissions.grantProfilePermissions(context, profile, false, true,
-                /*false, monochrome, monochromeValue,*/
-                startupSource, true,true, false)) {
+        //if (Permissions.grantProfilePermissions(context, profile, false, true,
+        //        /*false, monochrome, monochromeValue,*/
+        //        startupSource, true,true, false)) {
+        if (EditorProfilesActivity.showRedTextToPreferencesNotification(profile, null, context)) {
             // activateProfileAfterDuration is already called from handlerThread
             PPApplication.logE("DataWrapper.activateProfileAfterDuration", "activate");
             _activateProfile(profile, false, startupSource, false);
@@ -2070,7 +2066,8 @@ public class DataWrapper {
                                     /*boolean reactivate,*/ Profile mergedProfile,
                                     String sensorType)
     {
-        if (!Permissions.grantEventPermissions(context, event, true, false))
+        //if (!Permissions.grantEventPermissions(context, event, true, false))
+        if (!EditorProfilesActivity.showRedTextToPreferencesNotification(null, event, context))
             return;
 
         int newEventStatus;// = Event.ESTATUS_NONE;

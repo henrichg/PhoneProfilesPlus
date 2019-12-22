@@ -1327,20 +1327,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                         redrawProfileListFragment(profile, newProfileMode);
 
                         //Profile mappedProfile = profile; //Profile.getMappedProfile(profile, getApplicationContext());
-                        Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
-                                /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, false, true, false);
+                        //Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
+                        //        /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, false, true, false);
+                        EditorProfilesActivity.showRedTextToPreferencesNotification(profile, null, getApplicationContext());
                     }
                 }
-                /*else
-                if (profile_id == Profile.SHARED_PROFILE_ID)
-                {
-                    // refresh activity for changes of shared profile
-                    GlobalGUIRoutines.reloadActivity(this, false);
-
-                    Profile sharedProfile = Profile.getProfileFromSharedPreferences(getApplicationContext(), PPApplication.SHARED_PROFILE_PREFS_NAME);
-                    Permissions.grantProfilePermissions(getApplicationContext(), sharedProfile, false, false,
-                            PPApplication.STARTUP_SOURCE_EDITOR, false, true, false);
-                }*/
 
                 /*Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -1377,7 +1368,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                     // redraw list fragment , notifications, widgets after finish EventPreferencesActivity
                     redrawEventListFragment(event, newEventMode);
 
-                    Permissions.grantEventPermissions(getApplicationContext(), event, true, false);
+                    //Permissions.grantEventPermissions(getApplicationContext(), event, true, false);
+                    EditorProfilesActivity.showRedTextToPreferencesNotification(null, event, getApplicationContext());
                 }
 
                 /*Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
