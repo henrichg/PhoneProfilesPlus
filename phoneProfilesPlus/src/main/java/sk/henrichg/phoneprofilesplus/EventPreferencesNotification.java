@@ -20,6 +20,8 @@ import android.util.Log;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -680,7 +682,6 @@ class EventPreferencesNotification extends EventPreferences {
                     }
                 }
                 if (PPApplication.logEnabled()) {
-                    PPApplication.logE("EventPreferencesNotification.isNotificationActive", "testText=" + testText);
                     PPApplication.logE("EventPreferencesNotification.isNotificationActive", "notificationTicker=" + notificationTicker);
                     PPApplication.logE("EventPreferencesNotification.isNotificationActive", "notificationTitle=" + notificationTitle);
                     PPApplication.logE("EventPreferencesNotification.isNotificationActive", "notificationText=" + notificationText);
@@ -690,29 +691,45 @@ class EventPreferencesNotification extends EventPreferences {
             boolean textFound = false;
             if (testText) {
                 if (_checkContacts) {
-                    boolean phoneNumberFound = false;
-                    if (!notificationTitle.isEmpty())
-                        phoneNumberFound = isContactConfigured(notificationTitle, context);
+                    if (_contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) {
+                        boolean phoneNumberFound = false;
+                        if (!notificationTitle.isEmpty())
+                            phoneNumberFound = isContactConfigured(notificationTitle, context);
+                        if (!notificationText.isEmpty() && (!phoneNumberFound))
+                            phoneNumberFound = isContactConfigured(notificationText, context);
+                        if (!notificationTicker.isEmpty() && (!phoneNumberFound))
+                            phoneNumberFound = isContactConfigured(notificationTicker, context);
+
+                        if (_contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_WHITE_LIST)
+                            textFound = phoneNumberFound;
+                        else
+                            textFound = !phoneNumberFound;
+                    }
                     else
-                    if (!notificationText.isEmpty())
-                        phoneNumberFound = isContactConfigured(notificationText, context);
-                    else
-                    if (!notificationTicker.isEmpty())
-                        phoneNumberFound = isContactConfigured(notificationTicker, context);
-                    textFound = phoneNumberFound;
+                        textFound = true;
                 }
                 if (_checkText) {
                     String searchText = "";
-                    if (!notificationTitle.isEmpty())
-                        searchText = notificationTitle;
-                    else
-                    if (!notificationText.isEmpty())
-                        searchText = notificationText;
-                    else
-                    if (!notificationTicker.isEmpty())
-                        searchText = notificationTicker;
+                    for (int i = 0; i < 3; i++) {
+                        if (i == 0) {
+                            if (!notificationTitle.isEmpty())
+                                searchText = notificationTitle;
+                            else
+                                continue;
+                        }
+                        if (i == 1) {
+                            if (!notificationText.isEmpty())
+                                searchText = notificationText;
+                            else
+                                continue;
+                        }
+                        if (i == 2) {
+                            if (!notificationTicker.isEmpty())
+                                searchText = notificationTicker;
+                            else
+                                continue;
+                        }
 
-                    if (!searchText.isEmpty()) {
                         String[] textSplits = _text.split("\\|");
 
                         String[] positiveList = new String[textSplits.length];
@@ -744,13 +761,25 @@ class EventPreferencesNotification extends EventPreferences {
                                 searchPattern = searchPattern.replace("{^^}", "\\%");
                                 searchPattern = searchPattern.replace("[^^]", "\\_");
 
+                                //if (!searchPattern.startsWith("(.*)"))
+                                //    searchPattern = searchPattern + "^";
+                                //if (!searchPattern.endsWith("(.*)"))
+                                //    searchPattern = searchPattern + "$";
+
                                 positiveList[argsId] = searchPattern;
 
                                 positiveExists = true;
 
                                 ++argsId;
+
+                                if (PPApplication.logEnabled()) {
+                                    PPApplication.logE("EventPreferencesNotification.isNotificationActive", "split=" + split);
+                                    PPApplication.logE("EventPreferencesNotification.isNotificationActive", "searchPattern=" + searchPattern);
+                                    PPApplication.logE("EventPreferencesNotification.isNotificationActive", "argsId=" + argsId);
+                                }
                             }
                         }
+                        PPApplication.logE("EventPreferencesNotification.isNotificationActive", "positiveExists=" + positiveExists);
 
                         // negative strings
                         boolean negativeExists = false;
@@ -780,18 +809,34 @@ class EventPreferencesNotification extends EventPreferences {
                                 searchPattern = searchPattern.replace("{^^}", "\\%");
                                 searchPattern = searchPattern.replace("[^^]", "\\_");
 
+                                //if (!searchPattern.startsWith("(.*)"))
+                                //    searchPattern = searchPattern + "^";
+                                //if (!searchPattern.endsWith("(.*)"))
+                                //    searchPattern = searchPattern + "$";
+
                                 negativeList[argsId] = searchPattern;
 
                                 negativeExists = true;
 
                                 ++argsId;
+
+                                if (PPApplication.logEnabled()) {
+                                    PPApplication.logE("EventPreferencesNotification.isNotificationActive", "split=" + split);
+                                    PPApplication.logE("EventPreferencesNotification.isNotificationActive", "searchPattern=" + searchPattern);
+                                    PPApplication.logE("EventPreferencesNotification.isNotificationActive", "argsId=" + argsId);
+                                }
                             }
                         }
+                        PPApplication.logE("EventPreferencesNotification.isNotificationActive", "negativeExists=" + negativeExists);
 
                         boolean foundPositive = false;
                         if (positiveExists) {
                             for (String _positiveText : positiveList) {
                                 if ((_positiveText != null) && (!_positiveText.isEmpty())) {
+                                    if (PPApplication.logEnabled()) {
+                                        PPApplication.logE("EventPreferencesNotification.isNotificationActive", "searchText.toLowerCase()=" + searchText.toLowerCase());
+                                        PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_positiveText.toLowerCase()=" + _positiveText.toLowerCase());
+                                    }
                                     if (searchText.toLowerCase().matches(_positiveText.toLowerCase())) {
                                         foundPositive = true;
                                         break;
@@ -803,6 +848,10 @@ class EventPreferencesNotification extends EventPreferences {
                         if (negativeExists) {
                             for (String _negativeText : negativeList) {
                                 if ((_negativeText != null) && (!_negativeText.isEmpty())) {
+                                    if (PPApplication.logEnabled()) {
+                                        PPApplication.logE("EventPreferencesNotification.isNotificationActive", "searchText.toLowerCase()=" + searchText.toLowerCase());
+                                        PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_negativeText.toLowerCase()=" + _negativeText.toLowerCase());
+                                    }
                                     if (searchText.toLowerCase().matches(_negativeText.toLowerCase())) {
                                         foundNegative = false;
                                         break;
@@ -811,8 +860,17 @@ class EventPreferencesNotification extends EventPreferences {
                             }
                         }
 
+                        if (PPApplication.logEnabled()) {
+                            PPApplication.logE("EventPreferencesNotification.isNotificationActive", "foundPositive=" + foundPositive);
+                            PPApplication.logE("EventPreferencesNotification.isNotificationActive", "foundNegative=" + foundNegative);
+                        }
+
                         textFound = foundPositive && foundNegative;
+
+                        if (textFound)
+                            break;
                     }
+
                 }
             }
             PPApplication.logE("EventPreferencesNotification.isNotificationActive", "textFound=" + textFound);
