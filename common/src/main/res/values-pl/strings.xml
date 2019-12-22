@@ -1367,6 +1367,12 @@
     <string name="event_preferences_red_enable_PPPExtender">Click here to enable it. Search for PhoneProfilesPLusExtender and allow \"Accessibility\" for it.</string>
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">To enable \"Interruptions type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">To enable \"Do not disturb\" profile parameter, allow for PhoneProfilesPlus \"Do not disturb access\" in system settings. Click here to enable it.</string>
+    <string name="editor_activity_targetHelps_bottomNavigation_description_2">Click it, when is activated, to show hidden header and bottom toolbar.</string>
+    <string name="event_preferences_notifications_checkContacts">Check contacts</string>
+    <string name="event_preferences_notifications_contact_groups">Contact groups</string>
+    <string name="event_preferences_notifications_contacts">Contacts</string>
+    <string name="event_preferences_notifications_checkText">Check text</string>
+    <string name="event_preferences_notifications_text">Text</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>

@@ -1367,6 +1367,12 @@
     <string name="event_preferences_red_enable_PPPExtender">Натисніть тут, щоб дозволити. Шукайте PhoneProfilesPLusExtender і дайте для нього дозвіл в \"Спец. можливості\".</string>
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">Надайте PhoneProfilesPlus \"Доступ до сповіщень\" в налаштуваннях системи для активації параметра профілю \"Типи режиму сповіщення\". Натисніть тут, щоб увімкнути цю функцію.</string>
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">Надайте PhoneProfilesPlus дозвіл до \"Не турбувати\" в налаштуваннях системи для активації параметра профілю \"Не турбувати\". Натисніть тут, щоб увімкнути цю функцію.</string>
+    <string name="editor_activity_targetHelps_bottomNavigation_description_2">Click it, when is activated, to show hidden header and bottom toolbar.</string>
+    <string name="event_preferences_notifications_checkContacts">Check contacts</string>
+    <string name="event_preferences_notifications_contact_groups">Contact groups</string>
+    <string name="event_preferences_notifications_contacts">Contacts</string>
+    <string name="event_preferences_notifications_checkText">Check text</string>
+    <string name="event_preferences_notifications_text">Text</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>
