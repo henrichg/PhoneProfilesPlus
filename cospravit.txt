@@ -366,17 +366,17 @@ Permissions.grantProfilePermissions()
   - ActionForExternalApplicationActivity.onStart() = notifikacia
   - ActivateProfileFromExternalApplicationActivity.onStart() = notifikacia
   - DataWrapper.activateProfileFromEvent() = notifikacia
-  - DataWrapper.activateProfileWithAlert() = aktivita
+  - DataWrapper.activateProfileWithAlert() = aktivita => zmen na notifikaciu
   - DataWrapper.activateProfileAfterDuration() = notifikacia
-  - EditorProfilesActivity.onActivityResult() = aktivita
-  - FastAccessDurationDialog() = aktivita
+  - EditorProfilesActivity.onActivityResult() = aktivita => zmen na notifikaciu
+  - FastAccessDurationDialog() = aktivita => zmen na notifikaciu
   - ProfilesPrefsFragment.setPermissionsPreference() = aktivta
 
 Permissions.grantEventPermissions()
 - obsahuje aj onlyNotification
 - volane z:
   - DataWrapper.doHandleEvents() = notifikacia
-  - EditorProfilesActivity.onActivityResult() = aktivita
+  - EditorProfilesActivity.onActivityResult() = aktivita => zmen na notifikaciu
   - EditorPrefsFragment.setPermissionsPreference() = aktivita
 
 Nakoniec to vypada tak, ze ak sa ma zobrazit len notifikacia, treba explicitne testnut, ci ma nieco, co je v setPermissionsPreference(), cervene.
@@ -387,7 +387,7 @@ Toto spravit len pre volania, ktore sa volaju s notifikaciou:
 Ak by sa dalo, tak otvor prislusne preferences ku kazdej noptifikacii. Kada musi byt zvlast pre kazdy profil, udalost. Aby to bolo klikatelne.
 Vid GrantPermissionActivity.showNotification(). Sprav to v EditorProfilesActivity ako staticku metodu.
 
-Samotne notifikacie v GrantPermissionActivity nemamzat. Mozno raz budu treba. Aj tak je tam podpora len pre ringtone, profi a udalost.
+Samotne notifikacie v GrantPermissionActivity nemamzat. Mozno raz budu treba. Aj tak je tam podpora len pre ringtone, profil a udalost.
 
 ----------------------------------------
 
