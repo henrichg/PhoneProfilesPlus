@@ -74,8 +74,8 @@ class AddProfileDialog
             protected void onPreExecute()
             {
                 super.onPreExecute();
-                listView.setVisibility(View.GONE);
-                linlaProgress.setVisibility(View.VISIBLE);
+                //listView.setVisibility(View.GONE);
+                //linlaProgress.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -105,7 +105,7 @@ class AddProfileDialog
             {
                 super.onPostExecute(result);
 
-                listView.setVisibility(View.VISIBLE);
+                //listView.setVisibility(View.VISIBLE);
                 linlaProgress.setVisibility(View.GONE);
 
                 AddProfileAdapter addProfileAdapter = new AddProfileAdapter(AddProfileDialog.this, activity, profileList);

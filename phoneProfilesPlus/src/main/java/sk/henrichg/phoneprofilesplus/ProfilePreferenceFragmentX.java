@@ -58,8 +58,8 @@ public class ProfilePreferenceFragmentX extends PreferenceDialogFragmentCompat {
             protected void onPreExecute()
             {
                 super.onPreExecute();
-                listView.setVisibility(View.GONE);
-                linlaProgress.setVisibility(View.VISIBLE);
+                //listView.setVisibility(View.GONE);
+                //linlaProgress.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -76,7 +76,7 @@ public class ProfilePreferenceFragmentX extends PreferenceDialogFragmentCompat {
             {
                 super.onPostExecute(result);
 
-                listView.setVisibility(View.VISIBLE);
+                //listView.setVisibility(View.VISIBLE);
                 linlaProgress.setVisibility(View.GONE);
 
                 profilePreferenceAdapter = new ProfilePreferenceAdapterX(ProfilePreferenceFragmentX.this, prefContext, preference.profileId, preference.dataWrapper.profileList);

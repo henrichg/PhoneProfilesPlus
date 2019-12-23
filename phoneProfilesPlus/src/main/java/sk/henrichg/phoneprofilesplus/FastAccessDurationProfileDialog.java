@@ -76,8 +76,8 @@ class FastAccessDurationProfileDialog
             protected void onPreExecute()
             {
                 super.onPreExecute();
-                listView.setVisibility(View.GONE);
-                linlaProgress.setVisibility(View.VISIBLE);
+                //listView.setVisibility(View.GONE);
+                //linlaProgress.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -93,7 +93,7 @@ class FastAccessDurationProfileDialog
             {
                 super.onPostExecute(result);
 
-                listView.setVisibility(View.VISIBLE);
+                //listView.setVisibility(View.VISIBLE);
                 linlaProgress.setVisibility(View.GONE);
 
                 FastAccessDurationProfileAdapter adapter = new FastAccessDurationProfileAdapter(FastAccessDurationProfileDialog.this, activity, fastAccessDurationDialog.mAfterDoProfile, dataWrapper.profileList);

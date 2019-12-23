@@ -82,8 +82,8 @@ class AddEventDialog
             protected void onPreExecute()
             {
                 super.onPreExecute();
-                rellaData.setVisibility(View.GONE);
-                linlaProgress.setVisibility(View.VISIBLE);
+                //rellaData.setVisibility(View.GONE);
+                //linlaProgress.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -108,11 +108,11 @@ class AddEventDialog
             {
                 super.onPostExecute(result);
 
-                rellaData.setVisibility(View.VISIBLE);
                 linlaProgress.setVisibility(View.GONE);
+                rellaData.setVisibility(View.VISIBLE);
 
-                if (!profileNotExists)
-                    help.setVisibility(View.GONE);
+                if (profileNotExists)
+                    help.setVisibility(View.VISIBLE);
 
                 AddEventAdapter addEventAdapter = new AddEventAdapter(AddEventDialog.this, activity, eventList);
                 listView.setAdapter(addEventAdapter);
