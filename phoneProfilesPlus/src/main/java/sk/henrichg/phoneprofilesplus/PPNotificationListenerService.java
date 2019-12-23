@@ -91,10 +91,12 @@ public class PPNotificationListenerService extends NotificationListenerService {
             if (PPApplication.logEnabled()) {
                 PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "from=" + sbn.getPackageName());
 
-                @SuppressLint("SimpleDateFormat")
-                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                String alarmTimeS = sdf.format(sbn.getPostTime());
-                PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "time=" + alarmTimeS);
+                if (PPApplication.logEnabled()) {
+                    @SuppressLint("SimpleDateFormat")
+                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                    String alarmTimeS = sdf.format(sbn.getPostTime());
+                    PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "time=" + alarmTimeS);
+                }
 
                 if(sbn.getNotification().tickerText !=null) {
                     String ticker = sbn.getNotification().tickerText.toString();
@@ -228,8 +230,10 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
         if ((/*(android.os.Build.VERSION.SDK_INT >= 21) &&*/ (android.os.Build.VERSION.SDK_INT < 23)) || a60) {
-            PPApplication.logE(TAG, "onInterruptionFilterChanged(interruptionFilter=" + interruptionFilter + ')');
-            PPApplication.logE(TAG, "onInterruptionFilterChanged(internalChange=" + RingerModeChangeReceiver.internalChange + ")");
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE(TAG, "onInterruptionFilterChanged(interruptionFilter=" + interruptionFilter + ')');
+                PPApplication.logE(TAG, "onInterruptionFilterChanged(internalChange=" + RingerModeChangeReceiver.internalChange + ")");
+            }
             if (!RingerModeChangeReceiver.internalChange) {
 
                 final AudioManager audioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);

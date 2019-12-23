@@ -94,8 +94,10 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                                 .build();
                 try {
                     WorkManager workManager = WorkManager.getInstance(context);
-                    PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.setAlarm", "enqueueUniqueWork - startApplicationDelay="+startApplicationDelay);
-                    PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.setAlarm", "enqueueUniqueWork - runApplicationData="+runApplicationData);
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.setAlarm", "enqueueUniqueWork - startApplicationDelay=" + startApplicationDelay);
+                        PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.setAlarm", "enqueueUniqueWork - runApplicationData=" + runApplicationData);
+                    }
                     workManager.enqueueUniqueWork("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode, ExistingWorkPolicy.REPLACE, worker);
                 } catch (Exception ignored) {}
             }

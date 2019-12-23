@@ -105,8 +105,10 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                                 .build();
                 try {
                     WorkManager workManager = WorkManager.getInstance(context);
-                    PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.setAlarm", "enqueueUniqueWork - event._repeatNotificationIntervalStart="+event._repeatNotificationIntervalStart);
-                    PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.setAlarm", "enqueueUniqueWork - event._id="+event._id);
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.setAlarm", "enqueueUniqueWork - event._repeatNotificationIntervalStart=" + event._repeatNotificationIntervalStart);
+                        PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.setAlarm", "enqueueUniqueWork - event._id=" + event._id);
+                    }
                     workManager.enqueueUniqueWork("elapsedAlarmsStartEventNotificationWork_"+(int)event._id, ExistingWorkPolicy.REPLACE, worker);
                 } catch (Exception ignored) {}
             }
@@ -155,8 +157,10 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
     }
 
     static void doWork(boolean useHandler, Context context, final long event_id) {
-        PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.doWork", "useHandler="+useHandler);
-        PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.doWork", "event_id="+event_id);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.doWork", "useHandler=" + useHandler);
+            PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.doWork", "event_id=" + event_id);
+        }
 
         final Context appContext = context.getApplicationContext();
 

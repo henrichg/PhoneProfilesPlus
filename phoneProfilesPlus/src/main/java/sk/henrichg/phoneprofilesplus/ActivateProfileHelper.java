@@ -395,8 +395,10 @@ class ActivateProfileHelper {
                             setBluetoothState = true;
                             break;
                     }
-                    PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "setBluetoothState="+setBluetoothState);
-                    PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "isBluetoothEnabled="+isBluetoothEnabled);
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "setBluetoothState=" + setBluetoothState);
+                        PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "isBluetoothEnabled=" + isBluetoothEnabled);
+                    }
                     if (isBluetoothEnabled) {
                         // when bluetooth is enabled from profile, no disable bluetooth after scan
                         PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "isBluetoothEnabled=true; setBluetoothEnabledForScan=false");
@@ -593,8 +595,10 @@ class ActivateProfileHelper {
                 ((systemZenMode == ActivateProfileHelper.ZENMODE_PRIORITY) &&
                         (systemRingerMode != AudioManager.RINGER_MODE_VIBRATE));*/
 
-        PPApplication.logE("ActivateProfileHelper.isAudibleSystemRingerMode", "systemRingerMode="+systemRingerMode);
-        PPApplication.logE("ActivateProfileHelper.isAudibleSystemRingerMode", "systemZenMode="+systemZenMode);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("ActivateProfileHelper.isAudibleSystemRingerMode", "systemRingerMode=" + systemRingerMode);
+            PPApplication.logE("ActivateProfileHelper.isAudibleSystemRingerMode", "systemZenMode=" + systemZenMode);
+        }
 
         boolean audibleRingerMode;
         // In AOSP, when systemZenMode == ActivateProfileHelper.ZENMODE_PRIORITY, systemRingerMode == AudioManager.RINGER_MODE_SILENT :-/
@@ -711,10 +715,12 @@ class ActivateProfileHelper {
             int ringerMode = getRingerMode(context);
             int zenMode = getZenMode(context);
 
-            PPApplication.logE("ActivateProfileHelper.setVolumes", "ringerMode=" + ringerMode);
-            PPApplication.logE("ActivateProfileHelper.setVolumes", "zenMode=" + zenMode);
-            PPApplication.logE("ActivateProfileHelper.setVolumes", "linkUnlink=" + linkUnlink);
-            PPApplication.logE("ActivateProfileHelper.setVolumes", "forProfileActivation=" + forProfileActivation);
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("ActivateProfileHelper.setVolumes", "ringerMode=" + ringerMode);
+                PPApplication.logE("ActivateProfileHelper.setVolumes", "zenMode=" + zenMode);
+                PPApplication.logE("ActivateProfileHelper.setVolumes", "linkUnlink=" + linkUnlink);
+                PPApplication.logE("ActivateProfileHelper.setVolumes", "forProfileActivation=" + forProfileActivation);
+            }
 
             if (forProfileActivation) {
                 if (Build.VERSION.SDK_INT >= 26) {
@@ -961,8 +967,10 @@ class ActivateProfileHelper {
     {
         //if (android.os.Build.VERSION.SDK_INT >= 21)
         //{
-            PPApplication.logE("ActivateProfileHelper.setZenMode", "zenMode=" + zenMode);
-            PPApplication.logE("ActivateProfileHelper.setZenMode", "ringerMode=" + ringerMode);
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("ActivateProfileHelper.setZenMode", "zenMode=" + zenMode);
+                PPApplication.logE("ActivateProfileHelper.setZenMode", "ringerMode=" + ringerMode);
+            }
 
             int systemZenMode = getSystemZenMode(context/*, -1*/);
             PPApplication.logE("ActivateProfileHelper.setZenMode", "systemZenMode=" + systemZenMode);
@@ -1042,8 +1050,10 @@ class ActivateProfileHelper {
     }
 
     private static void setVibrateWhenRinging(Context context, Profile profile, int value) {
-        PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "profile="+profile);
-        PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "value="+value);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "profile=" + profile);
+            PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "value=" + value);
+        }
         int lValue = value;
         if (profile != null) {
             switch (profile._vibrateWhenRinging) {
@@ -1435,8 +1445,10 @@ class ActivateProfileHelper {
     }
 
     private static void changeRingerModeForVolumeEqual0(Profile profile, AudioManager audioManager) {
-        PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "volumeRingtoneChange=" + profile.getVolumeRingtoneChange());
-        PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "volumeRingtoneValue=" + profile.getVolumeRingtoneValue());
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "volumeRingtoneChange=" + profile.getVolumeRingtoneChange());
+            PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "volumeRingtoneValue=" + profile.getVolumeRingtoneValue());
+        }
 
         profile._ringerModeForZenMode = AudioManager.RINGER_MODE_NORMAL;
 
@@ -1467,9 +1479,11 @@ class ActivateProfileHelper {
     }
 
     private static void changeNotificationVolumeForVolumeEqual0(Context context, Profile profile) {
-        PPApplication.logE("ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0", "volumeNotificationChange="+profile.getVolumeNotificationChange());
-        PPApplication.logE("ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0", "mergedRingNotificationVolumes="+getMergedRingNotificationVolumes(context));
-        PPApplication.logE("ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0", "volumeNotificationValue="+profile.getVolumeNotificationValue());
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0", "volumeNotificationChange=" + profile.getVolumeNotificationChange());
+            PPApplication.logE("ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0", "mergedRingNotificationVolumes=" + getMergedRingNotificationVolumes(context));
+            PPApplication.logE("ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0", "volumeNotificationValue=" + profile.getVolumeNotificationValue());
+        }
         if (profile.getVolumeNotificationChange() && getMergedRingNotificationVolumes(context)) {
             if (profile.getVolumeNotificationValue() == 0) {
                 PPApplication.logE("ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0", "changed notification value to 1");
@@ -1583,8 +1597,10 @@ class ActivateProfileHelper {
         //else
         //    vibrateWhenRinging = Settings.System.getInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0);
 
-        PPApplication.logE("PPApplication.vibrationIsOn", "ringerMode="+ringerMode);
-        PPApplication.logE("PPApplication.vibrationIsOn", "vibrateType="+vibrateType);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("PPApplication.vibrationIsOn", "ringerMode=" + ringerMode);
+            PPApplication.logE("PPApplication.vibrationIsOn", "vibrateType=" + vibrateType);
+        }
         //PPApplication.logE("PPApplication.vibrationIsOn", "vibrateWhenRinging="+vibrateWhenRinging);
 
         return (ringerMode == AudioManager.RINGER_MODE_VIBRATE) ||
@@ -1614,9 +1630,11 @@ class ActivateProfileHelper {
         ringerMode = getRingerMode(context);
         zenMode = getZenMode(context);
 
-        PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringerMode=" + ringerMode);
-        PPApplication.logE("ActivateProfileHelper.setRingerMode", "zenMode=" + zenMode);
-        PPApplication.logE("ActivateProfileHelper.setRingerMode", "_ringerModeForZenMode=" + profile._ringerModeForZenMode);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringerMode=" + ringerMode);
+            PPApplication.logE("ActivateProfileHelper.setRingerMode", "zenMode=" + zenMode);
+            PPApplication.logE("ActivateProfileHelper.setRingerMode", "_ringerModeForZenMode=" + profile._ringerModeForZenMode);
+        }
 
         if (forProfileActivation) {
 
@@ -2392,8 +2410,10 @@ class ActivateProfileHelper {
         // setup display brightness
         if (Permissions.checkProfileScreenBrightness(context, profile, null)) {
             if (profile.getDeviceBrightnessChange()) {
-                PPApplication.logE("----- ActivateProfileHelper.execute", "set brightness: profile=" + profile._name);
-                PPApplication.logE("----- ActivateProfileHelper.execute", "set brightness: _deviceBrightness=" + profile._deviceBrightness);
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("----- ActivateProfileHelper.execute", "set brightness: profile=" + profile._name);
+                    PPApplication.logE("----- ActivateProfileHelper.execute", "set brightness: _deviceBrightness=" + profile._deviceBrightness);
+                }
                 try {
                     if (profile.getDeviceBrightnessAutomatic()) {
                         Settings.System.putInt(context.getContentResolver(),
@@ -2928,10 +2948,12 @@ class ActivateProfileHelper {
 
     static void updateGUI(Context context, boolean alsoEditor, boolean refresh)
     {
-        PPApplication.logE("ActivateProfileHelper.updateGUI", "lockRefresh="+lockRefresh);
-        PPApplication.logE("ActivateProfileHelper.updateGUI", "doImport="+EditorProfilesActivity.doImport);
-        PPApplication.logE("ActivateProfileHelper.updateGUI", "alsoEditor="+alsoEditor);
-        PPApplication.logE("ActivateProfileHelper.updateGUI", "refresh="+refresh);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("ActivateProfileHelper.updateGUI", "lockRefresh=" + lockRefresh);
+            PPApplication.logE("ActivateProfileHelper.updateGUI", "doImport=" + EditorProfilesActivity.doImport);
+            PPApplication.logE("ActivateProfileHelper.updateGUI", "alsoEditor=" + alsoEditor);
+            PPApplication.logE("ActivateProfileHelper.updateGUI", "refresh=" + refresh);
+        }
 
         if (!refresh) {
             if (lockRefresh || EditorProfilesActivity.doImport)
@@ -3522,8 +3544,10 @@ class ActivateProfileHelper {
                     if (serviceManager != null) {
                         transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setWifiApEnabled");
                     }
-                    PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-serviceManager=" + serviceManager);
-                    PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-transactionCode=" + transactionCode);
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-serviceManager=" + serviceManager);
+                        PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-transactionCode=" + transactionCode);
+                    }
 
                     if (transactionCode != -1) {
                         if (enable) {
@@ -4007,9 +4031,10 @@ class ActivateProfileHelper {
                     // not lock device after boot
                     return;
 
-                PPApplication.logE("ActivateProfileHelper.lockDevice", "not blocked");
-
-                PPApplication.logE("ActivateProfileHelper.lockDevice", "profile._lockDevice="+profile._lockDevice);
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("ActivateProfileHelper.lockDevice", "not blocked");
+                    PPApplication.logE("ActivateProfileHelper.lockDevice", "profile._lockDevice=" + profile._lockDevice);
+                }
 
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;

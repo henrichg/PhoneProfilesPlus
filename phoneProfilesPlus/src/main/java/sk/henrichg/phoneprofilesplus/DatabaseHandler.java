@@ -839,8 +839,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onDowngrade (SQLiteDatabase db, int oldVersion, int newVersion) {
-        PPApplication.logE("DatabaseHandler.onDowngrade", "oldVersion="+oldVersion);
-        PPApplication.logE("DatabaseHandler.onDowngrade", "newVersion="+newVersion);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("DatabaseHandler.onDowngrade", "oldVersion=" + oldVersion);
+            PPApplication.logE("DatabaseHandler.onDowngrade", "newVersion=" + newVersion);
+        }
 
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROFILES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MERGED_PROFILE);
@@ -859,8 +861,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        PPApplication.logE("DatabaseHandler.onUpgrade", "oldVersion="+oldVersion);
-        PPApplication.logE("DatabaseHandler.onUpgrade", "newVersion="+newVersion);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("DatabaseHandler.onUpgrade", "oldVersion=" + oldVersion);
+            PPApplication.logE("DatabaseHandler.onUpgrade", "newVersion=" + newVersion);
+        }
 
         /*
         // Drop older table if existed
@@ -2130,7 +2134,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
         if (oldVersion < 1940) {
-            PPApplication.logE("------------ DatabaseHandler.onUpgrade", "1940");
+            //PPApplication.logE("------------ DatabaseHandler.onUpgrade", "1940");
 
             db.execSQL("CREATE INDEX IF NOT EXISTS IDX_DEVICE_AUTOROTATE ON " + TABLE_PROFILES + " (" + KEY_DEVICE_AUTOROTATE + ")");
             db.execSQL("CREATE INDEX IF NOT EXISTS IDX_DEVICE_CONNECT_TO_SSID ON " + TABLE_PROFILES + " (" + KEY_DEVICE_CONNECT_TO_SSID + ")");
@@ -2312,7 +2316,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2050)
         {
-            PPApplication.logE("DatabaseHandler.onUpgrade", "< 2050");
+            //PPApplication.logE("DatabaseHandler.onUpgrade", "< 2050");
 
             db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + " INTEGER");
             db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME + " TEXT");
@@ -2329,7 +2333,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2060)
         {
-            PPApplication.logE("DatabaseHandler.onUpgrade", "< 2060");
+            //PPApplication.logE("DatabaseHandler.onUpgrade", "< 2060");
 
             db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_ACTIVATION_BY_USER_COUNT + " INTEGER");
             if (!doMergedTableCreate) {
@@ -2344,7 +2348,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2070)
         {
-            PPApplication.logE("DatabaseHandler.onUpgrade", "< 2070");
+            //PPApplication.logE("DatabaseHandler.onUpgrade", "< 2070");
 
             db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_NETWORK_TYPE_PREFS + " INTEGER");
             if (!doMergedTableCreate) {
@@ -2357,7 +2361,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2080)
         {
-            PPApplication.logE("DatabaseHandler.onUpgrade", "< 2080");
+            //PPApplication.logE("DatabaseHandler.onUpgrade", "< 2080");
 
             db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_CLOSE_ALL_APPLICATIONS + " INTEGER");
             if (!doMergedTableCreate) {
@@ -2370,7 +2374,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2090)
         {
-            PPApplication.logE("DatabaseHandler.onUpgrade", "< 2090");
+            //PPApplication.logE("DatabaseHandler.onUpgrade", "< 2090");
 
             db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_SCREEN_CAR_MODE + " INTEGER");
             if (!doMergedTableCreate) {
@@ -2383,7 +2387,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2100)
         {
-            PPApplication.logE("DatabaseHandler.onUpgrade", "< 2100");
+            //PPApplication.logE("DatabaseHandler.onUpgrade", "< 2100");
 
             db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DTMF_TONE_WHEN_DIALING + " INTEGER");
             db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_SOUND_ON_TOUCH + " INTEGER");
@@ -2579,7 +2583,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             final String selectQuery = "SELECT * FROM " + TABLE_INTENTS;
             Cursor cursor = db.rawQuery(selectQuery, null);
             boolean columnExists =  (cursor.getColumnIndex(KEY_IN_ACTION) != -1);
-            PPApplication.logE("DatabaseHandler.onUpgrade", "columnExists="+columnExists);
+            //PPApplication.logE("DatabaseHandler.onUpgrade", "columnExists="+columnExists);
             cursor.close();
             if (!columnExists) {
                 db.execSQL("ALTER TABLE " + TABLE_INTENTS + " ADD COLUMN " + KEY_IN_ACTION + " TEXT");
@@ -4187,10 +4191,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             int wallpaperChange = cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_CHANGE));
                             String wallpaper = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER));
 
-                            PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "id=" + id);
-                            PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "icon=" + icon);
-                            PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "wallpaperChange=" + wallpaperChange);
-                            PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "wallpaper=" + wallpaper);
+                            if (PPApplication.logEnabled()) {
+                                PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "id=" + id);
+                                PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "icon=" + icon);
+                                PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "wallpaperChange=" + wallpaperChange);
+                                PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "wallpaper=" + wallpaper);
+                            }
 
                             ContentValues values = new ContentValues();
 
@@ -4502,10 +4508,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             String soundNotification = cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION));
                             String soundAlarm = cursor.getString(cursor.getColumnIndex(KEY_SOUND_ALARM));
 
-                            PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "profileId="+profileId);
-                            PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "soundRingtone="+soundRingtone);
-                            PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "soundNotification="+soundNotification);
-                            PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "soundAlarm="+soundAlarm);
+                            if (PPApplication.logEnabled()) {
+                                PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "profileId=" + profileId);
+                                PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "soundRingtone=" + soundRingtone);
+                                PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "soundNotification=" + soundNotification);
+                                PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "soundAlarm=" + soundAlarm);
+                            }
 
                             ContentValues values = new ContentValues();
                             String[] splits = soundRingtone.split("\\|");
@@ -9989,8 +9997,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     private void startRunningImportExport() throws Exception {
-        PPApplication.logE("----------- DatabaseHandler.startRunningImportExport", "lock");
-        PPApplication.logE("----------- DatabaseHandler.startRunningImportExport", "runningCommand="+runningCommand);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("----------- DatabaseHandler.startRunningImportExport", "lock");
+            PPApplication.logE("----------- DatabaseHandler.startRunningImportExport", "runningCommand=" + runningCommand);
+        }
         if (runningCommand)
             runningCommandCondition.await();
         PPApplication.logE("----------- DatabaseHandler.startRunningImportExport", "continue");

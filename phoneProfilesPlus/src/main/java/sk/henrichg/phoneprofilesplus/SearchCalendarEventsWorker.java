@@ -93,9 +93,10 @@ public class SearchCalendarEventsWorker extends Worker {
         try {
             WorkManager workManager = WorkManager.getInstance(context);
 
-            PPApplication.logE("SearchCalendarEventsWorker._scheduleWork", "---------------------------------------- START");
-
-            PPApplication.logE("SearchCalendarEventsWorker._scheduleWork", "shortInterval=" + shortInterval);
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("SearchCalendarEventsWorker._scheduleWork", "---------------------------------------- START");
+                PPApplication.logE("SearchCalendarEventsWorker._scheduleWork", "shortInterval=" + shortInterval);
+            }
 
             if (!shortInterval) {
                 PPApplication.logE("SearchCalendarEventsWorker._scheduleWork", "exact work");

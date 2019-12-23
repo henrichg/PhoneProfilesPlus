@@ -227,11 +227,13 @@ public class DonationFragment extends Fragment {
                 String sku = purchase.getSku();
                 for (SkuDetails skuDetail : SKU_DETAILS) {
                     if (skuDetail.getSku().equals(sku)) {
-                        PPApplication.logE(TAG, "purchaseSuccessful - sku=" + sku);
-                        PPApplication.logE(TAG, "purchaseSuccessful - currency=" + skuDetail.getPriceCurrencyCode());
-                        PPApplication.logE(TAG, "purchaseSuccessful - priceS=" + skuDetail.getPrice());
-                        PPApplication.logE(TAG, "purchaseSuccessful - priceMicros=" + skuDetail.getPriceAmountMicros());
-                        PPApplication.logE(TAG, "purchaseSuccessful - price=" + skuDetail.getPriceAmountMicros() / 1000000.0);
+                        if (PPApplication.logEnabled()) {
+                            PPApplication.logE(TAG, "purchaseSuccessful - sku=" + sku);
+                            PPApplication.logE(TAG, "purchaseSuccessful - currency=" + skuDetail.getPriceCurrencyCode());
+                            PPApplication.logE(TAG, "purchaseSuccessful - priceS=" + skuDetail.getPrice());
+                            PPApplication.logE(TAG, "purchaseSuccessful - priceMicros=" + skuDetail.getPriceAmountMicros());
+                            PPApplication.logE(TAG, "purchaseSuccessful - price=" + skuDetail.getPriceAmountMicros() / 1000000.0);
+                        }
                         /*Answers.getInstance().logPurchase(new PurchaseEvent()
                                 .putItemPrice(BigDecimal.valueOf(skuDetail.getPriceAmountMicros() / 1000000.0))
                                 .putCurrency(Currency.getInstance(skuDetail.getPriceCurrencyCode()))
@@ -256,11 +258,13 @@ public class DonationFragment extends Fragment {
                 String sku = purchase.getSku();
                 for (SkuDetails skuDetail : SKU_DETAILS) {
                     if (skuDetail.getSku().equals(sku)) {
-                        PPApplication.logE(TAG, "purchaseUnsuccessful - sku=" + sku);
-                        PPApplication.logE(TAG, "purchaseUnsuccessful - currency=" + skuDetail.getPriceCurrencyCode());
-                        PPApplication.logE(TAG, "purchaseUnsuccessful - priceS=" + skuDetail.getPrice());
-                        PPApplication.logE(TAG, "purchaseUnsuccessful - priceMicros=" + skuDetail.getPriceAmountMicros());
-                        PPApplication.logE(TAG, "purchaseUnsuccessful - price=" + skuDetail.getPriceAmountMicros() / 1000000.0);
+                        if (PPApplication.logEnabled()) {
+                            PPApplication.logE(TAG, "purchaseUnsuccessful - sku=" + sku);
+                            PPApplication.logE(TAG, "purchaseUnsuccessful - currency=" + skuDetail.getPriceCurrencyCode());
+                            PPApplication.logE(TAG, "purchaseUnsuccessful - priceS=" + skuDetail.getPrice());
+                            PPApplication.logE(TAG, "purchaseUnsuccessful - priceMicros=" + skuDetail.getPriceAmountMicros());
+                            PPApplication.logE(TAG, "purchaseUnsuccessful - price=" + skuDetail.getPriceAmountMicros() / 1000000.0);
+                        }
                         /*Answers.getInstance().logPurchase(new PurchaseEvent()
                                 .putItemPrice(BigDecimal.valueOf(skuDetail.getPriceAmountMicros() / 1000000.0))
                                 .putCurrency(Currency.getInstance(skuDetail.getPriceCurrencyCode()))

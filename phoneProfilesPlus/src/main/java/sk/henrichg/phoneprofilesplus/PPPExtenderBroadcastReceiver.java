@@ -85,8 +85,10 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                 final String packageName = intent.getStringExtra(EXTRA_PACKAGE_NAME);
                 final String className = intent.getStringExtra(EXTRA_CLASS_NAME);
 
-                PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "packageName=" + packageName);
-                PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "className=" + className);
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "packageName=" + packageName);
+                    PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "className=" + className);
+                }
 
                 try {
                     ComponentName componentName = new ComponentName(packageName, className);
@@ -211,8 +213,10 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
             case PPApplication.ACTION_SMS_MMS_RECEIVED:
                 final String origin = intent.getStringExtra(EXTRA_ORIGIN);
                 final long time = intent.getLongExtra(EXTRA_TIME, 0);
-                PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "origin="+origin);
-                PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "time="+time);
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "origin=" + origin);
+                    PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "time=" + time);
+                }
 
                 if (Event.getGlobalEventsRunning(appContext)) {
                     PPApplication.startHandlerThread("PPPExtenderBroadcastReceiver.onReceive.ACTION_SMS_MMS_RECEIVED");
@@ -255,10 +259,12 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                 final String phoneNumber = intent.getStringExtra(EXTRA_PHONE_NUMBER);
                 final long eventTime = intent.getLongExtra(EXTRA_EVENT_TIME, 0);
 
-                //PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "servicePhoneEvent="+servicePhoneEvent);
-                PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "callEventType="+callEventType);
-                PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "phoneNumber="+phoneNumber);
-                PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "eventTime="+eventTime);
+                if (PPApplication.logEnabled()) {
+                    //PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "servicePhoneEvent="+servicePhoneEvent);
+                    PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "callEventType=" + callEventType);
+                    PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "phoneNumber=" + phoneNumber);
+                    PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "eventTime=" + eventTime);
+                }
 
                 if (Event.getGlobalEventsRunning(appContext)) {
                     PPApplication.startHandlerThread("PPPExtenderBroadcastReceiver.onReceive.ACTION_CALL_RECEIVED");

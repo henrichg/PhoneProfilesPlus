@@ -215,12 +215,14 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
 
                                 applicationsList.add(_application);
 
-                                PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "packageName=" + packageName);
-                                PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "activityName=" + activityName);
-                                PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "shortcutIntent=" + shortcutIntent);
-                                PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "shortcutId=" + shortcutId);
-                                PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "startApplicationDelay=" + startApplicationDelay);
-                                PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "checked=" + _application.checked);
+                                if (PPApplication.logEnabled()) {
+                                    PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "packageName=" + packageName);
+                                    PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "activityName=" + activityName);
+                                    PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "shortcutIntent=" + shortcutIntent);
+                                    PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "shortcutId=" + shortcutId);
+                                    PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "startApplicationDelay=" + startApplicationDelay);
+                                    PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "checked=" + _application.checked);
+                                }
 
                                 break;
                             }
@@ -272,10 +274,12 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
 
                             applicationsList.add(_application);
 
-                            PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "shortcutIntent=" + shortcutIntent);
-                            PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "intentId=" + intentId);
-                            PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "startApplicationDelay=" + startApplicationDelay);
-                            PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "checked=" + _application.checked);
+                            if (PPApplication.logEnabled()) {
+                                PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "shortcutIntent=" + shortcutIntent);
+                                PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "intentId=" + intentId);
+                                PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "startApplicationDelay=" + startApplicationDelay);
+                                PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "checked=" + _application.checked);
+                            }
 
                             break;
                         }

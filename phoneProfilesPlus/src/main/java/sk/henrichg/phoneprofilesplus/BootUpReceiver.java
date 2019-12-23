@@ -34,9 +34,11 @@ public class BootUpReceiver extends BroadcastReceiver {
 
             PPApplication.setBlockProfileEventActions(true, context);
 
-            PPApplication.logE("BootUpReceiver.onReceive", "applicationStartOnBoot=" + ApplicationPreferences.applicationStartOnBoot(context));
-            PPApplication.logE("BootUpReceiver.onReceive", "applicationStartEvents=" + ApplicationPreferences.applicationStartEvents(context));
-            PPApplication.logE("BootUpReceiver.onReceive", "globalEventsRunning="+Event.getGlobalEventsRunning(context));
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("BootUpReceiver.onReceive", "applicationStartOnBoot=" + ApplicationPreferences.applicationStartOnBoot(context));
+                PPApplication.logE("BootUpReceiver.onReceive", "applicationStartEvents=" + ApplicationPreferences.applicationStartEvents(context));
+                PPApplication.logE("BootUpReceiver.onReceive", "globalEventsRunning=" + Event.getGlobalEventsRunning(context));
+            }
 
             //PPApplication.setApplicationStarted(context, false);
 
@@ -107,8 +109,10 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 }
                             }
                         } else {
-                            PPApplication.logE("BootUpReceiver.onReceive", "ApplicationPreferences.applicationStartOnBoot()=false");
-                            PPApplication.logE("PPApplication.exitApp", "from BootUpReceiver.onReceive shutdown=false");
+                            if (PPApplication.logEnabled()) {
+                                PPApplication.logE("BootUpReceiver.onReceive", "ApplicationPreferences.applicationStartOnBoot()=false");
+                                PPApplication.logE("PPApplication.exitApp", "from BootUpReceiver.onReceive shutdown=false");
+                            }
                             PPApplication.exitApp(false, appContext, null, null, false/*, true, true*/);
                         }
 

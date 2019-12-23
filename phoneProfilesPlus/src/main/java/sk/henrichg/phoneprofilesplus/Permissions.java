@@ -325,8 +325,10 @@ class Permissions {
 
     private static void checkProfileVibrateWhenRinging(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return;// true;
-        PPApplication.logE("Permissions.checkProfileVibrateWhenRinging", "profile._name=" + profile._name);
-        PPApplication.logE("Permissions.checkProfileVibrateWhenRinging", "permissions=" + permissions);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("Permissions.checkProfileVibrateWhenRinging", "profile._name=" + profile._name);
+            PPApplication.logE("Permissions.checkProfileVibrateWhenRinging", "permissions=" + permissions);
+        }
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
                 PPApplication.logE("Permissions.checkProfileVibrateWhenRinging", "profile._vibrateWhenRinging=" + profile._vibrateWhenRinging);
@@ -1351,8 +1353,10 @@ class Permissions {
                                                   boolean fromPreferences) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             ArrayList<PermissionType> permissions = checkProfilePermissions(context, profile);
-            PPApplication.logE("Permissions.grantProfilePermissions", "permissions.size()=" + permissions.size());
-            PPApplication.logE("Permissions.grantProfilePermissions", "startupSource=" + startupSource);
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("Permissions.grantProfilePermissions", "permissions.size()=" + permissions.size());
+                PPApplication.logE("Permissions.grantProfilePermissions", "startupSource=" + startupSource);
+            }
             if (permissions.size() > 0) {
                 try {
                     Intent intent = new Intent(context, GrantPermissionActivity.class);

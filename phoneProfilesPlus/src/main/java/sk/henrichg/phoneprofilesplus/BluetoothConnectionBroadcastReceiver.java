@@ -90,9 +90,11 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
                             try {
                                 //if (!action.equals(BluetoothDevice.ACTION_NAME_CHANGED)) {
-                                PPApplication.logE("$$$ BluetoothConnectionBroadcastReceiver.onReceive", "connected=" + connected);
-                                PPApplication.logE("$$$ BluetoothConnectionBroadcastReceiver.onReceive", "device.getName()=" + device.getName());
-                                PPApplication.logE("$$$ BluetoothConnectionBroadcastReceiver.onReceive", "device.getAddress()=" + device.getAddress());
+                                if (PPApplication.logEnabled()) {
+                                    PPApplication.logE("$$$ BluetoothConnectionBroadcastReceiver.onReceive", "connected=" + connected);
+                                    PPApplication.logE("$$$ BluetoothConnectionBroadcastReceiver.onReceive", "device.getName()=" + device.getName());
+                                    PPApplication.logE("$$$ BluetoothConnectionBroadcastReceiver.onReceive", "device.getAddress()=" + device.getAddress());
+                                }
                                 //}
 
                                 switch (action) {
@@ -187,9 +189,11 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
                     if (PPApplication.logEnabled()) {
                         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                        PPApplication.logE("BluetoothConnectionBroadcastReceiver.getConnectedDevices", "device.name=" + device.getName());
-                        PPApplication.logE("BluetoothConnectionBroadcastReceiver.getConnectedDevices", "device.address=" + device.getAddress());
-                        PPApplication.logE("BluetoothConnectionBroadcastReceiver.getConnectedDevices", "device.timestamp=" + sdf.format(device.timestamp));
+                        if (PPApplication.logEnabled()) {
+                            PPApplication.logE("BluetoothConnectionBroadcastReceiver.getConnectedDevices", "device.name=" + device.getName());
+                            PPApplication.logE("BluetoothConnectionBroadcastReceiver.getConnectedDevices", "device.address=" + device.getAddress());
+                            PPApplication.logE("BluetoothConnectionBroadcastReceiver.getConnectedDevices", "device.timestamp=" + sdf.format(device.timestamp));
+                        }
                     }
                     //long bootTime = System.currentTimeMillis() - SystemClock.elapsedRealtime() - gmtOffset;
                     Calendar calendar = Calendar.getInstance();
@@ -240,8 +244,10 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
     private static void addConnectedDevice(BluetoothDevice device)
     {
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
-            PPApplication.logE("BluetoothConnectionBroadcastReceiver.addConnectedDevice","device.name="+device.getName());
-            PPApplication.logE("BluetoothConnectionBroadcastReceiver.addConnectedDevice","device.address="+device.getAddress());
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("BluetoothConnectionBroadcastReceiver.addConnectedDevice", "device.name=" + device.getName());
+                PPApplication.logE("BluetoothConnectionBroadcastReceiver.addConnectedDevice", "device.address=" + device.getAddress());
+            }
             boolean found = false;
             for (BluetoothDeviceData _device : connectedDevices) {
                 if (_device.address.equals(device.getAddress())) {
@@ -271,8 +277,10 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
     private static void removeConnectedDevice(BluetoothDevice device)
     {
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
-            PPApplication.logE("BluetoothConnectionBroadcastReceiver.removeConnectedDevice","device.name="+device.getName());
-            PPApplication.logE("BluetoothConnectionBroadcastReceiver.removeConnectedDevice","device.address="+device.getAddress());
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("BluetoothConnectionBroadcastReceiver.removeConnectedDevice", "device.name=" + device.getName());
+                PPApplication.logE("BluetoothConnectionBroadcastReceiver.removeConnectedDevice", "device.address=" + device.getAddress());
+            }
             int index = 0;
             boolean found = false;
             for (BluetoothDeviceData _device : connectedDevices) {
@@ -313,8 +321,10 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                     for (BluetoothDeviceData device : connectedDevices) {
                         if (PPApplication.logEnabled()) {
                             @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                            PPApplication.logE("BluetoothConnectionBroadcastReceiver.clearConnectedDevices", "device.name=" + device.name);
-                            PPApplication.logE("BluetoothConnectionBroadcastReceiver.clearConnectedDevices", "device.timestamp=" + sdf.format(device.timestamp));
+                            if (PPApplication.logEnabled()) {
+                                PPApplication.logE("BluetoothConnectionBroadcastReceiver.clearConnectedDevices", "device.name=" + device.name);
+                                PPApplication.logE("BluetoothConnectionBroadcastReceiver.clearConnectedDevices", "device.timestamp=" + sdf.format(device.timestamp));
+                            }
                         }
                         //long bootTime = System.currentTimeMillis() - SystemClock.elapsedRealtime() - gmtOffset;
                         Calendar calendar = Calendar.getInstance();
@@ -359,8 +369,10 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
     {
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             for (BluetoothDeviceData device : detectedDevices) {
-                PPApplication.logE("BluetoothConnectionBroadcastReceiver.addConnectedDeviceData", "device.name=" + device.getName());
-                PPApplication.logE("BluetoothConnectionBroadcastReceiver.addConnectedDeviceData", "device.address=" + device.getAddress());
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("BluetoothConnectionBroadcastReceiver.addConnectedDeviceData", "device.name=" + device.getName());
+                    PPApplication.logE("BluetoothConnectionBroadcastReceiver.addConnectedDeviceData", "device.address=" + device.getAddress());
+                }
                 boolean found = false;
                 for (BluetoothDeviceData _device : connectedDevices) {
                     if (_device.getAddress().equals(device.getAddress())) {

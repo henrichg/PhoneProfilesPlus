@@ -1322,8 +1322,10 @@ class Event {
             // events are globally stopped
             return;
 
-        PPApplication.logE("Event.startEvent","event_id="+this._id+"-----------------------------------");
-        PPApplication.logE("Event.startEvent","-- event_name="+this._name);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("Event.startEvent", "event_id=" + this._id + "-----------------------------------");
+            PPApplication.logE("Event.startEvent", "-- event_name=" + this._name);
+        }
 
         if (!this.isRunnable(dataWrapper.context, true)) {
             // event is not runnable, no start it
@@ -1334,11 +1336,11 @@ class Event {
         if (getEventsBlocked(dataWrapper.context))
         {
             // blocked by manual profile activation
-            PPApplication.logE("Event.startEvent","event_id="+this._id+" events blocked");
-
-            PPApplication.logE("Event.startEvent","event_id="+this._id+" forceRun="+_forceRun);
-            PPApplication.logE("Event.startEvent","event_id="+this._id+" blocked="+_blocked);
-
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("Event.startEvent", "event_id=" + this._id + " events blocked");
+                PPApplication.logE("Event.startEvent", "event_id=" + this._id + " forceRun=" + _forceRun);
+                PPApplication.logE("Event.startEvent", "event_id=" + this._id + " blocked=" + _blocked);
+            }
 
             if (!_forceRun)
                 // event is not forceRun
@@ -1441,8 +1443,10 @@ class Event {
             dataWrapper.addActivityLog(DataWrapper.ALTYPE_EVENT_START, _name, null, null, 0);
         }
 
-        PPApplication.logE("Event.startEvent","event="+this._id+" activate profile id="+this._fkProfileStart);
-        PPApplication.logE("Event.startEvent","mergedProfile="+mergedProfile);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("Event.startEvent", "event=" + this._id + " activate profile id=" + this._fkProfileStart);
+            PPApplication.logE("Event.startEvent", "mergedProfile=" + mergedProfile);
+        }
 
         if (mergedProfile == null) {
             long activatedProfileId = 0;
@@ -1479,9 +1483,11 @@ class Event {
                                         boolean allowRestart,
                                         boolean forRestartEvents)
     {
-        PPApplication.logE("@@@ Event.pauseEvent","doActivateEndProfile-activateReturnProfile="+activateReturnProfile);
-        PPApplication.logE("@@@ Event.pauseEvent","doActivateEndProfile-allowRestart="+allowRestart);
-        PPApplication.logE("@@@ Event.pauseEvent","doActivateEndProfile-forRestartEvents="+forRestartEvents);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("@@@ Event.pauseEvent", "doActivateEndProfile-activateReturnProfile=" + activateReturnProfile);
+            PPApplication.logE("@@@ Event.pauseEvent", "doActivateEndProfile-allowRestart=" + allowRestart);
+            PPApplication.logE("@@@ Event.pauseEvent", "doActivateEndProfile-forRestartEvents=" + forRestartEvents);
+        }
 
         if (!(eventPosition == (timeLineSize-1)))
         {
@@ -1534,8 +1540,10 @@ class Event {
 
                     if ((eventTimeline._fkProfileEndActivated != activatedProfileId) || forRestartEvents)
                     {
-                        PPApplication.logE("@@@ Event.pauseEvent","doActivateEndProfile-undone profile");
-                        PPApplication.logE("@@@ Event.pauseEvent","doActivateEndProfile-_fkProfileEndActivated="+eventTimeline._fkProfileEndActivated);
+                        if (PPApplication.logEnabled()) {
+                            PPApplication.logE("@@@ Event.pauseEvent", "doActivateEndProfile-undone profile");
+                            PPApplication.logE("@@@ Event.pauseEvent", "doActivateEndProfile-_fkProfileEndActivated=" + eventTimeline._fkProfileEndActivated);
+                        }
                         if (eventTimeline._fkProfileEndActivated != 0)
                         {
                             dataWrapper.activateProfileFromEvent(eventTimeline._fkProfileEndActivated, false, false, forRestartEvents);
@@ -1564,8 +1572,10 @@ class Event {
                                 eventTimeline._fkProfileEndActivated = event._fkProfileStart;
                         }
                     }
-                    PPApplication.logE("@@@ Event.pauseEvent","doActivateEndProfile-undone profile");
-                    PPApplication.logE("@@@ Event.pauseEvent","doActivateEndProfile-_fkProfileEndActivated="+eventTimeline._fkProfileEndActivated);
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("@@@ Event.pauseEvent", "doActivateEndProfile-undone profile");
+                        PPApplication.logE("@@@ Event.pauseEvent", "doActivateEndProfile-_fkProfileEndActivated=" + eventTimeline._fkProfileEndActivated);
+                    }
                     if (eventTimeline._fkProfileEndActivated != 0)
                     {
                         mergedProfile.mergeProfiles(eventTimeline._fkProfileEndActivated, dataWrapper/*, false*/);
@@ -1629,8 +1639,10 @@ class Event {
         // unblock event when paused
         dataWrapper.setEventBlocked(this, false);
 
-        PPApplication.logE("@@@ Event.pauseEvent","event_id="+this._id+"-----------------------------------");
-        PPApplication.logE("@@@ Event.pauseEvent","-- event_name="+this._name);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("@@@ Event.pauseEvent", "event_id=" + this._id + "-----------------------------------");
+            PPApplication.logE("@@@ Event.pauseEvent", "-- event_name=" + this._name);
+        }
 
         int timeLineSize = eventTimelineList.size();
 
@@ -1752,8 +1764,10 @@ class Event {
             // events are globally stopped
             return;
 
-        PPApplication.logE("@@@ Event.stopEvent","event_id="+this._id+"-----------------------------------");
-        PPApplication.logE("@@@ Event.stopEvent", "-- event_name=" + this._name);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("@@@ Event.stopEvent", "event_id=" + this._id + "-----------------------------------");
+            PPApplication.logE("@@@ Event.stopEvent", "-- event_name=" + this._name);
+        }
 
         if (this._status != ESTATUS_STOP)
         {
@@ -1981,9 +1995,11 @@ class Event {
                 return;
         }
 
-        PPApplication.logE("@@@ Event.setDelayStartAlarm","event_id="+this._id+"-----------------------------------");
-        PPApplication.logE("@@@ Event.setDelayStartAlarm","-- event_name="+this._name);
-        PPApplication.logE("@@@ Event.setDelayStartAlarm","-- delay="+this._delayStart);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("@@@ Event.setDelayStartAlarm", "event_id=" + this._id + "-----------------------------------");
+            PPApplication.logE("@@@ Event.setDelayStartAlarm", "-- event_name=" + this._name);
+            PPApplication.logE("@@@ Event.setDelayStartAlarm", "-- delay=" + this._delayStart);
+        }
 
         if (this._delayStart > 0)
         {
@@ -2195,9 +2211,11 @@ class Event {
                 return;
         }
 
-        PPApplication.logE("@@@ Event.setDelayEndAlarm","event_id="+this._id+"-----------------------------------");
-        PPApplication.logE("@@@ Event.setDelayEndAlarm","-- event_name="+this._name);
-        PPApplication.logE("@@@ Event.setDelayEndAlarm","-- delay="+this._delayEnd);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("@@@ Event.setDelayEndAlarm", "event_id=" + this._id + "-----------------------------------");
+            PPApplication.logE("@@@ Event.setDelayEndAlarm", "-- event_name=" + this._name);
+            PPApplication.logE("@@@ Event.setDelayEndAlarm", "-- delay=" + this._delayEnd);
+        }
 
         if (this._delayEnd > 0)
         {

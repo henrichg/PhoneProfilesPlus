@@ -1912,12 +1912,14 @@ public class PhoneProfilesService extends Service
                     callCount = 1;
                     lockDeviceCount = 1;
                 }
-                PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "forceStopCount="+forceStopCount);
-                PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "applicationCount="+applicationCount);
-                PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "orientationCount="+orientationCount);
-                PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "smsCount="+smsCount);
-                PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "callCount="+callCount);
-                PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "lockDeviceCount="+lockDeviceCount);
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "forceStopCount=" + forceStopCount);
+                    PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "applicationCount=" + applicationCount);
+                    PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "orientationCount=" + orientationCount);
+                    PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "smsCount=" + smsCount);
+                    PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "callCount=" + callCount);
+                    PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "lockDeviceCount=" + lockDeviceCount);
+                }
 
                 if (forceStopCount > 0) {
                     if (pppExtenderForceStopApplicationBroadcastReceiver == null) {
@@ -3148,8 +3150,10 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "eventAllowed="+eventAllowed);
                 if (eventAllowed) {
                     boolean applicationEventMobileCellEnableScanning = ApplicationPreferences.applicationEventMobileCellEnableScanning(appContext);
-                    PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "scanning enabled="+applicationEventMobileCellEnableScanning);
-                    PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "PhoneStateScanner.forceStart="+PhoneStateScanner.forceStart);
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "scanning enabled=" + applicationEventMobileCellEnableScanning);
+                        PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "PhoneStateScanner.forceStart=" + PhoneStateScanner.forceStart);
+                    }
                     if (applicationEventMobileCellEnableScanning || PhoneStateScanner.forceStart) {
                         //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         if ((PPApplication.isScreenOn) || !ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn(appContext)) {
@@ -3551,16 +3555,18 @@ public class PhoneProfilesService extends Service
             startOnPackageReplace = intent.getBooleanExtra(EXTRA_START_ON_PACKAGE_REPLACE, false);
         }
 
-        //if (onlyStart)
-        //    PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_ONLY_START");
-        if (deactivateProfile)
-            PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_DEACTIVATE_PROFILE");
-        if (activateProfiles)
-            PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_ACTIVATE_PROFILES");
-        if (startOnBoot)
-            PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_START_ON_BOOT");
-        if (startOnPackageReplace)
-            PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_START_ON_PACKAGE_REPLACE");
+        if (PPApplication.logEnabled()) {
+            //if (onlyStart)
+            //    PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_ONLY_START");
+            if (deactivateProfile)
+                PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_DEACTIVATE_PROFILE");
+            if (activateProfiles)
+                PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_ACTIVATE_PROFILES");
+            if (startOnBoot)
+                PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_START_ON_BOOT");
+            if (startOnPackageReplace)
+                PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_START_ON_PACKAGE_REPLACE");
+        }
 
         //PPApplication.logE("PhoneProfilesService.doForFirstStart", "serviceRunning="+serviceRunning);
 
@@ -3646,6 +3652,7 @@ public class PhoneProfilesService extends Service
                             // get list of TRANSACTIONS for "phone"
                             Object serviceManager = PPApplication.getServiceManager("phone");
                             if (serviceManager != null) {
+                                // only log it
                                 PPApplication.getTransactionCode(String.valueOf(serviceManager), "");
                             }
                         }
@@ -3795,9 +3802,10 @@ public class PhoneProfilesService extends Service
 
                         dataWrapper.invalidateDataWrapper();
 
-                        PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "PhoneProfilesService.doForFirstStart END");
-
-                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneProfilesService.doForFirstStart");
+                        if (PPApplication.logEnabled()) {
+                            PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "PhoneProfilesService.doForFirstStart END");
+                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneProfilesService.doForFirstStart");
+                        }
 
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -3912,7 +3920,7 @@ public class PhoneProfilesService extends Service
         PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
 
         //if ((intent == null) || (!intent.getBooleanExtra(EXTRA_CLEAR_SERVICE_FOREGROUND, false))) {
-            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "showProfileNotification()");
+            //PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "showProfileNotification()");
             // do not call this from handlerThread. In Android 8 handlerThread is not called
             // when for service is not displayed foreground notification
             showProfileNotification(false, true, false);
@@ -4308,10 +4316,12 @@ public class PhoneProfilesService extends Service
                 }
             }
 
-            if (refresh)
-                PPApplication.logE("PhoneProfilesService._showProfileNotification", "refresh");
-            else
-                PPApplication.logE("PhoneProfilesService._showProfileNotification", "activated profile changed");
+            if (PPApplication.logEnabled()) {
+                if (refresh)
+                    PPApplication.logE("PhoneProfilesService._showProfileNotification", "refresh");
+                else
+                    PPApplication.logE("PhoneProfilesService._showProfileNotification", "activated profile changed");
+            }
 
             PendingIntent pIntentRE = null;
             if (Event.getGlobalEventsRunning(appContext) &&
@@ -5423,45 +5433,47 @@ public class PhoneProfilesService extends Service
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.runEventsHandlerForOrientationChange");
+                        if (PPApplication.logEnabled()) {
+                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.runEventsHandlerForOrientationChange");
 
-                        PPApplication.logE("@@@ PhoneProfilesService.runEventsHandlerForOrientationChange", "-----------");
+                            PPApplication.logE("@@@ PhoneProfilesService.runEventsHandlerForOrientationChange", "-----------");
 
-                        if (mDeviceDistance == DEVICE_ORIENTATION_DEVICE_IS_NEAR)
-                            PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "now device is NEAR.");
-                        else if (mDeviceDistance == DEVICE_ORIENTATION_DEVICE_IS_FAR)
-                            PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "now device is FAR");
-                        else if (mDeviceDistance == DEVICE_ORIENTATION_UNKNOWN)
-                            PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "unknown distance");
+                            if (mDeviceDistance == DEVICE_ORIENTATION_DEVICE_IS_NEAR)
+                                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "now device is NEAR.");
+                            else if (mDeviceDistance == DEVICE_ORIENTATION_DEVICE_IS_FAR)
+                                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "now device is FAR");
+                            else if (mDeviceDistance == DEVICE_ORIENTATION_UNKNOWN)
+                                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "unknown distance");
 
-                        if (mDisplayUp == DEVICE_ORIENTATION_DISPLAY_UP)
-                            PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(D) now screen is facing up.");
-                        if (mDisplayUp == DEVICE_ORIENTATION_DISPLAY_DOWN)
-                            PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(D) now screen is facing down.");
-                        if (mDisplayUp == DEVICE_ORIENTATION_UNKNOWN)
-                            PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(D) unknown display orientation.");
+                            if (mDisplayUp == DEVICE_ORIENTATION_DISPLAY_UP)
+                                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(D) now screen is facing up.");
+                            if (mDisplayUp == DEVICE_ORIENTATION_DISPLAY_DOWN)
+                                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(D) now screen is facing down.");
+                            if (mDisplayUp == DEVICE_ORIENTATION_UNKNOWN)
+                                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(D) unknown display orientation.");
 
-                        if (mSideUp == DEVICE_ORIENTATION_DISPLAY_UP)
-                            PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now screen is facing up.");
-                        if (mSideUp == DEVICE_ORIENTATION_DISPLAY_DOWN)
-                            PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now screen is facing down.");
+                            if (mSideUp == DEVICE_ORIENTATION_DISPLAY_UP)
+                                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now screen is facing up.");
+                            if (mSideUp == DEVICE_ORIENTATION_DISPLAY_DOWN)
+                                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now screen is facing down.");
 
-                        if (mSideUp == mDisplayUp)
-                            PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now device is horizontal.");
-                        if (mSideUp == DEVICE_ORIENTATION_UP_SIDE_UP)
-                            PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now up side is facing up.");
-                        if (mSideUp == DEVICE_ORIENTATION_DOWN_SIDE_UP)
-                            PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now down side is facing up.");
-                        if (mSideUp == DEVICE_ORIENTATION_RIGHT_SIDE_UP)
-                            PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now right side is facing up.");
-                        if (mSideUp == DEVICE_ORIENTATION_LEFT_SIDE_UP)
-                            PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now left side is facing up.");
-                        if (mSideUp == DEVICE_ORIENTATION_UNKNOWN)
-                            PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) unknown side.");
+                            if (mSideUp == mDisplayUp)
+                                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now device is horizontal.");
+                            if (mSideUp == DEVICE_ORIENTATION_UP_SIDE_UP)
+                                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now up side is facing up.");
+                            if (mSideUp == DEVICE_ORIENTATION_DOWN_SIDE_UP)
+                                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now down side is facing up.");
+                            if (mSideUp == DEVICE_ORIENTATION_RIGHT_SIDE_UP)
+                                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now right side is facing up.");
+                            if (mSideUp == DEVICE_ORIENTATION_LEFT_SIDE_UP)
+                                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now left side is facing up.");
+                            if (mSideUp == DEVICE_ORIENTATION_UNKNOWN)
+                                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) unknown side.");
 
-                        PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(L) light="+mLight);
+                            PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(L) light=" + mLight);
 
-                        PPApplication.logE("@@@ PhoneProfilesService.runEventsHandlerForOrientationChange", "-----------");
+                            PPApplication.logE("@@@ PhoneProfilesService.runEventsHandlerForOrientationChange", "-----------");
+                        }
 
                         // start events handler
                         EventsHandler eventsHandler = new EventsHandler(context);
@@ -5776,14 +5788,16 @@ public class PhoneProfilesService extends Service
                 }
             }
 
-            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "oldRingerMode=" + oldRingerMode);
-            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "oldSystemRingerMode=" + oldSystemRingerMode);
-            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "oldZenMode=" + oldZenMode);
-            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingerMode=" + newRingerMode);
-            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newZenMode=" + newZenMode);
-            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "oldRingtone=" + oldRingtone);
-            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "oldSystemRingerVolume=" + oldSystemRingerVolume);
-            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingerVolume=" + newRingerVolume);
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "oldRingerMode=" + oldRingerMode);
+                PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "oldSystemRingerMode=" + oldSystemRingerMode);
+                PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "oldZenMode=" + oldZenMode);
+                PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingerMode=" + newRingerMode);
+                PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newZenMode=" + newZenMode);
+                PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "oldRingtone=" + oldRingtone);
+                PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "oldSystemRingerVolume=" + oldSystemRingerVolume);
+                PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingerVolume=" + newRingerVolume);
+            }
 
             if (ActivateProfileHelper.isAudibleRinging(newRingerMode, newZenMode)) {
 

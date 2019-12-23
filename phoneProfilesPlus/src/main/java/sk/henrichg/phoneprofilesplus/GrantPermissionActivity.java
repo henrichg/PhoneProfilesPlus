@@ -227,11 +227,12 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
         if (!restoredInstanceState) {
             boolean withRationale = canShowRationale(context, false);
-            PPApplication.logE("GrantPermissionActivity.onStart", "withRationale=" + withRationale);
-
-            PPApplication.logE("GrantPermissionActivity.onStart", "showRequestWriteSettings=" + showRequestWriteSettings);
-            //PPApplication.logE("GrantPermissionActivity.onStart", "showRequestAccessNotificationPolicy=" + showRequestAccessNotificationPolicy);
-            PPApplication.logE("GrantPermissionActivity.onStart", "showRequestDrawOverlays=" + showRequestDrawOverlays);
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("GrantPermissionActivity.onStart", "withRationale=" + withRationale);
+                PPApplication.logE("GrantPermissionActivity.onStart", "showRequestWriteSettings=" + showRequestWriteSettings);
+                //PPApplication.logE("GrantPermissionActivity.onStart", "showRequestAccessNotificationPolicy=" + showRequestAccessNotificationPolicy);
+                PPApplication.logE("GrantPermissionActivity.onStart", "showRequestDrawOverlays=" + showRequestDrawOverlays);
+            }
 
             int iteration = 4;
             if (showRequestWriteSettings)
@@ -598,9 +599,11 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 }
             }
 
-            PPApplication.logE("GrantPermissionActivity.showRationale", "showRequestWriteSettings="+showRequestWriteSettings);
-            //PPApplication.logE("GrantPermissionActivity.showRationale", "showRequestAccessNotificationPolicy="+showRequestAccessNotificationPolicy);
-            PPApplication.logE("GrantPermissionActivity.showRationale", "showRequestDrawOverlays="+showRequestDrawOverlays);
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("GrantPermissionActivity.showRationale", "showRequestWriteSettings=" + showRequestWriteSettings);
+                //PPApplication.logE("GrantPermissionActivity.showRationale", "showRequestAccessNotificationPolicy="+showRequestAccessNotificationPolicy);
+                PPApplication.logE("GrantPermissionActivity.showRationale", "showRequestDrawOverlays=" + showRequestDrawOverlays);
+            }
 
             int iteration = 4;
             if (showRequestWriteSettings)
@@ -1661,9 +1664,11 @@ public class GrantPermissionActivity extends AppCompatActivity {
         else {
             // Profile permission
 
-            PPApplication.logE("GrantPermissionActivity.finishGrant", "profile");
-            PPApplication.logE("GrantPermissionActivity.finishGrant", "startupSource="+startupSource);
-            //PPApplication.logE("GrantPermissionActivity.finishGrant", "interactive="+interactive);
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("GrantPermissionActivity.finishGrant", "profile");
+                PPApplication.logE("GrantPermissionActivity.finishGrant", "startupSource=" + startupSource);
+                //PPApplication.logE("GrantPermissionActivity.finishGrant", "interactive="+interactive);
+            }
 
             /*Intent returnIntent = new Intent();
             returnIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);

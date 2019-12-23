@@ -193,8 +193,10 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-        PPApplication.logE("PhoneCallBroadcastReceiver.callEnded", "incoming="+incoming);
-        PPApplication.logE("PhoneCallBroadcastReceiver.callEnded", "missed="+missed);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("PhoneCallBroadcastReceiver.callEnded", "incoming=" + incoming);
+            PPApplication.logE("PhoneCallBroadcastReceiver.callEnded", "missed=" + missed);
+        }
 
         if (PhoneProfilesService.getInstance() != null)
             PhoneProfilesService.getInstance().stopSimulatingRingingCall();

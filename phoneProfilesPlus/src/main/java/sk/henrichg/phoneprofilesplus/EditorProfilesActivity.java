@@ -591,10 +591,12 @@ public class EditorProfilesActivity extends AppCompatActivity
         // this is for list widget header
         if (!PPApplication.getApplicationStarted(getApplicationContext(), true))
         {
-            PPApplication.logE("EditorProfilesActivity.onStart", "application is not started");
-            PPApplication.logE("EditorProfilesActivity.onStart", "service instance="+PhoneProfilesService.getInstance());
-            if (PhoneProfilesService.getInstance() != null)
-                PPApplication.logE("EditorProfilesActivity.onStart", "service hasFirstStart="+PhoneProfilesService.getInstance().getServiceHasFirstStart());
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("EditorProfilesActivity.onStart", "application is not started");
+                PPApplication.logE("EditorProfilesActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
+                if (PhoneProfilesService.getInstance() != null)
+                    PPApplication.logE("EditorProfilesActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
+            }
             // start PhoneProfilesService
             //PPApplication.firstStartServiceStarted = false;
             PPApplication.setApplicationStarted(getApplicationContext(), true);
@@ -607,10 +609,12 @@ public class EditorProfilesActivity extends AppCompatActivity
         else
         {
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
-                PPApplication.logE("EditorProfilesActivity.onStart", "application is started");
-                PPApplication.logE("EditorProfilesActivity.onStart", "service instance="+PhoneProfilesService.getInstance());
-                if (PhoneProfilesService.getInstance() != null)
-                    PPApplication.logE("EditorProfilesActivity.onStart", "service hasFirstStart="+PhoneProfilesService.getInstance().getServiceHasFirstStart());
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("EditorProfilesActivity.onStart", "application is started");
+                    PPApplication.logE("EditorProfilesActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
+                    if (PhoneProfilesService.getInstance() != null)
+                        PPApplication.logE("EditorProfilesActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
+                }
                 // start PhoneProfilesService
                 //PPApplication.firstStartServiceStarted = false;
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
@@ -1022,9 +1026,11 @@ public class EditorProfilesActivity extends AppCompatActivity
     */
 
     private void selectFilterItem(int selectedView, int position, boolean fromClickListener, boolean startTargetHelps) {
-        PPApplication.logE("EditorProfilesActivity.selectFilterItem", "editorSelectedView="+editorSelectedView);
-        PPApplication.logE("EditorProfilesActivity.selectFilterItem", "selectedView="+selectedView);
-        PPApplication.logE("EditorProfilesActivity.selectFilterItem", "position="+position);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "editorSelectedView=" + editorSelectedView);
+            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "selectedView=" + selectedView);
+            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "position=" + position);
+        }
 
         boolean viewChanged = false;
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
@@ -1727,9 +1733,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                             Event.setForceRunEventRunning(getApplicationContext(), false);
                         }
 
-                        PPApplication.logE("EditorProfilesActivity.doImportData", "dbError=" + dbError);
-                        PPApplication.logE("EditorProfilesActivity.doImportData", "appSettingsError=" + appSettingsError);
-                        PPApplication.logE("EditorProfilesActivity.doImportData", "sharedProfileError=" + sharedProfileError);
+                        if (PPApplication.logEnabled()) {
+                            PPApplication.logE("EditorProfilesActivity.doImportData", "dbError=" + dbError);
+                            PPApplication.logE("EditorProfilesActivity.doImportData", "appSettingsError=" + appSettingsError);
+                            PPApplication.logE("EditorProfilesActivity.doImportData", "sharedProfileError=" + sharedProfileError);
+                        }
 
                         if (!appSettingsError) {
                             ApplicationPreferences.getSharedPreferences(dataWrapper.context);

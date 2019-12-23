@@ -49,8 +49,10 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
             final String deviceName = intent.getStringExtra(BluetoothDevice.EXTRA_NAME);
 
             if (action.equals(BluetoothDevice.ACTION_FOUND)) {
-                PPApplication.logE("BluetoothScanBroadcastReceiver.onReceive", "device=" + device);
-                PPApplication.logE("BluetoothScanBroadcastReceiver.onReceive", "deviceName=" + deviceName);
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("BluetoothScanBroadcastReceiver.onReceive", "device=" + device);
+                    PPApplication.logE("BluetoothScanBroadcastReceiver.onReceive", "deviceName=" + deviceName);
+                }
             }
 
             PPApplication.startHandlerThread("BluetoothScanBroadcastReceiver.onReceive");
@@ -108,9 +110,11 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                                                     btName = btNameE;
                                                 }
 
-                                                PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "deviceName_d=" + btNameD);
-                                                PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "deviceName_e=" + btNameE);
-                                                PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "deviceAddress=" + device.getAddress());
+                                                if (PPApplication.logEnabled()) {
+                                                    PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "deviceName_d=" + btNameD);
+                                                    PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "deviceName_e=" + btNameE);
+                                                    PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "deviceAddress=" + device.getAddress());
+                                                }
 
                                                 if (WifiBluetoothScanner.tmpBluetoothScanResults == null)
                                                     WifiBluetoothScanner.tmpBluetoothScanResults = new ArrayList<>();

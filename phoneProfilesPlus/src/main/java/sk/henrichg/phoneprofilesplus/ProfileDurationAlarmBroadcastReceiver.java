@@ -89,10 +89,12 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 .build();
                 try {
                     WorkManager workManager = WorkManager.getInstance(context);
-                    PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - profile._duration="+profile._duration);
-                    PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - profile._id="+profile._id);
-                    PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - forRestartEvents="+forRestartEvents);
-                    PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - startupSource="+startupSource);
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - profile._duration=" + profile._duration);
+                        PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - profile._id=" + profile._id);
+                        PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - forRestartEvents=" + forRestartEvents);
+                        PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - startupSource=" + startupSource);
+                    }
                     workManager.enqueueUniqueWork("elapsedAlarmsProfileDurationWork", ExistingWorkPolicy.REPLACE, worker);
                 } catch (Exception ignored) {}
             }

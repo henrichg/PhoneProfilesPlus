@@ -2422,9 +2422,11 @@ public class PPApplication extends Application {
             PPApplication.logE("PPApplication.isMIUIROM", Log.getStackTraceString(ex));
         }
 
-        PPApplication.logE("PPApplication.isMIUIROM", "miuiRom1="+miuiRom1);
-        PPApplication.logE("PPApplication.isMIUIROM", "miuiRom2="+miuiRom2);
-        PPApplication.logE("PPApplication.isMIUIROM", "miuiRom3="+miuiRom3);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("PPApplication.isMIUIROM", "miuiRom1=" + miuiRom1);
+            PPApplication.logE("PPApplication.isMIUIROM", "miuiRom2=" + miuiRom2);
+            PPApplication.logE("PPApplication.isMIUIROM", "miuiRom3=" + miuiRom3);
+        }
 
         return miuiRom1 || miuiRom2 || miuiRom3;
     }

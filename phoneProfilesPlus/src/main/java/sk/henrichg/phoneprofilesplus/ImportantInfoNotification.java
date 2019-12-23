@@ -80,8 +80,10 @@ class ImportantInfoNotification {
 
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
 
-        PPApplication.logE("ImportantInfoNotification.canShowNotification", "newsLatest="+newsLatest);
-        PPApplication.logE("ImportantInfoNotification.canShowNotification", "extenderVersion="+extenderVersion);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("ImportantInfoNotification.canShowNotification", "newsLatest=" + newsLatest);
+            PPApplication.logE("ImportantInfoNotification.canShowNotification", "extenderVersion=" + extenderVersion);
+        }
 
         if (newsLatest) {
             // change to false for not show notification
@@ -98,8 +100,10 @@ class ImportantInfoNotification {
             int smsSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false);
             int callSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false);
 
-            PPApplication.logE("ImportantInfoNotification.canShowNotification", "smsSensorsCount="+smsSensorsCount);
-            PPApplication.logE("ImportantInfoNotification.canShowNotification", "callSensorsCount="+callSensorsCount);
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("ImportantInfoNotification.canShowNotification", "smsSensorsCount=" + smsSensorsCount);
+                PPApplication.logE("ImportantInfoNotification.canShowNotification", "callSensorsCount=" + callSensorsCount);
+            }
 
             //noinspection RedundantIfStatement
             if ((smsSensorsCount == 0) && (callSensorsCount == 0))

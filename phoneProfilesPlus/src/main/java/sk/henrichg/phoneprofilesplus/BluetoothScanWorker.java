@@ -135,9 +135,10 @@ public class BluetoothScanWorker extends Worker {
         try {
             WorkManager workManager = WorkManager.getInstance(context);
 
-            PPApplication.logE("BluetoothScanWorker._scheduleWork", "---------------------------------------- START");
-
-            PPApplication.logE("BluetoothScanWorker._scheduleWork", "shortInterval=" + shortInterval);
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("BluetoothScanWorker._scheduleWork", "---------------------------------------- START");
+                PPApplication.logE("BluetoothScanWorker._scheduleWork", "shortInterval=" + shortInterval);
+            }
 
             int interval = ApplicationPreferences.applicationEventBluetoothScanInterval(context);
             //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;

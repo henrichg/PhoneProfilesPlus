@@ -1172,7 +1172,7 @@ class EventPreferencesNotification extends EventPreferences {
 
         // find phone number in groups
         String[] splits = this._contactGroups.split("\\|");
-        PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contactGroups.splits=" + splits.length);
+        //PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contactGroups.splits=" + splits.length);
         for (String split : splits) {
             String[] projection = new String[]{ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID};
             String selection = ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID + "=? AND "
@@ -1180,7 +1180,7 @@ class EventPreferencesNotification extends EventPreferences {
                     + ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE + "'";
             String[] selectionArgs = new String[]{split};
             Cursor mCursor = context.getContentResolver().query(ContactsContract.Data.CONTENT_URI, projection, selection, selectionArgs, null);
-            PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contactGroups mCursor=" + mCursor);
+            //PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contactGroups mCursor=" + mCursor);
             if (mCursor != null) {
                 while (mCursor.moveToNext()) {
                     String contactId = mCursor.getString(mCursor.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
@@ -1188,11 +1188,11 @@ class EventPreferencesNotification extends EventPreferences {
                     String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?";
                     String[] selection2Args = new String[]{contactId};
                     Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
-                    PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contactGroups phones=" + phones);
+                    //PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contactGroups phones=" + phones);
                     if (phones != null) {
                         while (phones.moveToNext()) {
                             String _contactName = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-                            PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contactGroups _contactName=" + _contactName);
+                            //PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contactGroups _contactName=" + _contactName);
 
                             if (text.toLowerCase().contains(_contactName.toLowerCase())) {
                                 phoneNumberFound = true;
@@ -1214,7 +1214,7 @@ class EventPreferencesNotification extends EventPreferences {
         if (!phoneNumberFound) {
             // find phone number in contacts
             splits = this._contacts.split("\\|");
-            PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contacts.splits=" + splits.length);
+            //PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contacts.splits=" + splits.length);
             for (String split : splits) {
                 String[] splits2 = split.split("#");
 
@@ -1222,21 +1222,21 @@ class EventPreferencesNotification extends EventPreferences {
                 String[] projection = new String[]{ContactsContract.Contacts._ID};
                 String selection = ContactsContract.Contacts._ID + "=?";
                 String[] selectionArgs = new String[]{splits2[0]};
-                PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contacts splits2[0]=" + splits2[0]);
+                //PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contacts splits2[0]=" + splits2[0]);
                 Cursor mCursor = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, selection, selectionArgs, null);
-                PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contacts mCursor=" + mCursor);
+                //PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contacts mCursor=" + mCursor);
                 if (mCursor != null) {
                     while (mCursor.moveToNext()) {
                         String[] projection2 = new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
                         String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?";
                         String[] selection2Args = new String[]{splits2[0]};
-                        PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contacts splits2[0]=" + splits2[0]);
+                        //PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contacts splits2[0]=" + splits2[0]);
                         Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
-                        PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contacts phones=" + phones);
+                        //PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contacts phones=" + phones);
                         if (phones != null) {
                             while (phones.moveToNext()) {
                                 String _contactName = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-                                PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contacts _contactName=" + _contactName);
+                                //PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contacts _contactName=" + _contactName);
 
                                 if (text.toLowerCase().contains(_contactName.toLowerCase())) {
                                     phoneNumberFound = true;

@@ -43,8 +43,10 @@ class TonesHandler {
 
                 String uriId = uri + "/" + id;
 
-                PPApplication.logE("TonesHandler.getPhoneProfilesSilentNotificationUri", "title="+title);
-                PPApplication.logE("TonesHandler.getPhoneProfilesSilentNotificationUri", "uriId="+uriId);
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("TonesHandler.getPhoneProfilesSilentNotificationUri", "title=" + title);
+                    PPApplication.logE("TonesHandler.getPhoneProfilesSilentNotificationUri", "uriId=" + uriId);
+                }
 
                 if (title.equals(TONE_NAME) || title.equals("phoneprofiles_silent"))
                     return uriId;
@@ -89,9 +91,11 @@ class TonesHandler {
     }
 
     static boolean isPhoneProfilesSilent(Uri uri, Context appContext) {
-        PPApplication.logE("TonesHandler.isPhoneProfilesSilent", "xxx");
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("TonesHandler.isPhoneProfilesSilent", "xxx");
+            PPApplication.logE("TonesHandler.isPhoneProfilesSilent", "uri=" + uri);
+        }
         String displayName = "";
-        PPApplication.logE("TonesHandler.isPhoneProfilesSilent", "uri="+uri);
         try {
             Cursor cursor = appContext.getContentResolver().query(uri, null, null, null, null);
             if (cursor != null) {

@@ -90,13 +90,15 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                     WifiScanWorker.fillScanResults(appContext);
 
                                 List<WifiSSIDData> scanResults = WifiScanWorker.getScanResults(appContext);
-                                if (scanResults != null) {
-                                    PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanResults.size=" + scanResults.size());
-                                    for (WifiSSIDData result : scanResults) {
-                                        PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "result.SSID=" + result.ssid);
-                                    }
-                                } else
-                                    PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanResults=null");
+                                if (PPApplication.logEnabled()) {
+                                    if (scanResults != null) {
+                                        PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanResults.size=" + scanResults.size());
+                                        for (WifiSSIDData result : scanResults) {
+                                            PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "result.SSID=" + result.ssid);
+                                        }
+                                    } else
+                                        PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanResults=null");
+                                }
 
                                 if (scanStarted) {
                                     WifiScanWorker.setWaitForResults(appContext, false);

@@ -665,9 +665,11 @@ class EventPreferencesCall extends EventPreferences {
                 int callEventType = ApplicationPreferences.preferences.getInt(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TYPE, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
                 long callTime = ApplicationPreferences.preferences.getLong(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TIME, 0);
                 String phoneNumber = ApplicationPreferences.preferences.getString(EventPreferencesCall.PREF_EVENT_CALL_PHONE_NUMBER, "");
-                PPApplication.logE("EventPreferencesCall.saveStartTime", "callEventType=" + callEventType);
-                PPApplication.logE("EventPreferencesCall.saveStartTime", "callTime=" + callTime);
-                PPApplication.logE("EventPreferencesCall.saveStartTime", "phoneNumber=" + phoneNumber);
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("EventPreferencesCall.saveStartTime", "callEventType=" + callEventType);
+                    PPApplication.logE("EventPreferencesCall.saveStartTime", "callTime=" + callTime);
+                    PPApplication.logE("EventPreferencesCall.saveStartTime", "phoneNumber=" + phoneNumber);
+                }
 
                 if (((_callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) && (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_MISSED_CALL)) ||
                     ((_callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED) && (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_ENDED)) ||

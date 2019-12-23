@@ -1063,10 +1063,12 @@ public class DataWrapper {
                 Event event = it.next();
                 if (event != null) {
                     int status = event.getStatusFromDB(context);
-                    PPApplication.logE("DataWrapper.pauseAllEvents", "event._name=" + event._name);
-                    PPApplication.logE("DataWrapper.pauseAllEvents", "status=" + status);
-                    PPApplication.logE("DataWrapper.pauseAllEvents", "event._forceRun=" + event._forceRun);
-                    PPApplication.logE("DataWrapper.pauseAllEvents", "event._noPauseByManualActivation=" + event._noPauseByManualActivation);
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("DataWrapper.pauseAllEvents", "event._name=" + event._name);
+                        PPApplication.logE("DataWrapper.pauseAllEvents", "status=" + status);
+                        PPApplication.logE("DataWrapper.pauseAllEvents", "event._forceRun=" + event._forceRun);
+                        PPApplication.logE("DataWrapper.pauseAllEvents", "event._noPauseByManualActivation=" + event._noPauseByManualActivation);
+                    }
 
                     if (status == Event.ESTATUS_RUNNING) {
                         if (!(event._forceRun && event._noPauseByManualActivation)) {
@@ -1575,8 +1577,10 @@ public class DataWrapper {
         else
             PPApplication.logE("$$$ DataWrapper._activateProfile","profile=null");
 
-        PPApplication.logE("$$$ DataWrapper._activateProfile","startupSource="+startupSource);
-        PPApplication.logE("$$$ DataWrapper._activateProfile","merged="+merged);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("$$$ DataWrapper._activateProfile", "startupSource=" + startupSource);
+            PPApplication.logE("$$$ DataWrapper._activateProfile", "merged=" + merged);
+        }
 
 //        if (PPApplication.logEnabled()) {
 //            if (PhoneProfilesService.getInstance() != null) {
@@ -1620,8 +1624,10 @@ public class DataWrapper {
         {
             profileIcon = mappedProfile._icon;
 
-            PPApplication.logE("$$$ DataWrapper._activateProfile","duration="+mappedProfile._duration);
-            PPApplication.logE("$$$ DataWrapper._activateProfile","afterDurationDo="+mappedProfile._afterDurationDo);
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("$$$ DataWrapper._activateProfile", "duration=" + mappedProfile._duration);
+                PPApplication.logE("$$$ DataWrapper._activateProfile", "afterDurationDo=" + mappedProfile._afterDurationDo);
+            }
             if ((mappedProfile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING) &&
                 (mappedProfile._duration > 0)) {
                 profileDuration = mappedProfile._duration;
@@ -1645,9 +1651,11 @@ public class DataWrapper {
                 // save before activated profile
                 if (activatedProfile != null) {
                     long profileId = activatedProfile._id;
-                    PPApplication.logE("$$$ DataWrapper._activateProfile", "setActivatedProfileForDuration profileId=" + profileId);
-                    PPApplication.logE("$$$ DataWrapper._activateProfile", "setActivatedProfileForDuration duration=" + profileDuration);
-                    PPApplication.logE("$$$ DataWrapper._activateProfile", "setActivatedProfileForDuration forRestartEvents=" + forRestartEvents);
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("$$$ DataWrapper._activateProfile", "setActivatedProfileForDuration profileId=" + profileId);
+                        PPApplication.logE("$$$ DataWrapper._activateProfile", "setActivatedProfileForDuration duration=" + profileDuration);
+                        PPApplication.logE("$$$ DataWrapper._activateProfile", "setActivatedProfileForDuration forRestartEvents=" + forRestartEvents);
+                    }
                     Profile.setActivatedProfileForDuration(context, profileId);
                 }
                 else
@@ -2108,18 +2116,22 @@ public class DataWrapper {
         boolean radioSwitchPassed = true;
         boolean alarmClockPassed = true;
 
-        PPApplication.logE("%%%%%%% DataWrapper.doHandleEvents","--- start --------------------------");
-        PPApplication.logE("%%%%%%% DataWrapper.doHandleEvents","------- event._id="+event._id);
-        PPApplication.logE("%%%%%%% DataWrapper.doHandleEvents","------- event._name="+event._name);
-        PPApplication.logE("%%%%%%% DataWrapper.doHandleEvents","------- sensorType="+sensorType);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("%%%%%%% DataWrapper.doHandleEvents", "--- start --------------------------");
+            PPApplication.logE("%%%%%%% DataWrapper.doHandleEvents", "------- event._id=" + event._id);
+            PPApplication.logE("%%%%%%% DataWrapper.doHandleEvents", "------- event._name=" + event._name);
+            PPApplication.logE("%%%%%%% DataWrapper.doHandleEvents", "------- sensorType=" + sensorType);
+        }
 
         if (event._eventPreferencesTime._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                     && Permissions.checkEventLocation(context, event, null)) {
                 boolean testEvent = (event._name != null) && event._name.equals("Plugged In Nighttime");
                 if (testEvent) {
-                    PPApplication.logE("[TIME] DataWrapper.doHandleEvents", "------- event._id=" + event._id);
-                    PPApplication.logE("[TIME] DataWrapper.doHandleEvents", "------- event._name=" + event._name);
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("[TIME] DataWrapper.doHandleEvents", "------- event._id=" + event._id);
+                        PPApplication.logE("[TIME] DataWrapper.doHandleEvents", "------- event._name=" + event._name);
+                    }
                 }
 
                 // compute start datetime
@@ -2227,8 +2239,10 @@ public class DataWrapper {
 
                     int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
                     int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-                    PPApplication.logE("[BAT] DataWrapper.doHandleEvents", "level=" + level);
-                    PPApplication.logE("[BAT] DataWrapper.doHandleEvents", "scale=" + scale);
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("[BAT] DataWrapper.doHandleEvents", "level=" + level);
+                        PPApplication.logE("[BAT] DataWrapper.doHandleEvents", "scale=" + scale);
+                    }
 
                     batteryPct = Math.round(level / (float) scale * 100);
                     PPApplication.logE("[BAT] DataWrapper.doHandleEvents", "batteryPct=" + batteryPct);
@@ -2279,8 +2293,10 @@ public class DataWrapper {
                 } else
                     notAllowedBattery = true;
 
-                PPApplication.logE("[BAT] DataWrapper.doHandleEvents", "notAllowedBattery=" + notAllowedBattery);
-                PPApplication.logE("[BAT] DataWrapper.doHandleEvents", "batteryPassed=" + batteryPassed);
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("[BAT] DataWrapper.doHandleEvents", "notAllowedBattery=" + notAllowedBattery);
+                    PPApplication.logE("[BAT] DataWrapper.doHandleEvents", "batteryPassed=" + batteryPassed);
+                }
 
                 if (!notAllowedBattery) {
                     if (batteryPassed)
@@ -2302,8 +2318,10 @@ public class DataWrapper {
                 int callEventType = ApplicationPreferences.preferences.getInt(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TYPE, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
                 String phoneNumber = ApplicationPreferences.preferences.getString(EventPreferencesCall.PREF_EVENT_CALL_PHONE_NUMBER, "");
 
-                PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "callEventType=" + callEventType);
-                PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "phoneNumber=" + phoneNumber);
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "callEventType=" + callEventType);
+                    PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "phoneNumber=" + phoneNumber);
+                }
 
                 boolean phoneNumberFound = false;
 
@@ -2645,10 +2663,11 @@ public class DataWrapper {
                     }
 
                     if (wifiConnected) {
-                        PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifi connected");
-
-                        PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiSSID=" + WifiScanWorker.getSSID(wifiManager, wifiInfo, wifiConfigurationList));
-                        PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiBSSID=" + wifiInfo.getBSSID());
+                        if (PPApplication.logEnabled()) {
+                            PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifi connected");
+                            PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiSSID=" + WifiScanWorker.getSSID(wifiManager, wifiInfo, wifiConfigurationList));
+                            PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiBSSID=" + wifiInfo.getBSSID());
+                        }
 
                         //PPApplication.logE("----- DataWrapper.doHandleEvents","SSID="+event._eventPreferencesWifi._SSID);
 
@@ -2748,13 +2767,17 @@ public class DataWrapper {
                                 //PPApplication.logE("----- DataWrapper.doHandleEvents","scanResults="+scanResults);
 
                                 if (scanResults != null) {
-                                    PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "scanResults != null");
-                                    PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "scanResults.size=" + scanResults.size());
-                                    //PPApplication.logE("----- DataWrapper.doHandleEvents","-- eventSSID="+event._eventPreferencesWifi._SSID);
+                                    if (PPApplication.logEnabled()) {
+                                        PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "scanResults != null");
+                                        PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "scanResults.size=" + scanResults.size());
+                                        //PPApplication.logE("----- DataWrapper.doHandleEvents","-- eventSSID="+event._eventPreferencesWifi._SSID);
+                                    }
 
                                     for (WifiSSIDData result : scanResults) {
-                                        PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "scanSSID=" + result.ssid);
-                                        PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "scanBSSID=" + result.bssid);
+                                        if (PPApplication.logEnabled()) {
+                                            PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "scanSSID=" + result.ssid);
+                                            PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "scanBSSID=" + result.bssid);
+                                        }
                                         String[] splits = event._eventPreferencesWifi._SSID.split("\\|");
                                         boolean[] nearby = new boolean[splits.length];
                                         int i = 0;
@@ -2769,8 +2792,10 @@ public class DataWrapper {
                                                     PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "configured ssids");
                                                     for (WifiSSIDData data : wifiConfigurationList) {
                                                         if (WifiScanWorker.compareSSID(result, data.ssid.replace("\"", ""), wifiConfigurationList)) {
-                                                            PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "configured SSID=" + data.ssid.replace("\"", ""));
-                                                            PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifi found");
+                                                            if (PPApplication.logEnabled()) {
+                                                                PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "configured SSID=" + data.ssid.replace("\"", ""));
+                                                                PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifi found");
+                                                            }
                                                             nearby[i] = true;
                                                             break;
                                                         }
@@ -2778,8 +2803,10 @@ public class DataWrapper {
                                                     break;
                                                 default:
                                                     if (WifiScanWorker.compareSSID(result, _ssid, wifiConfigurationList)) {
-                                                        PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "event SSID=" + event._eventPreferencesWifi._SSID);
-                                                        PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifi found");
+                                                        if (PPApplication.logEnabled()) {
+                                                            PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "event SSID=" + event._eventPreferencesWifi._SSID);
+                                                            PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifi found");
+                                                        }
                                                         nearby[i] = true;
                                                     }
                                                     break;
@@ -2858,8 +2885,10 @@ public class DataWrapper {
                     KeyguardManager kgMgr = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
                     keyguardShowing = kgMgr.isKeyguardLocked();
                 }
-                PPApplication.logE("[Screen] DataWrapper.doHandleEvents", "PPApplication.isScreenOn="+PPApplication.isScreenOn);
-                PPApplication.logE("[Screen] DataWrapper.doHandleEvents", "keyguardShowing="+keyguardShowing);
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("[Screen] DataWrapper.doHandleEvents", "PPApplication.isScreenOn=" + PPApplication.isScreenOn);
+                    PPApplication.logE("[Screen] DataWrapper.doHandleEvents", "keyguardShowing=" + keyguardShowing);
+                }
 
                 if (event._eventPreferencesScreen._eventType == EventPreferencesScreen.ETYPE_SCREENON) {
                     // event type = screen is on
@@ -2922,10 +2951,10 @@ public class DataWrapper {
                     boolean isBluetoothEnabled = bluetooth.isEnabled();
 
                     if (isBluetoothEnabled) {
-                        PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "bluetoothEnabled=true");
-
-                        PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "-- eventAdapterName=" + event._eventPreferencesBluetooth._adapterName);
-
+                        if (PPApplication.logEnabled()) {
+                            PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "bluetoothEnabled=true");
+                            PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "-- eventAdapterName=" + event._eventPreferencesBluetooth._adapterName);
+                        }
 
                         //List<BluetoothDeviceData> connectedDevices = BluetoothConnectedDevices.getConnectedDevices(context);
                         BluetoothConnectionBroadcastReceiver.getConnectedDevices(context);
@@ -2948,8 +2977,10 @@ public class DataWrapper {
                                         break;
                                     case EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE:
                                         for (BluetoothDeviceData data : boundedDevicesList) {
-                                            PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "boundedDevice.name=" + data.getName());
-                                            PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "boundedDevice.address=" + data.getAddress());
+                                            if (PPApplication.logEnabled()) {
+                                                PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "boundedDevice.name=" + data.getName());
+                                                PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "boundedDevice.address=" + data.getAddress());
+                                            }
                                             connected[i] = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(data, "");
                                             if (connected[i])
                                                 break;
@@ -3038,8 +3069,10 @@ public class DataWrapper {
                                     PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "scanResults.size="+scanResults.size());
 
                                     for (BluetoothDeviceData device : scanResults) {
-                                        PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "device.getName="+device.getName());
-                                        PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "device.getAddress="+device.getAddress());
+                                        if (PPApplication.logEnabled()) {
+                                            PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "device.getName=" + device.getName());
+                                            PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "device.getAddress=" + device.getAddress());
+                                        }
                                         String[] splits = event._eventPreferencesBluetooth._adapterName.split("\\|");
                                         boolean[] nearby = new boolean[splits.length];
                                         int i = 0;
@@ -3297,8 +3330,10 @@ public class DataWrapper {
                             if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted() &&
                                     PhoneProfilesService.getInstance().getGeofencesScanner().mTransitionsUpdated) {
 
-                                PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "--------");
-                                PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "_eventPreferencesLocation._geofences=" + event._eventPreferencesLocation._geofences);
+                                if (PPApplication.logEnabled()) {
+                                    PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "--------");
+                                    PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "_eventPreferencesLocation._geofences=" + event._eventPreferencesLocation._geofences);
+                                }
 
                                 String[] splits = event._eventPreferencesLocation._geofences.split("\\|");
                                 boolean[] passed = new boolean[splits.length];
@@ -3932,48 +3967,50 @@ public class DataWrapper {
         else
             someNotAllowed = true;
 
-        PPApplication.logE("DataWrapper.doHandleEvents","timePassed="+timePassed);
-        PPApplication.logE("DataWrapper.doHandleEvents","batteryPassed="+batteryPassed);
-        PPApplication.logE("DataWrapper.doHandleEvents","callPassed="+callPassed);
-        PPApplication.logE("DataWrapper.doHandleEvents","peripheralPassed="+peripheralPassed);
-        PPApplication.logE("DataWrapper.doHandleEvents","calendarPassed="+calendarPassed);
-        PPApplication.logE("DataWrapper.doHandleEvents","wifiPassed="+wifiPassed);
-        PPApplication.logE("DataWrapper.doHandleEvents","screenPassed="+screenPassed);
-        PPApplication.logE("DataWrapper.doHandleEvents","bluetoothPassed="+bluetoothPassed);
-        PPApplication.logE("DataWrapper.doHandleEvents","smsPassed="+smsPassed);
-        PPApplication.logE("DataWrapper.doHandleEvents","notificationPassed="+notificationPassed);
-        PPApplication.logE("DataWrapper.doHandleEvents","applicationPassed="+applicationPassed);
-        PPApplication.logE("DataWrapper.doHandleEvents","locationPassed="+locationPassed);
-        PPApplication.logE("DataWrapper.doHandleEvents","orientationPassed="+orientationPassed);
-        PPApplication.logE("DataWrapper.doHandleEvents","mobileCellPassed="+mobileCellPassed);
-        PPApplication.logE("DataWrapper.doHandleEvents","nfcPassed="+nfcPassed);
-        PPApplication.logE("DataWrapper.doHandleEvents","radioSwitchPassed="+radioSwitchPassed);
-        PPApplication.logE("DataWrapper.doHandleEvents","alarmClockPassed="+alarmClockPassed);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("DataWrapper.doHandleEvents", "timePassed=" + timePassed);
+            PPApplication.logE("DataWrapper.doHandleEvents", "batteryPassed=" + batteryPassed);
+            PPApplication.logE("DataWrapper.doHandleEvents", "callPassed=" + callPassed);
+            PPApplication.logE("DataWrapper.doHandleEvents", "peripheralPassed=" + peripheralPassed);
+            PPApplication.logE("DataWrapper.doHandleEvents", "calendarPassed=" + calendarPassed);
+            PPApplication.logE("DataWrapper.doHandleEvents", "wifiPassed=" + wifiPassed);
+            PPApplication.logE("DataWrapper.doHandleEvents", "screenPassed=" + screenPassed);
+            PPApplication.logE("DataWrapper.doHandleEvents", "bluetoothPassed=" + bluetoothPassed);
+            PPApplication.logE("DataWrapper.doHandleEvents", "smsPassed=" + smsPassed);
+            PPApplication.logE("DataWrapper.doHandleEvents", "notificationPassed=" + notificationPassed);
+            PPApplication.logE("DataWrapper.doHandleEvents", "applicationPassed=" + applicationPassed);
+            PPApplication.logE("DataWrapper.doHandleEvents", "locationPassed=" + locationPassed);
+            PPApplication.logE("DataWrapper.doHandleEvents", "orientationPassed=" + orientationPassed);
+            PPApplication.logE("DataWrapper.doHandleEvents", "mobileCellPassed=" + mobileCellPassed);
+            PPApplication.logE("DataWrapper.doHandleEvents", "nfcPassed=" + nfcPassed);
+            PPApplication.logE("DataWrapper.doHandleEvents", "radioSwitchPassed=" + radioSwitchPassed);
+            PPApplication.logE("DataWrapper.doHandleEvents", "alarmClockPassed=" + alarmClockPassed);
 
-        PPApplication.logE("DataWrapper.doHandleEvents","notAllowedTime="+notAllowedTime);
-        PPApplication.logE("DataWrapper.doHandleEvents","notAllowedBattery="+notAllowedBattery);
-        PPApplication.logE("DataWrapper.doHandleEvents","notAllowedCall="+notAllowedCall);
-        PPApplication.logE("DataWrapper.doHandleEvents","notAllowedPeripheral="+notAllowedPeripheral);
-        PPApplication.logE("DataWrapper.doHandleEvents","notAllowedCalendar="+notAllowedCalendar);
-        PPApplication.logE("DataWrapper.doHandleEvents","notAllowedWifi="+notAllowedWifi);
-        PPApplication.logE("DataWrapper.doHandleEvents","notAllowedScreen="+notAllowedScreen);
-        PPApplication.logE("DataWrapper.doHandleEvents","notAllowedBluetooth="+notAllowedBluetooth);
-        PPApplication.logE("DataWrapper.doHandleEvents","notAllowedSms="+notAllowedSms);
-        PPApplication.logE("DataWrapper.doHandleEvents","notAllowedNotification="+notAllowedNotification);
-        PPApplication.logE("DataWrapper.doHandleEvents","notAllowedApplication="+notAllowedApplication);
-        PPApplication.logE("DataWrapper.doHandleEvents","notAllowedLocation="+notAllowedLocation);
-        PPApplication.logE("DataWrapper.doHandleEvents","notAllowedOrientation="+notAllowedOrientation);
-        PPApplication.logE("DataWrapper.doHandleEvents","notAllowedMobileCell="+notAllowedMobileCell);
-        PPApplication.logE("DataWrapper.doHandleEvents","notAllowedNfc="+notAllowedNfc);
-        PPApplication.logE("DataWrapper.doHandleEvents","notAllowedRadioSwitch="+notAllowedRadioSwitch);
-        PPApplication.logE("DataWrapper.doHandleEvents","notAllowedAlarmClock="+notAllowedAlarmClock);
+            PPApplication.logE("DataWrapper.doHandleEvents", "notAllowedTime=" + notAllowedTime);
+            PPApplication.logE("DataWrapper.doHandleEvents", "notAllowedBattery=" + notAllowedBattery);
+            PPApplication.logE("DataWrapper.doHandleEvents", "notAllowedCall=" + notAllowedCall);
+            PPApplication.logE("DataWrapper.doHandleEvents", "notAllowedPeripheral=" + notAllowedPeripheral);
+            PPApplication.logE("DataWrapper.doHandleEvents", "notAllowedCalendar=" + notAllowedCalendar);
+            PPApplication.logE("DataWrapper.doHandleEvents", "notAllowedWifi=" + notAllowedWifi);
+            PPApplication.logE("DataWrapper.doHandleEvents", "notAllowedScreen=" + notAllowedScreen);
+            PPApplication.logE("DataWrapper.doHandleEvents", "notAllowedBluetooth=" + notAllowedBluetooth);
+            PPApplication.logE("DataWrapper.doHandleEvents", "notAllowedSms=" + notAllowedSms);
+            PPApplication.logE("DataWrapper.doHandleEvents", "notAllowedNotification=" + notAllowedNotification);
+            PPApplication.logE("DataWrapper.doHandleEvents", "notAllowedApplication=" + notAllowedApplication);
+            PPApplication.logE("DataWrapper.doHandleEvents", "notAllowedLocation=" + notAllowedLocation);
+            PPApplication.logE("DataWrapper.doHandleEvents", "notAllowedOrientation=" + notAllowedOrientation);
+            PPApplication.logE("DataWrapper.doHandleEvents", "notAllowedMobileCell=" + notAllowedMobileCell);
+            PPApplication.logE("DataWrapper.doHandleEvents", "notAllowedNfc=" + notAllowedNfc);
+            PPApplication.logE("DataWrapper.doHandleEvents", "notAllowedRadioSwitch=" + notAllowedRadioSwitch);
+            PPApplication.logE("DataWrapper.doHandleEvents", "notAllowedAlarmClock=" + notAllowedAlarmClock);
 
-        PPApplication.logE("DataWrapper.doHandleEvents","allPassed="+allPassed);
-        PPApplication.logE("DataWrapper.doHandleEvents","someNotAllowed="+someNotAllowed);
+            PPApplication.logE("DataWrapper.doHandleEvents", "allPassed=" + allPassed);
+            PPApplication.logE("DataWrapper.doHandleEvents", "someNotAllowed=" + someNotAllowed);
 
-        //PPApplication.logE("DataWrapper.doHandleEvents","eventStart="+eventStart);
-        PPApplication.logE("DataWrapper.doHandleEvents","forRestartEvents="+forRestartEvents);
-        PPApplication.logE("DataWrapper.doHandleEvents","statePause="+statePause);
+            //PPApplication.logE("DataWrapper.doHandleEvents","eventStart="+eventStart);
+            PPApplication.logE("DataWrapper.doHandleEvents", "forRestartEvents=" + forRestartEvents);
+            PPApplication.logE("DataWrapper.doHandleEvents", "statePause=" + statePause);
+        }
 
         if (!someNotAllowed) {
             // some sensor is not allowed, do not change event status
@@ -3989,8 +4026,10 @@ public class DataWrapper {
             } else
                 newEventStatus = Event.ESTATUS_PAUSE;
 
-            PPApplication.logE("[***] DataWrapper.doHandleEvents", "event.getStatus()=" + event.getStatus());
-            PPApplication.logE("[***] DataWrapper.doHandleEvents", "newEventStatus=" + newEventStatus);
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("[***] DataWrapper.doHandleEvents", "event.getStatus()=" + event.getStatus());
+                PPApplication.logE("[***] DataWrapper.doHandleEvents", "newEventStatus=" + newEventStatus);
+            }
 
             //PPApplication.logE("@@@ DataWrapper.doHandleEvents","restartEvent="+restartEvent);
 
@@ -3998,8 +4037,10 @@ public class DataWrapper {
                 PPApplication.logE("[***] DataWrapper.doHandleEvents", " do new event status");
 
                 if ((newEventStatus == Event.ESTATUS_RUNNING) && (!statePause)) {
-                    PPApplication.logE("[***] DataWrapper.doHandleEvents", "start event");
-                    PPApplication.logE("[***] DataWrapper.doHandleEvents", "event._name=" + event._name);
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("[***] DataWrapper.doHandleEvents", "start event");
+                        PPApplication.logE("[***] DataWrapper.doHandleEvents", "event._name=" + event._name);
+                    }
 
                     if (event._isInDelayEnd)
                         event.removeDelayEndAlarm(this);
@@ -4026,8 +4067,10 @@ public class DataWrapper {
                                 PPApplication.logE("[***] DataWrapper.doHandleEvents", "mergedProfile._id=" + mergedProfile._id);
                             }
                         }
-                        PPApplication.logE("[DSTART] DataWrapper.doHandleEvents", "forDelayStartAlarm=" + forDelayStartAlarm);
-                        PPApplication.logE("[DSTART] DataWrapper.doHandleEvents", "event._isInDelayStart=" + event._isInDelayStart);
+                        if (PPApplication.logEnabled()) {
+                            PPApplication.logE("[DSTART] DataWrapper.doHandleEvents", "forDelayStartAlarm=" + forDelayStartAlarm);
+                            PPApplication.logE("[DSTART] DataWrapper.doHandleEvents", "event._isInDelayStart=" + event._isInDelayStart);
+                        }
                         if (forDelayStartAlarm && event._isInDelayStart) {
                             // called for delay alarm
                             // start event
@@ -4038,8 +4081,10 @@ public class DataWrapper {
                 } else if (((newEventStatus == Event.ESTATUS_PAUSE) || forRestartEvents) && statePause) {
                     // when pausing and it is for restart events, force pause
 
-                    PPApplication.logE("[***] DataWrapper.doHandleEvents", "pause event");
-                    PPApplication.logE("[***] DataWrapper.doHandleEvents", "event._name=" + event._name);
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("[***] DataWrapper.doHandleEvents", "pause event");
+                        PPApplication.logE("[***] DataWrapper.doHandleEvents", "event._name=" + event._name);
+                    }
 
                     if (event._isInDelayStart) {
                         PPApplication.logE("[***] DataWrapper.doHandleEvents", "isInDelayStart");
@@ -4461,8 +4506,10 @@ public class DataWrapper {
     // 2. no any forceRun event is running
     static boolean getIsManualProfileActivation(boolean afterDuration, Context context)
     {
-        PPApplication.logE("DataWrapper.getIsManualProfileActivation","getEventsBlocked()="+Event.getEventsBlocked(context));
-        PPApplication.logE("DataWrapper.getIsManualProfileActivation","getForceRunEventRunning()="+Event.getForceRunEventRunning(context));
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("DataWrapper.getIsManualProfileActivation", "getEventsBlocked()=" + Event.getEventsBlocked(context));
+            PPApplication.logE("DataWrapper.getIsManualProfileActivation", "getForceRunEventRunning()=" + Event.getForceRunEventRunning(context));
+        }
         if (afterDuration)
             return Event.getEventsBlocked(context);
         else {
@@ -4795,8 +4842,10 @@ public class DataWrapper {
 
             int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
             int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-            PPApplication.logE("DataWrapper.isPowerSaveMode", "level=" + level);
-            PPApplication.logE("DataWrapper.isPowerSaveMode", "scale=" + scale);
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("DataWrapper.isPowerSaveMode", "level=" + level);
+                PPApplication.logE("DataWrapper.isPowerSaveMode", "scale=" + scale);
+            }
 
             batteryPct = Math.round(level / (float) scale * 100);
             PPApplication.logE("DataWrapper.isPowerSaveMode", "batteryPct=" + batteryPct);

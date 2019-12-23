@@ -29,8 +29,10 @@ final class WifiApManager {
         mWifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if (mWifiManager != null)
             wifiApEnabled = mWifiManager.getClass().getDeclaredMethod("isWifiApEnabled");
-        PPApplication.logE("$$$ WifiAP", "WifiApManager.WifiApManager-mWifiManager=" + mWifiManager);
-        PPApplication.logE("$$$ WifiAP", "WifiApManager.WifiApManager-wifiApEnabled=" + wifiApEnabled);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("$$$ WifiAP", "WifiApManager.WifiApManager-mWifiManager=" + mWifiManager);
+            PPApplication.logE("$$$ WifiAP", "WifiApManager.WifiApManager-wifiApEnabled=" + wifiApEnabled);
+        }
         if (Build.VERSION.SDK_INT >= 26) {
             mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             packageName = context.getPackageName();
@@ -41,17 +43,21 @@ final class WifiApManager {
                 wifiApConfigurationMethod = mWifiManager.getClass().getMethod("getWifiApConfiguration"/*,null*/);
                 //wifiApState = mWifiManager.getClass().getMethod("getWifiApState");
             }
-            PPApplication.logE("$$$ WifiAP", "WifiApManager.WifiApManager-wifiControlMethod=" + wifiControlMethod);
-            PPApplication.logE("$$$ WifiAP", "WifiApManager.WifiApManager-wifiApConfigurationMethod=" + wifiApConfigurationMethod);
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("$$$ WifiAP", "WifiApManager.WifiApManager-wifiControlMethod=" + wifiControlMethod);
+                PPApplication.logE("$$$ WifiAP", "WifiApManager.WifiApManager-wifiApConfigurationMethod=" + wifiApConfigurationMethod);
+            }
         }
     }
 
     private void setWifiApState(WifiConfiguration config, boolean enabled) {
         try {
-            PPApplication.logE("$$$ WifiAP", "WifiApManager.setWifiApState-config="+config);
-            PPApplication.logE("$$$ WifiAP", "WifiApManager.setWifiApState-enabled="+enabled);
-            PPApplication.logE("$$$ WifiAP", "WifiApManager.setWifiApState-mWifiManager="+mWifiManager);
-            PPApplication.logE("$$$ WifiAP", "WifiApManager.setWifiApState-wifiControlMethod="+wifiControlMethod);
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("$$$ WifiAP", "WifiApManager.setWifiApState-config=" + config);
+                PPApplication.logE("$$$ WifiAP", "WifiApManager.setWifiApState-enabled=" + enabled);
+                PPApplication.logE("$$$ WifiAP", "WifiApManager.setWifiApState-mWifiManager=" + mWifiManager);
+                PPApplication.logE("$$$ WifiAP", "WifiApManager.setWifiApState-wifiControlMethod=" + wifiControlMethod);
+            }
             if (enabled) {
                 if (mWifiManager != null) {
                     int wifiState = mWifiManager.getWifiState();

@@ -2182,8 +2182,10 @@ public class Profile {
             _settingsValue = Math.round(settingsValue / 16f); // convert from 4096 to 256
         int percentage = BrightnessLookup.lookup(_settingsValue, true);
 
-        PPApplication.logE("Profile.getBrightnessPercentage_A9", "settingsValue="+settingsValue);
-        PPApplication.logE("Profile.getBrightnessPercentage_A9", "percentage="+percentage);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("Profile.getBrightnessPercentage_A9", "settingsValue=" + settingsValue);
+            PPApplication.logE("Profile.getBrightnessPercentage_A9", "percentage=" + percentage);
+        }
 
         return percentage;
     }
@@ -2212,8 +2214,10 @@ public class Profile {
         if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
             systemValue = systemValue * 16; // convert from 256 to 4096
 
-        PPApplication.logE("Profile.getBrightnessValue_A9", "percentage="+percentage);
-        PPApplication.logE("Profile.getBrightnessValue_A9", "systemValue="+systemValue);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("Profile.getBrightnessValue_A9", "percentage=" + percentage);
+            PPApplication.logE("Profile.getBrightnessValue_A9", "systemValue=" + systemValue);
+        }
 
         return Math.round(systemValue);
     }
@@ -3414,8 +3418,10 @@ public class Profile {
             }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            PPApplication.logE("$$$ WifiAP", "Profile.isProfilePreferenceAllowed-preferenceAllowed.allowed="+preferenceAllowed.allowed);
-            PPApplication.logE("$$$ WifiAP", "Profile.isProfilePreferenceAllowed-preferenceAllowed.notAllowedReason="+preferenceAllowed.notAllowedReason);
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("$$$ WifiAP", "Profile.isProfilePreferenceAllowed-preferenceAllowed.allowed=" + preferenceAllowed.allowed);
+                PPApplication.logE("$$$ WifiAP", "Profile.isProfilePreferenceAllowed-preferenceAllowed.notAllowedReason=" + preferenceAllowed.notAllowedReason);
+            }
             checked = true;
         }
         if (checked && (profile == null))

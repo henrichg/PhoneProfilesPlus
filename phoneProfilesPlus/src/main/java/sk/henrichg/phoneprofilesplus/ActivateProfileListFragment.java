@@ -579,8 +579,10 @@ public class ActivateProfileListFragment extends Fragment {
 
         if (!refresh) {
             String pNameHeader = PPApplication.getActivityProfileName(activityDataWrapper.context, 1);
-            PPApplication.logE("ActivateProfileListFragment.refreshGUI", "pNameHeader="+pNameHeader);
-            PPApplication.logE("ActivateProfileListFragment.refreshGUI", "pName="+pName);
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("ActivateProfileListFragment.refreshGUI", "pNameHeader=" + pNameHeader);
+                PPApplication.logE("ActivateProfileListFragment.refreshGUI", "pName=" + pName);
+            }
 
             if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
                 PPApplication.logE("ActivateProfileListFragment.refreshGUI", "activated profile NOT changed");

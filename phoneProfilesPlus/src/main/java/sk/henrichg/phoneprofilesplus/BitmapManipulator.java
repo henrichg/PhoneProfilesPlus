@@ -348,8 +348,10 @@ class BitmapManipulator {
         PPApplication.logE("BitmapManipulator.getBitmapFromDrawable", "is NOT BitmapDrawable");
 
         try {
-            PPApplication.logE("BitmapManipulator.getBitmapFromDrawable", "drawable width="+drawable.getIntrinsicWidth());
-            PPApplication.logE("BitmapManipulator.getBitmapFromDrawable", "drawable height="+drawable.getIntrinsicHeight());
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("BitmapManipulator.getBitmapFromDrawable", "drawable width=" + drawable.getIntrinsicWidth());
+                PPApplication.logE("BitmapManipulator.getBitmapFromDrawable", "drawable height=" + drawable.getIntrinsicHeight());
+            }
             int height;
             int width;
             if (appIconSize) {
@@ -360,9 +362,11 @@ class BitmapManipulator {
                 height = drawable.getIntrinsicHeight();
                 width = drawable.getIntrinsicWidth();
             }
-            PPApplication.logE("BitmapManipulator.getBitmapFromDrawable", "width="+width);
-            PPApplication.logE("BitmapManipulator.getBitmapFromDrawable", "height="+height);
-            PPApplication.logE("BitmapManipulator.getBitmapFromDrawable", "50dp="+GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP));
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("BitmapManipulator.getBitmapFromDrawable", "width=" + width);
+                PPApplication.logE("BitmapManipulator.getBitmapFromDrawable", "height=" + height);
+                PPApplication.logE("BitmapManipulator.getBitmapFromDrawable", "50dp=" + GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP));
+            }
             Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
             drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());

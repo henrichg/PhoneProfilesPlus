@@ -820,8 +820,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     }
 
     void doOnActivityResult(int requestCode, int resultCode, Intent data) {
-        PPApplication.logE("ProfilesPrefsFragment.doOnActivityResult", "xxx");
-        PPApplication.logE("ProfilesPrefsFragment.doOnActivityResult", "requestCode=" + requestCode);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("ProfilesPrefsFragment.doOnActivityResult", "xxx");
+            PPApplication.logE("ProfilesPrefsFragment.doOnActivityResult", "requestCode=" + requestCode);
+        }
 
         if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_PROFILE) {
             setRedTextToPreferences();
@@ -2086,9 +2088,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
-        PPApplication.logE("ProfilesPrefsFragment.setCategorySummary", "key="+key);
-        PPApplication.logE("ProfilesPrefsFragment.setCategorySummary", "preferenceScreen="+preferenceScreen);
-        PPApplication.logE("ProfilesPrefsFragment.setCategorySummary", "_bold="+_bold);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("ProfilesPrefsFragment.setCategorySummary", "key=" + key);
+            PPApplication.logE("ProfilesPrefsFragment.setCategorySummary", "preferenceScreen=" + preferenceScreen);
+            PPApplication.logE("ProfilesPrefsFragment.setCategorySummary", "_bold=" + _bold);
+        }
         GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, _bold, false, false, false);
         if (_bold || forceSet)
             preferenceScreen.setSummary(GlobalGUIRoutines.fromHtml(summary, false, false, 0, 0));

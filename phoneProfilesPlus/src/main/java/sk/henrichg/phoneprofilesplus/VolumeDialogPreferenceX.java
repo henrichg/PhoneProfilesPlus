@@ -99,10 +99,12 @@ public class VolumeDialogPreferenceX extends DialogPreference {
             if (Build.VERSION.SDK_INT >= 26)
                 defaultValueAccessibility = audioManager.getStreamVolume(AudioManager.STREAM_ACCESSIBILITY);
             defaultValueBluetoothSCO = audioManager.getStreamVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO);
-            PPApplication.logE("VolumeDialogPreferenceX.VolumeDialogPreferenceX", "defaultValueRing="+defaultValueRing);
-            PPApplication.logE("VolumeDialogPreferenceX.VolumeDialogPreferenceX", "defaultValueDTMF="+defaultValueDTMF);
-            PPApplication.logE("VolumeDialogPreferenceX.VolumeDialogPreferenceX", "defaultValueNotification="+defaultValueNotification);
-            PPApplication.logE("VolumeDialogPreferenceX.VolumeDialogPreferenceX", "defaultValueAccessibility="+defaultValueAccessibility);
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("VolumeDialogPreferenceX.VolumeDialogPreferenceX", "defaultValueRing=" + defaultValueRing);
+                PPApplication.logE("VolumeDialogPreferenceX.VolumeDialogPreferenceX", "defaultValueDTMF=" + defaultValueDTMF);
+                PPApplication.logE("VolumeDialogPreferenceX.VolumeDialogPreferenceX", "defaultValueNotification=" + defaultValueNotification);
+                PPApplication.logE("VolumeDialogPreferenceX.VolumeDialogPreferenceX", "defaultValueAccessibility=" + defaultValueAccessibility);
+            }
         }
 
         typedArray.recycle();
@@ -176,9 +178,11 @@ public class VolumeDialogPreferenceX extends DialogPreference {
             value = 0;
         }
 
-        PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "value="+value);
-        PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "noChange="+noChange);
-        //PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "sharedProfile="+sharedProfile);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "value=" + value);
+            PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "noChange=" + noChange);
+            //PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "sharedProfile="+sharedProfile);
+        }
     }
 
     private void setSummaryVDP()

@@ -51,9 +51,11 @@ public class InfoDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
         if (importantInfoTagBeginIndex != -1) {
             String importantInfoTagDataString = _infoText.substring(importantInfoTagBeginIndex + beginTag.length(), importantInfoTagEndIndex);
 
-            PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView", "importantInfoTagBeginIndex=" + importantInfoTagBeginIndex);
-            PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView", "importantInfoTagEndIndex=" + importantInfoTagEndIndex);
-            PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView", "importantInfoTagDataString=" + importantInfoTagDataString);
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView", "importantInfoTagBeginIndex=" + importantInfoTagBeginIndex);
+                PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView", "importantInfoTagEndIndex=" + importantInfoTagEndIndex);
+                PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView", "importantInfoTagDataString=" + importantInfoTagDataString);
+            }
 
             beginTag = "<II" + tagIndex + " [" + importantInfoTagDataString + "]>";
             //PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView", "beginTag="+beginTag);
@@ -90,15 +92,19 @@ public class InfoDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
 
                 @Override
                 public void onClick(@NonNull View textView) {
-                    PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView.onClick", "_tagType=" + _tagType);
-                    PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView.onClick", "_importantInfoTagDataString=" + _importantInfoTagDataString);
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView.onClick", "_tagType=" + _tagType);
+                        PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView.onClick", "_importantInfoTagDataString=" + _importantInfoTagDataString);
+                    }
 
                     String[] splits = _importantInfoTagDataString.split(",");
                     int page = Integer.valueOf(splits[0]);
                     int resource = Integer.valueOf(splits[1]);
 
-                    PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView.onClick", "page=" + page);
-                    PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView.onClick", "resource=" + resource);
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView.onClick", "page=" + page);
+                        PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView.onClick", "resource=" + resource);
+                    }
 
                     if (_tagType.equals("II")) {
                         Intent intentLaunch = new Intent(context, ImportantInfoActivity.class);

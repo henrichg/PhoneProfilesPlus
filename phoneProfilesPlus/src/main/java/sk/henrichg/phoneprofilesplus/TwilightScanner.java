@@ -384,9 +384,11 @@ class TwilightScanner {
 
             int correction = -_twilight.compareTo(_now);
             if (log) {
-                PPApplication.logE("TwilightScanner.updateTwilightState", "_now=" + _now.getTime());
-                PPApplication.logE("TwilightScanner.updateTwilightState", "_twilight=" + _twilight.getTime());
-                PPApplication.logE("TwilightScanner.updateTwilightState", "correction=" + correction);
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("TwilightScanner.updateTwilightState", "_now=" + _now.getTime());
+                    PPApplication.logE("TwilightScanner.updateTwilightState", "_twilight=" + _twilight.getTime());
+                    PPApplication.logE("TwilightScanner.updateTwilightState", "correction=" + correction);
+                }
             }
 
             // calculate today twilight
@@ -487,12 +489,14 @@ class TwilightScanner {
                     long elapsedTime = nextUpdate - now.getTimeInMillis();
 
                     if (log) {
-                        long allSeconds = elapsedTime / 1000;
-                        long hours = allSeconds / 60 / 60;
-                        long minutes = (allSeconds - (hours * 60 * 60)) / 60;
-                        long seconds = allSeconds % 60;
+                        if (PPApplication.logEnabled()) {
+                            long allSeconds = elapsedTime / 1000;
+                            long hours = allSeconds / 60 / 60;
+                            long minutes = (allSeconds - (hours * 60 * 60)) / 60;
+                            long seconds = allSeconds % 60;
 
-                        PPApplication.logE("TwilightScanner.updateTwilightState", "elapsedTime=" + hours + ":" + minutes + ":" + seconds);
+                            PPApplication.logE("TwilightScanner.updateTwilightState", "elapsedTime=" + hours + ":" + minutes + ":" + seconds);
+                        }
                     }
 
                     Data workData = new Data.Builder()

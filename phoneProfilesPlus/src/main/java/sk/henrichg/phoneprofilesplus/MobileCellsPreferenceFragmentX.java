@@ -490,8 +490,10 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                     }
 
                     // add all from value
-                    PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "search cells from preference value");
-                    PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "_value="+_value);
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "search cells from preference value");
+                        PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "_value=" + _value);
+                    }
                     String[] splits = _value.split("\\|");
                     for (String cell : splits) {
                         if (cell.isEmpty())
@@ -520,11 +522,12 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                                 _registeredCellInValue = true;
                         }
                     }
-                    if (!_registeredCellInValue) {
-                        PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add cells from preference value - registered cell is NOT in value");
-                    }
-                    else {
-                        PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add cells from preference value - registered cell is in value");
+                    if (PPApplication.logEnabled()) {
+                        if (!_registeredCellInValue) {
+                            PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add cells from preference value - registered cell is NOT in value");
+                        } else {
+                            PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add cells from preference value - registered cell is in value");
+                        }
                     }
 
                     // save all from value + registeredCell to table

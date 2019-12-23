@@ -122,8 +122,10 @@ class WifiBluetoothScanner {
                             canScan = !WifiApManager.isWifiAPEnabled(context);
                         else
                             canScan = !CmdWifiAP.isEnabled();
-                        PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "canScan=" + canScan);
-                        PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "isWifiAPEnabled=" + !canScan);
+                        if (PPApplication.logEnabled()) {
+                            PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "canScan=" + canScan);
+                            PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "isWifiAPEnabled=" + !canScan);
+                        }
                     }
 
                     if (canScan) {
@@ -140,8 +142,10 @@ class WifiBluetoothScanner {
                             if (wifiEventsExists)
                                 scan = isLocationEnabled(context/*, scannerType*/);
                         }
-                        PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "wifiEventsExists=" + wifiEventsExists);
-                        PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "forceScan=" + forceScan);
+                        if (PPApplication.logEnabled()) {
+                            PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "wifiEventsExists=" + wifiEventsExists);
+                            PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "forceScan=" + forceScan);
+                        }
                         if (!scan) {
                             // wifi scan events not exists
                             PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "alarms removed");
@@ -316,9 +320,11 @@ class WifiBluetoothScanner {
                             leDevicesScan = DatabaseHandler.getInstance(context.getApplicationContext()).getBluetoothDevicesTypeCount(EventPreferencesBluetooth.DTYPE_LE, forceScanLE) > 0;
                         else
                             leDevicesScan = false;*/
-                        //noinspection ConstantConditions
-                        PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "classicDevicesScan="+classicDevicesScan);
-                        PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "leDevicesScan="+leDevicesScan);
+                        if (PPApplication.logEnabled()) {
+                            //noinspection ConstantConditions
+                            PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "classicDevicesScan=" + classicDevicesScan);
+                            PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "leDevicesScan=" + leDevicesScan);
+                        }
 
                         //unlock();
                         boolean scan = (bluetoothEventsExists ||
@@ -509,9 +515,11 @@ class WifiBluetoothScanner {
 
             //}
 
-            PPApplication.logE("$$$ WifiBluetoothScanner.doScan", "after synchronized block - scannerType=" + scannerType);
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("$$$ WifiBluetoothScanner.doScan", "after synchronized block - scannerType=" + scannerType);
 
-            PPApplication.logE("%%%% WifiBluetoothScanner.doScan", "-- END ------------");
+                PPApplication.logE("%%%% WifiBluetoothScanner.doScan", "-- END ------------");
+            }
         }
     }
 
@@ -620,18 +628,24 @@ class WifiBluetoothScanner {
                         wifiBluetoothChangeHandler.post(new Runnable() {
                             @Override
                             public void run() {
-                                PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
+                                if (PPApplication.logEnabled()) {
+                                    PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
 
-                                PPApplication.logE("$$$ WifiBluetoothScanner.enableWifi", "before enable wifi");
-                                PPApplication.logE("[HANDLER] WifiBluetoothScanner.enableWifi", "before enable wifi");
-                                PPApplication.logE("#### setWifiEnabled", "from WifiBluetoothScanner.enableWifi");
+                                    PPApplication.logE("$$$ WifiBluetoothScanner.enableWifi", "before enable wifi");
+                                    PPApplication.logE("[HANDLER] WifiBluetoothScanner.enableWifi", "before enable wifi");
+                                    PPApplication.logE("#### setWifiEnabled", "from WifiBluetoothScanner.enableWifi");
+                                }
+
                                 //if (Build.VERSION.SDK_INT >= 26)
                                 //    CmdWifi.setWifi(true);
                                 //else
                                     _wifi.setWifiEnabled(true);
-                                PPApplication.logE("$$$ WifiBluetoothScanner.enableWifi", "after enable wifi");
 
-                                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
+                                if (PPApplication.logEnabled()) {
+                                    PPApplication.logE("$$$ WifiBluetoothScanner.enableWifi", "after enable wifi");
+
+                                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
+                                }
                             }
                         });
                         PPApplication.logE("@@@ WifiBluetoothScanner.enableWifi","set enabled");

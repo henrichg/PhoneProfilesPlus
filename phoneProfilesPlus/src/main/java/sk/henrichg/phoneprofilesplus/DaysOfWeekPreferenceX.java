@@ -51,8 +51,10 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
         for (int i = 1; i < 8; i++)
         {
             _dayOfWeek = EventPreferencesTime.getDayOfWeekByLocale(i-1);
-            PPApplication.logE("DaysOfWeekPreferenceX.DaysOfWeekPreferenceX", "_dayOfWeek="+_dayOfWeek);
-            PPApplication.logE("DaysOfWeekPreferenceX.DaysOfWeekPreferenceX", "longNamesOfDay[_dayOfWeek+1]="+longNamesOfDay[_dayOfWeek+1]);
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("DaysOfWeekPreferenceX.DaysOfWeekPreferenceX", "_dayOfWeek=" + _dayOfWeek);
+                PPApplication.logE("DaysOfWeekPreferenceX.DaysOfWeekPreferenceX", "longNamesOfDay[_dayOfWeek+1]=" + longNamesOfDay[_dayOfWeek + 1]);
+            }
 
             dayOfWeek = new DayOfWeek();
             dayOfWeek.name = longNamesOfDay[_dayOfWeek+1];
@@ -132,8 +134,10 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
             String[] shortNamesOfDay = DateFormatSymbols.getInstance().getShortWeekdays();
             for ( int i = 1; i < 8; i++ ) {
                 int _dayOfWeek = EventPreferencesTime.getDayOfWeekByLocale(i-1);
-                PPApplication.logE("DaysOfWeekPreferenceX.setSummaryDOWMDP", "_dayOfWeek="+_dayOfWeek);
-                PPApplication.logE("DaysOfWeekPreferenceX.setSummaryDOWMDP", "shortNamesOfDay[_dayOfWeek+1]="+shortNamesOfDay[_dayOfWeek+1]);
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("DaysOfWeekPreferenceX.setSummaryDOWMDP", "_dayOfWeek=" + _dayOfWeek);
+                    PPApplication.logE("DaysOfWeekPreferenceX.setSummaryDOWMDP", "shortNamesOfDay[_dayOfWeek+1]=" + shortNamesOfDay[_dayOfWeek + 1]);
+                }
                 if (value.contains(String.valueOf(_dayOfWeek)))
                     summary = summary + shortNamesOfDay[_dayOfWeek+1] + " ";
             }

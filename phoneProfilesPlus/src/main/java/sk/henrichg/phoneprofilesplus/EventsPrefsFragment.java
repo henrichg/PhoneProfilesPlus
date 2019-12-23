@@ -985,8 +985,10 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     }
 
     void doOnActivityResult(int requestCode, int resultCode, Intent data) {
-        PPApplication.logE("EventsPrefsFragment.doOnActivityResult", "xxx");
-        PPApplication.logE("EventsPrefsFragment.doOnActivityResult", "requestCode=" + requestCode);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("EventsPrefsFragment.doOnActivityResult", "xxx");
+            PPApplication.logE("EventsPrefsFragment.doOnActivityResult", "requestCode=" + requestCode);
+        }
 
         if (getActivity() == null)
             return;

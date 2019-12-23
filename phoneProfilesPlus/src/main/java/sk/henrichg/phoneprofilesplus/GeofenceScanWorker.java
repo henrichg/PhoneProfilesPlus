@@ -44,8 +44,10 @@ public class GeofenceScanWorker extends Worker {
             if (Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, context).allowed !=
                     PreferenceAllowed.PREFERENCE_ALLOWED) {
                 cancelWork(context, false, null);
-                PPApplication.logE("GeofenceScanWorker.doWork", "return - not allowed geofence scanning");
-                PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- END");
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("GeofenceScanWorker.doWork", "return - not allowed geofence scanning");
+                    PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- END");
+                }
                 return Result.success();
             }
 

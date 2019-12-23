@@ -261,8 +261,10 @@ public class ShortcutCreatorListFragment extends Fragment {
                     if (profileName.isEmpty())
                         profileName = " ";
 
-                    PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "profile._id=" + profile._id);
-                    PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "profileName=" + profileName);
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "profile._id=" + profile._id);
+                        PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "profileName=" + profileName);
+                    }
 
                     if (position == 0) {
                         // restart events
@@ -303,8 +305,10 @@ public class ShortcutCreatorListFragment extends Fragment {
             @Override
             protected Void doInBackground(Void... params) {
                 if (profile != null) {
-                    PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "isIconResourceID=" + isIconResourceID);
-                    PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "profile._iconBitmap=" + profile._iconBitmap);
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "isIconResourceID=" + isIconResourceID);
+                        PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "profile._iconBitmap=" + profile._iconBitmap);
+                    }
 
                     if (isIconResourceID) {
                         if (profile._iconBitmap != null)
@@ -334,8 +338,10 @@ public class ShortcutCreatorListFragment extends Fragment {
                     }
 
                     if (ApplicationPreferences.applicationWidgetIconColor(activityDataWrapper.context).equals("1")) {
-                        PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "applicationWidgetIconColor=1");
-                        PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "useCustomColor=" + useCustomColor);
+                        if (PPApplication.logEnabled()) {
+                            PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "applicationWidgetIconColor=1");
+                            PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "useCustomColor=" + useCustomColor);
+                        }
                         if (isIconResourceID || useCustomColor) {
                             // icon is from resource or colored by custom color
                             int monochromeValue = 0xFF;

@@ -138,10 +138,12 @@ class ApplicationsCache {
         {
             ResolveInfo shortcutInfo = shortcuts.get(i);
 
-            PPApplication.logE("ApplicationsCache.cacheApplicationsList", "i="+i);
-            PPApplication.logE("ApplicationsCache.cacheApplicationsList", "shortcutInfo="+shortcutInfo);
-            PPApplication.logE("ApplicationsCache.cacheApplicationsList", "packageName="+shortcutInfo.activityInfo.packageName);
-            PPApplication.logE("ApplicationsCache.cacheApplicationsList", "name="+shortcutInfo.activityInfo.name);
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("ApplicationsCache.cacheApplicationsList", "i=" + i);
+                PPApplication.logE("ApplicationsCache.cacheApplicationsList", "shortcutInfo=" + shortcutInfo);
+                PPApplication.logE("ApplicationsCache.cacheApplicationsList", "packageName=" + shortcutInfo.activityInfo.packageName);
+                PPApplication.logE("ApplicationsCache.cacheApplicationsList", "name=" + shortcutInfo.activityInfo.name);
+            }
 
             if ((shortcutInfo.activityInfo.applicationInfo.packageName != null) &&
                     (packageManager.getLaunchIntentForPackage(shortcutInfo.activityInfo.applicationInfo.packageName) != null)) {

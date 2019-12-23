@@ -91,9 +91,11 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
     protected void onBindDialogView(View view) {
         super.onBindDialogView(view);
 
-        PPApplication.logE("VolumeDialogPreferenceFragmentX.onBindDialogView", "value="+preference.value);
-        PPApplication.logE("VolumeDialogPreferenceFragmentX.onBindDialogView", "noChange="+preference.noChange);
-        //PPApplication.logE("VolumeDialogPreferenceFragmentX.onBindDialogView", "sharedProfile="+preference.sharedProfile);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("VolumeDialogPreferenceFragmentX.onBindDialogView", "value=" + preference.value);
+            PPApplication.logE("VolumeDialogPreferenceFragmentX.onBindDialogView", "noChange=" + preference.noChange);
+            //PPApplication.logE("VolumeDialogPreferenceFragmentX.onBindDialogView", "sharedProfile="+preference.sharedProfile);
+        }
 
         seekBar = view.findViewById(R.id.volumePrefDialogSeekbar);
         valueText = view.findViewById(R.id.volumePrefDialogValueText);
@@ -185,8 +187,10 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        PPApplication.logE("VolumeDialogPreferenceFragmentX.onProgressChanged", "progress="+progress);
-        PPApplication.logE("VolumeDialogPreferenceFragmentX.onProgressChanged", "fromUser="+fromUser);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("VolumeDialogPreferenceFragmentX.onProgressChanged", "progress=" + progress);
+            PPApplication.logE("VolumeDialogPreferenceFragmentX.onProgressChanged", "fromUser=" + fromUser);
+        }
 
         if (fromUser) {
             // Round the value to the closest integer value.

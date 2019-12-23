@@ -1374,8 +1374,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
     void doOnActivityResult(int requestCode, int resultCode/*, Intent data*/)
     {
-        PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "xxx");
-        PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "requestCode="+requestCode);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "xxx");
+            PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "requestCode="+requestCode);
+        }
 
         if ((requestCode == RESULT_APPLICATION_PERMISSIONS) ||
                 (requestCode == RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS) ||
@@ -1580,8 +1582,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
         }
 
-        PPApplication.logE("PhoneProfilesPrefsFragment.initPreferenceFragment", "savedInstanceState="+savedInstanceState);
-        PPApplication.logE("PhoneProfilesPrefsFragment.initPreferenceFragment", "getContext()="+getContext());
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("PhoneProfilesPrefsFragment.initPreferenceFragment", "savedInstanceState=" + savedInstanceState);
+            PPApplication.logE("PhoneProfilesPrefsFragment.initPreferenceFragment", "getContext()=" + getContext());
+        }
 
         preferences.registerOnSharedPreferenceChangeListener(this);
 

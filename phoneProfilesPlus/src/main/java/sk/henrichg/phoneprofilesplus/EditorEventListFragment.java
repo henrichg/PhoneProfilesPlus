@@ -1403,9 +1403,11 @@ public class EditorEventListFragment extends Fragment
         int _eventsOrderType = getEventsOrderType();
         //setStatusBarTitle();
 
-        //PPApplication.logE("EditorProfilesActivity.changeEventOrder", "filterSelectedItem="+filterSelectedItem);
-        PPApplication.logE("EditorProfilesActivity.changeEventOrder", "orderSelectedItem="+orderSelectedItem);
-        PPApplication.logE("EditorProfilesActivity.changeEventOrder", "_eventsOrderType="+_eventsOrderType);
+        if (PPApplication.logEnabled()) {
+            //PPApplication.logE("EditorProfilesActivity.changeEventOrder", "filterSelectedItem="+filterSelectedItem);
+            PPApplication.logE("EditorProfilesActivity.changeEventOrder", "orderSelectedItem=" + orderSelectedItem);
+            PPApplication.logE("EditorProfilesActivity.changeEventOrder", "_eventsOrderType=" + _eventsOrderType);
+        }
 
         changeListOrder(_eventsOrderType, fromOnViewCreated);
 

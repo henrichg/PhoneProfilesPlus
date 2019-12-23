@@ -35,9 +35,10 @@ public class NotUsedMobileCellsNotificationDeletedReceiver extends BroadcastRece
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsNotificationDeletedReceiver.onReceive");
-
-                            PPApplication.logE("NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "mobileCellId="+mobileCellId);
+                            if (PPApplication.logEnabled()) {
+                                PPApplication.logE("PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsNotificationDeletedReceiver.onReceive");
+                                PPApplication.logE("NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "mobileCellId=" + mobileCellId);
+                            }
 
                             DatabaseHandler db = DatabaseHandler.getInstance(appContext);
 

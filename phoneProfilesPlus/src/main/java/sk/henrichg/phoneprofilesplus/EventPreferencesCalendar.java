@@ -732,14 +732,15 @@ class EventPreferencesCalendar extends EventPreferences {
 
         selection.append(")");
 
-        PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "selection="+selection);
-        if (selectionArgs != null) {
-            for (String arg : selectionArgs) {
-                PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "selectionArgs.arg=" + arg);
-            }
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "selection=" + selection);
+            if (selectionArgs != null) {
+                for (String arg : selectionArgs) {
+                    PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "selectionArgs.arg=" + arg);
+                }
+            } else
+                PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "selectionArgs=null");
         }
-        else
-            PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "selectionArgs=null");
 
         // Construct the query with the desired date range.
         Calendar calendar = Calendar.getInstance();

@@ -260,8 +260,10 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             }
                         }
 
-                        PPApplication.logE("OneRowWidgetProvider.onUpdate", "events running="+Event.getGlobalEventsRunning(context));
-                        PPApplication.logE("OneRowWidgetProvider.onUpdate", "application started="+PPApplication.getApplicationStarted(context, true));
+                        if (PPApplication.logEnabled()) {
+                            PPApplication.logE("OneRowWidgetProvider.onUpdate", "events running=" + Event.getGlobalEventsRunning(context));
+                            PPApplication.logE("OneRowWidgetProvider.onUpdate", "application started=" + PPApplication.getApplicationStarted(context, true));
+                        }
                         if (Event.getGlobalEventsRunning(context) && PPApplication.getApplicationStarted(context, true)) {
                             remoteViews.setViewVisibility(R.id.widget_one_row_header_restart_events, VISIBLE);
                             Intent intentRE = new Intent(context, RestartEventsFromNotificationActivity.class);

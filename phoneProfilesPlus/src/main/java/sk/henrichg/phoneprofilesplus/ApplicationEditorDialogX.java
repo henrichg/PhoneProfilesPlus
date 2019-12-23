@@ -270,8 +270,10 @@ class ApplicationEditorDialogX
                                 selectedPosition = pos;
                         }
                     }
-                    PPApplication.logE("ApplicationEditorDialog.fillApplicationList", "_application.intentId="+_application.intentId);
-                    PPApplication.logE("ApplicationEditorDialog.fillApplicationList", "_application.appLabel="+_application.appLabel);
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("ApplicationEditorDialog.fillApplicationList", "_application.intentId=" + _application.intentId);
+                        PPApplication.logE("ApplicationEditorDialog.fillApplicationList", "_application.appLabel=" + _application.appLabel);
+                    }
                     applicationList.add(_application);
                     pos++;
                 }

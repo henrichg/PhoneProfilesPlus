@@ -102,15 +102,17 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
             }
         }
 
-        PPApplication.logE("BatteryBroadcastReceiver.onReceive", "action=" + action);
-        PPApplication.logE("BatteryBroadcastReceiver.onReceive", "isCharging=" + isCharging);
-        PPApplication.logE("BatteryBroadcastReceiver.onReceive", "_isCharging=" + _isCharging);
-        //PPApplication.logE("BatteryBroadcastReceiver.onReceive", "batteryLow=" + batteryLow);
-        //PPApplication.logE("BatteryBroadcastReceiver.onReceive", "_batteryLow=" + _batteryLow);
-        PPApplication.logE("BatteryBroadcastReceiver.onReceive", "batteryPct=" + batteryPct);
-        PPApplication.logE("BatteryBroadcastReceiver.onReceive", "pct=" + pct);
-        PPApplication.logE("BatteryBroadcastReceiver.onReceive", "plugged=" + plugged);
-        PPApplication.logE("BatteryBroadcastReceiver.onReceive", "_plugged=" + _plugged);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("BatteryBroadcastReceiver.onReceive", "action=" + action);
+            PPApplication.logE("BatteryBroadcastReceiver.onReceive", "isCharging=" + isCharging);
+            PPApplication.logE("BatteryBroadcastReceiver.onReceive", "_isCharging=" + _isCharging);
+            //PPApplication.logE("BatteryBroadcastReceiver.onReceive", "batteryLow=" + batteryLow);
+            //PPApplication.logE("BatteryBroadcastReceiver.onReceive", "_batteryLow=" + _batteryLow);
+            PPApplication.logE("BatteryBroadcastReceiver.onReceive", "batteryPct=" + batteryPct);
+            PPApplication.logE("BatteryBroadcastReceiver.onReceive", "pct=" + pct);
+            PPApplication.logE("BatteryBroadcastReceiver.onReceive", "plugged=" + plugged);
+            PPApplication.logE("BatteryBroadcastReceiver.onReceive", "_plugged=" + _plugged);
+        }
 
         /* In Samsung S8 lowLevel is configured to 105 :-(
         int _level = appContext.getResources().getInteger(com.android.internal.R.integer.config_lowBatteryWarningLevel);
