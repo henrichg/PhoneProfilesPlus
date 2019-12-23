@@ -801,8 +801,8 @@ public class PPApplication extends Application {
 
             PPApplication.logE("##### PPApplication.onCreate", "romIsMIUI=" + romIsMIUI);
             PPApplication.logE("##### PPApplication.onCreate", "romIsEMUI=" + romIsEMUI);
-            PPApplication.logE("##### PPApplication.onCreate", "-- romIsEMUI=" + isEMUIROM());
-            PPApplication.logE("##### PPApplication.onCreate", "-- romIsMIUI=" + isMIUIROM());
+            //PPApplication.logE("##### PPApplication.onCreate", "-- romIsEMUI=" + isEMUIROM());
+            //PPApplication.logE("##### PPApplication.onCreate", "-- romIsMIUI=" + isMIUIROM());
 
             PPApplication.logE("##### PPApplication.onCreate", "manufacturer=" + Build.MANUFACTURER);
             PPApplication.logE("##### PPApplication.onCreate", "model=" + Build.MODEL);

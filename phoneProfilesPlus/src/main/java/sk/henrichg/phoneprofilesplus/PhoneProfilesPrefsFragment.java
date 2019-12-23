@@ -233,12 +233,24 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
             preferenceCategoryScreen = findPreference("categoryApplicationStartRoot");
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
+
             preferenceCategoryScreen = findPreference("categorySystemRoot");
-            if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
+            if (preferenceCategoryScreen != null) {
+                String title = "<b>" + preferenceCategoryScreen.getTitle() + "</b>";
+                preferenceCategoryScreen.setTitle(GlobalGUIRoutines.fromHtml(title, false, false, 0, 0));
+                setCategorySummary(preferenceCategoryScreen);
+            }
             preferenceCategoryScreen = findPreference("categoryPermissionsRoot");
-            if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
+            if (preferenceCategoryScreen != null) {
+                String title = "<b>" + preferenceCategoryScreen.getTitle() + "</b>";
+                preferenceCategoryScreen.setTitle(GlobalGUIRoutines.fromHtml(title, false, false, 0, 0));
+                setCategorySummary(preferenceCategoryScreen);
+            }
             preferenceCategoryScreen = findPreference("categoryNotificationsRoot");
-            if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
+            if (preferenceCategoryScreen != null) {
+                setCategorySummary(preferenceCategoryScreen);
+            }
+
             preferenceCategoryScreen = findPreference("profileActivationCategoryRoot");
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
             preferenceCategoryScreen = findPreference("eventRunCategoryRoot");

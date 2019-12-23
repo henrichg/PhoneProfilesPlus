@@ -5,20 +5,6 @@
     app:title="@string/title_activity_phone_profiles_preferences">
 
     <Preference
-        app:title="@string/phone_profiles_pref_category_gui"
-        app:key="applicationInterfaceCategoryRoot"
-        app:widgetLayout="@layout/start_activity_preference"
-        app:layout="@layout/mp_preference_material_widget"
-        app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity$PhoneProfilesPrefsInterface" />
-
-    <Preference
-        app:title="@string/phone_profiles_pref_category_start"
-        app:key="categoryApplicationStartRoot"
-        app:widgetLayout="@layout/start_activity_preference"
-        app:layout="@layout/mp_preference_material_widget"
-        app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity$PhoneProfilesPrefsApplicationStart" />
-
-    <Preference
         app:key="categorySystemRoot"
         app:title="@string/phone_profiles_pref_category_system"
         app:widgetLayout="@layout/start_activity_preference"
@@ -38,6 +24,20 @@
         app:widgetLayout="@layout/start_activity_preference"
         app:layout="@layout/mp_preference_material_widget"
         app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity$PhoneProfilesPrefsNotifications" />
+
+    <Preference
+        app:title="@string/phone_profiles_pref_category_gui"
+        app:key="applicationInterfaceCategoryRoot"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget"
+        app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity$PhoneProfilesPrefsInterface" />
+
+    <Preference
+        app:title="@string/phone_profiles_pref_category_start"
+        app:key="categoryApplicationStartRoot"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget"
+        app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity$PhoneProfilesPrefsApplicationStart" />
 
     <Preference
         app:title="@string/phone_profiles_pref_category_activation"
