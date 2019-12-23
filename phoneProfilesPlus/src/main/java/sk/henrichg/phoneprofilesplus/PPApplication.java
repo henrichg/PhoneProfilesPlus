@@ -67,6 +67,7 @@ public class PPApplication extends Application {
     static final boolean deviceIsSamsung = isSamsung();
     static final boolean deviceIsLG = isLG();
     static final boolean deviceIsOnePlus = isOnePlus();
+    static final boolean deviceIsOppo = isOppo();
     static final boolean romIsMIUI = isMIUIROM();
     static final boolean romIsEMUI = isEMUIROM();
 
@@ -91,7 +92,7 @@ public class PPApplication extends Application {
                                          +"|PPApplication.isHuawei"
                                          +"|PPApplication.isSamsung"
                                          +"|PPApplication.isLG"
-                                         +"|PPApplication.getEmuiRomName"
+                                         //+"|PPApplication.getEmuiRomName"
                                          +"|PPApplication.isEMUIROM"
                                          +"|PPApplication.isMIUIROM"
                                          +"|PPApplication.exitApp"
@@ -796,6 +797,7 @@ public class PPApplication extends Application {
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsSamsung=" + deviceIsSamsung);
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsLG=" + deviceIsLG);
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsOnePlus=" + deviceIsOnePlus);
+            PPApplication.logE("##### PPApplication.onCreate", "deviceIsOppo=" + deviceIsOppo);
 
             PPApplication.logE("##### PPApplication.onCreate", "romIsMIUI=" + romIsMIUI);
             PPApplication.logE("##### PPApplication.onCreate", "romIsEMUI=" + romIsEMUI);
@@ -2482,6 +2484,12 @@ public class PPApplication extends Application {
         return Build.BRAND.equalsIgnoreCase("oneplus") ||
                 Build.MANUFACTURER.equalsIgnoreCase("oneplus") ||
                 Build.FINGERPRINT.toLowerCase().contains("oneplus");
+    }
+
+    private static boolean isOppo() {
+        return Build.BRAND.equalsIgnoreCase("oppo") ||
+                Build.MANUFACTURER.equalsIgnoreCase("oppo") ||
+                Build.FINGERPRINT.toLowerCase().contains("oppo");
     }
 
     private static String getReadableModVersion() {

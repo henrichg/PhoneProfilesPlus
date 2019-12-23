@@ -23,8 +23,7 @@
         app:title="@string/profile_preferences_volumeNotificationsAccessSettings_title"
         app:summary="@string/profile_preferences_volumeNotificationsAccessSettings_summary"
         app:widgetLayout="@layout/start_activity_preference"
-        app:layout="@layout/mp_preference_material_widget" >
-    </Preference>
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_volumeZenModeM"
         app:summary="@string/array_pref_no_change"

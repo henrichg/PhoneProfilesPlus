@@ -21,8 +21,7 @@
         app:summary="@string/phone_profiles_pref_eventLocationSystemSettings_summary"
         app:widgetLayout="@layout/start_activity_preference"
         app:dependency="applicationEventLocationEnableScannig"
-        app:layout="@layout/mp_preference_material_widget" >
-    </Preference>
+        app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.LocationGeofencePreferenceX
         app:defaultValue="0"
         app:key="applicationEventLocationsEditor"

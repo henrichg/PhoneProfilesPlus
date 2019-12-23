@@ -51,22 +51,19 @@
             app:title="@string/phone_profiles_pref_applicationBatteryOptimization"
             app:summary="@string/phone_profiles_pref_applicationBatteryOptimization_summary"
             app:widgetLayout="@layout/start_activity_preference"
-            app:layout="@layout/mp_preference_material_widget">
-        </Preference>
+            app:layout="@layout/mp_preference_material_widget"/>
         <!--<Preference-->
             <!--app:key="applicationPowerManager"-->
             <!--app:title="@string/phone_profiles_pref_applicationPowerManager"-->
             <!--app:summary="@string/phone_profiles_pref_applicationPowerManager_summary"-->
             <!--app:widgetLayout="@layout/start_activity_preference"-->
-            <!--app:layout="@layout/mp_preference_material_widget">-->
-        <!--</Preference>-->
+            <!--app:layout="@layout/mp_preference_material_widget"/>-->
         <Preference
             app:key="applicationDoNotKillMyApp"
             app:title="@string/phone_profiles_pref_applicationDoNotKillMyApp"
             app:summary="@string/phone_profiles_pref_applicationDoNotKillMyApp_summary1"
             app:widgetLayout="@layout/start_activity_preference"
-            app:layout="@layout/mp_preference_material_widget">
-        </Preference>
+            app:layout="@layout/mp_preference_material_widget"/>
         <ListPreference
             app:key="applicationPowerSaveModeInternal"
             app:title="@string/phone_profiles_pref_applicationPowerSaveMode"
@@ -80,8 +77,7 @@
             app:title="@string/phone_profiles_pref_applicationBatterySaver"
             app:summary="@string/phone_profiles_pref_applicationBatterySaver_system"
             app:widgetLayout="@layout/start_activity_preference"
-            app:layout="@layout/mp_preference_material_widget">
-        </Preference>
+            app:layout="@layout/mp_preference_material_widget"/>
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -93,6 +89,12 @@
             app:title="@string/phone_profiles_pref_applicationUseAlarmClock"
             app:summary="@string/phone_profiles_pref_applicationUseAlarmClock_summary"
             app:defaultValue="false"
+            app:layout="@layout/mp_preference_material_widget" />
+        <Preference
+            app:key="applicationColorOsWifiBluetoothDialogsInfo"
+            app:title="@string/phone_profiles_pref_applicationColorOsWifiBluetoothDialogs"
+            app:summary="@string/phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info"
+            app:widgetLayout="@layout/start_activity_preference"
             app:layout="@layout/mp_preference_material_widget" />
     </PreferenceCategory>
 

@@ -1299,6 +1299,44 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 setSummary(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR);
             }
         }*/
+
+        if (PPApplication.deviceIsOppo) {
+            preference = findPreference("applicationColorOsWifiBluetoothDialogsInfo");
+            if (preference != null) {
+                preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @SuppressWarnings("ConstantConditions")
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                        dialogBuilder.setTitle(preference.getTitle());
+                        dialogBuilder.setMessage(R.string.phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
+//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                @Override
+//                                public void onShow(DialogInterface dialog) {
+//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                    if (positive != null) positive.setAllCaps(false);
+//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                    if (negative != null) negative.setAllCaps(false);
+//                                }
+//                            });
+                        if (!getActivity().isFinishing())
+                            dialog.show();
+                        return false;
+                    }
+                });
+            }
+        }
+        else {
+            preference = findPreference("applicationColorOsWifiBluetoothDialogsInfo");
+            if (preference != null) {
+                PreferenceCategory preferenceCategory = findPreference("applicationOtherParametersCategory");
+                if (preferenceCategory != null)
+                    preferenceCategory.removePreference(preference);
+            }
+        }
     }
 
     @Override

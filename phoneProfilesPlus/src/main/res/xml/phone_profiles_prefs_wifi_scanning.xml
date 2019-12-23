@@ -21,16 +21,14 @@
         app:summary="@string/phone_profiles_pref_eventWiFiLocationSystemSettings_summary"
         app:widgetLayout="@layout/start_activity_preference"
         app:dependency="applicationEventWifiEnableScannig"
-        app:layout="@layout/mp_preference_material_widget" >
-    </Preference>
+        app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="applicationEventWiFiKeepOnSystemSettings"
         app:title="@string/phone_profiles_pref_eventWiFiKeepOnSystemSettings"
         app:summary="@string/phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary"
         app:widgetLayout="@layout/start_activity_preference"
         app:dependency="applicationEventWifiEnableScannig"
-        app:layout="@layout/mp_preference_material_widget" >
-    </Preference>
+        app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationEventWifiScanIfWifiOff"
         app:title="@string/phone_profiles_pref_applicationEventWifiScanIfWifiOff"
