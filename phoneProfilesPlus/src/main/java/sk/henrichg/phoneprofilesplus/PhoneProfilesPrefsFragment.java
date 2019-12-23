@@ -246,14 +246,19 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 preferenceCategoryScreen.setTitle(GlobalGUIRoutines.fromHtml(title, false, false, 0, 0));
                 setCategorySummary(preferenceCategoryScreen);
             }
-            preferenceCategoryScreen = findPreference("categoryNotificationsRoot");
+            preferenceCategoryScreen = findPreference("profileActivationCategoryRoot");
             if (preferenceCategoryScreen != null) {
+                String title = "<b>" + preferenceCategoryScreen.getTitle() + "</b>";
+                preferenceCategoryScreen.setTitle(GlobalGUIRoutines.fromHtml(title, false, false, 0, 0));
                 setCategorySummary(preferenceCategoryScreen);
             }
-
-            preferenceCategoryScreen = findPreference("profileActivationCategoryRoot");
-            if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
             preferenceCategoryScreen = findPreference("eventRunCategoryRoot");
+            if (preferenceCategoryScreen != null) {
+                String title = "<b>" + preferenceCategoryScreen.getTitle() + "</b>";
+                preferenceCategoryScreen.setTitle(GlobalGUIRoutines.fromHtml(title, false, false, 0, 0));
+                setCategorySummary(preferenceCategoryScreen);
+            }
+            preferenceCategoryScreen = findPreference("categoryNotificationsRoot");
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
             preferenceCategoryScreen = findPreference("locationScanningCategoryRoot");
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);

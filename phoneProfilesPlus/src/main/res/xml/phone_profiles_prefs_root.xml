@@ -19,6 +19,20 @@
         app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity$PhoneProfilesPrefsPermissions" />
 
     <Preference
+        app:title="@string/phone_profiles_pref_category_activation"
+        app:key="profileActivationCategoryRoot"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget"
+        app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity$PhoneProfilesPrefsProfileActivation" />
+
+    <Preference
+        app:title="@string/phone_profiles_pref_category_eventRun"
+        app:key="eventRunCategoryRoot"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget"
+        app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity$PhoneProfilesPrefsEventRun" />
+
+    <Preference
         app:title="@string/phone_profiles_pref_category_status_bar"
         app:key="categoryNotificationsRoot"
         app:widgetLayout="@layout/start_activity_preference"
@@ -38,20 +52,6 @@
         app:widgetLayout="@layout/start_activity_preference"
         app:layout="@layout/mp_preference_material_widget"
         app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity$PhoneProfilesPrefsApplicationStart" />
-
-    <Preference
-        app:title="@string/phone_profiles_pref_category_activation"
-        app:key="profileActivationCategoryRoot"
-        app:widgetLayout="@layout/start_activity_preference"
-        app:layout="@layout/mp_preference_material_widget"
-        app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity$PhoneProfilesPrefsProfileActivation" />
-
-    <Preference
-        app:title="@string/phone_profiles_pref_category_eventRun"
-        app:key="eventRunCategoryRoot"
-        app:widgetLayout="@layout/start_activity_preference"
-        app:layout="@layout/mp_preference_material_widget"
-        app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity$PhoneProfilesPrefsEventRun" />
 
     <Preference
         app:key="locationScanningCategoryRoot"

@@ -339,55 +339,7 @@ Eventy:
 
 ----------------------------------------
 
-Vypnutie dialogov na potvrdenie zapnutie Wi-Fi, Bluetooth:
-
-Z ColorOs:
-  - Developer options
-    - Developer options = enabled
-	- Debuging:
-      - USB debuging = enabled
-    - Apps:
-      - Disables authorization monitoring = enabked
-
-----------------------------------------
-
-Permissions.grantPlayRingtoneNotificationPermissions()
-- volane z:
-  - EventsHandler.handleEvents() = notifikacia
-  - PhoneProfilesService.doSimulatingRingingCall() = notifikacia
-
-Permissions.grantRootX():
-- volane z:
-  - PhoneProfilesPrefsFragment.onActivityCreated() - ak je zobrazena polozka v app. settings
-
-Permissions.grantProfilePermissions()
-- obsahuje aj onlyNotification
-- volane z:
-  - ActionForExternalApplicationActivity.onStart() = notifikacia
-  - ActivateProfileFromExternalApplicationActivity.onStart() = notifikacia
-  - DataWrapper.activateProfileFromEvent() = notifikacia
-  - DataWrapper.activateProfileWithAlert() = aktivita => zmen na notifikaciu
-  - DataWrapper.activateProfileAfterDuration() = notifikacia
-  - EditorProfilesActivity.onActivityResult() = aktivita => zmen na notifikaciu
-  - FastAccessDurationDialog() = aktivita => zmen na notifikaciu
-  - ProfilesPrefsFragment.setRedTextToPreferences() = aktivta
-
-Permissions.grantEventPermissions()
-- obsahuje aj onlyNotification
-- volane z:
-  - DataWrapper.doHandleEvents() = notifikacia
-  - EditorProfilesActivity.onActivityResult() = aktivita => zmen na notifikaciu
-  - EditorPrefsFragment.setRedTextToPreferences() = aktivita
-
-Nakoniec to vypada tak, ze ak sa ma zobrazit len notifikacia, treba explicitne testnut, ci ma nieco, co je v setRedTextToPreferences(), cervene.
-Ak aspon nieco je cervene, treba spravit notifikaciu, ale zvlastnu a nevolat grant permissions.
-Toto spravit len pre volania, ktore sa volaju s notifikaciou:
-- Permissions.grantProfilePermissions()
-- Permissions.grantEventPermissions()
-Ak by sa dalo, tak otvor prislusne preferences ku kazdej noptifikacii. Kada musi byt zvlast pre kazdy profil, udalost. Aby to bolo klikatelne.
-Vid GrantPermissionActivity.showNotification(). Sprav to v EditorProfilesActivity ako staticku metodu.
-
-Samotne notifikacie v GrantPermissionActivity nemamzat. Mozno raz budu treba. Aj tak je tam podpora len pre ringtone, profil a udalost.
+Pozri, ci pre Bluetooth vyzadujes pravo Write system settings. Vra to moze vypnut ten otrvany dialog pre Bluetooth. Huawei mobily.
 
 ----------------------------------------
 
