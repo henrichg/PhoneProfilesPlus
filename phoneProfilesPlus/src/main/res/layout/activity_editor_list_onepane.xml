@@ -67,17 +67,23 @@
                         android:src="@drawable/ic_run_events_indicator_stopped"
                         android:background="?attr/selectableItemBackground" />
 
-                    <androidx.appcompat.widget.AppCompatSpinner
-                        android:id="@+id/editor_filter_spinner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_marginStart="-3dp"
                         android:layout_marginTop="-10dp"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
-                        android:layout_below="@id/editor_list_run_stop_indicator"
-                        android:entries="@array/emptyArray"
-                        style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
+                        android:layout_toStartOf="@id/editor_list_run_stop_indicator">
+
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/editor_filter_spinner"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:entries="@array/emptyArray"
+                            style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
+
+                    </LinearLayout>
 
                 </RelativeLayout>
 
