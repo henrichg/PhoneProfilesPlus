@@ -1357,22 +1357,22 @@
     <string name="phone_profiles_pref_applicationPrefIndicator_summary">Afficher les indicateurs de préférences de profil dans l\'activateur, l\'éditeur, les raccourcis</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">Afficher les indicateurs de préférences du profil dans les notifications</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Afficher les indicateurs de préférences de profil dans les widgets</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>
-    <string name="event_preferences_not_set_underlined_parameters_summary">Underlined parameters are required.</string>
-    <string name="event_preferences_red_sensors_summary">Check also sensor parameters flagged with red color.</string>
-    <string name="event_preferences_sensor_parameters_location_summary">Sensor parameters are under of the main event parameters.</string>
-    <string name="event_preferences_red_install_PPPExtender">Click here to install it.</string>
-    <string name="install_extender_dialog_title">Install PhoneProfilesPlusExtender</string>
-    <string name="alert_button_install">Install</string>
-    <string name="event_preferences_red_enable_PPPExtender">Click here to enable it. Search for PhoneProfilesPLusExtender and allow \"Accessibility\" for it.</string>
-    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">To enable \"Interruptions type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>
-    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">To enable \"Do not disturb\" profile parameter, allow for PhoneProfilesPlus \"Do not disturb access\" in system settings. Click here to enable it.</string>
-    <string name="editor_activity_targetHelps_bottomNavigation_description_2">Click it, when is activated, to show hidden header and bottom toolbar.</string>
-    <string name="event_preferences_notifications_checkContacts">Check contacts</string>
-    <string name="event_preferences_notifications_contact_groups">Contact groups</string>
+    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk se trouve dans</string>
+    <string name="event_preferences_not_set_underlined_parameters_summary">Les paramètres soulignés sont requis.</string>
+    <string name="event_preferences_red_sensors_summary">Vérifiez également les paramètres du capteur en rouge.</string>
+    <string name="event_preferences_sensor_parameters_location_summary">Les paramètres des capteurs sont en dessous des paramètres principaux de l\'événement.</string>
+    <string name="event_preferences_red_install_PPPExtender">Cliquez ici pour l\'installer.</string>
+    <string name="install_extender_dialog_title">Installer PhoneProfilesPlusExtender</string>
+    <string name="alert_button_install">Installer</string>
+    <string name="event_preferences_red_enable_PPPExtender">Cliquez ici pour l\'activer. Recherchez PhoneProfilesPLusExtender et autorisez son \"Accessibilité\".</string>
+    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">Pour activer le paramètre de profil « Type d\'interruptions », autorisez l\'accès aux notifications à PhoneProfilesPlus dans les paramètres du système. Cliquez ici pour l\'activer.</string>
+    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">Pour activer le paramètre de profil \"Ne pas déranger\", autorisez l\'\'accès à ne pas déranger à PhoneProfilesPlus dans les paramètres du système. Cliquez ici pour l\'activer.</string>
+    <string name="editor_activity_targetHelps_bottomNavigation_description_2">Cliquez ici, lorsqu\'il est activé, pour afficher l\'en-tête cachée et la barre d\'outils du bas.</string>
+    <string name="event_preferences_notifications_checkContacts">Vérifier les contacts</string>
+    <string name="event_preferences_notifications_contact_groups">Groupes de contacts</string>
     <string name="event_preferences_notifications_contacts">Contacts</string>
-    <string name="event_preferences_notifications_checkText">Check text</string>
-    <string name="event_preferences_notifications_text">Text</string>
+    <string name="event_preferences_notifications_checkText">Vérifier le texte</string>
+    <string name="event_preferences_notifications_text">Texte</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>

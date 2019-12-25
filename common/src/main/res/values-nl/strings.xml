@@ -1367,12 +1367,12 @@
     <string name="event_preferences_red_enable_PPPExtender">Klik hier om in te schakelen. Zoek naar PhoneProfilesPLusExtender en laat \"Toegankelijkheid\" toe.</string>
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">Om \"Onderbrekingen type\" profielparameter in te schakelen, moet u PhoneProfilesPlus \"Toegang tot meldingen\" in systeem instellingen geven. Klik hier om dit in te schakelen.</string>
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">Om de \"Niet storen\" profielparameter in te schakelen moet je PhoneProfilesPlus \"Niet Storen\" toegang in de systeeminstellingen. Klik hier om het in te schakelen.</string>
-    <string name="editor_activity_targetHelps_bottomNavigation_description_2">Click it, when is activated, to show hidden header and bottom toolbar.</string>
-    <string name="event_preferences_notifications_checkContacts">Check contacts</string>
-    <string name="event_preferences_notifications_contact_groups">Contact groups</string>
-    <string name="event_preferences_notifications_contacts">Contacts</string>
-    <string name="event_preferences_notifications_checkText">Check text</string>
-    <string name="event_preferences_notifications_text">Text</string>
+    <string name="editor_activity_targetHelps_bottomNavigation_description_2">Klik het, wanneer geactiveerd is het om de verborgen header en onderste werkbalk te tonen.</string>
+    <string name="event_preferences_notifications_checkContacts">Contacten controleren</string>
+    <string name="event_preferences_notifications_contact_groups">Contactgroepen</string>
+    <string name="event_preferences_notifications_contacts">Contacten</string>
+    <string name="event_preferences_notifications_checkText">Tekst controleren</string>
+    <string name="event_preferences_notifications_text">Tekst</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>

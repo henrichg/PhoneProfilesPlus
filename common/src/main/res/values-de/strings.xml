@@ -1368,10 +1368,10 @@
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">To enable \"Interruptions type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">To enable \"Do not disturb\" profile parameter, allow for PhoneProfilesPlus \"Do not disturb access\" in system settings. Click here to enable it.</string>
     <string name="editor_activity_targetHelps_bottomNavigation_description_2">Click it, when is activated, to show hidden header and bottom toolbar.</string>
-    <string name="event_preferences_notifications_checkContacts">Check contacts</string>
-    <string name="event_preferences_notifications_contact_groups">Contact groups</string>
-    <string name="event_preferences_notifications_contacts">Contacts</string>
-    <string name="event_preferences_notifications_checkText">Check text</string>
+    <string name="event_preferences_notifications_checkContacts">Kontakte überprüfen</string>
+    <string name="event_preferences_notifications_contact_groups">Kontaktgruppen</string>
+    <string name="event_preferences_notifications_contacts">Kontakte</string>
+    <string name="event_preferences_notifications_checkText">Text prüfen</string>
     <string name="event_preferences_notifications_text">Text</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->

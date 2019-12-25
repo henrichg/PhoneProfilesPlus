@@ -1367,12 +1367,12 @@
     <string name="event_preferences_red_enable_PPPExtender">Для этого нажмите сюда. Найдите в списке PhoneProfilesPLusExtender и включите для него доступ к спец. возможностям.</string>
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">Чтобы использовать параметр профиля \"Типы режима оповещения\", разрешите PhoneProfilesPlus доступ к уведомлениям в настройках системы. Для этого нажмите сюда.</string>
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">Чтобы использовать параметр профиля \"Не беспокоить\", разрешите PhoneProfilesPlus доступ к функции \"Не беспокоить\" в настройках системы. Для этого нажмите сюда.</string>
-    <string name="editor_activity_targetHelps_bottomNavigation_description_2">Click it, when is activated, to show hidden header and bottom toolbar.</string>
-    <string name="event_preferences_notifications_checkContacts">Check contacts</string>
-    <string name="event_preferences_notifications_contact_groups">Contact groups</string>
-    <string name="event_preferences_notifications_contacts">Contacts</string>
-    <string name="event_preferences_notifications_checkText">Check text</string>
-    <string name="event_preferences_notifications_text">Text</string>
+    <string name="editor_activity_targetHelps_bottomNavigation_description_2">Нажмите на неё, когда она активна, для отображения скрытых заголовка и нижней панели инструментов.</string>
+    <string name="event_preferences_notifications_checkContacts">Проверить контакты</string>
+    <string name="event_preferences_notifications_contact_groups">Группы контактов</string>
+    <string name="event_preferences_notifications_contacts">Контакты</string>
+    <string name="event_preferences_notifications_checkText">Проверить текст</string>
+    <string name="event_preferences_notifications_text">Текст</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>

@@ -1367,12 +1367,12 @@
     <string name="event_preferences_red_enable_PPPExtender">Klikni ovde da ga omogućiš. Potraži PhoneProfilesPLusExtender i omogući \"Pristupačnost\" za njega.</string>
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">Da omogućite \"tip prekida\" parametre profila, omogućite PhoneProfilesPlus \"Pristup obavestima\" u podešavanjima sustava. Klikni ovde da ga omogućiš.</string>
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">Da omogućite \"Ne uznemiravaj\" parametar profila, omogućite PhoneProfilesPlus \"Pristup Ne uznemiravaj\" u podešavanjima sustava. Klikni ovde da ga omogućiš.</string>
-    <string name="editor_activity_targetHelps_bottomNavigation_description_2">Click it, when is activated, to show hidden header and bottom toolbar.</string>
-    <string name="event_preferences_notifications_checkContacts">Check contacts</string>
-    <string name="event_preferences_notifications_contact_groups">Contact groups</string>
-    <string name="event_preferences_notifications_contacts">Contacts</string>
-    <string name="event_preferences_notifications_checkText">Check text</string>
-    <string name="event_preferences_notifications_text">Text</string>
+    <string name="editor_activity_targetHelps_bottomNavigation_description_2">Klikni kada je aktiviran, za prikaz skrivenih menija.</string>
+    <string name="event_preferences_notifications_checkContacts">Provjeri kontakte</string>
+    <string name="event_preferences_notifications_contact_groups">Grupe kontakata</string>
+    <string name="event_preferences_notifications_contacts">Kontakti</string>
+    <string name="event_preferences_notifications_checkText">Provjeri tekst</string>
+    <string name="event_preferences_notifications_text">Tekst</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>

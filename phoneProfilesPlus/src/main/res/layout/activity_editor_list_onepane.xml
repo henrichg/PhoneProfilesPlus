@@ -52,20 +52,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" >
 
-                    <!--
-                    <TextView
-                        android:id="@+id/editor_filter_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:layout_toStartOf="@id/editor_list_run_stop_indicator"
-                        android:ellipsize="end"
-                        android:textSize="15sp"
-                        android:textColor="?attr/editorFilterTitleColor"
-                        android:maxLines="1"/>
-                    -->
-
                     <ImageView
                         android:id="@+id/editor_list_run_stop_indicator"
                         android:layout_width="50dp"
@@ -89,6 +75,7 @@
                         android:layout_marginTop="-10dp"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
+                        android:layout_below="@id/editor_list_run_stop_indicator"
                         android:entries="@array/emptyArray"
                         style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
 
