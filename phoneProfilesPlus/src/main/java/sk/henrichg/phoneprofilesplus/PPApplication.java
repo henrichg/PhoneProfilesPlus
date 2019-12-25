@@ -1015,6 +1015,7 @@ public class PPApplication extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
+        GlobalGUIRoutines.collator = GlobalGUIRoutines.getCollator();
         MultiDex.install(this);
     }
 

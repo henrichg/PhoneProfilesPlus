@@ -201,7 +201,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         GlobalGUIRoutines.setTheme(this, false, true/*, true*/, false);
-        GlobalGUIRoutines.setLanguage(this);
+        //GlobalGUIRoutines.setLanguage(this);
 
         savedInstanceStateChanged = (savedInstanceState != null);
 

@@ -535,7 +535,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             // set theme and language for dialog alert ;-)
             // not working on Android 2.3.x
             GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false);
-            GlobalGUIRoutines.setLanguage(this);
+            //GlobalGUIRoutines.setLanguage(this);
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             dialogBuilder.setTitle(R.string.permissions_alert_title);
@@ -977,7 +977,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     // set theme and language for dialog alert ;-)
                     // not working on Android 2.3.x
                     GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false);
-                    GlobalGUIRoutines.setLanguage(this);
+                    //GlobalGUIRoutines.setLanguage(this);
 
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
                     dialogBuilder.setTitle(R.string.permissions_alert_title);
@@ -1119,7 +1119,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     // set theme and language for dialog alert ;-)
                     // not working on Android 2.3.x
                     GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false);
-                    GlobalGUIRoutines.setLanguage(this);
+                    //GlobalGUIRoutines.setLanguage(this);
 
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
                     dialogBuilder.setTitle(R.string.permissions_alert_title);

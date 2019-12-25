@@ -2991,9 +2991,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         boolean grantedAllPermissions = Permissions.checkProfilePermissions(context, profile).size() == 0;
         boolean grantedRoot = Profile.isProfilePreferenceAllowed("-", profile, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
         boolean enabledNotificationAccess = (profile._volumeRingerMode == 0) || ActivateProfileHelper.canChangeZenMode(context, false);
-        boolean accessibilyEnabled =  profile.isAccessibilityServiceEnabled(context) == 1;
+        boolean accessibilityEnabled =  profile.isAccessibilityServiceEnabled(context) == 1;
 
-        return (!grantedAllPermissions) || (!grantedRoot) || (!enabledNotificationAccess) || (!accessibilyEnabled);
+        return (!grantedAllPermissions) || (!grantedRoot) || (!enabledNotificationAccess) || (!accessibilityEnabled);
     }
 
     void setRedTextToPreferences() {
@@ -3056,8 +3056,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         @Override
                         public boolean onPreferenceClick(Preference preference) {
                             //Profile mappedProfile = Profile.getMappedProfile(profile, appContext);
-                            Permissions.grantProfilePermissions(activity, profile, false, false,
-                                    /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, false, false, true);
+                            Permissions.grantProfilePermissions(activity, profile/*, false, false,*/
+                                    /*true, false, 0,*/ /*PPApplication.STARTUP_SOURCE_EDITOR, false, false, true*/);
                             return false;
                         }
                     });

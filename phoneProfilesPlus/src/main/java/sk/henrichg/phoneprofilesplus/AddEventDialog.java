@@ -78,13 +78,13 @@ class AddEventDialog
             final List<Event> eventList = new ArrayList<>();
             boolean profileNotExists = false;
 
-            @Override
+            /*@Override
             protected void onPreExecute()
             {
                 super.onPreExecute();
                 //rellaData.setVisibility(View.GONE);
                 //linlaProgress.setVisibility(View.VISIBLE);
-            }
+            }*/
 
             @Override
             protected Void doInBackground(Void... params) {

@@ -22,7 +22,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
     private boolean showEditorPrefIndicator;
     //private boolean showEditorHeader;
-    private String activeLanguage;
+    //private String activeLanguage;
     private String activeTheme;
     //private String activeNightModeOffTheme;
     private boolean locationScannerEnabled;
@@ -46,7 +46,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         GlobalGUIRoutines.setTheme(this, false, true/*, false*/, false); // must by called before super.onCreate()
-        GlobalGUIRoutines.setLanguage(this);
+        //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
 
@@ -67,7 +67,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         invalidateEditor = false;
 
         ApplicationPreferences.getSharedPreferences(this);
-        activeLanguage = ApplicationPreferences.preferences.getString(ApplicationPreferences.PREF_APPLICATION_LANGUAGE, "system");
+        //activeLanguage = ApplicationPreferences.preferences.getString(ApplicationPreferences.PREF_APPLICATION_LANGUAGE, "system");
         String defaultValue = "white";
         if (Build.VERSION.SDK_INT >= 28)
             defaultValue = "night_mode";
@@ -282,13 +282,13 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             invalidateEditor = true;
         }
 
-        if (!activeLanguage.equals(ApplicationPreferences.applicationLanguage(appContext)))
+        /*if (!activeLanguage.equals(ApplicationPreferences.applicationLanguage(appContext)))
         {
             PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "language changed");
             GlobalGUIRoutines.setLanguage(this);
             invalidateEditor = true;
         }
-        else
+        else*/
         if (!activeTheme.equals(ApplicationPreferences.applicationTheme(appContext, false)))
         {
             PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "theme changed");
@@ -442,7 +442,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         @Override
         void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
             PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsInterface");
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_LANGUAGE, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_LANGUAGE, "system"));
+            //editor.putString(ApplicationPreferences.PREF_APPLICATION_LANGUAGE, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_LANGUAGE, "system"));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_HOME_LAUNCHER, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_HOME_LAUNCHER, "activator"));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER, "activator"));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_NOTIFICATION_LAUNCHER, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_NOTIFICATION_LAUNCHER, "activator"));

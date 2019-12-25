@@ -72,13 +72,13 @@ class FastAccessDurationProfileDialog
     private void onShow(/*DialogInterface dialog*/) {
         new AsyncTask<Void, Integer, Void>() {
 
-            @Override
+            /*@Override
             protected void onPreExecute()
             {
                 super.onPreExecute();
                 //listView.setVisibility(View.GONE);
                 //linlaProgress.setVisibility(View.VISIBLE);
-            }
+            }*/
 
             @Override
             protected Void doInBackground(Void... params) {

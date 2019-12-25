@@ -1221,10 +1221,10 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     static boolean isRedTextNotificationRequired(Event event, Context context) {
         boolean enabledSomeSensor = event.isEnabledSomeSensor(context);
         boolean grantedAllPermissions = Permissions.checkEventPermissions(context, event).size() == 0;
-        boolean accessibilyEnabled =  event.isAccessibilityServiceEnabled(context, false) == 1;
+        boolean accessibilityEnabled =  event.isAccessibilityServiceEnabled(context, false) == 1;
         boolean eventIsRunnable = event.isRunnable(context, false);
 
-        return (!enabledSomeSensor) || (!grantedAllPermissions) || (!accessibilyEnabled) || (!eventIsRunnable);
+        return (!enabledSomeSensor) || (!grantedAllPermissions) || (!accessibilityEnabled) || (!eventIsRunnable);
     }
 
     private void setRedTextToPreferences() {
@@ -1321,7 +1321,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                         @Override
                         public boolean onPreferenceClick(Preference preference) {
-                            Permissions.grantEventPermissions(activity, event, false, true);
+                            Permissions.grantEventPermissions(activity, event/*, false, true*/);
                             return false;
                         }
                     });

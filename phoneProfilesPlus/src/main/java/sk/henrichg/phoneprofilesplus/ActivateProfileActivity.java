@@ -107,7 +107,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
         PPApplication.logE("ActivateProfileActivity.onCreate", "xxx");
 
         GlobalGUIRoutines.setTheme(this, true, true/*, false*/, true);
-        GlobalGUIRoutines.setLanguage(this);
+        //GlobalGUIRoutines.setLanguage(this);
 
     // set window dimensions - not needed, Activator uses Dialog theme ------------------------------
 

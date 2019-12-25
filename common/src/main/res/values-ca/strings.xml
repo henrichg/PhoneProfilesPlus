@@ -75,8 +75,6 @@
     <string name="array_pref_screenTimeoutArray_1minute">1 minut</string>
     <string name="array_pref_screenTimeoutArray_2minutes">2 minuts</string>
     <string name="array_pref_screenTimeoutArray_10minutes">10 minuts</string>
-    <string name="phone_profiles_pref_applicationLanguage">Llengua</string>
-    <string name="phone_profiles_pref_applicationLanguage_system">Sistema</string>
     <string name="phone_profiles_pref_applicationStartOnBoot">Activar a l\'engegar el telèfon</string>
     <string name="profile_preferences_device_not_allowed">No es permet</string>
     <string name="menu_export">Backup settings</string>
@@ -1373,6 +1371,16 @@
     <string name="event_preferences_notifications_contacts">Contacts</string>
     <string name="event_preferences_notifications_checkText">Check text</string>
     <string name="event_preferences_notifications_text">Text</string>
+    <string name="profile_preferences_red_texts_title">Error in profile preferences</string>
+    <string name="profile_preferences_red_texts_text_1">Profile</string>
+    <string name="event_preferences_red_texts_text_1">Event</string>
+    <string name="event_preferences_red_texts_title">Error in event preferences</string>
+    <string name="preferences_red_texts_text_2">has same errors in it\'s preferences.</string>
+    <string name="preferences_red_texts_text_click">Click this notification to open it.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi and Bluetooth confirm dialogs</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">For \"ColorOs\" is possible to disable these dialogs. Click this, to show how.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">In device system settings:\n1. Developer options\\Developer options = enable\n2. Developer options\\Debugging\\USB debugging = enable\n3. Developer options\\Apps\\Disables authorization monitoring = enable.</string>
+    <string name="important_info_android_look_application_settings">Please open PhoneProfilesPlus Settings and configure it. Especially parameters marked with bold text.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>
@@ -1519,4 +1527,103 @@
     <!--    <string name="permissions_access_notification_policy_not_allowed_confirm">You have not enabled \"Do not disturb access\". Never ask again?</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_text">How to install PhoneProfilesPlusExtender</string>-->
     <!--    <string name="permission_why_profile_access_notification_policy">for change sound profile, change ringing, notification, system volume</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage">Language</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_system">System</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_en" translatable="false">English</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_sk" translatable="false">Slovenčina</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_cs" translatable="false">Čeština</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_de" translatable="false">Deutsch</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_ru" translatable="false">Русский</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_ca" translatable="false">Català</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_es" translatable="false">Español</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_uk" translatable="false">Українська</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_it" translatable="false">Italiano</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_fr" translatable="false">Français</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_pl" translatable="false">Polski</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_nl" translatable="false">Nederlands</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_sv" translatable="false">Svenska</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_hu" translatable="false">Magyar</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_zh_TW" translatable="false">繁體中文</string>-->
+    <!--    <string name="array_pref_value_system" translatable="false">system</string>-->
+    <!--    <string name="array_pref_value_en" translatable="false">en</string>-->
+    <!--    <string name="array_pref_value_sk" translatable="false">sk</string>-->
+    <!--    <string name="array_pref_value_cs" translatable="false">cs</string>-->
+    <!--    <string name="array_pref_value_de" translatable="false">de</string>-->
+    <!--    <string name="array_pref_value_ru" translatable="false">ru</string>-->
+    <!--    <string name="array_pref_value_ca" translatable="false">ca</string>-->
+    <!--    <string name="array_pref_value_es" translatable="false">es</string>-->
+    <!--    <string name="array_pref_value_uk" translatable="false">uk</string>-->
+    <!--    <string name="array_pref_value_it" translatable="false">it</string>-->
+    <!--    <string name="array_pref_value_fr" translatable="false">fr</string>-->
+    <!--    <string name="array_pref_value_pl" translatable="false">pl</string>-->
+    <!--    <string name="array_pref_value_nl" translatable="false">nl</string>-->
+    <!--    <string name="array_pref_value_sv" translatable="false">sv</string>-->
+    <!--    <string name="array_pref_value_hu" translatable="false">hu</string>-->
+    <!--    <string name="array_pref_value_zh_TW" translatable="false">zh-TW</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_iw" translatable="false">עִברִית</string>-->
+    <!--    <string name="array_pref_value_iw" translatable="false">iw</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_tr" translatable="false">Türkçe</string>-->
+    <!--    <string name="array_pref_value_tr" translatable="false">tr</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_fa" translatable="false">فارسی</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_ja" translatable="false">日本語</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_ko" translatable="false">한국어</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_te" translatable="false">తెలుగు</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_ro" translatable="false">Română</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_pt_PT" translatable="false">Português (Portugal)</string>-->
+    <!--    <string name="array_pref_value_fa" translatable="false">fa</string>-->
+    <!--    <string name="array_pref_value_ja" translatable="false">ja</string>-->
+    <!--    <string name="array_pref_value_ko" translatable="false">ko</string>-->
+    <!--    <string name="array_pref_value_te" translatable="false">te</string>-->
+    <!--    <string name="array_pref_value_ro" translatable="false">ro</string>-->
+    <!--    <string name="array_pref_value_pt_PT" translatable="false">pt-PT</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_pt_BR" translatable="false">Português (Brasil)</string>-->
+    <!--    <string name="array_pref_value_pt_BR" translatable="false">pt-BR</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_el" translatable="false">Ελληνικά</string>-->
+    <!--    <string name="array_pref_value_el" translatable="false">el</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_zh_CN" translatable="false">简体中文</string>-->
+    <!--    <string name="array_pref_value_zh_CN" translatable="false">zh-CN</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_ar" translatable="false">عربى</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_bg" translatable="false">Български</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_hi" translatable="false">हिंदी</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_in" translatable="false">Bahasa Indonesia</string>-->
+    <!--    <string name="array_pref_value_ar" translatable="false">ar</string>-->
+    <!--    <string name="array_pref_value_bg" translatable="false">bg</string>-->
+    <!--    <string name="array_pref_value_hi" translatable="false">hi</string>-->
+    <!--    <string name="array_pref_value_in" translatable="false">in</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_sl" translatable="false">Slovenščina</string>-->
+    <!--    <string name="array_pref_value_sl" translatable="false">sl</string>-->
+    <!--    <string name="array_pref_value_da" translatable="false">da</string>-->
+    <!--    <string name="array_pref_value_sr" translatable="false">sr</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_da" translatable="false">Dansk</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_sr" translatable="false">Српски</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_af" translatable="false">Afrikaans</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_sr_Latn" translatable="false">Srpski (Latinica)</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_bn_IN" translatable="false">বাঙালি</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_et" translatable="false">Eestlane</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_fi" translatable="false">Suomalainen</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_ga_IE" translatable="false">Gaeilge</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_hr" translatable="false">Hrvatski</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_is" translatable="false">Íslensku</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_ku" translatable="false">Kurdî</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_lb" translatable="false">Lëtzebuergesch</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_lv" translatable="false">Latvis</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_ms" translatable="false">Melayu</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_no" translatable="false">Norsk</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_th" translatable="false">ไทย</string>-->
+    <!--    <string name="phone_profiles_pref_applicationLanguage_vi" translatable="false">Tiếng Việt</string>-->
+    <!--    <string name="array_pref_value_af" translatable="false">af</string>-->
+    <!--    <string name="array_pref_value_sr_Latn" translatable="false">sr-Latn</string>-->
+    <!--    <string name="array_pref_value_bn_IN" translatable="false">bn-IN</string>-->
+    <!--    <string name="array_pref_value_et" translatable="false">et</string>-->
+    <!--    <string name="array_pref_value_fi" translatable="false">fi</string>-->
+    <!--    <string name="array_pref_value_ga_IE" translatable="false">ga-IE</string>-->
+    <!--    <string name="array_pref_value_hr" translatable="false">hr</string>-->
+    <!--    <string name="array_pref_value_is" translatable="false">is</string>-->
+    <!--    <string name="array_pref_value_ku" translatable="false">ku</string>-->
+    <!--    <string name="array_pref_value_lb" translatable="false">lb</string>-->
+    <!--    <string name="array_pref_value_lv" translatable="false">lv</string>-->
+    <!--    <string name="array_pref_value_ms" translatable="false">ms</string>-->
+    <!--    <string name="array_pref_value_no" translatable="false">no</string>-->
+    <!--    <string name="array_pref_value_th" translatable="false">th</string>-->
+    <!--    <string name="array_pref_value_vi" translatable="false">vi</string>-->
 </resources>

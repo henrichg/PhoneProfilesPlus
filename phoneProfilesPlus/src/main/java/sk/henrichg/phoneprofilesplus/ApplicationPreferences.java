@@ -27,7 +27,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_ALERT = "applicationAlert";
     static final String PREF_APPLICATION_CLOSE = "applicationClose";
     static final String PREF_APPLICATION_LONG_PRESS_ACTIVATION = "applicationLongClickActivation";
-    static final String PREF_APPLICATION_LANGUAGE = "applicationLanguage";
+    //static final String PREF_APPLICATION_LANGUAGE = "applicationLanguage";
     static final String PREF_APPLICATION_THEME = "applicationTheme";
     //static final String PREF_APPLICATION_ACTIVATOR_PREF_INDICATOR = "applicationActivatorPrefIndicator";
     static final String PREF_APPLICATION_EDITOR_PREF_INDICATOR = "applicationEditorPrefIndicator";
@@ -186,9 +186,11 @@ class ApplicationPreferences {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_LONG_PRESS_ACTIVATION, false);
     }
 
+    /*
     static String applicationLanguage(Context context) {
         return getSharedPreferences(context).getString(PREF_APPLICATION_LANGUAGE, "system");
     }
+    */
 
     static public String applicationTheme(Context context, boolean useNightMode) {
         String defaultValue = "white";

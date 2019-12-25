@@ -14,6 +14,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.Process;
 import android.provider.Settings;
+import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 
@@ -1345,51 +1346,52 @@ class Permissions {
     }
     */
 
-    static boolean grantProfilePermissions(Context context, Profile profile, boolean mergedProfile,
-                                                  boolean onlyNotification,
+    static void /*boolean*/ grantProfilePermissions(Context context, Profile profile/*, boolean mergedProfile,*/
+                                                  /*boolean onlyNotification,*/
                                                   //boolean forGUI, boolean monochrome, int monochromeValue,
-                                                  int startupSource, boolean interactive,
-                                                  boolean activateProfile,
-                                                  boolean fromPreferences) {
+                                                  /*int startupSource, boolean interactive,*/
+                                                  /*boolean activateProfile,*/
+                                                  /*boolean fromPreferences*/) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             ArrayList<PermissionType> permissions = checkProfilePermissions(context, profile);
-            if (PPApplication.logEnabled()) {
+            //if (PPApplication.logEnabled()) {
                 PPApplication.logE("Permissions.grantProfilePermissions", "permissions.size()=" + permissions.size());
-                PPApplication.logE("Permissions.grantProfilePermissions", "startupSource=" + startupSource);
-            }
+            //    PPApplication.logE("Permissions.grantProfilePermissions", "startupSource=" + startupSource);
+            //}
             if (permissions.size() > 0) {
                 try {
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    if (!fromPreferences || onlyNotification)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    //if (!fromPreferences || onlyNotification)
+                    //    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);  // this close all activities with same taskAffinity
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_PROFILE);
-                    intent.putExtra(EXTRA_FORCE_GRANT, fromPreferences);
+                    intent.putExtra(EXTRA_FORCE_GRANT, true/*fromPreferences*/);
                     intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-                    intent.putExtra(EXTRA_MERGED_PROFILE, mergedProfile);
+                    intent.putExtra(EXTRA_MERGED_PROFILE, false);
                     //if (onlyNotification)
                     //    addMergedPermissions(context, permissions);
                     //else
                         intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
-                    intent.putExtra(EXTRA_ONLY_NOTIFICATION, onlyNotification);
+                    intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     //intent.putExtra(EXTRA_FOR_GUI, forGUI);
                     //intent.putExtra(EXTRA_MONOCHROME, monochrome);
                     //intent.putExtra(EXTRA_MONOCHROME_VALUE, monochromeValue);
-                    intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);
-                    intent.putExtra(EXTRA_INTERACTIVE, interactive);
-                    intent.putExtra(EXTRA_ACTIVATE_PROFILE, activateProfile);
-                    if (fromPreferences && (!onlyNotification))
+                    intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR);
+                    intent.putExtra(EXTRA_INTERACTIVE, false);
+                    intent.putExtra(EXTRA_ACTIVATE_PROFILE, false);
+                    //if (fromPreferences && (!onlyNotification))
                         ((Activity) context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_PROFILE);
-                    else
-                        context.startActivity(intent);
+                    //else
+                    //    context.startActivity(intent);
                 } catch (Exception e) {
-                    return false;
+                    Log.e("Permissions.grantProfilePermissions", Log.getStackTraceString(e));
+                    //return false;
                 }
             }
-            return permissions.size() == 0;
+            //return permissions.size() == 0;
         }
-        else
-            return true;
+        //else
+        //    return true;
     }
 
     /*
@@ -1606,37 +1608,38 @@ class Permissions {
             return true;
     }
 
-    static boolean grantEventPermissions(Context context, Event event,
+    static void /*boolean*/ grantEventPermissions(Context context, Event event/*,
                                                   boolean onlyNotification,
-                                                  boolean fromPreferences) {
+                                                  boolean fromPreferences*/) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             ArrayList<PermissionType> permissions = checkEventPermissions(context, event);
             if (permissions.size() > 0) {
                 try {
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    if (!fromPreferences || onlyNotification)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    //if (!fromPreferences || onlyNotification)
+                    //    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);  // this close all activities with same taskAffinity
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_EVENT);
-                    intent.putExtra(EXTRA_FORCE_GRANT, fromPreferences);
+                    intent.putExtra(EXTRA_FORCE_GRANT, true/*fromPreferences*/);
                     intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
                     //if (onlyNotification)
                     //    addMergedPermissions(context, permissions);
                     //else
                         intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
-                    intent.putExtra(EXTRA_ONLY_NOTIFICATION, onlyNotification);
-                    if (fromPreferences && (!onlyNotification))
+                    intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                    //if (fromPreferences && (!onlyNotification))
                         ((Activity) context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_EVENT);
-                    else
-                        context.startActivity(intent);
+                    //else
+                    //    context.startActivity(intent);
                 } catch (Exception e) {
-                    return false;
+                    Log.e("Permissions.grantEventPermissions", Log.getStackTraceString(e));
+                    //return false;
                 }
             }
-            return permissions.size() == 0;
+            //return permissions.size() == 0;
         }
-        else
-            return true;
+        //else
+        //    return true;
     }
 
     static boolean grantWifiScanDialogPermissions(Context context) {

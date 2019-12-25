@@ -70,13 +70,13 @@ class AddProfileDialog
 
             final List<Profile> profileList = new ArrayList<>();
 
-            @Override
+            /*@Override
             protected void onPreExecute()
             {
                 super.onPreExecute();
                 //listView.setVisibility(View.GONE);
                 //linlaProgress.setVisibility(View.VISIBLE);
-            }
+            }*/
 
             @Override
             protected Void doInBackground(Void... params) {

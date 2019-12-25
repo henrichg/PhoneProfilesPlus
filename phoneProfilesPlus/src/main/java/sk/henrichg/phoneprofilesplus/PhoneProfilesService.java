@@ -3657,7 +3657,7 @@ public class PhoneProfilesService extends Service
                             }
                         }
 
-                        GlobalGUIRoutines.setLanguage(appContext);
+                        //GlobalGUIRoutines.setLanguage(appContext);
                         GlobalGUIRoutines.switchNightMode(getApplicationContext(), true);
 
                         //if (_startOnBoot || _startOnPackageReplace || _initializeStart) {

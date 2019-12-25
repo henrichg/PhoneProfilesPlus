@@ -25,7 +25,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
     protected void onInitialize(boolean isReconnect) {
         super.onInitialize(isReconnect);
 
-        GlobalGUIRoutines.setLanguage(this);
+        //GlobalGUIRoutines.setLanguage(this);
 
         if (dataWrapper == null)
             dataWrapper = new DataWrapper(this, false, 0, false);

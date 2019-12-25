@@ -70,6 +70,7 @@ class GlobalGUIRoutines {
 
     static final int ICON_SIZE_DP = 50;
 
+    /*
     // https://stackoverflow.com/questions/40221711/android-context-getresources-updateconfiguration-deprecated
     // but my solution working also in Android 8.1
     public static void setLanguage(Context context)//, boolean restart)
@@ -115,33 +116,33 @@ class GlobalGUIRoutines {
 
         PPApplication.createNotificationChannels(context);
     }
-
-    private static Collator getCollator(Context context)
+*/
+    static Collator getCollator(/*Context context*/)
     {
         //if (android.os.Build.VERSION.SDK_INT < 24) {
             // get application Locale
-            String lang = ApplicationPreferences.applicationLanguage(context);
+//            String lang = ApplicationPreferences.applicationLanguage(context);
             Locale appLocale;
-            if (!lang.equals("system")) {
-                String[] langSplit = lang.split("-");
-                if (langSplit.length == 1)
-                    appLocale = new Locale(lang);
-                else
-                    appLocale = new Locale(langSplit[0], langSplit[1]);
-            } else {
+//            if (!lang.equals("system")) {
+//                String[] langSplit = lang.split("-");
+//                if (langSplit.length == 1)
+//                    appLocale = new Locale(lang);
+//                else
+//                    appLocale = new Locale(langSplit[0], langSplit[1]);
+//            } else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     appLocale = Resources.getSystem().getConfiguration().getLocales().get(0);
                 } else {
                     appLocale = Resources.getSystem().getConfiguration().locale;
                 }
-            }
+//            }
             // get collator for application locale
             return Collator.getInstance(appLocale);
-        /*}
-        else {
-            //Log.d("GlobalGUIRoutines.getCollator", java.util.Locale.getDefault().toString());
-            return Collator.getInstance();
-        }*/
+//        }
+//        else {
+//            //Log.d("GlobalGUIRoutines.getCollator", java.util.Locale.getDefault().toString());
+//            return Collator.getInstance();
+//        }
     }
 
     public static void setTheme(Activity activity, boolean forPopup, boolean withToolbar/*, boolean withDrawerLayout*/, boolean forActivator)

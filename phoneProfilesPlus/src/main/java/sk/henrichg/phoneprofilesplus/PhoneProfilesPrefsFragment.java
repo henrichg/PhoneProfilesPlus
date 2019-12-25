@@ -1388,7 +1388,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (getActivity() != null)
                 GlobalGUIRoutines.switchNightMode(getActivity().getApplicationContext(), false);
         }
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_LANGUAGE)) {
+        /*if (key.equals(ApplicationPreferences.PREF_APPLICATION_LANGUAGE)) {
             if (getActivity() != null) {
                 //PhoneProfilesPrefsActivity activity = (PhoneProfilesPrefsActivity)getActivity();
                 GlobalGUIRoutines.setLanguage(getActivity());
@@ -1396,7 +1396,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 //activity.setResult(Activity.RESULT_OK);
                 //activity.finish();
             }
-        }
+        }*/
 
         PPApplication.logE("PhoneProfilesPrefsFragment.onSharedPreferenceChanged", "xxx 2");
 
@@ -1683,7 +1683,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_APPLICATION_HOME_LAUNCHER);
         setSummary(ApplicationPreferences.PREF_APPLICATION_NOTIFICATION_LAUNCHER);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER);
-        setSummary(ApplicationPreferences.PREF_APPLICATION_LANGUAGE);
+        //setSummary(ApplicationPreferences.PREF_APPLICATION_LANGUAGE);
         setSummary(ApplicationPreferences.PREF_APPLICATION_THEME);
         //setSummary(ApplicationPreferences.PREF_APPLICATION_NIGHT_MODE_OFF_THEME);
         //setSummary(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_PREF_INDICATOR);
@@ -2362,12 +2362,12 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         String summary = "";
         if (key.equals("applicationInterfaceCategoryRoot")) {
-            if (BuildConfig.DEBUG) {
+            /*if (BuildConfig.DEBUG) {
                 // force set it to english for debug mode
                 preferenceCategory.setTitle("Application interface (not translated in DEBUG)");
-            }
-            summary = summary + getString(R.string.phone_profiles_pref_applicationLanguage);
-            if (!summary.isEmpty()) summary = summary +" • ";
+            }*/
+            /*summary = summary + getString(R.string.phone_profiles_pref_applicationLanguage);
+            if (!summary.isEmpty()) summary = summary +" • ";*/
             summary = summary + getString(R.string.phone_profiles_pref_applicationTheme);
             if (!summary.isEmpty()) summary = summary +" • ";
             summary = summary + getString(R.string.phone_profiles_pref_applicationHomeLauncher);

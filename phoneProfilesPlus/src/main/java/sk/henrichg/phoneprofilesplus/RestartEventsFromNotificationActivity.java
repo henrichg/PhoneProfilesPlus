@@ -32,7 +32,7 @@ public class RestartEventsFromNotificationActivity extends AppCompatActivity
         // set theme and language for dialog alert ;-)
         // not working on Android 2.3.x
         GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false);
-        GlobalGUIRoutines.setLanguage(this);
+        //GlobalGUIRoutines.setLanguage(this);
 
         //dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 

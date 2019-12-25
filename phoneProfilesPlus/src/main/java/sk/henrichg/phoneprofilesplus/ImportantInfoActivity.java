@@ -23,7 +23,7 @@ public class ImportantInfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         GlobalGUIRoutines.setTheme(this, false, true/*, false*/, false); // must by called before super.onCreate()
-        GlobalGUIRoutines.setLanguage(this);
+        //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
 

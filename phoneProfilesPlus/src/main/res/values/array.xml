@@ -52,7 +52,7 @@
         <item>6</item>
         <item>8</item>
     </string-array>
-    <string-array name="languageArray">
+<!--    <string-array name="languageArray">
         <item>@string/phone_profiles_pref_applicationLanguage_system</item>
         <item>@string/phone_profiles_pref_applicationLanguage_af</item>
         <item>@string/phone_profiles_pref_applicationLanguage_ca</item>
@@ -161,7 +161,7 @@
         <item>@string/array_pref_value_th</item>
         <item>@string/array_pref_value_zh_CN</item>
         <item>@string/array_pref_value_zh_TW</item>
-    </string-array>
+    </string-array>-->
     <string-array name="notificationIconStyleArray">
         <item>@string/phone_profiles_pref_notificationStatusBarStyle_color</item>
         <item>@string/phone_profiles_pref_notificationStatusBarStyle_android</item>

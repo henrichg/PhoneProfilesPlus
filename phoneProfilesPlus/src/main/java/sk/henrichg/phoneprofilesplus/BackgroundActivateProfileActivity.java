@@ -52,7 +52,7 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
                     // set theme and language for dialog alert ;-)
                     // not working on Android 2.3.x
                     GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false);
-                    GlobalGUIRoutines.setLanguage(this);
+                    //GlobalGUIRoutines.setLanguage(this);
 
                     dataWrapper.restartEventsWithAlert(this);
                 }
