@@ -230,7 +230,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (!nestedFragment) {
             Preference preferenceCategoryScreen;
             preferenceCategoryScreen = findPreference("applicationInterfaceCategoryRoot");
-            if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
+            if (preferenceCategoryScreen != null) {
+                setCategorySummary(preferenceCategoryScreen);
+            }
             preferenceCategoryScreen = findPreference("categoryApplicationStartRoot");
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
 
@@ -2360,6 +2362,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         String summary = "";
         if (key.equals("applicationInterfaceCategoryRoot")) {
+            if (BuildConfig.DEBUG) {
+                // force set it to english for debug mode
+                preferenceCategory.setTitle("Application interface (not translated in DEBUG)");
+            }
             summary = summary + getString(R.string.phone_profiles_pref_applicationLanguage);
             if (!summary.isEmpty()) summary = summary +" • ";
             summary = summary + getString(R.string.phone_profiles_pref_applicationTheme);
