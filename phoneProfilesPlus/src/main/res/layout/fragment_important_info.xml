@@ -228,6 +228,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
+            android:text="@string/important_info_android_look_application_settings"
+            android:textSize="@dimen/important_info_text_size"
+            android:id="@+id/activity_info_notification_application_settings"
+            android:textStyle="bold"
+            android:textColor="?attr/colorAccent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
             android:text="@string/important_info_android_doze_mode"
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_app_standby"

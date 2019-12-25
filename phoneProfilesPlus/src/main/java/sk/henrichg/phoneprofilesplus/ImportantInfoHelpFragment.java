@@ -711,6 +711,18 @@ public class ImportantInfoHelpFragment extends Fragment {
         });
 
 
+        TextView infoText10a = view.findViewById(R.id.activity_info_notification_application_settings);
+        infoText10a.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "profileActivationCategoryRoot");
+                //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                startActivity(intent);
+            }
+        });
+
         TextView infoText100 = view.findViewById(R.id.activity_info_profile_activation2);
         String text = "<ol>"+
                         "<li>"+getString(R.string.important_info_profile_activation_text2) + "</li>" +
