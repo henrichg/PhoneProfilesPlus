@@ -261,6 +261,12 @@ class AddEventAdapter extends BaseAdapter {
                     holder.profileEndIndicator.setVisibility(View.GONE);
             } else {
                 holder.profileEndIcon.setVisibility(View.VISIBLE);
+                if (applicationEditorPrefIndicator) {
+                    if (event._fkProfileEnd == Profile.PROFILE_NO_ACTIVATE)
+                        holder.profileEndIcon.getLayoutParams().height = 1;
+                    else
+                        holder.profileEndIcon.getLayoutParams().height = GlobalGUIRoutines.dpToPx(30);
+                }
                 holder.profileEndName.setVisibility(View.VISIBLE);
                 if (holder.profileEndIndicator != null)
                     holder.profileEndIndicator.setVisibility(View.VISIBLE);
