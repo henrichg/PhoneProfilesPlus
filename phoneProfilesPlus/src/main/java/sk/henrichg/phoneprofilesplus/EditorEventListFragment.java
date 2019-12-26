@@ -608,56 +608,58 @@ public class EditorEventListFragment extends Fragment
         onStartEventPreferencesCallback.onStartEventPreferences(event, editMode, predefinedEventIndex);
     }
 
-    void runStopEvent(final Event event)
-    {
-        if (Event.getGlobalEventsRunning(activityDataWrapper.context)) {
-            // events are not globally stopped
+    void runStopEvent(final Event event) {
+        if (!EventsPrefsFragment.isRedTextNotificationRequired(event, activityDataWrapper.context)) {
+            if (Event.getGlobalEventsRunning(activityDataWrapper.context)) {
+                // events are not globally stopped
 
-            List<EventTimeline> eventTimelineList = activityDataWrapper.getEventTimelineList(true);
-            if (event.getStatusFromDB(activityDataWrapper.context) == Event.ESTATUS_STOP) {
-                // pause event
-                IgnoreBatteryOptimizationNotification.showNotification(activityDataWrapper.context.getApplicationContext());
-                // not needed to use handlerThread, profile is not activated (activateReturnProfile=false)
-                event.pauseEvent(activityDataWrapper, eventTimelineList, false, false,
-                        false, /*false,*/ null, false, false);
-            } else {
-                // stop event
-                // not needed to use handlerThread, profile is not activated (activateReturnProfile=false)
-                event.stopEvent(activityDataWrapper, eventTimelineList, false, false,
-                        true/*, false*/); // activate return profile
-            }
+                List<EventTimeline> eventTimelineList = activityDataWrapper.getEventTimelineList(true);
+                if (event.getStatusFromDB(activityDataWrapper.context) == Event.ESTATUS_STOP) {
+                    // pause event
+                    IgnoreBatteryOptimizationNotification.showNotification(activityDataWrapper.context.getApplicationContext());
+                    // not needed to use handlerThread, profile is not activated (activateReturnProfile=false)
+                    event.pauseEvent(activityDataWrapper, eventTimelineList, false, false,
+                            false, /*false,*/ null, false, false);
+                } else {
+                    // stop event
+                    // not needed to use handlerThread, profile is not activated (activateReturnProfile=false)
+                    event.stopEvent(activityDataWrapper, eventTimelineList, false, false,
+                            true/*, false*/); // activate return profile
+                }
 
-            // redraw event list
-            updateListView(event, false, false, true, 0);
+                // redraw event list
+                updateListView(event, false, false, true, 0);
 
-            // restart events
-            PPApplication.logE("$$$ restartEvents","from EditorEventListFragment.runStopEvent");
-            //activityDataWrapper.restartEvents(false, true, true, true, true);
-            activityDataWrapper.restartEventsWithRescan(/*true, */false, true, true, false);
+                // restart events
+                PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.runStopEvent");
+                //activityDataWrapper.restartEvents(false, true, true, true, true);
+                activityDataWrapper.restartEventsWithRescan(/*true, */false, true, true, false);
 
             /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
             PPApplication.startPPService(activityDataWrapper.context, serviceIntent);*/
-            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
-            PPApplication.runCommand(activityDataWrapper.context, commandIntent);
-        }
-        else
-        {
-            if (event.getStatusFromDB(activityDataWrapper.context) == Event.ESTATUS_STOP) {
-                // pause event
-                event.setStatus(Event.ESTATUS_PAUSE);
+                Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+                //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
+                PPApplication.runCommand(activityDataWrapper.context, commandIntent);
             } else {
-                // stop event
-                event.setStatus(Event.ESTATUS_STOP);
-            }
+                if (event.getStatusFromDB(activityDataWrapper.context) == Event.ESTATUS_STOP) {
+                    // pause event
+                    event.setStatus(Event.ESTATUS_PAUSE);
+                } else {
+                    // stop event
+                    event.setStatus(Event.ESTATUS_STOP);
+                }
 
-            // update event in DB
-            DatabaseHandler.getInstance(activityDataWrapper.context).updateEvent(event);
-            // redraw event list
-            updateListView(event, false, false, true, 0);
+                // update event in DB
+                DatabaseHandler.getInstance(activityDataWrapper.context).updateEvent(event);
+                // redraw event list
+                updateListView(event, false, false, true, 0);
+            }
+        }
+        else {
+            //TODO add dialog with text about not possible to activate profile
         }
     }
 

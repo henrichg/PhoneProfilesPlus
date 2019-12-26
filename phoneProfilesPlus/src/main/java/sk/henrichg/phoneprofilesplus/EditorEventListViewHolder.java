@@ -79,9 +79,9 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
         {
             int _eventStatus = event.getStatusFromDB(context);
 
-            boolean isRunnable = event.isRunnable(context, true);
-            boolean isPermissionGranted = Permissions.checkEventPermissions(context, event).size() == 0;
-            boolean isAccessibilityServiceEnabled = (event.isAccessibilityServiceEnabled(context, true) == 1);
+            //boolean isRunnable = event.isRunnable(context, true);
+            //boolean isPermissionGranted = Permissions.checkEventPermissions(context, event).size() == 0;
+            //boolean isAccessibilityServiceEnabled = (event.isAccessibilityServiceEnabled(context, true) == 1);
 
             DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
             boolean manualProfileActivation = DataWrapper.getIsManualProfileActivation(false, context);
@@ -125,20 +125,21 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 eventName.setTextColor(GlobalGUIRoutines.getThemeTextColor(editorFragment.getActivity()));
             }
             else
+            //if (!(isRunnable && isPermissionGranted && isAccessibilityServiceEnabled)) {
+            if (EventsPrefsFragment.isRedTextNotificationRequired(event, context)) {
+                //if (!isRunnable)
+                eventName.setTypeface(null, Typeface.ITALIC);
+                //else
+                //    eventName.setTypeface(null, Typeface.NORMAL);
+                eventName.setTextSize(15);
+                eventName.setTextColor(Color.RED);
+            }
+            else
             if (_eventStatus == Event.ESTATUS_STOP) {
                 eventName.setTypeface(null, Typeface.ITALIC);
                 eventName.setTextSize(15);
                 //noinspection ConstantConditions
                 eventName.setTextColor(GlobalGUIRoutines.getThemeEventStopColor(editorFragment.getActivity()));
-            }
-            else
-            if (!(isRunnable && isPermissionGranted && isAccessibilityServiceEnabled)) {
-                if (!isRunnable)
-                    eventName.setTypeface(null, Typeface.ITALIC);
-                else
-                    eventName.setTypeface(null, Typeface.NORMAL);
-                eventName.setTextSize(15);
-                eventName.setTextColor(Color.RED);
             }
             else
             if (_eventStatus == Event.ESTATUS_PAUSE) {

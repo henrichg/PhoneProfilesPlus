@@ -644,7 +644,7 @@ public class EditorProfileListFragment extends Fragment
     public void showEditMenu(View view)
     {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
-        Context context = view.getContext();
+        final Context context = view.getContext();
         PopupMenu popup;
         //if (android.os.Build.VERSION.SDK_INT >= 19)
             popup = new PopupMenu(context, view, Gravity.END);
@@ -858,7 +858,11 @@ public class EditorProfileListFragment extends Fragment
 
     public void activateProfile(Profile profile/*, boolean interactive*/)
     {
-        activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_EDITOR, getActivity()/*, ""*/);
+        if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, activityDataWrapper.context))
+            activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_EDITOR, getActivity()/*, ""*/);
+        else {
+            //TODO add dialog with text about not possible to activate profile
+        }
     }
 
     private void setProfileSelection(Profile profile) {

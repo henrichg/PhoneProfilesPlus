@@ -60,7 +60,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
 
         this.profile = profile;
 
-        boolean isPermissionGranted = Permissions.checkProfilePermissions(context, profile).size() == 0;
+        //boolean isPermissionGranted = Permissions.checkProfilePermissions(context, profile).size() == 0;
 
         //boolean applicationEditorHeader = ApplicationPreferences.applicationEditorHeader(context);
 
@@ -72,11 +72,12 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
             profileName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(editorFragment.getActivity()));
         }
         else*/
-        if ((!isPermissionGranted) ||
+        /*if ((!isPermissionGranted) ||
             (Profile.isProfilePreferenceAllowed("-", profile, null, true, context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) ||
             ((profile._volumeRingerMode != 0) && (!ActivateProfileHelper.canChangeZenMode(context, false))) ||
             (profile.isAccessibilityServiceEnabled(context) != 1)
-           ) {
+           )*/
+        if (ProfilesPrefsFragment.isRedTextNotificationRequired(profile, context)){
             profileName.setTypeface(null, Typeface.NORMAL);
             profileName.setTextSize(15);
             profileName.setTextColor(Color.RED);
