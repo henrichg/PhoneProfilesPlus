@@ -944,7 +944,6 @@ public class EditorEventListFragment extends Fragment
                         if (EventsPrefsFragment.isRedTextNotificationRequired(event, _dataWrapper.context))
                             redTextVisible = true;
                     }
-                    _dataWrapper.invalidateDataWrapper();
                 }
 
                 return null;
@@ -968,7 +967,6 @@ public class EditorEventListFragment extends Fragment
             }
 
         }.execute();
-
     }
 
     void updateListView(Event event, boolean newEvent, boolean refreshIcons, boolean setPosition, long loadEventId)

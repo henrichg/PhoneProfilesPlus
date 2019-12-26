@@ -856,7 +856,6 @@ public class EditorProfileListFragment extends Fragment
                         if (ProfilesPrefsFragment.isRedTextNotificationRequired(profile, _dataWrapper.context))
                             redTextVisible = true;
                     }
-                    _dataWrapper.invalidateDataWrapper();
                 }
 
                 return null;
@@ -867,7 +866,6 @@ public class EditorProfileListFragment extends Fragment
             protected void onPostExecute(Void result)
             {
                 super.onPostExecute(result);
-
                 if ((getActivity() != null) && (!getActivity().isFinishing())) {
                     try {
                         TextView redText = activatedProfileHeader.findViewById(R.id.activated_profile_red_text);
