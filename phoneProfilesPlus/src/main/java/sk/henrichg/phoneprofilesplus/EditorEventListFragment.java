@@ -924,12 +924,27 @@ public class EditorEventListFragment extends Fragment
 
         new AsyncTask<Void, Integer, Void>() {
             boolean redTextVisible = false;
+            DataWrapper _dataWrapper;
+
+            @Override
+            protected void onPreExecute()
+            {
+                super.onPreExecute();
+
+                if (getActivity() != null) {
+                    _dataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false);
+                    _dataWrapper.copyEventList(activityDataWrapper);
+                }
+            }
 
             @Override
             protected Void doInBackground(Void... params) {
-                for (Event event : activityDataWrapper.eventList) {
-                    if (EventsPrefsFragment.isRedTextNotificationRequired(event, activityDataWrapper.context))
-                        redTextVisible = true;
+                if (_dataWrapper != null) {
+                    for (Event event : _dataWrapper.eventList) {
+                        if (EventsPrefsFragment.isRedTextNotificationRequired(event, _dataWrapper.context))
+                            redTextVisible = true;
+                    }
+                    _dataWrapper.invalidateDataWrapper();
                 }
 
                 return null;

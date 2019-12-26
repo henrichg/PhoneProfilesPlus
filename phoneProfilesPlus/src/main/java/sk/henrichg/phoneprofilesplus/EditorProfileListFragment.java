@@ -836,12 +836,27 @@ public class EditorProfileListFragment extends Fragment
 
         new AsyncTask<Void, Integer, Void>() {
             boolean redTextVisible = false;
+            DataWrapper _dataWrapper;
+
+            @Override
+            protected void onPreExecute()
+            {
+                super.onPreExecute();
+
+                if (getActivity() != null) {
+                    _dataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false);
+                    _dataWrapper.copyProfileList(activityDataWrapper);
+                }
+            }
 
             @Override
             protected Void doInBackground(Void... params) {
-                for (Profile profile : activityDataWrapper.profileList) {
-                    if (ProfilesPrefsFragment.isRedTextNotificationRequired(profile, activityDataWrapper.context))
-                        redTextVisible = true;
+                if (_dataWrapper != null) {
+                    for (Profile profile : _dataWrapper.profileList) {
+                        if (ProfilesPrefsFragment.isRedTextNotificationRequired(profile, _dataWrapper.context))
+                            redTextVisible = true;
+                    }
+                    _dataWrapper.invalidateDataWrapper();
                 }
 
                 return null;
