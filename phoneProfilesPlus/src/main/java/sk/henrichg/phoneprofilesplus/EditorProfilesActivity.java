@@ -2220,6 +2220,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                 ActivateProfileHelper.updateGUI(fragment.activityDataWrapper.context, true, true);
 
                 fragment.activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
+
+                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)filterSpinner.getAdapter()).setSelection(0);
+                selectFilterItem(editorSelectedView, 0, false, true);
             }
         }
     }
@@ -2359,6 +2362,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                 Profile activeProfile = fragment.activityDataWrapper.getActivatedProfileFromDB(true,
                         ApplicationPreferences.applicationEditorPrefIndicator(fragment.activityDataWrapper.context));
                 fragment.updateHeader(activeProfile);
+
+                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)filterSpinner.getAdapter()).setSelection(0);
+                selectFilterItem(editorSelectedView, 0, false, true);
             }
         }
     }
