@@ -143,12 +143,8 @@ public class ActivateProfileListFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 if (!ApplicationPreferences.applicationLongClickActivation(activityDataWrapper.context))
-                    //activateProfileWithAlert(position);
-                    activateProfile((Profile)profileListAdapter.getItem(position));
-
+                    activateProfile((Profile) profileListAdapter.getItem(position));
             }
-
-
         });
 
         absListView.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -156,7 +152,6 @@ public class ActivateProfileListFragment extends Fragment {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
                 if (ApplicationPreferences.applicationLongClickActivation(activityDataWrapper.context))
-                    //activateProfileWithAlert(position);
                     activateProfile((Profile)profileListAdapter.getItem(position));
 
                 return false;
@@ -506,7 +501,10 @@ public class ActivateProfileListFragment extends Fragment {
             return;
 
         if (profile._porder != PORDER_FOR_IGNORED_PROFILE) {
-            activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_ACTIVATOR, getActivity()/*, ""*/);
+            if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, activityDataWrapper.context))
+                activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_ACTIVATOR, getActivity()/*, ""*/);
+            else
+                EditorProfilesActivity.showDialogAboutRedText(profile, null, false, getActivity());
         }
     }
 

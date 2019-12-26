@@ -573,7 +573,7 @@ public class DataWrapper {
         //if (Permissions.grantProfilePermissions(context, profile, merged, true,
         //        /*false, monochrome, monochromeValue,*/
         //        startupSource, false,true, false)) {
-        if (EditorProfilesActivity.showRedTextToPreferencesNotification(profile, null, context)) {
+        if (EditorProfilesActivity.displayRedTextToPreferencesNotification(profile, null, context)) {
             _activateProfile(profile, merged, startupSource, forRestartEvents);
         }
     }
@@ -1821,7 +1821,7 @@ public class DataWrapper {
                             //if (Permissions.grantProfilePermissions(context, _profile, false, true,
                             //        /*false, monochrome, monochromeValue,*/
                             //        _startupSource, true, true, false))
-                            if (EditorProfilesActivity.showRedTextToPreferencesNotification(_profile, null, context))
+                            if (EditorProfilesActivity.displayRedTextToPreferencesNotification(_profile, null, context))
                                 _dataWrapper.activateProfileFromMainThread(_profile, false, _startupSource, true, _activity);
                             else {
                                 Intent returnIntent = new Intent();
@@ -1881,7 +1881,7 @@ public class DataWrapper {
                 //granted = Permissions.grantProfilePermissions(context, profile, false, true,
                 //        /*false, monochrome, monochromeValue,*/
                 //        startupSource, true, true, false);
-                granted = EditorProfilesActivity.showRedTextToPreferencesNotification(profile, null, context);
+                granted = EditorProfilesActivity.displayRedTextToPreferencesNotification(profile, null, context);
                 if (granted)
                     activateProfileFromMainThread(profile, false, startupSource, true, activity);
                 else {
@@ -2060,7 +2060,7 @@ public class DataWrapper {
         //if (Permissions.grantProfilePermissions(context, profile, false, true,
         //        /*false, monochrome, monochromeValue,*/
         //        startupSource, true,true, false)) {
-        if (EditorProfilesActivity.showRedTextToPreferencesNotification(profile, null, context)) {
+        if (EditorProfilesActivity.displayRedTextToPreferencesNotification(profile, null, context)) {
             // activateProfileAfterDuration is already called from handlerThread
             PPApplication.logE("DataWrapper.activateProfileAfterDuration", "activate");
             _activateProfile(profile, false, startupSource, false);
@@ -2075,7 +2075,7 @@ public class DataWrapper {
                                     String sensorType)
     {
         //if (!Permissions.grantEventPermissions(context, event, true, false))
-        if (!EditorProfilesActivity.showRedTextToPreferencesNotification(null, event, context))
+        if (!EditorProfilesActivity.displayRedTextToPreferencesNotification(null, event, context))
             return;
 
         int newEventStatus;// = Event.ESTATUS_NONE;

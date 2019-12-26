@@ -1335,7 +1335,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         //Profile mappedProfile = profile; //Profile.getMappedProfile(profile, getApplicationContext());
                         //Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
                         //        /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, false, true, false);
-                        EditorProfilesActivity.showRedTextToPreferencesNotification(profile, null, getApplicationContext());
+                        EditorProfilesActivity.displayRedTextToPreferencesNotification(profile, null, getApplicationContext());
                     }
                 }
 
@@ -1375,7 +1375,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     redrawEventListFragment(event, newEventMode);
 
                     //Permissions.grantEventPermissions(getApplicationContext(), event, true, false);
-                    EditorProfilesActivity.showRedTextToPreferencesNotification(null, event, getApplicationContext());
+                    EditorProfilesActivity.displayRedTextToPreferencesNotification(null, event, getApplicationContext());
                 }
 
                 /*Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
@@ -2918,7 +2918,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
     }
 
-    static boolean showRedTextToPreferencesNotification(Profile profile, Event event, Context context) {
+    static boolean displayRedTextToPreferencesNotification(Profile profile, Event event, Context context) {
         if ((profile == null) && (event == null))
             return true;
 
@@ -3010,6 +3010,58 @@ public class EditorProfilesActivity extends AppCompatActivity
             mNotificationManager.notify(notificationID, mBuilder.build());
 
         return false;
+    }
+
+    static void showDialogAboutRedText(Profile profile, Event event, boolean forRunStopEvent, Activity activity) {
+        if (activity == null)
+            return;
+
+        String nTitle = "";
+        String nText = "";
+
+        if (profile != null) {
+            nTitle = activity.getString(R.string.profile_preferences_red_texts_title);
+            nText = activity.getString(R.string.profile_preferences_red_texts_text_1) + " " +
+                    "\"" + profile._name + "\" " +
+                    activity.getString(R.string.preferences_red_texts_text_2) + " " +
+                    activity.getString(R.string.profile_preferences_red_texts_text_2);
+            if (android.os.Build.VERSION.SDK_INT < 24) {
+                nTitle = activity.getString(R.string.app_name);
+                nText = activity.getString(R.string.profile_preferences_red_texts_title) + ": " +
+                        activity.getString(R.string.profile_preferences_red_texts_text_1) + " " +
+                        "\"" + profile._name + "\" " +
+                        activity.getString(R.string.preferences_red_texts_text_2) + " " +
+                        activity.getString(R.string.profile_preferences_red_texts_text_2);
+            }
+        }
+
+        if (event != null) {
+            nTitle = activity.getString(R.string.event_preferences_red_texts_title);
+            nText = activity.getString(R.string.event_preferences_red_texts_text_1) + " " +
+                    "\"" + event._name + "\" " +
+                    activity.getString(R.string.preferences_red_texts_text_2);
+            if (android.os.Build.VERSION.SDK_INT < 24) {
+                nTitle = activity.getString(R.string.app_name);
+                nText = activity.getString(R.string.event_preferences_red_texts_title) + ": " +
+                        activity.getString(R.string.event_preferences_red_texts_text_1) + " " +
+                        "\"" + event._name + "\" " +
+                        activity.getString(R.string.preferences_red_texts_text_2);
+            }
+            if (forRunStopEvent)
+                nText = nText + " " + activity.getString(R.string.event_preferences_red_texts_text_2);
+            else
+                nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_2);
+        }
+
+        if ((profile != null) || (event != null)) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+            dialogBuilder.setTitle(nTitle);
+            dialogBuilder.setMessage(nText);
+            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+            AlertDialog dialog = dialogBuilder.create();
+            if (!activity.isFinishing())
+                dialog.show();
+        }
     }
 
 }

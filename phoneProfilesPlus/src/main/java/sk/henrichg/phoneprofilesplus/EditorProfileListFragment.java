@@ -860,9 +860,8 @@ public class EditorProfileListFragment extends Fragment
     {
         if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, activityDataWrapper.context))
             activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_EDITOR, getActivity()/*, ""*/);
-        else {
-            //TODO add dialog with text about not possible to activate profile
-        }
+        else
+            EditorProfilesActivity.showDialogAboutRedText(profile, null, false, getActivity());
     }
 
     private void setProfileSelection(Profile profile) {

@@ -105,7 +105,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                         //Log.d("ActionForExternalApplicationActivity.onCreate", "profile="+profile);
                         //if (Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
                         //        /*false, false, 0,*/ PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, true, false)) {
-                        if (EditorProfilesActivity.showRedTextToPreferencesNotification(profile, null, getApplicationContext())) {
+                        if (EditorProfilesActivity.displayRedTextToPreferencesNotification(profile, null, getApplicationContext())) {
                             dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
                         } else
                             dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);

@@ -608,7 +608,7 @@ public class EditorEventListFragment extends Fragment
         onStartEventPreferencesCallback.onStartEventPreferences(event, editMode, predefinedEventIndex);
     }
 
-    void runStopEvent(final Event event) {
+    boolean runStopEvent(final Event event) {
         if (!EventsPrefsFragment.isRedTextNotificationRequired(event, activityDataWrapper.context)) {
             if (Event.getGlobalEventsRunning(activityDataWrapper.context)) {
                 // events are not globally stopped
@@ -657,9 +657,11 @@ public class EditorEventListFragment extends Fragment
                 // redraw event list
                 updateListView(event, false, false, true, 0);
             }
+            return true;
         }
         else {
-            //TODO add dialog with text about not possible to activate profile
+            EditorProfilesActivity.showDialogAboutRedText(null, event, true, getActivity());
+            return false;
         }
     }
 
