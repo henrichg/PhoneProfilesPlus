@@ -504,7 +504,7 @@ public class ActivateProfileListFragment extends Fragment {
             if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, activityDataWrapper.context))
                 activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_ACTIVATOR, getActivity()/*, ""*/);
             else
-                EditorProfilesActivity.showDialogAboutRedText(profile, null, false, getActivity());
+                EditorProfilesActivity.showDialogAboutRedText(profile, null, false, false, getActivity());
         }
     }
 

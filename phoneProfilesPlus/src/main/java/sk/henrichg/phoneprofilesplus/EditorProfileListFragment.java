@@ -861,7 +861,7 @@ public class EditorProfileListFragment extends Fragment
         if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, activityDataWrapper.context))
             activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_EDITOR, getActivity()/*, ""*/);
         else
-            EditorProfilesActivity.showDialogAboutRedText(profile, null, false, getActivity());
+            EditorProfilesActivity.showDialogAboutRedText(profile, null, false, false, getActivity());
     }
 
     private void setProfileSelection(Profile profile) {
@@ -1023,54 +1023,58 @@ public class EditorProfileListFragment extends Fragment
     @SuppressWarnings("RedundantArrayCreation")
     void showShowInActivatorMenu(View view)
     {
-        //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
-        Context context = view.getContext();
-        PopupMenu popup;
-        //if (android.os.Build.VERSION.SDK_INT >= 19)
-        popup = new PopupMenu(context, view, Gravity.END);
-        //else
-        //    popup = new PopupMenu(context, view);
-        //noinspection ConstantConditions
-        getActivity().getMenuInflater().inflate(R.menu.profile_list_item_show_in_activator, popup.getMenu());
+        final Profile profile = (Profile) view.getTag();
 
-        // show icons
-        try {
-            Field field = popup.getClass().getDeclaredField("mPopup");
-            field.setAccessible(true);
-            Object menuPopupHelper = field.get(popup);
-            @SuppressLint("PrivateApi")
-            Class<?> cls = Class.forName("com.android.internal.view.menu.MenuPopupHelper");
-            Method method = cls.getDeclaredMethod("setForceShowIcon", new Class[]{boolean.class});
-            method.setAccessible(true);
-            method.invoke(menuPopupHelper, new Object[]{true});
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, activityDataWrapper.context)) {
 
-        final Profile profile = (Profile)view.getTag();
+            //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
+            Context context = view.getContext();
+            PopupMenu popup;
+            //if (android.os.Build.VERSION.SDK_INT >= 19)
+            popup = new PopupMenu(context, view, Gravity.END);
+            //else
+            //    popup = new PopupMenu(context, view);
+            //noinspection ConstantConditions
+            getActivity().getMenuInflater().inflate(R.menu.profile_list_item_show_in_activator, popup.getMenu());
 
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-
-            public boolean onMenuItemClick(android.view.MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.profile_list_item_menu_not_show_in_activator:
-                        profile._showInActivator = false;
-                        DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
-                        profileListAdapter.notifyDataSetChanged();
-                        return true;
-                    case R.id.profile_list_item_menu_show_in_activator:
-                        profile._showInActivator = true;
-                        DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
-                        profileListAdapter.notifyDataSetChanged();
-                        return true;
-                    default:
-                        return false;
-                }
+            // show icons
+            try {
+                Field field = popup.getClass().getDeclaredField("mPopup");
+                field.setAccessible(true);
+                Object menuPopupHelper = field.get(popup);
+                @SuppressLint("PrivateApi")
+                Class<?> cls = Class.forName("com.android.internal.view.menu.MenuPopupHelper");
+                Method method = cls.getDeclaredMethod("setForceShowIcon", new Class[]{boolean.class});
+                method.setAccessible(true);
+                method.invoke(menuPopupHelper, new Object[]{true});
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        });
 
+            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
-        popup.show();
+                public boolean onMenuItemClick(android.view.MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.profile_list_item_menu_not_show_in_activator:
+                            profile._showInActivator = false;
+                            DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
+                            profileListAdapter.notifyDataSetChanged();
+                            return true;
+                        case R.id.profile_list_item_menu_show_in_activator:
+                            profile._showInActivator = true;
+                            DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
+                            profileListAdapter.notifyDataSetChanged();
+                            return true;
+                        default:
+                            return false;
+                    }
+                }
+            });
+
+            popup.show();
+        }
+        else
+            EditorProfilesActivity.showDialogAboutRedText(profile, null, true, false, getActivity());
     }
 
     /*

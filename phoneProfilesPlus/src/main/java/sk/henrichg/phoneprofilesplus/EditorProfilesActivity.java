@@ -3012,7 +3012,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         return false;
     }
 
-    static void showDialogAboutRedText(Profile profile, Event event, boolean forRunStopEvent, Activity activity) {
+    static void showDialogAboutRedText(Profile profile, Event event, boolean forShowInActivator, boolean forRunStopEvent, Activity activity) {
         if (activity == null)
             return;
 
@@ -3023,16 +3023,18 @@ public class EditorProfilesActivity extends AppCompatActivity
             nTitle = activity.getString(R.string.profile_preferences_red_texts_title);
             nText = activity.getString(R.string.profile_preferences_red_texts_text_1) + " " +
                     "\"" + profile._name + "\" " +
-                    activity.getString(R.string.preferences_red_texts_text_2) + " " +
-                    activity.getString(R.string.profile_preferences_red_texts_text_2);
+                    activity.getString(R.string.preferences_red_texts_text_2);
             if (android.os.Build.VERSION.SDK_INT < 24) {
                 nTitle = activity.getString(R.string.app_name);
                 nText = activity.getString(R.string.profile_preferences_red_texts_title) + ": " +
                         activity.getString(R.string.profile_preferences_red_texts_text_1) + " " +
                         "\"" + profile._name + "\" " +
-                        activity.getString(R.string.preferences_red_texts_text_2) + " " +
-                        activity.getString(R.string.profile_preferences_red_texts_text_2);
+                        activity.getString(R.string.preferences_red_texts_text_2);
             }
+            if (forShowInActivator)
+                nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_3);
+            else
+                nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_2);
         }
 
         if (event != null) {
