@@ -54,7 +54,7 @@ public class EditorEventListFragment extends Fragment
     public DataWrapper activityDataWrapper;
 
     private View rootView;
-    private RelativeLayout activatedProfileHeader;
+    RelativeLayout activatedProfileHeader;
     RecyclerView listView;
     private TextView activeProfileName;
     private ImageView activeProfileIcon;
@@ -921,6 +921,39 @@ public class EditorEventListFragment extends Fragment
         String newDisplayedText = (String)activatedProfileHeader.getTag();
         if (!newDisplayedText.equals(oldDisplayedText))
             activatedProfileHeader.setVisibility(VISIBLE);
+
+        new AsyncTask<Void, Integer, Void>() {
+            boolean redTextVisible = false;
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                for (Event event : activityDataWrapper.eventList) {
+                    if (EventsPrefsFragment.isRedTextNotificationRequired(event, activityDataWrapper.context))
+                        redTextVisible = true;
+                }
+
+                return null;
+            }
+
+            @SuppressLint("SetTextI18n")
+            @Override
+            protected void onPostExecute(Void result)
+            {
+                super.onPostExecute(result);
+
+                if ((getActivity() != null) && (!getActivity().isFinishing())) {
+                    try {
+                        TextView redText = activatedProfileHeader.findViewById(R.id.activated_profile_red_text);
+                        if (redTextVisible)
+                            redText.setVisibility(View.VISIBLE);
+                        else
+                            redText.setVisibility(GONE);
+                    } catch (Exception ignored) {}
+                }
+            }
+
+        }.execute();
+
     }
 
     void updateListView(Event event, boolean newEvent, boolean refreshIcons, boolean setPosition, long loadEventId)

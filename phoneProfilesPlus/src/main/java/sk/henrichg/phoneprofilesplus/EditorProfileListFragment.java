@@ -53,7 +53,7 @@ public class EditorProfileListFragment extends Fragment
     public DataWrapper activityDataWrapper;
 
     private View rootView;
-    private RelativeLayout activatedProfileHeader;
+    RelativeLayout activatedProfileHeader;
     RecyclerView listView;
     private TextView activeProfileName;
     private ImageView activeProfileIcon;
@@ -833,6 +833,38 @@ public class EditorProfileListFragment extends Fragment
         String newDisplayedText = (String)activatedProfileHeader.getTag();
         if (!newDisplayedText.equals(oldDisplayedText))
             activatedProfileHeader.setVisibility(View.VISIBLE);
+
+        new AsyncTask<Void, Integer, Void>() {
+            boolean redTextVisible = false;
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                for (Profile profile : activityDataWrapper.profileList) {
+                    if (ProfilesPrefsFragment.isRedTextNotificationRequired(profile, activityDataWrapper.context))
+                        redTextVisible = true;
+                }
+
+                return null;
+            }
+
+            @SuppressLint("SetTextI18n")
+            @Override
+            protected void onPostExecute(Void result)
+            {
+                super.onPostExecute(result);
+
+                if ((getActivity() != null) && (!getActivity().isFinishing())) {
+                    try {
+                        TextView redText = activatedProfileHeader.findViewById(R.id.activated_profile_red_text);
+                        if (redTextVisible)
+                            redText.setVisibility(View.VISIBLE);
+                        else
+                            redText.setVisibility(GONE);
+                    } catch (Exception ignored) {}
+                }
+            }
+
+        }.execute();
     }
 
     public void doOnActivityResult(int requestCode, int resultCode, Intent data)

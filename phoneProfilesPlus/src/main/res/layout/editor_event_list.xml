@@ -22,7 +22,8 @@
             android:id="@+id/activated_profile_icon"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:adjustViewBounds="true"
             android:contentDescription="@string/profile_preferences_profileIcon"
             android:scaleType="fitCenter"
@@ -32,7 +33,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_centerVertical="true"
             android:layout_toEndOf="@id/activated_profile_icon" >
 
             <TextView
@@ -61,6 +61,15 @@
                 android:paddingEnd="10dp" />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/activated_profile_red_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/activated_profile_icon"
+            android:text="@string/event_preferences_red_texts_in_header"
+            android:textColor="@color/error_in_preferences"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 

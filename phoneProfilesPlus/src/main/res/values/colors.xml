@@ -12,4 +12,6 @@
 
     <color name="notification_background_color_default">#FFFFFFFF</color>
 
+    <color name="error_in_preferences">#FFFF0000</color>
+
 </resources>
