@@ -329,7 +329,7 @@ class ProfilePreferencesIndicator {
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_autorotate;
             }
             // screen on permanent
-            /*if (profile._screenOnPermanent != 0) {
+            if (profile._screenOnPermanent != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._screenOnPermanent == 1) || (profile._screenOnPermanent == 3))
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_on_permanent;
@@ -340,7 +340,7 @@ class ProfilePreferencesIndicator {
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_on_permanent_off;
                     }
                 }
-            }*/
+            }
             // wallpaper
             if (profile._deviceWallpaperChange == 1) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, null,null,  true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
