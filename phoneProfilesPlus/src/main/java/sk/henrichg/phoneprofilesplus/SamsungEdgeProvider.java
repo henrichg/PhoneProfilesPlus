@@ -282,8 +282,8 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                     doOnUpdate(context, cocktailBarManager, cocktailId);
                 }
 
-                if (dataWrapper != null)
-                    dataWrapper.invalidateDataWrapper();
+                //if (dataWrapper != null)
+                //    dataWrapper.invalidateDataWrapper();
                 dataWrapper = null;
             }
         });
@@ -310,8 +310,8 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                     _updateWidgets(context);
                 }
 
-                if (dataWrapper != null)
-                    dataWrapper.invalidateDataWrapper();
+                //if (dataWrapper != null)
+                //    dataWrapper.invalidateDataWrapper();
                 dataWrapper = null;
             }
         });
@@ -381,8 +381,8 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
                 _updateWidgets(context);
 
-                if (dataWrapper != null)
-                    dataWrapper.invalidateDataWrapper();
+                //if (dataWrapper != null)
+                //    dataWrapper.invalidateDataWrapper();
                 dataWrapper = null;
             }
         });

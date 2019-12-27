@@ -45,7 +45,7 @@ public class RestartEventsWithDelayWorker extends Worker {
                 dataWrapper.addActivityLog(logType, null, null, null, 0);
             //dataWrapper.restartEvents(unblockEventsRun, true, true, false);
             dataWrapper.restartEventsWithRescan(/*true, */unblockEventsRun, false, true, false);
-            dataWrapper.invalidateDataWrapper();
+            //dataWrapper.invalidateDataWrapper();
 
             return Result.success();
         } catch (Exception e) {

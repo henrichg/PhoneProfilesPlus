@@ -74,7 +74,7 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
     {
         super.onDestroy();
 
-        dataWrapper.invalidateDataWrapper();
+        //dataWrapper.invalidateDataWrapper();
         dataWrapper = null;
     }
 

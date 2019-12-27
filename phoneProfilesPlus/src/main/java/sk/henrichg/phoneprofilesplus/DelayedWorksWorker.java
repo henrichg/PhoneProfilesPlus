@@ -63,7 +63,7 @@ public class DelayedWorksWorker extends Worker {
                             if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
                                 PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "RESTART EVENTS AFTER WAIT FOR END OF START");
                                 dataWrapper.restartEventsWithRescan(/*true, */activateProfiles, false, true, false);
-                                dataWrapper.invalidateDataWrapper();
+                                //dataWrapper.invalidateDataWrapper();
                             }
                         }
 

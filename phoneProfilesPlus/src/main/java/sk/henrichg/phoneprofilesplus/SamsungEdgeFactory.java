@@ -231,7 +231,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
             newProfileList.add(0, restartEvents);
         }
 
-        dataWrapper.invalidateProfileList();
+        //dataWrapper.invalidateProfileList();
         dataWrapper.setProfileList(newProfileList);
         profileList = newProfileList;
     }

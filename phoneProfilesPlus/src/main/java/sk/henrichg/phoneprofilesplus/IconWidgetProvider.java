@@ -223,7 +223,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     }
                 } catch (Exception ignored) {}
 
-                dataWrapper.invalidateDataWrapper();
+                //dataWrapper.invalidateDataWrapper();
             }
         });
     }

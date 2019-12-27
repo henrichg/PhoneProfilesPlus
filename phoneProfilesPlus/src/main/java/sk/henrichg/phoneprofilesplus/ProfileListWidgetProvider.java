@@ -391,8 +391,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     doOnUpdate(context, appWidgetManager, appWidgetId);
                 }
 
-                if (dataWrapper != null)
-                    dataWrapper.invalidateDataWrapper();
+                //if (dataWrapper != null)
+                //    dataWrapper.invalidateDataWrapper();
                 dataWrapper = null;
             }
         });
@@ -451,8 +451,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         (action.equalsIgnoreCase(INTENT_REFRESH_LISTWIDGET)))
                     _updateWidgets(context);
 
-                if (dataWrapper != null)
-                    dataWrapper.invalidateDataWrapper();
+                //if (dataWrapper != null)
+                //    dataWrapper.invalidateDataWrapper();
                 dataWrapper = null;
             }
         });
@@ -590,8 +590,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
                 updateWidget(context, appWidgetId);
 
-                if (dataWrapper != null)
-                    dataWrapper.invalidateDataWrapper();
+                //if (dataWrapper != null)
+                //    dataWrapper.invalidateDataWrapper();
                 dataWrapper = null;
             }
         });
@@ -680,8 +680,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
                 _updateWidgets(context);
 
-                if (dataWrapper != null)
-                    dataWrapper.invalidateDataWrapper();
+                //if (dataWrapper != null)
+                //    dataWrapper.invalidateDataWrapper();
                 dataWrapper = null;
             }
         });

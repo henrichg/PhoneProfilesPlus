@@ -619,7 +619,7 @@ public class BluetoothScanWorker extends Worker {
             WifiBluetoothScanner wifiBluetoothScanner = new WifiBluetoothScanner(context);
             wifiBluetoothScanner.doScan(WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
         }
-        dataWrapper.invalidateDataWrapper();
+        //dataWrapper.invalidateDataWrapper();
     }
 
     /*

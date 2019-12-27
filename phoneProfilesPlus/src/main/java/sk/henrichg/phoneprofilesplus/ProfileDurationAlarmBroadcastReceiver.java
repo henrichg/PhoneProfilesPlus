@@ -290,7 +290,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                 }
             }
 
-            dataWrapper.invalidateDataWrapper();
+            //dataWrapper.invalidateDataWrapper();
 
             if (useHandler)
                 PPApplication.logE("PPApplication.startHandlerThread", "END run - from=ProfileDurationAlarmBroadcastReceiver._doWork");

@@ -287,7 +287,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     }
                 } catch (Exception ignored) {}
 
-                dataWrapper.invalidateDataWrapper();
+                //dataWrapper.invalidateDataWrapper();
             }
         });
     }

@@ -563,8 +563,8 @@ public class EditorEventListFragment extends Fragment
         if (eventListAdapter != null)
             eventListAdapter.release();
 
-        if (activityDataWrapper != null)
-            activityDataWrapper.invalidateDataWrapper();
+        //if (activityDataWrapper != null)
+        //    activityDataWrapper.invalidateDataWrapper();
         activityDataWrapper = null;
     }
 

@@ -136,7 +136,7 @@ public class LockDeviceActivity extends AppCompatActivity {
                     dataWrapper.getActivateProfileHelper().setScreenTimeout(screenTimeout);
                 }*/
             }
-            dataWrapper.invalidateDataWrapper();
+            //dataWrapper.invalidateDataWrapper();
         }
     }
 

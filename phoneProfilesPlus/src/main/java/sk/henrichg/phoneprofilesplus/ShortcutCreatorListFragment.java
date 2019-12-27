@@ -210,8 +210,8 @@ public class ShortcutCreatorListFragment extends Fragment {
         if (profileListAdapter != null)
             profileListAdapter.release();
 
-        if (activityDataWrapper != null)
-            activityDataWrapper.invalidateDataWrapper();
+        //if (activityDataWrapper != null)
+        //    activityDataWrapper.invalidateDataWrapper();
         activityDataWrapper = null;
     }
 

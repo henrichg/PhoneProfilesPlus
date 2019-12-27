@@ -1725,9 +1725,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                             DatabaseHandler.getInstance(this.dataWrapper.context).deactivateProfile();
                             DatabaseHandler.getInstance(this.dataWrapper.context).unblockAllEvents();
                             DatabaseHandler.getInstance(this.dataWrapper.context).disableNotAllowedPreferences();
-                            this.dataWrapper.invalidateProfileList();
-                            this.dataWrapper.invalidateEventList();
-                            this.dataWrapper.invalidateEventTimelineList();
+                            //this.dataWrapper.invalidateProfileList();
+                            //this.dataWrapper.invalidateEventList();
+                            //this.dataWrapper.invalidateEventTimelineList();
                             Event.setEventsBlocked(getApplicationContext(), false);
                             DatabaseHandler.getInstance(this.dataWrapper.context).unblockAllEvents();
                             Event.setForceRunEventRunning(getApplicationContext(), false);

@@ -170,7 +170,7 @@ class EventsHandler {
                 // events are globally stopped
 
                 doEndHandler(null);
-                dataWrapper.invalidateDataWrapper();
+                //dataWrapper.invalidateDataWrapper();
 
                 PPApplication.logE("#### EventsHandler.handleEvents", "-- end: events globally stopped --------------------------------");
 
@@ -191,7 +191,7 @@ class EventsHandler {
                 // events not exists
 
                 doEndHandler(null);
-                dataWrapper.invalidateDataWrapper();
+                //dataWrapper.invalidateDataWrapper();
 
                 PPApplication.logE("#### EventsHandler.handleEvents", "-- end: not events found --------------------------------");
 
@@ -737,7 +737,7 @@ class EventsHandler {
             LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
 
 
-            dataWrapper.invalidateDataWrapper();
+            //dataWrapper.invalidateDataWrapper();
 
             PPApplication.logE("#### EventsHandler.handleEvents", "-- end --------------------------------");
         }

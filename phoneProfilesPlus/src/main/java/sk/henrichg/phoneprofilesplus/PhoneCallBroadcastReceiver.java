@@ -113,7 +113,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
                         PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "profile._name="+profile._name);
                         ActivateProfileHelper.executeForVolumes(profile, linkMode, false, context);
                     }
-                    dataWrapper.invalidateDataWrapper();
+                    //dataWrapper.invalidateDataWrapper();
                 }
             }
         }
@@ -183,7 +183,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
             }
         }
 
-        dataWrapper.invalidateDataWrapper();
+        //dataWrapper.invalidateDataWrapper();
 
         // setSpeakerphoneOn() moved to ActivateProfileHelper.executeForVolumes
     }

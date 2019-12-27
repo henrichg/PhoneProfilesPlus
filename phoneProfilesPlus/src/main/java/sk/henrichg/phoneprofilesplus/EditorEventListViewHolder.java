@@ -85,7 +85,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
 
             DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
             boolean manualProfileActivation = DataWrapper.getIsManualProfileActivation(false, context);
-            dataWrapper.invalidateDataWrapper();
+            //dataWrapper.invalidateDataWrapper();
 
             int statusRes = GlobalGUIRoutines.getThemeEventStopStatusIndicator(context);
             if (!Event.getGlobalEventsRunning(editorFragment.getActivity())) {

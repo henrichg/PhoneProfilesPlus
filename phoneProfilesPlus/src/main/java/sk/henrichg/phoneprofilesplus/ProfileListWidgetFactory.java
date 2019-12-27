@@ -253,7 +253,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         }
 
         //if (dataWrapper != null) {
-            dataWrapper.invalidateProfileList();
+            //dataWrapper.invalidateProfileList();
             dataWrapper.setProfileList(newProfileList);
             profileList = newProfileList;
         //}

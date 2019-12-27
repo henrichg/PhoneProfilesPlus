@@ -3803,7 +3803,7 @@ public class PhoneProfilesService extends Service
                             }
                         //}
 
-                        dataWrapper.invalidateDataWrapper();
+                        //dataWrapper.invalidateDataWrapper();
 
                         if (PPApplication.logEnabled()) {
                             PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "PhoneProfilesService.doForFirstStart END");
@@ -4209,7 +4209,7 @@ public class PhoneProfilesService extends Service
                             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
                             //dataWrapper.restartEvents(unblockEventsRun, true, reactivateProfile, false, false);
                             dataWrapper.restartEventsWithRescan(unblockEventsRun, false, false, false);
-                            dataWrapper.invalidateDataWrapper();
+                            //dataWrapper.invalidateDataWrapper();
                         }
 
                     } finally {
@@ -5007,7 +5007,7 @@ public class PhoneProfilesService extends Service
                 //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
                 _showProfileNotification(null, false, dataWrapper, true, cleared);
-                dataWrapper.invalidateDataWrapper();
+                //dataWrapper.invalidateDataWrapper();
             }
         //}
 
@@ -5025,7 +5025,7 @@ public class PhoneProfilesService extends Service
                 Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
                 PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification", "_showProfileNotification()");
                 _showProfileNotification(profile, true, dataWrapper, refresh, cleared);
-                dataWrapper.invalidateDataWrapper();
+                //dataWrapper.invalidateDataWrapper();
             }
         });
     }

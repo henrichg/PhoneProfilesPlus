@@ -467,7 +467,7 @@ public class DataWrapper {
                                    Context baseContext)
     {
         synchronized (profileList) {
-            invalidateProfileList();
+            //invalidateProfileList();
             DatabaseHandler.getInstance(context).deleteAllProfiles();
 
             for (int index = 0; index < 7; index++)
@@ -477,7 +477,7 @@ public class DataWrapper {
         }
     }
 
-    void invalidateProfileList()
+    /*void invalidateProfileList()
     {
         synchronized (profileList) {
             if (profileListFilled)
@@ -491,7 +491,7 @@ public class DataWrapper {
             }
             profileListFilled = false;
         }
-    }
+    }*/
 
     Profile getActivatedProfileFromDB(boolean generateIcon, boolean generateIndicators)
     {
@@ -921,14 +921,14 @@ public class DataWrapper {
         }
     }
 
-    void invalidateEventList()
+    /*void invalidateEventList()
     {
         synchronized (eventList) {
             if (eventListFilled)
                 eventList.clear();
             eventListFilled = false;
         }
-    }
+    }*/
 
     void sortEventsByStartOrderAsc()
     {
@@ -1263,8 +1263,8 @@ public class DataWrapper {
     {
         PPApplication.logE("DataWrapper.firstStartEvents", "startedFromService="+startedFromService);
 
-        if (startedFromService)
-            invalidateEventList();  // force load form db
+        //if (startedFromService)
+            //invalidateEventList();  // force load form db
 
         if (!startedFromService) {
             Event.setEventsBlocked(context, false);
@@ -1498,7 +1498,7 @@ public class DataWrapper {
 
     void generatePredefinedEventList(Context baseContext)
     {
-        invalidateEventList();
+        //invalidateEventList();
         DatabaseHandler.getInstance(context).deleteAllEvents();
 
         for (int index = 0; index < 6; index++)
@@ -1533,21 +1533,21 @@ public class DataWrapper {
         }
     }
 
-    void invalidateEventTimelineList()
+    /*void invalidateEventTimelineList()
     {
         synchronized (eventTimelines) {
             if (eventTimelineListFilled)
                 eventTimelines.clear();
             eventTimelineListFilled = false;
         }
-    }
+    }*/
 
     List<EventTimeline> getEventTimelineList(boolean fromDB)
     {
         synchronized (eventTimelines) {
             if (!eventTimelineListFilled || fromDB)
-                if (fromDB)
-                    invalidateEventTimelineList();
+                //if (fromDB)
+                //    invalidateEventTimelineList();
                 fillEventTimelineList();
         }
         return eventTimelines;
@@ -1555,12 +1555,12 @@ public class DataWrapper {
 
 //-------------------------------------------------------------------------------------------------------------------
 
-    public void invalidateDataWrapper()
+    /*public void invalidateDataWrapper()
     {
         invalidateProfileList();
         invalidateEventList();
         invalidateEventTimelineList();
-    }
+    }*/
 
 //----- Activate profile ---------------------------------------------------------------------------------------------
 

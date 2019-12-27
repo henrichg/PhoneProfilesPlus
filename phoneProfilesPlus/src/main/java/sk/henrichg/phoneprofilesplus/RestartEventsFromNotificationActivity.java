@@ -45,7 +45,7 @@ public class RestartEventsFromNotificationActivity extends AppCompatActivity
     {
         super.onDestroy();
 
-        dataWrapper.invalidateDataWrapper();
+        //dataWrapper.invalidateDataWrapper();
         dataWrapper = null;
     }
 
