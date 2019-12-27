@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.StateListDrawable;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -65,7 +66,7 @@ public class ColorChooserPreferenceX extends DialogPreference {
         int color = Integer.valueOf(value);
 
         Drawable selector = createSelector(color);
-        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             int[][] states = new int[][]{
                     new int[]{-android.R.attr.state_pressed},
                     new int[]{android.R.attr.state_pressed}
@@ -76,9 +77,9 @@ public class ColorChooserPreferenceX extends DialogPreference {
             };
             ColorStateList rippleColors = new ColorStateList(states, colors);
             setBackgroundCompat(widgetLayout, new RippleDrawable(rippleColors, selector, null));
-        //} else {
-        //    setBackgroundCompat(widgetLayout, selector);
-        //}
+        } else {
+            setBackgroundCompat(widgetLayout, selector);
+        }
 
 //        Handler handler = new Handler(context.getMainLooper());
 //        handler.postDelayed(new Runnable() {
