@@ -346,7 +346,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._volumeAccessibility,
                         origProfile._volumeBluetoothSCO,
                         origProfile._afterDurationProfile,
-                        origProfile._alwaysOnDisplay);
+                        origProfile._alwaysOnDisplay,
+                        origProfile._screenOnPermanent);
                 showSaveMenu = true;
             }
             else
@@ -452,6 +453,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO, profile._volumeBluetoothSCO);
             editor.putString(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, Long.toString(profile._afterDurationProfile));
             editor.putString(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, Integer.toString(profile._alwaysOnDisplay));
+            editor.putString(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT, Integer.toString(profile._screenOnPermanent));
             editor.apply();
         }
     }
@@ -573,6 +575,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._volumeAccessibility = preferences.getString(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, "");
             profile._volumeBluetoothSCO = preferences.getString(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO, "");
             profile._alwaysOnDisplay = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, ""));
+            profile._screenOnPermanent = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT, ""));
         }
 
         PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "END");

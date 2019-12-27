@@ -81,7 +81,10 @@ public class PhoneProfilesService extends Service
     private KeyguardManager.KeyguardLock keyguardLock = null;
 
     //BrightnessView brightnessView = null;
-    BrightnessView keepScreenOnView = null;
+    BrightnessView screenTimeoutAlwaysOnView = null;
+    //BrightnessView keepScreenOnView = null;
+
+    PowerManager.WakeLock keepScreenOnWakeLock = null;
 
     LockDeviceActivity lockDeviceActivity = null;
     int screenTimeoutBeforeDeviceLock = 0;
@@ -6522,10 +6525,10 @@ public class PhoneProfilesService extends Service
             PPApplication.screenTimeoutHandler.post(new Runnable() {
                 public void run() {
                     ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(getApplicationContext());
+                    ActivateProfileHelper.removeKeepScreenOnView(getApplicationContext());
                 }
             });
-        }// else
-        //    ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(getApplicationContext());
+        }
 
         super.onTaskRemoved(rootIntent);
     }

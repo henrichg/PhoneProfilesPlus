@@ -271,7 +271,8 @@ public class DataWrapper {
                 Profile.defaultValuesString.get("prf_pref_volumeAccessibility"),
                 Profile.defaultValuesString.get("prf_pref_volumeBluetoothSCO"),
                 Long.valueOf(Profile.defaultValuesString.get("prf_pref_afterDurationProfile")),
-                Integer.valueOf(Profile.defaultValuesString.get("prf_pref_alwaysOnDisplay"))
+                Integer.valueOf(Profile.defaultValuesString.get("prf_pref_alwaysOnDisplay")),
+                Integer.valueOf(Profile.defaultValuesString.get("prf_pref_screenOnPermanent"))
             );
     }
 

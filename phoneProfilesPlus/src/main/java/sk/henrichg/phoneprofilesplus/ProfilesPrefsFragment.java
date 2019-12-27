@@ -1764,6 +1764,18 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 summary = summary + title + ": <b>" + value + "</b>";
             }
+            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT, R.string.profile_preferences_deviceScreenOnPermanent, false, context);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+
+                String value = GlobalGUIRoutines.getListPreferenceString(
+                        preferences.getString(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT)),
+                        R.array.screenOnPermanentValues, R.array.screenOnPermanentArray, context);
+
+                summary = summary + title + ": <b>" + value + "</b>";
+            }
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_KEYGUARD, R.string.profile_preferences_deviceKeyguard, false, context);
             if (!title.isEmpty()) {
                 _bold = true;
@@ -1846,7 +1858,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = summary + title + ": <b>" + value + "</b>";
             }
 
-            //            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SCREEN_CAR_MODE, R.string.profile_preferences_screenCarMode, false, context);
+//            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SCREEN_CAR_MODE, R.string.profile_preferences_screenCarMode, false, context);
 //            if (!title.isEmpty()) {
 //                _bold = true;
 //                if (!summary.isEmpty()) summary = summary +" • ";
@@ -2494,7 +2506,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS) ||
                 key.equals(Profile.PREF_PROFILE_SCREEN_CAR_MODE) ||
-                key.equals(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY))
+                key.equals(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY) ||
+                key.equals(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT))
         {
             ListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
@@ -2507,9 +2520,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, false, false, false, false);
                 } else {
                     String sValue = value.toString();
+                    Log.e("ProfilesPrefsFragment.setSummary", "sValue="+sValue);
                     int index = listPreference.findIndexOfValue(sValue);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                     listPreference.setSummary(summary);
+                    Log.e("ProfilesPrefsFragment.setSummary", "summary="+summary);
                     GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, false);
                 }
             }
@@ -2856,6 +2871,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY);
         setSummary(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO);
         setSummary(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY);
+        setSummary(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT);
     }
 
     private boolean getEnableVolumeNotificationByRingtone(String ringtoneValue) {

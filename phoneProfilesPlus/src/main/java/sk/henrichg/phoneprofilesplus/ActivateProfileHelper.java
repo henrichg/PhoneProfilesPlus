@@ -1444,6 +1444,14 @@ class ActivateProfileHelper {
         });
     }
 
+    private static void setScreenOnPermanent(Profile profile, Context context) {
+        if (profile._screenOnPermanent == 1)
+            createKeepScreenOnView(context);
+        else
+        if (profile._screenOnPermanent == 2)
+            removeKeepScreenOnView(context);
+    }
+
     private static void changeRingerModeForVolumeEqual0(Profile profile, AudioManager audioManager) {
         if (PPApplication.logEnabled()) {
             PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "volumeRingtoneChange=" + profile.getVolumeRingtoneChange());
@@ -2337,6 +2345,11 @@ class ActivateProfileHelper {
                 ContentResolver.setMasterSyncAutomatically(_isAutoSync);
         } catch (Exception ignored) {} // fixed DeadObjectException
 
+        // screen on permanent
+        //if (Permissions.checkProfileScreenTimeout(context, profile, null)) {
+            setScreenOnPermanent(profile, context);
+        //}
+
         // screen timeout
         if (Permissions.checkProfileScreenTimeout(context, profile, null)) {
             //PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);
@@ -2839,11 +2852,11 @@ class ActivateProfileHelper {
                     params.gravity = Gravity.RIGHT | Gravity.TOP;
                 else
                     params.gravity = Gravity.END | Gravity.TOP;*/
-                PhoneProfilesService.getInstance().keepScreenOnView = new BrightnessView(appContext);
+                PhoneProfilesService.getInstance().screenTimeoutAlwaysOnView = new BrightnessView(appContext);
                 try {
-                    windowManager.addView(PhoneProfilesService.getInstance().keepScreenOnView, params);
+                    windowManager.addView(PhoneProfilesService.getInstance().screenTimeoutAlwaysOnView, params);
                 } catch (Exception e) {
-                    PhoneProfilesService.getInstance().keepScreenOnView = null;
+                    PhoneProfilesService.getInstance().screenTimeoutAlwaysOnView = null;
                 }
             }
         }
@@ -2852,14 +2865,14 @@ class ActivateProfileHelper {
     static void removeScreenTimeoutAlwaysOnView(Context context)
     {
         if (PhoneProfilesService.getInstance() != null) {
-            if (PhoneProfilesService.getInstance().keepScreenOnView != null) {
+            if (PhoneProfilesService.getInstance().screenTimeoutAlwaysOnView != null) {
                 WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
                 if (windowManager != null) {
                     try {
-                        windowManager.removeView(PhoneProfilesService.getInstance().keepScreenOnView);
+                        windowManager.removeView(PhoneProfilesService.getInstance().screenTimeoutAlwaysOnView);
                     } catch (Exception ignored) {
                     }
-                    PhoneProfilesService.getInstance().keepScreenOnView = null;
+                    PhoneProfilesService.getInstance().screenTimeoutAlwaysOnView = null;
                 }
             }
         }
@@ -2945,6 +2958,91 @@ class ActivateProfileHelper {
         }
     }
     */
+
+    @SuppressLint("WakelockTimeout")
+    private static void createKeepScreenOnView(Context context)
+    {
+        removeKeepScreenOnView(context);
+
+        if (PhoneProfilesService.getInstance() != null) {
+            final Context appContext = context.getApplicationContext();
+
+            PhoneProfilesService service = PhoneProfilesService.getInstance();
+            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+            try {
+                if (powerManager != null) {
+                    Log.e("ActivateProfileHelper.createKeepScreenOnView", "keepScreenOnWakeLock="+service.keepScreenOnWakeLock);
+                    if ((service.keepScreenOnWakeLock == null) || (!service.keepScreenOnWakeLock.isHeld())) {
+                        if (service.keepScreenOnWakeLock == null)
+                            //noinspection deprecation
+                            service.keepScreenOnWakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK |
+                                    PowerManager.ACQUIRE_CAUSES_WAKEUP, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_createKeepScreenOnView");
+                        service.keepScreenOnWakeLock.acquire();
+                    }
+                }
+            } catch (Exception e) {
+                Log.e("ActivateProfileHelper.createKeepScreenOnView", Log.getStackTraceString(e));
+            }
+
+            /*WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
+            if (windowManager != null) {
+                int type;
+                if (android.os.Build.VERSION.SDK_INT < 25)
+                    type = WindowManager.LayoutParams.TYPE_TOAST;
+                else if (android.os.Build.VERSION.SDK_INT < 26)
+                    type = LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
+                else
+                    type = LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
+                WindowManager.LayoutParams params = new WindowManager.LayoutParams(
+                        1, 1,
+                        type,
+                        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
+                                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON,
+                        PixelFormat.TRANSLUCENT
+                );
+                //if (android.os.Build.VERSION.SDK_INT < 17)
+                //    params.gravity = Gravity.RIGHT | Gravity.TOP;
+                //else
+                //    params.gravity = Gravity.END | Gravity.TOP;
+                PhoneProfilesService.getInstance().keepScreenOnView = new BrightnessView(appContext);
+                try {
+                    windowManager.addView(PhoneProfilesService.getInstance().keepScreenOnView, params);
+                } catch (Exception e) {
+                    PhoneProfilesService.getInstance().keepScreenOnView = null;
+                }
+            }*/
+        }
+    }
+
+    static void removeKeepScreenOnView(Context context)
+    {
+        if (PhoneProfilesService.getInstance() != null) {
+            final Context appContext = context.getApplicationContext();
+
+            PhoneProfilesService service = PhoneProfilesService.getInstance();
+
+            try {
+                Log.e("ActivateProfileHelper.removeKeepScreenOnView", "keepScreenOnWakeLock="+service.keepScreenOnWakeLock);
+                if ((service.keepScreenOnWakeLock != null) && service.keepScreenOnWakeLock.isHeld()) {
+                        service.keepScreenOnWakeLock.release();
+                        service.keepScreenOnWakeLock = null;
+                }
+            } catch (Exception e) {
+                Log.e("ActivateProfileHelper.removeKeepScreenOnView", Log.getStackTraceString(e));
+            }
+
+            /*if (PhoneProfilesService.getInstance().keepScreenOnView != null) {
+                WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
+                if (windowManager != null) {
+                    try {
+                        windowManager.removeView(PhoneProfilesService.getInstance().keepScreenOnView);
+                    } catch (Exception ignored) {
+                    }
+                    PhoneProfilesService.getInstance().keepScreenOnView = null;
+                }
+            }*/
+        }
+    }
 
     static void updateGUI(Context context, boolean alsoEditor, boolean refresh)
     {

@@ -327,6 +327,15 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                     else
                         indicator1 = addIntoIndicator(indicator1, "rt1");
             }
+            // screen on permanant
+            if (profile._screenOnPermanent != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._screenOnPermanent == 1) || (profile._screenOnPermanent == 3))
+                        indicator1 = addIntoIndicator(indicator1, "so1");
+                    if (profile._screenOnPermanent == 2)
+                        indicator1 = addIntoIndicator(indicator1, "so0");
+                }
+            }
             // wallpaper
             if (profile._deviceWallpaperChange == 1) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)

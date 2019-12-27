@@ -35,6 +35,15 @@
         app:layout="@layout/mp_preference_material_widget" />
 
     <ListPreference
+        app:title="@string/profile_preferences_deviceScreenOnPermanent"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_screenOnPermanent"
+        app:defaultValue="0"
+        app:entries="@array/screenOnPermanentArray"
+        app:entryValues="@array/screenOnPermanentValues"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <ListPreference
         app:title="@string/profile_preferences_deviceWallpaperChange"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_deviceWallpaperChange"

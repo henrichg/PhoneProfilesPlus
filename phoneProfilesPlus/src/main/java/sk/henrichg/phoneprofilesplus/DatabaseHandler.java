@@ -38,7 +38,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2407;
+    private static final int DATABASE_VERSION = 2408;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -176,6 +176,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_VOLUME_BLUETOOTH_SCO = "volumeBluetoothSCO";
     private static final String KEY_AFTER_DURATION_PROFILE = "afterDurationProfile";
     private static final String KEY_ALWAYS_ON_DISPLAY = "alwaysOnDisplay";
+    private static final String KEY_SCREEN_ON_PERMANENT = "screenOnPermanent";
 
     // Events Table Columns names
     private static final String KEY_E_ID = "id";
@@ -533,7 +534,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_VOLUME_ACCESSIBILITY + " TEXT,"
                 + KEY_VOLUME_BLUETOOTH_SCO + " TEXT,"
                 + KEY_AFTER_DURATION_PROFILE + " INTEGER,"
-                + KEY_ALWAYS_ON_DISPLAY + " INTEGER"
+                + KEY_ALWAYS_ON_DISPLAY + " INTEGER,"
+                + KEY_SCREEN_ON_PERMANENT + " INTEGER"
                 + ")";
     }
 
@@ -2728,7 +2730,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SCREEN_CAR_MODE))),
                             Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DTMF_TONE_WHEN_DIALING))),
                             Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_ON_TOUCH))),
-                            "-1|1|0", "-1|1|0", "-1|1|0", Profile.PROFILE_NO_ACTIVATE, 0
+                            "-1|1|0",
+                            "-1|1|0",
+                            "-1|1|0",
+                            Profile.PROFILE_NO_ACTIVATE,
+                            0,
+                            0
                     );
 
                     profile = Profile.getMappedProfile(profile, sharedProfile);
@@ -2996,6 +3003,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_CONTACT_LIST_TYPE + "=0");
         }
 
+        if (oldVersion < 2408)
+        {
+            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_SCREEN_ON_PERMANENT + " INTEGER");
+
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SCREEN_ON_PERMANENT + "=0");
+
+            if (!doMergedTableCreate) {
+                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_SCREEN_ON_PERMANENT + " INTEGER");
+            }
+
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SCREEN_ON_PERMANENT + "=0");
+        }
+
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
 
     }
@@ -3100,6 +3120,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_VOLUME_BLUETOOTH_SCO, profile._volumeBluetoothSCO);
                 values.put(KEY_AFTER_DURATION_PROFILE, profile._afterDurationProfile);
                 values.put(KEY_ALWAYS_ON_DISPLAY, profile._alwaysOnDisplay);
+                values.put(KEY_SCREEN_ON_PERMANENT, profile._screenOnPermanent);
 
                 // Insert Row
                 if (!merged) {
@@ -3206,7 +3227,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_VOLUME_ACCESSIBILITY,
                                 KEY_VOLUME_BLUETOOTH_SCO,
                                 KEY_AFTER_DURATION_PROFILE,
-                                KEY_ALWAYS_ON_DISPLAY
+                                KEY_ALWAYS_ON_DISPLAY,
+                                KEY_SCREEN_ON_PERMANENT
                         },
                         KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -3287,7 +3309,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getString(cursor.getColumnIndex(KEY_VOLUME_ACCESSIBILITY)),
                                 cursor.getString(cursor.getColumnIndex(KEY_VOLUME_BLUETOOTH_SCO)),
                                 Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_AFTER_DURATION_PROFILE))),
-                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_ALWAYS_ON_DISPLAY)))
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_ALWAYS_ON_DISPLAY))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SCREEN_ON_PERMANENT)))
                         );
                     }
 
@@ -3387,7 +3410,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_VOLUME_ACCESSIBILITY + "," +
                         KEY_VOLUME_BLUETOOTH_SCO + "," +
                         KEY_AFTER_DURATION_PROFILE + "," +
-                        KEY_ALWAYS_ON_DISPLAY +
+                        KEY_ALWAYS_ON_DISPLAY + "," +
+                        KEY_SCREEN_ON_PERMANENT +
                 " FROM " + TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -3472,6 +3496,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         profile._volumeBluetoothSCO = cursor.getString(cursor.getColumnIndex(KEY_VOLUME_BLUETOOTH_SCO));
                         profile._afterDurationProfile = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_AFTER_DURATION_PROFILE)));
                         profile._alwaysOnDisplay = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_ALWAYS_ON_DISPLAY)));
+                        profile._screenOnPermanent = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SCREEN_ON_PERMANENT)));
                         // Adding profile to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
@@ -3573,6 +3598,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_VOLUME_BLUETOOTH_SCO, profile._volumeBluetoothSCO);
                 values.put(KEY_AFTER_DURATION_PROFILE, profile._afterDurationProfile);
                 values.put(KEY_ALWAYS_ON_DISPLAY, profile._alwaysOnDisplay);
+                values.put(KEY_SCREEN_ON_PERMANENT, profile._screenOnPermanent);
 
                 // updating row
                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -3919,7 +3945,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_VOLUME_ACCESSIBILITY,
                                 KEY_VOLUME_BLUETOOTH_SCO,
                                 KEY_AFTER_DURATION_PROFILE,
-                                KEY_ALWAYS_ON_DISPLAY
+                                KEY_ALWAYS_ON_DISPLAY,
+                                KEY_SCREEN_ON_PERMANENT
                         },
                         KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -4002,7 +4029,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getString(cursor.getColumnIndex(KEY_VOLUME_ACCESSIBILITY)),
                                 cursor.getString(cursor.getColumnIndex(KEY_VOLUME_BLUETOOTH_SCO)),
                                 Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_AFTER_DURATION_PROFILE))),
-                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_ALWAYS_ON_DISPLAY)))
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_ALWAYS_ON_DISPLAY))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SCREEN_ON_PERMANENT)))
                         );
                     }
 
@@ -9666,7 +9694,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_APPLICATION_DISABLE_WIFI_SCANNING + "," +
                         KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING + "," +
                         KEY_DEVICE_WIFI_AP_PREFS + "," +
-                        KEY_HEADS_UP_NOTIFICATIONS +
+                        KEY_HEADS_UP_NOTIFICATIONS + "," +
+                        KEY_ALWAYS_ON_DISPLAY +
                         " FROM " + TABLE_PROFILES;
                 final String selectEventsQuery = "SELECT " + KEY_E_ID + "," +
                         KEY_E_WIFI_ENABLED + "," +
@@ -10349,6 +10378,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                             }
                                         }
 
+                                        if (exportedDBObj.getVersion() < 2408) {
+                                            values.put(KEY_SCREEN_ON_PERMANENT, 0);
+                                        }
+
                                         ///////////////////////////////////////////////////////
 
                                         // Inserting Row do db z SQLiteOpenHelper
@@ -10437,7 +10470,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_SCREEN_CAR_MODE))),
                                                     Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DTMF_TONE_WHEN_DIALING))),
                                                     Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_SOUND_ON_TOUCH))),
-                                                    "-1|1|0", "-1|1|0", "-1|1|0", Profile.PROFILE_NO_ACTIVATE, 0
+
+                                                    "-1|1|0",
+                                                    "-1|1|0",
+                                                    "-1|1|0",
+                                                    Profile.PROFILE_NO_ACTIVATE,
+                                                    0,
+                                                    0
                                             );
 
                                             profile = Profile.getMappedProfile(profile, sharedProfile);
