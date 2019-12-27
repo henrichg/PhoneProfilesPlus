@@ -19,6 +19,7 @@ import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -1718,32 +1719,20 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 summary = summary + title + ": <b>" + value + "</b>";
             }
-            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_KEYGUARD, R.string.profile_preferences_deviceKeyguard, false, context);
-            if (!title.isEmpty()) {
-                _bold = true;
-                if (!summary.isEmpty()) summary = summary +" • ";
-
-                String value = GlobalGUIRoutines.getListPreferenceString(
-                        preferences.getString(Profile.PREF_PROFILE_DEVICE_KEYGUARD,
-                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_KEYGUARD)),
-                        R.array.keyguardValues, R.array.keyguardArray, context);
-
-                summary = summary + title + ": <b>" + value + "</b>";
-            }
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS, R.string.profile_preferences_deviceBrightness, false, context);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
 
                 String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS,
-                                                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS));
+                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS));
                 boolean automatic = Profile.getDeviceBrightnessAutomatic(value);
                 boolean changeLevel = Profile.getDeviceBrightnessChangeLevel(value);
                 int iValue = Profile.getDeviceBrightnessValue(value);
 
                 boolean adaptiveAllowed = /*(android.os.Build.VERSION.SDK_INT <= 21) ||*/
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, null, true, context).allowed
-                                            == PreferenceAllowed.PREFERENCE_ALLOWED);
+                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, null, true, context).allowed
+                                == PreferenceAllowed.PREFERENCE_ALLOWED);
 
                 String summaryString;
                 if (automatic)
@@ -1775,6 +1764,51 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 summary = summary + title + ": <b>" + value + "</b>";
             }
+            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_KEYGUARD, R.string.profile_preferences_deviceKeyguard, false, context);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+
+                String value = GlobalGUIRoutines.getListPreferenceString(
+                        preferences.getString(Profile.PREF_PROFILE_DEVICE_KEYGUARD,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_KEYGUARD)),
+                        R.array.keyguardValues, R.array.keyguardArray, context);
+
+                summary = summary + title + ": <b>" + value + "</b>";
+            }
+            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, R.string.profile_preferences_deviceWallpaperChange, false, context);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+
+                String value = GlobalGUIRoutines.getListPreferenceString(
+                        preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE)),
+                        R.array.changeWallpaperValues, R.array.changeWallpaperArray, context);
+
+                summary = summary + title + ": <b>" + value + "</b>";
+
+                summary = summary +" - ";
+
+                value = GlobalGUIRoutines.getListPreferenceString(
+                        preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR)),
+                        R.array.wallpaperForValues, R.array.wallpaperForArray, context);
+
+                summary = summary + title + ": <b>" + value + "</b>";
+            }
+            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_LOCK_DEVICE, R.string.profile_preferences_lockDevice, false, context);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+
+                String value = GlobalGUIRoutines.getListPreferenceString(
+                        preferences.getString(Profile.PREF_PROFILE_LOCK_DEVICE,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_LOCK_DEVICE)),
+                        R.array.lockDeviceValues, R.array.lockDeviceArray, context);
+
+                summary = summary + title + ": <b>" + value + "</b>";
+            }
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_NOTIFICATION_LED, R.string.profile_preferences_notificationLed, false, context);
             if (!title.isEmpty()) {
                 _bold = true;
@@ -1799,7 +1833,20 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 summary = summary + title + ": <b>" + value + "</b>";
             }
-//            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SCREEN_CAR_MODE, R.string.profile_preferences_screenCarMode, false, context);
+            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, R.string.profile_preferences_alwaysOnDisplay, false, context);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+
+                String value = GlobalGUIRoutines.getListPreferenceString(
+                        preferences.getString(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY)),
+                        R.array.alwaysOnDisplayValues, R.array.alwaysOnDisplayArray, context);
+
+                summary = summary + title + ": <b>" + value + "</b>";
+            }
+
+            //            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SCREEN_CAR_MODE, R.string.profile_preferences_screenCarMode, false, context);
 //            if (!title.isEmpty()) {
 //                _bold = true;
 //                if (!summary.isEmpty()) summary = summary +" • ";
@@ -1877,51 +1924,51 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     summary = summary + title;
 
             }
-            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, R.string.profile_preferences_deviceWallpaperChange, false, context);
-            if (!title.isEmpty()) {
-                _bold = true;
-                if (!summary.isEmpty()) summary = summary +" • ";
-
-                String value = GlobalGUIRoutines.getListPreferenceString(
-                        preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE,
-                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE)),
-                        R.array.changeWallpaperValues, R.array.changeWallpaperArray, context);
-
-                summary = summary + title + ": <b>" + value + "</b>";
-
-                summary = summary +" - ";
-
-                value = GlobalGUIRoutines.getListPreferenceString(
-                        preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR,
-                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR)),
-                        R.array.wallpaperForValues, R.array.wallpaperForArray, context);
-
-                summary = summary + title + ": <b>" + value + "</b>";
-            }
-            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_LOCK_DEVICE, R.string.profile_preferences_lockDevice, false, context);
-            if (!title.isEmpty()) {
-                _bold = true;
-                if (!summary.isEmpty()) summary = summary +" • ";
-
-                String value = GlobalGUIRoutines.getListPreferenceString(
-                        preferences.getString(Profile.PREF_PROFILE_LOCK_DEVICE,
-                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_LOCK_DEVICE)),
-                        R.array.lockDeviceValues, R.array.lockDeviceArray, context);
-
-                summary = summary + title + ": <b>" + value + "</b>";
-            }
-            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, R.string.profile_preferences_alwaysOnDisplay, false, context);
-            if (!title.isEmpty()) {
-                _bold = true;
-                if (!summary.isEmpty()) summary = summary +" • ";
-
-                String value = GlobalGUIRoutines.getListPreferenceString(
-                        preferences.getString(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY,
-                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY)),
-                        R.array.alwaysOnDisplayValues, R.array.alwaysOnDisplayArray, context);
-
-                summary = summary + title + ": <b>" + value + "</b>";
-            }
+//            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, R.string.profile_preferences_deviceWallpaperChange, false, context);
+//            if (!title.isEmpty()) {
+//                _bold = true;
+//                if (!summary.isEmpty()) summary = summary +" • ";
+//
+//                String value = GlobalGUIRoutines.getListPreferenceString(
+//                        preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE,
+//                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE)),
+//                        R.array.changeWallpaperValues, R.array.changeWallpaperArray, context);
+//
+//                summary = summary + title + ": <b>" + value + "</b>";
+//
+//                summary = summary +" - ";
+//
+//                value = GlobalGUIRoutines.getListPreferenceString(
+//                        preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR,
+//                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR)),
+//                        R.array.wallpaperForValues, R.array.wallpaperForArray, context);
+//
+//                summary = summary + title + ": <b>" + value + "</b>";
+//            }
+//            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_LOCK_DEVICE, R.string.profile_preferences_lockDevice, false, context);
+//            if (!title.isEmpty()) {
+//                _bold = true;
+//                if (!summary.isEmpty()) summary = summary +" • ";
+//
+//                String value = GlobalGUIRoutines.getListPreferenceString(
+//                        preferences.getString(Profile.PREF_PROFILE_LOCK_DEVICE,
+//                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_LOCK_DEVICE)),
+//                        R.array.lockDeviceValues, R.array.lockDeviceArray, context);
+//
+//                summary = summary + title + ": <b>" + value + "</b>";
+//            }
+//            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, R.string.profile_preferences_alwaysOnDisplay, false, context);
+//            if (!title.isEmpty()) {
+//                _bold = true;
+//                if (!summary.isEmpty()) summary = summary +" • ";
+//
+//                String value = GlobalGUIRoutines.getListPreferenceString(
+//                        preferences.getString(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY,
+//                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY)),
+//                        R.array.alwaysOnDisplayValues, R.array.alwaysOnDisplayArray, context);
+//
+//                summary = summary + title + ": <b>" + value + "</b>";
+//            }
         }
 
         if (key.equals(PREF_FORCE_STOP_APPLICATIONS_CATEGORY)) {
@@ -2991,7 +3038,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         boolean grantedAllPermissions = Permissions.checkProfilePermissions(context, profile).size() == 0;
         boolean grantedRoot = Profile.isProfilePreferenceAllowed("-", profile, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
         boolean enabledNotificationAccess = (profile._volumeRingerMode == 0) || ActivateProfileHelper.canChangeZenMode(context, false);
-        boolean accessibilityEnabled =  profile.isAccessibilityServiceEnabled(context) == 1;
+        boolean accessibilityNotRequired = true;
+        if ((profile._lockDevice == 3) || (profile._deviceForceStopApplicationChange != 0))
+            accessibilityNotRequired = false;
+        boolean accessibilityEnabled = accessibilityNotRequired || (profile.isAccessibilityServiceEnabled(context) == 1);
 
         return (!grantedAllPermissions) || (!grantedRoot) || (!enabledNotificationAccess) || (!accessibilityEnabled);
     }

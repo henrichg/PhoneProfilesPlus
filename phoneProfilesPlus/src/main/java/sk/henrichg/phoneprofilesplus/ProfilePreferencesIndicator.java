@@ -307,19 +307,6 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                     drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_timeout;
             }
-            // lock screen
-            if (profile._deviceKeyguard != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_KEYGUARD, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._deviceKeyguard == 1) || (profile._deviceKeyguard == 3))
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_lockscreen;
-                    if (profile._deviceKeyguard == 2) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_lockscreen_off_mono;
-                        else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_lockscreen_off;
-                    }
-                }
-            }
             // brightness/auto-brightness
             if (profile.getDeviceBrightnessChange()) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -340,6 +327,29 @@ class ProfilePreferencesIndicator {
                     }
                     else
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_autorotate;
+            }
+            // wallpaper
+            if (profile._deviceWallpaperChange == 1) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, null,null,  true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+                    drawables[countDrawables++] = R.drawable.ic_profile_pref_wallpaper;
+            }
+            // lock screen
+            if (profile._deviceKeyguard != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_KEYGUARD, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._deviceKeyguard == 1) || (profile._deviceKeyguard == 3))
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_lockscreen;
+                    if (profile._deviceKeyguard == 2) {
+                        if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_lockscreen_off_mono;
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_lockscreen_off;
+                    }
+                }
+            }
+            // lock device
+            if (profile._lockDevice != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_LOCK_DEVICE, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+                    drawables[countDrawables++] = R.drawable.ic_profile_pref_lock;
             }
             // notification led
             if (profile._notificationLed != 0) {
@@ -364,6 +374,19 @@ class ProfilePreferencesIndicator {
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_heads_up_notifications_off_mono;
                         else
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_heads_up_notifications_off;
+                    }
+                }
+            }
+            // always on display
+            if (profile._alwaysOnDisplay != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._alwaysOnDisplay == 1) || (profile._alwaysOnDisplay == 3))
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_always_on_display;
+                    if (profile._alwaysOnDisplay == 2) {
+                        if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_always_on_display_off_mono;
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_always_on_display_off;
                     }
                 }
             }
@@ -417,30 +440,6 @@ class ProfilePreferencesIndicator {
                         enabled = PPPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_3_0);
                     if (enabled)
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_force_stop_application;
-                }
-            }
-            // wallpaper
-            if (profile._deviceWallpaperChange == 1) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, null,null,  true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    drawables[countDrawables++] = R.drawable.ic_profile_pref_wallpaper;
-            }
-            // lock device
-            if (profile._lockDevice != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_LOCK_DEVICE, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    drawables[countDrawables++] = R.drawable.ic_profile_pref_lock;
-            }
-
-            // always on display
-            if (profile._alwaysOnDisplay != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._alwaysOnDisplay == 1) || (profile._alwaysOnDisplay == 3))
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_always_on_display;
-                    if (profile._alwaysOnDisplay == 2) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_always_on_display_off_mono;
-                        else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_always_on_display_off;
-                    }
                 }
             }
 

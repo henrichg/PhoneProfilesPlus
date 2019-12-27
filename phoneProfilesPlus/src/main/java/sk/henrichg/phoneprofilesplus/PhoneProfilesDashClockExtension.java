@@ -309,15 +309,6 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                     indicator1 = addIntoIndicator(indicator1, "stm");
             }
-            // lock screen
-            if (profile._deviceKeyguard != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_KEYGUARD, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._deviceKeyguard == 1) || (profile._deviceKeyguard == 3))
-                        indicator1 = addIntoIndicator(indicator1, "kg1");
-                    if (profile._deviceKeyguard == 2)
-                        indicator1 = addIntoIndicator(indicator1, "kg0");
-                }
-            }
             // brightness/auto-brightness
             if (profile.getDeviceBrightnessChange())
             {
@@ -336,6 +327,25 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                     else
                         indicator1 = addIntoIndicator(indicator1, "rt1");
             }
+            // wallpaper
+            if (profile._deviceWallpaperChange == 1) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+                    indicator1 = addIntoIndicator(indicator1, "wlp");
+            }
+            // lock screen
+            if (profile._deviceKeyguard != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_KEYGUARD, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._deviceKeyguard == 1) || (profile._deviceKeyguard == 3))
+                        indicator1 = addIntoIndicator(indicator1, "kg1");
+                    if (profile._deviceKeyguard == 2)
+                        indicator1 = addIntoIndicator(indicator1, "kg0");
+                }
+            }
+            // lock device
+            if (profile._lockDevice != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_LOCK_DEVICE, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+                    indicator1 = addIntoIndicator(indicator1, "lck");
+            }
             // notification led
             if (profile._notificationLed != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -352,6 +362,15 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                         indicator1 = addIntoIndicator(indicator1, "pn1");
                     if (profile._headsUpNotifications == 2)
                         indicator1 = addIntoIndicator(indicator1, "pn0");
+                }
+            }
+            // always on display
+            if (profile._alwaysOnDisplay != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._alwaysOnDisplay == 1) || (profile._alwaysOnDisplay == 3))
+                        indicator1 = addIntoIndicator(indicator1, "ao1");
+                    if (profile._alwaysOnDisplay == 2)
+                        indicator1 = addIntoIndicator(indicator1, "ao0");
                 }
             }
             /*
@@ -397,25 +416,6 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                         enabled = PPPExtenderBroadcastReceiver.isEnabled(this, PPApplication.VERSION_CODE_EXTENDER_3_0);
                     if (enabled)
                         indicator1 = addIntoIndicator(indicator1, "sap");
-                }
-            }
-            // wallpaper
-            if (profile._deviceWallpaperChange == 1) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    indicator1 = addIntoIndicator(indicator1, "wlp");
-            }
-            // lock device
-            if (profile._lockDevice != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_LOCK_DEVICE, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    indicator1 = addIntoIndicator(indicator1, "lck");
-            }
-            // always on display
-            if (profile._alwaysOnDisplay != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._alwaysOnDisplay == 1) || (profile._alwaysOnDisplay == 3))
-                        indicator1 = addIntoIndicator(indicator1, "ao1");
-                    if (profile._alwaysOnDisplay == 2)
-                        indicator1 = addIntoIndicator(indicator1, "ao0");
                 }
             }
             // disable wifi scanning

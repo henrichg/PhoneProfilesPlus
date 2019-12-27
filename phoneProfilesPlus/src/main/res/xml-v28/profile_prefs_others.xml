@@ -47,49 +47,4 @@
         app:layout="@layout/mp_preference_material_widget"
         app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsForceStopApplications" />
 
-    <ListPreference
-        app:title="@string/profile_preferences_deviceWallpaperChange"
-        app:summary="@string/array_pref_no_change"
-        app:key="prf_pref_deviceWallpaperChange"
-        app:defaultValue="0"
-        app:entries="@array/changeWallpaperArray"
-        app:entryValues="@array/changeWallpaperValues"
-        app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.WallpaperViewPreferenceX
-        app:defaultValue="-"
-        app:key="prf_pref_deviceWallpaper"
-        app:title="@string/profile_preferences_deviceWallpaper"
-        app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
-        app:title="@string/profile_preferences_deviceWallpaperFor"
-        app:summary="@string/array_pref_device_wallpaper_homescreen"
-        app:key="prf_pref_deviceWallpaperFor"
-        app:defaultValue="0"
-        app:entries="@array/wallpaperForArray"
-        app:entryValues="@array/wallpaperForValues"
-        app:layout="@layout/mp_preference_material_widget" />
-
-    <Preference
-        app:title="@string/profile_preferences_lockDevice"
-        app:key="prf_pref_lockDeviceCategoryRoot"
-        app:widgetLayout="@layout/start_activity_preference"
-        app:layout="@layout/mp_preference_material_widget"
-        app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsLockDevice" />
-
-    <Preference
-        app:key="prf_pref_alwaysOnDisplayInfo"
-        app:title="@string/profile_preferences_alwaysOnDisplay"
-        app:summary="@string/profile_preferences_notificationLedInfo_summary"
-        app:widgetLayout="@layout/info_preference"
-        app:dependency="prf_pref_alwaysOnDisplay"
-        app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
-        app:title="@string/profile_preferences_alwaysOnDisplay"
-        app:summary="@string/array_pref_no_change"
-        app:key="prf_pref_alwaysOnDisplay"
-        app:defaultValue="0"
-        app:entries="@array/alwaysOnDisplayArray"
-        app:entryValues="@array/alwaysOnDisplayValues"
-        app:layout="@layout/mp_preference_material_widget" />
-
 </androidx.preference.PreferenceScreen>

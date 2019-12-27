@@ -4005,7 +4005,7 @@ public class PhoneProfilesService extends Service
                                 secureKeyguard = keyguardManager.isKeyguardSecure();
                                 PPApplication.logE("$$$ PhoneProfilesService.doCommand", "secureKeyguard=" + secureKeyguard);
                                 if (!secureKeyguard) {
-                                    PPApplication.logE("$$$ PhoneProfilesService.doCommand xxx", "getLockScreenDisabled=" + ActivateProfileHelper.getLockScreenDisabled(appContext));
+                                    PPApplication.logE("$$$ PhoneProfilesService.doCommand", "getLockScreenDisabled=" + ActivateProfileHelper.getLockScreenDisabled(appContext));
 
                                     if (PPApplication.isScreenOn) {
                                         PPApplication.logE("$$$ PhoneProfilesService.doCommand", "screen on");

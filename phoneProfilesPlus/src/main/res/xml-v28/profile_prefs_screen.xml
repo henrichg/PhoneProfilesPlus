@@ -64,14 +64,13 @@
         app:entries="@array/keyguardArray"
         app:entryValues="@array/keyguardValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+
+    <Preference
         app:title="@string/profile_preferences_lockDevice"
-        app:summary="@string/array_pref_no_change"
-        app:key="prf_pref_lockDevice"
-        app:defaultValue="0"
-        app:entries="@array/lockDeviceArray"
-        app:entryValues="@array/lockDeviceValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:key="prf_pref_lockDeviceCategoryRoot"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget"
+        app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsLockDevice" />
 
     <Preference
         app:key="prf_pref_notificationLedInfo"
@@ -96,6 +95,23 @@
         app:entries="@array/headsUpNotificationsArray"
         app:entryValues="@array/headsUpNotificationsValues"
         app:layout="@layout/mp_preference_material_widget" />
+
+    <Preference
+        app:key="prf_pref_alwaysOnDisplayInfo"
+        app:title="@string/profile_preferences_alwaysOnDisplay"
+        app:summary="@string/profile_preferences_notificationLedInfo_summary"
+        app:widgetLayout="@layout/info_preference"
+        app:dependency="prf_pref_alwaysOnDisplay"
+        app:layout="@layout/mp_preference_material_widget" />
+    <ListPreference
+        app:title="@string/profile_preferences_alwaysOnDisplay"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_alwaysOnDisplay"
+        app:defaultValue="0"
+        app:entries="@array/alwaysOnDisplayArray"
+        app:entryValues="@array/alwaysOnDisplayValues"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <!--<ListPreference-->
         <!--app:title="@string/profile_preferences_screenCarMode"-->
         <!--app:summary="@string/array_pref_no_change"-->
