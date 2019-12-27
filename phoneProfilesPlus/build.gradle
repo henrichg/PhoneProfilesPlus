@@ -110,7 +110,7 @@ dependencies {
     implementation files('libs/sdk-v1.0.0.jar')
     implementation files('libs/slook_v1.4.0.jar')
 
-    //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-2'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0'
 }
 
 apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin

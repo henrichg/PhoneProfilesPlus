@@ -3960,7 +3960,7 @@ public class PhoneProfilesService extends Service
 
     private void doCommand(final Intent intent) {
         if (intent != null) {
-            PPApplication.logE("$$$ PhoneProfilesService.doCommand", "intent="+intent.getAction());
+            //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "intent="+intent.getAction());
             final Context appContext = getApplicationContext();
             PPApplication.startHandlerThreadPPService();
             final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
