@@ -79,13 +79,13 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
            )*/
         if (ProfilesPrefsFragment.isRedTextNotificationRequired(profile, context)){
             profileName.setTypeface(null, Typeface.NORMAL);
-            profileName.setTextSize(15);
+            //profileName.setTextSize(15);
             profileName.setTextColor(Color.RED);
         }
         else
         {
             profileName.setTypeface(null, Typeface.NORMAL);
-            profileName.setTextSize(15);
+            //profileName.setTextSize(15);
             //noinspection ConstantConditions
             profileName.setTextColor(GlobalGUIRoutines.getThemeTextColor(editorFragment.getActivity()));
         }
