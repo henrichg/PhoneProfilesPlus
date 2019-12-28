@@ -2574,7 +2574,7 @@ public class PPApplication extends Application {
                         public void run() {
                             ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(context);
                             //ActivateProfileHelper.removeBrightnessView(context);
-                            ActivateProfileHelper.removeKeepScreenOnView(context);
+                            ActivateProfileHelper.removeKeepScreenOnView();
                         }
                     });
                 }

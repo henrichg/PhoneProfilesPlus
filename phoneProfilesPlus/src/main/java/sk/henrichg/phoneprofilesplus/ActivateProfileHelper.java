@@ -1449,7 +1449,7 @@ class ActivateProfileHelper {
             createKeepScreenOnView(context);
         else
         if (profile._screenOnPermanent == 2)
-            removeKeepScreenOnView(context);
+            removeKeepScreenOnView();
     }
 
     private static void changeRingerModeForVolumeEqual0(Profile profile, AudioManager audioManager) {
@@ -2962,7 +2962,7 @@ class ActivateProfileHelper {
     @SuppressLint("WakelockTimeout")
     private static void createKeepScreenOnView(Context context)
     {
-        removeKeepScreenOnView(context);
+        removeKeepScreenOnView();
 
         if (PhoneProfilesService.getInstance() != null) {
             final Context appContext = context.getApplicationContext();
@@ -3014,10 +3014,10 @@ class ActivateProfileHelper {
         }
     }
 
-    static void removeKeepScreenOnView(Context context)
+    static void removeKeepScreenOnView(/*Context context*/)
     {
         if (PhoneProfilesService.getInstance() != null) {
-            final Context appContext = context.getApplicationContext();
+            //final Context appContext = context.getApplicationContext();
 
             PhoneProfilesService service = PhoneProfilesService.getInstance();
 

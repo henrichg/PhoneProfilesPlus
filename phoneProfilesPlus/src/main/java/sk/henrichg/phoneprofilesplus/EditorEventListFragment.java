@@ -54,7 +54,7 @@ public class EditorEventListFragment extends Fragment
     public DataWrapper activityDataWrapper;
 
     private View rootView;
-    RelativeLayout activatedProfileHeader;
+    private RelativeLayout activatedProfileHeader;
     RecyclerView listView;
     private TextView activeProfileName;
     private ImageView activeProfileIcon;

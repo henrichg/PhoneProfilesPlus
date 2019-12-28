@@ -607,7 +607,7 @@ public class BluetoothScanWorker extends Worker {
     static void startScanner(Context context, boolean fromDialog)
     {
         PPApplication.logE("$$$ BluetoothScanWorker.startScanner", "xxx");
-        DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
+        //DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
         if (fromDialog || ApplicationPreferences.applicationEventBluetoothEnableScanning(context)) {
             setScanKilled(context, false);
             if (fromDialog) {

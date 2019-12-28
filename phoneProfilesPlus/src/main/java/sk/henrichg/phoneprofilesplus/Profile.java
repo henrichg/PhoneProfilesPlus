@@ -2551,7 +2551,7 @@ public class Profile {
         }
     }
 
-    void releaseIconBitmap()
+    private void releaseIconBitmap()
     {
         if (_iconBitmap != null)
         {
@@ -2561,7 +2561,7 @@ public class Profile {
         }
     }
 
-    void releasePreferencesIndicator()
+    private void releasePreferencesIndicator()
     {
         if (_preferencesIndicator != null)
         {

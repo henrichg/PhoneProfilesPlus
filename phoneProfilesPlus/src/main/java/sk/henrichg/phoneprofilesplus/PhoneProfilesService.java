@@ -56,6 +56,7 @@ import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.ColorUtils;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
@@ -4733,17 +4734,20 @@ public class PhoneProfilesService extends Service
 
                 PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationBackgroundColor="+notificationBackgroundColor);
 
-                int restartEventsId;
+                //int restartEventsId;
+                int monochromeValue;
                 if (notificationBackgroundColor.equals("1") || notificationBackgroundColor.equals("3")) {
                     if (!notificationNightMode || (useNightColor == 1))
-                        restartEventsId = R.drawable.ic_widget_restart_events_dark;
+                        //restartEventsId = R.drawable.ic_widget_restart_events_dark;
+                        monochromeValue = 0xE0;
                     else
-                        restartEventsId = R.drawable.ic_widget_restart_events;
+                        //restartEventsId = R.drawable.ic_widget_restart_events;
+                        monochromeValue = 0x20;
                 }
                 else
                 if (notificationBackgroundColor.equals("5")) {
                     if (!notificationNightMode || (useNightColor == 1)) {
-                        int redDark = 60;
+                        /*int redDark = 60;
                         int greenDark = 60;
                         int blueDark = 60;
                         int redCustom = Color.red(notificationBackgroundCustomColor);
@@ -4765,25 +4769,38 @@ public class PhoneProfilesService extends Service
                         } else {
                             PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "light restart events");
                             restartEventsId = R.drawable.ic_widget_restart_events;
-                        }
+                        }*/
+                        if (ColorUtils.calculateLuminance(notificationBackgroundCustomColor) < 0.23)
+                            //restartEventsId = R.drawable.ic_widget_restart_events_dark;
+                            monochromeValue = 0xE0;
+                        else
+                            //restartEventsId = R.drawable.ic_widget_restart_events;
+                            monochromeValue = 0x20;
                     }
                     else
-                        restartEventsId = R.drawable.ic_widget_restart_events;
+                        //restartEventsId = R.drawable.ic_widget_restart_events;
+                        monochromeValue = 0x20;
                 }
                 else {
                     if ((!notificationNightMode || (useNightColor == 1)) && (Build.VERSION.SDK_INT >= 29))
-                        restartEventsId = R.drawable.ic_widget_restart_events_dark;
+                        //restartEventsId = R.drawable.ic_widget_restart_events_dark;
+                        monochromeValue = 0xE0;
                     else
-                        restartEventsId = R.drawable.ic_widget_restart_events;
+                        //restartEventsId = R.drawable.ic_widget_restart_events;
+                        monochromeValue = 0x20;
                 }
 
                 contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
-                contentViewLarge.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
+                //contentViewLarge.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
+                Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, appContext);
+                bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
+                contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_restart_events, bitmap);
                 contentViewLarge.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
 
                 if (contentView != null) {
                     contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
-                    contentView.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
+                    //contentView.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
+                    contentView.setImageViewBitmap(R.id.notification_activated_profile_restart_events, bitmap);
                     contentView.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
                 }
             }
@@ -6525,7 +6542,7 @@ public class PhoneProfilesService extends Service
             PPApplication.screenTimeoutHandler.post(new Runnable() {
                 public void run() {
                     ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(getApplicationContext());
-                    ActivateProfileHelper.removeKeepScreenOnView(getApplicationContext());
+                    ActivateProfileHelper.removeKeepScreenOnView();
                 }
             });
         }

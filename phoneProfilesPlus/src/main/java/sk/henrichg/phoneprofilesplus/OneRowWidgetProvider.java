@@ -11,11 +11,8 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
-
-import androidx.core.graphics.ColorUtils;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;

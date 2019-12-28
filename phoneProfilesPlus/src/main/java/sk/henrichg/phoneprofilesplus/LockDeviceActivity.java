@@ -120,7 +120,7 @@ public class LockDeviceActivity extends AppCompatActivity {
             Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PhoneProfilesService.getInstance().screenTimeoutBeforeDeviceLock);
 
             // change screen timeout
-            final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+            //final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
             final int screenTimeout = ActivateProfileHelper.getActivatedProfileScreenTimeout(appContext);
             PPApplication.logE("LockDeviceActivity.onDestroy", "screenTimeout="+screenTimeout);
             if ((screenTimeout > 0) && (Permissions.checkScreenTimeout(appContext))) {
