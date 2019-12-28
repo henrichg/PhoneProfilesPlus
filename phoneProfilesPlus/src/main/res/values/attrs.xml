@@ -60,7 +60,8 @@
     <!-- theme dependent drawables -->
     <attr name="colorAccentDisabled" format="reference" />
     <attr name="activityBackgroundColor" format="reference" />
-    <attr name="activityTextColor" format="reference" />
+    <attr name="activityWhiteTextColor" format="reference" />
+    <attr name="activityNormalTextColor" format="reference" />
     <attr name="activitySecondaryTextColor" format="reference" />
     <attr name="activityDisabledTextColor" format="reference" />
     <attr name="activityCommandBackgroundColor" format="reference" />

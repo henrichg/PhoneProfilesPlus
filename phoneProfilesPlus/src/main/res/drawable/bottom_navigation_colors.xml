@@ -5,5 +5,5 @@
         android:color="?attr/colorAccent" />
     <item
         android:state_checked="false"
-        android:color="?attr/activityTextColor" />
+        android:color="?attr/activityWhiteTextColor" />
 </selector>

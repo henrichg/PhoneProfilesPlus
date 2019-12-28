@@ -19,7 +19,8 @@
         <item name="android:textViewStyle">@style/TextViewTheme</item>
         <item name="android:windowBackground">@color/activityBackgroundColor</item>
         <item name="activityBackgroundColor">@color/activityBackgroundColor</item>
-        <item name="activityTextColor">@color/activityTextColor</item>
+        <item name="activityWhiteTextColor">@color/activityWhiteTextColor</item>
+        <item name="activityNormalTextColor">@color/activityNormalTextColor</item>
         <item name="activitySecondaryTextColor">@color/activitySecondaryTextColor</item>
         <item name="activityDisabledTextColor">@color/activityDisabledTextColor</item>
         <item name="activityCommandBackgroundColor">@color/activityCommandBackgroundColor</item>
@@ -67,7 +68,7 @@
         <item name="fastScrollPopupTextPP">@color/fastScrollPopupTextPP</item>
         <item name="actionDefaultProfile">@drawable/ic_action_default_profile</item>
         <item name="actionRunStopEventsIcon">@drawable/ic_action_play</item>
-        <item name="editorSpinnerDropDownTextColor">@color/activityTextColor</item>
+        <item name="editorSpinnerDropDownTextColor">@color/activityWhiteTextColor</item>
         <item name="editorFilterTitleColor">@color/editorFilterTitleColor</item>
         <item name="editorFilterBackgroundColor">@color/editorFilterBackgroundColor</item>
         <item name="runEventsIndicatorAll">@drawable/ic_run_events_indicator_all</item>

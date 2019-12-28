@@ -19,12 +19,12 @@
         android:layout_height="match_parent"
         android:layout_marginTop="15dp"
 
-        app:dokiPrimaryTextColor="?attr/activityTextColor"
+        app:dokiPrimaryTextColor="?attr/activityWhiteTextColor"
         app:dokiSecondaryTextColor="?attr/activitySecondaryTextColor"
         app:dokiBackgroundColor="?attr/activityBackgroundColor"
         app:dokiHeaderBackgroundColor="?attr/editorFilterBackgroundColor"
         app:dokiDividerColor="?attr/dialogDivider"
-        app:dokiActiveIconsColor="?attr/activityTextColor"
+        app:dokiActiveIconsColor="?attr/activityWhiteTextColor"
         app:dokiInactiveIconsColor="?attr/activityDisabledTextColor"
         app:dokiImgBorderColor="?attr/dialogDivider"
         />

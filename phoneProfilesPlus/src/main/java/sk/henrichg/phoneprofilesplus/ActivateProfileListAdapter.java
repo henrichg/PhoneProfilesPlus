@@ -206,13 +206,13 @@ class ActivateProfileListAdapter extends BaseAdapter
                 //noinspection ConstantConditions
                 holder.profileName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(fragment.getActivity()));
             } else*/ {
-                holder.profileName.setTypeface(/*Typeface.create("sans-serif-condensed", Typeface.NORMAL)*/ null, Typeface.NORMAL);
+                holder.profileName.setTypeface(null, Typeface.NORMAL);
                 if (applicationActivatorGridLayout)
                     holder.profileName.setTextSize(13);
                 else
                     holder.profileName.setTextSize(15);
                 //noinspection ConstantConditions
-                holder.profileName.setTextColor(GlobalGUIRoutines.getThemeTextColor(fragment.getActivity()));
+                holder.profileName.setTextColor(GlobalGUIRoutines.getThemeWhiteTextColor(fragment.getActivity()));
             }
 
             Spannable profileName = DataWrapper.getProfileNameWithManualIndicator(profile,

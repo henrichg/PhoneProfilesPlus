@@ -9,7 +9,8 @@
 
     <!--<color name="activityBackgroundColor">#FF252525</color>-->
     <color name="activityBackgroundColor">#FF202020</color>
-    <color name="activityTextColor">#FFFFFFFF</color>
+    <color name="activityWhiteTextColor">#FFFFFFFF</color>
+    <color name="activityNormalTextColor">#FFd5d5d5</color>
     <color name="activitySecondaryTextColor">#CFFFFFFF</color>
     <color name="activityDisabledTextColor">#4DFFFFFF</color>
     <color name="activityCommandBackgroundColor">#1FFFFFFF</color>

@@ -1,6 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.Spannable;
@@ -83,7 +85,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             //boolean isPermissionGranted = Permissions.checkEventPermissions(context, event).size() == 0;
             //boolean isAccessibilityServiceEnabled = (event.isAccessibilityServiceEnabled(context, true) == 1);
 
-            DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
+            //DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
             boolean manualProfileActivation = DataWrapper.getIsManualProfileActivation(false, context);
             //dataWrapper.invalidateDataWrapper();
 
@@ -118,17 +120,22 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             }
             eventStatus.setImageResource(statusRes);
 
+
+            //TypedArray themeArray = context.getTheme().obtainStyledAttributes(new int[]{android.R.attr.textColorSecondary});
+            //ColorStateList textColorSecondary = themeArray.getColorStateList(0);
+
             if (!Event.getGlobalEventsRunning(editorFragment.getActivity()) || (manualProfileActivation && !event._forceRun)) {
-                eventName.setTypeface(null, Typeface.ITALIC);
+                eventName.setTypeface(null, Typeface.BOLD_ITALIC/*ITALIC*/);
                 //eventName.setTextSize(15);
                 //noinspection ConstantConditions
-                eventName.setTextColor(GlobalGUIRoutines.getThemeTextColor(editorFragment.getActivity()));
+                eventName.setTextColor(GlobalGUIRoutines.getThemeNormalTextColor(editorFragment.getActivity()));
+                //eventName.setTextColor(textColorSecondary);
             }
             else
             //if (!(isRunnable && isPermissionGranted && isAccessibilityServiceEnabled)) {
             if (EventsPrefsFragment.isRedTextNotificationRequired(event, context)) {
                 //if (!isRunnable)
-                eventName.setTypeface(null, Typeface.ITALIC);
+                eventName.setTypeface(null, Typeface.BOLD_ITALIC/*ITALIC*/);
                 //else
                 //    eventName.setTypeface(null, Typeface.NORMAL);
                 //eventName.setTextSize(15);
@@ -136,22 +143,22 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             }
             else
             if (_eventStatus == Event.ESTATUS_STOP) {
-                eventName.setTypeface(null, Typeface.ITALIC);
+                eventName.setTypeface(null, Typeface.BOLD_ITALIC/*ITALIC*/);
                 //eventName.setTextSize(15);
                 //noinspection ConstantConditions
                 eventName.setTextColor(GlobalGUIRoutines.getThemeEventStopColor(editorFragment.getActivity()));
             }
             else
             if (_eventStatus == Event.ESTATUS_PAUSE) {
-                eventName.setTypeface(null, Typeface.NORMAL);
+                eventName.setTypeface(null, Typeface.BOLD/*NORMAL*/);
                 //eventName.setTextSize(15);
                 //if (event._isInDelayEnd)
                 //    eventName.setTextColor(GlobalGUIRoutines.getThemeEventInDelayColor(editorFragment.getActivity()));
                 //else
                 //    eventName.setTextColor(GlobalGUIRoutines.getThemeEventPauseColor(editorFragment.getActivity()));
                 //noinspection ConstantConditions
-                eventName.setTextColor(GlobalGUIRoutines.getThemeTextColor(editorFragment.getActivity()));
-                //eventName.setUnderLineColor(GlobalGUIRoutines.getThemeEventPauseColor(editorFragment.getActivity()));
+                eventName.setTextColor(GlobalGUIRoutines.getThemeNormalTextColor(editorFragment.getActivity()));
+                //eventName.setTextColor(textColorSecondary);
             }
             else
             if (_eventStatus == Event.ESTATUS_RUNNING) {
@@ -164,10 +171,11 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 eventName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(editorFragment.getActivity()));
             }
             else {
-                eventName.setTypeface(null, Typeface.NORMAL);
+                eventName.setTypeface(null, Typeface.BOLD/*NORMAL*/);
                 //eventName.setTextSize(15);
                 //noinspection ConstantConditions
-                eventName.setTextColor(GlobalGUIRoutines.getThemeTextColor(editorFragment.getActivity()));
+                eventName.setTextColor(GlobalGUIRoutines.getThemeNormalTextColor(editorFragment.getActivity()));
+                //eventName.setTextColor(textColorSecondary);
             }
 
             boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(context);
