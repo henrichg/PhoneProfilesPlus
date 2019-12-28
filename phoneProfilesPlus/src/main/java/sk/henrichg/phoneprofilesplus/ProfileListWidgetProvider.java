@@ -280,11 +280,19 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     widget.setImageViewBitmap(R.id.widget_profile_list_header_restart_events, bitmap);
                 }
                 else {
-                    int resId = R.drawable.ic_widget_restart_events;
+                    monochromeValue = 0xFF;
+                    if (applicationWidgetListLightnessT.equals("0")) monochromeValue = 0x00;
+                    if (applicationWidgetListLightnessT.equals("25")) monochromeValue = 0x40;
+                    if (applicationWidgetListLightnessT.equals("50")) monochromeValue = 0x80;
+                    if (applicationWidgetListLightnessT.equals("75")) monochromeValue = 0xC0;
+                    Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
+                    bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
+                    widget.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
+                    /*int resId = R.drawable.ic_widget_restart_events;
                     if (ColorUtils.calculateLuminance(Color.rgb(redBackground, greenBackground, blueBackground)) < 0.5) {
                         resId = R.drawable.ic_widget_restart_events_dark;
                     }
-                    widget.setImageViewResource(R.id.widget_profile_list_header_restart_events, resId);
+                    widget.setImageViewResource(R.id.widget_profile_list_header_restart_events, resId);*/
                     /*int resId = R.drawable.ic_widget_restart_events_dark;
                     if (applicationWidgetListLightnessT.equals("0")) resId = R.drawable.ic_widget_restart_events;
                     if (applicationWidgetListLightnessT.equals("25")) resId = R.drawable.ic_widget_restart_events;

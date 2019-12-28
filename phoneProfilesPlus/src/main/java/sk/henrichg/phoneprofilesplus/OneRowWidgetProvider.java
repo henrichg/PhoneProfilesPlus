@@ -248,11 +248,19 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                                 remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
                             }
                             else {
-                                int resId = R.drawable.ic_widget_restart_events;
+                                monochromeValue = 0xFF;
+                                if (applicationWidgetOneRowLightnessT.equals("0")) monochromeValue = 0x00;
+                                if (applicationWidgetOneRowLightnessT.equals("25")) monochromeValue = 0x40;
+                                if (applicationWidgetOneRowLightnessT.equals("50")) monochromeValue = 0x80;
+                                if (applicationWidgetOneRowLightnessT.equals("75")) monochromeValue = 0xC0;
+                                Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
+                                bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
+                                remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
+                                /*int resId = R.drawable.ic_widget_restart_events;
                                 if (ColorUtils.calculateLuminance(Color.rgb(redBackground, greenBackground, blueBackground)) < 0.5) {
                                     resId = R.drawable.ic_widget_restart_events_dark;
                                 }
-                                remoteViews.setImageViewResource(R.id.widget_one_row_header_restart_events, resId);
+                                remoteViews.setImageViewResource(R.id.widget_one_row_header_restart_events, resId);*/
                                 /*int resId = R.drawable.ic_widget_restart_events_dark;
                                 if (applicationWidgetOneRowLightnessT.equals("0")) resId = R.drawable.ic_widget_restart_events;
                                 if (applicationWidgetOneRowLightnessT.equals("25")) resId = R.drawable.ic_widget_restart_events;
