@@ -237,7 +237,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         }
 
                         if (Event.getGlobalEventsRunning(context) && PPApplication.getApplicationStarted(context, true)) {
-                            if (applicationWidgetOneRowIconColor.equals("1")) {
+                            /*if (applicationWidgetOneRowIconColor.equals("1")) {
                                 monochromeValue = 0xFF;
                                 if (applicationWidgetOneRowIconLightness.equals("0")) monochromeValue = 0x00;
                                 if (applicationWidgetOneRowIconLightness.equals("25")) monochromeValue = 0x40;
@@ -247,7 +247,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                                 bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
                                 remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
                             }
-                            else {
+                            else {*/
                                 monochromeValue = 0xFF;
                                 if (applicationWidgetOneRowLightnessT.equals("0")) monochromeValue = 0x00;
                                 if (applicationWidgetOneRowLightnessT.equals("25")) monochromeValue = 0x40;
@@ -266,7 +266,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                                 if (applicationWidgetOneRowLightnessT.equals("25")) resId = R.drawable.ic_widget_restart_events;
                                 if (applicationWidgetOneRowLightnessT.equals("50")) resId = R.drawable.ic_widget_restart_events;
                                 remoteViews.setImageViewResource(R.id.widget_one_row_header_restart_events, resId);*/
-                            }
+                            //}
                         }
 
                         if (PPApplication.logEnabled()) {
