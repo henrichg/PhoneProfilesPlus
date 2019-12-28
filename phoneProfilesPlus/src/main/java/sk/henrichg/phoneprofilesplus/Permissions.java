@@ -443,7 +443,7 @@ class Permissions {
                     boolean grantedWriteSettings = Settings.System.canWrite(context);
                     if (grantedWriteSettings)
                         setShowRequestWriteSettingsPermission(context, true);
-                    boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
+                    boolean grantedDrawOverlays = (profile._deviceScreenTimeout != 8) || Settings.canDrawOverlays(context);
                     if (grantedDrawOverlays)
                         setShowRequestDrawOverlaysPermission(context, true);
                     if (permissions != null) {
@@ -887,7 +887,7 @@ class Permissions {
                     boolean grantedWriteSettings = Settings.System.canWrite(context);
                     if (grantedWriteSettings)
                         setShowRequestWriteSettingsPermission(context, true);
-                    boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
+                    boolean grantedDrawOverlays = (profile._lockDevice != 1) || Settings.canDrawOverlays(context);
                     if (grantedDrawOverlays)
                         setShowRequestDrawOverlaysPermission(context, true);
                     if (permissions != null) {
