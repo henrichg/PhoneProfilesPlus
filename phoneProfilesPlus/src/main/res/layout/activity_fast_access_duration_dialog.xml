@@ -56,6 +56,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="-5dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -64,9 +65,8 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:layout_marginStart="0dp"
-                    android:layout_marginTop="-5dp"
                     android:layout_weight="1"
-                    android:textSize="18sp"
+                    android:textSize="17sp"
                     android:textColor="?attr/colorAccent"
                     android:background="?attr/selectableItemBackground"
                     android:maxLines="1"
@@ -79,10 +79,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginStart="10dp"
                     android:gravity="end"
                     android:text="00:00:00"
-                    android:textSize="18sp"
+                    android:textSize="17sp"
                     tools:ignore="HardcodedText"/>
 
             </LinearLayout>
