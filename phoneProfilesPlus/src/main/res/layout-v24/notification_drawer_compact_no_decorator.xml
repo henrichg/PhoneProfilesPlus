@@ -49,6 +49,7 @@
             android:layout_toEndOf="@id/notification_activated_profile_icon"
             android:text="@string/profile_name_default"
             style="@style/TextAppearance.Compat.Notification.Title"
+            android:textSize="13sp"
             android:ellipsize="end"
             android:maxLines="1" />
 

@@ -28,6 +28,7 @@
         android:layout_toStartOf="@id/notification_activated_profile_restart_events"
         android:text="@string/profile_name_default"
         style="@style/TextAppearance.Compat.Notification.Title"
+        android:textSize="13sp"
         android:ellipsize="end"
         android:maxLines="1" />
 
