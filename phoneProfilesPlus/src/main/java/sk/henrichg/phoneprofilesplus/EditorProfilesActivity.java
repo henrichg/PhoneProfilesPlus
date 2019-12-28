@@ -425,7 +425,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 };
                                 GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                                         EditorProfilesActivity.this,
-                                        R.layout.highlighted_spinner,
+                                        R.layout.highlighted_filter_spinner,
                                         filterItems);
                                 filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
                                 filterSpinner.setAdapter(filterSpinnerAdapter);
@@ -446,7 +446,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 };
                                 filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                                         EditorProfilesActivity.this,
-                                        R.layout.highlighted_spinner,
+                                        R.layout.highlighted_filter_spinner,
                                         filterItems);
                                 filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
                                 filterSpinner.setAdapter(filterSpinnerAdapter);
@@ -469,7 +469,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         };
         GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 this,
-                R.layout.highlighted_spinner,
+                R.layout.highlighted_filter_spinner,
                 filterItems);
         filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);

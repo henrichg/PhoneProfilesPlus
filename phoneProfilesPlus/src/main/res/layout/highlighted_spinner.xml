@@ -4,8 +4,8 @@
           android:id="@android:id/text1"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:textColor="@color/editorFilterTitleColor"
           android:textSize="15sp"
           android:ellipsize="marquee"
           android:singleLine="true"
           tools:ignore="Overdraw"/>
+<!--    android:textColor="@color/editorFilterTitleColor"-->

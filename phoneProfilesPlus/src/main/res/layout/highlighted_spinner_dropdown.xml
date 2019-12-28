@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
           android:id="@android:id/text1"
-          android:textColor="@color/activityWhiteTextColor"
           android:textSize="15sp"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
@@ -11,3 +10,4 @@
           android:paddingBottom="12dp"
           android:ellipsize="marquee"
           android:singleLine="true"/>
+<!--    android:textColor="@color/activityWhiteTextColor"-->
