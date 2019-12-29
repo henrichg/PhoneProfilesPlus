@@ -1431,7 +1431,7 @@
     <string name="profile_preferences_red_texts_text_1">Profile</string>
     <string name="event_preferences_red_texts_text_1">Event</string>
     <string name="event_preferences_red_texts_title">Error in event preferences</string>
-    <string name="preferences_red_texts_text_2">has same errors in it\'s preferences.</string>
+    <string name="preferences_red_texts_text_2">has some errors in it\'s preferences.</string>
     <string name="preferences_red_texts_text_click">Click this notification to open it.</string>
 
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi and Bluetooth confirm dialogs</string>
