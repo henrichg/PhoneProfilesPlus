@@ -101,7 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="11dp"
-            android:layout_marginTop="-8dp"
+            android:layout_marginTop="-11dp"
             android:layout_below="@id/event_list_item_preferences_description"
             android:layout_toEndOf="@id/event_list_item_status" >
 
