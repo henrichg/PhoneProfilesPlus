@@ -4353,6 +4353,8 @@ public class DataWrapper {
                     }
 
                     restartEventsWithRescan(/*true, */true, true, true,true);
+
+                    IgnoreBatteryOptimizationNotification.showNotification(context);
                 }
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
@@ -4412,6 +4414,8 @@ public class DataWrapper {
             }
 
             restartEventsWithRescan(/*true, */true, true, true, true);
+
+            IgnoreBatteryOptimizationNotification.showNotification(context);
         }
     }
 
