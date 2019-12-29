@@ -4734,73 +4734,38 @@ public class PhoneProfilesService extends Service
 
                 PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationBackgroundColor="+notificationBackgroundColor);
 
-                //int restartEventsId;
-                int monochromeValue;
+                int restartEventsId;
                 if (notificationBackgroundColor.equals("1") || notificationBackgroundColor.equals("3")) {
                     if (!notificationNightMode || (useNightColor == 1))
-                        //restartEventsId = R.drawable.ic_widget_restart_events_dark;
-                        monochromeValue = 0xE0;
+                        restartEventsId = R.drawable.ic_widget_restart_events_dark;
                     else
-                        //restartEventsId = R.drawable.ic_widget_restart_events;
-                        monochromeValue = 0x20;
+                        restartEventsId = R.drawable.ic_widget_restart_events;
                 }
                 else
                 if (notificationBackgroundColor.equals("5")) {
                     if (!notificationNightMode || (useNightColor == 1)) {
-                        /*int redDark = 60;
-                        int greenDark = 60;
-                        int blueDark = 60;
-                        int redCustom = Color.red(notificationBackgroundCustomColor);
-                        int greenCustom = Color.green(notificationBackgroundCustomColor);
-                        int blueCustom = Color.blue(notificationBackgroundCustomColor);
-
-                        if (PPApplication.logEnabled()) {
-                            PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "redDark=" + redDark);
-                            PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "greenDark=" + greenDark);
-                            PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "blueDark=" + blueDark);
-                            PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "redCustom=" + redCustom);
-                            PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "greenCustom=" + greenCustom);
-                            PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "blueCustom=" + blueCustom);
-                        }
-
-                        if ((redCustom <= redDark) && (greenCustom <= greenDark) && (blueCustom <= blueDark)) {
-                            PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "dark restart events");
-                            restartEventsId = R.drawable.ic_widget_restart_events_dark;
-                        } else {
-                            PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "light restart events");
-                            restartEventsId = R.drawable.ic_widget_restart_events;
-                        }*/
                         if (ColorUtils.calculateLuminance(notificationBackgroundCustomColor) < 0.23)
-                            //restartEventsId = R.drawable.ic_widget_restart_events_dark;
-                            monochromeValue = 0xE0;
+                            restartEventsId = R.drawable.ic_widget_restart_events_dark;
                         else
-                            //restartEventsId = R.drawable.ic_widget_restart_events;
-                            monochromeValue = 0x20;
+                            restartEventsId = R.drawable.ic_widget_restart_events;
                     }
                     else
-                        //restartEventsId = R.drawable.ic_widget_restart_events;
-                        monochromeValue = 0x20;
+                        restartEventsId = R.drawable.ic_widget_restart_events;
                 }
                 else {
                     if ((!notificationNightMode || (useNightColor == 1)) && (Build.VERSION.SDK_INT >= 29))
-                        //restartEventsId = R.drawable.ic_widget_restart_events_dark;
-                        monochromeValue = 0xE0;
+                        restartEventsId = R.drawable.ic_widget_restart_events_dark;
                     else
-                        //restartEventsId = R.drawable.ic_widget_restart_events;
-                        monochromeValue = 0x20;
+                        restartEventsId = R.drawable.ic_widget_restart_events;
                 }
 
                 contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
-                //contentViewLarge.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
-                Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, appContext);
-                bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
-                contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_restart_events, bitmap);
+                contentViewLarge.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
                 contentViewLarge.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
 
                 if (contentView != null) {
                     contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
-                    //contentView.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
-                    contentView.setImageViewBitmap(R.id.notification_activated_profile_restart_events, bitmap);
+                    contentView.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
                     contentView.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
                 }
             }
