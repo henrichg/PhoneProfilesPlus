@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:paddingBottom="3dp"
+            android:paddingBottom="0dp"
             android:orientation="vertical"
             android:background="?attr/colorPrimary"
             android:elevation="0dp" >

@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
+    <issue id="IconDipSize">
+        <ignore path="src/main/res/drawable-hdpi/ic_empty.png" />
+        <ignore path="src/main/res/drawable-mdpi/ic_empty.png" />
+        <ignore path="src/main/res/drawable-night-hdpi/ic_empty.png" />
+        <ignore path="src/main/res/drawable-night-mdpi/ic_empty.png" />
+        <ignore path="src/main/res/drawable-night-xhdpi/ic_empty.png" />
+        <ignore path="src/main/res/drawable-night-xxhdpi/ic_empty.png" />
+        <ignore path="src/main/res/drawable-night-xxxhdpi/ic_empty.png" />
+        <ignore path="src/main/res/drawable-xhdpi/ic_empty.png" />
+        <ignore path="src/main/res/drawable-xxhdpi/ic_empty.png" />
+        <ignore path="src/main/res/drawable-xxxhdpi/ic_empty.png" />
+    </issue>
     <issue id="IconDuplicates">
         <ignore path="src/main/res/drawable-hdpi/ic_profile_battery_1.png" />
         <ignore path="src/main/res/drawable-hdpi/ic_profile_battery_2.png" />
@@ -61,6 +73,18 @@
         <ignore path="src/main/res/drawable-xxxhdpi/ic_profile_tickets_1_notify_color.png" />
         <ignore path="src/main/res/drawable-xxxhdpi/ic_profile_vibrate_1_notify_color.png" />
         <ignore path="src/main/res/drawable-xxxhdpi/ic_profile_volume_4_notify_color.png" />
+    </issue>
+    <issue id="IconDuplicatesConfig">
+        <ignore path="src/main/res/drawable-hdpi/ic_empty.png" />
+        <ignore path="src/main/res/drawable-mdpi/ic_empty.png" />
+        <ignore path="src/main/res/drawable-night-hdpi/ic_empty.png" />
+        <ignore path="src/main/res/drawable-night-mdpi/ic_empty.png" />
+        <ignore path="src/main/res/drawable-night-xhdpi/ic_empty.png" />
+        <ignore path="src/main/res/drawable-night-xxhdpi/ic_empty.png" />
+        <ignore path="src/main/res/drawable-night-xxxhdpi/ic_empty.png" />
+        <ignore path="src/main/res/drawable-xhdpi/ic_empty.png" />
+        <ignore path="src/main/res/drawable-xxhdpi/ic_empty.png" />
+        <ignore path="src/main/res/drawable-xxxhdpi/ic_empty.png" />
     </issue>
     <issue id="IconLocation">
         <ignore path="src/main/res/drawable/ic_empty.png" />
