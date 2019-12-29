@@ -70,7 +70,7 @@ public class QuickGuideHelpFragment extends Fragment {
                 getString(R.string.important_info_contact),
                 "", getString(R.string.about_application_support_subject),
                 AboutApplicationActivity.getEmailBodyText(/*AboutApplicationActivity.EMAIL_BODY_SUPPORT, */activity),
-                true, activity);
+                /*true,*/ activity);
 
         TextView translationTextView = view.findViewById(R.id.activity_info_translations);
         String str1 = getString(R.string.about_application_translations);

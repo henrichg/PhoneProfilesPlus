@@ -1364,23 +1364,29 @@
     <string name="alert_button_install">Установить</string>
     <string name="event_preferences_red_enable_PPPExtender">Для этого нажмите сюда. Найдите в списке PhoneProfilesPLusExtender и включите для него доступ к спец. возможностям.</string>
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">Чтобы использовать параметр профиля \"Типы режима оповещения\", разрешите PhoneProfilesPlus доступ к уведомлениям в настройках системы. Для этого нажмите сюда.</string>
-    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">Чтобы использовать параметр профиля \"Не беспокоить\", разрешите PhoneProfilesPlus доступ к функции \"Не беспокоить\" в настройках системы. Для этого нажмите сюда.</string>
+    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Do not disturb access\" in system settings. Click here to enable it.</string>
     <string name="editor_activity_targetHelps_bottomNavigation_description_2">Нажмите на неё, когда она активна, для отображения скрытых заголовка и нижней панели инструментов.</string>
     <string name="event_preferences_notifications_checkContacts">Проверить контакты</string>
     <string name="event_preferences_notifications_contact_groups">Группы контактов</string>
     <string name="event_preferences_notifications_contacts">Контакты</string>
     <string name="event_preferences_notifications_checkText">Проверить текст</string>
     <string name="event_preferences_notifications_text">Текст</string>
-    <string name="profile_preferences_red_texts_title">Error in profile preferences</string>
-    <string name="profile_preferences_red_texts_text_1">Profile</string>
-    <string name="event_preferences_red_texts_text_1">Event</string>
-    <string name="event_preferences_red_texts_title">Error in event preferences</string>
-    <string name="preferences_red_texts_text_2">has same errors in it\'s preferences.</string>
-    <string name="preferences_red_texts_text_click">Click this notification to open it.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi and Bluetooth confirm dialogs</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">For \"ColorOs\" is possible to disable these dialogs. Click this, to show how.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">In device system settings:\n1. Developer options\\Developer options = enable\n2. Developer options\\Debugging\\USB debugging = enable\n3. Developer options\\Apps\\Disables authorization monitoring = enable.</string>
-    <string name="important_info_android_look_application_settings">Please open PhoneProfilesPlus Settings and configure it. Especially parameters marked with bold text.</string>
+    <string name="profile_preferences_red_texts_title">Ошибка в настройках профиля</string>
+    <string name="profile_preferences_red_texts_text_1">Профиль</string>
+    <string name="event_preferences_red_texts_text_1">Событие</string>
+    <string name="event_preferences_red_texts_title">Ошибка в настройках события</string>
+    <string name="preferences_red_texts_text_2">имеет те же ошибки в своих настройках.</string>
+    <string name="preferences_red_texts_text_click">Нажмите на это уведомление, чтобы открыть его.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Диалоги подтверждения Wi-Fi и Bluetooth</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">В ColorOS эти диалоги можно отключить. Чтобы узнать как, нажмите сюда.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">В настройках системы:\n1. Для разработчика\\Для разработчика = включено\n2. Для разработчика\\Отладка\\Отладка по USB = включено\n3. Для разработчика\\Приложения\\Disables authorization monitoring = включено.</string>
+    <string name="important_info_android_look_application_settings">Откройте, пожалуйста, настройки PhoneProfilesPlus и задайте их, особенно параметры, отмеченные жирным текстом.</string>
+    <string name="profile_preferences_red_texts_text_2">For this, is not possible to activate it.</string>
+    <string name="event_preferences_red_texts_text_2">For this, is not possible to change it\'s run.</string>
+    <string name="profile_preferences_red_texts_text_3">For this, is not possible to show it in Activator.</string>
+    <string name="profile_preferences_red_texts_in_header">Some profiles has errors in it\'s preferences. These profiles are marked with red color. Please fix it.</string>
+    <string name="event_preferences_red_texts_in_header">Some events has errors in it\'s preferences. These events are marked with red color. Please fix it.</string>
+    <string name="profile_preferences_deviceScreenOnPermanent">Turn and leave screen on</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>

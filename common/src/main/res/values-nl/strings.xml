@@ -1364,23 +1364,29 @@
     <string name="alert_button_install">Installeer</string>
     <string name="event_preferences_red_enable_PPPExtender">Klik hier om in te schakelen. Zoek naar PhoneProfilesPLusExtender en laat \"Toegankelijkheid\" toe.</string>
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">Om \"Onderbrekingen type\" profielparameter in te schakelen, moet u PhoneProfilesPlus \"Toegang tot meldingen\" in systeem instellingen geven. Klik hier om dit in te schakelen.</string>
-    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">Om de \"Niet storen\" profielparameter in te schakelen moet je PhoneProfilesPlus \"Niet Storen\" toegang in de systeeminstellingen. Klik hier om het in te schakelen.</string>
+    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Do not disturb access\" in system settings. Click here to enable it.</string>
     <string name="editor_activity_targetHelps_bottomNavigation_description_2">Klik het, wanneer geactiveerd is het om de verborgen header en onderste werkbalk te tonen.</string>
     <string name="event_preferences_notifications_checkContacts">Contacten controleren</string>
     <string name="event_preferences_notifications_contact_groups">Contactgroepen</string>
     <string name="event_preferences_notifications_contacts">Contacten</string>
     <string name="event_preferences_notifications_checkText">Tekst controleren</string>
     <string name="event_preferences_notifications_text">Tekst</string>
-    <string name="profile_preferences_red_texts_title">Error in profile preferences</string>
-    <string name="profile_preferences_red_texts_text_1">Profile</string>
+    <string name="profile_preferences_red_texts_title">Fout in profielvoorkeuren</string>
+    <string name="profile_preferences_red_texts_text_1">Profiel</string>
     <string name="event_preferences_red_texts_text_1">Event</string>
-    <string name="event_preferences_red_texts_title">Error in event preferences</string>
-    <string name="preferences_red_texts_text_2">has same errors in it\'s preferences.</string>
-    <string name="preferences_red_texts_text_click">Click this notification to open it.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi and Bluetooth confirm dialogs</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">For \"ColorOs\" is possible to disable these dialogs. Click this, to show how.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">In device system settings:\n1. Developer options\\Developer options = enable\n2. Developer options\\Debugging\\USB debugging = enable\n3. Developer options\\Apps\\Disables authorization monitoring = enable.</string>
+    <string name="event_preferences_red_texts_title">Fout in profielvoorkeuren</string>
+    <string name="preferences_red_texts_text_2">heeft dezelfde fouten in de voorkeuren.</string>
+    <string name="preferences_red_texts_text_click">Klik op deze melding om te openen.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi- en Bluetooth bevestigingsscherm</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Voor \"ColorOs\" is het mogelijk om deze schermen uit te schakelen. Klik hier om te zien hoe.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">In apparaatsysteeminstellingen:\n1. Ontwikkelaarsopties\\Developer opties = inschakelen\n2. Ontwikkelaarsopties\\\Debugging\\USB debugging = inschakelen\n3. Ontwikkelaar opties\\Apps\\Uitschakelen autorisatie monitoring = inschakelen.</string>
     <string name="important_info_android_look_application_settings">Please open PhoneProfilesPlus Settings and configure it. Especially parameters marked with bold text.</string>
+    <string name="profile_preferences_red_texts_text_2">For this, is not possible to activate it.</string>
+    <string name="event_preferences_red_texts_text_2">For this, is not possible to change it\'s run.</string>
+    <string name="profile_preferences_red_texts_text_3">For this, is not possible to show it in Activator.</string>
+    <string name="profile_preferences_red_texts_in_header">Some profiles has errors in it\'s preferences. These profiles are marked with red color. Please fix it.</string>
+    <string name="event_preferences_red_texts_in_header">Some events has errors in it\'s preferences. These events are marked with red color. Please fix it.</string>
+    <string name="profile_preferences_deviceScreenOnPermanent">Turn and leave screen on</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>

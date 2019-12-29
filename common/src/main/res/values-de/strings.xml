@@ -1364,23 +1364,29 @@
     <string name="alert_button_install">Install</string>
     <string name="event_preferences_red_enable_PPPExtender">Click here to enable it. Search for PhoneProfilesPLusExtender and allow \"Accessibility\" for it.</string>
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">To enable \"Interruptions type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>
-    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">To enable \"Do not disturb\" profile parameter, allow for PhoneProfilesPlus \"Do not disturb access\" in system settings. Click here to enable it.</string>
+    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Do not disturb access\" in system settings. Click here to enable it.</string>
     <string name="editor_activity_targetHelps_bottomNavigation_description_2">Click it, when is activated, to show hidden header and bottom toolbar.</string>
     <string name="event_preferences_notifications_checkContacts">Kontakte überprüfen</string>
     <string name="event_preferences_notifications_contact_groups">Kontaktgruppen</string>
     <string name="event_preferences_notifications_contacts">Kontakte</string>
     <string name="event_preferences_notifications_checkText">Text prüfen</string>
     <string name="event_preferences_notifications_text">Text</string>
-    <string name="profile_preferences_red_texts_title">Error in profile preferences</string>
-    <string name="profile_preferences_red_texts_text_1">Profile</string>
-    <string name="event_preferences_red_texts_text_1">Event</string>
-    <string name="event_preferences_red_texts_title">Error in event preferences</string>
-    <string name="preferences_red_texts_text_2">has same errors in it\'s preferences.</string>
-    <string name="preferences_red_texts_text_click">Click this notification to open it.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi and Bluetooth confirm dialogs</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">For \"ColorOs\" is possible to disable these dialogs. Click this, to show how.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">In device system settings:\n1. Developer options\\Developer options = enable\n2. Developer options\\Debugging\\USB debugging = enable\n3. Developer options\\Apps\\Disables authorization monitoring = enable.</string>
-    <string name="important_info_android_look_application_settings">Please open PhoneProfilesPlus Settings and configure it. Especially parameters marked with bold text.</string>
+    <string name="profile_preferences_red_texts_title">Fehler in den Profileinstellungen</string>
+    <string name="profile_preferences_red_texts_text_1">Profil</string>
+    <string name="event_preferences_red_texts_text_1">Ereignis</string>
+    <string name="event_preferences_red_texts_title">Fehler in den Ereigniseinstellungen</string>
+    <string name="preferences_red_texts_text_2">enthält dieselben Fehler in den Einstellungen.</string>
+    <string name="preferences_red_texts_text_click">Benachrichtigung anklicken, um sie zu öffnen.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">WLAN- und Bluetooth-Bestätigungsdialoge</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Für \"ColorOs\" ist es möglich, diese Dialoge zu deaktivieren. Hier klicken, um dessen Vorgehensweise anzuzeigen.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">In den Gerätesystemeinstellungen:\n1. Entwicklereinstellungen ➜ Entwicklereinstellungen = aktivieren\n2. Entwickler-Optionen ➜ Fehlersuche ➜ USB-Fehlersuche = aktivieren\n3. Entwickleroptionen ➜ Apps ➜ Deaktiviert die Berechtigungsüberwachung = aktivieren.</string>
+    <string name="important_info_android_look_application_settings">Bitte öffnen Sie die Einstellungen von PhoneProfilesPlus und konfigurieren Sie diese. Insbesondere Parameter, die mit fettgedrucktem Text gekennzeichnet sind.</string>
+    <string name="profile_preferences_red_texts_text_2">Eine Aktivierung ist hierfür nicht möglich.</string>
+    <string name="event_preferences_red_texts_text_2">Eine Änderung der Ausführung ist hierfür nicht möglich.</string>
+    <string name="profile_preferences_red_texts_text_3">Eine Anzeige im Aktivator ist hierfür nicht möglich.</string>
+    <string name="profile_preferences_red_texts_in_header">Einige Profile enthalten Fehler in ihren Einstellungen. Diese Profile wurden mit roter Farbe gekennzeichnet. Bitte korrigieren Sie diese.</string>
+    <string name="event_preferences_red_texts_in_header">Einige Ereignisse enthalten Fehler in den Einstellungen. Diese Ereignisse wurden mit roter Farbe gekennzeichnet. Bitte korrigieren Sie diese.</string>
+    <string name="profile_preferences_deviceScreenOnPermanent">Bildschirm einschalten und eingeschaltet lassen</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>

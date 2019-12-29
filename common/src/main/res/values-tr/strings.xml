@@ -1364,23 +1364,29 @@
     <string name="alert_button_install">Kur</string>
     <string name="event_preferences_red_enable_PPPExtender">Açmak için buraya dokunun. PhoneProfilesPlusExtender aratın ve \"Erişebilirlik\" ayarında izinleri verin.</string>
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">\"Kesinti türü\" tercih değerini açmak için \"Sistem Ayarları\" → \"Bildirim Erişimi\" ayarlarında PhoneProfilesPlus\'a izin verin. Açmak için buraya dokunun.</string>
-    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">\"Rahatsız etme\" tercih değerini açmak için \"Sistem Ayarları\" → \"Rahatsız etme Erişimi\" ayarlarında PhoneProfilesPlus\'a izin verin. Açmak için buraya dokunun.</string>
+    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Do not disturb access\" in system settings. Click here to enable it.</string>
     <string name="editor_activity_targetHelps_bottomNavigation_description_2">Faaliyete geçtiğinde gizli başlık ve alt araç çubuğunu göstermek için dokunun.</string>
     <string name="event_preferences_notifications_checkContacts">Rehberi kontrol et</string>
     <string name="event_preferences_notifications_contact_groups">Rehber grupları</string>
     <string name="event_preferences_notifications_contacts">Rehber</string>
     <string name="event_preferences_notifications_checkText">Metni kontrol et</string>
     <string name="event_preferences_notifications_text">Metin</string>
-    <string name="profile_preferences_red_texts_title">Error in profile preferences</string>
-    <string name="profile_preferences_red_texts_text_1">Profile</string>
-    <string name="event_preferences_red_texts_text_1">Event</string>
-    <string name="event_preferences_red_texts_title">Error in event preferences</string>
-    <string name="preferences_red_texts_text_2">has same errors in it\'s preferences.</string>
-    <string name="preferences_red_texts_text_click">Click this notification to open it.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi and Bluetooth confirm dialogs</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">For \"ColorOs\" is possible to disable these dialogs. Click this, to show how.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">In device system settings:\n1. Developer options\\Developer options = enable\n2. Developer options\\Debugging\\USB debugging = enable\n3. Developer options\\Apps\\Disables authorization monitoring = enable.</string>
-    <string name="important_info_android_look_application_settings">Please open PhoneProfilesPlus Settings and configure it. Especially parameters marked with bold text.</string>
+    <string name="profile_preferences_red_texts_title">Tercih değerlerinde kaydetme hatası</string>
+    <string name="profile_preferences_red_texts_text_1">Tercih</string>
+    <string name="event_preferences_red_texts_text_1">Durum</string>
+    <string name="event_preferences_red_texts_title">Tercih değerlerinde kaydetme hatası</string>
+    <string name="preferences_red_texts_text_2">değerlerinde hatalar mevcut.</string>
+    <string name="preferences_red_texts_text_click">Açmak için bu bildirime dokunun.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi ve Bluetooth doğrulama pencereleri</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">\"ColorOs\" için bu pencereleri devre dışı bırakmak mümkündür. Nasıl yapıldığını görmek için buraya dokunun.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">Cihaz sistem ayarlarında:\n1. Geliştirici seçenekleri\\Geliştirici seçenekleri = açık\n2. Geliştirici seçenekleri\\Hata ayıklama\\USB hata ayıklama = açık\n3. Geliştirici seçenekleri\\Uygulamalar\\Yetkilendirme izlemeyi devre dışı kılabilir = açık.</string>
+    <string name="important_info_android_look_application_settings">Lutfen PhoneProfilesPlus Ayarlarını açın ve yapılandırın. (Hususan kalın olarak işaretlenmiş değerleri.)</string>
+    <string name="profile_preferences_red_texts_text_2">For this, is not possible to activate it.</string>
+    <string name="event_preferences_red_texts_text_2">For this, is not possible to change it\'s run.</string>
+    <string name="profile_preferences_red_texts_text_3">For this, is not possible to show it in Activator.</string>
+    <string name="profile_preferences_red_texts_in_header">Some profiles has errors in it\'s preferences. These profiles are marked with red color. Please fix it.</string>
+    <string name="event_preferences_red_texts_in_header">Some events has errors in it\'s preferences. These events are marked with red color. Please fix it.</string>
+    <string name="profile_preferences_deviceScreenOnPermanent">Turn and leave screen on</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• tercih değeri \"Zorla durdurulan uygulamalar\"\n• durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>

@@ -109,7 +109,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 getString(R.string.about_application_support2),
                 getString(R.string.about_application_support_subject),
                 getEmailBodyText(/*EMAIL_BODY_SUPPORT, */this),
-                true,this);
+                /*true,*/this);
 
         text = findViewById(R.id.about_application_translations);
         str1 = getString(R.string.about_application_translations);
@@ -373,7 +373,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
     }
 
     static void emailMe(final TextView textView, final String text, final String linkText, final String subjectText,
-                        final String bodyText, final boolean boldLink, final Context context) {
+                        final String bodyText, /*final boolean boldLink,*/ final Context context) {
         String strNoLink = text + " " + linkText;
         String str2 = strNoLink + " henrich.gron@gmail.com";
         Spannable sbt = new SpannableString(str2);
@@ -409,7 +409,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
             }
         };
         sbt.setSpan(clickableSpan, strNoLink.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        if (boldLink)
+        //if (boldLink)
             sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), strNoLink.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         //else
         //    sbt.setSpan(new UnderlineSpan(), strNoLink.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
