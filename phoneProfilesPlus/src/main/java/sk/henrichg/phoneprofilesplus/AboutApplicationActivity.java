@@ -101,7 +101,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         CharSequence str1 = getString(R.string.about_application_author);
         CharSequence str2 = str1 + " Henrich Gron";
         Spannable sbt = new SpannableString(str2);
-        sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         text.setText(sbt);
 
         emailMe((TextView) findViewById(R.id.about_application_support),
@@ -109,7 +109,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 getString(R.string.about_application_support2),
                 getString(R.string.about_application_support_subject),
                 getEmailBodyText(/*EMAIL_BODY_SUPPORT, */this),
-                false,this);
+                true,this);
 
         text = findViewById(R.id.about_application_translations);
         str1 = getString(R.string.about_application_translations);
@@ -148,7 +148,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         str1 = getString(R.string.about_application_privacy_policy);
         str2 = str1 + " https://sites.google.com/site/phoneprofilesplus/home/privacy-policy";
         sbt = new SpannableString(str2);
-        sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         /*ClickableSpan*/ clickableSpan = new ClickableSpan() {
             @Override
             public void updateDrawState(@NonNull TextPaint ds) {
