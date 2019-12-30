@@ -14,10 +14,12 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.service.notification.StatusBarNotification;
+import android.telephony.PhoneNumberUtils;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import androidx.preference.ListPreference;
@@ -1174,7 +1176,7 @@ class EventPreferencesNotification extends EventPreferences {
         String[] splits = this._contactGroups.split("\\|");
         //PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contactGroups.splits=" + splits.length);
         for (String split : splits) {
-            String[] projection = new String[]{ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID};
+            /*String[] projection = new String[]{ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID};
             String selection = ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID + "=? AND "
                     + ContactsContract.CommonDataKinds.GroupMembership.MIMETYPE + "='"
                     + ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE + "'";
@@ -1205,7 +1207,25 @@ class EventPreferencesNotification extends EventPreferences {
                         break;
                 }
                 mCursor.close();
+            }*/
+
+            List<Contact> contactList = PhoneProfilesService.getContactsCache().getList(true);
+            if (contactList != null) {
+                for (Contact contact : contactList) {
+                    if (contact.groups != null) {
+                        long groupId = contact.groups.indexOf(Long.valueOf(split));
+                        if (groupId != -1) {
+                            // group found in contact
+                            String _contactName = contact.name;
+                            if (text.toLowerCase().contains(_contactName.toLowerCase())) {
+                                phoneNumberFound = true;
+                                break;
+                            }
+                        }
+                    }
+                }
             }
+
             if (phoneNumberFound)
                 break;
         }
@@ -1218,7 +1238,7 @@ class EventPreferencesNotification extends EventPreferences {
             for (String split : splits) {
                 String[] splits2 = split.split("#");
 
-                // get phone number from contacts
+                /*// get phone number from contacts
                 String[] projection = new String[]{ContactsContract.Contacts._ID};
                 String selection = ContactsContract.Contacts._ID + "=?";
                 String[] selectionArgs = new String[]{splits2[0]};
@@ -1249,7 +1269,21 @@ class EventPreferencesNotification extends EventPreferences {
                             break;
                     }
                     mCursor.close();
+                }*/
+
+                List<Contact> contactList = PhoneProfilesService.getContactsCache().getList(false);
+                if (contactList != null) {
+                    for (Contact contact : contactList) {
+                        if ((contact.contactId == Long.valueOf(splits2[0])) && contact.phoneId == Long.valueOf(splits2[1])) {
+                            String _contactName = contact.name;
+                            if (text.toLowerCase().contains(_contactName.toLowerCase())) {
+                                phoneNumberFound = true;
+                                break;
+                            }
+                        }
+                    }
                 }
+
                 if (phoneNumberFound)
                     break;
             }

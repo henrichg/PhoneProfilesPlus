@@ -664,7 +664,7 @@ class EventPreferencesCall extends EventPreferences {
                     List<Contact> contactList = PhoneProfilesService.getContactsCache().getList(false);
                     if (contactList != null) {
                         for (Contact contact : contactList) {
-                            if (contact.phoneId == Long.valueOf(splits2[1])) {
+                            if ((contact.contactId == Long.valueOf(splits2[0])) && contact.phoneId == Long.valueOf(splits2[1])) {
                                 String _phoneNumber = contact.phoneNumber;
                                 if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
                                     phoneNumberFound = true;

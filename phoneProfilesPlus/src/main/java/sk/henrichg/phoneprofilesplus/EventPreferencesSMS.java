@@ -17,6 +17,7 @@ import android.telephony.PhoneNumberUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import androidx.preference.ListPreference;
@@ -543,7 +544,7 @@ class EventPreferencesSMS extends EventPreferences {
                     // find phone number in groups
                     String[] splits = this._contactGroups.split("\\|");
                     for (String split : splits) {
-                        String[] projection = new String[]{ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID};
+                        /*String[] projection = new String[]{ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID};
                         String selection = ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID + "=? AND "
                                 + ContactsContract.CommonDataKinds.GroupMembership.MIMETYPE + "='"
                                 + ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE + "'";
@@ -571,7 +572,25 @@ class EventPreferencesSMS extends EventPreferences {
                                     break;
                             }
                             mCursor.close();
+                        }*/
+
+                        List<Contact> contactList = PhoneProfilesService.getContactsCache().getList(false);
+                        if (contactList != null) {
+                            for (Contact contact : contactList) {
+                                if (contact.groups != null) {
+                                    long groupId = contact.groups.indexOf(Long.valueOf(split));
+                                    if (groupId != -1) {
+                                        // group found in contact
+                                        String _phoneNumber = contact.phoneNumber;
+                                        if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
+                                            phoneNumberFound = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
                         }
+
                         if (phoneNumberFound)
                             break;
                     }
@@ -582,7 +601,7 @@ class EventPreferencesSMS extends EventPreferences {
                         for (String split : splits) {
                             String[] splits2 = split.split("#");
 
-                            // get phone number from contacts
+                            /*// get phone number from contacts
                             String[] projection = new String[]{ContactsContract.Contacts._ID, ContactsContract.Contacts.HAS_PHONE_NUMBER};
                             String selection = ContactsContract.Contacts.HAS_PHONE_NUMBER + "='1' and " + ContactsContract.Contacts._ID + "=?";
                             String[] selectionArgs = new String[]{splits2[0]};
@@ -607,7 +626,21 @@ class EventPreferencesSMS extends EventPreferences {
                                         break;
                                 }
                                 mCursor.close();
+                            }*/
+
+                            List<Contact> contactList = PhoneProfilesService.getContactsCache().getList(false);
+                            if (contactList != null) {
+                                for (Contact contact : contactList) {
+                                    if ((contact.contactId == Long.valueOf(splits2[0])) && contact.phoneId == Long.valueOf(splits2[1])) {
+                                        String _phoneNumber = contact.phoneNumber;
+                                        if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
+                                            phoneNumberFound = true;
+                                            break;
+                                        }
+                                    }
+                                }
                             }
+
                             if (phoneNumberFound)
                                 break;
                         }
