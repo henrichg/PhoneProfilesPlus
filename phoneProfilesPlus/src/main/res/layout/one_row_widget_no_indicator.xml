@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/widget_one_row_root"
     android:layout_width="match_parent"
     android:layout_height="60dp"
     android:gravity="center"
-    android:background="#40000000"
-    tools:ignore="Overdraw" >
+    android:background="#40000000" >
 
     <ImageView
         android:id="@+id/widget_one_row_background"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_background"
         android:visibility="invisible"
@@ -95,8 +93,8 @@
 
     <ImageView
         android:id="@+id/widget_one_row_not_rounded_border"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@drawable/not_rounded_widget_border"
         android:visibility="invisible"
@@ -104,8 +102,8 @@
 
     <ImageView
         android:id="@+id/widget_one_row_rounded_border"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_border"
         android:visibility="invisible"

@@ -3,12 +3,13 @@
     android:id="@+id/widget_icon_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center" >
+    android:gravity="center"
+    android:background="#40000000" >
 
     <ImageView
         android:id="@+id/widget_icon_background"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_background"
         android:contentDescription="@string/empty_string" />
@@ -19,8 +20,8 @@
 
         <ImageView
             android:id="@+id/icon_widget_icon"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_centerHorizontal="true"
             android:layout_alignParentTop="true"
             android:adjustViewBounds="true"
@@ -62,16 +63,16 @@
 
     <ImageView
         android:id="@+id/widget_icon_not_rounded_border"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@drawable/not_rounded_widget_border"
         android:contentDescription="@string/empty_string" />
 
     <ImageView
         android:id="@+id/widget_icon_rounded_border"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_border"
         android:contentDescription="@string/empty_string" />

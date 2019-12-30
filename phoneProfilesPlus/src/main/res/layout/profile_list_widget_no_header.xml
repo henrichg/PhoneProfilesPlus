@@ -8,16 +8,16 @@
 
     <ImageView
         android:id="@+id/widget_profile_list_background"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_background"
         android:visibility="invisible"
         android:contentDescription="@string/empty_string" />
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <ListView
@@ -31,8 +31,8 @@
 
         <TextView
             android:id="@+id/widget_profiles_list_empty"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:text="@string/profile_list_empty"
             android:gravity="center"
             android:textSize="15sp" />
@@ -53,8 +53,8 @@
 
     <ImageView
         android:id="@+id/widget_profile_list_not_rounded_border"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@drawable/not_rounded_widget_border"
         android:visibility="invisible"
@@ -62,8 +62,8 @@
 
     <ImageView
         android:id="@+id/widget_profile_list_rounded_border"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_border"
         android:visibility="invisible"

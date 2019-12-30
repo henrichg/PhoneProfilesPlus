@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/widget_icon_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="#40000000"
-    tools:ignore="Overdraw" >
+    android:background="#40000000" >
 
     <ImageView
         android:id="@+id/widget_icon_background"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_background"
         android:visibility="invisible"
@@ -23,8 +21,8 @@
 
         <ImageView
             android:id="@+id/icon_widget_icon"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
             android:scaleType="@integer/profilePrefIndicatorScaleType"
             android:src="@drawable/ic_profile_default"
@@ -34,8 +32,8 @@
 
     <ImageView
         android:id="@+id/widget_icon_not_rounded_border"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@drawable/not_rounded_widget_border"
         android:visibility="invisible"
@@ -43,8 +41,8 @@
 
     <ImageView
         android:id="@+id/widget_icon_rounded_border"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_border"
         android:visibility="invisible"

@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/widget_profile_list_background"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_background"
         android:visibility="invisible"
@@ -93,8 +93,8 @@
 
     <ImageView
         android:id="@+id/widget_profile_list_not_rounded_border"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@drawable/not_rounded_widget_border"
         android:visibility="invisible"
@@ -102,8 +102,8 @@
 
     <ImageView
         android:id="@+id/widget_profile_list_rounded_border"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_border"
         android:visibility="invisible"
