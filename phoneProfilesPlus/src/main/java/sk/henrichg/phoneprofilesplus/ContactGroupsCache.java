@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
+import android.telephony.PhoneNumberUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +57,23 @@ class ContactGroupsCache {
                     //if (cancelled)
                     //    break;
 
+                    ContactsCache contactsCache = PhoneProfilesService.getContactsCache();
+                    contactsCache.clearGroups();
+
+                    String[] projectionGroup = new String[]{ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID};
+                    String selectionGroup = ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID + "=? AND "
+                            + ContactsContract.CommonDataKinds.GroupMembership.MIMETYPE + "='"
+                            + ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE + "'";
+                    String[] selectionGroupArgs = new String[]{String.valueOf(contactGroupId)};
+                    Cursor mCursorGroup = context.getContentResolver().query(ContactsContract.Data.CONTENT_URI, projectionGroup, selectionGroup, selectionGroupArgs, null);
+                    if (mCursorGroup != null) {
+                        while (mCursorGroup.moveToNext()) {
+                            long contactId = mCursorGroup.getLong(mCursorGroup.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
+                            contactsCache.addGroup(contactId, contactGroupId, true);
+                            contactsCache.addGroup(contactId, contactGroupId, false);
+                        }
+                        mCursorGroup.close();
+                    }
                 }
                 mCursor.close();
             }

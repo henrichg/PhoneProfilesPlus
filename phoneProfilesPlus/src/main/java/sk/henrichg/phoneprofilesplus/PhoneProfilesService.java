@@ -3755,7 +3755,9 @@ public class PhoneProfilesService extends Service
                             ImportantInfoNotification.showInfoNotification(appContext);
                             IgnoreBatteryOptimizationNotification.showNotification(appContext);
 
+                            // must be first
                             createContactsCache(appContext);
+                            //must be seconds, this ads groups int contacts
                             createContactGroupsCache(appContext);
 
                             dataWrapper.fillProfileList(false, false);

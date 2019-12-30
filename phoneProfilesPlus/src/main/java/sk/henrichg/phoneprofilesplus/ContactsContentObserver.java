@@ -29,7 +29,9 @@ class ContactsContentObserver extends ContentObserver {
 
         //CallsCounter.logCounter(context, "ContactsContentObserver.onChange", "ContactContentObserver_onChange");
 
+        // must be first
         PhoneProfilesService.createContactsCache(context.getApplicationContext());
+        //must be seconds, this ads groups int contacts
         PhoneProfilesService.createContactGroupsCache(context.getApplicationContext());
     }
 

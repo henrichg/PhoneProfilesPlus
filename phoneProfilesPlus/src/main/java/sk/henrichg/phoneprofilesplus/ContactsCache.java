@@ -172,6 +172,78 @@ class ContactsCache {
     }
     */
 
+    void clearGroups() {
+        for (Contact contact : contactList) {
+            if (contact.groups != null) {
+                contact.groups.clear();
+                contact.groups = null;
+            }
+        }
+        for (Contact contact : contactListWithoutNumber) {
+            if (contact.groups != null) {
+                contact.groups.clear();
+                contact.groups = null;
+            }
+        }
+    }
+
+    void addGroup(long contactId, long contactGroupId, boolean withoutNumbers) {
+        if (withoutNumbers) {
+            for (Contact contact : contactListWithoutNumber) {
+                boolean contactFound = false;
+
+                if (contact.contactId == contactId) {
+                    contactFound = true;
+
+                    if (contact.groups == null)
+                        contact.groups = new ArrayList<>();
+
+                    // search group in contact
+                    boolean groupFound = false;
+                    for (long groupId : contact.groups) {
+                        if (groupId == contactGroupId) {
+                            groupFound = true;
+                            break;
+                        }
+                    }
+                    if (!groupFound)
+                        // groun not found, add it
+                        contact.groups.add(contactGroupId);
+                }
+
+                if (contactFound)
+                    break;
+            }
+        }
+        else {
+            for (Contact contact : contactList) {
+                boolean contactFound = false;
+
+                if (contact.contactId == contactId) {
+                    contactFound = true;
+
+                    if (contact.groups == null)
+                        contact.groups = new ArrayList<>();
+
+                    // search group in contact
+                    boolean groupFound = false;
+                    for (long groupId : contact.groups) {
+                        if (groupId == contactGroupId) {
+                            groupFound = true;
+                            break;
+                        }
+                    }
+                    if (!groupFound)
+                        // groun not found, add it
+                        contact.groups.add(contactGroupId);
+                }
+
+                if (contactFound)
+                    break;
+            }
+        }
+    }
+
     void clearCache(/*boolean nullList*/)
     {
         contactList.clear();
