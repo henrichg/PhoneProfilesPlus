@@ -9,7 +9,7 @@ import java.util.List;
 
 class ContactGroupsCache {
 
-    private ArrayList<ContactGroup> contactGroupList;
+    private final ArrayList<ContactGroup> contactGroupList;
     private boolean cached;
     //private boolean cancelled;
 

@@ -327,7 +327,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                     else
                         indicator1 = addIntoIndicator(indicator1, "rt1");
             }
-            // screen on permanant
+            // screen on permanent
             if (profile._screenOnPermanent != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._screenOnPermanent == 1) || (profile._screenOnPermanent == 3))

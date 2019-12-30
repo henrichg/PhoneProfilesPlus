@@ -137,12 +137,12 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             greenBackground = redBackground;
                             blueBackground = redBackground;
                         }
-                        int alphaBackround = 0x40;
-                        if (applicationWidgetOneRowBackground.equals("0")) alphaBackround = 0x00;
-                        //if (applicationWidgetOneRowBackground.equals("25")) alphaBackround = 0x40;
-                        if (applicationWidgetOneRowBackground.equals("50")) alphaBackround = 0x80;
-                        if (applicationWidgetOneRowBackground.equals("75")) alphaBackround = 0xC0;
-                        if (applicationWidgetOneRowBackground.equals("100")) alphaBackround = 0xFF;
+                        int alphaBackground = 0x40;
+                        if (applicationWidgetOneRowBackground.equals("0")) alphaBackground = 0x00;
+                        //if (applicationWidgetOneRowBackground.equals("25")) alphaBackground = 0x40;
+                        if (applicationWidgetOneRowBackground.equals("50")) alphaBackground = 0x80;
+                        if (applicationWidgetOneRowBackground.equals("75")) alphaBackground = 0xC0;
+                        if (applicationWidgetOneRowBackground.equals("100")) alphaBackground = 0xFF;
                         int redBorder = 0xFF;
                         int greenBorder;
                         int blueBorder;
@@ -172,7 +172,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", 0x00000000);
                             remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", Color.argb(0xFF, redBackground, greenBackground, blueBackground));
                             //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-                            remoteViews.setInt(R.id.widget_one_row_background, "setImageAlpha", alphaBackround);
+                            remoteViews.setInt(R.id.widget_one_row_background, "setImageAlpha", alphaBackground);
                             //else
                             //    remoteViews.setInt(R.id.widget_one_row_background, "setAlpha", alpha);
                             if (applicationWidgetOneRowShowBorder)
@@ -189,7 +189,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                                 PPApplication.logE("OneRowWidgetProvider.onUpdate", "GONE border");
                                 remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, View.INVISIBLE);
                             }
-                            remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", Color.argb(alphaBackround, redBackground, greenBackground, blueBackground));
+                            remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", Color.argb(alphaBackground, redBackground, greenBackground, blueBackground));
                             /*remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", 0x00000000);
                             //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
                             remoteViews.setInt(R.id.widget_one_row_background, "setImageAlpha", 0);

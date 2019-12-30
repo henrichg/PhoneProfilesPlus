@@ -9,8 +9,8 @@ import java.util.List;
 
 class ContactsCache {
 
-    private ArrayList<Contact> contactList;
-    private ArrayList<Contact> contactListWithoutNumber;
+    private final ArrayList<Contact> contactList;
+    private final ArrayList<Contact> contactListWithoutNumber;
     private boolean cached;
     //private boolean cancelled;
 
