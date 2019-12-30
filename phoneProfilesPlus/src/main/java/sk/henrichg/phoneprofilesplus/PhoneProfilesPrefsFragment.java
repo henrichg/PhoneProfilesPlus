@@ -2031,11 +2031,19 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (_preference != null)
                 _preference.setEnabled(backgroundColor.equals("0") || backgroundColor.equals("5"));
             _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION);
-            if (_preference != null)
-                _preference.setEnabled(backgroundColor.equals("0") && (!nightMode));
+            if (_preference != null) {
+                if (Build.VERSION.SDK_INT < 29)
+                    _preference.setEnabled(backgroundColor.equals("0") && (!nightMode));
+                else
+                    _preference.setEnabled(backgroundColor.equals("0"));
+            }
             _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT);
-            if (_preference != null)
-                _preference.setEnabled(useDecoration && backgroundColor.equals("0") && (!nightMode));
+            if (_preference != null) {
+                if (Build.VERSION.SDK_INT < 29)
+                    _preference.setEnabled(useDecoration && backgroundColor.equals("0") && (!nightMode));
+                else
+                    _preference.setEnabled(useDecoration && backgroundColor.equals("0"));
+            }
             _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR);
             if (_preference != null)
                 _preference.setEnabled(backgroundColor.equals("5"));
