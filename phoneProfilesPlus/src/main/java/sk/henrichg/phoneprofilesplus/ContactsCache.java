@@ -11,8 +11,8 @@ class ContactsCache {
 
     private ArrayList<Contact> contactList;
     private ArrayList<Contact> contactListWithoutNumber;
-    boolean cached;
-    private boolean cancelled;
+    private boolean cached;
+    //private boolean cancelled;
 
     ContactsCache()
     {
@@ -25,7 +25,7 @@ class ContactsCache {
     {
         if (cached) return;
 
-        cancelled = false;
+        //cancelled = false;
 
         contactList.clear();
         contactListWithoutNumber.clear();
@@ -65,8 +65,8 @@ class ContactsCache {
                                 }
                                 contactList.add(aContact);
 
-                                if (cancelled)
-                                    break;
+                                //if (cancelled)
+                                //    break;
                             }
                             phones.close();
                         }
@@ -85,14 +85,14 @@ class ContactsCache {
 
                     //}catch(Exception e){}
 
-                    if (cancelled)
-                        break;
+                    //if (cancelled)
+                    //    break;
                 }
                 mCursor.close();
             }
 
-            if (cancelled)
-                return;
+            //if (cancelled)
+            //    return;
 
             cached = true;
         }
@@ -172,20 +172,21 @@ class ContactsCache {
     }
     */
 
-    void clearCache(boolean nullList)
+    void clearCache(/*boolean nullList*/)
     {
         contactList.clear();
         contactListWithoutNumber.clear();
-        if (nullList) {
+        /*if (nullList) {
             contactList = null;
             contactListWithoutNumber = null;
-        }
+        }*/
         cached = false;
     }
 
+    /*
     void cancelCaching()
     {
         cancelled = true;
     }
-
+    */
 }

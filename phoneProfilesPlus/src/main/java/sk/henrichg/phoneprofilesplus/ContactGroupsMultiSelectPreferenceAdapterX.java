@@ -22,11 +22,11 @@ class ContactGroupsMultiSelectPreferenceAdapterX extends BaseAdapter
     }
 
     public int getCount() {
-        return EditorProfilesActivity.getContactGroupsCache().getLength();
+        return PhoneProfilesService.getContactGroupsCache().getLength();
     }
 
     public Object getItem(int position) {
-        return EditorProfilesActivity.getContactGroupsCache().getContactGroup(position);
+        return PhoneProfilesService.getContactGroupsCache().getContactGroup(position);
     }
 
     public long getItemId(int position) {
@@ -36,7 +36,7 @@ class ContactGroupsMultiSelectPreferenceAdapterX extends BaseAdapter
     @SuppressLint("SetTextI18n")
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        ContactGroupsCache contactGroupsCache = EditorProfilesActivity.getContactGroupsCache();
+        ContactGroupsCache contactGroupsCache = PhoneProfilesService.getContactGroupsCache();
 
         // Contact group to display
         ContactGroup contactGroup = contactGroupsCache.getContactGroup(position);

@@ -36,8 +36,8 @@ public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
 
         locationGeofenceType.recycle();
 
-        if (EditorProfilesActivity.getContactsCache() == null)
-            EditorProfilesActivity.createContactsCache();
+        //if (PhoneProfilesService.getContactsCache() == null)
+        //    PhoneProfilesService.createContactsCache();
 
     }
 
@@ -60,7 +60,7 @@ public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
     void getValueCMSDP()
     {
         // change checked state by value
-        contactList = EditorProfilesActivity.getContactsCache().getList(withoutNumbers);
+        contactList = PhoneProfilesService.getContactsCache().getList(withoutNumbers);
         if (contactList != null)
         {
             String[] splits = value.split("\\|");

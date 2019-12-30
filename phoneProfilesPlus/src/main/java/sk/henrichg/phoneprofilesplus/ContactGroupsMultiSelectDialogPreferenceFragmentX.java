@@ -87,9 +87,9 @@ public class ContactGroupsMultiSelectDialogPreferenceFragmentX extends Preferenc
             asyncTask.cancel(true);
         }
 
-        EditorProfilesActivity.getContactGroupsCache().cancelCaching();
-        if (!EditorProfilesActivity.getContactGroupsCache().cached)
-            EditorProfilesActivity.getContactGroupsCache().clearCache(false);
+        //EditorProfilesActivity.getContactGroupsCache().cancelCaching();
+        //if (!EditorProfilesActivity.getContactGroupsCache().cached)
+        //    EditorProfilesActivity.getContactGroupsCache().clearCache(false);
 
         preference.fragment = null;
     }
@@ -109,8 +109,8 @@ public class ContactGroupsMultiSelectDialogPreferenceFragmentX extends Preferenc
 
             @Override
             protected Void doInBackground(Void... params) {
-                if (!EditorProfilesActivity.getContactGroupsCache().cached)
-                    EditorProfilesActivity.getContactGroupsCache().getContactGroupList(prefContext);
+                //if (!EditorProfilesActivity.getContactGroupsCache().cached)
+                //    EditorProfilesActivity.getContactGroupsCache().getContactGroupList(prefContext);
 
                 preference.getValueCMSDP();
 
@@ -121,8 +121,8 @@ public class ContactGroupsMultiSelectDialogPreferenceFragmentX extends Preferenc
             protected void onPostExecute(Void result) {
                 super.onPostExecute(result);
 
-                if (!EditorProfilesActivity.getContactGroupsCache().cached)
-                    EditorProfilesActivity.getContactGroupsCache().clearCache(false);
+                //if (!EditorProfilesActivity.getContactGroupsCache().cached)
+                //    EditorProfilesActivity.getContactGroupsCache().clearCache(false);
 
                 listAdapter.notifyDataSetChanged();
 

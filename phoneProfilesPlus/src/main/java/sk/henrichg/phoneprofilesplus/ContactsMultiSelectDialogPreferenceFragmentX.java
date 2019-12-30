@@ -83,9 +83,9 @@ public class ContactsMultiSelectDialogPreferenceFragmentX extends PreferenceDial
             asyncTask.cancel(true);
         }
 
-        EditorProfilesActivity.getContactsCache().cancelCaching();
-        if (!EditorProfilesActivity.getContactsCache().cached)
-            EditorProfilesActivity.getContactsCache().clearCache(false);
+        //PhoneProfilesService.getContactsCache().cancelCaching();
+        //if (!PhoneProfilesService.getContactsCache().cached)
+        //    PhoneProfilesService.getContactsCache().clearCache(false);
 
         preference.fragment = null;
     }
@@ -105,8 +105,8 @@ public class ContactsMultiSelectDialogPreferenceFragmentX extends PreferenceDial
 
             @Override
             protected Void doInBackground(Void... params) {
-                if (!EditorProfilesActivity.getContactsCache().cached)
-                    EditorProfilesActivity.getContactsCache().getContactList(prefContext);
+                //if (!PhoneProfilesService.getContactsCache().cached)
+                //    PhoneProfilesService.getContactsCache().getContactList(prefContext);
 
                 preference.getValueCMSDP();
 
@@ -117,8 +117,8 @@ public class ContactsMultiSelectDialogPreferenceFragmentX extends PreferenceDial
             protected void onPostExecute(Void result) {
                 super.onPostExecute(result);
 
-                if (!EditorProfilesActivity.getContactsCache().cached)
-                    EditorProfilesActivity.getContactsCache().clearCache(false);
+                //if (!EditorProfilesActivity.getContactsCache().cached)
+                //    EditorProfilesActivity.getContactsCache().clearCache(false);
 
                 listAdapter.notifyDataSetChanged();
                 if (notForUnselect) {

@@ -25,8 +25,8 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
 
         _context = context;
 
-        if (EditorProfilesActivity.getContactGroupsCache() == null)
-            EditorProfilesActivity.createContactGroupsCache();
+        //if (EditorProfilesActivity.getContactGroupsCache() == null)
+        //    EditorProfilesActivity.createContactGroupsCache();
 
     }
 
@@ -49,7 +49,7 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
     void getValueCMSDP()
     {
         // change checked state by value
-        List<ContactGroup> contactGroupList = EditorProfilesActivity.getContactGroupsCache().getList();
+        List<ContactGroup> contactGroupList = PhoneProfilesService.getContactGroupsCache().getList();
         if (contactGroupList != null)
         {
             String[] splits = value.split("\\|");
@@ -120,7 +120,7 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
     private void getValue() {
         // fill with strings of contact groups separated with |
         value = "";
-        List<ContactGroup> contactGroupList = EditorProfilesActivity.getContactGroupsCache().getList();
+        List<ContactGroup> contactGroupList = PhoneProfilesService.getContactGroupsCache().getList();
         if (contactGroupList != null)
         {
             for (ContactGroup contactGroup : contactGroupList)

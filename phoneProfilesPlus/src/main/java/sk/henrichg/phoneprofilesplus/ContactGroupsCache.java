@@ -10,8 +10,8 @@ import java.util.List;
 class ContactGroupsCache {
 
     private ArrayList<ContactGroup> contactGroupList;
-    boolean cached;
-    private boolean cancelled;
+    private boolean cached;
+    //private boolean cancelled;
 
     ContactGroupsCache()
     {
@@ -23,7 +23,7 @@ class ContactGroupsCache {
     {
         if (cached) return;
 
-        cancelled = false;
+        //cancelled = false;
 
         contactGroupList.clear();
 
@@ -53,15 +53,15 @@ class ContactGroupsCache {
                         contactGroupList.add(aContactGroup);
                     }
 
-                    if (cancelled)
-                        break;
+                    //if (cancelled)
+                    //    break;
 
                 }
                 mCursor.close();
             }
 
-            if (cancelled)
-                return;
+            //if (cancelled)
+            //    return;
 
             cached = true;
         }
@@ -109,17 +109,18 @@ class ContactGroupsCache {
     }
     */
 
-    void clearCache(boolean nullList)
+    void clearCache(/*boolean nullList*/)
     {
         contactGroupList.clear();
-        if (nullList)
-            contactGroupList = null;
+        /*if (nullList)
+            contactGroupList = null;*/
         cached = false;
     }
 
+    /*
     void cancelCaching()
     {
         cancelled = true;
     }
-
+    */
 }

@@ -156,6 +156,7 @@ public class PhoneProfilesService extends Service
 
     private SettingsContentObserver settingsContentObserver = null;
     private MobileDataStateChangedContentObserver mobileDataStateChangedContentObserver = null;
+    private ContactsContentObserver contactsContentObserver = null;
 
 
     static final String ACTION_COMMAND = PPApplication.PACKAGE_NAME + ".PhoneProfilesService.ACTION_COMMAND";
@@ -252,6 +253,9 @@ public class PhoneProfilesService extends Service
     private long tmpSideTimestamp = 0;
 
     //------------------------
+
+    private static ContactsCache contactsCache;
+    private static ContactGroupsCache contactGroupsCache;
 
     private AudioManager audioManager = null;
     private boolean ringingCallIsSimulating = false;
@@ -815,6 +819,18 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered lockDeviceAfterScreenOffBroadcastReceiver");
+            if (contactsContentObserver != null) {
+                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER contacts content observer", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER contacts content observer");
+                try {
+                    appContext.getContentResolver().unregisterContentObserver(contactsContentObserver);
+                    contactsContentObserver = null;
+                } catch (Exception e) {
+                    contactsContentObserver = null;
+                }
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered settings content observer");
         }
         if (register) {
             if (timeChangedReceiver == null) {
@@ -1114,6 +1130,17 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered lockDeviceAfterScreenOffBroadcastReceiver");
+
+            if (contactsContentObserver == null) {
+                try {
+                    //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER contacts content observer", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER contacts content observer");
+                    contactsContentObserver = new ContactsContentObserver(appContext, new Handler());
+                    appContext.getContentResolver().registerContentObserver(ContactsContract.Contacts.CONTENT_URI, true, contactsContentObserver);
+                } catch (Exception ignored) {}
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered settings content observer");
         }
     }
 
@@ -3728,6 +3755,9 @@ public class PhoneProfilesService extends Service
                             ImportantInfoNotification.showInfoNotification(appContext);
                             IgnoreBatteryOptimizationNotification.showNotification(appContext);
 
+                            createContactsCache(appContext);
+                            createContactGroupsCache(appContext);
+
                             dataWrapper.fillProfileList(false, false);
                             for (Profile profile : dataWrapper.profileList)
                                 ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, appContext);
@@ -4240,6 +4270,36 @@ public class PhoneProfilesService extends Service
         showProfileNotification(true, false, false);
         PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesService.obConfigurationChanged");
         ActivateProfileHelper.updateGUI(getApplicationContext(), true, true);
+    }
+
+    //------------------------
+
+    // contacts and contact groups cache -----------------
+
+    public static void createContactsCache(Context context)
+    {
+        if (contactsCache != null)
+            contactsCache.clearCache();
+        contactsCache =  new ContactsCache();
+        contactsCache.getContactList(context);
+    }
+
+    public static ContactsCache getContactsCache()
+    {
+        return contactsCache;
+    }
+
+    public static void createContactGroupsCache(Context context)
+    {
+        if (contactGroupsCache != null)
+            contactGroupsCache.clearCache();
+        contactGroupsCache =  new ContactGroupsCache();
+        contactGroupsCache.getContactGroupList(context);
+    }
+
+    public static ContactGroupsCache getContactGroupsCache()
+    {
+        return contactGroupsCache;
     }
 
     //------------------------

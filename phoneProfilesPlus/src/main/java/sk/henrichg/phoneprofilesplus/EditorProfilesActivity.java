@@ -78,8 +78,6 @@ public class EditorProfilesActivity extends AppCompatActivity
     private static boolean savedInstanceStateChanged;
 
     private static ApplicationsCache applicationsCache;
-    private static ContactsCache contactsCache;
-    private static ContactGroupsCache contactGroupsCache;
 
     private AsyncTask importAsyncTask = null;
     private AsyncTask exportAsyncTask = null;
@@ -206,8 +204,6 @@ public class EditorProfilesActivity extends AppCompatActivity
         savedInstanceStateChanged = (savedInstanceState != null);
 
         createApplicationsCache();
-        createContactsCache();
-        createContactGroupsCache();
 
         /*if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
             setContentView(R.layout.activity_editor_list_onepane_19);
@@ -671,9 +667,6 @@ public class EditorProfilesActivity extends AppCompatActivity
             if (applicationsCache != null)
                 applicationsCache.clearCache(true);
             applicationsCache = null;
-            if (contactsCache != null)
-                contactsCache.clearCache(true);
-            contactsCache = null;
         }
 
         getApplicationContext().unregisterReceiver(finishBroadcastReceiver);
@@ -2382,36 +2375,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                 applicationsCache.clearCache(true);
             applicationsCache =  new ApplicationsCache();
         }
-    }
-
-    public static void createContactsCache()
-    {
-        if ((!savedInstanceStateChanged) || (contactsCache == null))
-        {
-            if (contactsCache != null)
-                contactsCache.clearCache(true);
-            contactsCache =  new ContactsCache();
-        }
-    }
-
-    public static ContactsCache getContactsCache()
-    {
-        return contactsCache;
-    }
-
-    public static void createContactGroupsCache()
-    {
-        if ((!savedInstanceStateChanged) || (contactGroupsCache == null))
-        {
-            if (contactGroupsCache != null)
-                contactGroupsCache.clearCache(true);
-            contactGroupsCache =  new ContactGroupsCache();
-        }
-    }
-
-    public static ContactGroupsCache getContactGroupsCache()
-    {
-        return contactGroupsCache;
     }
 
     private DataWrapper getDataWrapper()
