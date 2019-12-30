@@ -207,7 +207,7 @@ class ContactsCache {
                         }
                     }
                     if (!groupFound)
-                        // groun not found, add it
+                        // group not found, add it
                         contact.groups.add(contactGroupId);
                 }
 
@@ -216,11 +216,19 @@ class ContactsCache {
             }
         }
         else {
+            /*if ((contactGroupId == 1) || (contactGroupId == 15) || (contactGroupId == 20)) {
+                Log.e("ContactsCache.addGroup", "contactGroupId=" + contactGroupId);
+                Log.e("ContactsCache.addGroup", "contactId=" + contactId);
+            }*/
             for (Contact contact : contactList) {
                 boolean contactFound = false;
 
                 if (contact.contactId == contactId) {
                     contactFound = true;
+                    /*if ((contactGroupId == 1) || (contactGroupId == 15) || (contactGroupId == 20)) {
+                        Log.e("ContactsCache.addGroup", "contact found");
+                        Log.e("ContactsCache.addGroup", "contact.phoneNumber="+contact.phoneNumber);
+                    }*/
 
                     if (contact.groups == null)
                         contact.groups = new ArrayList<>();
@@ -230,12 +238,20 @@ class ContactsCache {
                     for (long groupId : contact.groups) {
                         if (groupId == contactGroupId) {
                             groupFound = true;
+                            /*if ((contactGroupId == 1) || (contactGroupId == 15) || (contactGroupId == 20)) {
+                                Log.e("ContactsCache.addGroup", "group found");
+                            }*/
                             break;
                         }
                     }
-                    if (!groupFound)
-                        // groun not found, add it
+                    if (!groupFound) {
+                        // group not found, add it
                         contact.groups.add(contactGroupId);
+                        /*if ((contactGroupId == 1) || (contactGroupId == 15) || (contactGroupId == 20)) {
+                            Log.e("ContactsCache.addGroup", "group added");
+                            Log.e("ContactsCache.addGroup", "contact.groups.size()="+contact.groups.size());
+                        }*/
+                    }
                 }
 
                 if (contactFound)

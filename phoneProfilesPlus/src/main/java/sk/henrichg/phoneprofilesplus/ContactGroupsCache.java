@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
-import android.telephony.PhoneNumberUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +26,9 @@ class ContactGroupsCache {
         //cancelled = false;
 
         contactGroupList.clear();
+
+        ContactsCache contactsCache = PhoneProfilesService.getContactsCache();
+        contactsCache.clearGroups();
 
         if (Permissions.checkContacts(context)) {
             String[] projection = new String[]{
@@ -57,9 +59,6 @@ class ContactGroupsCache {
                     //if (cancelled)
                     //    break;
 
-                    ContactsCache contactsCache = PhoneProfilesService.getContactsCache();
-                    contactsCache.clearGroups();
-
                     String[] projectionGroup = new String[]{ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID};
                     String selectionGroup = ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID + "=? AND "
                             + ContactsContract.CommonDataKinds.GroupMembership.MIMETYPE + "='"
@@ -69,6 +68,10 @@ class ContactGroupsCache {
                     if (mCursorGroup != null) {
                         while (mCursorGroup.moveToNext()) {
                             long contactId = mCursorGroup.getLong(mCursorGroup.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
+                            /*if (name.equals("Family")) {
+                                Log.e("ContactGroupsCache.getContactGroupList", "contactGroupId=" + contactGroupId);
+                                Log.e("ContactGroupsCache.getContactGroupList", "contactId=" + contactId);
+                            }*/
                             contactsCache.addGroup(contactId, contactGroupId, true);
                             contactsCache.addGroup(contactId, contactGroupId, false);
                         }

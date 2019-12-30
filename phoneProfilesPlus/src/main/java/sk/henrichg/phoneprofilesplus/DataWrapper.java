@@ -2330,7 +2330,7 @@ public class DataWrapper {
                     if (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_SERVICE_UNBIND)
                         callPassed = false;
                     else
-                        phoneNumberFound = event._eventPreferencesCall.isPhoneNumberConfigured(phoneNumber, this);
+                        phoneNumberFound = event._eventPreferencesCall.isPhoneNumberConfigured(phoneNumber/*, this*/);
 
                     PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "phoneNumberFound=" + phoneNumberFound);
 

@@ -7,12 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.database.Cursor;
-//import android.preference.CheckBoxPreference;
-//import android.preference.ListPreference;
-//import android.preference.Preference;
-//import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
 import android.telephony.PhoneNumberUtils;
 
 import java.text.SimpleDateFormat;
@@ -570,7 +564,7 @@ class EventPreferencesCall extends EventPreferences {
         }
     }
 
-    boolean isPhoneNumberConfigured(String phoneNumber, DataWrapper dataWrapper) {
+    boolean isPhoneNumberConfigured(String phoneNumber/*, DataWrapper dataWrapper*/) {
         boolean phoneNumberFound = false;
 
         if (this._contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) {
@@ -607,19 +601,38 @@ class EventPreferencesCall extends EventPreferences {
                     mCursor.close();
                 }*/
 
-                List<Contact> contactList = PhoneProfilesService.getContactsCache().getList(false);
-                if (contactList != null) {
-                    for (Contact contact : contactList) {
-                        if (contact.groups != null) {
-                            long groupId = contact.groups.indexOf(Long.valueOf(split));
-                            if (groupId != -1) {
-                                // group found in contact
-                                String _phoneNumber = contact.phoneNumber;
-                                if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
-                                    phoneNumberFound = true;
-                                    break;
+                if (!split.isEmpty()) {
+                    //Log.e("EventPreferencesCall.isPhoneNumberConfigured", "split=" + split);
+
+                    List<Contact> contactList = PhoneProfilesService.getContactsCache().getList(false);
+                    if (contactList != null) {
+                        for (Contact contact : contactList) {
+                            /*String __phoneNumber = contact.phoneNumber;
+                            boolean found = false;
+                            if (PhoneNumberUtils.compare(__phoneNumber, "917994279")) {
+                                found = true;
+                                Log.e("EventPreferencesCall.isPhoneNumberConfigured", "_phoneNumber=" + __phoneNumber);
+                                Log.e("EventPreferencesCall.isPhoneNumberConfigured", "contact.contactId=" + contact.contactId);
+                                Log.e("EventPreferencesCall.isPhoneNumberConfigured", "contact.groups=" + contact.groups);
+                            }*/
+
+                            if (contact.groups != null) {
+                                long groupId = contact.groups.indexOf(Long.valueOf(split));
+                                if (groupId != -1) {
+                                    // group found in contact
+                                    //if (found)
+                                    //    Log.e("EventPreferencesCall.isPhoneNumberConfigured", "groupId="+groupId);
+                                    String _phoneNumber = contact.phoneNumber;
+                                    if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
+                                        phoneNumberFound = true;
+                                        //if (found)
+                                        //    Log.e("EventPreferencesCall.isPhoneNumberConfigured", "phoneNumberFound="+phoneNumberFound);
+                                        break;
+                                    }
                                 }
                             }
+                            //else
+                            //    Log.e("EventPreferencesCall.isPhoneNumberConfigured", "group is null");
                         }
                     }
                 }
@@ -661,14 +674,16 @@ class EventPreferencesCall extends EventPreferences {
                         mCursor.close();
                     }*/
 
-                    List<Contact> contactList = PhoneProfilesService.getContactsCache().getList(false);
-                    if (contactList != null) {
-                        for (Contact contact : contactList) {
-                            if ((contact.contactId == Long.valueOf(splits2[0])) && contact.phoneId == Long.valueOf(splits2[1])) {
-                                String _phoneNumber = contact.phoneNumber;
-                                if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
-                                    phoneNumberFound = true;
-                                    break;
+                    if ((!split.isEmpty()) && (!splits2[0].isEmpty()) && (!splits2[1].isEmpty())) {
+                        List<Contact> contactList = PhoneProfilesService.getContactsCache().getList(false);
+                        if (contactList != null) {
+                            for (Contact contact : contactList) {
+                                if ((contact.contactId == Long.valueOf(splits2[0])) && contact.phoneId == Long.valueOf(splits2[1])) {
+                                    String _phoneNumber = contact.phoneNumber;
+                                    if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
+                                        phoneNumberFound = true;
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -708,7 +723,7 @@ class EventPreferencesCall extends EventPreferences {
                     ((_callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED) && (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_ENDED)) ||
                     ((_callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED) && (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_OUTGOING_CALL_ENDED))) {
 
-                    boolean phoneNumberFound = isPhoneNumberConfigured(phoneNumber, dataWrapper);
+                    boolean phoneNumberFound = isPhoneNumberConfigured(phoneNumber/*, dataWrapper*/);
 
                     if (phoneNumberFound)
                         this._startTime = callTime; // + (10 * 1000);

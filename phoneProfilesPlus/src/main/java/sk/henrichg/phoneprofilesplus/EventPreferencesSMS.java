@@ -7,12 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.database.Cursor;
-//import android.preference.CheckBoxPreference;
-//import android.preference.ListPreference;
-//import android.preference.Preference;
-//import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
 import android.telephony.PhoneNumberUtils;
 
 import java.text.SimpleDateFormat;
@@ -574,17 +568,19 @@ class EventPreferencesSMS extends EventPreferences {
                             mCursor.close();
                         }*/
 
-                        List<Contact> contactList = PhoneProfilesService.getContactsCache().getList(false);
-                        if (contactList != null) {
-                            for (Contact contact : contactList) {
-                                if (contact.groups != null) {
-                                    long groupId = contact.groups.indexOf(Long.valueOf(split));
-                                    if (groupId != -1) {
-                                        // group found in contact
-                                        String _phoneNumber = contact.phoneNumber;
-                                        if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
-                                            phoneNumberFound = true;
-                                            break;
+                        if (!split.isEmpty()) {
+                            List<Contact> contactList = PhoneProfilesService.getContactsCache().getList(false);
+                            if (contactList != null) {
+                                for (Contact contact : contactList) {
+                                    if (contact.groups != null) {
+                                        long groupId = contact.groups.indexOf(Long.valueOf(split));
+                                        if (groupId != -1) {
+                                            // group found in contact
+                                            String _phoneNumber = contact.phoneNumber;
+                                            if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
+                                                phoneNumberFound = true;
+                                                break;
+                                            }
                                         }
                                     }
                                 }
@@ -628,14 +624,16 @@ class EventPreferencesSMS extends EventPreferences {
                                 mCursor.close();
                             }*/
 
-                            List<Contact> contactList = PhoneProfilesService.getContactsCache().getList(false);
-                            if (contactList != null) {
-                                for (Contact contact : contactList) {
-                                    if ((contact.contactId == Long.valueOf(splits2[0])) && contact.phoneId == Long.valueOf(splits2[1])) {
-                                        String _phoneNumber = contact.phoneNumber;
-                                        if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
-                                            phoneNumberFound = true;
-                                            break;
+                            if ((!split.isEmpty()) && (!splits2[0].isEmpty()) && (!splits2[1].isEmpty())) {
+                                List<Contact> contactList = PhoneProfilesService.getContactsCache().getList(false);
+                                if (contactList != null) {
+                                    for (Contact contact : contactList) {
+                                        if ((contact.contactId == Long.valueOf(splits2[0])) && contact.phoneId == Long.valueOf(splits2[1])) {
+                                            String _phoneNumber = contact.phoneNumber;
+                                            if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
+                                                phoneNumberFound = true;
+                                                break;
+                                            }
                                         }
                                     }
                                 }

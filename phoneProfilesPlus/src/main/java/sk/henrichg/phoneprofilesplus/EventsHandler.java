@@ -866,7 +866,7 @@ class EventsHandler {
                             for (Event _event : dataWrapper.eventList) {
                                 if (_event._eventPreferencesCall._enabled && _event.getStatus() == Event.ESTATUS_RUNNING) {
                                     PPApplication.logE("EventsHandler.doEndHandler", "event._id=" + _event._id);
-                                    if (_event._eventPreferencesCall.isPhoneNumberConfigured(phoneNumber, dataWrapper))
+                                    if (_event._eventPreferencesCall.isPhoneNumberConfigured(phoneNumber/*, dataWrapper*/))
                                         simulateRingingCall = true;
                                 }
                             }
