@@ -1302,6 +1302,7 @@ public class DataWrapper {
         {
             PPApplication.logE("DataWrapper.firstStartEvents", "manual profile activation, activate profile");
             activateProfileOnBoot();
+            startEventsOnBoot(startedFromService, useHandler);
         }
     }
 
