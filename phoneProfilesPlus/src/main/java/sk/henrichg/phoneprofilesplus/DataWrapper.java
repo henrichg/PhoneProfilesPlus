@@ -36,6 +36,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.format.DateFormat;
 import android.text.style.CharacterStyle;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -813,40 +814,44 @@ public class DataWrapper {
 
     void setDynamicLauncherShortcuts() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N_MR1) {
-            ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
+            try {
+                ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
 
-            if (shortcutManager != null) {
-                final int limit = 4;
+                if (shortcutManager != null) {
+                    final int limit = 4;
 
-                List<Profile> countedProfiles = DatabaseHandler.getInstance(context).getProfilesForDynamicShortcuts(true/*, limit*/);
-                List<Profile> notCountedProfiles = DatabaseHandler.getInstance(context).getProfilesForDynamicShortcuts(false/*, limit*/);
+                    List<Profile> countedProfiles = DatabaseHandler.getInstance(context).getProfilesForDynamicShortcuts(true/*, limit*/);
+                    List<Profile> notCountedProfiles = DatabaseHandler.getInstance(context).getProfilesForDynamicShortcuts(false/*, limit*/);
 
-                ArrayList<ShortcutInfo> shortcuts = new ArrayList<>();
+                    ArrayList<ShortcutInfo> shortcuts = new ArrayList<>();
 
-                Profile _profile = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color|1|0|0", 0);
-                _profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
-                shortcuts.add(createShortcutInfo(_profile, true));
+                    Profile _profile = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color|1|0|0", 0);
+                    _profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
+                    shortcuts.add(createShortcutInfo(_profile, true));
 
-                for (Profile profile : countedProfiles) {
-                    PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "countedProfile=" + profile._name);
-                    profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
-                    shortcuts.add(createShortcutInfo(profile, false));
-                }
-
-                int shortcutsCount = countedProfiles.size();
-                if (shortcutsCount < limit) {
-                    for (Profile profile : notCountedProfiles) {
-                        PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "notCountedProfile=" + profile._name);
+                    for (Profile profile : countedProfiles) {
+                        PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "countedProfile=" + profile._name);
                         profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
                         shortcuts.add(createShortcutInfo(profile, false));
-
-                        ++shortcutsCount;
-                        if (shortcutsCount == limit)
-                            break;
                     }
-                }
 
-                shortcutManager.setDynamicShortcuts(shortcuts);
+                    int shortcutsCount = countedProfiles.size();
+                    if (shortcutsCount < limit) {
+                        for (Profile profile : notCountedProfiles) {
+                            PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "notCountedProfile=" + profile._name);
+                            profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
+                            shortcuts.add(createShortcutInfo(profile, false));
+
+                            ++shortcutsCount;
+                            if (shortcutsCount == limit)
+                                break;
+                        }
+                    }
+
+                    shortcutManager.setDynamicShortcuts(shortcuts);
+                }
+            } catch (Exception e) {
+                Log.e("DataWrapper.setDynamicLauncherShortcuts", Log.getStackTraceString(e));
             }
         }
     }
