@@ -156,7 +156,7 @@ class EventPreferencesCalendar extends EventPreferences {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_calendar), addPassStatus, DatabaseHandler.ETYPE_CALENDAR, context);
-                    descr = descr + ": </b>";
+                    descr = descr + "</b> ";
                 }
 
                 descr = descr + context.getString(R.string.event_preferences_calendar_calendars) + ": ";

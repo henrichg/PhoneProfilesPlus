@@ -184,7 +184,7 @@ class EventPreferencesTime extends EventPreferences {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_time), addPassStatus, DatabaseHandler.ETYPE_TIME, context);
-                    descr = descr + ": </b>";
+                    descr = descr + "</b> ";
                 }
 
                 if (_timeType != TIME_TYPE_EXACT) {

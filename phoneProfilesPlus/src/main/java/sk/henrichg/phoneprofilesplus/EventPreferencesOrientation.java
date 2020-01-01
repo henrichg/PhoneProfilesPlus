@@ -164,7 +164,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_orientation), addPassStatus, DatabaseHandler.ETYPE_ORIENTATION, context);
-                    descr = descr + ": </b>";
+                    descr = descr + "</b> ";
                 }
 
                 if (!ApplicationPreferences.applicationEventOrientationEnableScanning(context)) {

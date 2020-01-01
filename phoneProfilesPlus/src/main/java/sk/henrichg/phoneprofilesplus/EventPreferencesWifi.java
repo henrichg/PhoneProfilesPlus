@@ -93,7 +93,7 @@ class EventPreferencesWifi extends EventPreferences {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_wifi), addPassStatus, DatabaseHandler.ETYPE_WIFI, context);
-                    descr = descr + ": </b>";
+                    descr = descr + "</b> ";
                 }
 
                 if ((this._connectionType == 1) || (this._connectionType == 3)) {

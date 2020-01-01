@@ -1362,7 +1362,7 @@
     <string name="event_preferences_red_install_PPPExtender">Kliknite sem pre spustenie inštalácie.</string>
     <string name="install_extender_dialog_title">Inštalácia PhoneProfilesPlusExtender</string>
     <string name="alert_button_install">Inštalovať</string>
-    <string name="event_preferences_red_enable_PPPExtender">Kliknite sem pre jej povolenie. Vyhľadajte PhoneProfilesPlusExtender and povoľte pre neho \"Dostupnosť\".</string>
+    <string name="event_preferences_red_enable_PPPExtender">Kliknite sem pre jej povolenie. Vyhľadajte PhoneProfilesPlusExtender a povoľte pre neho \"Dostupnosť\".</string>
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">Pre povolenie parametra profilu \"Typy vyrušení\", povoľte pre PhoneProfilesPlus, \"Prístup k notifikáciám\". Kliknite sem pre jeho povolenie.</string>
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">Pre povolenie parametra profilu \"Typ \"Nerušiť\"\", povoľte pre PhoneProfilesPlus, \"Prístup k nastaveniu Nerušiť\". Kliknite sem pre jeho povolenie.</string>
     <string name="editor_activity_targetHelps_bottomNavigation_description_2">Kliknite na to, keď je aktívne, pre zobrazenie skrytej hlavičky a spodného panelu.</string>
@@ -1379,7 +1379,7 @@
     <string name="preferences_red_texts_text_click">Kliknite na túto notifikáciu pre ich otvorenie.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi a Bluetooth potvrdzovací dialóg</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Pre \"ColorOs\" je možné zakázať tieto dialógy. Kliknite sem, pre zobrazenie, ako.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">V parametroch zariadenia:\n1. Vývojárske možnosti\\Vývojárske možnosti = povoliť\n2. Vývojárske možnosti\\Ladenie\\Ladenie cez USB = povoliť\n3. Vývojárske možnosti\\Aplikácie\\Zakáže sledovanie autorizácie = povoliť.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">V parametroch zariadenia:\n1. Vývojárske možnosti\Vývojárske možnosti = povoliť\n2. Vývojárske možnosti\Ladenie\Ladenie cez USB = povoliť\n3. Vývojárske možnosti\Aplikácie\Zakáže sledovanie autorizácie = povoliť.</string>
     <string name="important_info_android_look_application_settings">Prosím otvorte Nastavenia PhoneProfilesPlus a nakonfigurujte ich. Špeciálne parametre označené hrubým písmom.</string>
     <string name="profile_preferences_red_texts_text_2">Pre toto, nie je možné ho aktivovať.</string>
     <string name="event_preferences_red_texts_text_2">Pre toto, nie je možné zmeniť jej beh.</string>

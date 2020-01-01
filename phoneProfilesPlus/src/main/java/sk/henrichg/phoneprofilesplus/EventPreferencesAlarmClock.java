@@ -90,7 +90,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_alarm_clock), addPassStatus, DatabaseHandler.ETYPE_ALARM_CLOCK, context);
-                    descr = descr + ": </b>";
+                    descr = descr + "</b> ";
                 }
 
                 if (this._permanentRun)

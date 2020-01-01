@@ -96,7 +96,7 @@ class EventPreferencesNFC extends EventPreferences {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_nfc), addPassStatus, DatabaseHandler.ETYPE_NFC, context);
-                    descr = descr + ": </b>";
+                    descr = descr + "</b> ";
                 }
 
                 descr = descr + context.getString(R.string.event_preferences_nfc_nfcTags) + ": ";

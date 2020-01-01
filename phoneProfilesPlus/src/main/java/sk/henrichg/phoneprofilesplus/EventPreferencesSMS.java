@@ -133,7 +133,7 @@ class EventPreferencesSMS extends EventPreferences {
             if (addBullet) {
                 descr = descr + "<b>";
                 descr = descr + getPassStatusString(context.getString(R.string.event_type_sms), addPassStatus, DatabaseHandler.ETYPE_SMS, context);
-                descr = descr + ": </b>";
+                descr = descr + "</b> ";
             }
 
             PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_SMS_ENABLED, context);

@@ -1348,7 +1348,7 @@
     <string name="event_preferences_orientation_light">Fény</string>
     <string name="event_preferences_orientation_light_min">Fény - minimális érték (0)</string>
     <string name="event_preferences_orientation_light_max">Fény - maximális érték (10000)</string>
-    <string name="event_preferences_orientation_light_not_enabled">not enabled</string>
+    <string name="event_preferences_orientation_light_not_enabled">nincs engedélyezve</string>
     <string name="pref_event_screen_startWhenLocked">Indít amikor zárva</string>
     <string name="event_preferences_screen_start_when_locked">Indít amikor zárva</string>
     <string name="event_preference_sensor_screen_summary">Esemény indításához a kijelző be/ki kapcsolt állapota kell. Paraméterek: Esemény típusa (a kijelző be-, a kijelző kikapcsolva), Indúl amikor készülék nyiva/zárva van (esemény indul amikor a készülék nyiva/zárva van).</string>
@@ -1375,7 +1375,7 @@
     <string name="profile_preferences_red_texts_text_1">Profile</string>
     <string name="event_preferences_red_texts_text_1">Event</string>
     <string name="event_preferences_red_texts_title">Error in event preferences</string>
-    <string name="preferences_red_texts_text_2">has same errors in it\'s preferences.</string>
+    <string name="preferences_red_texts_text_2">has some errors in it\'s preferences.</string>
     <string name="preferences_red_texts_text_click">Click this notification to open it.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi and Bluetooth confirm dialogs</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">For \"ColorOs\" is possible to disable these dialogs. Click this, to show how.</string>

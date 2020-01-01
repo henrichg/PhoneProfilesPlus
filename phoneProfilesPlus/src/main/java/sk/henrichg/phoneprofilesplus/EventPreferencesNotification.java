@@ -153,7 +153,7 @@ class EventPreferencesNotification extends EventPreferences {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_notifications), addPassStatus, DatabaseHandler.ETYPE_NOTIFICATION, context);
-                    descr = descr + ": </b>";
+                    descr = descr + "</b> ";
                 }
 
                 if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {

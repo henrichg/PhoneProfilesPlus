@@ -1364,29 +1364,29 @@
     <string name="alert_button_install">Встановити</string>
     <string name="event_preferences_red_enable_PPPExtender">Натисніть тут, щоб дозволити. Шукайте PhoneProfilesPLusExtender і дайте для нього дозвіл в \"Спец. можливості\".</string>
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">Надайте PhoneProfilesPlus \"Доступ до сповіщень\" в налаштуваннях системи для активації параметра профілю \"Типи режиму сповіщення\". Натисніть тут, щоб увімкнути цю функцію.</string>
-    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Do not disturb access\" in system settings. Click here to enable it.</string>
+    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">Щоб увімкнути параметр профілю «Не турбувати», дозвольте PhoneProfilesPlus доступ до «Не турбувати» в налаштуваннях системи.</string>
     <string name="editor_activity_targetHelps_bottomNavigation_description_2">Натисніть тут, щоб показати приховані заголовки і нижню панель інструментів.</string>
     <string name="event_preferences_notifications_checkContacts">Перевірте контакти</string>
     <string name="event_preferences_notifications_contact_groups">Групи контактів</string>
     <string name="event_preferences_notifications_contacts">Контакти</string>
     <string name="event_preferences_notifications_checkText">Перевірте текст</string>
     <string name="event_preferences_notifications_text">Текст</string>
-    <string name="profile_preferences_red_texts_title">Error in profile preferences</string>
-    <string name="profile_preferences_red_texts_text_1">Profile</string>
-    <string name="event_preferences_red_texts_text_1">Event</string>
-    <string name="event_preferences_red_texts_title">Error in event preferences</string>
-    <string name="preferences_red_texts_text_2">has same errors in it\'s preferences.</string>
-    <string name="preferences_red_texts_text_click">Click this notification to open it.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi and Bluetooth confirm dialogs</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">For \"ColorOs\" is possible to disable these dialogs. Click this, to show how.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">In device system settings:\n1. Developer options\\Developer options = enable\n2. Developer options\\Debugging\\USB debugging = enable\n3. Developer options\\Apps\\Disables authorization monitoring = enable.</string>
-    <string name="important_info_android_look_application_settings">Please open PhoneProfilesPlus Settings and configure it. Especially parameters marked with bold text.</string>
-    <string name="profile_preferences_red_texts_text_2">For this, is not possible to activate it.</string>
-    <string name="event_preferences_red_texts_text_2">For this, is not possible to change it\'s run.</string>
-    <string name="profile_preferences_red_texts_text_3">For this, is not possible to show it in Activator.</string>
-    <string name="profile_preferences_red_texts_in_header">Some profiles has errors in it\'s preferences. These profiles are marked with red color. Please fix it.</string>
-    <string name="event_preferences_red_texts_in_header">Some events has errors in it\'s preferences. These events are marked with red color. Please fix it.</string>
-    <string name="profile_preferences_deviceScreenOnPermanent">Turn and leave screen on</string>
+    <string name="profile_preferences_red_texts_title">Помилка в налаштуваннях профілю</string>
+    <string name="profile_preferences_red_texts_text_1">Профіль</string>
+    <string name="event_preferences_red_texts_text_1">Подія</string>
+    <string name="event_preferences_red_texts_title">Помилка в налаштуваннях події</string>
+    <string name="preferences_red_texts_text_2">має деякі помилки в налаштуваннях.</string>
+    <string name="preferences_red_texts_text_click">Натисніть на це повідомлення, щоб відкрити його.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Діалоги підтвердження Wi-Fi та Bluetooth</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Для \"ColorOs\" є можливість вимкнути ці діалоги. Натисніть тут, щоб побачити як.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">У системних налаштуваннях:\n1. Опції розробника\\Developer options = увімкнути\n2. Параметри розробника\\Debugging\\USB debugging = увімкнути\n3. Опції розробники\\Apps\\Вимкнення моніторингу авторизації = увімкнути.</string>
+    <string name="important_info_android_look_application_settings">Відкрийте налаштування PhoneProfilesPlus та налаштуйте його. Особливо параметри, позначені жирним текстом.</string>
+    <string name="profile_preferences_red_texts_text_2">Це неможливо активувати.</string>
+    <string name="event_preferences_red_texts_text_2">Неможливо змінити його запуск.</string>
+    <string name="profile_preferences_red_texts_text_3">Неможливо показати це в Активаторі.</string>
+    <string name="profile_preferences_red_texts_in_header">В деяких профілях є помилки в налаштуваннях. Ці профілі позначені червоним кольором. Виправте це.</string>
+    <string name="event_preferences_red_texts_in_header">Деякі події мають помилки в налаштуваннях. Ці події позначені червоним кольором. Будь ласка виправте це.</string>
+    <string name="profile_preferences_deviceScreenOnPermanent">Увімкнути та залишити увімкнутим екран</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>

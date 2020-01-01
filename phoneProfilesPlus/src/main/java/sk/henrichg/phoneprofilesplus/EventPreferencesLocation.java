@@ -84,7 +84,7 @@ class EventPreferencesLocation extends EventPreferences {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_locations), addPassStatus, DatabaseHandler.ETYPE_LOCATION, context);
-                    descr = descr + ": </b>";
+                    descr = descr + "</b> ";
                 }
 
                 if (!ApplicationPreferences.applicationEventLocationEnableScanning(context)) {

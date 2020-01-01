@@ -1375,7 +1375,7 @@
     <string name="profile_preferences_red_texts_text_1">Profil</string>
     <string name="event_preferences_red_texts_text_1">Evénement</string>
     <string name="event_preferences_red_texts_title">Erreur dans les préférences d\'événement</string>
-    <string name="preferences_red_texts_text_2">a les mêmes erreurs dans ses préférences.</string>
+    <string name="preferences_red_texts_text_2">has some errors in it\'s preferences.</string>
     <string name="preferences_red_texts_text_click">Cliquez sur cette notification pour l\'ouvrir.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Dialogues de confirmation du Wi-Fi et du Bluetooth</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Pour \"ColorOs\" est possible de désactiver ces boîtes de dialogue. Cliquez ceci, pour savoir comment.</string>

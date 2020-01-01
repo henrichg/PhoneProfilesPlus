@@ -112,7 +112,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_radioSwitch), addPassStatus, DatabaseHandler.ETYPE_RADIO_SWITCH, context);
-                    descr = descr + ": </b>";
+                    descr = descr + "</b> ";
                 }
 
                 boolean _addBullet = false;

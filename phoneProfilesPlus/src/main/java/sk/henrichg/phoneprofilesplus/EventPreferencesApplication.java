@@ -88,7 +88,7 @@ class EventPreferencesApplication extends EventPreferences {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_applications), addPassStatus, DatabaseHandler.ETYPE_APPLICATION, context);
-                    descr = descr + ": </b>";
+                    descr = descr + "</b> ";
                 }
 
                 String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);

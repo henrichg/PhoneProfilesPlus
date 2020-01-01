@@ -81,7 +81,7 @@ class EventPreferencesScreen extends EventPreferences {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_screen), addPassStatus, DatabaseHandler.ETYPE_SCREEN, context);
-                    descr = descr + ": </b>";
+                    descr = descr + "</b> ";
                 }
 
                 descr = descr + context.getString(R.string.event_preferences_screen_event_type) + ": ";

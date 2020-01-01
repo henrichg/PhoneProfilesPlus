@@ -141,7 +141,7 @@ class EventPreferencesBattery extends EventPreferences {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_battery), addPassStatus, DatabaseHandler.ETYPE_BATTERY, context);
-                    descr = descr + ": </b>";
+                    descr = descr + "</b> ";
                 }
 
                 descr = descr + context.getString(R.string.pref_event_battery_level);

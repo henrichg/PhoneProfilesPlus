@@ -1230,7 +1230,7 @@
     <string name="array_pref_soundModeArray_silentM">Sadece alarmlar</string>
     <string name="array_pref_soundModeArray_ZenModeM">Rahatsız Etme</string>
     <string name="phone_profiles_pref_applicationDoNotKillMyApp">PhoneProfilesPlus arkaplanda çalışmıyor</string>
-    <string name="phone_profiles_pref_applicationDoNotKillMyApp_summary1">Web sayfasını görüntülemek için lütfen dokunun</string>
+    <string name="phone_profiles_pref_applicationDoNotKillMyApp_summary1">Web sayfasını görüntülemek için lutfen dokunun</string>
     <string name="phone_profiles_pref_applicationDoNotKillMyApp_summary2">. Bu sayfada PhoneProfilesPlus\'ın arkaplanda çalışırken durdurulmaması için cihazınızı nasıl ayarlayacağınız izah ediliyor.</string>
     <string name="phone_profiles_pref_applicationDoNotKillMyApp_dialogTitle">PhoneProfilesPlus nasıl çalıştırılır</string>
     <string name="important_info_do_not_kill_my_app1">PhoneProfilesPlus\'ın sistem tarafından durdurulma problemleriyle alakalı olarak, uygulama arka planda çalışırken, web sayfasını görüntülemek için buraya dokunun</string>
@@ -1364,7 +1364,7 @@
     <string name="alert_button_install">Kur</string>
     <string name="event_preferences_red_enable_PPPExtender">Açmak için buraya dokunun. PhoneProfilesPlusExtender aratın ve \"Erişebilirlik\" ayarında izinleri verin.</string>
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">\"Kesinti türü\" tercih değerini açmak için \"Sistem Ayarları\" → \"Bildirim Erişimi\" ayarlarında PhoneProfilesPlus\'a izin verin. Açmak için buraya dokunun.</string>
-    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Do not disturb access\" in system settings. Click here to enable it.</string>
+    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">\"\"Rahatsız etme\" nev\'i\" tercih değerini açmak için \"Sistem Ayarları\" → \"Rahatsız etme Erişimi\" ayarlarında PhoneProfilesPlus\'a izin verin. Açmak için buraya dokunun.</string>
     <string name="editor_activity_targetHelps_bottomNavigation_description_2">Faaliyete geçtiğinde gizli başlık ve alt araç çubuğunu göstermek için dokunun.</string>
     <string name="event_preferences_notifications_checkContacts">Rehberi kontrol et</string>
     <string name="event_preferences_notifications_contact_groups">Rehber grupları</string>
@@ -1381,12 +1381,12 @@
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">\"ColorOs\" için bu pencereleri devre dışı bırakmak mümkündür. Nasıl yapıldığını görmek için buraya dokunun.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">Cihaz sistem ayarlarında:\n1. Geliştirici seçenekleri\\Geliştirici seçenekleri = açık\n2. Geliştirici seçenekleri\\Hata ayıklama\\USB hata ayıklama = açık\n3. Geliştirici seçenekleri\\Uygulamalar\\Yetkilendirme izlemeyi devre dışı kılabilir = açık.</string>
     <string name="important_info_android_look_application_settings">Lutfen PhoneProfilesPlus Ayarlarını açın ve yapılandırın. (Hususan kalın olarak işaretlenmiş değerleri.)</string>
-    <string name="profile_preferences_red_texts_text_2">For this, is not possible to activate it.</string>
-    <string name="event_preferences_red_texts_text_2">For this, is not possible to change it\'s run.</string>
-    <string name="profile_preferences_red_texts_text_3">For this, is not possible to show it in Activator.</string>
-    <string name="profile_preferences_red_texts_in_header">Some profiles has errors in it\'s preferences. These profiles are marked with red color. Please fix it.</string>
-    <string name="event_preferences_red_texts_in_header">Some events has errors in it\'s preferences. These events are marked with red color. Please fix it.</string>
-    <string name="profile_preferences_deviceScreenOnPermanent">Turn and leave screen on</string>
+    <string name="profile_preferences_red_texts_text_2">Bunu faaliyete geçirmek mümkün değil.</string>
+    <string name="event_preferences_red_texts_text_2">Bunun çalışmasını değiştirmek mümkün değil.</string>
+    <string name="profile_preferences_red_texts_text_3">Bunu Muharrik\'te göstermek mümkün değil.</string>
+    <string name="profile_preferences_red_texts_in_header">Bazı tercihlerin değerlerinde hatalar var. Bu tercihler kırmızı renkle işaretli. Lutfen onları düzeltin.</string>
+    <string name="event_preferences_red_texts_in_header">Bazı durumların değerlerinde hatalar var. Bu durumlar kırmızı renkle işaretli. Lutfen onları düzeltin.</string>
+    <string name="profile_preferences_deviceScreenOnPermanent">Ekranı açık bırak</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• tercih değeri \"Zorla durdurulan uygulamalar\"\n• durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>

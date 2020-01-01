@@ -89,24 +89,24 @@ class EventPreferences {
             if ((!Event.getGlobalEventsRunning(context)) || (sensorPassed & SENSOR_PASSED_WAITING) == SENSOR_PASSED_WAITING) {
                 int labelColor = GlobalGUIRoutines.getThemeSensorPassStatusColor(SENSOR_PASSED_WAITING, context);
                 String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
-                return String.format("<font color=\"#%s\">%s</font> ", colorString, sensorTitle);
+                return String.format("<font color=\"#%s\">%s</font>:", colorString, sensorTitle);
             }
             if ((sensorPassed & SENSOR_PASSED_PASSED) == SENSOR_PASSED_PASSED) {
                 int labelColor = GlobalGUIRoutines.getThemeSensorPassStatusColor(SENSOR_PASSED_PASSED, context);
                 String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
-                return String.format("<font color=\"#%s\">%s</font> ", colorString, sensorTitle);
+                return String.format("<font color=\"#%s\">%s</font>:", colorString, sensorTitle);
             }
             else {
                 int labelColor = GlobalGUIRoutines.getThemeSensorPassStatusColor(SENSOR_PASSED_NOT_PASSED, context);
                 String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
-                return String.format("<font color=\"#%s\">%s</font> ", colorString, sensorTitle);
+                return String.format("<font color=\"#%s\">%s</font>:", colorString, sensorTitle);
             }
         }
         else {
             //int labelColor = GlobalGUIRoutines.getThemeWhiteTextColor(context);
             //String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
             //return String.format("<font color=\"#%s\">%s</font> ", colorString, sensorTitle);
-            return sensorTitle;
+            return sensorTitle+":";
         }
     }
 

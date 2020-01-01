@@ -1375,7 +1375,7 @@
     <string name="profile_preferences_red_texts_text_1">Profil</string>
     <string name="event_preferences_red_texts_text_1">Ereignis</string>
     <string name="event_preferences_red_texts_title">Fehler in den Ereigniseinstellungen</string>
-    <string name="preferences_red_texts_text_2">enthält dieselben Fehler in den Einstellungen.</string>
+    <string name="preferences_red_texts_text_2">enthält einige Fehler in den Einstellungen.</string>
     <string name="preferences_red_texts_text_click">Benachrichtigung anklicken, um sie zu öffnen.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">WLAN- und Bluetooth-Bestätigungsdialoge</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Für \"ColorOs\" ist es möglich, diese Dialoge zu deaktivieren. Hier klicken, um dessen Vorgehensweise anzuzeigen.</string>

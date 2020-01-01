@@ -142,7 +142,7 @@ class EventPreferencesCall extends EventPreferences {
             if (addBullet) {
                 descr = descr + "<b>";
                 descr = descr + getPassStatusString(context.getString(R.string.event_type_call), addPassStatus, DatabaseHandler.ETYPE_CALL, context);
-                descr = descr + ": </b>";
+                descr = descr + "</b> ";
             }
 
             PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_CALL_ENABLED, context);

@@ -74,7 +74,7 @@ class EventPreferencesPeripherals extends EventPreferences {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_peripheral), addPassStatus, DatabaseHandler.ETYPE_PERIPHERAL, context);
-                    descr = descr + ": </b>";
+                    descr = descr + "</b> ";
                 }
 
                 descr = descr + context.getString(R.string.event_preferences_peripheral_type) + ": ";
