@@ -364,7 +364,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     }
                                 }
 
-                                if (actualVersionCode <= 5400) {
+                                if (actualVersionCode <= 5410) {
                                     ApplicationPreferences.getSharedPreferences(appContext);
                                     String notificationBackgroundColor = ApplicationPreferences.preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
                                     SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
