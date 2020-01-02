@@ -90,7 +90,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                                     if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
                                         ////// unblock all events for first start
                                         //     that may be blocked in previous application run
-                                        dataWrapper.pauseAllEvents(true, false/*, false*/);
+                                        dataWrapper.pauseAllEvents(false, false/*, false*/);
                                     }
 
                                     dataWrapper.firstStartEvents(true, false);

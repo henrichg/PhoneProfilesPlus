@@ -10,10 +10,14 @@ import android.content.SharedPreferences.Editor;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 class EventPreferencesAlarmClock extends EventPreferences {
@@ -278,7 +282,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
                     PPApplication.logE("EventPreferencesAlarmClock.setAlarm", "endTime=" + result);
                 }
 
-                /*if (ApplicationPreferences.applicationUseAlarmClock(context)) {
+                if (ApplicationPreferences.applicationUseAlarmClock(context)) {
                     Intent intent = new Intent();
                     intent.setAction(PhoneProfilesService.ACTION_ALARM_CLOCK_EVENT_END_BROADCAST_RECEIVER);
 
@@ -322,9 +326,9 @@ class EventPreferencesAlarmClock extends EventPreferences {
                         PPApplication.logE("[HANDLER] EventPreferencesAlarmClock.setAlarm", "enqueueUniqueWork - elapsedTime="+elapsedTime);
                         workManager.enqueueUniqueWork("elapsedAlarmsAlarmClockSensorWork_"+(int)_event._id, ExistingWorkPolicy.REPLACE, worker);
                     } catch (Exception ignored) {}
-                }*/
+                }
 
-                Intent intent = new Intent();
+                /*Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_ALARM_CLOCK_EVENT_END_BROADCAST_RECEIVER);
 
                 //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
@@ -348,7 +352,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
                         //else
                         //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
                     }
-                }
+                }*/
             }
         }
     }

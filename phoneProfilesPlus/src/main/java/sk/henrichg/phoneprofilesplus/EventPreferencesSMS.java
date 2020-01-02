@@ -12,11 +12,15 @@ import android.telephony.PhoneNumberUtils;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 class EventPreferencesSMS extends EventPreferences {
@@ -445,7 +449,7 @@ class EventPreferencesSMS extends EventPreferences {
                     PPApplication.logE("EventPreferencesSMS.setAlarm", "endTime=" + result);
                 }
 
-                /*if (ApplicationPreferences.applicationUseAlarmClock(context)) {
+                if (ApplicationPreferences.applicationUseAlarmClock(context)) {
                     //Intent intent = new Intent(context, SMSEventEndBroadcastReceiver.class);
                     Intent intent = new Intent();
                     intent.setAction(PhoneProfilesService.ACTION_SMS_EVENT_END_BROADCAST_RECEIVER);
@@ -490,9 +494,9 @@ class EventPreferencesSMS extends EventPreferences {
                         PPApplication.logE("[HANDLER] EventPreferencesSMS.setAlarm", "enqueueUniqueWork - elapsedTime="+elapsedTime);
                         workManager.enqueueUniqueWork("elapsedAlarmsSMSSensorWork_"+(int)_event._id, ExistingWorkPolicy.REPLACE, worker);
                     } catch (Exception ignored) {}
-                }*/
+                }
 
-                //Intent intent = new Intent(context, SMSEventEndBroadcastReceiver.class);
+                /*//Intent intent = new Intent(context, SMSEventEndBroadcastReceiver.class);
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_SMS_EVENT_END_BROADCAST_RECEIVER);
                 //intent.setClass(context, SMSEventEndBroadcastReceiver.class);
@@ -518,7 +522,7 @@ class EventPreferencesSMS extends EventPreferences {
                         //else
                         //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
                     }
-                }
+                }*/
             }
         }
     }

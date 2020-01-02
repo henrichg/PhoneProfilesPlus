@@ -3818,7 +3818,7 @@ public class PhoneProfilesService extends Service
                                     if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
                                         ////// unblock all events for first start
                                         //     that may be blocked in previous application run
-                                        dataWrapper.pauseAllEvents(true, false);
+                                        dataWrapper.pauseAllEvents(false, false);
                                     }
                                 }
 

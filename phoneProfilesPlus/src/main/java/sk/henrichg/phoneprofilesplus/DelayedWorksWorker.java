@@ -117,7 +117,7 @@ public class DelayedWorksWorker extends Worker {
                                 if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
                                     ////// unblock all events for first start
                                     //     that may be blocked in previous application run
-                                    dataWrapper.pauseAllEvents(true, false);
+                                    dataWrapper.pauseAllEvents(false, false);
                                 }
 
                                 dataWrapper.firstStartEvents(true, false);
