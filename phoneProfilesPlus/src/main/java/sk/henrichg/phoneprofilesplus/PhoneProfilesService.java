@@ -4898,25 +4898,32 @@ public class PhoneProfilesService extends Service
                     PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "notificationTextColor=" + notificationTextColor);
                 }
                 if (notificationTextColor.equals("1")/* && (!notificationDarkBackground)*/) {
-                    if (PPApplication.romIsEMUI && (Build.VERSION.SDK_INT < 24))
+                    if (Build.VERSION.SDK_INT < 24)
                         contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
                     else
                         contentViewLarge.setTextColor(R.id.notification_activated_profile_name,
                                 ContextCompat.getColorStateList(appContext, R.color.widget_text_color_black));
-                    if (contentView != null)
-                        contentView.setTextColor(R.id.notification_activated_profile_name,
-                                ContextCompat.getColorStateList(appContext, R.color.widget_text_color_black));
+                    if (contentView != null) {
+                        if (Build.VERSION.SDK_INT < 24)
+                            contentView.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
+                        else
+                            contentView.setTextColor(R.id.notification_activated_profile_name,
+                                    ContextCompat.getColorStateList(appContext, R.color.widget_text_color_black));
+                    }
                 } else if (notificationTextColor.equals("2")/* || notificationDarkBackground*/) {
                     PPApplication.logE("PhoneProfilesService._showProfileNotification", "before set text color");
-                    if (PPApplication.romIsEMUI && (Build.VERSION.SDK_INT < 24))
+                    if (Build.VERSION.SDK_INT < 24)
                         contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
                     else
                         contentViewLarge.setTextColor(R.id.notification_activated_profile_name,
                                 ContextCompat.getColorStateList(appContext, R.color.widget_text_color_white));
                     PPApplication.logE("PhoneProfilesService._showProfileNotification", "after set text color");
                     if (contentView != null)
-                        contentView.setTextColor(R.id.notification_activated_profile_name,
-                                ContextCompat.getColorStateList(appContext, R.color.widget_text_color_white));
+                        if (Build.VERSION.SDK_INT < 24)
+                            contentView.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
+                        else
+                            contentView.setTextColor(R.id.notification_activated_profile_name,
+                                    ContextCompat.getColorStateList(appContext, R.color.widget_text_color_white));
                 }
 
                 PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "after set text color");
