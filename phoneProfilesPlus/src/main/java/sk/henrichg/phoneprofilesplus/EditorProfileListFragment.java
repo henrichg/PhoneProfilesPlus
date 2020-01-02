@@ -1309,8 +1309,10 @@ public class EditorProfileListFragment extends Fragment
     }
 
     void showHeaderAndBottomToolbar() {
-        activatedProfileHeader.setVisibility(VISIBLE);
-        bottomToolbar.setVisibility(VISIBLE);
+        if (activatedProfileHeader != null)
+            activatedProfileHeader.setVisibility(VISIBLE);
+        if (bottomToolbar != null)
+            bottomToolbar.setVisibility(VISIBLE);
     }
 
 }
