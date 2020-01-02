@@ -16,17 +16,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
 import android.os.SystemClock;
-import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 
 import java.util.Calendar;
 import java.util.Iterator;
-import java.util.concurrent.TimeUnit;
 
-import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 class TwilightScanner {
@@ -468,7 +463,7 @@ class TwilightScanner {
                 } catch (Exception ignored) {}
 
                 // set alarm
-                if (ApplicationPreferences.applicationUseAlarmClock(context)) {
+                /*if (ApplicationPreferences.applicationUseAlarmClock(context)) {
                     Intent updateIntent = new Intent(ACTION_UPDATE_TWILIGHT_STATE);
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, updateIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -513,9 +508,9 @@ class TwilightScanner {
                             PPApplication.logE("[HANDLER] TwilightScanner.updateTwilightState", "enqueueUniqueWork - elapsedTime="+elapsedTime);
                         workManager.enqueueUniqueWork("elapsedAlarmsTwilightScannerWork", ExistingWorkPolicy.REPLACE, worker);
                     } catch (Exception ignored) {}
-                }
+                }*/
 
-                /*Intent updateIntent = new Intent(ACTION_UPDATE_TWILIGHT_STATE);
+                Intent updateIntent = new Intent(ACTION_UPDATE_TWILIGHT_STATE);
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, updateIntent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
@@ -538,7 +533,7 @@ class TwilightScanner {
                         mAlarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, nextUpdate, pendingIntent);
                     else
                         mAlarmManager.setExact(AlarmManager.RTC_WAKEUP, nextUpdate, pendingIntent);
-                }*/
+                }
             }
         }
     }

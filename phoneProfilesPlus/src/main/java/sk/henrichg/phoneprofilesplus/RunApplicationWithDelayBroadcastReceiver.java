@@ -7,14 +7,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.SystemClock;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
 
-import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver {
@@ -51,7 +48,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
         {
             int requestCode = hashData(runApplicationData); //PPApplication.requestCodeForAlarm.nextInt();
 
-            if (ApplicationPreferences.applicationUseAlarmClock(context)) {
+            /*if (ApplicationPreferences.applicationUseAlarmClock(context)) {
                 //Intent intent = new Intent(_context, RunApplicationWithDelayBroadcastReceiver.class);
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER);
@@ -100,17 +97,16 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                     }
                     workManager.enqueueUniqueWork("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode, ExistingWorkPolicy.REPLACE, worker);
                 } catch (Exception ignored) {}
-            }
+            }*/
 
-            /*//Intent intent = new Intent(_context, RunApplicationWithDelayBroadcastReceiver.class);
+            //Intent intent = new Intent(_context, RunApplicationWithDelayBroadcastReceiver.class);
             Intent intent = new Intent();
             intent.setAction(PhoneProfilesService.ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER);
             //intent.setClass(context, RunApplicationWithDelayBroadcastReceiver.class);
 
             intent.putExtra(EXTRA_RUN_APPLICATION_DATA, runApplicationData);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
-                    PPApplication.requestCodeForAlarm.nextInt(), intent, 0);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0);
 
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
@@ -144,7 +140,6 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                     //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
                 }
             }
-            */
         }
     }
 

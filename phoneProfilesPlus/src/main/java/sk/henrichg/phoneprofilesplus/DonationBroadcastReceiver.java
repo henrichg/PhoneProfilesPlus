@@ -9,16 +9,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.text.format.DateFormat;
 
 import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
-import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 import static android.app.Notification.DEFAULT_VIBRATE;
@@ -52,7 +47,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
 
         long alarmTime = now.getTimeInMillis();
 
-        if (ApplicationPreferences.applicationUseAlarmClock(context)) {
+        /*if (ApplicationPreferences.applicationUseAlarmClock(context)) {
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
                 //Intent intent = new Intent(_context, DonationBroadcastReceiver.class);
@@ -100,9 +95,9 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                 PPApplication.logE("[HANDLER] DonationBroadcastReceiver.setAlarm", "enqueueUniqueWork - elapsedTime="+elapsedTime);
                 workManager.enqueueUniqueWork("elapsedAlarmsDonationWork", ExistingWorkPolicy.REPLACE, worker);
             } catch (Exception ignored) {}
-        }
+        }*/
 
-        /*//Intent intent = new Intent(_context, DonationBroadcastReceiver.class);
+        //Intent intent = new Intent(_context, DonationBroadcastReceiver.class);
         Intent intent = new Intent();
         intent.setAction(PPApplication.ACTION_DONATION);
         //intent.setClass(context, DonationBroadcastReceiver.class);
@@ -126,7 +121,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                 //else
                 //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
             }
-        }*/
+        }
     }
 
     static private void removeAlarm(Context context)
