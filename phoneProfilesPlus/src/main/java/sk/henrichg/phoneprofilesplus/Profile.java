@@ -2293,7 +2293,7 @@ public class Profile {
                     e.printStackTrace();
                 }
             }
-            if ((Build.VERSION.SDK_INT > 28) && (!PPApplication.deviceIsSamsung)) {
+            if ((Build.VERSION.SDK_INT > 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsOnePlus)) {
                 PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT > 28");
                 value = getBrightnessValue_A9(percentage/*, minimumValue, maximumValue*/);
             }
@@ -2333,7 +2333,7 @@ public class Profile {
                                 ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, 0f);
         else {
             boolean exponentialLevel = false;
-            if ((Build.VERSION.SDK_INT > 28) && (!PPApplication.deviceIsSamsung)) {
+            if ((Build.VERSION.SDK_INT > 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsOnePlus)) {
                 PPApplication.logE("Profile.convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=true - SDK_INT > 28");
                 exponentialLevel = true;
             }
@@ -2393,7 +2393,7 @@ public class Profile {
         if (value == BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET)
             percentage = value; // keep BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET
         else {
-            if ((Build.VERSION.SDK_INT > 28) && (!PPApplication.deviceIsSamsung)) {
+            if ((Build.VERSION.SDK_INT > 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsOnePlus)) {
                 PPApplication.logE("Profile.convertBrightnessToPercents", "getBrightnessPercentage_A9 called - SDK_INT > 28");
                 percentage = getBrightnessPercentage_A9(value/*, minValue, maxValue*/);
             }
