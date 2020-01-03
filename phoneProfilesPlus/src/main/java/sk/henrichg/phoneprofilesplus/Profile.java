@@ -2410,7 +2410,7 @@ public class Profile {
             else {
                 PPApplication.logE("Profile.convertBrightnessToPercents", "getBrightnessPercentage_A9 NOT called");
                 //if (maximumValue-minimumValue > 255) {
-                int minimumValue = 0;
+                //int minimumValue = 0;
                 int maximumValue = 255;
                 if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 28))
                     maximumValue = 1023;
