@@ -773,7 +773,7 @@
     <string name="event_preferences_radioSwitch_airplaneMode">Mód lietadlo</string>
     <string name="event_preferences_radioSwitch_info_title">Konfigurácia senzora</string>
     <string name="event_preferences_radioSwitch_info_summary">Stav všetkých rádií musí byť splnený, aby sa spustila udalosť. Nakonfigurujte iba rádia, ktoré potrebujete.</string>
-    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Hocijaký</string>
+    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Hocijaké SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Pripojiť k SSID</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Nastavenie zlúčenia hlasitostí</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Ponechať zistené</string>

@@ -408,7 +408,7 @@
     <string name="phone_profiles_pref_applicationPermissions_summary">Пожалуйста, дайте разрешения приложению в разделе \"Разрешения\".</string>
     <string name="permissions_for_event_text1">События</string>
     <string name="permissions_for_event_text2">требуются разрешения:</string>
-    <string name="permissions_for_event_text3">Разрешить в следующих диалоговых окнах. События будут перезапущены.</string>
+    <string name="permissions_for_event_text3">Предоставьте их, пожалуйста, в следующем диалоговом окне. После этого события будут перезапущены.</string>
     <string name="permissions_for_event_text_notification">Запрос разрешений</string>
     <string name="permissions_for_event_big_text_notification">требует дополнительные разрешения.</string>
     <string name="permission_group_name_calendar">Календарь</string>
@@ -738,7 +738,7 @@
     <string name="editor_activity_targetHelps_eventPreferences_title">Настройки события</string>
     <string name="editor_activity_targetHelps_eventPreferences_description">Нажмите эту кнопку для открытия настроек событий и их редактирования.</string>
     <string name="editor_activity_targetHelps_eventMenu_title">Меню события</string>
-    <string name="editor_activity_targetHelps_eventMenu_description">Нажмите эту кнопку для открытия событий меню с вариантами: Включить/Остановить, Дублировать и Удалить событие.</string>
+    <string name="editor_activity_targetHelps_eventMenu_description">Нажмите сюда, чтобы открыть меню события с вариантами: Разрешить запуск/Приостановить событие, Создать копию и Удалить событие.</string>
     <string name="editor_activity_targetHelps_eventOrderHandler_title">Упорядочиватель</string>
     <string name="editor_activity_targetHelps_eventOrderHandler_description">Перетащите событие вверх/вниз, чтобы изменить его порядок запуска.</string>
     <string name="activator_activity_targetHelps_editor_title" tools:keep="@string/activator_activity_targetHelps_editor_title">Редактор</string>
@@ -750,7 +750,7 @@
     <string name="event_preference_activity_targetHelps_save_title">Сохранить событие</string>
     <string name="event_preference_activity_targetHelps_save_description">Нажмите здесь для сохранения изменений настроек событий.</string>
     <string name="about_application_privacy_policy">Конфиденциальность:</string>
-    <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">Этот профиль будет активирован, если нет каких-либо событий.</string>
+    <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">Этот профиль будет активирован, когда не выполняется ни одно событие.</string>
     <string name="altype_applicationStartOnBoot">запуск при загрузке</string>
     <string name="profile_preferences_hideStatusBarIcon">Скрыть значок строки состояния</string>
     <string name="profile_preferences_lockDevice">Блокировка устройства</string>
@@ -773,7 +773,7 @@
     <string name="event_preferences_radioSwitch_airplaneMode">Режим полета</string>
     <string name="event_preferences_radioSwitch_info_title">Конфигурация датчиков</string>
     <string name="event_preferences_radioSwitch_info_summary">Для запуска события выбранные состояния ВСЕХ настроенных ниже радиомодулей должны совпадать с фактическими. Настройте только те радиомодули, которые вам необходимы.</string>
-    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Любой</string>
+    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Любой SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Подключение к SSID</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Задать объединённость уровней громкости</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Автоопределение</string>
@@ -867,7 +867,7 @@
     <string name="about_application_extender_source_code">Исходный код - Extender:</string>
     <string name="pref_dlg_info_about_wildcards_4">Можно настроить несколько строк. Разделитель - \"|\".</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_title">Профиль по умолчанию</string>
-    <string name="editor_activity_targetHelps_backgroundProfileButton_description">Этот профиль будет активирован, когда никакое событие не выполняется. Нажмите здесь, чтобы настроить его.</string>
+    <string name="editor_activity_targetHelps_backgroundProfileButton_description">Этот профиль будет активирован, когда не выполняется ни одно событие. Нажмите сюда, чтобы настроить его.</string>
     <string name="mobile_cell_names_dialog_title">Имя вышки</string>
     <string name="mobile_cell_names_dialog_filter_title">Фильтр вышек по имени</string>
     <string name="mobile_cell_names_dialog_item_show_selected">[Выбранные]</string>
@@ -1365,7 +1365,7 @@
     <string name="event_preferences_red_enable_PPPExtender">Для этого нажмите сюда. Найдите в списке PhoneProfilesPLusExtender и включите для него доступ к спец. возможностям.</string>
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">Чтобы использовать параметр профиля \"Типы режима оповещения\", разрешите PhoneProfilesPlus доступ к уведомлениям в настройках системы. Для этого нажмите сюда.</string>
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">Чтобы использовать параметр профиля \"Тип \"Не беспокоить\"\", разрешите PhoneProfilesPlus доступ к функции \"Не беспокоить\" в настройках системы. Для этого нажмите сюда.</string>
-    <string name="editor_activity_targetHelps_bottomNavigation_description_2">Нажмите на неё, когда она активна, для отображения скрытых заголовка и нижней панели инструментов.</string>
+    <string name="editor_activity_targetHelps_bottomNavigation_description_2">Когда эта кнопка нажата, нажмите на неё ещё раз для отображения скрытых заголовка и нижней панели инструментов.</string>
     <string name="event_preferences_notifications_checkContacts">Проверить контакты</string>
     <string name="event_preferences_notifications_contact_groups">Группы контактов</string>
     <string name="event_preferences_notifications_contacts">Контакты</string>

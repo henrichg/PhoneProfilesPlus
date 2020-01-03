@@ -773,7 +773,7 @@
     <string name="event_preferences_radioSwitch_airplaneMode">Режим \"У літаку\"</string>
     <string name="event_preferences_radioSwitch_info_title">Налаштування датчиків</string>
     <string name="event_preferences_radioSwitch_info_summary">Стан всіх вибраних радіомодулів має бути виконаний аби подія розпочалась. Налаштуйте тільки ті радіомодулі, який вам необхідні.</string>
-    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Будь-який</string>
+    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Any SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Під\'єднатись до SSID</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Об\'єднати рівні гучності</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Автовизначення</string>

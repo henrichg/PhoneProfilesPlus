@@ -773,7 +773,7 @@
     <string name="event_preferences_radioSwitch_airplaneMode">Modalità aereo</string>
     <string name="event_preferences_radioSwitch_info_title">Configurazione sensore</string>
     <string name="event_preferences_radioSwitch_info_summary">Lo stato di tutte le radio deve essere soddisfatto per iniziare l\'evento. Configura solo queste radio che necessiti.</string>
-    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Una qualsiasi</string>
+    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Any SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Connettiti a SSID</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Imposta miscelazione volumi</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Continua a rilevare</string>

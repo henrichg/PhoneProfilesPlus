@@ -773,7 +773,7 @@
     <string name="event_preferences_radioSwitch_airplaneMode">Modo avión</string>
     <string name="event_preferences_radioSwitch_info_title">Configuración del sensor</string>
     <string name="event_preferences_radioSwitch_info_summary">El estado de todas las radios debe ser cumplido para iniciar el evento. Configurar solo las radios que necesite.</string>
-    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Cualquiera</string>
+    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Any SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Conectar a SIMS</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Configurar enlaces de volúmenes</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Mantener detección</string>

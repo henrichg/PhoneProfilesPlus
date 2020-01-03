@@ -776,7 +776,7 @@
     <string name="event_preferences_radioSwitch_airplaneMode">מצב טיסה</string>
     <string name="event_preferences_radioSwitch_info_title">תצורת חיישנים</string>
     <string name="event_preferences_radioSwitch_info_summary">מצב כל משדרי/מקלטי הרדיו חייב להיות מוגדר כדי להפעיל אירוע. הגדירו רק את הרדיו הדרושים.</string>
-    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">כלשהו</string>
+    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Any SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">התחבר ל-SSID</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">מיזוג עוצמות הקול</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">שמירת הערכים שאותרו</string>

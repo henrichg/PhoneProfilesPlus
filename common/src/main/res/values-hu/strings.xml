@@ -773,7 +773,7 @@
     <string name="event_preferences_radioSwitch_airplaneMode">Repülőgép üzemmód</string>
     <string name="event_preferences_radioSwitch_info_title">Érzékelő konfigurációk</string>
     <string name="event_preferences_radioSwitch_info_summary">Az esemény indításához az összes rádiót be kell állítani. Állítsa be azokat a rádiókat, melyre önnek szüksége van.</string>
-    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Csak egy</string>
+    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Any SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Kapcsolódás SSID-hez</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Hangerő egyesítések beállítása</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Folyamatosan észlelt</string>

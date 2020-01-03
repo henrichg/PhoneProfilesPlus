@@ -773,7 +773,7 @@
     <string name="event_preferences_radioSwitch_airplaneMode">飞行模式</string>
     <string name="event_preferences_radioSwitch_info_title">传感器配置</string>
     <string name="event_preferences_radioSwitch_info_summary">必须满足所有无线传感器的状态才能启动事件。仅配置您需要的那些无线传感器。</string>
-    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">任何</string>
+    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Any SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">连接到 SSID</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">设置音量关联</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">保持检测</string>

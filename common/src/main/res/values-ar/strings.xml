@@ -773,7 +773,7 @@
     <string name="event_preferences_radioSwitch_airplaneMode">وضع الطيران</string>
     <string name="event_preferences_radioSwitch_info_title">تكوين الاستشعار</string>
     <string name="event_preferences_radioSwitch_info_summary">يجب أن تتحقق جميع حالات الإتصال اللأسلكي لبدء الحدث. قم بتكوين حالات اللاسكي التي تحتاج إليها فقط.</string>
-    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">أي شبكة</string>
+    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Any SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Connect to SSID</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">تعيين رابط درجة الأصوات</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">الحفاظ على الكشف</string>

@@ -773,7 +773,7 @@
     <string name="event_preferences_radioSwitch_airplaneMode">Vliegtuigmodus</string>
     <string name="event_preferences_radioSwitch_info_title">Sensor configuratie</string>
     <string name="event_preferences_radioSwitch_info_summary">Status van alle radio\'s compeet zijn om het even te starten. Configureer alleen radio\'s die u nodig hebt.</string>
-    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Zomaar een</string>
+    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Elke SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Verbinden met SSID</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Stel volume samenvoegen in</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Gedetecteerd houden</string>

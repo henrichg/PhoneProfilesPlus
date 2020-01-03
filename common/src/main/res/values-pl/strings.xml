@@ -773,7 +773,7 @@
     <string name="event_preferences_radioSwitch_airplaneMode">Tryb samolotowy</string>
     <string name="event_preferences_radioSwitch_info_title">Konfiguracja sensora</string>
     <string name="event_preferences_radioSwitch_info_summary">Stan każdego radia musi być spełniony, aby uruchomić zdarzenie. Skonfiguruj tylko te radia, które potrzebujesz.</string>
-    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Byle jaki</string>
+    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Any SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Połącz z SSID</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Ustaw linki woluminów</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Zachowaj wykrywanie</string>
