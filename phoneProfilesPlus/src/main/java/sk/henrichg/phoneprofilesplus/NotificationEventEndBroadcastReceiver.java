@@ -16,12 +16,12 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
         String action = intent.getAction();
         if (action != null) {
             PPApplication.logE("NotificationEventEndBroadcastReceiver.onReceive", "action=" + action);
-            doWork(true, context);
+            doWork(/*true,*/ context);
         }
     }
 
-    static void doWork(boolean useHandler, Context context) {
-        PPApplication.logE("[HANDLER] NotificationEventEndBroadcastReceiver.doWork", "useHandler="+useHandler);
+    private void doWork(/*boolean useHandler,*/ Context context) {
+        //PPApplication.logE("[HANDLER] NotificationEventEndBroadcastReceiver.doWork", "useHandler="+useHandler);
 
         final Context appContext = context.getApplicationContext();
 
@@ -29,7 +29,7 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        if (useHandler) {
+        //if (useHandler) {
             PPApplication.startHandlerThread("NotificationEventEndBroadcastReceiver.doWork");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
@@ -62,14 +62,14 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
                     }
                 }
             });
-        }
+        /*}
         else {
             if (Event.getGlobalEventsRunning(appContext)) {
                 PPApplication.logE("NotificationEventEndBroadcastReceiver.doWork", "handle events");
                 EventsHandler eventsHandler = new EventsHandler(appContext);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
             }
-        }
+        }*/
     }
 
 }

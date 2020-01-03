@@ -16,12 +16,12 @@ public class AlarmClockEventEndBroadcastReceiver extends BroadcastReceiver {
         String action = intent.getAction();
         if (action != null) {
             PPApplication.logE("AlarmClockEventEndBroadcastReceiver.onReceive", "action=" + action);
-            doWork(true, context);
+            doWork(/*true,*/ context);
         }
     }
 
-    static void doWork(boolean useHandler, Context context) {
-        PPApplication.logE("[HANDLER] AlarmClockEventEndBroadcastReceiver.doWork", "useHandler="+useHandler);
+    private void doWork(/*boolean useHandler, */Context context) {
+        //PPApplication.logE("[HANDLER] AlarmClockEventEndBroadcastReceiver.doWork", "useHandler="+useHandler);
 
         final Context appContext = context.getApplicationContext();
 
@@ -29,7 +29,7 @@ public class AlarmClockEventEndBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        if (useHandler) {
+        //if (useHandler) {
             PPApplication.startHandlerThread("AlarmClockEventEndBroadcastReceiver.doWork");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
@@ -62,14 +62,14 @@ public class AlarmClockEventEndBroadcastReceiver extends BroadcastReceiver {
                     }
                 }
             });
-        }
+        /*}
         else {
             if (Event.getGlobalEventsRunning(appContext)) {
                 PPApplication.logE("AlarmClockEventEndBroadcastReceiver.doWork", "handle events");
                 EventsHandler eventsHandler = new EventsHandler(appContext);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_ALARM_CLOCK_EVENT_END);
             }
-        }
+        }*/
     }
 
 }

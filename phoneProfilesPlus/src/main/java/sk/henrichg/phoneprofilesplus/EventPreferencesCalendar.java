@@ -19,15 +19,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
-import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 class EventPreferencesCalendar extends EventPreferences {
@@ -494,7 +490,7 @@ class EventPreferencesCalendar extends EventPreferences {
                 return;
         }
 
-        if (applicationUseAlarmClock) {
+        /*if (applicationUseAlarmClock) {
             //Intent intent = new Intent(context, EventCalendarBroadcastReceiver.class);
             Intent intent = new Intent();
             intent.setAction(PhoneProfilesService.ACTION_EVENT_CALENDAR_BROADCAST_RECEIVER);
@@ -540,9 +536,9 @@ class EventPreferencesCalendar extends EventPreferences {
                 PPApplication.logE("[HANDLER] EventPreferencesCalendar.setAlarm", "enqueueUniqueWork - elapsedTime="+elapsedTime);
                 workManager.enqueueUniqueWork("elapsedAlarmsCalendarSensorWork_"+(int)_event._id, ExistingWorkPolicy.REPLACE, worker);
             } catch (Exception ignored) {}
-        }
+        }*/
 
-        /*//Intent intent = new Intent(context, EventCalendarBroadcastReceiver.class);
+        //Intent intent = new Intent(context, EventCalendarBroadcastReceiver.class);
         Intent intent = new Intent();
         intent.setAction(PhoneProfilesService.ACTION_EVENT_CALENDAR_BROADCAST_RECEIVER);
         //intent.setClass(context, EventCalendarBroadcastReceiver.class);
@@ -568,7 +564,7 @@ class EventPreferencesCalendar extends EventPreferences {
                 //else
                 //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
             }
-        }*/
+        }
     }
 
     //private void searchEvent(Context context)

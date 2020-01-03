@@ -11,11 +11,7 @@ import android.os.SystemClock;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
 
-import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver {
@@ -52,7 +48,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
         {
             int requestCode = hashData(runApplicationData); //PPApplication.requestCodeForAlarm.nextInt();
 
-            if (ApplicationPreferences.applicationUseAlarmClock(context)) {
+            /*if (ApplicationPreferences.applicationUseAlarmClock(context)) {
                 //Intent intent = new Intent(_context, RunApplicationWithDelayBroadcastReceiver.class);
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER);
@@ -101,9 +97,9 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                     }
                     workManager.enqueueUniqueWork("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode, ExistingWorkPolicy.REPLACE, worker);
                 } catch (Exception ignored) {}
-            }
+            }*/
 
-            /*//Intent intent = new Intent(_context, RunApplicationWithDelayBroadcastReceiver.class);
+            //Intent intent = new Intent(_context, RunApplicationWithDelayBroadcastReceiver.class);
             Intent intent = new Intent();
             intent.setAction(PhoneProfilesService.ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER);
             //intent.setClass(context, RunApplicationWithDelayBroadcastReceiver.class);
@@ -143,7 +139,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                     //else
                     //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
                 }
-            }*/
+            }
         }
     }
 
