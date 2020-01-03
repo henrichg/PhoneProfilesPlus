@@ -83,7 +83,7 @@ public class PPApplication extends Application {
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && BuildConfig.DEBUG;
-    static final boolean logIntoFile = true;
+    static final boolean logIntoFile = false;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && BuildConfig.DEBUG;
     private static final boolean rootToolsDebug = false;
@@ -115,6 +115,8 @@ public class PPApplication extends Application {
                                          +"|PackageReplacedReceiver"
                                          +"|PhoneProfilesBackupAgent"
                                          +"|ShutdownBroadcastReceiver"
+
+                                         //+"|[BRS] SettingsContentObserver.onChange"
 
                                          //+"|EditorProfilesActivity.finishBroadcastReceiver"
                                          //+"|EditorProfilesActivity.onStart"
@@ -522,7 +524,6 @@ public class PPApplication extends Application {
                                         //+"|Profile.convertPercentsToBrightnessManualValue"
                                         //+"|Profile.convertPercentsToBrightnessAdaptiveValue"
                                         //+"|Profile.convertBrightnessToPercents"
-                                        +"|[BRS] SettingsContentObserver.onChange"
 
                                         //+"|EditorProfileListFragment.refreshGUI"
                                         //+"|EditorEventListFragment.refreshGUI"

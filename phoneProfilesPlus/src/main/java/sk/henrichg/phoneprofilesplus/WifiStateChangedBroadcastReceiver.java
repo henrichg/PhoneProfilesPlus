@@ -159,7 +159,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                                                         PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiStateChangedBroadcastReceiver.onReceive.3");
 
-                                                        WifiScanWorker.fillWifiConfigurationList(appContext);
+                                                        WifiScanWorker.fillWifiConfigurationList(appContext, false);
 
                                                         PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiStateChangedBroadcastReceiver.onReceive.3");
                                                     } finally {

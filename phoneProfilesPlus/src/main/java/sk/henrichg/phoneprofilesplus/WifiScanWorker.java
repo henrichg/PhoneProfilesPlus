@@ -370,7 +370,7 @@ public class WifiScanWorker extends Worker {
         editor.commit();
         */
 
-        fillWifiConfigurationList(context);
+        fillWifiConfigurationList(context, false);
     }
 
     public static void lock(Context context)
@@ -524,7 +524,7 @@ public class WifiScanWorker extends Worker {
         editor.apply();
     }
 
-    static void fillWifiConfigurationList(Context context)
+    static void fillWifiConfigurationList(Context context, boolean enableWifi)
     {
         //if (wifiConfigurationList == null)
         //    wifiConfigurationList = new ArrayList<WifiSSIDData>();
@@ -536,11 +536,23 @@ public class WifiScanWorker extends Worker {
         if (wifi == null)
             return;
 
-        if (wifi.getWifiState() != WifiManager.WIFI_STATE_ENABLED)
-            // wifi must be enabled for wifi.getConfiguredNetworks()
-            return;
+        boolean wifiEnabled = false;
+        if (wifi.getWifiState() != WifiManager.WIFI_STATE_ENABLED) {
+            if (enableWifi) {
+                wifiEnabled = true;
+                wifi.setWifiEnabled(true);
+                PPApplication.sleep(500);
+            }
+            else
+                // wifi must be enabled for wifi.getConfiguredNetworks()
+                return;
+        }
 
         List<WifiConfiguration> _wifiConfigurationList = wifi.getConfiguredNetworks();
+
+        if (wifiEnabled)
+            wifi.setWifiEnabled(false);
+
         if (_wifiConfigurationList != null)
         {
             wifiConfigurationList.clear();
