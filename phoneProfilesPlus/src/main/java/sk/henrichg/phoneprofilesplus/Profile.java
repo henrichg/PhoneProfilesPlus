@@ -2251,7 +2251,7 @@ public class Profile {
             maximumValue = 1023;
         else
         if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
-            maximumValue = 4096;
+            maximumValue = 4095;
         //}
 
         int value;
@@ -2387,7 +2387,7 @@ public class Profile {
     }
 
     @SuppressWarnings("SameParameterValue")
-    static long convertBrightnessToPercents(int value, int maxValue, int minValue)
+    static long convertBrightnessToPercents(int value/*, int maxValue, int minValue*/)
     {
         long percentage;
         if (value == BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET)
@@ -2409,7 +2409,17 @@ public class Profile {
             }
             else {
                 PPApplication.logE("Profile.convertBrightnessToPercents", "getBrightnessPercentage_A9 NOT called");
-                percentage = Math.round((float) (value - minValue) / (maxValue - minValue) * 100.0);
+                //if (maximumValue-minimumValue > 255) {
+                int minimumValue = 0;
+                int maximumValue = 255;
+                if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 28))
+                    maximumValue = 1023;
+                else
+                if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
+                    maximumValue = 4095;
+                //}
+
+                percentage = Math.round((float) (value/* - minValue*/) / (maximumValue/* - minValue*/) * 100.0);
             }
         }
 
