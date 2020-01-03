@@ -2604,7 +2604,8 @@ public class DataWrapper {
         if (event._eventPreferencesWifi._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                     && Permissions.checkEventLocation(context, event, null)) {
-                PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "-------- eventSSID=" + event._eventPreferencesWifi._SSID);
+                if (event._name.equals("Doma"))
+                    PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "-------- eventSSID=" + event._eventPreferencesWifi._SSID);
 
                 wifiPassed = false;
 
@@ -2616,7 +2617,8 @@ public class DataWrapper {
                 boolean done = false;
 
                 if (isWifiEnabled) {
-                    PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiStateEnabled=true");
+                    if (event._name.equals("Doma"))
+                        PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiStateEnabled=true");
 
                     //PPApplication.logE("----- DataWrapper.doHandleEvents","-- eventSSID="+event._eventPreferencesWifi._SSID);
 
@@ -2671,9 +2673,11 @@ public class DataWrapper {
 
                     if (wifiConnected) {
                         if (PPApplication.logEnabled()) {
-                            PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifi connected");
-                            PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiSSID=" + WifiScanWorker.getSSID(wifiManager, wifiInfo, wifiConfigurationList));
-                            PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiBSSID=" + wifiInfo.getBSSID());
+                            if (event._name.equals("Doma")) {
+                                PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifi connected");
+                                PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiSSID=" + WifiScanWorker.getSSID(wifiManager, wifiInfo, wifiConfigurationList));
+                                PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiBSSID=" + wifiInfo.getBSSID());
+                            }
                         }
 
                         //PPApplication.logE("----- DataWrapper.doHandleEvents","SSID="+event._eventPreferencesWifi._SSID);
@@ -2718,7 +2722,6 @@ public class DataWrapper {
                             wifiPassed = false;
                             for (boolean conn : connected) {
                                 if (conn) {
-                                    // when is connected to configured ssid, is also nearby
                                     wifiPassed = true;
                                     break;
                                 }
@@ -2727,7 +2730,8 @@ public class DataWrapper {
                             done = true;
                         }
                     } else {
-                        PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifi not connected");
+                        if (event._name.equals("Doma"))
+                            PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifi not connected");
 
                         if ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_CONNECTED) ||
                                 (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOT_CONNECTED)) {
@@ -2737,7 +2741,8 @@ public class DataWrapper {
                         }
                     }
                 } else {
-                    PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiStateEnabled=false");
+                    if (event._name.equals("Doma"))
+                        PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiStateEnabled=false");
                     if ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_CONNECTED) ||
                             (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOT_CONNECTED)) {
                         // not use scanner data
@@ -2746,17 +2751,19 @@ public class DataWrapper {
                     }
                 }
 
-                PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiPassed - connected =" + wifiPassed);
+                if (event._name.equals("Doma"))
+                    PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiPassed - connected =" + wifiPassed);
 
                 if ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
                         (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY)) {
                     if (!done) {
                         if (!ApplicationPreferences.applicationEventWifiEnableScanning(context)) {
-                            if (forRestartEvents)
-                                wifiPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesWifi.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
-                            else
+                            //if (forRestartEvents)
+                            //    wifiPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesWifi.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
+                            //else
                                 // not allowed for disabled scanning
-                                notAllowedWifi = true;
+                            //    notAllowedWifi = true;
+                            wifiPassed = false;
                         } else {
                             //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                             if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(context)) {
@@ -2775,15 +2782,19 @@ public class DataWrapper {
 
                                 if (scanResults != null) {
                                     if (PPApplication.logEnabled()) {
-                                        PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "scanResults != null");
-                                        PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "scanResults.size=" + scanResults.size());
-                                        //PPApplication.logE("----- DataWrapper.doHandleEvents","-- eventSSID="+event._eventPreferencesWifi._SSID);
+                                        if (event._name.equals("Doma")) {
+                                            PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "scanResults != null");
+                                            PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "scanResults.size=" + scanResults.size());
+                                            //PPApplication.logE("----- DataWrapper.doHandleEvents","-- eventSSID="+event._eventPreferencesWifi._SSID);
+                                        }
                                     }
 
                                     for (WifiSSIDData result : scanResults) {
                                         if (PPApplication.logEnabled()) {
-                                            PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "scanSSID=" + result.ssid);
-                                            PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "scanBSSID=" + result.bssid);
+                                            if (event._name.equals("Doma")) {
+                                                PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "scanSSID=" + result.ssid);
+                                                PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "scanBSSID=" + result.bssid);
+                                            }
                                         }
                                         String[] splits = event._eventPreferencesWifi._SSID.split("\\|");
                                         boolean[] nearby = new boolean[splits.length];
@@ -2792,16 +2803,20 @@ public class DataWrapper {
                                             nearby[i] = false;
                                             switch (_ssid) {
                                                 case EventPreferencesWifi.ALL_SSIDS_VALUE:
-                                                    PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "all ssids");
+                                                    if (event._name.equals("Doma"))
+                                                        PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "all ssids");
                                                     nearby[i] = true;
                                                     break;
                                                 case EventPreferencesWifi.CONFIGURED_SSIDS_VALUE:
-                                                    PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "configured ssids");
+                                                    if (event._name.equals("Doma"))
+                                                        PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "configured ssids");
                                                     for (WifiSSIDData data : wifiConfigurationList) {
                                                         if (WifiScanWorker.compareSSID(result, data.ssid.replace("\"", ""), wifiConfigurationList)) {
                                                             if (PPApplication.logEnabled()) {
-                                                                PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "configured SSID=" + data.ssid.replace("\"", ""));
-                                                                PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifi found");
+                                                                if (event._name.equals("Doma")) {
+                                                                    PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "configured SSID=" + data.ssid.replace("\"", ""));
+                                                                    PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifi found");
+                                                                }
                                                             }
                                                             nearby[i] = true;
                                                             break;
@@ -2811,8 +2826,10 @@ public class DataWrapper {
                                                 default:
                                                     if (WifiScanWorker.compareSSID(result, _ssid, wifiConfigurationList)) {
                                                         if (PPApplication.logEnabled()) {
-                                                            PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "event SSID=" + event._eventPreferencesWifi._SSID);
-                                                            PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifi found");
+                                                            if (event._name.equals("Doma")) {
+                                                                PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "event SSID=" + event._eventPreferencesWifi._SSID);
+                                                                PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifi found");
+                                                            }
                                                         }
                                                         nearby[i] = true;
                                                     }
@@ -2845,27 +2862,34 @@ public class DataWrapper {
                                         if (done)
                                             break;
                                     }
-                                    PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiPassed - in front =" + wifiPassed);
+                                    if (event._name.equals("Doma"))
+                                        PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiPassed - in front =" + wifiPassed);
 
                                     if (!done) {
                                         if (scanResults.size() == 0) {
-                                            PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "scanResult is empty");
+                                            if (event._name.equals("Doma"))
+                                                PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "scanResult is empty");
 
                                             if (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY)
                                                 wifiPassed = true;
 
-                                            PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiPassed - in front - for empty scanResult =" + wifiPassed);
+                                            if (event._name.equals("Doma"))
+                                                PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiPassed - in front - for empty scanResult =" + wifiPassed);
                                         }
                                     }
 
                                 } else
-                                    PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "scanResults == null");
+                                    if (event._name.equals("Doma"))
+                                        PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "scanResults == null");
                             }
                         }
                     }
                 }
 
-                PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "------- wifiPassed=" + wifiPassed);
+                if (event._name.equals("Doma")) {
+                    PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "------- wifiPassed=" + wifiPassed);
+                    PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "------- notAllowedWifi=" + notAllowedWifi);
+                }
 
                 if (!notAllowedWifi) {
                     if (wifiPassed)
@@ -2878,7 +2902,6 @@ public class DataWrapper {
             event._eventPreferencesWifi.setSensorPassed(event._eventPreferencesWifi.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
             DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_WIFI);
         }
-
 
         if (event._eventPreferencesScreen._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
@@ -3054,11 +3077,12 @@ public class DataWrapper {
                         (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY)) {
                     if (!done) {
                         if (!ApplicationPreferences.applicationEventBluetoothEnableScanning(context)) {
-                            if (forRestartEvents)
-                                bluetoothPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesBluetooth.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
-                            else
+                            //if (forRestartEvents)
+                            //    bluetoothPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesBluetooth.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
+                            //else
                                 // not allowed for disabled scanning
-                                notAllowedBluetooth = true;
+                            //    notAllowedBluetooth = true;
+                            bluetoothPassed = false;
                         } else {
                             //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                             if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(context)) {
@@ -3315,13 +3339,14 @@ public class DataWrapper {
             if ((Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                     && Permissions.checkEventLocation(context, event, null)) {
                 if (!ApplicationPreferences.applicationEventLocationEnableScanning(context)) {
-                    if (forRestartEvents)
-                        locationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesLocation.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
-                    else {
+                    //if (forRestartEvents)
+                    //    locationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesLocation.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
+                    //else {
                         // not allowed for disabled location scanner
-                        PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "ignore for disabled scanner");
-                        notAllowedLocation = true;
-                    }
+                    //    PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "ignore for disabled scanner");
+                    //    notAllowedLocation = true;
+                    //}
+                    locationPassed = false;
                 } else {
                     //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                     if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(context)) {
@@ -3419,11 +3444,12 @@ public class DataWrapper {
                     // not allowed changes during call
                     notAllowedOrientation = true;
                 } else if (!ApplicationPreferences.applicationEventOrientationEnableScanning(context)) {
-                    if (forRestartEvents)
-                        orientationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesOrientation.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
-                    else
+                    //if (forRestartEvents)
+                    //    orientationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesOrientation.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
+                    //else
                         // not allowed for disabled orientation scanner
-                        notAllowedOrientation = true;
+                    //    notAllowedOrientation = true;
+                    orientationPassed = false;
                 } else if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn(context)) {
                     if (forRestartEvents)
                         orientationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesOrientation.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
@@ -3592,11 +3618,12 @@ public class DataWrapper {
             if ((Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                     && Permissions.checkEventLocation(context, event, null)) {
                 if (!ApplicationPreferences.applicationEventMobileCellEnableScanning(context)) {
-                    if (forRestartEvents)
-                        mobileCellPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesMobileCells.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
-                    else
+                    //if (forRestartEvents)
+                    //    mobileCellPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesMobileCells.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
+                    //else
                         // not allowed for disabled mobile cells scanner
-                        notAllowedMobileCell = true;
+                    //    notAllowedMobileCell = true;
+                    mobileCellPassed = false;
                 } else {
                     //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                     if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn(context)) {
@@ -3980,7 +4007,8 @@ public class DataWrapper {
             PPApplication.logE("DataWrapper.doHandleEvents", "callPassed=" + callPassed);
             PPApplication.logE("DataWrapper.doHandleEvents", "peripheralPassed=" + peripheralPassed);
             PPApplication.logE("DataWrapper.doHandleEvents", "calendarPassed=" + calendarPassed);
-            PPApplication.logE("DataWrapper.doHandleEvents", "wifiPassed=" + wifiPassed);
+            if (event._name.equals("Doma"))
+                PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiPassed=" + wifiPassed);
             PPApplication.logE("DataWrapper.doHandleEvents", "screenPassed=" + screenPassed);
             PPApplication.logE("DataWrapper.doHandleEvents", "bluetoothPassed=" + bluetoothPassed);
             PPApplication.logE("DataWrapper.doHandleEvents", "smsPassed=" + smsPassed);
@@ -3998,7 +4026,8 @@ public class DataWrapper {
             PPApplication.logE("DataWrapper.doHandleEvents", "notAllowedCall=" + notAllowedCall);
             PPApplication.logE("DataWrapper.doHandleEvents", "notAllowedPeripheral=" + notAllowedPeripheral);
             PPApplication.logE("DataWrapper.doHandleEvents", "notAllowedCalendar=" + notAllowedCalendar);
-            PPApplication.logE("DataWrapper.doHandleEvents", "notAllowedWifi=" + notAllowedWifi);
+            if (event._name.equals("Doma"))
+                PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "notAllowedWifi=" + notAllowedWifi);
             PPApplication.logE("DataWrapper.doHandleEvents", "notAllowedScreen=" + notAllowedScreen);
             PPApplication.logE("DataWrapper.doHandleEvents", "notAllowedBluetooth=" + notAllowedBluetooth);
             PPApplication.logE("DataWrapper.doHandleEvents", "notAllowedSms=" + notAllowedSms);
@@ -4011,12 +4040,16 @@ public class DataWrapper {
             PPApplication.logE("DataWrapper.doHandleEvents", "notAllowedRadioSwitch=" + notAllowedRadioSwitch);
             PPApplication.logE("DataWrapper.doHandleEvents", "notAllowedAlarmClock=" + notAllowedAlarmClock);
 
-            PPApplication.logE("DataWrapper.doHandleEvents", "allPassed=" + allPassed);
-            PPApplication.logE("DataWrapper.doHandleEvents", "someNotAllowed=" + someNotAllowed);
+            if (event._name.equals("Doma")) {
+                PPApplication.logE("[***] DataWrapper.doHandleEvents", "allPassed=" + allPassed);
+                PPApplication.logE("[***] DataWrapper.doHandleEvents", "someNotAllowed=" + someNotAllowed);
+            }
 
-            //PPApplication.logE("DataWrapper.doHandleEvents","eventStart="+eventStart);
-            PPApplication.logE("DataWrapper.doHandleEvents", "forRestartEvents=" + forRestartEvents);
-            PPApplication.logE("DataWrapper.doHandleEvents", "statePause=" + statePause);
+            if (event._name.equals("Doma")) {
+                //PPApplication.logE("DataWrapper.doHandleEvents","eventStart="+eventStart);
+                PPApplication.logE("[***] DataWrapper.doHandleEvents", "forRestartEvents=" + forRestartEvents);
+                PPApplication.logE("[***] DataWrapper.doHandleEvents", "statePause=" + statePause);
+            }
         }
 
         if (!someNotAllowed) {
@@ -4034,19 +4067,24 @@ public class DataWrapper {
                 newEventStatus = Event.ESTATUS_PAUSE;
 
             if (PPApplication.logEnabled()) {
-                PPApplication.logE("[***] DataWrapper.doHandleEvents", "event.getStatus()=" + event.getStatus());
-                PPApplication.logE("[***] DataWrapper.doHandleEvents", "newEventStatus=" + newEventStatus);
+                if (event._name.equals("Doma")) {
+                    PPApplication.logE("[***] DataWrapper.doHandleEvents", "event.getStatus()=" + event.getStatus());
+                    PPApplication.logE("[***] DataWrapper.doHandleEvents", "newEventStatus=" + newEventStatus);
+                }
             }
 
             //PPApplication.logE("@@@ DataWrapper.doHandleEvents","restartEvent="+restartEvent);
 
             if ((event.getStatus() != newEventStatus) || forRestartEvents || event._isInDelayStart || event._isInDelayEnd) {
-                PPApplication.logE("[***] DataWrapper.doHandleEvents", " do new event status");
+                if (event._name.equals("Doma"))
+                    PPApplication.logE("[***] DataWrapper.doHandleEvents", " do new event status");
 
                 if ((newEventStatus == Event.ESTATUS_RUNNING) && (!statePause)) {
                     if (PPApplication.logEnabled()) {
-                        PPApplication.logE("[***] DataWrapper.doHandleEvents", "start event");
-                        PPApplication.logE("[***] DataWrapper.doHandleEvents", "event._name=" + event._name);
+                        if (event._name.equals("Doma")) {
+                            PPApplication.logE("[***] DataWrapper.doHandleEvents", "start event");
+                            PPApplication.logE("[***] DataWrapper.doHandleEvents", "event._name=" + event._name);
+                        }
                     }
 
                     if (event._isInDelayEnd)
@@ -4066,12 +4104,14 @@ public class DataWrapper {
                                     event.checkDelayStart(/*this*/);
                                 }
                             }
-                            PPApplication.logE("[***] DataWrapper.doHandleEvents", "event._isInDelayStart=" + event._isInDelayStart);
+                            if (event._name.equals("Doma"))
+                                PPApplication.logE("[***] DataWrapper.doHandleEvents", "event._isInDelayStart=" + event._isInDelayStart);
                             if (!event._isInDelayStart) {
                                 // no delay alarm is set
                                 // start event
                                 event.startEvent(this, eventTimelineList, /*interactive,*/ forRestartEvents, mergedProfile);
-                                PPApplication.logE("[***] DataWrapper.doHandleEvents", "mergedProfile._id=" + mergedProfile._id);
+                                if (event._name.equals("Doma"))
+                                    PPApplication.logE("[***] DataWrapper.doHandleEvents", "mergedProfile._id=" + mergedProfile._id);
                             }
                         }
                         if (PPApplication.logEnabled()) {
@@ -4089,17 +4129,21 @@ public class DataWrapper {
                     // when pausing and it is for restart events, force pause
 
                     if (PPApplication.logEnabled()) {
-                        PPApplication.logE("[***] DataWrapper.doHandleEvents", "pause event");
-                        PPApplication.logE("[***] DataWrapper.doHandleEvents", "event._name=" + event._name);
+                        if (event._name.equals("Doma")) {
+                            PPApplication.logE("[***] DataWrapper.doHandleEvents", "pause event");
+                            PPApplication.logE("[***] DataWrapper.doHandleEvents", "event._name=" + event._name);
+                        }
                     }
 
                     if (event._isInDelayStart) {
-                        PPApplication.logE("[***] DataWrapper.doHandleEvents", "isInDelayStart");
+                        if (event._name.equals("Doma"))
+                            PPApplication.logE("[***] DataWrapper.doHandleEvents", "isInDelayStart");
                         event.removeDelayStartAlarm(this);
                     }
                     else {
                         if (!forDelayEndAlarm) {
-                            PPApplication.logE("[***] DataWrapper.doHandleEvents", "!forDelayEndAlarm");
+                            if (event._name.equals("Doma"))
+                                PPApplication.logE("[***] DataWrapper.doHandleEvents", "!forDelayEndAlarm");
                             // called not for delay alarm
                             if (forRestartEvents) {
                                 event._isInDelayEnd = false;

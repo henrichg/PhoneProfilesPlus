@@ -319,7 +319,8 @@ public class PPApplication extends Application {
                                          //+"|WifiConnectionBroadcastReceiver"
                                          //+"|%%%% WifiBluetoothScanner.doScan"
                                          //+"|$$$W WifiBluetoothScanner"
-                                         //+"|[WiFi] DataWrapper.doHandleEvents"
+                                         +"|[WiFi] DataWrapper.doHandleEvents"
+                                         +"|[***] DataWrapper.doHandleEvents"
 
                                          /*+"|BluetoothScanWorker.doWork"
                                          +"|BluetoothScanWorker.startScanner"
@@ -348,6 +349,7 @@ public class PPApplication extends Application {
                                          //+"|PostDelayedBroadcastReceiver.onReceive"
 
                                          //+"|WifiScanWorker"
+                                         //+"|WifiScanWorker.doWork"
                                          //+"|%%%% WifiScanBroadcastReceiver.onReceive"
 
                                          //+"|WifiSSIDPreference.refreshListView"

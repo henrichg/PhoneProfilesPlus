@@ -346,6 +346,7 @@ public class WifiScanWorker extends Worker {
 
         unlock();
 
+        //Log.e("------ WifiScanWorker.initialize", "clearScanResult="+clearScanResult);
         if (clearScanResult)
             clearScanResults(context);
 

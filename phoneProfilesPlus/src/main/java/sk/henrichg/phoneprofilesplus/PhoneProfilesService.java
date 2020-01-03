@@ -3466,6 +3466,7 @@ public class PhoneProfilesService extends Service
         // register receiver for geofences scanner
         registerGeofencesScannerReceiver(true, true);
 
+        //Log.e("------ PhoneProfilesService.registerReceiversAndWorkers", "fromCommand="+fromCommand);
         WifiScanWorker.initialize(appContext, !fromCommand);
         BluetoothScanWorker.initialize(appContext, !fromCommand);
 
