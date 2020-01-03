@@ -23,8 +23,8 @@
 
         <ImageView
             android:id="@+id/icon_widget_icon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:adjustViewBounds="true"
             android:scaleType="@integer/profilePrefIndicatorScaleType"
             android:src="@drawable/ic_profile_default"
