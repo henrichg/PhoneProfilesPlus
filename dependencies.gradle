@@ -23,8 +23,8 @@
 // 5400 = move night mode background color to "Use night mode"
 
 ext.ppVersions = [
-    publishVersion: '4.1.5.1b',
-    publishVersionCode: 5436,
+    publishVersion: '4.1.5.1',
+    publishVersionCode: 5440,
 
     minSdk: 21,
     targetSdk: 28,
