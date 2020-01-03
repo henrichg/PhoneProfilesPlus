@@ -1539,21 +1539,21 @@ public class DataWrapper {
         }
     }
 
-    /*void invalidateEventTimelineList()
+    private void invalidateEventTimelineList()
     {
         synchronized (eventTimelines) {
             if (eventTimelineListFilled)
                 eventTimelines.clear();
             eventTimelineListFilled = false;
         }
-    }*/
+    }
 
     List<EventTimeline> getEventTimelineList(boolean fromDB)
     {
         synchronized (eventTimelines) {
             if (!eventTimelineListFilled || fromDB)
-                //if (fromDB)
-                //    invalidateEventTimelineList();
+                if (fromDB)
+                    invalidateEventTimelineList();
                 fillEventTimelineList();
         }
         return eventTimelines;

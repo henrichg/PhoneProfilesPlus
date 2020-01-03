@@ -9,6 +9,9 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.CharacterStyle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -869,8 +872,6 @@ public class EditorEventListFragment extends Fragment
         //if (!ApplicationPreferences.applicationEditorHeader(activityDataWrapper.context))
         //    return;
 
-        //Log.e("***** EditorEventListFragment.updateHeader", "xxx");
-
         if ((activeProfileName == null) || (activeProfileIcon == null))
             return;
 
@@ -887,9 +888,16 @@ public class EditorEventListFragment extends Fragment
         }
         else
         {
-            activatedProfileHeader.setTag(DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, activityDataWrapper, true, activityDataWrapper.context));
+            Spannable profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, false, activityDataWrapper, true, activityDataWrapper.context);
+            Spannable sbt = new SpannableString(profileName);
+            Object[] spansToRemove = sbt.getSpans(0, profileName.length(), Object.class);
+            for (Object span : spansToRemove) {
+                if (span instanceof CharacterStyle)
+                    sbt.removeSpan(span);
+            }
+            activatedProfileHeader.setTag(sbt.toString());
 
-            activeProfileName.setText(DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, false, activityDataWrapper, true, activityDataWrapper.context));
+            activeProfileName.setText(profileName);
             if (profile.getIsIconResourceID())
             {
                 if (profile._iconBitmap != null)
@@ -945,7 +953,6 @@ public class EditorEventListFragment extends Fragment
                             redTextVisible = true;
                     }
                 }
-
                 return null;
             }
 
