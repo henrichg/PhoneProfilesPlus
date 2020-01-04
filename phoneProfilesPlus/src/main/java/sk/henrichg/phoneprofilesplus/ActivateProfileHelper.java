@@ -3022,7 +3022,7 @@ class ActivateProfileHelper {
             PhoneProfilesService service = PhoneProfilesService.getInstance();
 
             try {
-                Log.e("ActivateProfileHelper.removeKeepScreenOnView", "keepScreenOnWakeLock="+service.keepScreenOnWakeLock);
+                //Log.e("ActivateProfileHelper.removeKeepScreenOnView", "keepScreenOnWakeLock="+service.keepScreenOnWakeLock);
                 if ((service.keepScreenOnWakeLock != null) && service.keepScreenOnWakeLock.isHeld()) {
                         service.keepScreenOnWakeLock.release();
                         service.keepScreenOnWakeLock = null;

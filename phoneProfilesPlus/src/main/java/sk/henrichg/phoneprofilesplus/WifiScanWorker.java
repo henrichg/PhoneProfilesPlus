@@ -536,8 +536,11 @@ public class WifiScanWorker extends Worker {
         if (wifi == null)
             return;
 
+        PPApplication.logE("WifiScanWorker.fillWifiConfigurationList","wifi="+wifi);
+
         //boolean wifiEnabled = false;
         if (wifi.getWifiState() != WifiManager.WIFI_STATE_ENABLED) {
+            PPApplication.logE("WifiScanWorker.fillWifiConfigurationList","wifi is NOT enabled");
             /*if (enableWifi) {
                 try {
                     wifiEnabled = true;
@@ -551,8 +554,10 @@ public class WifiScanWorker extends Worker {
                 // wifi must be enabled for wifi.getConfiguredNetworks()
                 return;
         }
+        PPApplication.logE("WifiScanWorker.fillWifiConfigurationList","wifi is enabled");
 
         List<WifiConfiguration> _wifiConfigurationList = wifi.getConfiguredNetworks();
+        PPApplication.logE("WifiScanWorker.fillWifiConfigurationList","_wifiConfigurationList.size()="+_wifiConfigurationList.size());
 
         /*if (wifiEnabled) {
             try {
@@ -560,27 +565,31 @@ public class WifiScanWorker extends Worker {
             } catch (Exception ignored) {}
         }*/
 
-        if (_wifiConfigurationList != null)
-        {
+        //if (_wifiConfigurationList != null)
+        //{
             wifiConfigurationList.clear();
             for (WifiConfiguration device : _wifiConfigurationList)
             {
+                PPApplication.logE("WifiScanWorker.fillWifiConfigurationList","device.SSID="+device.SSID);
                 if (device.SSID != null) {
                     boolean found = false;
                     for (WifiSSIDData _device : wifiConfigurationList) {
+                        PPApplication.logE("WifiScanWorker.fillWifiConfigurationList","_device.ssis="+_device.ssid);
                         //if (_device.bssid.equals(device.BSSID))
                         if ((_device.ssid != null) && (_device.ssid.equals(device.SSID))) {
+                            PPApplication.logE("WifiScanWorker.fillWifiConfigurationList","device found");
                             found = true;
                             break;
                         }
                     }
                     if (!found) {
+                        PPApplication.logE("WifiScanWorker.fillWifiConfigurationList","device NOT found, add it");
                         wifiConfigurationList.add(new WifiSSIDData(device.SSID, device.BSSID, false, true, false));
                     }
                 }
             }
-        }
-        //saveWifiConfigurationList(context);
+        //}
+        PPApplication.logE("WifiScanWorker.fillWifiConfigurationList","wifiConfigurationList.size()="+wifiConfigurationList.size());
         saveWifiConfigurationList(context, wifiConfigurationList);
     }
 
@@ -670,11 +679,13 @@ public class WifiScanWorker extends Worker {
 
             editor.clear();
 
+            PPApplication.logE("WifiScanWorker.saveWifiConfigurationList","wifiConfigurationList.size()="+wifiConfigurationList.size());
             editor.putInt(SCAN_RESULT_COUNT_PREF, wifiConfigurationList.size());
 
             Gson gson = new Gson();
 
             for (int i = 0; i < wifiConfigurationList.size(); i++) {
+                PPApplication.logE("WifiScanWorker.saveWifiConfigurationList","wifiConfigurationList.get(i).ssid="+wifiConfigurationList.get(i).ssid);
                 String json = gson.toJson(wifiConfigurationList.get(i));
                 editor.putString(SCAN_RESULT_DEVICE_PREF + i, json);
             }

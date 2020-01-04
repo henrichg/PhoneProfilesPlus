@@ -138,6 +138,7 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
                         PPApplication.logE("ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView.2", "doInBackground");
 
                         List<WifiSSIDData> wifiConfigurationList = WifiScanWorker.getWifiConfigurationList(prefContext);
+                        PPApplication.logE("ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView.2", "wifiConfigurationList.size()="+wifiConfigurationList.size());
 
                         if (wifiEnabled) {
                             try {
@@ -150,14 +151,15 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
                         }
                         wifiEnabled = false;
 
-                        if (wifiConfigurationList != null) {
+                        //if (wifiConfigurationList != null) {
                             for (WifiSSIDData wifiConfiguration : wifiConfigurationList) {
+                                PPApplication.logE("ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView.2", "wifiConfiguration.ssid="+wifiConfiguration.ssid);
                                 //if ((wifiConfiguration.ssid != null) && (wifiConfiguration.bssid != null)) {
                                 // bssid is null from configuration list
                                 if (wifiConfiguration.ssid != null)
                                     _SSIDList.add(new WifiSSIDData(wifiConfiguration.ssid/*.replace("\"", "")*/, wifiConfiguration.bssid, false, true, false));
                             }
-                        }
+                        //}
 
                         Collections.sort(_SSIDList, new ConnectToSSIDDialogPreferenceFragmentX.SortList());
 
