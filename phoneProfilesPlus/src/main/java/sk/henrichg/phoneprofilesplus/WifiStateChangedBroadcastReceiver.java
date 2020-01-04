@@ -57,6 +57,10 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                             PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiStateChangedBroadcastReceiver.onReceive.1");
 
                             if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
+
+                                PPApplication.logE("WifiStateChangedBroadcastReceiver.onReceive.1", "fillWifiConfigurationList");
+                                WifiScanWorker.fillWifiConfigurationList(appContext/*, false*/);
+
                                 if (!(WifiScanWorker.getScanRequest(appContext) ||
                                         WifiScanWorker.getWaitForResults(appContext) ||
                                         WifiScanWorker.getWifiEnabledForScan(appContext))) {
@@ -142,7 +146,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                             //PostDelayedBroadcastReceiver.setAlarm(
                                             //        PostDelayedBroadcastReceiver.ACTION_START_WIFI_SCAN, 5, appContext);
 
-                                        } else if (!WifiScanWorker.getWaitForResults(appContext)) {
+                                        }/* else if (!WifiScanWorker.getWaitForResults(appContext)) {
                                             // refresh configured networks list
                                             PPApplication.startHandlerThread("WifiStateChangedBroadcastReceiver.onReceive.3");
                                             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -172,7 +176,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                                     }
                                                 }
                                             });
-                                        }
+                                        }*/
                                     }
 
                                     if (!(WifiScanWorker.getScanRequest(appContext) ||

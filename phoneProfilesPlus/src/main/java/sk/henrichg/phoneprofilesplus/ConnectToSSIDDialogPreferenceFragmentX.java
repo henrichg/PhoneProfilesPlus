@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +28,9 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
 
     private ConnectToSSIDPreferenceAdapterX listAdapter;
 
-    private AsyncTask asyncTask = null;
+    boolean wifiEnabled;
+    private AsyncTask asyncTask1 = null;
+    private AsyncTask asyncTask2 = null;
 
     @SuppressLint("InflateParams")
     @Override
@@ -57,18 +60,14 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
             }
         });
 
-        asyncTask = new AsyncTask<Void, Integer, Void>() {
+        wifiEnabled = false;
 
-            List<WifiSSIDData> _SSIDList = null;
+        asyncTask1 = new AsyncTask<Void, Integer, Void>() {
 
             @Override
             protected void onPreExecute()
             {
                 super.onPreExecute();
-
-                //Log.d("ConnectToSSIDDialogPreference.onShow","onPreExecute");
-
-                _SSIDList = new ArrayList<>();
 
                 listView.setVisibility(View.GONE);
                 linlaProgress.setVisibility(View.VISIBLE);
@@ -76,24 +75,16 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
 
             @Override
             protected Void doInBackground(Void... params) {
-                WifiScanWorker.fillWifiConfigurationList(prefContext, true);
-                List<WifiSSIDData> wifiConfigurationList = WifiScanWorker.getWifiConfigurationList(prefContext);
-                if (wifiConfigurationList != null)
-                {
-                    for (WifiSSIDData wifiConfiguration : wifiConfigurationList)
-                    {
-                        //if ((wifiConfiguration.ssid != null) && (wifiConfiguration.bssid != null)) {
-                        // bssid is null from configuration list
-                        if (wifiConfiguration.ssid != null)
-                            _SSIDList.add(new WifiSSIDData(wifiConfiguration.ssid/*.replace("\"", "")*/, wifiConfiguration.bssid, false, true, false));
-                    }
-                }
-
-                Collections.sort(_SSIDList, new ConnectToSSIDDialogPreferenceFragmentX.SortList());
-
-                //if (preference.disableSharedProfile == 0)
-                //    _SSIDList.add(0, new WifiSSIDData(Profile.CONNECTTOSSID_SHAREDPROFILE, "", false, false, false));
-                _SSIDList.add(0, new WifiSSIDData(Profile.CONNECTTOSSID_JUSTANY, "", false, false, false));
+                try {
+                    WifiManager wifi = (WifiManager) prefContext.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                    if (wifi != null)
+                        if (wifi.getWifiState() != WifiManager.WIFI_STATE_ENABLED) {
+                            PPApplication.logE("ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView.1", "enable wifi");
+                            wifiEnabled = true;
+                            wifi.setWifiEnabled(true);
+                            PPApplication.sleep(2000);
+                        }
+                } catch (Exception ignored) {}
 
                 return null;
             }
@@ -103,17 +94,78 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
             {
                 super.onPostExecute(result);
 
-                //Log.d("ConnectToSSIDDialogPreference.onShow","onPostExecute");
+                asyncTask1 = null;
 
-                preference.ssidList = new ArrayList<>(_SSIDList);
-                listView.setAdapter(listAdapter);
+                PPApplication.logE("ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView.1", "call async 2");
 
-                linlaProgress.setVisibility(View.GONE);
-                listView.setVisibility(View.VISIBLE);
+                asyncTask2 = new AsyncTask<Void, Integer, Void>() {
+
+                    List<WifiSSIDData> _SSIDList = null;
+
+                    @Override
+                    protected void onPreExecute()
+                    {
+                        super.onPreExecute();
+
+                        PPApplication.logE("ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView.2", "onPreExecute");
+
+                        _SSIDList = new ArrayList<>();
+                    }
+
+                    @Override
+                    protected Void doInBackground(Void... params) {
+                        PPApplication.logE("ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView.2", "doInBackground");
+
+                        List<WifiSSIDData> wifiConfigurationList = WifiScanWorker.getWifiConfigurationList(prefContext);
+
+                        if (wifiEnabled) {
+                            try {
+                                WifiManager wifi = (WifiManager) prefContext.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                                if (wifi != null)
+                                    wifi.setWifiEnabled(false);
+                                PPApplication.logE("ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView.2", "wifi disabled");
+                            } catch (Exception ignored) {}
+                        }
+                        wifiEnabled = false;
+
+                        if (wifiConfigurationList != null)
+                        {
+                            for (WifiSSIDData wifiConfiguration : wifiConfigurationList)
+                            {
+                                //if ((wifiConfiguration.ssid != null) && (wifiConfiguration.bssid != null)) {
+                                // bssid is null from configuration list
+                                if (wifiConfiguration.ssid != null)
+                                    _SSIDList.add(new WifiSSIDData(wifiConfiguration.ssid/*.replace("\"", "")*/, wifiConfiguration.bssid, false, true, false));
+                            }
+                        }
+
+                        Collections.sort(_SSIDList, new ConnectToSSIDDialogPreferenceFragmentX.SortList());
+
+                        //if (preference.disableSharedProfile == 0)
+                        //    _SSIDList.add(0, new WifiSSIDData(Profile.CONNECTTOSSID_SHAREDPROFILE, "", false, false, false));
+                        _SSIDList.add(0, new WifiSSIDData(Profile.CONNECTTOSSID_JUSTANY, "", false, false, false));
+
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void result)
+                    {
+                        super.onPostExecute(result);
+
+                        PPApplication.logE("ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView.2", "onPostExecute");
+
+                        preference.ssidList = new ArrayList<>(_SSIDList);
+                        listView.setAdapter(listAdapter);
+
+                        linlaProgress.setVisibility(View.GONE);
+                        listView.setVisibility(View.VISIBLE);
+                    }
+
+                }.execute();
             }
 
         }.execute();
-
     }
 
     @Override
@@ -126,8 +178,11 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
             preference.resetSummary();
         }
 
-        if ((asyncTask != null) && !asyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
-            asyncTask.cancel(true);
+        if ((asyncTask1 != null) && !asyncTask1.getStatus().equals(AsyncTask.Status.FINISHED)){
+            asyncTask1.cancel(true);
+        }
+        if ((asyncTask2 != null) && !asyncTask2.getStatus().equals(AsyncTask.Status.FINISHED)){
+            asyncTask2.cancel(true);
         }
 
         preference.fragment = null;

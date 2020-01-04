@@ -114,7 +114,7 @@ class WifiBluetoothScanner {
                 if (scannerType.equals(SCANNER_TYPE_WIFI)) {
                     PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "start wifi scan");
 
-                    WifiScanWorker.fillWifiConfigurationList(context, false);
+                    WifiScanWorker.fillWifiConfigurationList(context/*, false*/);
 
                     boolean canScan = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
                     if (canScan) {
