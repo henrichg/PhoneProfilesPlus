@@ -106,7 +106,7 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
                             PPApplication.logE("ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView.1", "enable wifi");
                             wifiEnabled = true;
                             wifi.setWifiEnabled(true);
-                            PPApplication.sleep(5000);
+                            PPApplication.sleep(1000);
                         }
                 } catch (Exception ignored) {
                 }
