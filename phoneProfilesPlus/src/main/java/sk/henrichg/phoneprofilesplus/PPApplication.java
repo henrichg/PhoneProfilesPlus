@@ -317,8 +317,8 @@ public class PPApplication extends Application {
                                          //+"|GeofenceScanWorker.doWork"
                                          //+"|GeofenceScanner.LocationCallback"
 
-                                         //+"|WifiStateChangedBroadcastReceiver"
-                                         //+"|ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView"
+                                         +"|WifiStateChangedBroadcastReceiver"
+                                         +"|ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView"
                                          //+"|WifiConnectionBroadcastReceiver"
                                          //+"|%%%% WifiBluetoothScanner.doScan"
                                          //+"|$$$W WifiBluetoothScanner"

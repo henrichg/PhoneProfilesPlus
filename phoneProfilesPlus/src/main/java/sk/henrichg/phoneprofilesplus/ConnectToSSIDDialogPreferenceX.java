@@ -118,6 +118,11 @@ public class ConnectToSSIDDialogPreferenceX extends DialogPreference {
         setSummaryCTSDP();
     }
 
+    void refreshListView() {
+        if (fragment != null)
+            fragment.refreshListView();
+    }
+
     // SavedState class
     private static class SavedState extends BaseSavedState
     {

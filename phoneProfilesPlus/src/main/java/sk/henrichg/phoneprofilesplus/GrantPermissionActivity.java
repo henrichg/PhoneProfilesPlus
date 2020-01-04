@@ -388,6 +388,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
             //    showRequestString = context.getString(R.string.permissions_for_log_to_file_text1) + "<br><br>";
             else if (grantType == Permissions.GRANT_TYPE_EXPORT_AND_EMAIL_TO_AUTHOR)
                 showRequestString = context.getString(R.string.permissions_for_export_app_data_text1) + "<br><br>";
+            else if (grantType == Permissions.GRANT_TYPE_CONNECT_TO_SSID_DIALOG)
+                showRequestString = context.getString(R.string.permissions_for_connect_to_ssid_dialog_text1) + "<br><br>";
             else
             if (grantType == Permissions.GRANT_TYPE_EVENT){
                     /*if (mergedNotification) {
@@ -529,6 +531,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
             //    showRequestString = showRequestString + context.getString(R.string.permissions_for_log_to_file_text2);
             else if (grantType == Permissions.GRANT_TYPE_EXPORT_AND_EMAIL_TO_AUTHOR)
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_export_app_data_text2);
+            else if (grantType == Permissions.GRANT_TYPE_CONNECT_TO_SSID_DIALOG)
+                showRequestString = showRequestString + context.getString(R.string.permissions_for_connect_to_ssid_dialog_text2);
             else
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text3);
 
@@ -740,6 +744,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         break;
                     case Permissions.PERMISSION_PROFILE_ALWAYS_ON_DISPLAY:
                         s = getString(R.string.permission_why_profile_always_on_display);
+                        break;
+                    case Permissions.PERMISSION_PROFILE_CONNECT_TO_SSID_PREFERENCE:
+                        s = getString(R.string.permission_why_profile_connnect_to_ssid_preference);
                         break;
                 }
             }
@@ -1661,6 +1668,17 @@ public class GrantPermissionActivity extends AppCompatActivity {
             finish();
             Permissions.removeLogToFileNotification(context);
         }*/
+        else
+        if (grantType == Permissions.GRANT_TYPE_CONNECT_TO_SSID_DIALOG) {
+            setResult(Activity.RESULT_OK);
+            finish();
+            /*if (Permissions.contactsMultiSelectDialogPreference != null)
+                Permissions.contactsMultiSelectDialogPreference.refreshListView(true);*/
+            /*if (Permissions.contactGroupsMultiSelectDialogPreference != null)
+                Permissions.contactGroupsMultiSelectDialogPreference.refreshListView(true);*/
+            //dataWrapper.restartEvents(false, true/*, false*/, false);
+            //dataWrapper.restartEventsWithDelay(5, false, /*false,*/ DataWrapper.ALTYPE_UNDEFINED);
+        }
         else {
             // Profile permission
 

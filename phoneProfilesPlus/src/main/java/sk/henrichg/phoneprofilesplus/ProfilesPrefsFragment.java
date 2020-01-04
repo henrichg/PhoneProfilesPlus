@@ -986,6 +986,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (preference != null)
                 preference.refreshListView();
         }
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_CONNECT_TO_SSID_DIALOG) {
+            ConnectToSSIDDialogPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID);
+            if (preference != null)
+                preference.refreshListView();
+        }
     }
 
     @Override

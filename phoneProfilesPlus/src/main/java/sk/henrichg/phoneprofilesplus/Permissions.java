@@ -69,6 +69,7 @@ class Permissions {
     static final int PERMISSION_EVENT_BLUETOOTH_SWITCH_PREFERENCES = 38;
     static final int PERMISSION_EVENT_TIME_PREFERENCES = 39;
     static final int PERMISSION_PROFILE_ALWAYS_ON_DISPLAY = 40;
+    static final int PERMISSION_PROFILE_CONNECT_TO_SSID_PREFERENCE = 41;
 
     static final int GRANT_TYPE_PROFILE = 1;
     //static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -90,6 +91,7 @@ class Permissions {
     //static final int GRANT_TYPE_GRANT_ROOT = 19;
     static final int GRANT_TYPE_EXPORT_AND_EMAIL = 20;
     static final int GRANT_TYPE_EXPORT_AND_EMAIL_TO_AUTHOR = 21;
+    static final int GRANT_TYPE_CONNECT_TO_SSID_DIALOG = 22;
 
     static final int REQUEST_CODE = 5000;
     //static final int REQUEST_CODE_FORCE_GRANT = 6000;
@@ -1912,6 +1914,36 @@ class Permissions {
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
                     ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_RINGTONE_PREFERENCE);
                     //ringtonePreference = preference;
+                    //context.startActivity(intent);
+                } catch (Exception e) {
+                    return false;
+                }
+            }
+            return granted;
+        }
+        else
+            return true;
+    }
+
+    static boolean grantConnectToSSIDDialogPermissions(Context context) {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            boolean granted = checkLocation(context);
+            if (!granted) {
+                try {
+                    ArrayList<PermissionType> permissions = new ArrayList<>();
+                    permissions.add(new PermissionType(PERMISSION_PROFILE_CONNECT_TO_SSID_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
+                    permissions.add(new PermissionType(PERMISSION_PROFILE_CONNECT_TO_SSID_PREFERENCE, permission.ACCESS_FINE_LOCATION));
+
+                    Intent intent = new Intent(context, GrantPermissionActivity.class);
+                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_CONNECT_TO_SSID_DIALOG);
+                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
+                    //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                    intent.putExtra(EXTRA_FORCE_GRANT, true);
+                    ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_CONNECT_TO_SSID_DIALOG);
+                    //contactsMultiSelectDialogPreference = preference;
+                    //contactGroupsMultiSelectDialogPreference = null;
                     //context.startActivity(intent);
                 } catch (Exception e) {
                     return false;
