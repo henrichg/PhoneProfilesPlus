@@ -101,13 +101,16 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
             protected Void doInBackground(Void... params) {
                 try {
                     WifiManager wifi = (WifiManager) prefContext.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                    if (wifi != null)
+                    if (wifi != null) {
                         if (wifi.getWifiState() != WifiManager.WIFI_STATE_ENABLED) {
                             PPApplication.logE("ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView.1", "enable wifi");
                             wifiEnabled = true;
                             wifi.setWifiEnabled(true);
-                            PPApplication.sleep(1000);
+                            PPApplication.sleep(3000);
                         }
+                        else
+                            WifiScanWorker.fillWifiConfigurationList(prefContext.getApplicationContext());
+                    }
                 } catch (Exception ignored) {
                 }
 
