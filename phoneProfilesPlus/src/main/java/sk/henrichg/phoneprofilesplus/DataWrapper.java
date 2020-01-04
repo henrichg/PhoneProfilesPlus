@@ -1901,7 +1901,7 @@ public class DataWrapper {
         }
     }
 
-    void finishActivity(int startupSource, boolean finishActivator, final Activity _activity)
+    void finishActivity(final int startupSource, boolean finishActivator, final Activity _activity)
     {
         if (_activity == null)
             return;
@@ -1933,7 +1933,10 @@ public class DataWrapper {
                 @Override
                 public void run() {
                     try {
-                        _activity.finish();
+                        //if (startupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR)
+                        //    _activity.finishAndRemoveTask();
+                        //else
+                            _activity.finish();
                     } catch (Exception ignored) {}
                 }
             });
