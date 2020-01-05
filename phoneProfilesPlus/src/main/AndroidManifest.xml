@@ -116,14 +116,11 @@
         android:fullBackupOnly="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:resizeableActivity="true"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
-        <!-- android:resizeableActivity="false"
-           disabled multi window support
-        -->
+<!--        android:largeHeap="true"-->
 
         <!-- support for 18.5:9 display (Samsung Galaxy S8, LG G6) -->
         <meta-data

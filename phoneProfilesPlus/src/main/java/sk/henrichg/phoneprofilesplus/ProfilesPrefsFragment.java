@@ -3089,216 +3089,211 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             final Profile profile = ((ProfilesPrefsActivity) getActivity())
                     .getProfileFromPreferences(profile_id, newProfileMode, predefinedProfileIndex);
-
-            // not some permissions
-            if (Permissions.checkProfilePermissions(context, profile).size() == 0) {
-                Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
-                if (preference != null) {
-                    PreferenceScreen preferenceCategory = prefMng.findPreference("rootScreen");
-                    if (preferenceCategory != null)
-                        preferenceCategory.removePreference(preference);
-                }
-            }
-            else {
-                Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
-                if (preference == null) {
-                    PreferenceScreen preferenceCategory = findPreference("rootScreen");
-                    if (preferenceCategory != null) {
-                        preference = new Preference(context);
-                        preference.setKey(PRF_GRANT_PERMISSIONS);
-                        preference.setIconSpaceReserved(false);
-                        preference.setWidgetLayoutResource(R.layout.start_activity_preference);
-                        preference.setLayoutResource(R.layout.mp_preference_material_widget);
-                        preference.setOrder(-100);
-                        preferenceCategory.addPreference(preference);
+            if (profile != null) {
+                // not some permissions
+                if (Permissions.checkProfilePermissions(context, profile).size() == 0) {
+                    Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
+                    if (preference != null) {
+                        PreferenceScreen preferenceCategory = prefMng.findPreference("rootScreen");
+                        if (preferenceCategory != null)
+                            preferenceCategory.removePreference(preference);
                     }
-                }
-                if (preference != null) {
-                    String _title = order + ". " + getString(R.string.preferences_grantPermissions_title);
-                    ++order;
-                    Spannable title = new SpannableString(_title);
-                    title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
-                    preference.setTitle(title);
-                    Spannable summary = new SpannableString(getString(R.string.preferences_grantPermissions_summary));
-                    summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
-                    preference.setSummary(summary);
-
-                    preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                        @Override
-                        public boolean onPreferenceClick(Preference preference) {
-                            //Profile mappedProfile = Profile.getMappedProfile(profile, appContext);
-                            Permissions.grantProfilePermissions(activity, profile/*, false, false,*/
-                                    /*true, false, 0,*/ /*PPApplication.STARTUP_SOURCE_EDITOR, false, false, true*/);
-                            return false;
+                } else {
+                    Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
+                    if (preference == null) {
+                        PreferenceScreen preferenceCategory = findPreference("rootScreen");
+                        if (preferenceCategory != null) {
+                            preference = new Preference(context);
+                            preference.setKey(PRF_GRANT_PERMISSIONS);
+                            preference.setIconSpaceReserved(false);
+                            preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                            preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                            preference.setOrder(-100);
+                            preferenceCategory.addPreference(preference);
                         }
-                    });
-                }
-            }
-
-            // not enabled grant root
-            if (Profile.isProfilePreferenceAllowed("-", profile, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                Preference preference = prefMng.findPreference(PRF_GRANT_ROOT);
-                if (preference != null) {
-                    PreferenceScreen preferenceCategory = findPreference("rootScreen");
-                    if (preferenceCategory != null)
-                        preferenceCategory.removePreference(preference);
-                }
-            }
-            else {
-                Preference preference = prefMng.findPreference(PRF_GRANT_ROOT);
-                if (preference == null) {
-                    PreferenceScreen preferenceCategory = findPreference("rootScreen");
-                    if (preferenceCategory != null) {
-                        preference = new Preference(context);
-                        preference.setKey(PRF_GRANT_ROOT);
-                        preference.setIconSpaceReserved(false);
-                        preference.setWidgetLayoutResource(R.layout.start_activity_preference);
-                        preference.setLayoutResource(R.layout.mp_preference_material_widget);
-                        preference.setOrder(-100);
-                        preferenceCategory.addPreference(preference);
                     }
-                }
-                if (preference != null) {
-                    String _title = order + ". " + getString(R.string.preferences_grantRoot_title);
-                    ++order;
-                    Spannable title = new SpannableString(_title);
-                    title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
-                    preference.setTitle(title);
-                    Spannable summary = new SpannableString(getString(R.string.preferences_grantRoot_summary));
-                    summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
-                    preference.setSummary(summary);
-
-                    final ProfilesPrefsFragment fragment = this;
-                    preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                        @Override
-                        public boolean onPreferenceClick(Preference preference) {
-                            Permissions.grantRootX(fragment, activity);
-                            return false;
-                        }
-                    });
-                }
-            }
-
-            // not enabled notification access
-            if ((profile._volumeRingerMode == 0) || ActivateProfileHelper.canChangeZenMode(context, false)) {
-                Preference preference = prefMng.findPreference(PRF_NOTIFICATION_ACCESS_ENABLED);
-                if (preference != null) {
-                    PreferenceScreen preferenceCategory = findPreference("rootScreen");
-                    if (preferenceCategory != null)
-                        preferenceCategory.removePreference(preference);
-                }
-            }
-            else {
-                Preference preference = prefMng.findPreference(PRF_NOTIFICATION_ACCESS_ENABLED);
-                if (preference == null) {
-                    PreferenceScreen preferenceCategory = findPreference("rootScreen");
-                    if (preferenceCategory != null) {
-                        preference = new Preference(context);
-                        preference.setKey(PRF_NOTIFICATION_ACCESS_ENABLED);
-                        preference.setIconSpaceReserved(false);
-                        preference.setWidgetLayoutResource(R.layout.start_activity_preference);
-                        preference.setLayoutResource(R.layout.mp_preference_material_widget);
-                        preference.setOrder(-100);
-                        preferenceCategory.addPreference(preference);
-                    }
-                }
-                if (preference != null) {
-                    String _title = order + ". ";
-                    String _summary;
-                    boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
-                    final boolean showDoNotDisturbPermission =
-                            (android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
-                                    GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, getActivity().getApplicationContext());
-                    if (showDoNotDisturbPermission) {
-                        _title = _title + getString(R.string.phone_profiles_pref_accessNotificationPolicyPermissions);
-                        _summary = getString(R.string.profile_preferences_red_volumeNotificationsAccessSettings_summary_2);
-                    }
-                    else {
-                        _title = _title + getString(R.string.profile_preferences_volumeNotificationsAccessSettings_title);
-                        _summary = getString(R.string.profile_preferences_red_volumeNotificationsAccessSettings_summary_1);
-                    }
-                    ++order;
-                    Spannable title = new SpannableString(_title);
-                    title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
-                    preference.setTitle(title);
-                    Spannable summary = new SpannableString(_summary);
-                    summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
-                    preference.setSummary(summary);
-
-                    preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                        @Override
-                        public boolean onPreferenceClick(Preference preference) {
-                            enableNotificationAccess(showDoNotDisturbPermission);
-                            return false;
-                        }
-                    });
-                }
-            }
-
-            // not enabled accessibility service
-            int accessibilityEnabled = profile.isAccessibilityServiceEnabled(context);
-            if (accessibilityEnabled == 1) {
-                Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
-                if (preference != null) {
-                    PreferenceScreen preferenceCategory = findPreference("rootScreen");
-                    if (preferenceCategory != null)
-                        preferenceCategory.removePreference(preference);
-                }
-            }
-            else {
-                Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
-                if (preference == null) {
-                    PreferenceScreen preferenceCategory = findPreference("rootScreen");
-                    if (preferenceCategory != null) {
-                        preference = new Preference(context);
-                        preference.setKey(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
-                        preference.setIconSpaceReserved(false);
-                        preference.setWidgetLayoutResource(R.layout.start_activity_preference);
-                        preference.setLayoutResource(R.layout.mp_preference_material_widget);
-                        preference.setOrder(-97);
-                        preferenceCategory.addPreference(preference);
-                    }
-                }
-                if (preference != null) {
-                    int stringRes = R.string.preferences_not_enabled_accessibility_service_title;
-                    if (accessibilityEnabled == -2)
-                        stringRes = R.string.preferences_not_installed_PPPExtender_title;
-                    else if (accessibilityEnabled == -1)
-                        stringRes = R.string.preferences_old_version_PPPExtender_title;
-                    String _title = order + ". " + getString(stringRes);
-                    ++order;
-                    Spannable title = new SpannableString(_title);
-                    title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
-                    preference.setTitle(title);
-                    if ((accessibilityEnabled == -1) || (accessibilityEnabled == -2)) {
-                        _title = getString(R.string.event_preferences_red_install_PPPExtender);
-                        Spannable summary = new SpannableString(_title);
+                    if (preference != null) {
+                        String _title = order + ". " + getString(R.string.preferences_grantPermissions_title);
+                        ++order;
+                        Spannable title = new SpannableString(_title);
+                        title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
+                        preference.setTitle(title);
+                        Spannable summary = new SpannableString(getString(R.string.preferences_grantPermissions_summary));
                         summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
                         preference.setSummary(summary);
 
                         preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                             @Override
                             public boolean onPreferenceClick(Preference preference) {
-                                installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + "\n\n" +
-                                        getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
-                                        getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
+                                //Profile mappedProfile = Profile.getMappedProfile(profile, appContext);
+                                Permissions.grantProfilePermissions(activity, profile/*, false, false,*/
+                                        /*true, false, 0,*/ /*PPApplication.STARTUP_SOURCE_EDITOR, false, false, true*/);
                                 return false;
                             }
                         });
                     }
-                    else {
-                        _title = getString(R.string.event_preferences_red_enable_PPPExtender);
-                        Spannable summary = new SpannableString(_title);
+                }
+
+                // not enabled grant root
+                if (Profile.isProfilePreferenceAllowed("-", profile, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    Preference preference = prefMng.findPreference(PRF_GRANT_ROOT);
+                    if (preference != null) {
+                        PreferenceScreen preferenceCategory = findPreference("rootScreen");
+                        if (preferenceCategory != null)
+                            preferenceCategory.removePreference(preference);
+                    }
+                } else {
+                    Preference preference = prefMng.findPreference(PRF_GRANT_ROOT);
+                    if (preference == null) {
+                        PreferenceScreen preferenceCategory = findPreference("rootScreen");
+                        if (preferenceCategory != null) {
+                            preference = new Preference(context);
+                            preference.setKey(PRF_GRANT_ROOT);
+                            preference.setIconSpaceReserved(false);
+                            preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                            preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                            preference.setOrder(-100);
+                            preferenceCategory.addPreference(preference);
+                        }
+                    }
+                    if (preference != null) {
+                        String _title = order + ". " + getString(R.string.preferences_grantRoot_title);
+                        ++order;
+                        Spannable title = new SpannableString(_title);
+                        title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
+                        preference.setTitle(title);
+                        Spannable summary = new SpannableString(getString(R.string.preferences_grantRoot_summary));
+                        summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
+                        preference.setSummary(summary);
+
+                        final ProfilesPrefsFragment fragment = this;
+                        preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                            @Override
+                            public boolean onPreferenceClick(Preference preference) {
+                                Permissions.grantRootX(fragment, activity);
+                                return false;
+                            }
+                        });
+                    }
+                }
+
+                // not enabled notification access
+                if ((profile._volumeRingerMode == 0) || ActivateProfileHelper.canChangeZenMode(context, false)) {
+                    Preference preference = prefMng.findPreference(PRF_NOTIFICATION_ACCESS_ENABLED);
+                    if (preference != null) {
+                        PreferenceScreen preferenceCategory = findPreference("rootScreen");
+                        if (preferenceCategory != null)
+                            preferenceCategory.removePreference(preference);
+                    }
+                } else {
+                    Preference preference = prefMng.findPreference(PRF_NOTIFICATION_ACCESS_ENABLED);
+                    if (preference == null) {
+                        PreferenceScreen preferenceCategory = findPreference("rootScreen");
+                        if (preferenceCategory != null) {
+                            preference = new Preference(context);
+                            preference.setKey(PRF_NOTIFICATION_ACCESS_ENABLED);
+                            preference.setIconSpaceReserved(false);
+                            preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                            preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                            preference.setOrder(-100);
+                            preferenceCategory.addPreference(preference);
+                        }
+                    }
+                    if (preference != null) {
+                        String _title = order + ". ";
+                        String _summary;
+                        boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+                        final boolean showDoNotDisturbPermission =
+                                (android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
+                                        GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, getActivity().getApplicationContext());
+                        if (showDoNotDisturbPermission) {
+                            _title = _title + getString(R.string.phone_profiles_pref_accessNotificationPolicyPermissions);
+                            _summary = getString(R.string.profile_preferences_red_volumeNotificationsAccessSettings_summary_2);
+                        } else {
+                            _title = _title + getString(R.string.profile_preferences_volumeNotificationsAccessSettings_title);
+                            _summary = getString(R.string.profile_preferences_red_volumeNotificationsAccessSettings_summary_1);
+                        }
+                        ++order;
+                        Spannable title = new SpannableString(_title);
+                        title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
+                        preference.setTitle(title);
+                        Spannable summary = new SpannableString(_summary);
                         summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
                         preference.setSummary(summary);
 
                         preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                             @Override
                             public boolean onPreferenceClick(Preference preference) {
-                                enableExtender();
+                                enableNotificationAccess(showDoNotDisturbPermission);
                                 return false;
                             }
                         });
+                    }
+                }
+
+                // not enabled accessibility service
+                int accessibilityEnabled = profile.isAccessibilityServiceEnabled(context);
+                if (accessibilityEnabled == 1) {
+                    Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
+                    if (preference != null) {
+                        PreferenceScreen preferenceCategory = findPreference("rootScreen");
+                        if (preferenceCategory != null)
+                            preferenceCategory.removePreference(preference);
+                    }
+                } else {
+                    Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
+                    if (preference == null) {
+                        PreferenceScreen preferenceCategory = findPreference("rootScreen");
+                        if (preferenceCategory != null) {
+                            preference = new Preference(context);
+                            preference.setKey(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
+                            preference.setIconSpaceReserved(false);
+                            preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                            preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                            preference.setOrder(-97);
+                            preferenceCategory.addPreference(preference);
+                        }
+                    }
+                    if (preference != null) {
+                        int stringRes = R.string.preferences_not_enabled_accessibility_service_title;
+                        if (accessibilityEnabled == -2)
+                            stringRes = R.string.preferences_not_installed_PPPExtender_title;
+                        else if (accessibilityEnabled == -1)
+                            stringRes = R.string.preferences_old_version_PPPExtender_title;
+                        String _title = order + ". " + getString(stringRes);
+                        ++order;
+                        Spannable title = new SpannableString(_title);
+                        title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
+                        preference.setTitle(title);
+                        if ((accessibilityEnabled == -1) || (accessibilityEnabled == -2)) {
+                            _title = getString(R.string.event_preferences_red_install_PPPExtender);
+                            Spannable summary = new SpannableString(_title);
+                            summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
+                            preference.setSummary(summary);
+
+                            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                                @Override
+                                public boolean onPreferenceClick(Preference preference) {
+                                    installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + "\n\n" +
+                                            getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
+                                            getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
+                                    return false;
+                                }
+                            });
+                        } else {
+                            _title = getString(R.string.event_preferences_red_enable_PPPExtender);
+                            Spannable summary = new SpannableString(_title);
+                            summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
+                            preference.setSummary(summary);
+
+                            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                                @Override
+                                public boolean onPreferenceClick(Preference preference) {
+                                    enableExtender();
+                                    return false;
+                                }
+                            });
+                        }
                     }
                 }
             }
