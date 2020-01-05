@@ -773,7 +773,7 @@
     <string name="event_preferences_radioSwitch_airplaneMode">Mod u avionu</string>
     <string name="event_preferences_radioSwitch_info_title">Konfigurisanje senzora</string>
     <string name="event_preferences_radioSwitch_info_summary">Svi opcije za radio moraju biti ispunjene za početak događaja. Konfigurišite samo one opcije za radio koje su vam potrebne.</string>
-    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Any SSID</string>
+    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Bilo koji SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Poveži se na SSID</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Podesi glasnoću linka</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Obrada detekcije</string>

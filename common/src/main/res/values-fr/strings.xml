@@ -773,7 +773,7 @@
     <string name="event_preferences_radioSwitch_airplaneMode">Mode avion</string>
     <string name="event_preferences_radioSwitch_info_title">Configuration des capteurs</string>
     <string name="event_preferences_radioSwitch_info_summary">L\'état de toutes les radios doivent être remplies pour commencer les évènements. Configurez uniquement les radios dont vous avez besoin.</string>
-    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Any SSID</string>
+    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">N\'importe quel SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Se connecter au SSID</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Fusion des volumes</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Détecté automatiquement</string>
@@ -1364,7 +1364,7 @@
     <string name="alert_button_install">Installer</string>
     <string name="event_preferences_red_enable_PPPExtender">Cliquez ici pour l\'activer. Recherchez PhoneProfilesPLusExtender et autorisez son \"Accessibilité\".</string>
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">Pour activer le paramètre de profil « Type d\'interruptions », autorisez l\'accès aux notifications à PhoneProfilesPlus dans les paramètres du système. Cliquez ici pour l\'activer.</string>
-    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Do not disturb access\" in system settings. Click here to enable it.</string>
+    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">Pour activer le profil \"Ne pas déranger\", autorisez à PhoneProfilesPlus \"l’accès à ne pas déranger\" dans les paramètres du système. Cliquez ici pour l\'activer.</string>
     <string name="editor_activity_targetHelps_bottomNavigation_description_2">Cliquez ici, lorsqu\'il est activé, pour afficher l\'en-tête cachée et la barre d\'outils du bas.</string>
     <string name="event_preferences_notifications_checkContacts">Vérifier les contacts</string>
     <string name="event_preferences_notifications_contact_groups">Groupes de contacts</string>
@@ -1375,18 +1375,18 @@
     <string name="profile_preferences_red_texts_text_1">Profil</string>
     <string name="event_preferences_red_texts_text_1">Evénement</string>
     <string name="event_preferences_red_texts_title">Erreur dans les préférences d\'événement</string>
-    <string name="preferences_red_texts_text_2">has some errors in it\'s preferences.</string>
+    <string name="preferences_red_texts_text_2">a des erreurs dans ses préférences.</string>
     <string name="preferences_red_texts_text_click">Cliquez sur cette notification pour l\'ouvrir.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Dialogues de confirmation du Wi-Fi et du Bluetooth</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Pour \"ColorOs\" est possible de désactiver ces boîtes de dialogue. Cliquez ceci, pour savoir comment.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">Dans les paramètres du système de périphériques:\n1. Options du développeurs\\Options du développeur = activer\n2. Options développeur \\Debugging\\USB débogage = activer\n3. Options développeurs\\Apps\\Désactive la surveillance d\'autorisation = activée.</string>
     <string name="important_info_android_look_application_settings">Veuillez ouvrir les paramètres PhoneProfilesPlus et le configurer. Surtout les paramètres marqués avec du texte en gras.</string>
-    <string name="profile_preferences_red_texts_text_2">For this, is not possible to activate it.</string>
-    <string name="event_preferences_red_texts_text_2">For this, is not possible to change it\'s run.</string>
-    <string name="profile_preferences_red_texts_text_3">For this, is not possible to show it in Activator.</string>
-    <string name="profile_preferences_red_texts_in_header">Some profiles has errors in it\'s preferences. These profiles are marked with red color. Please fix it.</string>
-    <string name="event_preferences_red_texts_in_header">Some events has errors in it\'s preferences. These events are marked with red color. Please fix it.</string>
-    <string name="profile_preferences_deviceScreenOnPermanent">Turn and leave screen on</string>
+    <string name="profile_preferences_red_texts_text_2">Pour cela, il n\'est pas possible de l\'activer.</string>
+    <string name="event_preferences_red_texts_text_2">Pour cela, il n\'est pas possible de changer son exécution.</string>
+    <string name="profile_preferences_red_texts_text_3">Pour cela, il n\'est pas possible de le montrer dans l\'activateur.</string>
+    <string name="profile_preferences_red_texts_in_header">Certains profils ont des erreurs dans leurs préférences. Ces profils sont marqués de couleur rouge. Veuillez les corriger.</string>
+    <string name="event_preferences_red_texts_in_header">Certains événements ont des erreurs dans leurs préférences. Ces événements sont marqués de couleur rouge. Veuillez les corriger.</string>
+    <string name="profile_preferences_deviceScreenOnPermanent">Allumer l\'écran et le laisser allumé</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>
