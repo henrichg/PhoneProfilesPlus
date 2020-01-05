@@ -557,7 +557,6 @@ public class WifiScanWorker extends Worker {
         PPApplication.logE("WifiScanWorker.fillWifiConfigurationList","wifi is enabled");
 
         List<WifiConfiguration> _wifiConfigurationList = wifi.getConfiguredNetworks();
-        PPApplication.logE("WifiScanWorker.fillWifiConfigurationList","_wifiConfigurationList.size()="+_wifiConfigurationList.size());
 
         /*if (wifiEnabled) {
             try {
@@ -565,8 +564,9 @@ public class WifiScanWorker extends Worker {
             } catch (Exception ignored) {}
         }*/
 
-        //if (_wifiConfigurationList != null)
-        //{
+        if (_wifiConfigurationList != null)
+        {
+            PPApplication.logE("WifiScanWorker.fillWifiConfigurationList","_wifiConfigurationList.size()="+_wifiConfigurationList.size());
             wifiConfigurationList.clear();
             for (WifiConfiguration device : _wifiConfigurationList)
             {
@@ -588,7 +588,7 @@ public class WifiScanWorker extends Worker {
                     }
                 }
             }
-        //}
+        }
         PPApplication.logE("WifiScanWorker.fillWifiConfigurationList","wifiConfigurationList.size()="+wifiConfigurationList.size());
         saveWifiConfigurationList(context, wifiConfigurationList);
     }
