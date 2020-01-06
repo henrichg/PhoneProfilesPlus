@@ -1,3 +1,37 @@
+------------------------
+
+[x] location event (when at point X, radius Y)
+[x] app event (when app X is started)
+[x] Notification event lasts until notification is gone
+[x] expand/shrink event and profile preferences, maybe with a checkbox instead of an arrow and all active preferences are expanded – PPP use Android standard preference screens. Than I can only use subscreens. - Yes! If I understand you right, that was my idea.
+[x] profile event (only when profile X is active, can't end event)
+[x] notification event
+[x] Seconds in profile duration
+[x] 5 minutes as settable screen timeout
+[ ] Priority Notification Event
+[x] Restart events at boot option
+[x] Restart events shortcut for launcher
+[ ] Normal media volume, headphone media volume, Bluetooth media volume
+[ ] Sony's "Stamina" mode as profile preference
+[ ] USB connection to PC as storage device, USB connection to PC as camera, connection to USB stick in accessories parameter for events
+[x] Option to delete logs after x days
+[ ] Resizable grid in Activator
+[ ] option to hide PPP from Launcher
+[x] Not started/not shown option for app event/notification event (like WiFi and Bluetooth) (aka "Not in front/Not connected")
+[ ] Set min and max CPU frequency
+[ ] Open a website with profile
+[x] once and never again event (creatable with an additional button in starter, only start time, end time, start battery, gets deleted after end)
+[ ] toggle torch
+[ ] profile/event search
+[ ] "change wallpapper"->live wallpappers
+[ ] Persistent profile/event: sets its options every x minutes
+[ ] Android Wear support?
+[ ] (AND, OR, XOR, NOT. Or at least NOT.)<-NOT is already available in most preferences. If that stays, that does the same.
+[ ] a plugin system? (very small core app, ability to install additional event preferences, maybe only time event preinstalled)
+[ ] PP&PPP for PC?
+
+------------------------
+
 System.Settings:
 notifications_use_ring_volume ---+--> ze by na odlinkovanie zvonenia a notifikacii?
 unlink_volumes_together ---------+
