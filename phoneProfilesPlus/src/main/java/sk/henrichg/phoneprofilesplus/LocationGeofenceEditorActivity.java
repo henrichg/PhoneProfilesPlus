@@ -608,7 +608,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                             if (zoom > 16)
                                 zoom = 16;
                             mMap.animateCamera(CameraUpdateFactory.zoomTo(zoom));//, 1000, null);
-                        } catch (Exception e) {
+                        } catch (StackOverflowError e) {
                             mMap.moveCamera(CameraUpdateFactory.newLatLng(editedGeofence));
                         }
                     }
