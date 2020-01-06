@@ -863,7 +863,7 @@
     <string name="event_preferences_applications_PPPExtender_install_summary">Pro povolení parametru \"Aplikace\", klikněte zde pro instalaci PhoneProfilesPlusExtender.</string>
     <string name="event_preferences_orientation_PPPExtender_install_summary">Pro povolení parametru \"Ignorovat pro aplikace\", klikněte zde pro instalaci PhoneProfilesPlusExtender.</string>
     <string name="event_preferences_applications_PPPExtender_upgrade_summary">Klikněte zde pro kontrolu změn a aktualizace PhoneProfilesPlusExtender.</string>
-    <string name="important_info_accessibility_service_text1">Vzhledem k tomu, že společnost Google změnila pravidla o používání služeb dostupnosti, musíte pro událostní senzor aplikací a událostní senzor orientace nainstalovat PhoneProfilesPlusExtender. Podívejte se na parametry těchto senzorů pro více informací.</string>
+    <string name="important_info_accessibility_service_text1">Vzhledem k tomu, že společnost Google změnila pravidla o používání služeb dostupnosti, musíte pro senzor aplikací a senzor orientace v události nainstalovat PhoneProfilesPlusExtender. Podívejte se na parametry těchto senzorů pro více informací.</string>
     <string name="about_application_extender_source_code">Zdrojový kód - Extender:</string>
     <string name="pref_dlg_info_about_wildcards_4">Můžete nakonfigurovat více řetězců. Oddělte je znakem \"|\".</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_title">Předvolený profil</string>
@@ -963,11 +963,11 @@
     <string name="array_pref_do_not_close">Nezavírat</string>
     <string name="array_pref_close">Zavřít</string>
     <string name="profile_preferences_deviceCloseAllApplicationsInfo_summary">Simuluje stisk tlačítka Domů v navigačním panelu.</string>
-    <string name="phone_profiles_pref_applicationEventLocation_info">Tato nastavení jsou pro událostní senzor Polohy.</string>
-    <string name="phone_profiles_pref_applicationEventWifi_info">Tato nastavení jsou pro událostní senzor Wi-Fi.</string>
-    <string name="phone_profiles_pref_applicationEventBluetooth_info">Tato nastavení jsou pro událostní senzor Bluetooth.</string>
-    <string name="phone_profiles_pref_applicationEventMobileCell_info">Tato nastavení jsou pro událostní senzor Mobilních buněk.</string>
-    <string name="phone_profiles_pref_applicationEventOrientation_info">Tato nastavení jsou pro událostní senzor Orientace.</string>
+    <string name="phone_profiles_pref_applicationEventLocation_info">Tato nastavení jsou pro senzor Polohy v události.</string>
+    <string name="phone_profiles_pref_applicationEventWifi_info">Tato nastavení jsou pro senzor Wi-Fi v události.</string>
+    <string name="phone_profiles_pref_applicationEventBluetooth_info">Tato nastavení jsou pro senzor Bluetooth v události.</string>
+    <string name="phone_profiles_pref_applicationEventMobileCell_info">Tato nastavení jsou pro senzor Mobilních buněk v události.</string>
+    <string name="phone_profiles_pref_applicationEventOrientation_info">Tato nastavení jsou pro senzor Orientace v události.</string>
     <string name="profileicon_pref_dialog_custom_icon_image_too_large">Obrázek vlastní ikony je příliš velký. Povolené je max.</string>
     <string name="profile_preferences_category_touchEffects">Efekty klepnutí</string>
     <string name="profile_preferences_soundOnTouch">Zvuk při klepnutí</string>
@@ -1087,7 +1087,7 @@
     <string name="phone_profiles_pref_applicationWidgetIconShowBorder">Zobrazit okraj (widget)</string>
     <string name="event_preferences_sms_AccessibilitySettingsForExtender_summary">Povolte PhoneProfilesPlusExtender v systémovém nastavení \"Dostupnost\". Funkce dostupnosti není použita, běžící servis je potřebný pro příjem SMS a MMS.</string>
     <string name="event_preferences_sms_PPPExtender_install_summary">Klikněte zde pro instalaci PhoneProfilesPlusExtender. běžící servis je potřebný pro příjem SMS a MMS.</string>
-    <string name="important_info_accessibility_service_text2">Vzhledem k tomu, že společnost Google změnila pravidla o používání práv pro příjem SMS a MMS, musíte pro událostní senzor SMS/MMS nainstalovat PhoneProfilesPlusExtender. Podívejte se na parametry tohoto senzoru pro více informací.</string>
+    <string name="important_info_accessibility_service_text2">Vzhledem k tomu, že společnost Google změnila pravidla o používání práv pro příjem SMS a MMS, musíte pro senzor SMS/MMS v události nainstalovat PhoneProfilesPlusExtender. Podívejte se na parametry tohoto senzoru pro více informací.</string>
     <string name="permission_not_granted">Odepřeno</string>
     <string name="permission_granted">Uděleno</string>
     <string name="menu_dark_theme_on">Zapnout tmavé téma</string>
@@ -1109,7 +1109,7 @@
     <string name="event_preferences_call_PPPExtender_install_summary">Klikněte zde pro instalaci PhoneProfilesPlusExtender. Běžící servis je potřebný pro příjem hovorů.</string>
     <string name="permission_why_event_sms_preferences">pro čtení kontaktů v senzoru SMS/MMS</string>
     <string name="permission_why_event_call_preferences">pro čtení kontaktů, zjištění vyzvánění hovoru (pro \"noční hovor\") v senzoru Hovoru</string>
-    <string name="important_info_accessibility_service_text3">Vzhledem k tomu, že společnost Google změnila pravidla o používání práv pro příjem hovorů, musíte pro událostní senzor hovorů nainstalovat PhoneProfilesPlusExtender. Podívejte se na parametry tohoto senzoru pro více informací.</string>
+    <string name="important_info_accessibility_service_text3">Vzhledem k tomu, že společnost Google změnila pravidla o používání práv pro příjem hovorů, musíte pro senzor hovorů v události nainstalovat PhoneProfilesPlusExtender. Podívejte se na parametry tohoto senzoru pro více informací.</string>
     <string name="phone_profiles_pref_notificationUseDecoration">Použít dekoraci</string>
     <string name="phone_profiles_pref_notificationLayoutType">Typ rozložení</string>
     <string name="phone_profiles_pref_notificationLayoutType_expandable">Roztažitelné</string>
