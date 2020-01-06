@@ -161,8 +161,8 @@
 
         <activity
             android:name=".LauncherActivity"
-            android:excludeFromRecents="true"
             android:label="@string/title_activity_phone_profiles"
+            android:excludeFromRecents="true"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
             <intent-filter>
@@ -171,13 +171,15 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-<!--        android:taskAffinity="sk.henrichg.phoneprofilesplus.popup"-->
-<!--        android:excludeFromRecents="true"-->
+
         <activity
             android:name=".ActivateProfileActivity"
             android:label="@string/title_activity_activator"
+            android:excludeFromRecents="true"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.popup"
             android:theme="@style/PopupTheme_withToolbar_dayNight">
         </activity>
+
         <activity
             android:name=".EditorProfilesActivity"
             android:label="@string/title_activity_editor"
