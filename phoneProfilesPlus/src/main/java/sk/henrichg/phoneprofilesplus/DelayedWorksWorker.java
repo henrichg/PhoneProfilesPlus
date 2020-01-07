@@ -39,6 +39,7 @@ public class DelayedWorksWorker extends Worker {
                 return Result.success();
 
             boolean activateProfiles = getInputData().getBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
+            boolean restartService = getInputData().getBoolean(PackageReplacedReceiver.EXTRA_RESTART_SERVICE, false);
             String sensorType = getInputData().getString(PhoneProfilesService.EXTRA_SENSOR_TYPE);
 
             //outputData = generateResult(LocationGeofenceEditorActivity.FAILURE_RESULT,
@@ -97,7 +98,7 @@ public class DelayedWorksWorker extends Worker {
                     }
                     break;
                 case DELAYED_WORK_PACKAGE_REPLACED:
-                    PPApplication.logE("DelayedWorksWorker.doWork", "restartService=" + PackageReplacedReceiver.restartService);
+                    PPApplication.logE("DelayedWorksWorker.doWork", "restartService=" + restartService);
 
                     DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
@@ -117,14 +118,14 @@ public class DelayedWorksWorker extends Worker {
                         // service is not started, start it
                         PPApplication.logE("PackageReplacedReceiver.onReceive - worker", "PP service is not started, start it");
                         if (startService(dataWrapper))
-                            PackageReplacedReceiver.restartService = true;
+                            restartService = true;
                     } else {
                         PPApplication.logE("PackageReplacedReceiver.onReceive - worker", "PP service is started");
-                        if (PackageReplacedReceiver.restartService)
+                        if (restartService)
                             startService(dataWrapper);
                     }
 
-                    if (!PackageReplacedReceiver.restartService) {
+                    if (!restartService) {
                         // restart service is not set, only restart events.
 
                         //PPApplication.sleep(3000);

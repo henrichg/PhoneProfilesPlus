@@ -21,7 +21,7 @@ import androidx.work.WorkManager;
 
 public class PackageReplacedReceiver extends BroadcastReceiver {
 
-    static boolean restartService;
+    static final String EXTRA_RESTART_SERVICE = "restart_service";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -29,8 +29,6 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
         if ((intent != null) && (intent.getAction() != null) && intent.getAction().equals(Intent.ACTION_MY_PACKAGE_REPLACED)) {
             PPApplication.logE("##### PackageReplacedReceiver.onReceive", "xxx");
-
-            restartService = false;
 
             PPApplication.setBlockProfileEventActions(true, context);
 
@@ -74,6 +72,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                         //WifiBluetoothScanner.setShowEnableLocationNotification(appContext, true, WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
                         //PhoneStateScanner.setShowEnableLocationNotification(appContext, true);
                         //ActivateProfileHelper.setScreenUnlocked(appContext, true);
+
+                        boolean restartService = false;
 
                         PPApplication.logE("PackageReplacedReceiver.onReceive", "oldVersionCode=" + oldVersionCode);
                         int actualVersionCode;
@@ -397,6 +397,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                         // work for restart service
                         Data workData = new Data.Builder()
                                 .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED)
+                                .putBoolean(PackageReplacedReceiver.EXTRA_RESTART_SERVICE, restartService)
                                 .build();
 
                         OneTimeWorkRequest worker =

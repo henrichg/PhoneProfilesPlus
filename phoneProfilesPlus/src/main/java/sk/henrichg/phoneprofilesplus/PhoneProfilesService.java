@@ -3873,7 +3873,7 @@ public class PhoneProfilesService extends Service
                         OneTimeWorkRequest worker =
                                 new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
                                         .setInputData(workData)
-                                        .setInitialDelay(5, TimeUnit.SECONDS)
+                                        .setInitialDelay(3, TimeUnit.SECONDS)
                                         .build();
                         try {
                             WorkManager workManager = WorkManager.getInstance(appContext);
