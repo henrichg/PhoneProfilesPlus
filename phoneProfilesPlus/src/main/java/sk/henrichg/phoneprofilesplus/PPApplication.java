@@ -116,6 +116,8 @@ public class PPApplication extends Application {
                                          +"|PhoneProfilesBackupAgent"
                                          +"|ShutdownBroadcastReceiver"
 
+                                         //+"|BluetoothConnectedDevices"
+
                                          //+"|[BRS] SettingsContentObserver.onChange"
 
                                          //+"|EditorProfilesActivity.finishBroadcastReceiver"

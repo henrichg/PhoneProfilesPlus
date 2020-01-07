@@ -393,6 +393,22 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                         }
 
                         PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PackageReplacedReceiver.onReceive.1");
+
+                        // work for restart service
+                        Data workData = new Data.Builder()
+                                .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED)
+                                .build();
+
+                        OneTimeWorkRequest worker =
+                                new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                        .setInputData(workData)
+                                        .setInitialDelay(3, TimeUnit.SECONDS)
+                                        .build();
+                        try {
+                            WorkManager workManager = WorkManager.getInstance(appContext);
+                            workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.REPLACE, worker);
+                        } catch (Exception ignored) {}
+
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -400,21 +416,6 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             } catch (Exception ignored) {}
                         }
                     }
-
-                    // work for restart service
-                    Data workData = new Data.Builder()
-                            .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED)
-                            .build();
-
-                    OneTimeWorkRequest worker =
-                            new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
-                                    .setInputData(workData)
-                                    .setInitialDelay(3, TimeUnit.SECONDS)
-                                    .build();
-                    try {
-                        WorkManager workManager = WorkManager.getInstance(appContext);
-                        workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.REPLACE, worker);
-                    } catch (Exception ignored) {}
                 }
             });
 

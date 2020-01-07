@@ -57,14 +57,40 @@ public class DelayedWorksWorker extends Worker {
                         PhoneProfilesService instance = PhoneProfilesService.getInstance();
                         instance.setWaitForEndOfStartToFalse();
 
-                        if (Event.getGlobalEventsRunning(appContext)) {
+                        /*if (Event.getGlobalEventsRunning(appContext)) {
                             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
                             if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
                                 PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "RESTART EVENTS AFTER WAIT FOR END OF START");
-                                dataWrapper.restartEventsWithRescan(/*true, */activateProfiles, false, true, false);
+                                dataWrapper.restartEventsWithRescan(activateProfiles, false, true, false);
                                 //dataWrapper.invalidateDataWrapper();
                             }
+                        }*/
+                        // start events
+                        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+
+                        if (Event.getGlobalEventsRunning(appContext)) {
+                            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "global event run is enabled, first start events");
+
+                            if (activateProfiles) {
+                                if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
+                                    ////// unblock all events for first start
+                                    //     that may be blocked in previous application run
+                                    dataWrapper.pauseAllEvents(false, false);
+                                }
+                            }
+
+                            dataWrapper.firstStartEvents(true, false);
+                        } else {
+                            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "global event run is not enabled, manually activate profile");
+
+                            if (activateProfiles) {
+                                ////// unblock all events for first start
+                                //     that may be blocked in previous application run
+                                dataWrapper.pauseAllEvents(true, false);
+                            }
+
+                            dataWrapper.activateProfileOnBoot();
                         }
 
                         PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "PhoneProfilesService.doForFirstStart.2 END");

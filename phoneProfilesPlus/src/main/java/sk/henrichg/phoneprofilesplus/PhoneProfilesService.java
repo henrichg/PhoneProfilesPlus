@@ -3611,13 +3611,13 @@ public class PhoneProfilesService extends Service
             //if (onlyStart)
             //    PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_ONLY_START");
             if (deactivateProfile)
-                PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_DEACTIVATE_PROFILE");
+                PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_DEACTIVATE_PROFILE");
             if (activateProfiles)
-                PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_ACTIVATE_PROFILES");
+                PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_ACTIVATE_PROFILES");
             if (startOnBoot)
-                PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_START_ON_BOOT");
+                PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_START_ON_BOOT");
             if (startOnPackageReplace)
-                PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_START_ON_PACKAGE_REPLACE");
+                PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_START_ON_PACKAGE_REPLACE");
         }
 
         //PPApplication.logE("PhoneProfilesService.doForFirstStart", "serviceRunning="+serviceRunning);
@@ -3712,12 +3712,12 @@ public class PhoneProfilesService extends Service
                         //GlobalGUIRoutines.setLanguage(appContext);
                         GlobalGUIRoutines.switchNightMode(getApplicationContext(), true);
 
-                        //if (_startOnBoot || _startOnPackageReplace || _initializeStart) {
+                        /*if (_startOnBoot || _startOnPackageReplace || _initializeStart) {
                             // restart first start
                             serviceHasFirstStart = false;
-                        //}
+                        }
 
-                        /*if (serviceHasFirstStart) {
+                        if (serviceHasFirstStart) {
                             PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "application already started");
 
                             PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneProfilesService.doForFirstStart");
@@ -3831,7 +3831,7 @@ public class PhoneProfilesService extends Service
                             if (_activateProfiles)
                                 dataWrapper.addActivityLog(DataWrapper.ALTYPE_APPLICATION_START, null, null, null, 0);
 
-                            // start events
+                            /*// start events
                             if (Event.getGlobalEventsRunning(appContext)) {
                                 PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "global event run is enabled, first start events");
 
@@ -3854,7 +3854,7 @@ public class PhoneProfilesService extends Service
                                 }
 
                                 dataWrapper.activateProfileOnBoot();
-                            }
+                            }*/
                         //}
 
                         //dataWrapper.invalidateDataWrapper();
@@ -3864,6 +3864,22 @@ public class PhoneProfilesService extends Service
                             PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneProfilesService.doForFirstStart");
                         }
 
+                        // work for first start events or activate profile on boot
+                        Data workData = new Data.Builder()
+                                .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START)
+                                .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, _activateProfiles)
+                                .build();
+
+                        OneTimeWorkRequest worker =
+                                new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                        .setInputData(workData)
+                                        .setInitialDelay(5, TimeUnit.SECONDS)
+                                        .build();
+                        try {
+                            WorkManager workManager = WorkManager.getInstance(appContext);
+                            workManager.enqueueUniqueWork("delayedWorkAfterFirstStartWork", ExistingWorkPolicy.REPLACE, worker);
+                        } catch (Exception ignored) {}
+
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -3871,22 +3887,6 @@ public class PhoneProfilesService extends Service
                             } catch (Exception ignored) {}
                         }
                     }
-
-                    // work fo restart events
-                    Data workData = new Data.Builder()
-                            .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START)
-                            .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, _activateProfiles)
-                            .build();
-
-                    OneTimeWorkRequest worker =
-                            new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
-                                    .setInputData(workData)
-                                    .setInitialDelay(30, TimeUnit.SECONDS)
-                                    .build();
-                    try {
-                        WorkManager workManager = WorkManager.getInstance(appContext);
-                        workManager.enqueueUniqueWork("delayedWorkAfterFirstStartWork", ExistingWorkPolicy.REPLACE, worker);
-                    } catch (Exception ignored) {}
                 }
             });
 
