@@ -2469,10 +2469,10 @@ class ActivateProfileHelper {
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //this is important
 
                     float brightnessValue;
-                    if (profile.getDeviceBrightnessAutomatic() || (!profile.getDeviceBrightnessChangeLevel()))
+                    //if (profile.getDeviceBrightnessAutomatic() || (!profile.getDeviceBrightnessChangeLevel()))
                         brightnessValue = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
-                    else
-                        brightnessValue= profile.getDeviceBrightnessManualValue(context) / (float) 255;
+                    //else
+                    //    brightnessValue= profile.getDeviceBrightnessManualValue(context) / (float) 255;
                     intent.putExtra(BackgroundBrightnessActivity.EXTRA_BRIGHTNESS_VALUE, brightnessValue);
 
                     context.startActivity(intent);
