@@ -394,7 +394,7 @@
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
-            android:theme="@style/EmptyAppCompatActivity">
+            android:theme="@style/BackgroundBrightnessActivity">
         </activity>
 
         <!-- implicit broadcast receivers, in Android O exception group -->
