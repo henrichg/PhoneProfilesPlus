@@ -758,7 +758,7 @@ class ApplicationPreferences {
         return getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_NIGHT_MODE, false);
     }
 
-    static public boolean applicationEditorHideHeaderOrBottomBar(Context context) {
+    static boolean applicationEditorHideHeaderOrBottomBar(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EDITOR_HIDE_HEADER_OR_BOTTOM_BAR, true);
     }
 
