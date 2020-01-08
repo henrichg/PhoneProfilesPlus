@@ -2264,7 +2264,7 @@ public class Profile {
             else
             if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
                 defaultValue = 2048;
-            if ((Build.VERSION.SDK_INT > 28)  && (!PPApplication.deviceIsSamsung)) {
+            if ((Build.VERSION.SDK_INT > 28)  && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsOnePlus)) {
                 PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT > 28");
                 defaultValue = getBrightnessValue_A9(50/*, minimumValue, maximumValue*/);
             }
