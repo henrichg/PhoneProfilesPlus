@@ -115,7 +115,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
         if (preference.savedBrightnessMode == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC)
             layoutParams.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
         else
-            layoutParams.screenBrightness = preference.savedBrightness / (float) 255;
+            layoutParams.screenBrightness = preference.savedLayoutParamsBrightness;
         win.setAttributes(layoutParams);
 
         preference.fragment = null;
@@ -185,7 +185,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
             if (preference.savedBrightnessMode == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC)
                 layoutParams.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
             else
-                layoutParams.screenBrightness = preference.savedBrightness / (float) 255;
+                layoutParams.screenBrightness = preference.savedLayoutParamsBrightness;
             win.setAttributes(layoutParams);
         }
         else
@@ -212,7 +212,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
                 if (_changeLevel == 1)
                     layoutParams.screenBrightness = Profile.convertPercentsToBrightnessManualValue(_value/* + preference.minimumValue*/, context) / (float) 255;
                 else
-                    layoutParams.screenBrightness = preference.savedBrightness / (float) 255;
+                    layoutParams.screenBrightness = preference.savedLayoutParamsBrightness;
             }
             win.setAttributes(layoutParams);
         }
@@ -338,7 +338,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
             if (preference.changeLevel == 1)
                 layoutParams.screenBrightness = Profile.convertPercentsToBrightnessManualValue(value/* + preference.minimumValue*/, context) / (float) 255;
             else
-                layoutParams.screenBrightness = preference.savedBrightness / (float) 255;
+                layoutParams.screenBrightness = preference.savedLayoutParamsBrightness;
         }
         win.setAttributes(layoutParams);
     }
