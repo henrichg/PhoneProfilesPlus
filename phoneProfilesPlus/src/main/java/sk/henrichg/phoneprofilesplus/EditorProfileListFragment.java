@@ -232,38 +232,42 @@ public class EditorProfileListFragment extends Fragment
 
             }*/
 
-            final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_profiles_list_fragment))
-                    .getLayoutTransition();
-            layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
+            if (ApplicationPreferences.applicationEditorHideHeaderOrBottomBar(getActivity().getApplicationContext())) {
+                final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_profiles_list_fragment))
+                        .getLayoutTransition();
+                layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
 
-            listView.addOnScrollListener(new HidingRecyclerViewScrollListener() {
-                @Override
-                public void onHide() {
+                listView.addOnScrollListener(new HidingRecyclerViewScrollListener() {
+                    @Override
+                    public void onHide() {
                 /*if ((activatedProfileHeader.getMeasuredHeight() >= headerHeight - 4) &&
                     (activatedProfileHeader.getMeasuredHeight() <= headerHeight + 4))
                     hideAnimator.start();*/
-                    if (!layoutTransition.isRunning()) {
-                        //final int firstVisibleItem = ((LinearLayoutManager) listView.getLayoutManager()).findFirstVisibleItemPosition();
-                        //if (firstVisibleItem != 0)
-                        activatedProfileHeader.setVisibility(GONE);
+                        if (!layoutTransition.isRunning()) {
+                            //final int firstVisibleItem = ((LinearLayoutManager) listView.getLayoutManager()).findFirstVisibleItemPosition();
+                            //if (firstVisibleItem != 0)
+                            activatedProfileHeader.setVisibility(GONE);
 
-                        bottomToolbar.setVisibility(View.VISIBLE);
+                            bottomToolbar.setVisibility(View.VISIBLE);
+                        }
                     }
-                }
 
-                @Override
-                public void onShow() {
+                    @Override
+                    public void onShow() {
                     /*if (activatedProfileHeader.getMeasuredHeight() == 0)
                         showAnimator.start();*/
-                    if (!layoutTransition.isRunning()) {
-                        //final int firstVisibleItem = ((LinearLayoutManager) listView.getLayoutManager()).findFirstVisibleItemPosition();
-                        //if (firstVisibleItem == 0)
-                        activatedProfileHeader.setVisibility(View.VISIBLE);
+                        if (!layoutTransition.isRunning()) {
+                            //final int firstVisibleItem = ((LinearLayoutManager) listView.getLayoutManager()).findFirstVisibleItemPosition();
+                            //if (firstVisibleItem == 0)
+                            activatedProfileHeader.setVisibility(View.VISIBLE);
 
-                        bottomToolbar.setVisibility(GONE);
+                            bottomToolbar.setVisibility(GONE);
+                        }
                     }
-                }
-            });
+                });
+            }
+            else
+                showHeaderAndBottomToolbar();
         }
 
         textViewNoData = view.findViewById(R.id.editor_profiles_list_empty);

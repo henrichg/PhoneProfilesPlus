@@ -1452,6 +1452,9 @@
     <string name="permissions_for_connect_to_ssid_dialog_text1">Connect to SSID requires some permissions.</string>
     <string name="permissions_for_connect_to_ssid_dialog_text2">Please grant them in next dialog. List of configured SSID will then be shown.</string>
 
+    <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar">Hide header or bottom bar</string>
+    <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar_summary">Allow hiding of header or bottom bar during scroll of list</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
