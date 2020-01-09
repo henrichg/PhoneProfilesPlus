@@ -1448,7 +1448,7 @@
 
     <string name="profile_preferences_deviceScreenOnPermanent">Turn and leave screen on</string>
 
-    <string name="permission_why_profile_connnect_to_ssid_preference">for use connect to SSID</string>
+    <string name="permission_why_profile_connnect_to_ssid_preference">for connect to SSID</string>
     <string name="permissions_for_connect_to_ssid_dialog_text1">Connect to SSID requires some permissions.</string>
     <string name="permissions_for_connect_to_ssid_dialog_text2">Please grant them in next dialog. List of configured SSID will then be shown.</string>
 
