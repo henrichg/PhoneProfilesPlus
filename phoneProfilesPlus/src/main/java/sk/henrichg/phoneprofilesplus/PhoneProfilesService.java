@@ -3639,6 +3639,8 @@ public class PhoneProfilesService extends Service
 
                     serviceHasFirstStart = true;
 
+                    PPApplication.createNotificationChannels(appContext);
+
                     if (_deactivateProfile) {
                         DatabaseHandler.getInstance(appContext).deactivateProfile();
                         ActivateProfileHelper.updateGUI(appContext, false, true);
@@ -3684,7 +3686,6 @@ public class PhoneProfilesService extends Service
 
                     DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
-                    PPApplication.createNotificationChannels(appContext);
                     dataWrapper.setDynamicLauncherShortcuts();
 
                     PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "application not started, start it");
@@ -3818,7 +3819,7 @@ public class PhoneProfilesService extends Service
     {
         PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
 
-        showProfileNotification(false, true, false);
+        showProfileNotification(true, true, false);
         doForFirstStart(intent);
 
         return START_STICKY;
