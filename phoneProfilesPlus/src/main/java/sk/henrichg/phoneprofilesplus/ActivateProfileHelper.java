@@ -71,6 +71,7 @@ class ActivateProfileHelper {
     static boolean lockRefresh = false;
 
     static boolean disableScreenTimeoutInternalChange = false;
+    static boolean brightnessDialogInternalChange = false;
 
     // bluetooth calls volume stream
     static final int STREAM_BLUETOOTH_SCO = 6;

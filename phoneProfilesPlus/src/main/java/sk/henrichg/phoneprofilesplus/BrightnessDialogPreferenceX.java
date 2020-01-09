@@ -28,7 +28,7 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
     //private final int defaultValue = 50;
     final int maximumValue = 100;
     //final int minimumValue = 0;
-    final int stepSize = 1;
+    //final int stepSize = 1;
 
     private String sValue = "";
     private String defaultValue;
@@ -39,10 +39,7 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
     final boolean adaptiveAllowed;
     //final Profile _sharedProfile;
 
-    final int savedBrightness;
-    final float savedAdaptiveBrightness;
-    final int savedBrightnessMode;
-    final float savedLayoutParamsBrightness;
+    float savedLayoutParamsBrightness;
 
     public BrightnessDialogPreferenceX(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -76,11 +73,11 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
             maximumValue = 255;
         }*/
 
-        savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,
+        /*savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,
                 Profile.convertPercentsToBrightnessManualValue(50, context));
         savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
         //if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
-        savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, 0f);
+        savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, 0f);*/
         Window win = ((Activity)context).getWindow();
         WindowManager.LayoutParams layoutParams = win.getAttributes();
         savedLayoutParamsBrightness = layoutParams.screenBrightness;
@@ -111,7 +108,7 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
             if (value == Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET) {
                 // brightness is not set, change it to default adaptive brightness value
                 int halfValue = maximumValue / 2;
-                value = Math.round(savedAdaptiveBrightness * halfValue + halfValue);
+                value = Math.round(SettingsContentObserver.savedAdaptiveBrightness * halfValue + halfValue);
             }
             if ((value < 0) || (value > maximumValue)) {
                 value = 50;
