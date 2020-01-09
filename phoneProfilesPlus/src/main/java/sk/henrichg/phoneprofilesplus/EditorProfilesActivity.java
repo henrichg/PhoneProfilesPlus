@@ -2967,6 +2967,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
         mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
         mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+        mBuilder.setOnlyAlertOnce(true);
 
         NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (mNotificationManager != null)
