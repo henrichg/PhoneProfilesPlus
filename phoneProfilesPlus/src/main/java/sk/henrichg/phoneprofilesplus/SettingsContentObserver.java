@@ -19,6 +19,10 @@ class SettingsContentObserver  extends ContentObserver {
     //private int defaultRingerMode = 0;
     private static int previousScreenTimeout = 0;
 
+    static int savedBrightness;
+    static float savedAdaptiveBrightness;
+    static int savedBrightnessMode;
+
     private final Context context;
 
     SettingsContentObserver(Context c, Handler handler) {
@@ -34,6 +38,15 @@ class SettingsContentObserver  extends ContentObserver {
             //previousVolumeAlarm = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
             //previousVolumeSystem = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
             //previousVolumeVoice = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
+        }
+
+        savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
+        savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
+        savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, -1);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("[BRSD] SettingsContentObserver.constructor", "brightness mode=" + savedBrightnessMode);
+            PPApplication.logE("[BRSD] SettingsContentObserver.constructor", "manual brightness value=" + savedBrightness);
+            PPApplication.logE("[BRSD] SettingsContentObserver.constructor", "adaptive brightness value=" + savedAdaptiveBrightness);
         }
     }
 
@@ -135,12 +148,25 @@ class SettingsContentObserver  extends ContentObserver {
         }
         previousScreenTimeout = screenTimeout;
 
-        int value = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
-        PPApplication.logE("[BRS] SettingsContentObserver.onChange","brightness mode="+value);
-        value = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
-        PPApplication.logE("[BRS] SettingsContentObserver.onChange","manual brightness value="+value);
-        float fValue = Settings.System.getFloat(context.getContentResolver(), ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, -1);
-        PPApplication.logE("[BRS] SettingsContentObserver.onChange","adaptive brightness value="+fValue);
+        if (!ActivateProfileHelper.brightnessDialogInternalChange) {
+            savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
+            savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
+            savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, -1);
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("[BRSD] SettingsContentObserver.onChange", "brightness mode=" + savedBrightnessMode);
+                PPApplication.logE("[BRSD] SettingsContentObserver.onChange", "manual brightness value=" + savedBrightness);
+                PPApplication.logE("[BRSD] SettingsContentObserver.onChange", "adaptive brightness value=" + savedAdaptiveBrightness);
+            }
+        }
+
+        if (PPApplication.logEnabled()) {
+            int value = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
+            PPApplication.logE("[BRS] SettingsContentObserver.onChange", "brightness mode=" + value);
+            value = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
+            PPApplication.logE("[BRS] SettingsContentObserver.onChange", "manual brightness value=" + value);
+            float fValue = Settings.System.getFloat(context.getContentResolver(), ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, -1);
+            PPApplication.logE("[BRS] SettingsContentObserver.onChange", "adaptive brightness value=" + fValue);
+        }
 
         /////////////
     }
