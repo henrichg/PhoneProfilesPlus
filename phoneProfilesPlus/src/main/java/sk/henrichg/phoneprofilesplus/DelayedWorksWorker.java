@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
@@ -69,6 +70,17 @@ public class DelayedWorksWorker extends Worker {
                         }*/
                         // start events
                         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+
+                        if (activateProfiles) {
+                            ApplicationPreferences.getSharedPreferences(appContext);
+                            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_DISABLED_SCANNING_BY_PROFILE, false);
+                            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_DISABLED_SCANNING_BY_PROFILE, false);
+                            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_DISABLED_SCANNING_BY_PROFILE, false);
+                            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_DISABLED_SCANNING_BY_PROFILE, false);
+                            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, false);
+                            editor.apply();
+                        }
 
                         if (Event.getGlobalEventsRunning(appContext)) {
                             PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "global event run is enabled, first start events");
