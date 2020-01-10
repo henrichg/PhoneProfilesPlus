@@ -884,8 +884,8 @@
     <string name="import_profiles_alert_error_database_newer_version">The backed-up database is in a newer version.</string>
     <string name="phone_profiles_pref_backgroundProfileNotificationSound">Default profile: Notification sound</string>
     <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Default profile: Notify by vibration</string>
-    <string name="profile_preferences_durationNotificationSound">Duration end: Notification sound</string>
-    <string name="profile_preferences_durationNotificationVibrate">Duration end: Notify by vibration</string>
+    <string name="profile_preferences_durationNotificationSound">Notification sound</string>
+    <string name="profile_preferences_durationNotificationVibrate">Notify by vibration</string>
     <string name="array_event_pref_missed_call">Missed call</string>
     <string name="start_event_notification_title">Event started</string>
     <string name="start_event_notification_text1">Event name</string>
@@ -1455,6 +1455,9 @@
     <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar">Hide header or bottom bar</string>
     <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar_summary">Allow hiding of header or bottom bar during scroll of list</string>
 
+    <string name="preferences_durationInfo_summary">Parameters marked with [M] are used only when this profile is activated manually. Activation from event ignores these parameters.</string>
+    <string name="profile_preferences_durationEndCategory">Duration end</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
@@ -1717,3 +1720,4 @@
     <!--    <string name="array_pref_value_vi" translatable="false">vi</string>-->
 
 </resources>
+

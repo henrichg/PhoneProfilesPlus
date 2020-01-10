@@ -4,6 +4,12 @@
     app:title="@string/profile_preferences_category_activation_duration"
     app:key="prf_pref_activationDurationCategory" >
 
+    <Preference
+        app:key="prf_pref_durationInfo"
+        app:title="@string/profile_preferences_durationNotificationSound"
+        app:summary="@string/preferences_durationInfo_summary"
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/info_preference" />
     <sk.henrichg.phoneprofilesplus.DurationDialogPreferenceX
         app:key="prf_pref_duration"
         app:summary="@string/profile_preferences_duration"
@@ -34,24 +40,29 @@
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget"
         app:disableDependentsState="true"/>
-    <Preference
-        app:key="prf_pref_durationNotificationSoundInfo"
-        app:title="@string/profile_preferences_durationNotificationSound"
-        app:summary="@string/preferences_durationNotificationSoundInfo_summary"
-        app:layout="@layout/mp_preference_material_widget"
-        app:widgetLayout="@layout/info_preference" />
-    <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
-        app:key="prf_pref_durationNotificationSound"
-        app:summary="@string/ringtone_preference_not_set"
-        app:title="@string/profile_preferences_durationNotificationSound"
-        app:layout="@layout/mp_preference_material_widget"
-        app:ringtoneType="notification"
-        app:showSilent="true"
-        app:showDefault="true" />
-    <SwitchPreferenceCompat
-        app:key="prf_pref_durationNotificationVibrate"
-        app:title="@string/profile_preferences_durationNotificationVibrate"
-        app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget"/>
+    <PreferenceCategory
+        app:key="prf_pref_durationEndCategory"
+        app:title="@string/profile_preferences_durationEndCategory"
+        app:layout="@layout/mp_preference_category" >
+        <Preference
+            app:key="prf_pref_durationNotificationSoundInfo"
+            app:title="@string/profile_preferences_durationNotificationSound"
+            app:summary="@string/preferences_durationNotificationSoundInfo_summary"
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/info_preference" />
+        <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
+            app:key="prf_pref_durationNotificationSound"
+            app:summary="@string/ringtone_preference_not_set"
+            app:title="@string/profile_preferences_durationNotificationSound"
+            app:layout="@layout/mp_preference_material_widget"
+            app:ringtoneType="notification"
+            app:showSilent="true"
+            app:showDefault="true" />
+        <SwitchPreferenceCompat
+            app:key="prf_pref_durationNotificationVibrate"
+            app:title="@string/profile_preferences_durationNotificationVibrate"
+            app:defaultValue="false"
+            app:layout="@layout/mp_preference_material_widget"/>
+    </PreferenceCategory>
     
 </androidx.preference.PreferenceScreen>

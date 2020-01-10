@@ -514,6 +514,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         Preference preference;
+
+        preference = prefMng.findPreference(Profile.PREF_PROFILE_ASK_FOR_DURATION);
+        if (preference != null) {
+            preference.setTitle("[M] " + getString(R.string.profile_preferences_askForDuration));
+        }
+
         /*if (!ApplicationPreferences.preferences.getBoolean(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES, true)) {
             // detection of volumes merge = volumes are not merged
             preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
@@ -1155,6 +1161,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
             else {
                 _bold = true;
+                askForDurationTitle = "[M] " + askForDurationTitle;
                 summary = summary + askForDurationTitle + ": <b>" + getString(R.string.profile_preferences_enabled) + "</b>";
             }
             if (_bold) {

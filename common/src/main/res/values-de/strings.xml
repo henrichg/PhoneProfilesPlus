@@ -879,8 +879,8 @@
     <string name="import_profiles_alert_error_database_newer_version">Die gesicherte Datenbank hat eine neuere Version.</string>
     <string name="phone_profiles_pref_backgroundProfileNotificationSound">Standardprofil: Benachrichtigungston</string>
     <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Standardprofil: Benachrichtigung durch Vibration</string>
-    <string name="profile_preferences_durationNotificationSound">Laufzeitende: Benachrichtigungston</string>
-    <string name="profile_preferences_durationNotificationVibrate">Laufzeitende: Benachrichtigung durch Vibration</string>
+    <string name="profile_preferences_durationNotificationSound">Benachrichtigungston</string>
+    <string name="profile_preferences_durationNotificationVibrate">Benachrichtigung durch Vibration</string>
     <string name="array_event_pref_missed_call">Verpasster Anruf</string>
     <string name="start_event_notification_title">Ereignis gestartet</string>
     <string name="start_event_notification_text1">Ereignis Name</string>
@@ -1387,6 +1387,13 @@
     <string name="profile_preferences_red_texts_in_header">Einige Profile enthalten Fehler in ihren Einstellungen. Diese Profile wurden mit roter Farbe gekennzeichnet. Bitte korrigieren Sie diese.</string>
     <string name="event_preferences_red_texts_in_header">Einige Ereignisse enthalten Fehler in den Einstellungen. Diese Ereignisse wurden mit roter Farbe gekennzeichnet. Bitte korrigieren Sie diese.</string>
     <string name="profile_preferences_deviceScreenOnPermanent">Bildschirm einschalten und eingeschaltet lassen</string>
+    <string name="permission_why_profile_connnect_to_ssid_preference">für Verbinden mit SSID</string>
+    <string name="permissions_for_connect_to_ssid_dialog_text1">Die Verbindung mit SSID erfordert einige Berechtigungen.</string>
+    <string name="permissions_for_connect_to_ssid_dialog_text2">Bitte diese im nächsten Dialog gewähren. Es wird daraufhin eine Liste der konfigurierten SSIDs angezeigt.</string>
+    <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar">Kopf- oder Fußleiste ausblenden</string>
+    <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar_summary">Erlaubt das Ausblenden der Kopf- oder Fußleiste während des Blättern in der Liste</string>
+    <string name="preferences_durationInfo_summary">Die mit [M] gekennzeichneten Parameter werden nur verwendet, wenn dieses Profil manuell aktiviert wurde. Bei der Aktivierung durch Ereignis werden diese Parameter ignoriert.</string>
+    <string name="profile_preferences_durationEndCategory">Ende der Laufzeit</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>

@@ -879,8 +879,8 @@
     <string name="import_profiles_alert_error_database_newer_version">Резервная копия базы данных имеет более позднюю версию.</string>
     <string name="phone_profiles_pref_backgroundProfileNotificationSound">Профиль по умолчанию: звук уведомлений</string>
     <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Профиль по умолчанию: уведомлять вибрацией</string>
-    <string name="profile_preferences_durationNotificationSound">Окончание: звуковое уведомление</string>
-    <string name="profile_preferences_durationNotificationVibrate">Окончание: вибро уведомление</string>
+    <string name="profile_preferences_durationNotificationSound">Звуковое уведомление</string>
+    <string name="profile_preferences_durationNotificationVibrate">Вибро уведомление</string>
     <string name="array_event_pref_missed_call">Пропущенный вызов</string>
     <string name="start_event_notification_title">Событие перезапущено</string>
     <string name="start_event_notification_text1">Название события</string>
@@ -1387,6 +1387,13 @@
     <string name="profile_preferences_red_texts_in_header">Настройки некоторых профилей ошибочны. Такие профили отмечены красным цветом. Пожалуйста, исправьте их.</string>
     <string name="event_preferences_red_texts_in_header">Настройки некоторых событий ошибочны. Такие события отмечены красным цветом. Пожалуйста, исправьте их.</string>
     <string name="profile_preferences_deviceScreenOnPermanent">Включить экран и оставить его включённым</string>
+    <string name="permission_why_profile_connnect_to_ssid_preference">для подключения к SSID</string>
+    <string name="permissions_for_connect_to_ssid_dialog_text1">Подключение к SSID требует дополнительных разрешений.</string>
+    <string name="permissions_for_connect_to_ssid_dialog_text2">Please grant them in next dialog. List of configured SSID will then be shown.</string>
+    <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar">Скрывать заголовок или нижнюю панель</string>
+    <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar_summary">Разрешить скрывать заголовок или нижнюю панель во время прокрутки списка</string>
+    <string name="preferences_durationInfo_summary">Parameters marked with [M] are used only when this profile is activated manually. Activation from event ignores these parameters.</string>
+    <string name="profile_preferences_durationEndCategory">Duration end</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>

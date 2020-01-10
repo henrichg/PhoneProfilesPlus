@@ -773,7 +773,7 @@
     <string name="event_preferences_radioSwitch_airplaneMode">Tryb samolotowy</string>
     <string name="event_preferences_radioSwitch_info_title">Konfiguracja sensora</string>
     <string name="event_preferences_radioSwitch_info_summary">Stan każdego radia musi być spełniony, aby uruchomić zdarzenie. Skonfiguruj tylko te radia, które potrzebujesz.</string>
-    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Any SSID</string>
+    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Dowolny SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Połącz z SSID</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Ustaw linki woluminów</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Zachowaj wykrywanie</string>
@@ -1315,7 +1315,7 @@
     <string name="application_editor_intent_edit_category_button_tooltip">Edytuj kategorię</string>
     <string name="application_editor_intent_edit_flags_button_tooltip">Edytuj flagi</string>
     <string name="mobile_cells_pref_dlg_rename_cell_button_tooltip">Zmień nazwę stacji</string>
-    <string name="location_editor_rename_with_address_button_tooltip">Rename with address</string>
+    <string name="location_editor_rename_with_address_button_tooltip">Ustaw adres jako nazwę</string>
     <string name="location_editor_set_to_my_location_button_tooltip">Ustaw jako moją lokalizację</string>
     <string name="help_button_tooltip">Pomoc</string>
     <string name="bluetooth_name_pref_dlg_select_button_tooltip">Wybierz nazwy Bluetooth</string>
@@ -1333,12 +1333,12 @@
     <string name="time_duration_picker_hour_sign">h</string>
     <string name="time_duration_picker_minute_sign">m</string>
     <string name="time_duration_picker_second_sign">s</string>
-    <string name="phone_profiles_pref_category_status_bar">Status bar</string>
-    <string name="editor_drawer_title_events_order">Order</string>
-    <string name="editor_activity_targetHelps_orderSpinner_title">Events order</string>
+    <string name="phone_profiles_pref_category_status_bar">Pasek statusu</string>
+    <string name="editor_drawer_title_events_order">Kolejność</string>
+    <string name="editor_activity_targetHelps_orderSpinner_title">Kolejność zdarzeń</string>
     <string name="editor_activity_targetHelps_orderSpinner_description">Click this to switch between order of Events view.</string>
-    <string name="editor_activity_targetHelps_runStopEvents_title">Enable run events</string>
-    <string name="editor_activity_targetHelps_runStopEvents_description">Click this to enable run of events. Without this, configured events will not be running.</string>
+    <string name="editor_activity_targetHelps_runStopEvents_title">Włącz uruchamianie zdarzeń</string>
+    <string name="editor_activity_targetHelps_runStopEvents_description">Kliknij tutaj, aby włączyć uruchamianie zdarzeń. Bez tego skonfigurowane zdarzenia nie będą uruchamiane.</string>
     <string name="samsung_edge_panel_description">Profile activation or Restart events with Samsung Edge panel</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_black">Czarny</string>
     <string name="phone_profiles_pref_notificationBackgroundCustomColor">Własny kolor tła</string>
@@ -1387,6 +1387,13 @@
     <string name="profile_preferences_red_texts_in_header">Some profiles has errors in it\'s preferences. These profiles are marked with red color. Please fix it.</string>
     <string name="event_preferences_red_texts_in_header">Some events has errors in it\'s preferences. These events are marked with red color. Please fix it.</string>
     <string name="profile_preferences_deviceScreenOnPermanent">Turn and leave screen on</string>
+    <string name="permission_why_profile_connnect_to_ssid_preference">for connect to SSID</string>
+    <string name="permissions_for_connect_to_ssid_dialog_text1">Connect to SSID requires some permissions.</string>
+    <string name="permissions_for_connect_to_ssid_dialog_text2">Please grant them in next dialog. List of configured SSID will then be shown.</string>
+    <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar">Hide header or bottom bar</string>
+    <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar_summary">Allow hiding of header or bottom bar during scroll of list</string>
+    <string name="preferences_durationInfo_summary">Parameters marked with [M] are used only when this profile is activated manually. Activation from event ignores these parameters.</string>
+    <string name="profile_preferences_durationEndCategory">Duration end</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>
