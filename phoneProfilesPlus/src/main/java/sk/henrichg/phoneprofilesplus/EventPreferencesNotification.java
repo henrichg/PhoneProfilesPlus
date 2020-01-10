@@ -867,8 +867,20 @@ class EventPreferencesNotification extends EventPreferences {
             }
             PPApplication.logE("EventPreferencesNotification.isNotificationActive", "textFound=" + textFound);
 
-            if (textFound) {
-                //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "postIme=" + statusBarNotification);
+            if (testText && textFound) {
+                if (checkEnd) {
+                    if (_packageName.endsWith(packageName)) {
+                        //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName returned=" + _packageName);
+                        return statusBarNotification;
+                    }
+                } else {
+                    if (_packageName.equals(packageName)) {
+                        //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName returned=" + _packageName);
+                        return statusBarNotification;
+                    }
+                }
+            }
+            else if (!testText) {
                 if (checkEnd) {
                     if (_packageName.endsWith(packageName)) {
                         //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName returned=" + _packageName);
@@ -1021,6 +1033,7 @@ class EventPreferencesNotification extends EventPreferences {
                         PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "packageName=" + packageName);
                         // search for package name in saved package names
                         notification = isNotificationActive(statusBarNotifications, packageName, false/*, context*/);
+                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification=" + notification);
                         if (notification != null) {
                             if (_duration != 0) {
                                 long postTime = notification.getPostTime() + this._duration * 1000;
