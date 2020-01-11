@@ -234,6 +234,7 @@ public class PPApplication extends Application {
                                          //+"|ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0"
                                          //+"|ActivateProfileHelper.isAudibleSystemRingerMode"
                                          //+"|ActivateProfileHelper.setVibrateWhenRinging"
+                                         //+"|PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume"
 
                                          //+"|PhoneProfilesPrefsActivity"
                                          //+"|PhoneProfilesPrefsActivity.onCreate"

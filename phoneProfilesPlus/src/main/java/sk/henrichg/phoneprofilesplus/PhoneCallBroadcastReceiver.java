@@ -21,7 +21,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
     static final int LINKMODE_NONE = 0;
     static final int LINKMODE_LINK = 1;
-    private static final int LINKMODE_UNLINK = 2;
+    static final int LINKMODE_UNLINK = 2;
 
     protected boolean onStartReceive()
     {

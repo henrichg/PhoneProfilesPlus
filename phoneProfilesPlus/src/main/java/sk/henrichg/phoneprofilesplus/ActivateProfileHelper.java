@@ -764,17 +764,16 @@ class ActivateProfileHelper {
                 }
 
                 boolean volumesSet = false;
-                TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                if ((telephony != null) && getMergedRingNotificationVolumes(context) && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context)) {
-                    int callState = telephony.getCallState();
-                    //if (doUnlink) {
-                    //if (linkUnlink == PhoneCallBroadcastReceiver.LINKMODE_UNLINK) {
-                    if (callState == TelephonyManager.CALL_STATE_RINGING) {
+                //TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                if (/*(telephony != null) &&*/ getMergedRingNotificationVolumes(context) && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context)) {
+                    //int callState = telephony.getCallState();
+                    if ((linkUnlink == PhoneCallBroadcastReceiver.LINKMODE_UNLINK)/* ||
+                        (callState == TelephonyManager.CALL_STATE_RINGING)*/) {
                         // for separating ringing and notification
                         // in ringing state ringer volumes must by set
                         // and notification volumes must not by set
                         int volume = getRingerVolume(context);
-                        PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-RINGING  ringer volume=" + volume);
+                        PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-RINGING-unlink  ringer volume=" + volume);
                         if (volume != -999) {
                             try {
                                 audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, 0);
@@ -791,7 +790,9 @@ class ActivateProfileHelper {
                             }
                         }
                         volumesSet = true;
-                    } else if (linkUnlink == PhoneCallBroadcastReceiver.LINKMODE_LINK) {
+                    }
+                    else
+                    if (linkUnlink == PhoneCallBroadcastReceiver.LINKMODE_LINK) {
                         // for separating ringing and notification
                         // in not ringing state ringer and notification volume must by change
                         int volume = getRingerVolume(context);
@@ -820,9 +821,11 @@ class ActivateProfileHelper {
                         //correctVolume0(audioManager);
                         volumesSet = true;
                     }
-                    else if (linkUnlink == PhoneCallBroadcastReceiver.LINKMODE_NONE) {
+                    else
+                    if ((linkUnlink == PhoneCallBroadcastReceiver.LINKMODE_NONE)/* ||
+                        (callState == TelephonyManager.CALL_STATE_IDLE)*/) {
                         int volume = getRingerVolume(context);
-                        PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING  ringer volume=" + volume);
+                        PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING-none  ringer volume=" + volume);
                         if (volume != -999) {
                             try {
                                 audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, 0);
@@ -836,7 +839,7 @@ class ActivateProfileHelper {
                             }
                         }
                         volume = getNotificationVolume(context);
-                        PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING  notification volume=" + volume);
+                        PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING-none  notification volume=" + volume);
                         if (volume != -999) {
                             try {
                                 audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION /* 5 */, volume, 0);
