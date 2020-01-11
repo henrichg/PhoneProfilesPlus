@@ -2586,6 +2586,10 @@ public class Profile {
         if (!eventName.isEmpty())
             profileName = profileName + " " + eventName;
         String durationString = "";
+        if (_askForDuration) {
+            durationString = "[ " + context.getString(R.string.profile_event_name_ask_for_duration) + " ]";
+        }
+        else
         if ((_duration > 0) && (_afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING)) {
             boolean showEndTime = false;
             if (_checked) {
@@ -2596,10 +2600,7 @@ public class Profile {
                 }
             }
             if (!showEndTime) {
-                if (_askForDuration)
-                    durationString = "[ " + context.getString(R.string.profile_event_name_ask_for_duration) + " ]";
-                else
-                    durationString = "[" + GlobalGUIRoutines.getDurationString(_duration) + "]";
+                durationString = "[" + GlobalGUIRoutines.getDurationString(_duration) + "]";
             }
         }
         int startSpan = profileName.length();
