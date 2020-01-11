@@ -1458,6 +1458,8 @@
     <string name="preferences_durationInfo_summary">Parameters marked with [M] are used only when this profile is activated manually. Activation from event ignores these parameters.</string>
     <string name="profile_preferences_durationEndCategory">Duration end</string>
 
+    <string name="profile_event_name_ask_for_duration">ask</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

@@ -2596,7 +2596,10 @@ public class Profile {
                 }
             }
             if (!showEndTime) {
-                durationString = "[" + GlobalGUIRoutines.getDurationString(_duration) + "]";
+                if (_askForDuration)
+                    durationString = "[ " + context.getString(R.string.profile_event_name_ask_for_duration) + " ]";
+                else
+                    durationString = "[" + GlobalGUIRoutines.getDurationString(_duration) + "]";
             }
         }
         int startSpan = profileName.length();
