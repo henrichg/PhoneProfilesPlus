@@ -1356,6 +1356,27 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     preferenceCategory.removePreference(preference);
             }
         }
+
+        if (!(PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) {
+            preference = findPreference("applicationWidgetIconNotWorkingMIUIInfo");
+            if (preference != null) {
+                PreferenceScreen preferenceCategory = findPreference("categoryWidgetIcon");
+                if (preferenceCategory != null)
+                    preferenceCategory.removePreference(preference);
+            }
+            preference = findPreference("applicationWidgetOneRowNotWorkingMIUIInfo");
+            if (preference != null) {
+                PreferenceScreen preferenceCategory = findPreference("categoryWidgetOneRow");
+                if (preferenceCategory != null)
+                    preferenceCategory.removePreference(preference);
+            }
+            preference = findPreference("applicationWidgetListNotWorkingMIUIInfo");
+            if (preference != null) {
+                PreferenceScreen preferenceCategory = findPreference("categoryWidgetList");
+                if (preferenceCategory != null)
+                    preferenceCategory.removePreference(preference);
+            }
+        }
     }
 
     @Override

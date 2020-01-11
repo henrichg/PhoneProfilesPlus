@@ -1459,6 +1459,8 @@
     <string name="profile_preferences_durationEndCategory">Duration end</string>
 
     <string name="profile_event_name_ask_for_duration">ask</string>
+    <string name="phone_profiles_pref_widget_not_working_miui_info">Widget is not clickable</string>
+    <string name="phone_profiles_pref_widget_not_working_miui_info_summary">If PhoneProfilesPlus widget not working (clicks to widget), enable permission in device settings: Settings / Apps / Manage apps / PhoneProfilesPlus / Other permissions / Display pop-up windows while running in the background.</string>
 
     <!-- **************************************************************************************** -->
 
