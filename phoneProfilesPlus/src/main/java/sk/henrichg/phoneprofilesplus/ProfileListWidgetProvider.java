@@ -211,10 +211,10 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         applicationWidgetListIconColor.equals("1"),
                         monochromeValue,
                         applicationWidgetListCustomIconLightness);
-                if (applicationWidgetListPrefIndicator)
+                /*if (applicationWidgetListPrefIndicator)
                     profile.generatePreferencesIndicator(context,
                         applicationWidgetListIconColor.equals("1"),
-                        monochromeValue);
+                        monochromeValue);*/
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
                 profileName = new SpannableString(profile._name);
