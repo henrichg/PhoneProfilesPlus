@@ -285,7 +285,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     if (applicationWidgetListLightnessT.equals("75")) monochromeValue = 0xC0;
                     Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
                     bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
-                    widget.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
+                    widget.setImageViewBitmap(R.id.widget_profile_list_header_restart_events, bitmap);
                     /*int resId = R.drawable.ic_widget_restart_events;
                     if (ColorUtils.calculateLuminance(Color.rgb(redBackground, greenBackground, blueBackground)) < 0.5) {
                         resId = R.drawable.ic_widget_restart_events_dark;
