@@ -9,6 +9,8 @@
             app:key="notificationStatusBarInfo"
             app:title="@string/phone_profiles_pref_notificationStatusBarInfo_title"
             app:summary="@string/phone_profiles_pref_notificationStatusBarInfo_summary"
+            app:shouldDisableView="false"
+            app:enabled="false"
             app:widgetLayout="@layout/info_preference"
             app:layout="@layout/mp_preference_material_widget" />
         <SwitchPreferenceCompat
@@ -57,6 +59,8 @@
             app:key="notificationStatusBarStyleInfo"
             app:title="@string/phone_profiles_pref_notificationStatusBarStyleInfo_title"
             app:summary="@string/phone_profiles_pref_notificationStatusBarStyleInfo_summary"
+            app:shouldDisableView="false"
+            app:enabled="false"
             app:widgetLayout="@layout/info_preference"
             app:layout="@layout/mp_preference_material_widget" />
         <ListPreference

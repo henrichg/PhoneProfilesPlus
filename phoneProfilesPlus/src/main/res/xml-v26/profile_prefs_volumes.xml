@@ -21,6 +21,8 @@
         app:key="prf_pref_volumeRingtone0Info"
         app:title="@string/profile_preferences_volumeRingtone0Info_title"
         app:summary="@string/profile_preferences_volumeRingtone0Info_summary"
+        app:shouldDisableView="false"
+        app:enabled="false"
         app:widgetLayout="@layout/info_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.VolumeDialogPreferenceX

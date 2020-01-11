@@ -27,6 +27,8 @@
         app:key="eventStartNotificationSoundInfo"
         app:title="@string/event_preferences_notificationSound"
         app:summary="@string/preferences_durationNotificationSoundInfo_summary"
+        app:shouldDisableView="false"
+        app:enabled="false"
         app:widgetLayout="@layout/info_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.RingtonePreferenceX

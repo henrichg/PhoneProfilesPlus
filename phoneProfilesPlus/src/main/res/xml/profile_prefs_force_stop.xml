@@ -6,9 +6,10 @@
 
     <Preference
         app:key="prf_pref_forceStopApplicationsInfo"
-        app:title="@string/profile_preferences_deviceForceStopApplicationsChange"
-        app:summary="@string/profile_preferences_deviceForceStopApplicationsInfo_summary"
-        app:widgetLayout="@layout/info_preference"
+        app:title="@string/profile_preferences_deviceForceStopApplicationsInfo_summary"
+        app:summary="@string/empty_string"
+        app:shouldDisableView="false"
+        app:enabled="false"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_deviceForceStopApplicationsChange"
