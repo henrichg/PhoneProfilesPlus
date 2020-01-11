@@ -819,7 +819,8 @@ class ActivateProfileHelper {
                         }
                         //correctVolume0(audioManager);
                         volumesSet = true;
-                    } else {
+                    }
+                    else if (linkUnlink == PhoneCallBroadcastReceiver.LINKMODE_NONE) {
                         int volume = getRingerVolume(context);
                         PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING  ringer volume=" + volume);
                         if (volume != -999) {
@@ -847,15 +848,6 @@ class ActivateProfileHelper {
                         }
                         volumesSet = true;
                     }
-                    /*}
-                    else {
-                        if (callState == TelephonyManager.CALL_STATE_RINGING) {
-                            int volume = PPApplication.getRingerVolume(context);
-                            if (volume == -999)
-                                volume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
-                            PhoneProfilesService.ringingVolume = volume;
-                        }
-                    }*/
                 }
                 if (!volumesSet) {
                     // reverted order for disabled unlink
