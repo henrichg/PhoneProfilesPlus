@@ -495,7 +495,7 @@ class EventPreferencesTime extends EventPreferences {
 
     long computeAlarm(boolean startEvent, Context context)
     {
-        boolean testEvent = (_event._name != null) && _event._name.equals("Time sensor");
+        boolean testEvent = (_event._name != null) && _event._name.equals("Overnight");
         if (testEvent) {
             if (PPApplication.logEnabled()) {
                 PPApplication.logE("EventPreferencesTime.computeAlarm", "eventName=" + _event._name);
@@ -1063,7 +1063,7 @@ class EventPreferencesTime extends EventPreferences {
     {
         // set alarm for state PAUSE
 
-        boolean testEvent = (_event._name != null) && _event._name.equals("Plugged In Nighttime");
+        boolean testEvent = (_event._name != null) && _event._name.equals("Overnight");
         if (testEvent)
             PPApplication.logE("EventPreferencesTime.setSystemEventForStart","Plugged In Nighttime");
 
@@ -1090,7 +1090,7 @@ class EventPreferencesTime extends EventPreferences {
     {
         // set alarm for state RUNNING
 
-        boolean testEvent = (_event._name != null) && _event._name.equals("Plugged In Nighttime");
+        boolean testEvent = (_event._name != null) && _event._name.equals("Overnight");
         if (testEvent)
             PPApplication.logE("EventPreferencesTime.setSystemEventForPause","Plugged In Nighttime");
 
@@ -1117,7 +1117,7 @@ class EventPreferencesTime extends EventPreferences {
     {
         // remove alarms for state STOP
 
-        boolean testEvent = (_event._name != null) && _event._name.equals("Plugged In Nighttime");
+        boolean testEvent = (_event._name != null) && _event._name.equals("Overnight");
 
         //removeAlarm(true, _context);
         removeAlarm(/*false, */context);
@@ -1130,7 +1130,7 @@ class EventPreferencesTime extends EventPreferences {
 
     private void removeAlarm(/*boolean startEvent, */Context context)
     {
-        boolean testEvent = (_event._name != null) && _event._name.equals("Time sensor");
+        boolean testEvent = (_event._name != null) && _event._name.equals("Overnight");
         if (testEvent)
             PPApplication.logE("EventPreferencesTime.removeAlarm", "event="+_event._name);
         try {
@@ -1203,7 +1203,7 @@ class EventPreferencesTime extends EventPreferences {
     @SuppressLint({"SimpleDateFormat", "NewApi"})
     private void setAlarm(boolean startEvent, long alarmTime, Context context)
     {
-        boolean testEvent = (_event._name != null) && _event._name.equals("Noc doma");
+        boolean testEvent = (_event._name != null) && _event._name.equals("Overnight");
         if (testEvent)
             PPApplication.logE("EventPreferencesTime.setAlarm", "event="+_event._name);
 
