@@ -1398,8 +1398,14 @@ public class Profile {
         if (withProfile != null) {
             if (this._id != withProfile._id)
                 return false;
-            if (!this._deviceConnectToSSID.equals(withProfile._deviceConnectToSSID))
-                return false;
+
+            if (this._afterDurationDo == AFTER_DURATION_DO_SPECIFIC_PROFILE) {
+                if (this._duration > 0) {
+                    if (this._afterDurationDo != withProfile._afterDurationDo)
+                        return false;
+                }
+            }
+
             if (this._volumeRingerMode != withProfile._volumeRingerMode)
                 return false;
             if (this._volumeZenMode != withProfile._volumeZenMode)
@@ -1416,9 +1422,9 @@ public class Profile {
                 return false;
             if (!this._volumeNotification.equals(withProfile._volumeNotification))
                 return false;
-            if (!this._volumeAlarm.equals(withProfile._volumeAlarm))
-                return false;
             if (!this._volumeMedia.equals(withProfile._volumeMedia))
+                return false;
+            if (!this._volumeAlarm.equals(withProfile._volumeAlarm))
                 return false;
             if (!this._volumeSystem.equals(withProfile._volumeSystem))
                 return false;
@@ -1444,8 +1450,6 @@ public class Profile {
             }
             if (this._deviceAirplaneMode != withProfile._deviceAirplaneMode)
                 return false;
-            if (this._deviceAutoSync != withProfile._deviceAutoSync)
-                return false;
             if (this._deviceMobileData != withProfile._deviceMobileData)
                 return false;
             if (this._deviceMobileDataPrefs != withProfile._deviceMobileDataPrefs)
@@ -1462,14 +1466,6 @@ public class Profile {
                 return false;
             if (!this._deviceBrightness.equals(withProfile._deviceBrightness))
                 return false;
-            if (this._deviceAutoRotate != withProfile._deviceAutoRotate)
-                return false;
-            if (this._deviceRunApplicationChange != withProfile._deviceRunApplicationChange)
-                return false;
-            if (this._deviceRunApplicationChange != 0) {
-                if (!this._deviceRunApplicationPackageName.equals(withProfile._deviceRunApplicationPackageName))
-                    return false;
-            }
             if (this._deviceWallpaperChange != withProfile._deviceWallpaperChange)
                 return false;
             if (this._deviceWallpaperChange != 0) {
@@ -1478,6 +1474,16 @@ public class Profile {
                 if (this._deviceWallpaperFor != withProfile._deviceWallpaperFor)
                     return false;
             }
+            if (this._deviceRunApplicationChange != withProfile._deviceRunApplicationChange)
+                return false;
+            if (this._deviceRunApplicationChange != 0) {
+                if (!this._deviceRunApplicationPackageName.equals(withProfile._deviceRunApplicationPackageName))
+                    return false;
+            }
+            if (this._deviceAutoSync != withProfile._deviceAutoSync)
+                return false;
+            if (this._deviceAutoRotate != withProfile._deviceAutoRotate)
+                return false;
             if (this._volumeSpeakerPhone != withProfile._volumeSpeakerPhone)
                 return false;
             if (this._deviceNFC != withProfile._deviceNFC)
@@ -1495,6 +1501,8 @@ public class Profile {
             if (this._notificationLed != withProfile._notificationLed)
                 return false;
             if (this._lockDevice != withProfile._lockDevice)
+                return false;
+            if (!this._deviceConnectToSSID.equals(withProfile._deviceConnectToSSID))
                 return false;
             if (this._applicationDisableWifiScanning != withProfile._applicationDisableWifiScanning)
                 return false;
