@@ -182,30 +182,46 @@
     </string-array>
     <string-array name="widgetBackgroundArray">
         <item>@string/array_pref_0_percent</item>
+        <item>@string/array_pref_12_percent</item>
         <item>@string/array_pref_25_percent</item>
+        <item>@string/array_pref_37_percent</item>
         <item>@string/array_pref_50_percent</item>
+        <item>@string/array_pref_62_percent</item>
         <item>@string/array_pref_75_percent</item>
+        <item>@string/array_pref_87_percent</item>
         <item>@string/array_pref_100_percent</item>
     </string-array>
     <string-array name="widgetBackgroundValues">
         <item>0</item>
+        <item>12</item>
         <item>25</item>
+        <item>37</item>
         <item>50</item>
+        <item>62</item>
         <item>75</item>
+        <item>87</item>
         <item>100</item>
     </string-array>
     <string-array name="widgetLightnessArray">
         <item>@string/array_pref_0_percent</item>
+        <item>@string/array_pref_12_percent</item>
         <item>@string/array_pref_25_percent</item>
+        <item>@string/array_pref_37_percent</item>
         <item>@string/array_pref_50_percent</item>
+        <item>@string/array_pref_62_percent</item>
         <item>@string/array_pref_75_percent</item>
+        <item>@string/array_pref_87_percent</item>
         <item>@string/array_pref_100_percent</item>
     </string-array>
     <string-array name="widgetLightnessValues">
         <item>0</item>
+        <item>12</item>
         <item>25</item>
+        <item>37</item>
         <item>50</item>
+        <item>62</item>
         <item>75</item>
+        <item>87</item>
         <item>100</item>
     </string-array>
     <string-array name="widgetColorArray">

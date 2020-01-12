@@ -40,9 +40,13 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
                 int monochromeValue = 0xFF;
                 if (applicationWidgetIconLightness.equals("0")) monochromeValue = 0x00;
+                if (applicationWidgetIconLightness.equals("12")) monochromeValue = 0x20;
                 if (applicationWidgetIconLightness.equals("25")) monochromeValue = 0x40;
+                if (applicationWidgetIconLightness.equals("37")) monochromeValue = 0x60;
                 if (applicationWidgetIconLightness.equals("50")) monochromeValue = 0x80;
+                if (applicationWidgetIconLightness.equals("62")) monochromeValue = 0xA0;
                 if (applicationWidgetIconLightness.equals("75")) monochromeValue = 0xC0;
+                if (applicationWidgetIconLightness.equals("87")) monochromeValue = 0xE0;
                 //if (applicationWidgetIconLightness.equals("100")) monochromeValue = 0xFF;
 
                 DataWrapper dataWrapper = new DataWrapper(context,
@@ -125,27 +129,39 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             blue = Color.blue(bgColor);
                         } else {
                             //if (applicationWidgetIconLightnessB.equals("0")) red = 0x00;
+                            if (applicationWidgetIconLightnessB.equals("12")) red = 0x20;
                             if (applicationWidgetIconLightnessB.equals("25")) red = 0x40;
+                            if (applicationWidgetIconLightnessB.equals("37")) red = 0x60;
                             if (applicationWidgetIconLightnessB.equals("50")) red = 0x80;
+                            if (applicationWidgetIconLightnessB.equals("62")) red = 0xA0;
                             if (applicationWidgetIconLightnessB.equals("75")) red = 0xC0;
+                            if (applicationWidgetIconLightnessB.equals("87")) red = 0xE0;
                             if (applicationWidgetIconLightnessB.equals("100")) red = 0xFF;
                             green = red;
                             blue = red;
                         }
                         int alpha = 0x40;
                         if (applicationWidgetIconBackground.equals("0")) alpha = 0x00;
+                        if (applicationWidgetIconBackground.equals("12")) alpha = 0x20;
                         //if (applicationWidgetIconBackground.equals("25")) alpha = 0x40;
+                        if (applicationWidgetIconBackground.equals("37")) alpha = 0x60;
                         if (applicationWidgetIconBackground.equals("50")) alpha = 0x80;
+                        if (applicationWidgetIconBackground.equals("62")) alpha = 0xA0;
                         if (applicationWidgetIconBackground.equals("75")) alpha = 0xC0;
+                        if (applicationWidgetIconBackground.equals("87")) alpha = 0xE0;
                         if (applicationWidgetIconBackground.equals("100")) alpha = 0xFF;
                         int redBorder = 0xFF;
                         int greenBorder;
                         int blueBorder;
                         if (applicationWidgetIconShowBorder) {
                             if (applicationWidgetIconLightnessBorder.equals("0")) redBorder = 0x00;
+                            if (applicationWidgetIconLightnessBorder.equals("12")) redBorder = 0x20;
                             if (applicationWidgetIconLightnessBorder.equals("25")) redBorder = 0x40;
+                            if (applicationWidgetIconLightnessBorder.equals("37")) redBorder = 0x60;
                             if (applicationWidgetIconLightnessBorder.equals("50")) redBorder = 0x80;
+                            if (applicationWidgetIconLightnessBorder.equals("62")) redBorder = 0xA0;
                             if (applicationWidgetIconLightnessBorder.equals("75")) redBorder = 0xC0;
+                            if (applicationWidgetIconLightnessBorder.equals("87")) redBorder = 0xE0;
                             //if (applicationWidgetIconLightnessBorder.equals("100")) redBorder = 0xFF;
                         }
                         greenBorder = redBorder;
@@ -196,9 +212,13 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
                         red = 0xFF;
                         if (applicationWidgetIconLightnessT.equals("0")) red = 0x00;
+                        if (applicationWidgetIconLightnessT.equals("12")) red = 0x20;
                         if (applicationWidgetIconLightnessT.equals("25")) red = 0x40;
+                        if (applicationWidgetIconLightnessT.equals("37")) red = 0x60;
                         if (applicationWidgetIconLightnessT.equals("50")) red = 0x80;
+                        if (applicationWidgetIconLightnessT.equals("62")) red = 0xA0;
                         if (applicationWidgetIconLightnessT.equals("75")) red = 0xC0;
+                        if (applicationWidgetIconLightnessT.equals("87")) red = 0xE0;
                         //if (applicationWidgetIconLightnessT.equals("100")) red = 0xFF;
                         green = red;
                         blue = red;

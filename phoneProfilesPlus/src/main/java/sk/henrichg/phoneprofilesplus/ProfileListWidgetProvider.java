@@ -111,27 +111,39 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         }
         else {
             //if (applicationWidgetListLightnessB.equals("0")) redBackground = 0x00;
+            if (applicationWidgetListLightnessB.equals("12")) redBackground = 0x20;
             if (applicationWidgetListLightnessB.equals("25")) redBackground = 0x40;
+            if (applicationWidgetListLightnessB.equals("37")) redBackground = 0x60;
             if (applicationWidgetListLightnessB.equals("50")) redBackground = 0x80;
+            if (applicationWidgetListLightnessB.equals("62")) redBackground = 0xA0;
             if (applicationWidgetListLightnessB.equals("75")) redBackground = 0xC0;
+            if (applicationWidgetListLightnessB.equals("87")) redBackground = 0xE0;
             if (applicationWidgetListLightnessB.equals("100")) redBackground = 0xFF;
             greenBackground = redBackground;
             blueBackground = redBackground;
         }
         int alphaBackground = 0x40;
         if (applicationWidgetListBackground.equals("0")) alphaBackground = 0x00;
+        if (applicationWidgetListBackground.equals("12")) alphaBackground = 0x20;
         //if (applicationWidgetListBackground.equals("25")) alphaBackground = 0x40;
+        if (applicationWidgetListBackground.equals("37")) alphaBackground = 0x60;
         if (applicationWidgetListBackground.equals("50")) alphaBackground = 0x80;
+        if (applicationWidgetListBackground.equals("62")) alphaBackground = 0xA0;
         if (applicationWidgetListBackground.equals("75")) alphaBackground = 0xC0;
+        if (applicationWidgetListBackground.equals("87")) alphaBackground = 0xE0;
         if (applicationWidgetListBackground.equals("100")) alphaBackground = 0xFF;
         int redBorder = 0xFF;
         int greenBorder;
         int blueBorder;
         if (applicationWidgetListShowBorder) {
             if (applicationWidgetListLightnessBorder.equals("0")) redBorder = 0x00;
+            if (applicationWidgetListLightnessBorder.equals("12")) redBorder = 0x20;
             if (applicationWidgetListLightnessBorder.equals("25")) redBorder = 0x40;
+            if (applicationWidgetListLightnessBorder.equals("37")) redBorder = 0x60;
             if (applicationWidgetListLightnessBorder.equals("50")) redBorder = 0x80;
+            if (applicationWidgetListLightnessBorder.equals("62")) redBorder = 0xA0;
             if (applicationWidgetListLightnessBorder.equals("75")) redBorder = 0xC0;
+            if (applicationWidgetListLightnessBorder.equals("87")) redBorder = 0xE0;
             //if (applicationWidgetListLightnessBorder.equals("100")) redBorder = 0xFF;
         }
         greenBorder = redBorder;
@@ -175,9 +187,13 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         {
             int monochromeValue = 0xFF;
             if (applicationWidgetListIconLightness.equals("0")) monochromeValue = 0x00;
+            if (applicationWidgetListIconLightness.equals("12")) monochromeValue = 0x20;
             if (applicationWidgetListIconLightness.equals("25")) monochromeValue = 0x40;
+            if (applicationWidgetListIconLightness.equals("37")) monochromeValue = 0x60;
             if (applicationWidgetListIconLightness.equals("50")) monochromeValue = 0x80;
+            if (applicationWidgetListIconLightness.equals("62")) monochromeValue = 0xA0;
             if (applicationWidgetListIconLightness.equals("75")) monochromeValue = 0xC0;
+            if (applicationWidgetListIconLightness.equals("87")) monochromeValue = 0xE0;
             //if (applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
 
             Profile profile = DatabaseHandler.getInstance(dataWrapper.context).getActivatedProfile();
@@ -236,10 +252,14 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
             int redText = 0xFF;
             if (applicationWidgetListLightnessT.equals("0")) redText = 0x00;
+            if (applicationWidgetListLightnessT.equals("12")) redText = 0x20;
             if (applicationWidgetListLightnessT.equals("25")) redText = 0x40;
+            if (applicationWidgetListLightnessT.equals("37")) redText = 0x60;
             if (applicationWidgetListLightnessT.equals("50")) redText = 0x80;
+            if (applicationWidgetListLightnessT.equals("62")) redText = 0xA0;
             if (applicationWidgetListLightnessT.equals("75")) redText = 0xC0;
-            //if (applicationWidgetListLightnessT.equals("100")) red = 0xFF;
+            if (applicationWidgetListLightnessT.equals("87")) redText = 0xE0;
+            //if (applicationWidgetListLightnessT.equals("100")) redText = 0xFF;
             int greenText = redText; int blueText = redText;
             widget.setTextColor(R.id.widget_profile_list_header_profile_name, Color.argb(0xFF, redText, greenText, blueText));
 
@@ -258,45 +278,33 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             {
                 redText = 0xFF;
                 if (applicationWidgetListLightnessT.equals("0")) redText = 0x00;
+                if (applicationWidgetListLightnessT.equals("12")) redText = 0x20;
                 if (applicationWidgetListLightnessT.equals("25")) redText = 0x40;
+                if (applicationWidgetListLightnessT.equals("37")) redText = 0x60;
                 if (applicationWidgetListLightnessT.equals("50")) redText = 0x80;
+                if (applicationWidgetListLightnessT.equals("62")) redText = 0xA0;
                 if (applicationWidgetListLightnessT.equals("75")) redText = 0xC0;
-                //if (applicationWidgetListLightnessT.equals("100")) red = 0xFF;
+                if (applicationWidgetListLightnessT.equals("87")) redText = 0xE0;
+                //if (applicationWidgetListLightnessT.equals("100")) redText = 0xFF;
                 greenText = redText; blueText = redText;
                 widget.setInt(R.id.widget_profile_list_header_separator, "setBackgroundColor", Color.argb(0xFF, redText, greenText, blueText));
             }
 
             if (Event.getGlobalEventsRunning(context) && PPApplication.getApplicationStarted(context, true)) {
-                /*if (applicationWidgetListIconColor.equals("1")) {
-                    monochromeValue = 0xFF;
-                    if (applicationWidgetListIconLightness.equals("0")) monochromeValue = 0x00;
-                    if (applicationWidgetListIconLightness.equals("25")) monochromeValue = 0x40;
-                    if (applicationWidgetListIconLightness.equals("50")) monochromeValue = 0x80;
-                    if (applicationWidgetListIconLightness.equals("75")) monochromeValue = 0xC0;
-                    Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
-                    bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
-                    widget.setImageViewBitmap(R.id.widget_profile_list_header_restart_events, bitmap);
-                }
-                else {*/
-                    monochromeValue = 0xFF;
-                    if (applicationWidgetListLightnessT.equals("0")) monochromeValue = 0x00;
-                    if (applicationWidgetListLightnessT.equals("25")) monochromeValue = 0x40;
-                    if (applicationWidgetListLightnessT.equals("50")) monochromeValue = 0x80;
-                    if (applicationWidgetListLightnessT.equals("75")) monochromeValue = 0xC0;
-                    Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
-                    bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
-                    widget.setImageViewBitmap(R.id.widget_profile_list_header_restart_events, bitmap);
-                    /*int resId = R.drawable.ic_widget_restart_events;
-                    if (ColorUtils.calculateLuminance(Color.rgb(redBackground, greenBackground, blueBackground)) < 0.5) {
-                        resId = R.drawable.ic_widget_restart_events_dark;
-                    }
-                    widget.setImageViewResource(R.id.widget_profile_list_header_restart_events, resId);*/
-                    /*int resId = R.drawable.ic_widget_restart_events_dark;
-                    if (applicationWidgetListLightnessT.equals("0")) resId = R.drawable.ic_widget_restart_events;
-                    if (applicationWidgetListLightnessT.equals("25")) resId = R.drawable.ic_widget_restart_events;
-                    if (applicationWidgetListLightnessT.equals("50")) resId = R.drawable.ic_widget_restart_events;
-                    widget.setImageViewResource(R.id.widget_profile_list_header_restart_events, resId);*/
-                //}
+                monochromeValue = 0xFF;
+                if (applicationWidgetListLightnessT.equals("0")) monochromeValue = 0x00;
+                if (applicationWidgetListLightnessT.equals("12")) monochromeValue = 0x20;
+                if (applicationWidgetListLightnessT.equals("25")) monochromeValue = 0x40;
+                if (applicationWidgetListLightnessT.equals("37")) monochromeValue = 0x60;
+                if (applicationWidgetListLightnessT.equals("50")) monochromeValue = 0x80;
+                if (applicationWidgetListLightnessT.equals("62")) monochromeValue = 0xA0;
+                if (applicationWidgetListLightnessT.equals("75")) monochromeValue = 0xC0;
+                if (applicationWidgetListLightnessT.equals("87")) monochromeValue = 0xE0;
+                //if (applicationWidgetListLightnessT.equals("100")) monochromeValue = 0xFF;
+
+                Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
+                bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
+                widget.setImageViewBitmap(R.id.widget_profile_list_header_restart_events, bitmap);
             }
 
         }

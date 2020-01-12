@@ -49,9 +49,13 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
                 int monochromeValue = 0xFF;
                 if (applicationWidgetOneRowIconLightness.equals("0")) monochromeValue = 0x00;
+                if (applicationWidgetOneRowIconLightness.equals("12")) monochromeValue = 0x20;
                 if (applicationWidgetOneRowIconLightness.equals("25")) monochromeValue = 0x40;
+                if (applicationWidgetOneRowIconLightness.equals("37")) monochromeValue = 0x60;
                 if (applicationWidgetOneRowIconLightness.equals("50")) monochromeValue = 0x80;
+                if (applicationWidgetOneRowIconLightness.equals("62")) monochromeValue = 0xA0;
                 if (applicationWidgetOneRowIconLightness.equals("75")) monochromeValue = 0xC0;
+                if (applicationWidgetOneRowIconLightness.equals("87")) monochromeValue = 0xE0;
                 //if (applicationWidgetOneRowIconLightness.equals("100")) monochromeValue = 0xFF;
 
                 DataWrapper dataWrapper = new DataWrapper(context,
@@ -130,18 +134,26 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             blueBackground = Color.blue(bgColor);
                         } else {
                             //if (applicationWidgetOneRowLightnessB.equals("0")) redBackground = 0x00;
+                            if (applicationWidgetOneRowLightnessB.equals("12")) redBackground = 0x20;
                             if (applicationWidgetOneRowLightnessB.equals("25")) redBackground = 0x40;
+                            if (applicationWidgetOneRowLightnessB.equals("37")) redBackground = 0x60;
                             if (applicationWidgetOneRowLightnessB.equals("50")) redBackground = 0x80;
+                            if (applicationWidgetOneRowLightnessB.equals("62")) redBackground = 0xA0;
                             if (applicationWidgetOneRowLightnessB.equals("75")) redBackground = 0xC0;
+                            if (applicationWidgetOneRowLightnessB.equals("87")) redBackground = 0xE0;
                             if (applicationWidgetOneRowLightnessB.equals("100")) redBackground = 0xFF;
                             greenBackground = redBackground;
                             blueBackground = redBackground;
                         }
                         int alphaBackground = 0x40;
                         if (applicationWidgetOneRowBackground.equals("0")) alphaBackground = 0x00;
+                        if (applicationWidgetOneRowBackground.equals("12")) alphaBackground = 0x20;
                         //if (applicationWidgetOneRowBackground.equals("25")) alphaBackground = 0x40;
+                        if (applicationWidgetOneRowBackground.equals("37")) alphaBackground = 0x60;
                         if (applicationWidgetOneRowBackground.equals("50")) alphaBackground = 0x80;
+                        if (applicationWidgetOneRowBackground.equals("62")) alphaBackground = 0xA0;
                         if (applicationWidgetOneRowBackground.equals("75")) alphaBackground = 0xC0;
+                        if (applicationWidgetOneRowBackground.equals("87")) alphaBackground = 0xE0;
                         if (applicationWidgetOneRowBackground.equals("100")) alphaBackground = 0xFF;
                         int redBorder = 0xFF;
                         int greenBorder;
@@ -149,9 +161,13 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         if (applicationWidgetOneRowShowBorder) {
                             PPApplication.logE("OneRowWidgetProvider.onUpdate", "");
                             if (applicationWidgetOneRowLightnessBorder.equals("0")) redBorder = 0x00;
+                            if (applicationWidgetOneRowLightnessBorder.equals("12")) redBorder = 0x20;
                             if (applicationWidgetOneRowLightnessBorder.equals("25")) redBorder = 0x40;
+                            if (applicationWidgetOneRowLightnessBorder.equals("37")) redBorder = 0x60;
                             if (applicationWidgetOneRowLightnessBorder.equals("50")) redBorder = 0x80;
+                            if (applicationWidgetOneRowLightnessBorder.equals("62")) redBorder = 0xA0;
                             if (applicationWidgetOneRowLightnessBorder.equals("75")) redBorder = 0xC0;
+                            if (applicationWidgetOneRowLightnessBorder.equals("87")) redBorder = 0xE0;
                             //if (applicationWidgetOneRowLightnessBorder.equals("100")) redBorder = 0xFF;
                             PPApplication.logE("OneRowWidgetProvider.onUpdate", "redBorder="+redBorder);
                         }
@@ -214,10 +230,14 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
                         int redText = 0xFF;
                         if (applicationWidgetOneRowLightnessT.equals("0")) redText = 0x00;
+                        if (applicationWidgetOneRowLightnessT.equals("12")) redText = 0x20;
                         if (applicationWidgetOneRowLightnessT.equals("25")) redText = 0x40;
+                        if (applicationWidgetOneRowLightnessT.equals("37")) redText = 0x60;
                         if (applicationWidgetOneRowLightnessT.equals("50")) redText = 0x80;
+                        if (applicationWidgetOneRowLightnessT.equals("62")) redText = 0xA0;
                         if (applicationWidgetOneRowLightnessT.equals("75")) redText = 0xC0;
-                        //if (applicationWidgetOneRowLightnessT.equals("100")) red = 0xFF;
+                        if (applicationWidgetOneRowLightnessT.equals("87")) redText = 0xE0;
+                        //if (applicationWidgetOneRowLightnessT.equals("100")) redText = 0xFF;
                         int greenText = redText;
                         int blueText = redText;
                         remoteViews.setTextColor(R.id.widget_one_row_header_profile_name, Color.argb(0xFF, redText, greenText, blueText));
@@ -234,36 +254,20 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         }
 
                         if (Event.getGlobalEventsRunning(context) && PPApplication.getApplicationStarted(context, true)) {
-                            /*if (applicationWidgetOneRowIconColor.equals("1")) {
-                                monochromeValue = 0xFF;
-                                if (applicationWidgetOneRowIconLightness.equals("0")) monochromeValue = 0x00;
-                                if (applicationWidgetOneRowIconLightness.equals("25")) monochromeValue = 0x40;
-                                if (applicationWidgetOneRowIconLightness.equals("50")) monochromeValue = 0x80;
-                                if (applicationWidgetOneRowIconLightness.equals("75")) monochromeValue = 0xC0;
-                                Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
-                                bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
-                                remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
-                            }
-                            else {*/
-                                monochromeValue = 0xFF;
-                                if (applicationWidgetOneRowLightnessT.equals("0")) monochromeValue = 0x00;
-                                if (applicationWidgetOneRowLightnessT.equals("25")) monochromeValue = 0x40;
-                                if (applicationWidgetOneRowLightnessT.equals("50")) monochromeValue = 0x80;
-                                if (applicationWidgetOneRowLightnessT.equals("75")) monochromeValue = 0xC0;
-                                Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
-                                bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
-                                remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
-                                /*int resId = R.drawable.ic_widget_restart_events;
-                                if (ColorUtils.calculateLuminance(Color.rgb(redBackground, greenBackground, blueBackground)) < 0.5) {
-                                    resId = R.drawable.ic_widget_restart_events_dark;
-                                }
-                                remoteViews.setImageViewResource(R.id.widget_one_row_header_restart_events, resId);*/
-                                /*int resId = R.drawable.ic_widget_restart_events_dark;
-                                if (applicationWidgetOneRowLightnessT.equals("0")) resId = R.drawable.ic_widget_restart_events;
-                                if (applicationWidgetOneRowLightnessT.equals("25")) resId = R.drawable.ic_widget_restart_events;
-                                if (applicationWidgetOneRowLightnessT.equals("50")) resId = R.drawable.ic_widget_restart_events;
-                                remoteViews.setImageViewResource(R.id.widget_one_row_header_restart_events, resId);*/
-                            //}
+                            monochromeValue = 0xFF;
+                            if (applicationWidgetOneRowLightnessT.equals("0")) monochromeValue = 0x00;
+                            if (applicationWidgetOneRowLightnessT.equals("12")) monochromeValue = 0x20;
+                            if (applicationWidgetOneRowLightnessT.equals("25")) monochromeValue = 0x40;
+                            if (applicationWidgetOneRowLightnessT.equals("37")) monochromeValue = 0x60;
+                            if (applicationWidgetOneRowLightnessT.equals("50")) monochromeValue = 0x80;
+                            if (applicationWidgetOneRowLightnessT.equals("62")) monochromeValue = 0xA0;
+                            if (applicationWidgetOneRowLightnessT.equals("75")) monochromeValue = 0xC0;
+                            if (applicationWidgetOneRowLightnessT.equals("87")) monochromeValue = 0xE0;
+                            //if (applicationWidgetOneRowLightnessT.equals("100")) monochromeValue = 0xFF;
+
+                            Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
+                            bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
+                            remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
                         }
 
                         if (PPApplication.logEnabled()) {

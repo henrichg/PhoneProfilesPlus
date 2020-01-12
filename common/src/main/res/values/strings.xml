@@ -1462,6 +1462,11 @@
     <string name="phone_profiles_pref_widget_not_working_miui_info">Widget is not clickable</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info_summary">If PhoneProfilesPlus widget not working (clicks to widget), enable permission in device settings: Settings / Apps / Manage apps / PhoneProfilesPlus / Other permissions / Display pop-up windows while running in the background.</string>
 
+    <string name="array_pref_12_percent" formatted="false">12.5%</string>
+    <string name="array_pref_37_percent" formatted="false">37.5%</string>
+    <string name="array_pref_62_percent" formatted="false">62.5%</string>
+    <string name="array_pref_87_percent" formatted="false">87.5%</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
