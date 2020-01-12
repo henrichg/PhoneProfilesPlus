@@ -17,11 +17,14 @@ import android.util.Log;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 class EventPreferencesNotification extends EventPreferences {
@@ -548,7 +551,7 @@ class EventPreferencesNotification extends EventPreferences {
         } catch (Exception ignored) {}
         try {
             WorkManager workManager = WorkManager.getInstance(context);
-            workManager.cancelUniqueWork("elapsedAlarmsNotificationSensorWork_"+(int)_event._id);
+            //workManager.cancelUniqueWork("elapsedAlarmsNotificationSensorWork_"+(int)_event._id);
             workManager.cancelAllWorkByTag("elapsedAlarmsNotificationSensorWork_"+(int)_event._id);
         } catch (Exception ignored) {}
     }
@@ -563,7 +566,7 @@ class EventPreferencesNotification extends EventPreferences {
                 PPApplication.logE("EventPreferencesNotification.setAlarm", "endTime=" + result);
             }
 
-            /*if (ApplicationPreferences.applicationUseAlarmClock(context)) {
+            if (ApplicationPreferences.applicationUseAlarmClock(context)) {
                 //Intent intent = new Intent(context, NotificationEventEndBroadcastReceiver.class);
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_NOTIFICATION_EVENT_END_BROADCAST_RECEIVER);
@@ -601,17 +604,19 @@ class EventPreferencesNotification extends EventPreferences {
 
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
+                                .addTag("elapsedAlarmsNotificationSensorWork_"+(int)_event._id)
                                 .setInputData(workData)
                                 .setInitialDelay(elapsedTime, TimeUnit.MILLISECONDS)
                                 .build();
                 try {
                     WorkManager workManager = WorkManager.getInstance(context);
                     PPApplication.logE("[HANDLER] EventPreferencesNotification.setAlarm", "enqueueUniqueWork - elapsedTime="+elapsedTime);
-                    workManager.enqueueUniqueWork("elapsedAlarmsNotificationSensorWork_"+(int)_event._id, ExistingWorkPolicy.REPLACE, worker);
+                    //workManager.enqueueUniqueWork("elapsedAlarmsNotificationSensorWork_"+(int)_event._id, ExistingWorkPolicy.REPLACE, worker);
+                    workManager.enqueue(worker);
                 } catch (Exception ignored) {}
-            }*/
+            }
 
-            //Intent intent = new Intent(context, NotificationEventEndBroadcastReceiver.class);
+            /*//Intent intent = new Intent(context, NotificationEventEndBroadcastReceiver.class);
             Intent intent = new Intent();
             intent.setAction(PhoneProfilesService.ACTION_NOTIFICATION_EVENT_END_BROADCAST_RECEIVER);
             //intent.setClass(context, NotificationEventEndBroadcastReceiver.class);
@@ -637,7 +642,7 @@ class EventPreferencesNotification extends EventPreferences {
                     //else
                     //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
                 }
-            }
+            }*/
         }
     }
 

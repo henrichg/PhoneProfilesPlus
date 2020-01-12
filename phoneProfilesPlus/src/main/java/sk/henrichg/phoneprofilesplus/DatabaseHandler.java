@@ -91,7 +91,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_MOBILE_CELLS = 16;
     static final int ETYPE_NFC = 17;
     static final int ETYPE_RADIO_SWITCH = 18;
-    static final int ETYPE_RADIO_SWITCH_WIFI = 19;
+    private static final int ETYPE_RADIO_SWITCH_WIFI = 19;
     static final int ETYPE_RADIO_SWITCH_BLUETOOTH = 20;
     static final int ETYPE_RADIO_SWITCH_MOBILE_DATA = 21;
     static final int ETYPE_RADIO_SWITCH_GPS = 22;

@@ -10,10 +10,13 @@ import android.content.SharedPreferences.Editor;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 class EventPreferencesNFC extends EventPreferences {
@@ -333,7 +336,7 @@ class EventPreferencesNFC extends EventPreferences {
         } catch (Exception ignored) {}
         try {
             WorkManager workManager = WorkManager.getInstance(context);
-            workManager.cancelUniqueWork("elapsedAlarmsNFCSensorWork_"+(int)_event._id);
+            //workManager.cancelUniqueWork("elapsedAlarmsNFCSensorWork_"+(int)_event._id);
             workManager.cancelAllWorkByTag("elapsedAlarmsNFCSensorWork_"+(int)_event._id);
         } catch (Exception ignored) {}
     }
@@ -349,7 +352,7 @@ class EventPreferencesNFC extends EventPreferences {
                     PPApplication.logE("EventPreferencesNFC.setAlarm", "endTime=" + result);
                 }
 
-                /*if (ApplicationPreferences.applicationUseAlarmClock(context)) {
+                if (ApplicationPreferences.applicationUseAlarmClock(context)) {
                     //Intent intent = new Intent(context, NFCEventEndBroadcastReceiver.class);
                     Intent intent = new Intent();
                     intent.setAction(PhoneProfilesService.ACTION_NFC_EVENT_END_BROADCAST_RECEIVER);
@@ -386,17 +389,19 @@ class EventPreferencesNFC extends EventPreferences {
 
                     OneTimeWorkRequest worker =
                             new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
+                                    .addTag("elapsedAlarmsNFCSensorWork_"+(int)_event._id)
                                     .setInputData(workData)
                                     .setInitialDelay(elapsedTime, TimeUnit.MILLISECONDS)
                                     .build();
                     try {
                         WorkManager workManager = WorkManager.getInstance(context);
                         PPApplication.logE("[HANDLER] EventPreferencesNFC.setAlarm", "enqueueUniqueWork - elapsedTime="+elapsedTime);
-                        workManager.enqueueUniqueWork("elapsedAlarmsNFCSensorWork_"+(int)_event._id, ExistingWorkPolicy.REPLACE, worker);
+                        //workManager.enqueueUniqueWork("elapsedAlarmsNFCSensorWork_"+(int)_event._id, ExistingWorkPolicy.REPLACE, worker);
+                        workManager.enqueue(worker);
                     } catch (Exception ignored) {}
-                }*/
+                }
 
-                //Intent intent = new Intent(context, NFCEventEndBroadcastReceiver.class);
+                /*//Intent intent = new Intent(context, NFCEventEndBroadcastReceiver.class);
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_NFC_EVENT_END_BROADCAST_RECEIVER);
                 //intent.setClass(context, NFCEventEndBroadcastReceiver.class);
@@ -422,7 +427,7 @@ class EventPreferencesNFC extends EventPreferences {
                         //else
                         //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
                     }
-                }
+                }*/
             }
         }
     }

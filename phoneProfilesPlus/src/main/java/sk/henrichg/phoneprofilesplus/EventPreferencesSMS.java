@@ -12,11 +12,14 @@ import android.telephony.PhoneNumberUtils;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 class EventPreferencesSMS extends EventPreferences {
@@ -429,7 +432,7 @@ class EventPreferencesSMS extends EventPreferences {
         } catch (Exception ignored) {}
         try {
             WorkManager workManager = WorkManager.getInstance(context);
-            workManager.cancelUniqueWork("elapsedAlarmsSMSSensorWork_"+(int)_event._id);
+            //workManager.cancelUniqueWork("elapsedAlarmsSMSSensorWork_"+(int)_event._id);
             workManager.cancelAllWorkByTag("elapsedAlarmsSMSSensorWork_"+(int)_event._id);
         } catch (Exception ignored) {}
     }
@@ -445,7 +448,7 @@ class EventPreferencesSMS extends EventPreferences {
                     PPApplication.logE("EventPreferencesSMS.setAlarm", "endTime=" + result);
                 }
 
-                /*if (ApplicationPreferences.applicationUseAlarmClock(context)) {
+                if (ApplicationPreferences.applicationUseAlarmClock(context)) {
                     //Intent intent = new Intent(context, SMSEventEndBroadcastReceiver.class);
                     Intent intent = new Intent();
                     intent.setAction(PhoneProfilesService.ACTION_SMS_EVENT_END_BROADCAST_RECEIVER);
@@ -482,17 +485,19 @@ class EventPreferencesSMS extends EventPreferences {
 
                     OneTimeWorkRequest worker =
                             new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
+                                    .addTag("elapsedAlarmsSMSSensorWork_"+(int)_event._id)
                                     .setInputData(workData)
                                     .setInitialDelay(elapsedTime, TimeUnit.MILLISECONDS)
                                     .build();
                     try {
                         WorkManager workManager = WorkManager.getInstance(context);
                         PPApplication.logE("[HANDLER] EventPreferencesSMS.setAlarm", "enqueueUniqueWork - elapsedTime="+elapsedTime);
-                        workManager.enqueueUniqueWork("elapsedAlarmsSMSSensorWork_"+(int)_event._id, ExistingWorkPolicy.REPLACE, worker);
+                        //workManager.enqueueUniqueWork("elapsedAlarmsSMSSensorWork_"+(int)_event._id, ExistingWorkPolicy.REPLACE, worker);
+                        workManager.enqueue(worker);
                     } catch (Exception ignored) {}
-                }*/
+                }
 
-                //Intent intent = new Intent(context, SMSEventEndBroadcastReceiver.class);
+                /*//Intent intent = new Intent(context, SMSEventEndBroadcastReceiver.class);
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_SMS_EVENT_END_BROADCAST_RECEIVER);
                 //intent.setClass(context, SMSEventEndBroadcastReceiver.class);
@@ -518,7 +523,7 @@ class EventPreferencesSMS extends EventPreferences {
                         //else
                         //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
                     }
-                }
+                }*/
             }
         }
     }

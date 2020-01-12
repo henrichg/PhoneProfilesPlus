@@ -13,11 +13,14 @@ import java.sql.Date;
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 class EventPreferencesTime extends EventPreferences {
@@ -1138,55 +1141,62 @@ class EventPreferencesTime extends EventPreferences {
                 intent.setAction(PhoneProfilesService.ACTION_EVENT_TIME_BROADCAST_RECEIVER);
                 //intent.setClass(context, EventPreferencesTime.class);
 
-                if (testEvent) {
-                    if (PPApplication.logEnabled()) {
-                        PPApplication.logE("EventPreferencesTime.removeAlarm", "from alarm clock");
-                        PPApplication.logE("EventPreferencesTime.removeAlarm", "remove start alarm, requestCode=" + (int) _event._id);
-                    }
-                }
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int)_event._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (testEvent)
-                    PPApplication.logE("EventPreferencesTime.removeAlarm", "pendingIntent="+pendingIntent);
-                if (pendingIntent != null) {
-                    alarmManager.cancel(pendingIntent);
-                    pendingIntent.cancel();
-                    if (testEvent)
-                        PPApplication.logE("EventPreferencesTime.removeAlarm", "event="+_event._name + " alarm removed");
-                }
+                    PPApplication.logE("EventPreferencesTime.removeAlarm", "from alarm clock");
 
-                if (testEvent)
-                    PPApplication.logE("EventPreferencesTime.removeAlarm", "remove end alarm, requestCode="+(-(int)_event._id));
-                pendingIntent = PendingIntent.getBroadcast(context, -(int)_event._id, intent, PendingIntent.FLAG_NO_CREATE);
-                if (testEvent)
-                    PPApplication.logE("EventPreferencesTime.removeAlarm", "pendingIntent="+pendingIntent);
-                if (pendingIntent != null) {
-                    alarmManager.cancel(pendingIntent);
-                    pendingIntent.cancel();
+                try {
                     if (testEvent)
-                        PPApplication.logE("EventPreferencesTime.removeAlarm", "event="+_event._name + " alarm removed");
-                }
+                        PPApplication.logE("EventPreferencesTime.removeAlarm", "remove start alarm, requestCode=" + (int) _event._id);
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
+                    if (testEvent)
+                        PPApplication.logE("EventPreferencesTime.removeAlarm", "pendingIntent=" + pendingIntent);
+                    if (pendingIntent != null) {
+                        alarmManager.cancel(pendingIntent);
+                        pendingIntent.cancel();
+                        if (testEvent)
+                            PPApplication.logE("EventPreferencesTime.removeAlarm", "event=" + _event._name + " alarm removed");
+                    }
+                } catch (Exception ignored) {}
+
+                try {
+                    if (testEvent)
+                        PPApplication.logE("EventPreferencesTime.removeAlarm", "remove end alarm, requestCode=" + (-(int) _event._id));
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context, -(int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
+                    if (testEvent)
+                        PPApplication.logE("EventPreferencesTime.removeAlarm", "pendingIntent=" + pendingIntent);
+                    if (pendingIntent != null) {
+                        alarmManager.cancel(pendingIntent);
+                        pendingIntent.cancel();
+                        if (testEvent)
+                            PPApplication.logE("EventPreferencesTime.removeAlarm", "event=" + _event._name + " alarm removed");
+                    }
+                } catch (Exception ignored) {}
             }
         } catch (Exception ignored) {}
         try {
             WorkManager workManager = WorkManager.getInstance(context);
 
-            if (testEvent) {
-                if (PPApplication.logEnabled()) {
-                    PPApplication.logE("EventPreferencesTime.removeAlarm", "from work manager");
-                    PPApplication.logE("EventPreferencesTime.removeAlarm", "remove start alarm, requestCode=" + (int) _event._id);
-                }
-            }
-            workManager.cancelUniqueWork("elapsedAlarmsTimeSensorWork_"+(int)_event._id);
-            workManager.cancelAllWorkByTag("elapsedAlarmsTimeSensorWork_"+(int)_event._id);
             if (testEvent)
-                PPApplication.logE("EventPreferencesTime.removeAlarm", "event="+_event._name + " alarm removed");
+                PPApplication.logE("EventPreferencesTime.removeAlarm", "from work manager");
+
+            try {
+                if (testEvent)
+                    PPApplication.logE("EventPreferencesTime.removeAlarm", "remove start alarm, requestCode=" + (int) _event._id);
+                //workManager.cancelUniqueWork("elapsedAlarmsTimeSensorWork_" + (int) _event._id);
+                workManager.cancelAllWorkByTag("elapsedAlarmsTimeSensorWork_" + (int) _event._id);
+                if (testEvent)
+                    PPApplication.logE("EventPreferencesTime.removeAlarm", "event=" + _event._name + " alarm removed");
+            } catch (Exception ignored) {}
+
+            try {
+                if (testEvent)
+                    PPApplication.logE("EventPreferencesTime.removeAlarm", "remove end alarm, requestCode=" + (-(int) _event._id));
+                //workManager.cancelUniqueWork("elapsedAlarmsTimeSensorWork_" + (-(int) _event._id));
+                workManager.cancelAllWorkByTag("elapsedAlarmsTimeSensorWork_" + (-(int) _event._id));
+            } catch (Exception ignored) {}
 
             if (testEvent)
-                PPApplication.logE("EventPreferencesTime.removeAlarm", "remove end alarm, requestCode="+(-(int)_event._id));
-            workManager.cancelUniqueWork("elapsedAlarmsTimeSensorWork_"+(-(int)_event._id));
-            workManager.cancelAllWorkByTag("elapsedAlarmsTimeSensorWork_"+(-(int)_event._id));
-            if (testEvent)
-                PPApplication.logE("EventPreferencesTime.removeAlarm", "event="+_event._name + " alarm removed");
+                PPApplication.logE("EventPreferencesTime.removeAlarm", "event=" + _event._name + " alarm removed");
         } catch (Exception ignored) {}
     }
 
@@ -1233,7 +1243,7 @@ class EventPreferencesTime extends EventPreferences {
         if (testEvent)
             PPApplication.logE("EventPreferencesTime.setAlarm", "requestCode="+requestCode);
 
-        /*if (applicationUseAlarmClock) {
+        if (applicationUseAlarmClock) {
             if (testEvent)
                 PPApplication.logE("EventPreferencesTime.setAlarm", "for alarm clock");
 
@@ -1279,6 +1289,7 @@ class EventPreferencesTime extends EventPreferences {
 
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
+                            .addTag("elapsedAlarmsTimeSensorWork_"+requestCode)
                             .setInputData(workData)
                             .setInitialDelay(elapsedTime, TimeUnit.MILLISECONDS)
                             .build();
@@ -1286,11 +1297,12 @@ class EventPreferencesTime extends EventPreferences {
                 WorkManager workManager = WorkManager.getInstance(context);
                 if (testEvent)
                     PPApplication.logE("[HANDLER] EventPreferencesTime.setAlarm", "enqueueUniqueWork - elapsedTime="+elapsedTime);
-                workManager.enqueueUniqueWork("elapsedAlarmsTimeSensorWork_"+requestCode, ExistingWorkPolicy.REPLACE, worker);
+                //workManager.enqueueUniqueWork("elapsedAlarmsTimeSensorWork_"+requestCode, ExistingWorkPolicy.REPLACE, worker);
+                workManager.enqueue(worker);
             } catch (Exception ignored) {}
-        }*/
+        }
 
-        //Intent intent = new Intent(context, EventTimeBroadcastReceiver.class);
+        /*//Intent intent = new Intent(context, EventTimeBroadcastReceiver.class);
         Intent intent = new Intent();
         intent.setAction(PhoneProfilesService.ACTION_EVENT_TIME_BROADCAST_RECEIVER);
         //intent.setClass(context, EventPreferencesTime.class);
@@ -1323,7 +1335,7 @@ class EventPreferencesTime extends EventPreferences {
                 if (testEvent)
                     PPApplication.logE("EventPreferencesTime.setAlarm", "event="+_event._name + " alarm set");
             }
-        }
+        }*/
     }
 
 }

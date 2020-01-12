@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.provider.Settings;
 import android.util.AttributeSet;
 import android.view.Window;
 import android.view.WindowManager;
@@ -39,7 +38,7 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
     final boolean adaptiveAllowed;
     //final Profile _sharedProfile;
 
-    float savedLayoutParamsBrightness;
+    //private float savedLayoutParamsBrightness;
 
     public BrightnessDialogPreferenceX(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -80,7 +79,7 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
         savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, 0f);*/
         Window win = ((Activity)context).getWindow();
         WindowManager.LayoutParams layoutParams = win.getAttributes();
-        savedLayoutParamsBrightness = layoutParams.screenBrightness;
+        //savedLayoutParamsBrightness = layoutParams.screenBrightness;
     }
 
     void enableViews() {

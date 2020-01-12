@@ -7,11 +7,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.SystemClock;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver {
@@ -48,7 +50,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
         {
             int requestCode = hashData(runApplicationData); //PPApplication.requestCodeForAlarm.nextInt();
 
-            /*if (ApplicationPreferences.applicationUseAlarmClock(context)) {
+            if (ApplicationPreferences.applicationUseAlarmClock(context)) {
                 //Intent intent = new Intent(_context, RunApplicationWithDelayBroadcastReceiver.class);
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER);
@@ -86,6 +88,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
 
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
+                                .addTag("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode)
                                 .setInputData(workData)
                                 .setInitialDelay(startApplicationDelay, TimeUnit.SECONDS)
                                 .build();
@@ -95,11 +98,12 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                         PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.setAlarm", "enqueueUniqueWork - startApplicationDelay=" + startApplicationDelay);
                         PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.setAlarm", "enqueueUniqueWork - runApplicationData=" + runApplicationData);
                     }
-                    workManager.enqueueUniqueWork("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode, ExistingWorkPolicy.REPLACE, worker);
+                    //workManager.enqueueUniqueWork("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode, ExistingWorkPolicy.REPLACE, worker);
+                    workManager.enqueue(worker);
                 } catch (Exception ignored) {}
-            }*/
+            }
 
-            //Intent intent = new Intent(_context, RunApplicationWithDelayBroadcastReceiver.class);
+            /*//Intent intent = new Intent(_context, RunApplicationWithDelayBroadcastReceiver.class);
             Intent intent = new Intent();
             intent.setAction(PhoneProfilesService.ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER);
             //intent.setClass(context, RunApplicationWithDelayBroadcastReceiver.class);
@@ -139,7 +143,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                     //else
                     //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
                 }
-            }
+            }*/
         }
     }
 
@@ -170,7 +174,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
         } catch (Exception ignored) {}
         try {
             WorkManager workManager = WorkManager.getInstance(context);
-            workManager.cancelUniqueWork("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode);
+            //workManager.cancelUniqueWork("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode);
             workManager.cancelAllWorkByTag("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode);
         } catch (Exception ignored) {}
         PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.removeAlarm", "removed");
