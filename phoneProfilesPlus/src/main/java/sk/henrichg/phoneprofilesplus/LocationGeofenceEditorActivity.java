@@ -738,6 +738,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
         OneTimeWorkRequest fetchAddressWorker =
                 new OneTimeWorkRequest.Builder(FetchAddressWorker.class)
+                        .addTag(FETCH_ADDRESS_WORK_TAG)
                         .setInputData(workData)
                         .build();
 

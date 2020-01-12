@@ -115,6 +115,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
                                         OneTimeWorkRequest worker =
                                                 new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                                        .addTag("handleEventsWifiScannerFromReceiverWork")
                                                         .setInputData(workData)
                                                         .setInitialDelay(5, TimeUnit.SECONDS)
                                                         .build();

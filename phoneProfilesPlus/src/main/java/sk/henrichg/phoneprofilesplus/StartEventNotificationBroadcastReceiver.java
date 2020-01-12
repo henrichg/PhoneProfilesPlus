@@ -52,7 +52,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
         } catch (Exception ignored) {}
         try {
             WorkManager workManager = WorkManager.getInstance(context);
-            workManager.cancelUniqueWork("elapsedAlarmsStartEventNotificationWork_"+(int)event._id);
+            //workManager.cancelUniqueWork("elapsedAlarmsStartEventNotificationWork_"+(int)event._id);
             workManager.cancelAllWorkByTag("elapsedAlarmsStartEventNotificationWork_"+(int)event._id);
         } catch (Exception ignored) {}
         PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.removeAlarm", "removed");
@@ -100,6 +100,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
+                                .addTag("elapsedAlarmsStartEventNotificationWork_"+(int)event._id)
                                 .setInputData(workData)
                                 .setInitialDelay(event._repeatNotificationIntervalStart, TimeUnit.SECONDS)
                                 .build();
@@ -109,7 +110,8 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                         PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.setAlarm", "enqueueUniqueWork - event._repeatNotificationIntervalStart=" + event._repeatNotificationIntervalStart);
                         PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.setAlarm", "enqueueUniqueWork - event._id=" + event._id);
                     }
-                    workManager.enqueueUniqueWork("elapsedAlarmsStartEventNotificationWork_"+(int)event._id, ExistingWorkPolicy.REPLACE, worker);
+                    //workManager.enqueueUniqueWork("elapsedAlarmsStartEventNotificationWork_"+(int)event._id, ExistingWorkPolicy.REPLACE, worker);
+                    workManager.enqueue(worker);
                 } catch (Exception ignored) {}
             }
 

@@ -2879,6 +2879,7 @@ public class PPApplication extends Application {
 
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                            .addTag("setBlockProfileEventsActionWork")
                             .setInputData(workData)
                             .setInitialDelay(30, TimeUnit.SECONDS)
                             .build();

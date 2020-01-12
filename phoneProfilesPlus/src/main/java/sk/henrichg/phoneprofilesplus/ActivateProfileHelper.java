@@ -1237,6 +1237,7 @@ class ActivateProfileHelper {
 
                                 OneTimeWorkRequest disableInternalChangeWorker =
                                         new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
+                                                .addTag("disableInternalChangeWork")
                                                 .setInitialDelay(3, TimeUnit.SECONDS)
                                                 .build();
                                 try {
@@ -2791,6 +2792,7 @@ class ActivateProfileHelper {
 
         OneTimeWorkRequest disableInternalChangeWorker =
                 new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
+                        .addTag("disableInternalChangeWork")
                         .setInitialDelay(3, TimeUnit.SECONDS)
                         .build();
         try {

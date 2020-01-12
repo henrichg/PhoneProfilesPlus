@@ -3793,6 +3793,7 @@ public class PhoneProfilesService extends Service
 
                     OneTimeWorkRequest worker =
                             new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                    .addTag("delayedWorkAfterFirstStartWork")
                                     .setInputData(workData)
                                     .setInitialDelay(3, TimeUnit.SECONDS)
                                     .build();
@@ -5848,6 +5849,7 @@ public class PhoneProfilesService extends Service
 
                     OneTimeWorkRequest disableInternalChangeWorker =
                             new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
+                                    .addTag("disableInternalChangeWork")
                                     .setInitialDelay(3, TimeUnit.SECONDS)
                                     .build();
                     try {
@@ -5876,6 +5878,7 @@ public class PhoneProfilesService extends Service
 
                     OneTimeWorkRequest disableInternalChangeWorker =
                             new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
+                                    .addTag("disableInternalChangeWork")
                                     .setInitialDelay(3, TimeUnit.SECONDS)
                                     .build();
                     try {
@@ -5932,6 +5935,7 @@ public class PhoneProfilesService extends Service
 
         OneTimeWorkRequest disableInternalChangeWorker =
                 new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
+                        .addTag("disableInternalChangeWork")
                         .setInitialDelay(3, TimeUnit.SECONDS)
                         .build();
         try {
@@ -6320,6 +6324,7 @@ public class PhoneProfilesService extends Service
 
                                 OneTimeWorkRequest disableInternalChangeWorker =
                                         new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
+                                                .addTag("disableInternalChangeWork")
                                                 .setInitialDelay(3, TimeUnit.SECONDS)
                                                 .build();
                                 try {
@@ -6350,6 +6355,7 @@ public class PhoneProfilesService extends Service
 
                         OneTimeWorkRequest disableInternalChangeWorker =
                                 new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
+                                        .addTag("disableInternalChangeWork")
                                         .setInitialDelay(3, TimeUnit.SECONDS)
                                         .build();
                         try {
@@ -6376,6 +6382,7 @@ public class PhoneProfilesService extends Service
 
                         OneTimeWorkRequest disableInternalChangeWorker =
                                 new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
+                                        .addTag("disableInternalChangeWork")
                                         .setInitialDelay(3, TimeUnit.SECONDS)
                                         .build();
                         try {

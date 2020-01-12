@@ -92,6 +92,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
 
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
+                            .addTag("elapsedAlarmsGeofenceScannerSwitchGPSWork")
                             .setInputData(workData)
                             .setInitialDelay(delay, TimeUnit.MINUTES)
                             .build();

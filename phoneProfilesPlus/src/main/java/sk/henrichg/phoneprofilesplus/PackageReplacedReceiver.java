@@ -402,6 +402,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                         OneTimeWorkRequest worker =
                                 new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                        .addTag("packageReplacedWork")
                                         .setInputData(workData)
                                         .setInitialDelay(3, TimeUnit.SECONDS)
                                         .build();

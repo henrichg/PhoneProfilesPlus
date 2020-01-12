@@ -4529,6 +4529,7 @@ public class DataWrapper {
 
             OneTimeWorkRequest restartEventsWithDelayWorker =
                     new OneTimeWorkRequest.Builder(RestartEventsWithDelayWorker.class)
+                            .addTag("restartEventsWithDelayWork")
                             .setInputData(workData)
                             .setInitialDelay(delay, TimeUnit.SECONDS)
                             .build();

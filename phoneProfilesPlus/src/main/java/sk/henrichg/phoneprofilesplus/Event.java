@@ -2053,13 +2053,15 @@ class Event {
 
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
+                                .addTag("elapsedAlarmsEventDelayStartWork_"+(int) this._id)
                                 .setInputData(workData)
                                 .setInitialDelay(this._delayStart, TimeUnit.SECONDS)
                                 .build();
                 try {
                     WorkManager workManager = WorkManager.getInstance(_context);
                     PPApplication.logE("[HANDLER] Event.setDelayStartAlarm", "enqueueUniqueWork - this._delayStart="+this._delayStart);
-                    workManager.enqueueUniqueWork("elapsedAlarmsEventDelayStartWork_"+((int) this._id), ExistingWorkPolicy.REPLACE, worker);
+                    //workManager.enqueueUniqueWork("elapsedAlarmsEventDelayStartWork_"+((int) this._id), ExistingWorkPolicy.REPLACE, worker);
+                    workManager.enqueue(worker);
 
                     Calendar now = Calendar.getInstance();
                     int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
@@ -2175,7 +2177,7 @@ class Event {
         } catch (Exception ignored) {}
         try {
             WorkManager workManager = WorkManager.getInstance(_context);
-            workManager.cancelUniqueWork("elapsedAlarmsEventDelayStartWork_"+((int) this._id));
+            //workManager.cancelUniqueWork("elapsedAlarmsEventDelayStartWork_"+((int) this._id));
             workManager.cancelAllWorkByTag("elapsedAlarmsEventDelayStartWork_"+((int) this._id));
         } catch (Exception ignored) {}
         this._isInDelayStart = false;
@@ -2269,13 +2271,15 @@ class Event {
 
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
+                                .addTag("elapsedAlarmsEventDelayStartWork_"+(int) this._id)
                                 .setInputData(workData)
                                 .setInitialDelay(this._delayEnd, TimeUnit.SECONDS)
                                 .build();
                 try {
                     WorkManager workManager = WorkManager.getInstance(_context);
                     PPApplication.logE("[HANDLER] Event.setDelayEndAlarm", "enqueueUniqueWork - this._delayEnd="+this._delayEnd);
-                    workManager.enqueueUniqueWork("elapsedAlarmsEventDelayEndWork_"+((int) this._id), ExistingWorkPolicy.REPLACE, worker);
+                    //workManager.enqueueUniqueWork("elapsedAlarmsEventDelayEndWork_"+((int) this._id), ExistingWorkPolicy.REPLACE, worker);
+                    workManager.enqueue(worker);
 
                     Calendar now = Calendar.getInstance();
                     int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
@@ -2410,7 +2414,7 @@ class Event {
         } catch (Exception ignored) {}
         try {
             WorkManager workManager = WorkManager.getInstance(_context);
-            workManager.cancelUniqueWork("elapsedAlarmsEventDelayEndWork_"+((int) this._id));
+            //workManager.cancelUniqueWork("elapsedAlarmsEventDelayEndWork_"+((int) this._id));
             workManager.cancelAllWorkByTag("elapsedAlarmsEventDelayEndWork_"+((int) this._id));
         } catch (Exception ignored) {}
         this._isInDelayEnd = false;

@@ -92,6 +92,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
 
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
+                            .addTag("elapsedAlarmsLockDeviceFinishActivity")
                             .setInputData(workData)
                             .setInitialDelay(delay, TimeUnit.SECONDS)
                             .build();

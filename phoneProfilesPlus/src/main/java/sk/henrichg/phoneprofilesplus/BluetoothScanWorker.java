@@ -943,6 +943,7 @@ public class BluetoothScanWorker extends Worker {
 
                     OneTimeWorkRequest worker =
                             new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                    .addTag("handleEventsBluetoothCLScannerWork")
                                     .setInputData(workData)
                                     .setInitialDelay(5, TimeUnit.SECONDS)
                                     .build();

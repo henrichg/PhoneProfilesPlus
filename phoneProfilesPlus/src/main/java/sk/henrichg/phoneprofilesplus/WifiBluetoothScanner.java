@@ -230,6 +230,7 @@ class WifiBluetoothScanner {
 
                                             OneTimeWorkRequest worker =
                                                     new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                                            .addTag("handleEventsWifiScannerFromScannerWork")
                                                             .setInputData(workData)
                                                             .setInitialDelay(5, TimeUnit.SECONDS)
                                                             .build();
