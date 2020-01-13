@@ -2653,8 +2653,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals("categoryActivatorRoot")) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationPrefIndicator);
-            if (!summary.isEmpty()) summary = summary + " • ";
-            summary = summary + getString(R.string.phone_profiles_pref_applicationHeader);
+            //if (!summary.isEmpty()) summary = summary + " • ";
+            //summary = summary + getString(R.string.phone_profiles_pref_applicationHeader);
             if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_applicationClose);
             if (!summary.isEmpty()) summary = summary + " • ";
@@ -2662,8 +2662,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals("categoryEditorRoot")) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationPrefIndicator);
+            //if (!summary.isEmpty()) summary = summary + " • ";
+            //summary = summary + getString(R.string.phone_profiles_pref_applicationHeader);
             if (!summary.isEmpty()) summary = summary + " • ";
-            summary = summary + getString(R.string.phone_profiles_pref_applicationHeader);
+            summary = summary + getString(R.string.phone_profiles_pref_applicationHideHeaderOrBottomBar);
             //if (!summary.isEmpty()) summary = summary + " • ";
             //summary = summary + getString(R.string.phone_profiles_pref_applicationEditorSaveEditorState);
             if (!summary.isEmpty()) summary = summary + " • ";
