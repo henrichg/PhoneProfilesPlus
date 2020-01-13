@@ -16,11 +16,11 @@ public class NFCEventEndBroadcastReceiver extends BroadcastReceiver {
         String action = intent.getAction();
         if (action != null) {
             PPApplication.logE("NFCEventEndBroadcastReceiver.onReceive", "action=" + action);
-            doWork(true, context);
+            doWork(/*true,*/ context);
         }
     }
 
-    static void doWork(boolean useHandler, Context context) {
+    private void doWork(/*boolean useHandler,*/ Context context) {
         //PPApplication.logE("[HANDLER] NFCEventEndBroadcastReceiver.doWork", "useHandler="+useHandler);
 
         final Context appContext = context.getApplicationContext();
@@ -29,7 +29,7 @@ public class NFCEventEndBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        if (useHandler) {
+        //if (useHandler) {
             PPApplication.startHandlerThread("NFCEventEndBroadcastReceiver.doWork");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
@@ -62,14 +62,14 @@ public class NFCEventEndBroadcastReceiver extends BroadcastReceiver {
                     }
                 }
             });
-        }
+        /*}
         else {
             if (Event.getGlobalEventsRunning(appContext)) {
                 PPApplication.logE("NFCEventEndBroadcastReceiver.doWork", "handle events");
                 EventsHandler eventsHandler = new EventsHandler(appContext);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NFC_EVENT_END);
             }
-        }
+        }*/
     }
 
 }

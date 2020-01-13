@@ -12,14 +12,11 @@ import android.telephony.PhoneNumberUtils;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
-import androidx.work.Data;
-import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 class EventPreferencesCall extends EventPreferences {
@@ -483,7 +480,7 @@ class EventPreferencesCall extends EventPreferences {
                     PPApplication.logE("EventPreferencesCall.setAlarm", "endTime=" + result);
                 }
 
-                if (ApplicationPreferences.applicationUseAlarmClock(context)) {
+                /*if (ApplicationPreferences.applicationUseAlarmClock(context)) {
                     //Intent intent = new Intent(context, MissedCallEventEndBroadcastReceiver.class);
                     Intent intent = new Intent();
                     intent.setAction(PhoneProfilesService.ACTION_MISSED_CALL_EVENT_END_BROADCAST_RECEIVER);
@@ -531,9 +528,9 @@ class EventPreferencesCall extends EventPreferences {
                         //workManager.enqueueUniqueWork("elapsedAlarmsCallSensorWork_"+(int)_event._id, ExistingWorkPolicy.REPLACE, worker);
                         workManager.enqueue(worker);
                     } catch (Exception ignored) {}
-                }
+                }*/
 
-                /*//Intent intent = new Intent(context, MissedCallEventEndBroadcastReceiver.class);
+                //Intent intent = new Intent(context, MissedCallEventEndBroadcastReceiver.class);
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_MISSED_CALL_EVENT_END_BROADCAST_RECEIVER);
                 //intent.setClass(context, MissedCallEventEndBroadcastReceiver.class);
@@ -559,7 +556,7 @@ class EventPreferencesCall extends EventPreferences {
                         //else
                         //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
                     }
-                }*/
+                }
             }
         }
     }

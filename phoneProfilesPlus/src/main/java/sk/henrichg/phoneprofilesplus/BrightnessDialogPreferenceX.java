@@ -1,13 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.view.Window;
-import android.view.WindowManager;
 
 import androidx.preference.DialogPreference;
 
@@ -77,8 +74,8 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
         savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
         //if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
         savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, 0f);*/
-        Window win = ((Activity)context).getWindow();
-        WindowManager.LayoutParams layoutParams = win.getAttributes();
+        //Window win = ((Activity)context).getWindow();
+        //WindowManager.LayoutParams layoutParams = win.getAttributes();
         //savedLayoutParamsBrightness = layoutParams.screenBrightness;
     }
 

@@ -13,14 +13,11 @@ import java.sql.Date;
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
-import androidx.work.Data;
-import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 class EventPreferencesTime extends EventPreferences {
@@ -1243,7 +1240,7 @@ class EventPreferencesTime extends EventPreferences {
         if (testEvent)
             PPApplication.logE("EventPreferencesTime.setAlarm", "requestCode="+requestCode);
 
-        if (applicationUseAlarmClock) {
+        /*if (applicationUseAlarmClock) {
             if (testEvent)
                 PPApplication.logE("EventPreferencesTime.setAlarm", "for alarm clock");
 
@@ -1300,9 +1297,9 @@ class EventPreferencesTime extends EventPreferences {
                 //workManager.enqueueUniqueWork("elapsedAlarmsTimeSensorWork_"+requestCode, ExistingWorkPolicy.REPLACE, worker);
                 workManager.enqueue(worker);
             } catch (Exception ignored) {}
-        }
+        }*/
 
-        /*//Intent intent = new Intent(context, EventTimeBroadcastReceiver.class);
+        //Intent intent = new Intent(context, EventTimeBroadcastReceiver.class);
         Intent intent = new Intent();
         intent.setAction(PhoneProfilesService.ACTION_EVENT_TIME_BROADCAST_RECEIVER);
         //intent.setClass(context, EventPreferencesTime.class);
@@ -1335,7 +1332,7 @@ class EventPreferencesTime extends EventPreferences {
                 if (testEvent)
                     PPApplication.logE("EventPreferencesTime.setAlarm", "event="+_event._name + " alarm set");
             }
-        }*/
+        }
     }
 
 }
