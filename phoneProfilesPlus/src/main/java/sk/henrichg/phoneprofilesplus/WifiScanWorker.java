@@ -90,8 +90,8 @@ public class WifiScanWorker extends Worker {
             PPApplication.logE("[SCHEDULE] WifiScanWorker.doWork", "schedule work");
             scheduleWork(context.getApplicationContext(), false, null, false/*, false, false*/);
 
-            /*PPApplication.startHandlerThreadPPService();
-            final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
+            /*PPApplication.startHandlerThreadPPScanners();
+            final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -172,8 +172,8 @@ public class WifiScanWorker extends Worker {
         if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
             if (useHandler && (_handler == null)) {
-                PPApplication.startHandlerThreadPPService();
-                final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
+                PPApplication.startHandlerThreadPPScanners();
+                final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -259,8 +259,8 @@ public class WifiScanWorker extends Worker {
         PPApplication.logE("WifiScanWorker.cancelWork", "xxx");
 
         if (useHandler && (_handler == null)) {
-            PPApplication.startHandlerThreadPPService();
-            final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
+            PPApplication.startHandlerThreadPPScanners();
+            final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {

@@ -4287,6 +4287,8 @@ public class DataWrapper {
     }
 
     private void _restartEventsWithRescan(/*boolean forceRestart, */boolean unblockEventsRun, boolean log) {
+        PPApplication.logE("$$$ DataWrapper._restartEventsWithRescan","xxx");
+
         // remove all event delay alarms
         resetAllEventsInDelayStart(false);
         resetAllEventsInDelayEnd(false);

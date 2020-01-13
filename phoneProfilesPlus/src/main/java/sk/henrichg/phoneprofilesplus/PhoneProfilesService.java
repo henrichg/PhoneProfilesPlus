@@ -2904,8 +2904,8 @@ public class PhoneProfilesService extends Service
         if (/*!forceStart &&*/ WifiSSIDPreferenceX.forceRegister)
             return;
 
-        PPApplication.startHandlerThreadPPService();
-        final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
+        PPApplication.startHandlerThreadPPScanners();
+        final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -2967,8 +2967,8 @@ public class PhoneProfilesService extends Service
         if (/*!forceStart &&*/ BluetoothNamePreferenceX.forceRegister)
             return;
 
-        PPApplication.startHandlerThreadPPService();
-        final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
+        PPApplication.startHandlerThreadPPScanners();
+        final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -3027,8 +3027,8 @@ public class PhoneProfilesService extends Service
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleGeofenceWorker", "PhoneProfilesService_scheduleGeofenceWorker");
         PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceWorker", "xxx");
 
-        PPApplication.startHandlerThreadPPService();
-        final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
+        PPApplication.startHandlerThreadPPScanners();
+        final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -3089,8 +3089,8 @@ public class PhoneProfilesService extends Service
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleSearchCalendarEventsWorker", "PhoneProfilesService_scheduleSearchCalendarEventsWorker");
         PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsWorker", "xxx");
 
-        PPApplication.startHandlerThreadPPService();
-        final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
+        PPApplication.startHandlerThreadPPScanners();
+        final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -3827,11 +3827,12 @@ public class PhoneProfilesService extends Service
     }
 
     private void doCommand(final Intent intent) {
+        //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "xxx");
         if (intent != null) {
             //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "intent="+intent.getAction());
             final Context appContext = getApplicationContext();
-            PPApplication.startHandlerThreadPPService();
-            final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
+            PPApplication.startHandlerThreadPPCommand();
+            final Handler handler = new Handler(PPApplication.handlerThreadPPCommand.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -3842,6 +3843,8 @@ public class PhoneProfilesService extends Service
                             wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doCommand");
                             wakeLock.acquire(10 * 60 * 1000);
                         }
+
+                        PPApplication.logE("$$$ PhoneProfilesService.doCommand", "--- START");
 
                         /*if (intent.getBooleanExtra(EXTRA_SHOW_PROFILE_NOTIFICATION, false)) {
                             PPApplication.logE("$$$ PhoneProfilesService.doCommand", "EXTRA_SHOW_PROFILE_NOTIFICATION");
@@ -3940,7 +3943,7 @@ public class PhoneProfilesService extends Service
                         if (intent.getBooleanExtra(EXTRA_START_STOP_SCANNER, false)) {
                             PPApplication.logE("$$$ PhoneProfilesService.doCommand", "EXTRA_START_STOP_SCANNER");
                             final boolean forScreenOn = intent.getBooleanExtra(EXTRA_FOR_SCREEN_ON, false);
-                            PPApplication.logE("$$$ PhoneProfilesService.doCommand", "forScreenOn="+forScreenOn);
+                            //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "forScreenOn="+forScreenOn);
                             switch (intent.getIntExtra(EXTRA_START_STOP_SCANNER_TYPE, 0)) {
                                 case PPApplication.SCANNER_START_GEOFENCE_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_START_GEOFENCE_SCANNER");
@@ -4079,6 +4082,8 @@ public class PhoneProfilesService extends Service
                             dataWrapper.restartEventsWithRescan(unblockEventsRun, false, false, false);
                             //dataWrapper.invalidateDataWrapper();
                         }
+
+                        PPApplication.logE("$$$ PhoneProfilesService.doCommand", "--- END");
 
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {

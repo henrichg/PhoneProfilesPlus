@@ -56,8 +56,8 @@ public class SearchCalendarEventsWorker extends Worker {
             PPApplication.logE("SearchCalendarEventsWorker.doWork - handler", "schedule work");
             scheduleWork(context.getApplicationContext(), false, null, false);
 
-            /*PPApplication.startHandlerThreadPPService();
-            final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
+            /*PPApplication.startHandlerThreadPPScanners();
+            final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -124,8 +124,8 @@ public class SearchCalendarEventsWorker extends Worker {
         PPApplication.logE("SearchCalendarEventsWorker.scheduleWork", "shortInterval="+shortInterval);
 
         if (useHandler && (_handler == null)) {
-            PPApplication.startHandlerThreadPPService();
-            final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
+            PPApplication.startHandlerThreadPPScanners();
+            final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -206,8 +206,8 @@ public class SearchCalendarEventsWorker extends Worker {
         PPApplication.logE("SearchCalendarEventsWorker.cancelWork", "xxx");
 
         if (useHandler && (_handler == null)) {
-            PPApplication.startHandlerThreadPPService();
-            final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
+            PPApplication.startHandlerThreadPPScanners();
+            final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {

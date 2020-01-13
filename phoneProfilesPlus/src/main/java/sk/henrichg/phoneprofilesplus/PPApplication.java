@@ -445,7 +445,7 @@ public class PPApplication extends Application {
                                         //+"|EventPreferencesAlarmClock.setAlarm"
                                         //+"|EventPreferencesAlarmClock.computeAlarm"
                                         //+"|NextAlarmClockBroadcastReceiver"
-                                        //+"|TimeChangedReceiver"
+                                        +"|TimeChangedReceiver"
 
                                         //+"|@@@ ScreenOnOffBroadcastReceiver"
                                         //+"|LockDeviceActivity"
@@ -739,7 +739,8 @@ public class PPApplication extends Application {
     public static HandlerThread handlerThreadWidget = null;
     public static HandlerThread handlerThreadProfileNotification = null;
     public static HandlerThread handlerThreadPlayTone = null;
-    public static HandlerThread handlerThreadPPService = null;
+    public static HandlerThread handlerThreadPPScanners = null;
+    public static HandlerThread handlerThreadPPCommand = null;
 
     //private static HandlerThread handlerThreadRoot = null;
     public static HandlerThread handlerThreadVolumes = null;
@@ -947,7 +948,8 @@ public class PPApplication extends Application {
 
         startHandlerThread("PPApplication.onCreate");
         //startHandlerThreadInternalChangeToFalse();
-        startHandlerThreadPPService();
+        startHandlerThreadPPScanners();
+        startHandlerThreadPPCommand();
         //startHandlerThreadRoot();
         startHandlerThreadWidget();
         startHandlerThreadProfileNotification();
@@ -2722,10 +2724,17 @@ public class PPApplication extends Application {
         }
     }
 
-    static void startHandlerThreadPPService() {
-        if (handlerThreadPPService == null) {
-            handlerThreadPPService = new HandlerThread("PPHandlerThreadPPService", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            handlerThreadPPService.start();
+    static void startHandlerThreadPPScanners() {
+        if (handlerThreadPPScanners == null) {
+            handlerThreadPPScanners = new HandlerThread("PPHandlerThreadPPScanners", THREAD_PRIORITY_MORE_FAVORABLE); //);
+            handlerThreadPPScanners.start();
+        }
+    }
+
+    static void startHandlerThreadPPCommand() {
+        if (handlerThreadPPCommand == null) {
+            handlerThreadPPCommand = new HandlerThread("PPHandlerThreadPPCommand", THREAD_PRIORITY_MORE_FAVORABLE); //);
+            handlerThreadPPCommand.start();
         }
     }
 

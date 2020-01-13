@@ -27,9 +27,9 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                 if (!PPApplication.getApplicationStarted(appContext, true))
                     return;
 
-                boolean timeChanged = true;
+                /*boolean timeChanged = true;
 
-                /*if (action.equals(Intent.ACTION_TIME_TICK)) {
+                if (action.equals(Intent.ACTION_TIME_TICK)) {
                     long uptimeDifference = SystemClock.elapsedRealtime() - PPApplication.lastUptimeTime;
                     long epochDifference = System.currentTimeMillis() - PPApplication.lastEpochTime;
                     long timeChange = Math.abs(uptimeDifference - epochDifference);
@@ -45,10 +45,6 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                     PPApplication.lastUptimeTime = SystemClock.elapsedRealtime();
                     PPApplication.lastEpochTime = System.currentTimeMillis();
                 }*/
-                if (action.equals(Intent.ACTION_TIME_CHANGED)) {
-                    if (!PPApplication.isScreenOn)
-                        timeChanged = false;
-                }
 
                 /*if (action.equals(Intent.ACTION_TIME_CHANGED)) {
                     timeChanged = false;
@@ -57,11 +53,14 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                     if ((isAutoTime != null) && isAutoTime.equals("0")) {
                         timeChanged = true;
                     }
-                }*/
+                }
 
                 PPApplication.logE("TimeChangedReceiver.onReceive", "timeChanged="+timeChanged);
+                */
 
-                if (timeChanged) {
+                //if (timeChanged) {
+                    PPApplication.logE("TimeChangedReceiver.onReceive", "do time change");
+
                     PPApplication.startHandlerThread("TimeChangedReceiver.onReceive");
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                     handler.post(new Runnable() {
@@ -74,6 +73,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                                     wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":TimeChangedReceiver_onReceive");
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
+
 
                                 PPApplication.logE("PPApplication.startHandlerThread", "START run - from=TimeChangedReceiver.onReceive");
 
@@ -91,15 +91,18 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                             }
                         }
                     });
-                }
+                //}
             }
         }
     }
 
     private static void doWork(Context appContext) {
+        PPApplication.logE("TimeChangedReceiver.doWork", "xxx");
+
         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
         dataWrapper.fillProfileList(false, false);
+
         for (Profile profile : dataWrapper.profileList) {
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, appContext);
 
@@ -123,7 +126,13 @@ public class TimeChangedReceiver extends BroadcastReceiver {
 
         //dataWrapper.clearSensorsStartTime();
         //dataWrapper.restartEvents(false, true, false, false, false);
-        dataWrapper.restartEventsWithRescan(false, false, false, false);
+        //dataWrapper.restartEventsWithRescan(false, false, false, false);
+        if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
+            dataWrapper.restartEventsWithRescan(true, false, false, false);
+        }
+        else {
+            dataWrapper.restartEventsWithRescan(false, false, false, false);
+        }
     }
 
 }

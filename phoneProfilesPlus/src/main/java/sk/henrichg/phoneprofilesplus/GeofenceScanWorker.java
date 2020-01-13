@@ -89,8 +89,8 @@ public class GeofenceScanWorker extends Worker {
             PPApplication.logE("GeofenceScanWorker.doWork - handler", "schedule work");
             scheduleWork(context.getApplicationContext(), false, null, false/*, false*/);
 
-            /*PPApplication.startHandlerThreadPPService();
-            final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
+            /*PPApplication.startHandlerThreadPPScanners();
+            final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -186,8 +186,8 @@ public class GeofenceScanWorker extends Worker {
 
         //if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.isGeofenceScannerStarted()) {
         if (useHandler && (_handler == null)) {
-            PPApplication.startHandlerThreadPPService();
-            final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
+            PPApplication.startHandlerThreadPPScanners();
+            final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -269,8 +269,8 @@ public class GeofenceScanWorker extends Worker {
         PPApplication.logE("GeofenceScanWorker.cancelWork", "xxx");
 
         if (useHandler && (_handler == null)) {
-            PPApplication.startHandlerThreadPPService();
-            final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
+            PPApplication.startHandlerThreadPPScanners();
+            final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
