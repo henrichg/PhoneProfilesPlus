@@ -582,7 +582,7 @@ public class DataWrapper {
 
     void updateNotificationAndWidgets(boolean refresh)
     {
-        PPApplication.showProfileNotification(/*context*/refresh);
+        PPApplication.showProfileNotification(/*context*/refresh, false);
         PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.updateNotificationAndWidgets");
         ActivateProfileHelper.updateGUI(context, true, refresh);
     }
@@ -1679,7 +1679,7 @@ public class DataWrapper {
 
         PPApplication.logE("$$$ DataWrapper._activateProfile","before update GUI");
 
-        PPApplication.showProfileNotification(/*context*/startupSource == PPApplication.STARTUP_SOURCE_BOOT);
+        PPApplication.showProfileNotification(/*context*/startupSource == PPApplication.STARTUP_SOURCE_BOOT, false);
         PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper._activateProfile");
         ActivateProfileHelper.updateGUI(context, true, startupSource == PPApplication.STARTUP_SOURCE_BOOT);
 
@@ -2037,7 +2037,7 @@ public class DataWrapper {
             DatabaseHandler.getInstance(context).activateProfile(profile);
             setProfileActive(profile);
 
-            PPApplication.showProfileNotification(/*context*/false);
+            PPApplication.showProfileNotification(/*context*/false, false);
             PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.activateProfile");
             ActivateProfileHelper.updateGUI(context, true, false);
 
@@ -2062,7 +2062,7 @@ public class DataWrapper {
             PPApplication.logE("DataWrapper.activateProfileAfterDuration", "no activate");
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
             Profile.setActivatedProfileForDuration(context, 0);
-            PPApplication.showProfileNotification(/*context*/false);
+            PPApplication.showProfileNotification(/*context*/false, false);
             PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.activateProfileAfterDuration");
             ActivateProfileHelper.updateGUI(context, true, false);
             return;
@@ -4781,7 +4781,7 @@ public class DataWrapper {
                 public void onClick(DialogInterface dialog, int which) {
                     PPApplication.logE("DataWrapper.runStopEventsWithAlert", "stop");
                     if (globalRunStopEvents(true)) {
-                        PPApplication.showProfileNotification(/*activity.getApplicationContext()*/true);
+                        PPApplication.showProfileNotification(/*activity.getApplicationContext()*/true, false);
                         if (activity instanceof EditorProfilesActivity)
                             ((EditorProfilesActivity) activity).refreshGUI(true, false, true, 0, 0);
                         else if (activity instanceof ActivateProfileActivity)
@@ -4813,7 +4813,7 @@ public class DataWrapper {
         }
         else {
             if (globalRunStopEvents(false)) {
-                PPApplication.showProfileNotification(/*activity.getApplicationContext()*/true);
+                PPApplication.showProfileNotification(/*activity.getApplicationContext()*/true, false);
                 if (activity instanceof EditorProfilesActivity)
                     ((EditorProfilesActivity) activity).refreshGUI(true, false, true, 0, 0);
                 else if (activity instanceof ActivateProfileActivity)

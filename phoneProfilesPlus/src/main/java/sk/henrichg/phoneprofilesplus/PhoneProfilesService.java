@@ -343,7 +343,7 @@ public class PhoneProfilesService extends Service
 
         //if (Build.VERSION.SDK_INT >= 26)
         // show empty notification to avoid ANR in api level 26
-        showProfileNotification(true, true, false);
+        PPApplication.showProfileNotification(true, true/*, false*/);
 
         PPApplication.logE("PhoneProfilesService.onCreate", "after show profile notification");
 
@@ -3820,7 +3820,7 @@ public class PhoneProfilesService extends Service
     {
         PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
 
-        showProfileNotification(true, true, false);
+        PPApplication.showProfileNotification(true, true/*, false*/);
         doForFirstStart(intent);
 
         return START_STICKY;
@@ -4109,7 +4109,7 @@ public class PhoneProfilesService extends Service
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         PPApplication.logE("PhoneProfilesService.onConfigurationChanged", "xxx");
-        showProfileNotification(true, false, false);
+        PPApplication.showProfileNotification(true, false/*, false*/);
         PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesService.obConfigurationChanged");
         ActivateProfileHelper.updateGUI(getApplicationContext(), true, true);
     }
@@ -4150,7 +4150,7 @@ public class PhoneProfilesService extends Service
 
     @SuppressLint("NewApi")
     private void _showProfileNotification(Profile profile, boolean inHandlerThread, final DataWrapper dataWrapper,
-                                          boolean refresh, boolean cleared)
+                                          boolean refresh/*, boolean cleared*/)
     {
         PPApplication.logE("PhoneProfilesService._showProfileNotification", "xxx");
 
@@ -4207,6 +4207,7 @@ public class PhoneProfilesService extends Service
                 }
             }
 
+            /* moved to PhoneProfilesService.showProfileNotification()
             if (!cleared) {
                 boolean clear = false;
                 if (Build.MANUFACTURER.equals("HMD Global"))
@@ -4221,6 +4222,7 @@ public class PhoneProfilesService extends Service
                         notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
                 }
             }
+            */
 
             if (PPApplication.logEnabled()) {
                 if (refresh)
@@ -4880,27 +4882,29 @@ public class PhoneProfilesService extends Service
         }*/
     }
 
-    void showProfileNotification(final boolean refresh, boolean forServiceStart, final boolean cleared) {
+    void showProfileNotification(final boolean refresh, boolean forServiceStart/*, final boolean cleared*/) {
         //if (Build.VERSION.SDK_INT >= 26) {
             //if (BuildConfig.DEBUG)
             //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
 
-        /*
-        if (startLauncherFromNotificationReceiver == null) {
-            startLauncherFromNotificationReceiver = new StartLauncherFromNotificationReceiver();
-            IntentFilter intentFilter5 = new IntentFilter();
-            intentFilter5.addAction(ACTION_START_LAUNCHER_FROM_NOTIFICATION);
-            getApplicationContext().registerReceiver(startLauncherFromNotificationReceiver, intentFilter5);
-        }
-        */
-
         PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","forServiceStart="+forServiceStart);
 
-            //if (!runningInForeground) {
+        boolean clear = false;
+        if (Build.MANUFACTURER.equals("HMD Global"))
+            // clear it for redraw icon in "Glance view" for "HMD Global" mobiles
+            clear = true;
+        if (PPApplication.deviceIsLG && (!Build.MODEL.contains("Nexus")) && (Build.VERSION.SDK_INT == 28))
+            // clear it for redraw icon in "Glance view" for LG with Android 9
+            clear = true;
+        if (clear) {
+            clearProfileNotification();
+        }
+
+        //if (!runningInForeground) {
             if (forServiceStart) {
                 //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
-                _showProfileNotification(null, false, dataWrapper, true, cleared);
+                _showProfileNotification(null, false, dataWrapper, true/*, cleared*/);
                 //dataWrapper.invalidateDataWrapper();
             }
         //}
@@ -4910,6 +4914,7 @@ public class PhoneProfilesService extends Service
 
         PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","before run handler");
 
+        final boolean _clear = clear;
         PPApplication.startHandlerThreadProfileNotification();
         final Handler handler = new Handler(PPApplication.handlerThreadProfileNotification.getLooper());
         handler.post(new Runnable() {
@@ -4918,7 +4923,7 @@ public class PhoneProfilesService extends Service
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
                 Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
                 PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification", "_showProfileNotification()");
-                _showProfileNotification(profile, true, dataWrapper, refresh, cleared);
+                _showProfileNotification(profile, true, dataWrapper, _clear || refresh  /*, cleared*/);
                 //dataWrapper.invalidateDataWrapper();
             }
         });

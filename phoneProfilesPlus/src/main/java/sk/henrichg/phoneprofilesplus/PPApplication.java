@@ -1686,15 +1686,13 @@ public class PPApplication extends Application {
         PPApplication.createDonationNotificationChannel(appContext);
     }
 
-    static void showProfileNotification(/*Context context*/boolean refresh) {
+    static void showProfileNotification(/*Context context,*/ final boolean refresh, final boolean forService) {
         try {
             PPApplication.logE("PPApplication.showProfileNotification", "xxx");
-            /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_SHOW_PROFILE_NOTIFICATION, true);
-            PPApplication.startPPService(context, serviceIntent);*/
+
             if (PhoneProfilesService.getInstance() != null)
-                PhoneProfilesService.getInstance().showProfileNotification(refresh, false, false);
+                PhoneProfilesService.getInstance().showProfileNotification(refresh, forService/*, false*/);
+
         } catch (Exception ignored) {}
     }
 
