@@ -7,7 +7,6 @@ import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.PowerManager;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import androidx.work.Data;
@@ -19,7 +18,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### WifiScanBroadcastReceiver.onReceive","xxx");
+        //PPApplication.logE("##### WifiScanBroadcastReceiver.onReceive","xxx");
         //PPApplication.logE("@@@ WifiScanBroadcastReceiver.onReceive", "----- start");
         //CallsCounter.logCounter(context, "WifiScanBroadcastReceiver.onReceive", "WifiScanBroadcastReceiver_onReceive");
 
@@ -45,22 +44,22 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                 boolean resultsUpdated = true;
                 if (android.os.Build.VERSION.SDK_INT >= 23) {
                     if (intent.hasExtra(WifiManager.EXTRA_RESULTS_UPDATED)) {
-                        PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "EXTRA_RESULTS_UPDATED exists");
+                        //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "EXTRA_RESULTS_UPDATED exists");
                         resultsUpdated = intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, true);
                     }
                     else {
-                        PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "EXTRA_RESULTS_UPDATED NOT exists");
+                        //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "EXTRA_RESULTS_UPDATED NOT exists");
                         resultsUpdated = false;
                     }
                 }
                 final boolean scanResultsUpdated = resultsUpdated;
-                PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanResultsUpdated=" + scanResultsUpdated);
+                //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanResultsUpdated=" + scanResultsUpdated);
 
                 if (WifiScanWorker.wifi == null)
                     WifiScanWorker.wifi = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
 
                 final int forceOneScan = WifiBluetoothScanner.getForceOneWifiScan(appContext);
-                PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "forceOneScan=" + forceOneScan);
+                //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "forceOneScan=" + forceOneScan);
 
                 if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
                     PPApplication.startHandlerThread("WifiScanBroadcastReceiver.onReceive.1");
@@ -76,10 +75,10 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
-                                PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiScanBroadcastReceiver.onReceive.1");
+                                //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiScanBroadcastReceiver.onReceive.1");
 
                                 boolean scanStarted = (WifiScanWorker.getWaitForResults(appContext));
-                                PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanStarted=" + scanStarted);
+                                //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanStarted=" + scanStarted);
 
                                 //boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);
                                 //PPApplication.logE("$$$ WifiScanBroadcastReceiver.onReceive", "isWifiAPEnabled="+isWifiAPEnabled);
@@ -89,7 +88,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                 if (scanResultsUpdated)
                                     WifiScanWorker.fillScanResults(appContext);
 
-                                List<WifiSSIDData> scanResults = WifiScanWorker.getScanResults(appContext);
+                                /*List<WifiSSIDData> scanResults = WifiScanWorker.getScanResults(appContext);
                                 if (PPApplication.logEnabled()) {
                                     if (scanResults != null) {
                                         PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanResults.size=" + scanResults.size());
@@ -98,7 +97,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                         }
                                     } else
                                         PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanResults=null");
-                                }
+                                }*/
 
                                 if (scanStarted) {
                                     WifiScanWorker.setWaitForResults(appContext, false);
@@ -106,7 +105,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
                                     if (forceOneScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                                     {
-                                        PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "start EventsHandler (1)");
+                                        //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "start EventsHandler (1)");
 
                                         Data workData = new Data.Builder()
                                                 .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS)
@@ -153,7 +152,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                     }
                                 }
 
-                                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiScanBroadcastReceiver.onReceive.1");
+                                //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiScanBroadcastReceiver.onReceive.1");
                             } finally {
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
                                     try {

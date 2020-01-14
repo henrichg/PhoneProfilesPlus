@@ -10,18 +10,18 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### EventDelayStartBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("##### EventDelayStartBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "EventDelayStartBroadcastReceiver.onReceive", "EventDelayStartBroadcastReceiver_onReceive");
 
         String action = intent.getAction();
         if (action != null) {
-            PPApplication.logE("EventDelayStartBroadcastReceiver.onReceive", "action=" + action);
+            //PPApplication.logE("EventDelayStartBroadcastReceiver.onReceive", "action=" + action);
             doWork(true, context);
         }
     }
 
     static void doWork(boolean useHandler, Context context) {
-        PPApplication.logE("[HANDLER] EventDelayStartBroadcastReceiver.doWork", "useHandler="+useHandler);
+        //PPApplication.logE("[HANDLER] EventDelayStartBroadcastReceiver.doWork", "useHandler="+useHandler);
 
         final Context appContext = context.getApplicationContext();
 
@@ -43,15 +43,15 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=EventDelayStartBroadcastReceiver.doWork");
+                        //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=EventDelayStartBroadcastReceiver.doWork");
 
                         if (Event.getGlobalEventsRunning(appContext)) {
-                            PPApplication.logE("EventDelayStartBroadcastReceiver.doWork", "handle events");
+                            //PPApplication.logE("EventDelayStartBroadcastReceiver.doWork", "handle events");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_EVENT_DELAY_START);
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventDelayStartBroadcastReceiver.doWork");
+                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventDelayStartBroadcastReceiver.doWork");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -65,7 +65,7 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
         }
         else {
             if (Event.getGlobalEventsRunning(appContext)) {
-                PPApplication.logE("EventDelayStartBroadcastReceiver.doWork", "handle events");
+                //PPApplication.logE("EventDelayStartBroadcastReceiver.doWork", "handle events");
                 EventsHandler eventsHandler = new EventsHandler(appContext);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_EVENT_DELAY_START);
             }

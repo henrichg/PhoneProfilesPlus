@@ -11,7 +11,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### LocationModeChangedBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("##### LocationModeChangedBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "LocationModeChangedBroadcastReceiver.onReceive", "LocationModeChangedBroadcastReceiver_onReceive");
 
@@ -23,7 +23,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
 
         if (Event.getGlobalEventsRunning(appContext))
         {
-            PPApplication.logE("@@@ LocationModeChangedBroadcastReceiver.onReceive", "xxx");
+            //PPApplication.logE("@@@ LocationModeChangedBroadcastReceiver.onReceive", "xxx");
 
             final String action = intent.getAction();
             PPApplication.startHandlerThread("LocationModeChangedBroadcastReceiver.onReceive");
@@ -39,7 +39,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=LocationModeChangedBroadcastReceiver.onReceive");
+                        //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=LocationModeChangedBroadcastReceiver.onReceive");
 
                         if ((action != null) && action.matches(LocationManager.PROVIDERS_CHANGED_ACTION)) {
                             EventsHandler eventsHandler = new EventsHandler(appContext);
@@ -49,12 +49,12 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
                         synchronized (PPApplication.geofenceScannerMutex) {
                             if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                                 PhoneProfilesService.getInstance().getGeofencesScanner().clearAllEventGeofences();
-                                PPApplication.logE("LocationModeChangedBroadcastReceiver.onReceive", "updateTransitionsByLastKnownLocation");
+                                //PPApplication.logE("LocationModeChangedBroadcastReceiver.onReceive", "updateTransitionsByLastKnownLocation");
                                 PhoneProfilesService.getInstance().getGeofencesScanner().updateTransitionsByLastKnownLocation(true);
                             }
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=LocationModeChangedBroadcastReceiver.onReceive");
+                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=LocationModeChangedBroadcastReceiver.onReceive");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

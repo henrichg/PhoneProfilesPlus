@@ -24,13 +24,13 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds)
     {
-        PPApplication.logE("OneRowWidgetProvider.onUpdate", "xxx");
+        //PPApplication.logE("OneRowWidgetProvider.onUpdate", "xxx");
         PPApplication.startHandlerThreadWidget();
         final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PPApplication.logE("OneRowWidgetProvider.onUpdate", "in handler");
+                //PPApplication.logE("OneRowWidgetProvider.onUpdate", "in handler");
                 String applicationWidgetOneRowIconLightness = ApplicationPreferences.applicationWidgetOneRowIconLightness(context);
                 String applicationWidgetOneRowIconColor = ApplicationPreferences.applicationWidgetOneRowIconColor(context);
                 boolean applicationWidgetOneRowCustomIconLightness = ApplicationPreferences.applicationWidgetOneRowCustomIconLightness(context);
@@ -45,7 +45,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 boolean applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners(context);
                 String applicationWidgetOneRowLightnessT = ApplicationPreferences.applicationWidgetOneRowLightnessT(context);
 
-                PPApplication.logE("OneRowWidgetProvider.onUpdate", "applicationWidgetOneRowShowBorder="+applicationWidgetOneRowShowBorder);
+                //PPApplication.logE("OneRowWidgetProvider.onUpdate", "applicationWidgetOneRowShowBorder="+applicationWidgetOneRowShowBorder);
 
                 int monochromeValue = 0xFF;
                 if (applicationWidgetOneRowIconLightness.equals("0")) monochromeValue = 0x00;
@@ -76,7 +76,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                                 pName = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
 
                             if (pName.equals(pNameWidget)) {
-                                PPApplication.logE("OneRowWidgetProvider.onUpdate", "activated profile NOT changed");
+                                //PPApplication.logE("OneRowWidgetProvider.onUpdate", "activated profile NOT changed");
                                 return;
                             }
                         }
@@ -159,7 +159,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         int greenBorder;
                         int blueBorder;
                         if (applicationWidgetOneRowShowBorder) {
-                            PPApplication.logE("OneRowWidgetProvider.onUpdate", "");
+                            //PPApplication.logE("OneRowWidgetProvider.onUpdate", "");
                             if (applicationWidgetOneRowLightnessBorder.equals("0")) redBorder = 0x00;
                             if (applicationWidgetOneRowLightnessBorder.equals("12")) redBorder = 0x20;
                             if (applicationWidgetOneRowLightnessBorder.equals("25")) redBorder = 0x40;
@@ -169,20 +169,20 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             if (applicationWidgetOneRowLightnessBorder.equals("75")) redBorder = 0xC0;
                             if (applicationWidgetOneRowLightnessBorder.equals("87")) redBorder = 0xE0;
                             //if (applicationWidgetOneRowLightnessBorder.equals("100")) redBorder = 0xFF;
-                            PPApplication.logE("OneRowWidgetProvider.onUpdate", "redBorder="+redBorder);
+                            //PPApplication.logE("OneRowWidgetProvider.onUpdate", "redBorder="+redBorder);
                         }
                         greenBorder = redBorder;
                         blueBorder = redBorder;
                         if (applicationWidgetOneRowRoundedCorners) {
-                            PPApplication.logE("OneRowWidgetProvider.onUpdate", "rounded corners");
+                            //PPApplication.logE("OneRowWidgetProvider.onUpdate", "rounded corners");
                             remoteViews.setViewVisibility(R.id.widget_one_row_background, VISIBLE);
                             remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, View.INVISIBLE);
                             if (applicationWidgetOneRowShowBorder) {
-                                PPApplication.logE("OneRowWidgetProvider.onUpdate", "VISIBLE border");
+                                //PPApplication.logE("OneRowWidgetProvider.onUpdate", "VISIBLE border");
                                 remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, VISIBLE);
                             }
                             else {
-                                PPApplication.logE("OneRowWidgetProvider.onUpdate", "GONE border");
+                                //PPApplication.logE("OneRowWidgetProvider.onUpdate", "GONE border");
                                 remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, View.INVISIBLE);
                             }
                             remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", 0x00000000);
@@ -194,15 +194,15 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             if (applicationWidgetOneRowShowBorder)
                                 remoteViews.setInt(R.id.widget_one_row_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
                         } else {
-                            PPApplication.logE("OneRowWidgetProvider.onUpdate", "NOT rounded corners");
+                            //PPApplication.logE("OneRowWidgetProvider.onUpdate", "NOT rounded corners");
                             remoteViews.setViewVisibility(R.id.widget_one_row_background, View.INVISIBLE);
                             remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, View.INVISIBLE);
                             if (applicationWidgetOneRowShowBorder) {
-                                PPApplication.logE("OneRowWidgetProvider.onUpdate", "VISIBLE border");
+                                //PPApplication.logE("OneRowWidgetProvider.onUpdate", "VISIBLE border");
                                 remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, VISIBLE);
                             }
                             else {
-                                PPApplication.logE("OneRowWidgetProvider.onUpdate", "GONE border");
+                                //PPApplication.logE("OneRowWidgetProvider.onUpdate", "GONE border");
                                 remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, View.INVISIBLE);
                             }
                             remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", Color.argb(alphaBackground, redBackground, greenBackground, blueBackground));
@@ -270,10 +270,10 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
                         }
 
-                        if (PPApplication.logEnabled()) {
+                        /*if (PPApplication.logEnabled()) {
                             PPApplication.logE("OneRowWidgetProvider.onUpdate", "events running=" + Event.getGlobalEventsRunning(context));
                             PPApplication.logE("OneRowWidgetProvider.onUpdate", "application started=" + PPApplication.getApplicationStarted(context, true));
-                        }
+                        }*/
                         if (Event.getGlobalEventsRunning(context) && PPApplication.getApplicationStarted(context, true)) {
                             remoteViews.setViewVisibility(R.id.widget_one_row_header_restart_events, VISIBLE);
                             Intent intentRE = new Intent(context, RestartEventsFromNotificationActivity.class);

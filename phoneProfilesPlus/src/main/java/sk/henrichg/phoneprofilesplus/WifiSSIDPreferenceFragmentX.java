@@ -307,7 +307,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
             protected Void doInBackground(Void... params) {
 
                 if (_forRescan) {
-                    PPApplication.logE("WifiSSIDPreferenceFragmentX.refreshListView","start rescan");
+                    //PPApplication.logE("WifiSSIDPreferenceFragmentX.refreshListView","start rescan");
                     WifiBluetoothScanner.setForceOneWifiScan(prefContext, WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
                     WifiScanWorker.startScanner(prefContext, true);
 
@@ -315,7 +315,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
                     //SystemClock.sleep(200);
                     //PPApplication.sleep(500);
                     //WifiBluetoothScanner.waitForWifiScanEnd(prefContext, this);
-                    PPApplication.logE("WifiSSIDPreferenceFragmentX.refreshListView","end rescan");
+                    //PPApplication.logE("WifiSSIDPreferenceFragmentX.refreshListView","end rescan");
                 }
 
                 List<WifiSSIDData> wifiConfigurationList = WifiScanWorker.getWifiConfigurationList(prefContext);

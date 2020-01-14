@@ -1120,7 +1120,7 @@ public class Profile {
 
     void mergeProfiles(long withProfileId, DataWrapper dataWrapper/*, boolean setDuration*/)
     {
-        PPApplication.logE("$$$ Profile.mergeProfiles","withProfileId="+withProfileId);
+        //PPApplication.logE("$$$ Profile.mergeProfiles","withProfileId="+withProfileId);
 
         Profile withProfile = dataWrapper.getProfileById(withProfileId, false, false, false);
 
@@ -1392,9 +1392,8 @@ public class Profile {
     @SuppressWarnings("RedundantIfStatement")
     boolean compareProfile(Profile withProfile)
     {
-        PPApplication.logE("$$$ Profile.compareProfiles","withProfile="+withProfile._name);
+        //PPApplication.logE("$$$ Profile.compareProfiles","withProfile="+withProfile._name);
 
-        //noinspection ConstantConditions
         if (withProfile != null) {
             if (this._id != withProfile._id)
                 return false;
@@ -2200,12 +2199,13 @@ public class Profile {
         else
         if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
             _settingsValue = Math.round(settingsValue / 16f); // convert from 4096 to 256
+        //noinspection UnnecessaryLocalVariable
         int percentage = BrightnessLookup.lookup(_settingsValue, true);
 
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("Profile.getBrightnessPercentage_A9", "settingsValue=" + settingsValue);
             PPApplication.logE("Profile.getBrightnessPercentage_A9", "percentage=" + percentage);
-        }
+        }*/
 
         return percentage;
     }
@@ -2234,10 +2234,10 @@ public class Profile {
         if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
             systemValue = systemValue * 16; // convert from 256 to 4096
 
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("Profile.getBrightnessValue_A9", "percentage=" + percentage);
             PPApplication.logE("Profile.getBrightnessValue_A9", "systemValue=" + systemValue);
-        }
+        }*/
 
         return Math.round(systemValue);
     }
@@ -2273,7 +2273,7 @@ public class Profile {
             if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
                 defaultValue = 2048;
             if ((Build.VERSION.SDK_INT > 28)  && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsOnePlus)) {
-                PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT > 28");
+                //PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT > 28");
                 defaultValue = getBrightnessValue_A9(50/*, minimumValue, maximumValue*/);
             }
             else
@@ -2283,45 +2283,45 @@ public class Profile {
             }
             else
             if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
-                PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and !Samsung and !LG");
+                //PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and !Samsung and !LG");
                 defaultValue = getBrightnessValue_A9(50/*, minimumValue, maximumValue*/);
             }
-            else {
+            /*else {
                 PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 NOT called");
-            }
+            }*/
             value = Settings.System.getInt(context.getContentResolver(),
                     Settings.System.SCREEN_BRIGHTNESS, defaultValue);
         }
         else {
-            if (PPApplication.logEnabled()) {
+            /*if (PPApplication.logEnabled()) {
                 try {
                     int oldValue = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS);
                     PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "oldValue=" + oldValue);
                 } catch (Settings.SettingNotFoundException e) {
                     e.printStackTrace();
                 }
-            }
+            }*/
             if ((Build.VERSION.SDK_INT > 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsOnePlus)) {
-                PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT > 28");
+                //PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT > 28");
                 value = getBrightnessValue_A9(percentage/*, minimumValue, maximumValue*/);
             }
             else
             if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) {// Nexus may be LG, Samsung, Huawei, ...
-                PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and Nexus");
+                //PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and Nexus");
                 value = getBrightnessValue_A9(percentage/*, minimumValue, maximumValue*/);
             }
             else
             if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
-                PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and !Samsung and !LG");
+                //PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and !Samsung and !LG");
                 value = getBrightnessValue_A9(percentage/*, minimumValue, maximumValue*/);
             }
             else {
-                PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 NOT called");
+                //PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 NOT called");
                 value = Math.round((float) (maximumValue - minimumValue) / 100 * percentage) + minimumValue;
             }
         }
 
-        PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "value="+value);
+        //PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "value="+value);
         return value;
     }
 
@@ -2342,22 +2342,22 @@ public class Profile {
         else {
             boolean exponentialLevel = false;
             if ((Build.VERSION.SDK_INT > 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsOnePlus)) {
-                PPApplication.logE("Profile.convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=true - SDK_INT > 28");
+                //PPApplication.logE("Profile.convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=true - SDK_INT > 28");
                 exponentialLevel = true;
             }
             else
             if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) {// Nexus may be LG, Samsung, Huawei, ...
-                PPApplication.logE("Profile.convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=true - SDK_INT == 28 and Nexus");
+                //PPApplication.logE("Profile.convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=true - SDK_INT == 28 and Nexus");
                 exponentialLevel = true;
             }
             else
             if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
-                PPApplication.logE("Profile.convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=true - SDK_INT == 28 and !Samsung and !LG");
+                //PPApplication.logE("Profile.convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=true - SDK_INT == 28 and !Samsung and !LG");
                 exponentialLevel = true;
             }
-            else {
+            /*else {
                 PPApplication.logE("Profile.convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=false");
-            }
+            }*/
 
             if (!exponentialLevel)
                 value = (percentage - 50) / 50f;
@@ -2402,21 +2402,21 @@ public class Profile {
             percentage = value; // keep BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET
         else {
             if ((Build.VERSION.SDK_INT > 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsOnePlus)) {
-                PPApplication.logE("Profile.convertBrightnessToPercents", "getBrightnessPercentage_A9 called - SDK_INT > 28");
+                //PPApplication.logE("Profile.convertBrightnessToPercents", "getBrightnessPercentage_A9 called - SDK_INT > 28");
                 percentage = getBrightnessPercentage_A9(value/*, minValue, maxValue*/);
             }
             else
             if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) {// Nexus may be LG, Samsung, Huawei, ...
-                PPApplication.logE("Profile.convertBrightnessToPercents", "getBrightnessPercentage_A9 called - SDK_INT == 28 and Nexus");
+                //PPApplication.logE("Profile.convertBrightnessToPercents", "getBrightnessPercentage_A9 called - SDK_INT == 28 and Nexus");
                 percentage = getBrightnessPercentage_A9(value/*, minValue, maxValue*/);
             }
             else
             if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsLG)) {
-                PPApplication.logE("Profile.convertBrightnessToPercents", "getBrightnessPercentage_A9 called - SDK_INT == 28 and !Samsung and !LG");
+                //PPApplication.logE("Profile.convertBrightnessToPercents", "getBrightnessPercentage_A9 called - SDK_INT == 28 and !Samsung and !LG");
                 percentage = getBrightnessPercentage_A9(value/*, minValue, maxValue*/);
             }
             else {
-                PPApplication.logE("Profile.convertBrightnessToPercents", "getBrightnessPercentage_A9 NOT called");
+                //PPApplication.logE("Profile.convertBrightnessToPercents", "getBrightnessPercentage_A9 NOT called");
                 //if (maximumValue-minimumValue > 255) {
                 //int minimumValue = 0;
                 int maximumValue = 255;
@@ -2505,7 +2505,7 @@ public class Profile {
             }
             else
             if (monochrome) {
-                PPApplication.logE("Profile.generateIconBitmap", "monochromeValue="+monochromeValue);
+                //PPApplication.logE("Profile.generateIconBitmap", "monochromeValue="+monochromeValue);
                 float monoValue = 255f;
                 if (monochromeValue == 0x00) monoValue = -255f;
                 if (monochromeValue == 0x40) monoValue = -128f;
@@ -3353,7 +3353,7 @@ public class Profile {
         {
             if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_NFC))
             {
-                PPApplication.logE("PPApplication.hardwareCheck","NFC=presented");
+                //PPApplication.logE("PPApplication.hardwareCheck","NFC=presented");
 
                 // device has nfc
                 if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
@@ -3390,7 +3390,7 @@ public class Profile {
             }
             else
             {
-                PPApplication.logE("PPApplication.hardwareCheck","NFC=not presented");
+                //PPApplication.logE("PPApplication.hardwareCheck","NFC=not presented");
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             }
             checked = true;
@@ -3457,10 +3457,10 @@ public class Profile {
             }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            if (PPApplication.logEnabled()) {
+            /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("$$$ WifiAP", "Profile.isProfilePreferenceAllowed-preferenceAllowed.allowed=" + preferenceAllowed.allowed);
                 PPApplication.logE("$$$ WifiAP", "Profile.isProfilePreferenceAllowed-preferenceAllowed.notAllowedReason=" + preferenceAllowed.notAllowedReason);
-            }
+            }*/
             checked = true;
         }
         if (checked && (profile == null))

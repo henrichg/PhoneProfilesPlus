@@ -43,18 +43,18 @@ public class ElapsedAlarmsWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            PPApplication.logE("ElapsedAlarmsWorker.doWork", "xxx");
+            //PPApplication.logE("ElapsedAlarmsWorker.doWork", "xxx");
 
             //Data outputData;
 
             // Get the input
             String action = getInputData().getString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK);
             if (action == null) {
-                PPApplication.logE("ElapsedAlarmsWorker.doWork", "action ins null");
+                //PPApplication.logE("ElapsedAlarmsWorker.doWork", "action ins null");
                 return Result.success();
             }
 
-            PPApplication.logE("ElapsedAlarmsWorker.doWork", "action=" + action);
+            //PPApplication.logE("ElapsedAlarmsWorker.doWork", "action=" + action);
 
             long eventId = getInputData().getLong(PPApplication.EXTRA_EVENT_ID, 0);
             String runApplicationData = getInputData().getString(RunApplicationWithDelayBroadcastReceiver.EXTRA_RUN_APPLICATION_DATA);

@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.telephony.PhoneNumberUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -389,7 +388,7 @@ class EventPreferencesCall extends EventPreferences {
     }
 
     long computeAlarm() {
-        PPApplication.logE("EventPreferencesCall.computeAlarm", "xxx");
+        //PPApplication.logE("EventPreferencesCall.computeAlarm", "xxx");
 
         Calendar calEndTime = Calendar.getInstance();
 
@@ -412,7 +411,7 @@ class EventPreferencesCall extends EventPreferences {
         // this alarm generates broadcast, that will change state into RUNNING;
         // from broadcast will by called EventsHandler
 
-        PPApplication.logE("EventPreferencesCall.setSystemRunningEvent", "xxx");
+        //PPApplication.logE("EventPreferencesCall.setSystemRunningEvent", "xxx");
 
         removeAlarm(context);
     }
@@ -424,7 +423,7 @@ class EventPreferencesCall extends EventPreferences {
         // this alarm generates broadcast, that will change state into PAUSE;
         // from broadcast will by called EventsHandler
 
-        PPApplication.logE("EventPreferencesCall.setSystemPauseEvent", "xxx");
+        //PPApplication.logE("EventPreferencesCall.setSystemPauseEvent", "xxx");
 
         removeAlarm(context);
 
@@ -441,7 +440,7 @@ class EventPreferencesCall extends EventPreferences {
     public void removeSystemEvent(Context context) {
         removeAlarm(context);
 
-        PPApplication.logE("EventPreferencesCall.removeSystemEvent", "xxx");
+        //PPApplication.logE("EventPreferencesCall.removeSystemEvent", "xxx");
     }
 
     void removeAlarm(Context context) {
@@ -455,7 +454,7 @@ class EventPreferencesCall extends EventPreferences {
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
-                    PPApplication.logE("EventPreferencesCall.removeAlarm", "alarm found");
+                    //PPApplication.logE("EventPreferencesCall.removeAlarm", "alarm found");
 
                     alarmManager.cancel(pendingIntent);
                     pendingIntent.cancel();
@@ -473,12 +472,12 @@ class EventPreferencesCall extends EventPreferences {
     private void setAlarm(long alarmTime, Context context) {
         if (!_permanentRun) {
             if (_startTime > 0) {
-                if (PPApplication.logEnabled()) {
+                /*if (PPApplication.logEnabled()) {
                     @SuppressLint("SimpleDateFormat")
                     SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                     String result = sdf.format(alarmTime);
                     PPApplication.logE("EventPreferencesCall.setAlarm", "endTime=" + result);
-                }
+                }*/
 
                 /*if (ApplicationPreferences.applicationUseAlarmClock(context)) {
                     //Intent intent = new Intent(context, MissedCallEventEndBroadcastReceiver.class);
@@ -700,21 +699,21 @@ class EventPreferencesCall extends EventPreferences {
     }
 
     void saveStartTime(DataWrapper dataWrapper) {
-        PPApplication.logE("EventPreferencesCall.saveStartTime", "_startTime=" + _startTime);
+        //PPApplication.logE("EventPreferencesCall.saveStartTime", "_startTime=" + _startTime);
         if (this._startTime == 0) {
             // alarm for end is not set
             if (Permissions.checkContacts(dataWrapper.context)) {
-                PPApplication.logE("EventPreferencesCall.saveStartTime", "contacts permission granted");
+                //PPApplication.logE("EventPreferencesCall.saveStartTime", "contacts permission granted");
 
                 ApplicationPreferences.getSharedPreferences(dataWrapper.context);
                 int callEventType = ApplicationPreferences.preferences.getInt(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TYPE, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
                 long callTime = ApplicationPreferences.preferences.getLong(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TIME, 0);
                 String phoneNumber = ApplicationPreferences.preferences.getString(EventPreferencesCall.PREF_EVENT_CALL_PHONE_NUMBER, "");
-                if (PPApplication.logEnabled()) {
+                /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("EventPreferencesCall.saveStartTime", "callEventType=" + callEventType);
                     PPApplication.logE("EventPreferencesCall.saveStartTime", "callTime=" + callTime);
                     PPApplication.logE("EventPreferencesCall.saveStartTime", "phoneNumber=" + phoneNumber);
-                }
+                }*/
 
                 if (((_callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) && (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_MISSED_CALL)) ||
                     ((_callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED) && (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_ENDED)) ||
@@ -726,7 +725,7 @@ class EventPreferencesCall extends EventPreferences {
                         this._startTime = callTime; // + (10 * 1000);
                     else
                         this._startTime = 0;
-                    PPApplication.logE("EventPreferencesCall.saveStartTime", "_startTime=" + _startTime);
+                    //PPApplication.logE("EventPreferencesCall.saveStartTime", "_startTime=" + _startTime);
 
                     DatabaseHandler.getInstance(dataWrapper.context).updateCallStartTime(_event);
 
@@ -741,7 +740,7 @@ class EventPreferencesCall extends EventPreferences {
                 //    DatabaseHandler.getInstance(dataWrapper.context).updateCallStartTime(_event);
                 //}
             } else {
-                PPApplication.logE("EventPreferencesCall.saveStartTime", "contacts permission NOT granted");
+                //PPApplication.logE("EventPreferencesCall.saveStartTime", "contacts permission NOT granted");
 
                 _startTime = 0;
                 DatabaseHandler.getInstance(dataWrapper.context).updateCallStartTime(_event);

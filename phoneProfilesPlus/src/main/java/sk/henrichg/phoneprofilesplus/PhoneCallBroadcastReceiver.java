@@ -25,7 +25,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
     protected boolean onStartReceive()
     {
-        PPApplication.logE("##### PhoneCallBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("##### PhoneCallBroadcastReceiver.onReceive", "xxx");
 
         return PPApplication.getApplicationStarted(savedContext, true);
     }
@@ -78,7 +78,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PhoneCallBroadcastReceiver.doCall");
+                //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PhoneCallBroadcastReceiver.doCall");
 
                 switch (phoneEvent) {
                     case SERVICE_PHONE_EVENT_START:
@@ -92,25 +92,25 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
                         break;
                 }
 
-                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneCallBroadcastReceiver.doCall");
+                //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneCallBroadcastReceiver.doCall");
             }
         });
     }
 
     private static void setLinkUnlinkNotificationVolume(final int linkMode, final Context context) {
-        PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "RingerModeChangeReceiver.notUnlinkVolumes="+RingerModeChangeReceiver.notUnlinkVolumes);
+        //PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "RingerModeChangeReceiver.notUnlinkVolumes="+RingerModeChangeReceiver.notUnlinkVolumes);
         if (!RingerModeChangeReceiver.notUnlinkVolumes) {
             boolean unlinkEnabled = ActivateProfileHelper.getMergedRingNotificationVolumes(context) && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context);
-            PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "unlinkEnabled="+unlinkEnabled);
+            //PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "unlinkEnabled="+unlinkEnabled);
             if (unlinkEnabled) {
                 boolean audibleSystemRingerMode = ActivateProfileHelper.isAudibleSystemRingerMode(audioManager, context);
-                PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "audibleSystemRingerMode="+audibleSystemRingerMode);
+                //PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "audibleSystemRingerMode="+audibleSystemRingerMode);
                 if (audibleSystemRingerMode) {
                     DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
                     final Profile profile = dataWrapper.getActivatedProfile(false, false);
-                    PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "profile="+profile);
+                    //PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "profile="+profile);
                     if (profile != null) {
-                        PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "profile._name="+profile._name);
+                        //PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "profile._name="+profile._name);
                         ActivateProfileHelper.executeForVolumes(profile, linkMode, false, context);
                     }
                     //dataWrapper.invalidateDataWrapper();
@@ -124,7 +124,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-        PPApplication.logE("PhoneCallBroadcastReceiver.callStarted", "incoming="+incoming);
+        //PPApplication.logE("PhoneCallBroadcastReceiver.callStarted", "incoming="+incoming);
         //PPApplication.logE("PhoneCallBroadcastReceiver.callStarted", "phoneNumber="+phoneNumber);
 
         if (incoming) {
@@ -132,14 +132,14 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         }
     }
 
-    private static void callAnswered(boolean incoming, /*String phoneNumber, Date eventTime,*/ Context context)
+    private static void callAnswered(@SuppressWarnings("unused") boolean incoming, /*String phoneNumber, Date eventTime,*/ Context context)
     {
         speakerphoneSelected = false;
 
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-        PPApplication.logE("PhoneCallBroadcastReceiver.callAnswered", "incoming="+incoming);
+        //PPApplication.logE("PhoneCallBroadcastReceiver.callAnswered", "incoming="+incoming);
 
         if (PhoneProfilesService.getInstance() != null)
             PhoneProfilesService.getInstance().stopSimulatingRingingCall();
@@ -188,15 +188,15 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         // setSpeakerphoneOn() moved to ActivateProfileHelper.executeForVolumes
     }
 
-    private static void callEnded(boolean incoming, boolean missed, /*String phoneNumber, Date eventTime,*/ Context context)
+    private static void callEnded(boolean incoming, @SuppressWarnings("unused") boolean missed, /*String phoneNumber, Date eventTime,*/ Context context)
     {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("PhoneCallBroadcastReceiver.callEnded", "incoming=" + incoming);
             PPApplication.logE("PhoneCallBroadcastReceiver.callEnded", "missed=" + missed);
-        }
+        }*/
 
         if (PhoneProfilesService.getInstance() != null)
             PhoneProfilesService.getInstance().stopSimulatingRingingCall();

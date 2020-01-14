@@ -21,7 +21,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
     static final String EXTRA_FOR_RESTART_EVENTS = "for_restart_events";
 
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### ProfileDurationAlarmBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("##### ProfileDurationAlarmBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "ProfileDurationAlarmBroadcastReceiver.onReceive", "ProfileDurationAlarmBroadcastReceiver_onReceive");
 
         if (intent != null) {
@@ -89,12 +89,12 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 .build();
                 try {
                     WorkManager workManager = WorkManager.getInstance(context);
-                    if (PPApplication.logEnabled()) {
+                    /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - profile._duration=" + profile._duration);
                         PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - profile._id=" + profile._id);
                         PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - forRestartEvents=" + forRestartEvents);
                         PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - startupSource=" + startupSource);
-                    }
+                    }*/
                     //workManager.enqueueUniqueWork("elapsedAlarmsProfileDurationWork", ExistingWorkPolicy.REPLACE, worker);
                     workManager.enqueue(worker);
                 } catch (Exception ignored) {}
@@ -171,7 +171,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             }
         } catch (Exception ignored) {}
         Profile.setActivatedProfileEndDurationTime(context, 0);
-        PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.removeAlarm", "removed");
+        //PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.removeAlarm", "removed");
     }
 
     static void doWork(boolean useHandler, Context context, final long profileId, final boolean forRestartEvents, final int startupSource) {
@@ -195,7 +195,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        _doWork(true, appContext, profileId, forRestartEvents, startupSource);
+                        _doWork(/*true,*/ appContext, profileId, forRestartEvents, startupSource);
 
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -209,40 +209,40 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             });
         }
         else
-            _doWork(false, appContext, profileId, forRestartEvents, startupSource);
+            _doWork(/*false,*/ appContext, profileId, forRestartEvents, startupSource);
     }
 
-    private static void _doWork(boolean useHandler, Context appContext, final long profileId, final boolean forRestartEvents, int startupSource) {
-        PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "profileId=" + profileId);
+    private static void _doWork(/*boolean useHandler,*/ Context appContext, final long profileId, final boolean forRestartEvents, int startupSource) {
+        //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "profileId=" + profileId);
 
         if (profileId != 0) {
-            if (useHandler)
-                PPApplication.logE("PPApplication.startHandlerThread", "START run - from=ProfileDurationAlarmBroadcastReceiver._doWork");
+            //if (useHandler)
+            //    PPApplication.logE("PPApplication.startHandlerThread", "START run - from=ProfileDurationAlarmBroadcastReceiver._doWork");
 
             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
-            PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "getIsManualProfileActivation()=" + DataWrapper.getIsManualProfileActivation(true, appContext));
+            //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "getIsManualProfileActivation()=" + DataWrapper.getIsManualProfileActivation(true, appContext));
 
             Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
             if (DataWrapper.getIsManualProfileActivation(true, appContext) ||
                     (profile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE)) {
                 Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
 
-                if (PPApplication.logEnabled()) {
+                /*if (PPApplication.logEnabled()) {
                     if (activatedProfile != null)
                         PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "activatedProfile._name" + activatedProfile._name);
-                }
+                }*/
 
                 if ((profile != null) && (activatedProfile != null) &&
                         (activatedProfile._id == profile._id) &&
                         (profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING)) {
                     // alarm is from activated profile
 
-                    PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "alarm is from activated profile");
+                    //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "alarm is from activated profile");
 
                     if (!profile._durationNotificationSound.isEmpty() || profile._durationNotificationVibrate) {
                         if (PhoneProfilesService.getInstance() != null) {
-                            PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "play notification");
+                            //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "play notification");
                             PhoneProfilesService.getInstance().playNotificationSound(profile._durationNotificationSound, profile._durationNotificationVibrate);
                             //PPApplication.sleep(500);
                         }
@@ -282,7 +282,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                     DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper, false, appContext),
                                     profile._icon, 0);
 
-                            PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "restart events");
+                            //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "restart events");
                             dataWrapper.restartEventsWithDelay(3, true, /*false,*/ DataWrapper.ALTYPE_UNDEFINED);
                         } else {
                             dataWrapper.activateProfileAfterDuration(0, startupSource);
@@ -295,8 +295,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
             //dataWrapper.invalidateDataWrapper();
 
-            if (useHandler)
-                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=ProfileDurationAlarmBroadcastReceiver._doWork");
+            //if (useHandler)
+            //    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=ProfileDurationAlarmBroadcastReceiver._doWork");
         }
     }
 

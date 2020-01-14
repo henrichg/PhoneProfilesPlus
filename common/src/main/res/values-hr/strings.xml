@@ -1387,13 +1387,20 @@
     <string name="profile_preferences_red_texts_in_header">Neki profili imaju pogreške u svojim postavkama. Ove postavke su označene sa crvenom bojom. Ispravite pogreške.</string>
     <string name="event_preferences_red_texts_in_header">Neki događaji imaju pogreške u svojim postavkama. Ovi događaji su označeni sa crvenom bojom. Ispravite pogreške.</string>
     <string name="profile_preferences_deviceScreenOnPermanent">Uključite i ostavite zaslon uključen</string>
-    <string name="permission_why_profile_connnect_to_ssid_preference">for connect to SSID</string>
-    <string name="permissions_for_connect_to_ssid_dialog_text1">Connect to SSID requires some permissions.</string>
-    <string name="permissions_for_connect_to_ssid_dialog_text2">Please grant them in next dialog. List of configured SSID will then be shown.</string>
-    <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar">Hide header or bottom bar</string>
-    <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar_summary">Allow hiding of header or bottom bar during scroll of list</string>
-    <string name="preferences_durationInfo_summary">Parameters marked with [M] are used only when this profile is activated manually. Activation from event ignores these parameters.</string>
-    <string name="profile_preferences_durationEndCategory">Duration end</string>
+    <string name="permission_why_profile_connect_to_ssid_preference">za povezivanje na SSID</string>
+    <string name="permissions_for_connect_to_ssid_dialog_text1">Povezivanje na SSID zahtijeva određene dozvole.</string>
+    <string name="permissions_for_connect_to_ssid_dialog_text2">Omogućite ih u sledećem dijalogu. Lista konfigurisanih SSID će onda biti prikazana.</string>
+    <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar">Sakrij zaglavlje ili donju traku</string>
+    <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar_summary">Dopustite skrivanje zaglavlja ili donje trake tijekom skrolovanja liste</string>
+    <string name="preferences_durationInfo_summary">Parametri označeni sa [M] koriste se samo ako se ovaj profil aktivira ručno. Aktivacija iz događaja zanemaruje ove parametre.</string>
+    <string name="profile_preferences_durationEndCategory">Trajanje završetka</string>
+    <string name="profile_event_name_ask_for_duration">pitaj</string>
+    <string name="phone_profiles_pref_widget_not_working_miui_info">Nije moguće kliknuti na widget</string>
+    <string name="phone_profiles_pref_widget_not_working_miui_info_summary">Ako PhoneProfilesPlus widget ne radi (klik na widget), omogućite dozvolu u postavkama uređaja: Postavke / Aplikacije / Upravljanje aplikacijama / PhoneProfilesPlus / Ostala dopuštenja / Prikazivanje iskočnih prozora tijekom rada u pozadini.</string>
+    <string name="array_pref_12_percent" formatted="false">12,5%</string>
+    <string name="array_pref_37_percent" formatted="false">37,5%</string>
+    <string name="array_pref_62_percent" formatted="false">62,5%</string>
+    <string name="array_pref_87_percent" formatted="false">87,5%</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>

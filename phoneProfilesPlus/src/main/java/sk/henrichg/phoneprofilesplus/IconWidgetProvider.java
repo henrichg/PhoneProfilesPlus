@@ -68,7 +68,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                                 pName = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
 
                             if (pName.equals(pNameWidget)) {
-                                PPApplication.logE("IconWidgetProvider.onUpdate", "activated profile NOT changed");
+                                //PPApplication.logE("IconWidgetProvider.onUpdate", "activated profile NOT changed");
                                 return;
                             }
                         }

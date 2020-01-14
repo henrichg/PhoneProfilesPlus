@@ -15,7 +15,7 @@ public class RestartEventsFromNotificationActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
-        PPApplication.logE("RestartEventsFromNotificationActivity.onCreate", "xxx");
+        //PPApplication.logE("RestartEventsFromNotificationActivity.onCreate", "xxx");
 
         // close notification drawer - broadcast pending intent not close it :-/
         Intent it = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
@@ -36,7 +36,7 @@ public class RestartEventsFromNotificationActivity extends AppCompatActivity
 
         //dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 
-        PPApplication.logE("RestartEventsFromNotificationActivity.onStart", "xxx");
+        //PPApplication.logE("RestartEventsFromNotificationActivity.onStart", "xxx");
         dataWrapper.restartEventsWithAlert(this);
     }
 

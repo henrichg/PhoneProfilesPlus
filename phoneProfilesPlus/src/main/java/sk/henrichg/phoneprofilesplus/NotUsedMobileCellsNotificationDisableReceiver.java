@@ -13,7 +13,7 @@ public class NotUsedMobileCellsNotificationDisableReceiver extends BroadcastRece
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### NotUsedMobileCellsNotificationDisableReceiver.onReceive", "xxx");
+        //PPApplication.logE("##### NotUsedMobileCellsNotificationDisableReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "NotUsedMobileCellsNotificationDisableReceiver.onReceive", "NotUsedMobileCellsNotificationDisableReceiver_onReceive");
 

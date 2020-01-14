@@ -10,12 +10,12 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### NotificationEventEndBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("##### NotificationEventEndBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "NotificationEventEndBroadcastReceiver.onReceive", "NotificationEventEndBroadcastReceiver_onReceive");
 
         String action = intent.getAction();
         if (action != null) {
-            PPApplication.logE("NotificationEventEndBroadcastReceiver.onReceive", "action=" + action);
+            //PPApplication.logE("NotificationEventEndBroadcastReceiver.onReceive", "action=" + action);
             doWork(/*true,*/ context);
         }
     }
@@ -43,15 +43,15 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=NotificationEventEndBroadcastReceiver.doWork");
+                        //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=NotificationEventEndBroadcastReceiver.doWork");
 
                         if (Event.getGlobalEventsRunning(appContext)) {
-                            PPApplication.logE("NotificationEventEndBroadcastReceiver.doWork", "handle events");
+                            //PPApplication.logE("NotificationEventEndBroadcastReceiver.doWork", "handle events");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=NotificationEventEndBroadcastReceiver.doWork");
+                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=NotificationEventEndBroadcastReceiver.doWork");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

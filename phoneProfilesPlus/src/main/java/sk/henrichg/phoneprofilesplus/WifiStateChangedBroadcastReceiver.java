@@ -20,7 +20,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### WifiStateChangedBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("##### WifiStateChangedBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "WifiStateChangedBroadcastReceiver.onReceive", "WifiStateChangedBroadcastReceiver_onReceive");
 
         final Context appContext = context.getApplicationContext();
@@ -54,11 +54,11 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiStateChangedBroadcastReceiver.onReceive.1");
+                            //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiStateChangedBroadcastReceiver.onReceive.1");
 
                             if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
 
-                                PPApplication.logE("WifiStateChangedBroadcastReceiver.onReceive.1", "fillWifiConfigurationList");
+                                //PPApplication.logE("WifiStateChangedBroadcastReceiver.onReceive.1", "fillWifiConfigurationList");
                                 WifiScanWorker.fillWifiConfigurationList(appContext/*, false*/);
 
                                 if (!(WifiScanWorker.getScanRequest(appContext) ||
@@ -93,10 +93,10 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                             }
 
                             int forceOneScan = WifiBluetoothScanner.getForceOneWifiScan(appContext);
-                            PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "forceOneScan=" + forceOneScan);
+                            //PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "forceOneScan=" + forceOneScan);
 
                             if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
-                                PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "state=" + wifiState);
+                                //PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "state=" + wifiState);
 
                                 if ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_DISABLED)) {
                                     if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
@@ -195,7 +195,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                 }
                             }
 
-                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiStateChangedBroadcastReceiver.onReceive.1");
+                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiStateChangedBroadcastReceiver.onReceive.1");
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

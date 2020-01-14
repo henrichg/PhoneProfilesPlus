@@ -82,7 +82,7 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
             preference.asyncTask.cancel(true);
         }
 
-        PPApplication.logE("RingtonePreferenceFragmentX.onDialogClosed", "ringtoneUri="+preference.ringtoneUri);
+        //PPApplication.logE("RingtonePreferenceFragmentX.onDialogClosed", "ringtoneUri="+preference.ringtoneUri);
         PPApplication.startHandlerThreadPlayTone();
         final Handler handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
         handler.post(new Runnable() {

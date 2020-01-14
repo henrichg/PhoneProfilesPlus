@@ -841,10 +841,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onDowngrade (SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("DatabaseHandler.onDowngrade", "oldVersion=" + oldVersion);
             PPApplication.logE("DatabaseHandler.onDowngrade", "newVersion=" + newVersion);
-        }
+        }*/
 
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROFILES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MERGED_PROFILE);
@@ -863,10 +863,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("DatabaseHandler.onUpgrade", "oldVersion=" + oldVersion);
             PPApplication.logE("DatabaseHandler.onUpgrade", "newVersion=" + newVersion);
-        }
+        }*/
 
         /*
         // Drop older table if existed
@@ -3016,7 +3016,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SCREEN_ON_PERMANENT + "=0");
         }
 
-        PPApplication.logE("DatabaseHandler.onUpgrade", "END");
+        //PPApplication.logE("DatabaseHandler.onUpgrade", "END");
 
     }
 
@@ -4219,12 +4219,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             int wallpaperChange = cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_CHANGE));
                             String wallpaper = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER));
 
-                            if (PPApplication.logEnabled()) {
+                            /*if (PPApplication.logEnabled()) {
                                 PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "id=" + id);
                                 PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "icon=" + icon);
                                 PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "wallpaperChange=" + wallpaperChange);
                                 PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "wallpaper=" + wallpaper);
-                            }
+                            }*/
 
                             ContentValues values = new ContentValues();
 
@@ -4239,11 +4239,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     iconCustomColor = splits[3];
                                 }
 
-                                PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "isIconResourceId=" + isIconResourceId);
+                                //PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "isIconResourceId=" + isIconResourceId);
 
                                 if (!isIconResourceId.equals("1")) {
                                     Uri imageUri = WallpaperViewPreferenceX.getImageContentUri(context, iconIdentifier);
-                                    PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "icon uri=" + imageUri);
+                                    //PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "icon uri=" + imageUri);
                                     if (imageUri != null)
                                         values.put(KEY_ICON, imageUri.toString() + "|" +
                                                 isIconResourceId + "|" +
@@ -4253,14 +4253,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         values.put(KEY_ICON, "ic_profile_default|1|0|0");
                                 }
                             } catch (Exception e) {
-                                PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", e.getMessage());
+                                Log.e("DatabaseHandler.changePictureFilePathToUri", e.getMessage());
                                 values.put(KEY_ICON, "ic_profile_default|1|0|0");
                             }
                             if (wallpaperChange == 1) {
                                 try {
                                     String[] splits = wallpaper.split("\\|");
                                     Uri imageUri = WallpaperViewPreferenceX.getImageContentUri(context, splits[0]);
-                                    PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "wallpaper uri=" + imageUri);
+                                    //PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "wallpaper uri=" + imageUri);
                                     if (imageUri != null)
                                         values.put(KEY_DEVICE_WALLPAPER, imageUri.toString());
                                     else {
@@ -4268,14 +4268,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         values.put(KEY_DEVICE_WALLPAPER, "-");
                                     }
                                 } catch (Exception e) {
-                                    PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", e.getMessage());
+                                    Log.e("DatabaseHandler.changePictureFilePathToUri", e.getMessage());
                                     values.put(KEY_DEVICE_WALLPAPER_CHANGE, 0);
                                     values.put(KEY_DEVICE_WALLPAPER, "-");
                                 }
                             } else
                                 values.put(KEY_DEVICE_WALLPAPER, "-");
 
-                            PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "values.size()=" + values.size());
+                            //PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "values.size()=" + values.size());
                             if (values.size() > 0) {
                                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?", new String[]{String.valueOf(id)});
                             }
@@ -4288,7 +4288,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", e.getMessage());
+                    Log.e("DatabaseHandler.changePictureFilePathToUri", e.getMessage());
                 } finally {
                     if (database == null)
                         db.endTransaction();
@@ -4536,30 +4536,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             String soundNotification = cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION));
                             String soundAlarm = cursor.getString(cursor.getColumnIndex(KEY_SOUND_ALARM));
 
-                            if (PPApplication.logEnabled()) {
+                            /*if (PPApplication.logEnabled()) {
                                 PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "profileId=" + profileId);
                                 PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "soundRingtone=" + soundRingtone);
                                 PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "soundNotification=" + soundNotification);
                                 PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "soundAlarm=" + soundAlarm);
-                            }
+                            }*/
 
                             ContentValues values = new ContentValues();
                             String[] splits = soundRingtone.split("\\|");
                             if ((splits.length == 2) && (splits[1].equals("1"))) {
                                 // it is "PhoneProfiles Silent" tone
-                                PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "KEY_SOUND_RINGTONE="+ringtoneUri+"|1");
+                                //PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "KEY_SOUND_RINGTONE="+ringtoneUri+"|1");
                                 values.put(KEY_SOUND_RINGTONE, ringtoneUri+"|1");
                             }
                             splits = soundNotification.split("\\|");
                             if ((splits.length == 2) && (splits[1].equals("1"))) {
                                 // it is "PhoneProfiles Silent" tone
-                                PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "KEY_SOUND_NOTIFICATION="+notificationUri+"|1");
+                                //PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "KEY_SOUND_NOTIFICATION="+notificationUri+"|1");
                                 values.put(KEY_SOUND_NOTIFICATION, notificationUri+"|1");
                             }
                             splits = soundAlarm.split("\\|");
                             if ((splits.length == 2) && (splits[1].equals("1"))) {
                                 // it is "PhoneProfiles Silent" tone
-                                PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "KEY_SOUND_ALARM="+alarmUri+"|1");
+                                //PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "KEY_SOUND_ALARM="+alarmUri+"|1");
                                 values.put(KEY_SOUND_ALARM, alarmUri+"|1");
                             }
 
@@ -10026,13 +10026,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     private void startRunningImportExport() throws Exception {
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("----------- DatabaseHandler.startRunningImportExport", "lock");
             PPApplication.logE("----------- DatabaseHandler.startRunningImportExport", "runningCommand=" + runningCommand);
-        }
+        }*/
         if (runningCommand)
             runningCommandCondition.await();
-        PPApplication.logE("----------- DatabaseHandler.startRunningImportExport", "continue");
+        //PPApplication.logE("----------- DatabaseHandler.startRunningImportExport", "continue");
         runningImportExport = true;
     }
 
@@ -10040,7 +10040,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         runningImportExport = false;
         runningImportExportCondition.signalAll();
         importExportLock.unlock();
-        PPApplication.logE("----------- DatabaseHandler.stopRunningImportExport", "unlock");
+        //PPApplication.logE("----------- DatabaseHandler.stopRunningImportExport", "unlock");
     }
 
     private boolean tableExists(String tableName, SQLiteDatabase db)
@@ -10086,7 +10086,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     File exportedDB = new File(sd, applicationDataPath + "/" + EXPORT_DBFILENAME);
 
                     if (exportedDB.exists()) {
-                        PPApplication.logE("DatabaseHandler.importDB", "exportedDB.getAbsolutePath()="+exportedDB.getAbsolutePath());
+                        //PPApplication.logE("DatabaseHandler.importDB", "exportedDB.getAbsolutePath()="+exportedDB.getAbsolutePath());
                         SQLiteDatabase exportedDBObj = SQLiteDatabase.openDatabase(exportedDB.getAbsolutePath(), null, SQLiteDatabase.OPEN_READONLY);
 
                         if (exportedDBObj.getVersion() <= DATABASE_VERSION) {

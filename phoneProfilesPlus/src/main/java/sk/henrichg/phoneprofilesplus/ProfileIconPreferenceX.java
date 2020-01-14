@@ -122,7 +122,7 @@ public class ProfileIconPreferenceX extends DialogPreference {
     }
 
     void resetSummary() {
-        PPApplication.logE("ProfileIconPreferenceX.resetSummary", "savedInstanceState="+savedInstanceState);
+        //PPApplication.logE("ProfileIconPreferenceX.resetSummary", "savedInstanceState="+savedInstanceState);
 
         if (!savedInstanceState) {
             value = getPersistedString(defaultValue);
@@ -315,7 +315,7 @@ public class ProfileIconPreferenceX extends DialogPreference {
     @Override
     protected Parcelable onSaveInstanceState()
     {
-        PPApplication.logE("ProfileIconPreferenceX.onSaveInstanceState", "xxx");
+        //PPApplication.logE("ProfileIconPreferenceX.onSaveInstanceState", "xxx");
 
         savedInstanceState = true;
 
@@ -334,7 +334,7 @@ public class ProfileIconPreferenceX extends DialogPreference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
-        PPApplication.logE("ProfileIconPreferenceX.onRestoreInstanceState", "xxx");
+        //PPApplication.logE("ProfileIconPreferenceX.onRestoreInstanceState", "xxx");
 
         //if (dataWrapper == null)
         //    dataWrapper = new DataWrapper(prefContext, false, 0, false);

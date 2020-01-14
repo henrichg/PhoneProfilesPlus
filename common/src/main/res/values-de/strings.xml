@@ -1387,13 +1387,20 @@
     <string name="profile_preferences_red_texts_in_header">Einige Profile enthalten Fehler in ihren Einstellungen. Diese Profile wurden mit roter Farbe gekennzeichnet. Bitte korrigieren Sie diese.</string>
     <string name="event_preferences_red_texts_in_header">Einige Ereignisse enthalten Fehler in den Einstellungen. Diese Ereignisse wurden mit roter Farbe gekennzeichnet. Bitte korrigieren Sie diese.</string>
     <string name="profile_preferences_deviceScreenOnPermanent">Bildschirm einschalten und eingeschaltet lassen</string>
-    <string name="permission_why_profile_connnect_to_ssid_preference">für Verbinden mit SSID</string>
+    <string name="permission_why_profile_connect_to_ssid_preference">für Verbinden mit SSID</string>
     <string name="permissions_for_connect_to_ssid_dialog_text1">Die Verbindung mit SSID erfordert einige Berechtigungen.</string>
     <string name="permissions_for_connect_to_ssid_dialog_text2">Bitte diese im nächsten Dialog gewähren. Es wird daraufhin eine Liste der konfigurierten SSIDs angezeigt.</string>
     <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar">Kopf- oder Fußleiste ausblenden</string>
     <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar_summary">Erlaubt das Ausblenden der Kopf- oder Fußleiste während des Blättern in der Liste</string>
     <string name="preferences_durationInfo_summary">Die mit [M] gekennzeichneten Parameter werden nur verwendet, wenn dieses Profil manuell aktiviert wurde. Bei der Aktivierung durch Ereignis werden diese Parameter ignoriert.</string>
     <string name="profile_preferences_durationEndCategory">Ende der Laufzeit</string>
+    <string name="profile_event_name_ask_for_duration">fragen</string>
+    <string name="phone_profiles_pref_widget_not_working_miui_info">Widget ist nicht anklickbar</string>
+    <string name="phone_profiles_pref_widget_not_working_miui_info_summary">Wenn das PhoneProfilesPlus Widget nicht funktioniert (Klick auf Widget), aktivieren Sie die Berechtigung in den Geräteeinstellungen: „Einstellungen” ➜ „Apps” ➜ „Apps verwalten” ➜ „PhoneProfilesPlus” ➜ „Weitere Berechtigungen” ➜ „Pop-up-Fenster im Hintergrund anzeigen”</string>
+    <string name="array_pref_12_percent" formatted="false">12,5%</string>
+    <string name="array_pref_37_percent" formatted="false">37,5%</string>
+    <string name="array_pref_62_percent" formatted="false">62,5%</string>
+    <string name="array_pref_87_percent" formatted="false">87,5%</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>

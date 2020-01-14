@@ -104,7 +104,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        PPApplication.logE("ActivateProfileActivity.onCreate", "xxx");
+        //PPApplication.logE("ActivateProfileActivity.onCreate", "xxx");
 
         GlobalGUIRoutines.setTheme(this, true, true/*, false*/, true);
         //GlobalGUIRoutines.setLanguage(this);
@@ -264,7 +264,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        PPApplication.logE("ActivateProfileActivity.onStart", "xxx");
+        //PPApplication.logE("ActivateProfileActivity.onStart", "xxx");
 
         Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
         intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, "editor");
@@ -355,7 +355,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
                 // ignore manual profile activation
                 // and unblock forceRun events
-                PPApplication.logE("$$$ restartEvents", "from ActivateProfileActivity.onOptionsItemSelected menu_restart_events");
+                //PPApplication.logE("$$$ restartEvents", "from ActivateProfileActivity.onOptionsItemSelected menu_restart_events");
                 dataWrapper.restartEventsWithAlert(this);
             }
             return true;

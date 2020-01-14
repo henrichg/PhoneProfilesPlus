@@ -53,6 +53,7 @@ class TwilightState {
      * Returns the time of yesterday's sunrise in the System.currentTimeMillis() timebase,
      * or -1 if the sun never sets.
      */
+    @SuppressWarnings("unused")
     long getYesterdaySunrise() {
         return mYesterdaySunrise;
     }

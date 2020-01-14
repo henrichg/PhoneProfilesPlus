@@ -14,8 +14,6 @@ import android.os.Bundle;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 
 import androidx.preference.ListPreference;
@@ -477,7 +475,7 @@ class EventPreferencesNotification extends EventPreferences {
 
     private long computeAlarm(Context context)
     {
-        PPApplication.logE("EventPreferencesNotification.computeAlarm","xxx");
+        //PPApplication.logE("EventPreferencesNotification.computeAlarm","xxx");
 
         if (this._duration != 0) {
             StatusBarNotification newestNotification = getNewestVisibleNotification(context);
@@ -496,7 +494,7 @@ class EventPreferencesNotification extends EventPreferences {
         // this alarm generates broadcast, that change state into RUNNING;
         // from broadcast will by called EventsHandler
 
-        PPApplication.logE("EventPreferencesNotification.setSystemRunningEvent","xxx");
+        //PPApplication.logE("EventPreferencesNotification.setSystemRunningEvent","xxx");
 
         removeAlarm(context);
     }
@@ -509,7 +507,7 @@ class EventPreferencesNotification extends EventPreferences {
         // this alarm generates broadcast, that change state into PAUSE;
         // from broadcast will by called EventsHandler
 
-        PPApplication.logE("EventPreferencesNotification.setSystemPauseEvent","xxx");
+        //PPApplication.logE("EventPreferencesNotification.setSystemPauseEvent","xxx");
 
         removeAlarm(context);
 
@@ -524,7 +522,7 @@ class EventPreferencesNotification extends EventPreferences {
     {
         removeAlarm(context);
 
-        PPApplication.logE("EventPreferencesNotification.removeSystemEvent", "xxx");
+        //PPApplication.logE("EventPreferencesNotification.removeSystemEvent", "xxx");
     }
 
     private void removeAlarm(Context context)
@@ -539,7 +537,7 @@ class EventPreferencesNotification extends EventPreferences {
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
-                    PPApplication.logE("EventPreferencesNotification.removeAlarm", "alarm found");
+                    //PPApplication.logE("EventPreferencesNotification.removeAlarm", "alarm found");
 
                     alarmManager.cancel(pendingIntent);
                     pendingIntent.cancel();
@@ -557,11 +555,11 @@ class EventPreferencesNotification extends EventPreferences {
     private void setAlarm(long alarmTime, Context context)
     {
         if (alarmTime > 0) {
-            if (PPApplication.logEnabled()) {
+            /*if (PPApplication.logEnabled()) {
                 SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                 String result = sdf.format(alarmTime);
                 PPApplication.logE("EventPreferencesNotification.setAlarm", "endTime=" + result);
-            }
+            }*/
 
             /*if (ApplicationPreferences.applicationUseAlarmClock(context)) {
                 //Intent intent = new Intent(context, NotificationEventEndBroadcastReceiver.class);
@@ -675,11 +673,11 @@ class EventPreferencesNotification extends EventPreferences {
                         testText = true;
                     }
                 }
-                if (PPApplication.logEnabled()) {
+                /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("EventPreferencesNotification.isNotificationActive", "notificationTicker=" + notificationTicker);
                     PPApplication.logE("EventPreferencesNotification.isNotificationActive", "notificationTitle=" + notificationTitle);
                     PPApplication.logE("EventPreferencesNotification.isNotificationActive", "notificationText=" + notificationText);
-                }
+                }*/
             }
 
             boolean textFound = false;
@@ -766,14 +764,14 @@ class EventPreferencesNotification extends EventPreferences {
 
                                 ++argsId;
 
-                                if (PPApplication.logEnabled()) {
+                                /*if (PPApplication.logEnabled()) {
                                     PPApplication.logE("EventPreferencesNotification.isNotificationActive", "split=" + split);
                                     PPApplication.logE("EventPreferencesNotification.isNotificationActive", "searchPattern=" + searchPattern);
                                     PPApplication.logE("EventPreferencesNotification.isNotificationActive", "argsId=" + argsId);
-                                }
+                                }*/
                             }
                         }
-                        PPApplication.logE("EventPreferencesNotification.isNotificationActive", "positiveExists=" + positiveExists);
+                        //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "positiveExists=" + positiveExists);
 
                         // negative strings
                         boolean negativeExists = false;
@@ -814,23 +812,23 @@ class EventPreferencesNotification extends EventPreferences {
 
                                 ++argsId;
 
-                                if (PPApplication.logEnabled()) {
+                                /*if (PPApplication.logEnabled()) {
                                     PPApplication.logE("EventPreferencesNotification.isNotificationActive", "split=" + split);
                                     PPApplication.logE("EventPreferencesNotification.isNotificationActive", "searchPattern=" + searchPattern);
                                     PPApplication.logE("EventPreferencesNotification.isNotificationActive", "argsId=" + argsId);
-                                }
+                                }*/
                             }
                         }
-                        PPApplication.logE("EventPreferencesNotification.isNotificationActive", "negativeExists=" + negativeExists);
+                        //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "negativeExists=" + negativeExists);
 
                         boolean foundPositive = false;
                         if (positiveExists) {
                             for (String _positiveText : positiveList) {
                                 if ((_positiveText != null) && (!_positiveText.isEmpty())) {
-                                    if (PPApplication.logEnabled()) {
+                                    /*if (PPApplication.logEnabled()) {
                                         PPApplication.logE("EventPreferencesNotification.isNotificationActive", "searchText.toLowerCase()=" + searchText.toLowerCase());
                                         PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_positiveText.toLowerCase()=" + _positiveText.toLowerCase());
-                                    }
+                                    }*/
                                     if (searchText.toLowerCase().matches(_positiveText.toLowerCase())) {
                                         foundPositive = true;
                                         break;
@@ -842,10 +840,10 @@ class EventPreferencesNotification extends EventPreferences {
                         if (negativeExists) {
                             for (String _negativeText : negativeList) {
                                 if ((_negativeText != null) && (!_negativeText.isEmpty())) {
-                                    if (PPApplication.logEnabled()) {
+                                    /*if (PPApplication.logEnabled()) {
                                         PPApplication.logE("EventPreferencesNotification.isNotificationActive", "searchText.toLowerCase()=" + searchText.toLowerCase());
                                         PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_negativeText.toLowerCase()=" + _negativeText.toLowerCase());
-                                    }
+                                    }*/
                                     if (searchText.toLowerCase().matches(_negativeText.toLowerCase())) {
                                         foundNegative = false;
                                         break;
@@ -854,10 +852,10 @@ class EventPreferencesNotification extends EventPreferences {
                             }
                         }
 
-                        if (PPApplication.logEnabled()) {
+                        /*if (PPApplication.logEnabled()) {
                             PPApplication.logE("EventPreferencesNotification.isNotificationActive", "foundPositive=" + foundPositive);
                             PPApplication.logE("EventPreferencesNotification.isNotificationActive", "foundNegative=" + foundNegative);
-                        }
+                        }*/
 
                         textFound = foundPositive && foundNegative;
 
@@ -867,7 +865,7 @@ class EventPreferencesNotification extends EventPreferences {
 
                 }
             }
-            PPApplication.logE("EventPreferencesNotification.isNotificationActive", "textFound=" + textFound);
+            //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "textFound=" + textFound);
 
             if (testText && textFound) {
                 if (checkEnd) {
@@ -902,7 +900,7 @@ class EventPreferencesNotification extends EventPreferences {
     }
 
     boolean isNotificationVisible(Context context) {
-        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "xxx");
+        //PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "xxx");
         if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
             PPNotificationListenerService service = PPNotificationListenerService.getInstance();
             if (service != null) {
@@ -916,13 +914,13 @@ class EventPreferencesNotification extends EventPreferences {
                             if (_duration != 0) {
                                 long postTime = notification.getPostTime() + this._duration * 1000;
 
-                                if (PPApplication.logEnabled()) {
+                                /*if (PPApplication.logEnabled()) {
                                     Calendar calendar = Calendar.getInstance();
                                     PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
 
                                     calendar.setTimeInMillis(postTime);
                                     PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
-                                }
+                                }*/
 
                                 if (System.currentTimeMillis() < postTime)
                                     return true;
@@ -935,13 +933,13 @@ class EventPreferencesNotification extends EventPreferences {
                             if (_duration != 0) {
                                 long postTime = notification.getPostTime() + this._duration * 1000;
 
-                                if (PPApplication.logEnabled()) {
+                                /*if (PPApplication.logEnabled()) {
                                     Calendar calendar = Calendar.getInstance();
                                     PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
 
                                     calendar.setTimeInMillis(postTime);
                                     PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
-                                }
+                                }*/
 
                                 if (System.currentTimeMillis() < postTime)
                                     return true;
@@ -956,13 +954,13 @@ class EventPreferencesNotification extends EventPreferences {
                             if (_duration != 0) {
                                 long postTime = notification.getPostTime() + this._duration * 1000;
 
-                                if (PPApplication.logEnabled()) {
+                                /*if (PPApplication.logEnabled()) {
                                     Calendar calendar = Calendar.getInstance();
                                     PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
 
                                     calendar.setTimeInMillis(postTime);
                                     PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
-                                }
+                                }*/
 
                                 if (System.currentTimeMillis() < postTime)
                                     return true;
@@ -975,13 +973,13 @@ class EventPreferencesNotification extends EventPreferences {
                             if (_duration != 0) {
                                 long postTime = notification.getPostTime() + this._duration * 1000;
 
-                                if (PPApplication.logEnabled()) {
+                                /*if (PPApplication.logEnabled()) {
                                     Calendar calendar = Calendar.getInstance();
                                     PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
 
                                     calendar.setTimeInMillis(postTime);
                                     PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
-                                }
+                                }*/
 
                                 if (System.currentTimeMillis() < postTime)
                                     return true;
@@ -994,13 +992,13 @@ class EventPreferencesNotification extends EventPreferences {
                             if (_duration != 0) {
                                 long postTime = notification.getPostTime() + this._duration * 1000;
 
-                                if (PPApplication.logEnabled()) {
+                                /*if (PPApplication.logEnabled()) {
                                     Calendar calendar = Calendar.getInstance();
                                     PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
 
                                     calendar.setTimeInMillis(postTime);
                                     PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
-                                }
+                                }*/
 
                                 if (System.currentTimeMillis() < postTime)
                                     return true;
@@ -1013,13 +1011,13 @@ class EventPreferencesNotification extends EventPreferences {
                             if (_duration != 0) {
                                 long postTime = notification.getPostTime() + this._duration * 1000;
 
-                                if (PPApplication.logEnabled()) {
+                                /*if (PPApplication.logEnabled()) {
                                     Calendar calendar = Calendar.getInstance();
                                     PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
 
                                     calendar.setTimeInMillis(postTime);
                                     PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
-                                }
+                                }*/
 
                                 if (System.currentTimeMillis() < postTime)
                                     return true;
@@ -1032,21 +1030,21 @@ class EventPreferencesNotification extends EventPreferences {
                     for (String split : splits) {
                         // get only package name = remove activity
                         String packageName = Application.getPackageName(split);
-                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "packageName=" + packageName);
+                        //PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "packageName=" + packageName);
                         // search for package name in saved package names
                         notification = isNotificationActive(statusBarNotifications, packageName, false/*, context*/);
-                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification=" + notification);
+                        //PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification=" + notification);
                         if (notification != null) {
                             if (_duration != 0) {
                                 long postTime = notification.getPostTime() + this._duration * 1000;
 
-                                if (PPApplication.logEnabled()) {
+                                /*if (PPApplication.logEnabled()) {
                                     Calendar calendar = Calendar.getInstance();
                                     PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
 
                                     calendar.setTimeInMillis(postTime);
                                     PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
-                                }
+                                }*/
 
                                 if (System.currentTimeMillis() < postTime)
                                     return true;
@@ -1106,7 +1104,7 @@ class EventPreferencesNotification extends EventPreferences {
     }
 
     private StatusBarNotification getNewestVisibleNotification(Context context) {
-        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "xxx");
+        //PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "xxx");
         if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
             PPNotificationListenerService service = PPNotificationListenerService.getInstance();
             if (service != null) {
@@ -1176,7 +1174,7 @@ class EventPreferencesNotification extends EventPreferences {
     }
 
     private boolean isContactConfigured(String text/*, Context context*/) {
-        PPApplication.logE("EventPreferencesNotification.isContactConfigured", "text=" + text);
+        //PPApplication.logE("EventPreferencesNotification.isContactConfigured", "text=" + text);
 
         boolean phoneNumberFound = false;
 
@@ -1239,7 +1237,7 @@ class EventPreferencesNotification extends EventPreferences {
             if (phoneNumberFound)
                 break;
         }
-        PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contactGroups phoneNumberFound=" + phoneNumberFound);
+        //PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contactGroups phoneNumberFound=" + phoneNumberFound);
 
         if (!phoneNumberFound) {
             // find phone number in contacts
@@ -1300,7 +1298,7 @@ class EventPreferencesNotification extends EventPreferences {
                     break;
             }
         }
-        PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contacts phoneNumberFound=" + phoneNumberFound);
+        //PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contacts phoneNumberFound=" + phoneNumberFound);
 
         return phoneNumberFound;
     }

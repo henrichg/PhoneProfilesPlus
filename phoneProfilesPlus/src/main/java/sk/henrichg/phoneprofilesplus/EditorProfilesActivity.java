@@ -180,7 +180,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     private final BroadcastReceiver finishBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive( Context context, Intent intent ) {
-            PPApplication.logE("EditorProfilesActivity.finishBroadcastReceiver", "xxx");
+            //PPApplication.logE("EditorProfilesActivity.finishBroadcastReceiver", "xxx");
             String action = intent.getAction();
             if (action.equals(PPApplication.ACTION_FINISH_ACTIVITY)) {
                 String what = intent.getStringExtra(PPApplication.EXTRA_WHAT_FINISH);
@@ -571,7 +571,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     protected void onStart()
     {
         super.onStart();
-        PPApplication.logE("EditorProfilesActivity.onStart", "xxx");
+        //PPApplication.logE("EditorProfilesActivity.onStart", "xxx");
 
         Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
         intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, "activator");
@@ -587,12 +587,12 @@ public class EditorProfilesActivity extends AppCompatActivity
         // this is for list widget header
         if (!PPApplication.getApplicationStarted(getApplicationContext(), true))
         {
-            if (PPApplication.logEnabled()) {
+            /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("EditorProfilesActivity.onStart", "application is not started");
                 PPApplication.logE("EditorProfilesActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
                 if (PhoneProfilesService.getInstance() != null)
                     PPApplication.logE("EditorProfilesActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
-            }
+            }*/
             // start PhoneProfilesService
             //PPApplication.firstStartServiceStarted = false;
             PPApplication.setApplicationStarted(getApplicationContext(), true);
@@ -605,12 +605,12 @@ public class EditorProfilesActivity extends AppCompatActivity
         else
         {
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
-                if (PPApplication.logEnabled()) {
+                /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("EditorProfilesActivity.onStart", "application is started");
                     PPApplication.logE("EditorProfilesActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
                     if (PhoneProfilesService.getInstance() != null)
                         PPApplication.logE("EditorProfilesActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
-                }
+                }*/
                 // start PhoneProfilesService
                 //PPApplication.firstStartServiceStarted = false;
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
@@ -619,9 +619,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
                 PPApplication.startPPService(this, serviceIntent);
             }
-            else {
-                PPApplication.logE("EditorProfilesActivity.onStart", "application and service is started");
-            }
+            //else {
+            //    PPApplication.logE("EditorProfilesActivity.onStart", "application and service is started");
+            //}
         }
     }
 
@@ -629,7 +629,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     protected void onStop()
     {
         super.onStop();
-        PPApplication.logE("EditorProfilesActivity.onStop", "xxx");
+        //PPApplication.logE("EditorProfilesActivity.onStop", "xxx");
 
         LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(showTargetHelpsBroadcastReceiver);
@@ -789,7 +789,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 // ignore manual profile activation
                 // and unblock forceRun events
-                PPApplication.logE("$$$ restartEvents","from EditorProfilesActivity.onOptionsItemSelected menu_restart_events");
+                //PPApplication.logE("$$$ restartEvents","from EditorProfilesActivity.onOptionsItemSelected menu_restart_events");
                 if (dataWrapper != null)
                     dataWrapper.restartEventsWithAlert(this);
                 return true;
@@ -940,7 +940,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                 dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        PPApplication.logE("PPApplication.exitApp", "from EditorProfileActivity.onOptionsItemSelected shutdown=false");
+                        //PPApplication.logE("PPApplication.exitApp", "from EditorProfileActivity.onOptionsItemSelected shutdown=false");
 
                         IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(getApplicationContext(), true);
                         SharedPreferences settings = ApplicationPreferences.getSharedPreferences(getApplicationContext());
@@ -1019,11 +1019,11 @@ public class EditorProfilesActivity extends AppCompatActivity
     */
 
     private void selectFilterItem(int selectedView, int position, boolean fromClickListener, boolean startTargetHelps) {
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("EditorProfilesActivity.selectFilterItem", "editorSelectedView=" + editorSelectedView);
             PPApplication.logE("EditorProfilesActivity.selectFilterItem", "selectedView=" + selectedView);
             PPApplication.logE("EditorProfilesActivity.selectFilterItem", "position=" + position);
-        }
+        }*/
 
         boolean viewChanged = false;
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
@@ -1040,11 +1040,11 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         int filterSelectedItem;
         if (selectedView == 0) {
-            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "filterProfilesSelectedItem=" + filterProfilesSelectedItem);
+            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "filterProfilesSelectedItem=" + filterProfilesSelectedItem);
             filterSelectedItem = filterProfilesSelectedItem;
         }
         else {
-            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "filterEventsSelectedItem=" + filterEventsSelectedItem);
+            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "filterEventsSelectedItem=" + filterEventsSelectedItem);
             filterSelectedItem = filterEventsSelectedItem;
         }
 
@@ -1067,12 +1067,12 @@ public class EditorProfilesActivity extends AppCompatActivity
             if (editorSelectedView == 0) {
                 filterProfilesSelectedItem = position;
                 filterSelectedItem = position;
-                PPApplication.logE("EditorProfilesActivity.selectFilterItem", "filterProfilesSelectedItem=" + filterProfilesSelectedItem);
+                //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "filterProfilesSelectedItem=" + filterProfilesSelectedItem);
             }
             else {
                 filterEventsSelectedItem = position;
                 filterSelectedItem = position;
-                PPApplication.logE("EditorProfilesActivity.selectFilterItem", "filterEventsSelectedItem=" + filterEventsSelectedItem);
+                //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "filterEventsSelectedItem=" + filterEventsSelectedItem);
             }
 
             // save into shared preferences
@@ -1094,7 +1094,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     switch (filterProfilesSelectedItem) {
                         case DSI_PROFILES_ALL:
                             profilesFilterType = EditorProfileListFragment.FILTER_TYPE_ALL;
-                            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "profilesFilterType=FILTER_TYPE_ALL");
+                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "profilesFilterType=FILTER_TYPE_ALL");
                             if (viewChanged) {
                                 fragment = new EditorProfileListFragment();
                                 arguments = new Bundle();
@@ -1113,7 +1113,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             break;
                         case DSI_PROFILES_SHOW_IN_ACTIVATOR:
                             profilesFilterType = EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR;
-                            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "profilesFilterType=FILTER_TYPE_SHOW_IN_ACTIVATOR");
+                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "profilesFilterType=FILTER_TYPE_SHOW_IN_ACTIVATOR");
                             if (viewChanged) {
                                 fragment = new EditorProfileListFragment();
                                 arguments = new Bundle();
@@ -1132,7 +1132,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             break;
                         case DSI_PROFILES_NO_SHOW_IN_ACTIVATOR:
                             profilesFilterType = EditorProfileListFragment.FILTER_TYPE_NO_SHOW_IN_ACTIVATOR;
-                            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "profilesFilterType=FILTER_TYPE_NO_SHOW_IN_ACTIVATOR");
+                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "profilesFilterType=FILTER_TYPE_NO_SHOW_IN_ACTIVATOR");
                             if (viewChanged) {
                                 fragment = new EditorProfileListFragment();
                                 arguments = new Bundle();
@@ -1155,7 +1155,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     switch (filterEventsSelectedItem) {
                         case DSI_EVENTS_START_ORDER:
                             eventsFilterType = EditorEventListFragment.FILTER_TYPE_START_ORDER;
-                            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_START_ORDER");
+                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_START_ORDER");
                             if (viewChanged) {
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
@@ -1174,7 +1174,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             break;
                         case DSI_EVENTS_ALL:
                             eventsFilterType = EditorEventListFragment.FILTER_TYPE_ALL;
-                            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_ALL");
+                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_ALL");
                             if (viewChanged) {
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
@@ -1193,7 +1193,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             break;
                         case DSI_EVENTS_NOT_STOPPED:
                             eventsFilterType = EditorEventListFragment.FILTER_TYPE_NOT_STOPPED;
-                            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_NOT_STOPPED");
+                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_NOT_STOPPED");
                             if (viewChanged) {
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
@@ -1212,7 +1212,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             break;
                         case DSI_EVENTS_RUNNING:
                             eventsFilterType = EditorEventListFragment.FILTER_TYPE_RUNNING;
-                            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_RUNNING");
+                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_RUNNING");
                             if (viewChanged) {
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
@@ -1231,7 +1231,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             break;
                         case DSI_EVENTS_PAUSED:
                             eventsFilterType = EditorEventListFragment.FILTER_TYPE_PAUSED;
-                            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_PAUSED");
+                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_PAUSED");
                             if (viewChanged) {
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
@@ -1250,7 +1250,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             break;
                         case DSI_EVENTS_STOPPED:
                             eventsFilterType = EditorEventListFragment.FILTER_TYPE_STOPPED;
-                            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_STOPPED");
+                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_STOPPED");
                             if (viewChanged) {
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
@@ -1418,7 +1418,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 //                }
 
                 boolean restart = data.getBooleanExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, false);
-                PPApplication.logE("EditorProfilesActivity.onActivityResult", "restart="+restart);
+                //PPApplication.logE("EditorProfilesActivity.onActivityResult", "restart="+restart);
 
                 if (restart)
                 {
@@ -1700,7 +1700,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 @Override
                 protected Integer doInBackground(Void... params) {
-                    PPApplication.logE("PPApplication.exitApp", "from EditorProfilesActivity.doImportData shutdown=false");
+                    //PPApplication.logE("PPApplication.exitApp", "from EditorProfilesActivity.doImportData shutdown=false");
                     if (dataWrapper != null) {
                         PPApplication.exitApp(false, dataWrapper.context, dataWrapper, null, false/*, false, true*/);
 
@@ -1726,11 +1726,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                             Event.setForceRunEventRunning(getApplicationContext(), false);
                         }
 
-                        if (PPApplication.logEnabled()) {
+                        /*if (PPApplication.logEnabled()) {
                             PPApplication.logE("EditorProfilesActivity.doImportData", "dbError=" + dbError);
                             PPApplication.logE("EditorProfilesActivity.doImportData", "appSettingsError=" + appSettingsError);
                             PPApplication.logE("EditorProfilesActivity.doImportData", "sharedProfileError=" + sharedProfileError);
-                        }
+                        }*/
 
                         if (!appSettingsError) {
                             ApplicationPreferences.getSharedPreferences(dataWrapper.context);
@@ -1772,7 +1772,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     }
 
                     if (dataWrapper != null) {
-                        PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EditorProfilesActivity.doImportData");
+                        //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EditorProfilesActivity.doImportData");
                         this.dataWrapper.updateNotificationAndWidgets(true);
 
                         PPApplication.setApplicationStarted(this.dataWrapper.context, true);
@@ -1784,7 +1784,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     }
 
                     if ((dataWrapper != null) && (dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError || sharedProfileError))) {
-                        PPApplication.logE("EditorProfilesActivity.doImportData", "restore is ok");
+                        //PPApplication.logE("EditorProfilesActivity.doImportData", "restore is ok");
 
                         // restart events
                         //if (Event.getGlobalEventsRunning(this.dataWrapper.context)) {
@@ -1805,7 +1805,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                         IgnoreBatteryOptimizationNotification.showNotification(this.dataWrapper.context.getApplicationContext());
                     } else {
-                        PPApplication.logE("EditorProfilesActivity.doImportData", "error restore");
+                        //PPApplication.logE("EditorProfilesActivity.doImportData", "error restore");
 
                         int appSettingsResult = 1;
                         if (appSettingsError) appSettingsResult = 0;
@@ -2209,7 +2209,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         ApplicationPreferences.applicationEditorPrefIndicator(fragment.activityDataWrapper.context));
                 fragment.updateHeader(activeProfile);
                 PPApplication.showProfileNotification(/*getApplicationContext()*/true, false);
-                PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfilesActivity.redrawProfileListFragment");
+                //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfilesActivity.redrawProfileListFragment");
                 ActivateProfileHelper.updateGUI(fragment.activityDataWrapper.context, true, true);
 
                 fragment.activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();

@@ -13,7 +13,7 @@ public class DashClockBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, Intent intent) {
-        PPApplication.logE("##### DashClockBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("##### DashClockBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "DashClockBroadcastReceiver.onReceive", "DashClockBroadcastReceiver_onReceive");
 
@@ -25,7 +25,7 @@ public class DashClockBroadcastReceiver extends BroadcastReceiver {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DashClockBroadcastReceiver.onReceive");
+                //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DashClockBroadcastReceiver.onReceive");
 
                 PhoneProfilesDashClockExtension dashClockExtension = PhoneProfilesDashClockExtension.getInstance();
                 if (dashClockExtension != null)
@@ -44,7 +44,7 @@ public class DashClockBroadcastReceiver extends BroadcastReceiver {
 
                         if (!pNameWidget.isEmpty()) {
                             if (pName.equals(pNameWidget)) {
-                                PPApplication.logE("DashClockBroadcastReceiver.onReceive", "activated profile NOT changed");
+                                //PPApplication.logE("DashClockBroadcastReceiver.onReceive", "activated profile NOT changed");
                                 return;
                             }
                         }
@@ -55,7 +55,7 @@ public class DashClockBroadcastReceiver extends BroadcastReceiver {
                     dashClockExtension.updateExtension();
                 }
 
-                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DashClockBroadcastReceiver.onReceive");
+                //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DashClockBroadcastReceiver.onReceive");
             }
         });
 

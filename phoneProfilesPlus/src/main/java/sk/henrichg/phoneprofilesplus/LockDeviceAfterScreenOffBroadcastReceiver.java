@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
@@ -24,14 +23,14 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### LockDeviceAfterScreenOffBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("##### LockDeviceAfterScreenOffBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "LockDeviceAfterScreenOffBroadcastReceiver.onReceive", "LockDeviceAfterScreenOffBroadcastReceiver_onReceive");
         //CallsCounter.logCounterNoInc(context, "LockDeviceAfterScreenOffBroadcastReceiver.onReceive->action="+intent.getAction(), "LockDeviceAfterScreenOffBroadcastReceiver_onReceive");
 
         String action = intent.getAction();
         if (action != null) {
-            PPApplication.logE("LockDeviceAfterScreenOffBroadcastReceiver.onReceive", "action=" + action);
+            //PPApplication.logE("LockDeviceAfterScreenOffBroadcastReceiver.onReceive", "action=" + action);
             if (action.equals(ACTION_LOCK_DEVICE_AFTER_SCREEN_OFF)) {
                 doWork(true, context);
             }
@@ -57,12 +56,12 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                 now.add(Calendar.MILLISECOND, lockDelay);
                 long alarmTime = now.getTimeInMillis();
 
-                if (PPApplication.logEnabled()) {
+                /*if (PPApplication.logEnabled()) {
                     @SuppressLint("SimpleDateFormat")
                     SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                     String result = sdf.format(alarmTime);
                     PPApplication.logE("LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "alarmTime=" + result);
-                }
+                }*/
 
                 Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
                 editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -84,7 +83,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                             .build();
             try {
                 WorkManager workManager = WorkManager.getInstance(context);
-                PPApplication.logE("[HANDLER] LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "enqueueUniqueWork - lockDelay=" + lockDelay);
+                //PPApplication.logE("[HANDLER] LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "enqueueUniqueWork - lockDelay=" + lockDelay);
                 workManager.enqueueUniqueWork("elapsedAlarmsLockDeviceAfterScreenOff", ExistingWorkPolicy.REPLACE, worker);
             } catch (Exception ignored) {}
         }
@@ -134,7 +133,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
     }
 
     static void doWork(boolean useHandler, Context context) {
-        PPApplication.logE("[HANDLER] LockDeviceAfterScreenOffBroadcastReceiver.doWork", "useHandler="+useHandler);
+        //PPApplication.logE("[HANDLER] LockDeviceAfterScreenOffBroadcastReceiver.doWork", "useHandler="+useHandler);
 
         final Context appContext = context.getApplicationContext();
 
@@ -156,15 +155,15 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=LockDeviceAfterScreenOffBroadcastReceiver.doWork");
+                        //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=LockDeviceAfterScreenOffBroadcastReceiver.doWork");
 
                         if (Event.getGlobalEventsRunning(appContext)) {
-                            PPApplication.logE("LockDeviceAfterScreenOffBroadcastReceiver.doWork", "handle events");
+                            //PPApplication.logE("LockDeviceAfterScreenOffBroadcastReceiver.doWork", "handle events");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=LockDeviceAfterScreenOffBroadcastReceiver.doWork");
+                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=LockDeviceAfterScreenOffBroadcastReceiver.doWork");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -178,7 +177,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
         }
         else {
             if (Event.getGlobalEventsRunning(appContext)) {
-                PPApplication.logE("LockDeviceAfterScreenOffBroadcastReceiver.doWork", "handle events");
+                //PPApplication.logE("LockDeviceAfterScreenOffBroadcastReceiver.doWork", "handle events");
                 EventsHandler eventsHandler = new EventsHandler(appContext);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
             }

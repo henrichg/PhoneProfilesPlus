@@ -10,7 +10,7 @@ public class NotificationCancelAlarmBroadcastReceiver extends BroadcastReceiver 
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### NotificationCancelAlarmBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("##### NotificationCancelAlarmBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "NotificationCancelAlarmBroadcastReceiver.onReceive", "NotificationCancelAlarmBroadcastReceiver_onReceive");
 

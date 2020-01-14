@@ -1387,13 +1387,20 @@
     <string name="profile_preferences_red_texts_in_header">Настройки некоторых профилей ошибочны. Такие профили отмечены красным цветом. Пожалуйста, исправьте их.</string>
     <string name="event_preferences_red_texts_in_header">Настройки некоторых событий ошибочны. Такие события отмечены красным цветом. Пожалуйста, исправьте их.</string>
     <string name="profile_preferences_deviceScreenOnPermanent">Включить экран и оставить его включённым</string>
-    <string name="permission_why_profile_connnect_to_ssid_preference">для подключения к SSID</string>
+    <string name="permission_why_profile_connect_to_ssid_preference">для подключения к SSID</string>
     <string name="permissions_for_connect_to_ssid_dialog_text1">Подключение к SSID требует дополнительных разрешений.</string>
-    <string name="permissions_for_connect_to_ssid_dialog_text2">Please grant them in next dialog. List of configured SSID will then be shown.</string>
+    <string name="permissions_for_connect_to_ssid_dialog_text2">Предоставьте их, пожалуйста, в следующем диалоговом окне. После этого будет показан список настроенных SSID.</string>
     <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar">Скрывать заголовок или нижнюю панель</string>
     <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar_summary">Разрешить скрывать заголовок или нижнюю панель во время прокрутки списка</string>
-    <string name="preferences_durationInfo_summary">Parameters marked with [M] are used only when this profile is activated manually. Activation from event ignores these parameters.</string>
-    <string name="profile_preferences_durationEndCategory">Duration end</string>
+    <string name="preferences_durationInfo_summary">Параметры, отмеченные [M], используются, только если профиль активирован вручную. При активации по событию эти параметры игнорируются.</string>
+    <string name="profile_preferences_durationEndCategory">Окончание действия</string>
+    <string name="profile_event_name_ask_for_duration">спросить</string>
+    <string name="phone_profiles_pref_widget_not_working_miui_info">Виджет некликабельный</string>
+    <string name="phone_profiles_pref_widget_not_working_miui_info_summary">Если виджет PhoneProfilesPlus не работает (не нажимается), дайте разрешение в настройках устройства: Настройки / Приложения / Управление приложениями / PhoneProfilesPlus / Другие разрешения / Отображать всплывающие окна во время работы в фоновом режиме.</string>
+    <string name="array_pref_12_percent" formatted="false">12.5%</string>
+    <string name="array_pref_37_percent" formatted="false">37.5%</string>
+    <string name="array_pref_62_percent" formatted="false">62.5%</string>
+    <string name="array_pref_87_percent" formatted="false">87.5%</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>

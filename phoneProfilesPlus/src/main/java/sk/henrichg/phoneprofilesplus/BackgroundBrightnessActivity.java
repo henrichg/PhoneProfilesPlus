@@ -23,7 +23,7 @@ public class BackgroundBrightnessActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
-        PPApplication.logE("BackgroundActivateProfileActivity.onCreate", "xxx");
+        //PPApplication.logE("BackgroundBrightnessActivity.onCreate", "xxx");
 
         Intent intent = getIntent();
         //profile_id = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);

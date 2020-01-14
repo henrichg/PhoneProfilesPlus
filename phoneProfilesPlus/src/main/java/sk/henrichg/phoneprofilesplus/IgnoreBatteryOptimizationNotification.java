@@ -20,7 +20,7 @@ class IgnoreBatteryOptimizationNotification {
 
     static void showNotification(Context context) {
         if (Build.VERSION.SDK_INT >= 23) {
-            PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "xxx");
+            //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "xxx");
 
             final Context appContext = context.getApplicationContext();
             PPApplication.startHandlerThread("IgnoreBatteryOptimizationNotification.showNotification");
@@ -37,17 +37,17 @@ class IgnoreBatteryOptimizationNotification {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=IgnoreBatteryOptimizationNotification.showNotification");
+                        //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=IgnoreBatteryOptimizationNotification.showNotification");
 
                         ApplicationPreferences.getSharedPreferences(appContext);
                         boolean show = ApplicationPreferences.preferences.getBoolean(PREF_SHOW_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ON_START, true);
-                        PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 1=" + show);
+                        //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 1=" + show);
                         if (Event.getGlobalEventsRunning(appContext)) {
                             //show = show && DataWrapper.getIsManualProfileActivation(false, appContext);
                             //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 2=" + show);
                             DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
                             show = show && (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_ALL, false) != 0);
-                            PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 3=" + show);
+                            //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 3=" + show);
                         }
                         else
                             show = false;
@@ -61,7 +61,7 @@ class IgnoreBatteryOptimizationNotification {
                             }
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=IgnoreBatteryOptimizationNotification_showNotification");
+                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=IgnoreBatteryOptimizationNotification_showNotification");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

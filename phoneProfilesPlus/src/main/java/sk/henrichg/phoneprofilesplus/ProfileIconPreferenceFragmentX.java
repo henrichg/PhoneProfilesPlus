@@ -93,7 +93,7 @@ public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentComp
 
     @Override
     public void onDialogClosed(boolean positiveResult) {
-        PPApplication.logE("ProfileIconPreferenceFragmentX.resetSummary", "xxx");
+        //PPApplication.logE("ProfileIconPreferenceFragmentX.resetSummary", "xxx");
 
         if (positiveResult) {
             preference.persistIcon();

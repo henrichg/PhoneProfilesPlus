@@ -62,16 +62,16 @@ class WifiBluetoothScanner {
                 // application is not started
                 return;
 
-            PPApplication.logE("%%%% WifiBluetoothScanner.doScan", "-- START ------------");
+            //PPApplication.logE("%%%% WifiBluetoothScanner.doScan", "-- START ------------");
 
             DataWrapper dataWrapper;
 
-            PPApplication.logE("%%%% WifiBluetoothScanner.doScan", "scannerType=" + scannerType);
+            //PPApplication.logE("%%%% WifiBluetoothScanner.doScan", "scannerType=" + scannerType);
 
             // for Airplane mode ON, no scan
             //if (android.os.Build.VERSION.SDK_INT >= 17) {
                 if (Settings.Global.getInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 0) {
-                    PPApplication.logE("%%%% WifiBluetoothScanner.doScan", "-- END - airplane mode ON -------");
+                    //PPApplication.logE("%%%% WifiBluetoothScanner.doScan", "-- END - airplane mode ON -------");
                     return;
                 }
             /*} else {
@@ -90,13 +90,13 @@ class WifiBluetoothScanner {
                     if (scannerType.equals(SCANNER_TYPE_WIFI) &&
                             ApplicationPreferences.applicationEventWifiScanInPowerSaveMode(context).equals("2")) {
                         // not scan wi-fi in power save mode
-                        PPApplication.logE("%%%% WifiBluetoothScanner.doScan", "-- END - power save mode ON -------");
+                        //PPApplication.logE("%%%% WifiBluetoothScanner.doScan", "-- END - power save mode ON -------");
                         return;
                     }
                     if (scannerType.equals(SCANNER_TYPE_BLUETOOTH) &&
                             ApplicationPreferences.applicationEventBluetoothScanInPowerSaveMode(context).equals("2")) {
                         // not scan bluetooth in power save mode
-                        PPApplication.logE("%%%% WifiBluetoothScanner.doScan", "-- END - power save mode ON -------");
+                        //PPApplication.logE("%%%% WifiBluetoothScanner.doScan", "-- END - power save mode ON -------");
                         return;
                     }
                 }
@@ -105,14 +105,14 @@ class WifiBluetoothScanner {
             PPApplication.startHandlerThread("WifiBluetoothScanner.doScan.1");
             final Handler wifiBluetoothChangeHandler = new Handler(PPApplication.handlerThread.getLooper());
 
-            PPApplication.logE("$$$ WifiBluetoothScanner.doScan", "before synchronized block - scannerType=" + scannerType);
+            //PPApplication.logE("$$$ WifiBluetoothScanner.doScan", "before synchronized block - scannerType=" + scannerType);
 
             //synchronized (PPApplication.radioChangeStateMutex) {
 
-                PPApplication.logE("$$$ WifiBluetoothScanner.doScan", "in synchronized block - start - scannerType=" + scannerType);
+                //PPApplication.logE("$$$ WifiBluetoothScanner.doScan", "in synchronized block - start - scannerType=" + scannerType);
 
                 if (scannerType.equals(SCANNER_TYPE_WIFI)) {
-                    PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "start wifi scan");
+                    //PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "start wifi scan");
 
                     WifiScanWorker.fillWifiConfigurationList(context/*, false*/);
 
@@ -122,10 +122,10 @@ class WifiBluetoothScanner {
                             canScan = !WifiApManager.isWifiAPEnabled(context);
                         else
                             canScan = !CmdWifiAP.isEnabled();
-                        if (PPApplication.logEnabled()) {
+                        /*if (PPApplication.logEnabled()) {
                             PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "canScan=" + canScan);
                             PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "isWifiAPEnabled=" + !canScan);
-                        }
+                        }*/
                     }
 
                     if (canScan) {
@@ -142,37 +142,37 @@ class WifiBluetoothScanner {
                             if (wifiEventsExists)
                                 scan = isLocationEnabled(context/*, scannerType*/);
                         }
-                        if (PPApplication.logEnabled()) {
+                        /*if (PPApplication.logEnabled()) {
                             PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "wifiEventsExists=" + wifiEventsExists);
                             PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "forceScan=" + forceScan);
-                        }
+                        }*/
                         if (!scan) {
                             // wifi scan events not exists
-                            PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "alarms removed");
+                            //PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "alarms removed");
                             WifiScanWorker.cancelWork(context, true, null);
                         } else {
-                            PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "can scan");
+                            //PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "can scan");
 
                             if (WifiScanWorker.wifi == null)
                                 WifiScanWorker.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
                             if (WifiScanWorker.getWifiEnabledForScan(context)) {
                                 // service restarted during scanning, disable wifi
-                                PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "disable wifi - service restarted");
+                                //PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "disable wifi - service restarted");
                                 wifiBluetoothChangeHandler.post(new Runnable() {
                                     @Override
                                     public void run() {
                                         try {
                                             if (WifiScanWorker.wifi == null)
                                                 WifiScanWorker.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
+                                            //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
                                             //lock();
-                                            PPApplication.logE("#### setWifiEnabled", "from WifiBluetoothScanner.doScan 1");
+                                            //PPApplication.logE("#### setWifiEnabled", "from WifiBluetoothScanner.doScan 1");
                                             //if (Build.VERSION.SDK_INT >= 26)
                                             //    CmdWifi.setWifi(false);
                                             //else
                                             WifiScanWorker.wifi.setWifiEnabled(false);
-                                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
+                                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
                                         } catch (Exception ignored) {}
                                     }
                                 });
@@ -185,7 +185,7 @@ class WifiBluetoothScanner {
                             //noinspection ConstantConditions,ConstantIfStatement
                             if (true /*canScanWifi(dataWrapper)*/) { // scan even if wifi is connected
 
-                                PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "scan started");
+                                //PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "scan started");
 
                                 WifiScanWorker.setScanRequest(context, false);
                                 WifiScanWorker.setWaitForResults(context, false);
@@ -202,7 +202,7 @@ class WifiBluetoothScanner {
                                 wifiState = enableWifi(dataWrapper, WifiScanWorker.wifi, wifiBluetoothChangeHandler);
 
                                 if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
-                                    PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "startScan");
+                                    //PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "startScan");
                                     WifiScanWorker.startScan(context);
                                 } else if (wifiState != WifiManager.WIFI_STATE_ENABLING) {
                                     WifiScanWorker.setScanRequest(context, false);
@@ -212,15 +212,15 @@ class WifiBluetoothScanner {
 
                                 if (WifiScanWorker.getScanRequest(context) ||
                                         WifiScanWorker.getWaitForResults(context)) {
-                                    PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "waiting for scan end");
+                                    //PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "waiting for scan end");
 
                                     // wait for scan end
                                     waitForWifiScanEnd(context);
 
-                                    PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "scan ended");
+                                    //PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "scan ended");
 
                                     if (WifiScanWorker.getWaitForResults(context)) {
-                                        PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "no data received from scanner");
+                                        //PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "no data received from scanner");
                                         if (getForceOneWifiScan(context) != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                                         {
                                             Data workData = new Data.Builder()
@@ -277,24 +277,24 @@ class WifiBluetoothScanner {
                         wifiBluetoothChangeHandler.post(new Runnable() {
                             @Override
                             public void run() {
-                                PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
+                                //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
 
                                 if (WifiScanWorker.getWifiEnabledForScan(context)) {
                                     try {
                                         if (WifiScanWorker.wifi == null)
                                             WifiScanWorker.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                                        PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "disable wifi");
+                                        //PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "disable wifi");
                                         //lock();
-                                        PPApplication.logE("#### setWifiEnabled", "from WifiBluetoothScanner.doScan 2");
+                                        //PPApplication.logE("#### setWifiEnabled", "from WifiBluetoothScanner.doScan 2");
                                         //if (Build.VERSION.SDK_INT >= 26)
                                         //    CmdWifi.setWifi(false);
                                         //else
                                         WifiScanWorker.wifi.setWifiEnabled(false);
                                     } catch (Exception ignored) {}
-                                } else
-                                    PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "keep enabled wifi");
+                                } //else
+                                    //PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "keep enabled wifi");
 
-                                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
+                                //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
                             }
                         });
                         //try { Thread.sleep(1000); } catch (InterruptedException e) { }
@@ -314,7 +314,7 @@ class WifiBluetoothScanner {
 
                     if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
-                        PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "start bt scan");
+                        //PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "start bt scan");
 
                         dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
 
@@ -329,11 +329,11 @@ class WifiBluetoothScanner {
                             leDevicesScan = DatabaseHandler.getInstance(context.getApplicationContext()).getBluetoothDevicesTypeCount(EventPreferencesBluetooth.DTYPE_LE, forceScanLE) > 0;
                         else
                             leDevicesScan = false;*/
-                        if (PPApplication.logEnabled()) {
+                        /*if (PPApplication.logEnabled()) {
                             //noinspection ConstantConditions
                             PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "classicDevicesScan=" + classicDevicesScan);
                             PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "leDevicesScan=" + leDevicesScan);
-                        }
+                        }*/
 
                         //unlock();
                         boolean scan = (bluetoothEventsExists ||
@@ -345,10 +345,10 @@ class WifiBluetoothScanner {
                         }
                         if (!scan) {
                             // bluetooth scan events not exists
-                            PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "no bt scan events");
+                            //PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "no bt scan events");
                             BluetoothScanWorker.cancelWork(context, true, null);
                         } else {
-                            PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "scan=true");
+                            //PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "scan=true");
 
                             if (BluetoothScanWorker.bluetooth == null)
                                 BluetoothScanWorker.bluetooth = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
@@ -356,11 +356,11 @@ class WifiBluetoothScanner {
                             if (BluetoothScanWorker.bluetooth != null) {
                                 if (BluetoothScanWorker.getBluetoothEnabledForScan(context)) {
                                     // service restarted during scanning, disable Bluetooth
-                                    PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "disable BT - service restarted");
+                                    //PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "disable BT - service restarted");
                                     wifiBluetoothChangeHandler.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
+                                            //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
                                             if (Permissions.checkBluetoothForEMUI(context)) {
                                                 try {
                                                     if (BluetoothScanWorker.bluetooth == null)
@@ -372,7 +372,7 @@ class WifiBluetoothScanner {
                                                     BluetoothScanWorker.bluetooth.disable();
                                                 } catch (Exception ignored) {}
                                             }
-                                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
+                                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
                                         }
                                     });
                                     //try { Thread.sleep(1000); } catch (InterruptedException e) { }
@@ -396,7 +396,7 @@ class WifiBluetoothScanner {
                                     if (classicDevicesScan) {
                                         ///////// Classic BT scan
 
-                                        PPApplication.logE("$$$BCL WifiBluetoothScanner.doScan", "classic devices scan");
+                                        //PPApplication.logE("$$$BCL WifiBluetoothScanner.doScan", "classic devices scan");
 
                                         //lock();
 
@@ -405,10 +405,10 @@ class WifiBluetoothScanner {
                                                 BluetoothScanWorker.bluetooth,
                                                 wifiBluetoothChangeHandler,
                                                 false);
-                                        PPApplication.logE("$$$BCL WifiBluetoothScanner.doScan", "bluetoothState=" + bluetoothState);
+                                        //PPApplication.logE("$$$BCL WifiBluetoothScanner.doScan", "bluetoothState=" + bluetoothState);
 
                                         if (bluetoothState == BluetoothAdapter.STATE_ON) {
-                                            PPApplication.logE("$$$BCL WifiBluetoothScanner.doScan", "start classic scan");
+                                            //PPApplication.logE("$$$BCL WifiBluetoothScanner.doScan", "start classic scan");
                                             BluetoothScanWorker.startCLScan(context);
                                         } else if (bluetoothState != BluetoothAdapter.STATE_TURNING_ON) {
                                             BluetoothScanWorker.setScanRequest(context, false);
@@ -418,12 +418,12 @@ class WifiBluetoothScanner {
 
                                         if ((BluetoothScanWorker.getScanRequest(context)) ||
                                                 (BluetoothScanWorker.getWaitForResults(context))) {
-                                            PPApplication.logE("$$$BCL WifiBluetoothScanner.doScan", "waiting for classic scan end");
+                                            //PPApplication.logE("$$$BCL WifiBluetoothScanner.doScan", "waiting for classic scan end");
 
                                             // wait for scan end
                                             waitForBluetoothCLScanEnd(context);
 
-                                            PPApplication.logE("$$$BCL WifiBluetoothScanner.doScan", "classic scan ended");
+                                            //PPApplication.logE("$$$BCL WifiBluetoothScanner.doScan", "classic scan ended");
                                         }
 
                                         //unlock();
@@ -438,7 +438,7 @@ class WifiBluetoothScanner {
                                     if (leDevicesScan && !BluetoothScanWorker.getScanKilled(context)) {
                                         ///////// LE BT scan
 
-                                        PPApplication.logE("$$$BLE WifiBluetoothScanner.doScan", "LE devices scan");
+                                        //PPApplication.logE("$$$BLE WifiBluetoothScanner.doScan", "LE devices scan");
 
                                     /*if (android.os.Build.VERSION.SDK_INT < 21)
                                         // for old BT LE scan must by acquired lock
@@ -451,7 +451,7 @@ class WifiBluetoothScanner {
                                                 true);
 
                                         if (bluetoothState == BluetoothAdapter.STATE_ON) {
-                                            PPApplication.logE("$$$BLE WifiBluetoothScanner.doScan", "start LE scan");
+                                            //PPApplication.logE("$$$BLE WifiBluetoothScanner.doScan", "start LE scan");
                                             BluetoothScanWorker.startLEScan(context);
                                         } else if (bluetoothState != BluetoothAdapter.STATE_TURNING_ON) {
                                             BluetoothScanWorker.setLEScanRequest(context, false);
@@ -461,12 +461,12 @@ class WifiBluetoothScanner {
 
                                         if ((BluetoothScanWorker.getLEScanRequest(context)) ||
                                                 (BluetoothScanWorker.getWaitForLEResults(context))) {
-                                            PPApplication.logE("$$$BLE WifiBluetoothScanner.doScan", "waiting for LE scan end");
+                                            //PPApplication.logE("$$$BLE WifiBluetoothScanner.doScan", "waiting for LE scan end");
 
                                             // wait for scan end
                                             waitForLEBluetoothScanEnd(context);
 
-                                            PPApplication.logE("$$$BLE WifiBluetoothScanner.doScan", "LE scan ended");
+                                            //PPApplication.logE("$$$BLE WifiBluetoothScanner.doScan", "LE scan ended");
 
                                             // send broadcast for start EventsHandler
                                             /*Intent btLEIntent = new Intent(context, BluetoothLEScanBroadcastReceiver.class);
@@ -488,10 +488,10 @@ class WifiBluetoothScanner {
                                 wifiBluetoothChangeHandler.post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
+                                        //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
 
                                         if (BluetoothScanWorker.getBluetoothEnabledForScan(context)) {
-                                            PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "disable bluetooth");
+                                            //PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "disable bluetooth");
                                             if (Permissions.checkBluetoothForEMUI(context)) {
                                                 try {
                                                     if (BluetoothScanWorker.bluetooth == null)
@@ -503,10 +503,10 @@ class WifiBluetoothScanner {
                                                     BluetoothScanWorker.bluetooth.disable();
                                                 } catch (Exception ignored) {}
                                             }
-                                        } else
-                                            PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "keep enabled bluetooth");
+                                        } //else
+                                            //PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "keep enabled bluetooth");
 
-                                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
+                                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
                                     }
                                 });
                                 //try { Thread.sleep(1000); } catch (InterruptedException e) { }
@@ -528,15 +528,15 @@ class WifiBluetoothScanner {
                     //unlock();
                 }
 
-                PPApplication.logE("$$$ WifiBluetoothScanner.doScan", "in synchronized block - end - scannerType=" + scannerType);
+                //PPApplication.logE("$$$ WifiBluetoothScanner.doScan", "in synchronized block - end - scannerType=" + scannerType);
 
             //}
 
-            if (PPApplication.logEnabled()) {
+            /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("$$$ WifiBluetoothScanner.doScan", "after synchronized block - scannerType=" + scannerType);
 
                 PPApplication.logE("%%%% WifiBluetoothScanner.doScan", "-- END ------------");
-            }
+            }*/
         }
     }
 
@@ -608,7 +608,7 @@ class WifiBluetoothScanner {
     @SuppressLint("NewApi")
     private int enableWifi(DataWrapper dataWrapper, WifiManager wifi, Handler wifiBluetoothChangeHandler)
     {
-        PPApplication.logE("@@@ WifiBluetoothScanner.enableWifi","xxx");
+        //PPApplication.logE("@@@ WifiBluetoothScanner.enableWifi","xxx");
 
         int wifiState = wifi.getWifiState();
         int forceScan = getForceOneWifiScan(dataWrapper.context);
@@ -625,7 +625,7 @@ class WifiBluetoothScanner {
                 //if (android.os.Build.VERSION.SDK_INT >= 18)
                     isScanAlwaysAvailable = wifi.isScanAlwaysAvailable();
             }
-            PPApplication.logE("@@@ WifiBluetoothScanner.enableWifi","isScanAlwaysAvailable="+isScanAlwaysAvailable);
+            //PPApplication.logE("@@@ WifiBluetoothScanner.enableWifi","isScanAlwaysAvailable="+isScanAlwaysAvailable);
             isWifiEnabled = isWifiEnabled || isScanAlwaysAvailable;
             if (!isWifiEnabled)
             {
@@ -641,31 +641,31 @@ class WifiBluetoothScanner {
                         WifiScanWorker.setScanRequest(dataWrapper.context, true);
                         WifiScanWorker.lock(dataWrapper.context);
                         final WifiManager _wifi = wifi;
-                        PPApplication.logE("[HANDLER] WifiBluetoothScanner.enableWifi", "before start handler");
+                        //PPApplication.logE("[HANDLER] WifiBluetoothScanner.enableWifi", "before start handler");
                         wifiBluetoothChangeHandler.post(new Runnable() {
                             @Override
                             public void run() {
-                                if (PPApplication.logEnabled()) {
+                                /*if (PPApplication.logEnabled()) {
                                     PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
 
                                     PPApplication.logE("$$$ WifiBluetoothScanner.enableWifi", "before enable wifi");
                                     PPApplication.logE("[HANDLER] WifiBluetoothScanner.enableWifi", "before enable wifi");
                                     PPApplication.logE("#### setWifiEnabled", "from WifiBluetoothScanner.enableWifi");
-                                }
+                                }*/
 
                                 //if (Build.VERSION.SDK_INT >= 26)
                                 //    CmdWifi.setWifi(true);
                                 //else
                                     _wifi.setWifiEnabled(true);
 
-                                if (PPApplication.logEnabled()) {
+                                /*if (PPApplication.logEnabled()) {
                                     PPApplication.logE("$$$ WifiBluetoothScanner.enableWifi", "after enable wifi");
 
                                     PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
-                                }
+                                }*/
                             }
                         });
-                        PPApplication.logE("@@@ WifiBluetoothScanner.enableWifi","set enabled");
+                        //PPApplication.logE("@@@ WifiBluetoothScanner.enableWifi","set enabled");
                         return WifiManager.WIFI_STATE_ENABLING;
                     }
                 }
@@ -686,7 +686,7 @@ class WifiBluetoothScanner {
                     isWifiAPEnabled = CmdWifiAP.isEnabled();
 
                 if (isScanAlwaysAvailable  && !isWifiAPEnabled) {
-                    PPApplication.logE("@@@ WifiBluetoothScanner.enableWifi", "scan always available");
+                    //PPApplication.logE("@@@ WifiBluetoothScanner.enableWifi", "scan always available");
                     wifiState =  WifiManager.WIFI_STATE_ENABLED;
                 }
                 return wifiState;
@@ -703,7 +703,7 @@ class WifiBluetoothScanner {
                                 Handler wifiBluetoothChangeHandler,
                                 boolean forLE)
     {
-        PPApplication.logE("$$$B WifiBluetoothScanner.enableBluetooth","xxx");
+        //PPApplication.logE("$$$B WifiBluetoothScanner.enableBluetooth","xxx");
 
         int bluetoothState = bluetooth.getState();
         int forceScan;
@@ -725,7 +725,7 @@ class WifiBluetoothScanner {
                         (forceScan == FORCE_ONE_SCAN_FROM_PREF_DIALOG));
                 if (scan)
                 {
-                    PPApplication.logE("$$$B WifiBluetoothScanner.enableBluetooth","set enabled");
+                    //PPApplication.logE("$$$B WifiBluetoothScanner.enableBluetooth","set enabled");
                     BluetoothScanWorker.setBluetoothEnabledForScan(context, true);
                     if (!forLE)
                         BluetoothScanWorker.setScanRequest(dataWrapper.context, true);
@@ -735,7 +735,7 @@ class WifiBluetoothScanner {
                     wifiBluetoothChangeHandler.post(new Runnable() {
                         @Override
                         public void run() {
-                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
+                            //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
 
                             if (Permissions.checkBluetoothForEMUI(context)) {
                                 //lock(); // lock is required for enabling bluetooth
@@ -745,7 +745,7 @@ class WifiBluetoothScanner {
                                     _bluetooth.enable();
                             }
 
-                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
+                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
                         }
                     });
                     return BluetoothAdapter.STATE_TURNING_ON;
@@ -754,7 +754,7 @@ class WifiBluetoothScanner {
         }
         else
         {
-            PPApplication.logE("$$$B WifiBluetoothScanner.enableBluetooth","already enabled");
+            //PPApplication.logE("$$$B WifiBluetoothScanner.enableBluetooth","already enabled");
             return bluetoothState;
         }
         //}

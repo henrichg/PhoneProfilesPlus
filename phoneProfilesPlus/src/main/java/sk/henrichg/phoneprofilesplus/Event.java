@@ -14,7 +14,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.telephony.TelephonyManager;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -1321,25 +1320,25 @@ class Event {
             // events are globally stopped
             return;
 
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("Event.startEvent", "event_id=" + this._id + "-----------------------------------");
             PPApplication.logE("Event.startEvent", "-- event_name=" + this._name);
-        }
+        }*/
 
         if (!this.isRunnable(dataWrapper.context, true)) {
             // event is not runnable, no start it
-            PPApplication.logE("Event.startEvent","event is not runnable, no start it");
+            //PPApplication.logE("Event.startEvent","event is not runnable, no start it");
             return;
         }
 
         if (getEventsBlocked(dataWrapper.context))
         {
             // blocked by manual profile activation
-            if (PPApplication.logEnabled()) {
+            /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("Event.startEvent", "event_id=" + this._id + " events blocked");
                 PPApplication.logE("Event.startEvent", "event_id=" + this._id + " forceRun=" + _forceRun);
                 PPApplication.logE("Event.startEvent", "event_id=" + this._id + " blocked=" + _blocked);
-            }
+            }*/
 
             if (!_forceRun)
                 // event is not forceRun
@@ -1363,7 +1362,7 @@ class Event {
                 }
                 if (!found) {
                     // if activated profile is not _startWhenActivatedProfile, not start event
-                    PPApplication.logE("Event.startEvent","is not started _startWhenActivatedProfile");
+                    //PPApplication.logE("Event.startEvent","is not started _startWhenActivatedProfile");
                     return;
                 }
             }
@@ -1376,7 +1375,7 @@ class Event {
             Event event = dataWrapper.getEventById(eventTimeline._fkEvent);
             if ((event != null) && applicationEventUsePriority && (event._priority > this._priority)) {
                 // is running event with higher priority
-                PPApplication.logE("Event.startEvent","is running event with higher priority");
+                //PPApplication.logE("Event.startEvent","is running event with higher priority");
                 return;
             }
         }
@@ -1397,7 +1396,7 @@ class Event {
             // test whenever event exists in timeline
             eventTimeline = null;
             int eventPosition = getEventTimelinePosition(eventTimelineList);
-            PPApplication.logE("Event.startEvent","eventPosition="+eventPosition);
+            //PPApplication.logE("Event.startEvent","eventPosition="+eventPosition);
             if (eventPosition != -1)
                 eventTimeline = eventTimelineList.get(eventPosition);
 
@@ -1442,10 +1441,10 @@ class Event {
             dataWrapper.addActivityLog(DataWrapper.ALTYPE_EVENT_START, _name, null, null, 0);
         }
 
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("Event.startEvent", "event=" + this._id + " activate profile id=" + this._fkProfileStart);
             PPApplication.logE("Event.startEvent", "mergedProfile=" + mergedProfile);
-        }
+        }*/
 
         if (mergedProfile == null) {
             long activatedProfileId = 0;
@@ -1455,13 +1454,13 @@ class Event {
             if (this._manualProfileActivation || forRestartEvents || (this._fkProfileStart != activatedProfileId))
                 dataWrapper.activateProfileFromEvent(this._fkProfileStart, false, false, forRestartEvents);
             else {
-                PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from Event.startEvent");
+                //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from Event.startEvent");
                 dataWrapper.updateNotificationAndWidgets(false);
             }
         }
         else {
             mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper/*, true*/);
-            PPApplication.logE("Event.startEvent","mergedProfile="+mergedProfile._name);
+            //PPApplication.logE("Event.startEvent","mergedProfile="+mergedProfile._name);
             if (this._manualProfileActivation) {
                 DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
                 dataWrapper.activateProfileFromEvent(mergedProfile._id, true, true, forRestartEvents);
@@ -1482,11 +1481,11 @@ class Event {
                                         boolean allowRestart,
                                         boolean forRestartEvents)
     {
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("@@@ Event.pauseEvent", "doActivateEndProfile-activateReturnProfile=" + activateReturnProfile);
             PPApplication.logE("@@@ Event.pauseEvent", "doActivateEndProfile-allowRestart=" + allowRestart);
             PPApplication.logE("@@@ Event.pauseEvent", "doActivateEndProfile-forRestartEvents=" + forRestartEvents);
-        }
+        }*/
 
         if (!(eventPosition == (timeLineSize-1)))
         {
@@ -1517,7 +1516,7 @@ class Event {
                 {
                     if ((_fkProfileEnd != activatedProfileId) || forRestartEvents)
                     {
-                        PPApplication.logE("@@@ Event.pauseEvent","doActivateEndProfile-activate end profile");
+                        //PPApplication.logE("@@@ Event.pauseEvent","doActivateEndProfile-activate end profile");
                         dataWrapper.activateProfileFromEvent(_fkProfileEnd, false, false, forRestartEvents);
                         activatedProfileId = _fkProfileEnd;
                         profileActivated = true;
@@ -1539,10 +1538,10 @@ class Event {
 
                     if ((eventTimeline._fkProfileEndActivated != activatedProfileId) || forRestartEvents)
                     {
-                        if (PPApplication.logEnabled()) {
+                        /*if (PPApplication.logEnabled()) {
                             PPApplication.logE("@@@ Event.pauseEvent", "doActivateEndProfile-undone profile");
                             PPApplication.logE("@@@ Event.pauseEvent", "doActivateEndProfile-_fkProfileEndActivated=" + eventTimeline._fkProfileEndActivated);
-                        }
+                        }*/
                         if (eventTimeline._fkProfileEndActivated != 0)
                         {
                             dataWrapper.activateProfileFromEvent(eventTimeline._fkProfileEndActivated, false, false, forRestartEvents);
@@ -1555,7 +1554,7 @@ class Event {
                 // first activate _fkProfileEnd
                 if (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)
                 {
-                    PPApplication.logE("@@@ Event.pauseEvent","doActivateEndProfile-activate end profile");
+                    //PPApplication.logE("@@@ Event.pauseEvent","doActivateEndProfile-activate end profile");
                     mergedProfile.mergeProfiles(_fkProfileEnd, dataWrapper/*, false*/);
                 }
                 // second activate when undone profile is set
@@ -1571,10 +1570,10 @@ class Event {
                                 eventTimeline._fkProfileEndActivated = event._fkProfileStart;
                         }
                     }
-                    if (PPApplication.logEnabled()) {
+                    /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("@@@ Event.pauseEvent", "doActivateEndProfile-undone profile");
                         PPApplication.logE("@@@ Event.pauseEvent", "doActivateEndProfile-_fkProfileEndActivated=" + eventTimeline._fkProfileEndActivated);
-                    }
+                    }*/
                     if (eventTimeline._fkProfileEndActivated != 0)
                     {
                         mergedProfile.mergeProfiles(eventTimeline._fkProfileEndActivated, dataWrapper/*, false*/);
@@ -1584,7 +1583,7 @@ class Event {
 
             // restart events when is set
             if ((_atEndDo == EATENDDO_RESTART_EVENTS) && allowRestart) {
-                PPApplication.logE("@@@ Event.pauseEvent","doActivateEndProfile-restart events");
+                //PPApplication.logE("@@@ Event.pauseEvent","doActivateEndProfile-restart events");
                 // do not reactivate profile to avoid infinite loop
                 dataWrapper.restartEventsWithDelay(5, true, /*true,*/ DataWrapper.ALTYPE_UNDEFINED);
                 profileActivated = true;
@@ -1594,7 +1593,7 @@ class Event {
 
         if (!profileActivated)
         {
-            PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from Event.doActivateEndProfile");
+            //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from Event.doActivateEndProfile");
             dataWrapper.updateNotificationAndWidgets(false);
         }
 
@@ -1638,16 +1637,16 @@ class Event {
         // unblock event when paused
         dataWrapper.setEventBlocked(this, false);
 
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("@@@ Event.pauseEvent", "event_id=" + this._id + "-----------------------------------");
             PPApplication.logE("@@@ Event.pauseEvent", "-- event_name=" + this._name);
-        }
+        }*/
 
         int timeLineSize = eventTimelineList.size();
 
         // test whenever event exists in timeline
         int eventPosition = getEventTimelinePosition(eventTimelineList);
-        PPApplication.logE("Event.pauseEvent","eventPosition="+eventPosition);
+        //PPApplication.logE("Event.pauseEvent","eventPosition="+eventPosition);
 
         boolean exists = eventPosition != -1;
 
@@ -1685,9 +1684,9 @@ class Event {
         if (!noSetSystemEvent)
             setSystemEvent(dataWrapper.context, ESTATUS_PAUSE);
         int status = this._status;
-        PPApplication.logE("@@@ Event.pauseEvent","-- old status="+this._status);
+        //PPApplication.logE("@@@ Event.pauseEvent","-- old status="+this._status);
         this._status = ESTATUS_PAUSE;
-        PPApplication.logE("@@@ Event.pauseEvent","-- new status="+this._status);
+        //PPApplication.logE("@@@ Event.pauseEvent","-- new status="+this._status);
         DatabaseHandler.getInstance(dataWrapper.context).updateEventStatus(this);
 
         if (/*log &&*/ (status != this._status)) {
@@ -1763,10 +1762,10 @@ class Event {
             // events are globally stopped
             return;
 
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("@@@ Event.stopEvent", "event_id=" + this._id + "-----------------------------------");
             PPApplication.logE("@@@ Event.stopEvent", "-- event_name=" + this._name);
-        }
+        }*/
 
         if (this._status != ESTATUS_STOP)
         {
@@ -1775,10 +1774,10 @@ class Event {
 
         setSystemEvent(dataWrapper.context, ESTATUS_STOP);
         int status = this._status;
-        PPApplication.logE("@@@ Event.stopEvent","-- old status="+this._status);
+        //PPApplication.logE("@@@ Event.stopEvent","-- old status="+this._status);
         this._status = ESTATUS_STOP;
 
-        PPApplication.logE("@@@ Event.stopEvent","-- new status="+this._status);
+        //PPApplication.logE("@@@ Event.stopEvent","-- new status="+this._status);
         if (saveEventStatus)
             DatabaseHandler.getInstance(dataWrapper.context).updateEventStatus(this);
 
@@ -1983,7 +1982,7 @@ class Event {
         if (getEventsBlocked(dataWrapper.context))
         {
             // blocked by manual profile activation
-            PPApplication.logE("Event.setDelayStartAlarm","event_id="+this._id+" events blocked");
+            //PPApplication.logE("Event.setDelayStartAlarm","event_id="+this._id+" events blocked");
 
 
             if (!_forceRun)
@@ -1994,11 +1993,11 @@ class Event {
                 return;
         }
 
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("@@@ Event.setDelayStartAlarm", "event_id=" + this._id + "-----------------------------------");
             PPApplication.logE("@@@ Event.setDelayStartAlarm", "-- event_name=" + this._name);
             PPApplication.logE("@@@ Event.setDelayStartAlarm", "-- delay=" + this._delayStart);
-        }
+        }*/
 
         if (this._delayStart > 0)
         {
@@ -2023,11 +2022,11 @@ class Event {
                     now.add(Calendar.SECOND, this._delayStart);
                     long alarmTime = now.getTimeInMillis();
 
-                    if (PPApplication.logEnabled()) {
+                    /*if (PPApplication.logEnabled()) {
                         SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                         String result = sdf.format(alarmTime);
                         PPApplication.logE("Event.setDelayStartAlarm", "startTime=" + result);
-                    }
+                    }*/
 
                     Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -2058,7 +2057,7 @@ class Event {
                                 .build();
                 try {
                     WorkManager workManager = WorkManager.getInstance(_context);
-                    PPApplication.logE("[HANDLER] Event.setDelayStartAlarm", "enqueueUniqueWork - this._delayStart="+this._delayStart);
+                    //PPApplication.logE("[HANDLER] Event.setDelayStartAlarm", "enqueueUniqueWork - this._delayStart="+this._delayStart);
                     //workManager.enqueueUniqueWork("elapsedAlarmsEventDelayStartWork_"+((int) this._id), ExistingWorkPolicy.REPLACE, worker);
                     workManager.enqueue(worker);
 
@@ -2167,7 +2166,7 @@ class Event {
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, (int) this._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
-                    PPApplication.logE("Event.removeDelayStartAlarm", "alarm found");
+                    //PPApplication.logE("Event.removeDelayStartAlarm", "alarm found");
 
                     alarmManager.cancel(pendingIntent);
                     pendingIntent.cancel();
@@ -2182,7 +2181,7 @@ class Event {
         this._isInDelayStart = false;
         this._startStatusTime = 0;
         DatabaseHandler.getInstance(dataWrapper.context).updateEventInDelayStart(this);
-        PPApplication.logE("[HANDLER] Event.removeDelayStartAlarm", "removed");
+        //PPApplication.logE("[HANDLER] Event.removeDelayStartAlarm", "removed");
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
@@ -2201,7 +2200,7 @@ class Event {
         if (getEventsBlocked(dataWrapper.context))
         {
             // blocked by manual profile activation
-            PPApplication.logE("Event.setDelayEndAlarm","event_id="+this._id+" events blocked");
+            //PPApplication.logE("Event.setDelayEndAlarm","event_id="+this._id+" events blocked");
 
 
             if (!_forceRun)
@@ -2212,11 +2211,11 @@ class Event {
                 return;
         }
 
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("@@@ Event.setDelayEndAlarm", "event_id=" + this._id + "-----------------------------------");
             PPApplication.logE("@@@ Event.setDelayEndAlarm", "-- event_name=" + this._name);
             PPApplication.logE("@@@ Event.setDelayEndAlarm", "-- delay=" + this._delayEnd);
-        }
+        }*/
 
         if (this._delayEnd > 0)
         {
@@ -2241,11 +2240,11 @@ class Event {
                     now.add(Calendar.SECOND, this._delayEnd);
                     long alarmTime = now.getTimeInMillis(); // + 1000 * /* 60 * */ this._delayEnd;
 
-                    if (PPApplication.logEnabled()) {
+                    /*if (PPApplication.logEnabled()) {
                         SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                         String result = sdf.format(alarmTime);
                         PPApplication.logE("Event.setDelayEndAlarm", "endTime=" + result);
-                    }
+                    }*/
 
                     Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -2276,7 +2275,7 @@ class Event {
                                 .build();
                 try {
                     WorkManager workManager = WorkManager.getInstance(_context);
-                    PPApplication.logE("[HANDLER] Event.setDelayEndAlarm", "enqueueUniqueWork - this._delayEnd="+this._delayEnd);
+                    //PPApplication.logE("[HANDLER] Event.setDelayEndAlarm", "enqueueUniqueWork - this._delayEnd="+this._delayEnd);
                     //workManager.enqueueUniqueWork("elapsedAlarmsEventDelayEndWork_"+((int) this._id), ExistingWorkPolicy.REPLACE, worker);
                     workManager.enqueue(worker);
 
@@ -2404,7 +2403,7 @@ class Event {
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, (int) this._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
-                    PPApplication.logE("Event.removeDelayEndAlarm", "alarm found");
+                    //PPApplication.logE("Event.removeDelayEndAlarm", "alarm found");
 
                     alarmManager.cancel(pendingIntent);
                     pendingIntent.cancel();
@@ -2418,7 +2417,7 @@ class Event {
         } catch (Exception ignored) {}
         this._isInDelayEnd = false;
         DatabaseHandler.getInstance(dataWrapper.context).updateEventInDelayEnd(this);
-        PPApplication.logE("[HANDLER] Event.removeDelayEndAlarm", "removed");
+        //PPApplication.logE("[HANDLER] Event.removeDelayEndAlarm", "removed");
     }
 
     private void removeStartEventNotificationAlarm(DataWrapper dataWrapper) {
@@ -2696,7 +2695,7 @@ class Event {
 
         if (!notificationSoundStart.isEmpty() || notificationVibrateStart) {
 
-            PPApplication.logE("Event.notifyEventStart", "event._id="+_id);
+            //PPApplication.logE("Event.notifyEventStart", "event._id="+_id);
 
             if (_repeatNotificationStart) {
                 NotificationCompat.Builder mBuilder;
@@ -2761,7 +2760,7 @@ class Event {
 
         if (!notificationSoundEnd.isEmpty() || notificationVibrateEnd) {
 
-            PPApplication.logE("Event.notifyEventEnd", "event._id="+_id);
+            //PPApplication.logE("Event.notifyEventEnd", "event._id="+_id);
 
             if (playSound)
                 if (PhoneProfilesService.getInstance() != null)

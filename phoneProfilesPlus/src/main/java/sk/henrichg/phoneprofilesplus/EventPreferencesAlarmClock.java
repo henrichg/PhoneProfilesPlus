@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import androidx.preference.Preference;
@@ -188,7 +187,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
 
     long computeAlarm()
     {
-        PPApplication.logE("EventPreferencesAlarmClock.computeAlarm","xxx");
+        //PPApplication.logE("EventPreferencesAlarmClock.computeAlarm","xxx");
 
         Calendar calEndTime = Calendar.getInstance();
 
@@ -212,7 +211,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
         // this alarm generates broadcast, that change state into RUNNING;
         // from broadcast will by called EventsHandler
 
-        PPApplication.logE("EventPreferencesAlarmClock.setSystemRunningEvent","xxx");
+        //PPApplication.logE("EventPreferencesAlarmClock.setSystemRunningEvent","xxx");
 
         removeAlarm(context);
     }
@@ -225,7 +224,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
         // this alarm generates broadcast, that change state into PAUSE;
         // from broadcast will by called EventsHandler
 
-        PPApplication.logE("EventPreferencesAlarmClock.setSystemPauseEvent","xxx");
+        //PPApplication.logE("EventPreferencesAlarmClock.setSystemPauseEvent","xxx");
 
         removeAlarm(context);
 
@@ -240,7 +239,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
     {
         removeAlarm(context);
 
-        PPApplication.logE("EventPreferencesAlarmClock.removeSystemEvent", "xxx");
+        //PPApplication.logE("EventPreferencesAlarmClock.removeSystemEvent", "xxx");
     }
 
     void removeAlarm(Context context)
@@ -253,7 +252,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
-                    PPApplication.logE("EventPreferencesAlarmClock.removeAlarm", "alarm found");
+                    //PPApplication.logE("EventPreferencesAlarmClock.removeAlarm", "alarm found");
 
                     alarmManager.cancel(pendingIntent);
                     pendingIntent.cancel();
@@ -272,11 +271,11 @@ class EventPreferencesAlarmClock extends EventPreferences {
     {
         if (!_permanentRun) {
             if (_startTime > 0) {
-                if (PPApplication.logEnabled()) {
+                /*if (PPApplication.logEnabled()) {
                     SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                     String result = sdf.format(alarmTime);
                     PPApplication.logE("EventPreferencesAlarmClock.setAlarm", "endTime=" + result);
-                }
+                }*/
 
                 /*if (ApplicationPreferences.applicationUseAlarmClock(context)) {
                     Intent intent = new Intent();

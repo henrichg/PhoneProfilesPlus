@@ -22,7 +22,7 @@ class ImportantInfoNotification {
     static final String EXTRA_FIRST_INSTALLATION = "first_installation";
 
     static void showInfoNotification(Context context) {
-        PPApplication.logE("ImportantInfoNotification.showInfoNotification","xxx");
+        //PPApplication.logE("ImportantInfoNotification.showInfoNotification","xxx");
         int packageVersionCode = 0;
         int savedVersionCode = 0;
         int show = 0;
@@ -32,15 +32,15 @@ class ImportantInfoNotification {
             savedVersionCode = getShowInfoNotificationOnStartVersion(context);
             if ((packageVersionCode > savedVersionCode)){
                 show = canShowNotification(packageVersionCode, savedVersionCode, context);
-                PPApplication.logE("ImportantInfoNotification.showInfoNotification", "show="+show);
+                //PPApplication.logE("ImportantInfoNotification.showInfoNotification", "show="+show);
                 setShowInfoNotificationOnStart(context, show != 0, packageVersionCode);
             }
             else {
                 int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
-                PPApplication.logE("ImportantInfoNotification.showInfoNotification", "extenderVersion="+extenderVersion);
+                //PPApplication.logE("ImportantInfoNotification.showInfoNotification", "extenderVersion="+extenderVersion);
                 if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST))
                     show = 2;
-                PPApplication.logE("ImportantInfoNotification.showInfoNotification", "show="+show);
+                //PPApplication.logE("ImportantInfoNotification.showInfoNotification", "show="+show);
 
                 setShowInfoNotificationOnStartVersion(context, packageVersionCode);
             }
@@ -48,7 +48,7 @@ class ImportantInfoNotification {
         }
 
         if ((savedVersionCode == 0) || getShowInfoNotificationOnStart(context, packageVersionCode)) {
-            PPApplication.logE("ImportantInfoNotification.showInfoNotification", "show notification");
+            //PPApplication.logE("ImportantInfoNotification.showInfoNotification", "show notification");
 
             if (show == 1)
                 showNotification(context, savedVersionCode == 0,
@@ -68,7 +68,7 @@ class ImportantInfoNotification {
         boolean news = false;
         boolean newExtender = false;
 
-        PPApplication.logE("ImportantInfoNotification.canShowNotification", "packageVersionCode="+packageVersionCode);
+        //PPApplication.logE("ImportantInfoNotification.canShowNotification", "packageVersionCode="+packageVersionCode);
 
         boolean newsLatest = (packageVersionCode >= ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
         boolean news4550 = ((packageVersionCode >= 4550) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
@@ -80,10 +80,10 @@ class ImportantInfoNotification {
 
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
 
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("ImportantInfoNotification.canShowNotification", "newsLatest=" + newsLatest);
             PPApplication.logE("ImportantInfoNotification.canShowNotification", "extenderVersion=" + extenderVersion);
-        }
+        }*/
 
         if (newsLatest) {
             // change to false for not show notification
@@ -100,10 +100,10 @@ class ImportantInfoNotification {
             int smsSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false);
             int callSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false);
 
-            if (PPApplication.logEnabled()) {
+            /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("ImportantInfoNotification.canShowNotification", "smsSensorsCount=" + smsSensorsCount);
                 PPApplication.logE("ImportantInfoNotification.canShowNotification", "callSensorsCount=" + callSensorsCount);
-            }
+            }*/
 
             //noinspection RedundantIfStatement
             if ((smsSensorsCount == 0) && (callSensorsCount == 0))

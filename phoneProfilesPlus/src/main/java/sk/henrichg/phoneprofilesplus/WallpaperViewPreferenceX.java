@@ -249,8 +249,9 @@ public class WallpaperViewPreferenceX extends Preference {
         if (cursor != null && cursor.moveToFirst()) {
             int id = cursor.getInt(cursor.getColumnIndex(MediaStore.MediaColumns._ID));
             cursor.close();
+            //noinspection UnnecessaryLocalVariable
             Uri uri = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "" + id);
-            PPApplication.logE("WallpaperViewPreferenceX.getImageContentUri","uri1="+uri);
+            //PPApplication.logE("WallpaperViewPreferenceX.getImageContentUri","uri1="+uri);
             return uri;
         } else {
             if (cursor != null)
@@ -259,6 +260,7 @@ public class WallpaperViewPreferenceX extends Preference {
             if (file.exists()) {
                 ContentValues values = new ContentValues();
                 values.put(MediaStore.Images.Media.DATA, imageFile);
+                //noinspection UnnecessaryLocalVariable
                 Uri uri = context.getContentResolver().insert(
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
                 /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -266,7 +268,7 @@ public class WallpaperViewPreferenceX extends Preference {
                     ContentResolver resolver = context.getApplicationContext().getContentResolver();
                     resolver.takePersistableUriPermission(uri, takeFlags);
                 }*/
-                PPApplication.logE("WallpaperViewPreferenceX.getImageContentUri","uri2="+uri);
+                //PPApplication.logE("WallpaperViewPreferenceX.getImageContentUri","uri2="+uri);
                 return uri;
             } else {
                 return null;

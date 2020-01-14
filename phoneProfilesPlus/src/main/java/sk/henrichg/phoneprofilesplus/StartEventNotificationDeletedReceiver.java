@@ -12,7 +12,7 @@ public class StartEventNotificationDeletedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### StartEventNotificationDeletedReceiver.onReceive", "xxx");
+        //PPApplication.logE("##### StartEventNotificationDeletedReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "StartEventNotificationDeletedReceiver.onReceive", "StartEventNotificationDeletedReceiver_onReceive");
 
         final Context appContext = context.getApplicationContext();
@@ -31,14 +31,14 @@ public class StartEventNotificationDeletedReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=StartEventNotificationDeletedReceiver.onReceive");
+                        //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=StartEventNotificationDeletedReceiver.onReceive");
 
                         DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
                         Event event = databaseHandler.getEvent(event_id);
                         if (event != null)
                             StartEventNotificationBroadcastReceiver.removeAlarm(event, appContext);
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=StartEventNotificationDeletedReceiver.onReceive");
+                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=StartEventNotificationDeletedReceiver.onReceive");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

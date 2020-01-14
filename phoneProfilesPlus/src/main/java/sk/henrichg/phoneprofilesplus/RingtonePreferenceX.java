@@ -100,14 +100,14 @@ public class RingtonePreferenceX extends DialogPreference {
     }
 
     void refreshListView() {
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("RingtonePreferenceX.refreshListView", "fragment=" + fragment);
             if (fragment != null) {
                 PPApplication.logE("RingtonePreferenceX.refreshListView", "fragment.getDialog()=" + fragment.getDialog());
                 if (fragment.getDialog() != null)
                     PPApplication.logE("RingtonePreferenceX.refreshListView", "fragment.getDialog().isShowing()=" + fragment.getDialog().isShowing());
             }
-        }
+        }*/
         if ((fragment != null) && (fragment.getDialog() != null) && fragment.getDialog().isShowing()) {
             if (Permissions.checkRingtonePreference(prefContext)) {
 
@@ -323,7 +323,7 @@ public class RingtonePreferenceX extends DialogPreference {
                             String filename = appContext.getResources().getResourceEntryName(TonesHandler.TONE_ID) + ".ogg";
                             File soundFile = new File(appContext.getFilesDir(), filename);
                             // /data/user/0/sk.henrichg.phoneprofilesplus/files
-                            PPApplication.logE("RingtonePreferenceX.playRingtone", "soundFile=" + soundFile);
+                            //PPApplication.logE("RingtonePreferenceX.playRingtone", "soundFile=" + soundFile);
                             mediaPlayer.setDataSource(soundFile.getAbsolutePath());
                         }
                         else
@@ -352,14 +352,14 @@ public class RingtonePreferenceX extends DialogPreference {
                                 break;
                         }
 
-                        PPApplication.logE("RingtonePreferenceX.playRingtone", "ringtoneVolume=" + ringtoneVolume);
+                        //PPApplication.logE("RingtonePreferenceX.playRingtone", "ringtoneVolume=" + ringtoneVolume);
 
                         int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 
                         float percentage = (float) ringtoneVolume / maximumRingtoneValue * 100.0f;
                         int mediaVolume = Math.round(maximumMediaValue / 100.0f * percentage);
 
-                        PPApplication.logE("RingtonePreferenceX.playRingtone", "mediaVolume=" + mediaVolume);
+                        //PPApplication.logE("RingtonePreferenceX.playRingtone", "mediaVolume=" + mediaVolume);
 
                         ActivateProfileHelper.setMediaVolume(prefContext, audioManager, mediaVolume);
 
@@ -380,7 +380,7 @@ public class RingtonePreferenceX extends DialogPreference {
 
                                     if (oldMediaVolume > -1)
                                         ActivateProfileHelper.setMediaVolume(prefContext, audioManager, oldMediaVolume);
-                                    PPApplication.logE("RingtonePreferenceX.playRingtone", "play stopped");
+                                    //PPApplication.logE("RingtonePreferenceX.playRingtone", "play stopped");
                                 }
 
                                 ringtoneIsPlayed = false;
@@ -413,34 +413,35 @@ public class RingtonePreferenceX extends DialogPreference {
                             }
                         }, mediaPlayer.getDuration());
 
-                    } catch (SecurityException e) {
-                        PPApplication.logE("RingtonePreferenceX.playRingtone", "security exception");
-                        stopPlayRingtone();
-
-                        OneTimeWorkRequest disableInternalChangeWorker =
-                                new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
-                                        .addTag("disableInternalChangeWork")
-                                        .setInitialDelay(3, TimeUnit.SECONDS)
-                                        .build();
-                        try {
-                            WorkManager workManager = WorkManager.getInstance(prefContext);
-                            workManager.cancelUniqueWork("disableInternalChangeWork");
-                            workManager.cancelAllWorkByTag("disableInternalChangeWork");
-                            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
-                        } catch (Exception ignored) {}
-
-                        /*PPApplication.startHandlerThreadInternalChangeToFalse();
-                        final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                RingerModeChangeReceiver.internalChange = false;
-                            }
-                        }, 3000);*/
+/*                    } catch (SecurityException e) {
+                        //PPApplication.logE("RingtonePreferenceX.playRingtone", "security exception");
+//                        stopPlayRingtone();
+//
+//                        OneTimeWorkRequest disableInternalChangeWorker =
+//                                new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
+//                                        .addTag("disableInternalChangeWork")
+//                                        .setInitialDelay(3, TimeUnit.SECONDS)
+//                                        .build();
+//                        try {
+//                            WorkManager workManager = WorkManager.getInstance(prefContext);
+//                            workManager.cancelUniqueWork("disableInternalChangeWork");
+//                            workManager.cancelAllWorkByTag("disableInternalChangeWork");
+//                            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+//                        } catch (Exception ignored) {}
+//
+//                        PPApplication.startHandlerThreadInternalChangeToFalse();
+//                        final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
+//                        handler.postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                RingerModeChangeReceiver.internalChange = false;
+//                            }
+//                        }, 3000);
                         //PostDelayedBroadcastReceiver.setAlarm(
                         //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, prefContext);
+ */
                     } catch (Exception e) {
-                        PPApplication.logE("RingtonePreferenceX.playRingtone", Log.getStackTraceString(e));
+                        Log.e("RingtonePreferenceX.playRingtone", Log.getStackTraceString(e));
                         stopPlayRingtone();
 
                         OneTimeWorkRequest disableInternalChangeWorker =
@@ -546,7 +547,7 @@ public class RingtonePreferenceX extends DialogPreference {
         defaultValue = myState.defaultValue;
         //oldRingtoneUri = myState.oldRingtoneUri;
 
-        PPApplication.logE("RingtonePreferenceX.onRestoreInstanceState", "ringtoneUri="+ringtoneUri);
+        //PPApplication.logE("RingtonePreferenceX.onRestoreInstanceState", "ringtoneUri="+ringtoneUri);
 
         setRingtone("", true);
     }

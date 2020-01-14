@@ -138,7 +138,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
-                                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.1");
+                                        //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.1");
 
                                         List<EventTimeline> eventTimelineList = _dataWrapper.getEventTimelineList(false);
                                         event.pauseEvent(_dataWrapper, eventTimelineList, true, false,
@@ -146,7 +146,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                         //_dataWrapper.restartEvents(false, true, true, true, false);
                                         _dataWrapper.restartEventsWithRescan(/*true, */false, false, true, true);
 
-                                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=ActionForExternalApplicationActivity.onStart.1");
+                                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=ActionForExternalApplicationActivity.onStart.1");
                                     } finally {
                                         if ((wakeLock != null) && wakeLock.isHeld()) {
                                             try {
@@ -200,7 +200,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
-                                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.2");
+                                        //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.2");
 
                                         final List<EventTimeline> eventTimelineList = _dataWrapper.getEventTimelineList(false);
                                         event.stopEvent(_dataWrapper, eventTimelineList, true, false,
@@ -208,7 +208,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                         //_dataWrapper.restartEvents(false, true, true, true, false);
                                         _dataWrapper.restartEventsWithRescan(/*true, */false, false, true, true);
 
-                                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=ActionForExternalApplicationActivity.onStart.2");
+                                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=ActionForExternalApplicationActivity.onStart.2");
                                     } finally {
                                         if ((wakeLock != null) && wakeLock.isHeld()) {
                                             try {

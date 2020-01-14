@@ -10,7 +10,7 @@ import android.os.Build;
 
 public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceiver {
 
-    private static final String TAG = InterruptionFilterChangedBroadcastReceiver.class.getSimpleName();
+    //private static final String TAG = InterruptionFilterChangedBroadcastReceiver.class.getSimpleName();
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -52,7 +52,7 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
                                 zenMode = 1;
                                 break;
                         }
-                        PPApplication.logE(TAG, "onReceive(zenMode=" + zenMode + ')');
+                        //PPApplication.logE(TAG, "onReceive(zenMode=" + zenMode + ')');
                         if (zenMode != 0) {
                             RingerModeChangeReceiver.notUnlinkVolumes = true;
                             ActivateProfileHelper.setRingerMode(context.getApplicationContext(), 5);

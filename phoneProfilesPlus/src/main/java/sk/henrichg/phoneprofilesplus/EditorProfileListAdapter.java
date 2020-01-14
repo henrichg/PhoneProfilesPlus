@@ -359,7 +359,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
             DatabaseHandler.getInstance(activityDataWrapper.context).setProfileOrder(activityDataWrapper.profileList);  // set profiles _porder and write it into db
         }
 
-        PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfileListAdapter.onItemMove");
+        //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfileListAdapter.onItemMove");
         ActivateProfileHelper.updateGUI(activityDataWrapper.context, false, true);
 
         notifyItemMoved(fromPosition, toPosition);

@@ -11,7 +11,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### BluetoothStateChangedBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("##### BluetoothStateChangedBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "BluetoothStateChangedBroadcastReceiver.onReceive", "BluetoothStateChangedBroadcastReceiver_onReceive");
 
@@ -44,7 +44,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=BluetoothStateChangedBroadcastReceiver.onReceive");
+                        //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=BluetoothStateChangedBroadcastReceiver.onReceive");
 
                         // remove connected devices list
                         if (bluetoothState == BluetoothAdapter.STATE_OFF) {
@@ -53,7 +53,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                         }
 
                         if (Event.getGlobalEventsRunning(appContext)) {
-                            PPApplication.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive", "state=" + bluetoothState);
+                            //PPApplication.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive", "state=" + bluetoothState);
 
                             if ((bluetoothState == BluetoothAdapter.STATE_ON) || (bluetoothState == BluetoothAdapter.STATE_OFF)) {
 
@@ -61,10 +61,10 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     //if ((!dataWrapper.getIsManualProfileActivation()) || PPApplication.getForceOneBluetoothScan(appContext))
                                     //{
                                     if (BluetoothScanWorker.getScanRequest(appContext)) {
-                                        PPApplication.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive", "start classic scan");
+                                        //PPApplication.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive", "start classic scan");
                                         BluetoothScanWorker.startCLScan(appContext);
                                     } else if (BluetoothScanWorker.getLEScanRequest(appContext)) {
-                                        PPApplication.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive", "start LE scan");
+                                        //PPApplication.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive", "start LE scan");
                                         BluetoothScanWorker.startLEScan(appContext);
                                     } else if (!(BluetoothScanWorker.getWaitForResults(appContext) ||
                                             BluetoothScanWorker.getWaitForLEResults(appContext))) {
@@ -102,7 +102,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothStateChangedBroadcastReceiver.onReceive");
+                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothStateChangedBroadcastReceiver.onReceive");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

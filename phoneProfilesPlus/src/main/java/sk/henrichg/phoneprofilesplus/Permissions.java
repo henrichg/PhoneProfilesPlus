@@ -328,16 +328,16 @@ class Permissions {
 
     private static void checkProfileVibrateWhenRinging(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return;// true;
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("Permissions.checkProfileVibrateWhenRinging", "profile._name=" + profile._name);
             PPApplication.logE("Permissions.checkProfileVibrateWhenRinging", "permissions=" + permissions);
-        }
+        }*/
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
-                PPApplication.logE("Permissions.checkProfileVibrateWhenRinging", "profile._vibrateWhenRinging=" + profile._vibrateWhenRinging);
+                //PPApplication.logE("Permissions.checkProfileVibrateWhenRinging", "profile._vibrateWhenRinging=" + profile._vibrateWhenRinging);
                 if (profile._vibrateWhenRinging != 0) {
                     boolean granted = Settings.System.canWrite(context);
-                    PPApplication.logE("Permissions.checkProfileVibrateWhenRinging", "granted=" + granted);
+                    //PPApplication.logE("Permissions.checkProfileVibrateWhenRinging", "granted=" + granted);
                     if (granted)
                         setShowRequestWriteSettingsPermission(context, true);
                     else if (permissions != null)
@@ -357,7 +357,7 @@ class Permissions {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
                 boolean granted = Settings.System.canWrite(context);
-                PPApplication.logE("Permissions.checkVibrateWhenRinging", "granted=" + granted);
+                //PPApplication.logE("Permissions.checkVibrateWhenRinging", "granted=" + granted);
                 if (granted)
                     setShowRequestWriteSettingsPermission(context, true);
                 return granted;
@@ -1357,7 +1357,7 @@ class Permissions {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             ArrayList<PermissionType> permissions = checkProfilePermissions(context, profile);
             //if (PPApplication.logEnabled()) {
-                PPApplication.logE("Permissions.grantProfilePermissions", "permissions.size()=" + permissions.size());
+                //PPApplication.logE("Permissions.grantProfilePermissions", "permissions.size()=" + permissions.size());
             //    PPApplication.logE("Permissions.grantProfilePermissions", "startupSource=" + startupSource);
             //}
             if (permissions.size() > 0) {

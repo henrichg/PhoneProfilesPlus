@@ -88,15 +88,16 @@ public class PPApplication extends Application {
     static final boolean crashIntoFile = true && BuildConfig.DEBUG;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
-                                         +"|PPApplication.isXiaomi"
-                                         +"|PPApplication.isHuawei"
-                                         +"|PPApplication.isSamsung"
-                                         +"|PPApplication.isLG"
+                                         //+"|PPApplication.isXiaomi"
+                                         //+"|PPApplication.isHuawei"
+                                         //+"|PPApplication.isSamsung"
+                                         //+"|PPApplication.isLG"
                                          //+"|PPApplication.getEmuiRomName"
-                                         +"|PPApplication.isEMUIROM"
-                                         +"|PPApplication.isMIUIROM"
+                                         //+"|PPApplication.isEMUIROM"
+                                         //+"|PPApplication.isMIUIROM"
                                          +"|PPApplication.exitApp"
                                          +"|PPApplication._exitApp"
+                                         //+"|PPApplication.createProfileNotificationChannel"
                                          +"|PhoneProfilesService.onCreate"
                                          +"|PhoneProfilesService.onStartCommand"
                                          +"|PhoneProfilesService.doForFirstStart"
@@ -105,7 +106,6 @@ public class PPApplication extends Application {
                                          //+"|PhoneProfilesService.showProfileNotification"
                                          //+"|PhoneProfilesService._showProfileNotification"
                                          //+"|[CUST] PhoneProfilesService._showProfileNotification"
-                                         //+"|PPApplication.createProfileNotificationChannel"
                                          +"|PhoneProfilesService.stopReceiver"
                                          +"|PhoneProfilesService.onDestroy"
                                          +"|DataWrapper.firstStartEvents"
@@ -470,14 +470,14 @@ public class PPApplication extends Application {
                                         +"|EventPreferencesTime.setSystemEventForStart"
                                         +"|EventPreferencesTime.setSystemEventForPause"
                                         */
-                                        +"|EventPreferencesTime.removeAlarm"
-                                        +"|EventPreferencesTime.setAlarm"
-                                        +"|[TIME] DataWrapper.doHandleEvents"
+                                        //+"|EventPreferencesTime.removeAlarm"
+                                        //+"|EventPreferencesTime.setAlarm"
+                                        //+"|[TIME] DataWrapper.doHandleEvents"
                                         /*+"|TwilightScanner"
                                         +"|TwilightScanner.updateTwilightState"
                                         +"|TwilightScanner.doWork"
                                         */
-                                        +"|EventTimeBroadcastReceiver"
+                                        //+"|EventTimeBroadcastReceiver"
 
                                         //+"|EventPreferencesCalendar"
                                         //+"|EventCalendarBroadcastReceiver"
@@ -1273,7 +1273,7 @@ public class PPApplication extends Application {
     //--------------------------------------------------------------
 
     static void startPPService(Context context, Intent serviceIntent) {
-        PPApplication.logE("PPApplication.startPPService", "xxx");
+        //PPApplication.logE("PPApplication.startPPService", "xxx");
         if (Build.VERSION.SDK_INT < 26)
             context.getApplicationContext().startService(serviceIntent);
         else
@@ -1281,7 +1281,7 @@ public class PPApplication extends Application {
     }
 
     static void runCommand(Context context, Intent intent) {
-        PPApplication.logE("PPApplication.runCommand", "xxx");
+        //PPApplication.logE("PPApplication.runCommand", "xxx");
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 
@@ -1688,7 +1688,7 @@ public class PPApplication extends Application {
 
     static void showProfileNotification(/*Context context,*/ final boolean refresh, final boolean forService) {
         try {
-            PPApplication.logE("PPApplication.showProfileNotification", "xxx");
+            //PPApplication.logE("PPApplication.showProfileNotification", "xxx");
 
             if (PhoneProfilesService.getInstance() != null)
                 PhoneProfilesService.getInstance().showProfileNotification(refresh, forService/*, false*/);
@@ -1729,14 +1729,15 @@ public class PPApplication extends Application {
         }
 
         try {
-            PPApplication.logE("PPApplication._isRooted", "start isRootAvailable");
+            //PPApplication.logE("PPApplication._isRooted", "start isRootAvailable");
             //if (RootTools.isRootAvailable()) {
+            //noinspection RedundantIfStatement
             if (RootToolsSmall.isRooted()) {
                 // device is rooted
-                PPApplication.logE("PPApplication._isRooted", "root available");
+                //PPApplication.logE("PPApplication._isRooted", "root available");
                 rootMutex.rooted = true;
             } else {
-                PPApplication.logE("PPApplication._isRooted", "root NOT available");
+                //PPApplication.logE("PPApplication._isRooted", "root NOT available");
                 rootMutex.rooted = false;
                 //rootMutex.settingsBinaryExists = false;
                 //rootMutex.settingsBinaryChecked = false;
@@ -1781,27 +1782,28 @@ public class PPApplication extends Application {
         if (isRooted(false)) {
             synchronized (PPApplication.rootMutex) {
                 try {
-                    PPApplication.logE("PPApplication.isRootGranted", "start isAccessGiven");
+                    //PPApplication.logE("PPApplication.isRootGranted", "start isAccessGiven");
+                    //noinspection StatementWithEmptyBody
                     if (RootTools.isAccessGiven()) {
                         // root is granted
-                        PPApplication.logE("PPApplication.isRootGranted", "root granted");
+                        //PPApplication.logE("PPApplication.isRootGranted", "root granted");
                         //rootMutex.rootGranted = true;
                         //rootMutex.grantRootChecked = true;
-                    } else {
+                    }/* else {
                         // grant denied
                         PPApplication.logE("PPApplication.isRootGranted", "root NOT granted");
                         //rootMutex.rootGranted = false;
                         //rootMutex.grantRootChecked = true;
-                    }
+                    }*/
                 } catch (Exception e) {
                     Log.e("PPApplication.isRootGranted", Log.getStackTraceString(e));
                     //rootMutex.rootGranted = false;
                 }
                 //return rootMutex.rootGranted;
             }
-        } else {
+        } /*else {
             PPApplication.logE("PPApplication.isRootGranted", "not rooted");
-        }
+        }*/
         //return false;
     }
 
@@ -1817,11 +1819,11 @@ public class PPApplication extends Application {
 
         synchronized (PPApplication.rootMutex) {
             if (!rootMutex.settingsBinaryChecked) {
-                PPApplication.logE("PPApplication.settingsBinaryExists", "start");
+                //PPApplication.logE("PPApplication.settingsBinaryExists", "start");
                 rootMutex.settingsBinaryExists = RootToolsSmall.hasSettingBin();
                 rootMutex.settingsBinaryChecked = true;
             }
-            PPApplication.logE("PPApplication.settingsBinaryExists", "settingsBinaryExists=" + rootMutex.settingsBinaryExists);
+            //PPApplication.logE("PPApplication.settingsBinaryExists", "settingsBinaryExists=" + rootMutex.settingsBinaryExists);
             return rootMutex.settingsBinaryExists;
         }
     }
@@ -1838,11 +1840,11 @@ public class PPApplication extends Application {
 
         synchronized (PPApplication.rootMutex) {
             if (!rootMutex.serviceBinaryChecked) {
-                PPApplication.logE("PPApplication.serviceBinaryExists", "start");
+                //PPApplication.logE("PPApplication.serviceBinaryExists", "start");
                 rootMutex.serviceBinaryExists = RootToolsSmall.hasServiceBin();
                 rootMutex.serviceBinaryChecked = true;
             }
-            PPApplication.logE("PPApplication.serviceBinaryExists", "serviceBinaryExists=" + rootMutex.serviceBinaryExists);
+            //PPApplication.logE("PPApplication.serviceBinaryExists", "serviceBinaryExists=" + rootMutex.serviceBinaryExists);
             return rootMutex.serviceBinaryExists;
         }
     }
@@ -2041,8 +2043,8 @@ public class PPApplication extends Application {
                     Field field = declaredFields2[iField];
                     String name = field.getName();
                     if (method.isEmpty()) {
-                        if (name.contains("TRANSACTION_"))
-                            PPApplication.logE("[LIST] PPApplication.getTransactionCode", "field.getName()="+name);
+                        //if (name.contains("TRANSACTION_"))
+                        //    PPApplication.logE("[LIST] PPApplication.getTransactionCode", "field.getName()="+name);
                         iField++;
                     }
                     else {
@@ -2124,7 +2126,7 @@ public class PPApplication extends Application {
 
     public static void forceRegisterReceiversForWifiScanner(Context context) {
         try {
-            PPApplication.logE("[RJS] PPApplication.forceRegisterReceiversForWifiScanner", "xxx");
+            //PPApplication.logE("[RJS] PPApplication.forceRegisterReceiversForWifiScanner", "xxx");
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
@@ -2140,7 +2142,7 @@ public class PPApplication extends Application {
 
     public static void reregisterReceiversForWifiScanner(Context context) {
         try {
-            PPApplication.logE("[RJS] PPApplication.reregisterReceiversForWifiScanner", "xxx");
+            //PPApplication.logE("[RJS] PPApplication.reregisterReceiversForWifiScanner", "xxx");
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
@@ -2156,7 +2158,7 @@ public class PPApplication extends Application {
 
     public static void restartWifiScanner(Context context, boolean forScreenOn) {
         try {
-            PPApplication.logE("[RJS] PPApplication.restartWifiScanner", "xxx");
+            //PPApplication.logE("[RJS] PPApplication.restartWifiScanner", "xxx");
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
@@ -2174,7 +2176,7 @@ public class PPApplication extends Application {
 
     public static void forceRegisterReceiversForBluetoothScanner(Context context) {
         try {
-            PPApplication.logE("[RJS] PPApplication.forceRegisterReceiversForBluetoothScanner", "xxx");
+            //PPApplication.logE("[RJS] PPApplication.forceRegisterReceiversForBluetoothScanner", "xxx");
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
@@ -2190,7 +2192,7 @@ public class PPApplication extends Application {
 
     public static void reregisterReceiversForBluetoothScanner(Context context) {
         try {
-            PPApplication.logE("[RJS] PPApplication.reregisterReceiversForBluetoothScanner", "xxx");
+            //PPApplication.logE("[RJS] PPApplication.reregisterReceiversForBluetoothScanner", "xxx");
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
@@ -2206,7 +2208,7 @@ public class PPApplication extends Application {
 
     public static void restartBluetoothScanner(Context context, boolean forScreenOn) {
         try {
-            PPApplication.logE("[RJS] PPApplication.restartBluetoothScanner", "xxx");
+            //PPApplication.logE("[RJS] PPApplication.restartBluetoothScanner", "xxx");
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
@@ -2224,7 +2226,7 @@ public class PPApplication extends Application {
 
     public static void restartGeofenceScanner(Context context, boolean forScreenOn) {
         try {
-            PPApplication.logE("[RJS] PPApplication.restartGeofenceScanner", "xxx");
+            //PPApplication.logE("[RJS] PPApplication.restartGeofenceScanner", "xxx");
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
@@ -2242,7 +2244,7 @@ public class PPApplication extends Application {
 
     public static void restartOrientationScanner(Context context/*, boolean forScreenOn*/) {
         try {
-            PPApplication.logE("[RJS] PPApplication.restartOrientationScanner", "xxx");
+            //PPApplication.logE("[RJS] PPApplication.restartOrientationScanner", "xxx");
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
@@ -2260,7 +2262,7 @@ public class PPApplication extends Application {
 
     public static void forceStartPhoneStateScanner(Context context) {
         try {
-            PPApplication.logE("[RJS] PhoneProfilesService.forceStartPhoneStateScanner", "xxx");
+            //PPApplication.logE("[RJS] PhoneProfilesService.forceStartPhoneStateScanner", "xxx");
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
@@ -2276,7 +2278,7 @@ public class PPApplication extends Application {
 
     public static void restartPhoneStateScanner(Context context, boolean forScreenOn) {
         try {
-            PPApplication.logE("[RJS] PPApplication.restartPhoneStateScanner", "xxx");
+            //PPApplication.logE("[RJS] PPApplication.restartPhoneStateScanner", "xxx");
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
@@ -2294,7 +2296,7 @@ public class PPApplication extends Application {
 
     public static void restartTwilightScanner(Context context/*, boolean forScreenOn*/) {
         try {
-            PPApplication.logE("[RJS] PPApplication.restartOrientationScanner", "xxx");
+            //PPApplication.logE("[RJS] PPApplication.restartOrientationScanner", "xxx");
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
@@ -2312,7 +2314,7 @@ public class PPApplication extends Application {
 
     public static void restartAllScanners(Context context, boolean forScreenOn) {
         try {
-            PPApplication.logE("[RJS] PPApplication.restartAllScanners", "xxx");
+            //PPApplication.logE("[RJS] PPApplication.restartAllScanners", "xxx");
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
@@ -2330,7 +2332,7 @@ public class PPApplication extends Application {
 
     public static void restartEvents(Context context, boolean unblockEventsRun, boolean reactivateProfile) {
         try {
-            PPApplication.logE("[RJS] PPApplication.restartEvents", "xxx");
+            //PPApplication.logE("[RJS] PPApplication.restartEvents", "xxx");
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_RESTART_EVENTS, true);
@@ -2433,14 +2435,14 @@ public class PPApplication extends Application {
             }
 
         } catch (IOException ex) {
-            PPApplication.logE("PPApplication.isMIUIROM", Log.getStackTraceString(ex));
+            Log.e("PPApplication.isMIUIROM", Log.getStackTraceString(ex));
         }
 
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("PPApplication.isMIUIROM", "miuiRom1=" + miuiRom1);
             PPApplication.logE("PPApplication.isMIUIROM", "miuiRom2=" + miuiRom2);
             PPApplication.logE("PPApplication.isMIUIROM", "miuiRom3=" + miuiRom3);
-        }
+        }*/
 
         return miuiRom1 || miuiRom2 || miuiRom3;
     }
@@ -2455,7 +2457,7 @@ public class PPApplication extends Application {
             input.close();
             return line;
         } catch (IOException ex) {
-            PPApplication.logE("PPApplication.getEmuiRomName", Log.getStackTraceString(ex));
+            Log.e("PPApplication.getEmuiRomName", Log.getStackTraceString(ex));
             return "";
         }
     }
@@ -2468,7 +2470,7 @@ public class PPApplication extends Application {
 
     private static boolean isEMUIROM() {
         String emuiRomName = getEmuiRomName();
-        PPApplication.logE("PPApplication.isEMUIROM", "emuiRomName="+emuiRomName);
+        //PPApplication.logE("PPApplication.isEMUIROM", "emuiRomName="+emuiRomName);
 
         return (emuiRomName.length() != 0) ||
                 Build.DISPLAY.toLowerCase().contains("emui2.3");// || "EMUI 2.3".equalsIgnoreCase(emuiRomName);
@@ -2625,7 +2627,7 @@ public class PPApplication extends Application {
             PPApplication.logE("PPApplication._exitApp", "set application started = false");
             PPApplication.setApplicationStarted(context, false);
 
-            PPApplication.logE("ActivateProfileHelper.updateGUI", "from PPApplication._exitApp");
+            //PPApplication.logE("ActivateProfileHelper.updateGUI", "from PPApplication._exitApp");
             ActivateProfileHelper.updateGUI(context, false, true);
 
             if (!shutdown) {
@@ -2651,7 +2653,7 @@ public class PPApplication extends Application {
             }
 
         } catch (Exception e) {
-            PPApplication.logE("PPApplication._exitApp", Log.getStackTraceString(e));
+            Log.e("PPApplication._exitApp", Log.getStackTraceString(e));
         }
     }
 
@@ -2672,11 +2674,11 @@ public class PPApplication extends Application {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PPApplication.exitApp");
+                            //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PPApplication.exitApp");
 
                             _exitApp(context, dataWrapper, activity, shutdown/*, killProcess*/);
 
-                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPApplication.exitApp");
+                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPApplication.exitApp");
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
@@ -2714,8 +2716,8 @@ public class PPApplication extends Application {
         dialogBuilder.show();
     }
 
-    static void startHandlerThread(String from) {
-        PPApplication.logE("PPApplication.startHandlerThread", "from="+from);
+    static void startHandlerThread(@SuppressWarnings("unused") String from) {
+        //PPApplication.logE("PPApplication.startHandlerThread", "from="+from);
         if (handlerThread == null) {
             handlerThread = new HandlerThread("PPHandlerThread", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThread.start();

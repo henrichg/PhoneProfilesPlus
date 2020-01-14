@@ -15,7 +15,6 @@ import android.provider.CalendarContract.Instances;
 import android.text.format.DateFormat;
 import android.util.Log;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -360,7 +359,7 @@ class EventPreferencesCalendar extends EventPreferences {
 
     long computeAlarm(boolean startEvent)
     {
-        PPApplication.logE("EventPreferencesCalendar.computeAlarm","startEvent="+startEvent);
+        //PPApplication.logE("EventPreferencesCalendar.computeAlarm","startEvent="+startEvent);
 
         ///// set calendar for startTime and endTime
         Calendar calStartTime = Calendar.getInstance();
@@ -434,7 +433,7 @@ class EventPreferencesCalendar extends EventPreferences {
 
         _eventFound = false;
 
-        PPApplication.logE("EventPreferencesCalendar.removeSystemEvent", "xxx");
+        //PPApplication.logE("EventPreferencesCalendar.removeSystemEvent", "xxx");
     }
 
     private void removeAlarm(/*boolean startEvent, */Context context)
@@ -449,7 +448,7 @@ class EventPreferencesCalendar extends EventPreferences {
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
-                    PPApplication.logE("EventPreferencesCalendar.removeAlarm", "alarm found");
+                    //PPApplication.logE("EventPreferencesCalendar.removeAlarm", "alarm found");
 
                     alarmManager.cancel(pendingIntent);
                     pendingIntent.cancel();
@@ -464,16 +463,16 @@ class EventPreferencesCalendar extends EventPreferences {
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
-    private void setAlarm(boolean startEvent, long alarmTime, Context context)
+    private void setAlarm(@SuppressWarnings("unused") boolean startEvent, long alarmTime, Context context)
     {
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
             String result = sdf.format(alarmTime);
             if (startEvent)
                 PPApplication.logE("EventPreferencesCalendar.setAlarm", "startTime=" + result);
             else
                 PPApplication.logE("EventPreferencesCalendar.setAlarm", "endTime=" + result);
-        }
+        }*/
 
         if (alarmTime == 0)
             return;
@@ -581,7 +580,7 @@ class EventPreferencesCalendar extends EventPreferences {
             return;
         }
 
-        PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "xxx xxx");
+        //PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "xxx xxx");
 
         final String[] INSTANCE_PROJECTION = new String[] {
                 Instances.BEGIN,           // 0
@@ -726,7 +725,7 @@ class EventPreferencesCalendar extends EventPreferences {
 
         selection.append(")");
 
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "selection=" + selection);
             if (selectionArgs != null) {
                 for (String arg : selectionArgs) {
@@ -734,7 +733,7 @@ class EventPreferencesCalendar extends EventPreferences {
                 }
             } else
                 PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "selectionArgs=null");
-        }
+        }*/
 
         // Construct the query with the desired date range.
         Calendar calendar = Calendar.getInstance();
@@ -758,7 +757,7 @@ class EventPreferencesCalendar extends EventPreferences {
         try {
             cur = cr.query(builder.build(), INSTANCE_PROJECTION, selection.toString(), selectionArgs, Instances.BEGIN + " ASC");
         } catch (Exception e) {
-            PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", Log.getStackTraceString(e));
+            Log.e("EventPreferencesCalendar.saveStartEndTime", Log.getStackTraceString(e));
             cur = null;
         }
 
@@ -823,7 +822,7 @@ class EventPreferencesCalendar extends EventPreferences {
 
             cur.close();
         }
-        PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "_eventFound="+_eventFound);
+        //PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "_eventFound="+_eventFound);
 
         DatabaseHandler.getInstance(dataWrapper.context).updateEventCalendarTimes(_event);
 

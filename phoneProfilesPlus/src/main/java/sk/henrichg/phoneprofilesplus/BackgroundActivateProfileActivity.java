@@ -19,7 +19,7 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
-        PPApplication.logE("BackgroundActivateProfileActivity.onCreate", "xxx");
+        //PPApplication.logE("BackgroundActivateProfileActivity.onCreate", "xxx");
 
         Intent intent = getIntent();
         startupSource = intent.getIntExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SHORTCUT);

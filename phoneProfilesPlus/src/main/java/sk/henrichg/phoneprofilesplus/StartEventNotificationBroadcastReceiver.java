@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
@@ -21,7 +20,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### StartEventNotificationBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("##### StartEventNotificationBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "StartEventNotificationBroadcastReceiver.onReceive", "StartEventNotificationBroadcastReceiver_onReceive");
 
         if (intent != null) {
@@ -42,7 +41,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) event._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
-                    PPApplication.logE("StartEventNotificationBroadcastReceiver.removeAlarm", "alarm found");
+                    //PPApplication.logE("StartEventNotificationBroadcastReceiver.removeAlarm", "alarm found");
 
                     alarmManager.cancel(pendingIntent);
                     pendingIntent.cancel();
@@ -54,7 +53,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
             //workManager.cancelUniqueWork("elapsedAlarmsStartEventNotificationWork_"+(int)event._id);
             workManager.cancelAllWorkByTag("elapsedAlarmsStartEventNotificationWork_"+(int)event._id);
         } catch (Exception ignored) {}
-        PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.removeAlarm", "removed");
+        //PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.removeAlarm", "removed");
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
@@ -78,11 +77,11 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                     now.add(Calendar.SECOND, event._repeatNotificationIntervalStart);
                     long alarmTime = now.getTimeInMillis();
 
-                    if (PPApplication.logEnabled()) {
+                    /*if (PPApplication.logEnabled()) {
                         SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                         String result = sdf.format(alarmTime);
                         PPApplication.logE("StartEventNotificationBroadcastReceiver.setAlarm", "alarmTime=" + result);
-                    }
+                    }*/
 
                     Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -105,10 +104,10 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                                 .build();
                 try {
                     WorkManager workManager = WorkManager.getInstance(context);
-                    if (PPApplication.logEnabled()) {
+                    /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.setAlarm", "enqueueUniqueWork - event._repeatNotificationIntervalStart=" + event._repeatNotificationIntervalStart);
                         PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.setAlarm", "enqueueUniqueWork - event._id=" + event._id);
-                    }
+                    }*/
                     //workManager.enqueueUniqueWork("elapsedAlarmsStartEventNotificationWork_"+(int)event._id, ExistingWorkPolicy.REPLACE, worker);
                     workManager.enqueue(worker);
                 } catch (Exception ignored) {}
@@ -158,10 +157,10 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
     }
 
     static void doWork(boolean useHandler, Context context, final long event_id) {
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.doWork", "useHandler=" + useHandler);
             PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.doWork", "event_id=" + event_id);
-        }
+        }*/
 
         final Context appContext = context.getApplicationContext();
 
@@ -184,14 +183,14 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=StartEventNotificationBroadcastReceiver.doWork");
+                            //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=StartEventNotificationBroadcastReceiver.doWork");
 
                             DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
                             Event event = databaseHandler.getEvent(event_id);
                             if (event != null)
                                 event.notifyEventStart(appContext, true);
 
-                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=StartEventNotificationBroadcastReceiver.doWork");
+                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=StartEventNotificationBroadcastReceiver.doWork");
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

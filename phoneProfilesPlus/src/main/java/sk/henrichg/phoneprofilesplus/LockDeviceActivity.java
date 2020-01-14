@@ -22,7 +22,7 @@ public class LockDeviceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
-        PPApplication.logE("LockDeviceActivity.onCreate", "xxx");
+        //PPApplication.logE("LockDeviceActivity.onCreate", "xxx");
 
         boolean canWriteSettings = true;
         if (android.os.Build.VERSION.SDK_INT >= 23)
@@ -77,7 +77,7 @@ public class LockDeviceActivity extends AppCompatActivity {
             */
 
             displayed = true;
-            PPApplication.logE("LockDeviceActivity.onCreate", "displayed=true");
+            //PPApplication.logE("LockDeviceActivity.onCreate", "displayed=true");
 
             PhoneProfilesService.getInstance().screenTimeoutBeforeDeviceLock = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
             ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(getApplicationContext());
@@ -94,7 +94,7 @@ public class LockDeviceActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        PPApplication.logE("LockDeviceActivity.onDestroy", "displayed="+displayed);
+        //PPApplication.logE("LockDeviceActivity.onDestroy", "displayed="+displayed);
 
         final Context appContext = getApplicationContext();
 
@@ -122,13 +122,13 @@ public class LockDeviceActivity extends AppCompatActivity {
             // change screen timeout
             //final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
             final int screenTimeout = ActivateProfileHelper.getActivatedProfileScreenTimeout(appContext);
-            PPApplication.logE("LockDeviceActivity.onDestroy", "screenTimeout="+screenTimeout);
+            //PPApplication.logE("LockDeviceActivity.onDestroy", "screenTimeout="+screenTimeout);
             if ((screenTimeout > 0) && (Permissions.checkScreenTimeout(appContext))) {
-                PPApplication.logE("LockDeviceActivity.onDestroy", "permission ok");
+                //PPApplication.logE("LockDeviceActivity.onDestroy", "permission ok");
                 if (PPApplication.screenTimeoutHandler != null) {
                     PPApplication.screenTimeoutHandler.post(new Runnable() {
                         public void run() {
-                            PPApplication.logE("LockDeviceActivity.onDestroy", "call ActivateProfileHelper.setScreenTimeout");
+                            //PPApplication.logE("LockDeviceActivity.onDestroy", "call ActivateProfileHelper.setScreenTimeout");
                             ActivateProfileHelper.setScreenTimeout(screenTimeout, appContext);
                         }
                     });
@@ -144,7 +144,7 @@ public class LockDeviceActivity extends AppCompatActivity {
     public void finish()
     {
         super.finish();
-        PPApplication.logE("LockDeviceActivity.finish", "xxx");
+        //PPApplication.logE("LockDeviceActivity.finish", "xxx");
         overridePendingTransition(0, 0);
     }
 

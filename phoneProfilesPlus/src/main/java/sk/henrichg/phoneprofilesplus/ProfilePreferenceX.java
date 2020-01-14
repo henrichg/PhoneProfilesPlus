@@ -29,7 +29,7 @@ public class ProfilePreferenceX extends DialogPreference {
     {
         super(context, attrs);
 
-        PPApplication.logE("ProfilePreferenceX.ProfilePreferenceX", "xxx");
+        //PPApplication.logE("ProfilePreferenceX.ProfilePreferenceX", "xxx");
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ProfilePreference);
 

@@ -10,7 +10,7 @@ public class CalendarProviderChangedBroadcastReceiver extends BroadcastReceiver 
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### CalendarProviderChangedBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("##### CalendarProviderChangedBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "CalendarProviderChangedBroadcastReceiver.onReceive", "CalendarProviderChangedBroadcastReceiver_onReceive");
 
@@ -22,7 +22,7 @@ public class CalendarProviderChangedBroadcastReceiver extends BroadcastReceiver 
 
         if (Event.getGlobalEventsRunning(appContext))
         {
-            PPApplication.logE("@@@ CalendarProviderChangedBroadcastReceiver.onReceive","xxx");
+            //PPApplication.logE("@@@ CalendarProviderChangedBroadcastReceiver.onReceive","xxx");
 
             /*boolean calendarEventsExists = false;
 
@@ -47,12 +47,12 @@ public class CalendarProviderChangedBroadcastReceiver extends BroadcastReceiver 
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=CalendarProviderChangedBroadcastReceiver.onReceive");
+                            //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=CalendarProviderChangedBroadcastReceiver.onReceive");
 
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED);
 
-                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=CalendarProviderChangedBroadcastReceiver.onReceive");
+                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=CalendarProviderChangedBroadcastReceiver.onReceive");
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

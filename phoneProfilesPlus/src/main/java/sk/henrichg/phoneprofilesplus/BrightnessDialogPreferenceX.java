@@ -91,7 +91,7 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
         sValue = getPersistedString((String) defaultValue);
         this.defaultValue = (String)defaultValue;
 
-        PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "form onSetInitialValue");
+        //PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "form onSetInitialValue");
         getValueBDP();
         setSummaryBDP();
     }

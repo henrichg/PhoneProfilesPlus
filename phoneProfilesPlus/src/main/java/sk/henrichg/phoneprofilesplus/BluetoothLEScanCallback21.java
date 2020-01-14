@@ -8,6 +8,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
                 return;
         }
 
-        PPApplication.logE("BluetoothLEScanCallback21.onScanResult", "xxx");
+        //PPApplication.logE("BluetoothLEScanCallback21.onScanResult", "xxx");
 
         PPApplication.startHandlerThreadBluetoothLECallback();
         final Handler handler = new Handler(PPApplication.handlerThreadBluetoothLECallback.getLooper());
@@ -55,7 +56,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    PPApplication.logE("PPApplication.startHandlerThread", "START run - from=BluetoothLEScanCallback21.onScanResult");
+                    //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=BluetoothLEScanCallback21.onScanResult");
 
                     //boolean scanStarted = (BluetoothScanWorker.getWaitForLEResults(context));
                     //PPApplication.logE("BluetoothLEScanCallback21.onScanResult", "scanStarted=" + scanStarted);
@@ -75,7 +76,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
                         BluetoothScanWorker.addLEScanResult(deviceData);
                     //}
 
-                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothLEScanCallback21.onScanResult");
+                    //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothLEScanCallback21.onScanResult");
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
@@ -105,7 +106,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
                 return;
         }
 
-        PPApplication.logE("BluetoothLEScanCallback21.onBatchScanResults", "xxx");
+        //PPApplication.logE("BluetoothLEScanCallback21.onBatchScanResults", "xxx");
 
         final List<ScanResult> _results = new ArrayList<>(results);
 
@@ -122,7 +123,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    PPApplication.logE("PPApplication.startHandlerThread", "START run - from=BluetoothLEScanCallback21.onBatchScanResults");
+                    //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=BluetoothLEScanCallback21.onBatchScanResults");
 
                     //boolean scanStarted = (BluetoothScanWorker.getWaitForLEResults(context));
                     //PPApplication.logE("BluetoothLEScanCallback21.onBatchScanResults", "scanStarted=" + scanStarted);
@@ -144,7 +145,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
                         }
                     //}
 
-                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothLEScanCallback21.onBatchScanResults");
+                    //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothLEScanCallback21.onBatchScanResults");
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
@@ -157,7 +158,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
     }
 
     public void onScanFailed(int errorCode) {
-        PPApplication.logE("BluetoothLEScanCallback21.onScanFailed ", "errorCode=" + errorCode);
+        Log.e("BluetoothLEScanCallback21.onScanFailed ", "errorCode=" + errorCode);
     }
 
 }

@@ -34,7 +34,7 @@ public class FetchAddressWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            PPApplication.logE("FetchAddressWorker.doWork", "xxx");
+            //PPApplication.logE("FetchAddressWorker.doWork", "xxx");
             Data outputData;
 
             // Get the input
@@ -108,11 +108,11 @@ public class FetchAddressWorker extends Worker {
 
     private Data generateResult(int resultCode, String message, boolean updateName) {
         // Create the output of the work
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("FetchAddressWorker.generateResult", "resultCode=" + resultCode);
             PPApplication.logE("FetchAddressWorker.generateResult", "message=" + message);
             PPApplication.logE("FetchAddressWorker.generateResult", "updateName=" + updateName);
-        }
+        }*/
 
         return new Data.Builder()
                 .putInt(LocationGeofenceEditorActivity.RESULT_CODE, resultCode)

@@ -10,12 +10,12 @@ public class MissedCallEventEndBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### MissedCallEventEndBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("##### MissedCallEventEndBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "MissedCallEventEndBroadcastReceiver.onReceive", "MissedCallEventEndBroadcastReceiver_onReceive");
 
         String action = intent.getAction();
         if (action != null) {
-            PPApplication.logE("MissedCallEventEndBroadcastReceiver.onReceive", "action=" + action);
+            //PPApplication.logE("MissedCallEventEndBroadcastReceiver.onReceive", "action=" + action);
             doWork(/*true,*/ context);
         }
     }
@@ -43,15 +43,15 @@ public class MissedCallEventEndBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=MissedCallEventEndBroadcastReceiver.doWork");
+                        //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=MissedCallEventEndBroadcastReceiver.doWork");
 
                         if (Event.getGlobalEventsRunning(appContext)) {
-                            PPApplication.logE("MissedCallEventEndBroadcastReceiver.doWork", "handle events");
+                            //PPApplication.logE("MissedCallEventEndBroadcastReceiver.doWork", "handle events");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL_EVENT_END);
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=MissedCallEventEndBroadcastReceiver.doWork");
+                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=MissedCallEventEndBroadcastReceiver.doWork");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

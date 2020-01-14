@@ -55,10 +55,10 @@ public class CmdMobileData {
                                 int subscriptionId = subscriptionInfo.getSubscriptionId();
                                 enabled = adapter.getDataEnabled(subscriptionId);
                                 ok = true;
-                                if (PPApplication.logEnabled()) {
+                                /*if (PPApplication.logEnabled()) {
                                     PPApplication.logE("CmdMobileData.isEnabled", "subscriptionId=" + subscriptionId);
                                     PPApplication.logE("CmdMobileData.isEnabled", "enabled=" + enabled);
-                                }
+                                }*/
                                 if (enabled)
                                     break;
                             }
@@ -68,14 +68,14 @@ public class CmdMobileData {
             }
             if (!ok) {
                 enabled = adapter.getDataEnabled(1);
-                if (PPApplication.logEnabled()) {
+                /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("CmdMobileData.isEnabled", "subscriptionId=0");
                     PPApplication.logE("CmdMobileData.isEnabled", "enabled=" + enabled);
-                }
+                }*/
             }
             return enabled;
         } catch (Throwable e) {
-            PPApplication.logE("CmdMobileData.isEnabled", Log.getStackTraceString(e));
+            Log.e("CmdMobileData.isEnabled", Log.getStackTraceString(e));
             return false;
         }
     }

@@ -89,7 +89,7 @@ public class MobileCellsRegistrationDialogPreferenceX extends DialogPreference {
     }
 
     void setCellNameText(String text) {
-        PPApplication.logE("MobileCellsRegistrationDialogPreferenceX.setCellNameText", "text="+text);
+        //PPApplication.logE("MobileCellsRegistrationDialogPreferenceX.setCellNameText", "text="+text);
         cellName = text;
         if (fragment != null)
             fragment.setCellNameText(text);
@@ -121,7 +121,7 @@ public class MobileCellsRegistrationDialogPreferenceX extends DialogPreference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
-        PPApplication.logE("MobileCellsRegistrationDialogPreferenceX.onCreateDialog", "xxx");
+        //PPApplication.logE("MobileCellsRegistrationDialogPreferenceX.onCreateDialog", "xxx");
 
         //if (dataWrapper == null)
         //    dataWrapper = new DataWrapper(prefContext, false, 0, false);

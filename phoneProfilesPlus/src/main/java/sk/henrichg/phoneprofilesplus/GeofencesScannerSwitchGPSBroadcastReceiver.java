@@ -7,7 +7,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
@@ -19,7 +18,7 @@ import androidx.work.WorkManager;
 public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### GeofencesScannerSwitchGPSBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("##### GeofencesScannerSwitchGPSBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "GeofencesScannerSwitchGPSBroadcastReceiver.onReceive", "GeofencesScannerSwitchGPSBroadcastReceiver_onReceive");
         doWork();
     }
@@ -36,7 +35,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
-                    PPApplication.logE("GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm", "alarm found");
+                    //PPApplication.logE("GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm", "alarm found");
 
                     alarmManager.cancel(pendingIntent);
                     pendingIntent.cancel();
@@ -48,7 +47,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
             workManager.cancelUniqueWork("elapsedAlarmsGeofenceScannerSwitchGPSWork");
             workManager.cancelAllWorkByTag("elapsedAlarmsGeofenceScannerSwitchGPSWork");
         } catch (Exception ignored) {}
-        PPApplication.logE("[HANDLER] GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm", "removed");
+        //PPApplication.logE("[HANDLER] GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm", "removed");
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
@@ -72,11 +71,11 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
                 now.add(Calendar.MINUTE, delay);
                 long alarmTime = now.getTimeInMillis();
 
-                if (PPApplication.logEnabled()) {
+                /*if (PPApplication.logEnabled()) {
                     SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                     String result = sdf.format(alarmTime);
                     PPApplication.logE("GeofencesScannerSwitchGPSBroadcastReceiver.setAlarm", "alarmTime=" + result);
-                }
+                }*/
 
                 Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
                 editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -98,7 +97,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
                             .build();
             try {
                 WorkManager workManager = WorkManager.getInstance(context);
-                PPApplication.logE("[HANDLER] GeofencesScannerSwitchGPSBroadcastReceiver.setAlarm", "enqueueUniqueWork - delay="+delay);
+                //PPApplication.logE("[HANDLER] GeofencesScannerSwitchGPSBroadcastReceiver.setAlarm", "enqueueUniqueWork - delay="+delay);
                 workManager.enqueueUniqueWork("elapsedAlarmsGeofenceScannerSwitchGPSWork", ExistingWorkPolicy.REPLACE, worker);
             } catch (Exception ignored) {}
         }
@@ -146,7 +145,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
     }
 
     static void doWork() {
-        PPApplication.logE("[HANDLER] GeofencesScannerSwitchGPSBroadcastReceiver.doWork", "xxx");
+        //PPApplication.logE("[HANDLER] GeofencesScannerSwitchGPSBroadcastReceiver.doWork", "xxx");
         if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
             GeofencesScanner.useGPS = !GeofencesScanner.useGPS;
             GeofencesScanner geofencesScanner = PhoneProfilesService.getInstance().getGeofencesScanner();

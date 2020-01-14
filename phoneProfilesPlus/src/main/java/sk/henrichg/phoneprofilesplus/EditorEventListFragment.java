@@ -428,7 +428,7 @@ public class EditorEventListFragment extends Fragment
             }
         });*/
 
-        PPApplication.logE("EditorEventListFragment.doOnViewCreated", "orderSelectedItem="+orderSelectedItem);
+        //PPApplication.logE("EditorEventListFragment.doOnViewCreated", "orderSelectedItem="+orderSelectedItem);
         // first must be set eventsOrderType
         changeEventOrder(orderSelectedItem, fromOnViewCreated);
     }
@@ -638,7 +638,7 @@ public class EditorEventListFragment extends Fragment
                 updateListView(event, false, false, true, 0);
 
                 // restart events
-                PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.runStopEvent");
+                //PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.runStopEvent");
                 //activityDataWrapper.restartEvents(false, true, true, true, true);
                 activityDataWrapper.restartEventsWithRescan(/*true, */false, true, true, false);
 
@@ -718,7 +718,7 @@ public class EditorEventListFragment extends Fragment
         DatabaseHandler.getInstance(activityDataWrapper.context).deleteEvent(event);
 
         // restart events
-        PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.deleteEvent");
+        //PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.deleteEvent");
         //activityDataWrapper.restartEvents(false, true, true, true, true);
         activityDataWrapper.restartEventsWithRescan(/*true, */false, true, true, false);
 
@@ -1102,7 +1102,7 @@ public class EditorEventListFragment extends Fragment
             }
         }
         else {
-            PPApplication.logE("[OPT] EditorEventListFragment.changeListOrder", "xxx");
+            //PPApplication.logE("[OPT] EditorEventListFragment.changeListOrder", "xxx");
             synchronized (activityDataWrapper.eventList) {
                 if (filterType == FILTER_TYPE_START_ORDER)
                     EditorEventListFragment.sortList(activityDataWrapper.eventList, ORDER_TYPE_START_ORDER, activityDataWrapper);
@@ -1194,7 +1194,7 @@ public class EditorEventListFragment extends Fragment
         if (activityDataWrapper == null)
             return;
 
-        PPApplication.logE("EditorEventListFragment.refreshGUI", "refresh="+refresh);
+        //PPApplication.logE("EditorEventListFragment.refreshGUI", "refresh="+refresh);
 
         Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
         activityDataWrapper.getEventTimelineList(true);
@@ -1204,14 +1204,14 @@ public class EditorEventListFragment extends Fragment
             pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper, true, activityDataWrapper.context);
         else
             pName = getResources().getString(R.string.profiles_header_profile_name_no_activated);
-        PPApplication.logE("EditorEventListFragment.refreshGUI", "pName="+pName);
+        //PPApplication.logE("EditorEventListFragment.refreshGUI", "pName="+pName);
 
         if (!refresh) {
             String pNameHeader = PPApplication.getActivityProfileName(activityDataWrapper.context, 3);
-            PPApplication.logE("EditorEventListFragment.refreshGUI", "pNameHeader="+pNameHeader);
+            //PPApplication.logE("EditorEventListFragment.refreshGUI", "pNameHeader="+pNameHeader);
 
             if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
-                PPApplication.logE("EditorEventListFragment.refreshGUI", "activated profile NOT changed");
+                //PPApplication.logE("EditorEventListFragment.refreshGUI", "activated profile NOT changed");
                 return;
             }
         }
@@ -1240,14 +1240,14 @@ public class EditorEventListFragment extends Fragment
         }
 
         if (profileFromDB != null) {
-            PPApplication.logE("EditorEventListFragment.refreshGUI", "profile activated");
+            //PPApplication.logE("EditorEventListFragment.refreshGUI", "profile activated");
             Profile profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
                     ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context), false);
             if (profileFromDataWrapper != null)
                 profileFromDataWrapper._checked = true;
             updateHeader(profileFromDataWrapper);
         } else {
-            PPApplication.logE("EditorEventListFragment.refreshGUI", "profile not activated");
+            //PPApplication.logE("EditorEventListFragment.refreshGUI", "profile not activated");
             updateHeader(null);
         }
         updateListView(null, false, refreshIcons, setPosition, eventId);
@@ -1464,11 +1464,11 @@ public class EditorEventListFragment extends Fragment
         int _eventsOrderType = getEventsOrderType();
         //setStatusBarTitle();
 
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             //PPApplication.logE("EditorProfilesActivity.changeEventOrder", "filterSelectedItem="+filterSelectedItem);
             PPApplication.logE("EditorProfilesActivity.changeEventOrder", "orderSelectedItem=" + orderSelectedItem);
             PPApplication.logE("EditorProfilesActivity.changeEventOrder", "_eventsOrderType=" + _eventsOrderType);
-        }
+        }*/
 
         changeListOrder(_eventsOrderType, fromOnViewCreated);
 

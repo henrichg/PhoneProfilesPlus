@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import androidx.preference.Preference;
@@ -257,7 +256,7 @@ class EventPreferencesNFC extends EventPreferences {
 
     long computeAlarm()
     {
-        PPApplication.logE("EventPreferencesNFC.computeAlarm","xxx");
+        //PPApplication.logE("EventPreferencesNFC.computeAlarm","xxx");
 
         Calendar calEndTime = Calendar.getInstance();
 
@@ -281,7 +280,7 @@ class EventPreferencesNFC extends EventPreferences {
         // this alarm generates broadcast, that change state into RUNNING;
         // from broadcast will by called EventsHandler
 
-        PPApplication.logE("EventPreferencesNFC.setSystemRunningEvent","xxx");
+        //PPApplication.logE("EventPreferencesNFC.setSystemRunningEvent","xxx");
 
         removeAlarm(context);
     }
@@ -294,7 +293,7 @@ class EventPreferencesNFC extends EventPreferences {
         // this alarm generates broadcast, that change state into PAUSE;
         // from broadcast will by called EventsHandler
 
-        PPApplication.logE("EventPreferencesNFC.setSystemPauseEvent","xxx");
+        //PPApplication.logE("EventPreferencesNFC.setSystemPauseEvent","xxx");
 
         removeAlarm(context);
 
@@ -309,7 +308,7 @@ class EventPreferencesNFC extends EventPreferences {
     {
         removeAlarm(context);
 
-        PPApplication.logE("EventPreferencesNFC.removeSystemEvent", "xxx");
+        //PPApplication.logE("EventPreferencesNFC.removeSystemEvent", "xxx");
     }
 
     void removeAlarm(Context context)
@@ -324,7 +323,7 @@ class EventPreferencesNFC extends EventPreferences {
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
-                    PPApplication.logE("EventPreferencesNFC.removeAlarm", "alarm found");
+                    //PPApplication.logE("EventPreferencesNFC.removeAlarm", "alarm found");
 
                     alarmManager.cancel(pendingIntent);
                     pendingIntent.cancel();
@@ -343,11 +342,11 @@ class EventPreferencesNFC extends EventPreferences {
     {
         if (!_permanentRun) {
             if (_startTime > 0) {
-                if (PPApplication.logEnabled()) {
+                /*if (PPApplication.logEnabled()) {
                     SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                     String result = sdf.format(alarmTime);
                     PPApplication.logE("EventPreferencesNFC.setAlarm", "endTime=" + result);
-                }
+                }*/
 
                 /*if (ApplicationPreferences.applicationUseAlarmClock(context)) {
                     //Intent intent = new Intent(context, NFCEventEndBroadcastReceiver.class);
@@ -433,7 +432,7 @@ class EventPreferencesNFC extends EventPreferences {
         if (this._startTime == 0) {
             // alarm for end is not set
 
-            PPApplication.logE("EventPreferencesNFC.saveStartTime", "tagName=" + tagName);
+            //PPApplication.logE("EventPreferencesNFC.saveStartTime", "tagName=" + tagName);
 
             boolean tagFound = false;
 
@@ -443,7 +442,7 @@ class EventPreferencesNFC extends EventPreferences {
                     tagFound = true;
             }
 
-            PPApplication.logE("EventPreferencesNFC.saveStartTime", "tagFound=" + tagFound);
+            //PPApplication.logE("EventPreferencesNFC.saveStartTime", "tagFound=" + tagFound);
 
             if (tagFound)
                 this._startTime = startTime; //  + (10 * 1000);

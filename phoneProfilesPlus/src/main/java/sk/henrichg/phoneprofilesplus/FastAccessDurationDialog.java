@@ -381,7 +381,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
     private void updateProfileView()
     {
-        PPApplication.logE("FastAccessDurationDialog.updateProfileView", "mProfile="+mProfile);
+        //PPApplication.logE("FastAccessDurationDialog.updateProfileView", "mProfile="+mProfile);
 
         boolean showIndicators = ApplicationPreferences.applicationEditorPrefIndicator(mDataWrapper.context);
 

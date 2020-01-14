@@ -13,7 +13,7 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
     @TargetApi(Build.VERSION_CODES.M)
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### DeviceIdleModeBroadcastReceiver.onReceive","xxx");
+        //PPApplication.logE("##### DeviceIdleModeBroadcastReceiver.onReceive","xxx");
 
         //CallsCounter.logCounter(context, "DeviceIdleModeBroadcastReceiver.onReceive", "DeviceIdleModeBroadcastReceiver_onReceive");
 
@@ -27,7 +27,7 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
             PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
             // isLightDeviceIdleMode() is @hide :-(
             if ((powerManager != null) && !powerManager.isDeviceIdleMode() /*&& !powerManager.isLightDeviceIdleMode()*/) {
-                PPApplication.logE("DeviceIdleModeBroadcastReceiver.onReceive","NOT in idle mode");
+                //PPApplication.logE("DeviceIdleModeBroadcastReceiver.onReceive","NOT in idle mode");
                 PPApplication.startHandlerThread("DeviceIdleModeBroadcastReceiver.onReceive");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
@@ -41,7 +41,7 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DeviceIdleModeBroadcastReceiver.onReceive");
+                            //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DeviceIdleModeBroadcastReceiver.onReceive");
 
                             // start events handler
                             EventsHandler eventsHandler = new EventsHandler(appContext);
@@ -68,7 +68,7 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                                 }
                             }
 
-                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DeviceIdleModeBroadcastReceiver.onReceive");
+                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DeviceIdleModeBroadcastReceiver.onReceive");
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
@@ -79,8 +79,8 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                     }
                 });
             }
-            else
-                PPApplication.logE("DeviceIdleModeBroadcastReceiver.onReceive","in idle mode");
+            //else
+            //    PPApplication.logE("DeviceIdleModeBroadcastReceiver.onReceive","in idle mode");
         }
     }
 }

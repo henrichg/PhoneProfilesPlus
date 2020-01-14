@@ -13,7 +13,7 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### PowerSaveModeBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("##### PowerSaveModeBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "PowerSaveModeBroadcastReceiver.onReceive", "PowerSaveModeBroadcastReceiver_onReceive");
 
@@ -24,7 +24,7 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
             return;
 
         // required for reschedule workers for power save mode
-        PPApplication.logE("[XXX] PowerSaveModeBroadcastReceiver.onReceive", "restartAllScanners");
+        //PPApplication.logE("[XXX] PowerSaveModeBroadcastReceiver.onReceive", "restartAllScanners");
         PPApplication.restartAllScanners(appContext, true);
         /*PPApplication.restartWifiScanner(appContext, true);
         PPApplication.restartBluetoothScanner(appContext, true);
@@ -45,13 +45,13 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PowerSaveModeBroadcastReceiver.onReceive");
+                    //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PowerSaveModeBroadcastReceiver.onReceive");
 
                     // start events handler
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_POWER_SAVE_MODE);
 
-                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PowerSaveModeBroadcastReceiver.onReceive");
+                    //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PowerSaveModeBroadcastReceiver.onReceive");
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {

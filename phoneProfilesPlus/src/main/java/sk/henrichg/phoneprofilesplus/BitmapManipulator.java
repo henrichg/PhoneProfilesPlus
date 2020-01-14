@@ -30,7 +30,7 @@ class BitmapManipulator {
     static final int ICON_BITMAP_SIZE_MULTIPLIER = 4;
 
     static Bitmap resampleBitmapUri(String bitmapUri, int width, int height, boolean checkSize, boolean checkOrientation, Context context) {
-        PPApplication.logE("---- BitmapManipulator.resampleBitmapUri", "bitmapUri="+bitmapUri);
+        //PPApplication.logE("---- BitmapManipulator.resampleBitmapUri", "bitmapUri="+bitmapUri);
         if (bitmapUri == null)
             return null;
 
@@ -38,7 +38,7 @@ class BitmapManipulator {
             return null;
 
         Uri uri = Uri.parse(bitmapUri);
-        PPApplication.logE("---- BitmapManipulator.resampleBitmapUri", "uri="+uri);
+        //PPApplication.logE("---- BitmapManipulator.resampleBitmapUri", "uri="+uri);
         if (uri != null) {
             try {
                 ContentResolver contentResolver = context.getContentResolver();
@@ -47,7 +47,7 @@ class BitmapManipulator {
                     context.grantUriPermission(context.getPackageName(), uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                     contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 } catch (Exception e) {
-                    PPApplication.logE("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
+                    Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
                 }
                 //}
                 InputStream inputStream = context.getContentResolver().openInputStream(uri);
@@ -61,7 +61,7 @@ class BitmapManipulator {
                     final int rawHeight = options.outHeight;
                     final int rawWidth = options.outWidth;
                     if ((rawWidth > ICON_BITMAP_SIZE_MULTIPLIER * width) || (rawHeight > ICON_BITMAP_SIZE_MULTIPLIER * height)) {
-                        PPApplication.logE("BitmapManipulator.resampleBitmapUri", "too large");
+                        //PPApplication.logE("BitmapManipulator.resampleBitmapUri", "too large");
                         return null;
                     }
                 }
@@ -107,11 +107,11 @@ class BitmapManipulator {
                         decodedSampleBitmap = Bitmap.createBitmap(decodedSampleBitmap, 0, 0, decodedSampleBitmap.getWidth(),
                                 decodedSampleBitmap.getHeight(), matrix, true);
                     }
-                    PPApplication.logE("---- BitmapManipulator.resampleBitmapUri", "decodedSampleBitmap="+decodedSampleBitmap);
+                    //PPApplication.logE("---- BitmapManipulator.resampleBitmapUri", "decodedSampleBitmap="+decodedSampleBitmap);
                 }
                 return decodedSampleBitmap;
             } catch (Exception e) {
-                PPApplication.logE("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
+                Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
                 return null;
             }
         }
@@ -342,16 +342,16 @@ class BitmapManipulator {
 
     static Bitmap getBitmapFromDrawable(Drawable drawable, boolean appIconSize/*, Context context*/) {
         if (drawable instanceof BitmapDrawable) {
-            PPApplication.logE("BitmapManipulator.getBitmapFromDrawable", "is BitmapDrawable");
+            //PPApplication.logE("BitmapManipulator.getBitmapFromDrawable", "is BitmapDrawable");
             return ((BitmapDrawable)drawable).getBitmap();
         }
-        PPApplication.logE("BitmapManipulator.getBitmapFromDrawable", "is NOT BitmapDrawable");
+        //PPApplication.logE("BitmapManipulator.getBitmapFromDrawable", "is NOT BitmapDrawable");
 
         try {
-            if (PPApplication.logEnabled()) {
+            /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("BitmapManipulator.getBitmapFromDrawable", "drawable width=" + drawable.getIntrinsicWidth());
                 PPApplication.logE("BitmapManipulator.getBitmapFromDrawable", "drawable height=" + drawable.getIntrinsicHeight());
-            }
+            }*/
             int height;
             int width;
             if (appIconSize) {
@@ -362,11 +362,11 @@ class BitmapManipulator {
                 height = drawable.getIntrinsicHeight();
                 width = drawable.getIntrinsicWidth();
             }
-            if (PPApplication.logEnabled()) {
+            /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("BitmapManipulator.getBitmapFromDrawable", "width=" + width);
                 PPApplication.logE("BitmapManipulator.getBitmapFromDrawable", "height=" + height);
                 PPApplication.logE("BitmapManipulator.getBitmapFromDrawable", "50dp=" + GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP));
-            }
+            }*/
             Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
             drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -381,7 +381,7 @@ class BitmapManipulator {
     static Bitmap getBitmapFromResource(int drawableRes, boolean appIconSize, Context context) {
         //Drawable drawable = ContextCompat.getDrawable(context, drawableRes);
         Drawable drawable = AppCompatResources.getDrawable(context, drawableRes);
-        PPApplication.logE("BitmapManipulator.getBitmapFromResource", "drawable="+drawable);
+        //PPApplication.logE("BitmapManipulator.getBitmapFromResource", "drawable="+drawable);
         return getBitmapFromDrawable(drawable, appIconSize/*, context*/);
     }
 

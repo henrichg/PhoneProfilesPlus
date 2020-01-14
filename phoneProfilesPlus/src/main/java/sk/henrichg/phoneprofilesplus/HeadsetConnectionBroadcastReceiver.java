@@ -18,7 +18,7 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### HeadsetConnectionBroadcastReceiver.onReceive","xxx");
+        //PPApplication.logE("##### HeadsetConnectionBroadcastReceiver.onReceive","xxx");
 
         //CallsCounter.logCounter(context, "HeadsetConnectionBroadcastReceiver.onReceive", "HeadsetConnectionBroadcastReceiver_onReceive");
 
@@ -69,7 +69,7 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
             }
         }
 
-        PPApplication.logE("@@@ HeadsetConnectionBroadcastReceiver.onReceive","broadcast="+broadcast);
+        //PPApplication.logE("@@@ HeadsetConnectionBroadcastReceiver.onReceive","broadcast="+broadcast);
 
         if (broadcast)
         {
@@ -98,7 +98,7 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=HeadsetConnectionBroadcastReceiver.onReceive");
+                            //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=HeadsetConnectionBroadcastReceiver.onReceive");
 
                             /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
                             boolean peripheralEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_PERIPHERAL) > 0;
@@ -111,7 +111,7 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_HEADSET_CONNECTION);
                             //}
 
-                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=HeadsetConnectionBroadcastReceiver.onReceive");
+                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=HeadsetConnectionBroadcastReceiver.onReceive");
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

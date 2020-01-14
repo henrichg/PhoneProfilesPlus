@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
@@ -22,7 +21,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### RunApplicationWithDelayBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("##### RunApplicationWithDelayBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "RunApplicationWithDelayBroadcastReceiver.onReceive", "RunApplicationWithDelayBroadcastReceiver_onReceive");
 
         if (intent != null) {
@@ -66,12 +65,12 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                     now.add(Calendar.SECOND, startApplicationDelay);
                     long alarmTime = now.getTimeInMillis();
 
-                    if (PPApplication.logEnabled()) {
+                    /*if (PPApplication.logEnabled()) {
                         @SuppressLint("SimpleDateFormat")
                         SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                         String result = sdf.format(alarmTime);
                         PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.setDelayAlarm", "startTime=" + result);
-                    }
+                    }*/
 
                     Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -94,10 +93,10 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                                 .build();
                 try {
                     WorkManager workManager = WorkManager.getInstance(context);
-                    if (PPApplication.logEnabled()) {
+                    /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.setAlarm", "enqueueUniqueWork - startApplicationDelay=" + startApplicationDelay);
                         PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.setAlarm", "enqueueUniqueWork - runApplicationData=" + runApplicationData);
-                    }
+                    }*/
                     //workManager.enqueueUniqueWork("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode, ExistingWorkPolicy.REPLACE, worker);
                     workManager.enqueue(worker);
                 } catch (Exception ignored) {}
@@ -165,7 +164,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, requestCode, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
-                    PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.removeDelayAlarm", "alarm found");
+                    //PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.removeDelayAlarm", "alarm found");
 
                     alarmManager.cancel(pendingIntent);
                     pendingIntent.cancel();
@@ -177,11 +176,11 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
             //workManager.cancelUniqueWork("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode);
             workManager.cancelAllWorkByTag("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode);
         } catch (Exception ignored) {}
-        PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.removeAlarm", "removed");
+        //PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.removeAlarm", "removed");
     }
 
     static void doWork(Context context, String runApplicationData) {
-        PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.doWork", "runApplicationData="+runApplicationData);
+        //PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.doWork", "runApplicationData="+runApplicationData);
 
         final Context appContext = context.getApplicationContext();
 

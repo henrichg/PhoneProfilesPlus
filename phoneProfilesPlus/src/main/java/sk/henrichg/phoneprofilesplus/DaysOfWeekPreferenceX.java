@@ -51,10 +51,10 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
         for (int i = 1; i < 8; i++)
         {
             _dayOfWeek = EventPreferencesTime.getDayOfWeekByLocale(i-1);
-            if (PPApplication.logEnabled()) {
+            /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("DaysOfWeekPreferenceX.DaysOfWeekPreferenceX", "_dayOfWeek=" + _dayOfWeek);
                 PPApplication.logE("DaysOfWeekPreferenceX.DaysOfWeekPreferenceX", "longNamesOfDay[_dayOfWeek+1]=" + longNamesOfDay[_dayOfWeek + 1]);
-            }
+            }*/
 
             dayOfWeek = new DayOfWeek();
             dayOfWeek.name = longNamesOfDay[_dayOfWeek+1];
@@ -70,7 +70,7 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
         value = getPersistedString((String)defaultValue);
         this.defaultValue = (String)defaultValue;
         getValueDOWMDP();
-        PPApplication.logE("DaysOfWeekPreferenceX.onSetInitialValue", "call of setSummaryDOWMDP");
+        //PPApplication.logE("DaysOfWeekPreferenceX.onSetInitialValue", "call of setSummaryDOWMDP");
         setSummaryDOWMDP();
     }
 
@@ -130,14 +130,14 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
         if (allIsConfigured)
             summary = summary + context.getString(R.string.array_pref_event_all) + " ";
         else {
-            PPApplication.logE("DaysOfWeekPreferenceX.setSummaryDOWMDP", "value="+value);
+            //PPApplication.logE("DaysOfWeekPreferenceX.setSummaryDOWMDP", "value="+value);
             String[] shortNamesOfDay = DateFormatSymbols.getInstance().getShortWeekdays();
             for ( int i = 1; i < 8; i++ ) {
                 int _dayOfWeek = EventPreferencesTime.getDayOfWeekByLocale(i-1);
-                if (PPApplication.logEnabled()) {
+                /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("DaysOfWeekPreferenceX.setSummaryDOWMDP", "_dayOfWeek=" + _dayOfWeek);
                     PPApplication.logE("DaysOfWeekPreferenceX.setSummaryDOWMDP", "shortNamesOfDay[_dayOfWeek+1]=" + shortNamesOfDay[_dayOfWeek + 1]);
-                }
+                }*/
                 if (value.contains(String.valueOf(_dayOfWeek)))
                     summary = summary + shortNamesOfDay[_dayOfWeek+1] + " ";
             }
@@ -184,7 +184,7 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
             getValue();
             persistString(value);
 
-            PPApplication.logE("DaysOfWeekPreferenceX.persistValue", "call of setSummaryDOWMDP");
+            //PPApplication.logE("DaysOfWeekPreferenceX.persistValue", "call of setSummaryDOWMDP");
             setSummaryDOWMDP();
         }
     }
@@ -192,7 +192,7 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
     void resetSummary() {
         if (!savedInstanceState) {
             value = getPersistedString(defaultValue);
-            PPApplication.logE("DaysOfWeekPreferenceX.resetSummary", "call of setSummaryDOWMDP");
+            //PPApplication.logE("DaysOfWeekPreferenceX.resetSummary", "call of setSummaryDOWMDP");
             setSummaryDOWMDP();
         }
         savedInstanceState = false;
@@ -224,7 +224,7 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
         if (!state.getClass().equals(DaysOfWeekPreferenceX.SavedState.class)) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
-            PPApplication.logE("DaysOfWeekPreferenceX.onRestoreInstanceState", "call of setSummaryDOWMDP 1");
+            //PPApplication.logE("DaysOfWeekPreferenceX.onRestoreInstanceState", "call of setSummaryDOWMDP 1");
             setSummaryDOWMDP();
             return;
         }
@@ -236,7 +236,7 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
         defaultValue = myState.defaultValue;
 
         getValueDOWMDP();
-        PPApplication.logE("DaysOfWeekPreferenceX.onRestoreInstanceState", "call of setSummaryDOWMDP 2");
+        //PPApplication.logE("DaysOfWeekPreferenceX.onRestoreInstanceState", "call of setSummaryDOWMDP 2");
         setSummaryDOWMDP();
         //notifyChanged();
     }

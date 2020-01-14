@@ -117,10 +117,10 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
         Intent intent = getIntent();
         application = intent.getParcelableExtra(ApplicationEditorDialogX.EXTRA_APPLICATION);
         ppIntent = intent.getParcelableExtra(ApplicationEditorDialogX.EXTRA_PP_INTENT);
-        if (ppIntent == null)
+        /*if (ppIntent == null)
             PPApplication.logE("ApplicationEditorIntentActivity.onCreate", "ppIntent=null");
         else
-            PPApplication.logE("ApplicationEditorIntentActivity.onCreate", "ppIntent._id="+ppIntent._id);
+            PPApplication.logE("ApplicationEditorIntentActivity.onCreate", "ppIntent._id="+ppIntent._id);*/
 
         startApplicationDelay = getIntent().getIntExtra(EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, 0);
 
@@ -986,7 +986,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
             intent = null;
         }
 
-        PPApplication.logE("ApplicationEditorIntentActivity.createIntent", "intent="+intent);
+        //PPApplication.logE("ApplicationEditorIntentActivity.createIntent", "intent="+intent);
         return intent;
     }
 

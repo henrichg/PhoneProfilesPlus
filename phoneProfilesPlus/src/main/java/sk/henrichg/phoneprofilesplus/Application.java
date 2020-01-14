@@ -48,7 +48,7 @@ class Application  implements Parcelable {
     }
 
     public static String getPackageName(String value) {
-        PPApplication.logE("@ Application.getPackageName", "value="+value);
+        //PPApplication.logE("@ Application.getPackageName", "value="+value);
         if (value.length() > 2) {
             String packageName = "";
             String shortcutIntent;
@@ -74,7 +74,7 @@ class Application  implements Parcelable {
                     // application
                     packageName = value;
             }
-            PPApplication.logE("@ Application.getPackageName", "packageName="+packageName);
+            //PPApplication.logE("@ Application.getPackageName", "packageName="+packageName);
             return packageName;
         }
         else
@@ -82,7 +82,7 @@ class Application  implements Parcelable {
     }
 
     static String getActivityName(String value) {
-        PPApplication.logE("@ Application.getActivityName", "value="+value);
+        //PPApplication.logE("@ Application.getActivityName", "value="+value);
         if (value.length() > 2) {
             String activityName = "";
             String[] packageNameActivity = value.split("/");
@@ -95,7 +95,7 @@ class Application  implements Parcelable {
                     activityName = activityShortcutIdDelay[0];
                 }
             }
-            PPApplication.logE("@ Application.getActivityName", "activityName="+activityName);
+            //PPApplication.logE("@ Application.getActivityName", "activityName="+activityName);
             return activityName;
         }
         else
@@ -103,7 +103,7 @@ class Application  implements Parcelable {
     }
 
     static long getShortcutId(String value) {
-        PPApplication.logE("@ Application.getShortcutId", "value="+value);
+        //PPApplication.logE("@ Application.getShortcutId", "value="+value);
         if (value.length() > 2) {
             long shortcutId = 0;
             String[] packageNameActivity = value.split("/");
@@ -119,7 +119,7 @@ class Application  implements Parcelable {
                         } catch (Exception ignored) {}
                 }
             }
-            PPApplication.logE("@ Application.getShortcutId", "shortcutId="+shortcutId);
+            //PPApplication.logE("@ Application.getShortcutId", "shortcutId="+shortcutId);
             return shortcutId;
         }
         else
@@ -127,7 +127,7 @@ class Application  implements Parcelable {
     }
 
     static long getIntentId(String value) {
-        PPApplication.logE("@ Application.getIntentId", "value="+value);
+        //PPApplication.logE("@ Application.getIntentId", "value="+value);
         if (value.length() > 2) {
             long intentId = 0;
             String[] intentIdDelay = value.split("#");
@@ -138,7 +138,7 @@ class Application  implements Parcelable {
                     intentId = Long.parseLong(intentIdDelay[0].substring(3));
                 } catch (Exception ignored) {}
             }
-            PPApplication.logE("@ Application.getIntentId", "intentId="+intentId);
+            //PPApplication.logE("@ Application.getIntentId", "intentId="+intentId);
             return intentId;
         }
         else
@@ -146,7 +146,7 @@ class Application  implements Parcelable {
     }
 
     static int getStartApplicationDelay(String value) {
-        PPApplication.logE("@ Application.getStartApplicationDelay", "value="+value);
+        //PPApplication.logE("@ Application.getStartApplicationDelay", "value="+value);
         if (value.length() > 2) {
             String shortcutIntent;
             int startApplicationDelay = 0;
@@ -198,7 +198,7 @@ class Application  implements Parcelable {
                     }
                 }
             }
-            PPApplication.logE("@ Application.getStartApplicationDelay", "startApplicationDelay="+startApplicationDelay);
+            //PPApplication.logE("@ Application.getStartApplicationDelay", "startApplicationDelay="+startApplicationDelay);
             return startApplicationDelay;
         }
         else

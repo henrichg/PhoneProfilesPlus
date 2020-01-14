@@ -99,12 +99,12 @@ public class VolumeDialogPreferenceX extends DialogPreference {
             if (Build.VERSION.SDK_INT >= 26)
                 defaultValueAccessibility = audioManager.getStreamVolume(AudioManager.STREAM_ACCESSIBILITY);
             defaultValueBluetoothSCO = audioManager.getStreamVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO);
-            if (PPApplication.logEnabled()) {
+            /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("VolumeDialogPreferenceX.VolumeDialogPreferenceX", "defaultValueRing=" + defaultValueRing);
                 PPApplication.logE("VolumeDialogPreferenceX.VolumeDialogPreferenceX", "defaultValueDTMF=" + defaultValueDTMF);
                 PPApplication.logE("VolumeDialogPreferenceX.VolumeDialogPreferenceX", "defaultValueNotification=" + defaultValueNotification);
                 PPApplication.logE("VolumeDialogPreferenceX.VolumeDialogPreferenceX", "defaultValueAccessibility=" + defaultValueAccessibility);
-            }
+            }*/
         }
 
         typedArray.recycle();
@@ -116,14 +116,14 @@ public class VolumeDialogPreferenceX extends DialogPreference {
         // Get the persistent value and correct it for the minimum value.
         sValue = getPersistedString((String) defaultValue);
         this.defaultValue = (String)defaultValue;
-        PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "form onSetInitialValue");
+        //PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "form onSetInitialValue");
         getValueVDP();
         setSummaryVDP();
     }
 
     private void getValueVDP()
     {
-        PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "sValue="+sValue);
+        //PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "sValue="+sValue);
         String[] splits = sValue.split("\\|");
         try {
             value = Integer.parseInt(splits[0]);
@@ -157,7 +157,7 @@ public class VolumeDialogPreferenceX extends DialogPreference {
                     value =  defaultValueBluetoothSCO;
             }
         } catch (Exception e) {
-            PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", Log.getStackTraceString(e));
+            Log.e("VolumeDialogPreferenceX.getValueVDP", Log.getStackTraceString(e));
             value = 0;
         }
         //value = value - minimumValue;
@@ -178,11 +178,11 @@ public class VolumeDialogPreferenceX extends DialogPreference {
             value = 0;
         }
 
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "value=" + value);
             PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "noChange=" + noChange);
             //PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "sharedProfile="+sharedProfile);
-        }
+        }*/
     }
 
     private void setSummaryVDP()
@@ -256,7 +256,7 @@ public class VolumeDialogPreferenceX extends DialogPreference {
         if (!state.getClass().equals(VolumeDialogPreferenceX.SavedState.class)) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
-            PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "form onRestoreInstanceState");
+            //PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "form onRestoreInstanceState");
             getValueVDP();
             setSummaryVDP();
             return;
@@ -268,7 +268,7 @@ public class VolumeDialogPreferenceX extends DialogPreference {
         sValue = myState.sValue;
         defaultValue = myState.defaultValue;
 
-        PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "form onRestoreInstanceState");
+        //PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "form onRestoreInstanceState");
         getValueVDP();
         setSummaryVDP();
     }

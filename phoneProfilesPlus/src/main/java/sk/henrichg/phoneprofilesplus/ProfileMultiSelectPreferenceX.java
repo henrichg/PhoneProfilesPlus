@@ -185,7 +185,7 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
                     value = value + profile._id;
                 }
             }
-            PPApplication.logE("ProfileMultiSelectPreferenceX.onPositive","value="+value);
+            //PPApplication.logE("ProfileMultiSelectPreferenceX.onPositive","value="+value);
         }
     }
 

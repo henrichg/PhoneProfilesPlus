@@ -22,7 +22,7 @@ public class LauncherActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         startupSource = intent.getIntExtra(PPApplication.EXTRA_STARTUP_SOURCE, 0);
-        PPApplication.logE("LauncherActivity.onCreate", "startupSource="+startupSource);
+        //PPApplication.logE("LauncherActivity.onCreate", "startupSource="+startupSource);
     }
 
     @Override
@@ -32,12 +32,12 @@ public class LauncherActivity extends AppCompatActivity {
 
         if (!PPApplication.getApplicationStarted(getApplicationContext(), true))
         {
-            if (PPApplication.logEnabled()) {
+            /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("LauncherActivity.onStart", "application is not started");
                 PPApplication.logE("LauncherActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
                 if (PhoneProfilesService.getInstance() != null)
                     PPApplication.logE("LauncherActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
-            }
+            }*/
             // start PhoneProfilesService
             //PPApplication.firstStartServiceStarted = false;
             PPApplication.setApplicationStarted(getApplicationContext(), true);
@@ -50,12 +50,12 @@ public class LauncherActivity extends AppCompatActivity {
         else
         {
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
-                if (PPApplication.logEnabled()) {
+                /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("LauncherActivity.onStart", "application is started");
                     PPApplication.logE("LauncherActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
                     if (PhoneProfilesService.getInstance() != null)
                         PPApplication.logE("LauncherActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
-                }
+                }*/
                 // start PhoneProfilesService
                 //PPApplication.firstStartServiceStarted = false;
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
@@ -64,16 +64,16 @@ public class LauncherActivity extends AppCompatActivity {
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
                 PPApplication.startPPService(this, serviceIntent);
             }
-            else {
+            /*else {
                 PPApplication.logE("LauncherActivity.onStart", "application and service is started");
-            }
+            }*/
 
             if (startupSource == 0)
             {
                 // activity was not started from notification, widget
 
                 PPApplication.showProfileNotification(/*getApplicationContext()*/true, false);
-                PPApplication.logE("ActivateProfileHelper.updateGUI", "from LauncherActivity.onStart");
+                //PPApplication.logE("ActivateProfileHelper.updateGUI", "from LauncherActivity.onStart");
                 ActivateProfileHelper.updateGUI(dataWrapper.context, true, true);
                 startupSource = PPApplication.STARTUP_SOURCE_LAUNCHER;
             }
@@ -91,24 +91,24 @@ public class LauncherActivity extends AppCompatActivity {
 
         Intent intentLaunch;
 
-        PPApplication.logE("LauncherActivity.endOnStart", "startupSource="+startupSource);
+        //PPApplication.logE("LauncherActivity.endOnStart", "startupSource="+startupSource);
         switch (startupSource) {
             case PPApplication.STARTUP_SOURCE_NOTIFICATION:
-                PPApplication.logE("LauncherActivity.endOnStart", "STARTUP_SOURCE_NOTIFICATION");
+                //PPApplication.logE("LauncherActivity.endOnStart", "STARTUP_SOURCE_NOTIFICATION");
                 if (ApplicationPreferences.applicationNotificationLauncher(getApplicationContext()).equals("activator"))
                     intentLaunch = new Intent(getApplicationContext(), ActivateProfileActivity.class);
                 else
                     intentLaunch = new Intent(getApplicationContext(), EditorProfilesActivity.class);
                 break;
             case PPApplication.STARTUP_SOURCE_WIDGET:
-                PPApplication.logE("LauncherActivity.endOnStart", "STARTUP_SOURCE_WIDGET");
+                //PPApplication.logE("LauncherActivity.endOnStart", "STARTUP_SOURCE_WIDGET");
                 if (ApplicationPreferences.applicationWidgetLauncher(getApplicationContext()).equals("activator"))
                     intentLaunch = new Intent(getApplicationContext(), ActivateProfileActivity.class);
                 else
                     intentLaunch = new Intent(getApplicationContext(), EditorProfilesActivity.class);
                 break;
             default:
-                PPApplication.logE("LauncherActivity.endOnStart", "default");
+                //PPApplication.logE("LauncherActivity.endOnStart", "default");
                 if (ApplicationPreferences.applicationHomeLauncher(getApplicationContext()).equals("activator"))
                     intentLaunch = new Intent(getApplicationContext(), ActivateProfileActivity.class);
                 else

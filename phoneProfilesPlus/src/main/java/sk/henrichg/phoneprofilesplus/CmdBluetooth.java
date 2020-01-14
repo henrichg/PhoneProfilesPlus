@@ -20,7 +20,7 @@ public class CmdBluetooth {
     static boolean setBluetooth(boolean enable) {
         final String packageName = PPApplication.PACKAGE_NAME;
         try {
-            PPApplication.logE("CmdBluetooth.setBluetooth", "enable="+enable);
+            //PPApplication.logE("CmdBluetooth.setBluetooth", "enable="+enable);
             IBluetoothManager bluetoothAdapter = IBluetoothManager.Stub.asInterface(ServiceManager.getService("bluetooth_manager"));  // service list | grep IWifiManager
             if (enable)
                 bluetoothAdapter.enable(packageName);
@@ -28,7 +28,7 @@ public class CmdBluetooth {
                 bluetoothAdapter.disable(packageName, true);
             return true;
         } catch (Throwable e) {
-            PPApplication.logE("CmdBluetooth.setBluetooth", Log.getStackTraceString(e));
+            Log.e("CmdBluetooth.setBluetooth", Log.getStackTraceString(e));
             return false;
         }
     }
@@ -38,10 +38,10 @@ public class CmdBluetooth {
             boolean enabled;
             IBluetoothManager bluetoothAdapter = IBluetoothManager.Stub.asInterface(ServiceManager.getService("bluetooth_manager"));  // service list | grep IWifiManager
             enabled = bluetoothAdapter.isEnabled();
-            PPApplication.logE("CmdBluetooth.isEnabled", "enabled="+enabled);
+            //PPApplication.logE("CmdBluetooth.isEnabled", "enabled="+enabled);
             return enabled;
         } catch (Throwable e) {
-            PPApplication.logE("CmdBluetooth.isEnabled", Log.getStackTraceString(e));
+            Log.e("CmdBluetooth.isEnabled", Log.getStackTraceString(e));
             return false;
         }
     }

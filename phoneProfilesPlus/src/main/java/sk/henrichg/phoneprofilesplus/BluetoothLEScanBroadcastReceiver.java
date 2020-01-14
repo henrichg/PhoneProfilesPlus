@@ -17,7 +17,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, Intent intent) {
-        PPApplication.logE("##### BluetoothLEScanBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("##### BluetoothLEScanBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "BluetoothLEScanBroadcastReceiver.onReceive", "BluetoothLEScanBroadcastReceiver_onReceive");
 
@@ -44,12 +44,12 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=BluetoothLEScanBroadcastReceiver.onReceive.1");
+                        //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=BluetoothLEScanBroadcastReceiver.onReceive.1");
 
                         //boolean scanStarted = (BluetoothScanWorker.getWaitForLEResults(appContext));
 
                         //if (scanStarted) {
-                            PPApplication.logE("@@@ BluetoothLEScanBroadcastReceiver.onReceive", "xxx");
+                            //PPApplication.logE("@@@ BluetoothLEScanBroadcastReceiver.onReceive", "xxx");
 
 
                             BluetoothScanWorker.fillBoundedDevicesList(appContext);
@@ -105,7 +105,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
                             }
                         //}
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothLEScanBroadcastReceiver.onReceive.1");
+                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothLEScanBroadcastReceiver.onReceive.1");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

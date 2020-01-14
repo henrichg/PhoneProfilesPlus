@@ -68,13 +68,13 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         super.onCreate(savedInstanceState);
 
-        PPApplication.logE("EventsPrefsFragment.onCreate", "xxx");
+        //PPApplication.logE("EventsPrefsFragment.onCreate", "xxx");
 
         // is required for to not call onCreate and onDestroy on orientation change
         setRetainInstance(true);
 
         nestedFragment = !(this instanceof EventsPrefsActivity.EventsPrefsRoot);
-        PPApplication.logE("EventsPrefsFragment.onCreate", "nestedFragment=" + nestedFragment);
+        //PPApplication.logE("EventsPrefsFragment.onCreate", "nestedFragment=" + nestedFragment);
 
         initPreferenceFragment(savedInstanceState);
 
@@ -98,7 +98,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
     @Override
     public void onDisplayPreferenceDialog(Preference preference) {
-        PPApplication.logE("EventsPrefsFragment.onDisplayPreferenceDialog", "xxx");
+        //PPApplication.logE("EventsPrefsFragment.onDisplayPreferenceDialog", "xxx");
 
         PreferenceDialogFragmentCompat dialogFragment = null;
 
@@ -259,7 +259,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        PPApplication.logE("EventsPrefsFragment.onActivityCreated", "xxx");
+        //PPApplication.logE("EventsPrefsFragment.onActivityCreated", "xxx");
 
         if (getActivity() == null)
             return;
@@ -908,7 +908,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     @Override
     public void onResume() {
         super.onResume();
-        PPApplication.logE("EventsPrefsFragment.onResume", "xxx");
+        //PPApplication.logE("EventsPrefsFragment.onResume", "xxx");
 
         if (!nestedFragment) {
             if (getActivity() == null)
@@ -922,7 +922,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             event._eventPreferencesCall.checkPreferences(prefMng, context);
             event._eventPreferencesNotification.checkPreferences(prefMng, context);
             setRedTextToPreferences();
-            PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.onResume");
+            //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.onResume");
             ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
         }
     }
@@ -940,7 +940,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             editor.apply();
             */
 
-            PPApplication.logE("EventsPrefsFragment.onDestroy", "xxx");
+            //PPApplication.logE("EventsPrefsFragment.onDestroy", "xxx");
 
         } catch (Exception ignored) {
         }
@@ -948,7 +948,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        PPApplication.logE("EventsPrefsFragment.onSharedPreferenceChanged", "key=" + key);
+        //PPApplication.logE("EventsPrefsFragment.onSharedPreferenceChanged", "key=" + key);
 
         if (key.equals(Event.PREF_EVENT_NAME)) {
             String value = sharedPreferences.getString(key, "");
@@ -977,7 +977,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         setRedTextToPreferences();
 
         EventsPrefsActivity activity = (EventsPrefsActivity)getActivity();
-        PPApplication.logE("EventsPrefsFragment.onSharedPreferenceChanged", "activity="+activity);
+        //PPApplication.logE("EventsPrefsFragment.onSharedPreferenceChanged", "activity="+activity);
         if (activity != null) {
             activity.showSaveMenu = true;
             activity.invalidateOptionsMenu();
@@ -985,10 +985,10 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     }
 
     void doOnActivityResult(int requestCode, int resultCode, Intent data) {
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("EventsPrefsFragment.doOnActivityResult", "xxx");
             PPApplication.logE("EventsPrefsFragment.doOnActivityResult", "requestCode=" + requestCode);
-        }
+        }*/
 
         if (getActivity() == null)
             return;
@@ -1007,7 +1007,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             event._eventPreferencesSMS.checkPreferences(prefMng, context);
             event._eventPreferencesCall.checkPreferences(prefMng, context);
             setRedTextToPreferences();
-            PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
+            //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
             ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
         }
         if (requestCode == RESULT_WIFI_SCANNING_APP_SETTINGS) {
@@ -1052,7 +1052,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             event._eventPreferencesWifi.checkPreferences(prefMng, context);
             setRedTextToPreferences();
-            PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
+            //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
             ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
         }
         if (requestCode == RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS) {
@@ -1063,7 +1063,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             event._eventPreferencesBluetooth.checkPreferences(prefMng, context);
             setRedTextToPreferences();
-            PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
+            //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
             ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
         }
         if (requestCode == RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS) {
@@ -1074,7 +1074,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             event._eventPreferencesLocation.checkPreferences(prefMng, context);
             setRedTextToPreferences();
-            PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
+            //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
             ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
         }
         if (requestCode == RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS) {
@@ -1085,7 +1085,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             event._eventPreferencesMobileCells.checkPreferences(prefMng, context);
             setRedTextToPreferences();
-            PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
+            //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
             ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
         }
         if (requestCode == RESULT_TIME_LOCATION_SYSTEM_SETTINGS) {
@@ -1093,7 +1093,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             event._eventPreferencesTime.checkPreferences(prefMng, context);
             setRedTextToPreferences();
-            PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
+            //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
             ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
         }
         if (requestCode == RESULT_USE_PRIORITY_SETTINGS) {

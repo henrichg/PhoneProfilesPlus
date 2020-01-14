@@ -37,7 +37,7 @@ public class DonationFragment extends Fragment {
     private BillingProvider mBillingProvider;
 
     // Debug tag, for logging
-    private static final String TAG = "DonationFragment";
+    //private static final String TAG = "DonationFragment";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class DonationFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        PPApplication.logE(TAG, "onCreateView");
+        //PPApplication.logE(TAG, "onCreateView");
         View root = inflater.inflate(R.layout.donation_fragment, container, true);
 
         mLoadingView = root.findViewById(R.id.donation_google_android_market_loading);
@@ -147,7 +147,7 @@ public class DonationFragment extends Fragment {
 
     public void updateGUIAfterBillingConnected() {
         // Start querying for SKUs
-        PPApplication.logE(TAG, "handleManagerAndUiReady");
+        //PPApplication.logE(TAG, "handleManagerAndUiReady");
         final List<String> inAppSkus = mBillingProvider.getBillingManager()
                 .getSkus(/*!mDebug, */BillingClient.SkuType.INAPP);
         mBillingProvider.getBillingManager().querySkuDetailsAsync(BillingClient.SkuType.INAPP,
@@ -156,19 +156,19 @@ public class DonationFragment extends Fragment {
                     @Override
                     public void onSkuDetailsResponse(BillingResult billingResult, List<SkuDetails> skuDetailsList) {
                         int responseCode = billingResult.getResponseCode();
-                        PPApplication.logE(TAG, "onSkuDetailsResponse responseCode="+responseCode);
+                        //PPApplication.logE(TAG, "onSkuDetailsResponse responseCode="+responseCode);
 
                         String[] prices = new String[]{"1 €", "2 €", "3 €", "5 €", "8 €", "13 €", "20 €"};
 
-                        if (skuDetailsList != null)
-                            PPApplication.logE(TAG, "onSkuDetailsResponse skuDetailsList="+skuDetailsList.size());
+                        //if (skuDetailsList != null)
+                        //    PPApplication.logE(TAG, "onSkuDetailsResponse skuDetailsList="+skuDetailsList.size());
                         if (responseCode == BillingClient.BillingResponseCode.OK && skuDetailsList != null) {
                             if (skuDetailsList.size() > 0) {
                                 SKU_DETAILS = new ArrayList<>();
                                 for (int i = 0; i < inAppSkus.size(); i++) {
                                     for (int j = 0; j < skuDetailsList.size(); j++) {
                                         if (skuDetailsList.get(j).getSku().equals(inAppSkus.get(i))) {
-                                            PPApplication.logE(TAG, "Found sku: " + skuDetailsList.get(j));
+                                            //PPApplication.logE(TAG, "Found sku: " + skuDetailsList.get(j));
                                             SKU_DETAILS.add(skuDetailsList.get(j));
                                             prices[i] = skuDetailsList.get(j).getPrice();
                                             break;
@@ -221,8 +221,8 @@ public class DonationFragment extends Fragment {
                 });
     }
 
-    public void purchaseSuccessful(List<Purchase> purchases) {
-        if (purchases != null) {
+    public void purchaseSuccessful(@SuppressWarnings("unused") List<Purchase> purchases) {
+/*        if (purchases != null) {
             for (Purchase purchase : purchases) {
                 String sku = purchase.getSku();
                 for (SkuDetails skuDetail : SKU_DETAILS) {
@@ -234,26 +234,27 @@ public class DonationFragment extends Fragment {
                             PPApplication.logE(TAG, "purchaseSuccessful - priceMicros=" + skuDetail.getPriceAmountMicros());
                             PPApplication.logE(TAG, "purchaseSuccessful - price=" + skuDetail.getPriceAmountMicros() / 1000000.0);
                         }
-                        /*Answers.getInstance().logPurchase(new PurchaseEvent()
-                                .putItemPrice(BigDecimal.valueOf(skuDetail.getPriceAmountMicros() / 1000000.0))
-                                .putCurrency(Currency.getInstance(skuDetail.getPriceCurrencyCode()))
-                                .putItemName("Donation")
-                                //.putItemType("Apparel")
-                                .putItemId(sku)
-                                .putSuccess(true));*/
+//                        Answers.getInstance().logPurchase(new PurchaseEvent()
+//                                .putItemPrice(BigDecimal.valueOf(skuDetail.getPriceAmountMicros() / 1000000.0))
+//                                .putCurrency(Currency.getInstance(skuDetail.getPriceCurrencyCode()))
+//                                .putItemName("Donation")
+//                                //.putItemType("Apparel")
+//                                .putItemId(sku)
+//                                .putSuccess(true));
                     }
                 }
             }
         }
-
+*/
         if (getActivity() != null) {
             PPApplication.setDonationDonated(getActivity().getApplicationContext());
             ToastCompat.makeText(getActivity().getApplicationContext(), getString(R.string.donation_thanks_dialog), Toast.LENGTH_LONG).show();
         }
     }
 
-    public void purchaseUnsuccessful(List<Purchase> purchases) {
-        if (purchases != null) {
+    @SuppressWarnings("EmptyMethod")
+    public void purchaseUnsuccessful(@SuppressWarnings("unused") List<Purchase> purchases) {
+/*        if (purchases != null) {
             for (Purchase purchase : purchases) {
                 String sku = purchase.getSku();
                 for (SkuDetails skuDetail : SKU_DETAILS) {
@@ -265,22 +266,22 @@ public class DonationFragment extends Fragment {
                             PPApplication.logE(TAG, "purchaseUnsuccessful - priceMicros=" + skuDetail.getPriceAmountMicros());
                             PPApplication.logE(TAG, "purchaseUnsuccessful - price=" + skuDetail.getPriceAmountMicros() / 1000000.0);
                         }
-                        /*Answers.getInstance().logPurchase(new PurchaseEvent()
-                                .putItemPrice(BigDecimal.valueOf(skuDetail.getPriceAmountMicros() / 1000000.0))
-                                .putCurrency(Currency.getInstance(skuDetail.getPriceCurrencyCode()))
-                                .putItemName("Donation")
-                                //.putItemType("Apparel")
-                                .putItemId(sku)
-                                .putSuccess(false));*/
+//                        Answers.getInstance().logPurchase(new PurchaseEvent()
+//                                .putItemPrice(BigDecimal.valueOf(skuDetail.getPriceAmountMicros() / 1000000.0))
+//                                .putCurrency(Currency.getInstance(skuDetail.getPriceCurrencyCode()))
+//                                .putItemName("Donation")
+//                                //.putItemType("Apparel")
+//                                .putItemId(sku)
+//                                .putSuccess(false));
                     }
                 }
             }
-        }
+        }*/
     }
 
     public void displayAnErrorIfNeeded(int response) {
         if (getActivity() == null || getActivity().isFinishing()) {
-            PPApplication.logE(TAG, "No need to show an error - activity is finishing already");
+            //PPApplication.logE(TAG, "No need to show an error - activity is finishing already");
             return;
         }
 
@@ -290,43 +291,19 @@ public class DonationFragment extends Fragment {
                 mErrorTextView.setVisibility(View.VISIBLE);
                 switch (response) {
                     case BillingClient.BillingResponseCode.BILLING_UNAVAILABLE:
-                        PPApplication.logE(TAG, "error=BILLING_UNAVAILABLE");
+                    case BillingClient.BillingResponseCode.FEATURE_NOT_SUPPORTED:
                         mErrorTextView.setText(R.string.donation_google_android_market_not_supported);
                         break;
                     case BillingClient.BillingResponseCode.DEVELOPER_ERROR:
-                        PPApplication.logE(TAG, "error=DEVELOPER_ERROR");
-                        mErrorTextView.setText(R.string.donation_google_error);
-                        break;
                     case BillingClient.BillingResponseCode.ERROR:
-                        PPApplication.logE(TAG, "error=ERROR");
-                        mErrorTextView.setText(R.string.donation_google_error);
-                        break;
-                    case BillingClient.BillingResponseCode.FEATURE_NOT_SUPPORTED:
-                        PPApplication.logE(TAG, "error=FEATURE_NOT_SUPPORTED");
-                        mErrorTextView.setText(R.string.donation_google_android_market_not_supported);
-                        break;
                     case BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED:
-                        PPApplication.logE(TAG, "error=ITEM_ALREADY_OWNED");
-                        mErrorTextView.setText(R.string.donation_google_error);
-                        break;
                     case BillingClient.BillingResponseCode.ITEM_NOT_OWNED:
-                        PPApplication.logE(TAG, "error=ITEM_NOT_OWNED");
-                        mErrorTextView.setText(R.string.donation_google_error);
-                        break;
                     case BillingClient.BillingResponseCode.ITEM_UNAVAILABLE:
-                        PPApplication.logE(TAG, "error=ITEM_UNAVAILABLE");
-                        mErrorTextView.setText(R.string.donation_google_error);
-                        break;
                     case BillingClient.BillingResponseCode.SERVICE_DISCONNECTED:
-                        PPApplication.logE(TAG, "error=SERVICE_DISCONNECTED");
-                        mErrorTextView.setText(R.string.donation_google_error);
-                        break;
                     case BillingClient.BillingResponseCode.SERVICE_UNAVAILABLE:
-                        PPApplication.logE(TAG, "error=SERVICE_UNAVAILABLE");
                         mErrorTextView.setText(R.string.donation_google_error);
                         break;
                     case BillingClient.BillingResponseCode.USER_CANCELED:
-                        PPApplication.logE(TAG, "error=USER_CANCELED");
                         mErrorTextView.setVisibility(View.GONE);
                         break;
                 }

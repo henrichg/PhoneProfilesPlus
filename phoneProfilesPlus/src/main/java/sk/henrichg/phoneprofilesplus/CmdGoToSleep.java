@@ -25,7 +25,7 @@ public class CmdGoToSleep {
             adapter.goToSleep(SystemClock.uptimeMillis(), 0, 0);
             return true;
         } catch (Throwable e) {
-            PPApplication.logE("CmdGoToSleep.doSleep", Log.getStackTraceString(e));
+            Log.e("CmdGoToSleep.doSleep", Log.getStackTraceString(e));
             return false;
         }
     }

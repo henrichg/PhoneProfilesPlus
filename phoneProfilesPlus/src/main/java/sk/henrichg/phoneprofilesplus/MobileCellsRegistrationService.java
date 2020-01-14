@@ -61,7 +61,7 @@ public class MobileCellsRegistrationService extends Service {
     {
         super.onCreate();
 
-        PPApplication.logE("MobileCellsRegistrationService.onCreate", "xxx");
+        //PPApplication.logE("MobileCellsRegistrationService.onCreate", "xxx");
 
         context = this;
 
@@ -71,7 +71,7 @@ public class MobileCellsRegistrationService extends Service {
         showNotification(getMobileCellsAutoRegistrationRemainingDuration(this));
 
         int remainingDuration = getMobileCellsAutoRegistrationRemainingDuration(this);
-        PPApplication.logE("MobileCellsRegistrationService.onCreate", "remainingDuration="+remainingDuration);
+        //PPApplication.logE("MobileCellsRegistrationService.onCreate", "remainingDuration="+remainingDuration);
 
         if (remainingDuration > 0) {
             serviceStarted = true;
@@ -133,7 +133,7 @@ public class MobileCellsRegistrationService extends Service {
     public void onDestroy() {
         super.onDestroy();
 
-        PPApplication.logE("MobileCellsRegistrationService.onDestroy", "xxx");
+        //PPApplication.logE("MobileCellsRegistrationService.onDestroy", "xxx");
 
         /*try {
             unregisterReceiver(stopReceiver);
@@ -218,7 +218,7 @@ public class MobileCellsRegistrationService extends Service {
     }
 
     private void stopRegistration() {
-        PPApplication.logE("MobileCellsRegistrationService.stopRegistration", "xxx");
+        //PPApplication.logE("MobileCellsRegistrationService.stopRegistration", "xxx");
 
         setMobileCellsAutoRegistration(context, true);
 

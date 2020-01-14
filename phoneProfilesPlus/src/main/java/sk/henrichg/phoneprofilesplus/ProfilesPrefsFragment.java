@@ -75,19 +75,19 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         super.onCreate(savedInstanceState);
 
-        PPApplication.logE("ProfilesPrefsFragment.onCreate", "xxx");
+        //PPApplication.logE("ProfilesPrefsFragment.onCreate", "xxx");
 
         // is required for to not call onCreate and onDestroy on orientation change
         setRetainInstance(true);
 
         nestedFragment = !(this instanceof ProfilesPrefsActivity.ProfilesPrefsRoot);
-        PPApplication.logE("ProfilesPrefsFragment.onCreate", "nestedFragment="+nestedFragment);
+        //PPApplication.logE("ProfilesPrefsFragment.onCreate", "nestedFragment="+nestedFragment);
 
         initPreferenceFragment(savedInstanceState);
 
         updateAllSummary();
 
-        PPApplication.logE("ProfilesPrefsFragment.onCreate", "END");
+        //PPApplication.logE("ProfilesPrefsFragment.onCreate", "END");
     }
 
     @Override
@@ -106,7 +106,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     @Override
     public void onDisplayPreferenceDialog(Preference preference)
     {
-        PPApplication.logE("ProfilesPrefsFragment.onDisplayPreferenceDialog", "xxx");
+        //PPApplication.logE("ProfilesPrefsFragment.onDisplayPreferenceDialog", "xxx");
 
         PreferenceDialogFragmentCompat dialogFragment = null;
 
@@ -212,14 +212,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             super.onDisplayPreferenceDialog(preference);
         }
 
-        PPApplication.logE("ProfilesPrefsFragment.onDisplayPreferenceDialog", "END");
+        //PPApplication.logE("ProfilesPrefsFragment.onDisplayPreferenceDialog", "END");
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        PPApplication.logE("ProfilesPrefsFragment.onActivityCreated", "xxx");
+        //PPApplication.logE("ProfilesPrefsFragment.onActivityCreated", "xxx");
 
         if (getActivity() == null)
             return;
@@ -297,7 +297,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                      (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists())
                     );*/
         final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context.getApplicationContext(), false);
-        PPApplication.logE("ProfilesPrefsFragment.onActivityCreated","canEnableZenMode="+canEnableZenMode);
+        //PPApplication.logE("ProfilesPrefsFragment.onActivityCreated","canEnableZenMode="+canEnableZenMode);
 
         /*ListPreference zenModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
         if (zenModePreference != null) {
@@ -734,13 +734,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             });
         }
 
-        PPApplication.logE("ProfilesPrefsFragment.onActivityCreated", "END");
+        //PPApplication.logE("ProfilesPrefsFragment.onActivityCreated", "END");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        PPApplication.logE("ProfilesPrefsFragment.onResume", "xxx");
+        //PPApplication.logE("ProfilesPrefsFragment.onResume", "xxx");
 
         if (!nestedFragment) {
             if (getActivity() == null)
@@ -751,7 +751,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             disableDependedPref(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
             disableDependedPref(Profile.PREF_PROFILE_LOCK_DEVICE);
             setRedTextToPreferences();
-            PPApplication.logE("ActivateProfileHelper.updateGUI", "from ProfilesPrefsFragment.onResume");
+            //PPApplication.logE("ActivateProfileHelper.updateGUI", "from ProfilesPrefsFragment.onResume");
             ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
         }
     }
@@ -770,14 +770,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             editor.apply();
             */
 
-            PPApplication.logE("ProfilesPrefsFragment.onDestroy", "xxx");
+            //PPApplication.logE("ProfilesPrefsFragment.onDestroy", "xxx");
 
         } catch (Exception ignored) {}
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        PPApplication.logE("ProfilesPrefsFragment.onSharedPreferenceChanged", "key="+key);
+        //PPApplication.logE("ProfilesPrefsFragment.onSharedPreferenceChanged", "key="+key);
 
         String value;
         if (key.equals(Profile.PREF_PROFILE_NAME)) {
@@ -819,7 +819,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setRedTextToPreferences();
 
         ProfilesPrefsActivity activity = (ProfilesPrefsActivity)getActivity();
-        PPApplication.logE("ProfilesPrefsFragment.onSharedPreferenceChanged", "activity="+activity);
+        //PPApplication.logE("ProfilesPrefsFragment.onSharedPreferenceChanged", "activity="+activity);
         if (activity != null) {
             activity.showSaveMenu = true;
             activity.invalidateOptionsMenu();
@@ -827,10 +827,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     }
 
     void doOnActivityResult(int requestCode, int resultCode, Intent data) {
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("ProfilesPrefsFragment.doOnActivityResult", "xxx");
             PPApplication.logE("ProfilesPrefsFragment.doOnActivityResult", "requestCode=" + requestCode);
-        }
+        }*/
 
         if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_PROFILE) {
             setRedTextToPreferences();
@@ -2159,11 +2159,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("ProfilesPrefsFragment.setCategorySummary", "key=" + key);
             PPApplication.logE("ProfilesPrefsFragment.setCategorySummary", "preferenceScreen=" + preferenceScreen);
             PPApplication.logE("ProfilesPrefsFragment.setCategorySummary", "_bold=" + _bold);
-        }
+        }*/
         GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, _bold, false, false, false);
         if (_bold || forceSet)
             preferenceScreen.setSummary(GlobalGUIRoutines.fromHtml(summary, false, false, 0, 0));
@@ -3081,7 +3081,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
-        PPApplication.logE("ProfilesPrefsFragment.setRedTextToPreferences", "xxx");
+        //PPApplication.logE("ProfilesPrefsFragment.setRedTextToPreferences", "xxx");
 
         final ProfilesPrefsActivity activity = (ProfilesPrefsActivity)getActivity();
 
@@ -3332,7 +3332,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
-        PPApplication.logE("ProfilesPrefsFragment.setRedTextToPreferences", "END");
+        //PPApplication.logE("ProfilesPrefsFragment.setRedTextToPreferences", "END");
     }
 
     private void enableNotificationAccess(boolean showDoNotDisturbPermission) {

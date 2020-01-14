@@ -49,7 +49,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
-        PPApplication.logE("NotUsedMobileCellsDetectedActivity.onCreate", "xxx");
+        //PPApplication.logE("NotUsedMobileCellsDetectedActivity.onCreate", "xxx");
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -72,7 +72,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
         GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false);
         //GlobalGUIRoutines.setLanguage(this);
 
-        PPApplication.logE("NotUsedMobileCellsDetectedActivity.onStart", "xxx");
+        //PPApplication.logE("NotUsedMobileCellsDetectedActivity.onStart", "xxx");
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         dialogBuilder.setTitle(R.string.not_used_mobile_cells_detected_title);
@@ -101,7 +101,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsDetectedActivity.onClick");
+                            //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsDetectedActivity.onClick");
 
                             DatabaseHandler db = DatabaseHandler.getInstance(appContext);
 
@@ -115,7 +115,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                                 if (!eventId.isEmpty()) {
                                     Event event = db.getEvent(Long.valueOf(eventId));
                                     if (event != null) {
-                                        PPApplication.logE("NotUsedMobileCellsDetectedActivity.onClick", "save cellId to event="+event._name);
+                                        //PPApplication.logE("NotUsedMobileCellsDetectedActivity.onClick", "save cellId to event="+event._name);
                                         String cells = event._eventPreferencesMobileCells._cells;
                                         cells = PhoneStateScanner.addCellId(cells, mobileCellId);
                                         event._eventPreferencesMobileCells._cells = cells;
@@ -139,7 +139,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                                 if (!eventId.isEmpty()) {
                                     Event event = db.getEvent(Long.valueOf(eventId));
                                     if (event != null) {
-                                        PPApplication.logE("NotUsedMobileCellsDetectedActivity.onClick", "save cellId to event="+event._name);
+                                        //PPApplication.logE("NotUsedMobileCellsDetectedActivity.onClick", "save cellId to event="+event._name);
                                         String cells = event._eventPreferencesMobileCells._cells;
                                         cells = PhoneStateScanner.addCellId(cells, mobileCellId);
                                         event._eventPreferencesMobileCells._cells = cells;
@@ -161,7 +161,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
 
                             PhoneStateScanner.handleEvents(appContext);
 
-                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=NotUsedMobileCellsDetectedActivity.onClick");
+                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=NotUsedMobileCellsDetectedActivity.onClick");
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
@@ -199,7 +199,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsDetectedActivity.onClick");
+                            //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsDetectedActivity.onClick");
 
                             DatabaseHandler db = DatabaseHandler.getInstance(appContext);
 
@@ -209,7 +209,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                                     true)); // do not detect again
                             db.saveMobileCellsList(localCellsList, true, true);
 
-                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=NotUsedMobileCellsDetectedActivity.onClick");
+                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=NotUsedMobileCellsDetectedActivity.onClick");
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

@@ -14,7 +14,7 @@ public class NotUsedMobileCellsNotificationDeletedReceiver extends BroadcastRece
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "xxx");
+        //PPApplication.logE("##### NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "NewMobileCellsNotificationDeletedReceiver_onReceive");
 
@@ -35,23 +35,23 @@ public class NotUsedMobileCellsNotificationDeletedReceiver extends BroadcastRece
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            if (PPApplication.logEnabled()) {
+                            /*if (PPApplication.logEnabled()) {
                                 PPApplication.logE("PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsNotificationDeletedReceiver.onReceive");
                                 PPApplication.logE("NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "mobileCellId=" + mobileCellId);
-                            }
+                            }*/
 
                             DatabaseHandler db = DatabaseHandler.getInstance(appContext);
 
                             List<MobileCellsData> localCellsList = new ArrayList<>();
                             db.addMobileCellsToList(localCellsList, mobileCellId);
                             if (!localCellsList.isEmpty()) {
-                                PPApplication.logE("NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "save mobile cell");
+                                //PPApplication.logE("NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "save mobile cell");
                                 MobileCellsData cell = localCellsList.get(0);
                                 cell.doNotDetect = true;
                                 db.saveMobileCellsList(localCellsList, true, false);
                             }
 
-                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=NotUsedMobileCellsNotificationDeletedReceiver.onReceive");
+                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=NotUsedMobileCellsNotificationDeletedReceiver.onReceive");
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

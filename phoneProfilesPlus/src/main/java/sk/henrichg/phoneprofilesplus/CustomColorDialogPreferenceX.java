@@ -131,7 +131,7 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
     protected void onSetInitialValue(Object defaultValue)
     {
         // Get the persistent value and correct it for the minimum value.
-        PPApplication.logE("CustomColorDialogPreferenceX.onSetInitialValue", "defaultValue="+defaultValue);
+        //PPApplication.logE("CustomColorDialogPreferenceX.onSetInitialValue", "defaultValue="+defaultValue);
         if (defaultValue != null) {
             value = getPersistedInt((int) defaultValue);
             this.defaultValue = (int)defaultValue;
@@ -140,7 +140,7 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
             value = getPersistedInt(0xFFFFFFFF);
             this.defaultValue = 0xFFFFFFFF;
         }
-        PPApplication.logE("CustomColorDialogPreferenceX.onSetInitialValue", "value="+value);
+        //PPApplication.logE("CustomColorDialogPreferenceX.onSetInitialValue", "value="+value);
 
         setColorInWidget();
         setSummaryCCDP(value);

@@ -73,16 +73,16 @@ public class LocationGeofencePreferenceX extends DialogPreference {
     */
 
     void persistGeofence(boolean reset) {
-        PPApplication.logE("LocationGeofencePreferenceX.persistGeofence", "onlyEdit="+onlyEdit);
+        //PPApplication.logE("LocationGeofencePreferenceX.persistGeofence", "onlyEdit="+onlyEdit);
         if (onlyEdit == 0) {
             if (shouldPersist()) {
-                PPApplication.logE("LocationGeofencePreferenceX.persistGeofence", "shouldPersist=true");
+                //PPApplication.logE("LocationGeofencePreferenceX.persistGeofence", "shouldPersist=true");
                 // get value for checked
                 String value = DatabaseHandler.getInstance(context.getApplicationContext()).getCheckedGeofences();
                 if (callChangeListener(value)) {
                     if (reset)
                         persistString("");
-                    PPApplication.logE("LocationGeofencePreferenceX.persistGeofence", "value="+value);
+                    //PPApplication.logE("LocationGeofencePreferenceX.persistGeofence", "value="+value);
                     persistString(value);
                 }
             }
@@ -92,7 +92,7 @@ public class LocationGeofencePreferenceX extends DialogPreference {
 
     void resetSummary() {
         if ((onlyEdit == 0) && (!savedInstanceState)) {
-            PPApplication.logE("LocationGeofencePreferenceX.resetSummary", "xxx");
+            //PPApplication.logE("LocationGeofencePreferenceX.resetSummary", "xxx");
             String value = getPersistedString(defaultValue);
             // clear all checks
             DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence("", 0);
@@ -129,7 +129,7 @@ public class LocationGeofencePreferenceX extends DialogPreference {
     }
 
     void setGeofenceFromEditor(/*long geofenceId*/) {
-        PPApplication.logE("LocationGeofencePreferenceX.setGeofenceFromEditor", "xxx");
+        //PPApplication.logE("LocationGeofencePreferenceX.setGeofenceFromEditor", "xxx");
         persistGeofence(true);
         refreshListView();
         //updateGUIWithGeofence(geofenceId);
@@ -169,7 +169,7 @@ public class LocationGeofencePreferenceX extends DialogPreference {
     @Override
     protected Parcelable onSaveInstanceState()
     {
-        PPApplication.logE("LocationGeofencePreferenceX.onSaveInstanceState", "xxx");
+        //PPApplication.logE("LocationGeofencePreferenceX.onSaveInstanceState", "xxx");
 
         savedInstanceState = true;
 
@@ -196,7 +196,7 @@ public class LocationGeofencePreferenceX extends DialogPreference {
             return;
         }
 
-        PPApplication.logE("LocationGeofencePreferenceX.onRestoreInstanceState", "xxx");
+        //PPApplication.logE("LocationGeofencePreferenceX.onRestoreInstanceState", "xxx");
 
         // restore instance state
         LocationGeofencePreferenceX.SavedState myState = (LocationGeofencePreferenceX.SavedState)state;

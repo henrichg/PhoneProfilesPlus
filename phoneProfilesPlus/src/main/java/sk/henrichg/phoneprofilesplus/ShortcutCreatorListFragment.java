@@ -237,7 +237,7 @@ public class ShortcutCreatorListFragment extends Fragment {
             protected void onPreExecute()
             {
                 super.onPreExecute();
-                PPApplication.logE("ShortcutCreatorListFragment.createShortcut","position="+position);
+                //PPApplication.logE("ShortcutCreatorListFragment.createShortcut","position="+position);
                 profile = activityDataWrapper.profileList.get(position);
 
                 //noinspection ConstantConditions
@@ -261,10 +261,10 @@ public class ShortcutCreatorListFragment extends Fragment {
                     if (profileName.isEmpty())
                         profileName = " ";
 
-                    if (PPApplication.logEnabled()) {
+                    /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "profile._id=" + profile._id);
                         PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "profileName=" + profileName);
-                    }
+                    }*/
 
                     if (position == 0) {
                         // restart events
@@ -305,10 +305,10 @@ public class ShortcutCreatorListFragment extends Fragment {
             @Override
             protected Void doInBackground(Void... params) {
                 if (profile != null) {
-                    if (PPApplication.logEnabled()) {
+                    /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "isIconResourceID=" + isIconResourceID);
                         PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "profile._iconBitmap=" + profile._iconBitmap);
-                    }
+                    }*/
 
                     if (isIconResourceID) {
                         if (profile._iconBitmap != null)
@@ -338,10 +338,10 @@ public class ShortcutCreatorListFragment extends Fragment {
                     }
 
                     if (ApplicationPreferences.applicationWidgetIconColor(activityDataWrapper.context).equals("1")) {
-                        if (PPApplication.logEnabled()) {
+                        /*if (PPApplication.logEnabled()) {
                             PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "applicationWidgetIconColor=1");
                             PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "useCustomColor=" + useCustomColor);
-                        }
+                        }*/
                         if (isIconResourceID || useCustomColor) {
                             // icon is from resource or colored by custom color
                             int monochromeValue = 0xFF;
@@ -365,7 +365,7 @@ public class ShortcutCreatorListFragment extends Fragment {
                         }
                     }
 
-                    PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "profileBitmap=" + profileBitmap);
+                    //PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "profileBitmap=" + profileBitmap);
 
                     if (Build.VERSION.SDK_INT < 26)
                         profileShortcutBitmap = combineImages(profileBitmap, shortcutOverlayBitmap);
@@ -388,7 +388,7 @@ public class ShortcutCreatorListFragment extends Fragment {
                 super.onPostExecute(result);
 
                 if (profile != null) {
-                    PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "create result intent");
+                    //PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "create result intent");
 
                     //intent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
                     //context.sendBroadcast(intent);
@@ -415,7 +415,7 @@ public class ShortcutCreatorListFragment extends Fragment {
                     //noinspection ConstantConditions
                     getActivity().finish();
                 } catch (Exception e) {
-                    PPApplication.logE("ShortcutCreatorListFragment.createShortcut", Log.getStackTraceString(e));
+                    Log.e("ShortcutCreatorListFragment.createShortcut", Log.getStackTraceString(e));
                 }
             }
 

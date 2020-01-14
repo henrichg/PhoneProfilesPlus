@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.telephony.PhoneNumberUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -353,7 +352,7 @@ class EventPreferencesSMS extends EventPreferences {
 
     long computeAlarm()
     {
-        PPApplication.logE("EventPreferencesSMS.computeAlarm","xxx");
+        //PPApplication.logE("EventPreferencesSMS.computeAlarm","xxx");
 
         Calendar calEndTime = Calendar.getInstance();
 
@@ -390,7 +389,7 @@ class EventPreferencesSMS extends EventPreferences {
         // this alarm generates broadcast, that change state into PAUSE;
         // from broadcast will by called EventsHandler
 
-        PPApplication.logE("EventPreferencesSMS.setSystemPauseEvent","xxx");
+        //PPApplication.logE("EventPreferencesSMS.setSystemPauseEvent","xxx");
 
         removeAlarm(context);
 
@@ -405,7 +404,7 @@ class EventPreferencesSMS extends EventPreferences {
     {
         removeAlarm(context);
 
-        PPApplication.logE("EventPreferencesSMS.removeSystemEvent", "xxx");
+        //PPApplication.logE("EventPreferencesSMS.removeSystemEvent", "xxx");
     }
 
     void removeAlarm(Context context)
@@ -420,7 +419,7 @@ class EventPreferencesSMS extends EventPreferences {
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
-                    PPApplication.logE("EventPreferencesSMS.removeAlarm", "alarm found");
+                    //PPApplication.logE("EventPreferencesSMS.removeAlarm", "alarm found");
 
                     alarmManager.cancel(pendingIntent);
                     pendingIntent.cancel();
@@ -439,11 +438,11 @@ class EventPreferencesSMS extends EventPreferences {
     {
         if (!_permanentRun) {
             if (_startTime > 0) {
-                if (PPApplication.logEnabled()) {
+                /*if (PPApplication.logEnabled()) {
                     SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                     String result = sdf.format(alarmTime);
                     PPApplication.logE("EventPreferencesSMS.setAlarm", "endTime=" + result);
-                }
+                }*/
 
                 /*if (ApplicationPreferences.applicationUseAlarmClock(context)) {
                     //Intent intent = new Intent(context, SMSEventEndBroadcastReceiver.class);

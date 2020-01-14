@@ -94,7 +94,7 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
 
     void getValueAMSDP()
     {
-        PPApplication.logE("ApplicationsMultiSelectDialogPreference.getValueAMSDP", "value="+value);
+        //PPApplication.logE("ApplicationsMultiSelectDialogPreference.getValueAMSDP", "value="+value);
         applicationList.clear();
 
         // change checked state by value

@@ -56,7 +56,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        PPApplication.logE("EventsPrefsActivity.onCreate", "xxx");
+        //PPApplication.logE("EventsPrefsActivity.onCreate", "xxx");
 
         setContentView(R.layout.activity_preferences);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
@@ -478,13 +478,13 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
     private void savePreferences(int new_event_mode, int predefinedEventIndex)
     {
-        PPApplication.logE("EventsPrefsActivity.savePreferences","new_event_mode="+new_event_mode);
+        //PPApplication.logE("EventsPrefsActivity.savePreferences","new_event_mode="+new_event_mode);
 
         final Event event = getEventFromPreferences(event_id, new_event_mode, predefinedEventIndex);
         if (event == null)
             return;
 
-        PPApplication.logE("EventsPrefsActivity.savePreferences","event._name="+event._name);
+        //PPApplication.logE("EventsPrefsActivity.savePreferences","event._name="+event._name);
 
         event.setSensorsWaiting();
 
@@ -500,7 +500,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
             event_id = event._id;
 
             // restart Events
-            PPApplication.logE("$$$ restartEvents","from EventsPrefsActivity.savePreferences");
+            //PPApplication.logE("$$$ restartEvents","from EventsPrefsActivity.savePreferences");
             PPApplication.setBlockProfileEventActions(true, dataWrapper.context);
             //dataWrapper.restartEvents(false, true, true, true, true);
             dataWrapper.restartEventsWithRescan(/*true, */false, true, true, false);
@@ -534,7 +534,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.savePreferences.1");
+                        //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.savePreferences.1");
 
                         if (old_event_status != Event.ESTATUS_STOP) {
                             // pause event - must be called, because status is ESTATUS_STOP
@@ -545,13 +545,13 @@ public class EventsPrefsActivity extends AppCompatActivity {
                                     true/*, false*/);
 
                             // restart Events
-                            PPApplication.logE("$$$ restartEvents", "from EventsPrefsActivity.savePreferences");
+                            //PPApplication.logE("$$$ restartEvents", "from EventsPrefsActivity.savePreferences");
                             PPApplication.setBlockProfileEventActions(true, dataWrapper.context);
                             //dataWrapper.restartEvents(false, true, true, true, false);
                             dataWrapper.restartEventsWithRescan(/*true, */false, false, true, false);
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventsPrefsActivity.savePreferences.1");
+                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventsPrefsActivity.savePreferences.1");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -576,7 +576,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.savePreferences.2");
+                        //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.savePreferences.2");
 
                         // pause event
                         event.pauseEvent(dataWrapper, eventTimelineList, true, false,
@@ -585,12 +585,12 @@ public class EventsPrefsActivity extends AppCompatActivity {
                         event.doLogForPauseEvent(dataWrapper, false);
 
                         // restart Events
-                        PPApplication.logE("$$$ restartEvents", "from EventsPrefsActivity.savePreferences");
+                        //PPApplication.logE("$$$ restartEvents", "from EventsPrefsActivity.savePreferences");
                         PPApplication.setBlockProfileEventActions(true, dataWrapper.context);
                         //dataWrapper.restartEvents(false, true, true, true, false);
                         dataWrapper.restartEventsWithRescan(/*true, */false, false, true, false);
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventsPrefsActivity.savePreferences.2");
+                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventsPrefsActivity.savePreferences.2");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

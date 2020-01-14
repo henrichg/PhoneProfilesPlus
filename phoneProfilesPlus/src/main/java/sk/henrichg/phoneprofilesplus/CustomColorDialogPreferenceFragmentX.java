@@ -35,7 +35,7 @@ public class CustomColorDialogPreferenceFragmentX extends PreferenceDialogFragme
         super.onBindDialogView(view);
 
         chromaColorView = view.findViewById(R.id.custom_color_chroma_color_view);
-        PPApplication.logE("CustomColorDialogPreferenceFragmentX.onBindDialogView", "preference.value="+preference.value);
+        //PPApplication.logE("CustomColorDialogPreferenceFragmentX.onBindDialogView", "preference.value="+preference.value);
         chromaColorView.setCurrentColor(preference.value);
         chromaColorView.setColorMode(ColorMode.values()[preference.chromaColorMode]);
         chromaColorView.setIndicatorMode(IndicatorMode.values()[preference.chromaIndicatorMode]);

@@ -179,14 +179,14 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         mLocationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
-                PPApplication.logE("LocationGeofenceEditorActivity.LocationCallback","xxx");
+                //PPApplication.logE("LocationGeofenceEditorActivity.LocationCallback","xxx");
                 if (locationResult == null) {
                     return;
                 }
 
                 for (Location location : locationResult.getLocations()) {
                     mLastLocation = location;
-                    PPApplication.logE("LocationGeofenceEditorActivity.LocationCallback","location="+location);
+                    //PPApplication.logE("LocationGeofenceEditorActivity.LocationCallback","location="+location);
 
                     if (mLocation == null) {
                         mLocation = new Location(mLastLocation);
@@ -604,7 +604,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                         try {
                             float zoom = getCircleZoomValue(mLocation.getLatitude(), mLocation.getLongitude(), geofence._radius,
                                                                 mMap.getMinZoomLevel(), mMap.getMaxZoomLevel());
-                            PPApplication.logE("LocationGeofenceEditorActivity.updateEditedMarker", "zoom=" + zoom);
+                            //PPApplication.logE("LocationGeofenceEditorActivity.updateEditedMarker", "zoom=" + zoom);
                             if (zoom > 16)
                                 zoom = 16;
                             mMap.animateCamera(CameraUpdateFactory.zoomTo(zoom));//, 1000, null);
@@ -649,7 +649,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                             @Override
                             public void onSuccess(Location location) {
                                 // Got last known location. In some rare situations this can be null.
-                                PPApplication.logE("LocationGeofenceEditorActivity.getLastLocation","location="+location);
+                                //PPApplication.logE("LocationGeofenceEditorActivity.getLastLocation","location="+location);
                                 if (location != null) {
                                     mLastLocation = location;
                                 }
@@ -750,25 +750,25 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                     .observe(this, new Observer<WorkInfo>() {
                         @Override
                         public void onChanged(@Nullable WorkInfo workInfo) {
-                            PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "xxx");
+                            //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "xxx");
 
                             if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
-                                PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "WorkInfo.State.SUCCEEDED");
+                                //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "WorkInfo.State.SUCCEEDED");
 
                                 Data outputData = workInfo.getOutputData();
-                                PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "outputData=" + outputData);
+                                //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "outputData=" + outputData);
 
                                 int resultCode = outputData.getInt(RESULT_CODE, FAILURE_RESULT);
-                                PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "resultCode=" + resultCode);
+                                //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "resultCode=" + resultCode);
 
                                 boolean enableAddressButton = false;
                                 if (resultCode == SUCCESS_RESULT) {
-                                    PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "resultCode=" + resultCode);
+                                    //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "resultCode=" + resultCode);
 
                                     // Display the address string
                                     // or an error message sent from the intent service.
                                     String addressOutput = outputData.getString(RESULT_DATA_KEY);
-                                    PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "addressOutput=" + addressOutput);
+                                    //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "addressOutput=" + addressOutput);
 
                                     addressText.setText(addressOutput);
 

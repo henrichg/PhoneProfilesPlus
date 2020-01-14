@@ -7,7 +7,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
@@ -19,7 +18,7 @@ import androidx.work.WorkManager;
 public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### LockDeviceActivityFinishBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("##### LockDeviceActivityFinishBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "LockDeviceActivityFinishBroadcastReceiver.onReceive", "LockDeviceActivityFinishBroadcastReceiver_onReceive");
         doWork();
     }
@@ -36,7 +35,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
-                    PPApplication.logE("LockDeviceActivityFinishBroadcastReceiver.removeAlarm", "alarm found");
+                    //PPApplication.logE("LockDeviceActivityFinishBroadcastReceiver.removeAlarm", "alarm found");
 
                     alarmManager.cancel(pendingIntent);
                     pendingIntent.cancel();
@@ -48,7 +47,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
             workManager.cancelUniqueWork("elapsedAlarmsLockDeviceFinishActivity");
             workManager.cancelAllWorkByTag("elapsedAlarmsLockDeviceFinishActivity");
         } catch (Exception ignored) {}
-        PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.removeAlarm", "removed");
+        //PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.removeAlarm", "removed");
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
@@ -72,11 +71,11 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                 now.add(Calendar.SECOND, delay);
                 long alarmTime = now.getTimeInMillis();
 
-                if (PPApplication.logEnabled()) {
+                /*if (PPApplication.logEnabled()) {
                     SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                     String result = sdf.format(alarmTime);
                     PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.setAlarm", "alarmTime=" + result);
-                }
+                }*/
 
                 Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
                 editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -98,7 +97,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                             .build();
             try {
                 WorkManager workManager = WorkManager.getInstance(context);
-                PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.setAlarm", "enqueueUniqueWork - alarmTime=" + delay);
+                //PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.setAlarm", "enqueueUniqueWork - alarmTime=" + delay);
                 workManager.enqueueUniqueWork("elapsedAlarmsLockDeviceFinishActivity", ExistingWorkPolicy.REPLACE, worker);
             } catch (Exception ignored) {}
         }
@@ -145,7 +144,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
     }
 
     static void doWork() {
-        PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.doWork", "xxx");
+        //PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.doWork", "xxx");
         if (PhoneProfilesService.getInstance() != null) {
             if (PhoneProfilesService.getInstance().lockDeviceActivity != null) {
                 PhoneProfilesService.getInstance().lockDeviceActivity.finish();

@@ -689,7 +689,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
                     if (!pNameWidget.isEmpty()) {
                         if (pName.equals(pNameWidget)) {
-                            PPApplication.logE("ProfileListWidgetProvider.onUpdate", "activated profile NOT changed");
+                            //PPApplication.logE("ProfileListWidgetProvider.onUpdate", "activated profile NOT changed");
                             return;
                         }
                     }

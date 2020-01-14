@@ -43,10 +43,10 @@ class TonesHandler {
 
                 String uriId = uri + "/" + id;
 
-                if (PPApplication.logEnabled()) {
+                /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("TonesHandler.getPhoneProfilesSilentNotificationUri", "title=" + title);
                     PPApplication.logE("TonesHandler.getPhoneProfilesSilentNotificationUri", "uriId=" + uriId);
-                }
+                }*/
 
                 if (title.equals(TONE_NAME) || title.equals("phoneprofiles_silent"))
                     return uriId;
@@ -72,7 +72,7 @@ class TonesHandler {
         manager.setType(type);
         Cursor cursor = manager.getCursor();
 
-        PPApplication.logE("TonesHandler.getToneName", "_uri="+_uri);
+        //PPApplication.logE("TonesHandler.getToneName", "_uri="+_uri);
 
         while (cursor.moveToNext()) {
             String id = cursor.getString(RingtoneManager.ID_COLUMN_INDEX);
@@ -91,10 +91,10 @@ class TonesHandler {
     }
 
     static boolean isPhoneProfilesSilent(Uri uri, Context appContext) {
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("TonesHandler.isPhoneProfilesSilent", "xxx");
             PPApplication.logE("TonesHandler.isPhoneProfilesSilent", "uri=" + uri);
-        }
+        }*/
         String displayName = "";
         try {
             Cursor cursor = appContext.getContentResolver().query(uri, null, null, null, null);
@@ -104,13 +104,13 @@ class TonesHandler {
                     if (nameIndex != -1)
                         displayName = cursor.getString(nameIndex);
                 }
-                PPApplication.logE("TonesHandler.isPhoneProfilesSilent", "displayName=" + displayName);
+                //PPApplication.logE("TonesHandler.isPhoneProfilesSilent", "displayName=" + displayName);
 
                 cursor.close();
             }
         } catch (Exception ignored) {}
         String filename = appContext.getResources().getResourceEntryName(TonesHandler.TONE_ID) + ".ogg";
-        PPApplication.logE("TonesHandler.isPhoneProfilesSilent", "END");
+        //PPApplication.logE("TonesHandler.isPhoneProfilesSilent", "END");
         return (displayName != null) && displayName.equals(filename);
     }
 
@@ -157,12 +157,13 @@ class TonesHandler {
         }
         */
 
+        //noinspection RedundantIfStatement
         if (getPhoneProfilesSilentUri(context, type).isEmpty()) {
-            PPApplication.logE("TonesHandler.isToneInstalled","not in ringtone manager");
+            //PPApplication.logE("TonesHandler.isToneInstalled","not in ringtone manager");
             return false;
         }
 
-        PPApplication.logE("TonesHandler.isToneInstalled","tone installed");
+        //PPApplication.logE("TonesHandler.isToneInstalled","tone installed");
 
         return true;
     }
@@ -225,7 +226,7 @@ class TonesHandler {
             path = context.getFilesDir();
         else
             path = context.getExternalFilesDir(null);
-        PPApplication.logE("TonesHandler._installTone", "path=" + path.getAbsolutePath());
+        //PPApplication.logE("TonesHandler._installTone", "path=" + path.getAbsolutePath());
         //noinspection ResultOfMethodCallIgnored
         path.mkdirs();
         String filename = context.getResources().getResourceEntryName(resID) + ".ogg";
@@ -403,8 +404,8 @@ class TonesHandler {
             }
         }
 
-        if (!isError)
-            PPApplication.logE("TonesHandler._installTone", "Tone installed: " + filename);
+        //if (!isError)
+        //    PPApplication.logE("TonesHandler._installTone", "Tone installed: " + filename);
 
         return !isError;
     }

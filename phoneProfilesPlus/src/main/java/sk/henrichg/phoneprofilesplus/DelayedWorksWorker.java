@@ -30,7 +30,7 @@ public class DelayedWorksWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            PPApplication.logE("DelayedWorksWorker.doWork", "xxx");
+            //PPApplication.logE("DelayedWorksWorker.doWork", "xxx");
 
             //Data outputData;
 
@@ -54,7 +54,7 @@ public class DelayedWorksWorker extends Worker {
             switch (action) {
                 case DELAYED_WORK_AFTER_FIRST_START:
                     if (PhoneProfilesService.getInstance() != null) {
-                        PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "PhoneProfilesService.doForFirstStart.2 START");
+                        //PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "PhoneProfilesService.doForFirstStart.2 START");
 
                         PhoneProfilesService instance = PhoneProfilesService.getInstance();
                         instance.setWaitForEndOfStartToFalse();
@@ -83,7 +83,7 @@ public class DelayedWorksWorker extends Worker {
                         }
 
                         if (Event.getGlobalEventsRunning(appContext)) {
-                            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "global event run is enabled, first start events");
+                            //PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "global event run is enabled, first start events");
 
                             if (activateProfiles) {
                                 if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
@@ -96,7 +96,7 @@ public class DelayedWorksWorker extends Worker {
                             dataWrapper.firstStartEvents(true, false);
                             dataWrapper.updateNotificationAndWidgets(true);
                         } else {
-                            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "global event run is not enabled, manually activate profile");
+                            //PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "global event run is not enabled, manually activate profile");
 
                             if (activateProfiles) {
                                 ////// unblock all events for first start
@@ -108,11 +108,11 @@ public class DelayedWorksWorker extends Worker {
                             dataWrapper.updateNotificationAndWidgets(true);
                         }
 
-                        PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "PhoneProfilesService.doForFirstStart.2 END");
+                        //PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "PhoneProfilesService.doForFirstStart.2 END");
                     }
                     break;
                 case DELAYED_WORK_PACKAGE_REPLACED:
-                    PPApplication.logE("DelayedWorksWorker.doWork", "restartService=" + restartService);
+                    //PPApplication.logE("DelayedWorksWorker.doWork", "restartService=" + restartService);
 
                     DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
@@ -130,11 +130,11 @@ public class DelayedWorksWorker extends Worker {
 
                     if (!PPApplication.getApplicationStarted(appContext, true)) {
                         // service is not started, start it
-                        PPApplication.logE("PackageReplacedReceiver.onReceive - worker", "PP service is not started, start it");
+                        //PPApplication.logE("PackageReplacedReceiver.onReceive - worker", "PP service is not started, start it");
                         if (startService(dataWrapper))
                             restartService = true;
                     } else {
-                        PPApplication.logE("PackageReplacedReceiver.onReceive - worker", "PP service is started");
+                        //PPApplication.logE("PackageReplacedReceiver.onReceive - worker", "PP service is started");
                         if (restartService)
                             startService(dataWrapper);
                     }
@@ -153,7 +153,7 @@ public class DelayedWorksWorker extends Worker {
 
                             // start events
                             if (Event.getGlobalEventsRunning(appContext)) {
-                                PPApplication.logE("PackageReplacedReceiver.onReceive - worker", "global event run is enabled, first start events");
+                                //PPApplication.logE("PackageReplacedReceiver.onReceive - worker", "global event run is enabled, first start events");
 
                                 if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
                                     ////// unblock all events for first start
@@ -162,17 +162,17 @@ public class DelayedWorksWorker extends Worker {
                                 }
 
                                 dataWrapper.firstStartEvents(true, false);
-                                PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from PackageReplacedReceiver.onReceive - worker");
+                                //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from PackageReplacedReceiver.onReceive - worker");
                                 dataWrapper.updateNotificationAndWidgets(true);
                             } else {
-                                PPApplication.logE("PackageReplacedReceiver.onReceive - worker", "global event run is not enabled, manually activate profile");
+                                //PPApplication.logE("PackageReplacedReceiver.onReceive - worker", "global event run is not enabled, manually activate profile");
 
                                 ////// unblock all events for first start
                                 //     that may be blocked in previous application run
                                 dataWrapper.pauseAllEvents(true, false);
 
                                 dataWrapper.activateProfileOnBoot();
-                                PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from PackageReplacedReceiver.onReceive - worker");
+                                //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from PackageReplacedReceiver.onReceive - worker");
                                 dataWrapper.updateNotificationAndWidgets(true);
                             }
                         }
@@ -228,7 +228,7 @@ public class DelayedWorksWorker extends Worker {
     private boolean startService(DataWrapper dataWrapper) {
         boolean isApplicationStarted = PPApplication.getApplicationStarted(dataWrapper.context, false);
 
-        PPApplication.logE("PPApplication.exitApp", "from DelayedWorksWorker.doWork shutdown=false");
+        //PPApplication.logE("PPApplication.exitApp", "from DelayedWorksWorker.doWork shutdown=false");
         PPApplication.exitApp(false, dataWrapper.context, dataWrapper, null, false/*, false, true*/);
 
         if (isApplicationStarted)
@@ -236,7 +236,7 @@ public class DelayedWorksWorker extends Worker {
             PPApplication.sleep(2000);
 
             // start PhoneProfilesService
-            PPApplication.logE("DelayedWorksWorker.doWork", "xxx");
+            //PPApplication.logE("DelayedWorksWorker.doWork", "xxx");
             PPApplication.setApplicationStarted(dataWrapper.context, true);
             Intent serviceIntent = new Intent(dataWrapper.context, PhoneProfilesService.class);
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);

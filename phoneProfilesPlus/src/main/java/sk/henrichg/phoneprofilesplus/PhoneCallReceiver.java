@@ -30,10 +30,10 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
                 listener = new PhoneCallStartEndDetector();
             }
 
-            if (intent != null) {
-                String incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
-                PPApplication.logE("PhoneCallReceiver.onReceive", "incomingNumber=" + incomingNumber);
-            }
+            //if (intent != null) {
+                //String incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
+                //PPApplication.logE("PhoneCallReceiver.onReceive", "incomingNumber=" + incomingNumber);
+            //}
 
             listener.onCallStateChanged(/*intent*/);
 
@@ -73,13 +73,13 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
             }
             switch (state) {
                 case TelephonyManager.CALL_STATE_RINGING:
-                    PPApplication.logE("PhoneCallReceiver.PhoneCallStartEndDetector", "state=CALL_STATE_RINGING");
+                    //PPApplication.logE("PhoneCallReceiver.PhoneCallStartEndDetector", "state=CALL_STATE_RINGING");
                     inCall = false;
                     isIncoming = true;
                     onIncomingCallStarted(/*incomingNumber, eventTime*/);
                     break;
                 case TelephonyManager.CALL_STATE_OFFHOOK:
-                    PPApplication.logE("PhoneCallReceiver.PhoneCallStartEndDetector", "state=CALL_STATE_OFFHOOK");
+                    //PPApplication.logE("PhoneCallReceiver.PhoneCallStartEndDetector", "state=CALL_STATE_OFFHOOK");
                     //Transition of ringing->off hook are pickups of incoming calls.  Nothing down on them
                     if(lastState != TelephonyManager.CALL_STATE_RINGING){
                         inCall = true;
@@ -94,7 +94,7 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
                     }
                     break;
                 case TelephonyManager.CALL_STATE_IDLE:
-                    PPApplication.logE("PhoneCallReceiver.PhoneCallStartEndDetector", "state=CALL_STATE_IDLE");
+                    //PPApplication.logE("PhoneCallReceiver.PhoneCallStartEndDetector", "state=CALL_STATE_IDLE");
                     //Went to idle-  this is the end of a call.  What type depends on previous state(s)
                     if(!inCall){
                         //Ring but no pickup-  a miss

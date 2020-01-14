@@ -14,7 +14,7 @@ public class RefreshActivitiesBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### RefreshActivitiesBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("##### RefreshActivitiesBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "RefreshActivitiesBroadcastReceiver.onReceive", "RefreshGUIBroadcastReceiver_onReceive");
 
         boolean refresh = intent.getBooleanExtra(EXTRA_REFRESH, true);
@@ -34,7 +34,7 @@ public class RefreshActivitiesBroadcastReceiver extends BroadcastReceiver {
         }
         */
 
-        PPApplication.logE("$$$ RefreshActivitiesBroadcastReceiver", "refreshAlsoEditor="+refreshAlsoEditor);
+        //PPApplication.logE("$$$ RefreshActivitiesBroadcastReceiver", "refreshAlsoEditor="+refreshAlsoEditor);
 
         if (refreshAlsoEditor) {
             long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);

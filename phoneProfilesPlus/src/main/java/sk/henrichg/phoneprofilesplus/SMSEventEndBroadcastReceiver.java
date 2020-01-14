@@ -10,12 +10,12 @@ public class SMSEventEndBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### SMSEventEndBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("##### SMSEventEndBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "SMSEventEndBroadcastReceiver.onReceive", "SMSEventEndBroadcastReceiver_onReceive");
 
         String action = intent.getAction();
         if (action != null) {
-            PPApplication.logE("SMSEventEndBroadcastReceiver.onReceive", "action=" + action);
+            //PPApplication.logE("SMSEventEndBroadcastReceiver.onReceive", "action=" + action);
             doWork(/*true,*/ context);
         }
     }
@@ -43,15 +43,15 @@ public class SMSEventEndBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=SMSEventEndBroadcastReceiver.doWork");
+                        //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=SMSEventEndBroadcastReceiver.doWork");
 
                         if (Event.getGlobalEventsRunning(appContext)) {
-                            PPApplication.logE("SMSEventEndBroadcastReceiver.doWork", "handle events");
+                            //PPApplication.logE("SMSEventEndBroadcastReceiver.doWork", "handle events");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SMS_EVENT_END);
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=SMSEventEndBroadcastReceiver.doWork");
+                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=SMSEventEndBroadcastReceiver.doWork");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

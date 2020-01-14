@@ -255,7 +255,7 @@ class ApplicationEditorDialogX
         selectedPosition = -1;
         int pos = 0;
 
-        PPApplication.logE("ApplicationEditorDialog.fillApplicationList", "selectedFilter="+selectedFilter);
+        //PPApplication.logE("ApplicationEditorDialog.fillApplicationList", "selectedFilter="+selectedFilter);
 
         if (selectedFilter == 2) {
             if (preference.intentDBList != null) {
@@ -270,10 +270,10 @@ class ApplicationEditorDialogX
                                 selectedPosition = pos;
                         }
                     }
-                    if (PPApplication.logEnabled()) {
+                    /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("ApplicationEditorDialog.fillApplicationList", "_application.intentId=" + _application.intentId);
                         PPApplication.logE("ApplicationEditorDialog.fillApplicationList", "_application.appLabel=" + _application.appLabel);
-                    }
+                    }*/
                     applicationList.add(_application);
                     pos++;
                 }

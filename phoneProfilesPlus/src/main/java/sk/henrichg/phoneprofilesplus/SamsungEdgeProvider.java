@@ -371,7 +371,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
                     if (!pNameWidget.isEmpty()) {
                         if (pName.equals(pNameWidget)) {
-                            PPApplication.logE("SamsungEdgeProvider.onUpdate", "activated profile NOT changed");
+                            //PPApplication.logE("SamsungEdgeProvider.onUpdate", "activated profile NOT changed");
                             return;
                         }
                     }

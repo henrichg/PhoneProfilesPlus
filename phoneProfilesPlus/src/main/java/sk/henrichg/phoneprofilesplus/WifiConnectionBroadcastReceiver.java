@@ -13,7 +13,7 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### WifiConnectionBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("##### WifiConnectionBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "WifiConnectionBroadcastReceiver.onReceive", "WifiConnectionBroadcastReceiver_onReceive");
 
         final Context appContext = context.getApplicationContext();
@@ -44,7 +44,7 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
-                                PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiConnectionBroadcastReceiver.onReceive");
+                                //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiConnectionBroadcastReceiver.onReceive");
 
                                 boolean isConnected;
                                 if (Build.VERSION.SDK_INT < 28)
@@ -52,7 +52,7 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
                                 else
                                     isConnected = info.isConnected();
 
-                                PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "isConnected=" + isConnected);
+                                //PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "isConnected=" + isConnected);
 
                                 if (PhoneProfilesService.getInstance() != null) {
                                     if (PhoneProfilesService.getInstance().connectToSSIDStarted) {
@@ -78,24 +78,24 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
                                                 WifiScanWorker.getWifiEnabledForScan(appContext))) {
                                             // wifi is not scanned
 
-                                            PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is not scanned");
+                                            //PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is not scanned");
 
                                             if ((PhoneProfilesService.getInstance() != null) && (!PhoneProfilesService.getInstance().connectToSSIDStarted)) {
                                                 // connect to SSID is not started
 
-                                                PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "start HandleEvents - SENSOR_TYPE_WIFI_CONNECTION");
+                                                //PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "start HandleEvents - SENSOR_TYPE_WIFI_CONNECTION");
 
                                                 // start events handler
                                                 EventsHandler eventsHandler = new EventsHandler(appContext);
                                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_CONNECTION);
 
                                             }
-                                        } else
-                                            PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is scanned");
+                                        } //else
+                                            //PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is scanned");
                                     //}
                                 }
 
-                                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiConnectionBroadcastReceiver.onReceive");
+                                //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiConnectionBroadcastReceiver.onReceive");
                             } finally {
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
                                     try {

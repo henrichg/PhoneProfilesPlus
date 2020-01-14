@@ -37,26 +37,26 @@ public class GeofenceScanWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- START");
+            //PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- START");
 
             //CallsCounter.logCounter(context, "GeofenceScanWorker.doWork", "GeofenceScanWorker_doWork");
 
             if (Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, context).allowed !=
                     PreferenceAllowed.PREFERENCE_ALLOWED) {
                 cancelWork(context, false, null);
-                if (PPApplication.logEnabled()) {
+                /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("GeofenceScanWorker.doWork", "return - not allowed geofence scanning");
                     PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- END");
-                }
+                }*/
                 return Result.success();
             }
 
             //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
             boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
             if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
-                PPApplication.logE("GeofenceScanWorker.doWork", "update in power save mode is not allowed");
+                //PPApplication.logE("GeofenceScanWorker.doWork", "update in power save mode is not allowed");
                 cancelWork(context, false, null);
-                PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- END");
+                //PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- END");
                 return Result.success();
             }
 
@@ -66,7 +66,7 @@ public class GeofenceScanWorker extends Worker {
                     if ((PhoneProfilesService.getInstance() != null) && (PhoneProfilesService.getInstance().getGeofencesScanner() != null)) {
                         GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
                         if (scanner.mUpdatesStarted) {
-                            PPApplication.logE("GeofenceScanWorker.doWork", "location updates started - save to DB");
+                            //PPApplication.logE("GeofenceScanWorker.doWork", "location updates started - save to DB");
 
                             //if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted())
                             scanner.updateGeofencesInDB();
@@ -77,7 +77,7 @@ public class GeofenceScanWorker extends Worker {
                 }
 
                 if (geofenceScannerUpdatesStarted) {
-                    PPApplication.logE("GeofenceScanWorker.doWork", "location updates started - start EventsHandler");
+                    //PPApplication.logE("GeofenceScanWorker.doWork", "location updates started - start EventsHandler");
 
                     // start events handler
                     EventsHandler eventsHandler = new EventsHandler(context);
@@ -86,7 +86,7 @@ public class GeofenceScanWorker extends Worker {
                 }
             }
 
-            PPApplication.logE("GeofenceScanWorker.doWork - handler", "schedule work");
+            //PPApplication.logE("GeofenceScanWorker.doWork - handler", "schedule work");
             scheduleWork(context.getApplicationContext(), false, null, false/*, false*/);
 
             /*PPApplication.startHandlerThreadPPScanners();
@@ -99,7 +99,7 @@ public class GeofenceScanWorker extends Worker {
                 }
             }, 500);*/
 
-            PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- END");
+            //PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- END");
             return Result.success();
         } catch (Exception e) {
             Log.e("GeofenceScanWorker.doWork", Log.getStackTraceString(e));
@@ -116,7 +116,7 @@ public class GeofenceScanWorker extends Worker {
     }
 
     public void onStopped () {
-        PPApplication.logE("GeofenceScanWorker.onStopped", "xxx");
+        //PPApplication.logE("GeofenceScanWorker.onStopped", "xxx");
 
         //CallsCounter.logCounter(context, "GeofenceScanWorker.onStopped", "GeofenceScanWorker_onStopped");
     }
@@ -125,18 +125,18 @@ public class GeofenceScanWorker extends Worker {
         try {
             WorkManager workManager = WorkManager.getInstance(context);
 
-            PPApplication.logE("GeofenceScanWorker._scheduleWork", "---------------------------------------- START");
+            //PPApplication.logE("GeofenceScanWorker._scheduleWork", "---------------------------------------- START");
 
             int interval;
             synchronized (PPApplication.geofenceScannerMutex) {
-                if (PPApplication.logEnabled()) {
+                /*if (PPApplication.logEnabled()) {
                     if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted())
                         PPApplication.logE("GeofenceScanWorker._scheduleWork", "mUpdatesStarted=" + PhoneProfilesService.getInstance().getGeofencesScanner().mUpdatesStarted);
                     else {
                         PPApplication.logE("GeofenceScanWorker._scheduleWork", "scanner is not started");
                         PPApplication.logE("GeofenceScanWorker._scheduleWork", "PhoneProfilesService.getInstance()=" + PhoneProfilesService.getInstance());
                     }
-                }
+                }*/
 
                 // look at GeofenceScanner:UPDATE_INTERVAL_IN_MILLISECONDS
                 //int updateDuration = 30;
@@ -154,18 +154,18 @@ public class GeofenceScanWorker extends Worker {
                     shortInterval = true;
                 }
 
-                PPApplication.logE("GeofenceScanWorker._scheduleWork", "interval=" + interval);
+                //PPApplication.logE("GeofenceScanWorker._scheduleWork", "interval=" + interval);
             }
 
             if (!shortInterval) {
-                PPApplication.logE("GeofenceScanWorker._scheduleWork", "exact work");
+                //PPApplication.logE("GeofenceScanWorker._scheduleWork", "exact work");
                 OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(GeofenceScanWorker.class)
                         .setInitialDelay(interval, TimeUnit.SECONDS)
                         .addTag(WORK_TAG)
                         .build();
                 workManager.enqueueUniqueWork(WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
             } else {
-                PPApplication.logE("GeofenceScanWorker._scheduleWork", "start now work");
+                //PPApplication.logE("GeofenceScanWorker._scheduleWork", "start now work");
                 waitForFinish(context);
                 OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(GeofenceScanWorker.class)
                         .addTag(WORK_TAG)
@@ -173,7 +173,7 @@ public class GeofenceScanWorker extends Worker {
                 workManager.enqueueUniqueWork(WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
             }
 
-            PPApplication.logE("GeofenceScanWorker._scheduleWork", "---------------------------------------- END");
+            //PPApplication.logE("GeofenceScanWorker._scheduleWork", "---------------------------------------- END");
         } catch (Exception e) {
             Log.e("GeofenceScanWorker._scheduleWork", Log.getStackTraceString(e));
         }
@@ -182,7 +182,7 @@ public class GeofenceScanWorker extends Worker {
     static void scheduleWork(final Context context,
                             @SuppressWarnings("SameParameterValue") final boolean useHandler,
                             final Handler _handler, final boolean startScanning/*, final boolean forScreenOn*/) {
-        PPApplication.logE("GeofenceScanWorker.scheduleWork", "startScanning="+startScanning);
+        //PPApplication.logE("GeofenceScanWorker.scheduleWork", "startScanning="+startScanning);
 
         //if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.isGeofenceScannerStarted()) {
         if (useHandler && (_handler == null)) {
@@ -212,7 +212,7 @@ public class GeofenceScanWorker extends Worker {
                 workManager.cancelUniqueWork(WORK_TAG);
                 workManager.cancelAllWorkByTag(WORK_TAG);
 
-                PPApplication.logE("GeofenceScanWorker._cancelWork", "CANCELED");
+                //PPApplication.logE("GeofenceScanWorker._cancelWork", "CANCELED");
 
             } catch (Exception e) {
                 Log.e("GeofenceScanWorker._cancelWork", Log.getStackTraceString(e));
@@ -222,14 +222,14 @@ public class GeofenceScanWorker extends Worker {
 
     private static void waitForFinish(Context context) {
         if (!isWorkRunning(context)) {
-            PPApplication.logE("GeofenceScanWorker.waitForFinish", "NOT RUNNING");
+            //PPApplication.logE("GeofenceScanWorker.waitForFinish", "NOT RUNNING");
             return;
         }
 
         try {
             WorkManager workManager = WorkManager.getInstance(context);
 
-            PPApplication.logE("GeofenceScanWorker.waitForFinish", "START WAIT FOR FINISH");
+            //PPApplication.logE("GeofenceScanWorker.waitForFinish", "START WAIT FOR FINISH");
             long start = SystemClock.uptimeMillis();
             do {
 
@@ -251,7 +251,7 @@ public class GeofenceScanWorker extends Worker {
                     e.printStackTrace();
                 }
                 if (allFinished) {
-                    PPApplication.logE("GeofenceScanWorker.waitForFinish", "FINISHED");
+                    //PPApplication.logE("GeofenceScanWorker.waitForFinish", "FINISHED");
                     break;
                 }
 
@@ -259,14 +259,14 @@ public class GeofenceScanWorker extends Worker {
                 SystemClock.sleep(100);
             } while (SystemClock.uptimeMillis() - start < 10 * 1000);
 
-            PPApplication.logE("GeofenceScanWorker.waitForFinish", "END WAIT FOR FINISH");
+            //PPApplication.logE("GeofenceScanWorker.waitForFinish", "END WAIT FOR FINISH");
         } catch (Exception e) {
             Log.e("GeofenceScanWorker.waitForFinish", Log.getStackTraceString(e));
         }
     }
 
     static void cancelWork(final Context context, final boolean useHandler, final Handler _handler) {
-        PPApplication.logE("GeofenceScanWorker.cancelWork", "xxx");
+        //PPApplication.logE("GeofenceScanWorker.cancelWork", "xxx");
 
         if (useHandler && (_handler == null)) {
             PPApplication.startHandlerThreadPPScanners();

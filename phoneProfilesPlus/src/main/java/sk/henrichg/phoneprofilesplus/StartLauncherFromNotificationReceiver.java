@@ -9,7 +9,7 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### StartLauncherFromNotificationReceiver.onReceive", "xxx");
+        //PPApplication.logE("##### StartLauncherFromNotificationReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "StartLauncherFromNotificationReceiver.onReceive", "StartLauncherFromNotificationReceiver_onReceive");
 

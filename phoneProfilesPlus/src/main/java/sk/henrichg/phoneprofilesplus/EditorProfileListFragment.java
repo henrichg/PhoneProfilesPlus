@@ -491,7 +491,7 @@ public class EditorProfileListFragment extends Fragment
 
                 if (defaultProfilesGenerated)
                 {
-                    PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfileListFragment.LoadProfileListAsyncTask");
+                    //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfileListFragment.LoadProfileListAsyncTask");
                     ActivateProfileHelper.updateGUI(_dataWrapper.context, true, true);
                     Toast msg = ToastCompat.makeText(_dataWrapper.context.getApplicationContext(),
                             fragment.getResources().getString(R.string.toast_predefined_profiles_generated),
@@ -626,7 +626,7 @@ public class EditorProfileListFragment extends Fragment
             Profile _profile = profileListAdapter.getActivatedProfile();
             updateHeader(_profile);
             PPApplication.showProfileNotification(/*activityDataWrapper.context*/true, false);
-            PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfileListFragment.deleteProfile");
+            //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfileListFragment.deleteProfile");
             ActivateProfileHelper.updateGUI(activityDataWrapper.context, true, true);
         }
         else {
@@ -754,7 +754,7 @@ public class EditorProfileListFragment extends Fragment
                     //Profile profile = profileListAdapter.getActivatedProfile();
                     updateHeader(null);
                     PPApplication.showProfileNotification(/*activityDataWrapper.context*/true, false);
-                    PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfileListFragment.deleteAllProfiles");
+                    //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfileListFragment.deleteAllProfiles");
                     ActivateProfileHelper.updateGUI(activityDataWrapper.context, true, true);
 
                     activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
@@ -1030,7 +1030,7 @@ public class EditorProfileListFragment extends Fragment
         if ((activityDataWrapper == null) || (profileListAdapter == null))
             return;
 
-        PPApplication.logE("EditorProfileListFragment.refreshGUI", "refresh="+refresh);
+        //PPApplication.logE("EditorProfileListFragment.refreshGUI", "refresh="+refresh);
 
         Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
 
@@ -1039,14 +1039,14 @@ public class EditorProfileListFragment extends Fragment
             pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper, true, activityDataWrapper.context);
         else
             pName = getResources().getString(R.string.profiles_header_profile_name_no_activated);
-        PPApplication.logE("EditorProfileListFragment.refreshGUI", "pName="+pName);
+        //PPApplication.logE("EditorProfileListFragment.refreshGUI", "pName="+pName);
 
         if (!refresh) {
             String pNameHeader = PPApplication.getActivityProfileName(activityDataWrapper.context, 2);
-            PPApplication.logE("EditorProfileListFragment.refreshGUI", "pNameHeader="+pNameHeader);
+            //PPApplication.logE("EditorProfileListFragment.refreshGUI", "pNameHeader="+pNameHeader);
 
             if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
-                PPApplication.logE("EditorProfileListFragment.refreshGUI", "activated profile NOT changed");
+                //PPApplication.logE("EditorProfileListFragment.refreshGUI", "activated profile NOT changed");
                 return;
             }
         }
@@ -1059,7 +1059,7 @@ public class EditorProfileListFragment extends Fragment
             profileFromAdapter._checked = false;
 
         if (profileFromDB != null) {
-            PPApplication.logE("EditorProfileListFragment.refreshGUI", "profile activated");
+            //PPApplication.logE("EditorProfileListFragment.refreshGUI", "profile activated");
             Profile profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
                     ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context), false);
             if (profileFromDataWrapper != null)
@@ -1067,7 +1067,7 @@ public class EditorProfileListFragment extends Fragment
             updateHeader(profileFromDataWrapper);
             updateListView(profileFromDataWrapper, false, refreshIcons, setPosition, profileId);
         } else {
-            PPApplication.logE("EditorProfileListFragment.refreshGUI", "profile not activated");
+            //PPApplication.logE("EditorProfileListFragment.refreshGUI", "profile not activated");
             updateHeader(null);
             updateListView(null, false, refreshIcons, setPosition, 0);
         }

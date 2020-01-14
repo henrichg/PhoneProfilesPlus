@@ -33,7 +33,7 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
     public void onChange(boolean selfChange) {
         super.onChange(selfChange);
 
-        PPApplication.logE("##### MobileDataStateChangedContentObserver", "onChange");
+        //PPApplication.logE("##### MobileDataStateChangedContentObserver", "onChange");
 
         //CallsCounter.logCounter(context, "MobileDataStateChangedContentObserver.onChange", "MobileDataStateChangedContentObserver_onChange");
 
@@ -56,12 +56,12 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
-                                PPApplication.logE("PPApplication.startHandlerThread", "START run - from=MobileDataStateChangedContentObserver.onChange");
+                                //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=MobileDataStateChangedContentObserver.onChange");
 
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
 
-                                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=MobileDataStateChangedContentObserver.onChange");
+                                //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=MobileDataStateChangedContentObserver.onChange");
                             } finally {
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
                                     try {
