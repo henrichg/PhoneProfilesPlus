@@ -1129,8 +1129,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 String afterDurationDoTitle = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_AFTER_DURATION_DO, R.string.profile_preferences_afterDurationDo, false, context);
                 if (!title.isEmpty()) {
                     _bold = true;
-                    String value = preferences.getString(Profile.PREF_PROFILE_DURATION,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_DURATION));
+                    String value = preferences.getString(Profile.PREF_PROFILE_DURATION, Profile.defaultValuesString.get(Profile.PREF_PROFILE_DURATION));
                     if (value != null) {
                         value = GlobalGUIRoutines.getDurationString(Integer.parseInt(value));
                         summary = summary + title + ": <b>" + value + "</b> • ";
@@ -3039,13 +3038,23 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
-        if (key.equals(Profile.PREF_PROFILE_AFTER_DURATION_DO) ||
+        if (key.equals(Profile.PREF_PROFILE_DURATION) ||
+            key.equals(Profile.PREF_PROFILE_AFTER_DURATION_DO) ||
             key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION)) {
-            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE);
+
+            String duration = preferences.getString(Profile.PREF_PROFILE_DURATION, "0");
+            boolean askForDuration = preferences.getBoolean(Profile.PREF_PROFILE_ASK_FOR_DURATION, false);
+
+            boolean enable = (!askForDuration) && (!duration.equals("0"));
+
+            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_AFTER_DURATION_DO);
+            if (preference != null)
+                preference.setEnabled(enable);
+
+            preference = prefMng.findPreference(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE);
             if (preference != null) {
                 String afterDurationDo = preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_DO, "0");
-                boolean askForDuration= preferences.getBoolean(Profile.PREF_PROFILE_ASK_FOR_DURATION, false);
-                preference.setEnabled(!askForDuration && (afterDurationDo.equals(String.valueOf(Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE))));
+                preference.setEnabled(enable && (afterDurationDo.equals(String.valueOf(Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE))));
             }
         }
     }
