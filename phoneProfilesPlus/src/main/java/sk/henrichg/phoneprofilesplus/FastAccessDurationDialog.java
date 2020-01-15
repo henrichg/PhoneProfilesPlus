@@ -48,6 +48,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
     private SeekBar mSeekBarSeconds;
     private final TextView mEnds;
     private final TimeDurationPickerDialog mValueDialog;
+    private final TextView afterDurationLabel;
     private final AppCompatSpinner afterDoSpinner;
     private final RelativeLayout profileView;
     private final TextView profileLabel;
@@ -138,7 +139,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
         mDialog = dialogBuilder.create();
 
-        TextView afterDurationLabel = layout.findViewById(R.id.fast_access_duration_dlg_after_do_label);
+        afterDurationLabel = layout.findViewById(R.id.fast_access_duration_dlg_after_do_label);
         afterDurationLabel.setText(activity.getString(R.string.profile_preferences_afterDurationDo) + ":");
 
         TextView mTextViewRange = layout.findViewById(R.id.duration_pref_dlg_range);
@@ -359,6 +360,14 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
             mEnds.setText("--");
         }
 
+        if (mDialog != null) {
+            afterDurationLabel.setEnabled(iValue > mMin);
+            afterDoSpinner.setEnabled(iValue > mMin);
+            updateProfileView();
+            Button button = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            button.setEnabled(iValue > mMin);
+        }
+
         if(updateValueField) {
             mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
         }
@@ -449,7 +458,17 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
             }
         }
 
-        if (mAfterDo != 4) {
+        int hours = mSeekBarHours.getProgress();
+        int minutes = mSeekBarMinutes.getProgress();
+        int seconds = mSeekBarSeconds.getProgress();
+
+        int iValue = (hours * 3600 + minutes * 60 + seconds);
+        if (iValue < mMin) iValue = mMin;
+        if (iValue > mMax) iValue = mMax;
+
+        //boolean enable = (mAfterDo == 4) && (iValue > mMin);
+
+        if ((mAfterDo != 4) || (iValue == mMin)) {
             profileLabel.setEnabled(false);
             profileView.setEnabled(false);
             int disabledColor = GlobalGUIRoutines.getThemeDisabledTextColor(mActivity);
