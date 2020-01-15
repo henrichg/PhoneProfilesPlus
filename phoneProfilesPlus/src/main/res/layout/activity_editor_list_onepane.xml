@@ -54,8 +54,8 @@
 
                     <ImageView
                         android:id="@+id/editor_list_run_stop_indicator"
-                        android:layout_width="50dp"
-                        android:layout_height="23dp"
+                        android:layout_width="45dp"
+                        android:layout_height="21dp"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentTop="true"
                         android:layout_marginEnd="@dimen/run_stop_indicator_margin_end"
