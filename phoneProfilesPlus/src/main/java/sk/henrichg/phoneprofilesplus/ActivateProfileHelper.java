@@ -1623,9 +1623,9 @@ class ActivateProfileHelper {
 
         if (forProfileActivation) {
             if (profile._volumeRingerMode != 0) {
-                setRingerMode(context, profile._volumeRingerMode);
+                saveRingerMode(context, profile._volumeRingerMode);
                 if ((profile._volumeRingerMode == Profile.RINGERMODE_ZENMODE) && (profile._volumeZenMode != 0))
-                    setZenMode(context, profile._volumeZenMode);
+                    saveZenMode(context, profile._volumeZenMode);
             }
         }
 
@@ -4303,9 +4303,9 @@ class ActivateProfileHelper {
         return ApplicationPreferences.preferences.getInt(PREF_RINGER_MODE, 0);
     }
 
-    static void setRingerMode(Context context, int mode)
+    static void saveRingerMode(Context context, int mode)
     {
-        //PPApplication.logE("ActivateProfileHelper.(s)setRingerMode","mode="+mode);
+        //PPApplication.logE("ActivateProfileHelper.(s)saveRingerMode","mode="+mode);
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PREF_RINGER_MODE, mode);
@@ -4318,9 +4318,9 @@ class ActivateProfileHelper {
         return ApplicationPreferences.preferences.getInt(PREF_ZEN_MODE, 0);
     }
 
-    static void setZenMode(Context context, int mode)
+    static void saveZenMode(Context context, int mode)
     {
-        //PPApplication.logE("ActivateProfileHelper.(s)setZenMode","mode="+mode);
+        //PPApplication.logE("ActivateProfileHelper.(s)saveZenMode","mode="+mode);
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PREF_ZEN_MODE, mode);

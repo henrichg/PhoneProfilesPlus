@@ -379,11 +379,6 @@ public class PPApplication extends Application {
                                          //+"|PhoneProfilesService.stopSimulatingRingingCall"
                                          //+"|PhoneProfilesService.onAudioFocusChange"
 
-                                         /*
-                                         +"|ActivateProfileHelper.(s)setRingerMode"
-                                         +"|ActivateProfileHelper.(s)setZenMode"
-                                         +"|ActivateProfileHelper.(s)setRingerVolume"
-                                         */
                                          //+"|@@@ EventsHandler.handleEvents"
                                          //+"|EventsHandler.doEndService"
 

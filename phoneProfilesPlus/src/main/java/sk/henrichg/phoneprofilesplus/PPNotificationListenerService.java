@@ -261,8 +261,8 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 //PPApplication.logE(TAG, "onInterruptionFilterChanged(zenMode=" + zenMode + ')');
                 if (zenMode != 0) {
                     RingerModeChangeReceiver.notUnlinkVolumes = true;
-                    ActivateProfileHelper.setRingerMode(getApplicationContext(), 5);
-                    ActivateProfileHelper.setZenMode(getApplicationContext(), zenMode);
+                    ActivateProfileHelper.saveRingerMode(getApplicationContext(), 5);
+                    ActivateProfileHelper.saveZenMode(getApplicationContext(), zenMode);
                 }
             }
 
@@ -304,8 +304,8 @@ public class PPNotificationListenerService extends NotificationListenerService {
         if ((/*(android.os.Build.VERSION.SDK_INT >= 21) &&*/ (android.os.Build.VERSION.SDK_INT < 23)) || a60) {
             int zenMode = getZenMode(context, audioManager);
             if (zenMode != 0) {
-                ActivateProfileHelper.setRingerMode(context, 5);
-                ActivateProfileHelper.setZenMode(context, zenMode);
+                ActivateProfileHelper.saveRingerMode(context, 5);
+                ActivateProfileHelper.saveZenMode(context, zenMode);
             }
         }
     }

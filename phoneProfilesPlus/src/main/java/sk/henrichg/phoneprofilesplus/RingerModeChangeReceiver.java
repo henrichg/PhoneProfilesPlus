@@ -79,7 +79,7 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
     public static void setRingerMode(Context context, AudioManager audioManager) {
         int pRingerMode = getRingerMode(context, audioManager);
         if (pRingerMode != 0) {
-            ActivateProfileHelper.setRingerMode(context, pRingerMode);
+            ActivateProfileHelper.saveRingerMode(context, pRingerMode);
         }
     }
 

@@ -55,8 +55,8 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
                         //PPApplication.logE(TAG, "onReceive(zenMode=" + zenMode + ')');
                         if (zenMode != 0) {
                             RingerModeChangeReceiver.notUnlinkVolumes = true;
-                            ActivateProfileHelper.setRingerMode(context.getApplicationContext(), 5);
-                            ActivateProfileHelper.setZenMode(context.getApplicationContext(), zenMode);
+                            ActivateProfileHelper.saveRingerMode(context.getApplicationContext(), 5);
+                            ActivateProfileHelper.saveZenMode(context.getApplicationContext(), zenMode);
                         }
                     }
                 }
@@ -108,8 +108,8 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
             if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
                 int zenMode = getZenMode(context, audioManager);
                 if (zenMode != 0) {
-                    ActivateProfileHelper.setRingerMode(context, 5);
-                    ActivateProfileHelper.setZenMode(context, zenMode);
+                    ActivateProfileHelper.saveRingerMode(context, 5);
+                    ActivateProfileHelper.saveZenMode(context, zenMode);
                 }
             }
         }
