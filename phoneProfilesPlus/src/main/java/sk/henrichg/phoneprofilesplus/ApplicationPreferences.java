@@ -150,6 +150,7 @@ class ApplicationPreferences {
     static final String PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR = "notificationBackgroundCustomColor";
     static final String PREF_NOTIFICATION_NIGHT_MODE = "notificationNightMode";
     static final String PREF_APPLICATION_EDITOR_HIDE_HEADER_OR_BOTTOM_BAR = "applicationEditorHideHeaderOrBottomBar";
+    static final String PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION = "applicationWidgetIconShowProfileDuration";
 
     //static boolean forceNotUseAlarmClock = false;
 
@@ -760,6 +761,10 @@ class ApplicationPreferences {
 
     static boolean applicationEditorHideHeaderOrBottomBar(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EDITOR_HIDE_HEADER_OR_BOTTOM_BAR, true);
+    }
+
+    static boolean applicationWidgetIconShowProfileDuration(Context context) {
+        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION, true);
     }
 
 }

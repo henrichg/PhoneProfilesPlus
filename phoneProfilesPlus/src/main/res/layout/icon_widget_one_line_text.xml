@@ -41,7 +41,6 @@
             android:textColor="#ffffffff"
             android:textSize="13sp"
             android:gravity="center_horizontal"
-            android:ellipsize="end"
             android:maxLines="1"/>
 
         <!--<TextView

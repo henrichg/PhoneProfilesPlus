@@ -37,6 +37,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 String applicationWidgetIconLightnessBorder = ApplicationPreferences.applicationWidgetIconLightnessBorder(context);
                 boolean applicationWidgetIconRoundedCorners = ApplicationPreferences.applicationWidgetIconRoundedCorners(context);
                 String applicationWidgetIconLightnessT = ApplicationPreferences.applicationWidgetIconLightnessT(context);
+                boolean showProfileDuration = ApplicationPreferences.applicationWidgetIconShowProfileDuration(context);
 
                 int monochromeValue = 0xFF;
                 if (applicationWidgetIconLightness.equals("0")) monochromeValue = 0x00;
@@ -82,8 +83,11 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     if (profile != null) {
                         isIconResourceID = profile.getIsIconResourceID();
                         iconIdentifier = profile.getIconIdentifier();
-                        pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, false, "", true, true, true, dataWrapper, false, context);
-                        profileName = DataWrapper.getProfileNameWithManualIndicator(profile, false, "", true, true, true, dataWrapper, false, context);
+                        pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, false, "", true, false, false, dataWrapper, false, context);
+                        if (showProfileDuration)
+                            profileName = DataWrapper.getProfileNameWithManualIndicator(profile, false, "", true, true, true, dataWrapper, false, context);
+                        else
+                            profileName = DataWrapper.getProfileNameWithManualIndicator(profile, false, "", false, true, false, dataWrapper, false, context);
                     } else {
                         // create empty profile and set icon resource
                         profile = new Profile();
@@ -112,7 +116,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         if (applicationWidgetIconHideProfileName)
                             remoteViews = new RemoteViews(context.getPackageName(), R.layout.icon_widget_no_profile_name);
                         else {
-                            if (profile._duration > 0)
+                            if ((profile._duration > 0) && (showProfileDuration))
                                 remoteViews = new RemoteViews(context.getPackageName(), R.layout.icon_widget);
                             else
                                 remoteViews = new RemoteViews(context.getPackageName(), R.layout.icon_widget_one_line_text);

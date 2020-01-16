@@ -71,6 +71,12 @@
         app:entryValues="@array/widgetLightnessValues"
         app:dependency="applicationWidgetIconHideProfileName"
         app:layout="@layout/mp_preference_material_widget" />
+    <SwitchPreferenceCompat
+        app:key="applicationWidgetIconShowProfileDuration"
+        app:title="@string/phone_profiles_pref_applicationWidgetIconShowProfileDuration"
+        app:defaultValue="true"
+        app:dependency="applicationWidgetIconHideProfileName"
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetIconColor"
         app:summary="0"

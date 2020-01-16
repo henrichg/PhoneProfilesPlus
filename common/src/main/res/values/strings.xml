@@ -1467,6 +1467,8 @@
     <string name="array_pref_62_percent" formatted="false">62.5%</string>
     <string name="array_pref_87_percent" formatted="false">87.5%</string>
 
+    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration (widget)</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
