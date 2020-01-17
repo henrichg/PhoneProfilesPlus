@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -114,15 +116,21 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
 
-        Intent intent = getIntent();
-        application = intent.getParcelableExtra(ApplicationEditorDialogX.EXTRA_APPLICATION);
-        ppIntent = intent.getParcelableExtra(ApplicationEditorDialogX.EXTRA_PP_INTENT);
+        if (savedInstanceState == null) {
+            Intent intent = getIntent();
+            application = intent.getParcelableExtra(ApplicationEditorDialogX.EXTRA_APPLICATION);
+            ppIntent = intent.getParcelableExtra(ApplicationEditorDialogX.EXTRA_PP_INTENT);
+            startApplicationDelay = getIntent().getIntExtra(EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, 0);
+        }
+        else {
+            application = savedInstanceState.getParcelable(ApplicationEditorDialogX.EXTRA_APPLICATION);
+            ppIntent = savedInstanceState.getParcelable(ApplicationEditorDialogX.EXTRA_PP_INTENT);
+            startApplicationDelay = savedInstanceState.getInt(EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, 0);
+        }
         /*if (ppIntent == null)
             PPApplication.logE("ApplicationEditorIntentActivity.onCreate", "ppIntent=null");
         else
             PPApplication.logE("ApplicationEditorIntentActivity.onCreate", "ppIntent._id="+ppIntent._id);*/
-
-        startApplicationDelay = getIntent().getIntExtra(EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, 0);
 
         okButton = findViewById(R.id.application_editor_intent_ok);
         //intentScrollView = findViewById(R.id.application_editor_intent_scroll_view);
@@ -552,6 +560,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //PPApplication.logE("ApplicationEditorIntentActivityX.onCreate.testButtonClick", "ppIntent="+ppIntent);
                 if (ppIntent == null) {
                     AlertDialog.Builder builder =
                             new AlertDialog.Builder(activity)
@@ -567,23 +576,29 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
                 else {
                     saveIntent();
                     Intent testIntent = createIntent(ppIntent);
+                    //PPApplication.logE("ApplicationEditorIntentActivityX.onCreate.testButtonClick", "testIntent="+testIntent);
                     boolean ok = false;
                     if (testIntent != null) {
+                        //PPApplication.logE("ApplicationEditorIntentActivityX.onCreate.testButtonClick", "ppIntent._intentType="+ppIntent._intentType);
                         if (ppIntent._intentType == 0) {
                             try {
                                 testIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(testIntent);
+                                //PPApplication.logE("ApplicationEditorIntentActivityX.onCreate.testButtonClick", "activity started");
                                 ok = true;
-                            } catch (Exception ignored) {
+                            } catch (Exception e) {
+                                Log.e("ApplicationEditorIntentActivityX.onCreate.testButtonClick", Log.getStackTraceString(e));
                             }
                         } else {
                             try {
                                 sendBroadcast(testIntent);
+                                //PPApplication.logE("ApplicationEditorIntentActivityX.onCreate.testButtonClick", "broadcast sent");
                                 ok = true;
                             } catch (Exception ignored) {
                             }
                         }
                     }
+                    //PPApplication.logE("ApplicationEditorIntentActivityX.onCreate.testButtonClick", "ok="+ok);
                     if (!ok) {
                         AlertDialog.Builder builder;
                         if (ppIntent._intentType == 0) {
@@ -608,6 +623,14 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putParcelable(ApplicationEditorDialogX.EXTRA_APPLICATION, application);
+        savedInstanceState.putParcelable(ApplicationEditorDialogX.EXTRA_PP_INTENT, ppIntent);
+        savedInstanceState.putInt(EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, startApplicationDelay);
     }
 
     private void saveIntent() {
@@ -648,7 +671,145 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
             else
                 ppIntent._action = "";
         else {
-            ppIntent._action = actionsArray[actionSpinnerId];
+            String action = "";
+            switch (actionsArray[actionSpinnerId]) {
+                case "ACTION_ALL_APPS":
+                    action = Intent.ACTION_ALL_APPS;
+                    break;
+                case "ACTION_ANSWER":
+                    action = Intent.ACTION_ANSWER;
+                    break;
+                case "ACTION_APPLICATION_PREFERENCES":
+                    action = Intent.ACTION_APPLICATION_PREFERENCES;
+                    break;
+                case "ACTION_APP_ERROR":
+                    action = Intent.ACTION_APP_ERROR;
+                    break;
+                case "ACTION_ASSIST":
+                    action = Intent.ACTION_ASSIST;
+                    break;
+                case "ACTION_ATTACH_DATA":
+                    action = Intent.ACTION_ATTACH_DATA;
+                    break;
+                case "ACTION_BUG_REPORT":
+                    action = Intent.ACTION_BUG_REPORT;
+                    break;
+                case "ACTION_CALL":
+                    action = Intent.ACTION_CALL;
+                    break;
+                case "ACTION_CALL_BUTTON":
+                    action = Intent.ACTION_CALL_BUTTON;
+                    break;
+                case "ACTION_CARRIER_SETUP":
+                    action = Intent.ACTION_CARRIER_SETUP;
+                    break;
+                case "ACTION_CHOOSER":
+                    action = Intent.ACTION_CHOOSER;
+                    break;
+                case "ACTION_CREATE_DOCUMENT":
+                    action = Intent.ACTION_CREATE_DOCUMENT;
+                    break;
+                case "ACTION_DELETE":
+                    action = Intent.ACTION_DELETE;
+                    break;
+                case "ACTION_DIAL":
+                    action = Intent.ACTION_DIAL;
+                    break;
+                case "ACTION_EDIT":
+                    action = Intent.ACTION_EDIT;
+                    break;
+                case "ACTION_FACTORY_TEST":
+                    action = Intent.ACTION_FACTORY_TEST;
+                    break;
+                case "ACTION_GET_CONTENT":
+                    action = Intent.ACTION_GET_CONTENT;
+                    break;
+                case "ACTION_INSERT":
+                    action = Intent.ACTION_INSERT;
+                    break;
+                case "ACTION_INSERT_OR_EDIT":
+                    action = Intent.ACTION_INSERT_OR_EDIT;
+                    break;
+                case "ACTION_INSTALL_PACKAGE":
+                    action = Intent.ACTION_INSTALL_PACKAGE;
+                    break;
+                case "ACTION_MAIN":
+                    action = Intent.ACTION_MAIN;
+                    break;
+                case "ACTION_MANAGE_NETWORK_USAGE":
+                    action = Intent.ACTION_MANAGE_NETWORK_USAGE;
+                    break;
+                case "ACTION_OPEN_DOCUMENT":
+                    action = Intent.ACTION_OPEN_DOCUMENT;
+                    break;
+                case "ACTION_OPEN_DOCUMENT_TREE":
+                    action = Intent.ACTION_OPEN_DOCUMENT_TREE;
+                    break;
+                case "ACTION_PASTE":
+                    action = Intent.ACTION_PASTE;
+                    break;
+                case "ACTION_PICK":
+                    action = Intent.ACTION_PICK;
+                    break;
+                case "ACTION_PICK_ACTIVITY":
+                    action = Intent.ACTION_PICK_ACTIVITY;
+                    break;
+                case "ACTION_POWER_USAGE_SUMMARY":
+                    action = Intent.ACTION_POWER_USAGE_SUMMARY;
+                    break;
+                case "ACTION_PROCESS_TEXT":
+                    action = Intent.ACTION_PROCESS_TEXT;
+                    break;
+                case "ACTION_QUICK_CLOCK":
+                    action = Intent.ACTION_QUICK_CLOCK;
+                    break;
+                case "ACTION_QUICK_VIEW":
+                    action = Intent.ACTION_QUICK_VIEW;
+                    break;
+                case "ACTION_RUN":
+                    action = Intent.ACTION_RUN;
+                    break;
+                case "ACTION_SEARCH":
+                    action = Intent.ACTION_SEARCH;
+                    break;
+                case "ACTION_SEARCH_LONG_PRESS":
+                    action = Intent.ACTION_SEARCH_LONG_PRESS;
+                    break;
+                case "ACTION_SEND":
+                    action = Intent.ACTION_SEND;
+                    break;
+                case "ACTION_SENDTO":
+                    action = Intent.ACTION_SENDTO;
+                    break;
+                case "ACTION_SEND_MULTIPLE":
+                    action = Intent.ACTION_SEND_MULTIPLE;
+                    break;
+                case "ACTION_SET_WALLPAPER":
+                    action = Intent.ACTION_SET_WALLPAPER;
+                    break;
+                case "ACTION_SHOW_APP_INFO":
+                    action = Intent.ACTION_SHOW_APP_INFO;
+                    break;
+                case "ACTION_SYNC":
+                    action = Intent.ACTION_SYNC;
+                    break;
+                case "ACTION_SYSTEM_TUTORIAL":
+                    action = Intent.ACTION_SYSTEM_TUTORIAL;
+                    break;
+                case "ACTION_UNINSTALL_PACKAGE":
+                    action = Intent.ACTION_UNINSTALL_PACKAGE;
+                    break;
+                case "ACTION_VIEW":
+                    action = Intent.ACTION_VIEW;
+                    break;
+                case "ACTION_VOICE_COMMAND":
+                    action = Intent.ACTION_VOICE_COMMAND;
+                    break;
+                case "ACTION_WEB_SEARCH":
+                    action = Intent.ACTION_WEB_SEARCH;
+                    break;
+            }
+            ppIntent._action = action;
         }
 
         ppIntent._categories = "";
@@ -753,8 +914,116 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
             if ((ppIntent._categories != null) && (!ppIntent._categories.isEmpty())) {
                 String[] splits = ppIntent._categories.split("\\|");
                 for (String category : splits) {
-                    if (!category.isEmpty())
-                        intent.addCategory(category);
+                    switch (category) {
+                        case "CATEGORY_ALTERNATIVE":
+                            intent.addCategory(Intent.CATEGORY_ALTERNATIVE);
+                            break;
+                        case "CATEGORY_APP_BROWSER":
+                            intent.addCategory(Intent.CATEGORY_APP_BROWSER);
+                            break;
+                        case "CATEGORY_APP_CALCULATOR":
+                            intent.addCategory(Intent.CATEGORY_APP_CALCULATOR);
+                            break;
+                        case "CATEGORY_APP_CALENDAR":
+                            intent.addCategory(Intent.CATEGORY_APP_CALENDAR);
+                            break;
+                        case "CATEGORY_APP_CONTACTS":
+                            intent.addCategory(Intent.CATEGORY_APP_CONTACTS);
+                            break;
+                        case "CATEGORY_APP_EMAIL":
+                            intent.addCategory(Intent.CATEGORY_APP_EMAIL);
+                            break;
+                        case "CATEGORY_APP_GALLERY":
+                            intent.addCategory(Intent.CATEGORY_APP_GALLERY);
+                            break;
+                        case "CATEGORY_APP_MAPS":
+                            intent.addCategory(Intent.CATEGORY_APP_MAPS);
+                            break;
+                        case "CATEGORY_APP_MARKET":
+                            intent.addCategory(Intent.CATEGORY_APP_MARKET);
+                            break;
+                        case "CATEGORY_APP_MESSAGING":
+                            intent.addCategory(Intent.CATEGORY_APP_MESSAGING);
+                            break;
+                        case "CATEGORY_APP_MUSIC":
+                            intent.addCategory(Intent.CATEGORY_APP_MUSIC);
+                            break;
+                        case "CATEGORY_BROWSABLE":
+                            intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                            break;
+                        case "CATEGORY_CAR_DOCK":
+                            intent.addCategory(Intent.CATEGORY_CAR_DOCK);
+                            break;
+                        case "CATEGORY_CAR_MODE":
+                            intent.addCategory(Intent.CATEGORY_CAR_MODE);
+                            break;
+                        case "CATEGORY_DEFAULT":
+                            intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            break;
+                        case "CATEGORY_DESK_DOCK":
+                            intent.addCategory(Intent.CATEGORY_DESK_DOCK);
+                            break;
+                        case "CATEGORY_DEVELOPMENT_PREFERENCE":
+                            intent.addCategory(Intent.CATEGORY_DEVELOPMENT_PREFERENCE);
+                            break;
+                        case "CATEGORY_EMBED":
+                            intent.addCategory(Intent.CATEGORY_EMBED);
+                            break;
+                        case "CATEGORY_FRAMEWORK_INSTRUMENTATION_TEST":
+                            intent.addCategory(Intent.CATEGORY_FRAMEWORK_INSTRUMENTATION_TEST);
+                            break;
+                        case "CATEGORY_HE_DESK_DOCK":
+                            intent.addCategory(Intent.CATEGORY_HE_DESK_DOCK);
+                            break;
+                        case "CATEGORY_HOME":
+                            intent.addCategory(Intent.CATEGORY_HOME);
+                            break;
+                        case "CATEGORY_INFO":
+                            intent.addCategory(Intent.CATEGORY_INFO);
+                            break;
+                        case "CATEGORY_LAUNCHER":
+                            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                            break;
+                        case "CATEGORY_LEANBACK_LAUNCHER":
+                            intent.addCategory(Intent.CATEGORY_LEANBACK_LAUNCHER);
+                            break;
+                        case "CATEGORY_LE_DESK_DOCK":
+                            intent.addCategory(Intent.CATEGORY_LE_DESK_DOCK);
+                            break;
+                        case "CATEGORY_MONKEY":
+                            intent.addCategory(Intent.CATEGORY_MONKEY);
+                            break;
+                        case "CATEGORY_OPENABLE":
+                            intent.addCategory(Intent.CATEGORY_OPENABLE);
+                            break;
+                        case "CATEGORY_PREFERENCE":
+                            intent.addCategory(Intent.CATEGORY_PREFERENCE);
+                            break;
+                        case "CATEGORY_SAMPLE_CODE":
+                            intent.addCategory(Intent.CATEGORY_SAMPLE_CODE);
+                            break;
+                        case "CATEGORY_SELECTED_ALTERNATIVE":
+                            intent.addCategory(Intent.CATEGORY_SELECTED_ALTERNATIVE);
+                            break;
+                        case "CATEGORY_TAB":
+                            intent.addCategory(Intent.CATEGORY_TAB);
+                            break;
+                        case "CATEGORY_TEST":
+                            intent.addCategory(Intent.CATEGORY_TEST);
+                            break;
+                        case "CATEGORY_TYPED_OPENABLE":
+                            intent.addCategory(Intent.CATEGORY_TYPED_OPENABLE);
+                            break;
+                        case "CATEGORY_UNIT_TEST":
+                            intent.addCategory(Intent.CATEGORY_UNIT_TEST);
+                            break;
+                        case "CATEGORY_VOICE":
+                            intent.addCategory(Intent.CATEGORY_VOICE);
+                            break;
+                        case "CATEGORY_VR_HOME":
+                            intent.addCategory(Intent.CATEGORY_VR_HOME);
+                            break;
+                    }
                 }
             }
 
