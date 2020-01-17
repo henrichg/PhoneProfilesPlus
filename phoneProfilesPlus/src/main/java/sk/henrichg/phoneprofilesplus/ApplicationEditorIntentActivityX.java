@@ -552,47 +552,59 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveIntent();
-                Intent testIntent = createIntent(ppIntent);
-                boolean ok = false;
-                if (testIntent != null) {
-                    if (ppIntent._intentType == 0) {
-                        try {
-                            testIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(testIntent);
-                            ok = true;
-                        } catch (Exception ignored) {
-                        }
-                    }
-                    else {
-                        try {
-                            sendBroadcast(testIntent);
-                            ok = true;
-                        } catch (Exception ignored) {
-                        }
-                    }
-                }
-                if (!ok) {
-                    AlertDialog.Builder builder;
-                    if (ppIntent._intentType == 0) {
-                        builder =
-                                new AlertDialog.Builder(activity)
-                                        .setTitle(R.string.application_editor_intent_test_title)
-                                        //.setIcon(getDialogIcon())
-                                        .setMessage(R.string.application_editor_intent_test_activity_bad_data);
-                    }
-                    else {
-                        builder =
-                                new AlertDialog.Builder(activity)
-                                        .setTitle(R.string.application_editor_intent_test_title)
-                                        //.setIcon(getDialogIcon())
-                                        .setMessage(R.string.application_editor_intent_test_broadcast_bad_data);
-                    }
+                if (ppIntent == null) {
+                    AlertDialog.Builder builder =
+                            new AlertDialog.Builder(activity)
+                                    .setTitle(R.string.application_editor_intent_test_title)
+                                    //.setIcon(getDialogIcon())
+                                    .setMessage(R.string.application_editor_intent_test_activity_bad_data);
                     builder.setPositiveButton(android.R.string.ok, null);
 
                     AlertDialog mDialog = builder.create();
                     if (!isFinishing())
                         mDialog.show();
+                }
+                else {
+                    saveIntent();
+                    Intent testIntent = createIntent(ppIntent);
+                    boolean ok = false;
+                    if (testIntent != null) {
+                        if (ppIntent._intentType == 0) {
+                            try {
+                                testIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(testIntent);
+                                ok = true;
+                            } catch (Exception ignored) {
+                            }
+                        } else {
+                            try {
+                                sendBroadcast(testIntent);
+                                ok = true;
+                            } catch (Exception ignored) {
+                            }
+                        }
+                    }
+                    if (!ok) {
+                        AlertDialog.Builder builder;
+                        if (ppIntent._intentType == 0) {
+                            builder =
+                                    new AlertDialog.Builder(activity)
+                                            .setTitle(R.string.application_editor_intent_test_title)
+                                            //.setIcon(getDialogIcon())
+                                            .setMessage(R.string.application_editor_intent_test_activity_bad_data);
+                        } else {
+                            builder =
+                                    new AlertDialog.Builder(activity)
+                                            .setTitle(R.string.application_editor_intent_test_title)
+                                            //.setIcon(getDialogIcon())
+                                            .setMessage(R.string.application_editor_intent_test_broadcast_bad_data);
+                        }
+                        builder.setPositiveButton(android.R.string.ok, null);
+
+                        AlertDialog mDialog = builder.create();
+                        if (!isFinishing())
+                            mDialog.show();
+                    }
                 }
             }
         });
