@@ -116,7 +116,7 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
             }
             //setSummary(summaryPreference);
         } catch (Exception e) {
-            Log.e(getClass().getSimpleName(), "Cannot update preview: " + e.toString());
+            Log.e("CustomColorDialogPreferenceX.setColorInWidget", Log.getStackTraceString(e));
         }
     }
 

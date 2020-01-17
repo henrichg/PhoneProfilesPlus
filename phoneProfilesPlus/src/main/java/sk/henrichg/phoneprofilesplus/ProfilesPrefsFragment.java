@@ -2531,11 +2531,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, false, false, false, false);
                 } else {
                     String sValue = value.toString();
-                    Log.e("ProfilesPrefsFragment.setSummary", "sValue="+sValue);
+                    //PPApplication.logE("ProfilesPrefsFragment.setSummary", "sValue="+sValue);
                     int index = listPreference.findIndexOfValue(sValue);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                     listPreference.setSummary(summary);
-                    Log.e("ProfilesPrefsFragment.setSummary", "summary="+summary);
+                    //PPApplication.logE("ProfilesPrefsFragment.setSummary", "summary="+summary);
                     GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, false);
                 }
             }

@@ -1117,7 +1117,7 @@ class ActivateProfileHelper {
                         RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE, Uri.parse(splits[0]));
                     }
                     catch (Exception e){
-                        Log.e("ActivateProfileHelper.setTones", "TYPE_RINGTONE");
+                        //Log.e("ActivateProfileHelper.setTones", "TYPE_RINGTONE");
                         Log.e("ActivateProfileHelper.setTones", Log.getStackTraceString(e));
                     }
                 } else {
@@ -2964,7 +2964,7 @@ class ActivateProfileHelper {
             PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
             try {
                 if (powerManager != null) {
-                    Log.e("ActivateProfileHelper.createKeepScreenOnView", "keepScreenOnWakeLock="+service.keepScreenOnWakeLock);
+                    //Log.e("ActivateProfileHelper.createKeepScreenOnView", "keepScreenOnWakeLock="+service.keepScreenOnWakeLock);
                     if ((service.keepScreenOnWakeLock == null) || (!service.keepScreenOnWakeLock.isHeld())) {
                         if (service.keepScreenOnWakeLock == null)
                             //noinspection deprecation
@@ -3836,7 +3836,7 @@ class ActivateProfileHelper {
                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                             PPApplication.commandWait(command);
                         } catch (Exception e) {
-                            Log.e("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
+                            Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
                         }
                     }
                 }
@@ -3957,7 +3957,7 @@ class ActivateProfileHelper {
                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                             PPApplication.commandWait(command);
                         } catch (Exception e) {
-                            Log.e("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
+                            Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
                         }
                     }
                 }

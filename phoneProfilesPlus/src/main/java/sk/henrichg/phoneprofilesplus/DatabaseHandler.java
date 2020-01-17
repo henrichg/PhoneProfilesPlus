@@ -4253,7 +4253,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         values.put(KEY_ICON, "ic_profile_default|1|0|0");
                                 }
                             } catch (Exception e) {
-                                Log.e("DatabaseHandler.changePictureFilePathToUri", e.getMessage());
+                                Log.e("DatabaseHandler.changePictureFilePathToUri", Log.getStackTraceString(e));
                                 values.put(KEY_ICON, "ic_profile_default|1|0|0");
                             }
                             if (wallpaperChange == 1) {
@@ -4268,7 +4268,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         values.put(KEY_DEVICE_WALLPAPER, "-");
                                     }
                                 } catch (Exception e) {
-                                    Log.e("DatabaseHandler.changePictureFilePathToUri", e.getMessage());
+                                    Log.e("DatabaseHandler.changePictureFilePathToUri", Log.getStackTraceString(e));
                                     values.put(KEY_DEVICE_WALLPAPER_CHANGE, 0);
                                     values.put(KEY_DEVICE_WALLPAPER, "-");
                                 }
@@ -4288,7 +4288,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.changePictureFilePathToUri", e.getMessage());
+                    Log.e("DatabaseHandler.changePictureFilePathToUri", Log.getStackTraceString(e));
                 } finally {
                     if (database == null)
                         db.endTransaction();

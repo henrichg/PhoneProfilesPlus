@@ -237,7 +237,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                 //PPApplication.logE("DonationBroadcastReceiver._doWork", "daysForNextNotification=" + daysForNextNotification);
             } else {
                 PPApplication.setDonationNotificationCount(appContext, donationNotificationCount + 1);
-                Log.e("DonationBroadcastReceiver._doWork", "do not notify when donationNotificationCount is 3");
+                //PPApplication.logE("DonationBroadcastReceiver._doWork", "do not notify when donationNotificationCount is 3");
             }
         } else {
             int daysForOneNotification;

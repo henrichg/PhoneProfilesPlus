@@ -233,7 +233,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     preference.sortCellsBy = which;
-                                    Log.e("MobileCellsPreferenceFragmentX.sortIcon.onClickListener", "sortCellsBy="+preference.sortCellsBy);
+                                    //PPApplication.logE("MobileCellsPreferenceFragmentX.sortIcon.onClickListener", "sortCellsBy="+preference.sortCellsBy);
                                     refreshListView(false, Integer.MAX_VALUE);
                                     dialog.dismiss();
                                 }

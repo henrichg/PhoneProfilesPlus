@@ -282,7 +282,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
 
                         if (preference.mediaPlayer != null) {
                             preference.mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                            Log.e("VolumeDialogPreferenceFragmentX.onStopTrackingTouch", "start playing");
+                            //PPApplication.logE("VolumeDialogPreferenceFragmentX.onStopTrackingTouch", "start playing");
                             preference.mediaPlayer.start();
                         }
                     } catch (Exception e) {
