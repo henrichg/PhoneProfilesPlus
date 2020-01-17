@@ -105,11 +105,7 @@ class WifiBluetoothScanner {
             PPApplication.startHandlerThread("WifiBluetoothScanner.doScan.1");
             final Handler wifiBluetoothChangeHandler = new Handler(PPApplication.handlerThread.getLooper());
 
-            //PPApplication.logE("$$$ WifiBluetoothScanner.doScan", "before synchronized block - scannerType=" + scannerType);
-
             //synchronized (PPApplication.radioChangeStateMutex) {
-
-                //PPApplication.logE("$$$ WifiBluetoothScanner.doScan", "in synchronized block - start - scannerType=" + scannerType);
 
                 if (scannerType.equals(SCANNER_TYPE_WIFI)) {
                     //PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "start wifi scan");
@@ -127,6 +123,8 @@ class WifiBluetoothScanner {
                             PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "isWifiAPEnabled=" + !canScan);
                         }*/
                     }
+
+                    //PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "canScan="+canScan);
 
                     if (canScan) {
 
@@ -148,7 +146,7 @@ class WifiBluetoothScanner {
                         }*/
                         if (!scan) {
                             // wifi scan events not exists
-                            //PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "alarms removed");
+                            //PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "worker removed");
                             WifiScanWorker.cancelWork(context, true, null);
                         } else {
                             //PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "can scan");
