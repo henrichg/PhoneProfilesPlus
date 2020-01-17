@@ -751,7 +751,7 @@ public class PPApplication extends Application {
     public static HandlerThread handlerThreadHeadsUpNotifications = null;
     //public static HandlerThread handlerThreadMobileCells = null;
     public static HandlerThread handlerThreadBluetoothConnectedDevices = null;
-    public static HandlerThread handlerThreadBluetoothLECallback = null;
+    //public static HandlerThread handlerThreadBluetoothLECallback = null;
     public static HandlerThread handlerThreadNotificationLed = null;
     public static HandlerThread handlerThreadAlwaysOnDisplay = null;
 
@@ -963,7 +963,7 @@ public class PPApplication extends Application {
         //startHandlerThreadMobileCells();
         //startHandlerThreadRestartEventsWithDelay();
         startHandlerThreadBluetoothConnectedDevices();
-        startHandlerThreadBluetoothLECallback();
+        //startHandlerThreadBluetoothLECallback();
         startHandlerThreadNotificationLed();
         startHandlerThreadAlwaysOnDisplay();
 
@@ -2855,12 +2855,14 @@ public class PPApplication extends Application {
         }
     }
 
+    /*
     static void startHandlerThreadBluetoothLECallback() {
         if (handlerThreadBluetoothLECallback == null) {
             handlerThreadBluetoothLECallback = new HandlerThread("handlerThreadBluetoothLECallback", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadBluetoothLECallback.start();
         }
     }
+    */
 
     static void startHandlerThreadNotificationLed() {
         if (handlerThreadNotificationLed == null) {

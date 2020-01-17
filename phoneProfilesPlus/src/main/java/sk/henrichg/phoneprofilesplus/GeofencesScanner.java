@@ -255,7 +255,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     */
 
     void updateGeofencesInDB() {
-        synchronized (PPApplication.geofenceScannerLastLocationMutex) {
+        //synchronized (PPApplication.geofenceScannerLastLocationMutex) {
             //PPApplication.logE("[***] GeofenceScanner.updateGeofencesInDB", "xxx");
             /*if (PPApplication.logEnabled()) {
                 if (PhoneProfilesService.getInstance() != null)
@@ -273,8 +273,12 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 geofenceLocation.setLatitude(geofence._latitude);
                 geofenceLocation.setLongitude(geofence._longitude);
 
-                float distance = lastLocation.distanceTo(geofenceLocation);
-                float radius = lastLocation.getAccuracy() + geofence._radius;
+                float distance;
+                float radius;
+                synchronized (PPApplication.geofenceScannerLastLocationMutex) {
+                    distance = lastLocation.distanceTo(geofenceLocation);
+                    radius = lastLocation.getAccuracy() + geofence._radius;
+                }
 
                 int transitionType;
                 if (distance <= radius)
@@ -310,7 +314,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             }
 
             mTransitionsUpdated = true;
-        }
+        //}
     }
 
     void clearAllEventGeofences() {
