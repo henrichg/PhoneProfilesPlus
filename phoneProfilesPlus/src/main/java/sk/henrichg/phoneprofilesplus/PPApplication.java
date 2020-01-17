@@ -569,6 +569,8 @@ public class PPApplication extends Application {
                                         //+"|ElapsedAlarmsWorker"
                                         //+"|[WIFI] ActivateProfileHelper.doExecuteForRadios"
                                         //+"|CmdWifi.setWifi"
+
+                                        //+"|ApplicationEditorIntentActivityX"
             ;
 
 
