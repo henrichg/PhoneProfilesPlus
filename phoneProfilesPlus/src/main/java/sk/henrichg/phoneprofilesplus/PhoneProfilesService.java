@@ -318,6 +318,10 @@ public class PhoneProfilesService extends Service
             instance = this;
         }
 
+        PPApplication.loadApplicationPreferences(getApplicationContext());
+        PPApplication.loadGlobalApplicationData(getApplicationContext());
+        PPApplication.loadProfileActivationData(getApplicationContext());
+
         serviceHasFirstStart = false;
         //serviceRunning = false;
         //runningInForeground = false;

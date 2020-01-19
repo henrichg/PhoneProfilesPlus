@@ -634,7 +634,7 @@ class ActivateProfileHelper {
     }
     */
 
-    private static void getMergedRingNotificationVolumes(Context context) {
+    static void getMergedRingNotificationVolumes(Context context) {
         synchronized (PPApplication.profileActivationMutex) {
             ApplicationPreferences.getSharedPreferences(context);
             ApplicationPreferences.prefMergedRingNotificationVolumes = ApplicationPreferences.preferences.getBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, true);
@@ -4241,19 +4241,7 @@ class ActivateProfileHelper {
     }
     */
 
-    static void loadProfileActivationData(Context context) {
-        getRingerVolume(context);
-        getNotificationVolume(context);
-        getRingerMode(context);
-        getZenMode(context);
-        getLockScreenDisabled(context);
-        getActivatedProfileScreenTimeout(context);
-        getMergedRingNotificationVolumes(context);
-        Profile.getActivatedProfileForDuration(context);
-        Profile.getActivatedProfileEndDurationTime(context);
-    }
-
-    private static void getRingerVolume(Context context)
+    static void getRingerVolume(Context context)
     {
         synchronized (PPApplication.profileActivationMutex) {
             ApplicationPreferences.getSharedPreferences(context);
@@ -4273,7 +4261,7 @@ class ActivateProfileHelper {
         }
     }
 
-    private static void getNotificationVolume(Context context)
+    static void getNotificationVolume(Context context)
     {
         synchronized (PPApplication.profileActivationMutex) {
             ApplicationPreferences.getSharedPreferences(context);
@@ -4292,7 +4280,7 @@ class ActivateProfileHelper {
         }
     }
 
-    private static void getRingerMode(Context context)
+    static void getRingerMode(Context context)
     {
         synchronized (PPApplication.profileActivationMutex) {
             ApplicationPreferences.getSharedPreferences(context);
@@ -4312,7 +4300,7 @@ class ActivateProfileHelper {
         }
     }
 
-    private static void getZenMode(Context context)
+    static void getZenMode(Context context)
     {
         synchronized (PPApplication.profileActivationMutex) {
             ApplicationPreferences.getSharedPreferences(context);
@@ -4332,7 +4320,7 @@ class ActivateProfileHelper {
         }
     }
 
-    private static void getLockScreenDisabled(Context context)
+    static void getLockScreenDisabled(Context context)
     {
         synchronized (PPApplication.profileActivationMutex) {
             ApplicationPreferences.getSharedPreferences(context);
@@ -4351,7 +4339,7 @@ class ActivateProfileHelper {
         }
     }
 
-    private static void getActivatedProfileScreenTimeout(Context context)
+    static void getActivatedProfileScreenTimeout(Context context)
     {
         synchronized (PPApplication.profileActivationMutex) {
             ApplicationPreferences.getSharedPreferences(context);

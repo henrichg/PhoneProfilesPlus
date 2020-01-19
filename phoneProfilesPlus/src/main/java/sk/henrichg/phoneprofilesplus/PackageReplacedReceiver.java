@@ -397,11 +397,9 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                         PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PackageReplacedReceiver.onReceive.1");
 
-                        if (restartService) {
-                            PPApplication.loadApplicationPreferences(appContext);
-                        }
+                        PPApplication.loadApplicationPreferences(appContext);
                         PPApplication.loadGlobalApplicationData(appContext);
-                        ActivateProfileHelper.loadProfileActivationData(appContext);
+                        PPApplication.loadProfileActivationData(appContext);
 
                         // work for restart service
                         Data workData = new Data.Builder()

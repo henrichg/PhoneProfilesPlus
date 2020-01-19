@@ -67,7 +67,7 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
 
                     PPApplication.loadApplicationPreferences(getApplicationContext());
                     PPApplication.loadGlobalApplicationData(getApplicationContext());
-                    ActivateProfileHelper.loadProfileActivationData(getApplicationContext());
+                    PPApplication.loadProfileActivationData(getApplicationContext());
 
                     if (PPApplication.logEnabled()) {
                         PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PhoneProfilesBackupAgent.onRestoreFinished");

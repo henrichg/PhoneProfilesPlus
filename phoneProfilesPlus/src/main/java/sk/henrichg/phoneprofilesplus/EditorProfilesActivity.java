@@ -1625,7 +1625,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 PPApplication.loadApplicationPreferences(getApplicationContext());
                 PPApplication.loadGlobalApplicationData(getApplicationContext());
-                ActivateProfileHelper.loadProfileActivationData(getApplicationContext());
+                PPApplication.loadProfileActivationData(getApplicationContext());
 
             }/* catch (FileNotFoundException ignored) {
                 // no error, this is OK
