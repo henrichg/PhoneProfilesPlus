@@ -24,7 +24,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
 
         final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(appContext, true))
+        if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
 
@@ -142,7 +142,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
             PPApplication.restartPhoneStateScanner(appContext, true);
             PPApplication.restartOrientationScanner(appContext);*/
 
-            if (Event.getGlobalEventsRunning(appContext)) {
+            if (Event.getGlobalEventsRunning()) {
                 PPApplication.startHandlerThread("BatteryBroadcastReceiver.onReceive");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {

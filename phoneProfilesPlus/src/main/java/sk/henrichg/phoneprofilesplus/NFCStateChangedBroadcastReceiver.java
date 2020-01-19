@@ -15,11 +15,11 @@ public class NFCStateChangedBroadcastReceiver extends BroadcastReceiver {
 
         //CallsCounter.logCounter(context, "NFCStateChangedBroadcastReceiver.onReceive", "NFCStateChangedBroadcastReceiver_onReceive");
 
-        if (!PPApplication.getApplicationStarted(context, true))
+        if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRunning(context)) {
+        if (Event.getGlobalEventsRunning()) {
             final String action = intent.getAction();
 
             if ((action != null) && action.equals(NfcAdapter.ACTION_ADAPTER_STATE_CHANGED)) {

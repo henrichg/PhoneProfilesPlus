@@ -176,7 +176,7 @@ public class EditorProfileListFragment extends Fragment
     private void doOnViewCreated(View view, boolean fromOnViewCreated)
     {
         profilePrefIndicatorImageView = view.findViewById(R.id.activated_profile_pref_indicator);
-        if (!ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context))
+        if (!ApplicationPreferences.applicationEditorPrefIndicator)
             profilePrefIndicatorImageView.setVisibility(GONE);
 
         activeProfileName = view.findViewById(R.id.activated_profile_name);
@@ -232,7 +232,7 @@ public class EditorProfileListFragment extends Fragment
 
             }*/
 
-            if (ApplicationPreferences.applicationEditorHideHeaderOrBottomBar(getActivity().getApplicationContext())) {
+            if (ApplicationPreferences.applicationEditorHideHeaderOrBottomBar) {
                 final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_profiles_list_fragment))
                         .getLayoutTransition();
                 layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
@@ -315,7 +315,7 @@ public class EditorProfileListFragment extends Fragment
                         listView.setAdapter(profileListAdapter);
                         // update activity for activated profile
                         Profile profile = activityDataWrapper.getActivatedProfile(true,
-                                ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
+                                ApplicationPreferences.applicationEditorPrefIndicator);
                         updateHeader(profile);
                         listView.getRecycledViewPool().clear();
                         profileListAdapter.notifyDataSetChanged(false);
@@ -327,7 +327,7 @@ public class EditorProfileListFragment extends Fragment
                             EditorProfileListFragment.sortByPOrder(activityDataWrapper.profileList);
                         // update activity for activated profile
                         Profile profile = activityDataWrapper.getActivatedProfile(true,
-                                ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
+                                ApplicationPreferences.applicationEditorPrefIndicator);
                         updateHeader(profile);
 
                         listView.getRecycledViewPool().clear();
@@ -354,7 +354,7 @@ public class EditorProfileListFragment extends Fragment
                     EditorProfileListFragment.sortByPOrder(activityDataWrapper.profileList);
                 // update activity for activated profile
                 Profile profile = activityDataWrapper.getActivatedProfile(true,
-                        ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
+                        ApplicationPreferences.applicationEditorPrefIndicator);
                 updateHeader(profile);
 
                 fragment.listView.getRecycledViewPool().clear();
@@ -404,7 +404,7 @@ public class EditorProfileListFragment extends Fragment
             _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false);
             //_baseContext = fragment.getActivity();
 
-            applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context);
+            applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
         }
 
         @Override
@@ -621,7 +621,7 @@ public class EditorProfileListFragment extends Fragment
 
         profileListAdapter.notifyDataSetChanged();
 
-        if (!Event.getGlobalEventsRunning(activityDataWrapper.context)) {
+        if (!Event.getGlobalEventsRunning()) {
             //Profile profile = databaseHandler.getActivatedProfile();
             Profile _profile = profileListAdapter.getActivatedProfile();
             updateHeader(_profile);
@@ -831,7 +831,7 @@ public class EditorProfileListFragment extends Fragment
             }
         }
 
-        if (ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context))
+        if (ApplicationPreferences.applicationEditorPrefIndicator)
         {
             if (profile == null)
                 //profilePrefIndicatorImageView.setImageResource(R.drawable.ic_empty);
@@ -901,7 +901,7 @@ public class EditorProfileListFragment extends Fragment
             {
                 long profile_id = data.getLongExtra(PPApplication.EXTRA_PROFILE_ID, -1);
                 Profile profile = activityDataWrapper.getProfileById(profile_id, true,
-                        ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context), false);
+                        ApplicationPreferences.applicationEditorPrefIndicator, false);
 
                 if (profileListAdapter != null)
                     profileListAdapter.activateProfile(profile);
@@ -1042,7 +1042,7 @@ public class EditorProfileListFragment extends Fragment
         //PPApplication.logE("EditorProfileListFragment.refreshGUI", "pName="+pName);
 
         if (!refresh) {
-            String pNameHeader = PPApplication.getActivityProfileName(activityDataWrapper.context, 2);
+            String pNameHeader = PPApplication.prefActivityProfileName2;
             //PPApplication.logE("EditorProfileListFragment.refreshGUI", "pNameHeader="+pNameHeader);
 
             if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
@@ -1061,7 +1061,7 @@ public class EditorProfileListFragment extends Fragment
         if (profileFromDB != null) {
             //PPApplication.logE("EditorProfileListFragment.refreshGUI", "profile activated");
             Profile profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
-                    ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context), false);
+                    ApplicationPreferences.applicationEditorPrefIndicator, false);
             if (profileFromDataWrapper != null)
                 profileFromDataWrapper._checked = true;
             updateHeader(profileFromDataWrapper);
@@ -1171,12 +1171,12 @@ public class EditorProfileListFragment extends Fragment
 
         ApplicationPreferences.getSharedPreferences(getActivity());
 
-        boolean showTargetHelps = ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true);
-        boolean showTargetHelpsDefaultProfile = ApplicationPreferences.preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, true);
+        boolean showTargetHelps = ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps;
+        boolean showTargetHelpsDefaultProfile = ApplicationPreferences.prefEditorActivityStartTargetHelpsDefaultProfile;
         if (showTargetHelps || showTargetHelpsDefaultProfile ||
-                ApplicationPreferences.preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, true) ||
-                ApplicationPreferences.preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, true) ||
-                ApplicationPreferences.preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, true)) {
+                ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps ||
+                ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsOrder ||
+                ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator) {
 
             //Log.d("EditorProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
@@ -1188,6 +1188,8 @@ public class EditorProfileListFragment extends Fragment
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
                 editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, false);
                 editor.apply();
+                ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps = false;
+                ApplicationPreferences.prefEditorActivityStartTargetHelpsDefaultProfile = false;
 
                 //String appTheme = ApplicationPreferences.applicationTheme(getActivity(), true);
                 int outerCircleColor = R.color.tabTargetHelpOuterCircleColor;
@@ -1273,6 +1275,11 @@ public class EditorProfileListFragment extends Fragment
                                 if (filterType == FILTER_TYPE_ALL)
                                     editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
                                 editor.apply();
+                                ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps = false;
+                                if (filterType == FILTER_TYPE_SHOW_IN_ACTIVATOR)
+                                    ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsOrder = false;
+                                if (filterType == FILTER_TYPE_ALL)
+                                    ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator = false;
                             }
                         });
                 sequence.continueOnCancel(true)
@@ -1318,6 +1325,8 @@ public class EditorProfileListFragment extends Fragment
             editor.putBoolean(PREF_START_TARGET_HELPS, false);
             editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
             editor.apply();
+            ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps = false;
+            ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps = false;
         }
     }
 

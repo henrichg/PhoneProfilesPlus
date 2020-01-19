@@ -49,7 +49,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
         {
             int requestCode = hashData(runApplicationData); //PPApplication.requestCodeForAlarm.nextInt();
 
-            if (ApplicationPreferences.applicationUseAlarmClock(context)) {
+            if (ApplicationPreferences.applicationUseAlarmClock) {
                 //Intent intent = new Intent(_context, RunApplicationWithDelayBroadcastReceiver.class);
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER);
@@ -182,9 +182,9 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
     static void doWork(Context context, String runApplicationData) {
         //PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.doWork", "runApplicationData="+runApplicationData);
 
-        final Context appContext = context.getApplicationContext();
+        //final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(appContext, true))
+        if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
 

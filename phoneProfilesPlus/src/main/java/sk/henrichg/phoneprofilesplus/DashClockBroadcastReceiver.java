@@ -40,7 +40,7 @@ public class DashClockBroadcastReceiver extends BroadcastReceiver {
                         pName = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
 
                     if (!refresh) {
-                        String pNameWidget = PPApplication.getWidgetProfileName(context, 5);
+                        String pNameWidget = PPApplication.prefWidgetProfileName5;
 
                         if (!pNameWidget.isEmpty()) {
                             if (pName.equals(pNameWidget)) {

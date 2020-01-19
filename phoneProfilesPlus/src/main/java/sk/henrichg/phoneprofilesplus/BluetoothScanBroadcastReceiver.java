@@ -23,11 +23,11 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
 
         final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(appContext, true))
+        if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
-        if (WifiBluetoothScanner.getForceOneBluetoothScan(appContext) != WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED) {
-            if (!ApplicationPreferences.applicationEventBluetoothEnableScanning(appContext))
+        if (ApplicationPreferences.prefForceOneBluetoothScan != WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED) {
+            if (!ApplicationPreferences.applicationEventBluetoothEnableScanning)
                 // scanning is disabled
                 return;
         }
@@ -75,11 +75,11 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                             BluetoothScanWorker.bluetooth = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(appContext);
 
                         if (BluetoothScanWorker.bluetooth != null) {
-                            int forceOneScan = WifiBluetoothScanner.getForceOneBluetoothScan(appContext);
+                            int forceOneScan = ApplicationPreferences.prefForceOneBluetoothScan;
 
-                            if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
+                            if (Event.getGlobalEventsRunning() || (forceOneScan == WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
 
-                                boolean scanStarted = (BluetoothScanWorker.getWaitForResults(appContext));
+                                boolean scanStarted = ApplicationPreferences.prefEventBluetoothWaitForResult;
 
                                 if (scanStarted) {
                                     //PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "action=" + action);

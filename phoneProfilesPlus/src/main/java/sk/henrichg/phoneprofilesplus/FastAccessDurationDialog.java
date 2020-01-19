@@ -300,7 +300,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         profileName = layout.findViewById(R.id.fast_access_duration_dlg_profile_name);
         profileIcon = layout.findViewById(R.id.fast_access_duration_dlg_profile_icon);
         profileIndicators = layout.findViewById(R.id.fast_access_duration_dlg_profile_pref_indicator);
-        if (!ApplicationPreferences.applicationEditorPrefIndicator(mDataWrapper.context))
+        if (!ApplicationPreferences.applicationEditorPrefIndicator)
             profileIndicators.setVisibility(View.GONE);
         profileView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -392,7 +392,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
     {
         //PPApplication.logE("FastAccessDurationDialog.updateProfileView", "mProfile="+mProfile);
 
-        boolean showIndicators = ApplicationPreferences.applicationEditorPrefIndicator(mDataWrapper.context);
+        boolean showIndicators = ApplicationPreferences.applicationEditorPrefIndicator;
 
         if (mProfile == null)
         {

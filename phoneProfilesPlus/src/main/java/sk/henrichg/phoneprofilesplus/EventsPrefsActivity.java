@@ -391,7 +391,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         boolean enabled = preferences.getBoolean(Event.PREF_EVENT_ENABLED, false);
         if (!enabled) {
-            if (!ApplicationPreferences.applicationEventNeverAskForEnableRun(this)) {
+            if (!ApplicationPreferences.applicationEventNeverAskForEnableRun) {
                 //if (new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) {
                 final AppCompatCheckBox doNotShowAgain = new AppCompatCheckBox(this);
 
@@ -415,6 +415,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = settings.edit();
                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, isChecked);
                         editor.apply();
+                        ApplicationPreferences.applicationEventNeverAskForEnableRun(getApplicationContext());
                     }
                 });
 
@@ -614,12 +615,13 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
         ApplicationPreferences.getSharedPreferences(this);
 
-        if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+        if (ApplicationPreferences.prefEventPrefsActivityStartTargetHelps) {
             //Log.d("EventPreferencesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
             SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
             editor.putBoolean(PREF_START_TARGET_HELPS, false);
             editor.apply();
+            ApplicationPreferences.prefEventPrefsActivityStartTargetHelps = false;
 
             Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
 

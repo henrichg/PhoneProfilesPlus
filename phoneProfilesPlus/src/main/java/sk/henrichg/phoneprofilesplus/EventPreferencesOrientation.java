@@ -167,8 +167,8 @@ class EventPreferencesOrientation extends EventPreferences {
                     descr = descr + "</b> ";
                 }
 
-                if (!ApplicationPreferences.applicationEventOrientationEnableScanning(context)) {
-                    if (!ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(context))
+                if (!ApplicationPreferences.applicationEventOrientationEnableScanning) {
+                    if (!ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile)
                         descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
                     else
                         descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
@@ -282,8 +282,8 @@ class EventPreferencesOrientation extends EventPreferences {
             String summary;
             int titleColor;
             if (preference != null) {
-                if (!ApplicationPreferences.applicationEventOrientationEnableScanning(context)) {
-                    if (!ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(context)) {
+                if (!ApplicationPreferences.applicationEventOrientationEnableScanning) {
+                    if (!ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile) {
                         summary = "* " + context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + " *\n" +
                                 context.getResources().getString(R.string.phone_profiles_pref_eventOrientationAppSettings_summary);
                         titleColor = Color.RED; //0xFFffb000;

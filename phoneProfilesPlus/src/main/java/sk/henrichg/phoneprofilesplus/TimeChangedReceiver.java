@@ -24,7 +24,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
 
                 final Context appContext = context.getApplicationContext();
 
-                if (!PPApplication.getApplicationStarted(appContext, true))
+                if (!PPApplication.getApplicationStarted(true))
                     return;
 
                 /*boolean timeChanged = true;
@@ -127,7 +127,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
         //dataWrapper.clearSensorsStartTime();
         //dataWrapper.restartEvents(false, true, false, false, false);
         //dataWrapper.restartEventsWithRescan(false, false, false, false);
-        if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
+        if (!DataWrapper.getIsManualProfileActivation(false/*, appContext*/)) {
             dataWrapper.restartEventsWithRescan(true, false, false, false);
         }
         else {

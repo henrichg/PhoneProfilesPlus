@@ -47,7 +47,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
         View view;
         if (filterType == EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
         {
-            if (ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context))
+            if (ApplicationPreferences.applicationEditorPrefIndicator)
                 view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.editor_profile_list_item, parent, false);
             else
@@ -57,7 +57,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
         else
         if (filterType == EditorProfileListFragment.FILTER_TYPE_ALL)
         {
-            if (ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context))
+            if (ApplicationPreferences.applicationEditorPrefIndicator)
                 view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.editor_profile_list_item_all_profiles, parent, false);
             else
@@ -66,7 +66,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
         }
         else
         {
-            if (ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context))
+            if (ApplicationPreferences.applicationEditorPrefIndicator)
                 view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.editor_profile_list_item_no_order_handler, parent, false);
             else
@@ -315,7 +315,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                 for (Iterator<Profile> it = activityDataWrapper.profileList.iterator(); it.hasNext(); ) {
                     Profile profile = it.next();
                     activityDataWrapper.refreshProfileIcon(profile, true,
-                            ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
+                            ApplicationPreferences.applicationEditorPrefIndicator);
                 }
             }
         }
@@ -377,9 +377,9 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
         ApplicationPreferences.getSharedPreferences(activity);
 
-        boolean startTargetHelps = ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true);
-        boolean startTargetHelpsOrder = ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS_ORDER, true);
-        boolean startTargetHelpsShowInActivator = ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, true);
+        boolean startTargetHelps = ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps;
+        boolean startTargetHelpsOrder = ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsOrder;
+        boolean startTargetHelpsShowInActivator = ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator;
 
         if (startTargetHelps || startTargetHelpsOrder || startTargetHelpsShowInActivator) {
 
@@ -405,6 +405,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
                 editor.apply();
+                ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps = false;
 
                 Rect profileItemTarget = new Rect(0, 0, listItemView.getHeight(), listItemView.getHeight());
                 int[] screenLocation = new int[2];
@@ -417,6 +418,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
                     editor.putBoolean(PREF_START_TARGET_HELPS_ORDER, false);
                     editor.apply();
+                    ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsOrder = false;
 
                     // do not add it again
                     startTargetHelpsOrder = false;
@@ -450,6 +452,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
                     editor.putBoolean(PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
                     editor.apply();
+                    ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator = false;
 
                     // do not add it again
                     startTargetHelpsShowInActivator = false;
@@ -508,6 +511,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                     SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                     editor.putBoolean(PREF_START_TARGET_HELPS_ORDER, false);
                     editor.apply();
+                    ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsOrder = false;
 
                     sequence.targets(
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_drag_handle), activity.getString(R.string.editor_activity_targetHelps_profileOrderHandler_title), activity.getString(R.string.editor_activity_targetHelps_profileOrderHandler_description))
@@ -527,6 +531,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                     SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                     editor.putBoolean(PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
                     editor.apply();
+                    ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator = false;
 
                     sequence.targets(
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_show_in_activator), activity.getString(R.string.editor_activity_targetHelps_showInActivator_title), activity.getString(R.string.editor_activity_targetHelps_showInActivator_description))

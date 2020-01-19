@@ -75,11 +75,11 @@ class TwilightScanner {
 
                 final Context appContext = context.getApplicationContext();
 
-                if (!PPApplication.getApplicationStarted(appContext, true))
+                if (!PPApplication.getApplicationStarted(true))
                     // application is not started
                     return;
 
-                if (Event.getGlobalEventsRunning(appContext)) {
+                if (Event.getGlobalEventsRunning()) {
                     //PPApplication.logE("TwilightScanner.setTwilightState", "xxx");
 
                     PPApplication.startHandlerThread("TwilightScanner.setTwilightState");
@@ -522,7 +522,7 @@ class TwilightScanner {
                 }
 
                 pendingIntent = PendingIntent.getBroadcast(context, 0, updateIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                if (ApplicationPreferences.applicationUseAlarmClock(context)) {
+                if (ApplicationPreferences.applicationUseAlarmClock) {
                     Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);

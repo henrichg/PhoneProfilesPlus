@@ -25,7 +25,7 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
 
         final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(appContext, true))
+        if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
 
@@ -45,7 +45,7 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=EventDelayStartBroadcastReceiver.doWork");
 
-                        if (Event.getGlobalEventsRunning(appContext)) {
+                        if (Event.getGlobalEventsRunning()) {
                             //PPApplication.logE("EventDelayStartBroadcastReceiver.doWork", "handle events");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_EVENT_DELAY_START);
@@ -64,7 +64,7 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
             });
         }
         else {
-            if (Event.getGlobalEventsRunning(appContext)) {
+            if (Event.getGlobalEventsRunning()) {
                 //PPApplication.logE("EventDelayStartBroadcastReceiver.doWork", "handle events");
                 EventsHandler eventsHandler = new EventsHandler(appContext);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_EVENT_DELAY_START);

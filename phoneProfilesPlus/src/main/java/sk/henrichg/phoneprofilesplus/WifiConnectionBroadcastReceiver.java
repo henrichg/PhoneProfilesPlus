@@ -18,7 +18,7 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
 
         final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(appContext, true))
+        if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
 
@@ -70,12 +70,12 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
                                     }
                                 }
 
-                                if (Event.getGlobalEventsRunning(appContext)) {
+                                if (Event.getGlobalEventsRunning()) {
                                     //if ((info.getState() == NetworkInfo.State.CONNECTED) ||
                                     //        (info.getState() == NetworkInfo.State.DISCONNECTED)) {
-                                        if (!(WifiScanWorker.getScanRequest(appContext) ||
-                                                WifiScanWorker.getWaitForResults(appContext) ||
-                                                WifiScanWorker.getWifiEnabledForScan(appContext))) {
+                                        if (!(ApplicationPreferences.prefEventWifiScanRequest ||
+                                                ApplicationPreferences.prefEventWifiWaitForResult ||
+                                                ApplicationPreferences.prefEventWifiEnabledForScan)) {
                                             // wifi is not scanned
 
                                             //PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is not scanned");

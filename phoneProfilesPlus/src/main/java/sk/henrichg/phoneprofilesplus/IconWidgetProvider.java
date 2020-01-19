@@ -25,19 +25,19 @@ public class IconWidgetProvider extends AppWidgetProvider {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness(context);
-                String applicationWidgetIconColor = ApplicationPreferences.applicationWidgetIconColor(context);
-                boolean applicationWidgetIconCustomIconLightness = ApplicationPreferences.applicationWidgetIconCustomIconLightness(context);
-                boolean applicationWidgetIconHideProfileName = ApplicationPreferences.applicationWidgetIconHideProfileName(context);
-                boolean applicationWidgetIconBackgroundType = ApplicationPreferences.applicationWidgetIconBackgroundType(context);
-                String applicationWidgetIconBackgroundColor = ApplicationPreferences.applicationWidgetIconBackgroundColor(context);
-                String applicationWidgetIconLightnessB = ApplicationPreferences.applicationWidgetIconLightnessB(context);
-                String applicationWidgetIconBackground = ApplicationPreferences.applicationWidgetIconBackground(context);
-                boolean applicationWidgetIconShowBorder = ApplicationPreferences.applicationWidgetIconShowBorder(context);
-                String applicationWidgetIconLightnessBorder = ApplicationPreferences.applicationWidgetIconLightnessBorder(context);
-                boolean applicationWidgetIconRoundedCorners = ApplicationPreferences.applicationWidgetIconRoundedCorners(context);
-                String applicationWidgetIconLightnessT = ApplicationPreferences.applicationWidgetIconLightnessT(context);
-                boolean showProfileDuration = ApplicationPreferences.applicationWidgetIconShowProfileDuration(context);
+                String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness;
+                String applicationWidgetIconColor = ApplicationPreferences.applicationWidgetIconColor;
+                boolean applicationWidgetIconCustomIconLightness = ApplicationPreferences.applicationWidgetIconCustomIconLightness;
+                boolean applicationWidgetIconHideProfileName = ApplicationPreferences.applicationWidgetIconHideProfileName;
+                boolean applicationWidgetIconBackgroundType = ApplicationPreferences.applicationWidgetIconBackgroundType;
+                String applicationWidgetIconBackgroundColor = ApplicationPreferences.applicationWidgetIconBackgroundColor;
+                String applicationWidgetIconLightnessB = ApplicationPreferences.applicationWidgetIconLightnessB;
+                String applicationWidgetIconBackground = ApplicationPreferences.applicationWidgetIconBackground;
+                boolean applicationWidgetIconShowBorder = ApplicationPreferences.applicationWidgetIconShowBorder;
+                String applicationWidgetIconLightnessBorder = ApplicationPreferences.applicationWidgetIconLightnessBorder;
+                boolean applicationWidgetIconRoundedCorners = ApplicationPreferences.applicationWidgetIconRoundedCorners;
+                String applicationWidgetIconLightnessT = ApplicationPreferences.applicationWidgetIconLightnessT;
+                boolean showProfileDuration = ApplicationPreferences.applicationWidgetIconShowProfileDuration;
 
                 int monochromeValue = 0xFF;
                 if (applicationWidgetIconLightness.equals("0")) monochromeValue = 0x00;
@@ -59,7 +59,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
                 try {
                     if (!refreshWidget) {
-                        String pNameWidget = PPApplication.getWidgetProfileName(context, 1);
+                        String pNameWidget = PPApplication.prefWidgetProfileName1;
 
                         if (!pNameWidget.isEmpty()) {
                             String pName;

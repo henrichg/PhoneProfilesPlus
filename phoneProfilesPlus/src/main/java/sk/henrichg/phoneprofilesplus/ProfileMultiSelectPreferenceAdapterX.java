@@ -13,13 +13,13 @@ class ProfileMultiSelectPreferenceAdapterX extends BaseAdapter {
 
     private final List<Profile> profileList;
 
-    private final Context context;
+    //private final Context context;
 
     private final LayoutInflater inflater;
 
     ProfileMultiSelectPreferenceAdapterX(Context c, List<Profile> profileList)
     {
-        context = c;
+        //context = c;
 
         this.profileList = profileList;
 
@@ -47,7 +47,7 @@ class ProfileMultiSelectPreferenceAdapterX extends BaseAdapter {
 
         View vi = convertView;
 
-        boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(context);
+        boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
 
         if (convertView == null)
         {

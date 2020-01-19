@@ -30,7 +30,7 @@ public class LauncherActivity extends AppCompatActivity {
     {
         super.onStart();
 
-        if (!PPApplication.getApplicationStarted(getApplicationContext(), true))
+        if (!PPApplication.getApplicationStarted(true))
         {
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("LauncherActivity.onStart", "application is not started");
@@ -95,21 +95,21 @@ public class LauncherActivity extends AppCompatActivity {
         switch (startupSource) {
             case PPApplication.STARTUP_SOURCE_NOTIFICATION:
                 //PPApplication.logE("LauncherActivity.endOnStart", "STARTUP_SOURCE_NOTIFICATION");
-                if (ApplicationPreferences.applicationNotificationLauncher(getApplicationContext()).equals("activator"))
+                if (ApplicationPreferences.applicationNotificationLauncher.equals("activator"))
                     intentLaunch = new Intent(getApplicationContext(), ActivateProfileActivity.class);
                 else
                     intentLaunch = new Intent(getApplicationContext(), EditorProfilesActivity.class);
                 break;
             case PPApplication.STARTUP_SOURCE_WIDGET:
                 //PPApplication.logE("LauncherActivity.endOnStart", "STARTUP_SOURCE_WIDGET");
-                if (ApplicationPreferences.applicationWidgetLauncher(getApplicationContext()).equals("activator"))
+                if (ApplicationPreferences.applicationWidgetLauncher.equals("activator"))
                     intentLaunch = new Intent(getApplicationContext(), ActivateProfileActivity.class);
                 else
                     intentLaunch = new Intent(getApplicationContext(), EditorProfilesActivity.class);
                 break;
             default:
                 //PPApplication.logE("LauncherActivity.endOnStart", "default");
-                if (ApplicationPreferences.applicationHomeLauncher(getApplicationContext()).equals("activator"))
+                if (ApplicationPreferences.applicationHomeLauncher.equals("activator"))
                     intentLaunch = new Intent(getApplicationContext(), ActivateProfileActivity.class);
                 else
                     intentLaunch = new Intent(getApplicationContext(), EditorProfilesActivity.class);

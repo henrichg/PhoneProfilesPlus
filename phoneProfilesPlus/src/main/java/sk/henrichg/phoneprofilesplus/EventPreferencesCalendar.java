@@ -174,7 +174,7 @@ class EventPreferencesCalendar extends EventPreferences {
                     descr = descr + " • " + context.getString(R.string.event_preferences_calendar_start_before_event) + ": <b>" + GlobalGUIRoutines.getDurationString(this._startBeforeEvent) + "</b>";
 
                 if (addBullet) {
-                    if (Event.getGlobalEventsRunning(context)) {
+                    if (Event.getGlobalEventsRunning()) {
                         if (_eventFound) {
                             long alarmTime;
                             //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
@@ -477,7 +477,7 @@ class EventPreferencesCalendar extends EventPreferences {
         if (alarmTime == 0)
             return;
 
-        boolean applicationUseAlarmClock = ApplicationPreferences.applicationUseAlarmClock(context);
+        boolean applicationUseAlarmClock = ApplicationPreferences.applicationUseAlarmClock;
         // not set alarm if alarmTime is over.
         Calendar now = Calendar.getInstance();
         if (applicationUseAlarmClock) {

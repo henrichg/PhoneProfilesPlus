@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -85,7 +84,7 @@ class EventsHandler {
 
             //PPApplication.logE("#### EventsHandler.handleEvents", "-- start --------------------------------");
 
-            if (!PPApplication.getApplicationStarted(context, true))
+            if (!PPApplication.getApplicationStarted(true))
                 // application is not started
                 return;
 
@@ -116,8 +115,8 @@ class EventsHandler {
 
             // save ringer mode, zen mode, ringtone before handle events
             // used by ringing call simulation
-            oldRingerMode = ActivateProfileHelper.getRingerMode(context);
-            oldZenMode = ActivateProfileHelper.getZenMode(context);
+            oldRingerMode = ApplicationPreferences.prefRingerMode;
+            oldZenMode = ApplicationPreferences.prefZenMode;
             final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
             if (audioManager != null) {
                 oldSystemRingerMode = audioManager.getRingerMode();
@@ -166,7 +165,7 @@ class EventsHandler {
             }
             */
 
-            if (!Event.getGlobalEventsRunning(context)) {
+            if (!Event.getGlobalEventsRunning()) {
                 // events are globally stopped
 
                 doEndHandler(null);
@@ -559,7 +558,7 @@ class EventsHandler {
             if (ppService != null)
                 waitForEndOfStart = ppService.getWaitForEndOfStart();
 
-            if (!DataWrapper.getIsManualProfileActivation(false, context.getApplicationContext())) {
+            if (!DataWrapper.getIsManualProfileActivation(false/*, context.getApplicationContext()*/)) {
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "active profile is NOT activated manually");
                     PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "runningEventCount0=" + runningEventCount0);
@@ -574,7 +573,7 @@ class EventsHandler {
 
                         //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "no events running");
                         // no events running
-                        backgroundProfileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context));
+                        backgroundProfileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile);
                         if (waitForEndOfStart)
                             backgroundProfileId = Profile.PROFILE_NO_ACTIVATE;
                         if (backgroundProfileId != Profile.PROFILE_NO_ACTIVATE) {
@@ -583,7 +582,7 @@ class EventsHandler {
                             if (activatedProfile != null)
                                 activatedProfileId = activatedProfile._id;
 
-                            if (ApplicationPreferences.applicationBackgroundProfileUsage(context)) {
+                            if (ApplicationPreferences.applicationBackgroundProfileUsage) {
                                 // do not activate default profile when not any event is paused and no any profile is activated
                                 // for example for screen on/off broadcast, when no any event is running
                                 if (!anyEventPaused && (mergedProfile._id == 0) && (mergedPausedProfile._id == 0))
@@ -623,7 +622,7 @@ class EventsHandler {
             } else {
                 //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "active profile is activated manually");
                 // manual profile activation
-                backgroundProfileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context));
+                backgroundProfileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile);
                 if (waitForEndOfStart)
                     backgroundProfileId = Profile.PROFILE_NO_ACTIVATE;
                 if (backgroundProfileId != Profile.PROFILE_NO_ACTIVATE) {
@@ -651,8 +650,8 @@ class EventsHandler {
             if (/*(!isRestart) &&*/ (backgroundProfileId != Profile.PROFILE_NO_ACTIVATE) && notifyBackgroundProfile) {
                 // only when activated is background profile, play event notification sound
 
-                backgroundProfileNotificationSound = ApplicationPreferences.applicationBackgroundProfileNotificationSound(context);
-                backgroundProfileNotificationVibrate = ApplicationPreferences.applicationBackgroundProfileNotificationVibrate(context);
+                backgroundProfileNotificationSound = ApplicationPreferences.applicationBackgroundProfileNotificationSound;
+                backgroundProfileNotificationVibrate = ApplicationPreferences.applicationBackgroundProfileNotificationVibrate;
             }
 
             /*if (PPApplication.logEnabled()) {
@@ -862,7 +861,7 @@ class EventsHandler {
                         //PPApplication.logE("EventsHandler.doEndHandler", "start simulating ringing call");
                         try {
                             boolean simulateRingingCall = false;
-                            String phoneNumber = ApplicationPreferences.preferences.getString(EventPreferencesCall.PREF_EVENT_CALL_PHONE_NUMBER, "");
+                            String phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
                             for (Event _event : dataWrapper.eventList) {
                                 if (_event._eventPreferencesCall._enabled && _event.getStatus() == Event.ESTATUS_RUNNING) {
                                     //PPApplication.logE("EventsHandler.doEndHandler", "event._id=" + _event._id);
@@ -966,12 +965,9 @@ class EventsHandler {
     }
 
     void setEventCallParameters(int callEventType, String phoneNumber, long eventTime) {
-        ApplicationPreferences.getSharedPreferences(context);
-        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-        editor.putInt(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TYPE, callEventType);
-        editor.putString(EventPreferencesCall.PREF_EVENT_CALL_PHONE_NUMBER, phoneNumber);
-        editor.putLong(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TIME, eventTime);
-        editor.apply();
+        EventPreferencesCall.setEventCallEventType(context, callEventType);
+        EventPreferencesCall.setEventCallEventTime(context, eventTime);
+        EventPreferencesCall.setEventCallPhoneNumber(context, phoneNumber);
     }
 
 }

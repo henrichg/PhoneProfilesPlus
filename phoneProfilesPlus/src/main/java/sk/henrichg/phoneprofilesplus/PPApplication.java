@@ -60,6 +60,20 @@ import static android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE;
 public class PPApplication extends Application {
 
     private static PPApplication instance;
+    private static boolean applicationStarted = false;
+    static boolean globalEventsRunStop = true;
+
+    static final ApplicationPreferencesMutex applicationPreferencesMutex = new ApplicationPreferencesMutex();
+    static final ApplicationGlobalPreferencesMutex applicationGlobalPreferencesMutex = new ApplicationGlobalPreferencesMutex();
+    private static final ApplicationStartedMutex applicationStartedMutex = new ApplicationStartedMutex();
+    static final ProfileActivationMutex profileActivationMutex = new ProfileActivationMutex();
+    static final GlobalEventsRunStopMutex globalEventsRunStopMutex = new GlobalEventsRunStopMutex();
+    static final EventsRunMutex eventsRunMutex = new EventsRunMutex();
+    static final EventCallSensorMutex eventCallSensorMutex = new EventCallSensorMutex();
+    static final EventPeripheralsSensorMutex eventPeripheralsSensorMutex = new EventPeripheralsSensorMutex();
+    static final EventWifiBluetoothSensorMutex eventWifiBluetoothSensorMutex = new EventWifiBluetoothSensorMutex();
+    static final EventWifiSensorMutex eventWifiSensorMutex = new EventWifiSensorMutex();
+    static final EventBluetoothSensorMutex eventBluetoothSensorMutex = new EventBluetoothSensorMutex();
 
     //static final String romManufacturer = getROMManufacturer();
     static final boolean deviceIsXiaomi = isXiaomi();
@@ -801,6 +815,10 @@ public class PPApplication extends Application {
 
         instance = this;
 
+        loadApplicationPreferences(getApplicationContext());
+        loadGlobalApplicationData(getApplicationContext());
+        ActivateProfileHelper.loadProfileActivationData(getApplicationContext());
+
         if (logEnabled()) {
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsXiaomi=" + deviceIsXiaomi);
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsHuawei=" + deviceIsHuawei);
@@ -1010,7 +1028,7 @@ public class PPApplication extends Application {
             sLook = null;
         }
 
-        if (PPApplication.getApplicationStarted(getApplicationContext(), false)) {
+        if (PPApplication.getApplicationStarted(false)) {
             try {
                 PPApplication.logE("##### PPApplication.onCreate", "start service");
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
@@ -1073,6 +1091,155 @@ public class PPApplication extends Application {
     static int getVersionCode(PackageInfo pInfo) {
         //return pInfo.versionCode;
         return (int) PackageInfoCompat.getLongVersionCode(pInfo);
+    }
+
+    //--------------------------------------------------------------
+
+    static void loadApplicationPreferences(Context context) {
+        synchronized (PPApplication.applicationPreferencesMutex) {
+            ApplicationPreferences.editorOrderSelectedItem(context);
+            ApplicationPreferences.editorSelectedView(context);
+            ApplicationPreferences.editorProfilesViewSelectedItem(context);
+            ApplicationPreferences.editorEventsViewSelectedItem(context);
+            ApplicationPreferences.applicationFirstStart(context);
+            ApplicationPreferences.applicationStartOnBoot(context);
+            ApplicationPreferences.applicationActivate(context);
+            ApplicationPreferences.applicationStartEvents(context);
+            ApplicationPreferences.applicationActivateWithAlert(context);
+            ApplicationPreferences.applicationClose(context);
+            ApplicationPreferences.applicationLongClickActivation(context);
+            //ApplicationPreferences.applicationLanguage(context);
+            ApplicationPreferences.applicationTheme(context);
+            //ApplicationPreferences.applicationActivatorPrefIndicator(context);
+            ApplicationPreferences.applicationEditorPrefIndicator(context);
+            //ApplicationPreferences.applicationActivatorHeader(context);
+            //ApplicationPreferences.applicationEditorHeader(context);
+            ApplicationPreferences.notificationsToast(context);
+            //ApplicationPreferences.notificationStatusBar(context);
+            //ApplicationPreferences.notificationStatusBarPermanent(context);
+            //ApplicationPreferences.notificationStatusBarCancel(context);
+            ApplicationPreferences.notificationStatusBarStyle(context);
+            ApplicationPreferences.notificationShowInStatusBar(context);
+            ApplicationPreferences.notificationTextColor(context);
+            ApplicationPreferences.notificationHideInLockScreen(context);
+            //ApplicationPreferences.notificationTheme(context);
+            ApplicationPreferences.applicationWidgetListPrefIndicator(context);
+            ApplicationPreferences.applicationWidgetListHeader(context);
+            ApplicationPreferences.applicationWidgetListBackground(context);
+            ApplicationPreferences.applicationWidgetListLightnessB(context);
+            ApplicationPreferences.applicationWidgetListLightnessT(context);
+            ApplicationPreferences.applicationWidgetIconColor(context);
+            ApplicationPreferences.applicationWidgetIconLightness(context);
+            ApplicationPreferences.applicationWidgetListIconColor(context);
+            ApplicationPreferences.applicationWidgetListIconLightness(context);
+            //ApplicationPreferences.applicationEditorAutoCloseDrawer(context);
+            //ApplicationPreferences.applicationEditorSaveEditorState(context);
+            ApplicationPreferences.notificationPrefIndicator(context);
+            ApplicationPreferences.applicationHomeLauncher(context);
+            ApplicationPreferences.applicationWidgetLauncher(context);
+            ApplicationPreferences.applicationNotificationLauncher(context);
+            ApplicationPreferences.applicationEventWifiScanInterval(context);
+            ApplicationPreferences.applicationBackgroundProfile(context);
+            ApplicationPreferences.applicationBackgroundProfileNotificationSound(context);
+            ApplicationPreferences.applicationBackgroundProfileNotificationVibrate(context);
+            ApplicationPreferences.applicationBackgroundProfileUsage(context);
+            ApplicationPreferences.applicationActivatorGridLayout(context);
+            ApplicationPreferences.applicationWidgetListGridLayout(context);
+            ApplicationPreferences.applicationEventBluetoothScanInterval(context);
+            ApplicationPreferences.applicationEventWifiRescan(context);
+            ApplicationPreferences.applicationEventBluetoothRescan(context);
+            ApplicationPreferences.applicationWidgetIconHideProfileName(context);
+            ApplicationPreferences.applicationShortcutEmblem(context);
+            ApplicationPreferences.applicationEventWifiScanInPowerSaveMode(context);
+            ApplicationPreferences.applicationEventBluetoothScanInPowerSaveMode(context);
+            ApplicationPreferences.applicationPowerSaveModeInternal(context);
+            ApplicationPreferences.applicationEventBluetoothLEScanDuration(context);
+            ApplicationPreferences.applicationEventLocationUpdateInterval(context);
+            ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context);
+            ApplicationPreferences.applicationEventLocationUseGPS(context);
+            ApplicationPreferences.applicationEventLocationRescan(context);
+            ApplicationPreferences.applicationEventOrientationScanInterval(context);
+            ApplicationPreferences.applicationEventOrientationScanInPowerSaveMode(context);
+            ApplicationPreferences.applicationEventMobileCellsScanInPowerSaveMode(context);
+            ApplicationPreferences.applicationEventMobileCellsRescan(context);
+            ApplicationPreferences.applicationDeleteOldActivityLogs(context);
+            ApplicationPreferences.applicationWidgetIconBackground(context);
+            ApplicationPreferences.applicationWidgetIconLightnessB(context);
+            ApplicationPreferences.applicationWidgetIconLightnessT(context);
+            ApplicationPreferences.applicationEventUsePriority(context);
+            ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context);
+            ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes(context);
+            //ApplicationPreferences.applicationSamsungEdgePrefIndicator(context);
+            ApplicationPreferences.applicationSamsungEdgeHeader(context);
+            ApplicationPreferences.applicationSamsungEdgeBackground(context);
+            ApplicationPreferences.applicationSamsungEdgeLightnessB(context);
+            ApplicationPreferences.applicationSamsungEdgeLightnessT(context);
+            ApplicationPreferences.applicationSamsungEdgeIconColor(context);
+            ApplicationPreferences.applicationSamsungEdgeIconLightness(context);
+            //ApplicationPreferences.applicationSamsungEdgeGridLayout(context);
+            ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(context);
+            ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(context);
+            ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(context);
+            ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn(context);
+            ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn(context);
+            ApplicationPreferences.applicationRestartEventsWithAlert(context);
+            ApplicationPreferences.applicationWidgetListRoundedCorners(context);
+            ApplicationPreferences.applicationWidgetIconRoundedCorners(context);
+            ApplicationPreferences.applicationWidgetListBackgroundType(context);
+            ApplicationPreferences.applicationWidgetListBackgroundColor(context);
+            ApplicationPreferences.applicationWidgetIconBackgroundType(context);
+            ApplicationPreferences.applicationWidgetIconBackgroundColor(context);
+            ApplicationPreferences.applicationSamsungEdgeBackgroundType(context);
+            ApplicationPreferences.applicationSamsungEdgeBackgroundColor(context);
+            //ApplicationPreferences.applicationEventWifiEnableWifi(context);
+            //ApplicationPreferences.applicationEventBluetoothEnableBluetooth(context);
+            ApplicationPreferences.applicationEventWifiScanIfWifiOff(context);
+            ApplicationPreferences.applicationEventBluetoothScanIfBluetoothOff(context);
+            ApplicationPreferences.applicationEventWifiEnableScanning(context);
+            ApplicationPreferences.applicationEventBluetoothEnableScanning(context);
+            ApplicationPreferences.applicationEventLocationEnableScanning(context);
+            ApplicationPreferences.applicationEventMobileCellEnableScanning(context);
+            ApplicationPreferences.applicationEventOrientationEnableScanning(context);
+            ApplicationPreferences.applicationEventWifiDisabledScannigByProfile(context);
+            ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile(context);
+            ApplicationPreferences.applicationEventLocationDisabledScannigByProfile(context);
+            ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(context);
+            ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(context);
+            ApplicationPreferences.applicationEventNeverAskForEnableRun(context);
+            ApplicationPreferences.applicationUseAlarmClock(context);
+            ApplicationPreferences.applicationNeverAskForGrantRoot(context);
+            ApplicationPreferences.notificationShowButtonExit(context);
+            //ApplicationPreferences.applicationWidgetOneRowPrefIndicator(context);
+            ApplicationPreferences.applicationWidgetOneRowBackground(context);
+            ApplicationPreferences.applicationWidgetOneRowLightnessB(context);
+            ApplicationPreferences.applicationWidgetOneRowLightnessT(context);
+            ApplicationPreferences.applicationWidgetOneRowIconColor(context);
+            ApplicationPreferences.applicationWidgetOneRowIconLightness(context);
+            ApplicationPreferences.applicationWidgetOneRowRoundedCorners(context);
+            ApplicationPreferences.applicationWidgetOneRowBackgroundType(context);
+            ApplicationPreferences.applicationWidgetOneRowBackgroundColor(context);
+            ApplicationPreferences.applicationWidgetListLightnessBorder(context);
+            ApplicationPreferences.applicationWidgetOneRowLightnessBorder(context);
+            ApplicationPreferences.applicationWidgetIconLightnessBorder(context);
+            ApplicationPreferences.applicationWidgetListShowBorder(context);
+            ApplicationPreferences.applicationWidgetOneRowShowBorder(context);
+            ApplicationPreferences.applicationWidgetIconShowBorder(context);
+            ApplicationPreferences.applicationWidgetListCustomIconLightness(context);
+            ApplicationPreferences.applicationWidgetOneRowCustomIconLightness(context);
+            ApplicationPreferences.applicationWidgetIconCustomIconLightness(context);
+            ApplicationPreferences.applicationSamsungEdgeCustomIconLightness(context);
+            //ApplicationPreferences.notificationDarkBackground(context);
+            ApplicationPreferences.notificationUseDecoration(context);
+            ApplicationPreferences.notificationLayoutType(context);
+            ApplicationPreferences.notificationBackgroundColor(context);
+            //ApplicationPreferences.applicationNightModeOffTheme(context);
+            ApplicationPreferences.applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled(context);
+            ApplicationPreferences.applicationSamsungEdgeVerticalPosition(context);
+            ApplicationPreferences.notificationBackgroundCustomColor(context);
+            ApplicationPreferences.notificationNightMode(context);
+            ApplicationPreferences.applicationEditorHideHeaderOrBottomBar(context);
+            ApplicationPreferences.applicationWidgetIconShowProfileDuration(context);
+        }
     }
 
     //--------------------------------------------------------------
@@ -1285,22 +1452,65 @@ public class PPApplication extends Application {
 
     //--------------------------------------------------------------
 
-    static public boolean getApplicationStarted(Context context, boolean testService)
-    {
-        ApplicationPreferences.getSharedPreferences(context);
-        if (testService)
-            return ApplicationPreferences.preferences.getBoolean(PREF_APPLICATION_STARTED, false) &&
-                    (PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().getServiceHasFirstStart();
-        else
-            return ApplicationPreferences.preferences.getBoolean(PREF_APPLICATION_STARTED, false);
+    static void loadGlobalApplicationData(Context context) {
+        synchronized (applicationStartedMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            applicationStarted = ApplicationPreferences.preferences.getBoolean(PREF_APPLICATION_STARTED, false);
+        }
+        synchronized (globalEventsRunStopMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            globalEventsRunStop = ApplicationPreferences.preferences.getBoolean(Event.PREF_GLOBAL_EVENTS_RUN_STOP, true);
+        }
+        IgnoreBatteryOptimizationNotification.getShowIgnoreBatteryOptimizationNotificationOnStart(context);
+        getActivityLogEnabled(context);
+        getNotificationProfileName(context);
+        getWidgetProfileName(context);
+        getActivityProfileName(context);
+        getLastActivatedProfile(context);
+        Event.getEventsBlocked(context);
+        Event.getForceRunEventRunning(context);
+        PPPExtenderBroadcastReceiver.getApplicationInForeground(context);
+        EventPreferencesCall.getEventCallEventType(context);
+        EventPreferencesCall.getEventCallEventTime(context);
+        EventPreferencesCall.getEventCallPhoneNumber(context);
+        HeadsetConnectionBroadcastReceiver.getEventHeadsetParameters(context);
+        WifiBluetoothScanner.getForceOneWifiScan(context);
+        WifiBluetoothScanner.getForceOneBluetoothScan(context);
+        WifiBluetoothScanner.getForceOneLEBluetoothScan(context);
+        BluetoothScanWorker.getBluetoothEnabledForScan(context);
+        BluetoothScanWorker.getScanRequest(context);
+        BluetoothScanWorker.getLEScanRequest(context);
+        BluetoothScanWorker.getWaitForResults(context);
+        BluetoothScanWorker.getWaitForLEResults(context);
+        BluetoothScanWorker.getScanKilled(context);
+        WifiScanWorker.getWifiEnabledForScan(context);
+        WifiScanWorker.getScanRequest(context);
+        WifiScanWorker.getWaitForResults(context);
+        ApplicationPreferences.loadStartTargetHelps(context);
     }
 
-    static public void setApplicationStarted(Context context, boolean appStarted)
+    //--------------------------------------------------------------
+
+    static boolean getApplicationStarted(boolean testService)
     {
-        ApplicationPreferences.getSharedPreferences(context);
-        Editor editor = ApplicationPreferences.preferences.edit();
-        editor.putBoolean(PREF_APPLICATION_STARTED, appStarted);
-        editor.apply();
+        synchronized (applicationStartedMutex) {
+            if (testService)
+                return applicationStarted &&
+                        (PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().getServiceHasFirstStart();
+            else
+                return applicationStarted;
+        }
+    }
+
+    static void setApplicationStarted(Context context, boolean appStarted)
+    {
+        synchronized (applicationStartedMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            Editor editor = ApplicationPreferences.preferences.edit();
+            editor.putBoolean(PREF_APPLICATION_STARTED, appStarted);
+            editor.apply();
+            applicationStarted = appStarted;
+        }
     }
 
     static public int getSavedVersionCode(Context context) {
@@ -1316,18 +1526,142 @@ public class PPApplication extends Application {
         editor.apply();
     }
 
-    static public boolean getActivityLogEnabled(Context context)
+    static boolean prefActivityLogEnabled;
+    private static void getActivityLogEnabled(Context context)
     {
-        ApplicationPreferences.getSharedPreferences(context);
-        return ApplicationPreferences.preferences.getBoolean(PREF_ACTIVITY_LOG_ENABLED, true);
+        synchronized (applicationGlobalPreferencesMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            prefActivityLogEnabled = ApplicationPreferences.preferences.getBoolean(PREF_ACTIVITY_LOG_ENABLED, true);
+            //return prefActivityLogEnabled;
+        }
+    }
+    static void setActivityLogEnabled(Context context, boolean enabled)
+    {
+        synchronized (applicationGlobalPreferencesMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            Editor editor = ApplicationPreferences.preferences.edit();
+            editor.putBoolean(PREF_ACTIVITY_LOG_ENABLED, enabled);
+            editor.apply();
+            prefActivityLogEnabled = enabled;
+        }
     }
 
-    static public void setActivityLogEnabled(Context context, boolean enabled)
+    static String prefNotificationProfileName;
+    private static void getNotificationProfileName(Context context)
     {
-        ApplicationPreferences.getSharedPreferences(context);
-        Editor editor = ApplicationPreferences.preferences.edit();
-        editor.putBoolean(PREF_ACTIVITY_LOG_ENABLED, enabled);
-        editor.apply();
+        synchronized (applicationGlobalPreferencesMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            prefNotificationProfileName = ApplicationPreferences.preferences.getString(PREF_NOTIFICATION_PROFILE_NAME, "");
+            //return prefNotificationProfileName;
+        }
+    }
+    static public void setNotificationProfileName(Context context, String notificationProfileName)
+    {
+        synchronized (applicationGlobalPreferencesMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            Editor editor = ApplicationPreferences.preferences.edit();
+            editor.putString(PREF_NOTIFICATION_PROFILE_NAME, notificationProfileName);
+            editor.apply();
+            prefNotificationProfileName = notificationProfileName;
+        }
+    }
+
+    static String prefWidgetProfileName1;
+    static String prefWidgetProfileName2;
+    static String prefWidgetProfileName3;
+    static String prefWidgetProfileName4;
+    static String prefWidgetProfileName5;
+    private static void getWidgetProfileName(Context context)
+    {
+        synchronized (applicationGlobalPreferencesMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            prefWidgetProfileName1 = ApplicationPreferences.preferences.getString(PREF_WIDGET_PROFILE_NAME + "_1", "");
+            prefWidgetProfileName2 = ApplicationPreferences.preferences.getString(PREF_WIDGET_PROFILE_NAME + "_2", "");
+            prefWidgetProfileName3 = ApplicationPreferences.preferences.getString(PREF_WIDGET_PROFILE_NAME + "_3", "");
+            prefWidgetProfileName4 = ApplicationPreferences.preferences.getString(PREF_WIDGET_PROFILE_NAME + "_4", "");
+            prefWidgetProfileName5 = ApplicationPreferences.preferences.getString(PREF_WIDGET_PROFILE_NAME + "_5", "");
+            //return prefNotificationProfileName;
+        }
+    }
+    static void setWidgetProfileName(Context context, int widgetType, String widgetProfileName)
+    {
+        synchronized (applicationGlobalPreferencesMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            Editor editor = ApplicationPreferences.preferences.edit();
+            editor.putString(PREF_WIDGET_PROFILE_NAME + "_" + widgetType, widgetProfileName);
+            editor.apply();
+            switch (widgetType) {
+                case 1:
+                    prefWidgetProfileName1 = widgetProfileName;
+                    break;
+                case 2:
+                    prefWidgetProfileName2 = widgetProfileName;
+                    break;
+                case 3:
+                    prefWidgetProfileName3 = widgetProfileName;
+                    break;
+                case 4:
+                    prefWidgetProfileName4 = widgetProfileName;
+                    break;
+                case 5:
+                    prefWidgetProfileName5 = widgetProfileName;
+                    break;
+            }
+        }
+    }
+
+    static String prefActivityProfileName1;
+    static String prefActivityProfileName2;
+    static String prefActivityProfileName3;
+    private static void getActivityProfileName(Context context)
+    {
+        synchronized (applicationGlobalPreferencesMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            prefActivityProfileName1 = ApplicationPreferences.preferences.getString(PREF_ACTIVITY_PROFILE_NAME + "_1", "");
+            prefActivityProfileName2 = ApplicationPreferences.preferences.getString(PREF_ACTIVITY_PROFILE_NAME + "_2", "");
+            prefActivityProfileName3 = ApplicationPreferences.preferences.getString(PREF_ACTIVITY_PROFILE_NAME + "_3", "");
+            //return prefActivityProfileName;
+        }
+    }
+    static void setActivityProfileName(Context context, int activityType, String activityProfileName)
+    {
+        synchronized (applicationGlobalPreferencesMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            Editor editor = ApplicationPreferences.preferences.edit();
+            editor.putString(PREF_ACTIVITY_PROFILE_NAME + "_" + activityType, activityProfileName);
+            editor.apply();
+            switch (activityType) {
+                case 1:
+                    prefActivityProfileName1 = activityProfileName;
+                    break;
+                case 2:
+                    prefActivityProfileName2 = activityProfileName;
+                    break;
+                case 3:
+                    prefActivityProfileName3 = activityProfileName;
+                    break;
+            }
+        }
+    }
+
+    static long prefLastActivatedProfile;
+    private static void getLastActivatedProfile(Context context)
+    {
+        synchronized (applicationGlobalPreferencesMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            prefLastActivatedProfile = ApplicationPreferences.preferences.getLong(PREF_LAST_ACTIVATED_PROFILE, 0);
+            //return prefLastActivatedProfile;
+        }
+    }
+    static public void setLastActivatedProfile(Context context, long profileId)
+    {
+        synchronized (applicationGlobalPreferencesMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            Editor editor = ApplicationPreferences.preferences.edit();
+            editor.putLong(PREF_LAST_ACTIVATED_PROFILE, profileId);
+            editor.apply();
+            prefLastActivatedProfile = profileId;
+        }
     }
 
     static public int getDaysAfterFirstStart(Context context)
@@ -1335,7 +1669,6 @@ public class PPApplication extends Application {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getInt(PREF_DAYS_AFTER_FIRST_START, 0);
     }
-
     static public void setDaysAfterFirstStart(Context context, int days)
     {
         ApplicationPreferences.getSharedPreferences(context);
@@ -1349,7 +1682,6 @@ public class PPApplication extends Application {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getInt(PREF_DONATION_NOTIFICATION_COUNT, 0);
     }
-
     static public void setDonationNotificationCount(Context context, int days)
     {
         ApplicationPreferences.getSharedPreferences(context);
@@ -1363,7 +1695,6 @@ public class PPApplication extends Application {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getInt(PREF_DAYS_FOR_NEXT_DONATION_NOTIFICATION, 0);
     }
-
     static public void setDaysForNextDonationNotification(Context context, int days)
     {
         ApplicationPreferences.getSharedPreferences(context);
@@ -1377,68 +1708,11 @@ public class PPApplication extends Application {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getBoolean(PREF_DONATION_DONATED, false);
     }
-
     static public void setDonationDonated(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
         Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(PREF_DONATION_DONATED, true);
-        editor.apply();
-    }
-
-    static public String getNotificationProfileName(Context context)
-    {
-        ApplicationPreferences.getSharedPreferences(context);
-        return ApplicationPreferences.preferences.getString(PREF_NOTIFICATION_PROFILE_NAME, "");
-    }
-
-    static public void setNotificationProfileName(Context context, String notificationProfileName)
-    {
-        ApplicationPreferences.getSharedPreferences(context);
-        Editor editor = ApplicationPreferences.preferences.edit();
-        editor.putString(PREF_NOTIFICATION_PROFILE_NAME, notificationProfileName);
-        editor.apply();
-    }
-
-    static public String getWidgetProfileName(Context context, int widgetType)
-    {
-        ApplicationPreferences.getSharedPreferences(context);
-        return ApplicationPreferences.preferences.getString(PREF_WIDGET_PROFILE_NAME + "_" + widgetType, "");
-    }
-
-    static public void setWidgetProfileName(Context context, int widgetType, String widgetProfileName)
-    {
-        ApplicationPreferences.getSharedPreferences(context);
-        Editor editor = ApplicationPreferences.preferences.edit();
-        editor.putString(PREF_WIDGET_PROFILE_NAME + "_" + widgetType, widgetProfileName);
-        editor.apply();
-    }
-
-    static public String getActivityProfileName(Context context, int activityType)
-    {
-        ApplicationPreferences.getSharedPreferences(context);
-        return ApplicationPreferences.preferences.getString(PREF_ACTIVITY_PROFILE_NAME + "_" + activityType, "");
-    }
-
-    static public void setActivityProfileName(Context context, int activityType, String activityProfileName)
-    {
-        ApplicationPreferences.getSharedPreferences(context);
-        Editor editor = ApplicationPreferences.preferences.edit();
-        editor.putString(PREF_ACTIVITY_PROFILE_NAME + "_" + activityType, activityProfileName);
-        editor.apply();
-    }
-
-    static public long getLastActivatedProfile(Context context)
-    {
-        ApplicationPreferences.getSharedPreferences(context);
-        return ApplicationPreferences.preferences.getLong(PREF_LAST_ACTIVATED_PROFILE, 0);
-    }
-
-    static public void setLastActivatedProfile(Context context, long profileId)
-    {
-        ApplicationPreferences.getSharedPreferences(context);
-        Editor editor = ApplicationPreferences.preferences.edit();
-        editor.putLong(PREF_LAST_ACTIVATED_PROFILE, profileId);
         editor.apply();
     }
 

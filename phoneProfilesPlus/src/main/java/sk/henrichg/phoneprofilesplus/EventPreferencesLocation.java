@@ -87,8 +87,8 @@ class EventPreferencesLocation extends EventPreferences {
                     descr = descr + "</b> ";
                 }
 
-                if (!ApplicationPreferences.applicationEventLocationEnableScanning(context)) {
-                    if (!ApplicationPreferences.applicationEventLocationDisabledScannigByProfile(context))
+                if (!ApplicationPreferences.applicationEventLocationEnableScanning) {
+                    if (!ApplicationPreferences.applicationEventLocationDisabledScannigByProfile)
                         descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
                     else
                         descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
@@ -144,8 +144,8 @@ class EventPreferencesLocation extends EventPreferences {
             if (preference != null) {
                 String summary;
                 int titleColor;
-                if (!ApplicationPreferences.applicationEventLocationEnableScanning(context)) {
-                    if (!ApplicationPreferences.applicationEventLocationDisabledScannigByProfile(context)) {
+                if (!ApplicationPreferences.applicationEventLocationEnableScanning) {
+                    if (!ApplicationPreferences.applicationEventLocationDisabledScannigByProfile) {
                         summary = "* " + context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + " *\n\n" +
                                 context.getResources().getString(R.string.phone_profiles_pref_eventLocationAppSettings_summary);
                         titleColor = Color.RED; //0xFFffb000;

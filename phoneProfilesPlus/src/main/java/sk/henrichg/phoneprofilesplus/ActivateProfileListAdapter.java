@@ -133,7 +133,7 @@ class ActivateProfileListAdapter extends BaseAdapter
             for (Profile profile : activityDataWrapper.profileList) {
                 activityDataWrapper.refreshProfileIcon(profile, true,
                         //ApplicationPreferences.applicationActivatorPrefIndicator(activityDataWrapper.context));
-                        ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
+                        ApplicationPreferences.applicationEditorPrefIndicator);
             }
         }
         notifyDataSetChanged();
@@ -153,7 +153,7 @@ class ActivateProfileListAdapter extends BaseAdapter
 
         View vi = convertView;
 
-        boolean applicationActivatorGridLayout = ApplicationPreferences.applicationActivatorGridLayout(fragment.getActivity());
+        boolean applicationActivatorGridLayout = ApplicationPreferences.applicationActivatorGridLayout;
 
         if (convertView == null)
         {
@@ -161,8 +161,8 @@ class ActivateProfileListAdapter extends BaseAdapter
             LayoutInflater inflater = LayoutInflater.from(fragment.getActivity());
             if (!applicationActivatorGridLayout)
             {
-                //boolean applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator(fragment.getActivity());
-                boolean applicationActivatorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(fragment.getActivity());
+                //boolean applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator;
+                boolean applicationActivatorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
                 if (applicationActivatorPrefIndicator)
                     vi = inflater.inflate(R.layout.activate_profile_list_item, parent, false);
                 else
@@ -237,7 +237,7 @@ class ActivateProfileListAdapter extends BaseAdapter
 
             if (holder.profileIndicator != null) {
                 //if ((ApplicationPreferences.applicationActivatorPrefIndicator(fragment.getActivity())) && (!applicationActivatorGridLayout)) {
-                if ((ApplicationPreferences.applicationEditorPrefIndicator(fragment.getActivity())) && (!applicationActivatorGridLayout)) {
+                if (ApplicationPreferences.applicationEditorPrefIndicator && (!applicationActivatorGridLayout)) {
                     if (profile._preferencesIndicator != null) {
                         //profilePrefIndicatorImageView.setImageBitmap(null);
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
@@ -266,19 +266,20 @@ class ActivateProfileListAdapter extends BaseAdapter
 
         ApplicationPreferences.getSharedPreferences(activity);
 
-        if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+        if (ApplicationPreferences.prefActivatorAdapterStartTargetHelps) {
 
             //Log.d("ActivateProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
             SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
             editor.putBoolean(PREF_START_TARGET_HELPS, false);
             editor.apply();
+            ApplicationPreferences.prefActivatorAdapterStartTargetHelps = false;
 
             Rect profileItemTarget = new Rect(0, 0, listItemView.getHeight(), listItemView.getHeight());
             int[] screenLocation = new int[2];
             listItemView.getLocationOnScreen(screenLocation);
             //listItemView.getLocationInWindow(screenLocation);
-            if (ApplicationPreferences.applicationActivatorGridLayout(activity))
+            if (ApplicationPreferences.applicationActivatorGridLayout)
                 profileItemTarget.offset(screenLocation[0] + listItemView.getWidth() / 2 - listItemView.getHeight() / 2, screenLocation[1]);
             else
                 profileItemTarget.offset(screenLocation[0] + 100, screenLocation[1]);

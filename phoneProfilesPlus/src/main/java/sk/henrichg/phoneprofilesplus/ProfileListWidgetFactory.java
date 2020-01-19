@@ -33,9 +33,9 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
   
     private void createProfilesDataWrapper()
     {
-        String applicationWidgetListIconLightness = ApplicationPreferences.applicationWidgetListIconLightness(context);
-        String applicationWidgetListIconColor = ApplicationPreferences.applicationWidgetListIconColor(context);
-        boolean applicationWidgetListCustomIconLightness = ApplicationPreferences.applicationWidgetListCustomIconLightness(context);
+        String applicationWidgetListIconLightness = ApplicationPreferences.applicationWidgetListIconLightness;
+        String applicationWidgetListIconColor = ApplicationPreferences.applicationWidgetListIconColor;
+        boolean applicationWidgetListCustomIconLightness = ApplicationPreferences.applicationWidgetListCustomIconLightness;
 
         int monochromeValue = 0xFF;
         if (applicationWidgetListIconLightness.equals("0")) monochromeValue = 0x00;
@@ -107,7 +107,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
 
     public RemoteViews getViewAt(int position) {
         RemoteViews row;
-        if (!ApplicationPreferences.applicationWidgetListGridLayout(context))
+        if (!ApplicationPreferences.applicationWidgetListGridLayout)
             row=new RemoteViews(context.getPackageName(), R.layout.profile_list_widget_item);
         else
             row=new RemoteViews(context.getPackageName(), R.layout.profile_grid_widget_item);
@@ -115,10 +115,10 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         Profile profile = getItem(position);
 
         if (profile != null) {
-            String applicationWidgetListLightnessT = ApplicationPreferences.applicationWidgetListLightnessT(context);
-            boolean applicationWidgetListHeader= ApplicationPreferences.applicationWidgetListHeader(context);
-            boolean applicationWidgetListGridLayout = ApplicationPreferences.applicationWidgetListGridLayout(context);
-            boolean applicationWidgetListPrefIndicator = ApplicationPreferences.applicationWidgetListPrefIndicator(context);
+            String applicationWidgetListLightnessT = ApplicationPreferences.applicationWidgetListLightnessT;
+            boolean applicationWidgetListHeader= ApplicationPreferences.applicationWidgetListHeader;
+            boolean applicationWidgetListGridLayout = ApplicationPreferences.applicationWidgetListGridLayout;
+            boolean applicationWidgetListPrefIndicator = ApplicationPreferences.applicationWidgetListPrefIndicator;
 
             if (profile.getIsIconResourceID()) {
                 if (profile._iconBitmap != null)
@@ -193,7 +193,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             Bundle extras = new Bundle();
 
             if ((!applicationWidgetListHeader) &&
-                Event.getGlobalEventsRunning(context) && (position == 0))
+                Event.getGlobalEventsRunning() && (position == 0))
                 extras.putLong(PPApplication.EXTRA_PROFILE_ID, Profile.RESTART_EVENTS_PROFILE_ID);
             else
                 extras.putLong(PPApplication.EXTRA_PROFILE_ID, profile._id);
@@ -232,8 +232,8 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
     public void onDataSetChanged() {
         createProfilesDataWrapper();
 
-        boolean applicationWidgetListPrefIndicator = ApplicationPreferences.applicationWidgetListPrefIndicator(context);
-        boolean applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader(context);
+        boolean applicationWidgetListPrefIndicator = ApplicationPreferences.applicationWidgetListPrefIndicator;
+        boolean applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader;
 
         List<Profile> newProfileList = dataWrapper.getNewProfileList(true,
                 applicationWidgetListPrefIndicator);
@@ -252,7 +252,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         Collections.sort(newProfileList, new ProfileComparator());
 
         if ((!applicationWidgetListHeader) &&
-                Event.getGlobalEventsRunning(context)) {
+                Event.getGlobalEventsRunning()) {
             Profile restartEvents = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color|1|0|0", 0);
             restartEvents._showInActivator = true;
             newProfileList.add(0, restartEvents);

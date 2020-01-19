@@ -94,7 +94,7 @@ class PhoneStateScanner extends PhoneStateListener {
     void connect() {
         //PPApplication.logE("PhoneStateScanner.connect", "xxx");
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-        if (/*PPApplication.*/isPowerSaveMode && ApplicationPreferences.applicationEventMobileCellsScanInPowerSaveMode(context).equals("2"))
+        if (/*PPApplication.*/isPowerSaveMode && ApplicationPreferences.applicationEventMobileCellsScanInPowerSaveMode.equals("2"))
             // start scanning in power save mode is not allowed
             return;
 
@@ -558,7 +558,7 @@ class PhoneStateScanner extends PhoneStateListener {
 
     void rescanMobileCells() {
         //PPApplication.logE("PhoneStateScanner.rescanMobileCells", "xxx");
-        if (ApplicationPreferences.applicationEventMobileCellEnableScanning(context.getApplicationContext()) || PhoneStateScanner.forceStart) {
+        if (ApplicationPreferences.applicationEventMobileCellEnableScanning || PhoneStateScanner.forceStart) {
             //PPApplication.logE("PhoneStateScanner.rescanMobileCells", "-----");
 
             final Context appContext = context.getApplicationContext();
@@ -603,7 +603,7 @@ class PhoneStateScanner extends PhoneStateListener {
 
     static void handleEvents(final Context context) {
         //PPApplication.logE("PhoneStateScanner.handleEvents", "xxx");
-        if (Event.getGlobalEventsRunning(context))
+        if (Event.getGlobalEventsRunning())
         {
             if (DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {
                 //PPApplication.logE("PhoneStateScanner.handleEvents", "start events handler");
@@ -628,13 +628,13 @@ class PhoneStateScanner extends PhoneStateListener {
             return channel.getImportance() != NotificationManager.IMPORTANCE_NONE;
         }
         else {*/
-            return ApplicationPreferences.applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled(context);
+            return ApplicationPreferences.applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled;
         //}
     }
 
     @SuppressWarnings("StringConcatenationInLoop")
     private void doAutoRegistration(final int _registeredCell) {
-        if (!PPApplication.getApplicationStarted(context, true))
+        if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
 
@@ -970,7 +970,7 @@ class PhoneStateScanner extends PhoneStateListener {
     }
 
     static void startAutoRegistration(Context context, boolean forConnect) {
-        if (!PPApplication.getApplicationStarted(context, true))
+        if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
 

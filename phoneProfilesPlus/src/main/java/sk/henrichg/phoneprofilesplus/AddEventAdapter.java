@@ -91,7 +91,7 @@ class AddEventAdapter extends BaseAdapter {
 
         View vi = convertView;
 
-        boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(context);
+        boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
 
         if (convertView == null)
         {
@@ -131,7 +131,7 @@ class AddEventAdapter extends BaseAdapter {
             String eventName = event._name;
             if (position == 0)
                 eventName = context.getString(R.string.new_empty_event);
-            if (ApplicationPreferences.applicationEventUsePriority(context)) {
+            if (ApplicationPreferences.applicationEventUsePriority) {
                 String eventPriority = "[P:" + (event._priority + Event.EPRIORITY_HIGHEST) + "] ";
 
                 if (event._forceRun)

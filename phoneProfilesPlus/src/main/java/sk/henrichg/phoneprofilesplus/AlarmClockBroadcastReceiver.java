@@ -18,14 +18,14 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
 
         final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(context.getApplicationContext(), true))
+        if (!PPApplication.getApplicationStarted(true))
             return;
 
         Calendar now = Calendar.getInstance();
         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
         final long _time = now.getTimeInMillis() + gmtOffset;
 
-        if (Event.getGlobalEventsRunning(context)) {
+        if (Event.getGlobalEventsRunning()) {
             //PPApplication.logE("@@@ AlarmClockBroadcastReceiver.onReceive", "start service");
 
             PPApplication.startHandlerThread("AlarmClockBroadcastReceiver.onReceive");

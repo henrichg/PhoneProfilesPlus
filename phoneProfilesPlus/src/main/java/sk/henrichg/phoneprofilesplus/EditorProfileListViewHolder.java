@@ -48,7 +48,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
         profileName = itemView.findViewById(R.id.profile_list_item_profile_name);
         profileIcon = itemView.findViewById(R.id.profile_list_item_profile_icon);
         profileItemEditMenu = itemView.findViewById(R.id.profile_list_item_edit_menu);
-        if (ApplicationPreferences.applicationEditorPrefIndicator(context))
+        if (ApplicationPreferences.applicationEditorPrefIndicator)
             profileIndicator = itemView.findViewById(R.id.profile_list_profile_pref_indicator);
 
         itemView.setOnClickListener(this);
@@ -116,7 +116,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
             profileIcon.setImageBitmap(profile._iconBitmap);
         }
 
-        if (ApplicationPreferences.applicationEditorPrefIndicator(context))
+        if (ApplicationPreferences.applicationEditorPrefIndicator)
         {
             //profilePrefIndicatorImageView.setImageBitmap(null);
             //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());

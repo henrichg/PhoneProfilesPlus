@@ -27,7 +27,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
         final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(appContext, true))
+        if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
 
@@ -116,16 +116,16 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                             saveConnectedDevices(appContext);
 
 
-                            if (Event.getGlobalEventsRunning(appContext)) {
+                            if (Event.getGlobalEventsRunning()) {
 
                                 //if (lastState != currState)
                                 //{
 
-                                if (!(BluetoothScanWorker.getScanRequest(appContext) ||
-                                        BluetoothScanWorker.getLEScanRequest(appContext) ||
-                                        BluetoothScanWorker.getWaitForResults(appContext) ||
-                                        BluetoothScanWorker.getWaitForLEResults(appContext) ||
-                                        BluetoothScanWorker.getBluetoothEnabledForScan(appContext))) {
+                                if (!(ApplicationPreferences.prefEventBluetoothScanRequest ||
+                                        ApplicationPreferences.prefEventBluetoothLEScanRequest ||
+                                        ApplicationPreferences.prefEventBluetoothWaitForResult ||
+                                        ApplicationPreferences.prefEventBluetoothLEWaitForResult ||
+                                        ApplicationPreferences.prefEventBluetoothEnabledForScan)) {
                                     // bluetooth is not scanned
 
                                     //PPApplication.logE("@@@ BluetoothConnectionBroadcastReceiver.onReceive", "start EventsHandler");

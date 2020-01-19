@@ -64,9 +64,9 @@ class EventPreferencesCall extends EventPreferences {
     static final int PHONE_CALL_EVENT_MISSED_CALL = 7;
     static final int PHONE_CALL_EVENT_SERVICE_UNBIND = 8;
 
-    static final String PREF_EVENT_CALL_EVENT_TYPE = "eventCallEventType";
-    static final String PREF_EVENT_CALL_PHONE_NUMBER = "eventCallPhoneNumber";
-    static final String PREF_EVENT_CALL_EVENT_TIME = "eventCallEventTime";
+    private static final String PREF_EVENT_CALL_EVENT_TYPE = "eventCallEventType";
+    private static final String PREF_EVENT_CALL_PHONE_NUMBER = "eventCallPhoneNumber";
+    private static final String PREF_EVENT_CALL_EVENT_TIME = "eventCallEventTime";
 
     EventPreferencesCall(Event event,
                          boolean enabled,
@@ -540,7 +540,7 @@ class EventPreferencesCall extends EventPreferences {
 
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 if (alarmManager != null) {
-                    if (ApplicationPreferences.applicationUseAlarmClock(context)) {
+                    if (ApplicationPreferences.applicationUseAlarmClock) {
                         Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -706,9 +706,9 @@ class EventPreferencesCall extends EventPreferences {
                 //PPApplication.logE("EventPreferencesCall.saveStartTime", "contacts permission granted");
 
                 ApplicationPreferences.getSharedPreferences(dataWrapper.context);
-                int callEventType = ApplicationPreferences.preferences.getInt(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TYPE, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
-                long callTime = ApplicationPreferences.preferences.getLong(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TIME, 0);
-                String phoneNumber = ApplicationPreferences.preferences.getString(EventPreferencesCall.PREF_EVENT_CALL_PHONE_NUMBER, "");
+                int callEventType = ApplicationPreferences.prefEventCallEventType;
+                long callTime = ApplicationPreferences.prefEventCallEventTime;
+                String phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("EventPreferencesCall.saveStartTime", "callEventType=" + callEventType);
                     PPApplication.logE("EventPreferencesCall.saveStartTime", "callTime=" + callTime);
@@ -745,6 +745,57 @@ class EventPreferencesCall extends EventPreferences {
                 _startTime = 0;
                 DatabaseHandler.getInstance(dataWrapper.context).updateCallStartTime(_event);
             }
+        }
+    }
+
+    static void getEventCallEventType(Context context) {
+        synchronized (PPApplication.eventCallSensorMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            ApplicationPreferences.prefEventCallEventType = ApplicationPreferences.preferences.getInt(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TYPE, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
+            //return ApplicationPreferences.prefEventCallEventType;
+        }
+    }
+    static void setEventCallEventType(Context context, int type) {
+        synchronized (PPApplication.eventCallSensorMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            editor.putInt(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TYPE, type);
+            editor.apply();
+            ApplicationPreferences.prefEventCallEventType = type;
+        }
+    }
+
+    static void getEventCallEventTime(Context context) {
+        synchronized (PPApplication.eventCallSensorMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            ApplicationPreferences.prefEventCallEventTime = ApplicationPreferences.preferences.getLong(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TIME, 0);
+            //return ApplicationPreferences.prefEventCallEventTime;
+        }
+    }
+    static void setEventCallEventTime(Context context, long time) {
+        synchronized (PPApplication.eventCallSensorMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            editor.putLong(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TIME, time);
+            editor.apply();
+            ApplicationPreferences.prefEventCallEventTime = time;
+        }
+    }
+
+    static void getEventCallPhoneNumber(Context context) {
+        synchronized (PPApplication.eventCallSensorMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            ApplicationPreferences.prefEventCallPhoneNumber = ApplicationPreferences.preferences.getString(EventPreferencesCall.PREF_EVENT_CALL_PHONE_NUMBER, "");
+            //return ApplicationPreferences.prefEventCallPhoneNumber;
+        }
+    }
+    static void setEventCallPhoneNumber(Context context, String phoneNumber) {
+        synchronized (PPApplication.eventCallSensorMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            editor.putString(EventPreferencesCall.PREF_EVENT_CALL_PHONE_NUMBER, phoneNumber);
+            editor.apply();
+            ApplicationPreferences.prefEventCallPhoneNumber = phoneNumber;
         }
     }
 

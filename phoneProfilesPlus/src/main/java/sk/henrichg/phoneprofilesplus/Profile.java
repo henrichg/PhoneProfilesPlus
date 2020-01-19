@@ -2596,7 +2596,7 @@ public class Profile {
         String durationString = "";
         if (_askForDuration) {
             if (_checked) {
-                long endDurationTime = getActivatedProfileEndDurationTime(context);
+                long endDurationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime;
                 if (endDurationTime > 0) {
                     durationString = "(de:" + timeDateStringFromTimestamp(context, endDurationTime) + ")";
                 }
@@ -2608,7 +2608,7 @@ public class Profile {
         if ((_duration > 0) && (_afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING)) {
             boolean showEndTime = false;
             if (_checked) {
-                long endDurationTime = getActivatedProfileEndDurationTime(context);
+                long endDurationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime;
                 if (endDurationTime > 0) {
                     durationString = "(de:" + timeDateStringFromTimestamp(context, endDurationTime) + ")";
                     showEndTime = true;
@@ -3098,7 +3098,7 @@ public class Profile {
 
         boolean checked = false;
 
-        boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot(context);
+        boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE))
         {
@@ -4009,32 +4009,43 @@ public class Profile {
         return accessibilityEnabled;
     }
 
-    static long getActivatedProfileForDuration(Context context)
+    static void getActivatedProfileForDuration(Context context)
     {
-        ApplicationPreferences.getSharedPreferences(context);
-        return ApplicationPreferences.preferences.getLong(PREF_ACTIVATED_PROFILE_FOR_DURATION, 0);
+        synchronized (PPApplication.profileActivationMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            ApplicationPreferences.prefActivatedProfileForDuration = ApplicationPreferences.preferences.getLong(PREF_ACTIVATED_PROFILE_FOR_DURATION, 0);
+            //return prefActivatedProfileForDuration;
+        }
     }
-
     static void setActivatedProfileForDuration(Context context, long profileId)
     {
-        ApplicationPreferences.getSharedPreferences(context);
-        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-        editor.putLong(PREF_ACTIVATED_PROFILE_FOR_DURATION, profileId);
-        editor.apply();
+        synchronized (PPApplication.profileActivationMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            editor.putLong(PREF_ACTIVATED_PROFILE_FOR_DURATION, profileId);
+            editor.apply();
+            ApplicationPreferences.prefActivatedProfileForDuration = profileId;
+        }
     }
 
-    private static long getActivatedProfileEndDurationTime(Context context)
+    static void getActivatedProfileEndDurationTime(Context context)
     {
-        ApplicationPreferences.getSharedPreferences(context);
-        return ApplicationPreferences.preferences.getLong(PREF_ACTIVATED_PROFILE_END_DURATION_TIME, 0);
+        synchronized (PPApplication.profileActivationMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            ApplicationPreferences.prefActivatedProfileEndDurationTime = ApplicationPreferences.preferences.getLong(PREF_ACTIVATED_PROFILE_END_DURATION_TIME, 0);
+            //return prefActivatedProfileEndDurationTime;
+        }
     }
 
     static void setActivatedProfileEndDurationTime(Context context, long time)
     {
-        ApplicationPreferences.getSharedPreferences(context);
-        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-        editor.putLong(PREF_ACTIVATED_PROFILE_END_DURATION_TIME, time);
-        editor.apply();
+        synchronized (PPApplication.profileActivationMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            editor.putLong(PREF_ACTIVATED_PROFILE_END_DURATION_TIME, time);
+            editor.apply();
+            ApplicationPreferences.prefActivatedProfileEndDurationTime = time;
+        }
     }
 
     static int getIconResource(String identifier) {

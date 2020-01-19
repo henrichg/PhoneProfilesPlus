@@ -40,7 +40,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 
         //CallsCounter.logCounter(context.getApplicationContext(), "PPPExtenderBroadcastReceiver.onReceive", "ForegroundApplicationChangedBroadcastReceiver_onReceive");
 
-        if (!PPApplication.getApplicationStarted(appContext, true))
+        if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
 
@@ -98,7 +98,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                     if (isActivity) {
                         setApplicationInForeground(appContext, packageName);
 
-                        if (Event.getGlobalEventsRunning(appContext)) {
+                        if (Event.getGlobalEventsRunning()) {
                             PPApplication.startHandlerThread("PPPExtenderBroadcastReceiver.onReceive.ACTION_FOREGROUND_APPLICATION_CHANGED");
                             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                             handler.post(new Runnable() {
@@ -218,7 +218,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                     PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "time=" + time);
                 }*/
 
-                if (Event.getGlobalEventsRunning(appContext)) {
+                if (Event.getGlobalEventsRunning()) {
                     PPApplication.startHandlerThread("PPPExtenderBroadcastReceiver.onReceive.ACTION_SMS_MMS_RECEIVED");
                     final Handler handler3 = new Handler(PPApplication.handlerThread.getLooper());
                     handler3.post(new Runnable() {
@@ -266,7 +266,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                     PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "eventTime=" + eventTime);
                 }*/
 
-                if (Event.getGlobalEventsRunning(appContext)) {
+                if (Event.getGlobalEventsRunning()) {
                     PPApplication.startHandlerThread("PPPExtenderBroadcastReceiver.onReceive.ACTION_CALL_RECEIVED");
                     final Handler handler4 = new Handler(PPApplication.handlerThread.getLooper());
                     handler4.post(new Runnable() {
@@ -368,18 +368,23 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
         return  (extenderVersion >= version) && enabled;
     }
 
-    static public String getApplicationInForeground(Context context)
+    static void getApplicationInForeground(Context context)
     {
-        ApplicationPreferences.getSharedPreferences(context);
-        return ApplicationPreferences.preferences.getString(PREF_APPLICATION_IN_FOREGROUND, "");
+        synchronized (PPApplication.eventsRunMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            ApplicationPreferences.prefApplicationInForeground = ApplicationPreferences.preferences.getString(PREF_APPLICATION_IN_FOREGROUND, "");
+            //return prefApplicationInForeground;
+        }
     }
-
-    static public void setApplicationInForeground(Context context, String application)
+    static void setApplicationInForeground(Context context, String application)
     {
-        ApplicationPreferences.getSharedPreferences(context);
-        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-        editor.putString(PREF_APPLICATION_IN_FOREGROUND, application);
-        editor.apply();
+        synchronized (PPApplication.eventsRunMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            editor.putString(PREF_APPLICATION_IN_FOREGROUND, application);
+            editor.apply();
+            ApplicationPreferences.prefApplicationInForeground = application;
+        }
     }
 
 }

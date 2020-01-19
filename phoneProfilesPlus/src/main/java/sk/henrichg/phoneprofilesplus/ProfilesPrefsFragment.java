@@ -19,7 +19,6 @@ import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -1275,7 +1274,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     summary = summary + title;
             }
             String ringtoneValue = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGTONE, "");
-            if ((!ActivateProfileHelper.getMergedRingNotificationVolumes(context) || ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context)) &&
+            if ((!ActivateProfileHelper.getMergedRingNotificationVolumes() || ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) &&
                     getEnableVolumeNotificationByRingtone(ringtoneValue)) {
                 title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, R.string.profile_preferences_volumeNotification, false, context);
                 if (!title.isEmpty()) {
@@ -2308,7 +2307,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (preference != null) {
                 String summary;
                 boolean bold = false;
-                if (ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context)) {
+                if (ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) {
                     summary = getString(R.string.profile_preferences_applicationUnlinkRingerNotificationVolumes_enabled);
                     bold = true;
                 }
@@ -2316,7 +2315,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     summary = getString(R.string.profile_preferences_applicationUnlinkRingerNotificationVolumes_disabled);
 
                 summary = summary + "\n" + getString(R.string.phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes) + ": ";
-                int forceMergeValue = ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes(context);
+                int forceMergeValue = ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes;
                 String[] valuesArray = getResources().getStringArray(R.array.forceSetMergeRingNotificationVolumesValues);
                 String[] labelsArray = getResources().getStringArray(R.array.forceSetMergeRingNotificationVolumesArray);
                 int index = 0;
@@ -2328,7 +2327,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     ++index;
                 }
 
-                if (!ApplicationPreferences.preferences.getBoolean(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES, true))
+                if (!ApplicationPreferences.prefMergedRingNotificationVolumes)
                     // detection of volumes merge = volumes are not merged
                     summary = summary + "\n\n" + getString(R.string.profile_preferences_applicationUnlinkRingerNotificationVolumes_not_merged);
                 else
@@ -2895,9 +2894,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             return true;
     }
 
-    private boolean getEnableVolumeNotificationVolume0(boolean notificationEnabled, String notificationValue, Context context) {
-        return  notificationEnabled && ActivateProfileHelper.getMergedRingNotificationVolumes(context) &&
-                ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context) &&
+    private boolean getEnableVolumeNotificationVolume0(boolean notificationEnabled, String notificationValue/*, Context context*/) {
+        return  notificationEnabled && ActivateProfileHelper.getMergedRingNotificationVolumes() &&
+                ApplicationPreferences.applicationUnlinkRingerNotificationVolumes &&
                 Profile.getVolumeRingtoneChange(notificationValue) && (Profile.getVolumeRingtoneValue(notificationValue) == 0);
     }
 
@@ -2918,19 +2917,19 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (preference != null)
                 preference.setEnabled(enabled);
             String notificationValue = preferences.getString(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, "");
-            enabled = getEnableVolumeNotificationVolume0(enabled, notificationValue, context);
+            enabled = getEnableVolumeNotificationVolume0(enabled, notificationValue/*, context*/);
             preference = prefMng.findPreference(PREF_VOLUME_NOTIFICATION_VOLUME0);
             if (preference != null)
                 preference.setEnabled(enabled);
         }
         if (key.equals(Profile.PREF_PROFILE_VOLUME_NOTIFICATION)) {
             String ringtoneValue = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGTONE, "");
-            boolean enabled = (!ActivateProfileHelper.getMergedRingNotificationVolumes(context) || ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context)) &&
+            boolean enabled = (!ActivateProfileHelper.getMergedRingNotificationVolumes() || ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) &&
                     getEnableVolumeNotificationByRingtone(ringtoneValue);
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_NOTIFICATION);
             if (preference != null)
                 preference.setEnabled(enabled);
-            enabled = getEnableVolumeNotificationVolume0(enabled, sValue, context);
+            enabled = getEnableVolumeNotificationVolume0(enabled, sValue/*, context*/);
             preference = prefMng.findPreference(PREF_VOLUME_NOTIFICATION_VOLUME0);
             if (preference != null)
                 preference.setEnabled(enabled);

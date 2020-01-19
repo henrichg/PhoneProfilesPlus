@@ -17,7 +17,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
 
         final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(appContext, true))
+        if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
 
@@ -52,7 +52,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                             BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
                         }
 
-                        if (Event.getGlobalEventsRunning(appContext)) {
+                        if (Event.getGlobalEventsRunning()) {
                             //PPApplication.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive", "state=" + bluetoothState);
 
                             if ((bluetoothState == BluetoothAdapter.STATE_ON) || (bluetoothState == BluetoothAdapter.STATE_OFF)) {
@@ -60,25 +60,25 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                                 if (bluetoothState == BluetoothAdapter.STATE_ON) {
                                     //if ((!dataWrapper.getIsManualProfileActivation()) || PPApplication.getForceOneBluetoothScan(appContext))
                                     //{
-                                    if (BluetoothScanWorker.getScanRequest(appContext)) {
+                                    if (ApplicationPreferences.prefEventBluetoothScanRequest) {
                                         //PPApplication.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive", "start classic scan");
                                         BluetoothScanWorker.startCLScan(appContext);
-                                    } else if (BluetoothScanWorker.getLEScanRequest(appContext)) {
+                                    } else if (ApplicationPreferences.prefEventBluetoothLEScanRequest) {
                                         //PPApplication.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive", "start LE scan");
                                         BluetoothScanWorker.startLEScan(appContext);
-                                    } else if (!(BluetoothScanWorker.getWaitForResults(appContext) ||
-                                            BluetoothScanWorker.getWaitForLEResults(appContext))) {
+                                    } else if (!(ApplicationPreferences.prefEventBluetoothWaitForResult ||
+                                            ApplicationPreferences.prefEventBluetoothLEWaitForResult)) {
                                         // refresh bounded devices
                                         BluetoothScanWorker.fillBoundedDevicesList(appContext);
                                     }
                                     //}
                                 }
 
-                                if (!(BluetoothScanWorker.getScanRequest(appContext) ||
-                                        BluetoothScanWorker.getLEScanRequest(appContext) ||
-                                        BluetoothScanWorker.getWaitForResults(appContext) ||
-                                        BluetoothScanWorker.getWaitForLEResults(appContext) ||
-                                        BluetoothScanWorker.getBluetoothEnabledForScan(appContext))) {
+                                if (!(ApplicationPreferences.prefEventBluetoothScanRequest ||
+                                        ApplicationPreferences.prefEventBluetoothLEScanRequest ||
+                                        ApplicationPreferences.prefEventBluetoothWaitForResult ||
+                                        ApplicationPreferences.prefEventBluetoothLEWaitForResult ||
+                                        ApplicationPreferences.prefEventBluetoothEnabledForScan)) {
 
                                     // start events handler
                                     EventsHandler eventsHandler = new EventsHandler(appContext);

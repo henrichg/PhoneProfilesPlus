@@ -81,7 +81,7 @@ class ProfilePreferenceAdapterX extends BaseAdapter {
 
         View vi = convertView;
 
-        boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(context);
+        boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
 
         if (convertView == null)
         {

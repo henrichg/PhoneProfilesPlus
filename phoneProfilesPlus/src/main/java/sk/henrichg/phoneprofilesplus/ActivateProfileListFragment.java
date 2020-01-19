@@ -76,9 +76,9 @@ public class ActivateProfileListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView;
 
-        boolean applicationActivatorGridLayout = ApplicationPreferences.applicationActivatorGridLayout(activityDataWrapper.context);
-        //boolean applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator(activityDataWrapper.context);
-        boolean applicationActivatorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context);
+        boolean applicationActivatorGridLayout = ApplicationPreferences.applicationActivatorGridLayout;
+        //boolean applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator;
+        boolean applicationActivatorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
         //boolean applicationActivatorHeader = ApplicationPreferences.applicationActivatorHeader(activityDataWrapper.context);
 
         if (!applicationActivatorGridLayout)
@@ -117,7 +117,7 @@ public class ActivateProfileListFragment extends Fragment {
 
     private void doOnViewCreated(View view/*, Bundle savedInstanceState*/)
     {
-        boolean applicationActivatorGridLayout = ApplicationPreferences.applicationActivatorGridLayout(activityDataWrapper.context);
+        boolean applicationActivatorGridLayout = ApplicationPreferences.applicationActivatorGridLayout;
 
         activeProfileName = view.findViewById(R.id.act_prof_activated_profile_name);
         activeProfileIcon = view.findViewById(R.id.act_prof_activated_profile_icon);
@@ -142,7 +142,7 @@ public class ActivateProfileListFragment extends Fragment {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if (!ApplicationPreferences.applicationLongClickActivation(activityDataWrapper.context))
+                if (!ApplicationPreferences.applicationLongClickActivation)
                     activateProfile((Profile) profileListAdapter.getItem(position));
             }
         });
@@ -151,7 +151,7 @@ public class ActivateProfileListFragment extends Fragment {
 
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if (ApplicationPreferences.applicationLongClickActivation(activityDataWrapper.context))
+                if (ApplicationPreferences.applicationLongClickActivation)
                     activateProfile((Profile)profileListAdapter.getItem(position));
 
                 return false;
@@ -264,10 +264,10 @@ public class ActivateProfileListFragment extends Fragment {
             //noinspection ConstantConditions
             this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false);
 
-            //applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator(dataWrapper.context);
-            applicationActivatorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(dataWrapper.context);
+            //applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator;
+            applicationActivatorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
             //applicationActivatorHeader = ApplicationPreferences.applicationActivatorHeader(this.dataWrapper.context);
-            applicationActivatorGridLayout = ApplicationPreferences.applicationActivatorGridLayout(this.dataWrapper.context);
+            applicationActivatorGridLayout = ApplicationPreferences.applicationActivatorGridLayout;
         }
 
         @Override
@@ -399,8 +399,8 @@ public class ActivateProfileListFragment extends Fragment {
     {
         //long nanoTimeStart = PPApplication.startMeasuringRunTime();
 
-        //Profile profile = activityDataWrapper.getActivatedProfile(true, ApplicationPreferences.applicationActivatorPrefIndicator(activityDataWrapper.context));
-        Profile profile = activityDataWrapper.getActivatedProfile(true, ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
+        //Profile profile = activityDataWrapper.getActivatedProfile(true, ApplicationPreferences.applicationActivatorPrefIndicator);
+        Profile profile = activityDataWrapper.getActivatedProfile(true, ApplicationPreferences.applicationEditorPrefIndicator);
 
         updateHeader(profile);
         setProfileSelection(profile, false);
@@ -418,7 +418,7 @@ public class ActivateProfileListFragment extends Fragment {
         }
 
         AbsListView absListView;
-        if (!ApplicationPreferences.applicationActivatorGridLayout(activityDataWrapper.context))
+        if (!ApplicationPreferences.applicationActivatorGridLayout)
             absListView = listView;
         else
             absListView = gridView;
@@ -471,8 +471,8 @@ public class ActivateProfileListFragment extends Fragment {
             }
         }
 
-        //if (ApplicationPreferences.applicationActivatorPrefIndicator(activityDataWrapper.context))
-        if (ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context))
+        //if (ApplicationPreferences.applicationActivatorPrefIndicator)
+        if (ApplicationPreferences.applicationEditorPrefIndicator)
         {
             //noinspection ConstantConditions
             ImageView profilePrefIndicatorImageView = getActivity().findViewById(R.id.act_prof_activated_profile_pref_indicator);
@@ -576,7 +576,7 @@ public class ActivateProfileListFragment extends Fragment {
             pName = getResources().getString(R.string.profiles_header_profile_name_no_activated);
 
         if (!refresh) {
-            String pNameHeader = PPApplication.getActivityProfileName(activityDataWrapper.context, 1);
+            String pNameHeader = PPApplication.prefActivityProfileName1;
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("ActivateProfileListFragment.refreshGUI", "pNameHeader=" + pNameHeader);
                 PPApplication.logE("ActivateProfileListFragment.refreshGUI", "pName=" + pName);
@@ -599,9 +599,9 @@ public class ActivateProfileListFragment extends Fragment {
 
         if (profileFromDB != null) {
             //Profile profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
-            //        ApplicationPreferences.applicationActivatorPrefIndicator(activityDataWrapper.context), false);
+            //        ApplicationPreferences.applicationActivatorPrefIndicator, false);
             Profile profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
-                    ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context), false);
+                    ApplicationPreferences.applicationEditorPrefIndicator, false);
             if (profileFromDataWrapper != null)
                 profileFromDataWrapper._checked = true;
             updateHeader(profileFromDataWrapper);
@@ -628,10 +628,10 @@ public class ActivateProfileListFragment extends Fragment {
 
         ApplicationPreferences.getSharedPreferences(getActivity());
 
-        boolean showTargetHelps = ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true);
+        boolean showTargetHelps = ApplicationPreferences.prefActivatorFragmentStartTragetHelps;
 
         if (showTargetHelps ||
-                ApplicationPreferences.preferences.getBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, true)) {
+                ApplicationPreferences.prefActivatorAdapterStartTargetHelps) {
 
             //Log.d("ActivateProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
@@ -642,6 +642,7 @@ public class ActivateProfileListFragment extends Fragment {
                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
                 editor.apply();
+                ApplicationPreferences.prefActivatorFragmentStartTragetHelps = false;
 
                 showAdapterTargetHelps();
             }
@@ -684,7 +685,7 @@ public class ActivateProfileListFragment extends Fragment {
             return;
 
         View itemView;
-        if (!ApplicationPreferences.applicationActivatorGridLayout(getActivity())) {
+        if (!ApplicationPreferences.applicationActivatorGridLayout) {
             if (listView.getChildCount() > 1)
                 itemView = listView.getChildAt(1);
             else

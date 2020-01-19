@@ -48,7 +48,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
     public EditorEventListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
-            if (ApplicationPreferences.applicationEditorPrefIndicator(fragment.getActivity()))
+            if (ApplicationPreferences.applicationEditorPrefIndicator)
                 view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.editor_event_list_item_with_order, parent, false);
             else
@@ -56,7 +56,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                         .inflate(R.layout.editor_event_list_item_no_indicator_with_order, parent, false);
         }
         else {
-            if (ApplicationPreferences.applicationEditorPrefIndicator(fragment.getActivity()))
+            if (ApplicationPreferences.applicationEditorPrefIndicator)
                 view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.editor_event_list_item, parent, false);
             else
@@ -290,7 +290,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
     public void notifyDataSetChanged(boolean refreshIcons) {
         if (refreshIcons) {
             synchronized (activityDataWrapper.eventList) {
-                boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context);
+                boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
                 //noinspection ForLoopReplaceableByForEach
                 for (Iterator<Event> it = activityDataWrapper.eventList.iterator(); it.hasNext(); ) {
                     Event event = it.next();
@@ -360,9 +360,9 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
         ApplicationPreferences.getSharedPreferences(activity);
 
-        boolean startTargetHelps = ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true);
-        boolean startTargetHelpsOrder = ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS_ORDER, true);
-        boolean startTargetHelpsStatus = ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS_STATUS, true);
+        boolean startTargetHelps = ApplicationPreferences.prefEditorEventsAdapterStartTargetHelps;
+        boolean startTargetHelpsOrder = ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsOrder;
+        boolean startTargetHelpsStatus = ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus;
 
         if (startTargetHelps || startTargetHelpsOrder || startTargetHelpsStatus) {
 
@@ -386,6 +386,8 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
             editor.putBoolean(PREF_START_TARGET_HELPS, false);
             editor.putBoolean(PREF_START_TARGET_HELPS_STATUS, false);
             editor.apply();
+            ApplicationPreferences.prefEditorEventsAdapterStartTargetHelps = false;
+            ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus = false;
 
             Rect eventItemTarget = new Rect(0, 0, listItemView.getHeight(), listItemView.getHeight());
             int[] screenLocation = new int[2];
@@ -404,6 +406,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
                     editor.putBoolean(PREF_START_TARGET_HELPS_ORDER, false);
                     editor.apply();
+                    ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsOrder = false;
 
                     // do not add it again
                     startTargetHelpsOrder = false;
@@ -487,6 +490,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                 if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
                     editor.putBoolean(PREF_START_TARGET_HELPS_ORDER, false);
                     editor.apply();
+                    ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsOrder = false;
 
                     sequence.targets(
                             TapTarget.forView(listItemView.findViewById(R.id.event_list_drag_handle), activity.getString(R.string.editor_activity_targetHelps_eventOrderHandler_title), activity.getString(R.string.editor_activity_targetHelps_eventOrderHandler_description))

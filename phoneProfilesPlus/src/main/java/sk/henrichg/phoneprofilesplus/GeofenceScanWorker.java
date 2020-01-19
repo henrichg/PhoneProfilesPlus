@@ -53,14 +53,14 @@ public class GeofenceScanWorker extends Worker {
 
             //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
             boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-            if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
+            if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode.equals("2")) {
                 //PPApplication.logE("GeofenceScanWorker.doWork", "update in power save mode is not allowed");
                 cancelWork(context, false, null);
                 //PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- END");
                 return Result.success();
             }
 
-            if (Event.getGlobalEventsRunning(context)) {
+            if (Event.getGlobalEventsRunning()) {
                 boolean geofenceScannerUpdatesStarted = false;
                 synchronized (PPApplication.geofenceScannerMutex) {
                     if ((PhoneProfilesService.getInstance() != null) && (PhoneProfilesService.getInstance().getGeofencesScanner() != null)) {
@@ -143,10 +143,10 @@ public class GeofenceScanWorker extends Worker {
 
                 if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted() &&
                         PhoneProfilesService.getInstance().getGeofencesScanner().mUpdatesStarted) {
-                    interval = ApplicationPreferences.applicationEventLocationUpdateInterval(context) * 60;
+                    interval = ApplicationPreferences.applicationEventLocationUpdateInterval * 60;
                     //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
                     boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-                    if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("1"))
+                    if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode.equals("1"))
                         interval = 2 * interval;
                     //interval = interval - updateDuration;
                 } else {

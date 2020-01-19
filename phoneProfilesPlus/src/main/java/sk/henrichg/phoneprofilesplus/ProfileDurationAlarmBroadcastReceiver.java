@@ -52,7 +52,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
             Profile.setActivatedProfileEndDurationTime(context, alarmTime);
 
-            if (ApplicationPreferences.applicationUseAlarmClock(context)) {
+            if (ApplicationPreferences.applicationUseAlarmClock) {
                 //Intent intent = new Intent(_context, ProfileDurationAlarmBroadcastReceiver.class);
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_PROFILE_DURATION_BROADCAST_RECEIVER);
@@ -177,7 +177,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
     static void doWork(boolean useHandler, Context context, final long profileId, final boolean forRestartEvents, final int startupSource) {
         final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(appContext, true))
+        if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
 
@@ -224,7 +224,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "getIsManualProfileActivation()=" + DataWrapper.getIsManualProfileActivation(true, appContext));
 
             Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
-            if (DataWrapper.getIsManualProfileActivation(true, appContext) ||
+            if (DataWrapper.getIsManualProfileActivation(true/*, appContext*/) ||
                     (profile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE)) {
                 Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
 
@@ -250,7 +250,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
                     long activateProfileId = 0;
                     if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_BACKGROUND_PROFILE) {
-                        activateProfileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(appContext));
+                        activateProfileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile);
                         if (activateProfileId == Profile.PROFILE_NO_ACTIVATE)
                             activateProfileId = 0;
 
@@ -259,7 +259,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 profile._icon, 0);
                     }
                     if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_UNDO_PROFILE) {
-                        activateProfileId = Profile.getActivatedProfileForDuration(appContext);
+                        activateProfileId = ApplicationPreferences.prefActivatedProfileForDuration;
                         if (activateProfileId == activatedProfile._id)
                             activateProfileId = 0;
 

@@ -37,7 +37,7 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
     {
         super.onStart();
 
-        if (!PPApplication.getApplicationStarted(getApplicationContext(), true)) {
+        if (!PPApplication.getApplicationStarted(true)) {
             Toast msg = ToastCompat.makeText(getApplicationContext(),
                     getResources().getString(R.string.activate_profile_application_not_started),
                     Toast.LENGTH_LONG);
@@ -48,7 +48,7 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
         if ((startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
             (startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT)) {
             if (profile_id == Profile.RESTART_EVENTS_PROFILE_ID) {
-                if (Event.getGlobalEventsRunning(getApplicationContext())) {
+                if (Event.getGlobalEventsRunning()) {
                     // set theme and language for dialog alert ;-)
                     // not working on Android 2.3.x
                     GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false);

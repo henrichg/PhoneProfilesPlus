@@ -91,8 +91,8 @@ class EventPreferencesMobileCells extends EventPreferences {
 
             PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_MOBILE_CELLS_ENABLED, context);
             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                if (!ApplicationPreferences.applicationEventMobileCellEnableScanning(context)) {
-                    if (!ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(context))
+                if (!ApplicationPreferences.applicationEventMobileCellEnableScanning) {
+                    if (!ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile)
                         descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
                     else
                         descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
@@ -142,8 +142,8 @@ class EventPreferencesMobileCells extends EventPreferences {
             if (preference != null) {
                 String summary;
                 int titleColor;
-                if (!ApplicationPreferences.applicationEventMobileCellEnableScanning(context)) {
-                    if (!ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(context)) {
+                if (!ApplicationPreferences.applicationEventMobileCellEnableScanning) {
+                    if (!ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile) {
                         summary = "* " + context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + " *\n\n" +
                                 context.getResources().getString(R.string.phone_profiles_pref_eventMobileCellsAppSettings_summary);
                         titleColor = Color.RED; //0xFFffb000;

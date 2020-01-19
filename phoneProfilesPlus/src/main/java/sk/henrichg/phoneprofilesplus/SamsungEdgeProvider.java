@@ -27,16 +27,16 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
         RemoteViews widget;
 
-        boolean applicationSamsungEdgeHeader = ApplicationPreferences.applicationSamsungEdgeHeader(context);
-        boolean applicationSamsungEdgeBackgroundType = ApplicationPreferences.applicationSamsungEdgeBackgroundType(context);
-        String applicationSamsungEdgeBackgroundColor = ApplicationPreferences.applicationSamsungEdgeBackgroundColor(context);
-        String applicationWidgetListLightnessB = ApplicationPreferences.applicationSamsungEdgeLightnessB(context);
-        String applicationWidgetListBackground = ApplicationPreferences.applicationSamsungEdgeBackground(context);
-        String applicationWidgetListIconLightness = ApplicationPreferences.applicationSamsungEdgeIconLightness(context);
-        String applicationSamsungEdgeIconColor = ApplicationPreferences.applicationSamsungEdgeIconColor(context);
-        boolean applicationSamsungEdgeCustomIconLightness = ApplicationPreferences.applicationSamsungEdgeCustomIconLightness(context);
-        String applicationWidgetListLightnessT = ApplicationPreferences.applicationSamsungEdgeLightnessT(context);
-        String applicationSamsungEdgeVerticalPosition = ApplicationPreferences.applicationSamsungEdgeVerticalPosition(context);
+        boolean applicationSamsungEdgeHeader = ApplicationPreferences.applicationSamsungEdgeHeader;
+        boolean applicationSamsungEdgeBackgroundType = ApplicationPreferences.applicationSamsungEdgeBackgroundType;
+        String applicationSamsungEdgeBackgroundColor = ApplicationPreferences.applicationSamsungEdgeBackgroundColor;
+        String applicationWidgetListLightnessB = ApplicationPreferences.applicationSamsungEdgeLightnessB;
+        String applicationWidgetListBackground = ApplicationPreferences.applicationSamsungEdgeBackground;
+        String applicationWidgetListIconLightness = ApplicationPreferences.applicationSamsungEdgeIconLightness;
+        String applicationSamsungEdgeIconColor = ApplicationPreferences.applicationSamsungEdgeIconColor;
+        boolean applicationSamsungEdgeCustomIconLightness = ApplicationPreferences.applicationSamsungEdgeCustomIconLightness;
+        String applicationWidgetListLightnessT = ApplicationPreferences.applicationSamsungEdgeLightnessT;
+        String applicationSamsungEdgeVerticalPosition = ApplicationPreferences.applicationSamsungEdgeVerticalPosition;
 
         if (applicationSamsungEdgeHeader)
         {
@@ -367,7 +367,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                     pName = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
 
                 if (!refresh) {
-                    String pNameWidget = PPApplication.getWidgetProfileName(context, 4);
+                    String pNameWidget = PPApplication.prefWidgetProfileName4;
 
                     if (!pNameWidget.isEmpty()) {
                         if (pName.equals(pNameWidget)) {

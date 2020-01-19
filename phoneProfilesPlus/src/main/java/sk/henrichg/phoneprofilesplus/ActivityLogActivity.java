@@ -89,7 +89,7 @@ public class ActivityLogActivity extends AppCompatActivity {
         /*MenuItem menuItem = menu.findItem(R.id.menu_settingsX);
         menuItem.setTitle(getResources().getString(R.string.menu_settings) + "  >");*/
         MenuItem menuItem = menu.findItem(R.id.menu_activity_log_play_pause);
-        if (PPApplication.getActivityLogEnabled(getApplicationContext())) {
+        if (PPApplication.prefActivityLogEnabled) {
             int theme = GlobalGUIRoutines.getTheme(false, false, /*false,*/ false, getApplicationContext());
             if (theme != 0) {
                 TypedArray a = getTheme().obtainStyledAttributes(theme, new int[]{R.attr.actionActivityLogPauseIcon});
@@ -148,7 +148,7 @@ public class ActivityLogActivity extends AppCompatActivity {
                     dialog.show();
                 return true;
             case R.id.menu_activity_log_play_pause:
-                boolean enabled = PPApplication.getActivityLogEnabled(getApplicationContext());
+                boolean enabled = PPApplication.prefActivityLogEnabled;
                 if (enabled)
                     dataWrapper.addActivityLog(DataWrapper.ALTYPE_PAUSED_LOGGING, null, null, null, 0);
                 PPApplication.setActivityLogEnabled(getApplicationContext(), !enabled);

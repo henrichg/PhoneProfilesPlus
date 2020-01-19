@@ -62,9 +62,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
             ApplicationPreferences.getSharedPreferences(context.getApplicationContext());
 
-            if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||
-                    ApplicationPreferences.preferences.getBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, true) ||
-                    ApplicationPreferences.preferences.getBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, true)) {
+            if (ApplicationPreferences.prefActivatorActivityStartTargetHelps ||
+                    ApplicationPreferences.prefActivatorFragmentStartTragetHelps ||
+                    ApplicationPreferences.prefActivatorAdapterStartTargetHelps) {
 
                 boolean forActivity = intent.getBooleanExtra(EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, false);
                 if (forActivity)
@@ -328,8 +328,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
         MenuItem menuItem = menu.findItem(R.id.menu_restart_events);
         if (menuItem != null)
         {
-            menuItem.setVisible(Event.getGlobalEventsRunning(getApplicationContext()));
-            menuItem.setEnabled(PPApplication.getApplicationStarted(getApplicationContext(), true));
+            menuItem.setVisible(Event.getGlobalEventsRunning());
+            menuItem.setEnabled(PPApplication.getApplicationStarted(true));
         }
 
         return ret;
@@ -429,9 +429,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
     public void setEventsRunStopIndicator()
     {
         //boolean whiteTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true).equals("white");
-        if (Event.getGlobalEventsRunning(getApplicationContext()))
+        if (Event.getGlobalEventsRunning())
         {
-            if (Event.getEventsBlocked(getApplicationContext())) {
+            if (ApplicationPreferences.prefEventsBlocked) {
                 //if (whiteTheme)
                 //    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_manual_activation_white);
                 //else
@@ -455,9 +455,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
     public void startTargetHelpsActivity() {
         ApplicationPreferences.getSharedPreferences(this);
 
-        if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||
-                ApplicationPreferences.preferences.getBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, true) ||
-                ApplicationPreferences.preferences.getBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, true)) {
+        if (ApplicationPreferences.prefActivatorActivityStartTargetHelps ||
+                ApplicationPreferences.prefActivatorFragmentStartTragetHelps ||
+                ApplicationPreferences.prefActivatorAdapterStartTargetHelps) {
 
             //Log.d("ActivateProfilesActivity.startTargetHelpsActivity", "xxx");
 
@@ -476,11 +476,11 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
         ApplicationPreferences.getSharedPreferences(this);
 
-        boolean startTargetHelps = ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true);
+        boolean startTargetHelps = ApplicationPreferences.prefActivatorActivityStartTargetHelps;
 
         if (startTargetHelps ||
-                ApplicationPreferences.preferences.getBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, true) ||
-                ApplicationPreferences.preferences.getBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, true)) {
+                ApplicationPreferences.prefActivatorFragmentStartTragetHelps ||
+                ApplicationPreferences.prefActivatorAdapterStartTargetHelps) {
 
             //Log.d("ActivateProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
@@ -490,6 +490,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
                 editor.apply();
+                ApplicationPreferences.prefActivatorActivityStartTargetHelps = false;
 
                 //String appTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
                 int outerCircleColor = R.color.tabTargetHelpOuterCircleColor;
@@ -505,7 +506,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
                 final TapTargetSequence sequence = new TapTargetSequence(ActivatorTargetHelpsActivity.activity);
                 List<TapTarget> targets = new ArrayList<>();
-                if (Event.getGlobalEventsRunning(getApplicationContext())) {
+                if (Event.getGlobalEventsRunning()) {
                     int id = 1;
                     try {
                         View editorActionView = toolbar.findViewById(R.id.menu_edit_profiles);
@@ -594,6 +595,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
                         editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, false);
                         editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, false);
                         editor.apply();
+                        ApplicationPreferences.prefActivatorFragmentStartTragetHelps = false;
+                        ApplicationPreferences.prefActivatorAdapterStartTargetHelps = false;
                     }
                 });
                 sequence.continueOnCancel(true)

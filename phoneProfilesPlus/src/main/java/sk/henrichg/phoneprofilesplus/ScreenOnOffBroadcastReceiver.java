@@ -24,7 +24,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
         final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(appContext, true))
+        if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
 
@@ -93,19 +93,19 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             }
                         });
 
-                        if (!Event.getGlobalEventsRunning(appContext)) {
+                        if (!Event.getGlobalEventsRunning()) {
                             PPApplication.showProfileNotification(/*appContext*/true, false);
                         }
                     } else if ((action != null) && action.equals(Intent.ACTION_USER_PRESENT)) {
                         //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen unlock");
 
-                        if (ApplicationPreferences.notificationShowInStatusBar(appContext) &&
-                                ApplicationPreferences.notificationHideInLockScreen(appContext)) {
+                        if (ApplicationPreferences.notificationShowInStatusBar &&
+                                ApplicationPreferences.notificationHideInLockScreen) {
                             PPApplication.showProfileNotification(/*appContext*/true, false);
                         }
 
                         // change screen timeout
-                        final int screenTimeout = ActivateProfileHelper.getActivatedProfileScreenTimeout(appContext);
+                        final int screenTimeout = ApplicationPreferences.prefActivatedProfileScreenTimeout;
                         //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screenTimeout=" + screenTimeout);
                         if ((screenTimeout > 0) && (Permissions.checkScreenTimeout(appContext))) {
                             if (PPApplication.screenTimeoutHandler != null) {
@@ -139,14 +139,14 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                         return;*/
                     }
 
-                    if (Event.getGlobalEventsRunning(appContext)) {
+                    if (Event.getGlobalEventsRunning()) {
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
                     }
 
                     if ((action != null) && action.equals(Intent.ACTION_SCREEN_ON)) {
-                        if (ApplicationPreferences.notificationShowInStatusBar(appContext) &&
-                                ApplicationPreferences.notificationHideInLockScreen(appContext)) {
+                        if (ApplicationPreferences.notificationShowInStatusBar &&
+                                ApplicationPreferences.notificationHideInLockScreen) {
                             PPApplication.showProfileNotification(/*appContext*/true, false);
                         }
                     }

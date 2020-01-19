@@ -57,7 +57,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
         if (!GeofencesScanner.useGPS)
             delay = 30;  // 30 minutes with GPS OFF
 
-        if (ApplicationPreferences.applicationUseAlarmClock(context)) {
+        if (ApplicationPreferences.applicationUseAlarmClock) {
             //Intent intent = new Intent(_context, GeofencesScannerSwitchGPSBroadcastReceiver.class);
             Intent intent = new Intent();
             intent.setAction(PhoneProfilesService.ACTION_GEOFENCES_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER);

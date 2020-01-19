@@ -42,7 +42,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
     {
         final Context appContext = context.getApplicationContext();
 
-        if (ApplicationPreferences.applicationUseAlarmClock(context)) {
+        if (ApplicationPreferences.applicationUseAlarmClock) {
             //Intent intent = new Intent(context, PostDelayedBroadcastReceiver.class);
             Intent intent = new Intent();
             intent.setAction(ACTION_LOCK_DEVICE_AFTER_SCREEN_OFF);
@@ -137,7 +137,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
 
         final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(appContext, true))
+        if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
 
@@ -157,7 +157,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=LockDeviceAfterScreenOffBroadcastReceiver.doWork");
 
-                        if (Event.getGlobalEventsRunning(appContext)) {
+                        if (Event.getGlobalEventsRunning()) {
                             //PPApplication.logE("LockDeviceAfterScreenOffBroadcastReceiver.doWork", "handle events");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
@@ -176,7 +176,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
             });
         }
         else {
-            if (Event.getGlobalEventsRunning(appContext)) {
+            if (Event.getGlobalEventsRunning()) {
                 //PPApplication.logE("LockDeviceAfterScreenOffBroadcastReceiver.doWork", "handle events");
                 EventsHandler eventsHandler = new EventsHandler(appContext);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);

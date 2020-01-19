@@ -27,12 +27,12 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
         final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(appContext, true))
+        if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
 
-        if (WifiBluetoothScanner.getForceOneWifiScan(appContext) != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
-            if (!ApplicationPreferences.applicationEventWifiEnableScanning(appContext))
+        if (ApplicationPreferences.prefForceOneWifiScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
+            if (!ApplicationPreferences.applicationEventWifiEnableScanning)
                 // scanning is disabled
                 return;
         }
@@ -58,10 +58,10 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                 if (WifiScanWorker.wifi == null)
                     WifiScanWorker.wifi = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
 
-                final int forceOneScan = WifiBluetoothScanner.getForceOneWifiScan(appContext);
+                final int forceOneScan = ApplicationPreferences.prefForceOneWifiScan;
                 //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "forceOneScan=" + forceOneScan);
 
-                if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
+                if (Event.getGlobalEventsRunning() || (forceOneScan == WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
                     PPApplication.startHandlerThread("WifiScanBroadcastReceiver.onReceive.1");
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                     handler.post(new Runnable() {
@@ -77,7 +77,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
                                 //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiScanBroadcastReceiver.onReceive.1");
 
-                                boolean scanStarted = (WifiScanWorker.getWaitForResults(appContext));
+                                boolean scanStarted = ApplicationPreferences.prefEventWifiWaitForResult;
                                 //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanStarted=" + scanStarted);
 
                                 //boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);

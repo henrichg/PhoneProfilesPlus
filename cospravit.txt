@@ -373,7 +373,176 @@ Eventy:
 
 ----------------------------------------
 
-Pozri, ci pre Bluetooth vyzadujes pravo Write system settings. Vra to moze vypnut ten otrvany dialog pre Bluetooth. Huawei mobily.
+Pozri, ci pre Bluetooth vyzadujes pravo Write system settings. Vraj to moze vypnut ten otravny dialog pre Bluetooth. Huawei mobily.
 
 ----------------------------------------
+
+RINGERMODE_RING : dnd = ZENMODE_ALL, ringerMode = AudioManager.RINGER_MODE_NORMAL
+RINGERMODE_RING_AND_VIBRATE : dnd = ZENMODE_ALL, ringerMode = AudioManager.RINGER_MODE_NORML
+RINGERMODE_VIBRATE : dnd = ZENMODE_ALL, ringerMode = AudioManager.RINGER_MODE_VIBRATE
+RINGERMODE_SILENT : dnd = ZENMODE_SILENT, ringerMode = AudioManager.RINGER_MODE_SILENT ???
+RINGERMODE_ZENMODE:
+- ZENMODE_ALL : ringerMode = profile._ringerModeForZenMode
+- ZENMODE_PRIORITY : ringerMode = profile._ringerModeForZenMode
+- ZENMODE_NONE : ZENMODE_ALL, ringerMode = -1 + 1000sec + ZENMODE_NONE, ringerMode = profile._ringerModeForZenMode
+- ZENMODE_ALL_AND_VIBRATE : ZENMODE_ALL + ringerMode = AudioManager.RINGER_MODE_VIBRATE
+- ZENMODE_ALL_PRIORITY_VIBRATE : ZENMODE_PRIORITY + ringerMode = AudioManager.RINGER_MODE_VIBRATE
+- ZENMODE_ALARMS : ZENMODE_ALL, ringerMode = -1 + 1000sec + ZENMODE_ALARMS, ringerMode = profile._ringerModeForZenMode ???
+
+
+----------------------------------------
+
+Do shared preferences zapisuje aj:
+
+Toto je o tom, ci na start zobrazovat notifikaciu Important info. Zatial necham tak.
+- ImportantInfoNotification.PREF_SHOW_INFO_NOTIFICATION_ON_START
+- ImportantInfoNotification.PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION
+
+Tu si pamatam, ci ide o prvy start. Volane ak chcem zobrazit Quick guide. Zatial nechat tak.
+- LauncherActivity - ApplicationPreferences.PREF_APPLICATION_FIRST_START
+
+Toto je volane, ked sa zmeni verzia apliakcie. Nechat v shared preferences.
+- PPApplication.PREF_SAVED_VERSION_CODE
+
+Toto je pre autoregistraciu, Nechat v shared preferences.
+- MobileCellsRegistrationService.PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION
+- MobileCellsRegistrationService.PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME
+- MobileCellsRegistrationService.PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED
+- MobileCellsRegistrationService.PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION
+
+Toto je pre donation notifikaciu generovanu na pozadi. Volane raz denne, nechat v shared preferences.
+- PPApplication.PREF_DAYS_AFTER_FIRST_START
+- PPApplication.PREF_DONATION_NOTIFICATION_COUNT
+- PPApplication.PREF_DAYS_FOR_NEXT_DONATION_NOTIFICATION
+- PPApplication.PREF_DONATION_DONATED
+
+
+
+Toto dat ku ostatnym ApplicationPreferences, cize dat aj ako staticke premenne.
+- EditorProfilesActivity - ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN
+- EditorProfilesActivity - ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT
+HOTOVO
+
+Toto dat ku ostatnym aplikacnym parametrom, cize dat aj ako staticke premenne. Podobne ako ApplicationPreferences.
+- EventsPrefsActivity - ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN
+HOTOVO
+
+Toto dat ku ostatnym aplikacnym parametrom, cize dat aj ako staticke premenne. Podobne ako ApplicationPreferences.
+- ExitApplicatiinActivity - ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN
+- ExitApplicatiinActivity - ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT
+HOTOVO
+
+Toto dat ku ostatnym aplikacnym parametrom, cize dat aj ako staticke premenne. Podobne ako ApplicationPreferences.
+- Permissions - ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT
+HOTOVO
+
+
+
+Toto je volane z Editora, pamata si to pohlad editora. Dat ako static premenne. Podobne ako ApplicationPreferences.
+- EditorEventListFragment.SP_EDITOR_ORDER_SELECTED_ITEM
+HOTOVO
+
+Toto je volane z Editora, pamata si to pohlad editora. Dat ako static premenne. Podobne ako ApplicationPreferences.
+- EditorProfilesActivity.SP_EDITOR_SELECTED_VIEW
+- EditorProfilesActivity.SP_EDITOR_PROFILES_VIEW_SELECTED_ITEM
+- EditorProfilesActivity.SP_EDITOR_EVENTS_VIEW_SELECTED_ITEM
+HOTOVO
+
+
+
+Toto je volane aktivaciou profilu. Dat ako static premenne. Podobne ako ApplicationPreferences.
+- ActivatedProfileHelper.PREF_RINGER_VOLUME
+- ActivatedProfileHelper.PREF_NOTIFICATION_VOLUME
+- ActivatedProfileHelper.PREF_RINGER_MODE
+- ActivatedProfileHelper.PREF_ZEN_MODE
+- ActivatedProfileHelper.PREF_LOCKSCREEN_DISABLED
+- ActivatedProfileHelper.PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT
+HOTOVO
+
+Toto je volane aktivaciou profilu. Dat ako static premenne. Podobne ako ApplicationPreferences.
+- ActivatedProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES
+HOTOVO
+
+Toto je volane aktivaciou profilu. Dat ako static premenne. Podobne ako ApplicationPreferences.
+- Profile.PREF_ACTIVATED_PROFILE_FOR_DURATION
+- Profile.PREF_ACTIVATED_PROFILE_END_DURATION_TIME
+HOTOVO
+
+
+
+Tu si pamatam, ci zobrazovat notifikaciu o optimalizacii baterie. Dat ako static premenne. Podobne ako ApplicationPreferences.
+- IgnoreBatteryOptimizationNotification.PREF_SHOW_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ON_START
+HOTOVO
+
+Toto je volane casto. Casto sa zapisuje log. Dat ako static premenne. Podobne ako ApplicationPreferences.
+- PPApplication.PREF_ACTIVITY_LOG_ENABLED
+HOTOVO
+
+Toto sa meni casto kvoli meneniu nazvu aktivovaneho profilu. Dat ako static premenne. Podobne ako ApplicationPreferences.
+- PPApplication.PREF_NOTIFICATION_PROFILE_NAME
+- PPApplication.PREF_WIDGET_PROFILE_NAME
+- PPApplication.PREF_ACTIVITY_PROFILE_NAME
+- PPApplication.PREF_LAST_ACTIVATED_PROFILE
+HOTOVO
+
+
+
+Toto je volane z udalosti, pamata si v ako stave je spustenie udalosti. Dat ako static premenne. Podobne ako ApplicationPreferences.
+- Event.PREF_EVENTS_BLOCKED
+- Event.PREF_FORCE_RUN_EVENT_RUNNING
+HOTOVO
+
+Toto je pre zapis aplikacie, ktora je na pozadi. Volane casto. Dat ako static premenne. Podobne ako ApplicationPreferences.
+- PPPExtenderBroadcastReceiver.PREF_APPLICATION_IN_FOREGROUND
+HOTOVO
+
+
+Toto je volane z udalosti, senzor hovoru. Pamatam si tu kto, kedy volal a v ako stave je hovor. Dat ako static premenne.
+Podobne ako ApplicationPreferences.
+- EventsHandler - EventPreferencesCall.PREF_EVENT_CALL_EVENT_TYPE
+- EventsHandler - EventPreferencesCall.PREF_EVENT_CALL_PHONE_NUMBER
+- EventsHandler - EventPreferencesCall.PREF_EVENT_CALL_EVENT_TIME
+HOTOVO
+
+Toto je volane z udalosti, senzor hovoru. Pamatam si tu kto, kedy volal a v ako stave je hovor. Dat ako static premenne.
+Podobne ako ApplicationPreferences.
+- PhoneProfilesService - EventPreferencesCall.PREF_EVENT_CALL_EVENT_TYPE
+- PhoneProfilesService - EventPreferencesCall.PREF_EVENT_CALL_PHONE_NUMBER
+- PhoneProfilesService - EventPreferencesCall.PREF_EVENT_CALL_EVENT_TIME
+HOTOVO
+
+Toto je volane z udalosti, senzor prislusenstva. Pamatam si tu ake prislusenstvo je pripojene. Dat ako static premenne.
+Podobne ako ApplicationPreferences.
+- HeadsetConnectionBroadcastReceiver.PREF_EVENT_WIRED_HEADSET_CONNECTED
+- HeadsetConnectionBroadcastReceiver.PREF_EVENT_WIRED_HEADSET_MICROPHONE
+- HeadsetConnectionBroadcastReceiver.PREF_EVENT_BLUETOOTH_HEADSET_CONNECTED
+- HeadsetConnectionBroadcastReceiver.PREF_EVENT_BLUETOOTH_HEADSET_MICROPHONE
+HOTOVO
+
+Toto je volane z wifi skenera. Volane casto. Dat ako static premenne. Podobne ako ApplicationPreferences.
+- WifiBluetoothScanner.PREF_FORCE_ONE_WIFI_SCAN
+- WifiBluetoothScanner.PREF_FORCE_ONE_BLUETOOTH_SCAN
+- WifiBluetoothScanner.PREF_FORCE_ONE_LE_BLUETOOTH_SCAN
+HOTOVO
+
+Toto je volane z bluetooth skenera. Volane casto. Dat ako static premenne. Podobne ako ApplicationPreferences.
+- BluetoothScanWorker.PREF_EVENT_BLUETOOTH_SCAN_REQUEST
+- BluetoothScanWorker.PREF_EVENT_BLUETOOTH_LE_SCAN_REQUEST
+- BluetoothScanWorker.PREF_EVENT_BLUETOOTH_WAIT_FOR_RESULTS
+- BluetoothScanWorker.PREF_EVENT_BLUETOOTH_WAIT_FOR_LE_RESULTS
+- BluetoothScanWorker.PREF_EVENT_BLUETOOTH_SCAN_KILLED
+- BluetoothScanWorker.
+HOTOVO
+
+Toto je volane z wifi skenera. Volane casto. Dat ako static premenne. Podobne ako ApplicationPreferences.
+- WifiScanWorker.PREF_EVENT_WIFI_SCAN_REQUEST
+- WifiScanWorker.PREF_EVENT_WIFI_WAIT_FOR_RESULTS
+- WifiScanWorker.
+HOTOVO
+
+Target helps
+HOTOVO
+
+
+
 

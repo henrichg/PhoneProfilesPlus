@@ -27,7 +27,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
     {
         //PPApplication.logE("##### PhoneCallBroadcastReceiver.onReceive", "xxx");
 
-        return PPApplication.getApplicationStarted(savedContext, true);
+        return PPApplication.getApplicationStarted(true);
     }
 
     protected void onEndReceive()
@@ -100,7 +100,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
     private static void setLinkUnlinkNotificationVolume(final int linkMode, final Context context) {
         //PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "RingerModeChangeReceiver.notUnlinkVolumes="+RingerModeChangeReceiver.notUnlinkVolumes);
         if (!RingerModeChangeReceiver.notUnlinkVolumes) {
-            boolean unlinkEnabled = ActivateProfileHelper.getMergedRingNotificationVolumes(context) && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context);
+            boolean unlinkEnabled = ActivateProfileHelper.getMergedRingNotificationVolumes() && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes;
             //PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "unlinkEnabled="+unlinkEnabled);
             if (unlinkEnabled) {
                 boolean audibleSystemRingerMode = ActivateProfileHelper.isAudibleSystemRingerMode(audioManager, context);

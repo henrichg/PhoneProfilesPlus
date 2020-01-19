@@ -17,13 +17,13 @@ class FastAccessDurationProfileAdapter extends BaseAdapter {
     private final long profileId;
     private final FastAccessDurationProfileDialog dialog;
 
-    private final Context context;
+    //private final Context context;
 
     private final LayoutInflater inflater;
 
     FastAccessDurationProfileAdapter(FastAccessDurationProfileDialog dialog, Context c, long profileId, List<Profile> profileList)
     {
-        context = c;
+        //context = c;
 
         this.dialog = dialog;
         this.profileList = profileList;
@@ -70,7 +70,7 @@ class FastAccessDurationProfileAdapter extends BaseAdapter {
 
         View vi = convertView;
 
-        boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(context);
+        boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
 
         if (convertView == null)
         {

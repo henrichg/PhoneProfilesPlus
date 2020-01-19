@@ -67,7 +67,7 @@ public class WifiScanWorker extends Worker {
 
             //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
             boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-            if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
+            if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode.equals("2")) {
                 cancelWork(context, false, null);
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("WifiScanWorker.doWork", "return - update in power save mode is not allowed");
@@ -79,7 +79,7 @@ public class WifiScanWorker extends Worker {
             if (wifi == null)
                 wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
-            if (Event.getGlobalEventsRunning(context)) {
+            if (Event.getGlobalEventsRunning()) {
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("WifiScanWorker.doWork", "global events running=true");
                     PPApplication.logE("WifiScanWorker.doWork", "start scanner");
@@ -136,10 +136,10 @@ public class WifiScanWorker extends Worker {
                 PPApplication.logE("WifiScanWorker._scheduleWork", "shortInterval=" + shortInterval);
             }*/
 
-            int interval = ApplicationPreferences.applicationEventWifiScanInterval(context);
+            int interval = ApplicationPreferences.applicationEventWifiScanInterval;
             //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
             boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-            if (isPowerSaveMode && ApplicationPreferences.applicationEventWifiScanInPowerSaveMode(context).equals("1"))
+            if (isPowerSaveMode && ApplicationPreferences.applicationEventWifiScanInPowerSaveMode.equals("1"))
                 interval = 2 * interval;
 
             //PPApplication.logE("WifiScanWorker._scheduleWork", "interval=" + interval);
@@ -405,34 +405,42 @@ public class WifiScanWorker extends Worker {
         }
     }
 
-    static boolean getScanRequest(Context context)
+    static void getScanRequest(Context context)
     {
-        ApplicationPreferences.getSharedPreferences(context);
-        return ApplicationPreferences.preferences.getBoolean(PREF_EVENT_WIFI_SCAN_REQUEST, false);
+        synchronized (PPApplication.eventWifiSensorMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            ApplicationPreferences.prefEventWifiScanRequest = ApplicationPreferences.preferences.getBoolean(PREF_EVENT_WIFI_SCAN_REQUEST, false);
+        }
     }
-
     static void setScanRequest(Context context, boolean scanRequest)
     {
-        ApplicationPreferences.getSharedPreferences(context);
-        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-        editor.putBoolean(PREF_EVENT_WIFI_SCAN_REQUEST, scanRequest);
-        editor.apply();
-        //PPApplication.logE("@@@ WifiScanWorker.setScanRequest","scanRequest="+scanRequest);
+        synchronized (PPApplication.eventWifiSensorMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            editor.putBoolean(PREF_EVENT_WIFI_SCAN_REQUEST, scanRequest);
+            editor.apply();
+            ApplicationPreferences.prefEventWifiScanRequest = scanRequest;
+            //PPApplication.logE("@@@ WifiScanWorker.setScanRequest","scanRequest="+scanRequest);
+        }
     }
 
-    static public boolean getWaitForResults(Context context)
+    static void getWaitForResults(Context context)
     {
-        ApplicationPreferences.getSharedPreferences(context);
-        return ApplicationPreferences.preferences.getBoolean(PREF_EVENT_WIFI_WAIT_FOR_RESULTS, false);
+        synchronized (PPApplication.eventWifiSensorMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            ApplicationPreferences.prefEventWifiWaitForResult = ApplicationPreferences.preferences.getBoolean(PREF_EVENT_WIFI_WAIT_FOR_RESULTS, false);
+        }
     }
-
     static void setWaitForResults(Context context, boolean waitForResults)
     {
-        ApplicationPreferences.getSharedPreferences(context);
-        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-        editor.putBoolean(PREF_EVENT_WIFI_WAIT_FOR_RESULTS, waitForResults);
-        editor.apply();
-        //PPApplication.logE("$$$ WifiScanWorker.setWaitForResults", "waitForResults=" + waitForResults);
+        synchronized (PPApplication.eventWifiSensorMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            editor.putBoolean(PREF_EVENT_WIFI_WAIT_FOR_RESULTS, waitForResults);
+            editor.apply();
+            ApplicationPreferences.prefEventWifiWaitForResult = waitForResults;
+            //PPApplication.logE("$$$ WifiScanWorker.setWaitForResults", "waitForResults=" + waitForResults);
+        }
     }
 
     static void startScan(Context context)
@@ -450,7 +458,7 @@ public class WifiScanWorker extends Worker {
                 PPApplication.logE("$$$ WifiAP", "WifiScanWorker.startScan-startScan=" + startScan);
             }*/
             if (!startScan) {
-                if (getWifiEnabledForScan(context)) {
+                if (ApplicationPreferences.prefEventWifiEnabledForScan) {
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("$$$ WifiScanWorker.startScan", "disable wifi");
                         PPApplication.logE("#### setWifiEnabled", "from WifiScanWorker.startScan 1");
@@ -465,7 +473,7 @@ public class WifiScanWorker extends Worker {
             setWaitForResults(context, startScan);
             setScanRequest(context, false);
         } catch (Exception e) {
-            if (getWifiEnabledForScan(context)) {
+            if (ApplicationPreferences.prefEventWifiEnabledForScan) {
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("$$$ WifiScanWorker.startScan", "disable wifi");
                     PPApplication.logE("#### setWifiEnabled", "from WifiScanWorker.startScan 2");
@@ -473,6 +481,8 @@ public class WifiScanWorker extends Worker {
                 //if (Build.VERSION.SDK_INT >= 26)
                 //    CmdWifi.setWifi(false);
                 //else
+                    if (wifi == null)
+                        wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                     wifi.setWifiEnabled(false);
             }
             unlock();
@@ -485,7 +495,7 @@ public class WifiScanWorker extends Worker {
     {
         //PPApplication.logE("$$$ WifiScanWorker.startScanner", "xxx");
         //DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
-        if (fromDialog || ApplicationPreferences.applicationEventWifiEnableScanning(context)) {
+        if (fromDialog || ApplicationPreferences.applicationEventWifiEnableScanning) {
             if (fromDialog)
                 setScanRequest(context, true);
 
@@ -509,19 +519,24 @@ public class WifiScanWorker extends Worker {
     }
     */
 
-    static boolean getWifiEnabledForScan(Context context)
+    static void getWifiEnabledForScan(Context context)
     {
-        ApplicationPreferences.getSharedPreferences(context);
-        return ApplicationPreferences.preferences.getBoolean(PREF_EVENT_WIFI_ENABLED_FOR_SCAN, false);
+        synchronized (PPApplication.eventWifiSensorMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            ApplicationPreferences.prefEventWifiEnabledForScan = ApplicationPreferences.preferences.getBoolean(PREF_EVENT_WIFI_ENABLED_FOR_SCAN, false);
+        }
     }
 
     static void setWifiEnabledForScan(Context context, boolean setEnabled)
     {
-        //PPApplication.logE("@@@ WifiScanWorker.setWifiEnabledForScan","setEnabled="+setEnabled);
-        ApplicationPreferences.getSharedPreferences(context);
-        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-        editor.putBoolean(PREF_EVENT_WIFI_ENABLED_FOR_SCAN, setEnabled);
-        editor.apply();
+        synchronized (PPApplication.eventWifiSensorMutex) {
+            //PPApplication.logE("@@@ WifiScanWorker.setWifiEnabledForScan","setEnabled="+setEnabled);
+            ApplicationPreferences.getSharedPreferences(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            editor.putBoolean(PREF_EVENT_WIFI_ENABLED_FOR_SCAN, setEnabled);
+            editor.apply();
+            ApplicationPreferences.prefEventWifiEnabledForScan = setEnabled;
+        }
     }
 
     static void fillWifiConfigurationList(Context context/*, boolean enableWifi*/)
@@ -574,7 +589,7 @@ public class WifiScanWorker extends Worker {
                 if (device.SSID != null) {
                     boolean found = false;
                     for (WifiSSIDData _device : wifiConfigurationList) {
-                        //PPApplication.logE("WifiScanWorker.fillWifiConfigurationList","_device.ssis="+_device.ssid);
+                        //PPApplication.logE("WifiScanWorker.fillWifiConfigurationList","_device.ssid="+_device.ssid);
                         //if (_device.bssid.equals(device.BSSID))
                         if ((_device.ssid != null) && (_device.ssid.equals(device.SSID))) {
                             //PPApplication.logE("WifiScanWorker.fillWifiConfigurationList","device found");

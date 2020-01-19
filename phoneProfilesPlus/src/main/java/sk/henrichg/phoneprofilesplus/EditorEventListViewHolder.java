@@ -60,7 +60,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
         profileEndName = itemView.findViewById(R.id.event_list_item_profile_end_name);
         profileEndIcon = itemView.findViewById(R.id.event_list_item_profile_end_icon);
         ignoreManualActivationButton = itemView.findViewById(R.id.event_list_item_ignore_manual_activation);
-        if (ApplicationPreferences.applicationEditorPrefIndicator(context))
+        if (ApplicationPreferences.applicationEditorPrefIndicator)
         {
             eventPreferencesDescription  = itemView.findViewById(R.id.event_list_item_preferences_description);
             //eventPreferencesDescription.setHorizontallyScrolling(true); // disable auto word wrap :-)
@@ -84,11 +84,11 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             //boolean isAccessibilityServiceEnabled = (event.isAccessibilityServiceEnabled(context, true) == 1);
 
             //DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
-            boolean manualProfileActivation = DataWrapper.getIsManualProfileActivation(false, context);
+            boolean manualProfileActivation = DataWrapper.getIsManualProfileActivation(false/*, context*/);
             //dataWrapper.invalidateDataWrapper();
 
             int statusRes = GlobalGUIRoutines.getThemeEventStopStatusIndicator(context);
-            if (!Event.getGlobalEventsRunning(editorFragment.getActivity())) {
+            if (!Event.getGlobalEventsRunning()) {
                 if (_eventStatus != Event.ESTATUS_STOP)
                     statusRes = R.drawable.ic_event_status_pause_manual_activation;
             }
@@ -101,7 +101,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                             statusRes = R.drawable.ic_event_status_running;
                         break;
                     case Event.ESTATUS_PAUSE:
-                        if (!Event.getGlobalEventsRunning(editorFragment.getActivity()) || (manualProfileActivation && !event._forceRun))
+                        if (/*!Event.getGlobalEventsRunning() ||*/ (manualProfileActivation && !event._forceRun))
                             statusRes = R.drawable.ic_event_status_pause_manual_activation;
                         else if (event._isInDelayStart)
                             statusRes = R.drawable.ic_event_status_pause_delay;
@@ -122,7 +122,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             //TypedArray themeArray = context.getTheme().obtainStyledAttributes(new int[]{android.R.attr.textColorSecondary});
             //ColorStateList textColorSecondary = themeArray.getColorStateList(0);
 
-            if (!Event.getGlobalEventsRunning(editorFragment.getActivity()) || (manualProfileActivation && !event._forceRun)) {
+            if (!Event.getGlobalEventsRunning() || (manualProfileActivation && !event._forceRun)) {
                 eventName.setTypeface(null, Typeface.BOLD_ITALIC/*ITALIC*/);
                 //eventName.setTextSize(15);
                 //noinspection ConstantConditions
@@ -176,14 +176,14 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 //eventName.setTextColor(textColorSecondary);
             }
 
-            boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(context);
+            boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
 
             String _eventName;
             String eventStartOrder = "[O:" + event._startOrder + "] ";
             if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
                 eventStartOrder = "";
             String eventPriority = "";
-            if (ApplicationPreferences.applicationEventUsePriority(context))
+            if (ApplicationPreferences.applicationEventUsePriority)
                 eventPriority = "[P:" + (event._priority + Event.EPRIORITY_HIGHEST) + "] ";
             boolean addedLF = false;
             if (eventStartOrder.isEmpty() && eventPriority.isEmpty()) {

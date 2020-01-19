@@ -97,8 +97,8 @@ class EventPreferencesWifi extends EventPreferences {
                 }
 
                 if ((this._connectionType == 1) || (this._connectionType == 3)) {
-                    if (!ApplicationPreferences.applicationEventWifiEnableScanning(context)) {
-                        if (!ApplicationPreferences.applicationEventWifiDisabledScannigByProfile(context))
+                    if (!ApplicationPreferences.applicationEventWifiEnableScanning) {
+                        if (!ApplicationPreferences.applicationEventWifiDisabledScannigByProfile)
                             descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
                         else
                             descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
@@ -163,8 +163,8 @@ class EventPreferencesWifi extends EventPreferences {
             if (preference != null) {
                 String summary;
                 int titleColor;
-                if (!ApplicationPreferences.applicationEventWifiEnableScanning(context)) {
-                    if (!ApplicationPreferences.applicationEventWifiDisabledScannigByProfile(context)) {
+                if (!ApplicationPreferences.applicationEventWifiEnableScanning) {
+                    if (!ApplicationPreferences.applicationEventWifiDisabledScannigByProfile) {
                         summary = "* " + context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + " *\n\n" +
                                 context.getResources().getString(R.string.phone_profiles_pref_eventWifiAppSettings_summary);
                         titleColor = Color.RED; //0xFFffb000;

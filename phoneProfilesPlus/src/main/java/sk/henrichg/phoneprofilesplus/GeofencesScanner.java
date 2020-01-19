@@ -329,7 +329,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         //Log.d("GeofenceScanner.createLocationRequest", "xxx");
 
         // check power save mode
-        String applicationEventLocationUpdateInPowerSaveMode = ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context);
+        String applicationEventLocationUpdateInPowerSaveMode = ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode;
         //boolean powerSaveMode = PPApplication.isPowerSaveMode;
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
         if (isPowerSaveMode && applicationEventLocationUpdateInPowerSaveMode.equals("2")) {
@@ -367,7 +367,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         // batched location (better for Android 8.0)
         mLocationRequest.setMaxWaitTime(UPDATE_INTERVAL_IN_MILLISECONDS * 4);
 
-        if ((!ApplicationPreferences.applicationEventLocationUseGPS(context)) || isPowerSaveMode || (!useGPS)) {
+        if ((!ApplicationPreferences.applicationEventLocationUseGPS) || isPowerSaveMode || (!useGPS)) {
             //PPApplication.logE("##### GeofenceScanner.createLocationRequest","PRIORITY_BALANCED_POWER_ACCURACY");
             mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
         }
@@ -382,7 +382,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
      * Requests location updates from the FusedLocationApi.
      */
     void startLocationUpdates() {
-        if (!ApplicationPreferences.applicationEventLocationEnableScanning(context))
+        if (!ApplicationPreferences.applicationEventLocationEnableScanning)
             return;
 
         /*if (PPApplication.logEnabled()) {
@@ -417,7 +417,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             }
         }
 
-        if (ApplicationPreferences.applicationEventLocationUseGPS(context)) {
+        if (ApplicationPreferences.applicationEventLocationUseGPS) {
             // recursive call this for switch usage of GPS
             GeofencesScannerSwitchGPSBroadcastReceiver.setAlarm(context);
         }

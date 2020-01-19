@@ -80,7 +80,7 @@ class AddProfileDialog
 
             @Override
             protected Void doInBackground(Void... params) {
-                boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(activity);
+                boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
                 Profile profile;
                 profile = DataWrapper.getNonInitializedProfile(
                         activity.getResources().getString(R.string.profile_name_default),

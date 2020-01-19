@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.util.Log;
 
 import java.util.Calendar;
 
@@ -108,7 +107,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
-            if (ApplicationPreferences.applicationUseAlarmClock(context)) {
+            if (ApplicationPreferences.applicationUseAlarmClock) {
                 Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
                 editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -155,7 +154,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
     private void doWork(/*boolean useHandler,*/ Context context) {
         final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(appContext, true))
+        if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
 

@@ -153,30 +153,25 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     ApplicationPreferences.getSharedPreferences(appContext);
                                     if (!ApplicationPreferences.preferences.contains(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT)) {
                                         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT, ApplicationPreferences.applicationActivateWithAlert(appContext));
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT, ApplicationPreferences.applicationActivateWithAlert);
 
                                         String rescan;
-                                        rescan = ApplicationPreferences.applicationEventLocationRescan(appContext);
+                                        rescan = ApplicationPreferences.applicationEventLocationRescan;
                                         if (rescan.equals("0"))
                                             editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_RESCAN, "1");
                                         if (rescan.equals("2"))
                                             editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_RESCAN, "3");
-                                        rescan = ApplicationPreferences.applicationEventWifiRescan(appContext);
+                                        rescan = ApplicationPreferences.applicationEventWifiRescan;
                                         if (rescan.equals("0"))
                                             editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_RESCAN, "1");
                                         if (rescan.equals("2"))
                                             editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_RESCAN, "3");
-                                        rescan = ApplicationPreferences.applicationEventBluetoothRescan(appContext);
+                                        rescan = ApplicationPreferences.applicationEventBluetoothRescan;
                                         if (rescan.equals("0"))
                                             editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN, "1");
                                         if (rescan.equals("2"))
                                             editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN, "3");
-                                        rescan = ApplicationPreferences.applicationEventMobileCellsRescan(appContext);
-                                        if (rescan.equals("0"))
-                                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "1");
-                                        if (rescan.equals("2"))
-                                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "3");
-                                        rescan = ApplicationPreferences.applicationEventMobileCellsRescan(appContext);
+                                        rescan = ApplicationPreferences.applicationEventMobileCellsRescan;
                                         if (rescan.equals("0"))
                                             editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "1");
                                         if (rescan.equals("2"))
@@ -305,6 +300,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                             defaultValue = "night_mode";
                                         editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, defaultValue);
                                         GlobalGUIRoutines.switchNightMode(appContext, true);
+
+                                        restartService = true;
                                     }
 
                                     editor.apply();
@@ -318,6 +315,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                         editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "night_mode");
                                         GlobalGUIRoutines.switchNightMode(appContext, true);
                                         editor.apply();
+
+                                        restartService = true;
                                     }
                                 }
 
@@ -332,14 +331,18 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                                             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED,
                                                     channel.getImportance() != NotificationManager.IMPORTANCE_NONE);
+
+                                            restartService = true;
                                         }
 
-                                        int filterEventsSelectedItem = ApplicationPreferences.preferences.getInt(EditorProfilesActivity.SP_EDITOR_EVENTS_VIEW_SELECTED_ITEM, 1);
+                                        int filterEventsSelectedItem = ApplicationPreferences.editorEventsViewSelectedItem;
                                         if (filterEventsSelectedItem == 2)
                                             filterEventsSelectedItem++;
-                                        editor.putInt(EditorProfilesActivity.SP_EDITOR_EVENTS_VIEW_SELECTED_ITEM, filterEventsSelectedItem);
-
+                                        editor.putInt(ApplicationPreferences.EDITOR_EVENTS_VIEW_SELECTED_ITEM, filterEventsSelectedItem);
                                         editor.apply();
+                                        ApplicationPreferences.editorEventsViewSelectedItem(appContext);
+
+                                        restartService = true;
                                     }
                                 }
 
@@ -393,6 +396,12 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                         }
 
                         PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PackageReplacedReceiver.onReceive.1");
+
+                        if (restartService) {
+                            PPApplication.loadApplicationPreferences(appContext);
+                        }
+                        PPApplication.loadGlobalApplicationData(appContext);
+                        ActivateProfileHelper.loadProfileActivationData(appContext);
 
                         // work for restart service
                         Data workData = new Data.Builder()

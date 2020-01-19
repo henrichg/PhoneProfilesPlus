@@ -67,7 +67,7 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
             @Override
             protected Void doInBackground(Void... params) {
 
-                preference.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator(preference.dataWrapper.context));
+                preference.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator);
                 Collections.sort(preference.dataWrapper.profileList, new ProfileMultiSelectPreferenceFragmentX.AlphabeticallyComparator());
 
                 getValuePMSDP();

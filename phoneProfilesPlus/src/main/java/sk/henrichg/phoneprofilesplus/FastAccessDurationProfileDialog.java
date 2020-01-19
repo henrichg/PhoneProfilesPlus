@@ -82,7 +82,7 @@ class FastAccessDurationProfileDialog
 
             @Override
             protected Void doInBackground(Void... params) {
-                dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator(dataWrapper.context));
+                dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator);
                 Collections.sort(dataWrapper.profileList, new FastAccessDurationProfileDialog.AlphabeticallyComparator());
 
                 return null;

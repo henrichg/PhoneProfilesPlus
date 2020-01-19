@@ -305,7 +305,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
                         public void run() {
                             //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness");
 
-                            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
+                            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                     (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
                                 synchronized (PPApplication.rootMutex) {
                                     String command1 = "settings put system " + ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME + " " + value;

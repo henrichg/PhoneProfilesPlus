@@ -90,7 +90,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
         super.onStart();
 
         if (action != null) {
-            if (!PPApplication.getApplicationStarted(getApplicationContext(), true)) {
+            if (!PPApplication.getApplicationStarted(true)) {
                 PPApplication.setApplicationStarted(getApplicationContext(), true);
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, false);

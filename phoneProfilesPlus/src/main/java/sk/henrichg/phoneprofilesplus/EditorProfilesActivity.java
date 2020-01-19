@@ -85,10 +85,6 @@ public class EditorProfilesActivity extends AppCompatActivity
     private AlertDialog importProgressDialog = null;
     private AlertDialog exportProgressDialog = null;
 
-    private static final String SP_EDITOR_SELECTED_VIEW = "editor_selected_view";
-    private static final String SP_EDITOR_PROFILES_VIEW_SELECTED_ITEM = "editor_profiles_view_selected_item";
-    static final String SP_EDITOR_EVENTS_VIEW_SELECTED_ITEM = "editor_events_view_selected_item";
-
     private static final int DSI_PROFILES_ALL = 0;
     private static final int DSI_PROFILES_SHOW_IN_ACTIVATOR = 1;
     private static final int DSI_PROFILES_NO_SHOW_IN_ACTIVATOR = 2;
@@ -533,11 +529,10 @@ public class EditorProfilesActivity extends AppCompatActivity
         // set drawer item and order
         //if ((savedInstanceState != null) || (ApplicationPreferences.applicationEditorSaveEditorState(getApplicationContext())))
         //{
-            ApplicationPreferences.getSharedPreferences(this);
             //filterSelectedItem = ApplicationPreferences.preferences.getInt(SP_EDITOR_DRAWER_SELECTED_ITEM, 1);
-            editorSelectedView = ApplicationPreferences.preferences.getInt(SP_EDITOR_SELECTED_VIEW, 0);
-            filterProfilesSelectedItem = ApplicationPreferences.preferences.getInt(SP_EDITOR_PROFILES_VIEW_SELECTED_ITEM, 0);
-            filterEventsSelectedItem = ApplicationPreferences.preferences.getInt(SP_EDITOR_EVENTS_VIEW_SELECTED_ITEM, 0);
+            editorSelectedView = ApplicationPreferences.editorSelectedView;
+            filterProfilesSelectedItem = ApplicationPreferences.editorProfilesViewSelectedItem;
+            filterEventsSelectedItem = ApplicationPreferences.editorEventsViewSelectedItem;
         //}
 
         startTargetHelps = false;
@@ -585,7 +580,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         refreshGUI(true, false, true, 0, 0);
 
         // this is for list widget header
-        if (!PPApplication.getApplicationStarted(getApplicationContext(), true))
+        if (!PPApplication.getApplicationStarted(true))
         {
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("EditorProfilesActivity.onStart", "application is not started");
@@ -713,7 +708,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         menuItem = menu.findItem(R.id.menu_run_stop_events);
         if (menuItem != null)
         {
-            if (Event.getGlobalEventsRunning(getApplicationContext()))
+            if (Event.getGlobalEventsRunning())
             {
                 menuItem.setTitle(R.string.menu_stop_events);
                 menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
@@ -728,8 +723,8 @@ public class EditorProfilesActivity extends AppCompatActivity
         menuItem = menu.findItem(R.id.menu_restart_events);
         if (menuItem != null)
         {
-            menuItem.setVisible(Event.getGlobalEventsRunning(getApplicationContext()));
-            menuItem.setEnabled(PPApplication.getApplicationStarted(getApplicationContext(), true));
+            menuItem.setVisible(Event.getGlobalEventsRunning());
+            menuItem.setEnabled(PPApplication.getApplicationStarted(true));
         }
 
         menuItem = menu.findItem(R.id.menu_dark_theme);
@@ -819,12 +814,14 @@ public class EditorProfilesActivity extends AppCompatActivity
                         Editor editor = preferences.edit();
                         editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "white"/*theme*/);
                         editor.apply();
+                        ApplicationPreferences.applicationTheme = "white";
                     } else {
                         SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(getApplicationContext());
                         Editor editor = preferences.edit();
                         //editor.putString(ApplicationPreferences.PREF_APPLICATION_NOT_DARK_THEME, theme);
                         editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "dark");
                         editor.apply();
+                        ApplicationPreferences.applicationTheme = "dark";
                     }
                     GlobalGUIRoutines.switchNightMode(getApplicationContext(), false);
                     GlobalGUIRoutines.reloadActivity(this, true);
@@ -948,6 +945,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
                         editor.apply();
+                        ApplicationPreferences.applicationEventNeverAskForEnableRun(getApplicationContext());
+                        ApplicationPreferences.applicationNeverAskForGrantRoot(getApplicationContext());
 
                         PPApplication.exitApp(true, getApplicationContext(), EditorProfilesActivity.this.getDataWrapper(),
                                 EditorProfilesActivity.this, false/*, true, true*/);
@@ -1076,12 +1075,15 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
 
             // save into shared preferences
-            ApplicationPreferences.getSharedPreferences(this);
+            ApplicationPreferences.getSharedPreferences(getApplicationContext());
             Editor editor = ApplicationPreferences.preferences.edit();
-            editor.putInt(SP_EDITOR_SELECTED_VIEW, editorSelectedView);
-            editor.putInt(SP_EDITOR_PROFILES_VIEW_SELECTED_ITEM, filterProfilesSelectedItem);
-            editor.putInt(SP_EDITOR_EVENTS_VIEW_SELECTED_ITEM, filterEventsSelectedItem);
+            editor.putInt(ApplicationPreferences.EDITOR_SELECTED_VIEW, editorSelectedView);
+            editor.putInt(ApplicationPreferences.EDITOR_PROFILES_VIEW_SELECTED_ITEM, filterProfilesSelectedItem);
+            editor.putInt(ApplicationPreferences.EDITOR_EVENTS_VIEW_SELECTED_ITEM, filterEventsSelectedItem);
             editor.apply();
+            ApplicationPreferences.editorSelectedView(getApplicationContext());
+            ApplicationPreferences.editorProfilesViewSelectedItem(getApplicationContext());
+            ApplicationPreferences.editorEventsViewSelectedItem(getApplicationContext());
 
             Bundle arguments;
 
@@ -1620,6 +1622,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                     } catch (Exception ignored) {
                     }
                 }
+
+                PPApplication.loadApplicationPreferences(getApplicationContext());
+                PPApplication.loadGlobalApplicationData(getApplicationContext());
+                ActivateProfileHelper.loadProfileActivationData(getApplicationContext());
+
             }/* catch (FileNotFoundException ignored) {
                 // no error, this is OK
             }*/ catch (Exception e) {
@@ -1735,8 +1742,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                         if (!appSettingsError) {
                             ApplicationPreferences.getSharedPreferences(dataWrapper.context);
                             /*Editor editor = ApplicationPreferences.preferences.edit();
-                            editor.putInt(SP_EDITOR_PROFILES_VIEW_SELECTED_ITEM, 0);
-                            editor.putInt(SP_EDITOR_EVENTS_VIEW_SELECTED_ITEM, 0);
+                            editor.putInt(EDITOR_PROFILES_VIEW_SELECTED_ITEM, 0);
+                            editor.putInt(EDITOR_EVENTS_VIEW_SELECTED_ITEM, 0);
                             editor.putInt(EditorEventListFragment.SP_EDITOR_ORDER_SELECTED_ITEM, 0);
                             editor.apply();*/
 
@@ -2206,7 +2213,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 fragment.updateListView(profile, newProfile, false, false, 0);
 
                 Profile activeProfile = fragment.activityDataWrapper.getActivatedProfile(true,
-                        ApplicationPreferences.applicationEditorPrefIndicator(fragment.activityDataWrapper.context));
+                        ApplicationPreferences.applicationEditorPrefIndicator);
                 fragment.updateHeader(activeProfile);
                 PPApplication.showProfileNotification(/*getApplicationContext()*/true, false);
                 //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfilesActivity.redrawProfileListFragment");
@@ -2353,7 +2360,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 fragment.updateListView(event, newEvent, false, false, 0);
 
                 Profile activeProfile = fragment.activityDataWrapper.getActivatedProfileFromDB(true,
-                        ApplicationPreferences.applicationEditorPrefIndicator(fragment.activityDataWrapper.context));
+                        ApplicationPreferences.applicationEditorPrefIndicator);
                 fragment.updateHeader(activeProfile);
 
                 ((GlobalGUIRoutines.HighlightedSpinnerAdapter)filterSpinner.getAdapter()).setSelection(0);
@@ -2394,9 +2401,9 @@ public class EditorProfilesActivity extends AppCompatActivity
     private void setEventsRunStopIndicator()
     {
         //boolean whiteTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true).equals("white");
-        if (Event.getGlobalEventsRunning(getApplicationContext()))
+        if (Event.getGlobalEventsRunning())
         {
-            if (Event.getEventsBlocked(getApplicationContext())) {
+            if (ApplicationPreferences.prefEventsBlocked) {
                 //if (whiteTheme)
                 //    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_manual_activation_white);
                 //else
@@ -2475,22 +2482,22 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         ApplicationPreferences.getSharedPreferences(this);
 
-        boolean startTargetHelps = ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true);
-        boolean showTargetHelpsFilterSpinner = ApplicationPreferences.preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_FILTER_SPINNER, true);
-        boolean showTargetHelpsRunStopIndicator = ApplicationPreferences.preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR, true);
-        boolean showTargetHelpsBottomNavigation = ApplicationPreferences.preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION, true);
+        boolean startTargetHelps = ApplicationPreferences.prefEditorActivityStartTargetHelps;
+        boolean showTargetHelpsFilterSpinner = ApplicationPreferences.prefEditorActivityStartTargetHelpsFilterSpinner;
+        boolean showTargetHelpsRunStopIndicator = ApplicationPreferences.prefEditorActivityStartTargetHelpsRunStopIndicator;
+        boolean showTargetHelpsBottomNavigation = ApplicationPreferences.prefEditorActivityStartTargetHelpsBottomNavigation;
 
         if (startTargetHelps || showTargetHelpsFilterSpinner || showTargetHelpsRunStopIndicator || showTargetHelpsBottomNavigation ||
-                ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS_DEFAULT_PROFILE, true) ||
-                ApplicationPreferences.preferences.getBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, true) ||
-                ApplicationPreferences.preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, true) ||
-                ApplicationPreferences.preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, true) ||
-                ApplicationPreferences.preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, true) ||
-                ApplicationPreferences.preferences.getBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, true) ||
-                ApplicationPreferences.preferences.getBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_ORDER_SPINNER, true) ||
-                ApplicationPreferences.preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, true) ||
-                ApplicationPreferences.preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, true) ||
-                ApplicationPreferences.preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_STATUS, true)) {
+                ApplicationPreferences.prefEditorActivityStartTargetHelpsDefaultProfile ||
+                ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps ||
+                ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps ||
+                ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsOrder ||
+                ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator ||
+                ApplicationPreferences.prefEditorEventsFragmentStartTargetHelps ||
+                ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsOrderSpinner ||
+                ApplicationPreferences.prefEditorEventsAdapterStartTargetHelps ||
+                ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsOrder ||
+                ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus) {
 
             //Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
@@ -2503,6 +2510,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                 editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR, false);
                 editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION, false);
                 editor.apply();
+                ApplicationPreferences.prefEditorActivityStartTargetHelps = false;
+                ApplicationPreferences.prefEditorActivityStartTargetHelpsFilterSpinner = false;
+                ApplicationPreferences.prefEditorActivityStartTargetHelpsRunStopIndicator = false;
+                ApplicationPreferences.prefEditorActivityStartTargetHelpsBottomNavigation = false;
 
                 //TypedValue tv = new TypedValue();
                 //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
@@ -2542,7 +2553,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     showTargetHelpsRunStopIndicator = false;
                     showTargetHelpsBottomNavigation = false;
 
-                    if (Event.getGlobalEventsRunning(getApplicationContext())) {
+                    if (Event.getGlobalEventsRunning()) {
                         /*targets.add(
                             TapTarget.forToolbarNavigationIcon(editorToolbar, getString(R.string.editor_activity_targetHelps_navigationIcon_title), getString(R.string.editor_activity_targetHelps_navigationIcon_description))
                                     .outerCircleColor(outerCircleColor)
@@ -2841,6 +2852,12 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
                             if (filterProfilesSelectedItem == DSI_PROFILES_ALL)
                                 editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
+                            ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps = false;
+                            ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps = false;
+                            if (filterProfilesSelectedItem == DSI_PROFILES_SHOW_IN_ACTIVATOR)
+                                ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsOrder = false;
+                            if (filterProfilesSelectedItem == DSI_PROFILES_ALL)
+                                ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator = false;
                         }
                         else {
                             editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, false);
@@ -2848,6 +2865,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                             if (filterEventsSelectedItem == DSI_EVENTS_START_ORDER)
                                 editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
                             editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_STATUS, false);
+                            ApplicationPreferences.prefEditorEventsFragmentStartTargetHelps = false;
+                            ApplicationPreferences.prefEditorEventsAdapterStartTargetHelps = false;
+                            if (filterEventsSelectedItem == DSI_EVENTS_START_ORDER)
+                                ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsOrder = false;
+                            ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus = false;
                         }
                         editor.apply();
                     }

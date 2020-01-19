@@ -25,7 +25,7 @@ public class SMSEventEndBroadcastReceiver extends BroadcastReceiver {
 
         final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(appContext, true))
+        if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
 
@@ -45,7 +45,7 @@ public class SMSEventEndBroadcastReceiver extends BroadcastReceiver {
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=SMSEventEndBroadcastReceiver.doWork");
 
-                        if (Event.getGlobalEventsRunning(appContext)) {
+                        if (Event.getGlobalEventsRunning()) {
                             //PPApplication.logE("SMSEventEndBroadcastReceiver.doWork", "handle events");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SMS_EVENT_END);

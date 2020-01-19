@@ -81,11 +81,11 @@ public class PPNotificationListenerService extends NotificationListenerService {
         //addNotifiedPackage(sbn.getPackageName(), time);
         //saveNotifiedPackages(context);
 
-        if (!PPApplication.getApplicationStarted(context, true))
+        if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRunning(context)) {
+        if (Event.getGlobalEventsRunning()) {
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "from=" + sbn.getPackageName());
 
@@ -169,11 +169,11 @@ public class PPNotificationListenerService extends NotificationListenerService {
         //removeNotifiedPackage(sbn.getPackageName());
         //saveNotifiedPackages(context);
 
-        if (!PPApplication.getApplicationStarted(context, true))
+        if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRunning(context)) {
+        if (Event.getGlobalEventsRunning()) {
             PPApplication.startHandlerThread("PPNotificationListenerService.onNotificationRemoved");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {

@@ -57,7 +57,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
 
         int delay = 20; // 20 seconds
 
-        if (ApplicationPreferences.applicationUseAlarmClock(context)) {
+        if (ApplicationPreferences.applicationUseAlarmClock) {
             //Intent intent = new Intent(_context, LockDeviceActivityFinishBroadcastReceiver.class);
             Intent intent = new Intent();
             intent.setAction(PhoneProfilesService.ACTION_LOCK_DEVICE_ACTIVITY_FINISH_BROADCAST_RECEIVER);

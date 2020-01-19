@@ -35,9 +35,9 @@ public class BootUpReceiver extends BroadcastReceiver {
             PPApplication.setBlockProfileEventActions(true, context);
 
             if (PPApplication.logEnabled()) {
-                PPApplication.logE("BootUpReceiver.onReceive", "applicationStartOnBoot=" + ApplicationPreferences.applicationStartOnBoot(context));
-                PPApplication.logE("BootUpReceiver.onReceive", "applicationStartEvents=" + ApplicationPreferences.applicationStartEvents(context));
-                PPApplication.logE("BootUpReceiver.onReceive", "globalEventsRunning=" + Event.getGlobalEventsRunning(context));
+                PPApplication.logE("BootUpReceiver.onReceive", "applicationStartOnBoot=" + ApplicationPreferences.applicationStartOnBoot);
+                PPApplication.logE("BootUpReceiver.onReceive", "applicationStartEvents=" + ApplicationPreferences.applicationStartEvents);
+                PPApplication.logE("BootUpReceiver.onReceive", "globalEventsRunning=" + Event.getGlobalEventsRunning());
             }
 
             //PPApplication.setApplicationStarted(context, false);
@@ -59,11 +59,11 @@ public class BootUpReceiver extends BroadcastReceiver {
 
                         PPApplication.logE("PPApplication.startHandlerThread", "START run - from=BootUpReceiver.onReceive2");
 
-                        if (ApplicationPreferences.applicationStartOnBoot(appContext)) {
+                        if (ApplicationPreferences.applicationStartOnBoot) {
                             PPApplication.logE("BootUpReceiver.onReceive", "PhoneProfilesService.getInstance()=" + PhoneProfilesService.getInstance());
 
                             PPApplication.sleep(3000);
-                            if (!PPApplication.getApplicationStarted(appContext, true)) {
+                            if (!PPApplication.getApplicationStarted(true)) {
                                 // service is not started, start it
                                 PPApplication.setApplicationStarted(appContext, true);
                                 Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
@@ -84,10 +84,10 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 dataWrapper.addActivityLog(DataWrapper.ALTYPE_APPLICATION_START_ON_BOOT, null, null, null, 0);
 
                                 // start events
-                                if (Event.getGlobalEventsRunning(appContext)) {
+                                if (Event.getGlobalEventsRunning()) {
                                     PPApplication.logE("BootUpReceiver.onReceive", "global event run is enabled, first start events");
 
-                                    if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
+                                    if (!DataWrapper.getIsManualProfileActivation(false/*, appContext*/)) {
                                         ////// unblock all events for first start
                                         //     that may be blocked in previous application run
                                         dataWrapper.pauseAllEvents(false, false/*, false*/);

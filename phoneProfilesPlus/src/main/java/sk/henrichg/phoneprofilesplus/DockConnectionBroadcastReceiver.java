@@ -16,11 +16,11 @@ public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
 
         final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(appContext, true))
+        if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRunning(appContext))
+        if (Event.getGlobalEventsRunning())
         {
             /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
             boolean peripheralEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_PERIPHERAL) > 0;

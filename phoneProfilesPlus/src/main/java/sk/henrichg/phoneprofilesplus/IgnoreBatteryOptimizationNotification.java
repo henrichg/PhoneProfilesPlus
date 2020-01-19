@@ -40,9 +40,9 @@ class IgnoreBatteryOptimizationNotification {
                         //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=IgnoreBatteryOptimizationNotification.showNotification");
 
                         ApplicationPreferences.getSharedPreferences(appContext);
-                        boolean show = ApplicationPreferences.preferences.getBoolean(PREF_SHOW_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ON_START, true);
+                        boolean show = ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart;
                         //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 1=" + show);
-                        if (Event.getGlobalEventsRunning(appContext)) {
+                        if (Event.getGlobalEventsRunning()) {
                             //show = show && DataWrapper.getIsManualProfileActivation(false, appContext);
                             //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 2=" + show);
                             DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
@@ -122,12 +122,23 @@ class IgnoreBatteryOptimizationNotification {
             notificationManager.cancel(PPApplication.IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ID);
     }
 
+    static void getShowIgnoreBatteryOptimizationNotificationOnStart(Context context)
+    {
+        synchronized (PPApplication.applicationGlobalPreferencesMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart = ApplicationPreferences.preferences.getBoolean(PREF_SHOW_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ON_START, true);
+            //return prefRingerVolume;
+        }
+    }
     static void setShowIgnoreBatteryOptimizationNotificationOnStart(Context context, boolean show)
     {
-        ApplicationPreferences.getSharedPreferences(context);
-        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-        editor.putBoolean(PREF_SHOW_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ON_START, show);
-        editor.apply();
+        synchronized (PPApplication.applicationGlobalPreferencesMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            editor.putBoolean(PREF_SHOW_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ON_START, show);
+            editor.apply();
+            ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart = show;
+        }
     }
 
 }

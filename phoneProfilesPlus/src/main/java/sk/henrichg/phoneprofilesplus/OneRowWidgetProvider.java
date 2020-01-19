@@ -31,19 +31,19 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             @Override
             public void run() {
                 //PPApplication.logE("OneRowWidgetProvider.onUpdate", "in handler");
-                String applicationWidgetOneRowIconLightness = ApplicationPreferences.applicationWidgetOneRowIconLightness(context);
-                String applicationWidgetOneRowIconColor = ApplicationPreferences.applicationWidgetOneRowIconColor(context);
-                boolean applicationWidgetOneRowCustomIconLightness = ApplicationPreferences.applicationWidgetOneRowCustomIconLightness(context);
+                String applicationWidgetOneRowIconLightness = ApplicationPreferences.applicationWidgetOneRowIconLightness;
+                String applicationWidgetOneRowIconColor = ApplicationPreferences.applicationWidgetOneRowIconColor;
+                boolean applicationWidgetOneRowCustomIconLightness = ApplicationPreferences.applicationWidgetOneRowCustomIconLightness;
                 //boolean applicationWidgetOneRowPrefIndicator = ApplicationPreferences.applicationWidgetOneRowPrefIndicator(context);
-                boolean applicationWidgetOneRowPrefIndicator = ApplicationPreferences.applicationWidgetListPrefIndicator(context);
-                boolean applicationWidgetOneRowBackgroundType = ApplicationPreferences.applicationWidgetOneRowBackgroundType(context);
-                String applicationWidgetOneRowBackgroundColor = ApplicationPreferences.applicationWidgetOneRowBackgroundColor(context);
-                String applicationWidgetOneRowLightnessB = ApplicationPreferences.applicationWidgetOneRowLightnessB(context);
-                String applicationWidgetOneRowBackground = ApplicationPreferences.applicationWidgetOneRowBackground(context);
-                boolean applicationWidgetOneRowShowBorder = ApplicationPreferences.applicationWidgetOneRowShowBorder(context);
-                String applicationWidgetOneRowLightnessBorder = ApplicationPreferences.applicationWidgetOneRowLightnessBorder(context);
-                boolean applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners(context);
-                String applicationWidgetOneRowLightnessT = ApplicationPreferences.applicationWidgetOneRowLightnessT(context);
+                boolean applicationWidgetOneRowPrefIndicator = ApplicationPreferences.applicationWidgetListPrefIndicator;
+                boolean applicationWidgetOneRowBackgroundType = ApplicationPreferences.applicationWidgetOneRowBackgroundType;
+                String applicationWidgetOneRowBackgroundColor = ApplicationPreferences.applicationWidgetOneRowBackgroundColor;
+                String applicationWidgetOneRowLightnessB = ApplicationPreferences.applicationWidgetOneRowLightnessB;
+                String applicationWidgetOneRowBackground = ApplicationPreferences.applicationWidgetOneRowBackground;
+                boolean applicationWidgetOneRowShowBorder = ApplicationPreferences.applicationWidgetOneRowShowBorder;
+                String applicationWidgetOneRowLightnessBorder = ApplicationPreferences.applicationWidgetOneRowLightnessBorder;
+                boolean applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
+                String applicationWidgetOneRowLightnessT = ApplicationPreferences.applicationWidgetOneRowLightnessT;
 
                 //PPApplication.logE("OneRowWidgetProvider.onUpdate", "applicationWidgetOneRowShowBorder="+applicationWidgetOneRowShowBorder);
 
@@ -66,7 +66,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
                 try {
                     if (!refreshWidget) {
-                        String pNameWidget = PPApplication.getWidgetProfileName(context, 2);
+                        String pNameWidget = PPApplication.prefWidgetProfileName2;
 
                         if (!pNameWidget.isEmpty()) {
                             String pName;
@@ -253,7 +253,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             }
                         }
 
-                        if (Event.getGlobalEventsRunning(context) && PPApplication.getApplicationStarted(context, true)) {
+                        if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
                             monochromeValue = 0xFF;
                             if (applicationWidgetOneRowLightnessT.equals("0")) monochromeValue = 0x00;
                             if (applicationWidgetOneRowLightnessT.equals("12")) monochromeValue = 0x20;
@@ -274,7 +274,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             PPApplication.logE("OneRowWidgetProvider.onUpdate", "events running=" + Event.getGlobalEventsRunning(context));
                             PPApplication.logE("OneRowWidgetProvider.onUpdate", "application started=" + PPApplication.getApplicationStarted(context, true));
                         }*/
-                        if (Event.getGlobalEventsRunning(context) && PPApplication.getApplicationStarted(context, true)) {
+                        if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
                             remoteViews.setViewVisibility(R.id.widget_one_row_header_restart_events, VISIBLE);
                             Intent intentRE = new Intent(context, RestartEventsFromNotificationActivity.class);
                             PendingIntent pIntentRE = PendingIntent.getActivity(context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);

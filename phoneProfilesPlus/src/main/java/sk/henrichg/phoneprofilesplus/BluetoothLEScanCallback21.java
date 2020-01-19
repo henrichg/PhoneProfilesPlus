@@ -4,7 +4,6 @@ import android.annotation.TargetApi;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
-import android.content.Context;
 import android.os.Build;
 import android.util.Log;
 
@@ -14,10 +13,10 @@ import java.util.List;
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 class BluetoothLEScanCallback21 extends ScanCallback {
 
-    private final Context context;
+    //private final Context context;
 
-    BluetoothLEScanCallback21(Context _context) {
-        context = _context;
+    BluetoothLEScanCallback21(/*Context _context*/) {
+        //context = _context;
     }
 
     public void onScanResult(int callbackType, ScanResult result) {
@@ -28,13 +27,13 @@ class BluetoothLEScanCallback21 extends ScanCallback {
         if (_device == null)
             return;
 
-        final Context appContext = context.getApplicationContext();
+        //final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(appContext, true))
+        if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
-        if (WifiBluetoothScanner.getForceOneBluetoothScan(appContext) != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
-            if (!ApplicationPreferences.applicationEventBluetoothEnableScanning(appContext))
+        if (ApplicationPreferences.prefForceOneBluetoothScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
+            if (!ApplicationPreferences.applicationEventBluetoothEnableScanning)
                 // scanning is disabled
                 return;
         }
@@ -111,14 +110,14 @@ class BluetoothLEScanCallback21 extends ScanCallback {
         if ((results == null) || (results.size() == 0))
             return;
 
-        final Context appContext = context.getApplicationContext();
+        //final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(appContext, true))
+        if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
 
-        if (WifiBluetoothScanner.getForceOneLEBluetoothScan(appContext) != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
-            if (!ApplicationPreferences.applicationEventBluetoothEnableScanning(appContext))
+        if (ApplicationPreferences.prefForceOneBluetoothLEScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
+            if (!ApplicationPreferences.applicationEventBluetoothEnableScanning)
                 // scanning is disabled
                 return;
         }

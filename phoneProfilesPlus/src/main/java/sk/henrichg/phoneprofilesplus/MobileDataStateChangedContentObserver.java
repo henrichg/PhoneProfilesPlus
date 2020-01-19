@@ -41,7 +41,7 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
             boolean actualState = ActivateProfileHelper.isMobileData(context);
             if (previousState != actualState) {
 
-                if (Event.getGlobalEventsRunning(context)) {
+                if (Event.getGlobalEventsRunning()) {
                     final Context appContext = context.getApplicationContext();
                     PPApplication.startHandlerThread("MobileDataStateChangedContentObserver.onChange");
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());

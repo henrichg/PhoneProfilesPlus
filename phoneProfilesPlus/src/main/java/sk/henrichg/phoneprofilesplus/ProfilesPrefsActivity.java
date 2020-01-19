@@ -610,8 +610,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 // restart Events
                 //PPApplication.logE("$$$ restartEvents","from ProfilesPrefsActivity.savePreferences");
                 PPApplication.setBlockProfileEventActions(true, getApplicationContext());
-                if (Event.getGlobalEventsRunning(getApplicationContext())) {
-                    if (!DataWrapper.getIsManualProfileActivation(false, getApplicationContext())) {
+                if (Event.getGlobalEventsRunning()) {
+                    if (!DataWrapper.getIsManualProfileActivation(false/*, getApplicationContext()*/)) {
                         //dataWrapper.restartEvents(false, true, true, true, true);
                         dataWrapper.restartEventsWithRescan(false, true, true, false);
                     }
@@ -642,10 +642,11 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         //String applicationTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
 
         if (showSaveMenu) {
-            if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS_SAVE, true)) {
+            if (ApplicationPreferences.prefProfilePrefsActivityStartTargetHelpsSave) {
                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 editor.putBoolean(PREF_START_TARGET_HELPS_SAVE, false);
                 editor.apply();
+                ApplicationPreferences.prefProfilePrefsActivityStartTargetHelpsSave = false;
 
                 Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
 
@@ -666,11 +667,12 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 //boolean tintTarget = !applicationTheme.equals("white");
 
                 final TapTargetSequence sequence = new TapTargetSequence(this);
-                if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+                if (ApplicationPreferences.prefProfilePrefsActivityStartTargetHelps) {
 
                     editor = ApplicationPreferences.preferences.edit();
                     editor.putBoolean(PREF_START_TARGET_HELPS, false);
                     editor.apply();
+                    ApplicationPreferences.prefProfilePrefsActivityStartTargetHelps = false;
 
                     List<TapTarget> targets = new ArrayList<>();
                     int id = 1;

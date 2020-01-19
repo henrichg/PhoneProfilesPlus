@@ -19,11 +19,11 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
 
         final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(appContext, true))
+        if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRunning(appContext)) {
+        if (Event.getGlobalEventsRunning()) {
             PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
             // isLightDeviceIdleMode() is @hide :-(
             if ((powerManager != null) && !powerManager.isDeviceIdleMode() /*&& !powerManager.isLightDeviceIdleMode()*/) {

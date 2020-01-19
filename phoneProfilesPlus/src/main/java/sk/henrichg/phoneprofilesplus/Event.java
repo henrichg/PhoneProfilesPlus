@@ -121,7 +121,7 @@ class Event {
     private static final String PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION = "eventNoPauseByManualActivation";
     private static final String PREF_EVENT_END_OTHERS = "eventEndOthersCategoryRoot";
 
-    private static final String PREF_GLOBAL_EVENTS_RUN_STOP = "globalEventsRunStop";
+    static final String PREF_GLOBAL_EVENTS_RUN_STOP = "globalEventsRunStop";
     private static final String PREF_EVENTS_BLOCKED = "eventsBlocked";
     private static final String PREF_FORCE_RUN_EVENT_RUNNING = "forceRunEventRunning";
 
@@ -736,7 +736,7 @@ class Event {
         if (key.equals(PREF_EVENT_PRIORITY_APP_SETTINGS)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                boolean applicationEventUsePriority = ApplicationPreferences.applicationEventUsePriority(context);
+                boolean applicationEventUsePriority = ApplicationPreferences.applicationEventUsePriority;
                 String summary = context.getString(R.string.event_preferences_event_priorityInfo_summary);
                 if (applicationEventUsePriority)
                     summary = context.getString(R.string.event_preferences_priority_appSettings_enabled) + "\n\n" + summary;
@@ -752,7 +752,7 @@ class Event {
         {
             ListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
-                boolean applicationEventUsePriority = ApplicationPreferences.applicationEventUsePriority(context);
+                boolean applicationEventUsePriority = ApplicationPreferences.applicationEventUsePriority;
                 if (applicationEventUsePriority) {
                     int index = listPreference.findIndexOfValue(value);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -1316,7 +1316,7 @@ class Event {
         removeDelayEndAlarm(dataWrapper); // for end delay
         removeStartEventNotificationAlarm(dataWrapper); // for start repeating notification
 
-        if ((!getGlobalEventsRunning(dataWrapper.context))/* && (!ignoreGlobalPref)*/)
+        if ((!getGlobalEventsRunning())/* && (!ignoreGlobalPref)*/)
             // events are globally stopped
             return;
 
@@ -1331,7 +1331,7 @@ class Event {
             return;
         }
 
-        if (getEventsBlocked(dataWrapper.context))
+        if (ApplicationPreferences.prefEventsBlocked)
         {
             // blocked by manual profile activation
             /*if (PPApplication.logEnabled()) {
@@ -1369,7 +1369,7 @@ class Event {
         }
 
         // search for running event with higher priority
-        boolean applicationEventUsePriority = ApplicationPreferences.applicationEventUsePriority(dataWrapper.context);
+        boolean applicationEventUsePriority = ApplicationPreferences.applicationEventUsePriority;
         for (EventTimeline eventTimeline : eventTimelineList)
         {
             Event event = dataWrapper.getEventById(eventTimeline._fkEvent);
@@ -1614,7 +1614,7 @@ class Event {
         removeDelayEndAlarm(dataWrapper); // for end delay
         removeStartEventNotificationAlarm(dataWrapper); // for start repeating notification
 
-        if ((!getGlobalEventsRunning(dataWrapper.context)) && (!ignoreGlobalPref))
+        if ((!getGlobalEventsRunning()) && (!ignoreGlobalPref))
             // events are globally stopped
             return;
 
@@ -1758,7 +1758,7 @@ class Event {
         removeDelayEndAlarm(dataWrapper); // for end delay
         removeStartEventNotificationAlarm(dataWrapper); // for start repeating notification
 
-        if ((!getGlobalEventsRunning(dataWrapper.context)) && (!ignoreGlobalPref))
+        if ((!getGlobalEventsRunning()) && (!ignoreGlobalPref))
             // events are globally stopped
             return;
 
@@ -1971,7 +1971,7 @@ class Event {
     {
         removeDelayStartAlarm(dataWrapper);
 
-        if (!getGlobalEventsRunning(dataWrapper.context))
+        if (!getGlobalEventsRunning())
             // events are globally stopped
             return;
 
@@ -1979,7 +1979,7 @@ class Event {
             // event is not runnable, no pause it
             return;
 
-        if (getEventsBlocked(dataWrapper.context))
+        if (ApplicationPreferences.prefEventsBlocked)
         {
             // blocked by manual profile activation
             //PPApplication.logE("Event.setDelayStartAlarm","event_id="+this._id+" events blocked");
@@ -2006,7 +2006,7 @@ class Event {
             // delay for start is > 0
             // set alarm
 
-            if (ApplicationPreferences.applicationUseAlarmClock(_context)) {
+            if (ApplicationPreferences.applicationUseAlarmClock) {
                 //Intent intent = new Intent(_context, EventDelayStartBroadcastReceiver.class);
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_EVENT_DELAY_START_BROADCAST_RECEIVER);
@@ -2189,7 +2189,7 @@ class Event {
     {
         removeDelayEndAlarm(dataWrapper);
 
-        if (!getGlobalEventsRunning(dataWrapper.context))
+        if (!getGlobalEventsRunning())
             // events are globally stopped
             return;
 
@@ -2197,7 +2197,7 @@ class Event {
             // event is not runnable, no pause it
             return;
 
-        if (getEventsBlocked(dataWrapper.context))
+        if (ApplicationPreferences.prefEventsBlocked)
         {
             // blocked by manual profile activation
             //PPApplication.logE("Event.setDelayEndAlarm","event_id="+this._id+" events blocked");
@@ -2224,7 +2224,7 @@ class Event {
             // delay for end is > 0
             // set alarm
 
-            if (ApplicationPreferences.applicationUseAlarmClock(_context)) {
+            if (ApplicationPreferences.applicationUseAlarmClock) {
                 //Intent intent = new Intent(_context, EventDelayEndBroadcastReceiver.class);
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_EVENT_DELAY_END_BROADCAST_RECEIVER);
@@ -2645,46 +2645,60 @@ class Event {
         return preferenceAllowed;
     }
 
-    static public boolean getGlobalEventsRunning(Context context)
+    static boolean getGlobalEventsRunning()
     {
-        ApplicationPreferences.getSharedPreferences(context);
-        return ApplicationPreferences.preferences.getBoolean(PREF_GLOBAL_EVENTS_RUN_STOP, true);
+        synchronized (PPApplication.globalEventsRunStopMutex) {
+            return PPApplication.globalEventsRunStop;
+        }
     }
 
     static void setGlobalEventsRunning(Context context, boolean globalEventsRunning)
     {
-        ApplicationPreferences.getSharedPreferences(context);
-        Editor editor = ApplicationPreferences.preferences.edit();
-        editor.putBoolean(PREF_GLOBAL_EVENTS_RUN_STOP, globalEventsRunning);
-        editor.apply();
+        synchronized (PPApplication.globalEventsRunStopMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            Editor editor = ApplicationPreferences.preferences.edit();
+            editor.putBoolean(PREF_GLOBAL_EVENTS_RUN_STOP, globalEventsRunning);
+            editor.apply();
+            PPApplication.globalEventsRunStop = globalEventsRunning;
+        }
     }
 
-    static boolean getEventsBlocked(Context context)
+    static void getEventsBlocked(Context context)
     {
-        ApplicationPreferences.getSharedPreferences(context);
-        return ApplicationPreferences.preferences.getBoolean(PREF_EVENTS_BLOCKED, false);
+        synchronized (PPApplication.eventsRunMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            ApplicationPreferences.prefEventsBlocked = ApplicationPreferences.preferences.getBoolean(PREF_EVENTS_BLOCKED, false);
+            //return prefEventsBlocked;
+        }
     }
-
     static void setEventsBlocked(Context context, boolean eventsBlocked)
     {
-        ApplicationPreferences.getSharedPreferences(context);
-        Editor editor = ApplicationPreferences.preferences.edit();
-        editor.putBoolean(PREF_EVENTS_BLOCKED, eventsBlocked);
-        editor.apply();
+        synchronized (PPApplication.eventsRunMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            Editor editor = ApplicationPreferences.preferences.edit();
+            editor.putBoolean(PREF_EVENTS_BLOCKED, eventsBlocked);
+            editor.apply();
+            ApplicationPreferences.prefEventsBlocked = eventsBlocked;
+        }
     }
 
-    static boolean getForceRunEventRunning(Context context)
+    static void getForceRunEventRunning(Context context)
     {
-        ApplicationPreferences.getSharedPreferences(context);
-        return ApplicationPreferences.preferences.getBoolean(PREF_FORCE_RUN_EVENT_RUNNING, false);
+        synchronized (PPApplication.eventsRunMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            ApplicationPreferences.prefForceRunEventRunning = ApplicationPreferences.preferences.getBoolean(PREF_FORCE_RUN_EVENT_RUNNING, false);
+            //return prefForceRunEventRunning;
+        }
     }
-
     static void setForceRunEventRunning(Context context, boolean forceRunEventRunning)
     {
-        ApplicationPreferences.getSharedPreferences(context);
-        Editor editor = ApplicationPreferences.preferences.edit();
-        editor.putBoolean(PREF_FORCE_RUN_EVENT_RUNNING, forceRunEventRunning);
-        editor.apply();
+        synchronized (PPApplication.eventsRunMutex) {
+            ApplicationPreferences.getSharedPreferences(context);
+            Editor editor = ApplicationPreferences.preferences.edit();
+            editor.putBoolean(PREF_FORCE_RUN_EVENT_RUNNING, forceRunEventRunning);
+            editor.apply();
+            ApplicationPreferences.prefForceRunEventRunning = forceRunEventRunning;
+        }
     }
 
     //----------------------------------

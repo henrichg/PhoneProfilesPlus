@@ -61,7 +61,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
     {
         //if (!_permanentRun) {
 
-            if (ApplicationPreferences.applicationUseAlarmClock(context)) {
+            if (ApplicationPreferences.applicationUseAlarmClock) {
                 //Intent intent = new Intent(_context, StartEventNotificationBroadcastReceiver.class);
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_START_EVENT_NOTIFICATION_BROADCAST_RECEIVER);
@@ -164,7 +164,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 
         final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(appContext, true))
+        if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
 

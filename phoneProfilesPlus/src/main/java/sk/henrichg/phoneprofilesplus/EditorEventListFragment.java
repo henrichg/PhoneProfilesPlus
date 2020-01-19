@@ -110,8 +110,6 @@ public class EditorEventListFragment extends Fragment
     private int filterType = FILTER_TYPE_ALL;
     private int orderType = ORDER_TYPE_EVENT_NAME;
 
-    private static final String SP_EDITOR_ORDER_SELECTED_ITEM = "editor_order_selected_item";
-
     /**
      * The fragment's current callback objects
      */
@@ -204,7 +202,7 @@ public class EditorEventListFragment extends Fragment
     private void doOnViewCreated(View view, boolean fromOnViewCreated)
     {
         profilePrefIndicatorImageView = view.findViewById(R.id.activated_profile_pref_indicator);
-        if (!ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context))
+        if (!ApplicationPreferences.applicationEditorPrefIndicator)
             profilePrefIndicatorImageView.setVisibility(GONE);
 
 
@@ -287,7 +285,7 @@ public class EditorEventListFragment extends Fragment
                 }, 200);
             }*/
 
-            if (ApplicationPreferences.applicationEditorHideHeaderOrBottomBar(getActivity().getApplicationContext())) {
+            if (ApplicationPreferences.applicationEditorHideHeaderOrBottomBar) {
                 final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_events_list_fragment))
                         .getLayoutTransition();
                 layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
@@ -385,8 +383,7 @@ public class EditorEventListFragment extends Fragment
             orderLayout.setVisibility(VISIBLE);
          */
 
-        ApplicationPreferences.getSharedPreferences(getActivity());
-        orderSelectedItem = ApplicationPreferences.preferences.getInt(SP_EDITOR_ORDER_SELECTED_ITEM, 0);
+        orderSelectedItem = ApplicationPreferences.editorOrderSelectedItem;
 
         orderSpinner = view.findViewById(R.id.editor_list_bottom_bar_order);
         if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
@@ -462,7 +459,7 @@ public class EditorEventListFragment extends Fragment
             //noinspection ConstantConditions
             _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false);
 
-            applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context);
+            applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
         }
 
         @Override
@@ -617,7 +614,7 @@ public class EditorEventListFragment extends Fragment
 
     boolean runStopEvent(final Event event) {
         if (!EventsPrefsFragment.isRedTextNotificationRequired(event, activityDataWrapper.context)) {
-            if (Event.getGlobalEventsRunning(activityDataWrapper.context)) {
+            if (Event.getGlobalEventsRunning()) {
                 // events are not globally stopped
 
                 List<EventTimeline> eventTimelineList = activityDataWrapper.getEventTimelineList(true);
@@ -917,7 +914,7 @@ public class EditorEventListFragment extends Fragment
             }
         }
 
-        if (ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context))
+        if (ApplicationPreferences.applicationEditorPrefIndicator)
         {
             if (profile == null)
                 //profilePrefIndicatorImageView.setImageResource(R.drawable.ic_empty);
@@ -1068,7 +1065,7 @@ public class EditorEventListFragment extends Fragment
                         listView.setAdapter(eventListAdapter);
                         synchronized (activityDataWrapper.profileList) {
                             Profile profile = activityDataWrapper.getActivatedProfileFromDB(true,
-                                    ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
+                                    ApplicationPreferences.applicationEditorPrefIndicator);
                             updateHeader(profile);
                         }
                         listView.getRecycledViewPool().clear();
@@ -1081,7 +1078,7 @@ public class EditorEventListFragment extends Fragment
                             EditorEventListFragment.sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
                         synchronized (activityDataWrapper.profileList) {
                             Profile profile = activityDataWrapper.getActivatedProfileFromDB(true,
-                                    ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
+                                    ApplicationPreferences.applicationEditorPrefIndicator);
                             updateHeader(profile);
                         }
 
@@ -1110,7 +1107,7 @@ public class EditorEventListFragment extends Fragment
                     EditorEventListFragment.sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
                 synchronized (activityDataWrapper.profileList) {
                     Profile profile = activityDataWrapper.getActivatedProfileFromDB(true,
-                            ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
+                            ApplicationPreferences.applicationEditorPrefIndicator);
                     updateHeader(profile);
                 }
                 eventListAdapter = new EditorEventListAdapter(this, activityDataWrapper, filterType, this);
@@ -1181,7 +1178,7 @@ public class EditorEventListFragment extends Fragment
                 Collections.sort(eventList, new ProfileNameComparator());
                 break;
             case ORDER_TYPE_PRIORITY:
-                if (ApplicationPreferences.applicationEventUsePriority(_dataWrapper.context))
+                if (ApplicationPreferences.applicationEventUsePriority)
                     Collections.sort(eventList, new PriorityComparator());
                 else
                     Collections.sort(eventList, new StartOrderComparator());
@@ -1207,7 +1204,7 @@ public class EditorEventListFragment extends Fragment
         //PPApplication.logE("EditorEventListFragment.refreshGUI", "pName="+pName);
 
         if (!refresh) {
-            String pNameHeader = PPApplication.getActivityProfileName(activityDataWrapper.context, 3);
+            String pNameHeader = PPApplication.prefActivityProfileName3;
             //PPApplication.logE("EditorEventListFragment.refreshGUI", "pNameHeader="+pNameHeader);
 
             if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
@@ -1242,7 +1239,7 @@ public class EditorEventListFragment extends Fragment
         if (profileFromDB != null) {
             //PPApplication.logE("EditorEventListFragment.refreshGUI", "profile activated");
             Profile profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
-                    ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context), false);
+                    ApplicationPreferences.applicationEditorPrefIndicator, false);
             if (profileFromDataWrapper != null)
                 profileFromDataWrapper._checked = true;
             updateHeader(profileFromDataWrapper);
@@ -1272,13 +1269,13 @@ public class EditorEventListFragment extends Fragment
 
         ApplicationPreferences.getSharedPreferences(getActivity());
 
-        boolean showTargetHelps = ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true);
-        boolean showTargetHelpsDefaultProfile = ApplicationPreferences.preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, true);
-        boolean showTargetHelpsOrderSpinner = ApplicationPreferences.preferences.getBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_ORDER_SPINNER, true);
+        boolean showTargetHelps = ApplicationPreferences.prefEditorEventsFragmentStartTargetHelps;
+        boolean showTargetHelpsDefaultProfile = ApplicationPreferences.prefEditorActivityStartTargetHelpsDefaultProfile;
+        boolean showTargetHelpsOrderSpinner = ApplicationPreferences. prefEditorEventsFragmentStartTargetHelpsOrderSpinner;
         if (showTargetHelps || showTargetHelpsDefaultProfile || showTargetHelpsOrderSpinner ||
-                ApplicationPreferences.preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, true) ||
-                ApplicationPreferences.preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, true) ||
-                ApplicationPreferences.preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_STATUS, true)) {
+                ApplicationPreferences.prefEditorEventsAdapterStartTargetHelps ||
+                ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsOrder ||
+                ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus) {
 
             //Log.d("EditorEventListFragment.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
@@ -1292,6 +1289,10 @@ public class EditorEventListFragment extends Fragment
                 if (filterType != FILTER_TYPE_START_ORDER)
                     editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_ORDER_SPINNER, false);
                 editor.apply();
+                ApplicationPreferences.prefEditorEventsFragmentStartTargetHelps = false;
+                ApplicationPreferences.prefEditorActivityStartTargetHelpsDefaultProfile = false;
+                if (filterType != FILTER_TYPE_START_ORDER)
+                    ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsOrderSpinner = false;
 
                 //String appTheme = ApplicationPreferences.applicationTheme(getActivity(), true);
                 int outerCircleColor = R.color.tabTargetHelpOuterCircleColor;
@@ -1403,6 +1404,10 @@ public class EditorEventListFragment extends Fragment
                                     editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
                                 editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_STATUS, false);
                                 editor.apply();
+                                ApplicationPreferences.prefEditorEventsAdapterStartTargetHelps = false;
+                                if (filterType != FILTER_TYPE_START_ORDER)
+                                    ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsOrder = false;
+                                ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus = false;
                             }
                         });
                 sequence.continueOnCancel(true)
@@ -1447,6 +1452,9 @@ public class EditorEventListFragment extends Fragment
             if (filterType == FILTER_TYPE_START_ORDER)
                 editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
             editor.apply();
+            ApplicationPreferences.prefEditorEventsAdapterStartTargetHelps = false;
+            if (filterType == FILTER_TYPE_START_ORDER)
+                ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsOrder = false;
         }
     }
 
@@ -1455,10 +1463,13 @@ public class EditorEventListFragment extends Fragment
 
         if (filterType != EditorEventListFragment.FILTER_TYPE_START_ORDER) {
             // save into shared preferences
-            ApplicationPreferences.getSharedPreferences(getActivity());
-            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-            editor.putInt(SP_EDITOR_ORDER_SELECTED_ITEM, orderSelectedItem);
-            editor.apply();
+            if (getActivity() != null) {
+                ApplicationPreferences.getSharedPreferences(getActivity().getApplicationContext());
+                SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                editor.putInt(ApplicationPreferences.EDITOR_ORDER_SELECTED_ITEM, orderSelectedItem);
+                editor.apply();
+                ApplicationPreferences.editorOrderSelectedItem(getActivity().getApplicationContext());
+            }
         }
 
         int _eventsOrderType = getEventsOrderType();

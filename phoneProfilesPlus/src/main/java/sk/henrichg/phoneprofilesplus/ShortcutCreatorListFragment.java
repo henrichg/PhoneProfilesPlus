@@ -130,7 +130,7 @@ public class ShortcutCreatorListFragment extends Fragment {
             this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false);
 
             //applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator(this.dataWrapper.context);
-            applicationActivatorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(this.dataWrapper.context);
+            applicationActivatorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
         }
 
         @Override
@@ -337,7 +337,7 @@ public class ShortcutCreatorListFragment extends Fragment {
                             shortcutOverlayBitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_shortcut_overlay, false, context);
                     }
 
-                    if (ApplicationPreferences.applicationWidgetIconColor(activityDataWrapper.context).equals("1")) {
+                    if (ApplicationPreferences.applicationWidgetIconColor.equals("1")) {
                         /*if (PPApplication.logEnabled()) {
                             PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "applicationWidgetIconColor=1");
                             PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "useCustomColor=" + useCustomColor);
@@ -345,7 +345,7 @@ public class ShortcutCreatorListFragment extends Fragment {
                         if (isIconResourceID || useCustomColor) {
                             // icon is from resource or colored by custom color
                             int monochromeValue = 0xFF;
-                            String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness(activityDataWrapper.context);
+                            String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness;
                             if (applicationWidgetIconLightness.equals("0")) monochromeValue = 0x00;
                             if (applicationWidgetIconLightness.equals("25")) monochromeValue = 0x40;
                             if (applicationWidgetIconLightness.equals("50")) monochromeValue = 0x80;
@@ -354,7 +354,7 @@ public class ShortcutCreatorListFragment extends Fragment {
                             profileBitmap = BitmapManipulator.monochromeBitmap(profileBitmap, monochromeValue/*, context*/);
                         } else {
                             float monochromeValue = 255f;
-                            String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness(context);
+                            String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness;
                             if (applicationWidgetIconLightness.equals("0")) monochromeValue = -255f;
                             if (applicationWidgetIconLightness.equals("25")) monochromeValue = -128f;
                             if (applicationWidgetIconLightness.equals("50")) monochromeValue = 0f;
@@ -436,7 +436,7 @@ public class ShortcutCreatorListFragment extends Fragment {
 
         Canvas canvas = new Canvas(combined);
         canvas.drawBitmap(bitmap1, 0f, 0f, null);
-        if (ApplicationPreferences.applicationShortcutEmblem(activityDataWrapper.context))
+        if (ApplicationPreferences.applicationShortcutEmblem)
             canvas.drawBitmap(bitmap2, 0f, 0f, null);
 
         return combined;

@@ -662,12 +662,13 @@ public class DataWrapper {
             }
         }
         // unlink profile from Background profile
-        if (Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context)) == profile._id)
+        if (Long.valueOf(ApplicationPreferences.applicationBackgroundProfile) == profile._id)
         {
             ApplicationPreferences.getSharedPreferences(context);
             Editor editor = ApplicationPreferences.preferences.edit();
             editor.putString(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE));
             editor.apply();
+            ApplicationPreferences.applicationBackgroundProfile(context);
         }
     }
 
@@ -692,6 +693,7 @@ public class DataWrapper {
         Editor editor = ApplicationPreferences.preferences.edit();
         editor.putString(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE));
         editor.apply();
+        ApplicationPreferences.applicationBackgroundProfile(context);
     }
 
     void refreshProfileIcon(Profile profile,
@@ -744,11 +746,11 @@ public class DataWrapper {
             }
         }
 
-        if (ApplicationPreferences.applicationWidgetIconColor(context).equals("1")) {
+        if (ApplicationPreferences.applicationWidgetIconColor.equals("1")) {
             if (isIconResourceID || useCustomColor) {
                 // icon is from resource or colored by custom color
                 int monochromeValue = 0xFF;
-                String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness(context);
+                String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness;
                 if (applicationWidgetIconLightness.equals("0")) monochromeValue = 0x00;
                 if (applicationWidgetIconLightness.equals("25")) monochromeValue = 0x40;
                 if (applicationWidgetIconLightness.equals("50")) monochromeValue = 0x80;
@@ -757,7 +759,7 @@ public class DataWrapper {
                 profileBitmap = BitmapManipulator.monochromeBitmap(profileBitmap, monochromeValue/*, getActivity().getBaseContext()*/);
             } else {
                 float monochromeValue = 255f;
-                String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness(context);
+                String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness;
                 if (applicationWidgetIconLightness.equals("0")) monochromeValue = -255f;
                 if (applicationWidgetIconLightness.equals("25")) monochromeValue = -128f;
                 if (applicationWidgetIconLightness.equals("50")) monochromeValue = 0f;
@@ -1216,7 +1218,7 @@ public class DataWrapper {
 
     void activateProfileOnBoot()
     {
-        if (ApplicationPreferences.applicationActivate(context))
+        if (ApplicationPreferences.applicationActivate)
         {
             /*Profile profile = DatabaseHandler.getInstance(context).getActivatedProfile();
             long profileId;
@@ -1229,10 +1231,10 @@ public class DataWrapper {
                     profileId = 0;
             }
             */
-            long profileId = PPApplication.getLastActivatedProfile(context);
+            long profileId = PPApplication.prefLastActivatedProfile;
             //PPApplication.logE("DataWrapper.activateProfileOnBoot", "lastActivatedProfile="+profileId);
             if (profileId == 0) {
-                profileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context));
+                profileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile);
                 if (profileId == Profile.PROFILE_NO_ACTIVATE)
                     profileId = 0;
             }
@@ -1246,7 +1248,7 @@ public class DataWrapper {
     private void startEventsOnBoot(boolean startedFromService, boolean useHandler)
     {
         if (startedFromService) {
-            if (ApplicationPreferences.applicationStartEvents(context)) {
+            if (ApplicationPreferences.applicationStartEvents) {
                 //restartEvents(false, false, true, false, useHandler);
                 restartEventsWithRescan(/*true, */false, useHandler, false, false);
             }
@@ -1297,7 +1299,7 @@ public class DataWrapper {
         resetAllEventsInDelayStart(true);
         resetAllEventsInDelayEnd(true);
 
-        if (!getIsManualProfileActivation(false, context)) {
+        if (!getIsManualProfileActivation(false/*, context*/)) {
             PPApplication.logE("DataWrapper.firstStartEvents", "no manual profile activation, restart events");
             startEventsOnBoot(startedFromService, useHandler);
         }
@@ -1696,7 +1698,7 @@ public class DataWrapper {
 
         //if (mappedProfile != null)
         //{
-            if (ApplicationPreferences.notificationsToast(context) && (!ActivateProfileHelper.lockRefresh))
+            if (ApplicationPreferences.notificationsToast && (!ActivateProfileHelper.lockRefresh))
             {
                 // toast notification
                 if (PPApplication.toastHandler != null) {
@@ -1795,7 +1797,7 @@ public class DataWrapper {
     {
         PPApplication.setBlockProfileEventActions(false, context);
 
-        if (/*interactive &&*/ (ApplicationPreferences.applicationActivateWithAlert(context) ||
+        if (/*interactive &&*/ (ApplicationPreferences.applicationActivateWithAlert ||
                             (startupSource == PPApplication.STARTUP_SOURCE_EDITOR)))
         {
             // set theme and language for dialog alert ;-)
@@ -1911,10 +1913,10 @@ public class DataWrapper {
         if (startupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR)
         {
             finish = false;
-            if (ApplicationPreferences.applicationClose(context))
+            if (ApplicationPreferences.applicationClose)
             {
                 // close of activity after profile activation is enabled
-                if (PPApplication.getApplicationStarted(context, false))
+                if (PPApplication.getApplicationStarted(false))
                     // application is already started and is possible to close activity
                     finish = finishActivator;
             }
@@ -1947,7 +1949,7 @@ public class DataWrapper {
 
         // for activated profile is recommended update of activity
         if (startupSource == PPApplication.STARTUP_SOURCE_BOOT) {
-            long profileId = PPApplication.getLastActivatedProfile(context);
+            long profileId = PPApplication.prefLastActivatedProfile;
             profile = getProfileById(profileId, false, false, false);
         }
         else
@@ -1976,7 +1978,7 @@ public class DataWrapper {
             //ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
             Profile.setActivatedProfileForDuration(context, 0);
 
-            if (ApplicationPreferences.applicationActivate(context))
+            if (ApplicationPreferences.applicationActivate)
             {
                 actProfile = true;
             }
@@ -1997,7 +1999,7 @@ public class DataWrapper {
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(_profile, context);
             Profile.setActivatedProfileForDuration(context, 0);
 
-            if (ApplicationPreferences.applicationActivate(context))
+            if (ApplicationPreferences.applicationActivate)
             {
                 actProfile = true;
             }
@@ -2323,8 +2325,8 @@ public class DataWrapper {
                     Permissions.checkEventCallContacts(context, event, null)/* &&
                     this is not required, is only for simulating ringing -> Permissions.checkEventPhoneBroadcast(context, event, null)*/) {
                 ApplicationPreferences.getSharedPreferences(context);
-                int callEventType = ApplicationPreferences.preferences.getInt(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TYPE, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
-                String phoneNumber = ApplicationPreferences.preferences.getString(EventPreferencesCall.PREF_EVENT_CALL_PHONE_NUMBER, "");
+                int callEventType = ApplicationPreferences.prefEventCallEventType;
+                String phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
 
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "callEventType=" + callEventType);
@@ -2524,10 +2526,10 @@ public class DataWrapper {
                         (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_BLUETOOTH_HEADSET) ||
                         (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_HEADPHONES)) {
                     ApplicationPreferences.getSharedPreferences(context);
-                    boolean wiredHeadsetConnected = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_WIRED_HEADSET_CONNECTED, false);
-                    boolean wiredHeadsetMicrophone = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_WIRED_HEADSET_MICROPHONE, false);
-                    boolean bluetoothHeadsetConnected = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_BLUETOOTH_HEADSET_CONNECTED, false);
-                    boolean bluetoothHeadsetMicrophone = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_BLUETOOTH_HEADSET_MICROPHONE, false);
+                    boolean wiredHeadsetConnected = ApplicationPreferences.prefWiredHeadsetConnected;
+                    boolean wiredHeadsetMicrophone = ApplicationPreferences.prefWiredHeadsetMicrophone;
+                    boolean bluetoothHeadsetConnected = ApplicationPreferences.prefBluetoothHeadsetConnected;
+                    boolean bluetoothHeadsetMicrophone = ApplicationPreferences.prefBluetoothHeadsetMicrophone;
 
                     peripheralPassed = false;
                     if (wiredHeadsetConnected) {
@@ -2758,7 +2760,7 @@ public class DataWrapper {
                 if ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
                         (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY)) {
                     if (!done) {
-                        if (!ApplicationPreferences.applicationEventWifiEnableScanning(context)) {
+                        if (!ApplicationPreferences.applicationEventWifiEnableScanning) {
                             //if (forRestartEvents)
                             //    wifiPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesWifi.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                             //else
@@ -2767,7 +2769,7 @@ public class DataWrapper {
                             wifiPassed = false;
                         } else {
                             //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                            if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(context)) {
+                            if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn) {
                                 if (forRestartEvents)
                                     wifiPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesWifi.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                                 else
@@ -3077,7 +3079,7 @@ public class DataWrapper {
                 if ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NEARBY) ||
                         (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY)) {
                     if (!done) {
-                        if (!ApplicationPreferences.applicationEventBluetoothEnableScanning(context)) {
+                        if (!ApplicationPreferences.applicationEventBluetoothEnableScanning) {
                             //if (forRestartEvents)
                             //    bluetoothPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesBluetooth.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                             //else
@@ -3086,7 +3088,7 @@ public class DataWrapper {
                             bluetoothPassed = false;
                         } else {
                             //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                            if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(context)) {
+                            if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn) {
                                 if (forRestartEvents)
                                     bluetoothPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesBluetooth.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                                 else
@@ -3307,7 +3309,7 @@ public class DataWrapper {
                 applicationPassed = false;
 
                 if (PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_3_0)) {
-                    String foregroundApplication = PPPExtenderBroadcastReceiver.getApplicationInForeground(context);
+                    String foregroundApplication = ApplicationPreferences.prefApplicationInForeground;
 
                     if (!foregroundApplication.isEmpty()) {
                         String[] splits = event._eventPreferencesApplication._applications.split("\\|");
@@ -3339,7 +3341,7 @@ public class DataWrapper {
         if (event._eventPreferencesLocation._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                     && Permissions.checkEventLocation(context, event, null)) {
-                if (!ApplicationPreferences.applicationEventLocationEnableScanning(context)) {
+                if (!ApplicationPreferences.applicationEventLocationEnableScanning) {
                     //if (forRestartEvents)
                     //    locationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesLocation.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                     //else {
@@ -3350,7 +3352,7 @@ public class DataWrapper {
                     locationPassed = false;
                 } else {
                     //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                    if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(context)) {
+                    if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn) {
                         if (forRestartEvents)
                             locationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesLocation.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                         else {
@@ -3444,14 +3446,14 @@ public class DataWrapper {
                 if (inCall) {
                     // not allowed changes during call
                     notAllowedOrientation = true;
-                } else if (!ApplicationPreferences.applicationEventOrientationEnableScanning(context)) {
+                } else if (!ApplicationPreferences.applicationEventOrientationEnableScanning) {
                     //if (forRestartEvents)
                     //    orientationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesOrientation.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                     //else
                         // not allowed for disabled orientation scanner
                     //    notAllowedOrientation = true;
                     orientationPassed = false;
-                } else if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn(context)) {
+                } else if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn) {
                     if (forRestartEvents)
                         orientationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesOrientation.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                     else
@@ -3463,7 +3465,7 @@ public class DataWrapper {
                             boolean lApplicationPassed = false;
                             if (!event._eventPreferencesOrientation._ignoredApplications.isEmpty()) {
                                 if (PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_3_0)) {
-                                    String foregroundApplication = PPPExtenderBroadcastReceiver.getApplicationInForeground(context);
+                                    String foregroundApplication = ApplicationPreferences.prefApplicationInForeground;
                                     if (!foregroundApplication.isEmpty()) {
                                         String[] splits = event._eventPreferencesOrientation._ignoredApplications.split("\\|");
                                         for (String split : splits) {
@@ -3618,7 +3620,7 @@ public class DataWrapper {
         if (event._eventPreferencesMobileCells._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                     && Permissions.checkEventLocation(context, event, null)) {
-                if (!ApplicationPreferences.applicationEventMobileCellEnableScanning(context)) {
+                if (!ApplicationPreferences.applicationEventMobileCellEnableScanning) {
                     //if (forRestartEvents)
                     //    mobileCellPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesMobileCells.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                     //else
@@ -3627,7 +3629,7 @@ public class DataWrapper {
                     mobileCellPassed = false;
                 } else {
                     //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                    if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn(context)) {
+                    if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn) {
                         if (forRestartEvents)
                             mobileCellPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesMobileCells.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                         else
@@ -3756,9 +3758,9 @@ public class DataWrapper {
                 if ((event._eventPreferencesRadioSwitch._wifi == 1 || event._eventPreferencesRadioSwitch._wifi == 2)
                         && PPApplication.hasSystemFeature(context, PackageManager.FEATURE_WIFI)) {
 
-                    if (!(WifiScanWorker.getScanRequest(context) ||
-                            WifiScanWorker.getWaitForResults(context) ||
-                            WifiScanWorker.getWifiEnabledForScan(context))) {
+                    if (!(ApplicationPreferences.prefEventWifiScanRequest ||
+                            ApplicationPreferences.prefEventWifiWaitForResult ||
+                            ApplicationPreferences.prefEventWifiEnabledForScan)) {
                         // ignore for wifi scanning
 
                         WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -3777,11 +3779,11 @@ public class DataWrapper {
                 if ((event._eventPreferencesRadioSwitch._bluetooth == 1 || event._eventPreferencesRadioSwitch._bluetooth == 2)
                         && PPApplication.hasSystemFeature(context, PackageManager.FEATURE_BLUETOOTH)) {
 
-                    if (!(BluetoothScanWorker.getScanRequest(context) ||
-                            BluetoothScanWorker.getLEScanRequest(context) ||
-                            BluetoothScanWorker.getWaitForResults(context) ||
-                            BluetoothScanWorker.getWaitForLEResults(context) ||
-                            BluetoothScanWorker.getBluetoothEnabledForScan(context))) {
+                    if (!(ApplicationPreferences.prefEventBluetoothScanRequest ||
+                            ApplicationPreferences.prefEventBluetoothLEScanRequest ||
+                            ApplicationPreferences.prefEventBluetoothWaitForResult ||
+                            ApplicationPreferences.prefEventBluetoothLEWaitForResult ||
+                            ApplicationPreferences.prefEventBluetoothEnabledForScan)) {
                         // ignore for bluetooth scanning
 
 
@@ -4188,7 +4190,7 @@ public class DataWrapper {
         if (log)
             addActivityLog(ALTYPE_RESTART_EVENTS, null, null, null, 0);
 
-        if ((Event.getEventsBlocked(context) && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
+        if ((ApplicationPreferences.prefEventsBlocked && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
             EventsHandler eventsHandler = new EventsHandler(context);
             // this do not perform restart, only SENSOR_TYPE_RESTART_EVENTS perform restart
             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK);
@@ -4236,7 +4238,7 @@ public class DataWrapper {
     private void restartEvents(final boolean unblockEventsRun, /*final boolean notClearActivatedProfile,*/
                        /*final boolean reactivateProfile,*/ final boolean log/*, final boolean useHandler*/)
     {
-        if (!Event.getGlobalEventsRunning(context)) {
+        if (!Event.getGlobalEventsRunning()) {
             // events are globally stopped
 
             if (PhoneProfilesService.getInstance() != null)
@@ -4349,7 +4351,7 @@ public class DataWrapper {
             _restartEventsWithRescan(/*forceRestart, */unblockEventsRun, log);
 
         if (showToast) {
-            if (ApplicationPreferences.notificationsToast(context)) {
+            if (ApplicationPreferences.notificationsToast) {
                 Toast msg = ToastCompat.makeText(context.getApplicationContext(),
                         context.getResources().getString(R.string.toast_events_restarted),
                         Toast.LENGTH_SHORT);
@@ -4360,7 +4362,7 @@ public class DataWrapper {
 
     void restartEventsWithAlert(final Activity activity)
     {
-        if (!Event.getGlobalEventsRunning(context))
+        if (!Event.getGlobalEventsRunning())
             // events are globally stopped
             return;
 
@@ -4373,7 +4375,7 @@ public class DataWrapper {
 
         PPApplication.setBlockProfileEventActions(false, context);
 
-        if (ApplicationPreferences.applicationRestartEventsWithAlert(context) || (activity instanceof EditorProfilesActivity))
+        if (ApplicationPreferences.applicationRestartEventsWithAlert || (activity instanceof EditorProfilesActivity))
         {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             dialogBuilder.setTitle(R.string.restart_events_alert_title);
@@ -4385,7 +4387,7 @@ public class DataWrapper {
 
                     boolean finish;
                     if (activity instanceof ActivateProfileActivity)
-                        finish = ApplicationPreferences.applicationClose(context);
+                        finish = ApplicationPreferences.applicationClose;
                     else
                     //noinspection RedundantIfStatement
                     if ((activity instanceof RestartEventsFromNotificationActivity) ||
@@ -4396,7 +4398,7 @@ public class DataWrapper {
                     if (finish)
                         activity.finish();
 
-                    if (!PPApplication.getApplicationStarted(context, true)) {
+                    if (!PPApplication.getApplicationStarted(true)) {
                         PPApplication.setApplicationStarted(context, true);
                         Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
                         //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
@@ -4449,7 +4451,7 @@ public class DataWrapper {
 
             boolean finish;
             if (activity instanceof ActivateProfileActivity)
-                finish = ApplicationPreferences.applicationClose(context);
+                finish = ApplicationPreferences.applicationClose;
             else
                 finish = (activity instanceof RestartEventsFromNotificationActivity) ||
                         (activity instanceof BackgroundActivateProfileActivity);
@@ -4563,19 +4565,19 @@ public class DataWrapper {
     // returns true if:
     // 1. events are blocked = any profile is activated manually
     // 2. no any forceRun event is running
-    static boolean getIsManualProfileActivation(boolean afterDuration, Context context)
+    static boolean getIsManualProfileActivation(boolean afterDuration/*, Context context*/)
     {
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("DataWrapper.getIsManualProfileActivation", "getEventsBlocked()=" + Event.getEventsBlocked(context));
             PPApplication.logE("DataWrapper.getIsManualProfileActivation", "getForceRunEventRunning()=" + Event.getForceRunEventRunning(context));
         }*/
         if (afterDuration)
-            return Event.getEventsBlocked(context);
+            return ApplicationPreferences.prefEventsBlocked;
         else {
-            if (!Event.getEventsBlocked(context))
+            if (!ApplicationPreferences.prefEventsBlocked)
                 return false;
             else
-                return !Event.getForceRunEventRunning(context);
+                return !ApplicationPreferences.prefForceRunEventRunning;
         }
     }
 
@@ -4590,8 +4592,8 @@ public class DataWrapper {
         String manualIndicators = "";
         if (addEventName && (dataWrapper != null))
         {
-            if (Event.getEventsBlocked(context)) {
-                if (Event.getForceRunEventRunning(context))
+            if (ApplicationPreferences.prefEventsBlocked) {
+                if (ApplicationPreferences.prefForceRunEventRunning)
                     manualIndicators = "[»]";
                 else
                     manualIndicators = "[M]";
@@ -4605,7 +4607,7 @@ public class DataWrapper {
                 eventName = manualIndicators + " " + eventName;
         }
 
-        if (!PPApplication.getApplicationStarted(context, true))
+        if (!PPApplication.getApplicationStarted(true))
             eventName = eventName + " ";
 
         Spannable sName;
@@ -4668,7 +4670,7 @@ public class DataWrapper {
     static private String getLastStartedEventName(List<EventTimeline> eventTimelineList, DataWrapper dataWrapper, boolean fromDB)
     {
 
-        if (Event.getGlobalEventsRunning(dataWrapper.context) && PPApplication.getApplicationStarted(dataWrapper.context, false))
+        if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(false))
         {
             if (eventTimelineList.size() > 0)
             {
@@ -4677,7 +4679,7 @@ public class DataWrapper {
                 Event event = dataWrapper.getEventById(event_id);
                 if (event != null)
                 {
-                    if ((!Event.getEventsBlocked(dataWrapper.context)) || (event._forceRun))
+                    if ((!ApplicationPreferences.prefEventsBlocked) || (event._forceRun))
                     {
                         Profile profile;
                         if (fromDB)
@@ -4698,8 +4700,8 @@ public class DataWrapper {
             }
             else
             {
-                long profileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(dataWrapper.context));
-                if ((!Event.getEventsBlocked(dataWrapper.context)) && (profileId != Profile.PROFILE_NO_ACTIVATE))
+                long profileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile);
+                if ((!ApplicationPreferences.prefEventsBlocked) && (profileId != Profile.PROFILE_NO_ACTIVATE))
                 {
                     Profile profile;
                     if (fromDB)
@@ -4751,17 +4753,17 @@ public class DataWrapper {
 
     public void addActivityLog(int logType, String eventName, String profileName, String profileIcon,
                                int durationDelay) {
-        if (PPApplication.getActivityLogEnabled(context)) {
+        if (PPApplication.prefActivityLogEnabled) {
             //if (ApplicationPreferences.preferences == null)
             //    ApplicationPreferences.preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
             //ApplicationPreferences.setApplicationDeleteOldActivityLogs(context, Integer.valueOf(preferences.getString(ApplicationPreferences.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, "7")));
-            DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.applicationDeleteOldActivityLogs(context),
+            DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.applicationDeleteOldActivityLogs,
                                     logType, eventName, profileName, profileIcon, durationDelay);
         }
     }
 
     void runStopEventsWithAlert(final Activity activity, final SwitchCompat checkBox, boolean isChecked) {
-        boolean eventRunningEnabled = Event.getGlobalEventsRunning(context);
+        boolean eventRunningEnabled = Event.getGlobalEventsRunning();
         if (checkBox != null) {
             if (isChecked && eventRunningEnabled)
                 // already enabled
@@ -4824,7 +4826,7 @@ public class DataWrapper {
 
     private boolean globalRunStopEvents(boolean stop) {
         if (stop) {
-            if (Event.getGlobalEventsRunning(context)) {
+            if (Event.getGlobalEventsRunning()) {
                 addActivityLog(ALTYPE_RUN_EVENTS_DISABLE, null, null, null, 0);
 
                 // no setup for next start
@@ -4848,7 +4850,7 @@ public class DataWrapper {
             }
         }
         else {
-            if (!Event.getGlobalEventsRunning(context)) {
+            if (!Event.getGlobalEventsRunning()) {
                 addActivityLog(ALTYPE_RUN_EVENTS_ENABLE, null, null, null, 0);
 
                 Event.setGlobalEventsRunning(context, true);
@@ -4910,7 +4912,7 @@ public class DataWrapper {
             //PPApplication.logE("DataWrapper.isPowerSaveMode", "batteryPct=" + batteryPct);
         }
 
-        String applicationPowerSaveModeInternal = ApplicationPreferences.applicationPowerSaveModeInternal(context);
+        String applicationPowerSaveModeInternal = ApplicationPreferences.applicationPowerSaveModeInternal;
 
         if (applicationPowerSaveModeInternal.equals("1") && (batteryPct <= 5) && (!isCharging))
             return true;

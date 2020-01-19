@@ -41,13 +41,13 @@ public class SearchCalendarEventsWorker extends Worker {
 
             //CallsCounter.logCounter(context, "SearchCalendarEventsWorker.doWork", "SearchCalendarEventsWorker_doWork");
 
-            if (!PPApplication.getApplicationStarted(context, true)) {
+            if (!PPApplication.getApplicationStarted(true)) {
                 // application is not started
                 //PPApplication.logE("SearchCalendarEventsWorker.doWork", "---------------------------------------- END");
                 return Result.success();
             }
 
-            if (Event.getGlobalEventsRunning(context)) {
+            if (Event.getGlobalEventsRunning()) {
                 // start events handler
                 EventsHandler eventsHandler = new EventsHandler(context);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SEARCH_CALENDAR_EVENTS);

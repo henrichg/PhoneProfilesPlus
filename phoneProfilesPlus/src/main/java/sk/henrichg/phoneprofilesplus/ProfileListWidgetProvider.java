@@ -32,20 +32,20 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
     private RemoteViews buildLayout(Context context, /*AppWidgetManager appWidgetManager,*/ int appWidgetId, boolean largeLayout)
     {
-        boolean applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader(context);
-        boolean applicationWidgetListGridLayout = ApplicationPreferences.applicationWidgetListGridLayout(context);
-        boolean applicationWidgetListPrefIndicator = ApplicationPreferences.applicationWidgetListPrefIndicator(context);
-        boolean applicationWidgetListBackgroundType = ApplicationPreferences.applicationWidgetListBackgroundType(context);
-        String applicationWidgetListBackgroundColor = ApplicationPreferences.applicationWidgetListBackgroundColor(context);
-        String applicationWidgetListLightnessB = ApplicationPreferences.applicationWidgetListLightnessB(context);
-        String applicationWidgetListBackground = ApplicationPreferences.applicationWidgetListBackground(context);
-        boolean applicationWidgetListShowBorder = ApplicationPreferences.applicationWidgetListShowBorder(context);
-        String applicationWidgetListLightnessBorder = ApplicationPreferences.applicationWidgetListLightnessBorder(context);
-        boolean applicationWidgetListRoundedCorners = ApplicationPreferences.applicationWidgetListRoundedCorners(context);
-        String applicationWidgetListIconLightness = ApplicationPreferences.applicationWidgetListIconLightness(context);
-        String applicationWidgetListIconColor = ApplicationPreferences.applicationWidgetListIconColor(context);
-        boolean applicationWidgetListCustomIconLightness = ApplicationPreferences.applicationWidgetListCustomIconLightness(context);
-        String applicationWidgetListLightnessT = ApplicationPreferences.applicationWidgetListLightnessT(context);
+        boolean applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader;
+        boolean applicationWidgetListGridLayout = ApplicationPreferences.applicationWidgetListGridLayout;
+        boolean applicationWidgetListPrefIndicator = ApplicationPreferences.applicationWidgetListPrefIndicator;
+        boolean applicationWidgetListBackgroundType = ApplicationPreferences.applicationWidgetListBackgroundType;
+        String applicationWidgetListBackgroundColor = ApplicationPreferences.applicationWidgetListBackgroundColor;
+        String applicationWidgetListLightnessB = ApplicationPreferences.applicationWidgetListLightnessB;
+        String applicationWidgetListBackground = ApplicationPreferences.applicationWidgetListBackground;
+        boolean applicationWidgetListShowBorder = ApplicationPreferences.applicationWidgetListShowBorder;
+        String applicationWidgetListLightnessBorder = ApplicationPreferences.applicationWidgetListLightnessBorder;
+        boolean applicationWidgetListRoundedCorners = ApplicationPreferences.applicationWidgetListRoundedCorners;
+        String applicationWidgetListIconLightness = ApplicationPreferences.applicationWidgetListIconLightness;
+        String applicationWidgetListIconColor = ApplicationPreferences.applicationWidgetListIconColor;
+        boolean applicationWidgetListCustomIconLightness = ApplicationPreferences.applicationWidgetListCustomIconLightness;
+        String applicationWidgetListLightnessT = ApplicationPreferences.applicationWidgetListLightnessT;
 
         Intent svcIntent=new Intent(context, ProfileListWidgetService.class);
 
@@ -290,7 +290,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 widget.setInt(R.id.widget_profile_list_header_separator, "setBackgroundColor", Color.argb(0xFF, redText, greenText, blueText));
             }
 
-            if (Event.getGlobalEventsRunning(context) && PPApplication.getApplicationStarted(context, true)) {
+            if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
                 monochromeValue = 0xFF;
                 if (applicationWidgetListLightnessT.equals("0")) monochromeValue = 0x00;
                 if (applicationWidgetListLightnessT.equals("12")) monochromeValue = 0x20;
@@ -319,7 +319,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                                                         PendingIntent.FLAG_UPDATE_CURRENT);
             widget.setOnClickPendingIntent(R.id.widget_profile_list_header_profile_root, pendingIntent);
 
-            if (Event.getGlobalEventsRunning(context) && PPApplication.getApplicationStarted(context, true)) {
+            if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
                 widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.VISIBLE);
                 Intent intentRE = new Intent(context, RestartEventsFromNotificationActivity.class);
                 PendingIntent pIntentRE = PendingIntent.getActivity(context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -362,7 +362,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                                                         PendingIntent.FLAG_UPDATE_CURRENT);
             widget.setOnClickPendingIntent(R.id.widget_profile_list_header, pendingIntent);
 
-            if (Event.getGlobalEventsRunning(context)) {
+            if (Event.getGlobalEventsRunning()) {
                 widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.VISIBLE);
                 Intent intentRE = new Intent(context, RestartEventsFromNotificationActivity.class);
                 PendingIntent pIntentRE = PendingIntent.getActivity(context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -648,7 +648,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         //Log.e("ProfileListWidgetProvider.updateWidget","isLargeLayout="+isLargeLayout);
         if (isLargeLayout)
         {
-            if (!ApplicationPreferences.applicationWidgetListGridLayout(context))
+            if (!ApplicationPreferences.applicationWidgetListGridLayout)
                 appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_list);
             else
                 appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_grid);
@@ -685,7 +685,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     pName = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
 
                 if (!refresh) {
-                    String pNameWidget = PPApplication.getWidgetProfileName(context, 3);
+                    String pNameWidget = PPApplication.prefWidgetProfileName3;
 
                     if (!pNameWidget.isEmpty()) {
                         if (pName.equals(pNameWidget)) {

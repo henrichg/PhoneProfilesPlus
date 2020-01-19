@@ -815,8 +815,8 @@ class Permissions {
         if (profile == null) return;// true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
-                boolean unlinkEnabled = ActivateProfileHelper.getMergedRingNotificationVolumes(context) &&
-                        ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context);
+                boolean unlinkEnabled = ActivateProfileHelper.getMergedRingNotificationVolumes() &&
+                        ApplicationPreferences.applicationUnlinkRingerNotificationVolumes;
                 if (unlinkEnabled || (profile._volumeSpeakerPhone != 0)) {
                     boolean grantedReadPhoneState = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
                     if (permissions != null) {
@@ -2396,7 +2396,7 @@ class Permissions {
         superContainer.addView(container);
 
         doNotShowAgain.setText(R.string.alert_message_enable_event_check_box);
-        doNotShowAgain.setChecked(ApplicationPreferences.applicationNeverAskForGrantRoot(activity));
+        doNotShowAgain.setChecked(ApplicationPreferences.applicationNeverAskForGrantRoot);
         doNotShowAgain.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -2404,6 +2404,7 @@ class Permissions {
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, isChecked);
                 editor.apply();
+                ApplicationPreferences.applicationNeverAskForGrantRoot(activity.getApplicationContext());
             }
         });
 
@@ -2419,6 +2420,7 @@ class Permissions {
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
                 editor.apply();
+                ApplicationPreferences.applicationNeverAskForGrantRoot(activity.getApplicationContext());
 
                 if (fragment != null) {
                     grantRootChanged = true;

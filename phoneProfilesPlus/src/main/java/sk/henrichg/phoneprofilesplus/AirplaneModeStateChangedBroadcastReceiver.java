@@ -14,11 +14,11 @@ public class AirplaneModeStateChangedBroadcastReceiver extends BroadcastReceiver
 
         //CallsCounter.logCounter(context, "AirplaneModeStateChangedBroadcastReceiver.onReceive", "AirplaneModeStateChangedBroadcastReceiver_onReceive");
 
-        if (!PPApplication.getApplicationStarted(context, true))
+        if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRunning(context)) {
+        if (Event.getGlobalEventsRunning()) {
             final String action = intent.getAction();
             if (action != null) {
                 if (action.equals(Intent.ACTION_AIRPLANE_MODE_CHANGED)) {

@@ -23,13 +23,13 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
         final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(appContext, true))
+        if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
 
-        final int forceOneScan = WifiBluetoothScanner.getForceOneLEBluetoothScan(appContext);
+        final int forceOneScan = ApplicationPreferences.prefForceOneBluetoothLEScan;
 
-        if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
+        if (Event.getGlobalEventsRunning() || (forceOneScan == WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
         {
             PPApplication.startHandlerThread("BluetoothLEScanBroadcastReceiver.onReceive.1");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());

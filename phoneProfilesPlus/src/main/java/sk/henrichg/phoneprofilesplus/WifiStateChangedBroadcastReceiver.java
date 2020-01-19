@@ -25,7 +25,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
         final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(appContext, true))
+        if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
 
@@ -61,9 +61,9 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                 //PPApplication.logE("WifiStateChangedBroadcastReceiver.onReceive.1", "fillWifiConfigurationList");
                                 WifiScanWorker.fillWifiConfigurationList(appContext/*, false*/);
 
-                                if (!(WifiScanWorker.getScanRequest(appContext) ||
-                                        WifiScanWorker.getWaitForResults(appContext) ||
-                                        WifiScanWorker.getWifiEnabledForScan(appContext))) {
+                                if (!(ApplicationPreferences.prefEventWifiScanRequest ||
+                                        ApplicationPreferences.prefEventWifiWaitForResult ||
+                                        ApplicationPreferences.prefEventWifiEnabledForScan)) {
                                     // ignore for wifi scanning
 
                                     if (PhoneProfilesService.getInstance() != null) {
@@ -92,16 +92,16 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                 }
                             }
 
-                            int forceOneScan = WifiBluetoothScanner.getForceOneWifiScan(appContext);
+                            int forceOneScan = ApplicationPreferences.prefForceOneWifiScan;
                             //PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "forceOneScan=" + forceOneScan);
 
-                            if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
+                            if (Event.getGlobalEventsRunning() || (forceOneScan == WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
                                 //PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "state=" + wifiState);
 
                                 if ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_DISABLED)) {
                                     if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
                                         // start scan
-                                        if (WifiScanWorker.getScanRequest(appContext)) {
+                                        if (ApplicationPreferences.prefEventWifiScanRequest) {
                                             Data workData = new Data.Builder()
                                                     .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_START_WIFI_SCAN)
                                                     .build();
@@ -180,9 +180,9 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                         }*/
                                     }
 
-                                    if (!(WifiScanWorker.getScanRequest(appContext) ||
-                                            WifiScanWorker.getWaitForResults(appContext) ||
-                                            WifiScanWorker.getWifiEnabledForScan(appContext))) {
+                                    if (!(ApplicationPreferences.prefEventWifiScanRequest ||
+                                            ApplicationPreferences.prefEventWifiWaitForResult ||
+                                            ApplicationPreferences.prefEventWifiEnabledForScan)) {
 
                                         // start events handler
                                         EventsHandler eventsHandler = new EventsHandler(appContext);

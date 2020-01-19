@@ -253,7 +253,7 @@ class EventPreferencesTime extends EventPreferences {
                     descr = descr + "</b>";
 
                     if (addBullet) {
-                        if (Event.getGlobalEventsRunning(context)) {
+                        if (Event.getGlobalEventsRunning()) {
                             long alarmTime;
                             //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
                             String alarmTimeS;
@@ -303,7 +303,7 @@ class EventPreferencesTime extends EventPreferences {
                                     descr = descr + "</b>";
 
                                     if (addBullet) {
-                                        if (Event.getGlobalEventsRunning(context)) {
+                                        if (Event.getGlobalEventsRunning()) {
                                             long alarmTime;
                                             //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
                                             String alarmTimeS;
@@ -1215,7 +1215,7 @@ class EventPreferencesTime extends EventPreferences {
                     PPApplication.logE("EventPreferencesTime.setAlarm", "endTime=" + result);
             }*/
 
-        boolean applicationUseAlarmClock = ApplicationPreferences.applicationUseAlarmClock(context);
+        boolean applicationUseAlarmClock = ApplicationPreferences.applicationUseAlarmClock;
 
         // not set alarm if alarmTime is over.
         Calendar now = Calendar.getInstance();
