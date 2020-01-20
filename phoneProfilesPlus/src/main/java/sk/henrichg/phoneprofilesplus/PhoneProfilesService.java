@@ -4157,8 +4157,9 @@ public class PhoneProfilesService extends Service
                 contactsCache.clearCache();
             contactsCache = new ContactsCache();
         }
-        if (contactsCache != null)
-            contactsCache.getContactList(context);
+        if (contactsCache == null)
+            contactsCache = new ContactsCache();
+        contactsCache.getContactList(context);
     }
 
     public static ContactsCache getContactsCache()
@@ -4173,8 +4174,9 @@ public class PhoneProfilesService extends Service
                 contactGroupsCache.clearCache();
             contactGroupsCache = new ContactGroupsCache();
         }
-        if (contactGroupsCache != null)
-            contactGroupsCache.getContactGroupList(context);
+        if (contactGroupsCache == null)
+            contactGroupsCache = new ContactGroupsCache();
+        contactGroupsCache.getContactGroupList(context);
     }
 
     public static ContactGroupsCache getContactGroupsCache()
