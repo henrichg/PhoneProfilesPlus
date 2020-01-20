@@ -11,6 +11,8 @@ import android.widget.RelativeLayout;
 
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
+import java.util.List;
+
 import androidx.preference.PreferenceDialogFragmentCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -107,6 +109,11 @@ public class ContactsMultiSelectDialogPreferenceFragmentX extends PreferenceDial
             protected Void doInBackground(Void... params) {
                 //if (!PhoneProfilesService.getContactsCache().cached)
                 //    PhoneProfilesService.getContactsCache().getContactList(prefContext);
+
+                // must be first
+                PhoneProfilesService.createContactsCache(prefContext.getApplicationContext(), false);
+                //must be seconds, this ads groups int contacts
+                PhoneProfilesService.createContactGroupsCache(prefContext.getApplicationContext(), false);
 
                 preference.getValueCMSDP();
 

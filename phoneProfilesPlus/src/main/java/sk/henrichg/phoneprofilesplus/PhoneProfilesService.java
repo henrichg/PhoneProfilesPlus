@@ -3758,9 +3758,9 @@ public class PhoneProfilesService extends Service
                     IgnoreBatteryOptimizationNotification.showNotification(appContext);
 
                     // must be first
-                    createContactsCache(appContext);
+                    createContactsCache(appContext, true);
                     //must be seconds, this ads groups int contacts
-                    createContactGroupsCache(appContext);
+                    createContactGroupsCache(appContext, true);
 
                     dataWrapper.fillProfileList(false, false);
                     for (Profile profile : dataWrapper.profileList)
@@ -4150,12 +4150,15 @@ public class PhoneProfilesService extends Service
 
     // contacts and contact groups cache -----------------
 
-    public static void createContactsCache(Context context)
+    public static void createContactsCache(Context context, boolean clear)
     {
+        if (clear) {
+            if (contactsCache != null)
+                contactsCache.clearCache();
+            contactsCache = new ContactsCache();
+        }
         if (contactsCache != null)
-            contactsCache.clearCache();
-        contactsCache =  new ContactsCache();
-        contactsCache.getContactList(context);
+            contactsCache.getContactList(context);
     }
 
     public static ContactsCache getContactsCache()
@@ -4163,12 +4166,15 @@ public class PhoneProfilesService extends Service
         return contactsCache;
     }
 
-    public static void createContactGroupsCache(Context context)
+    public static void createContactGroupsCache(Context context, boolean clear)
     {
+        if (clear) {
+            if (contactGroupsCache != null)
+                contactGroupsCache.clearCache();
+            contactGroupsCache = new ContactGroupsCache();
+        }
         if (contactGroupsCache != null)
-            contactGroupsCache.clearCache();
-        contactGroupsCache =  new ContactGroupsCache();
-        contactGroupsCache.getContactGroupList(context);
+            contactGroupsCache.getContactGroupList(context);
     }
 
     public static ContactGroupsCache getContactGroupsCache()

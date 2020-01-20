@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import java.util.List;
+
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 @SuppressWarnings("WeakerAccess")
@@ -111,6 +113,11 @@ public class ContactGroupsMultiSelectDialogPreferenceFragmentX extends Preferenc
             protected Void doInBackground(Void... params) {
                 //if (!EditorProfilesActivity.getContactGroupsCache().cached)
                 //    EditorProfilesActivity.getContactGroupsCache().getContactGroupList(prefContext);
+
+                // must be first
+                PhoneProfilesService.createContactsCache(prefContext.getApplicationContext(), false);
+                //must be seconds, this ads groups int contacts
+                PhoneProfilesService.createContactGroupsCache(prefContext.getApplicationContext(), false);
 
                 preference.getValueCMSDP();
 
