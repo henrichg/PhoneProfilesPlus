@@ -2655,8 +2655,7 @@ class Event {
     static void setGlobalEventsRunning(Context context, boolean globalEventsRunning)
     {
         synchronized (PPApplication.globalEventsRunStopMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            Editor editor = ApplicationPreferences.preferences.edit();
+            Editor editor = ApplicationPreferencesLoader.getEditor(context);
             editor.putBoolean(PREF_GLOBAL_EVENTS_RUN_STOP, globalEventsRunning);
             editor.apply();
             PPApplication.globalEventsRunStop = globalEventsRunning;
@@ -2666,16 +2665,15 @@ class Event {
     static void getEventsBlocked(Context context)
     {
         synchronized (PPApplication.eventsRunMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            ApplicationPreferences.prefEventsBlocked = ApplicationPreferences.preferences.getBoolean(PREF_EVENTS_BLOCKED, false);
+            ApplicationPreferences.prefEventsBlocked = ApplicationPreferencesLoader.
+                    getSharedPreferences(context).getBoolean(PREF_EVENTS_BLOCKED, false);
             //return prefEventsBlocked;
         }
     }
     static void setEventsBlocked(Context context, boolean eventsBlocked)
     {
         synchronized (PPApplication.eventsRunMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            Editor editor = ApplicationPreferences.preferences.edit();
+            Editor editor = ApplicationPreferencesLoader.getEditor(context);
             editor.putBoolean(PREF_EVENTS_BLOCKED, eventsBlocked);
             editor.apply();
             ApplicationPreferences.prefEventsBlocked = eventsBlocked;
@@ -2685,16 +2683,15 @@ class Event {
     static void getForceRunEventRunning(Context context)
     {
         synchronized (PPApplication.eventsRunMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            ApplicationPreferences.prefForceRunEventRunning = ApplicationPreferences.preferences.getBoolean(PREF_FORCE_RUN_EVENT_RUNNING, false);
+            ApplicationPreferences.prefForceRunEventRunning = ApplicationPreferencesLoader.
+                    getSharedPreferences(context).getBoolean(PREF_FORCE_RUN_EVENT_RUNNING, false);
             //return prefForceRunEventRunning;
         }
     }
     static void setForceRunEventRunning(Context context, boolean forceRunEventRunning)
     {
         synchronized (PPApplication.eventsRunMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            Editor editor = ApplicationPreferences.preferences.edit();
+            Editor editor = ApplicationPreferencesLoader.getEditor(context);
             editor.putBoolean(PREF_FORCE_RUN_EVENT_RUNNING, forceRunEventRunning);
             editor.apply();
             ApplicationPreferences.prefForceRunEventRunning = forceRunEventRunning;

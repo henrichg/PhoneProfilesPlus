@@ -7,6 +7,7 @@ import android.appwidget.AppWidgetProviderInfo;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -519,7 +520,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             int appWidgetId, Bundle newOptions)
     {
         String preferenceKey = "isLargeLayout_"+appWidgetId;
-        ApplicationPreferences.getSharedPreferences(context);
 
         AppWidgetProviderInfo appWidgetProviderInfo = appWidgetManager.getAppWidgetInfo(appWidgetId);
 
@@ -562,12 +562,13 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         {
             isLargeLayout = minHeight >= 110;
         }
-        
-        if (ApplicationPreferences.preferences.contains(preferenceKey))
-            isLargeLayout = ApplicationPreferences.preferences.getBoolean(preferenceKey, true);
+
+        SharedPreferences preferences = ApplicationPreferencesLoader.getSharedPreferences(context);
+        if (preferences.contains(preferenceKey))
+            isLargeLayout = preferences.getBoolean(preferenceKey, true);
         else
         {
-            Editor editor = ApplicationPreferences.preferences.edit();
+            Editor editor = preferences.edit();
             editor.putBoolean(preferenceKey, isLargeLayout);
             editor.apply();
         }
@@ -580,9 +581,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         isLargeLayout = spanY != 1;
         
         String preferenceKey = "isLargeLayout_"+appWidgetId;
-        ApplicationPreferences.getSharedPreferences(context);
 
-        Editor editor = ApplicationPreferences.preferences.edit();
+        Editor editor = ApplicationPreferencesLoader.getEditor(context);
         editor.putBoolean(preferenceKey, isLargeLayout);
         editor.apply();
     }
@@ -599,10 +599,9 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 createProfilesDataWrapper(context);
 
                 String preferenceKey = "isLargeLayout_"+appWidgetId;
-                ApplicationPreferences.getSharedPreferences(context);
 
                 // remove preference, will by reset in setLayoutParams
-                Editor editor = ApplicationPreferences.preferences.edit();
+                Editor editor = ApplicationPreferencesLoader.getEditor(context);
                 editor.remove(preferenceKey);
                 editor.apply();
 

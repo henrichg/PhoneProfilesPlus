@@ -808,18 +808,18 @@ public class EditorProfilesActivity extends AppCompatActivity
                 String theme = ApplicationPreferences.applicationTheme(getApplicationContext(), false);
                 if (!theme.equals("night_mode")) {
                     if (theme.equals("dark")) {
-                        SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(getApplicationContext());
+                        SharedPreferences preferences = ApplicationPreferencesLoader.getSharedPreferences(getApplicationContext());
                         //theme = preferences.getString(ApplicationPreferences.PREF_APPLICATION_NOT_DARK_THEME, "white");
                         //theme = ApplicationPreferences.applicationNightModeOffTheme(getApplicationContext());
                         Editor editor = preferences.edit();
-                        editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "white"/*theme*/);
+                        editor.putString(ApplicationPreferencesLoader.PREF_APPLICATION_THEME, "white"/*theme*/);
                         editor.apply();
                         ApplicationPreferences.applicationTheme = "white";
                     } else {
-                        SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(getApplicationContext());
+                        SharedPreferences preferences = ApplicationPreferencesLoader.getSharedPreferences(getApplicationContext());
                         Editor editor = preferences.edit();
                         //editor.putString(ApplicationPreferences.PREF_APPLICATION_NOT_DARK_THEME, theme);
-                        editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "dark");
+                        editor.putString(ApplicationPreferencesLoader.PREF_APPLICATION_THEME, "dark");
                         editor.apply();
                         ApplicationPreferences.applicationTheme = "dark";
                     }
@@ -940,13 +940,13 @@ public class EditorProfilesActivity extends AppCompatActivity
                         //PPApplication.logE("PPApplication.exitApp", "from EditorProfileActivity.onOptionsItemSelected shutdown=false");
 
                         IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(getApplicationContext(), true);
-                        SharedPreferences settings = ApplicationPreferences.getSharedPreferences(getApplicationContext());
+                        SharedPreferences settings = ApplicationPreferencesLoader.getSharedPreferences(getApplicationContext());
                         SharedPreferences.Editor editor = settings.edit();
-                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
-                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
+                        editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
+                        editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
                         editor.apply();
-                        ApplicationPreferences.applicationEventNeverAskForEnableRun(getApplicationContext());
-                        ApplicationPreferences.applicationNeverAskForGrantRoot(getApplicationContext());
+                        ApplicationPreferencesLoader.applicationEventNeverAskForEnableRun(getApplicationContext());
+                        ApplicationPreferencesLoader.applicationNeverAskForGrantRoot(getApplicationContext());
 
                         PPApplication.exitApp(true, getApplicationContext(), EditorProfilesActivity.this.getDataWrapper(),
                                 EditorProfilesActivity.this, false/*, true, true*/);
@@ -1075,15 +1075,14 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
 
             // save into shared preferences
-            ApplicationPreferences.getSharedPreferences(getApplicationContext());
-            Editor editor = ApplicationPreferences.preferences.edit();
-            editor.putInt(ApplicationPreferences.EDITOR_SELECTED_VIEW, editorSelectedView);
-            editor.putInt(ApplicationPreferences.EDITOR_PROFILES_VIEW_SELECTED_ITEM, filterProfilesSelectedItem);
-            editor.putInt(ApplicationPreferences.EDITOR_EVENTS_VIEW_SELECTED_ITEM, filterEventsSelectedItem);
+            Editor editor = ApplicationPreferencesLoader.getEditor(getApplicationContext());
+            editor.putInt(ApplicationPreferencesLoader.EDITOR_SELECTED_VIEW, editorSelectedView);
+            editor.putInt(ApplicationPreferencesLoader.EDITOR_PROFILES_VIEW_SELECTED_ITEM, filterProfilesSelectedItem);
+            editor.putInt(ApplicationPreferencesLoader.EDITOR_EVENTS_VIEW_SELECTED_ITEM, filterEventsSelectedItem);
             editor.apply();
-            ApplicationPreferences.editorSelectedView(getApplicationContext());
-            ApplicationPreferences.editorProfilesViewSelectedItem(getApplicationContext());
-            ApplicationPreferences.editorEventsViewSelectedItem(getApplicationContext());
+            ApplicationPreferencesLoader.editorSelectedView(getApplicationContext());
+            ApplicationPreferencesLoader.editorProfilesViewSelectedItem(getApplicationContext());
+            ApplicationPreferencesLoader.editorEventsViewSelectedItem(getApplicationContext());
 
             Bundle arguments;
 
@@ -1589,7 +1588,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     if (what == 1)
                     {
-                        if (key.equals(ApplicationPreferences.PREF_APPLICATION_THEME))
+                        if (key.equals(ApplicationPreferencesLoader.PREF_APPLICATION_THEME))
                         {
                             if (v.equals("light") || v.equals("material") || v.equals("color") || v.equals("dlight")) {
                                 String defaultValue = "white";
@@ -1600,8 +1599,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                         }
                         if (key.equals(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES))
                             ActivateProfileHelper.setMergedRingNotificationVolumes(getApplicationContext(), true, prefEdit);
-                        if (key.equals(ApplicationPreferences.PREF_APPLICATION_FIRST_START))
-                            prefEdit.putBoolean(ApplicationPreferences.PREF_APPLICATION_FIRST_START, false);
+                        if (key.equals(ApplicationPreferencesLoader.PREF_APPLICATION_FIRST_START))
+                            prefEdit.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_FIRST_START, false);
                     }
 
                     /*if (what == 2) {
@@ -1740,7 +1739,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                         }*/
 
                         if (!appSettingsError) {
-                            ApplicationPreferences.getSharedPreferences(dataWrapper.context);
                             /*Editor editor = ApplicationPreferences.preferences.edit();
                             editor.putInt(EDITOR_PROFILES_VIEW_SELECTED_ITEM, 0);
                             editor.putInt(EDITOR_EVENTS_VIEW_SELECTED_ITEM, 0);
@@ -2480,8 +2478,6 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         startTargetHelps = true;
 
-        ApplicationPreferences.getSharedPreferences(this);
-
         boolean startTargetHelps = ApplicationPreferences.prefEditorActivityStartTargetHelps;
         boolean showTargetHelpsFilterSpinner = ApplicationPreferences.prefEditorActivityStartTargetHelpsFilterSpinner;
         boolean showTargetHelpsRunStopIndicator = ApplicationPreferences.prefEditorActivityStartTargetHelpsRunStopIndicator;
@@ -2504,7 +2500,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             if (startTargetHelps || showTargetHelpsFilterSpinner || showTargetHelpsRunStopIndicator || showTargetHelpsBottomNavigation) {
                 //Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
-                Editor editor = ApplicationPreferences.preferences.edit();
+                Editor editor = ApplicationPreferencesLoader.getEditor(getApplicationContext());
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
                 editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_FILTER_SPINNER, false);
                 editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR, false);
@@ -2844,7 +2840,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     @Override
                     public void onSequenceCanceled(TapTarget lastTarget) {
                         targetHelpsSequenceStarted = false;
-                        Editor editor = ApplicationPreferences.preferences.edit();
+                        Editor editor = ApplicationPreferencesLoader.getEditor(getApplicationContext());
                         if (editorSelectedView == 0) {
                             editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, false);
                             editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);

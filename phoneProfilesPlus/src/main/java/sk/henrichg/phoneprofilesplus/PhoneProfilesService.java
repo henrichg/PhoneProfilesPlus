@@ -363,26 +363,25 @@ public class PhoneProfilesService extends Service
             if ((Build.VERSION.SDK_INT < 26)) {
                 //Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, ApplicationPreferences.notificationStatusBar(this));
                 //Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, ApplicationPreferences.notificationStatusBarPermanent(this));
-                Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar);
+                Crashlytics.setBool(ApplicationPreferencesLoader.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar);
             }
-            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, ApplicationPreferences.applicationEventWifiEnableScanning);
-            Crashlytics.setInt(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, ApplicationPreferences.applicationEventWifiScanInterval);
-            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, ApplicationPreferences.applicationEventBluetoothEnableScanning);
-            Crashlytics.setInt(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, ApplicationPreferences.applicationEventBluetoothScanInterval);
-            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventLocationEnableScanning);
-            Crashlytics.setInt(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, ApplicationPreferences.applicationEventLocationUpdateInterval);
-            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, ApplicationPreferences.applicationEventMobileCellEnableScanning);
-            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventOrientationEnableScanning);
-            Crashlytics.setInt(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, ApplicationPreferences.applicationEventOrientationScanInterval);
+            Crashlytics.setBool(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, ApplicationPreferences.applicationEventWifiEnableScanning);
+            Crashlytics.setInt(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, ApplicationPreferences.applicationEventWifiScanInterval);
+            Crashlytics.setBool(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, ApplicationPreferences.applicationEventBluetoothEnableScanning);
+            Crashlytics.setInt(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, ApplicationPreferences.applicationEventBluetoothScanInterval);
+            Crashlytics.setBool(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventLocationEnableScanning);
+            Crashlytics.setInt(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, ApplicationPreferences.applicationEventLocationUpdateInterval);
+            Crashlytics.setBool(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, ApplicationPreferences.applicationEventMobileCellEnableScanning);
+            Crashlytics.setBool(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventOrientationEnableScanning);
+            Crashlytics.setInt(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, ApplicationPreferences.applicationEventOrientationScanInterval);
         } catch (Exception ignored) {}
 
         /*
-        ApplicationPreferences.getSharedPreferences(appContext);
-        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+        SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(appContext);
         editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS, true);
         ApplicationPreferences.prefActivatorActivityStartTargetHelps = true;
         editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, true);
-        ApplicationPreferences.prefActivatorFragmentStartTragetHelps = true;
+        ApplicationPreferences.prefActivatorFragmentStartTargetHelps = true;
         editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, true);
         ApplicationPreferences.prefActivatorAdapterStartTargetHelps = true;
         editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS, true);

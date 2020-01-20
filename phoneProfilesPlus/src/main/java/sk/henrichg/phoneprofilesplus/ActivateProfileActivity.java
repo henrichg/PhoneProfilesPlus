@@ -60,10 +60,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 return;
             }
 
-            ApplicationPreferences.getSharedPreferences(context.getApplicationContext());
-
             if (ApplicationPreferences.prefActivatorActivityStartTargetHelps ||
-                    ApplicationPreferences.prefActivatorFragmentStartTragetHelps ||
+                    ApplicationPreferences.prefActivatorFragmentStartTargetHelps ||
                     ApplicationPreferences.prefActivatorAdapterStartTargetHelps) {
 
                 boolean forActivity = intent.getBooleanExtra(EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, false);
@@ -453,10 +451,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
     }
 
     public void startTargetHelpsActivity() {
-        ApplicationPreferences.getSharedPreferences(this);
-
         if (ApplicationPreferences.prefActivatorActivityStartTargetHelps ||
-                ApplicationPreferences.prefActivatorFragmentStartTragetHelps ||
+                ApplicationPreferences.prefActivatorFragmentStartTargetHelps ||
                 ApplicationPreferences.prefActivatorAdapterStartTargetHelps) {
 
             //Log.d("ActivateProfilesActivity.startTargetHelpsActivity", "xxx");
@@ -464,7 +460,6 @@ public class ActivateProfileActivity extends AppCompatActivity {
             //ActivatorTargetHelpsActivity.activatorActivity = this;
             Intent intent = new Intent(this, ActivatorTargetHelpsActivity.class);
             startActivity(intent);
-
         }
     }
 
@@ -474,12 +469,10 @@ public class ActivateProfileActivity extends AppCompatActivity {
             // Toolbar.findViewById() returns null
             return;*/
 
-        ApplicationPreferences.getSharedPreferences(this);
-
         boolean startTargetHelps = ApplicationPreferences.prefActivatorActivityStartTargetHelps;
 
         if (startTargetHelps ||
-                ApplicationPreferences.prefActivatorFragmentStartTragetHelps ||
+                ApplicationPreferences.prefActivatorFragmentStartTargetHelps ||
                 ApplicationPreferences.prefActivatorAdapterStartTargetHelps) {
 
             //Log.d("ActivateProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
@@ -487,7 +480,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
             if (startTargetHelps) {
                 //Log.d("ActivateProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
-                SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(getApplicationContext());
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
                 editor.apply();
                 ApplicationPreferences.prefActivatorActivityStartTargetHelps = false;
@@ -591,11 +584,11 @@ public class ActivateProfileActivity extends AppCompatActivity {
                             }
                         }, 500);
 
-                        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                        SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(getApplicationContext());
                         editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, false);
                         editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, false);
                         editor.apply();
-                        ApplicationPreferences.prefActivatorFragmentStartTragetHelps = false;
+                        ApplicationPreferences.prefActivatorFragmentStartTargetHelps = false;
                         ApplicationPreferences.prefActivatorAdapterStartTargetHelps = false;
                     }
                 });

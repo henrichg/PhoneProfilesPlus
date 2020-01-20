@@ -39,7 +39,6 @@ class IgnoreBatteryOptimizationNotification {
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=IgnoreBatteryOptimizationNotification.showNotification");
 
-                        ApplicationPreferences.getSharedPreferences(appContext);
                         boolean show = ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart;
                         //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 1=" + show);
                         if (Event.getGlobalEventsRunning()) {
@@ -125,16 +124,15 @@ class IgnoreBatteryOptimizationNotification {
     static void getShowIgnoreBatteryOptimizationNotificationOnStart(Context context)
     {
         synchronized (PPApplication.applicationGlobalPreferencesMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart = ApplicationPreferences.preferences.getBoolean(PREF_SHOW_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ON_START, true);
+            ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart = ApplicationPreferencesLoader.
+                    getSharedPreferences(context).getBoolean(PREF_SHOW_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ON_START, true);
             //return prefRingerVolume;
         }
     }
     static void setShowIgnoreBatteryOptimizationNotificationOnStart(Context context, boolean show)
     {
         synchronized (PPApplication.applicationGlobalPreferencesMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
             editor.putBoolean(PREF_SHOW_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ON_START, show);
             editor.apply();
             ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart = show;

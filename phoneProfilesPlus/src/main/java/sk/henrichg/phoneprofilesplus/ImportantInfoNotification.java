@@ -192,16 +192,15 @@ class ImportantInfoNotification {
 
     private static boolean getShowInfoNotificationOnStart(Context context, int version)
     {
-        ApplicationPreferences.getSharedPreferences(context);
-        boolean show = ApplicationPreferences.preferences.getBoolean(PREF_SHOW_INFO_NOTIFICATION_ON_START, true);
-        int _version = ApplicationPreferences.preferences.getInt(PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION, version);
+        SharedPreferences preferences = ApplicationPreferencesLoader.getSharedPreferences(context);
+        boolean show = preferences.getBoolean(PREF_SHOW_INFO_NOTIFICATION_ON_START, true);
+        int _version = preferences.getInt(PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION, version);
         return ((_version >= version) && show);
     }
 
     private static void setShowInfoNotificationOnStart(Context context, boolean show, int version)
     {
-        ApplicationPreferences.getSharedPreferences(context);
-        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+        SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
         editor.putBoolean(PREF_SHOW_INFO_NOTIFICATION_ON_START, show);
         editor.putInt(PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION, version);
         editor.apply();
@@ -209,14 +208,13 @@ class ImportantInfoNotification {
 
     private static int getShowInfoNotificationOnStartVersion(Context context)
     {
-        ApplicationPreferences.getSharedPreferences(context);
-        return ApplicationPreferences.preferences.getInt(PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION, 0);
+        return ApplicationPreferencesLoader.
+                getSharedPreferences(context).getInt(PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION, 0);
     }
 
     private static void setShowInfoNotificationOnStartVersion(Context context, int version)
     {
-        ApplicationPreferences.getSharedPreferences(context);
-        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+        SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
         editor.putInt(PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION, version);
         editor.apply();
     }

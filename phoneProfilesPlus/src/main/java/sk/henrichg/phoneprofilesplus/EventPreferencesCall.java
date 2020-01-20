@@ -705,7 +705,6 @@ class EventPreferencesCall extends EventPreferences {
             if (Permissions.checkContacts(dataWrapper.context)) {
                 //PPApplication.logE("EventPreferencesCall.saveStartTime", "contacts permission granted");
 
-                ApplicationPreferences.getSharedPreferences(dataWrapper.context);
                 int callEventType = ApplicationPreferences.prefEventCallEventType;
                 long callTime = ApplicationPreferences.prefEventCallEventTime;
                 String phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
@@ -750,15 +749,14 @@ class EventPreferencesCall extends EventPreferences {
 
     static void getEventCallEventType(Context context) {
         synchronized (PPApplication.eventCallSensorMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            ApplicationPreferences.prefEventCallEventType = ApplicationPreferences.preferences.getInt(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TYPE, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
+            ApplicationPreferences.prefEventCallEventType = ApplicationPreferencesLoader.
+                    getSharedPreferences(context).getInt(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TYPE, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
             //return ApplicationPreferences.prefEventCallEventType;
         }
     }
     static void setEventCallEventType(Context context, int type) {
         synchronized (PPApplication.eventCallSensorMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
             editor.putInt(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TYPE, type);
             editor.apply();
             ApplicationPreferences.prefEventCallEventType = type;
@@ -767,15 +765,14 @@ class EventPreferencesCall extends EventPreferences {
 
     static void getEventCallEventTime(Context context) {
         synchronized (PPApplication.eventCallSensorMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            ApplicationPreferences.prefEventCallEventTime = ApplicationPreferences.preferences.getLong(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TIME, 0);
+            ApplicationPreferences.prefEventCallEventTime = ApplicationPreferencesLoader.
+                    getSharedPreferences(context).getLong(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TIME, 0);
             //return ApplicationPreferences.prefEventCallEventTime;
         }
     }
     static void setEventCallEventTime(Context context, long time) {
         synchronized (PPApplication.eventCallSensorMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
             editor.putLong(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TIME, time);
             editor.apply();
             ApplicationPreferences.prefEventCallEventTime = time;
@@ -784,15 +781,14 @@ class EventPreferencesCall extends EventPreferences {
 
     static void getEventCallPhoneNumber(Context context) {
         synchronized (PPApplication.eventCallSensorMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            ApplicationPreferences.prefEventCallPhoneNumber = ApplicationPreferences.preferences.getString(EventPreferencesCall.PREF_EVENT_CALL_PHONE_NUMBER, "");
+            ApplicationPreferences.prefEventCallPhoneNumber = ApplicationPreferencesLoader.
+                    getSharedPreferences(context).getString(EventPreferencesCall.PREF_EVENT_CALL_PHONE_NUMBER, "");
             //return ApplicationPreferences.prefEventCallPhoneNumber;
         }
     }
     static void setEventCallPhoneNumber(Context context, String phoneNumber) {
         synchronized (PPApplication.eventCallSensorMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
             editor.putString(EventPreferencesCall.PREF_EVENT_CALL_PHONE_NUMBER, phoneNumber);
             editor.apply();
             ApplicationPreferences.prefEventCallPhoneNumber = phoneNumber;

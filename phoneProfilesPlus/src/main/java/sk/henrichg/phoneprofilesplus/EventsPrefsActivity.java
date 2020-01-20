@@ -411,11 +411,11 @@ public class EventsPrefsActivity extends AppCompatActivity {
                 doNotShowAgain.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        SharedPreferences settings = ApplicationPreferences.getSharedPreferences(EventsPrefsActivity.this);
+                        SharedPreferences settings = ApplicationPreferencesLoader.getSharedPreferences(EventsPrefsActivity.this);
                         SharedPreferences.Editor editor = settings.edit();
-                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, isChecked);
+                        editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, isChecked);
                         editor.apply();
-                        ApplicationPreferences.applicationEventNeverAskForEnableRun(getApplicationContext());
+                        ApplicationPreferencesLoader.applicationEventNeverAskForEnableRun(getApplicationContext());
                     }
                 });
 
@@ -613,12 +613,10 @@ public class EventsPrefsActivity extends AppCompatActivity {
         if (!showSaveMenu)
             return;
 
-        ApplicationPreferences.getSharedPreferences(this);
-
         if (ApplicationPreferences.prefEventPrefsActivityStartTargetHelps) {
             //Log.d("EventPreferencesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
-            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(getApplicationContext());
             editor.putBoolean(PREF_START_TARGET_HELPS, false);
             editor.apply();
             ApplicationPreferences.prefEventPrefsActivityStartTargetHelps = false;

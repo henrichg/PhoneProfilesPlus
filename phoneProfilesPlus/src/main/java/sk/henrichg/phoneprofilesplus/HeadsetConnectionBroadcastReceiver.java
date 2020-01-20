@@ -33,8 +33,6 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
 
         String action = intent.getAction();
 
-        ApplicationPreferences.getSharedPreferences(appContext);
-
         boolean broadcast = false;
 
         boolean connectedWiredHeadphones = false;
@@ -124,18 +122,17 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
 
     static void getEventHeadsetParameters(Context context) {
         synchronized (PPApplication.eventPeripheralsSensorMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            ApplicationPreferences.prefWiredHeadsetConnected = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_WIRED_HEADSET_CONNECTED, false);
-            ApplicationPreferences.prefWiredHeadsetMicrophone = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_WIRED_HEADSET_MICROPHONE, false);
-            ApplicationPreferences.prefBluetoothHeadsetConnected = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_BLUETOOTH_HEADSET_CONNECTED, false);
-            ApplicationPreferences.prefBluetoothHeadsetMicrophone = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_BLUETOOTH_HEADSET_MICROPHONE, false);
+            SharedPreferences preferences = ApplicationPreferencesLoader.getSharedPreferences(context);
+            ApplicationPreferences.prefWiredHeadsetConnected = preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_WIRED_HEADSET_CONNECTED, false);
+            ApplicationPreferences.prefWiredHeadsetMicrophone = preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_WIRED_HEADSET_MICROPHONE, false);
+            ApplicationPreferences.prefBluetoothHeadsetConnected = preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_BLUETOOTH_HEADSET_CONNECTED, false);
+            ApplicationPreferences.prefBluetoothHeadsetMicrophone = preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_BLUETOOTH_HEADSET_MICROPHONE, false);
         }
     }
     private static void setEventHeadsetParameters(Context context, boolean connectedWiredHeadphones, boolean connectedWiredMicrophone,
                                                 boolean connectedBluetoothHeadphones, boolean connectedBluetoothMicrophone) {
         synchronized (PPApplication.eventPeripheralsSensorMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
             editor.putBoolean(PREF_EVENT_WIRED_HEADSET_CONNECTED, connectedWiredHeadphones);
             editor.putBoolean(PREF_EVENT_WIRED_HEADSET_MICROPHONE, connectedWiredMicrophone);
             editor.putBoolean(PREF_EVENT_BLUETOOTH_HEADSET_CONNECTED, connectedBluetoothHeadphones);

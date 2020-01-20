@@ -636,9 +636,8 @@ class ActivateProfileHelper {
 
     static void getMergedRingNotificationVolumes(Context context) {
         synchronized (PPApplication.profileActivationMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            ApplicationPreferences.prefMergedRingNotificationVolumes = ApplicationPreferences.preferences.getBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, true);
-            //return prefMergedRingNotificationVolumes;
+            ApplicationPreferences.prefMergedRingNotificationVolumes =
+                    ApplicationPreferencesLoader.getSharedPreferences(context).getBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, true);
         }
     }
     static boolean getMergedRingNotificationVolumes() {
@@ -652,20 +651,18 @@ class ActivateProfileHelper {
     // test if ring and notification volumes are merged
     static void setMergedRingNotificationVolumes(Context context, @SuppressWarnings("SameParameterValue") boolean force) {
         synchronized (PPApplication.profileActivationMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
             //PPApplication.logE("ActivateProfileHelper.setMergedRingNotificationVolumes", "xxx");
-            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
             setMergedRingNotificationVolumes(context, force, editor);
             editor.apply();
         }
     }
     static void setMergedRingNotificationVolumes(Context context, boolean force, SharedPreferences.Editor editor) {
         synchronized (PPApplication.profileActivationMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
 
             //PPApplication.logE("ActivateProfileHelper.setMergedRingNotificationVolumes", "xxx");
 
-            if (!ApplicationPreferences.preferences.contains(PREF_MERGED_RING_NOTIFICATION_VOLUMES) || force) {
+            if (!ApplicationPreferencesLoader.getSharedPreferences(context).contains(PREF_MERGED_RING_NOTIFICATION_VOLUMES) || force) {
                 try {
                     boolean merged;
                     AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
@@ -2532,53 +2529,48 @@ class ActivateProfileHelper {
 
         // enable/disable scanners
         if (profile._applicationDisableWifiScanning != 0) {
-            ApplicationPreferences.getSharedPreferences(context);
-            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, profile._applicationDisableWifiScanning == 2);
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableWifiScanning == 1);
+            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
+            editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, profile._applicationDisableWifiScanning == 2);
+            editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_WIFI_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableWifiScanning == 1);
             editor.apply();
-            ApplicationPreferences.applicationEventWifiEnableScanning(context);
-            ApplicationPreferences.applicationEventWifiDisabledScannigByProfile(context);
+            ApplicationPreferencesLoader.applicationEventWifiEnableScanning(context);
+            ApplicationPreferencesLoader.applicationEventWifiDisabledScannigByProfile(context);
             PPApplication.restartWifiScanner(context, false);
         }
         if (profile._applicationDisableBluetoothScanning != 0) {
-            ApplicationPreferences.getSharedPreferences(context);
-            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, profile._applicationDisableBluetoothScanning == 2);
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableBluetoothScanning == 1);
+            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
+            editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, profile._applicationDisableBluetoothScanning == 2);
+            editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_BLUETOOTH_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableBluetoothScanning == 1);
             editor.apply();
-            ApplicationPreferences.applicationEventBluetoothEnableScanning(context);
-            ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile(context);
+            ApplicationPreferencesLoader.applicationEventBluetoothEnableScanning(context);
+            ApplicationPreferencesLoader.applicationEventBluetoothDisabledScannigByProfile(context);
             PPApplication.restartBluetoothScanner(context, false);
         }
         if (profile._applicationDisableLocationScanning != 0) {
-            ApplicationPreferences.getSharedPreferences(context);
-            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, profile._applicationDisableLocationScanning == 2);
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableLocationScanning == 1);
+            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
+            editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, profile._applicationDisableLocationScanning == 2);
+            editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_LOCATION_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableLocationScanning == 1);
             editor.apply();
-            ApplicationPreferences.applicationEventLocationEnableScanning(context);
-            ApplicationPreferences.applicationEventLocationDisabledScannigByProfile(context);
+            ApplicationPreferencesLoader.applicationEventLocationEnableScanning(context);
+            ApplicationPreferencesLoader.applicationEventLocationDisabledScannigByProfile(context);
             PPApplication.restartGeofenceScanner(context, false);
         }
         if (profile._applicationDisableMobileCellScanning != 0) {
-            ApplicationPreferences.getSharedPreferences(context);
-            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, profile._applicationDisableMobileCellScanning == 2);
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableMobileCellScanning == 1);
+            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
+            editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, profile._applicationDisableMobileCellScanning == 2);
+            editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_MOBILE_CELL_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableMobileCellScanning == 1);
             editor.apply();
-            ApplicationPreferences.applicationEventMobileCellEnableScanning(context);
-            ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(context);
+            ApplicationPreferencesLoader.applicationEventMobileCellEnableScanning(context);
+            ApplicationPreferencesLoader.applicationEventMobileCellDisabledScannigByProfile(context);
             PPApplication.restartPhoneStateScanner(context, false);
         }
         if (profile._applicationDisableOrientationScanning != 0) {
-            ApplicationPreferences.getSharedPreferences(context);
-            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, profile._applicationDisableOrientationScanning == 2);
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableOrientationScanning == 1);
+            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
+            editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, profile._applicationDisableOrientationScanning == 2);
+            editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableOrientationScanning == 1);
             editor.apply();
-            ApplicationPreferences.applicationEventOrientationEnableScanning(context);
-            ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(context);
+            ApplicationPreferencesLoader.applicationEventOrientationEnableScanning(context);
+            ApplicationPreferencesLoader.applicationEventOrientationDisabledScannigByProfile(context);
             PPApplication.restartOrientationScanner(context);
         }
 
@@ -4244,8 +4236,8 @@ class ActivateProfileHelper {
     static void getRingerVolume(Context context)
     {
         synchronized (PPApplication.profileActivationMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            ApplicationPreferences.prefRingerVolume = ApplicationPreferences.preferences.getInt(PREF_RINGER_VOLUME, -999);
+            ApplicationPreferences.prefRingerVolume = ApplicationPreferencesLoader.
+                    getSharedPreferences(context).getInt(PREF_RINGER_VOLUME, -999);
             //return prefRingerVolume;
         }
     }
@@ -4253,8 +4245,7 @@ class ActivateProfileHelper {
     {
         synchronized (PPApplication.profileActivationMutex) {
             //PPApplication.logE("ActivateProfileHelper.(s)setRingerVolume","volume="+volume);
-            ApplicationPreferences.getSharedPreferences(context);
-            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
             editor.putInt(PREF_RINGER_VOLUME, volume);
             editor.apply();
             ApplicationPreferences.prefRingerVolume = volume;
@@ -4264,16 +4255,15 @@ class ActivateProfileHelper {
     static void getNotificationVolume(Context context)
     {
         synchronized (PPApplication.profileActivationMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            ApplicationPreferences.prefNotificationVolume = ApplicationPreferences.preferences.getInt(PREF_NOTIFICATION_VOLUME, -999);
+            ApplicationPreferences.prefNotificationVolume = ApplicationPreferencesLoader.
+                    getSharedPreferences(context).getInt(PREF_NOTIFICATION_VOLUME, -999);
             //return prefNotificationVolume;
         }
     }
     static void setNotificationVolume(Context context, int volume)
     {
         synchronized (PPApplication.profileActivationMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
             editor.putInt(PREF_NOTIFICATION_VOLUME, volume);
             editor.apply();
             ApplicationPreferences.prefNotificationVolume = volume;
@@ -4283,8 +4273,8 @@ class ActivateProfileHelper {
     static void getRingerMode(Context context)
     {
         synchronized (PPApplication.profileActivationMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            ApplicationPreferences.prefRingerMode = ApplicationPreferences.preferences.getInt(PREF_RINGER_MODE, 0);
+            ApplicationPreferences.prefRingerMode = ApplicationPreferencesLoader.
+                    getSharedPreferences(context).getInt(PREF_RINGER_MODE, 0);
             //return prefRingerMode;
         }
     }
@@ -4292,8 +4282,7 @@ class ActivateProfileHelper {
     {
         synchronized (PPApplication.profileActivationMutex) {
             //PPApplication.logE("ActivateProfileHelper.(s)saveRingerMode","mode="+mode);
-            ApplicationPreferences.getSharedPreferences(context);
-            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
             editor.putInt(PREF_RINGER_MODE, mode);
             editor.apply();
             ApplicationPreferences.prefRingerMode = mode;
@@ -4303,8 +4292,8 @@ class ActivateProfileHelper {
     static void getZenMode(Context context)
     {
         synchronized (PPApplication.profileActivationMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            ApplicationPreferences.prefZenMode = ApplicationPreferences.preferences.getInt(PREF_ZEN_MODE, 0);
+            ApplicationPreferences.prefZenMode = ApplicationPreferencesLoader.
+                    getSharedPreferences(context).getInt(PREF_ZEN_MODE, 0);
             //return prefZenMode;
         }
     }
@@ -4312,8 +4301,7 @@ class ActivateProfileHelper {
     {
         synchronized (PPApplication.profileActivationMutex) {
             //PPApplication.logE("ActivateProfileHelper.(s)saveZenMode","mode="+mode);
-            ApplicationPreferences.getSharedPreferences(context);
-            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
             editor.putInt(PREF_ZEN_MODE, mode);
             editor.apply();
             ApplicationPreferences.prefZenMode = mode;
@@ -4323,16 +4311,15 @@ class ActivateProfileHelper {
     static void getLockScreenDisabled(Context context)
     {
         synchronized (PPApplication.profileActivationMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            ApplicationPreferences.prefLockScreenDisabled = ApplicationPreferences.preferences.getBoolean(PREF_LOCKSCREEN_DISABLED, false);
+            ApplicationPreferences.prefLockScreenDisabled = ApplicationPreferencesLoader.
+                    getSharedPreferences(context).getBoolean(PREF_LOCKSCREEN_DISABLED, false);
             //return prefLockScreenDisabled;
         }
     }
     static void setLockScreenDisabled(Context context, boolean disabled)
     {
         synchronized (PPApplication.profileActivationMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
             editor.putBoolean(PREF_LOCKSCREEN_DISABLED, disabled);
             editor.apply();
             ApplicationPreferences.prefLockScreenDisabled = disabled;
@@ -4342,16 +4329,15 @@ class ActivateProfileHelper {
     static void getActivatedProfileScreenTimeout(Context context)
     {
         synchronized (PPApplication.profileActivationMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            ApplicationPreferences.prefActivatedProfileScreenTimeout = ApplicationPreferences.preferences.getInt(PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT, 0);
+            ApplicationPreferences.prefActivatedProfileScreenTimeout = ApplicationPreferencesLoader.
+                    getSharedPreferences(context).getInt(PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT, 0);
             //return prefActivatedProfileScreenTimeout;
         }
     }
     static void setActivatedProfileScreenTimeout(Context context, int timeout)
     {
         synchronized (PPApplication.profileActivationMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
             editor.putInt(PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT, timeout);
             editor.apply();
             ApplicationPreferences.prefActivatedProfileScreenTimeout = timeout;

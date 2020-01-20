@@ -637,13 +637,11 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             // Toolbar.findViewById() returns null
             return;*/
 
-        ApplicationPreferences.getSharedPreferences(this);
-
         //String applicationTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
 
         if (showSaveMenu) {
             if (ApplicationPreferences.prefProfilePrefsActivityStartTargetHelpsSave) {
-                SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(getApplicationContext());
                 editor.putBoolean(PREF_START_TARGET_HELPS_SAVE, false);
                 editor.apply();
                 ApplicationPreferences.prefProfilePrefsActivityStartTargetHelpsSave = false;
@@ -669,7 +667,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 final TapTargetSequence sequence = new TapTargetSequence(this);
                 if (ApplicationPreferences.prefProfilePrefsActivityStartTargetHelps) {
 
-                    editor = ApplicationPreferences.preferences.edit();
+                    editor = ApplicationPreferencesLoader.getEditor(getApplicationContext());
                     editor.putBoolean(PREF_START_TARGET_HELPS, false);
                     editor.apply();
                     ApplicationPreferences.prefProfilePrefsActivityStartTargetHelps = false;

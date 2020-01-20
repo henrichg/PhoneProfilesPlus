@@ -10560,7 +10560,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                                 AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
                                 if (audioManager != null) {
-                                    SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(context);
+                                    SharedPreferences sharedPreferences = ApplicationPreferencesLoader.getSharedPreferences(context);
                                     int maximumVolumeRing = sharedPreferences.getInt("maximumVolume_ring", 0);
                                     int maximumVolumeNotification = sharedPreferences.getInt("maximumVolume_notification", 0);
                                     int maximumVolumeMusic = sharedPreferences.getInt("maximumVolume_music", 0);

@@ -111,8 +111,6 @@ class EventsHandler {
 
             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
 
-            ApplicationPreferences.getSharedPreferences(context);
-
             // save ringer mode, zen mode, ringtone before handle events
             // used by ringing call simulation
             oldRingerMode = ApplicationPreferences.prefRingerMode;

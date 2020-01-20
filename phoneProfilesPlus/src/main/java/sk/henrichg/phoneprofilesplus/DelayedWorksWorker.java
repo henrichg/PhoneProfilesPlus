@@ -72,19 +72,18 @@ public class DelayedWorksWorker extends Worker {
                         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
                         if (activateProfiles) {
-                            ApplicationPreferences.getSharedPreferences(appContext);
-                            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-                            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_DISABLED_SCANNING_BY_PROFILE, false);
-                            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_DISABLED_SCANNING_BY_PROFILE, false);
-                            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_DISABLED_SCANNING_BY_PROFILE, false);
-                            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_DISABLED_SCANNING_BY_PROFILE, false);
-                            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, false);
+                            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(appContext);
+                            editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_WIFI_DISABLED_SCANNING_BY_PROFILE, false);
+                            editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_BLUETOOTH_DISABLED_SCANNING_BY_PROFILE, false);
+                            editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_LOCATION_DISABLED_SCANNING_BY_PROFILE, false);
+                            editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_MOBILE_CELL_DISABLED_SCANNING_BY_PROFILE, false);
+                            editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, false);
                             editor.apply();
-                            ApplicationPreferences.applicationEventWifiDisabledScannigByProfile(appContext);
-                            ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile(appContext);
-                            ApplicationPreferences.applicationEventLocationDisabledScannigByProfile(appContext);
-                            ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(appContext);
-                            ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(appContext);
+                            ApplicationPreferencesLoader.applicationEventWifiDisabledScannigByProfile(appContext);
+                            ApplicationPreferencesLoader.applicationEventBluetoothDisabledScannigByProfile(appContext);
+                            ApplicationPreferencesLoader.applicationEventLocationDisabledScannigByProfile(appContext);
+                            ApplicationPreferencesLoader.applicationEventMobileCellDisabledScannigByProfile(appContext);
+                            ApplicationPreferencesLoader.applicationEventOrientationDisabledScannigByProfile(appContext);
                         }
 
                         if (Event.getGlobalEventsRunning()) {

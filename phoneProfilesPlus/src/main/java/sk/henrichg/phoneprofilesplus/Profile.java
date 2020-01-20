@@ -4012,16 +4012,15 @@ public class Profile {
     static void getActivatedProfileForDuration(Context context)
     {
         synchronized (PPApplication.profileActivationMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            ApplicationPreferences.prefActivatedProfileForDuration = ApplicationPreferences.preferences.getLong(PREF_ACTIVATED_PROFILE_FOR_DURATION, 0);
+            ApplicationPreferences.prefActivatedProfileForDuration = ApplicationPreferencesLoader.
+                    getSharedPreferences(context).getLong(PREF_ACTIVATED_PROFILE_FOR_DURATION, 0);
             //return prefActivatedProfileForDuration;
         }
     }
     static void setActivatedProfileForDuration(Context context, long profileId)
     {
         synchronized (PPApplication.profileActivationMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
             editor.putLong(PREF_ACTIVATED_PROFILE_FOR_DURATION, profileId);
             editor.apply();
             ApplicationPreferences.prefActivatedProfileForDuration = profileId;
@@ -4031,8 +4030,8 @@ public class Profile {
     static void getActivatedProfileEndDurationTime(Context context)
     {
         synchronized (PPApplication.profileActivationMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            ApplicationPreferences.prefActivatedProfileEndDurationTime = ApplicationPreferences.preferences.getLong(PREF_ACTIVATED_PROFILE_END_DURATION_TIME, 0);
+            ApplicationPreferences.prefActivatedProfileEndDurationTime = ApplicationPreferencesLoader.
+                    getSharedPreferences(context).getLong(PREF_ACTIVATED_PROFILE_END_DURATION_TIME, 0);
             //return prefActivatedProfileEndDurationTime;
         }
     }
@@ -4040,8 +4039,7 @@ public class Profile {
     static void setActivatedProfileEndDurationTime(Context context, long time)
     {
         synchronized (PPApplication.profileActivationMutex) {
-            ApplicationPreferences.getSharedPreferences(context);
-            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
             editor.putLong(PREF_ACTIVATED_PROFILE_END_DURATION_TIME, time);
             editor.apply();
             ApplicationPreferences.prefActivatedProfileEndDurationTime = time;

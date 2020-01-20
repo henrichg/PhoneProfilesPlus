@@ -626,9 +626,7 @@ public class ActivateProfileListFragment extends Fragment {
         if (((ActivateProfileActivity)getActivity()).targetHelpsSequenceStarted)
             return;
 
-        ApplicationPreferences.getSharedPreferences(getActivity());
-
-        boolean showTargetHelps = ApplicationPreferences.prefActivatorFragmentStartTragetHelps;
+        boolean showTargetHelps = ApplicationPreferences.prefActivatorFragmentStartTargetHelps;
 
         if (showTargetHelps ||
                 ApplicationPreferences.prefActivatorAdapterStartTargetHelps) {
@@ -639,10 +637,10 @@ public class ActivateProfileListFragment extends Fragment {
 
                 //Log.d("ActivateProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
-                SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(activityDataWrapper.context);
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
                 editor.apply();
-                ApplicationPreferences.prefActivatorFragmentStartTragetHelps = false;
+                ApplicationPreferences.prefActivatorFragmentStartTargetHelps = false;
 
                 showAdapterTargetHelps();
             }

@@ -118,10 +118,10 @@ public class LauncherActivity extends AppCompatActivity {
 
         //PPApplication.logE("LauncherActivity.endOnStart", "applicationFirstStart="+ApplicationPreferences.applicationFirstStart(getApplicationContext()));
         if (ApplicationPreferences.applicationFirstStart(getApplicationContext())) {
-            SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(getApplicationContext());
+            SharedPreferences sharedPreferences = ApplicationPreferencesLoader.getSharedPreferences(getApplicationContext());
             if (sharedPreferences != null) {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_FIRST_START, false);
+                editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_FIRST_START, false);
                 editor.apply();
             }
             intentLaunch = new Intent(getApplicationContext(), ImportantInfoActivity.class);

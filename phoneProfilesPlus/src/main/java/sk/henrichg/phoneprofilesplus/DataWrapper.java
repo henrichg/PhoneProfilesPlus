@@ -664,11 +664,10 @@ public class DataWrapper {
         // unlink profile from Background profile
         if (Long.valueOf(ApplicationPreferences.applicationBackgroundProfile) == profile._id)
         {
-            ApplicationPreferences.getSharedPreferences(context);
-            Editor editor = ApplicationPreferences.preferences.edit();
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE));
+            Editor editor = ApplicationPreferencesLoader.getEditor(context);
+            editor.putString(ApplicationPreferencesLoader.PREF_APPLICATION_BACKGROUND_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE));
             editor.apply();
-            ApplicationPreferences.applicationBackgroundProfile(context);
+            ApplicationPreferencesLoader.applicationBackgroundProfile(context);
         }
     }
 
@@ -689,11 +688,10 @@ public class DataWrapper {
             }
         }
         // unlink profiles from Background profile
-        ApplicationPreferences.getSharedPreferences(context);
-        Editor editor = ApplicationPreferences.preferences.edit();
-        editor.putString(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE));
+        Editor editor = ApplicationPreferencesLoader.getEditor(context);
+        editor.putString(ApplicationPreferencesLoader.PREF_APPLICATION_BACKGROUND_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE));
         editor.apply();
-        ApplicationPreferences.applicationBackgroundProfile(context);
+        ApplicationPreferencesLoader.applicationBackgroundProfile(context);
     }
 
     void refreshProfileIcon(Profile profile,
@@ -2324,7 +2322,6 @@ public class DataWrapper {
             if ((Event.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) &&
                     Permissions.checkEventCallContacts(context, event, null)/* &&
                     this is not required, is only for simulating ringing -> Permissions.checkEventPhoneBroadcast(context, event, null)*/) {
-                ApplicationPreferences.getSharedPreferences(context);
                 int callEventType = ApplicationPreferences.prefEventCallEventType;
                 String phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
 
@@ -2525,7 +2522,6 @@ public class DataWrapper {
                 } else if ((event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_WIRED_HEADSET) ||
                         (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_BLUETOOTH_HEADSET) ||
                         (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_HEADPHONES)) {
-                    ApplicationPreferences.getSharedPreferences(context);
                     boolean wiredHeadsetConnected = ApplicationPreferences.prefWiredHeadsetConnected;
                     boolean wiredHeadsetMicrophone = ApplicationPreferences.prefWiredHeadsetMicrophone;
                     boolean bluetoothHeadsetConnected = ApplicationPreferences.prefBluetoothHeadsetConnected;
@@ -3435,7 +3431,6 @@ public class DataWrapper {
 
         if (event._eventPreferencesOrientation._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
-                ApplicationPreferences.getSharedPreferences(context);
                 //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                 boolean inCall = false;
                 TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
