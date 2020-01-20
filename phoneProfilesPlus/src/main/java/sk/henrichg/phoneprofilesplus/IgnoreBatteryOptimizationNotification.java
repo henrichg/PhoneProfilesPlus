@@ -124,7 +124,7 @@ class IgnoreBatteryOptimizationNotification {
     static void getShowIgnoreBatteryOptimizationNotificationOnStart(Context context)
     {
         synchronized (PPApplication.applicationGlobalPreferencesMutex) {
-            ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart = ApplicationPreferencesLoader.
+            ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart = ApplicationPreferences.
                     getSharedPreferences(context).getBoolean(PREF_SHOW_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ON_START, true);
             //return prefRingerVolume;
         }
@@ -132,7 +132,7 @@ class IgnoreBatteryOptimizationNotification {
     static void setShowIgnoreBatteryOptimizationNotificationOnStart(Context context, boolean show)
     {
         synchronized (PPApplication.applicationGlobalPreferencesMutex) {
-            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putBoolean(PREF_SHOW_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ON_START, show);
             editor.apply();
             ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart = show;

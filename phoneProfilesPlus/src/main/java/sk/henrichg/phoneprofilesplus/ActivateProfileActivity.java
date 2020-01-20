@@ -480,7 +480,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
             if (startTargetHelps) {
                 //Log.d("ActivateProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
-                SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(getApplicationContext());
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
                 editor.apply();
                 ApplicationPreferences.prefActivatorActivityStartTargetHelps = false;
@@ -584,7 +584,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                             }
                         }, 500);
 
-                        SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(getApplicationContext());
+                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
                         editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, false);
                         editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, false);
                         editor.apply();

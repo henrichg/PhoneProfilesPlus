@@ -563,7 +563,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             isLargeLayout = minHeight >= 110;
         }
 
-        SharedPreferences preferences = ApplicationPreferencesLoader.getSharedPreferences(context);
+        SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(context);
         if (preferences.contains(preferenceKey))
             isLargeLayout = preferences.getBoolean(preferenceKey, true);
         else
@@ -582,7 +582,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         
         String preferenceKey = "isLargeLayout_"+appWidgetId;
 
-        Editor editor = ApplicationPreferencesLoader.getEditor(context);
+        Editor editor = ApplicationPreferences.getEditor(context);
         editor.putBoolean(preferenceKey, isLargeLayout);
         editor.apply();
     }
@@ -601,7 +601,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 String preferenceKey = "isLargeLayout_"+appWidgetId;
 
                 // remove preference, will by reset in setLayoutParams
-                Editor editor = ApplicationPreferencesLoader.getEditor(context);
+                Editor editor = ApplicationPreferences.getEditor(context);
                 editor.remove(preferenceKey);
                 editor.apply();
 

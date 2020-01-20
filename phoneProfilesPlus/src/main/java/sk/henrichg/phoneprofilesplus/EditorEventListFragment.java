@@ -1281,7 +1281,7 @@ public class EditorEventListFragment extends Fragment
 
                 //Log.d("EditorEventListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
-                SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(activityDataWrapper.context);
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
                 editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, false);
                 if (filterType != FILTER_TYPE_START_ORDER)
@@ -1396,7 +1396,7 @@ public class EditorEventListFragment extends Fragment
                             @Override
                             public void onSequenceCanceled(TapTarget lastTarget) {
                                 targetHelpsSequenceStarted = false;
-                                SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(activityDataWrapper.context);
+                                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
                                 editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, false);
                                 if (filterType == FILTER_TYPE_START_ORDER)
                                     editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
@@ -1444,7 +1444,7 @@ public class EditorEventListFragment extends Fragment
             eventListAdapter.showTargetHelps(getActivity(), this, itemView);
         else {
             targetHelpsSequenceStarted = false;
-            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(getActivity().getApplicationContext());
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getActivity().getApplicationContext());
             editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, false);
             if (filterType == FILTER_TYPE_START_ORDER)
                 editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
@@ -1461,10 +1461,10 @@ public class EditorEventListFragment extends Fragment
         if (filterType != EditorEventListFragment.FILTER_TYPE_START_ORDER) {
             // save into shared preferences
             if (getActivity() != null) {
-                SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(getActivity().getApplicationContext());
-                editor.putInt(ApplicationPreferencesLoader.EDITOR_ORDER_SELECTED_ITEM, orderSelectedItem);
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getActivity().getApplicationContext());
+                editor.putInt(ApplicationPreferences.EDITOR_ORDER_SELECTED_ITEM, orderSelectedItem);
                 editor.apply();
-                ApplicationPreferencesLoader.editorOrderSelectedItem(getActivity().getApplicationContext());
+                ApplicationPreferences.editorOrderSelectedItem(getActivity().getApplicationContext());
             }
         }
 

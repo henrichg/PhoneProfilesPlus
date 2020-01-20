@@ -400,7 +400,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
             if (startTargetHelps) {
                 //Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
-                SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(activityDataWrapper.context);
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
                 editor.apply();
                 ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps = false;
@@ -506,7 +506,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
             if (startTargetHelpsOrder) {
                 //Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 if (filterType == EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR) {
-                    SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(activityDataWrapper.context);
+                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
                     editor.putBoolean(PREF_START_TARGET_HELPS_ORDER, false);
                     editor.apply();
                     ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsOrder = false;
@@ -526,7 +526,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
             if (startTargetHelpsShowInActivator) {
                 //Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 if (filterType == EditorProfileListFragment.FILTER_TYPE_ALL) {
-                    SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(activityDataWrapper.context);
+                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
                     editor.putBoolean(PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
                     editor.apply();
                     ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator = false;

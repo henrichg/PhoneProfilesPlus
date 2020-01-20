@@ -4012,7 +4012,7 @@ public class Profile {
     static void getActivatedProfileForDuration(Context context)
     {
         synchronized (PPApplication.profileActivationMutex) {
-            ApplicationPreferences.prefActivatedProfileForDuration = ApplicationPreferencesLoader.
+            ApplicationPreferences.prefActivatedProfileForDuration = ApplicationPreferences.
                     getSharedPreferences(context).getLong(PREF_ACTIVATED_PROFILE_FOR_DURATION, 0);
             //return prefActivatedProfileForDuration;
         }
@@ -4020,7 +4020,7 @@ public class Profile {
     static void setActivatedProfileForDuration(Context context, long profileId)
     {
         synchronized (PPApplication.profileActivationMutex) {
-            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putLong(PREF_ACTIVATED_PROFILE_FOR_DURATION, profileId);
             editor.apply();
             ApplicationPreferences.prefActivatedProfileForDuration = profileId;
@@ -4030,7 +4030,7 @@ public class Profile {
     static void getActivatedProfileEndDurationTime(Context context)
     {
         synchronized (PPApplication.profileActivationMutex) {
-            ApplicationPreferences.prefActivatedProfileEndDurationTime = ApplicationPreferencesLoader.
+            ApplicationPreferences.prefActivatedProfileEndDurationTime = ApplicationPreferences.
                     getSharedPreferences(context).getLong(PREF_ACTIVATED_PROFILE_END_DURATION_TIME, 0);
             //return prefActivatedProfileEndDurationTime;
         }
@@ -4039,7 +4039,7 @@ public class Profile {
     static void setActivatedProfileEndDurationTime(Context context, long time)
     {
         synchronized (PPApplication.profileActivationMutex) {
-            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putLong(PREF_ACTIVATED_PROFILE_END_DURATION_TIME, time);
             editor.apply();
             ApplicationPreferences.prefActivatedProfileEndDurationTime = time;

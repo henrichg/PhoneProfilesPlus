@@ -541,14 +541,14 @@ class WifiBluetoothScanner {
     static void getForceOneWifiScan(Context context)
     {
         synchronized (PPApplication.eventWifiBluetoothSensorMutex) {
-            ApplicationPreferences.prefForceOneWifiScan = ApplicationPreferencesLoader.
+            ApplicationPreferences.prefForceOneWifiScan = ApplicationPreferences.
                     getSharedPreferences(context).getInt(PREF_FORCE_ONE_WIFI_SCAN, FORCE_ONE_SCAN_DISABLED);
         }
     }
     static void setForceOneWifiScan(Context context, int forceScan)
     {
         synchronized (PPApplication.eventWifiBluetoothSensorMutex) {
-            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putInt(PREF_FORCE_ONE_WIFI_SCAN, forceScan);
             editor.apply();
             ApplicationPreferences.prefForceOneWifiScan = forceScan;
@@ -558,14 +558,14 @@ class WifiBluetoothScanner {
     static void getForceOneBluetoothScan(Context context)
     {
         synchronized (PPApplication.eventWifiBluetoothSensorMutex) {
-            ApplicationPreferences.prefForceOneBluetoothScan = ApplicationPreferencesLoader.
+            ApplicationPreferences.prefForceOneBluetoothScan = ApplicationPreferences.
                     getSharedPreferences(context).getInt(PREF_FORCE_ONE_BLUETOOTH_SCAN, FORCE_ONE_SCAN_DISABLED);
         }
     }
     static void setForceOneBluetoothScan(Context context, int forceScan)
     {
         synchronized (PPApplication.eventWifiBluetoothSensorMutex) {
-            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putInt(PREF_FORCE_ONE_BLUETOOTH_SCAN, forceScan);
             editor.apply();
             ApplicationPreferences.prefForceOneBluetoothScan = forceScan;
@@ -575,14 +575,14 @@ class WifiBluetoothScanner {
     static void getForceOneLEBluetoothScan(Context context)
     {
         synchronized (PPApplication.eventWifiBluetoothSensorMutex) {
-            ApplicationPreferences.prefForceOneBluetoothLEScan = ApplicationPreferencesLoader.
+            ApplicationPreferences.prefForceOneBluetoothLEScan = ApplicationPreferences.
                     getSharedPreferences(context).getInt(PREF_FORCE_ONE_LE_BLUETOOTH_SCAN, FORCE_ONE_SCAN_DISABLED);
         }
     }
     static void setForceOneLEBluetoothScan(Context context, int forceScan)
     {
         synchronized (PPApplication.eventWifiBluetoothSensorMutex) {
-            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putInt(PREF_FORCE_ONE_LE_BLUETOOTH_SCAN, forceScan);
             editor.apply();
             ApplicationPreferences.prefForceOneBluetoothLEScan = forceScan;

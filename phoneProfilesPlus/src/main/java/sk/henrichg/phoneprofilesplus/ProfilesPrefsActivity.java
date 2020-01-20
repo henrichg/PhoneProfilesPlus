@@ -641,7 +641,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         if (showSaveMenu) {
             if (ApplicationPreferences.prefProfilePrefsActivityStartTargetHelpsSave) {
-                SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(getApplicationContext());
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
                 editor.putBoolean(PREF_START_TARGET_HELPS_SAVE, false);
                 editor.apply();
                 ApplicationPreferences.prefProfilePrefsActivityStartTargetHelpsSave = false;
@@ -667,7 +667,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 final TapTargetSequence sequence = new TapTargetSequence(this);
                 if (ApplicationPreferences.prefProfilePrefsActivityStartTargetHelps) {
 
-                    editor = ApplicationPreferencesLoader.getEditor(getApplicationContext());
+                    editor = ApplicationPreferences.getEditor(getApplicationContext());
                     editor.putBoolean(PREF_START_TARGET_HELPS, false);
                     editor.apply();
                     ApplicationPreferences.prefProfilePrefsActivityStartTargetHelps = false;

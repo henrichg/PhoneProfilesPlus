@@ -408,14 +408,14 @@ public class WifiScanWorker extends Worker {
     static void getScanRequest(Context context)
     {
         synchronized (PPApplication.eventWifiSensorMutex) {
-            ApplicationPreferences.prefEventWifiScanRequest = ApplicationPreferencesLoader.
+            ApplicationPreferences.prefEventWifiScanRequest = ApplicationPreferences.
                     getSharedPreferences(context).getBoolean(PREF_EVENT_WIFI_SCAN_REQUEST, false);
         }
     }
     static void setScanRequest(Context context, boolean scanRequest)
     {
         synchronized (PPApplication.eventWifiSensorMutex) {
-            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putBoolean(PREF_EVENT_WIFI_SCAN_REQUEST, scanRequest);
             editor.apply();
             ApplicationPreferences.prefEventWifiScanRequest = scanRequest;
@@ -426,14 +426,14 @@ public class WifiScanWorker extends Worker {
     static void getWaitForResults(Context context)
     {
         synchronized (PPApplication.eventWifiSensorMutex) {
-            ApplicationPreferences.prefEventWifiWaitForResult = ApplicationPreferencesLoader.
+            ApplicationPreferences.prefEventWifiWaitForResult = ApplicationPreferences.
                     getSharedPreferences(context).getBoolean(PREF_EVENT_WIFI_WAIT_FOR_RESULTS, false);
         }
     }
     static void setWaitForResults(Context context, boolean waitForResults)
     {
         synchronized (PPApplication.eventWifiSensorMutex) {
-            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putBoolean(PREF_EVENT_WIFI_WAIT_FOR_RESULTS, waitForResults);
             editor.apply();
             ApplicationPreferences.prefEventWifiWaitForResult = waitForResults;
@@ -520,7 +520,7 @@ public class WifiScanWorker extends Worker {
     static void getWifiEnabledForScan(Context context)
     {
         synchronized (PPApplication.eventWifiSensorMutex) {
-            ApplicationPreferences.prefEventWifiEnabledForScan = ApplicationPreferencesLoader.
+            ApplicationPreferences.prefEventWifiEnabledForScan = ApplicationPreferences.
                     getSharedPreferences(context).getBoolean(PREF_EVENT_WIFI_ENABLED_FOR_SCAN, false);
         }
     }
@@ -529,7 +529,7 @@ public class WifiScanWorker extends Worker {
     {
         synchronized (PPApplication.eventWifiSensorMutex) {
             //PPApplication.logE("@@@ WifiScanWorker.setWifiEnabledForScan","setEnabled="+setEnabled);
-            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putBoolean(PREF_EVENT_WIFI_ENABLED_FOR_SCAN, setEnabled);
             editor.apply();
             ApplicationPreferences.prefEventWifiEnabledForScan = setEnabled;

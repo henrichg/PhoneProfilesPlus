@@ -268,7 +268,7 @@ class ActivateProfileListAdapter extends BaseAdapter
 
             //Log.d("ActivateProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
-            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(activityDataWrapper.context);
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
             editor.putBoolean(PREF_START_TARGET_HELPS, false);
             editor.apply();
             ApplicationPreferences.prefActivatorAdapterStartTargetHelps = false;

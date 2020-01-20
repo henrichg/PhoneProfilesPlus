@@ -38,13 +38,13 @@ public class ExitApplicationActivity extends AppCompatActivity {
                 //PPApplication.logE("ExitApplicationActivity.onStart", "exit");
 
                 IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(getApplicationContext(), true);
-                SharedPreferences settings = ApplicationPreferencesLoader.getSharedPreferences(getApplicationContext());
+                SharedPreferences settings = ApplicationPreferences.getSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor editor = settings.edit();
-                editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
-                editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
                 editor.apply();
-                ApplicationPreferencesLoader.applicationEventNeverAskForEnableRun(getApplicationContext());
-                ApplicationPreferencesLoader.applicationNeverAskForGrantRoot(getApplicationContext());
+                ApplicationPreferences.applicationEventNeverAskForEnableRun(getApplicationContext());
+                ApplicationPreferences.applicationNeverAskForGrantRoot(getApplicationContext());
 
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
                 //PPApplication.logE("PPApplication.exitApp", "from ExitApplicationActivity.onStart shutdown=false");

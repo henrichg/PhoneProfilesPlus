@@ -87,9 +87,9 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                                 if (actualVersionCode <= 2322) {
                                     // for old packages use Priority in events
-                                    SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(appContext);
+                                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
                                     PPApplication.logE("PackageReplacedReceiver.onReceive", "applicationEventUsePriority=true");
-                                    editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_USE_PRIORITY, true);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY, true);
                                     editor.apply();
 
                                     restartService = true;
@@ -105,12 +105,12 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                 /*
                                 if (actualVersionCode <= 2500) {
                                     // for old packages hide profile notification from status bar if notification is disabled
-                                    ApplicationPreferencesLoader.getSharedPreferences(appContext);
+                                    ApplicationPreferences.getSharedPreferences(appContext);
                                     if (Build.VERSION.SDK_INT < 26) {
-                                        if (!ApplicationPreferencesLoader.preferences.getBoolean(ApplicationPreferencesLoader.PREF_NOTIFICATION_STATUS_BAR, true)) {
-                                            SharedPreferences.Editor editor = ApplicationPreferencesLoader.preferences.edit();
+                                        if (!ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, true)) {
+                                            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                                             PPApplication.logE("PackageReplacedReceiver.onReceive", "notificationShowInStatusBar=false");
-                                            editor.putBoolean(ApplicationPreferencesLoader.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, false);
+                                            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, false);
                                             editor.apply();
 
                                             restartService = true;
@@ -119,9 +119,9 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                 }
                                 */
                                 if (actualVersionCode <= 2700) {
-                                    SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(appContext);
+                                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
 
-                                    //editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_EDITOR_SAVE_EDITOR_STATE, true);
+                                    //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_SAVE_EDITOR_STATE, true);
 
                                     editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS, false);
                                     editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, false);
@@ -142,36 +142,36 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     restartService = true;
                                 }
                                 if (actualVersionCode <= 3200) {
-                                    SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(appContext);
+                                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
                                     editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS, true);
                                     editor.apply();
                                 }
                                 if (actualVersionCode <= 3500) {
-                                    if (!ApplicationPreferencesLoader.getSharedPreferences(appContext).contains(ApplicationPreferencesLoader.PREF_APPLICATION_RESTART_EVENTS_ALERT)) {
-                                        SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(appContext);
-                                        editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_RESTART_EVENTS_ALERT, ApplicationPreferences.applicationActivateWithAlert);
+                                    if (!ApplicationPreferences.getSharedPreferences(appContext).contains(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT)) {
+                                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT, ApplicationPreferences.applicationActivateWithAlert);
 
                                         String rescan;
                                         rescan = ApplicationPreferences.applicationEventLocationRescan;
                                         if (rescan.equals("0"))
-                                            editor.putString(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_LOCATION_RESCAN, "1");
+                                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_RESCAN, "1");
                                         if (rescan.equals("2"))
-                                            editor.putString(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_LOCATION_RESCAN, "3");
+                                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_RESCAN, "3");
                                         rescan = ApplicationPreferences.applicationEventWifiRescan;
                                         if (rescan.equals("0"))
-                                            editor.putString(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_WIFI_RESCAN, "1");
+                                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_RESCAN, "1");
                                         if (rescan.equals("2"))
-                                            editor.putString(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_WIFI_RESCAN, "3");
+                                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_RESCAN, "3");
                                         rescan = ApplicationPreferences.applicationEventBluetoothRescan;
                                         if (rescan.equals("0"))
-                                            editor.putString(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN, "1");
+                                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN, "1");
                                         if (rescan.equals("2"))
-                                            editor.putString(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN, "3");
+                                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN, "3");
                                         rescan = ApplicationPreferences.applicationEventMobileCellsRescan;
                                         if (rescan.equals("0"))
-                                            editor.putString(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "1");
+                                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "1");
                                         if (rescan.equals("2"))
-                                            editor.putString(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "3");
+                                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "3");
                                         editor.apply();
 
                                         restartService = true;
@@ -183,12 +183,12 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                 }
 
                                 if (actualVersionCode <= 3900) {
-                                    SharedPreferences preferences = ApplicationPreferencesLoader.getSharedPreferences(appContext);
+                                    SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
                                     SharedPreferences.Editor editor = preferences.edit();
-                                    editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_WIFI_SCAN_IF_WIFI_OFF,
-                                            preferences.getBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_WIFI_ENABLE_WIFI, true));
-                                    editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IF_BLUETOOTH_OFF,
-                                            preferences.getBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH, true));
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IF_WIFI_OFF,
+                                            preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_WIFI, true));
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IF_BLUETOOTH_OFF,
+                                            preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH, true));
                                     editor.apply();
 
                                     restartService = true;
@@ -208,9 +208,9 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                 }*/
 
                                 /*if (actualVersionCode <= 4200) {
-                                    ApplicationPreferencesLoader.getSharedPreferences(appContext);
-                                    SharedPreferences.Editor editor = ApplicationPreferencesLoader.preferences.edit();
-                                    editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_FIRST_START, false);
+                                    ApplicationPreferences.getSharedPreferences(appContext);
+                                    SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_FIRST_START, false);
                                     editor.apply();
 
                                     SharedPreferences preferences = appContext.getSharedPreferences(PPApplication.SHARED_PROFILE_PREFS_NAME, Context.MODE_PRIVATE);
@@ -225,18 +225,18 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                                 /*
                                 if (actualVersionCode <= 4400) {
-                                    ApplicationPreferencesLoader.getSharedPreferences(appContext);
-                                    if (!ApplicationPreferencesLoader.preferences.contains(ApplicationPreferencesLoader.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR)) {
-                                        SharedPreferences.Editor editor = ApplicationPreferencesLoader.preferences.edit();
-                                        editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR, ApplicationPreferencesLoader.applicationWidgetListPrefIndicator(appContext));
-                                        editor.putString(ApplicationPreferencesLoader.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, ApplicationPreferencesLoader.applicationWidgetListBackground(appContext));
-                                        editor.putString(ApplicationPreferencesLoader.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B, ApplicationPreferencesLoader.applicationWidgetListLightnessB(appContext));
-                                        editor.putString(ApplicationPreferencesLoader.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T, ApplicationPreferencesLoader.applicationWidgetListLightnessT(appContext));
-                                        editor.putString(ApplicationPreferencesLoader.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR, ApplicationPreferencesLoader.applicationWidgetListIconColor(appContext));
-                                        editor.putString(ApplicationPreferencesLoader.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS, ApplicationPreferencesLoader.applicationWidgetListIconLightness(appContext));
-                                        editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS, ApplicationPreferencesLoader.applicationWidgetListRoundedCorners(appContext));
-                                        editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_TYPE, ApplicationPreferencesLoader.applicationWidgetListBackgroundType(appContext));
-                                        editor.putString(ApplicationPreferencesLoader.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR, ApplicationPreferencesLoader.applicationWidgetListBackgroundColor(appContext));
+                                    ApplicationPreferences.getSharedPreferences(appContext);
+                                    if (!ApplicationPreferences.preferences.contains(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR)) {
+                                        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR, ApplicationPreferences.applicationWidgetListPrefIndicator(appContext));
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, ApplicationPreferences.applicationWidgetListBackground(appContext));
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B, ApplicationPreferences.applicationWidgetListLightnessB(appContext));
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T, ApplicationPreferences.applicationWidgetListLightnessT(appContext));
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR, ApplicationPreferences.applicationWidgetListIconColor(appContext));
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetListIconLightness(appContext));
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS, ApplicationPreferences.applicationWidgetListRoundedCorners(appContext));
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_TYPE, ApplicationPreferences.applicationWidgetListBackgroundType(appContext));
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR, ApplicationPreferences.applicationWidgetListBackgroundColor(appContext));
                                         editor.apply();
 
                                         restartService = true;
@@ -246,11 +246,11 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                                 if (actualVersionCode <= 4550) {
                                     if (Build.VERSION.SDK_INT < 29) {
-                                        SharedPreferences preferences = ApplicationPreferencesLoader.getSharedPreferences(appContext);
+                                        SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
                                         boolean darkBackground = preferences.getBoolean("notificationDarkBackground", false);
                                         if (darkBackground) {
                                             SharedPreferences.Editor editor = preferences.edit();
-                                            editor.putString(ApplicationPreferencesLoader.PREF_NOTIFICATION_BACKGROUND_COLOR, "1");
+                                            editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "1");
                                             editor.apply();
 
                                             restartService = true;
@@ -285,7 +285,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                 }
 
                                 if (actualVersionCode <= 4870) {
-                                    SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(appContext);
+                                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
                                     editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_FILTER_SPINNER, true);
 
                                     String theme = ApplicationPreferences.applicationTheme(appContext, false);
@@ -293,7 +293,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                         String defaultValue = "white";
                                         if (Build.VERSION.SDK_INT >= 28)
                                             defaultValue = "night_mode";
-                                        editor.putString(ApplicationPreferencesLoader.PREF_APPLICATION_THEME, defaultValue);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, defaultValue);
                                         GlobalGUIRoutines.switchNightMode(appContext, true);
 
                                         restartService = true;
@@ -305,8 +305,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                 if (actualVersionCode <= 5020) {
                                     PPApplication.logE("PackageReplacedReceiver.onReceive", "set \"night_mode\" theme");
                                     if (Build.VERSION.SDK_INT >= 28) {
-                                        SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(appContext);
-                                        editor.putString(ApplicationPreferencesLoader.PREF_APPLICATION_THEME, "night_mode");
+                                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "night_mode");
                                         GlobalGUIRoutines.switchNightMode(appContext, true);
                                         editor.apply();
 
@@ -316,13 +316,13 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                                 if (actualVersionCode <= 5250) {
                                     if (oldVersionCode <= 5210) {
-                                        SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(appContext);
+                                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
 
                                         if (Build.VERSION.SDK_INT >= 26) {
                                             NotificationManager manager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
                                             NotificationChannel channel = manager.getNotificationChannel(PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL);
 
-                                            editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED,
+                                            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED,
                                                     channel.getImportance() != NotificationManager.IMPORTANCE_NONE);
 
                                             restartService = true;
@@ -331,9 +331,9 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                         int filterEventsSelectedItem = ApplicationPreferences.editorEventsViewSelectedItem;
                                         if (filterEventsSelectedItem == 2)
                                             filterEventsSelectedItem++;
-                                        editor.putInt(ApplicationPreferencesLoader.EDITOR_EVENTS_VIEW_SELECTED_ITEM, filterEventsSelectedItem);
+                                        editor.putInt(ApplicationPreferences.EDITOR_EVENTS_VIEW_SELECTED_ITEM, filterEventsSelectedItem);
                                         editor.apply();
-                                        ApplicationPreferencesLoader.editorEventsViewSelectedItem(appContext);
+                                        ApplicationPreferences.editorEventsViewSelectedItem(appContext);
 
                                         restartService = true;
                                     }
@@ -343,15 +343,15 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     if (oldVersionCode <= 5300) {
                                         // for old packages hide profile notification from status bar if notification is disabled
                                         if (Build.VERSION.SDK_INT < 26) {
-                                            SharedPreferences preferences = ApplicationPreferencesLoader.getSharedPreferences(appContext);
-                                            boolean notificationStatusBar = preferences.getBoolean(ApplicationPreferencesLoader.PREF_NOTIFICATION_STATUS_BAR, true);
-                                            boolean notificationStatusBarPermanent = preferences.getBoolean(ApplicationPreferencesLoader.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, true);
+                                            SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+                                            boolean notificationStatusBar = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, true);
+                                            boolean notificationStatusBarPermanent = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, true);
                                             if (!(notificationStatusBar && notificationStatusBarPermanent)) {
                                                 SharedPreferences.Editor editor = preferences.edit();
                                                 PPApplication.logE("PackageReplacedReceiver.onReceive", "status bar is not permanent, set it!!");
-                                                editor.putBoolean(ApplicationPreferencesLoader.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, false);
-                                                editor.putBoolean(ApplicationPreferencesLoader.PREF_NOTIFICATION_USE_DECORATION, false);
-                                                editor.putString(ApplicationPreferencesLoader.PREF_NOTIFICATION_LAYOUT_TYPE, "2");
+                                                editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, false);
+                                                editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, false);
+                                                editor.putString(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE, "2");
                                                 editor.apply();
 
                                                 restartService = true;
@@ -361,21 +361,21 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                 }
 
                                 if (actualVersionCode <= 5430) {
-                                    SharedPreferences preferences = ApplicationPreferencesLoader.getSharedPreferences(appContext);
-                                    String notificationBackgroundColor = preferences.getString(ApplicationPreferencesLoader.PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
+                                    SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+                                    String notificationBackgroundColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
                                     SharedPreferences.Editor editor = preferences.edit();
-                                    if (!preferences.contains(ApplicationPreferencesLoader.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR))
-                                        editor.putInt(ApplicationPreferencesLoader.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR, 0xFFFFFFFF);
-                                    if (!preferences.contains(ApplicationPreferencesLoader.PREF_NOTIFICATION_NIGHT_MODE))
-                                        editor.putBoolean(ApplicationPreferencesLoader.PREF_NOTIFICATION_NIGHT_MODE, false);
+                                    if (!preferences.contains(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR))
+                                        editor.putInt(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR, 0xFFFFFFFF);
+                                    if (!preferences.contains(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE))
+                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE, false);
                                     if (notificationBackgroundColor.equals("2")) {
-                                        editor.putBoolean(ApplicationPreferencesLoader.PREF_NOTIFICATION_NIGHT_MODE, true);
-                                        editor.putString(ApplicationPreferencesLoader.PREF_NOTIFICATION_BACKGROUND_COLOR, "1");
+                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE, true);
+                                        editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "1");
                                     }
                                     else
                                     if (notificationBackgroundColor.equals("4")) {
-                                        editor.putBoolean(ApplicationPreferencesLoader.PREF_NOTIFICATION_NIGHT_MODE, true);
-                                        editor.putString(ApplicationPreferencesLoader.PREF_NOTIFICATION_BACKGROUND_COLOR, "3");
+                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE, true);
+                                        editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "3");
                                         editor.apply();
                                     }
                                     editor.apply();
@@ -451,9 +451,9 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                         PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PackageReplacedReceiver.onReceive.2");
                         PPApplication.logE("PackageReplacedReceiver.onReceive", "restartService="+restartService);
 
-                        //ApplicationPreferencesLoader.getSharedPreferences(appContext);
-                        //SharedPreferences.Editor editor = ApplicationPreferencesLoader.preferences.edit();
-                        //editor.putString(ApplicationPreferencesLoader.PREF_APPLICATION_THEME, "white");
+                        //ApplicationPreferences.getSharedPreferences(appContext);
+                        //SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                        //editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "white");
                         //editor.apply();
 
                         if (PhoneStateScanner.enabledAutoRegistration) {

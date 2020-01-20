@@ -2155,13 +2155,13 @@ class Permissions {
 
     static boolean getShowRequestWriteSettingsPermission(Context context)
     {
-        return ApplicationPreferencesLoader.
+        return ApplicationPreferences.
                 getSharedPreferences(context).getBoolean(PREF_SHOW_REQUEST_WRITE_SETTINGS_PERMISSION, true);
     }
 
     static void setShowRequestWriteSettingsPermission(Context context, boolean value)
     {
-        SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
+        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
         editor.putBoolean(PREF_SHOW_REQUEST_WRITE_SETTINGS_PERMISSION, value);
         editor.apply();
     }
@@ -2184,13 +2184,13 @@ class Permissions {
 
     static boolean getShowRequestDrawOverlaysPermission(Context context)
     {
-        return ApplicationPreferencesLoader.
+        return ApplicationPreferences.
                 getSharedPreferences(context).getBoolean(PREF_SHOW_REQUEST_DRAW_OVERLAYS_PERMISSION, true);
     }
 
     static void setShowRequestDrawOverlaysPermission(Context context, boolean value)
     {
-        SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
+        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
         editor.putBoolean(PREF_SHOW_REQUEST_DRAW_OVERLAYS_PERMISSION, value);
         editor.apply();
     }
@@ -2398,11 +2398,11 @@ class Permissions {
         doNotShowAgain.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SharedPreferences settings = ApplicationPreferencesLoader.getSharedPreferences(activity);
+                SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
                 SharedPreferences.Editor editor = settings.edit();
-                editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, isChecked);
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, isChecked);
                 editor.apply();
-                ApplicationPreferencesLoader.applicationNeverAskForGrantRoot(activity.getApplicationContext());
+                ApplicationPreferences.applicationNeverAskForGrantRoot(activity.getApplicationContext());
             }
         });
 
@@ -2414,11 +2414,11 @@ class Permissions {
         dialogBuilder.setView(superContainer);
         dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                SharedPreferences settings = ApplicationPreferencesLoader.getSharedPreferences(activity);
+                SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
                 SharedPreferences.Editor editor = settings.edit();
-                editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
                 editor.apply();
-                ApplicationPreferencesLoader.applicationNeverAskForGrantRoot(activity.getApplicationContext());
+                ApplicationPreferences.applicationNeverAskForGrantRoot(activity.getApplicationContext());
 
                 if (fragment != null) {
                     grantRootChanged = true;

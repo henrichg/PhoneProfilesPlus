@@ -371,7 +371,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
     static void getApplicationInForeground(Context context)
     {
         synchronized (PPApplication.eventsRunMutex) {
-            ApplicationPreferences.prefApplicationInForeground = ApplicationPreferencesLoader.
+            ApplicationPreferences.prefApplicationInForeground = ApplicationPreferences.
                     getSharedPreferences(context).getString(PREF_APPLICATION_IN_FOREGROUND, "");
             //return prefApplicationInForeground;
         }
@@ -379,7 +379,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
     static void setApplicationInForeground(Context context, String application)
     {
         synchronized (PPApplication.eventsRunMutex) {
-            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putString(PREF_APPLICATION_IN_FOREGROUND, application);
             editor.apply();
             ApplicationPreferences.prefApplicationInForeground = application;

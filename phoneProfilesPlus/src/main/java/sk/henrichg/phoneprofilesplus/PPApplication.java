@@ -1307,11 +1307,11 @@ public class PPApplication extends Application {
 
     static void loadGlobalApplicationData(Context context) {
         synchronized (applicationStartedMutex) {
-            applicationStarted = ApplicationPreferencesLoader.
+            applicationStarted = ApplicationPreferences.
                     getSharedPreferences(context).getBoolean(PREF_APPLICATION_STARTED, false);
         }
         synchronized (globalEventsRunStopMutex) {
-            globalEventsRunStop = ApplicationPreferencesLoader.
+            globalEventsRunStop = ApplicationPreferences.
                     getSharedPreferences(context).getBoolean(Event.PREF_GLOBAL_EVENTS_RUN_STOP, true);
         }
         IgnoreBatteryOptimizationNotification.getShowIgnoreBatteryOptimizationNotificationOnStart(context);
@@ -1339,153 +1339,153 @@ public class PPApplication extends Application {
         WifiScanWorker.getWifiEnabledForScan(context);
         WifiScanWorker.getScanRequest(context);
         WifiScanWorker.getWaitForResults(context);
-        ApplicationPreferencesLoader.loadStartTargetHelps(context);
+        ApplicationPreferences.loadStartTargetHelps(context);
     }
 
     static void loadApplicationPreferences(Context context) {
         synchronized (PPApplication.applicationPreferencesMutex) {
-            ApplicationPreferencesLoader.editorOrderSelectedItem(context);
-            ApplicationPreferencesLoader.editorSelectedView(context);
-            ApplicationPreferencesLoader.editorProfilesViewSelectedItem(context);
-            ApplicationPreferencesLoader.editorEventsViewSelectedItem(context);
-            //ApplicationPreferencesLoader.applicationFirstStart(context);
-            ApplicationPreferencesLoader.applicationStartOnBoot(context);
-            ApplicationPreferencesLoader.applicationActivate(context);
-            ApplicationPreferencesLoader.applicationStartEvents(context);
-            ApplicationPreferencesLoader.applicationActivateWithAlert(context);
-            ApplicationPreferencesLoader.applicationClose(context);
-            ApplicationPreferencesLoader.applicationLongClickActivation(context);
-            //ApplicationPreferencesLoader.applicationLanguage(context);
-            ApplicationPreferencesLoader.applicationTheme(context);
-            //ApplicationPreferencesLoader.applicationActivatorPrefIndicator(context);
-            ApplicationPreferencesLoader.applicationEditorPrefIndicator(context);
-            //ApplicationPreferencesLoader.applicationActivatorHeader(context);
-            //ApplicationPreferencesLoader.applicationEditorHeader(context);
-            ApplicationPreferencesLoader.notificationsToast(context);
-            //ApplicationPreferencesLoader.notificationStatusBar(context);
-            //ApplicationPreferencesLoader.notificationStatusBarPermanent(context);
-            //ApplicationPreferencesLoader.notificationStatusBarCancel(context);
-            ApplicationPreferencesLoader.notificationStatusBarStyle(context);
-            ApplicationPreferencesLoader.notificationShowInStatusBar(context);
-            ApplicationPreferencesLoader.notificationTextColor(context);
-            ApplicationPreferencesLoader.notificationHideInLockScreen(context);
-            //ApplicationPreferencesLoader.notificationTheme(context);
-            ApplicationPreferencesLoader.applicationWidgetListPrefIndicator(context);
-            ApplicationPreferencesLoader.applicationWidgetListHeader(context);
-            ApplicationPreferencesLoader.applicationWidgetListBackground(context);
-            ApplicationPreferencesLoader.applicationWidgetListLightnessB(context);
-            ApplicationPreferencesLoader.applicationWidgetListLightnessT(context);
-            ApplicationPreferencesLoader.applicationWidgetIconColor(context);
-            ApplicationPreferencesLoader.applicationWidgetIconLightness(context);
-            ApplicationPreferencesLoader.applicationWidgetListIconColor(context);
-            ApplicationPreferencesLoader.applicationWidgetListIconLightness(context);
-            //ApplicationPreferencesLoader.applicationEditorAutoCloseDrawer(context);
-            //ApplicationPreferencesLoader.applicationEditorSaveEditorState(context);
-            ApplicationPreferencesLoader.notificationPrefIndicator(context);
-            ApplicationPreferencesLoader.applicationHomeLauncher(context);
-            ApplicationPreferencesLoader.applicationWidgetLauncher(context);
-            ApplicationPreferencesLoader.applicationNotificationLauncher(context);
-            ApplicationPreferencesLoader.applicationEventWifiScanInterval(context);
-            ApplicationPreferencesLoader.applicationBackgroundProfile(context);
-            ApplicationPreferencesLoader.applicationBackgroundProfileNotificationSound(context);
-            ApplicationPreferencesLoader.applicationBackgroundProfileNotificationVibrate(context);
-            ApplicationPreferencesLoader.applicationBackgroundProfileUsage(context);
-            ApplicationPreferencesLoader.applicationActivatorGridLayout(context);
-            ApplicationPreferencesLoader.applicationWidgetListGridLayout(context);
-            ApplicationPreferencesLoader.applicationEventBluetoothScanInterval(context);
-            ApplicationPreferencesLoader.applicationEventWifiRescan(context);
-            ApplicationPreferencesLoader.applicationEventBluetoothRescan(context);
-            ApplicationPreferencesLoader.applicationWidgetIconHideProfileName(context);
-            ApplicationPreferencesLoader.applicationShortcutEmblem(context);
-            ApplicationPreferencesLoader.applicationEventWifiScanInPowerSaveMode(context);
-            ApplicationPreferencesLoader.applicationEventBluetoothScanInPowerSaveMode(context);
-            ApplicationPreferencesLoader.applicationPowerSaveModeInternal(context);
-            ApplicationPreferencesLoader.applicationEventBluetoothLEScanDuration(context);
-            ApplicationPreferencesLoader.applicationEventLocationUpdateInterval(context);
-            ApplicationPreferencesLoader.applicationEventLocationUpdateInPowerSaveMode(context);
-            ApplicationPreferencesLoader.applicationEventLocationUseGPS(context);
-            ApplicationPreferencesLoader.applicationEventLocationRescan(context);
-            ApplicationPreferencesLoader.applicationEventOrientationScanInterval(context);
-            ApplicationPreferencesLoader.applicationEventOrientationScanInPowerSaveMode(context);
-            ApplicationPreferencesLoader.applicationEventMobileCellsScanInPowerSaveMode(context);
-            ApplicationPreferencesLoader.applicationEventMobileCellsRescan(context);
-            ApplicationPreferencesLoader.applicationDeleteOldActivityLogs(context);
-            ApplicationPreferencesLoader.applicationWidgetIconBackground(context);
-            ApplicationPreferencesLoader.applicationWidgetIconLightnessB(context);
-            ApplicationPreferencesLoader.applicationWidgetIconLightnessT(context);
-            ApplicationPreferencesLoader.applicationEventUsePriority(context);
-            ApplicationPreferencesLoader.applicationUnlinkRingerNotificationVolumes(context);
-            ApplicationPreferencesLoader.applicationForceSetMergeRingNotificationVolumes(context);
-            //ApplicationPreferencesLoader.applicationSamsungEdgePrefIndicator(context);
-            ApplicationPreferencesLoader.applicationSamsungEdgeHeader(context);
-            ApplicationPreferencesLoader.applicationSamsungEdgeBackground(context);
-            ApplicationPreferencesLoader.applicationSamsungEdgeLightnessB(context);
-            ApplicationPreferencesLoader.applicationSamsungEdgeLightnessT(context);
-            ApplicationPreferencesLoader.applicationSamsungEdgeIconColor(context);
-            ApplicationPreferencesLoader.applicationSamsungEdgeIconLightness(context);
-            //ApplicationPreferencesLoader.applicationSamsungEdgeGridLayout(context);
-            ApplicationPreferencesLoader.applicationEventLocationScanOnlyWhenScreenIsOn(context);
-            ApplicationPreferencesLoader.applicationEventWifiScanOnlyWhenScreenIsOn(context);
-            ApplicationPreferencesLoader.applicationEventBluetoothScanOnlyWhenScreenIsOn(context);
-            ApplicationPreferencesLoader.applicationEventMobileCellScanOnlyWhenScreenIsOn(context);
-            ApplicationPreferencesLoader.applicationEventOrientationScanOnlyWhenScreenIsOn(context);
-            ApplicationPreferencesLoader.applicationRestartEventsWithAlert(context);
-            ApplicationPreferencesLoader.applicationWidgetListRoundedCorners(context);
-            ApplicationPreferencesLoader.applicationWidgetIconRoundedCorners(context);
-            ApplicationPreferencesLoader.applicationWidgetListBackgroundType(context);
-            ApplicationPreferencesLoader.applicationWidgetListBackgroundColor(context);
-            ApplicationPreferencesLoader.applicationWidgetIconBackgroundType(context);
-            ApplicationPreferencesLoader.applicationWidgetIconBackgroundColor(context);
-            ApplicationPreferencesLoader.applicationSamsungEdgeBackgroundType(context);
-            ApplicationPreferencesLoader.applicationSamsungEdgeBackgroundColor(context);
-            //ApplicationPreferencesLoader.applicationEventWifiEnableWifi(context);
-            //ApplicationPreferencesLoader.applicationEventBluetoothEnableBluetooth(context);
-            ApplicationPreferencesLoader.applicationEventWifiScanIfWifiOff(context);
-            ApplicationPreferencesLoader.applicationEventBluetoothScanIfBluetoothOff(context);
-            ApplicationPreferencesLoader.applicationEventWifiEnableScanning(context);
-            ApplicationPreferencesLoader.applicationEventBluetoothEnableScanning(context);
-            ApplicationPreferencesLoader.applicationEventLocationEnableScanning(context);
-            ApplicationPreferencesLoader.applicationEventMobileCellEnableScanning(context);
-            ApplicationPreferencesLoader.applicationEventOrientationEnableScanning(context);
-            ApplicationPreferencesLoader.applicationEventWifiDisabledScannigByProfile(context);
-            ApplicationPreferencesLoader.applicationEventBluetoothDisabledScannigByProfile(context);
-            ApplicationPreferencesLoader.applicationEventLocationDisabledScannigByProfile(context);
-            ApplicationPreferencesLoader.applicationEventMobileCellDisabledScannigByProfile(context);
-            ApplicationPreferencesLoader.applicationEventOrientationDisabledScannigByProfile(context);
-            ApplicationPreferencesLoader.applicationEventNeverAskForEnableRun(context);
-            ApplicationPreferencesLoader.applicationUseAlarmClock(context);
-            ApplicationPreferencesLoader.applicationNeverAskForGrantRoot(context);
-            ApplicationPreferencesLoader.notificationShowButtonExit(context);
-            //ApplicationPreferencesLoader.applicationWidgetOneRowPrefIndicator(context);
-            ApplicationPreferencesLoader.applicationWidgetOneRowBackground(context);
-            ApplicationPreferencesLoader.applicationWidgetOneRowLightnessB(context);
-            ApplicationPreferencesLoader.applicationWidgetOneRowLightnessT(context);
-            ApplicationPreferencesLoader.applicationWidgetOneRowIconColor(context);
-            ApplicationPreferencesLoader.applicationWidgetOneRowIconLightness(context);
-            ApplicationPreferencesLoader.applicationWidgetOneRowRoundedCorners(context);
-            ApplicationPreferencesLoader.applicationWidgetOneRowBackgroundType(context);
-            ApplicationPreferencesLoader.applicationWidgetOneRowBackgroundColor(context);
-            ApplicationPreferencesLoader.applicationWidgetListLightnessBorder(context);
-            ApplicationPreferencesLoader.applicationWidgetOneRowLightnessBorder(context);
-            ApplicationPreferencesLoader.applicationWidgetIconLightnessBorder(context);
-            ApplicationPreferencesLoader.applicationWidgetListShowBorder(context);
-            ApplicationPreferencesLoader.applicationWidgetOneRowShowBorder(context);
-            ApplicationPreferencesLoader.applicationWidgetIconShowBorder(context);
-            ApplicationPreferencesLoader.applicationWidgetListCustomIconLightness(context);
-            ApplicationPreferencesLoader.applicationWidgetOneRowCustomIconLightness(context);
-            ApplicationPreferencesLoader.applicationWidgetIconCustomIconLightness(context);
-            ApplicationPreferencesLoader.applicationSamsungEdgeCustomIconLightness(context);
-            //ApplicationPreferencesLoader.notificationDarkBackground(context);
-            ApplicationPreferencesLoader.notificationUseDecoration(context);
-            ApplicationPreferencesLoader.notificationLayoutType(context);
-            ApplicationPreferencesLoader.notificationBackgroundColor(context);
-            //ApplicationPreferencesLoader.applicationNightModeOffTheme(context);
-            ApplicationPreferencesLoader.applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled(context);
-            ApplicationPreferencesLoader.applicationSamsungEdgeVerticalPosition(context);
-            ApplicationPreferencesLoader.notificationBackgroundCustomColor(context);
-            ApplicationPreferencesLoader.notificationNightMode(context);
-            ApplicationPreferencesLoader.applicationEditorHideHeaderOrBottomBar(context);
-            ApplicationPreferencesLoader.applicationWidgetIconShowProfileDuration(context);
+            ApplicationPreferences.editorOrderSelectedItem(context);
+            ApplicationPreferences.editorSelectedView(context);
+            ApplicationPreferences.editorProfilesViewSelectedItem(context);
+            ApplicationPreferences.editorEventsViewSelectedItem(context);
+            //ApplicationPreferences.applicationFirstStart(context);
+            ApplicationPreferences.applicationStartOnBoot(context);
+            ApplicationPreferences.applicationActivate(context);
+            ApplicationPreferences.applicationStartEvents(context);
+            ApplicationPreferences.applicationActivateWithAlert(context);
+            ApplicationPreferences.applicationClose(context);
+            ApplicationPreferences.applicationLongClickActivation(context);
+            //ApplicationPreferences.applicationLanguage(context);
+            ApplicationPreferences.applicationTheme(context);
+            //ApplicationPreferences.applicationActivatorPrefIndicator(context);
+            ApplicationPreferences.applicationEditorPrefIndicator(context);
+            //ApplicationPreferences.applicationActivatorHeader(context);
+            //ApplicationPreferences.applicationEditorHeader(context);
+            ApplicationPreferences.notificationsToast(context);
+            //ApplicationPreferences.notificationStatusBar(context);
+            //ApplicationPreferences.notificationStatusBarPermanent(context);
+            //ApplicationPreferences.notificationStatusBarCancel(context);
+            ApplicationPreferences.notificationStatusBarStyle(context);
+            ApplicationPreferences.notificationShowInStatusBar(context);
+            ApplicationPreferences.notificationTextColor(context);
+            ApplicationPreferences.notificationHideInLockScreen(context);
+            //ApplicationPreferences.notificationTheme(context);
+            ApplicationPreferences.applicationWidgetListPrefIndicator(context);
+            ApplicationPreferences.applicationWidgetListHeader(context);
+            ApplicationPreferences.applicationWidgetListBackground(context);
+            ApplicationPreferences.applicationWidgetListLightnessB(context);
+            ApplicationPreferences.applicationWidgetListLightnessT(context);
+            ApplicationPreferences.applicationWidgetIconColor(context);
+            ApplicationPreferences.applicationWidgetIconLightness(context);
+            ApplicationPreferences.applicationWidgetListIconColor(context);
+            ApplicationPreferences.applicationWidgetListIconLightness(context);
+            //ApplicationPreferences.applicationEditorAutoCloseDrawer(context);
+            //ApplicationPreferences.applicationEditorSaveEditorState(context);
+            ApplicationPreferences.notificationPrefIndicator(context);
+            ApplicationPreferences.applicationHomeLauncher(context);
+            ApplicationPreferences.applicationWidgetLauncher(context);
+            ApplicationPreferences.applicationNotificationLauncher(context);
+            ApplicationPreferences.applicationEventWifiScanInterval(context);
+            ApplicationPreferences.applicationBackgroundProfile(context);
+            ApplicationPreferences.applicationBackgroundProfileNotificationSound(context);
+            ApplicationPreferences.applicationBackgroundProfileNotificationVibrate(context);
+            ApplicationPreferences.applicationBackgroundProfileUsage(context);
+            ApplicationPreferences.applicationActivatorGridLayout(context);
+            ApplicationPreferences.applicationWidgetListGridLayout(context);
+            ApplicationPreferences.applicationEventBluetoothScanInterval(context);
+            ApplicationPreferences.applicationEventWifiRescan(context);
+            ApplicationPreferences.applicationEventBluetoothRescan(context);
+            ApplicationPreferences.applicationWidgetIconHideProfileName(context);
+            ApplicationPreferences.applicationShortcutEmblem(context);
+            ApplicationPreferences.applicationEventWifiScanInPowerSaveMode(context);
+            ApplicationPreferences.applicationEventBluetoothScanInPowerSaveMode(context);
+            ApplicationPreferences.applicationPowerSaveModeInternal(context);
+            ApplicationPreferences.applicationEventBluetoothLEScanDuration(context);
+            ApplicationPreferences.applicationEventLocationUpdateInterval(context);
+            ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context);
+            ApplicationPreferences.applicationEventLocationUseGPS(context);
+            ApplicationPreferences.applicationEventLocationRescan(context);
+            ApplicationPreferences.applicationEventOrientationScanInterval(context);
+            ApplicationPreferences.applicationEventOrientationScanInPowerSaveMode(context);
+            ApplicationPreferences.applicationEventMobileCellsScanInPowerSaveMode(context);
+            ApplicationPreferences.applicationEventMobileCellsRescan(context);
+            ApplicationPreferences.applicationDeleteOldActivityLogs(context);
+            ApplicationPreferences.applicationWidgetIconBackground(context);
+            ApplicationPreferences.applicationWidgetIconLightnessB(context);
+            ApplicationPreferences.applicationWidgetIconLightnessT(context);
+            ApplicationPreferences.applicationEventUsePriority(context);
+            ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context);
+            ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes(context);
+            //ApplicationPreferences.applicationSamsungEdgePrefIndicator(context);
+            ApplicationPreferences.applicationSamsungEdgeHeader(context);
+            ApplicationPreferences.applicationSamsungEdgeBackground(context);
+            ApplicationPreferences.applicationSamsungEdgeLightnessB(context);
+            ApplicationPreferences.applicationSamsungEdgeLightnessT(context);
+            ApplicationPreferences.applicationSamsungEdgeIconColor(context);
+            ApplicationPreferences.applicationSamsungEdgeIconLightness(context);
+            //ApplicationPreferences.applicationSamsungEdgeGridLayout(context);
+            ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(context);
+            ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(context);
+            ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(context);
+            ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn(context);
+            ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn(context);
+            ApplicationPreferences.applicationRestartEventsWithAlert(context);
+            ApplicationPreferences.applicationWidgetListRoundedCorners(context);
+            ApplicationPreferences.applicationWidgetIconRoundedCorners(context);
+            ApplicationPreferences.applicationWidgetListBackgroundType(context);
+            ApplicationPreferences.applicationWidgetListBackgroundColor(context);
+            ApplicationPreferences.applicationWidgetIconBackgroundType(context);
+            ApplicationPreferences.applicationWidgetIconBackgroundColor(context);
+            ApplicationPreferences.applicationSamsungEdgeBackgroundType(context);
+            ApplicationPreferences.applicationSamsungEdgeBackgroundColor(context);
+            //ApplicationPreferences.applicationEventWifiEnableWifi(context);
+            //ApplicationPreferences.applicationEventBluetoothEnableBluetooth(context);
+            ApplicationPreferences.applicationEventWifiScanIfWifiOff(context);
+            ApplicationPreferences.applicationEventBluetoothScanIfBluetoothOff(context);
+            ApplicationPreferences.applicationEventWifiEnableScanning(context);
+            ApplicationPreferences.applicationEventBluetoothEnableScanning(context);
+            ApplicationPreferences.applicationEventLocationEnableScanning(context);
+            ApplicationPreferences.applicationEventMobileCellEnableScanning(context);
+            ApplicationPreferences.applicationEventOrientationEnableScanning(context);
+            ApplicationPreferences.applicationEventWifiDisabledScannigByProfile(context);
+            ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile(context);
+            ApplicationPreferences.applicationEventLocationDisabledScannigByProfile(context);
+            ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(context);
+            ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(context);
+            ApplicationPreferences.applicationEventNeverAskForEnableRun(context);
+            ApplicationPreferences.applicationUseAlarmClock(context);
+            ApplicationPreferences.applicationNeverAskForGrantRoot(context);
+            ApplicationPreferences.notificationShowButtonExit(context);
+            //ApplicationPreferences.applicationWidgetOneRowPrefIndicator(context);
+            ApplicationPreferences.applicationWidgetOneRowBackground(context);
+            ApplicationPreferences.applicationWidgetOneRowLightnessB(context);
+            ApplicationPreferences.applicationWidgetOneRowLightnessT(context);
+            ApplicationPreferences.applicationWidgetOneRowIconColor(context);
+            ApplicationPreferences.applicationWidgetOneRowIconLightness(context);
+            ApplicationPreferences.applicationWidgetOneRowRoundedCorners(context);
+            ApplicationPreferences.applicationWidgetOneRowBackgroundType(context);
+            ApplicationPreferences.applicationWidgetOneRowBackgroundColor(context);
+            ApplicationPreferences.applicationWidgetListLightnessBorder(context);
+            ApplicationPreferences.applicationWidgetOneRowLightnessBorder(context);
+            ApplicationPreferences.applicationWidgetIconLightnessBorder(context);
+            ApplicationPreferences.applicationWidgetListShowBorder(context);
+            ApplicationPreferences.applicationWidgetOneRowShowBorder(context);
+            ApplicationPreferences.applicationWidgetIconShowBorder(context);
+            ApplicationPreferences.applicationWidgetListCustomIconLightness(context);
+            ApplicationPreferences.applicationWidgetOneRowCustomIconLightness(context);
+            ApplicationPreferences.applicationWidgetIconCustomIconLightness(context);
+            ApplicationPreferences.applicationSamsungEdgeCustomIconLightness(context);
+            //ApplicationPreferences.notificationDarkBackground(context);
+            ApplicationPreferences.notificationUseDecoration(context);
+            ApplicationPreferences.notificationLayoutType(context);
+            ApplicationPreferences.notificationBackgroundColor(context);
+            //ApplicationPreferences.applicationNightModeOffTheme(context);
+            ApplicationPreferences.applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled(context);
+            ApplicationPreferences.applicationSamsungEdgeVerticalPosition(context);
+            ApplicationPreferences.notificationBackgroundCustomColor(context);
+            ApplicationPreferences.notificationNightMode(context);
+            ApplicationPreferences.applicationEditorHideHeaderOrBottomBar(context);
+            ApplicationPreferences.applicationWidgetIconShowProfileDuration(context);
         }
     }
 
@@ -1517,7 +1517,7 @@ public class PPApplication extends Application {
     static void setApplicationStarted(Context context, boolean appStarted)
     {
         synchronized (applicationStartedMutex) {
-            Editor editor = ApplicationPreferencesLoader.getEditor(context);
+            Editor editor = ApplicationPreferences.getEditor(context);
             editor.putBoolean(PREF_APPLICATION_STARTED, appStarted);
             editor.apply();
             applicationStarted = appStarted;
@@ -1525,13 +1525,13 @@ public class PPApplication extends Application {
     }
 
     static public int getSavedVersionCode(Context context) {
-        return ApplicationPreferencesLoader.
+        return ApplicationPreferences.
                 getSharedPreferences(context).getInt(PREF_SAVED_VERSION_CODE, 0);
     }
 
     static public void setSavedVersionCode(Context context, int version)
     {
-        Editor editor = ApplicationPreferencesLoader.getEditor(context);
+        Editor editor = ApplicationPreferences.getEditor(context);
         editor.putInt(PREF_SAVED_VERSION_CODE, version);
         editor.apply();
     }
@@ -1540,7 +1540,7 @@ public class PPApplication extends Application {
     private static void getActivityLogEnabled(Context context)
     {
         synchronized (applicationGlobalPreferencesMutex) {
-            prefActivityLogEnabled = ApplicationPreferencesLoader.
+            prefActivityLogEnabled = ApplicationPreferences.
                     getSharedPreferences(context).getBoolean(PREF_ACTIVITY_LOG_ENABLED, true);
             //return prefActivityLogEnabled;
         }
@@ -1548,7 +1548,7 @@ public class PPApplication extends Application {
     static void setActivityLogEnabled(Context context, boolean enabled)
     {
         synchronized (applicationGlobalPreferencesMutex) {
-            Editor editor = ApplicationPreferencesLoader.getEditor(context);
+            Editor editor = ApplicationPreferences.getEditor(context);
             editor.putBoolean(PREF_ACTIVITY_LOG_ENABLED, enabled);
             editor.apply();
             prefActivityLogEnabled = enabled;
@@ -1559,7 +1559,7 @@ public class PPApplication extends Application {
     private static void getNotificationProfileName(Context context)
     {
         synchronized (applicationGlobalPreferencesMutex) {
-            prefNotificationProfileName = ApplicationPreferencesLoader.
+            prefNotificationProfileName = ApplicationPreferences.
                     getSharedPreferences(context).getString(PREF_NOTIFICATION_PROFILE_NAME, "");
             //return prefNotificationProfileName;
         }
@@ -1567,7 +1567,7 @@ public class PPApplication extends Application {
     static public void setNotificationProfileName(Context context, String notificationProfileName)
     {
         synchronized (applicationGlobalPreferencesMutex) {
-            Editor editor = ApplicationPreferencesLoader.getEditor(context);
+            Editor editor = ApplicationPreferences.getEditor(context);
             editor.putString(PREF_NOTIFICATION_PROFILE_NAME, notificationProfileName);
             editor.apply();
             prefNotificationProfileName = notificationProfileName;
@@ -1582,7 +1582,7 @@ public class PPApplication extends Application {
     private static void getWidgetProfileName(Context context)
     {
         synchronized (applicationGlobalPreferencesMutex) {
-            SharedPreferences preferences = ApplicationPreferencesLoader.getSharedPreferences(context);
+            SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(context);
             prefWidgetProfileName1 = preferences.getString(PREF_WIDGET_PROFILE_NAME + "_1", "");
             prefWidgetProfileName2 = preferences.getString(PREF_WIDGET_PROFILE_NAME + "_2", "");
             prefWidgetProfileName3 = preferences.getString(PREF_WIDGET_PROFILE_NAME + "_3", "");
@@ -1594,7 +1594,7 @@ public class PPApplication extends Application {
     static void setWidgetProfileName(Context context, int widgetType, String widgetProfileName)
     {
         synchronized (applicationGlobalPreferencesMutex) {
-            Editor editor = ApplicationPreferencesLoader.getEditor(context);
+            Editor editor = ApplicationPreferences.getEditor(context);
             editor.putString(PREF_WIDGET_PROFILE_NAME + "_" + widgetType, widgetProfileName);
             editor.apply();
             switch (widgetType) {
@@ -1623,7 +1623,7 @@ public class PPApplication extends Application {
     private static void getActivityProfileName(Context context)
     {
         synchronized (applicationGlobalPreferencesMutex) {
-            SharedPreferences preferences = ApplicationPreferencesLoader.getSharedPreferences(context);
+            SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(context);
             prefActivityProfileName1 = preferences.getString(PREF_ACTIVITY_PROFILE_NAME + "_1", "");
             prefActivityProfileName2 = preferences.getString(PREF_ACTIVITY_PROFILE_NAME + "_2", "");
             prefActivityProfileName3 = preferences.getString(PREF_ACTIVITY_PROFILE_NAME + "_3", "");
@@ -1633,7 +1633,7 @@ public class PPApplication extends Application {
     static void setActivityProfileName(Context context, int activityType, String activityProfileName)
     {
         synchronized (applicationGlobalPreferencesMutex) {
-            Editor editor = ApplicationPreferencesLoader.getEditor(context);
+            Editor editor = ApplicationPreferences.getEditor(context);
             editor.putString(PREF_ACTIVITY_PROFILE_NAME + "_" + activityType, activityProfileName);
             editor.apply();
             switch (activityType) {
@@ -1654,7 +1654,7 @@ public class PPApplication extends Application {
     private static void getLastActivatedProfile(Context context)
     {
         synchronized (applicationGlobalPreferencesMutex) {
-            prefLastActivatedProfile = ApplicationPreferencesLoader.
+            prefLastActivatedProfile = ApplicationPreferences.
                     getSharedPreferences(context).getLong(PREF_LAST_ACTIVATED_PROFILE, 0);
             //return prefLastActivatedProfile;
         }
@@ -1662,7 +1662,7 @@ public class PPApplication extends Application {
     static public void setLastActivatedProfile(Context context, long profileId)
     {
         synchronized (applicationGlobalPreferencesMutex) {
-            Editor editor = ApplicationPreferencesLoader.getEditor(context);
+            Editor editor = ApplicationPreferences.getEditor(context);
             editor.putLong(PREF_LAST_ACTIVATED_PROFILE, profileId);
             editor.apply();
             prefLastActivatedProfile = profileId;
@@ -1671,48 +1671,48 @@ public class PPApplication extends Application {
 
     static public int getDaysAfterFirstStart(Context context)
     {
-        return ApplicationPreferencesLoader.
+        return ApplicationPreferences.
                 getSharedPreferences(context).getInt(PREF_DAYS_AFTER_FIRST_START, 0);
     }
     static public void setDaysAfterFirstStart(Context context, int days)
     {
-        Editor editor = ApplicationPreferencesLoader.getEditor(context);
+        Editor editor = ApplicationPreferences.getEditor(context);
         editor.putInt(PREF_DAYS_AFTER_FIRST_START, days);
         editor.apply();
     }
 
     static public int getDonationNotificationCount(Context context)
     {
-        return ApplicationPreferencesLoader.
+        return ApplicationPreferences.
                 getSharedPreferences(context).getInt(PREF_DONATION_NOTIFICATION_COUNT, 0);
     }
     static public void setDonationNotificationCount(Context context, int days)
     {
-        Editor editor = ApplicationPreferencesLoader.getEditor(context);
+        Editor editor = ApplicationPreferences.getEditor(context);
         editor.putInt(PREF_DONATION_NOTIFICATION_COUNT, days);
         editor.apply();
     }
 
     static public int getDaysForNextDonationNotification(Context context)
     {
-        return ApplicationPreferencesLoader.
+        return ApplicationPreferences.
                 getSharedPreferences(context).getInt(PREF_DAYS_FOR_NEXT_DONATION_NOTIFICATION, 0);
     }
     static public void setDaysForNextDonationNotification(Context context, int days)
     {
-        Editor editor = ApplicationPreferencesLoader.getEditor(context);
+        Editor editor = ApplicationPreferences.getEditor(context);
         editor.putInt(PREF_DAYS_FOR_NEXT_DONATION_NOTIFICATION, days);
         editor.apply();
     }
 
     static public boolean getDonationDonated(Context context)
     {
-        return ApplicationPreferencesLoader.
+        return ApplicationPreferences.
                 getSharedPreferences(context).getBoolean(PREF_DONATION_DONATED, false);
     }
     static public void setDonationDonated(Context context)
     {
-        Editor editor = ApplicationPreferencesLoader.getEditor(context);
+        Editor editor = ApplicationPreferences.getEditor(context);
         editor.putBoolean(PREF_DONATION_DONATED, true);
         editor.apply();
     }

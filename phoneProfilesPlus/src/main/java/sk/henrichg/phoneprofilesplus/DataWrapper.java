@@ -664,10 +664,10 @@ public class DataWrapper {
         // unlink profile from Background profile
         if (Long.valueOf(ApplicationPreferences.applicationBackgroundProfile) == profile._id)
         {
-            Editor editor = ApplicationPreferencesLoader.getEditor(context);
-            editor.putString(ApplicationPreferencesLoader.PREF_APPLICATION_BACKGROUND_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE));
+            Editor editor = ApplicationPreferences.getEditor(context);
+            editor.putString(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE));
             editor.apply();
-            ApplicationPreferencesLoader.applicationBackgroundProfile(context);
+            ApplicationPreferences.applicationBackgroundProfile(context);
         }
     }
 
@@ -688,10 +688,10 @@ public class DataWrapper {
             }
         }
         // unlink profiles from Background profile
-        Editor editor = ApplicationPreferencesLoader.getEditor(context);
-        editor.putString(ApplicationPreferencesLoader.PREF_APPLICATION_BACKGROUND_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE));
+        Editor editor = ApplicationPreferences.getEditor(context);
+        editor.putString(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE));
         editor.apply();
-        ApplicationPreferencesLoader.applicationBackgroundProfile(context);
+        ApplicationPreferences.applicationBackgroundProfile(context);
     }
 
     void refreshProfileIcon(Profile profile,

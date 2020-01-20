@@ -269,14 +269,14 @@ public class MobileCellsRegistrationService extends Service {
     }
 
     static public void getMobileCellsAutoRegistration(Context context) {
-        SharedPreferences preferences = ApplicationPreferencesLoader.getSharedPreferences(context);
+        SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(context);
         PhoneStateScanner.durationForAutoRegistration = preferences.getInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, 0);
         PhoneStateScanner.cellsNameForAutoRegistration = preferences.getString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, "");
         PhoneStateScanner.enabledAutoRegistration = preferences.getBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, false);
     }
 
     static public void setMobileCellsAutoRegistration(Context context, boolean clear) {
-        SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
+        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
         if (clear) {
             editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, 0);
             editor.putString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, "");
@@ -295,12 +295,12 @@ public class MobileCellsRegistrationService extends Service {
     }
 
     static private int getMobileCellsAutoRegistrationRemainingDuration(Context context) {
-        return ApplicationPreferencesLoader.
+        return ApplicationPreferences.
                 getSharedPreferences(context).getInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION, 0);
     }
 
     static public void setMobileCellsAutoRegistrationRemainingDuration(Context context, int remainingDuration) {
-        SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
+        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
         editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION, remainingDuration);
         editor.apply();
     }

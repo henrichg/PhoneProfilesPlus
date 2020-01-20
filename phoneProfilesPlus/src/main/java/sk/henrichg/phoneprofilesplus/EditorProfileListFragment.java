@@ -1182,7 +1182,7 @@ public class EditorProfileListFragment extends Fragment
 
                 //Log.d("EditorProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
-                SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(activityDataWrapper.context);
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
                 editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, false);
                 editor.apply();
@@ -1266,7 +1266,7 @@ public class EditorProfileListFragment extends Fragment
                             @Override
                             public void onSequenceCanceled(TapTarget lastTarget) {
                                 targetHelpsSequenceStarted = false;
-                                SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(activityDataWrapper.context);
+                                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
                                 editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
                                 if (filterType == FILTER_TYPE_SHOW_IN_ACTIVATOR)
                                     editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
@@ -1318,7 +1318,7 @@ public class EditorProfileListFragment extends Fragment
             profileListAdapter.showTargetHelps(getActivity(), this, itemView);
         else {
             targetHelpsSequenceStarted = false;
-            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(activityDataWrapper.context);
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
             editor.putBoolean(PREF_START_TARGET_HELPS, false);
             editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
             editor.apply();

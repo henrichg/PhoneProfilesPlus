@@ -17,10 +17,10 @@ public class NotUsedMobileCellsNotificationDisableReceiver extends BroadcastRece
 
         //CallsCounter.logCounter(context, "NotUsedMobileCellsNotificationDisableReceiver.onReceive", "NotUsedMobileCellsNotificationDisableReceiver_onReceive");
 
-        SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context.getApplicationContext());
-        editor.putBoolean(ApplicationPreferencesLoader.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED, false);
+        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
+        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED, false);
         editor.apply();
-        ApplicationPreferencesLoader.applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled(context.getApplicationContext());
+        ApplicationPreferences.applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled(context.getApplicationContext());
 
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= 23) {

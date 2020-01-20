@@ -380,7 +380,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
             //Log.d("EditorEventListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
-            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(activityDataWrapper.context);
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
             editor.putBoolean(PREF_START_TARGET_HELPS, false);
             editor.putBoolean(PREF_START_TARGET_HELPS_STATUS, false);
             editor.apply();

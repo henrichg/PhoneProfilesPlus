@@ -391,14 +391,14 @@ public class BluetoothScanWorker extends Worker {
     static void getScanRequest(Context context)
     {
         synchronized (PPApplication.eventBluetoothSensorMutex) {
-            ApplicationPreferences.prefEventBluetoothScanRequest = ApplicationPreferencesLoader.
+            ApplicationPreferences.prefEventBluetoothScanRequest = ApplicationPreferences.
                     getSharedPreferences(context).getBoolean(PREF_EVENT_BLUETOOTH_SCAN_REQUEST, false);
         }
     }
     static void setScanRequest(Context context, boolean startScan)
     {
         synchronized (PPApplication.eventBluetoothSensorMutex) {
-            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putBoolean(PREF_EVENT_BLUETOOTH_SCAN_REQUEST, startScan);
             editor.apply();
             ApplicationPreferences.prefEventBluetoothScanRequest = startScan;
@@ -409,7 +409,7 @@ public class BluetoothScanWorker extends Worker {
     {
         synchronized (PPApplication.eventBluetoothSensorMutex) {
             if (WifiBluetoothScanner.bluetoothLESupported(context)) {
-                ApplicationPreferences.prefEventBluetoothLEScanRequest = ApplicationPreferencesLoader.
+                ApplicationPreferences.prefEventBluetoothLEScanRequest = ApplicationPreferences.
                         getSharedPreferences(context).getBoolean(PREF_EVENT_BLUETOOTH_LE_SCAN_REQUEST, false);
             } else
                 ApplicationPreferences.prefEventBluetoothLEScanRequest = false;
@@ -419,7 +419,7 @@ public class BluetoothScanWorker extends Worker {
     {
         synchronized (PPApplication.eventBluetoothSensorMutex) {
             if (WifiBluetoothScanner.bluetoothLESupported(context)) {
-                SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
                 editor.putBoolean(PREF_EVENT_BLUETOOTH_LE_SCAN_REQUEST, startScan);
                 editor.apply();
                 ApplicationPreferences.prefEventBluetoothLEScanRequest = startScan;
@@ -430,14 +430,14 @@ public class BluetoothScanWorker extends Worker {
     static void getWaitForResults(Context context)
     {
         synchronized (PPApplication.eventBluetoothSensorMutex) {
-            ApplicationPreferences.prefEventBluetoothWaitForResult = ApplicationPreferencesLoader.
+            ApplicationPreferences.prefEventBluetoothWaitForResult = ApplicationPreferences.
                     getSharedPreferences(context).getBoolean(PREF_EVENT_BLUETOOTH_WAIT_FOR_RESULTS, false);
         }
     }
     static void setWaitForResults(Context context, boolean startScan)
     {
         synchronized (PPApplication.eventBluetoothSensorMutex) {
-            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putBoolean(PREF_EVENT_BLUETOOTH_WAIT_FOR_RESULTS, startScan);
             editor.apply();
             ApplicationPreferences.prefEventBluetoothWaitForResult = startScan;
@@ -448,7 +448,7 @@ public class BluetoothScanWorker extends Worker {
     {
         synchronized (PPApplication.eventBluetoothSensorMutex) {
             if (WifiBluetoothScanner.bluetoothLESupported(context)) {
-                ApplicationPreferences.prefEventBluetoothLEWaitForResult = ApplicationPreferencesLoader.
+                ApplicationPreferences.prefEventBluetoothLEWaitForResult = ApplicationPreferences.
                         getSharedPreferences(context).getBoolean(PREF_EVENT_BLUETOOTH_WAIT_FOR_LE_RESULTS, false);
             } else
                 ApplicationPreferences.prefEventBluetoothLEWaitForResult = false;
@@ -458,7 +458,7 @@ public class BluetoothScanWorker extends Worker {
     {
         synchronized (PPApplication.eventBluetoothSensorMutex) {
             if (WifiBluetoothScanner.bluetoothLESupported(context)) {
-                SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
                 editor.putBoolean(PREF_EVENT_BLUETOOTH_WAIT_FOR_LE_RESULTS, startScan);
                 editor.apply();
                 ApplicationPreferences.prefEventBluetoothLEWaitForResult = startScan;
@@ -468,14 +468,14 @@ public class BluetoothScanWorker extends Worker {
 
     static void getScanKilled(Context context) {
         synchronized (PPApplication.eventBluetoothSensorMutex) {
-            ApplicationPreferences.prefEventBluetoothScanKilled = ApplicationPreferencesLoader.
+            ApplicationPreferences.prefEventBluetoothScanKilled = ApplicationPreferences.
                     getSharedPreferences(context).getBoolean(PREF_EVENT_BLUETOOTH_SCAN_KILLED, false);
         }
     }
     static void setScanKilled(Context context, boolean startScan)
     {
         synchronized (PPApplication.eventBluetoothSensorMutex) {
-            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putBoolean(PREF_EVENT_BLUETOOTH_SCAN_KILLED, startScan);
             editor.apply();
             ApplicationPreferences.prefEventBluetoothScanKilled = startScan;
@@ -657,7 +657,7 @@ public class BluetoothScanWorker extends Worker {
     static void getBluetoothEnabledForScan(Context context)
     {
         synchronized (PPApplication.eventBluetoothSensorMutex) {
-            ApplicationPreferences.prefEventBluetoothEnabledForScan = ApplicationPreferencesLoader.
+            ApplicationPreferences.prefEventBluetoothEnabledForScan = ApplicationPreferences.
                     getSharedPreferences(context).getBoolean(PREF_EVENT_BLUETOOTH_ENABLED_FOR_SCAN, false);
         }
     }
@@ -665,7 +665,7 @@ public class BluetoothScanWorker extends Worker {
     static void setBluetoothEnabledForScan(Context context, boolean setEnabled)
     {
         synchronized (PPApplication.eventBluetoothSensorMutex) {
-            SharedPreferences.Editor editor = ApplicationPreferencesLoader.getEditor(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putBoolean(PREF_EVENT_BLUETOOTH_ENABLED_FOR_SCAN, setEnabled);
             editor.apply();
             ApplicationPreferences.prefEventBluetoothEnabledForScan = setEnabled;
