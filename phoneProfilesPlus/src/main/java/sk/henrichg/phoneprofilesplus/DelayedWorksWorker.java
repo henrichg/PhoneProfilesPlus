@@ -1,11 +1,18 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
+import android.app.usage.UsageStats;
+import android.app.usage.UsageStatsManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
+
+import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
@@ -201,6 +208,26 @@ public class DelayedWorksWorker extends Worker {
                     if (!PPApplication.blockProfileEventActions) {
                         try {
                             /*boolean appFound = false;
+                            // intentionally using string value as Context.USAGE_STATS_SERVICE was
+                            // strangely only added in API 22 (LOLLIPOP_MR1)
+                            @SuppressLint("WrongConstant")
+                            UsageStatsManager usm = (UsageStatsManager)appContext.getSystemService("usagestats");
+                            long time = System.currentTimeMillis();
+                            List<UsageStats> appList = usm.queryUsageStats(UsageStatsManager.INTERVAL_DAILY,time - 1000 * 1000, time);
+                            if (appList != null && appList.size() > 0) {
+                                appFound = true;
+//                                SortedMap<Long, UsageStats> mySortedMap = new TreeMap<Long, UsageStats>();
+//                                for (UsageStats usageStats : appList) {
+//                                    mySortedMap.put(usageStats.getLastTimeUsed(),
+//                                            usageStats);
+//                                }
+//                                if (mySortedMap != null && !mySortedMap.isEmpty()) {
+//                                    currentApp = mySortedMap.get(
+//                                            mySortedMap.lastKey()).getPackageName();
+//                                }
+                            }*/
+
+                            /*boolean appFound = false;
                             ActivityManager manager = (ActivityManager)appContext.getSystemService(Context.ACTIVITY_SERVICE);
                             List<ActivityManager.RunningAppProcessInfo> tasks = manager.getRunningAppProcesses();
                             Log.e("DelayedWorksWorker.doWork", "tasks="+tasks);
@@ -214,8 +241,8 @@ public class DelayedWorksWorker extends Worker {
                                         break;
                                     }
                                 }
-                            }
-                            if (appFound) {*/
+                            }*/
+                            //if (appFound) {
                                 Intent startMain = new Intent(Intent.ACTION_MAIN);
                                 startMain.addCategory(Intent.CATEGORY_HOME);
                                 startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
