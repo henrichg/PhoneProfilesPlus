@@ -60,6 +60,7 @@ import java.util.concurrent.TimeUnit;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
@@ -2610,13 +2611,21 @@ class ActivateProfileHelper {
         // close all applications
         if (profile._deviceCloseAllApplications == 1) {
             if (!PPApplication.blockProfileEventActions) {
+                // work for first start events or activate profile on boot
+                Data workData = new Data.Builder()
+                        .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_CLOSE_ALL_APPLICATIONS)
+                        .build();
+
+                OneTimeWorkRequest worker =
+                        new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                .addTag("delayedWorkCloseAllApplications")
+                                .setInputData(workData)
+                                .setInitialDelay(200, TimeUnit.MILLISECONDS)
+                                .build();
                 try {
-                    Intent startMain = new Intent(Intent.ACTION_MAIN);
-                    startMain.addCategory(Intent.CATEGORY_HOME);
-                    startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(startMain);
-                } catch (Exception e) {
-                    Log.e("ActivateProfileHelper.execute", Log.getStackTraceString(e));
+                    WorkManager workManager = WorkManager.getInstance(context);
+                    workManager.enqueueUniqueWork("delayedWorkCloseAllApplications", ExistingWorkPolicy.REPLACE, worker);
+                } catch (Exception ignored) {
                 }
             }
         }

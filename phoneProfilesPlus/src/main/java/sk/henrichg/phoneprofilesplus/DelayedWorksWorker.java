@@ -19,6 +19,7 @@ public class DelayedWorksWorker extends Worker {
     static final String DELAYED_WORK_START_WIFI_SCAN = "start_wifi_scan";
     static final String DELAYED_WORK_BLOCK_PROFILE_EVENT_ACTIONS = "block_profile_event_actions";
     static final String DELAYED_WORK_PACKAGE_REPLACED = "package_replaced";
+    static final String DELAYED_WORK_CLOSE_ALL_APPLICATIONS = "close_all_applications";
 
     public DelayedWorksWorker(
             @NonNull Context context,
@@ -195,6 +196,35 @@ public class DelayedWorksWorker extends Worker {
                     break;
                 case DELAYED_WORK_BLOCK_PROFILE_EVENT_ACTIONS:
                     PPApplication.blockProfileEventActions = false;
+                    break;
+                case DELAYED_WORK_CLOSE_ALL_APPLICATIONS:
+                    if (!PPApplication.blockProfileEventActions) {
+                        try {
+                            /*boolean appFound = false;
+                            ActivityManager manager = (ActivityManager)appContext.getSystemService(Context.ACTIVITY_SERVICE);
+                            List<ActivityManager.RunningAppProcessInfo> tasks = manager.getRunningAppProcesses();
+                            Log.e("DelayedWorksWorker.doWork", "tasks="+tasks);
+                            if ((tasks != null) && (!tasks.isEmpty())) {
+                                Log.e("DelayedWorksWorker.doWork", "tasks.size()="+tasks.size());
+                                for (ActivityManager.RunningAppProcessInfo task : tasks) {
+                                    Log.e("DelayedWorksWorker.doWork", "task.processName="+task.processName);
+                                    if (task.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                                        Log.e("DelayedWorksWorker.doWork", "IMPORTANCE_FOREGROUND");
+                                        appFound = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (appFound) {*/
+                                Intent startMain = new Intent(Intent.ACTION_MAIN);
+                                startMain.addCategory(Intent.CATEGORY_HOME);
+                                startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                appContext.startActivity(startMain);
+                            //}
+                        } catch (Exception e) {
+                            Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
+                        }
+                    }
                     break;
                 default:
                     break;
