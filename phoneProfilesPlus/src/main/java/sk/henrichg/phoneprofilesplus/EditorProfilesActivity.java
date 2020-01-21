@@ -2218,9 +2218,23 @@ public class EditorProfilesActivity extends AppCompatActivity
                 ActivateProfileHelper.updateGUI(fragment.activityDataWrapper.context, true, true);
 
                 fragment.activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
-
-                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)filterSpinner.getAdapter()).setSelection(0);
-                selectFilterItem(editorSelectedView, 0, false, true);
+                /*
+                if (filterProfilesSelectedItem != 0) {
+                    boolean changeFilter = false;
+                    switch (filterProfilesSelectedItem) {
+                        case DSI_PROFILES_NO_SHOW_IN_ACTIVATOR:
+                            changeFilter = profile._showInActivator;
+                            break;
+                        case DSI_PROFILES_SHOW_IN_ACTIVATOR:
+                            changeFilter = !profile._showInActivator;
+                            break;
+                    }
+                    if (changeFilter) {
+                        ((GlobalGUIRoutines.HighlightedSpinnerAdapter) filterSpinner.getAdapter()).setSelection(0);
+                        selectFilterItem(editorSelectedView, 0, false, true);
+                    }
+                }
+                */
             }
         }
     }
@@ -2360,9 +2374,36 @@ public class EditorProfilesActivity extends AppCompatActivity
                 Profile activeProfile = fragment.activityDataWrapper.getActivatedProfileFromDB(true,
                         ApplicationPreferences.applicationEditorPrefIndicator);
                 fragment.updateHeader(activeProfile);
-
-                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)filterSpinner.getAdapter()).setSelection(0);
-                selectFilterItem(editorSelectedView, 0, false, true);
+                /*
+                Log.e("EditorProfilesActivity.redrawEventListFragment", "filterEventsSelectedItem="+filterEventsSelectedItem);
+                Log.e("EditorProfilesActivity.redrawEventListFragment", "event.getStatusFromDB()="+event.getStatusFromDB(fragment.activityDataWrapper.context));
+                if (filterEventsSelectedItem != 0) {
+                    boolean changeFilter = false;
+                    switch (filterEventsSelectedItem) {
+                        case DSI_EVENTS_NOT_STOPPED:
+                            Log.e("EditorProfilesActivity.redrawEventListFragment", "DSI_EVENTS_NOT_STOPPED");
+                            changeFilter = event.getStatusFromDB(fragment.activityDataWrapper.context) == Event.ESTATUS_STOP;
+                            break;
+                        case DSI_EVENTS_RUNNING:
+                            Log.e("EditorProfilesActivity.redrawEventListFragment", "DSI_EVENTS_RUNNING");
+                            changeFilter = event.getStatusFromDB(fragment.activityDataWrapper.context) != Event.ESTATUS_RUNNING;
+                            break;
+                        case DSI_EVENTS_PAUSED:
+                            Log.e("EditorProfilesActivity.redrawEventListFragment", "DSI_EVENTS_PAUSED");
+                            changeFilter = event.getStatusFromDB(fragment.activityDataWrapper.context) != Event.ESTATUS_PAUSE;
+                            break;
+                        case DSI_EVENTS_STOPPED:
+                            Log.e("EditorProfilesActivity.redrawEventListFragment", "DSI_EVENTS_STOPPED");
+                            changeFilter = event.getStatusFromDB(fragment.activityDataWrapper.context) != Event.ESTATUS_STOP;
+                            break;
+                    }
+                    Log.e("EditorProfilesActivity.redrawEventListFragment", "changeFilter="+changeFilter);
+                    if (changeFilter) {
+                        ((GlobalGUIRoutines.HighlightedSpinnerAdapter) filterSpinner.getAdapter()).setSelection(0);
+                        selectFilterItem(editorSelectedView, 0, false, true);
+                    }
+                }
+                */
             }
         }
     }
