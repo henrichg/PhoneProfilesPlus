@@ -773,7 +773,7 @@
     <string name="event_preferences_radioSwitch_airplaneMode">Modalità aereo</string>
     <string name="event_preferences_radioSwitch_info_title">Configurazione sensore</string>
     <string name="event_preferences_radioSwitch_info_summary">Lo stato di tutte le radio deve essere soddisfatto per iniziare l\'evento. Configura solo queste radio che necessiti.</string>
-    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Any SSID</string>
+    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Qualsiasi SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Connettiti a SSID</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Imposta miscelazione volumi</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Continua a rilevare</string>
@@ -953,30 +953,30 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="profile_preferences_deviceForceStopApplicationsChange">Forza stop applicazioni</string>
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Applicazioni di cui forzare lo stop</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">Per abilitare la voce \"Forza stop applicazioni\", installare prima \"PhoneProfilesPlusExtender\" facendo clic qui.</string>
-    <string name="event_preferences_applications_PPPExtender_new_version_summary">New version of PhoneProfilesPlusExtender is required. Click here to upgrade it.</string>
+    <string name="event_preferences_applications_PPPExtender_new_version_summary">È richiesta una nuova versione di PhoneProfilesPlusExtender. Clicca qui per aggiornarla.</string>
     <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettings_title">Impostazioni di accessibilità</string>
     <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary">Per abilitare la voce \"Forza stop applicazioni\", configurare l\'\"Accessibilità\" di \"PhoneProfilesPlusExternder\" nelle impostazioni di sistema.</string>
-    <string name="shortcut_activate_profile">Activate profile:</string>
-    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary">It works only when the screen is on and unlocked.</string>
-    <string name="important_info_contact">If you have problems, questions and suggestions, write me an email:</string>
-    <string name="profile_preferences_deviceNetworkTypePrefs">(I) Mobile network type preferences</string>
+    <string name="shortcut_activate_profile">Attiva il profilo:</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary">Funziona solo quando lo schermo è acceso e sbloccato.</string>
+    <string name="important_info_contact">Se hai problemi, domande e suggerimenti, scrivimi una email:</string>
+    <string name="profile_preferences_deviceNetworkTypePrefs">(I) Preferenze tipo rete mobile</string>
     <string name="profile_preferences_deviceCloseAllApplications">Chiudi tutte le applicazioni</string>
     <string name="array_pref_do_not_close">Non chiudere</string>
     <string name="array_pref_close">Chiudi</string>
-    <string name="profile_preferences_deviceCloseAllApplicationsInfo_summary">Simulates press of Home button in navigation bar.</string>
-    <string name="phone_profiles_pref_applicationEventLocation_info">These settings are for Location event sensor.</string>
-    <string name="phone_profiles_pref_applicationEventWifi_info">These settings are for Wi-Fi event sensor.</string>
-    <string name="phone_profiles_pref_applicationEventBluetooth_info">These settings are for Bluetooth event sensor.</string>
-    <string name="phone_profiles_pref_applicationEventMobileCell_info">These settings are for event Mobile cell event sensor.</string>
-    <string name="phone_profiles_pref_applicationEventOrientation_info">These settings are for Orientation event sensor.</string>
+    <string name="profile_preferences_deviceCloseAllApplicationsInfo_summary">Simula la pressione del pulsante Home nella barra di navigazione.</string>
+    <string name="phone_profiles_pref_applicationEventLocation_info">Queste impostazioni sono per il sensore eventi posizione.</string>
+    <string name="phone_profiles_pref_applicationEventWifi_info">Queste impostazioni sono per il sensore eventi Wi-Fi.</string>
+    <string name="phone_profiles_pref_applicationEventBluetooth_info">Queste impostazioni sono per il sensore eventi Bluetooth.</string>
+    <string name="phone_profiles_pref_applicationEventMobileCell_info">Queste impostazioni sono per il sensore eventi cellule mobili.</string>
+    <string name="phone_profiles_pref_applicationEventOrientation_info">Queste impostazioni sono per il sensore eventi di orientamento.</string>
     <string name="profileicon_pref_dialog_custom_icon_image_too_large">Custom icon image is too large. Allowed is max.</string>
-    <string name="profile_preferences_category_touchEffects">Touch effects</string>
-    <string name="profile_preferences_soundOnTouch">Sound on touch</string>
-    <string name="profile_preferences_dtmfToneWhenDialing">DTMF tone when dialing</string>
-    <string name="not_saved_changes_alert_title">Preferences changed</string>
+    <string name="profile_preferences_category_touchEffects">Effetti touch</string>
+    <string name="profile_preferences_soundOnTouch">Suono al tocco</string>
+    <string name="profile_preferences_dtmfToneWhenDialing">Tono DTMF durante la composizione</string>
+    <string name="not_saved_changes_alert_title">Preferenze modificate</string>
     <string name="not_saved_changes_alert_message">Salvare le modifiche?</string>
-    <string name="export_profiles_alert_message">Backup files will be saved in device internal storage into folder</string>
-    <string name="export_profiles_alert_message_note">Note: Backup files contains sensitive private data. Distribute files to third parties, for example in zip file with password.</string>
+    <string name="export_profiles_alert_message">I file di backup verranno salvati nella memoria interna del dispositivo nella cartella</string>
+    <string name="export_profiles_alert_message_note">Nota: I file di backup contengono dati privati sensibili. Distribuisci i file a terze parti, per esempio in file zip con password.</string>
     <string name="alert_button_backup">Fare il backup</string>
     <string name="important_info_privacy_policy_backup_files">L\'informativa sulla privacy è cambiata. Soprattutto sui file di backup generati dalla funzione di Backup.</string>
     <string name="important_info_privacy_policy_backup_files_2">Fare clic per visualizzare l\'informativa sulla privacy.</string>
@@ -986,13 +986,13 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="array_pref_auto_rotate_off">Rotazione automatica disattivata</string>
     <string name="brightness_pref_dialog_adaptive_level_may_not_working">Cambiamento del livello adattivo potrebbe non funzionare sul tuo dispositivo (esempio: dispositivi di Samsung).</string>
     <string name="about_application_xda_developers_community">Comunità di XDA-developers:</string>
-    <string name="mobile_cells_pref_dlg_connected_cell">Connected cell:</string>
-    <string name="permissions_for_mobile_cells_registration_dialog_text1">Mobile cell registration requires some permissions.</string>
+    <string name="mobile_cells_pref_dlg_connected_cell">Cella collegata:</string>
+    <string name="permissions_for_mobile_cells_registration_dialog_text1">La registrazione delle cellule mobili richiede alcune autorizzazioni.</string>
     <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">New cells count:</string>
-    <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_stop">Stop</string>
-    <string name="mobile_cells_registration_pref_dlg_add_event_button">Add event</string>
-    <string name="mobile_cells_registration_pref_dlg_remove_event_button">Remove event</string>
-    <string name="altype_eventPreferencesChanged">Event preferences changed</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_stop">Interrompi</string>
+    <string name="mobile_cells_registration_pref_dlg_add_event_button">Aggiungi evento</string>
+    <string name="mobile_cells_registration_pref_dlg_remove_event_button">Rimuovi evento</string>
+    <string name="altype_eventPreferencesChanged">Preferenze evento modificate</string>
     <string name="altype_eventDeleted">Event deleted</string>
     <string name="altype_profileDeleted">Profile deleted</string>
     <string name="altype_profilePreferencesChanged">Profile preferences changed</string>
@@ -1402,6 +1402,7 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="array_pref_37_percent" formatted="false">37.5%</string>
     <string name="array_pref_62_percent" formatted="false">62.5%</string>
     <string name="array_pref_87_percent" formatted="false">87.5%</string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration (widget)</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>

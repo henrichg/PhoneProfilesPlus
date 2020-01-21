@@ -422,8 +422,8 @@
     <string name="permissions_for_contacts_dialog_text2">Lutfen sonraki iletişim kutularında izinleri verin. Ondan sonra takvim listesi gösterilecek.</string>
     <string name="phone_profiles_pref_applicationEventWifiScanInPowerSaveMode">Güç Tasarrufu modunda Wi-Fi taraması</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode">Güç tasarrufu modunda Bluetooth taraması</string>
-    <string name="array_pref_scanInPowerSaveMode_1xInterval">1x aralıkla</string>
-    <string name="array_pref_scanInPowerSaveMode_2xInterval">2x aralıkla</string>
+    <string name="array_pref_scanInPowerSaveMode_1xInterval">1× aralıkla</string>
+    <string name="array_pref_scanInPowerSaveMode_2xInterval">2× aralıkla</string>
     <string name="array_pref_scanInPowerSaveMode_noScan">Tarama yapma</string>
     <string name="pref_event_battery_power_save_mode">Güç tasarrufu modu</string>
     <string name="event_preferences_battery_power_save_mode">Güç tasarrufu modu açıkken</string>
@@ -829,7 +829,7 @@
     <string name="important_info_quick_guide_3"><![CDATA[<b>Durumlar:</b> Cihaz ayarlarının hangi durumlarda değiştirileceğini tayin eder.]]></string>
     <string name="important_info_quick_guide_profiles_1"><b>Tercihler:</b> Zil modu, ses seviyeleri, zil ve bildirim sesleri, radyolar (Wi-Fi, Bluetooth, mobil veri, vb.) gibi cihaz ayarlarını değiştirmeye izin verin. Bir tercih faal olduğunda, bu tercihle alakalı ayarlar kalıcıdır. Ayarları değiştirmek istiyorsanız, başka bir tercih faaliyete geçirilmelidir.</string>
     <string name="important_info_quick_guide_profiles_2">Tercihler, el ile veya bir Durum tarafından faaliyete geçirilebilir.</string>
-    <string name="important_info_quick_guide_profiles_3">PPP Muharrik vasıtasıyla El ile bir tercihi faaliyete geçirebilirsiniz (açılır penceredeki kullanılabilir tercih listesi ile). Muharrik, PPP başlatma simgesi, PPP bildirim, PPP widgetleri ve Samsung Edge cihazlarında kenar paneli vasıtasıyla görüntülenebilir. PPP 4 x 4 widget, tercih kısayolu veya Samsung Edge cihazlarda kenar paneli ile doğrudan bir tercihi faaliyete geçirebilirsiniz.</string>
+    <string name="important_info_quick_guide_profiles_3">PPP Muharrik vasıtasıyla El ile bir tercihi faaliyete geçirebilirsiniz (açılır penceredeki kullanılabilir tercih listesi ile). Muharrik, PPP başlatma simgesi, PPP bildirim, PPP widgetleri ve Samsung Edge cihazlarında kenar paneli vasıtasıyla görüntülenebilir. PPP 4×4 widget, tercih kısayolu veya Samsung Edge cihazlarda kenar paneli ile doğrudan bir tercihi faaliyete geçirebilirsiniz.</string>
     <string name="important_info_quick_guide_events_1"><b>Durumlar:</b> Bir tercih faaliyete geçtiğinde neler yapılacağını ayarlamanızı sağlar. Durumların bir başlangıç ve bir bitişi vardır. Bir durumun başında ve sonunda olacağını ayarlayabilirsiniz.</string>
     <string name="important_info_quick_guide_events_2">Durumlar, daha önce tetiklenen bir durumdan önce yerine getirilmesi lüzumlu mühim Şart ayarlama değerlerini içerir. Herhangi bir Şart geçemezse durum sona erer (fasıla).</string>
     <string name="important_info_quick_guide_sensors_1">Şart misalleri:</string>
@@ -932,8 +932,8 @@
     <string name="mobile_cells_registration_cell_name_hint">Hücre ismi vermek için buraya dokunun</string>
     <string name="profile_preferences_deviceWiFiAPInfo_summary">Başka bir cihazdan hotspot\'a yapılan bağlantı çalışmayabilir.</string>
     <string name="array_event_pref_battery_charging_not_use">Kullanılmasın</string>
-    <string name="array_event_pref_battery_charging_start_when_charging">Sarjda iken başla</string>
-    <string name="array_event_pref_battery_charging_stop_when_charging">Sarjda iken durdur</string>
+    <string name="array_event_pref_battery_charging_start_when_charging">Şarjda iken başla</string>
+    <string name="array_event_pref_battery_charging_stop_when_charging">Şarjda iken durdur</string>
     <string name="profile_multiselect_summary_text_selected">Seçilen</string>
     <string name="profile_multiselect_summary_text_not_selected">Seçilmeyen</string>
     <string name="notification_channel_activated_profile">Faal tercih</string>
@@ -1401,6 +1401,7 @@
     <string name="array_pref_37_percent" formatted="false">%37.5</string>
     <string name="array_pref_62_percent" formatted="false">%62.5</string>
     <string name="array_pref_87_percent" formatted="false">%87.5</string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Tercih ismini göster (widget)</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• tercih değeri \"Zorla durdurulan uygulamalar\"\n• durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>

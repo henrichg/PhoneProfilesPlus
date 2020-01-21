@@ -9,12 +9,12 @@
     <string name="title_activity_event_preferences">Eventvoorkeuren</string>
     <string name="menu_new_profile">Nieuw profiel</string>
     <string name="menu_delete_all_profiles">Verwijder alle profielen</string>
-    <string name="menu_new_event">Nieuw event</string>
+    <string name="menu_new_event">Nieuwe gebeurtenis</string>
     <string name="menu_delete_all_events">Verwijder alle events</string>
     <string name="profiles_header_profile_name_no_activated">Geen profiel geactiveerd</string>
     <string name="profile_name_default">Profiel</string>
     <string name="event_name_default">Event</string>
-    <string name="profile_context_item_edit">Bewerken</string>
+    <string name="profile_context_item_edit">Subcategorie wijzigen</string>
     <string name="profile_context_item_delete">Verwijderen</string>
     <string name="profile_string_0">Profiel</string>
     <string name="event_string_0">Event</string>
@@ -84,8 +84,8 @@
     <string name="import_profiles_alert_title">Herstel Instellingen</string>
     <string name="import_profiles_alert_message">Weet je het zeker?</string>
     <string name="import_profiles_alert_error">Fout tijdens herstelproces</string>
-    <string name="export_profiles_alert_title">Back-up instellingen</string>
-    <string name="export_profiles_alert_error">Fout tijdens back-up proces</string>
+    <string name="export_profiles_alert_title">Back-upinstellingen</string>
+    <string name="export_profiles_alert_error">Fout tijdens back-upproces</string>
     <string name="profile_preferences_deviceMobileData">Mobiele data</string>
     <string name="profile_preferences_deviceMobileDataPrefs">(I) Voorkeuren mobiele data</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_color">Kleurrijk</string>
@@ -185,10 +185,10 @@
     <string name="event_preferences_call_contacts">Contacten</string>
     <string name="event_preferences_call_event">Oproep event</string>
     <string name="array_event_pref_ringing">Bellen</string>
-    <string name="array_event_pref_incall_started">Inkomende oproep beantwoordt</string>
+    <string name="array_event_pref_incall_started">Inkomende oproep beantwoord</string>
     <string name="array_event_pref_outcall_answered">Uitgaande oproep gestart</string>
-    <string name="event_preferences_contactListType">Type contact lijst</string>
-    <string name="array_event_pref_contact_list_type_white_list">Toegestane Lijst</string>
+    <string name="event_preferences_contactListType">Type contactlijst</string>
+    <string name="array_event_pref_contact_list_type_white_list">Toegestane lijst</string>
     <string name="array_event_pref_contact_list_type_black_list">Zwarte lijst</string>
     <string name="array_event_pref_contact_list_type_not_use">Niet gebruiken</string>
     <string name="event_type_call">Oproep</string>
@@ -212,9 +212,9 @@
     <string name="editor_drawer_order_priority">Prioriteit</string>
     <string name="event_type_peripheral">Accessoires</string>
     <string name="array_event_pref_peripheralType_deskDock">Bureau dock</string>
-    <string name="array_event_pref_peripheralType_carDock">Auto dock</string>
-    <string name="event_preferences_category_eventPeripheralParameters">Accessoires sensor</string>
-    <string name="event_preferences_peripheral_type">Accessoires type</string>
+    <string name="array_event_pref_peripheralType_carDock">Autodock</string>
+    <string name="event_preferences_category_eventPeripheralParameters">Accessoiressensor</string>
+    <string name="event_preferences_peripheral_type">Accessoirestype</string>
     <string name="array_event_pref_peripheralType_wired_headset">Bekabelde handsfree</string>
     <string name="array_event_pref_peripheralType_bluetooth_headset">Bluetooth handsfree</string>
     <string name="default_event_name_during_the_week">Tijdens de week</string>
@@ -225,11 +225,11 @@
     <string name="default_profile_name_battery_low">Lage batterij</string>
     <string name="calendars_multiselect_summary_text_selected">Geselecteerd</string>
     <string name="calendars_multiselect_summary_text_not_selected">Niet geselecteerd</string>
-    <string name="event_preferences_category_eventCalendarParameters">Kalender sensor</string>
+    <string name="event_preferences_category_eventCalendarParameters">Kalendersensor</string>
     <string name="event_preferences_calendar_calendars">Kalenders</string>
     <string name="event_type_calendar">Kalender</string>
     <string name="event_preferences_calendar_search_field">Zoekveld</string>
-    <string name="array_event_pref_calendarSearchField_eventName">Event naam</string>
+    <string name="array_event_pref_calendarSearchField_eventName">Eventnaam</string>
     <string name="array_event_pref_calendarSearchField_description">Beschrijving</string>
     <string name="event_preferences_calendar_search_string">Zoektekst</string>
     <string name="event_preferences_calendar_no_event">Geen event</string>
@@ -246,37 +246,37 @@
     <string name="array_event_pref_wifiConnectionType_connected">Verbonden</string>
     <string name="array_event_pref_wifiConnectionType_inFront">In de buurt (binnen scanbereik)</string>
     <string name="event_preferences_wifi_connection_type">Verbindingstype</string>
-    <string name="phone_profiles_pref_applicationEventWifiScanInterval">Wi-Fi scan interval (min)</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanInterval">Wi-Fi scaninterval (min)</string>
     <string name="phone_profiles_pref_applicationEventBackgroundProfile">Standaardprofiel</string>
     <string name="profile_preference_profile_end_no_activate">Niet actief</string>
     <string name="profile_preference_profile_not_set">Profiel niet ingesteld</string>
     <string name="event_type_screen">Scherm</string>
-    <string name="event_preferences_category_eventScreenParameters">Scherm sensor</string>
-    <string name="event_preferences_screen_event_type">Event type</string>
+    <string name="event_preferences_category_eventScreenParameters">Schermsensor</string>
+    <string name="event_preferences_screen_event_type">Eventtype</string>
     <string name="event_preferences_delayStart">Vertraging</string>
     <string name="profile_preferences_duration">Tijdsduur</string>
     <string name="profile_preferences_afterDurationDo">Bij einde tijdsduur doe</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Niets</string>
     <string name="array_pref_afterProfileDurationDo_undoProfile">[M] Profiel ongedaan maken</string>
     <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Standaardprofiel activeren</string>
-    <string name="phone_profiles_pref_applicationGridLayout">Grid lay-out</string>
+    <string name="phone_profiles_pref_applicationGridLayout">Gridlay-out</string>
     <string name="menu_help">Help</string>
-    <string name="array_event_pref_eventScreenEventType_screenOn">Scherm Aan</string>
+    <string name="array_event_pref_eventScreenEventType_screenOn">Scherm aan</string>
     <string name="array_event_pref_eventScreenEventType_screenOff">Scherm uit</string>
     <string name="pref_event_screen_startWhenUnlocked">Starten wanneer ontgrendeld</string>
     <string name="event_preferences_screen_start_when_unlocked">Starten wanneer ontgrendeld</string>
     <string name="event_type_bluetooth">Bluetooth</string>
-    <string name="event_preferences_category_eventBluetoothParameters">Bluetooth sensor</string>
-    <string name="event_preferences_bluetooth_adapter_name">Bluetooth naam</string>
+    <string name="event_preferences_category_eventBluetoothParameters">Bluetoothsensor</string>
+    <string name="event_preferences_bluetooth_adapter_name">Bluetoothnaam</string>
     <string name="array_event_pref_bluetoothConnectionType_connected">Verbonden</string>
     <string name="array_event_pref_bluetoothConnectionType_inFront">In de buurt (binnen scanbereik)</string>
     <string name="event_preferences_bluetooth_connection_type">Verbindingstype</string>
-    <string name="phone_profiles_pref_applicationEventBluetoothScanInterval">Bluetooth scan interval (min)</string>
+    <string name="phone_profiles_pref_applicationEventBluetoothScanInterval">Bluetooth scaninterval (min)</string>
     <string name="bluetooth_name_pref_dlg_rescan_button">Opnieuw scannen</string>
     <string name="wifi_ssid_pref_dlg_rescan_button">Opnieuw scannen</string>
     <string name="event_type_sms">SMS</string>
     <string name="pref_event_sms_contactListType">Lijst</string>
-    <string name="event_preferences_category_eventSMSParameters">SMS/MMS sensor</string>
+    <string name="event_preferences_category_eventSMSParameters">SMS/MMS-sensor</string>
     <string name="event_preferences_sms_contacts">Contacten</string>
     <string name="toast_events_restarted">Event opnieuw gestart</string>
     <string name="event_name_background_profile">Standaardprofiel</string>
@@ -284,7 +284,7 @@
     <string name="phone_profiles_pref_applicationEventBluetoothRescan">Bluetooth opnieuw scannen</string>
     <string name="phone_profiles_pref_applicationEventRescan_screenOn">Scherm Aan</string>
     <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Scherm aan en events opnieuw opstarten</string>
-    <string name="profile_preferences_volumeZenMode">Onderbrekingen type</string>
+    <string name="profile_preferences_volumeZenMode">Onderbrekingentype</string>
     <string name="array_pref_zenModeArray_all">Alles</string>
     <string name="array_pref_zenModeArray_priority">Prioriteit</string>
     <string name="array_pref_zenModeArray_none">Geen</string>
@@ -1401,6 +1401,7 @@
     <string name="array_pref_37_percent" formatted="false">37,5%</string>
     <string name="array_pref_62_percent" formatted="false">62,5%</string>
     <string name="array_pref_87_percent" formatted="false">87,5%</string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Toon tijdsduur profiel (widget)</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>

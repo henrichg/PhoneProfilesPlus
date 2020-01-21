@@ -1401,6 +1401,7 @@
     <string name="array_pref_37_percent" formatted="false">37,5%</string>
     <string name="array_pref_62_percent" formatted="false">62,5%</string>
     <string name="array_pref_87_percent" formatted="false">87,5%</string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Afficher la durée du profil (widget)</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>

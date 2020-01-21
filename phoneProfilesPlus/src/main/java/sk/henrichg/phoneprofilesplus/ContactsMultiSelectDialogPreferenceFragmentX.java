@@ -11,8 +11,6 @@ import android.widget.RelativeLayout;
 
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
-import java.util.List;
-
 import androidx.preference.PreferenceDialogFragmentCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
