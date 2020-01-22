@@ -1216,7 +1216,11 @@ class EventPreferencesNotification extends EventPreferences {
             }*/
 
             if (!split.isEmpty()) {
-                List<Contact> contactList = PhoneProfilesService.getContactsCache().getList(true);
+                ContactsCache contactsCache = PhoneProfilesService.getContactsCache();
+                if (contactsCache == null)
+                    return false;
+
+                List<Contact> contactList = contactsCache.getList(true);
                 if (contactList != null) {
                     for (Contact contact : contactList) {
                         if (contact.groups != null) {
@@ -1280,7 +1284,11 @@ class EventPreferencesNotification extends EventPreferences {
                 }*/
 
                 if ((!split.isEmpty()) && (!splits2[0].isEmpty()) && (!splits2[1].isEmpty())) {
-                    List<Contact> contactList = PhoneProfilesService.getContactsCache().getList(false);
+                    ContactsCache contactsCache = PhoneProfilesService.getContactsCache();
+                    if (contactsCache == null)
+                        return false;
+
+                    List<Contact> contactList = contactsCache.getList(false);
                     if (contactList != null) {
                         for (Contact contact : contactList) {
                             if ((contact.contactId == Long.valueOf(splits2[0])) && contact.phoneId == Long.valueOf(splits2[1])) {

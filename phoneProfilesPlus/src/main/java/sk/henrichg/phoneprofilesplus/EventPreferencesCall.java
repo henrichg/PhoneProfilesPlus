@@ -600,7 +600,11 @@ class EventPreferencesCall extends EventPreferences {
                 if (!split.isEmpty()) {
                     //Log.e("EventPreferencesCall.isPhoneNumberConfigured", "split=" + split);
 
-                    List<Contact> contactList = PhoneProfilesService.getContactsCache().getList(false);
+                    ContactsCache contactsCache = PhoneProfilesService.getContactsCache();
+                    if (contactsCache == null)
+                        return false;
+
+                    List<Contact> contactList = contactsCache.getList(false);
                     if (contactList != null) {
                         for (Contact contact : contactList) {
                             /*String __phoneNumber = contact.phoneNumber;
@@ -671,7 +675,11 @@ class EventPreferencesCall extends EventPreferences {
                     }*/
 
                     if ((!split.isEmpty()) && (!splits2[0].isEmpty()) && (!splits2[1].isEmpty())) {
-                        List<Contact> contactList = PhoneProfilesService.getContactsCache().getList(false);
+                        ContactsCache contactsCache = PhoneProfilesService.getContactsCache();
+                        if (contactsCache == null)
+                            return false;
+
+                        List<Contact> contactList = contactsCache.getList(false);
                         if (contactList != null) {
                             for (Contact contact : contactList) {
                                 if ((contact.contactId == Long.valueOf(splits2[0])) && contact.phoneId == Long.valueOf(splits2[1])) {

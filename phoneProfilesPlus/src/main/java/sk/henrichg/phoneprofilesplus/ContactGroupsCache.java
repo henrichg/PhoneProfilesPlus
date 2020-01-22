@@ -28,6 +28,9 @@ class ContactGroupsCache {
         contactGroupList.clear();
 
         ContactsCache contactsCache = PhoneProfilesService.getContactsCache();
+        if (contactsCache == null)
+            return;
+
         contactsCache.clearGroups();
 
         if (Permissions.checkContacts(context)) {

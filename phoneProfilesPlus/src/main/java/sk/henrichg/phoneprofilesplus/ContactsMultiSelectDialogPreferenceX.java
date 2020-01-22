@@ -60,7 +60,11 @@ public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
     void getValueCMSDP()
     {
         // change checked state by value
-        contactList = PhoneProfilesService.getContactsCache().getList(withoutNumbers);
+        ContactsCache contactsCache = PhoneProfilesService.getContactsCache();
+        if (contactsCache == null)
+            return;
+
+        contactList = contactsCache.getList(withoutNumbers);
         if (contactList != null)
         {
             String[] splits = value.split("\\|");
