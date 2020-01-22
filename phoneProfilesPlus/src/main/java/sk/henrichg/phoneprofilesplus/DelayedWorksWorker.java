@@ -257,23 +257,15 @@ public class DelayedWorksWorker extends Worker {
                     }
                     break;
                 case DELAYED_WORK_CHANGE_FILTER_AFTER_EDITOR_DATA_CHANGE:
-                    Log.e("DelayedWorksWorker.doWork", "DELAYED_WORK_CHANGE_FILTER_AFTER_EVENT_CHANGE");
-                    Log.e("DelayedWorksWorker.doWork", "filterSelectedItem="+filterSelectedItem);
                     if (filterSelectedItem != 0) {
                         Activity activity = PPApplication.getEditorActivity();
-                        Log.e("DelayedWorksWorker.doWork", "activity="+activity);
                         if (activity instanceof EditorProfilesActivity) {
                             final EditorProfilesActivity editorActivity = (EditorProfilesActivity)activity;
-                            Log.e("DelayedWorksWorker.doWork", "editorActivity="+editorActivity);
                             Fragment fragment = editorActivity.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
-                            Log.e("DelayedWorksWorker.doWork", "fragment="+fragment);
                             if (fragment instanceof EditorProfileListFragment) {
                                 EditorProfileListFragment profileFragment = (EditorProfileListFragment) fragment;
-                                Log.e("DelayedWorksWorker.doWork", "profileFragment="+profileFragment);
                                 boolean changeFilter = false;
-                                Log.e("DelayedWorksWorker.doWork", "profileId="+profileId);
                                 Profile scrollToProfile = DatabaseHandler.getInstance(context).getProfile(profileId, false);
-                                Log.e("DelayedWorksWorker.doWork", "scrollToProfile="+scrollToProfile);
                                 if (scrollToProfile != null) {
                                     switch (filterSelectedItem) {
                                         case EditorProfilesActivity.DSI_PROFILES_NO_SHOW_IN_ACTIVATOR:
@@ -284,7 +276,6 @@ public class DelayedWorksWorker extends Worker {
                                             break;
                                     }
                                 }
-                                Log.e("DelayedWorksWorker.doWork", "changeFilter=" + changeFilter);
                                 if (changeFilter) {
                                     profileFragment.scrollToProfile = scrollToProfile;
                                     Handler handler = new Handler(context.getMainLooper());
@@ -300,32 +291,24 @@ public class DelayedWorksWorker extends Worker {
                             }
                             if (fragment instanceof EditorEventListFragment) {
                                 EditorEventListFragment eventFragment = (EditorEventListFragment) fragment;
-                                Log.e("DelayedWorksWorker.doWork", "eventFragment="+eventFragment);
                                 boolean changeFilter = false;
-                                Log.e("DelayedWorksWorker.doWork", "eventId="+eventId);
                                 Event scrollToEvent = DatabaseHandler.getInstance(context).getEvent(eventId);
-                                Log.e("DelayedWorksWorker.doWork", "scrollToEvent="+scrollToEvent);
                                 if (scrollToEvent != null) {
                                     switch (filterSelectedItem) {
                                         case EditorProfilesActivity.DSI_EVENTS_NOT_STOPPED:
-                                            Log.e("DelayedWorksWorker.doWork", "DSI_EVENTS_NOT_STOPPED");
                                             changeFilter = scrollToEvent.getStatus() == Event.ESTATUS_STOP;
                                             break;
                                         case EditorProfilesActivity.DSI_EVENTS_RUNNING:
-                                            Log.e("DelayedWorksWorker.doWork", "DSI_EVENTS_RUNNING");
                                             changeFilter = scrollToEvent.getStatus() != Event.ESTATUS_RUNNING;
                                             break;
                                         case EditorProfilesActivity.DSI_EVENTS_PAUSED:
-                                            Log.e("DelayedWorksWorker.doWork", "DSI_EVENTS_PAUSED");
                                             changeFilter = scrollToEvent.getStatus() != Event.ESTATUS_PAUSE;
                                             break;
                                         case EditorProfilesActivity.DSI_EVENTS_STOPPED:
-                                            Log.e("DelayedWorksWorker.doWork", "DSI_EVENTS_STOPPED");
                                             changeFilter = scrollToEvent.getStatus() != Event.ESTATUS_STOP;
                                             break;
                                     }
                                 }
-                                Log.e("DelayedWorksWorker.doWork", "changeFilter=" + changeFilter);
                                 if (changeFilter) {
                                     eventFragment.scrollToEvent = scrollToEvent;
                                     Handler handler = new Handler(context.getMainLooper());

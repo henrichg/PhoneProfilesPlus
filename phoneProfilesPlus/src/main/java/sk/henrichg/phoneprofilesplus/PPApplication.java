@@ -3192,6 +3192,8 @@ public class PPApplication extends Application implements Application.ActivityLi
         }
     }
 
+    //-----------------------------
+
     private static WeakReference<Activity> foregroundEditorActivity;
 
     @Override
@@ -3201,14 +3203,12 @@ public class PPApplication extends Application implements Application.ActivityLi
 
     @Override
     public void onActivityStarted(Activity activity) {
-        Log.e("PPActivity.onActivityStarted", activity.getClass().getCanonicalName());
         if (activity instanceof EditorProfilesActivity)
             foregroundEditorActivity=new WeakReference<>(activity);
     }
 
     @Override
     public void onActivityResumed(Activity activity) {
-        Log.e("PPActivity.onActivityResumed", activity.getClass().getCanonicalName());
         if (activity instanceof EditorProfilesActivity)
             foregroundEditorActivity=new WeakReference<>(activity);
     }
@@ -3220,7 +3220,6 @@ public class PPApplication extends Application implements Application.ActivityLi
 
     @Override
     public void onActivityStopped(Activity activity) {
-        Log.e("PPActivity.onActivityStopped", activity.getClass().getCanonicalName());
         if (activity instanceof EditorProfilesActivity)
             foregroundEditorActivity = null;
     }
