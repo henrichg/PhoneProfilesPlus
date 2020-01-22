@@ -632,17 +632,19 @@ public class EditorEventListFragment extends Fragment
                 }
 
                 // redraw event list
-                updateListView(event, false, false, true, 0);
+                //updateListView(event, false, false, true, 0);
+                if (getActivity() != null)
+                    ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
 
                 // restart events
                 //PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.runStopEvent");
                 //activityDataWrapper.restartEvents(false, true, true, true, true);
                 activityDataWrapper.restartEventsWithRescan(/*true, */false, true, true, false);
 
-            /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
-            PPApplication.startPPService(activityDataWrapper.context, serviceIntent);*/
+                /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
+                PPApplication.startPPService(activityDataWrapper.context, serviceIntent);*/
                 Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
                 //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                 commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
@@ -658,8 +660,25 @@ public class EditorEventListFragment extends Fragment
 
                 // update event in DB
                 DatabaseHandler.getInstance(activityDataWrapper.context).updateEvent(event);
+
                 // redraw event list
-                updateListView(event, false, false, true, 0);
+                //updateListView(event, false, false, true, 0);
+                if (getActivity() != null)
+                    ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
+
+                // restart events
+                //PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.runStopEvent");
+                //activityDataWrapper.restartEvents(false, true, true, true, true);
+                activityDataWrapper.restartEventsWithRescan(/*true, */false, true, true, false);
+
+                /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
+                PPApplication.startPPService(activityDataWrapper.context, serviceIntent);*/
+                Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+                //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
+                PPApplication.runCommand(activityDataWrapper.context, commandIntent);
             }
             return true;
         }
@@ -1544,22 +1563,27 @@ public class EditorEventListFragment extends Fragment
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
             public boolean onMenuItemClick(android.view.MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.event_list_item_not_ignore_manual_activation:
-                        event._forceRun = false;
-                        DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
-                        eventListAdapter.notifyDataSetChanged();
-                        EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
-                        return true;
-                    case R.id.event_list_item_ignore_manual_activation:
-                        event._forceRun = true;
-                        DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
-                        eventListAdapter.notifyDataSetChanged();
-                        EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
-                        return true;
-                    default:
-                        return false;
+                if (getActivity() != null) {
+                    switch (item.getItemId()) {
+                        case R.id.event_list_item_not_ignore_manual_activation:
+                            event._forceRun = false;
+                            DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
+                            //eventListAdapter.notifyDataSetChanged();
+                            EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
+                            ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
+                            return true;
+                        case R.id.event_list_item_ignore_manual_activation:
+                            event._forceRun = true;
+                            DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
+                            //eventListAdapter.notifyDataSetChanged();
+                            EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
+                            ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
+                            return true;
+                        default:
+                            return false;
+                    }
                 }
+                return true;
             }
         });
 

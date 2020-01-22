@@ -1139,20 +1139,25 @@ public class EditorProfileListFragment extends Fragment
             popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
                 public boolean onMenuItemClick(android.view.MenuItem item) {
-                    switch (item.getItemId()) {
-                        case R.id.profile_list_item_menu_not_show_in_activator:
-                            profile._showInActivator = false;
-                            DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
-                            profileListAdapter.notifyDataSetChanged();
-                            return true;
-                        case R.id.profile_list_item_menu_show_in_activator:
-                            profile._showInActivator = true;
-                            DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
-                            profileListAdapter.notifyDataSetChanged();
-                            return true;
-                        default:
-                            return false;
+                    if (getActivity() != null) {
+                        switch (item.getItemId()) {
+                            case R.id.profile_list_item_menu_not_show_in_activator:
+                                profile._showInActivator = false;
+                                DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
+                                //profileListAdapter.notifyDataSetChanged();
+                                ((EditorProfilesActivity) getActivity()).redrawProfileListFragment(profile, EDIT_MODE_EDIT);
+                                return true;
+                            case R.id.profile_list_item_menu_show_in_activator:
+                                profile._showInActivator = true;
+                                DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
+                                //profileListAdapter.notifyDataSetChanged();
+                                ((EditorProfilesActivity) getActivity()).redrawProfileListFragment(profile, EDIT_MODE_EDIT);
+                                return true;
+                            default:
+                                return false;
+                        }
                     }
+                    return true;
                 }
             });
 

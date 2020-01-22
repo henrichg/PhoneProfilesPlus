@@ -2196,7 +2196,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             startProfilePreferenceActivity(profile, editMode, predefinedProfileIndex);
     }
 
-    private void redrawProfileListFragment(Profile profile, int newProfileMode /*int predefinedProfileIndex, boolean startTargetHelps*/) {
+    void redrawProfileListFragment(Profile profile, int newProfileMode /*int predefinedProfileIndex, boolean startTargetHelps*/) {
         // redraw list fragment, notification a widgets
 
         Fragment _fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
@@ -2358,7 +2358,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             startEventPreferenceActivity(event, editMode, predefinedEventIndex);
     }
 
-    private void redrawEventListFragment(Event event, int newEventMode /*int predefinedEventIndex, boolean startTargetHelps*/) {
+    void redrawEventListFragment(Event event, int newEventMode /*int predefinedEventIndex, boolean startTargetHelps*/) {
         // redraw list fragment, notification and widgets
         Fragment _fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
         if (_fragment instanceof EditorEventListFragment) {
