@@ -922,7 +922,7 @@ public class EditorProfileListFragment extends Fragment
             EditorProfilesActivity.showDialogAboutRedText(profile, null, false, false, getActivity());
     }
 
-    private void setProfileSelection(Profile profile) {
+    /*private void setProfileSelection(Profile profile) {
         if (profileListAdapter != null)
         {
             int profilePos = ListView.INVALID_POSITION;
@@ -932,7 +932,7 @@ public class EditorProfileListFragment extends Fragment
             //else
             //    profilePos = listView.getCheckedItemPosition();
 
-            if (/*(!ApplicationPreferences.applicationEditorHeader(dataWrapper.context)) && */(profilePos != ListView.INVALID_POSITION))
+            if (profilePos != ListView.INVALID_POSITION)
             {
                 if (listView != null) {
                     // set profile visible in list
@@ -951,7 +951,7 @@ public class EditorProfileListFragment extends Fragment
         boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
         if (startTargetHelps)
             showAdapterTargetHelps();
-    }
+    }*/
 
     void updateListView(Profile profile, boolean newProfile, boolean refreshIcons, boolean setPosition, long loadProfileId)
     {
@@ -978,6 +978,14 @@ public class EditorProfileListFragment extends Fragment
         }
 
         if (profileListAdapter != null) {
+
+            int profilePos = ListView.INVALID_POSITION;
+
+            if (profile != null)
+                profilePos = profileListAdapter.getItemPosition(profile);
+            //else
+            //    profilePos = listView.getCheckedItemPosition();
+
             if (loadProfileId != 0) {
                 if (getActivity() != null) {
                     Profile profileFromDB = DatabaseHandler.getInstance(getActivity().getApplicationContext()).getProfile(loadProfileId, false);
@@ -986,10 +994,29 @@ public class EditorProfileListFragment extends Fragment
                 }
             }
             profileListAdapter.notifyDataSetChanged(refreshIcons);
-        }
 
-        if (setPosition || newProfile)
-            setProfileSelection(profile);
+            if (setPosition || newProfile) {
+                if (profilePos != ListView.INVALID_POSITION)
+                {
+                    if (listView != null) {
+                        // set profile visible in list
+                        //int last = listView.getLastVisiblePosition();
+                        //int first = listView.getFirstVisiblePosition();
+                        //if ((profilePos <= first) || (profilePos >= last)) {
+                        //    listView.setSelection(profilePos);
+                        //}
+                        RecyclerView.LayoutManager lm = listView.getLayoutManager();
+                        if (lm != null)
+                            lm.scrollToPosition(profilePos);
+                    }
+                }
+            }
+
+            boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
+            if (startTargetHelps)
+                showAdapterTargetHelps();
+
+        }
     }
 
     /*
