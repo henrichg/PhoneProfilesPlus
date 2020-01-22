@@ -1,25 +1,23 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
-import android.app.usage.UsageStats;
-import android.app.usage.UsageStatsManager;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 
-import java.util.List;
-import java.util.SortedMap;
-import java.util.TreeMap;
-
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 @SuppressWarnings("WeakerAccess")
 public class DelayedWorksWorker extends Worker {
+
+    Context context;
 
     static final String DELAYED_WORK_AFTER_FIRST_START = "after_first_start";
     static final String DELAYED_WORK_HANDLE_EVENTS = "handle_events";
@@ -27,11 +25,13 @@ public class DelayedWorksWorker extends Worker {
     static final String DELAYED_WORK_BLOCK_PROFILE_EVENT_ACTIONS = "block_profile_event_actions";
     static final String DELAYED_WORK_PACKAGE_REPLACED = "package_replaced";
     static final String DELAYED_WORK_CLOSE_ALL_APPLICATIONS = "close_all_applications";
+    static final String DELAYED_WORK_CHANGE_FILTER_AFTER_EDITOR_DATA_CHANGE = "change_filter_after_editor_data_change";
 
     public DelayedWorksWorker(
             @NonNull Context context,
             @NonNull WorkerParameters params) {
         super(context, params);
+        this.context = context;
     }
 
     @NonNull
@@ -50,6 +50,9 @@ public class DelayedWorksWorker extends Worker {
             boolean activateProfiles = getInputData().getBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
             boolean restartService = getInputData().getBoolean(PackageReplacedReceiver.EXTRA_RESTART_SERVICE, false);
             String sensorType = getInputData().getString(PhoneProfilesService.EXTRA_SENSOR_TYPE);
+            int filterSelectedItem = getInputData().getInt(EditorProfilesActivity.EXTRA_SELECTED_FILTER, 0);
+            long profileId = getInputData().getLong(PPApplication.EXTRA_PROFILE_ID, 0);
+            long eventId = getInputData().getLong(PPApplication.EXTRA_EVENT_ID, 0);
 
             //outputData = generateResult(LocationGeofenceEditorActivity.FAILURE_RESULT,
             //                                    getApplicationContext().getString(R.string.event_preferences_location_no_address_found),
@@ -250,6 +253,92 @@ public class DelayedWorksWorker extends Worker {
                             //}
                         } catch (Exception e) {
                             Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
+                        }
+                    }
+                    break;
+                case DELAYED_WORK_CHANGE_FILTER_AFTER_EDITOR_DATA_CHANGE:
+                    Log.e("DelayedWorksWorker.doWork", "DELAYED_WORK_CHANGE_FILTER_AFTER_EVENT_CHANGE");
+                    Log.e("DelayedWorksWorker.doWork", "filterSelectedItem="+filterSelectedItem);
+                    if (filterSelectedItem != 0) {
+                        Activity activity = PPApplication.getEditorActivity();
+                        Log.e("DelayedWorksWorker.doWork", "activity="+activity);
+                        if (activity instanceof EditorProfilesActivity) {
+                            final EditorProfilesActivity editorActivity = (EditorProfilesActivity)activity;
+                            Log.e("DelayedWorksWorker.doWork", "editorActivity="+editorActivity);
+                            Fragment fragment = editorActivity.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+                            Log.e("DelayedWorksWorker.doWork", "fragment="+fragment);
+                            if (fragment instanceof EditorProfileListFragment) {
+                                EditorProfileListFragment profileFragment = (EditorProfileListFragment) fragment;
+                                Log.e("DelayedWorksWorker.doWork", "profileFragment="+profileFragment);
+                                boolean changeFilter = false;
+                                Log.e("DelayedWorksWorker.doWork", "profileId="+profileId);
+                                Profile scrollToProfile = DatabaseHandler.getInstance(context).getProfile(profileId, false);
+                                Log.e("DelayedWorksWorker.doWork", "scrollToProfile="+scrollToProfile);
+                                if (scrollToProfile != null) {
+                                    switch (filterSelectedItem) {
+                                        case EditorProfilesActivity.DSI_PROFILES_NO_SHOW_IN_ACTIVATOR:
+                                            changeFilter = scrollToProfile._showInActivator;
+                                            break;
+                                        case EditorProfilesActivity.DSI_PROFILES_SHOW_IN_ACTIVATOR:
+                                            changeFilter = !scrollToProfile._showInActivator;
+                                            break;
+                                    }
+                                }
+                                Log.e("DelayedWorksWorker.doWork", "changeFilter=" + changeFilter);
+                                if (changeFilter) {
+                                    profileFragment.scrollToProfile = scrollToProfile;
+                                    Handler handler = new Handler(context.getMainLooper());
+                                    handler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            ((GlobalGUIRoutines.HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter()).setSelection(0);
+                                            editorActivity.selectFilterItem(0, 0, false, true);
+                                        }
+                                    });
+                                } else
+                                    profileFragment.scrollToProfile = null;
+                            }
+                            if (fragment instanceof EditorEventListFragment) {
+                                EditorEventListFragment eventFragment = (EditorEventListFragment) fragment;
+                                Log.e("DelayedWorksWorker.doWork", "eventFragment="+eventFragment);
+                                boolean changeFilter = false;
+                                Log.e("DelayedWorksWorker.doWork", "eventId="+eventId);
+                                Event scrollToEvent = DatabaseHandler.getInstance(context).getEvent(eventId);
+                                Log.e("DelayedWorksWorker.doWork", "scrollToEvent="+scrollToEvent);
+                                if (scrollToEvent != null) {
+                                    switch (filterSelectedItem) {
+                                        case EditorProfilesActivity.DSI_EVENTS_NOT_STOPPED:
+                                            Log.e("DelayedWorksWorker.doWork", "DSI_EVENTS_NOT_STOPPED");
+                                            changeFilter = scrollToEvent.getStatus() == Event.ESTATUS_STOP;
+                                            break;
+                                        case EditorProfilesActivity.DSI_EVENTS_RUNNING:
+                                            Log.e("DelayedWorksWorker.doWork", "DSI_EVENTS_RUNNING");
+                                            changeFilter = scrollToEvent.getStatus() != Event.ESTATUS_RUNNING;
+                                            break;
+                                        case EditorProfilesActivity.DSI_EVENTS_PAUSED:
+                                            Log.e("DelayedWorksWorker.doWork", "DSI_EVENTS_PAUSED");
+                                            changeFilter = scrollToEvent.getStatus() != Event.ESTATUS_PAUSE;
+                                            break;
+                                        case EditorProfilesActivity.DSI_EVENTS_STOPPED:
+                                            Log.e("DelayedWorksWorker.doWork", "DSI_EVENTS_STOPPED");
+                                            changeFilter = scrollToEvent.getStatus() != Event.ESTATUS_STOP;
+                                            break;
+                                    }
+                                }
+                                Log.e("DelayedWorksWorker.doWork", "changeFilter=" + changeFilter);
+                                if (changeFilter) {
+                                    eventFragment.scrollToEvent = scrollToEvent;
+                                    Handler handler = new Handler(context.getMainLooper());
+                                    handler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            ((GlobalGUIRoutines.HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter()).setSelection(0);
+                                            editorActivity.selectFilterItem(1, 0, false, true);
+                                        }
+                                    });
+                                } else
+                                    eventFragment.scrollToEvent = null;
+                            }
                         }
                     }
                     break;

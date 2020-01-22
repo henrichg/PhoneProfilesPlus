@@ -70,6 +70,8 @@ public class EditorProfileListFragment extends Fragment
 
     private WeakReference<LoadProfileListAsyncTask> asyncTaskContext;
 
+    Profile scrollToProfile = null;
+
     //private ValueAnimator hideAnimator;
     //private ValueAnimator showAnimator;
     //private int headerHeight;
@@ -368,7 +370,29 @@ public class EditorProfileListFragment extends Fragment
 
                 fragment.listView.setAdapter(fragment.profileListAdapter);
 
+                int profilePos = ListView.INVALID_POSITION;
+                if (scrollToProfile != null) {
+                    profilePos = profileListAdapter.getItemPosition(scrollToProfile);
+                    scrollToProfile = null;
+                }
+
                 profileListAdapter.notifyDataSetChanged(false);
+
+                if (profilePos != ListView.INVALID_POSITION)
+                {
+                    if (listView != null) {
+                        // set profile visible in list
+                        //int last = listView.getLastVisiblePosition();
+                        //int first = listView.getFirstVisiblePosition();
+                        //if ((profilePos <= first) || (profilePos >= last)) {
+                        //    listView.setSelection(profilePos);
+                        //}
+                        RecyclerView.LayoutManager lm = listView.getLayoutManager();
+                        if (lm != null)
+                            lm.scrollToPosition(profilePos);
+                    }
+                }
+
             }
         }
 

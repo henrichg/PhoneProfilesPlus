@@ -556,7 +556,7 @@ EditorProfilesActivity.redrawProfileListFragment()
            musis zistit, kde ten profil je, lebo zoznam sa kompletne zmenil
            - dorob do DataWraper int getProfilePosition(Profile)
          - nastavit na null
-
+HOTOVO
 - EditorProfilesActivity.redrawEventListFragment()
  - co tak sem zapisat do lokalnej premennej aktivity:
    - scrollToEvent = event;
@@ -569,6 +569,6 @@ EditorProfilesActivity.redrawProfileListFragment()
                musis zistit, kde ta udalost je, lebo zoznam sa kompletne zmenil
                - dorob do DataWraper int getEventPosition(Event)
              - nastavit na null
-
+HOTOVO
 
 

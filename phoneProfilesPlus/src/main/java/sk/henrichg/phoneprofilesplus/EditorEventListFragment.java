@@ -72,6 +72,8 @@ public class EditorEventListFragment extends Fragment
 
     private WeakReference<LoadEventListAsyncTask> asyncTaskContext;
 
+    Event scrollToEvent = null;
+
 //    private ValueAnimator hideAnimatorHeader;
 //    private ValueAnimator showAnimatorHeader;
 //    private int headerHeight;
@@ -1138,7 +1140,28 @@ public class EditorEventListFragment extends Fragment
 
                 listView.setAdapter(eventListAdapter);
 
+                int eventPos = ListView.INVALID_POSITION;
+                if (scrollToEvent != null) {
+                    eventPos = eventListAdapter.getItemPosition(scrollToEvent);
+                    scrollToEvent = null;
+                }
+
                 eventListAdapter.notifyDataSetChanged();
+
+                if (eventPos != ListView.INVALID_POSITION) {
+                    if (listView != null) {
+                        // set event visible in list
+                        //int last = listView.getLastVisiblePosition();
+                        //int first = listView.getFirstVisiblePosition();
+                        //if ((eventPos <= first) || (eventPos >= last)) {
+                        //    listView.setSelection(eventPos);
+                        //}
+                        RecyclerView.LayoutManager lm = listView.getLayoutManager();
+                        if (lm != null)
+                            lm.scrollToPosition(eventPos);
+                    }
+                }
+
             }
         }
     }

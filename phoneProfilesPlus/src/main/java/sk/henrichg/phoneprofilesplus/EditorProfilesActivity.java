@@ -50,6 +50,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -62,6 +63,10 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 import me.drakeet.support.toast.ToastCompat;
 import sk.henrichg.phoneprofilesplus.EditorEventListFragment.OnStartEventPreferences;
 import sk.henrichg.phoneprofilesplus.EditorProfileListFragment.OnStartProfilePreferences;
@@ -85,20 +90,21 @@ public class EditorProfilesActivity extends AppCompatActivity
     private AlertDialog importProgressDialog = null;
     private AlertDialog exportProgressDialog = null;
 
-    private static final int DSI_PROFILES_ALL = 0;
-    private static final int DSI_PROFILES_SHOW_IN_ACTIVATOR = 1;
-    private static final int DSI_PROFILES_NO_SHOW_IN_ACTIVATOR = 2;
-    private static final int DSI_EVENTS_START_ORDER = 0;
-    private static final int DSI_EVENTS_ALL = 1;
-    private static final int DSI_EVENTS_NOT_STOPPED = 2;
-    private static final int DSI_EVENTS_RUNNING = 3;
-    private static final int DSI_EVENTS_PAUSED = 4;
-    private static final int DSI_EVENTS_STOPPED = 5;
+    static final int DSI_PROFILES_ALL = 0;
+    static final int DSI_PROFILES_SHOW_IN_ACTIVATOR = 1;
+    static final int DSI_PROFILES_NO_SHOW_IN_ACTIVATOR = 2;
+    static final int DSI_EVENTS_START_ORDER = 0;
+    static final int DSI_EVENTS_ALL = 1;
+    static final int DSI_EVENTS_NOT_STOPPED = 2;
+    static final int DSI_EVENTS_RUNNING = 3;
+    static final int DSI_EVENTS_PAUSED = 4;
+    static final int DSI_EVENTS_STOPPED = 5;
 
     static final String EXTRA_NEW_PROFILE_MODE = "new_profile_mode";
     static final String EXTRA_PREDEFINED_PROFILE_INDEX = "predefined_profile_index";
     static final String EXTRA_NEW_EVENT_MODE = "new_event_mode";
     static final String EXTRA_PREDEFINED_EVENT_INDEX = "predefined_event_index";
+    static final String EXTRA_SELECTED_FILTER = "selected_filter";
 
     // request code for startActivityForResult with intent BackgroundActivateProfileActivity
     static final int REQUEST_CODE_ACTIVATE_PROFILE = 6220;
@@ -127,7 +133,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     //private ListView drawerListView;
     //private ActionBarDrawerToggle drawerToggle;
     //private BottomNavigationView bottomNavigationView;
-    private AppCompatSpinner filterSpinner;
+    AppCompatSpinner filterSpinner;
     //private AppCompatSpinner orderSpinner;
     //private View headerView;
     //private ImageView drawerHeaderFilterImage;
@@ -1017,7 +1023,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     }
     */
 
-    private void selectFilterItem(int selectedView, int position, boolean fromClickListener, boolean startTargetHelps) {
+    void selectFilterItem(int selectedView, int position, boolean fromClickListener, boolean startTargetHelps) {
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("EditorProfilesActivity.selectFilterItem", "editorSelectedView=" + editorSelectedView);
             PPApplication.logE("EditorProfilesActivity.selectFilterItem", "selectedView=" + selectedView);
@@ -2218,23 +2224,26 @@ public class EditorProfilesActivity extends AppCompatActivity
                 ActivateProfileHelper.updateGUI(fragment.activityDataWrapper.context, true, true);
 
                 fragment.activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
-                /*
+
                 if (filterProfilesSelectedItem != 0) {
-                    boolean changeFilter = false;
-                    switch (filterProfilesSelectedItem) {
-                        case DSI_PROFILES_NO_SHOW_IN_ACTIVATOR:
-                            changeFilter = profile._showInActivator;
-                            break;
-                        case DSI_PROFILES_SHOW_IN_ACTIVATOR:
-                            changeFilter = !profile._showInActivator;
-                            break;
-                    }
-                    if (changeFilter) {
-                        ((GlobalGUIRoutines.HighlightedSpinnerAdapter) filterSpinner.getAdapter()).setSelection(0);
-                        selectFilterItem(editorSelectedView, 0, false, true);
+                    Data workData = new Data.Builder()
+                            .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_CHANGE_FILTER_AFTER_EDITOR_DATA_CHANGE)
+                            .putInt(EXTRA_SELECTED_FILTER, filterProfilesSelectedItem)
+                            .putLong(PPApplication.EXTRA_PROFILE_ID, profile._id)
+                            .build();
+
+                    OneTimeWorkRequest worker =
+                            new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                    .addTag("delayedWorkChangeFilterAfterProfileChange")
+                                    .setInputData(workData)
+                                    .setInitialDelay(200, TimeUnit.MILLISECONDS)
+                                    .build();
+                    try {
+                        WorkManager workManager = WorkManager.getInstance(getApplicationContext());
+                        workManager.enqueueUniqueWork("delayedWorkChangeFilterAfterProfileChange", ExistingWorkPolicy.REPLACE, worker);
+                    } catch (Exception ignored) {
                     }
                 }
-                */
             }
         }
     }
@@ -2374,36 +2383,26 @@ public class EditorProfilesActivity extends AppCompatActivity
                 Profile activeProfile = fragment.activityDataWrapper.getActivatedProfileFromDB(true,
                         ApplicationPreferences.applicationEditorPrefIndicator);
                 fragment.updateHeader(activeProfile);
-                /*
-                Log.e("EditorProfilesActivity.redrawEventListFragment", "filterEventsSelectedItem="+filterEventsSelectedItem);
-                Log.e("EditorProfilesActivity.redrawEventListFragment", "event.getStatusFromDB()="+event.getStatusFromDB(fragment.activityDataWrapper.context));
+
                 if (filterEventsSelectedItem != 0) {
-                    boolean changeFilter = false;
-                    switch (filterEventsSelectedItem) {
-                        case DSI_EVENTS_NOT_STOPPED:
-                            Log.e("EditorProfilesActivity.redrawEventListFragment", "DSI_EVENTS_NOT_STOPPED");
-                            changeFilter = event.getStatusFromDB(fragment.activityDataWrapper.context) == Event.ESTATUS_STOP;
-                            break;
-                        case DSI_EVENTS_RUNNING:
-                            Log.e("EditorProfilesActivity.redrawEventListFragment", "DSI_EVENTS_RUNNING");
-                            changeFilter = event.getStatusFromDB(fragment.activityDataWrapper.context) != Event.ESTATUS_RUNNING;
-                            break;
-                        case DSI_EVENTS_PAUSED:
-                            Log.e("EditorProfilesActivity.redrawEventListFragment", "DSI_EVENTS_PAUSED");
-                            changeFilter = event.getStatusFromDB(fragment.activityDataWrapper.context) != Event.ESTATUS_PAUSE;
-                            break;
-                        case DSI_EVENTS_STOPPED:
-                            Log.e("EditorProfilesActivity.redrawEventListFragment", "DSI_EVENTS_STOPPED");
-                            changeFilter = event.getStatusFromDB(fragment.activityDataWrapper.context) != Event.ESTATUS_STOP;
-                            break;
-                    }
-                    Log.e("EditorProfilesActivity.redrawEventListFragment", "changeFilter="+changeFilter);
-                    if (changeFilter) {
-                        ((GlobalGUIRoutines.HighlightedSpinnerAdapter) filterSpinner.getAdapter()).setSelection(0);
-                        selectFilterItem(editorSelectedView, 0, false, true);
+                    Data workData = new Data.Builder()
+                            .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_CHANGE_FILTER_AFTER_EDITOR_DATA_CHANGE)
+                            .putInt(EXTRA_SELECTED_FILTER, filterEventsSelectedItem)
+                            .putLong(PPApplication.EXTRA_EVENT_ID, event._id)
+                            .build();
+
+                    OneTimeWorkRequest worker =
+                            new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                    .addTag("delayedWorkChangeFilterAfterEventChange")
+                                    .setInputData(workData)
+                                    .setInitialDelay(200, TimeUnit.MILLISECONDS)
+                                    .build();
+                    try {
+                        WorkManager workManager = WorkManager.getInstance(getApplicationContext());
+                        workManager.enqueueUniqueWork("delayedWorkChangeFilterAfterEventChange", ExistingWorkPolicy.REPLACE, worker);
+                    } catch (Exception ignored) {
                     }
                 }
-                */
             }
         }
     }
