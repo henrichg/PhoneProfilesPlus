@@ -543,6 +543,32 @@ HOTOVO
 Target helps
 HOTOVO
 
+------------------------------------------------
+
+EditorProfilesActivity.redrawProfileListFragment()
+ - co tak sem zapisat do lokalnej premennej aktivity:
+   - scrollToProfile = profile;
+ - EditorProfilesActivity.selectFilterItem()
+   - EditorProfileListFragment.changeFragmentFilter()
+     - EditorProfileListFragment.doOnViewCreated(), fromOnViewCreated=false
+       - tu citat EditorProfilesActivity.scrollToProfile
+         - ak != null, odscrolovat do neho, vid EditorProfileListFragment.updateListView
+           musis zistit, kde ten profil je, lebo zoznam sa kompletne zmenil
+           - dorob do DataWraper int getProfilePosition(Profile)
+         - nastavit na null
+
+- EditorProfilesActivity.redrawEventListFragment()
+ - co tak sem zapisat do lokalnej premennej aktivity:
+   - scrollToEvent = event;
+   - EditorEventListFragment.changeFragmentFilter()
+     - EditorEventListFragment.doOnViewCreated(), fromOnViewCreated=false
+       - changeEventOrder(), fromOnViewCreated=false
+         - changeListOrder(), fromOnViewCreated=false
+           - tu citat EditorProfilesActivity.scrollToEvent
+             - ak != null, odscrolovat do neho, vid EditorEventListFragment.updateListView
+               musis zistit, kde ta udalost je, lebo zoznam sa kompletne zmenil
+               - dorob do DataWraper int getEventPosition(Event)
+             - nastavit na null
 
 
 
