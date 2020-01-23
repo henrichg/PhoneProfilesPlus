@@ -87,8 +87,6 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
     {
         if (PPApplication.crashIntoFile) {
             try {
-                File path = applicationContext.getExternalFilesDir(null);
-
                 /*File sd = Environment.getExternalStorageDirectory();
                 File exportDir = new File(sd, PPApplication.EXPORT_PATH);
                 if (!(exportDir.exists() && exportDir.isDirectory()))
@@ -97,6 +95,7 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
 
                 File logFile = new File(sd, PPApplication.EXPORT_PATH + "/" + CRASH_FILENAME);*/
 
+                File path = applicationContext.getExternalFilesDir(null);
                 File logFile = new File(path, CRASH_FILENAME);
 
                 if (logFile.length() > 1024 * 10000)
@@ -124,13 +123,17 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
 
     private void resetLog()
     {
-        File sd = Environment.getExternalStorageDirectory();
+        /*File sd = Environment.getExternalStorageDirectory();
         File exportDir = new File(sd, PPApplication.EXPORT_PATH);
         if (!(exportDir.exists() && exportDir.isDirectory()))
             //noinspection ResultOfMethodCallIgnored
             exportDir.mkdirs();
 
-        File logFile = new File(sd, PPApplication.EXPORT_PATH + "/" + CRASH_FILENAME);
+        File logFile = new File(sd, PPApplication.EXPORT_PATH + "/" + CRASH_FILENAME);*/
+
+        File path = applicationContext.getExternalFilesDir(null);
+        File logFile = new File(path, CRASH_FILENAME);
+
         //noinspection ResultOfMethodCallIgnored
         logFile.delete();
     }
