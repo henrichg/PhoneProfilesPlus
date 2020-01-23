@@ -166,6 +166,7 @@ final class WifiApManager {
                 callStartTethering(internalConnectivityManagerField.get(mConnectivityManager));
             } catch (Exception e) {
                 Log.e("WifiApManager.startTethering", Log.getStackTraceString(e));
+                PPApplication.logE("WifiApManager.startTethering", Log.getStackTraceString(e));
             }
         }
     }
@@ -177,6 +178,7 @@ final class WifiApManager {
                 stopTetheringMethod.invoke(mConnectivityManager, 0);
             } catch (Exception e) {
                 Log.e("WifiApManager.stopTethering", Log.getStackTraceString(e));
+                PPApplication.logE("WifiApManager.stopTethering", Log.getStackTraceString(e));
             }
         }
     }
