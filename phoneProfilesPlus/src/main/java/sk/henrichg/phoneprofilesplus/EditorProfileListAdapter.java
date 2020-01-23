@@ -55,7 +55,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                         inflate(R.layout.editor_profile_list_item_no_indicator, parent, false);
         }
         else
-        if (filterType == EditorProfileListFragment.FILTER_TYPE_ALL)
+        /*if (filterType == EditorProfileListFragment.FILTER_TYPE_ALL)
         {
             if (ApplicationPreferences.applicationEditorPrefIndicator)
                 view = LayoutInflater.from(parent.getContext())
@@ -64,7 +64,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                 view = LayoutInflater.from(parent.getContext()).
                         inflate(R.layout.editor_profile_list_item_no_indicator_all_profiles, parent, false);
         }
-        else
+        else*/
         {
             if (ApplicationPreferences.applicationEditorPrefIndicator)
                 view = LayoutInflater.from(parent.getContext())

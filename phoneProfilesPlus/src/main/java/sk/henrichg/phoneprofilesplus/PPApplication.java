@@ -98,7 +98,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && BuildConfig.DEBUG;
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && BuildConfig.DEBUG;
     private static final boolean rootToolsDebug = false;
@@ -493,7 +493,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                         //+"|EventPreferencesCalendar"
                                         //+"|EventCalendarBroadcastReceiver"
 
-                                        //+"|DatabaseHandler.importDB"
+                                        +"|DatabaseHandler.importDB"
                                         //+ "|ApplicationsMultiSelectDialogPreference.getValueAMSDP"
                                         //+ "|ApplicationsDialogPreference"
                                         //+ "|ApplicationEditorDialogAdapter"
@@ -1101,13 +1101,18 @@ public class PPApplication extends Application /*implements Application.Activity
 
     static private void resetLog()
     {
-        File sd = Environment.getExternalStorageDirectory();
+        /*File sd = Environment.getExternalStorageDirectory();
         File exportDir = new File(sd, PPApplication.EXPORT_PATH);
         if (!(exportDir.exists() && exportDir.isDirectory()))
             //noinspection ResultOfMethodCallIgnored
             exportDir.mkdirs();
 
         File logFile = new File(sd, EXPORT_PATH + "/" + LOG_FILENAME);
+        */
+
+        File path = instance.getApplicationContext().getExternalFilesDir(null);
+        File logFile = new File(path, LOG_FILENAME);
+
         //noinspection ResultOfMethodCallIgnored
         logFile.delete();
     }
@@ -1121,7 +1126,6 @@ public class PPApplication extends Application /*implements Application.Activity
             return;
 
         try {
-            File path = instance.getApplicationContext().getExternalFilesDir(null);
             //Log.e("PPApplication.logIntoFile", "----- path=" + path.getAbsolutePath());
 
             /*File sd = Environment.getExternalStorageDirectory();
@@ -1133,6 +1137,7 @@ public class PPApplication extends Application /*implements Application.Activity
             File logFile = new File(sd, EXPORT_PATH + "/" + LOG_FILENAME);
             */
 
+            File path = instance.getApplicationContext().getExternalFilesDir(null);
             File logFile = new File(path, LOG_FILENAME);
 
             if (logFile.length() > 1024 * 10000)

@@ -1,23 +1,20 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Handler;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 @SuppressWarnings("WeakerAccess")
 public class DelayedWorksWorker extends Worker {
 
-    Context context;
+    //Context context;
 
     static final String DELAYED_WORK_AFTER_FIRST_START = "after_first_start";
     static final String DELAYED_WORK_HANDLE_EVENTS = "handle_events";
@@ -31,7 +28,7 @@ public class DelayedWorksWorker extends Worker {
             @NonNull Context context,
             @NonNull WorkerParameters params) {
         super(context, params);
-        this.context = context;
+        //this.context = context;
     }
 
     @NonNull
@@ -50,9 +47,9 @@ public class DelayedWorksWorker extends Worker {
             boolean activateProfiles = getInputData().getBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
             boolean restartService = getInputData().getBoolean(PackageReplacedReceiver.EXTRA_RESTART_SERVICE, false);
             String sensorType = getInputData().getString(PhoneProfilesService.EXTRA_SENSOR_TYPE);
-            int filterSelectedItem = getInputData().getInt(EditorProfilesActivity.EXTRA_SELECTED_FILTER, 0);
-            long profileId = getInputData().getLong(PPApplication.EXTRA_PROFILE_ID, 0);
-            long eventId = getInputData().getLong(PPApplication.EXTRA_EVENT_ID, 0);
+            //int filterSelectedItem = getInputData().getInt(EditorProfilesActivity.EXTRA_SELECTED_FILTER, 0);
+            //long profileId = getInputData().getLong(PPApplication.EXTRA_PROFILE_ID, 0);
+            //long eventId = getInputData().getLong(PPApplication.EXTRA_EVENT_ID, 0);
 
             //outputData = generateResult(LocationGeofenceEditorActivity.FAILURE_RESULT,
             //                                    getApplicationContext().getString(R.string.event_preferences_location_no_address_found),

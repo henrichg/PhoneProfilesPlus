@@ -50,7 +50,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -63,10 +62,6 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 import me.drakeet.support.toast.ToastCompat;
 import sk.henrichg.phoneprofilesplus.EditorEventListFragment.OnStartEventPreferences;
 import sk.henrichg.phoneprofilesplus.EditorProfileListFragment.OnStartProfilePreferences;
@@ -90,21 +85,21 @@ public class EditorProfilesActivity extends AppCompatActivity
     private AlertDialog importProgressDialog = null;
     private AlertDialog exportProgressDialog = null;
 
-    static final int DSI_PROFILES_ALL = 0;
-    static final int DSI_PROFILES_SHOW_IN_ACTIVATOR = 1;
-    static final int DSI_PROFILES_NO_SHOW_IN_ACTIVATOR = 2;
-    static final int DSI_EVENTS_START_ORDER = 0;
-    static final int DSI_EVENTS_ALL = 1;
-    static final int DSI_EVENTS_NOT_STOPPED = 2;
-    static final int DSI_EVENTS_RUNNING = 3;
-    static final int DSI_EVENTS_PAUSED = 4;
-    static final int DSI_EVENTS_STOPPED = 5;
+    private static final int DSI_PROFILES_ALL = 0;
+    private static final int DSI_PROFILES_SHOW_IN_ACTIVATOR = 1;
+    private static final int DSI_PROFILES_NO_SHOW_IN_ACTIVATOR = 2;
+    private static final int DSI_EVENTS_START_ORDER = 0;
+    private static final int DSI_EVENTS_ALL = 1;
+    private static final int DSI_EVENTS_NOT_STOPPED = 2;
+    private static final int DSI_EVENTS_RUNNING = 3;
+    private static final int DSI_EVENTS_PAUSED = 4;
+    private static final int DSI_EVENTS_STOPPED = 5;
 
     static final String EXTRA_NEW_PROFILE_MODE = "new_profile_mode";
     static final String EXTRA_PREDEFINED_PROFILE_INDEX = "predefined_profile_index";
     static final String EXTRA_NEW_EVENT_MODE = "new_event_mode";
     static final String EXTRA_PREDEFINED_EVENT_INDEX = "predefined_event_index";
-    static final String EXTRA_SELECTED_FILTER = "selected_filter";
+    //static final String EXTRA_SELECTED_FILTER = "selected_filter";
 
     // request code for startActivityForResult with intent BackgroundActivateProfileActivity
     static final int REQUEST_CODE_ACTIVATE_PROFILE = 6220;
@@ -133,7 +128,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     //private ListView drawerListView;
     //private ActionBarDrawerToggle drawerToggle;
     //private BottomNavigationView bottomNavigationView;
-    AppCompatSpinner filterSpinner;
+    private AppCompatSpinner filterSpinner;
     //private AppCompatSpinner orderSpinner;
     //private View headerView;
     //private ImageView drawerHeaderFilterImage;
@@ -1023,7 +1018,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     }
     */
 
-    void selectFilterItem(int selectedView, int position, boolean fromClickListener, boolean startTargetHelps) {
+    private void selectFilterItem(int selectedView, int position, boolean fromClickListener, boolean startTargetHelps) {
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("EditorProfilesActivity.selectFilterItem", "editorSelectedView=" + editorSelectedView);
             PPApplication.logE("EditorProfilesActivity.selectFilterItem", "selectedView=" + selectedView);
@@ -1434,14 +1429,14 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }
             }
         }
-        else
+        /*else
         if (requestCode == REQUEST_CODE_REMOTE_EXPORT)
         {
             if (resultCode == RESULT_OK)
             {
                 doImportData(GlobalGUIRoutines.REMOTE_EXPORT_PATH);
             }
-        }
+        }*/
         /*else
         if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_PROFILE) {
             if (data != null) {
@@ -1716,7 +1711,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                     if (dataWrapper != null) {
                         PPApplication.exitApp(false, dataWrapper.context, dataWrapper, null, false/*, false, true*/);
 
-                        File sd = Environment.getExternalStorageDirectory();
+                        //File sd = Environment.getExternalStorageDirectory();
+                        File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
                         File exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
                         appSettingsError = !importApplicationPreferences(exportFile, 1);
                         exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
@@ -1975,7 +1971,9 @@ public class EditorProfilesActivity extends AppCompatActivity
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         dialogBuilder.setTitle(R.string.export_profiles_alert_title);
-        dialogBuilder.setMessage(getString(R.string.export_profiles_alert_message) + " \"" + PPApplication.EXPORT_PATH + "\".\n\n" +
+        //File sd = Environment.getExternalStorageDirectory();
+        //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+        dialogBuilder.setMessage(getString(R.string.export_profiles_alert_message) + " \"" + "/" + Environment.DIRECTORY_DOCUMENTS + PPApplication.EXPORT_PATH + "\".\n\n" +
                                  getString(R.string.export_profiles_alert_message_note));
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
 
@@ -2041,7 +2039,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                     if (this.dataWrapper != null) {
                         int ret = DatabaseHandler.getInstance(this.dataWrapper.context).exportDB();
                         if (ret == 1) {
-                            File sd = Environment.getExternalStorageDirectory();
+                            //File sd = Environment.getExternalStorageDirectory();
+                            File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
                             File exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
                             if (exportApplicationPreferences(exportFile/*, 1*/)) {
                             /*exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
@@ -2083,7 +2082,8 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                             ArrayList<Uri> uris = new ArrayList<>();
 
-                            File sd = Environment.getExternalStorageDirectory();
+                            //File sd = Environment.getExternalStorageDirectory();
+                            File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
 
                             File exportedDB = new File(sd, PPApplication.EXPORT_PATH + "/" + DatabaseHandler.EXPORT_DBFILENAME);
                             Uri fileUri = FileProvider.getUriForFile(activity, context.getPackageName() + ".provider", exportedDB);

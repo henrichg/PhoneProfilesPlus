@@ -40,10 +40,10 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
             dragHandle = itemView.findViewById(R.id.profile_list_drag_handle);
         else
             dragHandle = null;
-        if (filterType == EditorProfileListFragment.FILTER_TYPE_ALL)
+        //if (filterType == EditorProfileListFragment.FILTER_TYPE_ALL)
             showInActivatorButton = itemView.findViewById(R.id.profile_list_item_show_in_activator);
-        else
-            showInActivatorButton = null;
+        /*else
+            showInActivatorButton = null;*/
 
         profileName = itemView.findViewById(R.id.profile_list_item_profile_name);
         profileIcon = itemView.findViewById(R.id.profile_list_item_profile_icon);
@@ -134,7 +134,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
             }
         });
 
-        if (showInActivatorButton != null) {
+        //if (showInActivatorButton != null) {
             if (profile._showInActivator)
                 showInActivatorButton.setImageResource(R.drawable.ic_show_in_activator);
             else
@@ -151,7 +151,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
                     }*/
                 }
             });
-        }
+        //}
     }
 
     @Override

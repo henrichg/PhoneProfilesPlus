@@ -64,7 +64,7 @@ class GlobalGUIRoutines {
 
     // import/export
     static final String DB_FILEPATH = "/data/" + PPApplication.PACKAGE_NAME + "/databases";
-    static final String REMOTE_EXPORT_PATH = "/PhoneProfiles";
+    //static final String REMOTE_EXPORT_PATH = "/PhoneProfiles";
     static final String EXPORT_APP_PREF_FILENAME = "ApplicationPreferences.backup";
     static final String EXPORT_DEF_PROFILE_PREF_FILENAME = "DefaultProfilePreferences.backup";
 
