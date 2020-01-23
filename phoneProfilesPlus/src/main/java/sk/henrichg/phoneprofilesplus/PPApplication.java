@@ -100,7 +100,7 @@ public class PPApplication extends Application implements Application.ActivityLi
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && BuildConfig.DEBUG;
-    static final boolean logIntoFile = true;
+    static final boolean logIntoFile = false;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && BuildConfig.DEBUG;
     private static final boolean rootToolsDebug = false;
@@ -495,7 +495,7 @@ public class PPApplication extends Application implements Application.ActivityLi
                                         //+"|EventPreferencesCalendar"
                                         //+"|EventCalendarBroadcastReceiver"
 
-                                        +"|DatabaseHandler.importDB"
+                                        //+"|DatabaseHandler.importDB"
                                         //+ "|ApplicationsMultiSelectDialogPreference.getValueAMSDP"
                                         //+ "|ApplicationsDialogPreference"
                                         //+ "|ApplicationEditorDialogAdapter"
