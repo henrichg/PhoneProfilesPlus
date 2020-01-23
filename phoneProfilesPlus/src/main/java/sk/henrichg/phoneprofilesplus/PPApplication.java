@@ -12,7 +12,6 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.PowerManager;
@@ -586,6 +585,9 @@ public class PPApplication extends Application /*implements Application.Activity
                                         //+"|CmdWifi.setWifi"
 
                                         //+"|ApplicationEditorIntentActivityX"
+
+                                        +"|WifiApManager.startTethering"
+                                        +"|WifiApManager.stopTethering"
             ;
 
 

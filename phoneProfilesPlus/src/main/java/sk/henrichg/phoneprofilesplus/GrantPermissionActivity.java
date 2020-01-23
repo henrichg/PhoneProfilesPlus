@@ -1518,6 +1518,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         else*/
         if (grantType == Permissions.GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION) {
             //finishAffinity();
+            setResult(Activity.RESULT_OK);
             finish();
             Permissions.removePlayRingtoneNotificationNotification(context);
         }
@@ -1602,6 +1603,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         }
         else
         if (grantType == Permissions.GRANT_TYPE_EVENT) {
+            setResult(Activity.RESULT_OK);
             //finishAffinity();
             finish();
             Permissions.removeEventNotification(context);
@@ -1695,6 +1697,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             returnIntent.putExtra(Permissions.EXTRA_ACTIVATE_PROFILE, activateProfile);
             setResult(Activity.RESULT_OK,returnIntent);*/
 
+            setResult(Activity.RESULT_OK);
             //finishAffinity();
             finish();
             Permissions.removeProfileNotification(context);

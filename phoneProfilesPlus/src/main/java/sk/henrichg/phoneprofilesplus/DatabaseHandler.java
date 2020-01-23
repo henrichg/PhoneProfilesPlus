@@ -10079,8 +10079,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //close();
 
                 try {
-                    //File sd = Environment.getExternalStorageDirectory();
-                    File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+                    File sd = Environment.getExternalStorageDirectory();
+                    //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
                     //File data = Environment.getDataDirectory();
 
                     //File dataDB = new File(data, DB_FILEPATH + "/" + DATABASE_NAME);
@@ -10088,9 +10088,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                     if (exportedDB.exists()) {
                         //PPApplication.logE("DatabaseHandler.importDB", "exportedDB.getAbsolutePath()="+exportedDB.getAbsolutePath());
-                        SQLiteDatabase exportedDBObj = SQLiteDatabase.openDatabase(exportedDB.getAbsolutePath(), null, SQLiteDatabase.OPEN_READWRITE);
+                        SQLiteDatabase exportedDBObj = SQLiteDatabase.openDatabase(exportedDB.getAbsolutePath(), null, SQLiteDatabase.OPEN_READONLY);
 
-                        if (exportedDBObj.getVersion() <= DATABASE_VERSION) {
+                        //if (exportedDBObj.getVersion() <= DATABASE_VERSION) {
                             SQLiteDatabase db = getMyWritableDatabase();
 
                             Cursor cursorExportedDB = null;
@@ -11552,10 +11552,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     cursorImportDB.close();
                                 //db.close();
                             }
-                        } else {
+                        /*} else {
                             //    exportedDBObj.close();
                             ret = IMPORT_ERROR_NEVER_VERSION;
-                        }
+                        }*/
                     }
                 } catch (Exception e) {
                     Log.e("DatabaseHandler.importDB", Log.getStackTraceString(e));
@@ -11587,8 +11587,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 try {
                     try {
 
-                        //File sd = Environment.getExternalStorageDirectory();
-                        File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+                        File sd = Environment.getExternalStorageDirectory();
+                        //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
                         File data = Environment.getDataDirectory();
 
                         File dataDB = new File(data, GlobalGUIRoutines.DB_FILEPATH + "/" + DATABASE_NAME);

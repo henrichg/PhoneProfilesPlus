@@ -653,7 +653,7 @@ class Permissions {
         }
     }
 
-    private static boolean checkImport(Context context) {
+    static boolean checkImport(Context context) {
         try {
             if (android.os.Build.VERSION.SDK_INT >= 23)
                 return (ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
@@ -664,7 +664,7 @@ class Permissions {
         }
     }
 
-    private static boolean checkExport(Context context) {
+    static boolean checkExport(Context context) {
         try {
             if (android.os.Build.VERSION.SDK_INT >= 23)
                 return (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);

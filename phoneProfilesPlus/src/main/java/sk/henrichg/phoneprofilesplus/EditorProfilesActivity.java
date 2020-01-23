@@ -1661,7 +1661,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         final EditorProfilesActivity activity = this;
         final String _applicationDataPath = applicationDataPath;
 
-        if (Permissions.grantImportPermissions(activity.getApplicationContext(), activity, applicationDataPath)) {
+        if (Permissions.checkImport(getApplicationContext())) {
 
             @SuppressLint("StaticFieldLeak")
             class ImportAsyncTask extends AsyncTask<Void, Integer, Integer> {
@@ -1711,8 +1711,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                     if (dataWrapper != null) {
                         PPApplication.exitApp(false, dataWrapper.context, dataWrapper, null, false/*, false, true*/);
 
-                        //File sd = Environment.getExternalStorageDirectory();
-                        File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+                        File sd = Environment.getExternalStorageDirectory();
+                        //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
                         File exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
                         appSettingsError = !importApplicationPreferences(exportFile, 1);
                         exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
@@ -1862,6 +1862,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         importExportErrorDialog(1);
                 }
                 else*/
+                if (Permissions.grantImportPermissions(getApplicationContext(), EditorProfilesActivity.this, PPApplication.EXPORT_PATH))
                     doImportData(PPApplication.EXPORT_PATH);
             }
         });
@@ -1973,14 +1974,15 @@ public class EditorProfilesActivity extends AppCompatActivity
         dialogBuilder.setTitle(R.string.export_profiles_alert_title);
         //File sd = Environment.getExternalStorageDirectory();
         //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-        dialogBuilder.setMessage(getString(R.string.export_profiles_alert_message) + " \"" + "/" + Environment.DIRECTORY_DOCUMENTS + PPApplication.EXPORT_PATH + "\".\n\n" +
+        dialogBuilder.setMessage(getString(R.string.export_profiles_alert_message) + " \"" /*+ "/" + Environment.DIRECTORY_DOCUMENTS*/ + PPApplication.EXPORT_PATH + "\".\n\n" +
                                  getString(R.string.export_profiles_alert_message_note));
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
 
         dialogBuilder.setPositiveButton(R.string.alert_button_backup, new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
-                doExportData(email, toAuthor);
+                if (Permissions.grantExportPermissions(getApplicationContext(), EditorProfilesActivity.this, email, toAuthor))
+                    doExportData(email, toAuthor);
             }
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
@@ -2002,7 +2004,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     {
         final EditorProfilesActivity activity = this;
 
-        if (Permissions.grantExportPermissions(activity.getApplicationContext(), activity, email, toAuthor)) {
+        if (Permissions.checkExport(getApplicationContext())) {
 
             @SuppressLint("StaticFieldLeak")
             class ExportAsyncTask extends AsyncTask<Void, Integer, Integer> {
@@ -2039,8 +2041,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                     if (this.dataWrapper != null) {
                         int ret = DatabaseHandler.getInstance(this.dataWrapper.context).exportDB();
                         if (ret == 1) {
-                            //File sd = Environment.getExternalStorageDirectory();
-                            File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+                            File sd = Environment.getExternalStorageDirectory();
+                            //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
                             File exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
                             if (exportApplicationPreferences(exportFile/*, 1*/)) {
                             /*exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
@@ -2082,8 +2084,8 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                             ArrayList<Uri> uris = new ArrayList<>();
 
-                            //File sd = Environment.getExternalStorageDirectory();
-                            File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+                            File sd = Environment.getExternalStorageDirectory();
+                            //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
 
                             File exportedDB = new File(sd, PPApplication.EXPORT_PATH + "/" + DatabaseHandler.EXPORT_DBFILENAME);
                             Uri fileUri = FileProvider.getUriForFile(activity, context.getPackageName() + ".provider", exportedDB);
