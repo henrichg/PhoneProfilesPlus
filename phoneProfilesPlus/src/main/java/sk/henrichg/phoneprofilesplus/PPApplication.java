@@ -12,7 +12,6 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -36,7 +35,6 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
@@ -60,7 +58,7 @@ import io.fabric.sdk.android.Fabric;
 
 import static android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE;
 
-public class PPApplication extends Application implements Application.ActivityLifecycleCallbacks {
+public class PPApplication extends Application /*implements Application.ActivityLifecycleCallbacks*/ {
 
     private static PPApplication instance;
     private static boolean applicationStarted = false;
@@ -818,7 +816,7 @@ public class PPApplication extends Application implements Application.ActivityLi
 
         instance = this;
 
-        registerActivityLifecycleCallbacks(PPApplication.this);
+        //registerActivityLifecycleCallbacks(PPApplication.this);
 
         loadApplicationPreferences(getApplicationContext());
         loadGlobalApplicationData(getApplicationContext());
@@ -3192,7 +3190,7 @@ public class PPApplication extends Application implements Application.ActivityLi
         }
     }
 
-    //-----------------------------
+/*    //-----------------------------
 
     private static WeakReference<Activity> foregroundEditorActivity;
 
@@ -3234,26 +3232,13 @@ public class PPApplication extends Application implements Application.ActivityLi
 
     }
 
-    /*
-    boolean isOnForeground(@NonNull Context activity_cntxt) {
-        return isOnForeground(activity_cntxt.getClass().getCanonicalName());
-    }
-
-    boolean isOnForeground(@NonNull String activity_canonical_name) {
-        if (foregroundActivity != null && foregroundActivity.get() != null) {
-            return foregroundActivity.get().getClass().getCanonicalName().equals(activity_canonical_name);
-        }
-        return false;
-    }
-    */
-
     static Activity getEditorActivity() {
         if (foregroundEditorActivity != null && foregroundEditorActivity.get() != null) {
             return foregroundEditorActivity.get();
         }
         return null;
     }
-
+*/
     // Google Analytics ----------------------------------------------------------------------------
 
     /*

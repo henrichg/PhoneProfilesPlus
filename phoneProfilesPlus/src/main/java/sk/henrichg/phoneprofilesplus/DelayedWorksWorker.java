@@ -25,7 +25,7 @@ public class DelayedWorksWorker extends Worker {
     static final String DELAYED_WORK_BLOCK_PROFILE_EVENT_ACTIONS = "block_profile_event_actions";
     static final String DELAYED_WORK_PACKAGE_REPLACED = "package_replaced";
     static final String DELAYED_WORK_CLOSE_ALL_APPLICATIONS = "close_all_applications";
-    static final String DELAYED_WORK_CHANGE_FILTER_AFTER_EDITOR_DATA_CHANGE = "change_filter_after_editor_data_change";
+    //static final String DELAYED_WORK_CHANGE_FILTER_AFTER_EDITOR_DATA_CHANGE = "change_filter_after_editor_data_change";
 
     public DelayedWorksWorker(
             @NonNull Context context,
@@ -256,7 +256,7 @@ public class DelayedWorksWorker extends Worker {
                         }
                     }
                     break;
-                case DELAYED_WORK_CHANGE_FILTER_AFTER_EDITOR_DATA_CHANGE:
+                /*case DELAYED_WORK_CHANGE_FILTER_AFTER_EDITOR_DATA_CHANGE:
                     if (filterSelectedItem != 0) {
                         Activity activity = PPApplication.getEditorActivity();
                         if (activity instanceof EditorProfilesActivity) {
@@ -324,7 +324,7 @@ public class DelayedWorksWorker extends Worker {
                             }
                         }
                     }
-                    break;
+                    break;*/
                 default:
                     break;
             }

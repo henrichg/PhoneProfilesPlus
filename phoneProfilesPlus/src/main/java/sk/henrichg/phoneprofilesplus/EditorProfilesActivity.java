@@ -2202,7 +2202,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             startProfilePreferenceActivity(profile, editMode, predefinedProfileIndex);
     }
 
-    void redrawProfileListFragment(Profile profile, int newProfileMode /*int predefinedProfileIndex, boolean startTargetHelps*/) {
+    void redrawProfileListFragment(final Profile profile, int newProfileMode /*int predefinedProfileIndex, boolean startTargetHelps*/) {
         // redraw list fragment, notification a widgets
 
         Fragment _fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
@@ -2226,7 +2226,32 @@ public class EditorProfilesActivity extends AppCompatActivity
                 fragment.activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
 
                 if (filterProfilesSelectedItem != 0) {
-                    Data workData = new Data.Builder()
+                    final EditorProfilesActivity editorActivity = this;
+                    Handler handler = new Handler(getMainLooper());
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (!editorActivity.isFinishing()) {
+                                boolean changeFilter = false;
+                                switch (filterProfilesSelectedItem) {
+                                    case EditorProfilesActivity.DSI_PROFILES_NO_SHOW_IN_ACTIVATOR:
+                                        changeFilter = profile._showInActivator;
+                                        break;
+                                    case EditorProfilesActivity.DSI_PROFILES_SHOW_IN_ACTIVATOR:
+                                        changeFilter = !profile._showInActivator;
+                                        break;
+                                }
+                                if (changeFilter) {
+                                    fragment.scrollToProfile = profile;
+                                    ((GlobalGUIRoutines.HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter()).setSelection(0);
+                                    editorActivity.selectFilterItem(0, 0, false, true);
+                                }
+                                else
+                                    fragment.scrollToProfile = null;
+                            }
+                        }
+                    }, 200);
+                    /*Data workData = new Data.Builder()
                             .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_CHANGE_FILTER_AFTER_EDITOR_DATA_CHANGE)
                             .putInt(EXTRA_SELECTED_FILTER, filterProfilesSelectedItem)
                             .putLong(PPApplication.EXTRA_PROFILE_ID, profile._id)
@@ -2242,7 +2267,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         WorkManager workManager = WorkManager.getInstance(getApplicationContext());
                         workManager.enqueueUniqueWork("delayedWorkChangeFilterAfterProfileChange", ExistingWorkPolicy.REPLACE, worker);
                     } catch (Exception ignored) {
-                    }
+                    }*/
                 }
             }
         }
@@ -2367,11 +2392,11 @@ public class EditorProfilesActivity extends AppCompatActivity
             startEventPreferenceActivity(event, editMode, predefinedEventIndex);
     }
 
-    void redrawEventListFragment(Event event, int newEventMode /*int predefinedEventIndex, boolean startTargetHelps*/) {
+    void redrawEventListFragment(final Event event, int newEventMode /*int predefinedEventIndex, boolean startTargetHelps*/) {
         // redraw list fragment, notification and widgets
         Fragment _fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
         if (_fragment instanceof EditorEventListFragment) {
-            EditorEventListFragment fragment = (EditorEventListFragment) getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+            final EditorEventListFragment fragment = (EditorEventListFragment) getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
             if (fragment != null) {
                 // update event, this rewrite event in eventList
                 fragment.activityDataWrapper.updateEvent(event);
@@ -2385,6 +2410,38 @@ public class EditorProfilesActivity extends AppCompatActivity
                 fragment.updateHeader(activeProfile);
 
                 if (filterEventsSelectedItem != 0) {
+                    final EditorProfilesActivity editorActivity = this;
+                    Handler handler = new Handler(getMainLooper());
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (!editorActivity.isFinishing()) {
+                                boolean changeFilter = false;
+                                switch (filterEventsSelectedItem) {
+                                    case EditorProfilesActivity.DSI_EVENTS_NOT_STOPPED:
+                                        changeFilter = event.getStatus() == Event.ESTATUS_STOP;
+                                        break;
+                                    case EditorProfilesActivity.DSI_EVENTS_RUNNING:
+                                        changeFilter = event.getStatus() != Event.ESTATUS_RUNNING;
+                                        break;
+                                    case EditorProfilesActivity.DSI_EVENTS_PAUSED:
+                                        changeFilter = event.getStatus() != Event.ESTATUS_PAUSE;
+                                        break;
+                                    case EditorProfilesActivity.DSI_EVENTS_STOPPED:
+                                        changeFilter = event.getStatus() != Event.ESTATUS_STOP;
+                                        break;
+                                }
+                                if (changeFilter) {
+                                    fragment.scrollToEvent = event;
+                                    ((GlobalGUIRoutines.HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter()).setSelection(0);
+                                    editorActivity.selectFilterItem(1, 0, false, true);
+                                }
+                                else
+                                    fragment.scrollToEvent = null;
+                            }
+                        }
+                    }, 200);
+                    /*
                     Data workData = new Data.Builder()
                             .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_CHANGE_FILTER_AFTER_EDITOR_DATA_CHANGE)
                             .putInt(EXTRA_SELECTED_FILTER, filterEventsSelectedItem)
@@ -2402,6 +2459,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         workManager.enqueueUniqueWork("delayedWorkChangeFilterAfterEventChange", ExistingWorkPolicy.REPLACE, worker);
                     } catch (Exception ignored) {
                     }
+                    */
                 }
             }
         }
