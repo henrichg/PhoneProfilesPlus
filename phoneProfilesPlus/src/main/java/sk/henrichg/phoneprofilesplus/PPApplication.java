@@ -194,6 +194,10 @@ public class PPApplication extends Application /*implements Application.Activity
                                          //+"|EditorProfilesActivity.onCreate"
                                          //+"|EditorProfilesActivity.onStart"
                                          //+"|EditorProfilesActivity.onActivityResult"
+                                         +"|EditorProfileListViewHolder"
+                                         +"|EditorEventListViewHolder"
+                                         +"|EditorProfileListFragment"
+                                         +"|EditorEventListFragment"
 
                                          //+"|PostDelayedBroadcastReceiver"
 

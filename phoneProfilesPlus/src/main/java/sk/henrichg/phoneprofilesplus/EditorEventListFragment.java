@@ -581,12 +581,18 @@ public class EditorEventListFragment extends Fragment
 
     void startEventPreferencesActivity(Event event, int predefinedEventIndex)
     {
+        PPApplication.logE("EditorEventListFragment.startProfilePreferencesActivity", "event="+event);
+        if (event != null)
+            PPApplication.logE("EditorEventListFragment.startProfilePreferencesActivity", "profile._name="+event._name);
+        PPApplication.logE("EditorEventListFragment.startProfilePreferencesActivity", "predefinedProfileIndex="+predefinedEventIndex);
+
         int editMode;
 
         if (event != null)
         {
             // edit event
             int eventPos = eventListAdapter.getItemPosition(event);
+            PPApplication.logE("EditorEventListFragment.startProfilePreferencesActivity", "eventPos="+eventPos);
             /*int last = listView.getLastVisiblePosition();
             int first = listView.getFirstVisiblePosition();
             if ((eventPos <= first) || (eventPos >= last)) {
@@ -597,6 +603,7 @@ public class EditorEventListFragment extends Fragment
                 lm.scrollToPosition(eventPos);
 
             boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
+            PPApplication.logE("EditorEventListFragment.startProfilePreferencesActivity", "startTargetHelps="+startTargetHelps);
             if (startTargetHelps)
                 showAdapterTargetHelps();
 
@@ -608,6 +615,8 @@ public class EditorEventListFragment extends Fragment
             editMode = EDIT_MODE_INSERT;
 
         }
+
+        PPApplication.logE("EditorEvemtListFragment.startProfilePreferencesActivity", "editMode="+editMode);
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) one must start profile preferences

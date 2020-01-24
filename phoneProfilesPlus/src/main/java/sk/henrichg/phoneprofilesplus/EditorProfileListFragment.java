@@ -573,12 +573,18 @@ public class EditorProfileListFragment extends Fragment
 
     void startProfilePreferencesActivity(Profile profile, int predefinedProfileIndex)
     {
+        PPApplication.logE("EditorProfileListFragment.startProfilePreferencesActivity", "profile="+profile);
+        if (profile != null)
+            PPApplication.logE("EditorProfileListFragment.startProfilePreferencesActivity", "profile._name="+profile._name);
+        PPApplication.logE("EditorProfileListFragment.startProfilePreferencesActivity", "predefinedProfileIndex="+predefinedProfileIndex);
+
         int editMode;
 
         if (profile != null)
         {
             // edit profile
             int profilePos = profileListAdapter.getItemPosition(profile);
+            PPApplication.logE("EditorProfileListFragment.startProfilePreferencesActivity", "profilePos="+profilePos);
             /*int last = listView.getLastVisiblePosition();
             int first = listView.getFirstVisiblePosition();
             if ((profilePos <= first) || (profilePos >= last)) {
@@ -589,6 +595,7 @@ public class EditorProfileListFragment extends Fragment
                 lm.scrollToPosition(profilePos);
 
             boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
+            PPApplication.logE("EditorProfileListFragment.startProfilePreferencesActivity", "startTargetHelps="+startTargetHelps);
             if (startTargetHelps)
                 showAdapterTargetHelps();
 
@@ -599,6 +606,8 @@ public class EditorProfileListFragment extends Fragment
             // add new profile
             editMode = EDIT_MODE_INSERT;
         }
+
+        PPApplication.logE("EditorProfileListFragment.startProfilePreferencesActivity", "editMode="+editMode);
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) one must start profile preferences
