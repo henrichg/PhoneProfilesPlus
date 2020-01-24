@@ -73,7 +73,7 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
         NotificationManager mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         if (mNotificationManager != null) {
             int interruptionFilter = mNotificationManager.getCurrentInterruptionFilter();
-            PPApplication.logE("InterruptionFilterChangedBroadcastReceiver.getZenMode", "interruptionFilter=" + interruptionFilter);
+            //PPApplication.logE("InterruptionFilterChangedBroadcastReceiver.getZenMode", "interruptionFilter=" + interruptionFilter);
             switch (interruptionFilter) {
                 case NotificationManager.INTERRUPTION_FILTER_ALL:
                     if (ActivateProfileHelper.vibrationIsOn(/*context, */audioManager, true))
@@ -97,7 +97,7 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
                     zenMode = 1;
                     break;
             }
-            PPApplication.logE("InterruptionFilterChangedBroadcastReceiver.getZenMode", "zenMode=" + zenMode);
+            //PPApplication.logE("InterruptionFilterChangedBroadcastReceiver.getZenMode", "zenMode=" + zenMode);
         }
         return zenMode;
     }

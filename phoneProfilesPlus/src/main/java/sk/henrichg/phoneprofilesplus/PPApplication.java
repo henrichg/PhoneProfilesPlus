@@ -496,7 +496,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                         //+"|EventPreferencesCalendar"
                                         //+"|EventCalendarBroadcastReceiver"
 
-                                        +"|DatabaseHandler.importDB"
+                                        //+"|DatabaseHandler.importDB"
                                         //+ "|ApplicationsMultiSelectDialogPreference.getValueAMSDP"
                                         //+ "|ApplicationsDialogPreference"
                                         //+ "|ApplicationEditorDialogAdapter"
@@ -589,10 +589,10 @@ public class PPApplication extends Application /*implements Application.Activity
 
                                         //+"|ApplicationEditorIntentActivityX"
 
-                                        +"|WifiApManager.startTethering"
-                                        +"|WifiApManager.stopTethering"
-                                        +"|WifiApManager.callStartTethering"
-                                        +"|CmdWifiAP"
+                                        //+"|WifiApManager.startTethering"
+                                        //+"|WifiApManager.stopTethering"
+                                        //+"|WifiApManager.callStartTethering"
+                                        //+"|CmdWifiAP"
             ;
 
 

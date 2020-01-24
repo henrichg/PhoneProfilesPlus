@@ -159,6 +159,7 @@ class SettingsContentObserver  extends ContentObserver {
             }*/
         }
 
+        /*
         if (PPApplication.logEnabled()) {
             int value = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
             PPApplication.logE("[BRS] SettingsContentObserver.onChange", "brightness mode=" + value);
@@ -167,6 +168,7 @@ class SettingsContentObserver  extends ContentObserver {
             float fValue = Settings.System.getFloat(context.getContentResolver(), ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, -1);
             PPApplication.logE("[BRS] SettingsContentObserver.onChange", "adaptive brightness value=" + fValue);
         }
+        */
 
         /////////////
     }

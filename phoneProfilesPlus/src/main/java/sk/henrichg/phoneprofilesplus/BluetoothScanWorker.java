@@ -149,7 +149,7 @@ public class BluetoothScanWorker extends Worker {
             //PPApplication.logE("BluetoothScanWorker._scheduleWork", "interval=" + interval);
 
             if (!shortInterval) {
-                PPApplication.logE("BluetoothScanWorker._scheduleWork", "exact work");
+                //PPApplication.logE("BluetoothScanWorker._scheduleWork", "exact work");
                 OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(BluetoothScanWorker.class)
                         .setInitialDelay(interval, TimeUnit.MINUTES)
                         .addTag(WORK_TAG)

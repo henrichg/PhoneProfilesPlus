@@ -12,11 +12,11 @@ public class TimeChangedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("TimeChangedReceiver.onReceive", "xxx");
+        //PPApplication.logE("TimeChangedReceiver.onReceive", "xxx");
 
         if ((intent != null) && (intent.getAction() != null)) {
             final String action = intent.getAction();
-            PPApplication.logE("TimeChangedReceiver.onReceive", "action="+action);
+            //PPApplication.logE("TimeChangedReceiver.onReceive", "action="+action);
             if (action.equals(Intent.ACTION_TIMEZONE_CHANGED) ||
                     action.equals(Intent.ACTION_TIME_CHANGED)/* ||
                     action.equals(Intent.ACTION_TIME_TICK)*/) {
@@ -59,7 +59,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                 */
 
                 //if (timeChanged) {
-                    PPApplication.logE("TimeChangedReceiver.onReceive", "do time change");
+                    //PPApplication.logE("TimeChangedReceiver.onReceive", "do time change");
 
                     PPApplication.startHandlerThread("TimeChangedReceiver.onReceive");
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -75,11 +75,11 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                                 }
 
 
-                                PPApplication.logE("PPApplication.startHandlerThread", "START run - from=TimeChangedReceiver.onReceive");
+                                //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=TimeChangedReceiver.onReceive");
 
                                 doWork(appContext);
 
-                                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=TimeChangedReceiver.onReceive");
+                                //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=TimeChangedReceiver.onReceive");
 
                             } finally {
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -97,7 +97,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
     }
 
     private static void doWork(Context appContext) {
-        PPApplication.logE("TimeChangedReceiver.doWork", "xxx");
+        //PPApplication.logE("TimeChangedReceiver.doWork", "xxx");
 
         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 

@@ -11559,13 +11559,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
                 } catch (Exception e) {
                     Log.e("DatabaseHandler.importDB", Log.getStackTraceString(e));
-                    PPApplication.logE("DatabaseHandler.importDB", Log.getStackTraceString(e));
+                    //PPApplication.logE("DatabaseHandler.importDB", Log.getStackTraceString(e));
                     ret = IMPORT_ERROR_BUG;
                 }
 
             } catch (Exception e) {
                 Log.e("DatabaseHandler.importDB", Log.getStackTraceString(e));
-                PPApplication.logE("DatabaseHandler.importDB", Log.getStackTraceString(e));
+                //PPApplication.logE("DatabaseHandler.importDB", Log.getStackTraceString(e));
             }
             return ret;
         } finally {
