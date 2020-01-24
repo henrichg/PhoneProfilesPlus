@@ -50,7 +50,9 @@
                 android:id="@+id/event_pref_dlg_help"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:paddingStart="25dp"
+                android:paddingEnd="25dp"
+                android:paddingTop="5dp"
                 android:textColor="#ffff0000"
                 android:text="@string/event_pref_dialog_help"
                 android:visibility="gone"/>
