@@ -1469,6 +1469,8 @@
 
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration (widget)</string>
 
+    <string name="profile_preferences_deviceWiFiAPInfo2_summary">May not working in your device at all.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

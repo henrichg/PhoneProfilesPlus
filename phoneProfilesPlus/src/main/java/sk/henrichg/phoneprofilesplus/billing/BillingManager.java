@@ -20,14 +20,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import sk.henrichg.phoneprofilesplus.DonationFragment;
-import sk.henrichg.phoneprofilesplus.PPApplication;
 
 public class BillingManager implements PurchasesUpdatedListener {
 
     private final BillingClient mBillingClient;
     private final AppCompatActivity mActivity;
 
-    private static final String TAG = "BillingManager";
+    //private static final String TAG = "BillingManager";
 
     private static final HashMap<String, List<String>> SKUS;
     static

@@ -110,7 +110,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     // request code for startActivityForResult with intent PhoneProfilesActivity
     private static final int REQUEST_CODE_APPLICATION_PREFERENCES = 6229;
     // request code for startActivityForResult with intent "phoneprofiles.intent.action.EXPORTDATA"
-    private static final int REQUEST_CODE_REMOTE_EXPORT = 6250;
+    //private static final int REQUEST_CODE_REMOTE_EXPORT = 6250;
 
     public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "editor_profiles_activity_start_target_helps";
@@ -1862,7 +1862,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         importExportErrorDialog(1);
                 }
                 else*/
-                if (Permissions.grantImportPermissions(getApplicationContext(), EditorProfilesActivity.this, PPApplication.EXPORT_PATH))
+                if (Permissions.grantImportPermissions(getApplicationContext(), EditorProfilesActivity.this/*, PPApplication.EXPORT_PATH*/))
                     doImportData(PPApplication.EXPORT_PATH);
             }
         });

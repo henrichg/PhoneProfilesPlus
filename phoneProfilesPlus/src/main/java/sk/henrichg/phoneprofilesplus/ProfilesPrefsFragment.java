@@ -733,6 +733,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             });
         }
 
+        if (Build.VERSION.SDK_INT >= 29) {
+            preference = findPreference("prf_pref_deviceWiFiAPInfo");
+            if (preference != null) {
+                preference.setSummary(getString(R.string.profile_preferences_deviceWiFiAPInfo_summary) + "\n" + getString(R.string.profile_preferences_deviceWiFiAPInfo2_summary));
+            }
+        }
+
         //PPApplication.logE("ProfilesPrefsFragment.onActivityCreated", "END");
     }
 

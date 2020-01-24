@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Environment;
 import android.provider.Settings;
 
 import java.io.BufferedWriter;

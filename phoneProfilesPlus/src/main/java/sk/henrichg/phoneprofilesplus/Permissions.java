@@ -1672,7 +1672,7 @@ class Permissions {
             return true;
     }
 
-    static boolean grantImportPermissions(Context context, EditorProfilesActivity editor, String applicationDataPath) {
+    static boolean grantImportPermissions(Context context, EditorProfilesActivity editor/*, String applicationDataPath*/) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean granted = checkImport(context);
             if (!granted) {
@@ -1686,7 +1686,7 @@ class Permissions {
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_IMPORT);
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                     //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
-                    intent.putExtra(EXTRA_APPLICATION_DATA_PATH, applicationDataPath);
+                    intent.putExtra(EXTRA_APPLICATION_DATA_PATH, PPApplication.EXPORT_PATH);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
                     editor.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_IMPORT);
                     //editorActivity = editor;
