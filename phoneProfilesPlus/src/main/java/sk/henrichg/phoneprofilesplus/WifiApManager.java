@@ -146,9 +146,11 @@ final class WifiApManager {
     }
 
     void startTethering() {
+        PPApplication.logE("WifiApManager.startTethering", "mWifiManager="+mWifiManager);
         if (mWifiManager != null) {
             int wifiState = mWifiManager.getWifiState();
             boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
+            PPApplication.logE("WifiApManager.startTethering", "isWifiEnabled="+isWifiEnabled);
             if (isWifiEnabled) {
                 //PPApplication.logE("#### setWifiEnabled", "from WifiAPManager.startTethering");
                 //if (Build.VERSION.SDK_INT >= 26)
@@ -157,6 +159,7 @@ final class WifiApManager {
                     mWifiManager.setWifiEnabled(false);
             }
         }
+        PPApplication.logE("WifiApManager.startTethering", "mConnectivityManager="+mConnectivityManager);
         if (mConnectivityManager != null) {
             try {
                 //noinspection JavaReflectionMemberAccess
@@ -172,6 +175,7 @@ final class WifiApManager {
     }
 
     void stopTethering() {
+        PPApplication.logE("WifiApManager.stopTethering", "mConnectivityManager="+mConnectivityManager);
         if (mConnectivityManager != null) {
             try {
                 Method stopTetheringMethod = ConnectivityManager.class.getDeclaredMethod("stopTethering", int.class);
@@ -185,27 +189,31 @@ final class WifiApManager {
 
     @SuppressWarnings({"unchecked", "JavaReflectionMemberAccess"})
     private void callStartTethering(Object internalConnectivityManager) throws ReflectiveOperationException {
+        PPApplication.logE("WifiApManager.callStartTethering", "START");
+
         Class internalConnectivityManagerClass = Class.forName("android.net.IConnectivityManager");
-
         ResultReceiver dummyResultReceiver = new ResultReceiver(null);
-
         try {
             Method startTetheringMethod = internalConnectivityManagerClass.getDeclaredMethod("startTethering",
                     int.class,
                     ResultReceiver.class,
                     boolean.class);
+            PPApplication.logE("WifiApManager.callStartTethering", "startTetheringMethod.1="+startTetheringMethod);
 
             startTetheringMethod.invoke(internalConnectivityManager,
                     0,
                     dummyResultReceiver,
                     false);
         } catch (NoSuchMethodException e) {
+            PPApplication.logE("WifiApManager.callStartTethering", Log.getStackTraceString(e));
+
             // Newer devices have "callingPkg" String argument at the end of this method.
             Method startTetheringMethod = internalConnectivityManagerClass.getDeclaredMethod("startTethering",
                     int.class,
                     ResultReceiver.class,
                     boolean.class,
                     String.class);
+            PPApplication.logE("WifiApManager.callStartTethering", "startTetheringMethod.2="+startTetheringMethod);
 
             startTetheringMethod.invoke(internalConnectivityManager,
                     0,
@@ -213,6 +221,7 @@ final class WifiApManager {
                     false,
                     packageName);
         }
+        PPApplication.logE("WifiApManager.callStartTethering", "END");
     }
 
     @SuppressWarnings({"unchecked", "JavaReflectionMemberAccess"})

@@ -571,4 +571,35 @@ HOTOVO
              - nastavit na null
 HOTOVO
 
+//---------------------------------------
+
+Default profile sa aktivuje ked:
+- sa ide spravit manualny restart udalosti. skontoluj, ci naozaj len pri nom, ze kedy sa robi full restart
+- nesedi posledne aktivovany profil s tym, co idem aktivovat
+Staci, ked plati jedno z toho
+
+Co sa posledne aktivovalo zapisuje DataWrapper._activateProfile cez Profile.saveProfileToSharedPreferences()
+
+Full restart sa robi, ked senzorType = SENSOR_TYPE_RESTART_EVENTS
+Cize ked je volane DataWrapper._restartEvents() s unblockEventRun = true.
+Cize:
+- ActionForExternalApplicationAcivity s ACTION_RESTART_EVENTS
+- DataWrapper.restartEventWithAlert()
+  - ActivateProfileActivity.onOptionsItemSelected()
+  - BackgroundActivateProfileActivity() - pre STARTUP_SOURCE_WIDGET a STARTUP_SOURCE_SHORTCUT
+  - EditorProfileActivity.onOptionsItemSelected()
+  - RestartEventsFromNotificationActivity - onOptionsItemSelected()
+- PhoneProfilesService.doCommand s EXTRA_RESTART_EVENTS - tu je to ako parameter EXTRA_UNBLOCK_EVENTS_RUN, nie natvrdo
+  - PPApplication.restartEvents() - tu je to ako parameter
+    - PhoneProfilesPrefsActivity.doPreferenceChanged() - !!! TU SA NELOGUJE !!!
+- RestartEventsWithDelayWorker - tu je to ako parameter EXTRA_UNBLOCK_EVENTS_RUN, nie natvrdo
+  - DataWrapper.restartEventsWithDelay() - tu je to ako druhy parameter
+    - Event.doActivateEndProfile() - ak je na koniec udalosti nakonfigurovane EATENDDO_RESTART_EVENTS
+    - ProfileDurationAlarmBroadcastReceiver() - ak je na koniec trvania profilu nakonfigurovane AFTER_DURATION_DO_RESTART_EVENTS
+- TimeChangedReceiver - ak nie je manualne aktivovany profil - tu pozri, kedy toto bolo robene, ale zda sa mi, ze to este na Google Play nie je.
+
+Bez logu o restarte je:
+- PhoneProfilesService.doCommand s EXTRA_RESTART_EVENTS - tu je to ako parameter EXTRA_UNBLOCK_EVENTS_RUN, nie natvrdo
+  - PPApplication.restartEvents() - tu je to ako parameter
+    - PhoneProfilesPrefsActivity.doPreferenceChanged() - !!! TU SA NELOGUJE !!!
 

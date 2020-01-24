@@ -506,7 +506,6 @@ public class PPApplication extends Application /*implements Application.Activity
 
                                         //+"|CmdGoToSleep"
                                         //+"|CmdNfc"
-                                        //+"|CmdWifiAP"
                                         //+"|ActivateProfileHelper.wifiServiceExists"
 
                                         //+"|ActivateProfileHelper.lockDevice"
@@ -588,6 +587,8 @@ public class PPApplication extends Application /*implements Application.Activity
 
                                         +"|WifiApManager.startTethering"
                                         +"|WifiApManager.stopTethering"
+                                        +"|WifiApManager.callStartTethering"
+                                        +"|CmdWifiAP"
             ;
 
 
