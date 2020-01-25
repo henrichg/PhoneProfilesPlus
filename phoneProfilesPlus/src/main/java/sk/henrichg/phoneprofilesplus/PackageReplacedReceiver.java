@@ -85,6 +85,13 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             if (oldVersionCode < actualVersionCode) {
                                 PPApplication.logE("PackageReplacedReceiver.onReceive", "is new version");
 
+                                restartService = true;
+                                try {
+                                    WorkManager workManager = WorkManager.getInstance(appContext);
+                                    workManager.cancelUniqueWork("delayedWorkAfterFirstStartWork");
+                                    workManager.cancelAllWorkByTag("delayedWorkAfterFirstStartWork");
+                                } catch (Exception ignored) {}
+
                                 if (actualVersionCode <= 2322) {
                                     // for old packages use Priority in events
                                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
@@ -92,7 +99,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY, true);
                                     editor.apply();
 
-                                    restartService = true;
+                                    //restartService = true;
                                 }
                                 if (actualVersionCode <= 2400) {
                                     PPApplication.logE("PackageReplacedReceiver.onReceive", "donation alarm restart");
@@ -100,7 +107,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     PPApplication.setDonationNotificationCount(appContext, 0);
                                     DonationBroadcastReceiver.setAlarm(appContext);
 
-                                    restartService = true;
+                                    //restartService = true;
                                 }
                                 /*
                                 if (actualVersionCode <= 2500) {
@@ -113,7 +120,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                             editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, false);
                                             editor.apply();
 
-                                            restartService = true;
+                                            //restartService = true;
                                         }
                                     }
                                 }
@@ -139,12 +146,14 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     editor.putBoolean(EventsPrefsActivity.PREF_START_TARGET_HELPS, false);
                                     editor.apply();
 
-                                    restartService = true;
+                                    //restartService = true;
                                 }
                                 if (actualVersionCode <= 3200) {
                                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
                                     editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS, true);
                                     editor.apply();
+
+                                    //restartService = true;
                                 }
                                 if (actualVersionCode <= 3500) {
                                     if (!ApplicationPreferences.getSharedPreferences(appContext).contains(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT)) {
@@ -174,7 +183,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                             editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "3");
                                         editor.apply();
 
-                                        restartService = true;
+                                        //restartService = true;
                                     }
 
                                     // continue donation notification
@@ -191,7 +200,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                             preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH, true));
                                     editor.apply();
 
-                                    restartService = true;
+                                    //restartService = true;
                                 }
 
                                 /*if (actualVersionCode <= 4100) {
@@ -203,7 +212,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                         editor.putInt(Profile.PREF_PROFILE_DEVICE_WIFI_AP, 0);
                                         editor.apply();
 
-                                        restartService = true;
+                                        //restartService = true;
                                     }
                                 }*/
 
@@ -220,7 +229,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                         editor.apply();
                                     }
 
-                                    restartService = true;
+                                    //restartService = true;
                                 }*/
 
                                 /*
@@ -239,7 +248,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                         editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR, ApplicationPreferences.applicationWidgetListBackgroundColor(appContext));
                                         editor.apply();
 
-                                        restartService = true;
+                                        //restartService = true;
                                     }
                                 }
                                 */
@@ -253,7 +262,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                             editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "1");
                                             editor.apply();
 
-                                            restartService = true;
+                                            //restartService = true;
                                         }
                                     }
                                 }
@@ -279,7 +288,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                             event._eventPreferencesCalendar._searchString = searchStringNew;
                                             DatabaseHandler.getInstance(appContext).updateEvent(event);
 
-                                            restartService = true;
+                                            //restartService = true;
                                         }
                                     }
                                 }
@@ -296,7 +305,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                         editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, defaultValue);
                                         GlobalGUIRoutines.switchNightMode(appContext, true);
 
-                                        restartService = true;
+                                        //restartService = true;
                                     }
 
                                     editor.apply();
@@ -310,7 +319,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                         GlobalGUIRoutines.switchNightMode(appContext, true);
                                         editor.apply();
 
-                                        restartService = true;
+                                        //restartService = true;
                                     }
                                 }
 
@@ -325,7 +334,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED,
                                                     channel.getImportance() != NotificationManager.IMPORTANCE_NONE);
 
-                                            restartService = true;
+                                            //restartService = true;
                                         }
 
                                         int filterEventsSelectedItem = ApplicationPreferences.editorEventsViewSelectedItem;
@@ -335,7 +344,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                         editor.apply();
                                         ApplicationPreferences.editorEventsViewSelectedItem(appContext);
 
-                                        restartService = true;
+                                        //restartService = true;
                                     }
                                 }
 
@@ -354,7 +363,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                                 editor.putString(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE, "2");
                                                 editor.apply();
 
-                                                restartService = true;
+                                                //restartService = true;
                                             }
                                         }
                                     }
@@ -380,7 +389,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     }
                                     editor.apply();
 
-                                    restartService = true;
+                                    //restartService = true;
                                 }
 
                                 PPApplication.logE("PackageReplacedReceiver.onReceive", "restartService="+restartService);
@@ -404,7 +413,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                 new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
                                         .addTag("packageReplacedWork")
                                         .setInputData(workData)
-                                        .setInitialDelay(3, TimeUnit.SECONDS)
+                                        .setInitialDelay(5, TimeUnit.SECONDS)
                                         .build();
                         try {
                             WorkManager workManager = WorkManager.getInstance(appContext);

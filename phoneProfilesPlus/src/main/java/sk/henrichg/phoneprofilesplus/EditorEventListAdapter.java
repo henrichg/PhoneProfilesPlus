@@ -380,13 +380,6 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
             //Log.d("EditorEventListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
-            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
-            editor.putBoolean(PREF_START_TARGET_HELPS, false);
-            editor.putBoolean(PREF_START_TARGET_HELPS_STATUS, false);
-            editor.apply();
-            ApplicationPreferences.prefEditorEventsAdapterStartTargetHelps = false;
-            ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus = false;
-
             Rect eventItemTarget = new Rect(0, 0, listItemView.getHeight(), listItemView.getHeight());
             int[] screenLocation = new int[2];
             listItemView.getLocationOnScreen(screenLocation);
@@ -395,6 +388,14 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
             final TapTargetSequence sequence = new TapTargetSequence(activity);
 
             if (startTargetHelps) {
+
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
+                editor.putBoolean(PREF_START_TARGET_HELPS, false);
+                editor.putBoolean(PREF_START_TARGET_HELPS_STATUS, false);
+                editor.apply();
+                ApplicationPreferences.prefEditorEventsAdapterStartTargetHelps = false;
+                ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus = false;
+
                 // do not add it again
                 startTargetHelpsStatus = false;
 
@@ -486,6 +487,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
             if (startTargetHelpsOrder) {
                 if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
+                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
                     editor.putBoolean(PREF_START_TARGET_HELPS_ORDER, false);
                     editor.apply();
                     ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsOrder = false;
@@ -503,6 +505,11 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
             }
 
             if (startTargetHelpsStatus) {
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
+                editor.putBoolean(PREF_START_TARGET_HELPS_STATUS, false);
+                editor.apply();
+                ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus= false;
+
                 sequence.targets(
                         TapTarget.forView(listItemView.findViewById(R.id.event_list_item_status), activity.getString(R.string.editor_activity_targetHelps_eventStatusIcon_title), activity.getString(R.string.editor_activity_targetHelps_eventStatusIcon_description))
                                 .outerCircleColor(outerCircleColor)

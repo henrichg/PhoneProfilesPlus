@@ -62,65 +62,72 @@ public class DelayedWorksWorker extends Worker {
             switch (action) {
                 case DELAYED_WORK_AFTER_FIRST_START:
                     if (PhoneProfilesService.getInstance() != null) {
-                        PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "START");
-
                         PhoneProfilesService instance = PhoneProfilesService.getInstance();
-                        instance.setWaitForEndOfStartToFalse();
 
-                        /*if (Event.getGlobalEventsRunning(appContext)) {
+                        PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "START");
+                        PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "instance.getWaitForEndOfStart()="+instance.getWaitForEndOfStart());
+
+                        if (instance.getWaitForEndOfStart()) {
+
+                            PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "wait for end of start is TRUE");
+
+                            /*if (Event.getGlobalEventsRunning(appContext)) {
+                                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+
+                                if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
+                                    PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "RESTART EVENTS AFTER WAIT FOR END OF START");
+                                    dataWrapper.restartEventsWithRescan(activateProfiles, false, true, false);
+                                    //dataWrapper.invalidateDataWrapper();
+                                }
+                            }*/
+                            // start events
                             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
-                            if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
-                                PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "RESTART EVENTS AFTER WAIT FOR END OF START");
-                                dataWrapper.restartEventsWithRescan(activateProfiles, false, true, false);
-                                //dataWrapper.invalidateDataWrapper();
-                            }
-                        }*/
-                        // start events
-                        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
-
-                        if (activateProfiles) {
-                            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-                            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_DISABLED_SCANNING_BY_PROFILE, false);
-                            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_DISABLED_SCANNING_BY_PROFILE, false);
-                            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_DISABLED_SCANNING_BY_PROFILE, false);
-                            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_DISABLED_SCANNING_BY_PROFILE, false);
-                            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, false);
-                            editor.apply();
-                            ApplicationPreferences.applicationEventWifiDisabledScannigByProfile(appContext);
-                            ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile(appContext);
-                            ApplicationPreferences.applicationEventLocationDisabledScannigByProfile(appContext);
-                            ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(appContext);
-                            ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(appContext);
-                        }
-
-                        if (Event.getGlobalEventsRunning()) {
-                            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart.2 - worker", "global event run is enabled, first start events");
-
                             if (activateProfiles) {
-                                if (!DataWrapper.getIsManualProfileActivation(false/*, appContext*/)) {
+                                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+                                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_DISABLED_SCANNING_BY_PROFILE, false);
+                                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_DISABLED_SCANNING_BY_PROFILE, false);
+                                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_DISABLED_SCANNING_BY_PROFILE, false);
+                                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_DISABLED_SCANNING_BY_PROFILE, false);
+                                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, false);
+                                editor.apply();
+                                ApplicationPreferences.applicationEventWifiDisabledScannigByProfile(appContext);
+                                ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile(appContext);
+                                ApplicationPreferences.applicationEventLocationDisabledScannigByProfile(appContext);
+                                ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(appContext);
+                                ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(appContext);
+                            }
+
+                            if (Event.getGlobalEventsRunning()) {
+                                PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "global event run is enabled, first start events");
+
+                                if (activateProfiles) {
+                                    if (!DataWrapper.getIsManualProfileActivation(false/*, appContext*/)) {
+                                        ////// unblock all events for first start
+                                        //     that may be blocked in previous application run
+                                        dataWrapper.pauseAllEvents(false, false);
+                                    }
+                                }
+
+                                dataWrapper.firstStartEvents(true, false);
+                                dataWrapper.updateNotificationAndWidgets(true);
+                            } else {
+                                PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "global event run is not enabled, manually activate profile");
+
+                                if (activateProfiles) {
                                     ////// unblock all events for first start
                                     //     that may be blocked in previous application run
-                                    dataWrapper.pauseAllEvents(false, false);
+                                    dataWrapper.pauseAllEvents(true, false);
                                 }
+
+                                dataWrapper.activateProfileOnBoot();
+                                dataWrapper.updateNotificationAndWidgets(true);
                             }
 
-                            dataWrapper.firstStartEvents(true, false);
-                            dataWrapper.updateNotificationAndWidgets(true);
-                        } else {
-                            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart.2 - worker", "global event run is not enabled, manually activate profile");
+                            instance.setWaitForEndOfStartToFalse();
 
-                            if (activateProfiles) {
-                                ////// unblock all events for first start
-                                //     that may be blocked in previous application run
-                                dataWrapper.pauseAllEvents(true, false);
-                            }
-
-                            dataWrapper.activateProfileOnBoot();
-                            dataWrapper.updateNotificationAndWidgets(true);
+                            PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "END");
                         }
-
-                        PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "END");
                     }
                     break;
                 case DELAYED_WORK_PACKAGE_REPLACED:
@@ -154,41 +161,48 @@ public class DelayedWorksWorker extends Worker {
                     if (!restartService) {
                         // restart service is not set, only restart events.
 
-                        //PPApplication.sleep(3000);
-                        if (PPApplication.getApplicationStarted(true)) {
-                            // service is started by PPApplication
+                        if (PhoneProfilesService.getInstance() != null) {
+                            PhoneProfilesService instance = PhoneProfilesService.getInstance();
 
-                            //if (PhoneProfilesService.getInstance() != null)
-                            //    PhoneProfilesService.getInstance().removeRestartEventsForFirstStartHandler(true);
+                            //PPApplication.sleep(3000);
+                            if (PPApplication.getApplicationStarted(true)) {
+                                // service is started by PPApplication
 
-                            dataWrapper.addActivityLog(DataWrapper.ALTYPE_APPLICATION_START, null, null, null, 0);
+                                //if (PhoneProfilesService.getInstance() != null)
+                                //    PhoneProfilesService.getInstance().removeRestartEventsForFirstStartHandler(true);
 
-                            // start events
-                            if (Event.getGlobalEventsRunning()) {
-                                PPApplication.logE("PackageReplacedReceiver.doWork", "global event run is enabled, first start events");
+                                dataWrapper.addActivityLog(DataWrapper.ALTYPE_APPLICATION_START, null, null, null, 0);
 
-                                if (!DataWrapper.getIsManualProfileActivation(false/*, appContext*/)) {
+                                // start events
+                                if (Event.getGlobalEventsRunning()) {
+                                    PPApplication.logE("PackageReplacedReceiver.doWork", "global event run is enabled, first start events");
+
+                                    if (!DataWrapper.getIsManualProfileActivation(false/*, appContext*/)) {
+                                        ////// unblock all events for first start
+                                        //     that may be blocked in previous application run
+                                        dataWrapper.pauseAllEvents(false, false);
+                                    }
+
+                                    dataWrapper.firstStartEvents(true, false);
+                                    //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from PackageReplacedReceiver.onReceive - worker");
+                                    dataWrapper.updateNotificationAndWidgets(true);
+                                } else {
+                                    PPApplication.logE("PackageReplacedReceiver.doWork", "global event run is not enabled, manually activate profile");
+
                                     ////// unblock all events for first start
                                     //     that may be blocked in previous application run
-                                    dataWrapper.pauseAllEvents(false, false);
+                                    dataWrapper.pauseAllEvents(true, false);
+
+                                    dataWrapper.activateProfileOnBoot();
+                                    //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from PackageReplacedReceiver.onReceive - worker");
+                                    dataWrapper.updateNotificationAndWidgets(true);
                                 }
-
-                                dataWrapper.firstStartEvents(true, false);
-                                //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from PackageReplacedReceiver.onReceive - worker");
-                                dataWrapper.updateNotificationAndWidgets(true);
-                            } else {
-                                PPApplication.logE("PackageReplacedReceiver.doWork", "global event run is not enabled, manually activate profile");
-
-                                ////// unblock all events for first start
-                                //     that may be blocked in previous application run
-                                dataWrapper.pauseAllEvents(true, false);
-
-                                dataWrapper.activateProfileOnBoot();
-                                //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from PackageReplacedReceiver.onReceive - worker");
-                                dataWrapper.updateNotificationAndWidgets(true);
                             }
+
+                            instance.setWaitForEndOfStartToFalse();
                         }
                     }
+
                     PPApplication.logE("PackageReplacedReceiver.doWork", "END");
                     break;
                 case DELAYED_WORK_HANDLE_EVENTS:

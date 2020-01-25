@@ -195,6 +195,8 @@ public class EditorProfilesActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        PPApplication.logE("EditorProfilesActivity.onCreate", "xxx");
+
         GlobalGUIRoutines.setTheme(this, false, true/*, true*/, false);
         //GlobalGUIRoutines.setLanguage(this);
 
@@ -410,7 +412,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.menu_profiles_view:
-                                //Log.e("EditorProfilesActivity.onNavigationItemSelected", "menu_profiles_view");
+                                PPApplication.logE("EditorProfilesActivity.onNavigationItemSelected", "menu_profiles_view");
                                 String[] filterItems = new String[] {
                                         getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_all),
                                         getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
@@ -428,7 +430,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     ((EditorProfileListFragment)fragment).showHeaderAndBottomToolbar();
                                 break;
                             case R.id.menu_events_view:
-                                //Log.e("EditorProfilesActivity.onNavigationItemSelected", "menu_events_view");
+                                PPApplication.logE("EditorProfilesActivity.onNavigationItemSelected", "menu_events_view");
                                 filterItems = new String[] {
                                         getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_start_order),
                                         getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_all),
@@ -567,7 +569,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     protected void onStart()
     {
         super.onStart();
-        //PPApplication.logE("EditorProfilesActivity.onStart", "xxx");
+        PPApplication.logE("EditorProfilesActivity.onStart", "xxx");
 
         Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
         intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, "activator");
@@ -625,7 +627,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     protected void onStop()
     {
         super.onStop();
-        //PPApplication.logE("EditorProfilesActivity.onStop", "xxx");
+        PPApplication.logE("EditorProfilesActivity.onStop", "xxx");
 
         LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(showTargetHelpsBroadcastReceiver);
@@ -1019,11 +1021,11 @@ public class EditorProfilesActivity extends AppCompatActivity
     */
 
     private void selectFilterItem(int selectedView, int position, boolean fromClickListener, boolean startTargetHelps) {
-        /*if (PPApplication.logEnabled()) {
+        if (PPApplication.logEnabled()) {
             PPApplication.logE("EditorProfilesActivity.selectFilterItem", "editorSelectedView=" + editorSelectedView);
             PPApplication.logE("EditorProfilesActivity.selectFilterItem", "selectedView=" + selectedView);
             PPApplication.logE("EditorProfilesActivity.selectFilterItem", "position=" + position);
-        }*/
+        }
 
         boolean viewChanged = false;
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
@@ -1096,7 +1098,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     switch (filterProfilesSelectedItem) {
                         case DSI_PROFILES_ALL:
                             profilesFilterType = EditorProfileListFragment.FILTER_TYPE_ALL;
-                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "profilesFilterType=FILTER_TYPE_ALL");
+                            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "profilesFilterType=FILTER_TYPE_ALL");
                             if (viewChanged) {
                                 fragment = new EditorProfileListFragment();
                                 arguments = new Bundle();
@@ -1115,7 +1117,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             break;
                         case DSI_PROFILES_SHOW_IN_ACTIVATOR:
                             profilesFilterType = EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR;
-                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "profilesFilterType=FILTER_TYPE_SHOW_IN_ACTIVATOR");
+                            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "profilesFilterType=FILTER_TYPE_SHOW_IN_ACTIVATOR");
                             if (viewChanged) {
                                 fragment = new EditorProfileListFragment();
                                 arguments = new Bundle();
@@ -1134,7 +1136,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             break;
                         case DSI_PROFILES_NO_SHOW_IN_ACTIVATOR:
                             profilesFilterType = EditorProfileListFragment.FILTER_TYPE_NO_SHOW_IN_ACTIVATOR;
-                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "profilesFilterType=FILTER_TYPE_NO_SHOW_IN_ACTIVATOR");
+                            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "profilesFilterType=FILTER_TYPE_NO_SHOW_IN_ACTIVATOR");
                             if (viewChanged) {
                                 fragment = new EditorProfileListFragment();
                                 arguments = new Bundle();
@@ -1157,7 +1159,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     switch (filterEventsSelectedItem) {
                         case DSI_EVENTS_START_ORDER:
                             eventsFilterType = EditorEventListFragment.FILTER_TYPE_START_ORDER;
-                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_START_ORDER");
+                            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_START_ORDER");
                             if (viewChanged) {
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
@@ -1176,7 +1178,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             break;
                         case DSI_EVENTS_ALL:
                             eventsFilterType = EditorEventListFragment.FILTER_TYPE_ALL;
-                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_ALL");
+                            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_ALL");
                             if (viewChanged) {
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
@@ -1195,7 +1197,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             break;
                         case DSI_EVENTS_NOT_STOPPED:
                             eventsFilterType = EditorEventListFragment.FILTER_TYPE_NOT_STOPPED;
-                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_NOT_STOPPED");
+                            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_NOT_STOPPED");
                             if (viewChanged) {
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
@@ -1214,7 +1216,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             break;
                         case DSI_EVENTS_RUNNING:
                             eventsFilterType = EditorEventListFragment.FILTER_TYPE_RUNNING;
-                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_RUNNING");
+                            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_RUNNING");
                             if (viewChanged) {
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
@@ -1233,7 +1235,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             break;
                         case DSI_EVENTS_PAUSED:
                             eventsFilterType = EditorEventListFragment.FILTER_TYPE_PAUSED;
-                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_PAUSED");
+                            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_PAUSED");
                             if (viewChanged) {
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
@@ -1252,7 +1254,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             break;
                         case DSI_EVENTS_STOPPED:
                             eventsFilterType = EditorEventListFragment.FILTER_TYPE_STOPPED;
-                            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_STOPPED");
+                            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "eventsFilterType=FILTER_TYPE_STOPPED");
                             if (viewChanged) {
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();

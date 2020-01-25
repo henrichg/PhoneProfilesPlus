@@ -402,8 +402,12 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
+                editor.putBoolean(PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
                 editor.apply();
                 ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps = false;
+                ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator = false;
+
+                startTargetHelpsShowInActivator = false;
 
                 Rect profileItemTarget = new Rect(0, 0, listItemView.getHeight(), listItemView.getHeight());
                 int[] screenLocation = new int[2];
@@ -430,30 +434,30 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .tintTarget(true)
                                     .drawShadow(true)
                                     .id(1),
-                            TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_profileMenu_title), activity.getString(R.string.editor_activity_targetHelps_profileMenu_description))
+                            TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_show_in_activator), activity.getString(R.string.editor_activity_targetHelps_showInActivator_title), activity.getString(R.string.editor_activity_targetHelps_showInActivator_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
                                     .tintTarget(true)
                                     .drawShadow(true)
                                     .id(2),
+                            TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_profileMenu_title), activity.getString(R.string.editor_activity_targetHelps_profileMenu_description))
+                                    .outerCircleColor(outerCircleColor)
+                                    .targetCircleColor(targetCircleColor)
+                                    .textColor(textColor)
+                                    .tintTarget(true)
+                                    .drawShadow(true)
+                                    .id(3),
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_drag_handle), activity.getString(R.string.editor_activity_targetHelps_profileOrderHandler_title), activity.getString(R.string.editor_activity_targetHelps_profileOrderHandler_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
                                     .tintTarget(true)
                                     .drawShadow(true)
-                                    .id(3)
+                                    .id(4)
                     );
                 } else if (filterType == EditorProfileListFragment.FILTER_TYPE_ALL) {
                     profileItemTarget.offset(screenLocation[0] + 100, screenLocation[1]);
-
-                    editor.putBoolean(PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
-                    editor.apply();
-                    ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator = false;
-
-                    // do not add it again
-                    startTargetHelpsShowInActivator = false;
 
                     sequence.targets(
                             TapTarget.forBounds(profileItemTarget, activity.getString(R.string.editor_activity_targetHelps_profilePreferences_title), activity.getString(R.string.editor_activity_targetHelps_profilePreferences_description))
@@ -491,13 +495,20 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .tintTarget(true)
                                     .drawShadow(true)
                                     .id(1),
+                            TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_show_in_activator), activity.getString(R.string.editor_activity_targetHelps_showInActivator_title), activity.getString(R.string.editor_activity_targetHelps_showInActivator_description))
+                                    .outerCircleColor(outerCircleColor)
+                                    .targetCircleColor(targetCircleColor)
+                                    .textColor(textColor)
+                                    .tintTarget(true)
+                                    .drawShadow(true)
+                                    .id(2),
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_profileMenu_title), activity.getString(R.string.editor_activity_targetHelps_profileMenu_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .textColor(textColor)
                                     .tintTarget(true)
                                     .drawShadow(true)
-                                    .id(2)
+                                    .id(3)
                     );
                 }
 

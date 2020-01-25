@@ -3623,6 +3623,15 @@ public class PhoneProfilesService extends Service
     private void doForFirstStart(Intent intent/*, int flags, int startId*/) {
         PPApplication.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart START");
 
+        final Context appContext = getApplicationContext();
+
+        serviceHasFirstStart = true;
+        try {
+            WorkManager workManager = WorkManager.getInstance(appContext);
+            workManager.cancelUniqueWork("delayedWorkAfterFirstStartWork");
+            workManager.cancelAllWorkByTag("delayedWorkAfterFirstStartWork");
+        } catch (Exception ignored) {}
+
         boolean deactivateProfile = false;
         boolean activateProfiles = false;
         boolean startOnBoot = false;
@@ -3645,8 +3654,6 @@ public class PhoneProfilesService extends Service
             if (startOnPackageReplace)
                 PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_START_ON_PACKAGE_REPLACE");
         }
-
-        final Context appContext = getApplicationContext();
 
         final boolean _startOnBoot = startOnBoot;
         final boolean _startOnPackageReplace = startOnPackageReplace;
@@ -3671,8 +3678,6 @@ public class PhoneProfilesService extends Service
                     }
 
                     PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.doForFirstStart");
-
-                    serviceHasFirstStart = true;
 
                     PPApplication.createNotificationChannels(appContext);
 
@@ -3851,9 +3856,11 @@ public class PhoneProfilesService extends Service
     public int onStartCommand(Intent intent, int flags, int startId)
     {
         PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
+        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "serviceHasFirstStart="+serviceHasFirstStart);
 
         PPApplication.showProfileNotification(true, true/*, false*/);
-        doForFirstStart(intent);
+        if (!serviceHasFirstStart)
+            doForFirstStart(intent);
 
         return START_STICKY;
     }

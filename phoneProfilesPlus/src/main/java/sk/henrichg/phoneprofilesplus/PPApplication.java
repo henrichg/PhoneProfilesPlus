@@ -191,7 +191,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                         //+"|Event.pauseEvent"
                                         //+"|[DSTART] DataWrapper.doHandleEvents"
 
-                                         //+"|EditorProfilesActivity.onCreate"
+                                         +"|EditorProfilesActivity"
                                          //+"|EditorProfilesActivity.onStart"
                                          //+"|EditorProfilesActivity.onActivityResult"
                                          +"|EditorProfileListViewHolder"
