@@ -595,7 +595,6 @@ public class EditorProfileListFragment extends Fragment
                 lm.scrollToPosition(profilePos);
 
             boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
-            PPApplication.logE("EditorProfileListFragment.startProfilePreferencesActivity", "startTargetHelps="+startTargetHelps);
             if (startTargetHelps)
                 showAdapterTargetHelps();
 
@@ -1234,16 +1233,17 @@ public class EditorProfileListFragment extends Fragment
         if (((EditorProfilesActivity)getActivity()).targetHelpsSequenceStarted)
             return;
 
-        boolean showTargetHelps = ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps;
-        boolean showTargetHelpsDefaultProfile = ApplicationPreferences.prefEditorActivityStartTargetHelpsDefaultProfile;
-        if (showTargetHelps || showTargetHelpsDefaultProfile ||
+        boolean startTargetHelps = ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps;
+        boolean startTargetHelpsDefaultProfile = ApplicationPreferences.prefEditorActivityStartTargetHelpsDefaultProfile;
+
+        if (startTargetHelps || startTargetHelpsDefaultProfile ||
                 ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps ||
                 ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsOrder ||
                 ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator) {
 
             //Log.d("EditorProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
-            if (showTargetHelps || showTargetHelpsDefaultProfile) {
+            if (startTargetHelps || startTargetHelpsDefaultProfile) {
 
                 //Log.d("EditorProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
@@ -1269,7 +1269,7 @@ public class EditorProfileListFragment extends Fragment
                 final TapTargetSequence sequence = new TapTargetSequence(getActivity());
                 List<TapTarget> targets = new ArrayList<>();
                 int id = 1;
-                if (showTargetHelps) {
+                if (startTargetHelps) {
                     try {
                         targets.add(
                                 TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_add_profile, getString(R.string.editor_activity_targetHelps_newProfileButton_title), getString(R.string.editor_activity_targetHelps_newProfileButton_description))
@@ -1297,7 +1297,7 @@ public class EditorProfileListFragment extends Fragment
                     } catch (Exception ignored) {
                     } // not in action bar?
                 }
-                if (showTargetHelpsDefaultProfile) {
+                if (startTargetHelpsDefaultProfile) {
                     try {
                         targets.add(
                                 TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_default_profile, getString(R.string.editor_activity_targetHelps_backgroundProfileButton_title), getString(R.string.editor_activity_targetHelps_backgroundProfileButton_description))

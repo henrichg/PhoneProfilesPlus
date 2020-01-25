@@ -380,7 +380,6 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
         boolean startTargetHelpsShowInActivator = ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator;
 
         if (startTargetHelps || startTargetHelpsOrder || startTargetHelpsShowInActivator) {
-
             //Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
             //String appTheme = ApplicationPreferences.applicationTheme(activity, true);
@@ -398,8 +397,6 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
             final TapTargetSequence sequence = new TapTargetSequence(activity);
 
             if (startTargetHelps) {
-                //Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");
-
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
                 editor.putBoolean(PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
@@ -515,7 +512,6 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
             }
 
             if (startTargetHelpsOrder) {
-                //Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 if (filterType == EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR) {
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
                     editor.putBoolean(PREF_START_TARGET_HELPS_ORDER, false);
@@ -535,23 +531,20 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
             }
 
             if (startTargetHelpsShowInActivator) {
-                //Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=false");
-                if (filterType == EditorProfileListFragment.FILTER_TYPE_ALL) {
-                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
-                    editor.putBoolean(PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
-                    editor.apply();
-                    ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator = false;
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
+                editor.putBoolean(PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
+                editor.apply();
+                ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator = false;
 
-                    sequence.targets(
-                            TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_show_in_activator), activity.getString(R.string.editor_activity_targetHelps_showInActivator_title), activity.getString(R.string.editor_activity_targetHelps_showInActivator_description))
-                                    .outerCircleColor(outerCircleColor)
-                                    .targetCircleColor(targetCircleColor)
-                                    .textColor(textColor)
-                                    .tintTarget(true)
-                                    .drawShadow(true)
-                                    .id(1)
-                    );
-                }
+                sequence.targets(
+                        TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_show_in_activator), activity.getString(R.string.editor_activity_targetHelps_showInActivator_title), activity.getString(R.string.editor_activity_targetHelps_showInActivator_description))
+                                .outerCircleColor(outerCircleColor)
+                                .targetCircleColor(targetCircleColor)
+                                .textColor(textColor)
+                                .tintTarget(true)
+                                .drawShadow(true)
+                                .id(1)
+                );
             }
 
             sequence.listener(new TapTargetSequence.Listener() {

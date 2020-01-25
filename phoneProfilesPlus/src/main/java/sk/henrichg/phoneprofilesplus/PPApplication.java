@@ -198,6 +198,8 @@ public class PPApplication extends Application /*implements Application.Activity
                                          +"|EditorEventListViewHolder"
                                          +"|EditorProfileListFragment"
                                          +"|EditorEventListFragment"
+                                         +"|EditorProfileListAdapter"
+                                         +"|EditorEventListAdapter"
 
                                          //+"|PostDelayedBroadcastReceiver"
 

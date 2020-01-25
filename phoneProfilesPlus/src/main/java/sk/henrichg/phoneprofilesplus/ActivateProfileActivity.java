@@ -102,6 +102,17 @@ public class ActivateProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        PhoneProfilesService instance = PhoneProfilesService.getInstance();
+        if (instance == null) {
+            finish();
+            return;
+        }
+
+        if (instance.getWaitForEndOfStart()) {
+            finish();
+            return;
+        }
+
         //PPApplication.logE("ActivateProfileActivity.onCreate", "xxx");
 
         GlobalGUIRoutines.setTheme(this, true, true/*, false*/, true);
@@ -261,6 +272,17 @@ public class ActivateProfileActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        PhoneProfilesService instance = PhoneProfilesService.getInstance();
+        if (instance == null) {
+            finish();
+            return;
+        }
+
+        if (instance.getWaitForEndOfStart()) {
+            finish();
+            return;
+        }
 
         //PPApplication.logE("ActivateProfileActivity.onStart", "xxx");
 

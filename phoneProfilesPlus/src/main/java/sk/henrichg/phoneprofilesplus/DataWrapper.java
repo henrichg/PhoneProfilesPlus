@@ -4401,10 +4401,10 @@ public class DataWrapper {
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
                         PPApplication.startPPService(context, serviceIntent);
                     }
-
-                    restartEventsWithRescan(/*true, */true, true, true,true);
-
-                    IgnoreBatteryOptimizationNotification.showNotification(context);
+                    else {
+                        restartEventsWithRescan(/*true, */true, true, true, true);
+                        IgnoreBatteryOptimizationNotification.showNotification(context);
+                    }
                 }
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {

@@ -46,6 +46,8 @@ public class LauncherActivity extends AppCompatActivity {
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
             PPApplication.startPPService(this, serviceIntent);
+            finish();
+            return;
         }
         else
         {
@@ -63,6 +65,8 @@ public class LauncherActivity extends AppCompatActivity {
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
                 PPApplication.startPPService(this, serviceIntent);
+                finish();
+                return;
             }
             /*else {
                 PPApplication.logE("LauncherActivity.onStart", "application and service is started");
@@ -79,8 +83,7 @@ public class LauncherActivity extends AppCompatActivity {
             }
         }
 
-        if (startupSource == 0)
-            startupSource = PPApplication.STARTUP_SOURCE_LAUNCHER;
+        startupSource = PPApplication.STARTUP_SOURCE_LAUNCHER;
         endOnStart();
     }
 
@@ -88,6 +91,13 @@ public class LauncherActivity extends AppCompatActivity {
     {
         //  application is already started - is in PhoneProfilesService
         //PPApplication.setApplicationStarted(getBaseContext(), true);
+
+        PhoneProfilesService instance = PhoneProfilesService.getInstance();
+        if (instance == null)
+            return;
+
+        if (instance.getWaitForEndOfStart())
+            return;
 
         Intent intentLaunch;
 

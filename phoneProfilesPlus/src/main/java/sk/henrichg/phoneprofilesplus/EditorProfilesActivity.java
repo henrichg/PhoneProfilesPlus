@@ -195,6 +195,17 @@ public class EditorProfilesActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        PhoneProfilesService instance = PhoneProfilesService.getInstance();
+        if (instance == null) {
+            finish();
+            return;
+        }
+
+        if (instance.getWaitForEndOfStart()) {
+            finish();
+            return;
+        }
+
         PPApplication.logE("EditorProfilesActivity.onCreate", "xxx");
 
         GlobalGUIRoutines.setTheme(this, false, true/*, true*/, false);
@@ -569,6 +580,18 @@ public class EditorProfilesActivity extends AppCompatActivity
     protected void onStart()
     {
         super.onStart();
+
+        PhoneProfilesService instance = PhoneProfilesService.getInstance();
+        if (instance == null) {
+            finish();
+            return;
+        }
+
+        if (instance.getWaitForEndOfStart()) {
+            finish();
+            return;
+        }
+
         PPApplication.logE("EditorProfilesActivity.onStart", "xxx");
 
         Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
@@ -599,6 +622,8 @@ public class EditorProfilesActivity extends AppCompatActivity
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
             PPApplication.startPPService(this, serviceIntent);
+            finish();
+            return;
         }
         else
         {
@@ -616,6 +641,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
                 PPApplication.startPPService(this, serviceIntent);
+                finish();
+                return;
             }
             //else {
             //    PPApplication.logE("EditorProfilesActivity.onStart", "application and service is started");
@@ -2278,6 +2305,12 @@ public class EditorProfilesActivity extends AppCompatActivity
     }
 
     private void startEventPreferenceActivity(Event event, final int editMode, final int predefinedEventIndex) {
+        PPApplication.logE("EditorProfilesActivity.startEventPreferenceActivity", "event="+event);
+        if (event != null)
+            PPApplication.logE("EditorProfilesActivity.startEventPreferenceActivity", "event._name="+event._name);
+        PPApplication.logE("EditorProfilesActivity.startEventPreferenceActivity", "editMode="+editMode);
+        PPApplication.logE("EditorProfilesActivity.startEventPreferenceActivity", "predefinedEventIndex="+predefinedEventIndex);
+
         boolean profileExists = true;
         long startProfileId = 0;
         long endProfileId = -1;
@@ -2299,6 +2332,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
         }
 
+        PPApplication.logE("EditorProfilesActivity.startEventPreferenceActivity", "profileExists="+profileExists);
         if (profileExists) {
             Intent intent = new Intent(getBaseContext(), EventsPrefsActivity.class);
             if (editMode == EditorEventListFragment.EDIT_MODE_INSERT)
@@ -2310,7 +2344,10 @@ public class EditorProfilesActivity extends AppCompatActivity
             intent.putExtra(EXTRA_NEW_EVENT_MODE, editMode);
             intent.putExtra(EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
             startActivityForResult(intent, REQUEST_CODE_EVENT_PREFERENCES);
+            PPApplication.logE("EditorProfilesActivity.startEventPreferenceActivity", "call of EventsPrefsActivity");
         } else {
+            PPApplication.logE("EditorProfilesActivity.startEventPreferenceActivity", "add new event");
+
             final long _startProfileId = startProfileId;
             final long _endProfileId = endProfileId;
 
@@ -2374,15 +2411,15 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }
             });
             AlertDialog dialog = dialogBuilder.create();
-        /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                if (positive != null) positive.setAllCaps(false);
-                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                if (negative != null) negative.setAllCaps(false);
-            }
-        });*/
+            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface dialog) {
+                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                    if (positive != null) positive.setAllCaps(false);
+                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                    if (negative != null) negative.setAllCaps(false);
+                }
+            });*/
             if (!isFinishing())
                 dialog.show();
         }
@@ -2581,11 +2618,11 @@ public class EditorProfilesActivity extends AppCompatActivity
         startTargetHelps = true;
 
         boolean startTargetHelps = ApplicationPreferences.prefEditorActivityStartTargetHelps;
-        boolean showTargetHelpsFilterSpinner = ApplicationPreferences.prefEditorActivityStartTargetHelpsFilterSpinner;
-        boolean showTargetHelpsRunStopIndicator = ApplicationPreferences.prefEditorActivityStartTargetHelpsRunStopIndicator;
-        boolean showTargetHelpsBottomNavigation = ApplicationPreferences.prefEditorActivityStartTargetHelpsBottomNavigation;
+        boolean startTargetHelpsFilterSpinner = ApplicationPreferences.prefEditorActivityStartTargetHelpsFilterSpinner;
+        boolean startTargetHelpsRunStopIndicator = ApplicationPreferences.prefEditorActivityStartTargetHelpsRunStopIndicator;
+        boolean startTargetHelpsBottomNavigation = ApplicationPreferences.prefEditorActivityStartTargetHelpsBottomNavigation;
 
-        if (startTargetHelps || showTargetHelpsFilterSpinner || showTargetHelpsRunStopIndicator || showTargetHelpsBottomNavigation ||
+        if (startTargetHelps || startTargetHelpsFilterSpinner || startTargetHelpsRunStopIndicator || startTargetHelpsBottomNavigation ||
                 ApplicationPreferences.prefEditorActivityStartTargetHelpsDefaultProfile ||
                 ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps ||
                 ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps ||
@@ -2597,9 +2634,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsOrder ||
                 ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus) {
 
-            //Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
-
-            if (startTargetHelps || showTargetHelpsFilterSpinner || showTargetHelpsRunStopIndicator || showTargetHelpsBottomNavigation) {
+            if (startTargetHelps || startTargetHelpsFilterSpinner || startTargetHelpsRunStopIndicator || startTargetHelpsBottomNavigation) {
                 //Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
                 Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
@@ -2647,9 +2682,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (startTargetHelps) {
 
                     // do not add it again
-                    showTargetHelpsFilterSpinner = false;
-                    showTargetHelpsRunStopIndicator = false;
-                    showTargetHelpsBottomNavigation = false;
+                    startTargetHelpsFilterSpinner = false;
+                    startTargetHelpsRunStopIndicator = false;
+                    startTargetHelpsBottomNavigation = false;
 
                     if (Event.getGlobalEventsRunning()) {
                         /*targets.add(
@@ -2868,7 +2903,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     }
                 }
-                if (showTargetHelpsFilterSpinner) {
+                if (startTargetHelpsFilterSpinner) {
                     targets.add(
                             //TapTarget.forBounds(filterSpinnerTarget, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
                             TapTarget.forView(filterSpinner, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
@@ -2881,7 +2916,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     .id(1)
                     );
                 }
-                if (showTargetHelpsRunStopIndicator) {
+                if (startTargetHelpsRunStopIndicator) {
                     targets.add(
                             TapTarget.forView(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLightIcon_title), getString(R.string.editor_activity_targetHelps_trafficLightIcon_description))
                                     .outerCircleColor(outerCircleColor)
@@ -2892,7 +2927,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     .id(1)
                     );
                 }
-                if (showTargetHelpsBottomNavigation) {
+                if (startTargetHelpsBottomNavigation) {
                     targets.add(
                             TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_profiles_view), getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_title),
                                     getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_description) + "\n" +
