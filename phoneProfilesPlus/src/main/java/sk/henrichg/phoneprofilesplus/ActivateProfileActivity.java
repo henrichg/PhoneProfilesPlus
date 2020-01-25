@@ -109,6 +109,12 @@ public class ActivateProfileActivity extends AppCompatActivity {
         }
 
         if (instance.getWaitForEndOfStart()) {
+            /*AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+            dialogBuilder.setMessage(R.string.application_is_initialized);
+            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+            dialogBuilder.show();*/
+
             finish();
             return;
         }
@@ -280,6 +286,12 @@ public class ActivateProfileActivity extends AppCompatActivity {
         }
 
         if (instance.getWaitForEndOfStart()) {
+            /*AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+            dialogBuilder.setMessage(R.string.application_is_initialized);
+            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+            dialogBuilder.show();*/
+
             finish();
             return;
         }

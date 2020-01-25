@@ -83,7 +83,6 @@ public class LauncherActivity extends AppCompatActivity {
             }
         }
 
-        startupSource = PPApplication.STARTUP_SOURCE_LAUNCHER;
         endOnStart();
     }
 
@@ -93,11 +92,21 @@ public class LauncherActivity extends AppCompatActivity {
         //PPApplication.setApplicationStarted(getBaseContext(), true);
 
         PhoneProfilesService instance = PhoneProfilesService.getInstance();
-        if (instance == null)
+        if (instance == null) {
+            finish();
             return;
+        }
 
-        if (instance.getWaitForEndOfStart())
+        if (instance.getWaitForEndOfStart()) {
+            /*AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+            dialogBuilder.setMessage(R.string.application_is_initialized);
+            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+            dialogBuilder.show();*/
+
+            finish();
             return;
+        }
 
         Intent intentLaunch;
 
@@ -105,6 +114,7 @@ public class LauncherActivity extends AppCompatActivity {
         switch (startupSource) {
             case PPApplication.STARTUP_SOURCE_NOTIFICATION:
                 //PPApplication.logE("LauncherActivity.endOnStart", "STARTUP_SOURCE_NOTIFICATION");
+                //PPApplication.logE("LauncherActivity.endOnStart", "ApplicationPreferences.applicationNotificationLauncher="+ApplicationPreferences.applicationNotificationLauncher);
                 if (ApplicationPreferences.applicationNotificationLauncher.equals("activator"))
                     intentLaunch = new Intent(getApplicationContext(), ActivateProfileActivity.class);
                 else
@@ -112,6 +122,7 @@ public class LauncherActivity extends AppCompatActivity {
                 break;
             case PPApplication.STARTUP_SOURCE_WIDGET:
                 //PPApplication.logE("LauncherActivity.endOnStart", "STARTUP_SOURCE_WIDGET");
+                //PPApplication.logE("LauncherActivity.endOnStart", "ApplicationPreferences.applicationWidgetLauncher="+ApplicationPreferences.applicationWidgetLauncher);
                 if (ApplicationPreferences.applicationWidgetLauncher.equals("activator"))
                     intentLaunch = new Intent(getApplicationContext(), ActivateProfileActivity.class);
                 else
@@ -119,6 +130,7 @@ public class LauncherActivity extends AppCompatActivity {
                 break;
             default:
                 //PPApplication.logE("LauncherActivity.endOnStart", "default");
+                //PPApplication.logE("LauncherActivity.endOnStart", "ApplicationPreferences.applicationHomeLauncher="+ApplicationPreferences.applicationHomeLauncher);
                 if (ApplicationPreferences.applicationHomeLauncher.equals("activator"))
                     intentLaunch = new Intent(getApplicationContext(), ActivateProfileActivity.class);
                 else

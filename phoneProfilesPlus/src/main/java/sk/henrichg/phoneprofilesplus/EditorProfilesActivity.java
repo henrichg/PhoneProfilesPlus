@@ -202,6 +202,12 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
 
         if (instance.getWaitForEndOfStart()) {
+            /*AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+            dialogBuilder.setMessage(R.string.application_is_initialized);
+            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+            dialogBuilder.show();*/
+
             finish();
             return;
         }
@@ -588,6 +594,12 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
 
         if (instance.getWaitForEndOfStart()) {
+            /*AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+            dialogBuilder.setMessage(R.string.application_is_initialized);
+            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+            dialogBuilder.show();*/
+
             finish();
             return;
         }
@@ -2213,6 +2225,12 @@ public class EditorProfilesActivity extends AppCompatActivity
      */
 
     private void startProfilePreferenceActivity(Profile profile, int editMode, int predefinedProfileIndex) {
+        PPApplication.logE("EditorProfilesActivity.startProfilePreferenceActivity", "profile="+profile);
+        if (profile != null)
+            PPApplication.logE("EditorProfilesActivity.startProfilePreferenceActivity", "profile._name="+profile._name);
+        PPApplication.logE("EditorProfilesActivity.startProfilePreferenceActivity", "editMode="+editMode);
+        PPApplication.logE("EditorProfilesActivity.startProfilePreferenceActivity", "predefinedProfileIndex="+predefinedProfileIndex);
+
         Intent intent = new Intent(getBaseContext(), ProfilesPrefsActivity.class);
         if (editMode == EditorProfileListFragment.EDIT_MODE_INSERT)
             intent.putExtra(PPApplication.EXTRA_PROFILE_ID, 0L);
@@ -2221,6 +2239,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         intent.putExtra(EXTRA_NEW_PROFILE_MODE, editMode);
         intent.putExtra(EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
         startActivityForResult(intent, REQUEST_CODE_PROFILE_PREFERENCES);
+        PPApplication.logE("EditorProfilesActivity.startProfilePreferenceActivity", "call of ProfilesPrefsActivity");
     }
 
     public void onStartProfilePreferences(Profile profile, int editMode, int predefinedProfileIndex/*, boolean startTargetHelps*/) {

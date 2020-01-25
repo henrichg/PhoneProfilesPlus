@@ -6,8 +6,14 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.common.util.concurrent.ListenableFuture;
+
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import androidx.annotation.NonNull;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
@@ -124,7 +130,34 @@ public class DelayedWorksWorker extends Worker {
                                 dataWrapper.updateNotificationAndWidgets(true);
                             }
 
-                            instance.setWaitForEndOfStartToFalse();
+                            // set waitForEndOfStart to false only when is not enqueued packageReplacedWork
+                            try {
+                                WorkManager workInstance = WorkManager.getInstance(appContext);
+                                ListenableFuture<List<WorkInfo>> statuses = workInstance.getWorkInfosByTag("packageReplacedWork");
+                                //noinspection TryWithIdenticalCatches
+                                try {
+                                    List<WorkInfo> workInfoList = statuses.get();
+                                    boolean running = false;
+                                    for (WorkInfo workInfo : workInfoList) {
+                                        WorkInfo.State state = workInfo.getState();
+                                        running = (state == WorkInfo.State.ENQUEUED) || (state == WorkInfo.State.RUNNING);
+                                    }
+
+                                    PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "packageReplacedWork - running="+running);
+
+                                    if (!running)
+                                        instance.setWaitForEndOfStartToFalse();
+                                } catch (ExecutionException e) {
+                                    e.printStackTrace();
+                                    instance.setWaitForEndOfStartToFalse();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                    instance.setWaitForEndOfStartToFalse();
+                                }
+                            } catch (Exception e) {
+                                Log.e("PhoneProfilesService.doForFirstStart.2 - worker", Log.getStackTraceString(e));
+                                instance.setWaitForEndOfStartToFalse();
+                            }
 
                             PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "END");
                         }
