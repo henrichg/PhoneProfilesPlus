@@ -635,7 +635,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
             PPApplication.startPPService(this, serviceIntent);
             finish();
-            return;
+            //return;
         }
         else
         {
@@ -654,7 +654,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
                 PPApplication.startPPService(this, serviceIntent);
                 finish();
-                return;
+                //return;
             }
             //else {
             //    PPApplication.logE("EditorProfilesActivity.onStart", "application and service is started");
@@ -2225,14 +2225,13 @@ public class EditorProfilesActivity extends AppCompatActivity
      */
 
     private void startProfilePreferenceActivity(Profile profile, int editMode, int predefinedProfileIndex) {
-        PPApplication.logE("EditorProfilesActivity.startProfilePreferenceActivity", "profile="+profile);
         if (profile != null)
             PPApplication.logE("EditorProfilesActivity.startProfilePreferenceActivity", "profile._name="+profile._name);
         PPApplication.logE("EditorProfilesActivity.startProfilePreferenceActivity", "editMode="+editMode);
         PPApplication.logE("EditorProfilesActivity.startProfilePreferenceActivity", "predefinedProfileIndex="+predefinedProfileIndex);
 
         Intent intent = new Intent(getBaseContext(), ProfilesPrefsActivity.class);
-        if (editMode == EditorProfileListFragment.EDIT_MODE_INSERT)
+        if ((profile == null) || (editMode == EditorProfileListFragment.EDIT_MODE_INSERT))
             intent.putExtra(PPApplication.EXTRA_PROFILE_ID, 0L);
         else
             intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
@@ -2324,7 +2323,6 @@ public class EditorProfilesActivity extends AppCompatActivity
     }
 
     private void startEventPreferenceActivity(Event event, final int editMode, final int predefinedEventIndex) {
-        PPApplication.logE("EditorProfilesActivity.startEventPreferenceActivity", "event="+event);
         if (event != null)
             PPApplication.logE("EditorProfilesActivity.startEventPreferenceActivity", "event._name="+event._name);
         PPApplication.logE("EditorProfilesActivity.startEventPreferenceActivity", "editMode="+editMode);
@@ -2354,7 +2352,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         PPApplication.logE("EditorProfilesActivity.startEventPreferenceActivity", "profileExists="+profileExists);
         if (profileExists) {
             Intent intent = new Intent(getBaseContext(), EventsPrefsActivity.class);
-            if (editMode == EditorEventListFragment.EDIT_MODE_INSERT)
+            if ((event == null) || (editMode == EditorEventListFragment.EDIT_MODE_INSERT))
                 intent.putExtra(PPApplication.EXTRA_EVENT_ID, 0L);
             else {
                 intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);

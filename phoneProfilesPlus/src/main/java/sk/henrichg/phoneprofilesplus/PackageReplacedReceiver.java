@@ -392,7 +392,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     //restartService = true;
                                 }
 
-                                PPApplication.logE("PackageReplacedReceiver.onReceive", "restartService="+restartService);
+                                //PPApplication.logE("PackageReplacedReceiver.onReceive", "restartService="+restartService);
                             }
                         } catch (Exception ignored) {
                         }
