@@ -15,8 +15,6 @@ import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Icon;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
@@ -3496,7 +3494,7 @@ public class DataWrapper {
                                             for (String split : splits) {
                                                 try {
                                                     int side = Integer.valueOf(split);
-                                                    if (side == PhoneProfilesService.getInstance().mDisplayUp) {
+                                                    if (side == PPApplication.handlerThreadOrientationScanner.mDisplayUp) {
                                                         lDisplayPassed = true;
                                                         break;
                                                     }
@@ -3517,13 +3515,13 @@ public class DataWrapper {
                                             for (String split : splits) {
                                                 try {
                                                     int side = Integer.valueOf(split);
-                                                    if (side == PhoneProfilesService.DEVICE_ORIENTATION_HORIZONTAL) {
-                                                        if (PhoneProfilesService.getInstance().mSideUp == PhoneProfilesService.getInstance().mDisplayUp) {
+                                                    if (side == OrientationScannerHandlerThread.DEVICE_ORIENTATION_HORIZONTAL) {
+                                                        if (PPApplication.handlerThreadOrientationScanner.mSideUp == PPApplication.handlerThreadOrientationScanner.mDisplayUp) {
                                                             lSidePassed = true;
                                                             break;
                                                         }
                                                     } else {
-                                                        if (side == PhoneProfilesService.getInstance().mSideUp) {
+                                                        if (side == PPApplication.handlerThreadOrientationScanner.mSideUp) {
                                                             lSidePassed = true;
                                                             break;
                                                         }
@@ -3540,7 +3538,7 @@ public class DataWrapper {
                                 if (hasProximity) {
                                     if (event._eventPreferencesOrientation._distance != 0) {
                                         configuredDistance = true;
-                                        lDistancePassed = event._eventPreferencesOrientation._distance == PhoneProfilesService.getInstance().mDeviceDistance;
+                                        lDistancePassed = event._eventPreferencesOrientation._distance == PPApplication.handlerThreadOrientationScanner.mDeviceDistance;
                                     }
                                 }
 
@@ -3549,7 +3547,7 @@ public class DataWrapper {
                                 if (hasLight) {
                                     if (event._eventPreferencesOrientation._checkLight) {
                                         configuredLight = true;
-                                        int light = PhoneProfilesService.getInstance().mLight;
+                                        int light = PPApplication.handlerThreadOrientationScanner.mLight;
                                         int min = Integer.parseInt(event._eventPreferencesOrientation._lightMin);
                                         int max = Integer.parseInt(event._eventPreferencesOrientation._lightMax);
                                         lLightPassed = (light >= min) && (light <= max);

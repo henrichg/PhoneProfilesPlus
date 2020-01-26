@@ -391,7 +391,9 @@ public class PPApplication extends Application /*implements Application.Activity
 
                                          //+"|[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver"
                                          //+"|PhoneProfilesService.runEventsHandlerForOrientationChange"
-                                         +"|PhoneProfilesService.onSensorChanged"
+                                         +"|PhoneProfilesService.startListeningOrientationSensors"
+                                         +"|OrientationScanner.onSensorChanged"
+                                         //+"|PhoneProfilesService.startOrientationScanner"
                                          //+"|PPPExtenderBroadcastReceiver"
                                          //+"|[OriSensor] DataWrapper.doHandleEvents"
 
@@ -786,6 +788,7 @@ public class PPApplication extends Application /*implements Application.Activity
     //public static HandlerThread handlerThreadBluetoothLECallback = null;
     public static HandlerThread handlerThreadNotificationLed = null;
     public static HandlerThread handlerThreadAlwaysOnDisplay = null;
+    public static OrientationScannerHandlerThread handlerThreadOrientationScanner = null;
 
     //private static HandlerThread handlerThreadRestartEventsWithDelay = null;
     //public static Handler restartEventsWithDelayHandler = null;
@@ -1010,6 +1013,7 @@ public class PPApplication extends Application /*implements Application.Activity
         //startHandlerThreadBluetoothLECallback();
         startHandlerThreadNotificationLed();
         startHandlerThreadAlwaysOnDisplay();
+        startHandlerThreadOrientationScanner();
 
         toastHandler = new Handler(getMainLooper());
         //brightnessHandler = new Handler(getMainLooper());
@@ -3179,6 +3183,13 @@ public class PPApplication extends Application /*implements Application.Activity
         if (handlerThreadAlwaysOnDisplay == null) {
             handlerThreadAlwaysOnDisplay = new HandlerThread("handlerThreadAlwaysOnDisplay", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadAlwaysOnDisplay.start();
+        }
+    }
+
+    static void startHandlerThreadOrientationScanner() {
+        if (handlerThreadOrientationScanner == null) {
+            handlerThreadOrientationScanner = new OrientationScannerHandlerThread("PPHandlerThreadOrientationScanner", THREAD_PRIORITY_MORE_FAVORABLE); //);
+            handlerThreadOrientationScanner.start();
         }
     }
 
