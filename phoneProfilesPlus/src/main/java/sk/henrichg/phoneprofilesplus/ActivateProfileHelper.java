@@ -316,15 +316,17 @@ class ActivateProfileHelper {
                                     }
                                     else {
                                         Network[] activeNetworks=connManager.getAllNetworks();
-                                        for(Network network:activeNetworks){
-                                            NetworkInfo networkInfo = connManager.getNetworkInfo(network);
-                                            if((networkInfo != null) && networkInfo.isConnected()) {
-                                                NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
-                                                if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                                                    wifiConnected = true;
-                                                    break;
+                                        for(Network network : activeNetworks){
+                                            try {
+                                                NetworkInfo networkInfo = connManager.getNetworkInfo(network);
+                                                if ((networkInfo != null) && networkInfo.isConnected()) {
+                                                    NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
+                                                    if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                                                        wifiConnected = true;
+                                                        break;
+                                                    }
                                                 }
-                                            }
+                                            } catch (Exception ignored) {}
                                         }
                                     }
                                     WifiInfo wifiInfo = null;
