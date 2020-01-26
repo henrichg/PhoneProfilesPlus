@@ -10090,7 +10090,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         //PPApplication.logE("DatabaseHandler.importDB", "exportedDB.getAbsolutePath()="+exportedDB.getAbsolutePath());
                         SQLiteDatabase exportedDBObj = SQLiteDatabase.openDatabase(exportedDB.getAbsolutePath(), null, SQLiteDatabase.OPEN_READONLY);
 
-                        //if (exportedDBObj.getVersion() <= DATABASE_VERSION) {
+                        if (exportedDBObj.getVersion() <= DATABASE_VERSION) {
                             SQLiteDatabase db = getMyWritableDatabase();
 
                             Cursor cursorExportedDB = null;
@@ -11552,10 +11552,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     cursorImportDB.close();
                                 //db.close();
                             }
-                        /*} else {
+                        } else {
                             //    exportedDBObj.close();
                             ret = IMPORT_ERROR_NEVER_VERSION;
-                        }*/
+                        }
                     }
                 } catch (Exception e) {
                     Log.e("DatabaseHandler.importDB", Log.getStackTraceString(e));

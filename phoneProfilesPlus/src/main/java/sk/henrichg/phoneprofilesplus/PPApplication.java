@@ -97,7 +97,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && BuildConfig.DEBUG;
-    static final boolean logIntoFile = true;
+    static final boolean logIntoFile = false;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && BuildConfig.DEBUG;
     private static final boolean rootToolsDebug = false;
@@ -191,15 +191,15 @@ public class PPApplication extends Application /*implements Application.Activity
                                         //+"|Event.pauseEvent"
                                         //+"|[DSTART] DataWrapper.doHandleEvents"
 
-                                         +"|EditorProfilesActivity"
+                                         //+"|EditorProfilesActivity"
                                          //+"|EditorProfilesActivity.onStart"
                                          //+"|EditorProfilesActivity.onActivityResult"
-                                         +"|EditorProfileListViewHolder"
-                                         +"|EditorEventListViewHolder"
-                                         +"|EditorProfileListFragment"
-                                         +"|EditorEventListFragment"
-                                         +"|EditorProfileListAdapter"
-                                         +"|EditorEventListAdapter"
+                                         //+"|EditorProfileListViewHolder"
+                                         //+"|EditorEventListViewHolder"
+                                         //+"|EditorProfileListFragment"
+                                         //+"|EditorEventListFragment"
+                                         //+"|EditorProfileListAdapter"
+                                         //+"|EditorEventListAdapter"
 
                                          //+"|PostDelayedBroadcastReceiver"
 

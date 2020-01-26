@@ -376,7 +376,7 @@ class EventPreferencesSMS extends EventPreferences {
         // this alarm generates broadcast, that change state into RUNNING;
         // from broadcast will by called EventsHandler
 
-        PPApplication.logE("EventPreferencesSMS.setSystemRunningEvent","xxx");
+        //PPApplication.logE("EventPreferencesSMS.setSystemRunningEvent","xxx");
 
         removeAlarm(context);
     }

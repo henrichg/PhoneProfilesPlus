@@ -158,9 +158,9 @@ public class DelayedWorksWorker extends Worker {
                                 Log.e("PhoneProfilesService.doForFirstStart.2 - worker", Log.getStackTraceString(e));
                                 instance.setWaitForEndOfStartToFalse();
                             }
-
-                            PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "END");
                         }
+
+                        PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "END");
                     }
                     break;
                 case DELAYED_WORK_PACKAGE_REPLACED:

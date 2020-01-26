@@ -447,7 +447,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
 
     @Override
     public void onClick(View v) {
-        PPApplication.logE("EditorEventListViewHolder.onClick", "xxx");
+        //PPApplication.logE("EditorEventListViewHolder.onClick", "xxx");
         editorFragment.startEventPreferencesActivity(event, 0);
     }
 
