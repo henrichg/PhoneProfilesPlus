@@ -288,7 +288,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
             if (!activityDataWrapper.profileListFilled)
                 return;
 
-            fragment.listView.getRecycledViewPool().clear();
+            //fragment.listView.getRecycledViewPool().clear();
 
             //noinspection ForLoopReplaceableByForEach
             for (Iterator<Profile> it = activityDataWrapper.profileList.iterator(); it.hasNext(); ) {

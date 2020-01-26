@@ -199,7 +199,7 @@ class ApplicationEditorDialogX
                     addButton.setVisibility(View.GONE);
 
                 fillApplicationList();
-                listView.getRecycledViewPool().clear();
+                //listView.getRecycledViewPool().clear();
                 listView.setAdapter(null);
                 listView.setAdapter(listAdapter);
                 listAdapter.notifyDataSetChanged();
@@ -484,7 +484,7 @@ class ApplicationEditorDialogX
 
     void updateAfterEdit() {
         fillApplicationList();
-        listView.getRecycledViewPool().clear();
+        //listView.getRecycledViewPool().clear();
         listAdapter.notifyDataSetChanged();
     }
 
@@ -518,7 +518,7 @@ class ApplicationEditorDialogX
                 }
             }
 
-            listView.getRecycledViewPool().clear();
+            //listView.getRecycledViewPool().clear();
             listAdapter.notifyDataSetChanged();
         }
 
@@ -560,7 +560,7 @@ class ApplicationEditorDialogX
             --selectedPosition;
         }
 
-        listView.getRecycledViewPool().clear();
+        //listView.getRecycledViewPool().clear();
         listAdapter.notifyDataSetChanged();
 
         ApplicationEditorDialogX.this.preference.updateGUI();

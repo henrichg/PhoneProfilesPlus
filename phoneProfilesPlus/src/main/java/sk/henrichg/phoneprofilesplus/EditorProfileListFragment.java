@@ -319,7 +319,7 @@ public class EditorProfileListFragment extends Fragment
                         Profile profile = activityDataWrapper.getActivatedProfile(true,
                                 ApplicationPreferences.applicationEditorPrefIndicator);
                         updateHeader(profile);
-                        listView.getRecycledViewPool().clear();
+                        //listView.getRecycledViewPool().clear();
                         profileListAdapter.notifyDataSetChanged(false);
                     }
                     else {
@@ -332,7 +332,7 @@ public class EditorProfileListFragment extends Fragment
                                 ApplicationPreferences.applicationEditorPrefIndicator);
                         updateHeader(profile);
 
-                        listView.getRecycledViewPool().clear();
+                        //listView.getRecycledViewPool().clear();
 
                         profileListAdapter = new EditorProfileListAdapter(fragment, activityDataWrapper, filterType, fragment);
 
@@ -359,7 +359,7 @@ public class EditorProfileListFragment extends Fragment
                         ApplicationPreferences.applicationEditorPrefIndicator);
                 updateHeader(profile);
 
-                fragment.listView.getRecycledViewPool().clear();
+                //fragment.listView.getRecycledViewPool().clear();
 
                 fragment.profileListAdapter = new EditorProfileListAdapter(fragment, fragment.activityDataWrapper, filterType, fragment);
 
@@ -504,7 +504,7 @@ public class EditorProfileListFragment extends Fragment
                 fragment.listView.setAdapter(fragment.profileListAdapter);
 
                 // update activity for activated profile
-                fragment.listView.getRecycledViewPool().clear();
+                //fragment.listView.getRecycledViewPool().clear();
 
                 Profile profile = fragment.activityDataWrapper.getActivatedProfile(true,
                                 applicationEditorPrefIndicator);
@@ -645,7 +645,7 @@ public class EditorProfileListFragment extends Fragment
             Profile.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
         }
 
-        listView.getRecycledViewPool().clear();
+        //listView.getRecycledViewPool().clear();
 
         activityDataWrapper.stopEventsForProfileFromMainThread(profile, true);
         profileListAdapter.deleteItemNoNotify(profile);
@@ -773,7 +773,7 @@ public class EditorProfileListFragment extends Fragment
                     }
                     Profile.setActivatedProfileForDuration(activityDataWrapper.context, 0);
 
-                    listView.getRecycledViewPool().clear();
+                    //listView.getRecycledViewPool().clear();
 
                     activityDataWrapper.stopAllEventsFromMainThread(true, false);
                     profileListAdapter.clearNoNotify();
@@ -990,8 +990,8 @@ public class EditorProfileListFragment extends Fragment
         /*if (listView != null)
             listView.cancelDrag();*/
 
-        if (profileListAdapter != null)
-            listView.getRecycledViewPool().clear();
+        //if (profileListAdapter != null)
+        //    listView.getRecycledViewPool().clear();
 
         if (profileListAdapter != null) {
             if ((newProfile) && (profile != null))

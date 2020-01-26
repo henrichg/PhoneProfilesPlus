@@ -24,7 +24,7 @@
 
 ext.ppVersions = [
     publishVersion: '4.1.6b',
-    publishVersionCode: 5504,
+    publishVersionCode: 5505,
 
     minSdk: 21,
     targetSdk: 28,
@@ -32,6 +32,6 @@ ext.ppVersions = [
     buildTools: '29.0.2',
 
     annotationXLib: '1.1.0',
-    appcompatXLib: '1.2.0-alpha01',
+    appcompatXLib: '1.1.0',
     workXLib: '2.3.0'
 ]

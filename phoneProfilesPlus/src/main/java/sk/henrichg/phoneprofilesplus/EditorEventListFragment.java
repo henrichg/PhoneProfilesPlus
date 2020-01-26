@@ -737,7 +737,7 @@ public class EditorEventListFragment extends Fragment
 
         activityDataWrapper.addActivityLog(DataWrapper.ALTYPE_EVENT_DELETED, event._name, null, null, 0);
 
-        listView.getRecycledViewPool().clear();
+        //listView.getRecycledViewPool().clear();
 
         eventListAdapter.deleteItemNoNotify(event);
         DatabaseHandler.getInstance(activityDataWrapper.context).deleteEvent(event);
@@ -858,7 +858,7 @@ public class EditorEventListFragment extends Fragment
                 public void onClick(DialogInterface dialog, int which) {
                     activityDataWrapper.addActivityLog(DataWrapper.ALTYPE_ALL_EVENTS_DELETED, null, null, null, 0);
 
-                    listView.getRecycledViewPool().clear();
+                    //listView.getRecycledViewPool().clear();
 
                     activityDataWrapper.stopAllEventsFromMainThread(true, true);
 
@@ -1010,8 +1010,8 @@ public class EditorEventListFragment extends Fragment
         /*if (listView != null)
             listView.cancelDrag();*/
 
-        if (eventListAdapter != null)
-            listView.getRecycledViewPool().clear();
+        //if (eventListAdapter != null)
+        //    listView.getRecycledViewPool().clear();
 
         if (eventListAdapter != null) {
             if ((newEvent) && (event != null))
@@ -1095,7 +1095,7 @@ public class EditorEventListFragment extends Fragment
                                     ApplicationPreferences.applicationEditorPrefIndicator);
                             updateHeader(profile);
                         }
-                        listView.getRecycledViewPool().clear();
+                        //listView.getRecycledViewPool().clear();
                         eventListAdapter.notifyDataSetChanged();
                     }
                     else {
@@ -1109,7 +1109,7 @@ public class EditorEventListFragment extends Fragment
                             updateHeader(profile);
                         }
 
-                        listView.getRecycledViewPool().clear();
+                        //listView.getRecycledViewPool().clear();
 
                         eventListAdapter = new EditorEventListAdapter(this, activityDataWrapper, filterType, this);
 

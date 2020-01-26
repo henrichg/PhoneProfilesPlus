@@ -275,7 +275,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
             if (!activityDataWrapper.eventListFilled)
                 return;
 
-            fragment.listView.getRecycledViewPool().clear();
+            //fragment.listView.getRecycledViewPool().clear();
             activityDataWrapper.eventList.clear();
         }
         notifyDataSetChanged();
