@@ -11,6 +11,8 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -389,7 +391,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
                                          //+"|[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver"
                                          //+"|PhoneProfilesService.runEventsHandlerForOrientationChange"
-                                         //+"|PhoneProfilesService.onSensorChanged"
+                                         +"|PhoneProfilesService.onSensorChanged"
                                          //+"|PPPExtenderBroadcastReceiver"
                                          //+"|[OriSensor] DataWrapper.doHandleEvents"
 
@@ -752,6 +754,12 @@ public class PPApplication extends Application /*implements Application.Activity
     //public static long lastUptimeTime;
     //public static long lastEpochTime;
 
+    static SensorManager sensorManager = null;
+    static Sensor accelerometerSensor = null;
+    static Sensor magneticFieldSensor = null;
+    static Sensor lightSensor = null;
+    static Sensor proximitySensor = null;
+
     public static boolean isScreenOn;
 
 //    static private FirebaseAnalytics firebaseAnalytics;
@@ -826,6 +834,12 @@ public class PPApplication extends Application /*implements Application.Activity
         instance = this;
 
         //registerActivityLifecycleCallbacks(PPApplication.this);
+
+        sensorManager = (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
+        accelerometerSensor = getAccelerometerSensor(getApplicationContext());
+        magneticFieldSensor = getMagneticFieldSensor(getApplicationContext());
+        proximitySensor = getProximitySensor(getApplicationContext());
+        lightSensor = getLightSensor(getApplicationContext());
 
         loadApplicationPreferences(getApplicationContext());
         loadGlobalApplicationData(getApplicationContext());
@@ -1106,7 +1120,6 @@ public class PPApplication extends Application /*implements Application.Activity
     }
 
     //--------------------------------------------------------------
-
 
     static private void resetLog()
     {
@@ -3253,6 +3266,90 @@ public class PPApplication extends Application /*implements Application.Activity
         return null;
     }
 */
+
+    // Sensor manager ------------------------------------------------------------------------------
+
+    static Sensor getAccelerometerSensor(Context context) {
+        if (sensorManager == null)
+            sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        if (sensorManager != null) {
+            //Sensor sensor = mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            //if (sensor != null) {
+            //    if (sensor.getPower() > 0)
+            //        return sensor;
+            //    else
+            //        return null;
+            //}
+            //return null;
+            return sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        }
+        else
+            return null;
+    }
+
+    static Sensor getMagneticFieldSensor(Context context) {
+        if (sensorManager == null)
+            sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        if (sensorManager != null) {
+            //Sensor sensor = mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+            //if (sensor != null) {
+            //    if (sensor.getPower() > 0)
+            //        return sensor;
+            //    else
+            //        return null;
+            //}
+            //return null;
+            return sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        }
+        else
+            return null;
+    }
+
+    static Sensor getProximitySensor(Context context) {
+        if (sensorManager == null)
+            sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        if (sensorManager != null) {
+            //Sensor sensor = mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+            //if (sensor != null) {
+            //    if (sensor.getPower() > 0)
+            //        return sensor;
+            //    else
+            //        return null;
+            //}
+            //return null;
+            return sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        }
+        else
+            return null;
+    }
+
+    /*
+    private Sensor getOrientationSensor(Context context) {
+        synchronized (PPApplication.orientationScannerMutex) {
+            if (mOrientationSensorManager == null)
+                mOrientationSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+            return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+        }
+    }*/
+
+    static Sensor getLightSensor(Context context) {
+        if (sensorManager == null)
+            sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        if (sensorManager != null) {
+            //Sensor sensor = mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+            //if (sensor != null) {
+            //    if (sensor.getPower() > 0)
+            //        return sensor;
+            //    else
+            //        return null;
+            //}
+            //return null;
+            return sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        }
+        else
+            return null;
+    }
+
     // Google Analytics ----------------------------------------------------------------------------
 
     /*

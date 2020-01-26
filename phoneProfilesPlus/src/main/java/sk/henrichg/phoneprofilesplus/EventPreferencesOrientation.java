@@ -188,9 +188,9 @@ class EventPreferencesOrientation extends EventPreferences {
                 }
                 descr = descr + context.getString(R.string.event_preferences_orientation_display) + ": <b>" + selectedSides + "</b>";
 
-                SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+                //SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
 
-                if ((sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null)) {
+                if (PPApplication.magneticFieldSensor != null) {
                     selectedSides = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                     if (!this._sides.isEmpty() && !this._sides.equals("-")) {
                         String[] splits = this._sides.split("\\|");
@@ -257,7 +257,7 @@ class EventPreferencesOrientation extends EventPreferences {
                     } else
                         selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
                 }
-                descr = descr + " • " + /*"(S) "+*/context.getString(R.string.event_preferences_orientation_ignoreForApplications) + ": <b>" + selectedApplications + "</b>";
+                descr = descr + " • " + context.getString(R.string.event_preferences_orientation_ignoreForApplications) + ": <b>" + selectedApplications + "</b>";
             }
         }
 
@@ -502,7 +502,6 @@ class EventPreferencesOrientation extends EventPreferences {
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
-
     }
 
     @Override
@@ -551,12 +550,11 @@ class EventPreferencesOrientation extends EventPreferences {
 
         boolean runnable = super.isRunnable(context);
 
-        SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         boolean magneticSensor = false;
         boolean lightSensor = false;
-        if (sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null)
+        if (PPApplication.magneticFieldSensor != null)
             magneticSensor = true;
-        if (sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT) != null)
+        if (PPApplication.lightSensor != null)
             lightSensor = true;
         boolean lightEnabled = _checkLight && lightSensor;
 

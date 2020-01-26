@@ -3809,11 +3809,10 @@ public class Profile {
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING))
         {
-            SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-            boolean hasAccelerometer = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null);
-            //boolean hasMagneticField = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null);
-            boolean hasProximity = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY) != null);
-            boolean hasLight = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT) != null);
+            boolean hasAccelerometer = PPApplication.accelerometerSensor != null;
+            //boolean hasMagneticField = PPApplication.magneticFieldSensor != null;
+            boolean hasProximity = PPApplication.proximitySensor != null;
+            boolean hasLight = PPApplication.lightSensor != null;
 
             boolean enabled = hasAccelerometer;
             enabled = enabled || hasProximity || hasLight;

@@ -213,7 +213,6 @@ public class PhoneProfilesService extends Service
 
     private GeofencesScanner geofencesScanner = null;
 
-    private SensorManager mOrientationSensorManager = null;
     private boolean mStartedOrientationSensors = false;
 
     private int mEventCountSinceGZChanged = 0;
@@ -316,6 +315,12 @@ public class PhoneProfilesService extends Service
         synchronized (PPApplication.phoneProfilesServiceMutex) {
             instance = this;
         }
+
+        PPApplication.sensorManager = (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
+        PPApplication.accelerometerSensor = PPApplication.getAccelerometerSensor(getApplicationContext());
+        PPApplication.magneticFieldSensor = PPApplication.getMagneticFieldSensor(getApplicationContext());
+        PPApplication.proximitySensor = PPApplication.getProximitySensor(getApplicationContext());
+        PPApplication.lightSensor = PPApplication.getLightSensor(getApplicationContext());
 
         PPApplication.loadApplicationPreferences(getApplicationContext());
         PPApplication.loadGlobalApplicationData(getApplicationContext());
@@ -1325,7 +1330,7 @@ public class PhoneProfilesService extends Service
         if (!register) {
             if (headsetPlugReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForPeripheralsSensor->UNREGISTER headset plug", "PhoneProfilesService_registerReceiverForPeripheralsSensor");
-                PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeripheralsSensor", "UNREGISTER headset plug");
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeripheralsSensor", "UNREGISTER headset plug");
                 try {
                     appContext.unregisterReceiver(headsetPlugReceiver);
                     headsetPlugReceiver = null;
@@ -5197,98 +5202,15 @@ public class PhoneProfilesService extends Service
         return mStartedOrientationSensors;
     }
 
-    private Sensor getAccelerometerSensor(Context context) {
-        if (mOrientationSensorManager == null)
-            mOrientationSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        if (mOrientationSensorManager != null) {
-            //Sensor sensor = mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-            //if (sensor != null) {
-            //    if (sensor.getPower() > 0)
-            //        return sensor;
-            //    else
-            //        return null;
-            //}
-            //return null;
-            return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        }
-        else
-            return null;
-    }
-
-    private Sensor getMagneticFieldSensor(Context context) {
-        if (mOrientationSensorManager == null)
-            mOrientationSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        if (mOrientationSensorManager != null) {
-            //Sensor sensor = mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-            //if (sensor != null) {
-            //    if (sensor.getPower() > 0)
-            //        return sensor;
-            //    else
-            //        return null;
-            //}
-            //return null;
-            return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-        }
-        else
-            return null;
-    }
-
-    private Sensor getProximitySensor(Context context) {
-        if (mOrientationSensorManager == null)
-            mOrientationSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        if (mOrientationSensorManager != null) {
-            //Sensor sensor = mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
-            //if (sensor != null) {
-            //    if (sensor.getPower() > 0)
-            //        return sensor;
-            //    else
-            //        return null;
-            //}
-            //return null;
-            return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
-        }
-        else
-            return null;
-    }
-
-    /*
-    private Sensor getOrientationSensor(Context context) {
-        synchronized (PPApplication.orientationScannerMutex) {
-            if (mOrientationSensorManager == null)
-                mOrientationSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
-            return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
-        }
-    }*/
-
-    private Sensor getLightSensor(Context context) {
-        if (mOrientationSensorManager == null)
-            mOrientationSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        if (mOrientationSensorManager != null) {
-            //Sensor sensor = mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-            //if (sensor != null) {
-            //    if (sensor.getPower() > 0)
-            //        return sensor;
-            //    else
-            //        return null;
-            //}
-            //return null;
-            return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-        }
-        else
-            return null;
-    }
 
     @SuppressLint("NewApi")
     private void startListeningOrientationSensors() {
-        if (mOrientationSensorManager == null)
-            mOrientationSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-
         if (!mStartedOrientationSensors) {
 
             String applicationEventOrientationScanInPowerSaveMode = ApplicationPreferences.applicationEventOrientationScanInPowerSaveMode;
 
             boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(this);
-            if (/*PPApplication.*/isPowerSaveMode && applicationEventOrientationScanInPowerSaveMode.equals("2"))
+            if (isPowerSaveMode && applicationEventOrientationScanInPowerSaveMode.equals("2"))
                 // start scanning in power save mode is not allowed
                 return;
 
@@ -5297,44 +5219,36 @@ public class PhoneProfilesService extends Service
                 return;
 
             int interval = ApplicationPreferences.applicationEventOrientationScanInterval;
-            if (/*PPApplication.*/isPowerSaveMode && applicationEventOrientationScanInPowerSaveMode.equals("1"))
+            if (isPowerSaveMode && applicationEventOrientationScanInPowerSaveMode.equals("1"))
                 interval *= 2;
 
-            Sensor accelerometer = getAccelerometerSensor(getApplicationContext());
-            //PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","accelerometer="+accelerometer);
-            if (accelerometer != null) {
-                if (/*(android.os.Build.VERSION.SDK_INT >= 19) &&*/ (accelerometer.getFifoMaxEventCount() > 0))
-                    mOrientationSensorManager.registerListener(this, accelerometer, 200000 * interval, 1000000 * interval);
+            if (PPApplication.accelerometerSensor != null) {
+                if (PPApplication.accelerometerSensor.getFifoMaxEventCount() > 0)
+                    PPApplication.sensorManager.registerListener(this, PPApplication.accelerometerSensor, 200000 * interval, 1000000 * interval);
                 else
-                    mOrientationSensorManager.registerListener(this, accelerometer, 1000000 * interval);
+                    PPApplication.sensorManager.registerListener(this, PPApplication.accelerometerSensor, 1000000 * interval);
             }
-            Sensor magneticField = getMagneticFieldSensor(getApplicationContext());
-            //PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","magneticField="+magneticField);
-            if (magneticField != null) {
-                if (/*(android.os.Build.VERSION.SDK_INT >= 19) &&*/ (magneticField.getFifoMaxEventCount() > 0))
-                    mOrientationSensorManager.registerListener(this, magneticField, 200000 * interval, 1000000 * interval);
+            if (PPApplication.magneticFieldSensor != null) {
+                if (PPApplication.magneticFieldSensor.getFifoMaxEventCount() > 0)
+                    PPApplication.sensorManager.registerListener(this, PPApplication.magneticFieldSensor, 200000 * interval, 1000000 * interval);
                 else
-                    mOrientationSensorManager.registerListener(this, magneticField, 1000000 * interval);
+                    PPApplication.sensorManager.registerListener(this, PPApplication.magneticFieldSensor, 1000000 * interval);
             }
 
-            Sensor light = getLightSensor(getApplicationContext());
-            //PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","light="+light);
-            if (light != null) {
-                mMaxLightDistance = light.getMaximumRange();
-                if (/*(android.os.Build.VERSION.SDK_INT >= 19) &&*/ (light.getFifoMaxEventCount() > 0))
-                    mOrientationSensorManager.registerListener(this, light, 200000 * interval, 1000000 * interval);
+            if (PPApplication.lightSensor != null) {
+                mMaxLightDistance = PPApplication.lightSensor.getMaximumRange();
+                if (PPApplication.lightSensor.getFifoMaxEventCount() > 0)
+                    PPApplication.sensorManager.registerListener(this, PPApplication.lightSensor, 200000 * interval, 1000000 * interval);
                 else
-                    mOrientationSensorManager.registerListener(this, light, 1000000 * interval);
+                    PPApplication.sensorManager.registerListener(this, PPApplication.lightSensor, 1000000 * interval);
             }
 
-            Sensor proximity = getProximitySensor(getApplicationContext());
-            //PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","proximity="+proximity);
-            if (proximity != null) {
-                mMaxProximityDistance = proximity.getMaximumRange();
-                if (/*(android.os.Build.VERSION.SDK_INT >= 19) &&*/ (proximity.getFifoMaxEventCount() > 0))
-                    mOrientationSensorManager.registerListener(this, proximity, 200000 * interval, 1000000 * interval);
+            if (PPApplication.proximitySensor != null) {
+                mMaxProximityDistance = PPApplication.proximitySensor.getMaximumRange();
+                if (PPApplication.proximitySensor.getFifoMaxEventCount() > 0)
+                    PPApplication.sensorManager.registerListener(this, PPApplication.proximitySensor, 200000 * interval, 1000000 * interval);
                 else
-                    mOrientationSensorManager.registerListener(this, proximity, 1000000 * interval);
+                    PPApplication.sensorManager.registerListener(this, PPApplication.proximitySensor, 1000000 * interval);
             }
 
             //Sensor orientation = PPApplication.getOrientationSensor(this);
@@ -5351,9 +5265,9 @@ public class PhoneProfilesService extends Service
     }
 
     private void stopListeningOrientationSensors() {
-        if (mOrientationSensorManager != null) {
-            mOrientationSensorManager.unregisterListener(this);
-            mOrientationSensorManager = null;
+        if (PPApplication.sensorManager!= null) {
+            PPApplication.sensorManager.unregisterListener(this);
+            //PPApplication.sensorManager = null;
         }
         mStartedOrientationSensors = false;
     }
@@ -5369,268 +5283,272 @@ public class PhoneProfilesService extends Service
 
     private void runEventsHandlerForOrientationChange(final Context context) {
         if (Event.getGlobalEventsRunning()) {
-            PPApplication.startHandlerThread("PhoneProfilesService.runEventsHandlerForOrientationChange");
-            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_runEventsHandlerForOrientationChange");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+            /*if (PPApplication.logEnabled()) {
+                PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.runEventsHandlerForOrientationChange");
 
-                        /*if (PPApplication.logEnabled()) {
-                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.runEventsHandlerForOrientationChange");
+                PPApplication.logE("@@@ PhoneProfilesService.runEventsHandlerForOrientationChange", "-----------");
 
-                            PPApplication.logE("@@@ PhoneProfilesService.runEventsHandlerForOrientationChange", "-----------");
+                if (mDeviceDistance == DEVICE_ORIENTATION_DEVICE_IS_NEAR)
+                    PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "now device is NEAR.");
+                else if (mDeviceDistance == DEVICE_ORIENTATION_DEVICE_IS_FAR)
+                    PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "now device is FAR");
+                else if (mDeviceDistance == DEVICE_ORIENTATION_UNKNOWN)
+                    PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "unknown distance");
 
-                            if (mDeviceDistance == DEVICE_ORIENTATION_DEVICE_IS_NEAR)
-                                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "now device is NEAR.");
-                            else if (mDeviceDistance == DEVICE_ORIENTATION_DEVICE_IS_FAR)
-                                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "now device is FAR");
-                            else if (mDeviceDistance == DEVICE_ORIENTATION_UNKNOWN)
-                                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "unknown distance");
+                if (mDisplayUp == DEVICE_ORIENTATION_DISPLAY_UP)
+                    PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(D) now screen is facing up.");
+                if (mDisplayUp == DEVICE_ORIENTATION_DISPLAY_DOWN)
+                    PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(D) now screen is facing down.");
+                if (mDisplayUp == DEVICE_ORIENTATION_UNKNOWN)
+                    PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(D) unknown display orientation.");
 
-                            if (mDisplayUp == DEVICE_ORIENTATION_DISPLAY_UP)
-                                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(D) now screen is facing up.");
-                            if (mDisplayUp == DEVICE_ORIENTATION_DISPLAY_DOWN)
-                                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(D) now screen is facing down.");
-                            if (mDisplayUp == DEVICE_ORIENTATION_UNKNOWN)
-                                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(D) unknown display orientation.");
+                if (mSideUp == DEVICE_ORIENTATION_DISPLAY_UP)
+                    PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now screen is facing up.");
+                if (mSideUp == DEVICE_ORIENTATION_DISPLAY_DOWN)
+                    PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now screen is facing down.");
 
-                            if (mSideUp == DEVICE_ORIENTATION_DISPLAY_UP)
-                                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now screen is facing up.");
-                            if (mSideUp == DEVICE_ORIENTATION_DISPLAY_DOWN)
-                                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now screen is facing down.");
+                if (mSideUp == mDisplayUp)
+                    PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now device is horizontal.");
+                if (mSideUp == DEVICE_ORIENTATION_UP_SIDE_UP)
+                    PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now up side is facing up.");
+                if (mSideUp == DEVICE_ORIENTATION_DOWN_SIDE_UP)
+                    PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now down side is facing up.");
+                if (mSideUp == DEVICE_ORIENTATION_RIGHT_SIDE_UP)
+                    PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now right side is facing up.");
+                if (mSideUp == DEVICE_ORIENTATION_LEFT_SIDE_UP)
+                    PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now left side is facing up.");
+                if (mSideUp == DEVICE_ORIENTATION_UNKNOWN)
+                    PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) unknown side.");
 
-                            if (mSideUp == mDisplayUp)
-                                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now device is horizontal.");
-                            if (mSideUp == DEVICE_ORIENTATION_UP_SIDE_UP)
-                                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now up side is facing up.");
-                            if (mSideUp == DEVICE_ORIENTATION_DOWN_SIDE_UP)
-                                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now down side is facing up.");
-                            if (mSideUp == DEVICE_ORIENTATION_RIGHT_SIDE_UP)
-                                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now right side is facing up.");
-                            if (mSideUp == DEVICE_ORIENTATION_LEFT_SIDE_UP)
-                                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now left side is facing up.");
-                            if (mSideUp == DEVICE_ORIENTATION_UNKNOWN)
-                                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) unknown side.");
+                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(L) light=" + mLight);
 
-                            PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(L) light=" + mLight);
+                PPApplication.logE("@@@ PhoneProfilesService.runEventsHandlerForOrientationChange", "-----------");
+            }*/
 
-                            PPApplication.logE("@@@ PhoneProfilesService.runEventsHandlerForOrientationChange", "-----------");
-                        }*/
-
-                        // start events handler
-                        EventsHandler eventsHandler = new EventsHandler(context);
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
-
-                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneProfilesService.runEventsHandlerForOrientationChange");
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {}
-                        }
-                    }
-                }
-            });
+            // start events handler
+            EventsHandler eventsHandler = new EventsHandler(context);
+            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
         }
     }
 
     @Override
-    public void onSensorChanged(SensorEvent event) {
-        Context appContext = getApplicationContext();
+    public void onSensorChanged(SensorEvent _event) {
+        //PPApplication.logE("PhoneProfilesService.onSensorChanged", "xxx");
 
-        int sensorType = event.sensor.getType();
+        final Context appContext = getApplicationContext();
+
+        final SensorEvent event = _event;
+        final int sensorType = event.sensor.getType();
+        //PPApplication.logE("PhoneProfilesService.onSensorChanged", "sensorType="+sensorType);
 
         //if (event.accuracy == SensorManager.SENSOR_STATUS_ACCURACY_LOW)
         //    return;
 
-        if (sensorType == Sensor.TYPE_PROXIMITY) {
-            //PPApplication.logE("PhoneProfilesService.onSensorChanged", "proximity value=" + event.values[0]);
-            //PPApplication.logE("PhoneProfilesService.onSensorChanged", "proximity mMaxProximityDistance=" + mMaxProximityDistance);
-            //if ((event.values[0] == 0) || (event.values[0] == mMaxProximityDistance)) {
-            //if (event.timestamp - tmpDistanceTimestamp >= 250000000L /*1000000000L*/) {
-            //    tmpDistanceTimestamp = event.timestamp;
-                float mProximity = event.values[0];
-                //if (mProximity == 0)
-                int tmpDeviceDistance;
-                if (mProximity < mMaxProximityDistance)
-                    tmpDeviceDistance = DEVICE_ORIENTATION_DEVICE_IS_NEAR;
-                else
-                    tmpDeviceDistance = DEVICE_ORIENTATION_DEVICE_IS_FAR;
-
-                if (tmpDeviceDistance != mDeviceDistance) {
-                    //PPApplication.logE("PhoneProfilesService.onSensorChanged", "mProximity="+mProximity);
-                    mDeviceDistance = tmpDeviceDistance;
-                    runEventsHandlerForOrientationChange(appContext);
-                }
-            //}
-            return;
-        }
-        if ((sensorType == Sensor.TYPE_ACCELEROMETER) || (sensorType == Sensor.TYPE_MAGNETIC_FIELD)) {
-            if (getMagneticFieldSensor(this) != null) {
-                //PPApplication.logE("PhoneProfilesService.onSensorChanged", "magnetic value="+event.values[0]);
-
-                if (sensorType == Sensor.TYPE_ACCELEROMETER) {
-                    mGravity = exponentialSmoothing(event.values, mGravity, 0.2f);
-                }
-                if (sensorType == Sensor.TYPE_MAGNETIC_FIELD) {
-                    mGeomagnetic = exponentialSmoothing(event.values, mGeomagnetic, 0.5f);
-                }
-                if (event.timestamp - tmpSideTimestamp >= 250000000L /*1000000000L*/) {
-                    tmpSideTimestamp = event.timestamp;
-                    /*if (sensorType == Sensor.TYPE_ACCELEROMETER) {
-                        // Isolate the force of gravity with the low-pass filter.
-                        mGravity[0] = alpha * mGravity[0] + (1 - alpha) * event.values[0];
-                        mGravity[1] = alpha * mGravity[1] + (1 - alpha) * event.values[1];
-                        mGravity[2] = alpha * mGravity[2] + (1 - alpha) * event.values[2];
+        PPApplication.startHandlerThreadPPScanners();
+        final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onSensorChanged");
+                        wakeLock.acquire(10 * 60 * 1000);
                     }
-                    if (sensorType == Sensor.TYPE_MAGNETIC_FIELD) {
-                        mGeomagnetic[0] = event.values[0];
-                        mGeomagnetic[1] = event.values[1];
-                        mGeomagnetic[2] = event.values[2];
-                    }*/
-                    if (mGravity != null && mGeomagnetic != null) {
-                        float[] R = new float[9];
-                        float[] I = new float[9];
-                        boolean success = SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic);
-                        if (success) {
-                            float[] orientation = new float[3];
-                            //orientation[0]: azimuth, rotation around the -Z axis, i.e. the opposite direction of Z axis.
-                            //orientation[1]: pitch, rotation around the -X axis, i.e the opposite direction of X axis.
-                            //orientation[2]: roll, rotation around the Y axis.
 
-                            //noinspection SuspiciousNameCombination
-                            SensorManager.remapCoordinateSystem(R, SensorManager.AXIS_Y, SensorManager.AXIS_MINUS_X, I);
-                            SensorManager.getOrientation(I, orientation);
+                    if (sensorType == Sensor.TYPE_PROXIMITY) {
+                        //PPApplication.logE("PhoneProfilesService.onSensorChanged", "proximity value=" + event.values[0]);
+                        //PPApplication.logE("PhoneProfilesService.onSensorChanged", "proximity mMaxProximityDistance=" + mMaxProximityDistance);
+                        //if ((event.values[0] == 0) || (event.values[0] == mMaxProximityDistance)) {
+                        //if (event.timestamp - tmpDistanceTimestamp >= 250000000L /*1000000000L*/) {
+                        //    tmpDistanceTimestamp = event.timestamp;
+                        float mProximity = event.values[0];
+                        //if (mProximity == 0)
+                        int tmpDeviceDistance;
+                        if (mProximity < mMaxProximityDistance)
+                            tmpDeviceDistance = DEVICE_ORIENTATION_DEVICE_IS_NEAR;
+                        else
+                            tmpDeviceDistance = DEVICE_ORIENTATION_DEVICE_IS_FAR;
 
-                            //float azimuth = (float)Math.toDegrees(orientation[0]);
-                            float pitch = (float) Math.toDegrees(orientation[1]);
-                            float roll = (float) Math.toDegrees(orientation[2]);
+                        if (tmpDeviceDistance != mDeviceDistance) {
+                            //PPApplication.logE("PhoneProfilesService.onSensorChanged", "mProximity="+mProximity);
+                            mDeviceDistance = tmpDeviceDistance;
+                            runEventsHandlerForOrientationChange(appContext);
+                        }
+                        //}
+                        return;
+                    }
+                    if ((sensorType == Sensor.TYPE_ACCELEROMETER) || (sensorType == Sensor.TYPE_MAGNETIC_FIELD)) {
+                        if (PPApplication.magneticFieldSensor != null) {
+                            //PPApplication.logE("PhoneProfilesService.onSensorChanged", "magnetic value="+event.values[0]);
 
-                            //PPApplication.logE("PhoneProfilesService.onSensorChanged", "pitch=" + pitch);
-                            //PPApplication.logE("PhoneProfilesService.onSensorChanged", "roll=" + roll);
-
-                            int side = DEVICE_ORIENTATION_UNKNOWN;
-                            if (pitch > -30 && pitch < 30) {
-                                if (roll > -60 && roll < 60)
-                                    side = DEVICE_ORIENTATION_DISPLAY_UP;
-                                if (roll > 150 && roll < 180)
-                                    side = DEVICE_ORIENTATION_DISPLAY_DOWN;
-                                if (roll > -180 && roll < -150)
-                                    side = DEVICE_ORIENTATION_DISPLAY_DOWN;
-                                if (roll > 65 && roll < 115)
-                                    side = DEVICE_ORIENTATION_UP_SIDE_UP;
-                                if (roll > -115 && roll < -65)
-                                    side = DEVICE_ORIENTATION_DOWN_SIDE_UP;
+                            if (sensorType == Sensor.TYPE_ACCELEROMETER) {
+                                mGravity = exponentialSmoothing(event.values, mGravity, 0.2f);
                             }
-                            if (pitch > 30 && pitch < 90) {
-                                side = DEVICE_ORIENTATION_LEFT_SIDE_UP;
+                            if (sensorType == Sensor.TYPE_MAGNETIC_FIELD) {
+                                mGeomagnetic = exponentialSmoothing(event.values, mGeomagnetic, 0.5f);
                             }
-                            if (pitch > -90 && pitch < -30) {
-                                side = DEVICE_ORIENTATION_RIGHT_SIDE_UP;
+                            if (event.timestamp - tmpSideTimestamp >= 250000000L /*1000000000L*/) {
+                                tmpSideTimestamp = event.timestamp;
+                                /*if (sensorType == Sensor.TYPE_ACCELEROMETER) {
+                                    // Isolate the force of gravity with the low-pass filter.
+                                    mGravity[0] = alpha * mGravity[0] + (1 - alpha) * event.values[0];
+                                    mGravity[1] = alpha * mGravity[1] + (1 - alpha) * event.values[1];
+                                    mGravity[2] = alpha * mGravity[2] + (1 - alpha) * event.values[2];
+                                }
+                                if (sensorType == Sensor.TYPE_MAGNETIC_FIELD) {
+                                    mGeomagnetic[0] = event.values[0];
+                                    mGeomagnetic[1] = event.values[1];
+                                    mGeomagnetic[2] = event.values[2];
+                                }*/
+                                if (mGravity != null && mGeomagnetic != null) {
+                                    float[] R = new float[9];
+                                    float[] I = new float[9];
+                                    boolean success = SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic);
+                                    if (success) {
+                                        float[] orientation = new float[3];
+                                        //orientation[0]: azimuth, rotation around the -Z axis, i.e. the opposite direction of Z axis.
+                                        //orientation[1]: pitch, rotation around the -X axis, i.e the opposite direction of X axis.
+                                        //orientation[2]: roll, rotation around the Y axis.
+
+                                        //noinspection SuspiciousNameCombination
+                                        SensorManager.remapCoordinateSystem(R, SensorManager.AXIS_Y, SensorManager.AXIS_MINUS_X, I);
+                                        SensorManager.getOrientation(I, orientation);
+
+                                        //float azimuth = (float)Math.toDegrees(orientation[0]);
+                                        float pitch = (float) Math.toDegrees(orientation[1]);
+                                        float roll = (float) Math.toDegrees(orientation[2]);
+
+                                        //PPApplication.logE("PhoneProfilesService.onSensorChanged", "pitch=" + pitch);
+                                        //PPApplication.logE("PhoneProfilesService.onSensorChanged", "roll=" + roll);
+
+                                        int side = DEVICE_ORIENTATION_UNKNOWN;
+                                        if (pitch > -30 && pitch < 30) {
+                                            if (roll > -60 && roll < 60)
+                                                side = DEVICE_ORIENTATION_DISPLAY_UP;
+                                            if (roll > 150 && roll < 180)
+                                                side = DEVICE_ORIENTATION_DISPLAY_DOWN;
+                                            if (roll > -180 && roll < -150)
+                                                side = DEVICE_ORIENTATION_DISPLAY_DOWN;
+                                            if (roll > 65 && roll < 115)
+                                                side = DEVICE_ORIENTATION_UP_SIDE_UP;
+                                            if (roll > -115 && roll < -65)
+                                                side = DEVICE_ORIENTATION_DOWN_SIDE_UP;
+                                        }
+                                        if (pitch > 30 && pitch < 90) {
+                                            side = DEVICE_ORIENTATION_LEFT_SIDE_UP;
+                                        }
+                                        if (pitch > -90 && pitch < -30) {
+                                            side = DEVICE_ORIENTATION_RIGHT_SIDE_UP;
+                                        }
+
+                                        if ((tmpSideUp == DEVICE_ORIENTATION_UNKNOWN) || (/*(side != DEVICE_ORIENTATION_UNKNOWN) &&*/ (side != tmpSideUp))) {
+                                            mEventCountSinceGZChanged = 0;
+
+                                            //PPApplication.logE("PhoneProfilesService.onSensorChanged", "azimuth="+azimuth);
+                                            //PPApplication.logE("PhoneProfilesService.onSensorChanged", "pitch=" + pitch);
+                                            //PPApplication.logE("PhoneProfilesService.onSensorChanged", "roll=" + roll);
+
+                                            tmpSideUp = side;
+                                        } else {
+                                            ++mEventCountSinceGZChanged;
+                                            if (mEventCountSinceGZChanged == MAX_COUNT_GZ_CHANGE) {
+
+                                                if (tmpSideUp != mSideUp) {
+                                                    //PPApplication.logE("PhoneProfilesService.onSensorChanged", "magnetic+accelerometer - send broadcast");
+
+                                                    mSideUp = tmpSideUp;
+
+                                                    if ((mSideUp == DEVICE_ORIENTATION_DISPLAY_UP) || (mSideUp == DEVICE_ORIENTATION_DISPLAY_DOWN))
+                                                        mDisplayUp = mSideUp;
+
+                                                    /*
+                                                    if (mDisplayUp == DEVICE_ORIENTATION_DISPLAY_UP)
+                                                        PPApplication.logE("PhoneProfilesService.onSensorChanged", "now screen is facing up.");
+                                                    if (mDisplayUp == DEVICE_ORIENTATION_DISPLAY_DOWN)
+                                                        PPApplication.logE("PhoneProfilesService.onSensorChanged", "now screen is facing down.");
+
+                                                    if (mSideUp == DEVICE_ORIENTATION_UP_SIDE_UP)
+                                                        PPApplication.logE("PhoneProfilesService.onSensorChanged", "now up side is facing up.");
+                                                    if (mSideUp == DEVICE_ORIENTATION_DOWN_SIDE_UP)
+                                                        PPApplication.logE("PhoneProfilesService.onSensorChanged", "now down side is facing up.");
+                                                    if (mSideUp == DEVICE_ORIENTATION_RIGHT_SIDE_UP)
+                                                        PPApplication.logE("PhoneProfilesService.onSensorChanged", "now right side is facing up.");
+                                                    if (mSideUp == DEVICE_ORIENTATION_LEFT_SIDE_UP)
+                                                        PPApplication.logE("PhoneProfilesService.onSensorChanged", "now left side is facing up.");
+                                                    if (mSideUp == DEVICE_ORIENTATION_UNKNOWN)
+                                                        PPApplication.logE("PhoneProfilesService.onSensorChanged", "unknown side.");
+                                                    */
+
+                                                    runEventsHandlerForOrientationChange(appContext);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
+                        }
+                        else {
+                            //PPApplication.logE("PhoneProfilesService.onSensorChanged", "accelerometer value="+event.values[0]);
 
-                            if ((tmpSideUp == DEVICE_ORIENTATION_UNKNOWN) || (/*(side != DEVICE_ORIENTATION_UNKNOWN) &&*/ (side != tmpSideUp))) {
-                                mEventCountSinceGZChanged = 0;
+                            if (event.timestamp - tmpSideTimestamp >= 250000000L /*1000000000L*/) {
+                                tmpSideTimestamp = event.timestamp;
 
-                                //PPApplication.logE("PhoneProfilesService.onSensorChanged", "azimuth="+azimuth);
-                                //PPApplication.logE("PhoneProfilesService.onSensorChanged", "pitch=" + pitch);
-                                //PPApplication.logE("PhoneProfilesService.onSensorChanged", "roll=" + roll);
+                                float gravityZ = event.values[2];
+                                if (mGravityZ == 0) {
+                                    mGravityZ = gravityZ;
+                                } else {
+                                    if ((mGravityZ * gravityZ) < 0) {
+                                        mEventCountSinceGZChanged++;
+                                        if (mEventCountSinceGZChanged == MAX_COUNT_GZ_CHANGE) {
+                                            //PPApplication.logE("PhoneProfilesService.onSensorChanged", "accelerometer - send broadcast");
 
-                                tmpSideUp = side;
-                            } else {
-                                ++mEventCountSinceGZChanged;
-                                if (mEventCountSinceGZChanged == MAX_COUNT_GZ_CHANGE) {
+                                            mGravityZ = gravityZ;
+                                            mEventCountSinceGZChanged = 0;
 
-                                    if (tmpSideUp != mSideUp) {
-                                        //PPApplication.logE("PhoneProfilesService.onSensorChanged", "magnetic+accelerometer - send broadcast");
+                                            if (gravityZ > 0) {
+                                                //PPApplication.logE("PhoneProfilesService.onSensorChanged", "now screen is facing up.");
+                                                mSideUp = DEVICE_ORIENTATION_DISPLAY_UP;
+                                            } else if (gravityZ < 0) {
+                                                //PPApplication.logE("PhoneProfilesService.onSensorChanged", "now screen is facing down.");
+                                                mSideUp = DEVICE_ORIENTATION_DISPLAY_DOWN;
+                                            }
 
-                                        mSideUp = tmpSideUp;
+                                            if ((mSideUp == DEVICE_ORIENTATION_DISPLAY_UP) || (mSideUp == DEVICE_ORIENTATION_DISPLAY_DOWN))
+                                                mDisplayUp = mSideUp;
 
-                                        if ((mSideUp == DEVICE_ORIENTATION_DISPLAY_UP) || (mSideUp == DEVICE_ORIENTATION_DISPLAY_DOWN))
-                                            mDisplayUp = mSideUp;
-
-                                        /*
-                                        if (mDisplayUp == DEVICE_ORIENTATION_DISPLAY_UP)
-                                            PPApplication.logE("PhoneProfilesService.onSensorChanged", "now screen is facing up.");
-                                        if (mDisplayUp == DEVICE_ORIENTATION_DISPLAY_DOWN)
-                                            PPApplication.logE("PhoneProfilesService.onSensorChanged", "now screen is facing down.");
-
-                                        if (mSideUp == DEVICE_ORIENTATION_UP_SIDE_UP)
-                                            PPApplication.logE("PhoneProfilesService.onSensorChanged", "now up side is facing up.");
-                                        if (mSideUp == DEVICE_ORIENTATION_DOWN_SIDE_UP)
-                                            PPApplication.logE("PhoneProfilesService.onSensorChanged", "now down side is facing up.");
-                                        if (mSideUp == DEVICE_ORIENTATION_RIGHT_SIDE_UP)
-                                            PPApplication.logE("PhoneProfilesService.onSensorChanged", "now right side is facing up.");
-                                        if (mSideUp == DEVICE_ORIENTATION_LEFT_SIDE_UP)
-                                            PPApplication.logE("PhoneProfilesService.onSensorChanged", "now left side is facing up.");
-                                        if (mSideUp == DEVICE_ORIENTATION_UNKNOWN)
-                                            PPApplication.logE("PhoneProfilesService.onSensorChanged", "unknown side.");
-                                        */
-
-                                        runEventsHandlerForOrientationChange(appContext);
+                                            runEventsHandlerForOrientationChange(appContext);
+                                        }
+                                    } else {
+                                        if (mEventCountSinceGZChanged > 0) {
+                                            mGravityZ = gravityZ;
+                                            mEventCountSinceGZChanged = 0;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                }
-            }
-            else {
-                //PPApplication.logE("PhoneProfilesService.onSensorChanged", "accelerometer value="+event.values[0]);
+                    if (sensorType == Sensor.TYPE_LIGHT) {
+                        //PPApplication.logE("PhoneProfilesService.onSensorChanged", "light value="+event.values[0]);
+                        //PPApplication.logE("PhoneProfilesService.onSensorChanged", "light mMaxLightDistance="+mMaxLightDistance);
 
-                if (event.timestamp - tmpSideTimestamp >= 250000000L /*1000000000L*/) {
-                    tmpSideTimestamp = event.timestamp;
+                        mLight = EventPreferencesOrientation.convertLightToSensor(event.values[0], mMaxLightDistance);
+                        //PPApplication.logE("PhoneProfilesService.onSensorChanged", "light mLight="+mLight);
+                        runEventsHandlerForOrientationChange(appContext);
+                    }
 
-                    float gravityZ = event.values[2];
-                    if (mGravityZ == 0) {
-                        mGravityZ = gravityZ;
-                    } else {
-                        if ((mGravityZ * gravityZ) < 0) {
-                            mEventCountSinceGZChanged++;
-                            if (mEventCountSinceGZChanged == MAX_COUNT_GZ_CHANGE) {
-                                //PPApplication.logE("PhoneProfilesService.onSensorChanged", "accelerometer - send broadcast");
-
-                                mGravityZ = gravityZ;
-                                mEventCountSinceGZChanged = 0;
-
-                                if (gravityZ > 0) {
-                                    //PPApplication.logE("PhoneProfilesService.onSensorChanged", "now screen is facing up.");
-                                    mSideUp = DEVICE_ORIENTATION_DISPLAY_UP;
-                                } else if (gravityZ < 0) {
-                                    //PPApplication.logE("PhoneProfilesService.onSensorChanged", "now screen is facing down.");
-                                    mSideUp = DEVICE_ORIENTATION_DISPLAY_DOWN;
-                                }
-
-                                if ((mSideUp == DEVICE_ORIENTATION_DISPLAY_UP) || (mSideUp == DEVICE_ORIENTATION_DISPLAY_DOWN))
-                                    mDisplayUp = mSideUp;
-
-                                runEventsHandlerForOrientationChange(appContext);
-                            }
-                        } else {
-                            if (mEventCountSinceGZChanged > 0) {
-                                mGravityZ = gravityZ;
-                                mEventCountSinceGZChanged = 0;
-                            }
-                        }
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
                     }
                 }
-            }
-        }
-        if (sensorType == Sensor.TYPE_LIGHT) {
-            //PPApplication.logE("PhoneProfilesService.onSensorChanged", "light value="+event.values[0]);
-            //PPApplication.logE("PhoneProfilesService.onSensorChanged", "light mMaxLightDistance="+mMaxLightDistance);
 
-            mLight = EventPreferencesOrientation.convertLightToSensor(event.values[0], mMaxLightDistance);
-            //PPApplication.logE("PhoneProfilesService.onSensorChanged", "light mLight="+mLight);
-            runEventsHandlerForOrientationChange(appContext);
-        }
+            }
+        });
     }
 
     private float[] exponentialSmoothing(float[] input, float[] output, float alpha) {
