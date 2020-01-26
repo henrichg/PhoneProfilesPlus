@@ -343,7 +343,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        getApplicationContext().unregisterReceiver(finishBroadcastReceiver);
+        try {
+            getApplicationContext().unregisterReceiver(finishBroadcastReceiver);
+        } catch (Exception ignored) {}
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

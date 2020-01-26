@@ -706,7 +706,9 @@ public class EditorProfilesActivity extends AppCompatActivity
             applicationsCache = null;
         }
 
-        getApplicationContext().unregisterReceiver(finishBroadcastReceiver);
+        try {
+            getApplicationContext().unregisterReceiver(finishBroadcastReceiver);
+        } catch (Exception ignored) {}
     }
 
     @Override
