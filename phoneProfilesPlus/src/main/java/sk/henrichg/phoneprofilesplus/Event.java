@@ -2768,8 +2768,6 @@ class Event {
 
         if (!notificationSoundEnd.isEmpty() || notificationVibrateEnd) {
 
-            //PPApplication.logE("Event.notifyEventEnd", "event._id="+_id);
-
             if (playSound)
                 if (PhoneProfilesService.getInstance() != null)
                     PhoneProfilesService.getInstance().playNotificationSound(notificationSoundEnd, notificationVibrateEnd);

@@ -483,7 +483,6 @@ class EventsHandler {
                             if (_event.notifyEventEnd(!notified))
                                 notified = true;
 
-
                             if ((ppService != null) && (_event._atEndDo == Event.EATENDDO_RESTART_EVENTS)) {
                                 //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "has restart events=");
                                 ppService.willBeDoRestartEvents = true;
