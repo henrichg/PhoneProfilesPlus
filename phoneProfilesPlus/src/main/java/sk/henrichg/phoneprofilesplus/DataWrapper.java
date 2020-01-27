@@ -3455,6 +3455,7 @@ public class DataWrapper {
                 } else {
                     synchronized (PPApplication.orientationScannerMutex) {
                         if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isOrientationScannerStarted()) {
+                            PPApplication.startHandlerThreadOrientationScanner();
                             boolean lApplicationPassed = false;
                             if (!event._eventPreferencesOrientation._ignoredApplications.isEmpty()) {
                                 if (PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_3_0)) {

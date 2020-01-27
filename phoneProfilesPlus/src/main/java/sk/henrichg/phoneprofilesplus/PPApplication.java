@@ -391,7 +391,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
                                          //+"|[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver"
                                          //+"|PhoneProfilesService.runEventsHandlerForOrientationChange"
-                                         +"|PhoneProfilesService.startListeningOrientationSensors"
+                                         //+"|PhoneProfilesService.startListeningOrientationSensors"
                                          +"|OrientationScanner.onSensorChanged"
                                          //+"|PhoneProfilesService.startOrientationScanner"
                                          //+"|PPPExtenderBroadcastReceiver"
