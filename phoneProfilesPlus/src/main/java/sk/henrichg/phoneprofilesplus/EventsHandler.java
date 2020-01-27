@@ -19,7 +19,6 @@ import androidx.work.WorkManager;
 class EventsHandler {
     
     private final Context context;
-    private PhoneProfilesService ppService = null;
 
     private String sensorType;
 
@@ -89,6 +88,8 @@ class EventsHandler {
                 return;
 
             //PPApplication.logE("#### EventsHandler.handleEvents", "-- application started --------------------------------");
+
+            PhoneProfilesService ppService;
 
             if (PhoneProfilesService.getInstance() != null) {
                 ppService = PhoneProfilesService.getInstance();
@@ -712,11 +713,11 @@ class EventsHandler {
             if (!notified) {
                 // notify default profile
                 if (!backgroundProfileNotificationSound.isEmpty() || backgroundProfileNotificationVibrate) {
-                    if (ppService != null) {
+                    //if (ppService != null) {
                         ppService.playNotificationSound(backgroundProfileNotificationSound, backgroundProfileNotificationVibrate);
                         //PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "default profile notified");
                         notified = true;
-                    }
+                    //}
                 }
             }
 

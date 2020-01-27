@@ -4775,12 +4775,13 @@ public class DataWrapper {
                     //PPApplication.logE("DataWrapper.runStopEventsWithAlert", "stop");
                     if (globalRunStopEvents(true)) {
                         PPApplication.showProfileNotification(/*activity.getApplicationContext()*/true, false);
-                        if (activity instanceof EditorProfilesActivity)
+
+                        /*if (activity instanceof EditorProfilesActivity)
                             ((EditorProfilesActivity) activity).refreshGUI(true, false, true, 0, 0);
                         else if (activity instanceof ActivateProfileActivity)
-                            ((ActivateProfileActivity) activity).refreshGUI(true, false);
+                            ((ActivateProfileActivity) activity).refreshGUI(true, false);*/
                         //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.runStopEventsWithAlert");
-                        ActivateProfileHelper.updateGUI(activity, false, true);
+                        ActivateProfileHelper.updateGUI(activity, true, true);
                     }
                 }
             });
@@ -4807,12 +4808,12 @@ public class DataWrapper {
         else {
             if (globalRunStopEvents(false)) {
                 PPApplication.showProfileNotification(/*activity.getApplicationContext()*/true, false);
-                if (activity instanceof EditorProfilesActivity)
+                /*if (activity instanceof EditorProfilesActivity)
                     ((EditorProfilesActivity) activity).refreshGUI(true, false, true, 0, 0);
                 else if (activity instanceof ActivateProfileActivity)
-                    ((ActivateProfileActivity) activity).refreshGUI(true, false);
+                    ((ActivateProfileActivity) activity).refreshGUI(true, false);*/
                 //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.runStopEventsWithAlert");
-                ActivateProfileHelper.updateGUI(activity, false, true);
+                ActivateProfileHelper.updateGUI(activity, true, true);
             }
         }
     }

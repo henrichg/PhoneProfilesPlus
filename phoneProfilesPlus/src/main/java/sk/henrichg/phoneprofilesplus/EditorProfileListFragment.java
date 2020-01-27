@@ -57,7 +57,7 @@ public class EditorProfileListFragment extends Fragment
 
     private View rootView;
     private RelativeLayout activatedProfileHeader;
-    RecyclerView listView;
+    private RecyclerView listView;
     private TextView activeProfileName;
     private ImageView activeProfileIcon;
     private Toolbar bottomToolbar;

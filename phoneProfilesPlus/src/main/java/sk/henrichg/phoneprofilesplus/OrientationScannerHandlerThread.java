@@ -33,9 +33,9 @@ public class OrientationScannerHandlerThread extends HandlerThread {
     int tmpSideUp = DEVICE_ORIENTATION_UNKNOWN;
     long tmpSideTimestamp = 0;
 
-    public OrientationScannerHandlerThread(String name) {
+    /*public OrientationScannerHandlerThread(String name) {
         super(name);
-    }
+    }*/
 
     public OrientationScannerHandlerThread(String name, int priority) {
         super(name, priority);

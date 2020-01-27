@@ -1,13 +1,11 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.PowerManager;
 
-public class OrientationScanner implements SensorEventListener {
+class OrientationScanner implements SensorEventListener {
 
     @Override
     public void onSensorChanged(final SensorEvent event) {
@@ -239,7 +237,7 @@ public class OrientationScanner implements SensorEventListener {
         //    }
         //});
     }
-
+    /*
     private void runEventsHandlerForOrientationChange(final Context context) {
         if (Event.getGlobalEventsRunning()) {
 
@@ -248,7 +246,7 @@ public class OrientationScanner implements SensorEventListener {
             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
         }
     }
-
+    */
     private float[] exponentialSmoothing(float[] input, float[] output, float alpha) {
         if (output == null)
             return input;

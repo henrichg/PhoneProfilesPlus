@@ -603,3 +603,36 @@ Bez logu o restarte je:
   - PPApplication.restartEvents() - tu je to ako parameter
     - PhoneProfilesPrefsActivity.doPreferenceChanged() - !!! TU SA NELOGUJE !!!
 
+------------------------------
+
+Tu je volany ten HandlerThread
+1. PhoneProfilesService.startListeningOrientationSensors()
+2. OrientationScanner.onSensorChanged() - zisti, aky thread to pouziva
+3. DatatWrapper.doHandleEvents()
+
+PhoneProfilesService.startListeningOrientationSensors()
+- PhoneProfilesService.startOrientatonScanner(...)
+  Tu sa aj inicializuje OrientationScanner
+
+OrientationScanner.onSensorChanged()
+- toto je ok, vola to system, nikde inde toto volane byt nemoze a nie je
+
+DatatWrapper.doHandleEvents()
+- EventsHandler.handleEvents()
+
+---
+
+PhoneProfilesService.startOrientatonScanner(...)
+- PhoneProfilesService.registerReceiversAndWorkers()
+- PhoneProfilesService.unregisterReceiversAndWorkers()
+- PhoneProfilesService.reregisterReceiversAndWorkers()
+- PhoneProfilesService.doCommand()
+
+---
+
+EventsHandler.handleEvents()
+- volane strasne vela krat zaujima ma restart udalosti a samotny orientacny senzor
+- SENSOR_TYPE_DEVICE_ORIENTATION
+  - z OrientationScanner.runEventsHandlerForOrientationChange() - zisti, aky thread to pouziva
+  - z PPPExtenderBroadcastRecveiver.onReceive() - je to volane v HandlerThread - vroadcast treba, lebo senzor sleduje aplikacie na popredi
+

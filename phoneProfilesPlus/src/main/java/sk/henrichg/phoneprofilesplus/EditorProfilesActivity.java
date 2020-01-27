@@ -2584,7 +2584,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
     }
 
-    public void refreshGUI(final boolean refresh, final boolean refreshIcons, final boolean setPosition, final long profileId, final long eventId)
+    private void refreshGUI(final boolean refresh, final boolean refreshIcons, final boolean setPosition, final long profileId, final long eventId)
     {
         runOnUiThread(new Runnable() {
             @Override

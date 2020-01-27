@@ -87,6 +87,7 @@ public class PhoneProfilesService extends Service
     boolean willBeDoRestartEvents = false;
 
     private static final StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = new StartLauncherFromNotificationReceiver();
+    private static final UpdateGUIBroadcastReceiver updateGUIBroadcastReceiver = new UpdateGUIBroadcastReceiver();
     private static final RefreshActivitiesBroadcastReceiver refreshActivitiesBroadcastReceiver = new RefreshActivitiesBroadcastReceiver();
     private static final DashClockBroadcastReceiver dashClockBroadcastReceiver = new DashClockBroadcastReceiver();
 
@@ -173,7 +174,7 @@ public class PhoneProfilesService extends Service
     static final String ACTION_ALARM_CLOCK_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".AlarmClockBroadcastReceiver";
     static final String ACTION_ALARM_CLOCK_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".AlarmClockEventEndBroadcastReceiver";
     static final String ACTION_NOTIFICATION_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".NotificationEventEndBroadcastReceiver";
-    static final String ACTION_ORIENTATION_EVENT_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".OrientationEventBroadcastReceiver";
+    private static final String ACTION_ORIENTATION_EVENT_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".OrientationEventBroadcastReceiver";
 
     //static final String EXTRA_SHOW_PROFILE_NOTIFICATION = "show_profile_notification";
     static final String EXTRA_START_STOP_SCANNER = "start_stop_scanner";
@@ -315,6 +316,7 @@ public class PhoneProfilesService extends Service
         intentFilter5.addAction(PhoneProfilesService.ACTION_START_LAUNCHER_FROM_NOTIFICATION);
         appContext.registerReceiver(startLauncherFromNotificationReceiver, intentFilter5);
 
+        appContext.registerReceiver(updateGUIBroadcastReceiver, new IntentFilter(PPApplication.ACTION_UPDATE_GUI));
         LocalBroadcastManager.getInstance(appContext).registerReceiver(refreshActivitiesBroadcastReceiver,
                 new IntentFilter(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver"));
         LocalBroadcastManager.getInstance(appContext).registerReceiver(dashClockBroadcastReceiver,
@@ -468,6 +470,9 @@ public class PhoneProfilesService extends Service
 
         try {
             appContext.unregisterReceiver(startLauncherFromNotificationReceiver);
+        } catch (Exception ignored) {}
+        try {
+            appContext.unregisterReceiver(updateGUIBroadcastReceiver);
         } catch (Exception ignored) {}
         try {
             LocalBroadcastManager.getInstance(appContext).unregisterReceiver(refreshActivitiesBroadcastReceiver);
@@ -5315,7 +5320,7 @@ public class PhoneProfilesService extends Service
     }
     */
 
-    void removeOrientationSensorAlarm(Context context)
+    private void removeOrientationSensorAlarm(Context context)
     {
         try {
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);

@@ -430,11 +430,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
     }
     */
 
-    public void refreshGUI(boolean refresh, boolean refreshIcons)
+    private void refreshGUI(final boolean refresh, final boolean refreshIcons)
     {
-        final boolean _refresh = refresh;
-        final boolean _refreshIcons = refreshIcons;
-
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -443,9 +440,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
                 Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activate_profile_list);
 
-                if (fragment != null)
-                {
-                    ((ActivateProfileListFragment)fragment).refreshGUI(_refresh, _refreshIcons);
+                if (fragment != null) {
+                    ((ActivateProfileListFragment) fragment).refreshGUI(refresh, refreshIcons);
                 }
             }
         });
