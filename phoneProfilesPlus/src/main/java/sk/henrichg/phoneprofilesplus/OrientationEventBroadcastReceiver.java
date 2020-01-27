@@ -53,7 +53,7 @@ public class OrientationEventBroadcastReceiver extends BroadcastReceiver {
                         if (Event.getGlobalEventsRunning()) {
                             //PPApplication.logE("SMSEventEndBroadcastReceiver.doWork", "handle events");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
-                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SMS_EVENT_END);
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
                         }
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=SMSEventEndBroadcastReceiver.doWork");

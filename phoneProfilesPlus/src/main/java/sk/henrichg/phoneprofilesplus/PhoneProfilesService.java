@@ -48,7 +48,6 @@ import android.widget.RemoteViews;
 
 import com.crashlytics.android.Crashlytics;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -5291,6 +5290,8 @@ public class PhoneProfilesService extends Service
             PPApplication.handlerThreadOrientationScanner.tmpSideTimestamp = 0;
 
             setOrientationSensorAlarm(getApplicationContext());
+            Intent intent = new Intent(ACTION_ORIENTATION_EVENT_BROADCAST_RECEIVER);
+            sendBroadcast(intent);
         }
     }
 
