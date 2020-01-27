@@ -1,5 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,7 +22,9 @@ import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,6 +32,7 @@ import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
+import androidx.work.WorkManager;
 
 class EventPreferencesOrientation extends EventPreferences {
 
@@ -634,28 +640,89 @@ class EventPreferencesOrientation extends EventPreferences {
         setCategorySummary(prefMng, preferences, context);
     }
 
-    /*
+    /*long computeAlarm(Context context)
+    {
+        //PPApplication.logE("EventPreferencesSMS.computeAlarm","xxx");
+
+        Calendar calEndTime = Calendar.getInstance();
+
+        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+
+        String applicationEventOrientationScanInPowerSaveMode = ApplicationPreferences.applicationEventOrientationScanInPowerSaveMode;
+
+        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+        if (isPowerSaveMode && applicationEventOrientationScanInPowerSaveMode.equals("2"))
+            // start scanning in power save mode is not allowed
+            return 0;
+
+        int interval = ApplicationPreferences.applicationEventOrientationScanInterval;
+        if (isPowerSaveMode && applicationEventOrientationScanInPowerSaveMode.equals("1"))
+            interval *= 2;
+
+        calEndTime.setTimeInMillis((calEndTime.getTimeInMillis() - gmtOffset) + (interval * 1000));
+        //calEndTime.set(Calendar.SECOND, 0);
+        //calEndTime.set(Calendar.MILLISECOND, 0);
+
+        long alarmTime;
+        alarmTime = calEndTime.getTimeInMillis();
+
+        return alarmTime;
+    }
+
     @Override
     public void setSystemEventForStart(Context context)
     {
+        // set alarm for state PAUSE
+
+        // this alarm generates broadcast, that change state into RUNNING;
+        // from broadcast will by called EventsHandler
+
+        //PPApplication.logE("EventPreferencesOrientation.setSystemRunningEvent","xxx");
+
+        removeAlarm(context);
     }
 
     @Override
     public void setSystemEventForPause(Context context)
     {
+        // set alarm for state RUNNING
+
+        // this alarm generates broadcast, that change state into PAUSE;
+        // from broadcast will by called EventsHandler
+
+        PPApplication.logE("EventPreferencesOrientation.setSystemEventForPause","_event._name="+_event._name);
+
+        removeAlarm(context);
+
+        PPApplication.logE("EventPreferencesOrientation.setSystemEventForPause","isRunnable()="+isRunnable(context));
+        PPApplication.logE("EventPreferencesOrientation.setSystemEventForPause","_enabled="+_enabled);
+
+        if (!(isRunnable(context) && _enabled))
+            return;
+
+        PPApplication.logE("EventPreferencesOrientation.setSystemEventForPause","runnable and enabled");
+
+        long alarmTime = computeAlarm(context);
+        PPApplication.logE("EventPreferencesOrientation.setSystemEventForPause","alarmTime="+alarmTime);
+
+        if (alarmTime > 0)
+            setAlarm(alarmTime, context);
     }
 
     @Override
     public void removeSystemEvent(Context context)
     {
+        removeAlarm(context);
+
+        //PPApplication.logE("EventPreferencesOrientation.removeSystemEvent", "xxx");
     }
     */
 
-    static int convertLightToSensor(float light, float maxLight) {
+    /*static int convertLightToSensor(float light, float maxLight) {
         return (int)Math.round(light / maxLight * 10000.0);
     }
 
-    /*static float convertPercentsToLight(long percentage, float maxLight) {
+    static float convertPercentsToLight(long percentage, float maxLight) {
         return Math.round(maxLight / 100 * percentage);
     }*/
 

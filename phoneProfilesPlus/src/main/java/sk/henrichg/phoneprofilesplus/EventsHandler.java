@@ -93,6 +93,8 @@ class EventsHandler {
             if (PhoneProfilesService.getInstance() != null) {
                 ppService = PhoneProfilesService.getInstance();
             }
+            else
+                return;
 
             //boolean interactive;
 

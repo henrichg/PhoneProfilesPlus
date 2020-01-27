@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.KeyguardManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -47,6 +48,8 @@ import android.widget.RemoteViews;
 
 import com.crashlytics.android.Crashlytics;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -142,6 +145,7 @@ public class PhoneProfilesService extends Service
     private AlarmClockEventEndBroadcastReceiver alarmClockEventEndBroadcastReceiver = null;
     private NotificationEventEndBroadcastReceiver notificationEventEndBroadcastReceiver = null;
     private LockDeviceAfterScreenOffBroadcastReceiver lockDeviceAfterScreenOffBroadcastReceiver = null;
+    private OrientationEventBroadcastReceiver orientationEventBroadcastReceiver = null;
 
     private PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
     private DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
@@ -170,6 +174,7 @@ public class PhoneProfilesService extends Service
     static final String ACTION_ALARM_CLOCK_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".AlarmClockBroadcastReceiver";
     static final String ACTION_ALARM_CLOCK_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".AlarmClockEventEndBroadcastReceiver";
     static final String ACTION_NOTIFICATION_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".NotificationEventEndBroadcastReceiver";
+    static final String ACTION_ORIENTATION_EVENT_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".OrientationEventBroadcastReceiver";
 
     //static final String EXTRA_SHOW_PROFILE_NOTIFICATION = "show_profile_notification";
     static final String EXTRA_START_STOP_SCANNER = "start_stop_scanner";
@@ -1809,6 +1814,49 @@ public class PhoneProfilesService extends Service
             }
             else
                 registerReceiverForNotificationSensor(false, false);
+        }
+    }
+
+    private void registerReceiverForOrientationSensor(boolean register, boolean checkDatabase) {
+        Context appContext = getApplicationContext();
+        //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForOrientationSensor", "PhoneProfilesService_registerReceiverForOrientationSensor");
+        //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForOrientationSensor", "xxx");
+        if (!register) {
+            if (orientationEventBroadcastReceiver != null) {
+                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForOrientationSensor->UNREGISTER registerReceiverForOrientationSensor", "PhoneProfilesService_registerReceiverForOrientationSensor");
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForOrientationSensor", "UNREGISTER registerReceiverForOrientationSensor");
+                try {
+                    appContext.unregisterReceiver(orientationEventBroadcastReceiver);
+                    orientationEventBroadcastReceiver = null;
+                } catch (Exception e) {
+                    orientationEventBroadcastReceiver = null;
+                }
+            }
+            //else
+            //   PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForOrientationSensor", "not registered registerReceiverForOrientationSensor");
+        }
+        if (register) {
+            if (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
+                    PreferenceAllowed.PREFERENCE_ALLOWED) {
+                int eventCount = 1;
+                if (checkDatabase/* || (smsBroadcastReceiver == null) || (mmsBroadcastReceiver == null)*/)
+                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false);
+                if (eventCount > 0) {
+                    if (orientationEventBroadcastReceiver == null) {
+                        //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForOrientationSensor->REGISTER registerReceiverForOrientationSensor", "PhoneProfilesService_registerReceiverForOrientationSensor");
+                        //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForOrientationSensor", "REGISTER registerReceiverForOrientationSensor");
+                        orientationEventBroadcastReceiver = new OrientationEventBroadcastReceiver();
+                        IntentFilter intentFilter22 = new IntentFilter(PhoneProfilesService.ACTION_ORIENTATION_EVENT_BROADCAST_RECEIVER);
+                        appContext.registerReceiver(orientationEventBroadcastReceiver, intentFilter22);
+                    }
+                    //else
+                    //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForOrientationSensor", "registered registerReceiverForOrientationSensor");
+                } else {
+                    registerReceiverForOrientationSensor(false, false);
+                }
+            }
+            else
+                registerReceiverForOrientationSensor(false, false);
         }
     }
 
@@ -3493,6 +3541,9 @@ public class PhoneProfilesService extends Service
         // register receiver for geofences scanner
         registerGeofencesScannerReceiver(true, true);
 
+        // required for orientation event
+        registerReceiverForOrientationSensor(true, true);
+
         //Log.e("------ PhoneProfilesService.registerReceiversAndWorkers", "fromCommand="+fromCommand);
         WifiScanWorker.initialize(appContext, !fromCommand);
         BluetoothScanWorker.initialize(appContext, !fromCommand);
@@ -3536,6 +3587,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForCallSensor(false, false);
         registerGeofencesScannerReceiver(false, false);
         registerReceiverForNotificationSensor(false, false);
+        registerReceiverForOrientationSensor(false, false);
 
         //if (alarmClockBroadcastReceiver != null)
         //    appContext.unregisterReceiver(alarmClockBroadcastReceiver);
@@ -3580,6 +3632,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForNFCSensor(true, true);
         registerReceiverForCallSensor(true, true);
         registerGeofencesScannerReceiver(true, true);
+        registerReceiverForOrientationSensor(true, true);
 
         scheduleWifiWorker(true,  true, /*false, false, false,*/ false);
         scheduleBluetoothWorker(true,  true, /*false, false,*/ false);
@@ -5173,6 +5226,7 @@ public class PhoneProfilesService extends Service
 
     @SuppressLint("NewApi")
     private void startListeningOrientationSensors() {
+        //PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors", "mStartedOrientationSensors="+mStartedOrientationSensors);
         if (!mStartedOrientationSensors) {
             orientationScanner = new OrientationScanner();
             PPApplication.startHandlerThreadOrientationScanner();
@@ -5235,12 +5289,16 @@ public class PhoneProfilesService extends Service
 
             PPApplication.handlerThreadOrientationScanner.tmpSideUp = OrientationScannerHandlerThread.DEVICE_ORIENTATION_UNKNOWN;
             PPApplication.handlerThreadOrientationScanner.tmpSideTimestamp = 0;
+
+            setOrientationSensorAlarm(getApplicationContext());
         }
     }
 
     private void stopListeningOrientationSensors() {
-        if (PPApplication.sensorManager!= null) {
+        //PPApplication.logE("PhoneProfilesService.stopListeningOrientationSensors", "PPApplication.sensorManager="+PPApplication.sensorManager);
+        if (PPApplication.sensorManager != null) {
             PPApplication.sensorManager.unregisterListener(orientationScanner);
+            removeOrientationSensorAlarm(getApplicationContext());
             orientationScanner = null;
             //PPApplication.sensorManager = null;
         }
@@ -5255,6 +5313,141 @@ public class PhoneProfilesService extends Service
         }
     }
     */
+
+    void removeOrientationSensorAlarm(Context context)
+    {
+        try {
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            if (alarmManager != null) {
+                //Intent intent = new Intent(context, SMSEventEndBroadcastReceiver.class);
+                Intent intent = new Intent();
+                intent.setAction(PhoneProfilesService.ACTION_ORIENTATION_EVENT_BROADCAST_RECEIVER);
+                //intent.setClass(context, SMSEventEndBroadcastReceiver.class);
+
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
+                if (pendingIntent != null) {
+                    //PPApplication.logE("EventPreferencesSMS.removeAlarm", "alarm found");
+
+                    alarmManager.cancel(pendingIntent);
+                    pendingIntent.cancel();
+                }
+            }
+        } catch (Exception ignored) {}
+        try {
+            WorkManager workManager = WorkManager.getInstance(context);
+            //workManager.cancelUniqueWork("elapsedAlarmsOrientationSensorWork");
+            workManager.cancelAllWorkByTag("elapsedAlarmsOrientationSensorWork");
+        } catch (Exception ignored) {}
+    }
+
+    @SuppressLint({"SimpleDateFormat", "NewApi"})
+    void setOrientationSensorAlarm(Context context)
+    {
+        Calendar calEndTime = Calendar.getInstance();
+
+        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+
+        String applicationEventOrientationScanInPowerSaveMode = ApplicationPreferences.applicationEventOrientationScanInPowerSaveMode;
+
+        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+        if (isPowerSaveMode && applicationEventOrientationScanInPowerSaveMode.equals("2"))
+            // start scanning in power save mode is not allowed
+            return;
+
+        int interval = ApplicationPreferences.applicationEventOrientationScanInterval;
+        if (isPowerSaveMode && applicationEventOrientationScanInPowerSaveMode.equals("1"))
+            interval *= 2;
+
+        calEndTime.setTimeInMillis((calEndTime.getTimeInMillis() - gmtOffset) + (interval * 1000));
+        //calEndTime.set(Calendar.SECOND, 0);
+        //calEndTime.set(Calendar.MILLISECOND, 0);
+
+        long alarmTime;
+        alarmTime = calEndTime.getTimeInMillis();
+
+        /*if (PPApplication.logEnabled()) {
+            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+            String result = sdf.format(alarmTime);
+            PPApplication.logE("EventPreferencesOrientation.setAlarm", "alarmTime=" + result);
+        }*/
+
+        /*if (ApplicationPreferences.applicationUseAlarmClock(context)) {
+            //Intent intent = new Intent(context, SMSEventEndBroadcastReceiver.class);
+            Intent intent = new Intent();
+            intent.setAction(PhoneProfilesService.ACTION_SMS_EVENT_END_BROADCAST_RECEIVER);
+            //intent.setClass(context, SMSEventEndBroadcastReceiver.class);
+
+            //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            if (alarmManager != null) {
+                Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
+                alarmManager.setAlarmClock(clockInfo, pendingIntent);
+            }
+        } else {
+            Calendar now = Calendar.getInstance();
+            long elapsedTime = (alarmTime + Event.EVENT_ALARM_TIME_OFFSET) - now.getTimeInMillis();
+
+            if (PPApplication.logEnabled()) {
+                long allSeconds = elapsedTime / 1000;
+                long hours = allSeconds / 60 / 60;
+                long minutes = (allSeconds - (hours * 60 * 60)) / 60;
+                long seconds = allSeconds % 60;
+
+                PPApplication.logE("EventPreferencesSMS.setAlarm", "elapsedTime=" + hours + ":" + minutes + ":" + seconds);
+            }
+
+            Data workData = new Data.Builder()
+                    .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, ElapsedAlarmsWorker.ELAPSED_ALARMS_SMS_EVENT_END_SENSOR)
+                    .build();
+
+            OneTimeWorkRequest worker =
+                    new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
+                            .addTag("elapsedAlarmsOrientationSensorWork")
+                            .setInputData(workData)
+                            .setInitialDelay(elapsedTime, TimeUnit.MILLISECONDS)
+                            .build();
+            try {
+                WorkManager workManager = WorkManager.getInstance(context);
+                PPApplication.logE("[HANDLER] EventPreferencesSMS.setAlarm", "enqueueUniqueWork - elapsedTime="+elapsedTime);
+                //workManager.enqueueUniqueWork("elapsedAlarmsOrientationSensorWork", ExistingWorkPolicy.REPLACE, worker);
+                workManager.enqueue(worker);
+            } catch (Exception ignored) {}
+        }*/
+
+        //Intent intent = new Intent(context, OrientationEventEndBroadcastReceiver.class);
+        Intent intent = new Intent();
+        intent.setAction(PhoneProfilesService.ACTION_ORIENTATION_EVENT_BROADCAST_RECEIVER);
+        //intent.setClass(context, OrientationEventEndBroadcastReceiver.class);
+
+        //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        if (alarmManager != null) {
+            if (ApplicationPreferences.applicationUseAlarmClock) {
+                Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
+                alarmManager.setAlarmClock(clockInfo, pendingIntent);
+            }
+            else {
+                if (android.os.Build.VERSION.SDK_INT >= 23)
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                else //if (android.os.Build.VERSION.SDK_INT >= 19)
+                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                //else
+                //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+            }
+        }
+    }
 
     // Twilight scanner ----------------------------------------------------------------
 

@@ -16,7 +16,7 @@ public class OrientationScanner implements SensorEventListener {
         if (PhoneProfilesService.getInstance() == null)
             return;
 
-        final Context appContext = PhoneProfilesService.getInstance().getApplicationContext();
+        //final Context appContext = PhoneProfilesService.getInstance().getApplicationContext();
 
         final int sensorType = event.sensor.getType();
         //PPApplication.logE("OrientationScanner.onSensorChanged", "sensorType="+sensorType);
@@ -26,19 +26,20 @@ public class OrientationScanner implements SensorEventListener {
         //handler.post(new Runnable() {
         //    @Override
         //    public void run() {
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":OrientationScanner_onSensorChanged");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+                //PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                //PowerManager.WakeLock wakeLock = null;
+                //try {
+                    //if (powerManager != null) {
+                    //    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":OrientationScanner_onSensorChanged");
+                    //    wakeLock.acquire(10 * 60 * 1000);
+                    //}
 
                     //PPApplication.logE("OrientationScanner.onSensorChanged - handler", "current thread="+Thread.currentThread());
 
                     //if (event.accuracy == SensorManager.SENSOR_STATUS_ACCURACY_LOW)
                     //    return;
 
+                    PPApplication.startHandlerThreadOrientationScanner();
                     OrientationScannerHandlerThread orientationHandler = PPApplication.handlerThreadOrientationScanner;
 
                     if (sensorType == Sensor.TYPE_PROXIMITY) {
@@ -58,7 +59,7 @@ public class OrientationScanner implements SensorEventListener {
                         if (tmpDeviceDistance != orientationHandler.mDeviceDistance) {
                             //PPApplication.logE("PhoneProfilesService.onSensorChanged", "mProximity="+mProximity);
                             orientationHandler.mDeviceDistance = tmpDeviceDistance;
-                            runEventsHandlerForOrientationChange(appContext);
+                            //runEventsHandlerForOrientationChange(appContext);
                         }
                         //}
                         return;
@@ -167,7 +168,7 @@ public class OrientationScanner implements SensorEventListener {
                                                         PPApplication.logE("PhoneProfilesService.onSensorChanged", "unknown side.");
                                                     */
 
-                                                    runEventsHandlerForOrientationChange(appContext);
+                                                    //runEventsHandlerForOrientationChange(appContext);
                                                 }
                                             }
                                         }
@@ -205,7 +206,7 @@ public class OrientationScanner implements SensorEventListener {
                                                     (orientationHandler.mSideUp == OrientationScannerHandlerThread.DEVICE_ORIENTATION_DISPLAY_DOWN))
                                                 orientationHandler.mDisplayUp = orientationHandler.mSideUp;
 
-                                            runEventsHandlerForOrientationChange(appContext);
+                                            //runEventsHandlerForOrientationChange(appContext);
                                         }
                                     } else {
                                         if (orientationHandler.mEventCountSinceGZChanged > 0) {
@@ -221,67 +222,26 @@ public class OrientationScanner implements SensorEventListener {
                         //PPApplication.logE("PhoneProfilesService.onSensorChanged", "light value="+event.values[0]);
                         //PPApplication.logE("PhoneProfilesService.onSensorChanged", "light mMaxLightDistance="+mMaxLightDistance);
 
-                        orientationHandler.mLight = EventPreferencesOrientation.convertLightToSensor(event.values[0], orientationHandler.mMaxLightDistance);
+                        orientationHandler.mLight = convertLightToSensor(event.values[0], orientationHandler.mMaxLightDistance);
                         //PPApplication.logE("PhoneProfilesService.onSensorChanged", "light mLight="+mLight);
-                        runEventsHandlerForOrientationChange(appContext);
+                        //runEventsHandlerForOrientationChange(appContext);
                     }
 
 
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {
-                        }
-                    }
-                }
+                //} finally {
+                //    if ((wakeLock != null) && wakeLock.isHeld()) {
+                //        try {
+                //            wakeLock.release();
+                //        } catch (Exception ignored) {
+                //        }
+                //    }
+                //}
         //    }
         //});
     }
 
     private void runEventsHandlerForOrientationChange(final Context context) {
         if (Event.getGlobalEventsRunning()) {
-            /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.runEventsHandlerForOrientationChange");
-
-                PPApplication.logE("@@@ PhoneProfilesService.runEventsHandlerForOrientationChange", "-----------");
-
-                if (mDeviceDistance == DEVICE_ORIENTATION_DEVICE_IS_NEAR)
-                    PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "now device is NEAR.");
-                else if (mDeviceDistance == DEVICE_ORIENTATION_DEVICE_IS_FAR)
-                    PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "now device is FAR");
-                else if (mDeviceDistance == DEVICE_ORIENTATION_UNKNOWN)
-                    PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "unknown distance");
-
-                if (mDisplayUp == DEVICE_ORIENTATION_DISPLAY_UP)
-                    PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(D) now screen is facing up.");
-                if (mDisplayUp == DEVICE_ORIENTATION_DISPLAY_DOWN)
-                    PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(D) now screen is facing down.");
-                if (mDisplayUp == DEVICE_ORIENTATION_UNKNOWN)
-                    PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(D) unknown display orientation.");
-
-                if (mSideUp == DEVICE_ORIENTATION_DISPLAY_UP)
-                    PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now screen is facing up.");
-                if (mSideUp == DEVICE_ORIENTATION_DISPLAY_DOWN)
-                    PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now screen is facing down.");
-
-                if (mSideUp == mDisplayUp)
-                    PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now device is horizontal.");
-                if (mSideUp == DEVICE_ORIENTATION_UP_SIDE_UP)
-                    PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now up side is facing up.");
-                if (mSideUp == DEVICE_ORIENTATION_DOWN_SIDE_UP)
-                    PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now down side is facing up.");
-                if (mSideUp == DEVICE_ORIENTATION_RIGHT_SIDE_UP)
-                    PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now right side is facing up.");
-                if (mSideUp == DEVICE_ORIENTATION_LEFT_SIDE_UP)
-                    PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now left side is facing up.");
-                if (mSideUp == DEVICE_ORIENTATION_UNKNOWN)
-                    PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) unknown side.");
-
-                PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(L) light=" + mLight);
-
-                PPApplication.logE("@@@ PhoneProfilesService.runEventsHandlerForOrientationChange", "-----------");
-            }*/
 
             // start events handler
             EventsHandler eventsHandler = new EventsHandler(context);
@@ -296,6 +256,10 @@ public class OrientationScanner implements SensorEventListener {
             output[i] = output[i] + alpha * (input[i] - output[i]);
         }
         return output;
+    }
+
+    private static int convertLightToSensor(float light, float maxLight) {
+        return (int)Math.round(light / maxLight * 10000.0);
     }
 
     @Override
