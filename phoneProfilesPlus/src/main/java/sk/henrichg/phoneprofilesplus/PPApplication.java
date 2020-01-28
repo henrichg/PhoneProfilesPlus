@@ -510,7 +510,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                         //+"|EventTimeBroadcastReceiver"
 
                                         //+"|EventPreferencesCalendar"
-                                        +"|EventPreferencesCalendar.saveStartEndTime"
+                                        //+"|EventPreferencesCalendar.saveStartEndTime"
                                         //+"|EventCalendarBroadcastReceiver"
 
                                         //+"|DatabaseHandler.importDB"

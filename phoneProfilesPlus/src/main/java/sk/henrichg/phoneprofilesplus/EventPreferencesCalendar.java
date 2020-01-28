@@ -582,7 +582,7 @@ class EventPreferencesCalendar extends EventPreferences {
             return;
         }
 
-        PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "xxx xxx");
+        //PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "xxx xxx");
 
         final String[] INSTANCE_PROJECTION = new String[] {
                 Instances.BEGIN,           // 0
@@ -737,12 +737,12 @@ class EventPreferencesCalendar extends EventPreferences {
 
         selection.append(")");
 
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "selection=" + selection);
             for (String arg : selectionArgs) {
                 PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "selectionArgs.arg=" + arg);
             }
-        }
+        }*/
 
         // Construct the query with the desired date range.
         Calendar calendar = Calendar.getInstance();
@@ -840,7 +840,7 @@ class EventPreferencesCalendar extends EventPreferences {
 
             cur.close();
         }
-        PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "_eventFound="+_eventFound);
+        //PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "_eventFound="+_eventFound);
 
         DatabaseHandler.getInstance(dataWrapper.context).updateEventCalendarTimes(_event);
 
