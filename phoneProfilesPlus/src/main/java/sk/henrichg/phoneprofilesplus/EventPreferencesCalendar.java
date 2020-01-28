@@ -15,8 +15,10 @@ import android.provider.CalendarContract.Instances;
 import android.text.format.DateFormat;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 import androidx.preference.ListPreference;
@@ -580,7 +582,7 @@ class EventPreferencesCalendar extends EventPreferences {
             return;
         }
 
-        //PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "xxx xxx");
+        PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "xxx xxx");
 
         final String[] INSTANCE_PROJECTION = new String[] {
                 Instances.BEGIN,           // 0
@@ -608,11 +610,10 @@ class EventPreferencesCalendar extends EventPreferences {
 
         StringBuilder selection = new StringBuilder("(");
 
-        String[] selectionArgs = null;
+        List<String> selectionArgs = new ArrayList<>();
         if (!_allEvents) {
             String[] searchStringSplits = _searchString.split("\\|");
-            selectionArgs = new String[searchStringSplits.length];
-            int argsId = 0;
+            //int argsId = 0;
 
             // positive strings
             boolean positiveExists = false;
@@ -632,7 +633,7 @@ class EventPreferencesCalendar extends EventPreferences {
                     if (!(searchPattern.contains("%") || searchPattern.contains("_")))
                         searchPattern = "%" + searchPattern + "%";
 
-                    selectionArgs[argsId] = searchPattern;
+                    selectionArgs.add(searchPattern);
 
                     if (positiveExists)
                         selection.append(" OR ");
@@ -651,7 +652,7 @@ class EventPreferencesCalendar extends EventPreferences {
 
                     positiveExists = true;
 
-                    ++argsId;
+                    //++argsId;
                 }
             }
             if (positiveExists)
@@ -682,26 +683,37 @@ class EventPreferencesCalendar extends EventPreferences {
                     if (!(searchPattern.contains("%") || searchPattern.contains("_")))
                         searchPattern = "%" + searchPattern + "%";
 
-                    selectionArgs[argsId] = searchPattern;
+                    if (!searchPattern.equals("%"))
+                        selectionArgs.add(searchPattern);
 
                     if (negativeExists)
                         selection.append(" AND ");
 
                     switch (_searchField) {
                         case SEARCH_FIELD_TITLE:
-                            selection.append("(lower(" + Instances.TITLE + ")" + " NOT LIKE lower(?) ESCAPE '\\')");
+                            if (searchPattern.equals("%"))
+                                selection.append("(" + Instances.TITLE + " IS NULL)");
+                            else
+                                selection.append("(lower(" + Instances.TITLE + ")" + " NOT LIKE lower(?) ESCAPE '\\')");
                             break;
                         case SEARCH_FIELD_DESCRIPTION:
-                            selection.append("(lower(" + Instances.DESCRIPTION + ")" + " NOT LIKE lower(?) ESCAPE '\\')");
+                            if (searchPattern.equals("%"))
+                                selection.append("(" + Instances.DESCRIPTION + " IS NULL)");
+                            else
+                                selection.append("(lower(" + Instances.DESCRIPTION + ")" + " NOT LIKE lower(?) ESCAPE '\\')");
                             break;
                         case SEARCH_FIELD_LOCATION:
-                            selection.append("(lower(" + Instances.EVENT_LOCATION + ")" + " NOT LIKE lower(?) ESCAPE '\\')");
+                            if (searchPattern.equals("%"))
+                                selection.append("(" + Instances.EVENT_LOCATION + " IS NULL)");
+                            else
+                                selection.append("(lower(" + Instances.EVENT_LOCATION + ")" + " NOT LIKE lower(?) ESCAPE '\\')");
                             break;
                     }
 
                     negativeExists = true;
 
-                    ++argsId;
+                    //if (!searchPattern.equals("%"))
+                    //    ++argsId;
                 }
             }
             if (negativeExists)
@@ -725,15 +737,12 @@ class EventPreferencesCalendar extends EventPreferences {
 
         selection.append(")");
 
-        /*if (PPApplication.logEnabled()) {
+        if (PPApplication.logEnabled()) {
             PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "selection=" + selection);
-            if (selectionArgs != null) {
-                for (String arg : selectionArgs) {
-                    PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "selectionArgs.arg=" + arg);
-                }
-            } else
-                PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "selectionArgs=null");
-        }*/
+            for (String arg : selectionArgs) {
+                PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "selectionArgs.arg=" + arg);
+            }
+        }
 
         // Construct the query with the desired date range.
         Calendar calendar = Calendar.getInstance();
@@ -755,7 +764,16 @@ class EventPreferencesCalendar extends EventPreferences {
 
         // Submit the query
         try {
-            cur = cr.query(builder.build(), INSTANCE_PROJECTION, selection.toString(), selectionArgs, Instances.BEGIN + " ASC");
+            if (selectionArgs.size() == 0)
+                cur = cr.query(builder.build(), INSTANCE_PROJECTION, selection.toString(), null, Instances.BEGIN + " ASC");
+            else {
+                String[] _selectionArgs = new String[selectionArgs.size()];
+                int idx = 0;
+                for (String arg : selectionArgs) {
+                    _selectionArgs[idx++] = arg;
+                }
+                cur = cr.query(builder.build(), INSTANCE_PROJECTION, selection.toString(), _selectionArgs, Instances.BEGIN + " ASC");
+            }
         } catch (Exception e) {
             Log.e("EventPreferencesCalendar.saveStartEndTime", Log.getStackTraceString(e));
             cur = null;
@@ -822,7 +840,7 @@ class EventPreferencesCalendar extends EventPreferences {
 
             cur.close();
         }
-        //PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "_eventFound="+_eventFound);
+        PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "_eventFound="+_eventFound);
 
         DatabaseHandler.getInstance(dataWrapper.context).updateEventCalendarTimes(_event);
 
