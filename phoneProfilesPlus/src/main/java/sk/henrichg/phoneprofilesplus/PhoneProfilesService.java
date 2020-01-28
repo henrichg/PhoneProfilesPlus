@@ -267,13 +267,13 @@ public class PhoneProfilesService extends Service
                 //noinspection deprecation
                 context.removeStickyBroadcast(intent);
             } catch (Exception e) {
-                PPApplication.logE("PhoneProfilesService.stopReceiver", Log.getStackTraceString(e));
+                Log.e("PhoneProfilesService.stopReceiver", Log.getStackTraceString(e));
             }
             try {
                 stopForeground(true);
                 stopSelf();
             } catch (Exception e) {
-                PPApplication.logE("PhoneProfilesService.stopReceiver", Log.getStackTraceString(e));
+                Log.e("PhoneProfilesService.stopReceiver", Log.getStackTraceString(e));
             }
         }
     };

@@ -197,18 +197,18 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
                 return;
         }
 
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             //PPApplication.logE("UpdateGUIBroadcastReceiver._doWork", "ActivateProfileHelper.lockRefresh=" + ActivateProfileHelper.lockRefresh);
             //PPApplication.logE("UpdateGUIBroadcastReceiver._doWork", "doImport=" + EditorProfilesActivity.doImport);
             //PPApplication.logE("UpdateGUIBroadcastReceiver._doWork", "alsoEditor=" + refreshAlsoEditor);
             //PPApplication.logE("UpdateGUIBroadcastReceiver._doWork", "refresh=" + refresh);
             PPApplication.logE("UpdateGUIBroadcastReceiver._doWork", "fromAlarm=" + fromAlarm);
-        }
+        }*/
 
         long now = SystemClock.elapsedRealtime();
 
         if ((now - PPApplication.lastRefreshOfGUI) >= PPApplication.DURATION_FOR_GUI_REFRESH) {
-            PPApplication.logE("UpdateGUIBroadcastReceiver._doWork", "refresh");
+            //PPApplication.logE("UpdateGUIBroadcastReceiver._doWork", "refresh");
 
             // icon widget
             try {
@@ -255,7 +255,7 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
             intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
             LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
         } else {
-            PPApplication.logE("UpdateGUIBroadcastReceiver._doWork", "do not refresh");
+            //PPApplication.logE("UpdateGUIBroadcastReceiver._doWork", "do not refresh");
 
             setAlarm(alsoEditor, refresh, context);
         }
