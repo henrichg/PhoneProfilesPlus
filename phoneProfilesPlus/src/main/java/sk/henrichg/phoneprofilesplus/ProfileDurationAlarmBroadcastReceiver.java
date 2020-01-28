@@ -83,7 +83,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
-                                .addTag("elapsedAlarmsStartEventNotificationWork_"+(int)profile._id)
+                                .addTag("elapsedAlarmsProfileDurationWork_"+(int)profile._id)
                                 .setInputData(workData)
                                 .setInitialDelay(profile._duration, TimeUnit.SECONDS)
                                 .build();
@@ -166,8 +166,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
         try {
             if (profile != null) {
                 WorkManager workManager = WorkManager.getInstance(context);
-                //workManager.cancelUniqueWork("elapsedAlarmsStartEventNotificationWork_"+(int)profile._id);
-                workManager.cancelAllWorkByTag("elapsedAlarmsStartEventNotificationWork_" + (int) profile._id);
+                //workManager.cancelUniqueWork("elapsedAlarmsProfileDurationWork_"+(int)profile._id);
+                workManager.cancelAllWorkByTag("elapsedAlarmsProfileDurationWork_" + (int) profile._id);
             }
         } catch (Exception ignored) {}
         Profile.setActivatedProfileEndDurationTime(context, 0);
