@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -29,6 +30,12 @@ public class ImportantInfoActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_important_info);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
+
+        try {
+            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            int packageVersionCode = PPApplication.getVersionCode(pInfo);
+            ImportantInfoNotification.setShowInfoNotificationOnStart(getApplicationContext(), false, packageVersionCode);
+        } catch (Exception ignored) {}
 
         /*
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {

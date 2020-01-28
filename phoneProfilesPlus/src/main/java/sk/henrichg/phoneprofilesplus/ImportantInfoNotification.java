@@ -60,7 +60,7 @@ class ImportantInfoNotification {
                         context.getString(R.string.info_notification_title),
                         context.getString(R.string.important_info_accessibility_service_new_version));
 
-            setShowInfoNotificationOnStart(context, false, packageVersionCode);
+            //setShowInfoNotificationOnStart(context, false, packageVersionCode);
         }
     }
 
@@ -198,7 +198,7 @@ class ImportantInfoNotification {
         return ((_version >= version) && show);
     }
 
-    private static void setShowInfoNotificationOnStart(Context context, boolean show, int version)
+    static void setShowInfoNotificationOnStart(Context context, boolean show, int version)
     {
         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
         editor.putBoolean(PREF_SHOW_INFO_NOTIFICATION_ON_START, show);
