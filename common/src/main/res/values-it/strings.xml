@@ -969,7 +969,7 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="phone_profiles_pref_applicationEventBluetooth_info">Queste impostazioni sono per il sensore eventi Bluetooth.</string>
     <string name="phone_profiles_pref_applicationEventMobileCell_info">Queste impostazioni sono per il sensore eventi cellule mobili.</string>
     <string name="phone_profiles_pref_applicationEventOrientation_info">Queste impostazioni sono per il sensore eventi di orientamento.</string>
-    <string name="profileicon_pref_dialog_custom_icon_image_too_large">Custom icon image is too large. Allowed is max.</string>
+    <string name="profileicon_pref_dialog_custom_icon_image_too_large">L\'immagine dell\'icona personalizzata è troppo grande. Del massimo consentito.</string>
     <string name="profile_preferences_category_touchEffects">Effetti touch</string>
     <string name="profile_preferences_soundOnTouch">Suono al tocco</string>
     <string name="profile_preferences_dtmfToneWhenDialing">Tono DTMF durante la composizione</string>
@@ -988,29 +988,29 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="about_application_xda_developers_community">Comunità di XDA-developers:</string>
     <string name="mobile_cells_pref_dlg_connected_cell">Cella collegata:</string>
     <string name="permissions_for_mobile_cells_registration_dialog_text1">La registrazione delle cellule mobili richiede alcune autorizzazioni.</string>
-    <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">New cells count:</string>
+    <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">Conteggio nuove celle:</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_stop">Interrompi</string>
     <string name="mobile_cells_registration_pref_dlg_add_event_button">Aggiungi evento</string>
     <string name="mobile_cells_registration_pref_dlg_remove_event_button">Rimuovi evento</string>
     <string name="altype_eventPreferencesChanged">Preferenze evento modificate</string>
-    <string name="altype_eventDeleted">Event deleted</string>
-    <string name="altype_profileDeleted">Profile deleted</string>
-    <string name="altype_profilePreferencesChanged">Profile preferences changed</string>
-    <string name="altype_sharedProfilePreferencesChanged">Shared profile preferences changed</string>
-    <string name="altype_allEventsDeleted">All events deleted</string>
-    <string name="altype_allProfilesDeleted">All profiles deleted</string>
-    <string name="event_preference_wifi_ssidName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
-    <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
-    <string name="import_profiles_alert_error_database_bug">Error restoring the database.</string>
-    <string name="import_profiles_alert_error_appSettings_bug">Error restoring the application settings.</string>
-    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>
-    <string name="phone_profiles_pref_applicationTheme_white">White</string>
-    <string name="permission_ask_button">Ask</string>
-    <string name="permission_not_ask_button">Not ask</string>
-    <string name="brightness_pref_dialog_level_chb">Change level</string>
-    <string name="preference_profile_manual_brightness">Manual</string>
-    <string name="important_info_event_system_settings">Some event preferences require changes in system Settings. These preferences are marked with \"(S)\".</string>
-    <string name="preferences_grantPermissions_title">Not granted permissions</string>
+    <string name="altype_eventDeleted">Evento cancellato</string>
+    <string name="altype_profileDeleted">Profilo cancellato</string>
+    <string name="altype_profilePreferencesChanged">Preferenze del profilo modificate</string>
+    <string name="altype_sharedProfilePreferencesChanged">Preferenze del profilo condivise modificate</string>
+    <string name="altype_allEventsDeleted">Tutti gli eventi eliminati</string>
+    <string name="altype_allProfilesDeleted">Tutti i profili eliminati</string>
+    <string name="event_preference_wifi_ssidName_type" tools:ignore="TypographyOther">(C) configurato nel sistema, (S) restituito dallo scanner.</string>
+    <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) configurato nel sistema, (S) restituito dallo scanner.</string>
+    <string name="import_profiles_alert_error_database_bug">Errore nel ripristino del database.</string>
+    <string name="import_profiles_alert_error_appSettings_bug">Errore nel ripristino delle impostazioni dell\'applicazione.</string>
+    <string name="import_profiles_alert_error_sharedProfile_bug">Errore nel ripristino delle preferenze del profilo condiviso.</string>
+    <string name="phone_profiles_pref_applicationTheme_white">Bianco</string>
+    <string name="permission_ask_button">Chiedi</string>
+    <string name="permission_not_ask_button">Non chiedere</string>
+    <string name="brightness_pref_dialog_level_chb">Modifica livello</string>
+    <string name="preference_profile_manual_brightness">Manuale</string>
+    <string name="important_info_event_system_settings">Alcune preferenze per l\'evento richiedono modifiche nelle impostazioni di sistema. Queste preferenze sono indicate da \"(S)\".</string>
+    <string name="preferences_grantPermissions_title">Permessi non concessi</string>
     <string name="preferences_grantPermissions_summary">Some permissions are not granted. Click here to grant it.</string>
     <string name="event_preferences_no_sensor_is_enabled">No sensor is enabled!</string>
     <string name="info_notification_event_states_manual_profile_activation">Paused: some profile is manually activated and event has not enabled parameter \"Ignore manual activation\".</string>
@@ -1403,6 +1403,7 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="array_pref_62_percent" formatted="false">62.5%</string>
     <string name="array_pref_87_percent" formatted="false">87.5%</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration (widget)</string>
+    <string name="profile_preferences_deviceWiFiAPInfo2_summary">Potrebbe non funzionare affatto nel tuo dispositivo.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>

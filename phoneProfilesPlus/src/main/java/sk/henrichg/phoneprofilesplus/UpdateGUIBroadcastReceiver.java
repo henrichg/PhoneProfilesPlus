@@ -24,7 +24,7 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
 
     static final String EXTRA_REFRESH_ALSO_EDITOR = "refresh_also_editor";
     static final String EXTRA_REFRESH = "refresh";
-    static final String EXTRA_FROM_ALARM = "from_alarm";
+    //static final String EXTRA_FROM_ALARM = "from_alarm";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -33,13 +33,13 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
 
         boolean refresh = intent.getBooleanExtra(EXTRA_REFRESH, true);
         boolean refreshAlsoEditor = intent.getBooleanExtra(EXTRA_REFRESH_ALSO_EDITOR, true);
-        boolean fromAlarm = intent.getBooleanExtra(EXTRA_FROM_ALARM, false);
+        //boolean fromAlarm = intent.getBooleanExtra(EXTRA_FROM_ALARM, false);
 
-        doWork(true, context, refreshAlsoEditor, refresh, fromAlarm);
+        doWork(true, context, refreshAlsoEditor, refresh/*, fromAlarm*/);
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
-    static public void setAlarm(boolean alsoEditor, boolean refresh, Context context)
+    private static void setAlarm(boolean alsoEditor, boolean refresh, Context context)
     {
         removeAlarm(context);
 
@@ -55,7 +55,7 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
 
             intent.putExtra(UpdateGUIBroadcastReceiver.EXTRA_REFRESH, refresh);
             intent.putExtra(UpdateGUIBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
-            intent.putExtra(UpdateGUIBroadcastReceiver.EXTRA_FROM_ALARM, true);
+            //intent.putExtra(UpdateGUIBroadcastReceiver.EXTRA_FROM_ALARM, true);
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -73,7 +73,7 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
                     .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, ElapsedAlarmsWorker.ELAPSED_ALARMS_UPDATE_GUI)
                     .putBoolean(UpdateGUIBroadcastReceiver.EXTRA_REFRESH, refresh)
                     .putBoolean(UpdateGUIBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor)
-                    .putBoolean(UpdateGUIBroadcastReceiver.EXTRA_FROM_ALARM, true)
+                    //.putBoolean(UpdateGUIBroadcastReceiver.EXTRA_FROM_ALARM, true)
                     .build();
 
             OneTimeWorkRequest worker =
@@ -126,7 +126,7 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
         }*/
     }
 
-    static public void removeAlarm(Context context)
+    private static void removeAlarm(Context context)
     {
         try {
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -151,7 +151,7 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
         //PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.removeAlarm", "removed");
     }
 
-    static void doWork(boolean useHandler, Context context, final boolean refresh, final boolean alsoEditor, final boolean fromAlarm) {
+    static void doWork(boolean useHandler, Context context, final boolean refresh, final boolean alsoEditor/*, final boolean fromAlarm*/) {
         final Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(true))
@@ -172,7 +172,7 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        _doWork(/*true,*/ appContext, refresh, alsoEditor, fromAlarm);
+                        _doWork(/*true,*/ appContext, refresh, alsoEditor/*, fromAlarm*/);
 
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -186,10 +186,10 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
             });
         }
         else
-            _doWork(/*false,*/ appContext, refresh, alsoEditor, fromAlarm);
+            _doWork(/*false,*/ appContext, refresh, alsoEditor/*, fromAlarm*/);
     }
 
-    private static void _doWork(/*boolean useHandler,*/ Context context, final boolean refresh, final boolean alsoEditor, final boolean fromAlarm) {
+    private static void _doWork(/*boolean useHandler,*/ Context context, final boolean refresh, final boolean alsoEditor/*, final boolean fromAlarm*/) {
 
         if (!refresh) {
             if (ActivateProfileHelper.lockRefresh || EditorProfilesActivity.doImport)

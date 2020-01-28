@@ -3,19 +3,15 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.os.SystemClock;
 
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
@@ -112,7 +108,7 @@ public class ShowProfileNotificationBroadcastReceiver extends BroadcastReceiver 
         }*/
     }
 
-    static public void removeAlarm(Context context)
+    private static void removeAlarm(Context context)
     {
         try {
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);

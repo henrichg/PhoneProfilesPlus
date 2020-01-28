@@ -1402,6 +1402,7 @@
     <string name="array_pref_62_percent" formatted="false">62.5%</string>
     <string name="array_pref_87_percent" formatted="false">87.5%</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration (widget)</string>
+    <string name="profile_preferences_deviceWiFiAPInfo2_summary">May not working in your device at all.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>
