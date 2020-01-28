@@ -34,6 +34,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.os.SystemClock;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.ContactsContract;
@@ -88,6 +89,7 @@ public class PhoneProfilesService extends Service
 
     private static final StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = new StartLauncherFromNotificationReceiver();
     private static final UpdateGUIBroadcastReceiver updateGUIBroadcastReceiver = new UpdateGUIBroadcastReceiver();
+    private static final ShowProfileNotificationBroadcastReceiver showProfileNotificationBroadcastReceiver = new ShowProfileNotificationBroadcastReceiver();
     private static final RefreshActivitiesBroadcastReceiver refreshActivitiesBroadcastReceiver = new RefreshActivitiesBroadcastReceiver();
     private static final DashClockBroadcastReceiver dashClockBroadcastReceiver = new DashClockBroadcastReceiver();
 
@@ -316,6 +318,7 @@ public class PhoneProfilesService extends Service
         intentFilter5.addAction(PhoneProfilesService.ACTION_START_LAUNCHER_FROM_NOTIFICATION);
         appContext.registerReceiver(startLauncherFromNotificationReceiver, intentFilter5);
 
+        appContext.registerReceiver(showProfileNotificationBroadcastReceiver, new IntentFilter(PPApplication.ACTION_SHOW_PROFILE_NOTIFICATION));
         appContext.registerReceiver(updateGUIBroadcastReceiver, new IntentFilter(PPApplication.ACTION_UPDATE_GUI));
         LocalBroadcastManager.getInstance(appContext).registerReceiver(refreshActivitiesBroadcastReceiver,
                 new IntentFilter(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver"));
@@ -470,6 +473,9 @@ public class PhoneProfilesService extends Service
 
         try {
             appContext.unregisterReceiver(startLauncherFromNotificationReceiver);
+        } catch (Exception ignored) {}
+        try {
+            appContext.unregisterReceiver(showProfileNotificationBroadcastReceiver);
         } catch (Exception ignored) {}
         try {
             appContext.unregisterReceiver(updateGUIBroadcastReceiver);
@@ -4227,7 +4233,7 @@ public class PhoneProfilesService extends Service
     // profile notification -------------------
 
     @SuppressLint("NewApi")
-    private void _showProfileNotification(Profile profile, boolean inHandlerThread, final DataWrapper dataWrapper,
+    void _showProfileNotification(Profile profile, boolean inHandlerThread, final DataWrapper dataWrapper,
                                           boolean refresh/*, boolean cleared*/)
     {
         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "xxx");
@@ -4978,6 +4984,8 @@ public class PhoneProfilesService extends Service
             clearProfileNotification();
         }
 
+        //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","refresh="+(clear || refresh));
+
         //if (!runningInForeground) {
             if (forServiceStart) {
                 //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
@@ -4992,19 +5000,33 @@ public class PhoneProfilesService extends Service
 
         //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","before run handler");
 
-        final boolean _clear = clear;
-        PPApplication.startHandlerThreadProfileNotification();
-        final Handler handler = new Handler(PPApplication.handlerThreadProfileNotification.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
-                Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
-                //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification", "_showProfileNotification()");
-                _showProfileNotification(profile, true, dataWrapper, _clear || refresh  /*, cleared*/);
-                //dataWrapper.invalidateDataWrapper();
-            }
-        });
+        long now = SystemClock.elapsedRealtime();
+
+        if (clear || refresh || ((now - PPApplication.lastRefreshOfProfileNotification) >= PPApplication.DURATION_FOR_GUI_REFRESH))
+        {
+            PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","refresh");
+
+            final boolean _clear = clear;
+            PPApplication.startHandlerThreadProfileNotification();
+            final Handler handler = new Handler(PPApplication.handlerThreadProfileNotification.getLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
+                    Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
+                    //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification", "_showProfileNotification()");
+                    _showProfileNotification(profile, true, dataWrapper, _clear || refresh  /*, cleared*/);
+                    //dataWrapper.invalidateDataWrapper();
+                }
+            });
+        }
+        else {
+            PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","do not refresh");
+
+            ShowProfileNotificationBroadcastReceiver.setAlarm(getApplicationContext());
+        }
+
+        PPApplication.lastRefreshOfProfileNotification = SystemClock.elapsedRealtime();
     }
 
     void clearProfileNotification(/*boolean onlyEmpty*/)

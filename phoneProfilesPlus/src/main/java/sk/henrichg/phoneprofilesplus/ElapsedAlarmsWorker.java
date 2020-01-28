@@ -21,6 +21,7 @@ public class ElapsedAlarmsWorker extends Worker {
     static final String ELAPSED_ALARMS_EVENT_DELAY_START = "event_delay_start";
     static final String ELAPSED_ALARMS_EVENT_DELAY_END = "event_delay_end";
     static final String ELAPSED_ALARMS_UPDATE_GUI = "update_gui";
+    static final String ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION = "show_profile_notification";
     //static final String ELAPSED_ALARMS_DONATION = "donation";
     //static final String ELAPSED_ALARMS_TWILIGHT_SCANNER = "twilight_scanner";
     //static final String ELAPSED_ALARMS_TIME_SENSOR = "time_sensor";
@@ -101,6 +102,10 @@ public class ElapsedAlarmsWorker extends Worker {
                 case ELAPSED_ALARMS_UPDATE_GUI:
                     PPApplication.logE("ElapsedAlarmsWorker.doWork", "ELAPSED_ALARMS_UPDATE_GUI");
                     UpdateGUIBroadcastReceiver.doWork(false, appContext, refresh, refreshAlsoEditor, true);
+                    break;
+                case ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION:
+                    PPApplication.logE("ElapsedAlarmsWorker.doWork", "ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION");
+                    ShowProfileNotificationBroadcastReceiver.doWork(false, appContext/*, true*/);
                     break;
                 //case ELAPSED_ALARMS_DONATION:
                 //    DonationBroadcastReceiver.doWork(false, appContext);

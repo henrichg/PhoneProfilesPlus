@@ -66,6 +66,7 @@ public class PPApplication extends Application /*implements Application.Activity
     static boolean globalEventsRunStop = true;
 
     static long lastRefreshOfGUI = 0;
+    static long lastRefreshOfProfileNotification = 0;
 
     static final int DURATION_FOR_GUI_REFRESH = 500;
 
@@ -123,7 +124,8 @@ public class PPApplication extends Application /*implements Application.Activity
                                          +"|PhoneProfilesService.doForFirstStart"
                                          +"|PhoneProfilesService.doCommand"
                                          //+"|PhoneProfilesService.isServiceRunningInForeground"
-                                         //+"|PhoneProfilesService.showProfileNotification"
+                                         +"|PhoneProfilesService.showProfileNotification"
+                                         +"|ShowProfileNotificationBroadcastReceiver"
                                          //+"|PhoneProfilesService._showProfileNotification"
                                          //+"|[CUST] PhoneProfilesService._showProfileNotification"
                                          +"|PhoneProfilesService.stopReceiver"
@@ -609,8 +611,8 @@ public class PPApplication extends Application /*implements Application.Activity
                                         //+"|CmdWifiAP"
 
                                         //+"|ActivateProfileHelper.updateGUI"
-                                        +"|UpdateGUIBroadcastReceiver"
-                                        +"|ElapsedAlarmsWorker.doWork"
+                                        //+"|UpdateGUIBroadcastReceiver"
+                                        //+"|ElapsedAlarmsWorker.doWork"
                                         //+"|ActivateProfileActivity.refreshGUI"
                                         //+"|EditorProfilesActivity.refreshGUI"
             ;
@@ -743,6 +745,7 @@ public class PPApplication extends Application /*implements Application.Activity
     static final String ACTION_LOCK_DEVICE = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_LOCK_DEVICE";
     static final String ACCESSIBILITY_SERVICE_PERMISSION = PPApplication.PACKAGE_NAME_EXTENDER + ".ACCESSIBILITY_SERVICE_PERMISSION";
 
+    static final String ACTION_SHOW_PROFILE_NOTIFICATION = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_SHOW_PROFILE_NOTIFICATION";
     static final String ACTION_UPDATE_GUI = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_UPDATE_GUI";
     static final String ACTION_DONATION = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_DONATION";
     static final String ACTION_FINISH_ACTIVITY = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_FINISH_ACTIVITY";

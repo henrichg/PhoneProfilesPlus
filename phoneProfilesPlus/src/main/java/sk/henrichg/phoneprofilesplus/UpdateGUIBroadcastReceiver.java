@@ -148,7 +148,6 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
             //workManager.cancelUniqueWork("elapsedAlarmsUpdateGUIWork");
             workManager.cancelAllWorkByTag("elapsedAlarmsUpdateGUIWork");
         } catch (Exception ignored) {}
-        Profile.setActivatedProfileEndDurationTime(context, 0);
         //PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.removeAlarm", "removed");
     }
 
@@ -160,7 +159,7 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
             return;
 
         if (useHandler) {
-            PPApplication.startHandlerThread("ProfileDurationAlarmBroadcastReceiver.onReceive");
+            PPApplication.startHandlerThread("UpdateGUIBroadcastReceiver.onReceive");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
@@ -169,7 +168,7 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ProfileDurationAlarmBroadcastReceiver_onReceive");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":UpdateGUIBroadcastReceiver_onReceive");
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
@@ -191,7 +190,6 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
     }
 
     private static void _doWork(/*boolean useHandler,*/ Context context, final boolean refresh, final boolean alsoEditor, final boolean fromAlarm) {
-        //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "profileId=" + profileId);
 
         if (!refresh) {
             if (ActivateProfileHelper.lockRefresh || EditorProfilesActivity.doImport)
@@ -256,8 +254,7 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
             intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, refresh);
             intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
             LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
-        }
-        else {
+        } else {
             PPApplication.logE("UpdateGUIBroadcastReceiver._doWork", "do not refresh");
 
             setAlarm(alsoEditor, refresh, context);
