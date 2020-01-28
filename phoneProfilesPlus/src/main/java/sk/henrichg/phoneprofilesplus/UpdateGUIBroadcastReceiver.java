@@ -8,6 +8,8 @@ import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.PowerManager;
 import android.os.SystemClock;
 
 import java.util.Calendar;
@@ -30,6 +32,166 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
         //CallsCounter.logCounter(context, "UpdateGUIBroadcastReceiver.onReceive", "UpdateGUIBroadcastReceiver_onReceive");
 
         boolean refresh = intent.getBooleanExtra(EXTRA_REFRESH, true);
+        boolean refreshAlsoEditor = intent.getBooleanExtra(EXTRA_REFRESH_ALSO_EDITOR, true);
+        boolean fromAlarm = intent.getBooleanExtra(EXTRA_FROM_ALARM, false);
+
+        doWork(true, context, refreshAlsoEditor, refresh, fromAlarm);
+    }
+
+    @SuppressLint({"SimpleDateFormat", "NewApi"})
+    static public void setAlarm(boolean alsoEditor, boolean refresh, Context context)
+    {
+        removeAlarm(context);
+
+        Calendar now = Calendar.getInstance();
+        now.add(Calendar.MILLISECOND, PPApplication.DURATION_FOR_GUI_REFRESH+100);
+        long alarmTime = now.getTimeInMillis();// + 1000 * 60 * profile._duration;
+
+        if (ApplicationPreferences.applicationUseAlarmClock) {
+            //Intent intent = new Intent(_context, UpdateGUIBroadcastReceiver.class);
+            Intent intent = new Intent();
+            intent.setAction(PPApplication.ACTION_UPDATE_GUI);
+            //intent.setClass(context, UpdateGUIBroadcastReceiver.class);
+
+            intent.putExtra(UpdateGUIBroadcastReceiver.EXTRA_REFRESH, refresh);
+            intent.putExtra(UpdateGUIBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
+            intent.putExtra(UpdateGUIBroadcastReceiver.EXTRA_FROM_ALARM, true);
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            if (alarmManager != null) {
+                Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
+                alarmManager.setAlarmClock(clockInfo, pendingIntent);
+            }
+        }
+        else {
+            Data workData = new Data.Builder()
+                    .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, ElapsedAlarmsWorker.ELAPSED_ALARMS_UPDATE_GUI)
+                    .putBoolean(UpdateGUIBroadcastReceiver.EXTRA_REFRESH, refresh)
+                    .putBoolean(UpdateGUIBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor)
+                    .putBoolean(UpdateGUIBroadcastReceiver.EXTRA_FROM_ALARM, true)
+                    .build();
+
+            OneTimeWorkRequest worker =
+                    new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
+                            .addTag("elapsedAlarmsUpdateGUIWork")
+                            .setInputData(workData)
+                            .setInitialDelay(PPApplication.DURATION_FOR_GUI_REFRESH+100, TimeUnit.MILLISECONDS)
+                            .build();
+            try {
+                WorkManager workManager = WorkManager.getInstance(context);
+                //if (PPApplication.logEnabled()) {
+                //    PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.setAlarm", "enqueueUniqueWork - refresh=" + refresh);
+                //    PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.setAlarm", "enqueueUniqueWork - alsoEditor=" + alsoEditor);
+                //}
+                //workManager.enqueueUniqueWork("elapsedAlarmsUpdateGUIWork", ExistingWorkPolicy.REPLACE, worker);
+                workManager.enqueue(worker);
+            } catch (Exception ignored) {}
+        }
+
+        /*//Intent intent = new Intent(_context, UpdateGUIBroadcastReceiver.class);
+        Intent intent = new Intent();
+        intent.setAction(PPApplication.ACTION_UPDATE_GUI);
+        //intent.setClass(context, UpdateGUIBroadcastReceiver.class);
+
+        intent.putExtra(UpdateGUIBroadcastReceiver.EXTRA_FROM_ALARM, true);
+        intent.putExtra(UpdateGUIBroadcastReceiver.EXTRA_REFRESH, refresh);
+        intent.putExtra(UpdateGUIBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        if (alarmManager != null) {
+            if (ApplicationPreferences.applicationUseAlarmClock) {
+                Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
+                alarmManager.setAlarmClock(clockInfo, pendingIntent);
+            }
+            else {
+                alarmTime = SystemClock.elapsedRealtime() + PPApplication.DURATION_FOR_GUI_REFRESH+100;
+
+                if (android.os.Build.VERSION.SDK_INT >= 23)
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                else //if (android.os.Build.VERSION.SDK_INT >= 19)
+                    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                //else
+                //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+            }
+        }*/
+    }
+
+    static public void removeAlarm(Context context)
+    {
+        try {
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            if (alarmManager != null) {
+                //Intent intent = new Intent(_context, UpdateGUIBroadcastReceiver.class);
+                Intent intent = new Intent();
+                intent.setAction(PPApplication.ACTION_UPDATE_GUI);
+                //intent.setClass(context, UpdateGUIBroadcastReceiver.class);
+
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
+                if (pendingIntent != null) {
+                    alarmManager.cancel(pendingIntent);
+                    pendingIntent.cancel();
+                }
+            }
+        } catch (Exception ignored) {}
+        try {
+            WorkManager workManager = WorkManager.getInstance(context);
+            //workManager.cancelUniqueWork("elapsedAlarmsUpdateGUIWork");
+            workManager.cancelAllWorkByTag("elapsedAlarmsUpdateGUIWork");
+        } catch (Exception ignored) {}
+        Profile.setActivatedProfileEndDurationTime(context, 0);
+        //PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.removeAlarm", "removed");
+    }
+
+    static void doWork(boolean useHandler, Context context, final boolean refresh, final boolean alsoEditor, final boolean fromAlarm) {
+        final Context appContext = context.getApplicationContext();
+
+        if (!PPApplication.getApplicationStarted(true))
+            // application is not started
+            return;
+
+        if (useHandler) {
+            PPApplication.startHandlerThread("ProfileDurationAlarmBroadcastReceiver.onReceive");
+            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ProfileDurationAlarmBroadcastReceiver_onReceive");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+
+                        _doWork(/*true,*/ appContext, refresh, alsoEditor, fromAlarm);
+
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        else
+            _doWork(/*false,*/ appContext, refresh, alsoEditor, fromAlarm);
+    }
+
+    private static void _doWork(/*boolean useHandler,*/ Context context, final boolean refresh, final boolean alsoEditor, final boolean fromAlarm) {
+        //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "profileId=" + profileId);
 
         if (!refresh) {
             if (ActivateProfileHelper.lockRefresh || EditorProfilesActivity.doImport)
@@ -37,21 +199,18 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
                 return;
         }
 
-        boolean refreshAlsoEditor = intent.getBooleanExtra(EXTRA_REFRESH_ALSO_EDITOR, true);
-
         if (PPApplication.logEnabled()) {
-            boolean fromAlarm = intent.getBooleanExtra(EXTRA_FROM_ALARM, false);
-            //PPApplication.logE("UpdateGUIBroadcastReceiver.onReceive", "ActivateProfileHelper.lockRefresh=" + ActivateProfileHelper.lockRefresh);
-            //PPApplication.logE("UpdateGUIBroadcastReceiver.onReceive", "doImport=" + EditorProfilesActivity.doImport);
-            //PPApplication.logE("UpdateGUIBroadcastReceiver.onReceive", "alsoEditor=" + refreshAlsoEditor);
-            //PPApplication.logE("UpdateGUIBroadcastReceiver.onReceive", "refresh=" + refresh);
-            PPApplication.logE("UpdateGUIBroadcastReceiver.onReceive", "fromAlarm=" + fromAlarm);
+            //PPApplication.logE("UpdateGUIBroadcastReceiver._doWork", "ActivateProfileHelper.lockRefresh=" + ActivateProfileHelper.lockRefresh);
+            //PPApplication.logE("UpdateGUIBroadcastReceiver._doWork", "doImport=" + EditorProfilesActivity.doImport);
+            //PPApplication.logE("UpdateGUIBroadcastReceiver._doWork", "alsoEditor=" + refreshAlsoEditor);
+            //PPApplication.logE("UpdateGUIBroadcastReceiver._doWork", "refresh=" + refresh);
+            PPApplication.logE("UpdateGUIBroadcastReceiver._doWork", "fromAlarm=" + fromAlarm);
         }
 
         long now = SystemClock.elapsedRealtime();
 
         if ((now - PPApplication.lastRefreshOfGUI) >= PPApplication.DURATION_FOR_GUI_REFRESH) {
-            PPApplication.logE("UpdateGUIBroadcastReceiver.onReceive", "refresh");
+            PPApplication.logE("UpdateGUIBroadcastReceiver._doWork", "refresh");
 
             // icon widget
             try {
@@ -95,129 +254,16 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
             // activities
             Intent intent5 = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
             intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, refresh);
-            intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, refreshAlsoEditor);
+            intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
             LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
         }
         else {
-            PPApplication.logE("UpdateGUIBroadcastReceiver.onReceive", "do not refresh");
+            PPApplication.logE("UpdateGUIBroadcastReceiver._doWork", "do not refresh");
 
-            setAlarm(refreshAlsoEditor, refresh, context.getApplicationContext());
+            setAlarm(alsoEditor, refresh, context);
         }
 
         PPApplication.lastRefreshOfGUI = SystemClock.elapsedRealtime();
-
-    }
-
-    @SuppressLint({"SimpleDateFormat", "NewApi"})
-    static public void setAlarm(boolean alsoEditor, boolean refresh, Context context)
-    {
-        removeAlarm(context);
-
-        Calendar now = Calendar.getInstance();
-        now.add(Calendar.MILLISECOND, PPApplication.DURATION_FOR_GUI_REFRESH+100);
-        long alarmTime = now.getTimeInMillis();// + 1000 * 60 * profile._duration;
-
-        /*if (ApplicationPreferences.applicationUseAlarmClock) {
-            //Intent intent = new Intent(_context, UpdateGUIBroadcastReceiver.class);
-            Intent intent = new Intent();
-            intent.setAction(PPApplication.ACTION_UPDATE_GUI);
-            //intent.setClass(context, UpdateGUIBroadcastReceiver.class);
-
-            intent.putExtra(UpdateGUIBroadcastReceiver.EXTRA_REFRESH, refresh);
-            intent.putExtra(UpdateGUIBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
-
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            if (alarmManager != null) {
-                Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
-                editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
-                alarmManager.setAlarmClock(clockInfo, pendingIntent);
-            }
-        }
-        else {
-            Data workData = new Data.Builder()
-                    .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, ElapsedAlarmsWorker.ELAPSED_ALARMS_PROFILE_DURATION)
-                    .putBoolean(UpdateGUIBroadcastReceiver.EXTRA_REFRESH, refresh)
-                    .putBoolean(UpdateGUIBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor)
-                    .build();
-
-            OneTimeWorkRequest worker =
-                    new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
-                            .addTag("elapsedAlarmsUpdateGUIWork")
-                            .setInputData(workData)
-                            .setInitialDelay(PPApplication.DURATION_FOR_GUI_REFRESH+100, TimeUnit.MILLISECONDS)
-                            .build();
-            try {
-                WorkManager workManager = WorkManager.getInstance(context);
-                //if (PPApplication.logEnabled()) {
-                //    PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.setAlarm", "enqueueUniqueWork - refresh=" + refresh);
-                //    PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.setAlarm", "enqueueUniqueWork - alsoEditor=" + alsoEditor);
-                //}
-                //workManager.enqueueUniqueWork("elapsedAlarmsUpdateGUIWork", ExistingWorkPolicy.REPLACE, worker);
-                workManager.enqueue(worker);
-            } catch (Exception ignored) {}
-        }*/
-
-        //Intent intent = new Intent(_context, UpdateGUIBroadcastReceiver.class);
-        Intent intent = new Intent();
-        intent.setAction(PPApplication.ACTION_UPDATE_GUI);
-        //intent.setClass(context, UpdateGUIBroadcastReceiver.class);
-
-        intent.putExtra(UpdateGUIBroadcastReceiver.EXTRA_FROM_ALARM, true);
-        intent.putExtra(UpdateGUIBroadcastReceiver.EXTRA_REFRESH, refresh);
-        intent.putExtra(UpdateGUIBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        if (alarmManager != null) {
-            if (ApplicationPreferences.applicationUseAlarmClock) {
-                Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
-                editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
-                alarmManager.setAlarmClock(clockInfo, pendingIntent);
-            }
-            else {
-                alarmTime = SystemClock.elapsedRealtime() + PPApplication.DURATION_FOR_GUI_REFRESH+100;
-
-                if (android.os.Build.VERSION.SDK_INT >= 23)
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                //else
-                //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-            }
-        }
-    }
-
-    static public void removeAlarm(Context context)
-    {
-        try {
-            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            if (alarmManager != null) {
-                //Intent intent = new Intent(_context, UpdateGUIBroadcastReceiver.class);
-                Intent intent = new Intent();
-                intent.setAction(PPApplication.ACTION_UPDATE_GUI);
-                //intent.setClass(context, UpdateGUIBroadcastReceiver.class);
-
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
-                if (pendingIntent != null) {
-                    alarmManager.cancel(pendingIntent);
-                    pendingIntent.cancel();
-                }
-            }
-        } catch (Exception ignored) {}
-        try {
-            WorkManager workManager = WorkManager.getInstance(context);
-            //workManager.cancelUniqueWork("elapsedAlarmsUpdateGUIWork");
-            workManager.cancelAllWorkByTag("elapsedAlarmsUpdateGUIWork");
-        } catch (Exception ignored) {}
-        Profile.setActivatedProfileEndDurationTime(context, 0);
-        //PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.removeAlarm", "removed");
     }
 
 }

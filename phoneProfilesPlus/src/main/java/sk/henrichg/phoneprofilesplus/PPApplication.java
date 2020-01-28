@@ -609,7 +609,8 @@ public class PPApplication extends Application /*implements Application.Activity
                                         //+"|CmdWifiAP"
 
                                         //+"|ActivateProfileHelper.updateGUI"
-                                        +"|UpdateGUIBroadcastReceiver.onReceive"
+                                        +"|UpdateGUIBroadcastReceiver"
+                                        +"|ElapsedAlarmsWorker.doWork"
                                         //+"|ActivateProfileActivity.refreshGUI"
                                         //+"|EditorProfilesActivity.refreshGUI"
             ;

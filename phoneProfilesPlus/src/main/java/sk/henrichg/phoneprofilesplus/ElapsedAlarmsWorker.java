@@ -20,6 +20,7 @@ public class ElapsedAlarmsWorker extends Worker {
     static final String ELAPSED_ALARMS_PROFILE_DURATION = "profile_duration";
     static final String ELAPSED_ALARMS_EVENT_DELAY_START = "event_delay_start";
     static final String ELAPSED_ALARMS_EVENT_DELAY_END = "event_delay_end";
+    static final String ELAPSED_ALARMS_UPDATE_GUI = "update_gui";
     //static final String ELAPSED_ALARMS_DONATION = "donation";
     //static final String ELAPSED_ALARMS_TWILIGHT_SCANNER = "twilight_scanner";
     //static final String ELAPSED_ALARMS_TIME_SENSOR = "time_sensor";
@@ -61,6 +62,8 @@ public class ElapsedAlarmsWorker extends Worker {
             long profileId = getInputData().getLong(PPApplication.EXTRA_PROFILE_ID, 0);
             boolean forRestartEvents = getInputData().getBoolean(ProfileDurationAlarmBroadcastReceiver.EXTRA_FOR_RESTART_EVENTS, false);
             int startupSource = getInputData().getInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SERVICE_MANUAL);
+            boolean refresh = getInputData().getBoolean(UpdateGUIBroadcastReceiver.EXTRA_REFRESH, true);
+            boolean refreshAlsoEditor = getInputData().getBoolean(UpdateGUIBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, true);
 
             //outputData = generateResult(LocationGeofenceEditorActivity.FAILURE_RESULT,
             //                                    getApplicationContext().getString(R.string.event_preferences_location_no_address_found),
@@ -94,6 +97,10 @@ public class ElapsedAlarmsWorker extends Worker {
                     break;
                 case ELAPSED_ALARMS_EVENT_DELAY_END:
                     EventDelayEndBroadcastReceiver.doWork(false, appContext);
+                    break;
+                case ELAPSED_ALARMS_UPDATE_GUI:
+                    PPApplication.logE("ElapsedAlarmsWorker.doWork", "ELAPSED_ALARMS_UPDATE_GUI");
+                    UpdateGUIBroadcastReceiver.doWork(false, appContext, refresh, refreshAlsoEditor, true);
                     break;
                 //case ELAPSED_ALARMS_DONATION:
                 //    DonationBroadcastReceiver.doWork(false, appContext);
