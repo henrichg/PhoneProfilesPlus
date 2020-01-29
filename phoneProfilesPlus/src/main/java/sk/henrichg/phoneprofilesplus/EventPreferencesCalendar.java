@@ -633,20 +633,30 @@ class EventPreferencesCalendar extends EventPreferences {
                     if (!(searchPattern.contains("%") || searchPattern.contains("_")))
                         searchPattern = "%" + searchPattern + "%";
 
-                    selectionArgs.add(searchPattern);
+                    if (!searchPattern.equals("%"))
+                        selectionArgs.add(searchPattern);
 
                     if (positiveExists)
                         selection.append(" OR ");
 
                     switch (_searchField) {
                         case SEARCH_FIELD_TITLE:
-                            selection.append("(lower(" + Instances.TITLE + ")" + " LIKE lower(?) ESCAPE '\\')");
+                            if (searchPattern.equals("%"))
+                                selection.append("(" + Instances.TITLE + " IS NOT NULL)");
+                            else
+                                selection.append("(lower(" + Instances.TITLE + ")" + " LIKE lower(?) ESCAPE '\\')");
                             break;
                         case SEARCH_FIELD_DESCRIPTION:
-                            selection.append("(lower(" + Instances.DESCRIPTION + ")" + " LIKE lower(?) ESCAPE '\\')");
+                            if (searchPattern.equals("%"))
+                                selection.append("(" + Instances.DESCRIPTION + " IS NOT NULL)");
+                            else
+                                selection.append("(lower(" + Instances.DESCRIPTION + ")" + " LIKE lower(?) ESCAPE '\\')");
                             break;
                         case SEARCH_FIELD_LOCATION:
-                            selection.append("(lower(" + Instances.EVENT_LOCATION + ")" + " LIKE lower(?) ESCAPE '\\')");
+                            if (searchPattern.equals("%"))
+                                selection.append("(" + Instances.EVENT_LOCATION + " IS NOT NULL)");
+                            else
+                                selection.append("(lower(" + Instances.EVENT_LOCATION + ")" + " LIKE lower(?) ESCAPE '\\')");
                             break;
                     }
 
