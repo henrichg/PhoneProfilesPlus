@@ -1425,7 +1425,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
                 PPApplication.runCommand(this, commandIntent);
 
-                IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext());
+                //IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext());
             }
             else
             if (data != null) {
@@ -1853,6 +1853,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         if (!isFinishing())
                             GlobalGUIRoutines.reloadActivity(activity, true);
 
+                        IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(this.dataWrapper.context.getApplicationContext(), true);
                         IgnoreBatteryOptimizationNotification.showNotification(this.dataWrapper.context.getApplicationContext());
                     } else {
                         //PPApplication.logE("EditorProfilesActivity.doImportData", "error restore");

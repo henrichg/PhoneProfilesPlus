@@ -1580,6 +1580,9 @@ public class DataWrapper {
 
     private void _activateProfile(Profile _profile, boolean merged, int startupSource, final boolean forRestartEvents)
     {
+        // show notification when battery optimization is not enabled
+        IgnoreBatteryOptimizationNotification.showNotification(context);
+
         // remove last configured profile duration alarm
         ProfileDurationAlarmBroadcastReceiver.removeAlarm(_profile, context);
         Profile.setActivatedProfileForDuration(context, 0);
@@ -4413,7 +4416,7 @@ public class DataWrapper {
                     }
                     else {
                         restartEventsWithRescan(/*true, */true, true, true, true);
-                        IgnoreBatteryOptimizationNotification.showNotification(context);
+                        //IgnoreBatteryOptimizationNotification.showNotification(context);
                     }
                 }
             });
@@ -4475,7 +4478,7 @@ public class DataWrapper {
 
             restartEventsWithRescan(/*true, */true, true, true, true);
 
-            IgnoreBatteryOptimizationNotification.showNotification(context);
+            //IgnoreBatteryOptimizationNotification.showNotification(context);
         }
     }
 
@@ -4873,7 +4876,7 @@ public class DataWrapper {
                 // setup for next start
                 firstStartEvents(false, true);
 
-                IgnoreBatteryOptimizationNotification.showNotification(context.getApplicationContext());
+                //IgnoreBatteryOptimizationNotification.showNotification(context.getApplicationContext());
                 return true;
             }
         }
