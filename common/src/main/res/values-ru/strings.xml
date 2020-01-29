@@ -171,7 +171,7 @@
     <string name="profile_preferences_deviceLocationServicePrefs">(I) Настройки местоположения</string>
     <string name="event_type_battery">Батарея</string>
     <string name="profile_preferences_volumeSpeakerPhone">Динамик</string>
-    <string name="event_preferences_notificationSound">Звук уведомлений</string>
+    <string name="event_preferences_notificationSound">Звук уведомления</string>
     <string name="event_preferences_battery_level_low">Нижний уровень</string>
     <string name="event_preferences_battery_level_hight">Верхний уровень</string>
     <string name="event_preferences_battery_charging">Зарядка</string>

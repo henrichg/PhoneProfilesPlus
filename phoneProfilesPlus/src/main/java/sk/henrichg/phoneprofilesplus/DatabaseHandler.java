@@ -70,7 +70,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int PTYPE_LOCK_DEVICE = 3;
 
     // event type
-    static final int ETYPE_ALL = -1;
+    private static final int ETYPE_ALL = -1;
     static final int ETYPE_TIME = 1;
     static final int ETYPE_BATTERY = 2;
     static final int ETYPE_CALL = 3;
