@@ -12,6 +12,7 @@ class ContactsCache {
     private final ArrayList<Contact> contactList;
     private final ArrayList<Contact> contactListWithoutNumber;
     private boolean cached;
+    private boolean caching;
     //private boolean cancelled;
 
     ContactsCache()
@@ -19,12 +20,14 @@ class ContactsCache {
         contactList = new ArrayList<>();
         contactListWithoutNumber = new ArrayList<>();
         cached = false;
+        caching = false;
     }
 
     void getContactList(Context context)
     {
-        if (cached) return;
+        if (cached || caching) return;
 
+        caching = true;
         //cancelled = false;
 
         contactList.clear();
@@ -96,6 +99,8 @@ class ContactsCache {
 
             cached = true;
         }
+
+        caching = false;
     }
 
     /*
@@ -269,6 +274,11 @@ class ContactsCache {
             contactListWithoutNumber = null;
         }*/
         cached = false;
+        caching = false;
+    }
+
+    boolean getCaching() {
+        return caching;
     }
 
     /*

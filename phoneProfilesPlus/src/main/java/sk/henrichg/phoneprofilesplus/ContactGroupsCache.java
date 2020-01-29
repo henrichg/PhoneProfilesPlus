@@ -11,25 +11,30 @@ class ContactGroupsCache {
 
     private final ArrayList<ContactGroup> contactGroupList;
     private boolean cached;
+    private boolean caching;
     //private boolean cancelled;
 
     ContactGroupsCache()
     {
         contactGroupList = new ArrayList<>();
         cached = false;
+        caching = false;
     }
 
     void getContactGroupList(Context context)
     {
-        if (cached) return;
+        if (cached || caching) return;
 
+        caching = true;
         //cancelled = false;
 
         contactGroupList.clear();
 
         ContactsCache contactsCache = PhoneProfilesService.getContactsCache();
-        if (contactsCache == null)
+        if (contactsCache == null) {
+            caching = false;
             return;
+        }
 
         contactsCache.clearGroups();
 
@@ -89,6 +94,8 @@ class ContactGroupsCache {
 
             cached = true;
         }
+
+        caching = false;
     }
 
     public int getLength()
@@ -139,6 +146,11 @@ class ContactGroupsCache {
         /*if (nullList)
             contactGroupList = null;*/
         cached = false;
+        caching = false;
+    }
+
+    boolean getCaching() {
+        return caching;
     }
 
     /*
