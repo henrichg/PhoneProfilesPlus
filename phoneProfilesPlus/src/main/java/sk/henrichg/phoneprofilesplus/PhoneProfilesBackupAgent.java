@@ -16,6 +16,8 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
 
     @Override
     public void onRestoreFinished() {
+        PPApplication.restoreFinished = false;
+
         PPApplication.logE("PhoneProfilesBackupAgent","onRestoreFinished");
 
         // Do NOT CLOSE APPLICATION AFTER RESTORE.
@@ -100,6 +102,8 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
                             wakeLock.release();
                         } catch (Exception ignored) {}
                     }
+
+                    PPApplication.restoreFinished = true;
                 }
             }
         });

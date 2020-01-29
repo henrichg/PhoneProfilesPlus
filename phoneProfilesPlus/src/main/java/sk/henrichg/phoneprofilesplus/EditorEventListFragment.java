@@ -26,6 +26,7 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
@@ -48,6 +49,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import me.drakeet.support.toast.ToastCompat;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -448,6 +450,7 @@ public class EditorEventListFragment extends Fragment
         private final DataWrapper _dataWrapper;
         private final int _filterType;
         private final int _orderType;
+        boolean defaultEventsGenerated = false;
 
         final boolean applicationEditorPrefIndicator;
 
@@ -488,6 +491,14 @@ public class EditorEventListFragment extends Fragment
         protected Void doInBackground(Void... params) {
             _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
             _dataWrapper.fillEventList();
+            if ((_dataWrapper.eventList.size() == 0) && PPApplication.restoreFinished)
+            {
+                final EditorEventListFragment fragment = this.fragmentWeakRef.get();
+                if ((fragment != null) && (fragment.getActivity() != null)) {
+                    _dataWrapper.generatePredefinedEventList(fragment.getActivity());
+                    defaultEventsGenerated = true;
+                }
+            }
             _dataWrapper.getEventTimelineList(true);
             //Log.d("EditorEventListFragment.LoadEventListAsyncTask","filterType="+filterType);
             if (_filterType == FILTER_TYPE_START_ORDER)
@@ -537,6 +548,15 @@ public class EditorEventListFragment extends Fragment
 
                 Profile profile = _dataWrapper.getActivatedProfileFromDB(true, applicationEditorPrefIndicator);
                 fragment.updateHeader(profile);
+                fragment.eventListAdapter.notifyDataSetChanged(false);
+
+                if (defaultEventsGenerated)
+                {
+                    Toast msg = ToastCompat.makeText(_dataWrapper.context.getApplicationContext(),
+                            fragment.getResources().getString(R.string.toast_predefined_events_generated),
+                            Toast.LENGTH_SHORT);
+                    msg.show();
+                }
             }
         }
     }

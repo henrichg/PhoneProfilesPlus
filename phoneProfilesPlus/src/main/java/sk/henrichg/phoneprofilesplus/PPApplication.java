@@ -65,6 +65,8 @@ public class PPApplication extends Application /*implements Application.Activity
     private static boolean applicationStarted = false;
     static boolean globalEventsRunStop = true;
 
+    static boolean restoreFinished = true;
+
     static long lastRefreshOfGUI = 0;
     static long lastRefreshOfProfileNotification = 0;
 

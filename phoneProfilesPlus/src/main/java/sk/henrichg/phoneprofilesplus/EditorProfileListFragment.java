@@ -414,7 +414,7 @@ public class EditorProfileListFragment extends Fragment
         //private final Context _baseContext;
         private final int _filterType;
         boolean defaultProfilesGenerated = false;
-        boolean defaultEventsGenerated = false;
+        //boolean defaultEventsGenerated = false;
 
         final boolean applicationEditorPrefIndicator;
 
@@ -454,7 +454,7 @@ public class EditorProfileListFragment extends Fragment
         @Override
         protected Void doInBackground(Void... params) {
             _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
-            if (_dataWrapper.profileList.size() == 0)
+            if ((_dataWrapper.profileList.size() == 0) && PPApplication.restoreFinished)
             {
                 // no profiles in DB, generate default profiles and events
                 EditorProfileListFragment fragment = this.fragmentWeakRef.get();
@@ -462,10 +462,10 @@ public class EditorProfileListFragment extends Fragment
                     _dataWrapper.fillPredefinedProfileList(true, applicationEditorPrefIndicator, fragment.getActivity());
                     defaultProfilesGenerated = true;
                 }
-                if ((fragment != null) && (fragment.getActivity() != null)) {
+                /*if ((fragment != null) && (fragment.getActivity() != null)) {
                     _dataWrapper.generatePredefinedEventList(fragment.getActivity());
                     defaultEventsGenerated = true;
-                }
+                }*/
             }
             // sort list
             if (_filterType != EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
@@ -522,13 +522,13 @@ public class EditorProfileListFragment extends Fragment
                             Toast.LENGTH_SHORT);
                     msg.show();
                 }
-                if (defaultEventsGenerated)
+                /*if (defaultEventsGenerated)
                 {
                     Toast msg = ToastCompat.makeText(_dataWrapper.context.getApplicationContext(),
                             fragment.getResources().getString(R.string.toast_predefined_events_generated),
                             Toast.LENGTH_SHORT);
                     msg.show();
-                }
+                }*/
             }
         }
     }
