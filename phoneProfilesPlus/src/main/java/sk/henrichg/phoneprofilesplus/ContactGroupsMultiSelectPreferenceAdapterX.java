@@ -22,11 +22,19 @@ class ContactGroupsMultiSelectPreferenceAdapterX extends BaseAdapter
     }
 
     public int getCount() {
-        return PhoneProfilesService.getContactGroupsCache().getLength();
+        ContactGroupsCache contactGroupsCache = PhoneProfilesService.getContactGroupsCache();
+        if (contactGroupsCache != null)
+            return contactGroupsCache.getLength();
+        else
+            return 0;
     }
 
     public Object getItem(int position) {
-        return PhoneProfilesService.getContactGroupsCache().getContactGroup(position);
+        ContactGroupsCache contactGroupsCache = PhoneProfilesService.getContactGroupsCache();
+        if (contactGroupsCache != null)
+            return contactGroupsCache.getContactGroup(position);
+        else
+           return null;
     }
 
     public long getItemId(int position) {
@@ -36,12 +44,6 @@ class ContactGroupsMultiSelectPreferenceAdapterX extends BaseAdapter
     @SuppressLint("SetTextI18n")
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        ContactGroupsCache contactGroupsCache = PhoneProfilesService.getContactGroupsCache();
-
-        // Contact group to display
-        ContactGroup contactGroup = contactGroupsCache.getContactGroup(position);
-        //System.out.println(String.valueOf(position));
-
         // The child views in each row.
         TextView textViewDisplayName;
         CheckBox checkBox;
@@ -79,15 +81,22 @@ class ContactGroupsMultiSelectPreferenceAdapterX extends BaseAdapter
             checkBox = viewHolder.checkBox;
         }
 
-        // Tag the CheckBox with the ContactGroup it is displaying, so that we
-        // can
-        // access the ContactGroup in onClick() when the CheckBox is toggled.
-        checkBox.setTag(contactGroup);
+        ContactGroupsCache contactGroupsCache = PhoneProfilesService.getContactGroupsCache();
+        if (contactGroupsCache != null) {
+            // Contact group to display
+            ContactGroup contactGroup = contactGroupsCache.getContactGroup(position);
+            //System.out.println(String.valueOf(position));
 
-        // Display ContactGroup data
-        textViewDisplayName.setText(contactGroup.name + " (" + contactGroup.count + ")");
+            // Tag the CheckBox with the ContactGroup it is displaying, so that we
+            // can
+            // access the ContactGroup in onClick() when the CheckBox is toggled.
+            checkBox.setTag(contactGroup);
 
-        checkBox.setChecked(contactGroup.checked);
+            // Display ContactGroup data
+            textViewDisplayName.setText(contactGroup.name + " (" + contactGroup.count + ")");
+
+            checkBox.setChecked(contactGroup.checked);
+        }
 
         return convertView;
     }
