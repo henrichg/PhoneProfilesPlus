@@ -642,19 +642,19 @@ class EventPreferencesCalendar extends EventPreferences {
                     switch (_searchField) {
                         case SEARCH_FIELD_TITLE:
                             if (searchPattern.equals("%"))
-                                selection.append("(" + Instances.TITLE + " IS NOT NULL)");
+                                selection.append("((" + Instances.TITLE + " IS NOT NULL) AND (" + Instances.TITLE + " <> \"\"))");
                             else
                                 selection.append("(lower(" + Instances.TITLE + ")" + " LIKE lower(?) ESCAPE '\\')");
                             break;
                         case SEARCH_FIELD_DESCRIPTION:
                             if (searchPattern.equals("%"))
-                                selection.append("(" + Instances.DESCRIPTION + " IS NOT NULL)");
+                                selection.append("((" + Instances.DESCRIPTION + " IS NOT NULL) AND (" + Instances.DESCRIPTION + " <> \"\"))");
                             else
                                 selection.append("(lower(" + Instances.DESCRIPTION + ")" + " LIKE lower(?) ESCAPE '\\')");
                             break;
                         case SEARCH_FIELD_LOCATION:
                             if (searchPattern.equals("%"))
-                                selection.append("(" + Instances.EVENT_LOCATION + " IS NOT NULL)");
+                                selection.append("((" + Instances.EVENT_LOCATION + " IS NOT NULL) AND (" + Instances.EVENT_LOCATION + " <> \"\"))");
                             else
                                 selection.append("(lower(" + Instances.EVENT_LOCATION + ")" + " LIKE lower(?) ESCAPE '\\')");
                             break;
@@ -702,19 +702,19 @@ class EventPreferencesCalendar extends EventPreferences {
                     switch (_searchField) {
                         case SEARCH_FIELD_TITLE:
                             if (searchPattern.equals("%"))
-                                selection.append("(" + Instances.TITLE + " IS NULL)");
+                                selection.append("((" + Instances.TITLE + " IS NULL) OR (" + Instances.TITLE + " = \"\"))");
                             else
                                 selection.append("(lower(" + Instances.TITLE + ")" + " NOT LIKE lower(?) ESCAPE '\\')");
                             break;
                         case SEARCH_FIELD_DESCRIPTION:
                             if (searchPattern.equals("%"))
-                                selection.append("(" + Instances.DESCRIPTION + " IS NULL)");
+                                selection.append("((" + Instances.DESCRIPTION + " IS NULL) OR (" + Instances.DESCRIPTION + " = \"\"))");
                             else
                                 selection.append("(lower(" + Instances.DESCRIPTION + ")" + " NOT LIKE lower(?) ESCAPE '\\')");
                             break;
                         case SEARCH_FIELD_LOCATION:
                             if (searchPattern.equals("%"))
-                                selection.append("(" + Instances.EVENT_LOCATION + " IS NULL)");
+                                selection.append("((" + Instances.EVENT_LOCATION + " IS NULL) OR (" + Instances.EVENT_LOCATION + " = \"\"))");
                             else
                                 selection.append("(lower(" + Instances.EVENT_LOCATION + ")" + " NOT LIKE lower(?) ESCAPE '\\')");
                             break;
