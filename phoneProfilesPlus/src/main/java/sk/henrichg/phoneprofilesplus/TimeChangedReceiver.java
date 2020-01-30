@@ -102,7 +102,6 @@ public class TimeChangedReceiver extends BroadcastReceiver {
         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
         dataWrapper.fillProfileList(false, false);
-
         for (Profile profile : dataWrapper.profileList) {
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, appContext);
 
@@ -112,6 +111,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                     RunApplicationWithDelayBroadcastReceiver.removeDelayAlarm(appContext, split);
             }
         }
+
         Profile.setActivatedProfileForDuration(appContext, 0);
 
         LockDeviceAfterScreenOffBroadcastReceiver.doWork(false, appContext);

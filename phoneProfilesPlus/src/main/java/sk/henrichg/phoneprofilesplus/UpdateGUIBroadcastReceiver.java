@@ -143,11 +143,7 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
                 }
             }
         } catch (Exception ignored) {}
-        try {
-            WorkManager workManager = WorkManager.getInstance(context);
-            //workManager.cancelUniqueWork("elapsedAlarmsUpdateGUIWork");
-            workManager.cancelAllWorkByTag("elapsedAlarmsUpdateGUIWork");
-        } catch (Exception ignored) {}
+        PhoneProfilesService.cancelWork("elapsedAlarmsUpdateGUIWork", context.getApplicationContext());
         //PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.removeAlarm", "removed");
     }
 

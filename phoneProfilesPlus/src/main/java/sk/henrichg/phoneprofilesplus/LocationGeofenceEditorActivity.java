@@ -121,7 +121,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     private static final int MIN_RADIUS = 20;
     private static final int MAX_RADIUS = 500 * 1000;
 
-    private static final String FETCH_ADDRESS_WORK_TAG = "fetchAddressWork";
+    static final String FETCH_ADDRESS_WORK_TAG = "fetchAddressWork";
 
     @SuppressLint("SetTextI18n")
     @Override

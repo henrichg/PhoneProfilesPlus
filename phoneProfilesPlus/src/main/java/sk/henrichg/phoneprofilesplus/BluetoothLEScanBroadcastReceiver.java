@@ -72,7 +72,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
                                                 .setInitialDelay(5, TimeUnit.SECONDS)
                                                 .build();
                                 try {
-                                    WorkManager workManager = WorkManager.getInstance(context);
+                                    WorkManager workManager = WorkManager.getInstance(appContext);
                                     workManager.enqueueUniqueWork("handleEventsBluetoothLEScannerWork", ExistingWorkPolicy.REPLACE, worker);
                                 } catch (Exception ignored) {}
 

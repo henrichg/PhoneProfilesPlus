@@ -32,7 +32,7 @@ public class WifiScanWorker extends Worker {
 
     private final Context context;
 
-    private static final String WORK_TAG  = "WifiScanJob";
+    static final String WORK_TAG  = "WifiScanJob";
 
     public static WifiManager wifi = null;
     private static WifiManager.WifiLock wifiLock = null;
@@ -198,9 +198,7 @@ public class WifiScanWorker extends Worker {
                 setWaitForResults(context, false);
                 WifiBluetoothScanner.setForceOneWifiScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
 
-                WorkManager workManager = WorkManager.getInstance(context);
-                workManager.cancelUniqueWork(WORK_TAG);
-                workManager.cancelAllWorkByTag(WORK_TAG);
+                PhoneProfilesService.cancelWork(WORK_TAG, context);
 
                 //PPApplication.logE("WifiScanWorker._cancelWork", "CANCELED");
 

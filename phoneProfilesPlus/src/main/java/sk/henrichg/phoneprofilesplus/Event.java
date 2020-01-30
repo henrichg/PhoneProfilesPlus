@@ -2056,7 +2056,6 @@ class Event {
                 try {
                     WorkManager workManager = WorkManager.getInstance(_context);
                     //PPApplication.logE("[HANDLER] Event.setDelayStartAlarm", "enqueueUniqueWork - this._delayStart="+this._delayStart);
-                    //workManager.enqueueUniqueWork("elapsedAlarmsEventDelayStartWork_"+((int) this._id), ExistingWorkPolicy.REPLACE, worker);
                     workManager.enqueue(worker);
 
                     Calendar now = Calendar.getInstance();
@@ -2171,11 +2170,7 @@ class Event {
                 }
             }
         } catch (Exception ignored) {}
-        try {
-            WorkManager workManager = WorkManager.getInstance(_context);
-            //workManager.cancelUniqueWork("elapsedAlarmsEventDelayStartWork_"+((int) this._id));
-            workManager.cancelAllWorkByTag("elapsedAlarmsEventDelayStartWork_"+((int) this._id));
-        } catch (Exception ignored) {}
+        PhoneProfilesService.cancelWork("elapsedAlarmsEventDelayStartWork_"+((int) this._id), _context);
         this._isInDelayStart = false;
         this._startStatusTime = 0;
         DatabaseHandler.getInstance(dataWrapper.context).updateEventInDelayStart(this);
@@ -2267,14 +2262,13 @@ class Event {
 
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
-                                .addTag("elapsedAlarmsEventDelayStartWork_"+(int) this._id)
+                                .addTag("elapsedAlarmsEventDelayEndWork_"+(int) this._id)
                                 .setInputData(workData)
                                 .setInitialDelay(this._delayEnd, TimeUnit.SECONDS)
                                 .build();
                 try {
                     WorkManager workManager = WorkManager.getInstance(_context);
                     //PPApplication.logE("[HANDLER] Event.setDelayEndAlarm", "enqueueUniqueWork - this._delayEnd="+this._delayEnd);
-                    //workManager.enqueueUniqueWork("elapsedAlarmsEventDelayEndWork_"+((int) this._id), ExistingWorkPolicy.REPLACE, worker);
                     workManager.enqueue(worker);
 
                     Calendar now = Calendar.getInstance();
@@ -2408,11 +2402,7 @@ class Event {
                 }
             }
         } catch (Exception ignored) {}
-        try {
-            WorkManager workManager = WorkManager.getInstance(_context);
-            //workManager.cancelUniqueWork("elapsedAlarmsEventDelayEndWork_"+((int) this._id));
-            workManager.cancelAllWorkByTag("elapsedAlarmsEventDelayEndWork_"+((int) this._id));
-        } catch (Exception ignored) {}
+        PhoneProfilesService.cancelWork("elapsedAlarmsEventDelayEndWork_"+((int) this._id), _context);
         this._isInDelayEnd = false;
         DatabaseHandler.getInstance(dataWrapper.context).updateEventInDelayEnd(this);
         //PPApplication.logE("[HANDLER] Event.removeDelayEndAlarm", "removed");

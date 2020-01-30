@@ -31,7 +31,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
         }
     }
 
-    private static int hashData(String runApplicationData) {
+    static int hashData(String runApplicationData) {
         int sLength = runApplicationData.length();
         int sum = 0;
         for(int i = 0 ; i < sLength-1 ; i++){
@@ -97,7 +97,6 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                         PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.setAlarm", "enqueueUniqueWork - startApplicationDelay=" + startApplicationDelay);
                         PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.setAlarm", "enqueueUniqueWork - runApplicationData=" + runApplicationData);
                     }*/
-                    //workManager.enqueueUniqueWork("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode, ExistingWorkPolicy.REPLACE, worker);
                     workManager.enqueue(worker);
                 } catch (Exception ignored) {}
             }
@@ -171,11 +170,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                 }
             }
         } catch (Exception ignored) {}
-        try {
-            WorkManager workManager = WorkManager.getInstance(context);
-            //workManager.cancelUniqueWork("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode);
-            workManager.cancelAllWorkByTag("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode);
-        } catch (Exception ignored) {}
+        PhoneProfilesService.cancelWork("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode, context.getApplicationContext());
         //PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.removeAlarm", "removed");
     }
 

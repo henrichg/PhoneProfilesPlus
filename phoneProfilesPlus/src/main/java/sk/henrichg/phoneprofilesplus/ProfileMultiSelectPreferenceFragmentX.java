@@ -68,7 +68,10 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
             protected Void doInBackground(Void... params) {
 
                 preference.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator);
-                Collections.sort(preference.dataWrapper.profileList, new ProfileMultiSelectPreferenceFragmentX.AlphabeticallyComparator());
+                /*HG*/
+                synchronized (preference.dataWrapper.profileList) {
+                    Collections.sort(preference.dataWrapper.profileList, new ProfileMultiSelectPreferenceFragmentX.AlphabeticallyComparator());
+                }
 
                 getValuePMSDP();
 
@@ -117,31 +120,33 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
     {
         //PPApplication.logE("ProfileMultiSelectPreferenceX.getValueAMSDP","value="+preference.value);
 
-        for (Profile profile : preference.dataWrapper.profileList)
-            profile._checked = false;
+        /*HG*/
+        synchronized (preference.dataWrapper.profileList) {
+            for (Profile profile : preference.dataWrapper.profileList)
+                profile._checked = false;
 
-        if (!preference.value.isEmpty()) {
-            String[] splits = preference.value.split("\\|");
-            for (String split : splits) {
-                Profile profile = preference.dataWrapper.getProfileById(Long.parseLong(split), false, false, false);
-                if (profile != null)
-                    profile._checked = true;
+            if (!preference.value.isEmpty()) {
+                String[] splits = preference.value.split("\\|");
+                for (String split : splits) {
+                    Profile profile = preference.dataWrapper.getProfileById(Long.parseLong(split), false, false, false);
+                    if (profile != null)
+                        profile._checked = true;
+                }
+            }
+
+            // move checked on top
+            int i = 0;
+            int ich = 0;
+            while (i < preference.dataWrapper.profileList.size()) {
+                Profile profile = preference.dataWrapper.profileList.get(i);
+                if (profile._checked) {
+                    preference.dataWrapper.profileList.remove(i);
+                    preference.dataWrapper.profileList.add(ich, profile);
+                    ich++;
+                }
+                i++;
             }
         }
-
-        // move checked on top
-        int i = 0;
-        int ich = 0;
-        while (i < preference.dataWrapper.profileList.size()) {
-            Profile profile = preference.dataWrapper.profileList.get(i);
-            if (profile._checked) {
-                preference.dataWrapper.profileList.remove(i);
-                preference.dataWrapper.profileList.add(ich, profile);
-                ich++;
-            }
-            i++;
-        }
-
     }
 
 }

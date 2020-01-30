@@ -36,7 +36,7 @@ public class BluetoothScanWorker extends Worker {
 
     private final Context context;
 
-    private static final String WORK_TAG  = "BluetoothScanJob";
+    static final String WORK_TAG  = "BluetoothScanJob";
 
     public static BluetoothAdapter bluetooth = null;
 
@@ -206,9 +206,7 @@ public class BluetoothScanWorker extends Worker {
                 WifiBluetoothScanner.setForceOneBluetoothScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
                 WifiBluetoothScanner.setForceOneLEBluetoothScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
 
-                WorkManager workManager = WorkManager.getInstance(context);
-                workManager.cancelUniqueWork(WORK_TAG);
-                workManager.cancelAllWorkByTag(WORK_TAG);
+                PhoneProfilesService.cancelWork(WORK_TAG, context);
 
                 //PPApplication.logE("BluetoothScanWorker._cancelWork", "CANCELED");
 

@@ -636,3 +636,56 @@ EventsHandler.handleEvents()
   - z OrientationScanner.runEventsHandlerForOrientationChange() - zisti, aky thread to pouziva
   - z PPPExtenderBroadcastRecveiver.onReceive() - je to volane v HandlerThread - vroadcast treba, lebo senzor sleduje aplikacie na popredi
 
+--------------------------------------------
+
+-- elapsed
+
+try {
+    WorkManager workManager = WorkManager.getInstance(_context);
+    //workManager.cancelUniqueWork("elapsedAlarmsEventDelayStartWork_"+((int) this._id));
+    workManager.cancelAllWorkByTag("elapsedAlarmsEventDelayStartWork_"+((int) this._id));
+} catch (Exception ignored) {}
+
+"elapsedAlarmsShowProfileNotificationWork" -> ShowProfileNotificationBroadcastyReceiver.removeAlarm()
+"elapsedAlarmsUpdateGUIWork" -> UpdateGUIBroadcastReceiver.removeAlarm()
+"elapsedAlarmsProfileDurationWork_"+(int)profile._id -> ProfileDurationAlarmBroadcastReceicver.removeAlarm()
+"elapsedAlarmsRunApplicationWithDelayWork_"+requestCode -> RunApplicationWithDelayBroadcastReceiver.removeDealyAlarm()
+"elapsedAlarmsEventDelayStartWork_"+(int) event._id -> Event.removeDelayStartAlarm()
+"elapsedAlarmsEventDelayEndWork_"+(int) event._id -> Event.removeDelayEndAlarm()
+"elapsedAlarmsStartEventNotificationWork_"+(int)event._id -> StartEventNotificationBroadcastReceiver.
+
+-- unique
+try {
+    WorkManager workManager = WorkManager.getInstance(context);
+    workManager.cancelUniqueWork("disableInternalChangeWork");
+    workManager.cancelAllWorkByTag("disableInternalChangeWork");
+} catch (Exception ignored) {}
+
+PhoneProfilesService.cancelWork("disableInternalChangeWork", context);
+try {
+    WorkManager workManager = WorkManager.getInstance(context);
+    workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+} catch (Exception ignored) {}
+
+"disableInternalChangeWork" -> nema
+"delayedWorkCloseAllApplications" -> nema
+"handleEventsBluetoothLEScannerWork" -> nema
+BluetoothScanWorker.WORK_TAG -> BluetoothScanWorker.canceWork()
+"handleEventsBluetoothCLScannerWork" -> nema, ale asi by bolor super pridat do BluetoothScanWorker.canceWork()
+"restartEventsWithDelayWork" -> nema
+GeofenceScanWorker.WORK_TAG -> GeofenceScanWorker.cancelWork()
+"elapsedAlarmsGeofenceScannerSwitchGPSWork" -> GeofenceScannerSwitchGPSBroadcastReceiver.removeAlarm()
+LocationGeofenceEditorActivity.FETCH_ADDRESS_WORK_TAG -> nema
+"elapsedAlarmsLockDeviceFinishActivity" -> LockDeviceActivityFinishBroadcastReceiver.removeAlarm()
+"elapsedAlarmsLockDeviceAfterScreenOff" -> nema
+"packageReplacedWork" -> nema, aj ked niekde to asi volane je
+"delayedWorkAfterFirstStartWork" -> nema, aj ked niekde to asi volane je
+"setBlockProfileEventsActionWork" -> nema
+SearchCalendarEventsWorker.WORK_TAG -> SearchCalendarEventsWorker.cancelWork()
+"handleEventsWifiScannerFromScannerWork" -> nema
+"handleEventsWifiScannerFromReceiverWork" -> nema
+WifiScanWorker.WORK_TAG -> WifiScanWorker.cancelWork()
+"startWifiScanWork" -> nema
+
+
+

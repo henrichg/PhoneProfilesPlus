@@ -86,11 +86,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                 PPApplication.logE("PackageReplacedReceiver.onReceive", "is new version");
 
                                 restartService = true;
-                                try {
-                                    WorkManager workManager = WorkManager.getInstance(appContext);
-                                    workManager.cancelUniqueWork("delayedWorkAfterFirstStartWork");
-                                    workManager.cancelAllWorkByTag("delayedWorkAfterFirstStartWork");
-                                } catch (Exception ignored) {}
+                                PhoneProfilesService.cancelWork("delayedWorkAfterFirstStartWork", appContext);
 
                                 if (actualVersionCode <= 2322) {
                                     // for old packages use Priority in events

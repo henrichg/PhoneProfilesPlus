@@ -25,7 +25,7 @@ public class SearchCalendarEventsWorker extends Worker {
 
     private final Context context;
 
-    private static final String WORK_TAG  = "SearchCalendarEventsJob";
+    static final String WORK_TAG  = "SearchCalendarEventsJob";
 
     public SearchCalendarEventsWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
@@ -143,9 +143,7 @@ public class SearchCalendarEventsWorker extends Worker {
             try {
                 waitForFinish(context);
 
-                WorkManager workManager = WorkManager.getInstance(context);
-                workManager.cancelUniqueWork(WORK_TAG);
-                workManager.cancelAllWorkByTag(WORK_TAG);
+                PhoneProfilesService.cancelWork(WORK_TAG, context);
 
                 //PPApplication.logE("SearchCalendarEventsWorker._cancelWork", "CANCELED");
 

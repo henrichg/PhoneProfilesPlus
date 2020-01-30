@@ -42,11 +42,8 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
                 }
             }
         } catch (Exception ignored) {}
-        try {
-            WorkManager workManager = WorkManager.getInstance(context);
-            workManager.cancelUniqueWork("elapsedAlarmsGeofenceScannerSwitchGPSWork");
-            workManager.cancelAllWorkByTag("elapsedAlarmsGeofenceScannerSwitchGPSWork");
-        } catch (Exception ignored) {}
+
+        PhoneProfilesService.cancelWork("elapsedAlarmsGeofenceScannerSwitchGPSWork", context.getApplicationContext());
         //PPApplication.logE("[HANDLER] GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm", "removed");
     }
 

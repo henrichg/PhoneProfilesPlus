@@ -125,11 +125,7 @@ public class ShowProfileNotificationBroadcastReceiver extends BroadcastReceiver 
                 }
             }
         } catch (Exception ignored) {}
-        try {
-            WorkManager workManager = WorkManager.getInstance(context);
-            //workManager.cancelUniqueWork("elapsedAlarmsShowProfileNotificationWork");
-            workManager.cancelAllWorkByTag("elapsedAlarmsShowProfileNotificationWork");
-        } catch (Exception ignored) {}
+        PhoneProfilesService.cancelWork("elapsedAlarmsShowProfileNotificationWork", context.getApplicationContext());
         //PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.removeAlarm", "removed");
     }
 

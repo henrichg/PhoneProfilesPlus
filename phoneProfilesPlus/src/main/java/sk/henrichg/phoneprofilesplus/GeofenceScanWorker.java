@@ -25,7 +25,7 @@ public class GeofenceScanWorker extends Worker {
 
     private final Context context;
 
-    private static final String WORK_TAG  = "GeofenceScannerJob";
+    static final String WORK_TAG  = "GeofenceScannerJob";
 
     public GeofenceScanWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
@@ -208,9 +208,7 @@ public class GeofenceScanWorker extends Worker {
             try {
                 waitForFinish(context);
 
-                WorkManager workManager = WorkManager.getInstance(context);
-                workManager.cancelUniqueWork(WORK_TAG);
-                workManager.cancelAllWorkByTag(WORK_TAG);
+                PhoneProfilesService.cancelWork(WORK_TAG, context);
 
                 //PPApplication.logE("GeofenceScanWorker._cancelWork", "CANCELED");
 

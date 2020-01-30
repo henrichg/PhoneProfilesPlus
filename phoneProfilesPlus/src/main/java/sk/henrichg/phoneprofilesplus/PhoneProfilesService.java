@@ -446,6 +446,47 @@ public class PhoneProfilesService extends Service
 
         Context appContext = getApplicationContext();
 
+        // cancel works
+        cancelWork("elapsedAlarmsShowProfileNotificationWork", appContext);
+        cancelWork("elapsedAlarmsUpdateGUIWork", appContext);
+        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+        dataWrapper.fillProfileList(false, false);
+        for (Profile profile : dataWrapper.profileList) {
+            cancelWork("elapsedAlarmsProfileDurationWork_" + (int) profile._id, appContext);
+            if (profile._deviceRunApplicationChange == 1) {
+                String[] splits = profile._deviceRunApplicationPackageName.split("\\|");
+                for (String split : splits) {
+                    int requestCode = RunApplicationWithDelayBroadcastReceiver.hashData(split);
+                    cancelWork("elapsedAlarmsRunApplicationWithDelayWork_" + requestCode, appContext);
+                }
+            }
+        }
+        dataWrapper.fillEventList();
+        for (Event event : dataWrapper.eventList) {
+            cancelWork("elapsedAlarmsEventDelayStartWork_" + (int) event._id, appContext);
+            cancelWork("elapsedAlarmsEventDelayEndWork_" + (int) event._id, appContext);
+            cancelWork("elapsedAlarmsStartEventNotificationWork_" + (int) event._id, appContext);
+        }
+        cancelWork("disableInternalChangeWork", appContext);
+        cancelWork("delayedWorkCloseAllApplications", appContext);
+        cancelWork("handleEventsBluetoothLEScannerWork", appContext);
+        cancelWork(BluetoothScanWorker.WORK_TAG, appContext);
+        cancelWork("handleEventsBluetoothCLScannerWork", appContext);
+        cancelWork("restartEventsWithDelayWork", appContext);
+        cancelWork(GeofenceScanWorker.WORK_TAG, appContext);
+        cancelWork("elapsedAlarmsGeofenceScannerSwitchGPSWork", appContext);
+        cancelWork(LocationGeofenceEditorActivity.FETCH_ADDRESS_WORK_TAG, appContext);
+        cancelWork("elapsedAlarmsLockDeviceFinishActivity", appContext);
+        cancelWork("elapsedAlarmsLockDeviceAfterScreenOff", appContext);
+        cancelWork("packageReplacedWork",appContext);
+        cancelWork("delayedWorkAfterFirstStartWork", appContext);
+        cancelWork("setBlockProfileEventsActionWork", appContext);
+        cancelWork(SearchCalendarEventsWorker.WORK_TAG, appContext);
+        cancelWork("handleEventsWifiScannerFromScannerWork", appContext);
+        cancelWork("handleEventsWifiScannerFromReceiverWork", appContext);
+        cancelWork(WifiScanWorker.WORK_TAG, appContext);
+        cancelWork("startWifiScanWork", appContext);
+
         try {
             LocalBroadcastManager.getInstance(appContext).unregisterReceiver(commandReceiver);
         } catch (Exception ignored) {}
@@ -506,6 +547,17 @@ public class PhoneProfilesService extends Service
         //serviceRunning = false;
         //runningInForeground = false;
         waitForEndOfStart = true;
+    }
+
+    static void cancelWork(String name, Context context) {
+        try {
+            WorkManager workManager = WorkManager.getInstance(context);
+            workManager.cancelAllWorkByTag(name);
+        } catch (Exception ignored) {}
+        try {
+            WorkManager workManager = WorkManager.getInstance(context);
+            workManager.cancelUniqueWork(name);
+        } catch (Exception ignored) {}
     }
 
     static PhoneProfilesService getInstance() {
@@ -3663,11 +3715,7 @@ public class PhoneProfilesService extends Service
         final Context appContext = getApplicationContext();
 
         serviceHasFirstStart = true;
-        try {
-            WorkManager workManager = WorkManager.getInstance(appContext);
-            workManager.cancelUniqueWork("delayedWorkAfterFirstStartWork");
-            workManager.cancelAllWorkByTag("delayedWorkAfterFirstStartWork");
-        } catch (Exception ignored) {}
+        PhoneProfilesService.cancelWork("delayedWorkAfterFirstStartWork", appContext);
 
         boolean deactivateProfile = false;
         boolean activateProfiles = false;

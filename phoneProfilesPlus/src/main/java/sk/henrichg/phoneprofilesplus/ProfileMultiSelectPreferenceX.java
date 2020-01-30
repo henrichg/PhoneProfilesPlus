@@ -177,12 +177,14 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
         value = "";
         if (dataWrapper.profileListFilled)
         {
-            for (Profile profile : dataWrapper.profileList)
-            {
-                if (profile._checked) {
-                    if (!value.isEmpty())
-                        value = value + "|";
-                    value = value + profile._id;
+            /*HG*/
+            synchronized (dataWrapper.profileList) {
+                for (Profile profile : dataWrapper.profileList) {
+                    if (profile._checked) {
+                        if (!value.isEmpty())
+                            value = value + "|";
+                        value = value + profile._id;
+                    }
                 }
             }
             //PPApplication.logE("ProfileMultiSelectPreferenceX.onPositive","value="+value);

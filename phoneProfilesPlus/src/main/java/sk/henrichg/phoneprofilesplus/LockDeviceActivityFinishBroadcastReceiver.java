@@ -42,11 +42,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                 }
             }
         } catch (Exception ignored) {}
-        try {
-            WorkManager workManager = WorkManager.getInstance(context);
-            workManager.cancelUniqueWork("elapsedAlarmsLockDeviceFinishActivity");
-            workManager.cancelAllWorkByTag("elapsedAlarmsLockDeviceFinishActivity");
-        } catch (Exception ignored) {}
+        PhoneProfilesService.cancelWork("elapsedAlarmsLockDeviceFinishActivity", context.getApplicationContext());
         //PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.removeAlarm", "removed");
     }
 

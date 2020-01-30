@@ -26,16 +26,22 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        fragment.textViewNoData.setVisibility(
-                ((activityDataWrapper.profileListFilled &&
-                  (activityDataWrapper.profileList.size() > 0))
-                ) ? View.GONE : View.VISIBLE);
+        /*HG*/
+        synchronized (activityDataWrapper.profileList) {
+            fragment.textViewNoData.setVisibility(
+                    ((activityDataWrapper.profileListFilled &&
+                            (activityDataWrapper.profileList.size() > 0))
+                    ) ? View.GONE : View.VISIBLE);
 
-        return activityDataWrapper.profileList.size();
+            return activityDataWrapper.profileList.size();
+        }
     }
 
     public Object getItem(int position) {
-        return activityDataWrapper.profileList.get(position);
+        /*HG*/
+        synchronized (activityDataWrapper.profileList) {
+            return activityDataWrapper.profileList.get(position);
+        }
     }
 
     public long getItemId(int position) {
@@ -76,47 +82,48 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
             holder = (ViewHolder)vi.getTag();
         }
 
-        Profile profile = activityDataWrapper.profileList.get(position);
 
-        Spannable profileName = profile.getProfileNameWithDuration("", "", false, false, fragment.getActivity());
-        holder.profileName.setText(profileName);
+        Profile profile = null;
+        /*HG*/
+        synchronized (activityDataWrapper.profileList) {
+            profile = activityDataWrapper.profileList.get(position);
+        }
+        if (profile != null) {
+            Spannable profileName = profile.getProfileNameWithDuration("", "", false, false, fragment.getActivity());
+            holder.profileName.setText(profileName);
 
-        if (profile.getIsIconResourceID())
-        {
-            if (profile._iconBitmap != null)
-                holder.profileIcon.setImageBitmap(profile._iconBitmap);
-            else {
-                //holder.profileIcon.setImageBitmap(null);
-                //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                //        vi.getContext().getPackageName());
-                int res = Profile.getIconResource(profile.getIconIdentifier());
-                holder.profileIcon.setImageResource(res); // icon resource
-            }
-        }
-        else
-        {
-            holder.profileIcon.setImageBitmap(profile._iconBitmap);
-        }
-        
-        if (applicationActivatorPrefIndicator)
-        {
-            if (profile._preferencesIndicator != null) {
-                //profilePrefIndicatorImageView.setImageBitmap(null);
-                //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
-                //profilePrefIndicatorImageView.setImageBitmap(bitmap);
-                if (profile._name.equals(activityDataWrapper.context.getString(R.string.menu_restart_events)))
-                    holder.profileIndicator.setVisibility(View.GONE);
+            if (profile.getIsIconResourceID()) {
+                if (profile._iconBitmap != null)
+                    holder.profileIcon.setImageBitmap(profile._iconBitmap);
                 else {
-                    holder.profileIndicator.setVisibility(View.VISIBLE);
-                    holder.profileIndicator.setImageBitmap(profile._preferencesIndicator);
+                    //holder.profileIcon.setImageBitmap(null);
+                    //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                    //        vi.getContext().getPackageName());
+                    int res = Profile.getIconResource(profile.getIconIdentifier());
+                    holder.profileIcon.setImageResource(res); // icon resource
                 }
+            } else {
+                holder.profileIcon.setImageBitmap(profile._iconBitmap);
             }
-            else {
-                if (profile._name.equals(activityDataWrapper.context.getString(R.string.menu_restart_events)))
-                    holder.profileIndicator.setVisibility(View.GONE);
-                else {
-                    holder.profileIndicator.setVisibility(View.VISIBLE);
-                    holder.profileIndicator.setImageResource(R.drawable.ic_empty);
+
+            if (applicationActivatorPrefIndicator) {
+                if (profile._preferencesIndicator != null) {
+                    //profilePrefIndicatorImageView.setImageBitmap(null);
+                    //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
+                    //profilePrefIndicatorImageView.setImageBitmap(bitmap);
+                    if (profile._name.equals(activityDataWrapper.context.getString(R.string.menu_restart_events)))
+                        holder.profileIndicator.setVisibility(View.GONE);
+                    else {
+                        holder.profileIndicator.setVisibility(View.VISIBLE);
+                        holder.profileIndicator.setImageBitmap(profile._preferencesIndicator);
+                    }
+                } else {
+                    if (profile._name.equals(activityDataWrapper.context.getString(R.string.menu_restart_events)))
+                        holder.profileIndicator.setVisibility(View.GONE);
+                    else {
+                        holder.profileIndicator.setVisibility(View.VISIBLE);
+                        holder.profileIndicator.setImageResource(R.drawable.ic_empty);
+                    }
                 }
             }
         }

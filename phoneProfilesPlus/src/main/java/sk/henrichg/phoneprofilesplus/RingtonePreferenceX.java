@@ -391,10 +391,9 @@ public class RingtonePreferenceX extends DialogPreference {
                                                 .addTag("disableInternalChangeWork")
                                                 .setInitialDelay(3, TimeUnit.SECONDS)
                                                 .build();
+                                PhoneProfilesService.cancelWork("disableInternalChangeWork", prefContext.getApplicationContext());
                                 try {
-                                    WorkManager workManager = WorkManager.getInstance(prefContext);
-                                    workManager.cancelUniqueWork("disableInternalChangeWork");
-                                    workManager.cancelAllWorkByTag("disableInternalChangeWork");
+                                    WorkManager workManager = WorkManager.getInstance(prefContext.getApplicationContext());
                                     workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                                 } catch (Exception ignored) {}
 
@@ -422,10 +421,9 @@ public class RingtonePreferenceX extends DialogPreference {
 //                                        .addTag("disableInternalChangeWork")
 //                                        .setInitialDelay(3, TimeUnit.SECONDS)
 //                                        .build();
+//                        PhoneProfilesService.cancelWork("disableInternalChangeWork", prefContext.getApplicationContext)
 //                        try {
-//                            WorkManager workManager = WorkManager.getInstance(prefContext);
-//                            workManager.cancelUniqueWork("disableInternalChangeWork");
-//                            workManager.cancelAllWorkByTag("disableInternalChangeWork");
+//                            WorkManager workManager = WorkManager.getInstance(prefContext.getApplicationContext());
 //                            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
 //                        } catch (Exception ignored) {}
 //
@@ -449,10 +447,9 @@ public class RingtonePreferenceX extends DialogPreference {
                                         .addTag("disableInternalChangeWork")
                                         .setInitialDelay(3, TimeUnit.SECONDS)
                                         .build();
+                        PhoneProfilesService.cancelWork("disableInternalChangeWork", prefContext.getApplicationContext());
                         try {
-                            WorkManager workManager = WorkManager.getInstance(prefContext);
-                            workManager.cancelUniqueWork("disableInternalChangeWork");
-                            workManager.cancelAllWorkByTag("disableInternalChangeWork");
+                            WorkManager workManager = WorkManager.getInstance(prefContext.getApplicationContext());
                             workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                         } catch (Exception ignored) {}
 

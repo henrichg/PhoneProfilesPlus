@@ -48,11 +48,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                 }
             }
         } catch (Exception ignored) {}
-        try {
-            WorkManager workManager = WorkManager.getInstance(context);
-            //workManager.cancelUniqueWork("elapsedAlarmsStartEventNotificationWork_"+(int)event._id);
-            workManager.cancelAllWorkByTag("elapsedAlarmsStartEventNotificationWork_"+(int)event._id);
-        } catch (Exception ignored) {}
+        PhoneProfilesService.cancelWork("elapsedAlarmsStartEventNotificationWork_"+(int)event._id, context.getApplicationContext());
         //PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.removeAlarm", "removed");
     }
 
@@ -108,7 +104,6 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                         PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.setAlarm", "enqueueUniqueWork - event._repeatNotificationIntervalStart=" + event._repeatNotificationIntervalStart);
                         PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.setAlarm", "enqueueUniqueWork - event._id=" + event._id);
                     }*/
-                    //workManager.enqueueUniqueWork("elapsedAlarmsStartEventNotificationWork_"+(int)event._id, ExistingWorkPolicy.REPLACE, worker);
                     workManager.enqueue(worker);
                 } catch (Exception ignored) {}
             }

@@ -83,7 +83,10 @@ class FastAccessDurationProfileDialog
             @Override
             protected Void doInBackground(Void... params) {
                 dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator);
-                Collections.sort(dataWrapper.profileList, new FastAccessDurationProfileDialog.AlphabeticallyComparator());
+                /*HG*/
+                synchronized (dataWrapper.profileList) {
+                    Collections.sort(dataWrapper.profileList, new FastAccessDurationProfileDialog.AlphabeticallyComparator());
+                }
 
                 return null;
             }
@@ -133,8 +136,12 @@ class FastAccessDurationProfileDialog
     void doOnItemSelected(int position)
     {
         long profileId = Profile.PROFILE_NO_ACTIVATE;
-        if (position > 0)
-            profileId = dataWrapper.profileList.get(position-1)._id;
+        if (position > 0) {
+            /*HG*/
+            synchronized (dataWrapper.profileList) {
+                profileId = dataWrapper.profileList.get(position - 1)._id;
+            }
+        }
         fastAccessDurationDialog.updateAfterDoProfile(profileId);
         mDialog.dismiss();
     }
