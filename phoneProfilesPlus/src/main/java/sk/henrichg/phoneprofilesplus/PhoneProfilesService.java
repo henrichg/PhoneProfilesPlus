@@ -451,14 +451,19 @@ public class PhoneProfilesService extends Service
         cancelWork("elapsedAlarmsUpdateGUIWork", appContext);
         for (String tag : PPApplication.elapsedAlarmsProfileDurationWork)
             cancelWork(tag, appContext);
+        PPApplication.elapsedAlarmsProfileDurationWork.clear();
         for (String tag : PPApplication.elapsedAlarmsRunApplicationWithDelayWork)
             cancelWork(tag, appContext);
+        PPApplication.elapsedAlarmsRunApplicationWithDelayWork.clear();
         for (String tag : PPApplication.elapsedAlarmsEventDelayStartWork)
             cancelWork(tag, appContext);
+        PPApplication.elapsedAlarmsEventDelayStartWork.clear();
         for (String tag : PPApplication.elapsedAlarmsEventDelayEndWork)
             cancelWork(tag, appContext);
+        PPApplication.elapsedAlarmsEventDelayEndWork.clear();
         for (String tag : PPApplication.elapsedAlarmsStartEventNotificationWork)
             cancelWork(tag, appContext);
+        PPApplication.elapsedAlarmsStartEventNotificationWork.clear();
         cancelWork("disableInternalChangeWork", appContext);
         cancelWork("delayedWorkCloseAllApplications", appContext);
         cancelWork("handleEventsBluetoothLEScannerWork", appContext);
