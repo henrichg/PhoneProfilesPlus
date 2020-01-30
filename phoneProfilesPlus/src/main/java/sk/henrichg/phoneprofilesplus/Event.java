@@ -2057,6 +2057,7 @@ class Event {
                     WorkManager workManager = WorkManager.getInstance(_context);
                     //PPApplication.logE("[HANDLER] Event.setDelayStartAlarm", "enqueueUniqueWork - this._delayStart="+this._delayStart);
                     workManager.enqueue(worker);
+                    PPApplication.elapsedAlarmsEventDelayStartWork.add("elapsedAlarmsEventDelayStartWork_"+(int) this._id);
 
                     Calendar now = Calendar.getInstance();
                     int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
@@ -2171,6 +2172,8 @@ class Event {
             }
         } catch (Exception ignored) {}
         PhoneProfilesService.cancelWork("elapsedAlarmsEventDelayStartWork_"+((int) this._id), _context);
+        PPApplication.elapsedAlarmsEventDelayStartWork.remove("elapsedAlarmsEventDelayStartWork_"+((int) this._id));
+
         this._isInDelayStart = false;
         this._startStatusTime = 0;
         DatabaseHandler.getInstance(dataWrapper.context).updateEventInDelayStart(this);
@@ -2270,6 +2273,7 @@ class Event {
                     WorkManager workManager = WorkManager.getInstance(_context);
                     //PPApplication.logE("[HANDLER] Event.setDelayEndAlarm", "enqueueUniqueWork - this._delayEnd="+this._delayEnd);
                     workManager.enqueue(worker);
+                    PPApplication.elapsedAlarmsEventDelayEndWork.add("elapsedAlarmsEventDelayEndWork_"+(int) this._id);
 
                     Calendar now = Calendar.getInstance();
                     int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
@@ -2403,6 +2407,8 @@ class Event {
             }
         } catch (Exception ignored) {}
         PhoneProfilesService.cancelWork("elapsedAlarmsEventDelayEndWork_"+((int) this._id), _context);
+        PPApplication.elapsedAlarmsEventDelayEndWork.remove("elapsedAlarmsEventDelayEndWork_"+((int) this._id));
+
         this._isInDelayEnd = false;
         DatabaseHandler.getInstance(dataWrapper.context).updateEventInDelayEnd(this);
         //PPApplication.logE("[HANDLER] Event.removeDelayEndAlarm", "removed");

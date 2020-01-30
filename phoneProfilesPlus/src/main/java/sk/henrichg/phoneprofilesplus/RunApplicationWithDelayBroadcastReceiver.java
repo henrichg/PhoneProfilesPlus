@@ -98,6 +98,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                         PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.setAlarm", "enqueueUniqueWork - runApplicationData=" + runApplicationData);
                     }*/
                     workManager.enqueue(worker);
+                    PPApplication.elapsedAlarmsRunApplicationWithDelayWork.add("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode);
                 } catch (Exception ignored) {}
             }
 
@@ -171,6 +172,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
             }
         } catch (Exception ignored) {}
         PhoneProfilesService.cancelWork("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode, context.getApplicationContext());
+        PPApplication.elapsedAlarmsRunApplicationWithDelayWork.remove("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode);
         //PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.removeAlarm", "removed");
     }
 

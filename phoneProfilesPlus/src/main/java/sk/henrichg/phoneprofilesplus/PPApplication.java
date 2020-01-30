@@ -41,6 +41,7 @@ import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -71,6 +72,12 @@ public class PPApplication extends Application /*implements Application.Activity
     static long lastRefreshOfProfileNotification = 0;
 
     static final int DURATION_FOR_GUI_REFRESH = 500;
+
+    static final List<String> elapsedAlarmsProfileDurationWork = new ArrayList<>();
+    static final List<String> elapsedAlarmsRunApplicationWithDelayWork = new ArrayList<>();
+    static final List<String> elapsedAlarmsEventDelayStartWork = new ArrayList<>();
+    static final List<String> elapsedAlarmsEventDelayEndWork = new ArrayList<>();
+    static final List<String> elapsedAlarmsStartEventNotificationWork = new ArrayList<>();
 
     static final ApplicationPreferencesMutex applicationPreferencesMutex = new ApplicationPreferencesMutex();
     static final ApplicationGlobalPreferencesMutex applicationGlobalPreferencesMutex = new ApplicationGlobalPreferencesMutex();

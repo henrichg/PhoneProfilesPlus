@@ -449,24 +449,16 @@ public class PhoneProfilesService extends Service
         // cancel works
         cancelWork("elapsedAlarmsShowProfileNotificationWork", appContext);
         cancelWork("elapsedAlarmsUpdateGUIWork", appContext);
-        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
-        dataWrapper.fillProfileList(false, false);
-        for (Profile profile : dataWrapper.profileList) {
-            cancelWork("elapsedAlarmsProfileDurationWork_" + (int) profile._id, appContext);
-            if (profile._deviceRunApplicationChange == 1) {
-                String[] splits = profile._deviceRunApplicationPackageName.split("\\|");
-                for (String split : splits) {
-                    int requestCode = RunApplicationWithDelayBroadcastReceiver.hashData(split);
-                    cancelWork("elapsedAlarmsRunApplicationWithDelayWork_" + requestCode, appContext);
-                }
-            }
-        }
-        dataWrapper.fillEventList();
-        for (Event event : dataWrapper.eventList) {
-            cancelWork("elapsedAlarmsEventDelayStartWork_" + (int) event._id, appContext);
-            cancelWork("elapsedAlarmsEventDelayEndWork_" + (int) event._id, appContext);
-            cancelWork("elapsedAlarmsStartEventNotificationWork_" + (int) event._id, appContext);
-        }
+        for (String tag : PPApplication.elapsedAlarmsProfileDurationWork)
+            cancelWork(tag, appContext);
+        for (String tag : PPApplication.elapsedAlarmsRunApplicationWithDelayWork)
+            cancelWork(tag, appContext);
+        for (String tag : PPApplication.elapsedAlarmsEventDelayStartWork)
+            cancelWork(tag, appContext);
+        for (String tag : PPApplication.elapsedAlarmsEventDelayEndWork)
+            cancelWork(tag, appContext);
+        for (String tag : PPApplication.elapsedAlarmsStartEventNotificationWork)
+            cancelWork(tag, appContext);
         cancelWork("disableInternalChangeWork", appContext);
         cancelWork("delayedWorkCloseAllApplications", appContext);
         cancelWork("handleEventsBluetoothLEScannerWork", appContext);

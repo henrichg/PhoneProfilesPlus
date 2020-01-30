@@ -96,6 +96,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                         PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - startupSource=" + startupSource);
                     }*/
                     workManager.enqueue(worker);
+                    PPApplication.elapsedAlarmsProfileDurationWork.add("elapsedAlarmsProfileDurationWork_"+(int)profile._id);
                 } catch (Exception ignored) {}
             }
 
@@ -164,6 +165,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
         } catch (Exception ignored) {}
         if (profile != null) {
             PhoneProfilesService.cancelWork("elapsedAlarmsProfileDurationWork_"+(int) profile._id, context.getApplicationContext());
+            PPApplication.elapsedAlarmsProfileDurationWork.remove("elapsedAlarmsProfileDurationWork_"+(int) profile._id);
         }
         Profile.setActivatedProfileEndDurationTime(context, 0);
         //PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.removeAlarm", "removed");

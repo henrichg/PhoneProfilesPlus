@@ -648,8 +648,10 @@ try {
 
 "elapsedAlarmsShowProfileNotificationWork" -> ShowProfileNotificationBroadcastyReceiver.removeAlarm()
 "elapsedAlarmsUpdateGUIWork" -> UpdateGUIBroadcastReceiver.removeAlarm()
+
 "elapsedAlarmsProfileDurationWork_"+(int)profile._id -> ProfileDurationAlarmBroadcastReceicver.removeAlarm()
 "elapsedAlarmsRunApplicationWithDelayWork_"+requestCode -> RunApplicationWithDelayBroadcastReceiver.removeDealyAlarm()
+
 "elapsedAlarmsEventDelayStartWork_"+(int) event._id -> Event.removeDelayStartAlarm()
 "elapsedAlarmsEventDelayEndWork_"+(int) event._id -> Event.removeDelayEndAlarm()
 "elapsedAlarmsStartEventNotificationWork_"+(int)event._id -> StartEventNotificationBroadcastReceiver.
