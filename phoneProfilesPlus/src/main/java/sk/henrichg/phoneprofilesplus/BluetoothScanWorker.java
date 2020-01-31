@@ -557,7 +557,7 @@ public class BluetoothScanWorker extends Worker {
 
                             List<ScanFilter> filters = new ArrayList<>();
 
-                            WifiBluetoothScanner.bluetoothLEScanner.startScan(filters, settings, new BluetoothLEScanCallback21(/*context*/));
+                            WifiBluetoothScanner.bluetoothLEScanner.startScan(filters, settings, new BluetoothLEScanCallback21(context));
                             setWaitForLEResults(context, true);
 
                             //PPApplication.logE("BluetoothScanWorker.startLEScan", "scanStarted=" + startScan);
@@ -587,7 +587,7 @@ public class BluetoothScanWorker extends Worker {
 
                         //PPApplication.logE("BluetoothScanWorker.stopLEScan", "WifiBluetoothScanner.bluetoothLEScanner="+WifiBluetoothScanner.bluetoothLEScanner);
 
-                        WifiBluetoothScanner.bluetoothLEScanner.stopScan(new BluetoothLEScanCallback21(/*context*/));
+                        WifiBluetoothScanner.bluetoothLEScanner.stopScan(new BluetoothLEScanCallback21(context));
 
                         //PPApplication.logE("BluetoothScanWorker.stopLEScan", "stopped");
                     } catch (Exception ignored) {}

@@ -4,7 +4,10 @@ import android.annotation.TargetApi;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
+import android.content.Context;
 import android.os.Build;
+import android.os.Handler;
+import android.os.PowerManager;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -13,10 +16,10 @@ import java.util.List;
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 class BluetoothLEScanCallback21 extends ScanCallback {
 
-    //private final Context context;
+    private final Context context;
 
-    BluetoothLEScanCallback21(/*Context _context*/) {
-        //context = _context;
+    BluetoothLEScanCallback21(Context _context) {
+        context = _context;
     }
 
     public void onScanResult(int callbackType, ScanResult result) {
@@ -110,7 +113,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
         if ((results == null) || (results.size() == 0))
             return;
 
-        //final Context appContext = context.getApplicationContext();
+        final Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
@@ -129,6 +132,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
         //boolean scanStarted = (BluetoothScanWorker.getWaitForLEResults(context));
         //PPApplication.logE("BluetoothLEScanCallback21.onBatchScanResults", "scanStarted=" + scanStarted);
 
+        /*
         //if (scanStarted) {
         for (ScanResult result : _results) {
             //PPApplication.logE("BluetoothLEScanCallback21", "onBatchScanResults - result=" + result.toString());
@@ -145,8 +149,8 @@ class BluetoothLEScanCallback21 extends ScanCallback {
             BluetoothScanWorker.addLEScanResult(deviceData);
         }
         //}
+        */
 
-        /*
         PPApplication.startHandlerThreadBluetoothLECallback();
         final Handler handler = new Handler(PPApplication.handlerThreadBluetoothLECallback.getLooper());
         handler.post(new Runnable() {
@@ -192,7 +196,6 @@ class BluetoothLEScanCallback21 extends ScanCallback {
                 }
             }
         });
-        */
     }
 
     public void onScanFailed(int errorCode) {
