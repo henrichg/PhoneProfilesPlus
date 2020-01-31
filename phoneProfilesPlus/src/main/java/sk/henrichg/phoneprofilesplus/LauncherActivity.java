@@ -10,6 +10,7 @@ import me.drakeet.support.toast.ToastCompat;
 
 public class LauncherActivity extends AppCompatActivity {
 
+    private boolean activityStarted = false;
     private int startupSource;
     private DataWrapper dataWrapper;
 
@@ -28,6 +29,8 @@ public class LauncherActivity extends AppCompatActivity {
         if (instance.getWaitForEndOfStart()) {
             return;
         }
+
+        activityStarted = true;
 
         dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
 
@@ -91,9 +94,10 @@ public class LauncherActivity extends AppCompatActivity {
             /*else {
                 PPApplication.logE("LauncherActivity.onStart", "application and service is started");
             }*/
+        }
 
-            if (startupSource == 0)
-            {
+        if (activityStarted) {
+            if (startupSource == 0) {
                 // activity was not started from notification, widget
 
                 PPApplication.showProfileNotification(/*getApplicationContext()*/true, false);
@@ -110,6 +114,9 @@ public class LauncherActivity extends AppCompatActivity {
     {
         //  application is already started - is in PhoneProfilesService
         //PPApplication.setApplicationStarted(getBaseContext(), true);
+
+        if (!activityStarted)
+            return;
 
         PhoneProfilesService instance = PhoneProfilesService.getInstance();
         if (instance == null) {

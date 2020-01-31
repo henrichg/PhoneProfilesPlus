@@ -72,6 +72,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 {
 
     //private static volatile EditorProfilesActivity instance;
+    private boolean activityStarted = false;
 
     private ImageView eventsRunStopIndicator;
 
@@ -205,6 +206,8 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
 
         //PPApplication.logE("EditorProfilesActivity.onCreate", "xxx");
+
+        activityStarted = true;
 
         GlobalGUIRoutines.setTheme(this, false, true/*, true*/, false);
         //GlobalGUIRoutines.setLanguage(this);
@@ -651,16 +654,18 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         //PPApplication.logE("EditorProfilesActivity.onStart", "xxx");
 
-        Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
-        intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, "activator");
-        getApplicationContext().sendBroadcast(intent);
+        if (activityStarted) {
+            Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
+            intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, "activator");
+            getApplicationContext().sendBroadcast(intent);
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
-                new IntentFilter(PPApplication.PACKAGE_NAME + ".RefreshEditorGUIBroadcastReceiver"));
-        LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
-                new IntentFilter(PPApplication.PACKAGE_NAME + ".ShowEditorTargetHelpsBroadcastReceiver"));
+            LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
+                    new IntentFilter(PPApplication.PACKAGE_NAME + ".RefreshEditorGUIBroadcastReceiver"));
+            LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
+                    new IntentFilter(PPApplication.PACKAGE_NAME + ".ShowEditorTargetHelpsBroadcastReceiver"));
 
-        refreshGUI(true, false, true, 0, 0);
+            refreshGUI(true, false, true, 0, 0);
+        }
     }
 
     @Override

@@ -7,6 +7,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.WallpaperManager;
+import android.appwidget.AppWidgetManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -58,6 +59,7 @@ import java.util.concurrent.TimeUnit;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
@@ -3007,6 +3009,53 @@ class ActivateProfileHelper {
                 }
             }*/
         }
+    }
+
+    static void forceUpdateGUI(Context context, boolean alsoEditor, boolean refresh) {
+        // icon widget
+        try {
+            int[] ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, IconWidgetProvider.class));
+            IconWidgetProvider myWidget = new IconWidgetProvider();
+            myWidget.refreshWidget = refresh;
+            myWidget.onUpdate(context, AppWidgetManager.getInstance(context), ids);
+        } catch (Exception ignored) {
+        }
+
+        // one row widget
+        try {
+            int[] ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, OneRowWidgetProvider.class));
+            OneRowWidgetProvider myWidget = new OneRowWidgetProvider();
+            myWidget.refreshWidget = refresh;
+            myWidget.onUpdate(context, AppWidgetManager.getInstance(context), ids);
+        } catch (Exception ignored) {
+        }
+
+        // list widget
+        try {
+            ProfileListWidgetProvider myWidget = new ProfileListWidgetProvider();
+            myWidget.updateWidgets(context, refresh);
+        } catch (Exception ignored) {
+        }
+
+        // Samsung edge panel
+        if ((PPApplication.sLook != null) && PPApplication.sLookCocktailPanelEnabled) {
+            try {
+                SamsungEdgeProvider myWidget = new SamsungEdgeProvider();
+                myWidget.updateWidgets(context, refresh);
+            } catch (Exception ignored) {
+            }
+        }
+
+        // dash clock extension
+        Intent intent3 = new Intent(PPApplication.PACKAGE_NAME + ".DashClockBroadcastReceiver");
+        intent3.putExtra(DashClockBroadcastReceiver.EXTRA_REFRESH, refresh);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
+
+        // activities
+        Intent intent5 = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
+        intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, refresh);
+        intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
     }
 
     static void updateGUI(Context context, boolean alsoEditor, boolean refresh)

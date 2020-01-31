@@ -3,9 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
@@ -15,7 +13,6 @@ import android.os.SystemClock;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
@@ -39,7 +36,7 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
-    private static void setAlarm(boolean alsoEditor, boolean refresh, Context context)
+    private static void setAlarm(boolean alsoEditor, /*boolean refresh,*/ Context context)
     {
         removeAlarm(context);
 
@@ -53,7 +50,7 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
             intent.setAction(PPApplication.ACTION_UPDATE_GUI);
             //intent.setClass(context, UpdateGUIBroadcastReceiver.class);
 
-            intent.putExtra(UpdateGUIBroadcastReceiver.EXTRA_REFRESH, refresh);
+            intent.putExtra(UpdateGUIBroadcastReceiver.EXTRA_REFRESH, false/*refresh*/);
             intent.putExtra(UpdateGUIBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
             //intent.putExtra(UpdateGUIBroadcastReceiver.EXTRA_FROM_ALARM, true);
 
@@ -71,7 +68,7 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
         else {
             Data workData = new Data.Builder()
                     .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, ElapsedAlarmsWorker.ELAPSED_ALARMS_UPDATE_GUI)
-                    .putBoolean(UpdateGUIBroadcastReceiver.EXTRA_REFRESH, refresh)
+                    .putBoolean(UpdateGUIBroadcastReceiver.EXTRA_REFRESH, false/*refresh*/)
                     .putBoolean(UpdateGUIBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor)
                     //.putBoolean(UpdateGUIBroadcastReceiver.EXTRA_FROM_ALARM, true)
                     .build();
@@ -205,55 +202,10 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
 
         if (refresh || (now - PPApplication.lastRefreshOfGUI) >= PPApplication.DURATION_FOR_GUI_REFRESH) {
             //PPApplication.logE("UpdateGUIBroadcastReceiver._doWork", "refresh");
-
-            // icon widget
-            try {
-                int[] ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, IconWidgetProvider.class));
-                IconWidgetProvider myWidget = new IconWidgetProvider();
-                myWidget.refreshWidget = refresh;
-                myWidget.onUpdate(context, AppWidgetManager.getInstance(context), ids);
-            } catch (Exception ignored) {
-            }
-
-            // one row widget
-            try {
-                int[] ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, OneRowWidgetProvider.class));
-                OneRowWidgetProvider myWidget = new OneRowWidgetProvider();
-                myWidget.refreshWidget = refresh;
-                myWidget.onUpdate(context, AppWidgetManager.getInstance(context), ids);
-            } catch (Exception ignored) {
-            }
-
-            // list widget
-            try {
-                ProfileListWidgetProvider myWidget = new ProfileListWidgetProvider();
-                myWidget.updateWidgets(context, refresh);
-            } catch (Exception ignored) {
-            }
-
-            // Samsung edge panel
-            if ((PPApplication.sLook != null) && PPApplication.sLookCocktailPanelEnabled) {
-                try {
-                    SamsungEdgeProvider myWidget = new SamsungEdgeProvider();
-                    myWidget.updateWidgets(context, refresh);
-                } catch (Exception ignored) {
-                }
-            }
-
-            // dash clock extension
-            Intent intent3 = new Intent(PPApplication.PACKAGE_NAME + ".DashClockBroadcastReceiver");
-            intent3.putExtra(DashClockBroadcastReceiver.EXTRA_REFRESH, refresh);
-            LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
-
-            // activities
-            Intent intent5 = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
-            intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, refresh);
-            intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
-            LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
+            ActivateProfileHelper.forceUpdateGUI(context, alsoEditor, refresh);
         } else {
             //PPApplication.logE("UpdateGUIBroadcastReceiver._doWork", "do not refresh");
-
-            setAlarm(alsoEditor, refresh, context);
+            setAlarm(alsoEditor, /*refresh,*/ context);
         }
 
         PPApplication.lastRefreshOfGUI = SystemClock.elapsedRealtime();

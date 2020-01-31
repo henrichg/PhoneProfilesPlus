@@ -9,6 +9,8 @@ import me.drakeet.support.toast.ToastCompat;
 
 public class BackgroundActivateProfileActivity extends AppCompatActivity {
 
+    private boolean activityStarted = false;
+
     private DataWrapper dataWrapper;
 
     private int startupSource = 0;
@@ -20,6 +22,17 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
         overridePendingTransition(0, 0);
 
         //PPApplication.logE("BackgroundActivateProfileActivity.onCreate", "xxx");
+
+        PhoneProfilesService instance = PhoneProfilesService.getInstance();
+        if (instance == null) {
+            return;
+        }
+
+        if (instance.getWaitForEndOfStart()) {
+            return;
+        }
+
+        activityStarted = true;
 
         Intent intent = getIntent();
         startupSource = intent.getIntExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SHORTCUT);
@@ -38,36 +51,37 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
         super.onStart();
 
         boolean applicationStarted = PPApplication.getApplicationStarted(true);
-        applicationStarted = applicationStarted && (PhoneProfilesService.getInstance().getWaitForEndOfStart());
+        applicationStarted = applicationStarted && (!PhoneProfilesService.getInstance().getWaitForEndOfStart());
         if (!applicationStarted) {
             Toast msg = ToastCompat.makeText(getApplicationContext(),
                     getResources().getString(R.string.activate_profile_application_not_started),
                     Toast.LENGTH_LONG);
             msg.show();
             finish();
+            return;
         }
 
-        if ((startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
-            (startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT)) {
-            if (profile_id == Profile.RESTART_EVENTS_PROFILE_ID) {
-                if (Event.getGlobalEventsRunning()) {
-                    // set theme and language for dialog alert ;-)
-                    // not working on Android 2.3.x
-                    GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false);
-                    //GlobalGUIRoutines.setLanguage(this);
+        if (activityStarted) {
+            if ((startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
+                    (startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT)) {
+                if (profile_id == Profile.RESTART_EVENTS_PROFILE_ID) {
+                    if (Event.getGlobalEventsRunning()) {
+                        // set theme and language for dialog alert ;-)
+                        // not working on Android 2.3.x
+                        GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false);
+                        //GlobalGUIRoutines.setLanguage(this);
 
-                    dataWrapper.restartEventsWithAlert(this);
-                }
-                else {
+                        dataWrapper.restartEventsWithAlert(this);
+                    } else {
                     /*Toast msg = ToastCompat.makeText(getApplicationContext(),
                             getResources().getString(R.string.activate_profile_application_not_started),
                             Toast.LENGTH_LONG);
                     msg.show();*/
-                    finish();
-                }
+                        finish();
+                    }
+                } else
+                    dataWrapper.activateProfile(profile_id, startupSource, this/*, ""*/);
             }
-            else
-                dataWrapper.activateProfile(profile_id, startupSource, this/*, ""*/);
         }
     }
 

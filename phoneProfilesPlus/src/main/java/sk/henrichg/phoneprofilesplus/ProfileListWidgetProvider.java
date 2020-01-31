@@ -321,13 +321,13 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             widget.setOnClickPendingIntent(R.id.widget_profile_list_header_profile_root, pendingIntent);
 
             if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
-                widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.VISIBLE);
-                Intent intentRE = new Intent(context, RestartEventsFromNotificationActivity.class);
+                //widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.VISIBLE);
+                Intent intentRE = new Intent(context, RestartEventsFromGUIActivity.class);
                 PendingIntent pIntentRE = PendingIntent.getActivity(context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
                 widget.setOnClickPendingIntent(R.id.widget_profile_list_header_restart_events, pIntentRE);
             }
-            else
-                widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.GONE);
+            //else
+            //    widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.GONE);
 
             if (!applicationWidgetListGridLayout)
                 widget.setRemoteAdapter(R.id.widget_profile_list, svcIntent);
@@ -364,13 +364,13 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             widget.setOnClickPendingIntent(R.id.widget_profile_list_header, pendingIntent);
 
             if (Event.getGlobalEventsRunning()) {
-                widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.VISIBLE);
-                Intent intentRE = new Intent(context, RestartEventsFromNotificationActivity.class);
+                //widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.VISIBLE);
+                Intent intentRE = new Intent(context, RestartEventsFromGUIActivity.class);
                 PendingIntent pIntentRE = PendingIntent.getActivity(context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
                 widget.setOnClickPendingIntent(R.id.widget_profile_list_header_restart_events, pIntentRE);
             }
-            else
-                widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.GONE);
+            //else
+            //    widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.GONE);
         }
 
         return widget;

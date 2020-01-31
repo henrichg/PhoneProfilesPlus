@@ -340,6 +340,10 @@ public class PhoneProfilesService extends Service
         PPApplication.setWidgetProfileName(appContext, 3, "");
         PPApplication.setWidgetProfileName(appContext, 4, "");
         PPApplication.setWidgetProfileName(appContext, 5, "");
+        PPApplication.setActivityProfileName(appContext, 1, "");
+        PPApplication.setActivityProfileName(appContext, 2, "");
+        PPApplication.setActivityProfileName(appContext, 3, "");
+        PPApplication.setLastActivatedProfile(appContext, 0);
 
         try {
             if ((Build.VERSION.SDK_INT < 26)) {
@@ -4364,7 +4368,7 @@ public class PhoneProfilesService extends Service
             if (Event.getGlobalEventsRunning() &&
                     PPApplication.getApplicationStarted(true)) {
                 // intent for restart events
-                Intent intentRE = new Intent(appContext, RestartEventsFromNotificationActivity.class);
+                Intent intentRE = new Intent(appContext, RestartEventsFromGUIActivity.class);
                 intentRE.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 pIntentRE = PendingIntent.getActivity(appContext, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
             }
@@ -4795,22 +4799,22 @@ public class PhoneProfilesService extends Service
                         restartEventsId = R.drawable.ic_widget_restart_events;
                 }
 
-                contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
+                //contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
                 contentViewLarge.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
                 contentViewLarge.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
 
                 if (contentView != null) {
-                    contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
+                    //contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
                     contentView.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
                     contentView.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
                 }
             }
-            else {
+            /*else {
                 if (contentView != null)
                     contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.GONE);
 
                 contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.GONE);
-            }
+            }*/
 
             //if (Build.VERSION.SDK_INT < 29) {
                 //PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "background not 2 or 4");

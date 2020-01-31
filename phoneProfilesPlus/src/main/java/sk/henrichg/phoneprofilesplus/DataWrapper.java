@@ -4424,7 +4424,7 @@ public class DataWrapper {
                         finish = ApplicationPreferences.applicationClose;
                     else
                     //noinspection RedundantIfStatement
-                    if ((activity instanceof RestartEventsFromNotificationActivity) ||
+                    if ((activity instanceof RestartEventsFromGUIActivity) ||
                             (activity instanceof BackgroundActivateProfileActivity))
                         finish = true;
                     else
@@ -4487,7 +4487,7 @@ public class DataWrapper {
             if (activity instanceof ActivateProfileActivity)
                 finish = ApplicationPreferences.applicationClose;
             else
-                finish = (activity instanceof RestartEventsFromNotificationActivity) ||
+                finish = (activity instanceof RestartEventsFromGUIActivity) ||
                         (activity instanceof BackgroundActivateProfileActivity);
             //PPApplication.logE("DataWrapper.restartEventsWithAlert", "finish="+finish);
             if (finish) {

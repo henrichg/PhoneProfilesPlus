@@ -264,7 +264,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RestartEventsFromNotificationActivity"
+            android:name=".RestartEventsFromGUIActivity"
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"

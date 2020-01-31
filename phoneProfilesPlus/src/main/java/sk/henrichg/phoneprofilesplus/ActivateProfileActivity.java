@@ -30,6 +30,8 @@ import me.drakeet.support.toast.ToastCompat;
 
 public class ActivateProfileActivity extends AppCompatActivity {
 
+    private boolean activityStarted = false;
+
     private Toolbar toolbar;
     private ImageView eventsRunStopIndicator;
 
@@ -114,6 +116,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
         }
 
         //PPApplication.logE("ActivateProfileActivity.onCreate", "xxx");
+
+        activityStarted = true;
 
         GlobalGUIRoutines.setTheme(this, true, true/*, false*/, true);
         //GlobalGUIRoutines.setLanguage(this);
@@ -345,16 +349,18 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
         //PPApplication.logE("ActivateProfileActivity.onStart", "xxx");
 
-        Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
-        intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, "editor");
-        getApplicationContext().sendBroadcast(intent);
+        if (activityStarted) {
+            Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
+            intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, "editor");
+            getApplicationContext().sendBroadcast(intent);
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
-                new IntentFilter(PPApplication.PACKAGE_NAME + ".RefreshActivatorGUIBroadcastReceiver"));
-        LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
-                new IntentFilter(PPApplication.PACKAGE_NAME + ".ShowActivatorTargetHelpsBroadcastReceiver"));
+            LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
+                    new IntentFilter(PPApplication.PACKAGE_NAME + ".RefreshActivatorGUIBroadcastReceiver"));
+            LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
+                    new IntentFilter(PPApplication.PACKAGE_NAME + ".ShowActivatorTargetHelpsBroadcastReceiver"));
 
-        refreshGUI(true, false);
+            refreshGUI(true, false);
+        }
 
         //-----------------------------------------------------------------------------------------
 
