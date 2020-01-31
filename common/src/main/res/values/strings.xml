@@ -1471,6 +1471,8 @@
 
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">May not working in your device at all.</string>
 
+    <string name="application_is_starting_toast">Application is starting…</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

@@ -44,11 +44,17 @@ public class RestartEventsFromGUIActivity extends AppCompatActivity
         super.onStart();
 
         boolean applicationStarted = PPApplication.getApplicationStarted(true);
-        applicationStarted = applicationStarted && (!PhoneProfilesService.getInstance().getWaitForEndOfStart());
+        boolean waitForEndOfStart = false;
+        if (applicationStarted) {
+            PhoneProfilesService instance = PhoneProfilesService.getInstance();
+            waitForEndOfStart = instance.getWaitForEndOfStart();
+            applicationStarted = !waitForEndOfStart;
+        }
         if (!applicationStarted) {
-            Toast msg = ToastCompat.makeText(getApplicationContext(),
-                    getResources().getString(R.string.activate_profile_application_not_started),
-                    Toast.LENGTH_LONG);
+            String text = getString(R.string.activate_profile_application_not_started);
+            if (waitForEndOfStart)
+                text = getString(R.string.application_is_starting_toast);
+            Toast msg = ToastCompat.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
             msg.show();
             finish();
             return;
