@@ -320,9 +320,6 @@ class Permissions {
                     boolean granted = Settings.System.canWrite(context);
                     if (granted)
                         setShowRequestWriteSettingsPermission(context, true);
-                    else
-                    if (!getShowRequestWriteSettingsPermission(context))
-                        granted = true;
                     if (!granted) {
                         if (permissions != null)
                             permissions.add(new PermissionType(PERMISSION_PROFILE_VIBRATION_ON_TOUCH, permission.WRITE_SETTINGS));
@@ -352,9 +349,6 @@ class Permissions {
                     //PPApplication.logE("Permissions.checkProfileVibrateWhenRinging", "granted=" + granted);
                     if (granted)
                         setShowRequestWriteSettingsPermission(context, true);
-                    else
-                    if (!getShowRequestWriteSettingsPermission(context))
-                        granted = true;
                     if (!granted) {
                         if (permissions != null)
                             permissions.add(new PermissionType(PERMISSION_PROFILE_VIBRATE_WHEN_RINGING, permission.WRITE_SETTINGS));
@@ -377,9 +371,6 @@ class Permissions {
                 //PPApplication.logE("Permissions.checkVibrateWhenRinging", "granted=" + granted);
                 if (granted)
                     setShowRequestWriteSettingsPermission(context, true);
-                else
-                if (!getShowRequestWriteSettingsPermission(context))
-                    granted = true;
                 return granted;
             } catch (Exception e) {
                 return false;
@@ -397,9 +388,6 @@ class Permissions {
                     boolean granted = Settings.System.canWrite(context);
                     if (granted)
                         setShowRequestWriteSettingsPermission(context, true);
-                    else
-                    if (!getShowRequestWriteSettingsPermission(context))
-                        granted = true;
                     if ((permissions != null) && (!granted))
                         permissions.add(new PermissionType(PERMISSION_PROFILE_NOTIFICATION_LED, permission.WRITE_SETTINGS));
                     //return granted;
@@ -425,9 +413,6 @@ class Permissions {
                     boolean grantedStorage = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
                     if (grantedSystemSettings)
                         setShowRequestWriteSettingsPermission(context, true);
-                    else
-                    if (!getShowRequestWriteSettingsPermission(context))
-                        grantedSystemSettings = true;
                     if (permissions != null) {
                         if (!grantedSystemSettings)
                             permissions.add(new PermissionType(PERMISSION_PROFILE_RINGTONES, permission.WRITE_SETTINGS));
@@ -451,15 +436,9 @@ class Permissions {
                 boolean grantedWriteSettings = Settings.System.canWrite(context);
                 if (grantedWriteSettings)
                     setShowRequestWriteSettingsPermission(context, true);
-                else
-                if (!getShowRequestWriteSettingsPermission(context))
-                    grantedWriteSettings = true;
                 boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
                 if (grantedDrawOverlays)
                     setShowRequestDrawOverlaysPermission(context, true);
-                else
-                if (!getShowRequestDrawOverlaysPermission(context))
-                    grantedDrawOverlays = true;
                 return grantedWriteSettings && grantedDrawOverlays;
             } catch (Exception e) {
                 return false;
@@ -477,15 +456,9 @@ class Permissions {
                     boolean grantedWriteSettings = Settings.System.canWrite(context);
                     if (grantedWriteSettings)
                         setShowRequestWriteSettingsPermission(context, true);
-                    else
-                    if (!getShowRequestWriteSettingsPermission(context))
-                        grantedWriteSettings = true;
                     boolean grantedDrawOverlays = (profile._deviceScreenTimeout != 8) || Settings.canDrawOverlays(context);
                     if (grantedDrawOverlays)
                         setShowRequestDrawOverlaysPermission(context, true);
-                    else
-                    if (!getShowRequestDrawOverlaysPermission(context))
-                        grantedDrawOverlays = true;
                     if (permissions != null) {
                         if (!grantedWriteSettings)
                             permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_TIMEOUT, permission.WRITE_SETTINGS));
@@ -509,9 +482,6 @@ class Permissions {
                 boolean grantedWriteSettings = Settings.System.canWrite(context);
                 if (grantedWriteSettings)
                     setShowRequestWriteSettingsPermission(context, true);
-                else
-                if (!getShowRequestWriteSettingsPermission(context))
-                    grantedWriteSettings = true;
                 //boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
                 //if (grantedDrawOverlays)
                 //    setShowRequestDrawOverlaysPermission(context, true);
@@ -538,9 +508,6 @@ class Permissions {
                     boolean grantedWriteSettings = Settings.System.canWrite(context);
                     if (grantedWriteSettings)
                         setShowRequestWriteSettingsPermission(context, true);
-                    else
-                    if (!getShowRequestWriteSettingsPermission(context))
-                        grantedWriteSettings = true;
                     //boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
                     //if (grantedDrawOverlays)
                     //    setShowRequestDrawOverlaysPermission(context, true);
@@ -569,9 +536,6 @@ class Permissions {
                     boolean granted = Settings.System.canWrite(context);
                     if (granted)
                         setShowRequestWriteSettingsPermission(context, true);
-                    else
-                    if (!getShowRequestWriteSettingsPermission(context))
-                        granted = true;
                     if ((permissions != null) && (!granted))
                         permissions.add(new PermissionType(PERMISSION_PROFILE_AUTOROTATION, permission.WRITE_SETTINGS));
                     return granted;
@@ -720,9 +684,6 @@ class Permissions {
                     grantedWriteSettings = Settings.System.canWrite(context);
                     if (grantedWriteSettings)
                         setShowRequestWriteSettingsPermission(context, true);
-                    else
-                    if (!getShowRequestWriteSettingsPermission(context))
-                        grantedWriteSettings = true;
                 }
                 if (grantedWriteSettings) {
                     if (profile._deviceBluetooth != 0) {
@@ -731,9 +692,6 @@ class Permissions {
                                 grantedWriteSettings = Settings.System.canWrite(context);
                                 if (grantedWriteSettings)
                                     setShowRequestWriteSettingsPermission(context, true);
-                                else
-                                if (!getShowRequestWriteSettingsPermission(context))
-                                    grantedWriteSettings = true;
                             }
                         }
                     }
@@ -796,9 +754,6 @@ class Permissions {
                     boolean grantedWriteSettings = Settings.System.canWrite(context);
                     if (grantedWriteSettings)
                         setShowRequestWriteSettingsPermission(context, true);
-                    else
-                    if (!getShowRequestWriteSettingsPermission(context))
-                        grantedWriteSettings = true;
                     return grantedWriteSettings;
                 } catch (Exception e) {
                     return false;
@@ -860,10 +815,6 @@ class Permissions {
                             granted = mNotificationManager.isNotificationPolicyAccessGranted();
                         if (granted)
                             setShowRequestAccessNotificationPolicyPermission(context, true);
-                        else {
-                            if (!getShowRequestAccessNotificationPolicyPermission(context))
-                                granted = true;
-                        }
                         if ((permissions != null) && (!granted))
                             permissions.add(new PermissionType(PERMISSION_PROFILE_ACCESS_NOTIFICATION_POLICY, permission.ACCESS_NOTIFICATION_POLICY));
                         return granted;
@@ -890,10 +841,6 @@ class Permissions {
                         granted = mNotificationManager.isNotificationPolicyAccessGranted();
                     if (granted)
                         setShowRequestAccessNotificationPolicyPermission(context, true);
-                    else {
-                        if (!getShowRequestAccessNotificationPolicyPermission(context))
-                            granted = true;
-                    }
                     return granted;
                 } else
                     return true;
@@ -911,15 +858,9 @@ class Permissions {
                 boolean grantedWriteSettings = Settings.System.canWrite(context);
                 if (grantedWriteSettings)
                     setShowRequestWriteSettingsPermission(context, true);
-                else
-                if (!getShowRequestWriteSettingsPermission(context))
-                    grantedWriteSettings = true;
                 boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
                 if (grantedDrawOverlays)
                     setShowRequestDrawOverlaysPermission(context, true);
-                else
-                if (!getShowRequestDrawOverlaysPermission(context))
-                    grantedDrawOverlays = true;
                 return grantedWriteSettings && grantedDrawOverlays;
             } catch (Exception e) {
                 return false;
@@ -937,9 +878,6 @@ class Permissions {
                     boolean granted = Settings.System.canWrite(context);
                     if (granted)
                         setShowRequestWriteSettingsPermission(context, true);
-                    else
-                    if (!getShowRequestWriteSettingsPermission(context))
-                        granted = true;
                     if (!granted) {
                         if (permissions != null)
                             permissions.add(new PermissionType(PERMISSION_PROFILE_ALWAYS_ON_DISPLAY, permission.WRITE_SETTINGS));
@@ -964,15 +902,9 @@ class Permissions {
                     boolean grantedWriteSettings = Settings.System.canWrite(context);
                     if (grantedWriteSettings)
                         setShowRequestWriteSettingsPermission(context, true);
-                    else
-                    if (!getShowRequestWriteSettingsPermission(context))
-                        grantedWriteSettings = true;
                     boolean grantedDrawOverlays = (profile._lockDevice != 1) || Settings.canDrawOverlays(context);
                     if (grantedDrawOverlays)
                         setShowRequestDrawOverlaysPermission(context, true);
-                    else
-                    if (!getShowRequestDrawOverlaysPermission(context))
-                        grantedDrawOverlays = true;
                     if (permissions != null) {
                         if (!grantedWriteSettings)
                             permissions.add(new PermissionType(PERMISSION_PROFILE_LOCK_DEVICE, permission.WRITE_SETTINGS));
@@ -998,9 +930,6 @@ class Permissions {
                     boolean granted = Settings.System.canWrite(context);
                     if (granted)
                         setShowRequestWriteSettingsPermission(context, true);
-                    else
-                    if (!getShowRequestWriteSettingsPermission(context))
-                        granted = true;
                     if (!granted) {
                         if (permissions != null)
                             permissions.add(new PermissionType(PERMISSION_PROFILE_DTMF_TONE_WHEN_DIALING, permission.WRITE_SETTINGS));
@@ -1024,9 +953,6 @@ class Permissions {
                     boolean granted = Settings.System.canWrite(context);
                     if (granted)
                         setShowRequestWriteSettingsPermission(context, true);
-                    else
-                    if (!getShowRequestWriteSettingsPermission(context))
-                        granted = true;
                     if (!granted) {
                         if (permissions != null)
                             permissions.add(new PermissionType(PERMISSION_PROFILE_SOUND_ON_TOUCH, permission.WRITE_SETTINGS));
@@ -1325,8 +1251,8 @@ class Permissions {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
                 if (event._eventPreferencesBluetooth._enabled &&
-                                ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NEARBY) ||
-                                        (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY))) {
+                    ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NEARBY) ||
+                     (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY))) {
                     boolean granted = checkBluetoothForEMUI(context);
                     if (permissions != null) {
                         if (!granted)
@@ -1342,8 +1268,8 @@ class Permissions {
         else {
             try {
                 if (event._eventPreferencesBluetooth._enabled &&
-                                ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NEARBY) ||
-                                        (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY))) {
+                    ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NEARBY) ||
+                     (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY))) {
                     return hasPermission(context, permission.WRITE_SETTINGS);
                 } else
                     return true;

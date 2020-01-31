@@ -83,7 +83,7 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
         }
 
 
-        Profile profile = null;
+        Profile profile;
         /*HG*/
         synchronized (activityDataWrapper.profileList) {
             profile = activityDataWrapper.profileList.get(position);
