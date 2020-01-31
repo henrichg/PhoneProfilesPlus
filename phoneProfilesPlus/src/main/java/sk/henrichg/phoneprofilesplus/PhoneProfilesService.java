@@ -586,8 +586,8 @@ public class PhoneProfilesService extends Service
         return waitForEndOfStart;
     }
 
-    void setWaitForEndOfStartToFalse() {
-        waitForEndOfStart = false;
+    void setWaitForEndOfStart(boolean wait) {
+        waitForEndOfStart = wait;
     }
 
     private void registerAllTheTimeRequiredReceivers(boolean register) {

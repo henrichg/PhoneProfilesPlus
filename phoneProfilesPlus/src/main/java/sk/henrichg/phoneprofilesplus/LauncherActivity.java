@@ -3,8 +3,10 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import me.drakeet.support.toast.ToastCompat;
 
 public class LauncherActivity extends AppCompatActivity {
 
@@ -18,6 +20,15 @@ public class LauncherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //overridePendingTransition(0, 0);
 
+        PhoneProfilesService instance = PhoneProfilesService.getInstance();
+        if (instance == null) {
+            return;
+        }
+
+        if (instance.getWaitForEndOfStart()) {
+            return;
+        }
+
         dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
 
         Intent intent = getIntent();
@@ -29,6 +40,15 @@ public class LauncherActivity extends AppCompatActivity {
     protected void onStart()
     {
         super.onStart();
+
+        boolean applicationStarted = PPApplication.getApplicationStarted(true);
+        applicationStarted = applicationStarted && (!PhoneProfilesService.getInstance().getWaitForEndOfStart());
+        if (!applicationStarted) {
+            Toast msg = ToastCompat.makeText(getApplicationContext(),
+                    getResources().getString(R.string.activate_profile_application_not_started),
+                    Toast.LENGTH_LONG);
+            msg.show();
+        }
 
         if (!PPApplication.getApplicationStarted(true))
         {

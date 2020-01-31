@@ -203,7 +203,7 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
 
         long now = SystemClock.elapsedRealtime();
 
-        if ((now - PPApplication.lastRefreshOfGUI) >= PPApplication.DURATION_FOR_GUI_REFRESH) {
+        if (refresh || (now - PPApplication.lastRefreshOfGUI) >= PPApplication.DURATION_FOR_GUI_REFRESH) {
             //PPApplication.logE("UpdateGUIBroadcastReceiver._doWork", "refresh");
 
             // icon widget

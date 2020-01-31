@@ -146,17 +146,17 @@ public class DelayedWorksWorker extends Worker {
                                     PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "packageReplacedWork - running="+running);
 
                                     if (!running)
-                                        instance.setWaitForEndOfStartToFalse();
+                                        instance.setWaitForEndOfStart(false);
                                 } catch (ExecutionException e) {
                                     e.printStackTrace();
-                                    instance.setWaitForEndOfStartToFalse();
+                                    instance.setWaitForEndOfStart(false);
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
-                                    instance.setWaitForEndOfStartToFalse();
+                                    instance.setWaitForEndOfStart(false);
                                 }
                             } catch (Exception e) {
                                 Log.e("PhoneProfilesService.doForFirstStart.2 - worker", Log.getStackTraceString(e));
-                                instance.setWaitForEndOfStartToFalse();
+                                instance.setWaitForEndOfStart(false);
                             }
                         }
 
@@ -232,7 +232,7 @@ public class DelayedWorksWorker extends Worker {
                                 }
                             }
 
-                            instance.setWaitForEndOfStartToFalse();
+                            instance.setWaitForEndOfStart(false);
                         }
                     }
 

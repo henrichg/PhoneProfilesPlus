@@ -37,7 +37,9 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
     {
         super.onStart();
 
-        if (!PPApplication.getApplicationStarted(true)) {
+        boolean applicationStarted = PPApplication.getApplicationStarted(true);
+        applicationStarted = applicationStarted && (PhoneProfilesService.getInstance().getWaitForEndOfStart());
+        if (!applicationStarted) {
             Toast msg = ToastCompat.makeText(getApplicationContext(),
                     getResources().getString(R.string.activate_profile_application_not_started),
                     Toast.LENGTH_LONG);

@@ -2950,6 +2950,8 @@ public class PPApplication extends Application /*implements Application.Activity
             //PhoneProfilesService.getInstance().showProfileNotification(false);
             //context.stopService(new Intent(context, PhoneProfilesService.class));
             PhoneProfilesService.stop(context);
+            if (PhoneProfilesService.getInstance() != null)
+                PhoneProfilesService.getInstance().setWaitForEndOfStart(true);
 
             Permissions.setAllShowRequestPermissions(context.getApplicationContext(), true);
 
