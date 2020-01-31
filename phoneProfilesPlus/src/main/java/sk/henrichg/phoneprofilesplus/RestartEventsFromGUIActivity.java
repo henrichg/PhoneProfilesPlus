@@ -65,6 +65,8 @@ public class RestartEventsFromGUIActivity extends AppCompatActivity
             //PPApplication.logE("RestartEventsFromGUIActivity.onStart", "xxx");
             dataWrapper.restartEventsWithAlert(this);
         }
+        else
+            finish();
     }
 
     @Override

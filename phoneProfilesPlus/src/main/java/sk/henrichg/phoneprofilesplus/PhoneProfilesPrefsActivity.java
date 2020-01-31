@@ -258,9 +258,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             dialogBuilder.show();*/
 
             finish();
-            //noinspection UnnecessaryReturnStatement
             return;
         }
+
+        if (!activityStarted)
+            finish();
     }
 
     @Override

@@ -73,7 +73,7 @@ public class DelayedWorksWorker extends Worker {
                         PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "START");
                         PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "instance.getWaitForEndOfStart()="+instance.getWaitForEndOfStart());
 
-                        if (instance.getWaitForEndOfStart()) {
+                        //if (instance.getWaitForEndOfStart()) {
 
                             PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "wait for end of start is TRUE");
 
@@ -145,20 +145,22 @@ public class DelayedWorksWorker extends Worker {
 
                                     PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "packageReplacedWork - running="+running);
 
-                                    if (!running)
+                                    if (!running) {
                                         instance.setWaitForEndOfStart(false);
+                                        PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "instance.getWaitForEndOfStart()="+instance.getWaitForEndOfStart());
+                                    }
                                 } catch (ExecutionException e) {
-                                    e.printStackTrace();
+                                    Log.e("PhoneProfilesService.doForFirstStart.2 - worker", Log.getStackTraceString(e));
                                     instance.setWaitForEndOfStart(false);
                                 } catch (InterruptedException e) {
-                                    e.printStackTrace();
+                                    Log.e("PhoneProfilesService.doForFirstStart.2 - worker", Log.getStackTraceString(e));
                                     instance.setWaitForEndOfStart(false);
                                 }
                             } catch (Exception e) {
                                 Log.e("PhoneProfilesService.doForFirstStart.2 - worker", Log.getStackTraceString(e));
                                 instance.setWaitForEndOfStart(false);
                             }
-                        }
+                        //}
 
                         PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "END");
                     }
@@ -197,6 +199,8 @@ public class DelayedWorksWorker extends Worker {
                         if (PhoneProfilesService.getInstance() != null) {
                             PhoneProfilesService instance = PhoneProfilesService.getInstance();
 
+                            PPApplication.logE("PackageReplacedReceiver.doWork", "instance.getWaitForEndOfStart()="+instance.getWaitForEndOfStart());
+
                             //PPApplication.sleep(3000);
                             if (PPApplication.getApplicationStarted(true)) {
                                 // service is started by PPApplication
@@ -233,6 +237,7 @@ public class DelayedWorksWorker extends Worker {
                             }
 
                             instance.setWaitForEndOfStart(false);
+                            PPApplication.logE("PackageReplacedReceiver.doWork", "instance.getWaitForEndOfStart()="+instance.getWaitForEndOfStart());
                         }
                     }
 

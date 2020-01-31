@@ -253,7 +253,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             }
                         }
 
-                        if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
+                        //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
                             monochromeValue = 0xFF;
                             if (applicationWidgetOneRowLightnessT.equals("0")) monochromeValue = 0x00;
                             if (applicationWidgetOneRowLightnessT.equals("12")) monochromeValue = 0x20;
@@ -268,19 +268,19 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
                             bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
                             remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
-                        }
+                        //}
 
                         /*if (PPApplication.logEnabled()) {
                             PPApplication.logE("OneRowWidgetProvider.onUpdate", "events running=" + Event.getGlobalEventsRunning(context));
                             PPApplication.logE("OneRowWidgetProvider.onUpdate", "application started=" + PPApplication.getApplicationStarted(context, true));
                         }*/
-                        if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
+                        //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
                             //remoteViews.setViewVisibility(R.id.widget_one_row_header_restart_events, VISIBLE);
                             Intent intentRE = new Intent(context, RestartEventsFromGUIActivity.class);
                             PendingIntent pIntentRE = PendingIntent.getActivity(context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
                             remoteViews.setOnClickPendingIntent(R.id.widget_one_row_header_restart_events, pIntentRE);
-                        }// else
-                         //   remoteViews.setViewVisibility(R.id.widget_one_row_header_restart_events, View.GONE);
+                        //} else
+                        //    remoteViews.setViewVisibility(R.id.widget_one_row_header_restart_events, View.GONE);
 
                         // intent for start LauncherActivity on widget click
                         Intent intent = new Intent(context, LauncherActivity.class);

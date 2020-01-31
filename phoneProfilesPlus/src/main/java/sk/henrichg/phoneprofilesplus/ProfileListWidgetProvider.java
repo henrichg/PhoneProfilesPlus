@@ -291,7 +291,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 widget.setInt(R.id.widget_profile_list_header_separator, "setBackgroundColor", Color.argb(0xFF, redText, greenText, blueText));
             }
 
-            if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
+            //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
                 monochromeValue = 0xFF;
                 if (applicationWidgetListLightnessT.equals("0")) monochromeValue = 0x00;
                 if (applicationWidgetListLightnessT.equals("12")) monochromeValue = 0x20;
@@ -306,7 +306,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
                 bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
                 widget.setImageViewBitmap(R.id.widget_profile_list_header_restart_events, bitmap);
-            }
+            //}
 
         }
         ////////////////////////////////////////////////
@@ -320,12 +320,12 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                                                         PendingIntent.FLAG_UPDATE_CURRENT);
             widget.setOnClickPendingIntent(R.id.widget_profile_list_header_profile_root, pendingIntent);
 
-            if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
+            //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
                 //widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.VISIBLE);
                 Intent intentRE = new Intent(context, RestartEventsFromGUIActivity.class);
                 PendingIntent pIntentRE = PendingIntent.getActivity(context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
                 widget.setOnClickPendingIntent(R.id.widget_profile_list_header_restart_events, pIntentRE);
-            }
+            //}
             //else
             //    widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.GONE);
 

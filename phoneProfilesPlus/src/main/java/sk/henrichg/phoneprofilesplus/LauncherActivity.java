@@ -115,9 +115,6 @@ public class LauncherActivity extends AppCompatActivity {
         //  application is already started - is in PhoneProfilesService
         //PPApplication.setApplicationStarted(getBaseContext(), true);
 
-        if (!activityStarted)
-            return;
-
         PhoneProfilesService instance = PhoneProfilesService.getInstance();
         if (instance == null) {
             finish();
@@ -131,6 +128,11 @@ public class LauncherActivity extends AppCompatActivity {
             dialogBuilder.setPositiveButton(android.R.string.ok, null);
             dialogBuilder.show();*/
 
+            finish();
+            return;
+        }
+
+        if (!activityStarted) {
             finish();
             return;
         }

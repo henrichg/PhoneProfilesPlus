@@ -83,6 +83,8 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
                     dataWrapper.activateProfile(profile_id, startupSource, this/*, ""*/);
             }
         }
+        else
+            finish();
     }
 
     @Override

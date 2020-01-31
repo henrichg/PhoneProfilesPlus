@@ -666,6 +666,8 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             refreshGUI(true, false, true, 0, 0);
         }
+        else
+            finish();
     }
 
     @Override

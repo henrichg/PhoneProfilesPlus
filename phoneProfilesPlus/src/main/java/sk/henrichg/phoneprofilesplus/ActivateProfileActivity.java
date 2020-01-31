@@ -361,6 +361,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
             refreshGUI(true, false);
         }
+        else
+            finish();
 
         //-----------------------------------------------------------------------------------------
 
