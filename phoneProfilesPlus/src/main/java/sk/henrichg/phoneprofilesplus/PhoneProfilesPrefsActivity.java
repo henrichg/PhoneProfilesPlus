@@ -22,7 +22,7 @@ import me.drakeet.support.toast.ToastCompat;
 
 public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
-    private boolean activityStarted = false;
+    boolean activityStarted = false;
 
     private boolean showEditorPrefIndicator;
     private boolean hideEditorHeaderOrBottomBar;
@@ -49,23 +49,21 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        PhoneProfilesService instance = PhoneProfilesService.getInstance();
-        if (instance == null) {
-            super.onCreate(savedInstanceState);
-            return;
-        }
-
-        if (instance.getWaitForEndOfStart()) {
-            super.onCreate(savedInstanceState);
-            return;
-        }
-
         GlobalGUIRoutines.setTheme(this, false, true/*, false*/, false); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
 
         //PPApplication.logE("PhoneProfilesPrefsActivity.onCreate", "savedInstanceState="+savedInstanceState);
+
+        PhoneProfilesService instance = PhoneProfilesService.getInstance();
+        if (instance == null) {
+            return;
+        }
+
+        if (instance.getWaitForEndOfStart()) {
+            return;
+        }
 
         activityStarted = true;
 
@@ -314,12 +312,18 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     public void finish() {
         //PPApplication.logE("PhoneProfilesPrefsActivity.finish", "xxx");
 
-        doPreferenceChanges();
+        if (activityStarted) {
+            doPreferenceChanges();
 
-        // for startActivityForResult
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, invalidateEditor);
-        setResult(RESULT_OK,returnIntent);
+            // for startActivityForResult
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, invalidateEditor);
+            setResult(RESULT_OK, returnIntent);
+        }
+        else {
+            Intent returnIntent = new Intent();
+            setResult(RESULT_CANCELED, returnIntent);
+        }
 
         super.finish();
     }

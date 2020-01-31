@@ -196,6 +196,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
+        if (!((PhoneProfilesPrefsActivity)getActivity()).activityStarted)
+            return;
+
         // must be used handler for rewrite toolbar title/subtitle
         final PhoneProfilesPrefsFragment fragment = this;
         Handler handler = new Handler(getActivity().getMainLooper());
