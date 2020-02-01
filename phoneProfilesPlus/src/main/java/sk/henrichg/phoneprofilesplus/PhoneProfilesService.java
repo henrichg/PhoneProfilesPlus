@@ -345,7 +345,6 @@ public class PhoneProfilesService extends Service
         PPApplication.setActivityProfileName(appContext, 1, "");
         PPApplication.setActivityProfileName(appContext, 2, "");
         PPApplication.setActivityProfileName(appContext, 3, "");
-        PPApplication.setLastActivatedProfile(appContext, 0);
 
         try {
             if ((Build.VERSION.SDK_INT < 26)) {
