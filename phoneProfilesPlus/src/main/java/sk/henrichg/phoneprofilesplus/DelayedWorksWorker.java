@@ -75,7 +75,7 @@ public class DelayedWorksWorker extends Worker {
 
                         //if (instance.getWaitForEndOfStart()) {
 
-                            PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "wait for end of start is TRUE");
+                            //PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "wait for end of start is TRUE");
 
                             /*if (Event.getGlobalEventsRunning(appContext)) {
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
