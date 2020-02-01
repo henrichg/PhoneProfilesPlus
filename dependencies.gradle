@@ -24,7 +24,7 @@
 
 ext.ppVersions = [
     publishVersion: '4.1.6.1b',
-    publishVersionCode: 5534,
+    publishVersionCode: 5535,
 
     minSdk: 21,
     targetSdk: 28,
