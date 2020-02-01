@@ -46,6 +46,7 @@ import android.text.style.CharacterStyle;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 
@@ -61,6 +62,7 @@ import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
+import me.drakeet.support.toast.ToastCompat;
 
 import static android.app.Notification.DEFAULT_SOUND;
 import static android.app.Notification.DEFAULT_VIBRATE;
@@ -592,6 +594,17 @@ public class PhoneProfilesService extends Service
 
     void setWaitForEndOfStart(boolean wait) {
         waitForEndOfStart = wait;
+        if (!wait) {
+            final Handler handler = new Handler(getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    String text = getString(R.string.app_name) + " " + getString(R.string.application_is_started_toast);
+                    Toast msg = ToastCompat.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
+                    msg.show();
+                }
+            });
+        }
     }
 
     private void registerAllTheTimeRequiredReceivers(boolean register) {

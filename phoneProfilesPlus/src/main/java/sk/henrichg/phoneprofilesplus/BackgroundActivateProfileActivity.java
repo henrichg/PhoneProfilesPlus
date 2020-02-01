@@ -58,9 +58,9 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
             applicationStarted = !waitForEndOfStart;
         }
         if (!applicationStarted) {
-            String text = getString(R.string.activate_profile_application_not_started);
+            String text = getString(R.string.app_name) + " " + getString(R.string.application_is_not_started);
             if (waitForEndOfStart)
-                text = getString(R.string.application_is_starting_toast);
+                text = getString(R.string.app_name) + " " + getString(R.string.application_is_starting_toast);
             Toast msg = ToastCompat.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
             msg.show();
             finish();
@@ -78,13 +78,8 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
                         //GlobalGUIRoutines.setLanguage(this);
 
                         dataWrapper.restartEventsWithAlert(this);
-                    } else {
-                    /*Toast msg = ToastCompat.makeText(getApplicationContext(),
-                            getResources().getString(R.string.activate_profile_application_not_started),
-                            Toast.LENGTH_LONG);
-                    msg.show();*/
+                    } else
                         finish();
-                    }
                 } else
                     dataWrapper.activateProfile(profile_id, startupSource, this/*, ""*/);
             }

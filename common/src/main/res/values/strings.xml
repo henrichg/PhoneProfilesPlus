@@ -1139,7 +1139,6 @@
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Applications</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Shortcuts</string>
     <string name="applications_editor_dialog_not_selected">[not selected]</string>
-    <string name="activate_profile_application_not_started">Application is not started</string>
     <string name="phone_profiles_pref_notificationBackgroundColor">Background color</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_android">Native</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">Dark</string>
@@ -1471,7 +1470,9 @@
 
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">May not working in your device at all.</string>
 
-    <string name="application_is_starting_toast">Application is starting…</string>
+    <string name="application_is_not_started">is not started</string>
+    <string name="application_is_starting_toast">is starting…</string>
+    <string name="application_is_started_toast">is started</string>
 
     <!-- **************************************************************************************** -->
 
