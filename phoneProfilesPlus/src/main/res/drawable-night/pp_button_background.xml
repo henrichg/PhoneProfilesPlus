@@ -3,14 +3,14 @@
 
     <!-- Drop Shadow Stack -->
     <!-- alpha 00 is for disabling shadow over popup -->
-    <item>
-        <shape>
+<!--    <item>-->
+<!--        <shape>-->
 
-            <solid android:color="#00707070" />
+<!--            <solid android:color="#00707070" />-->
 
-            <corners android:radius="@dimen/button_corner_radius" />
-        </shape>
-    </item>
+<!--            <corners android:radius="@dimen/button_corner_radius" />-->
+<!--        </shape>-->
+<!--    </item>-->
     <item>
         <shape>
             <padding

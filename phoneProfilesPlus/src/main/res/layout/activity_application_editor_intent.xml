@@ -109,6 +109,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="18dp"
                     android:layout_marginTop="5dp"
+                    android:popupElevation="0dp"
                     android:entries="@array/applicationEditorIntentIntentTypeArray"
                     style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
 
@@ -176,6 +177,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="18dp"
                     android:layout_marginTop="5dp"
+                    android:popupElevation="0dp"
                     android:entries="@array/applicationEditorIntentActionArray"
                     style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
                 <EditText
@@ -371,6 +373,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="18dp"
+                            android:popupElevation="0dp"
                             android:entries="@array/applicationEditorIntentExtraTypeArray"
                             style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
                     </LinearLayout>
@@ -417,6 +420,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="18dp"
+                            android:popupElevation="0dp"
                             android:entries="@array/applicationEditorIntentExtraTypeArray"
                             style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
                     </LinearLayout>
@@ -463,6 +467,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="18dp"
+                            android:popupElevation="0dp"
                             android:entries="@array/applicationEditorIntentExtraTypeArray"
                             style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
                     </LinearLayout>
@@ -509,6 +514,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="18dp"
+                            android:popupElevation="0dp"
                             android:entries="@array/applicationEditorIntentExtraTypeArray"
                             style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
                     </LinearLayout>
@@ -555,6 +561,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="18dp"
+                            android:popupElevation="0dp"
                             android:entries="@array/applicationEditorIntentExtraTypeArray"
                             style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
                     </LinearLayout>

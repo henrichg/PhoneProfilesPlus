@@ -1837,7 +1837,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     if (dataWrapper != null) {
                         //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EditorProfilesActivity.doImportData");
-                        this.dataWrapper.updateNotificationAndWidgets(true);
+                        this.dataWrapper.updateNotificationAndWidgets(true, true);
 
                         PPApplication.setApplicationStarted(this.dataWrapper.context, true);
                         Intent serviceIntent = new Intent(this.dataWrapper.context, PhoneProfilesService.class);

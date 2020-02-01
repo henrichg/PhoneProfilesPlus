@@ -67,6 +67,7 @@
             android:clickable="true"
             android:focusable="true"
             android:text="@string/about_application_donate_button"
+            style="?android:attr/borderlessButtonStyle"
             tools:ignore="UnusedAttribute"/>
 
         <TextView

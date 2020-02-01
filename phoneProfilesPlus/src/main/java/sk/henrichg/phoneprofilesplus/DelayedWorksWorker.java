@@ -116,7 +116,7 @@ public class DelayedWorksWorker extends Worker {
                                 }
 
                                 dataWrapper.firstStartEvents(true, false);
-                                dataWrapper.updateNotificationAndWidgets(true);
+                                dataWrapper.updateNotificationAndWidgets(true, true);
                             } else {
                                 PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "global event run is not enabled, manually activate profile");
 
@@ -127,7 +127,7 @@ public class DelayedWorksWorker extends Worker {
                                 }
 
                                 dataWrapper.activateProfileOnBoot();
-                                dataWrapper.updateNotificationAndWidgets(true);
+                                dataWrapper.updateNotificationAndWidgets(true, true);
                             }
 
                             // set waitForEndOfStart to false only when is not enqueued packageReplacedWork
@@ -222,7 +222,7 @@ public class DelayedWorksWorker extends Worker {
 
                                     dataWrapper.firstStartEvents(true, false);
                                     //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from PackageReplacedReceiver.onReceive - worker");
-                                    dataWrapper.updateNotificationAndWidgets(true);
+                                    dataWrapper.updateNotificationAndWidgets(true, true);
                                 } else {
                                     PPApplication.logE("PackageReplacedReceiver.doWork", "global event run is not enabled, manually activate profile");
 
@@ -232,7 +232,7 @@ public class DelayedWorksWorker extends Worker {
 
                                     dataWrapper.activateProfileOnBoot();
                                     //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from PackageReplacedReceiver.onReceive - worker");
-                                    dataWrapper.updateNotificationAndWidgets(true);
+                                    dataWrapper.updateNotificationAndWidgets(true, true);
                                 }
                             }
 

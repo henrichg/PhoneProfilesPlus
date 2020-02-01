@@ -81,6 +81,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:entries="@array/emptyArray"
+                            android:popupElevation="0dp"
                             style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
 
                     </LinearLayout>

@@ -94,6 +94,7 @@
             android:layout_marginEnd="30dp"
             android:layout_weight="1"
             android:prompt="@string/donation_google_android_market_text"
+            android:popupElevation="0dp"
             style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
 
         <Button

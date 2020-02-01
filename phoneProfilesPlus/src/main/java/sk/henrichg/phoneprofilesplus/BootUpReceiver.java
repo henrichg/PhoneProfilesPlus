@@ -95,7 +95,7 @@ public class BootUpReceiver extends BroadcastReceiver {
 
                                     dataWrapper.firstStartEvents(true, false);
                                     PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from BootUpReceiver.onReceive");
-                                    dataWrapper.updateNotificationAndWidgets(true);
+                                    dataWrapper.updateNotificationAndWidgets(true, true);
                                 } else {
                                     PPApplication.logE("BootUpReceiver.onReceive", "global event run is not enabled, manually activate profile");
 
@@ -105,7 +105,7 @@ public class BootUpReceiver extends BroadcastReceiver {
 
                                     dataWrapper.activateProfileOnBoot();
                                     PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from BootUpReceiver.onReceive");
-                                    dataWrapper.updateNotificationAndWidgets(true);
+                                    dataWrapper.updateNotificationAndWidgets(true, true);
                                 }
                             }
                         } else {

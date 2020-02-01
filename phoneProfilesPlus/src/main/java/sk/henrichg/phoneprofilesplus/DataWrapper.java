@@ -580,9 +580,9 @@ public class DataWrapper {
         }
     }
 
-    void updateNotificationAndWidgets(boolean refresh)
+    void updateNotificationAndWidgets(boolean refresh, boolean forService)
     {
-        PPApplication.showProfileNotification(/*context*/refresh, false);
+        PPApplication.showProfileNotification(/*context*/refresh, forService);
         //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.updateNotificationAndWidgets");
         ActivateProfileHelper.updateGUI(context, true, refresh);
     }
@@ -1270,7 +1270,7 @@ public class DataWrapper {
         }
         else {
             //restartEvents(false, false, true, false, useHandler);
-            restartEventsWithRescan(/*true, */false, useHandler, false, false);
+            restartEventsWithRescan(false, useHandler, false, false);
         }
     }
 
@@ -2076,7 +2076,7 @@ public class DataWrapper {
 
             PPApplication.showProfileNotification(/*context*/false, false);
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.activateProfile");
-            ActivateProfileHelper.updateGUI(context, true, false);
+            ActivateProfileHelper.updateGUI(context, true, startupSource == PPApplication.STARTUP_SOURCE_BOOT);
 
             // for startActivityForResult
             if (activity != null)
