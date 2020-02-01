@@ -2,6 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <!-- Drop Shadow Stack -->
+    <!-- alpha 00 is for disabling shadow over popup -->
     <item>
         <shape android:shape="rectangle">
 

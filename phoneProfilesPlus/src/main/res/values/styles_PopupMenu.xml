@@ -28,6 +28,7 @@
     <style name="PopupMenu_dayNight" parent="@style/Widget.AppCompat.Light.PopupMenu">
         <item name="android:popupBackground">@drawable/popupmenu_background</item>
         <item name="android:elevation">0dp</item>
+        <item name="android:popupElevation">0dp</item>
         <item name="android:overlapAnchor">true</item>
     </style>
 
