@@ -1126,7 +1126,6 @@
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Приложения</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Ярлыки</string>
     <string name="applications_editor_dialog_not_selected">[не выбрано]</string>
-    <string name="activate_profile_application_not_started">Приложение не запущено</string>
     <string name="phone_profiles_pref_notificationBackgroundColor">Цвет фона</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_android">Родной (Android)</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">Тёмный</string>
@@ -1403,6 +1402,9 @@
     <string name="array_pref_87_percent" formatted="false">87.5%</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Показывать продолжительность действия профиля (виджет)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Может не работать на вашем устройстве.</string>
+    <string name="application_is_not_started">не запущено</string>
+    <string name="application_is_starting_toast">запускается…</string>
+    <string name="application_is_started_toast">запущено</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>

@@ -1126,7 +1126,6 @@
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Programma\'s</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Snelkoppelingen</string>
     <string name="applications_editor_dialog_not_selected">[niet geselecteerd]</string>
-    <string name="activate_profile_application_not_started">Programma is niet gestart</string>
     <string name="phone_profiles_pref_notificationBackgroundColor">Achtergrondkleur</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_android">Standaard</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">Donker</string>
@@ -1403,6 +1402,9 @@
     <string name="array_pref_87_percent" formatted="false">87,5%</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Toon tijdsduur profiel (widget)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Werkt mogelijk niet helemaal op je apparaat.</string>
+    <string name="application_is_not_started">is niet gestart</string>
+    <string name="application_is_starting_toast">start…</string>
+    <string name="application_is_started_toast">is gestart</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>

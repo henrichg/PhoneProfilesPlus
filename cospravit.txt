@@ -689,5 +689,41 @@ SearchCalendarEventsWorker.WORK_TAG -> SearchCalendarEventsWorker.cancelWork()
 WifiScanWorker.WORK_TAG -> WifiScanWorker.cancelWork()
 "startWifiScanWork" -> nema
 
+-----------------------------------------
+
+BluetoothLEScanCallback21
+- BluetoothScanWorker
+  - startLEScan()
+    WifiBluetoothScanner.bluetoothLEScanner.startScan(filters, settings, new BluetoothLEScanCallback21(context));
+    - bluetooth = BluetoothAdapter.getDefaultAdapter(); //getBluetoothAdapter(context);
+    - WifiBluetoothScanner.bluetoothLEScanner = bluetooth.getBluetoothLeScanner();
+
+  - stopLEScan()
+    WifiBluetoothScanner.bluetoothLEScanner.stopScan(new BluetoothLEScanCallback21(context));
+    - bluetooth = BluetoothAdapter.getDefaultAdapter(); //getBluetoothAdapter(context);
+    - WifiBluetoothScanner.bluetoothLEScanner = bluetooth.getBluetoothLeScanner();
+
+startLEScan()
+- BluetoothStateChangedBroadcastRecdeiver
+  - onReceive()
+    - HandlerThread.handler.post()
+      - BluetoothScanWorker.startLEScan(appContext);
+- WifiBluetoothScanner
+  - doScan()
+    - BluetoothScanWorker.startLEScan(context);
+
+stopLEScan()
+- WifiBluetoothScanner
+  - waitForLEBluetoothScanEnd()
+
+doScan()
+- BluetoothScanWorker
+  - startScanner()
+
+startScanner()
+- BluetoothPreferenceFragmentX
+  - rescanAsyncTask.doInBackground()
+- Bluetootk=hScanWorker
+  - doWork()
 
 

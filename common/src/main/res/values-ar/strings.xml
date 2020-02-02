@@ -1126,7 +1126,6 @@
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) التطبيقات</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) الإختصارات</string>
     <string name="applications_editor_dialog_not_selected">[بدون إختيار]</string>
-    <string name="activate_profile_application_not_started">التطبيق لم يبدأ</string>
     <string name="phone_profiles_pref_notificationBackgroundColor">لون الخلفية</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_android">محلي</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">الأسود</string>
@@ -1403,6 +1402,9 @@
     <string name="array_pref_87_percent" formatted="false">87.5%</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration (widget)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">May not working in your device at all.</string>
+    <string name="application_is_not_started">is not started</string>
+    <string name="application_is_starting_toast">is starting…</string>
+    <string name="application_is_started_toast">is started</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>

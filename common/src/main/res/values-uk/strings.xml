@@ -1126,7 +1126,6 @@
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Додатки</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Ярлики</string>
     <string name="applications_editor_dialog_not_selected">[не вибрано]</string>
-    <string name="activate_profile_application_not_started">Додаток не запущено</string>
     <string name="phone_profiles_pref_notificationBackgroundColor">Колір фону</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_android">Оригінальний</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">Темний</string>
@@ -1403,6 +1402,9 @@
     <string name="array_pref_87_percent" formatted="false">87.5%</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Показати тривалість профілю (віджет)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Взагалі може не працювати у вашому пристрої.</string>
+    <string name="application_is_not_started">is not started</string>
+    <string name="application_is_starting_toast">is starting…</string>
+    <string name="application_is_started_toast">is started</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>

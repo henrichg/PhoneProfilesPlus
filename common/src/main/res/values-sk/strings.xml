@@ -1126,7 +1126,6 @@
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Aplikácie</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Odkazy</string>
     <string name="applications_editor_dialog_not_selected">[nevybraté]</string>
-    <string name="activate_profile_application_not_started">Aplikácia nie je spustená</string>
     <string name="phone_profiles_pref_notificationBackgroundColor">Farba pozadia</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_android">Natívna</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">Tmavá</string>
@@ -1403,6 +1402,9 @@
     <string name="array_pref_87_percent" formatted="false">87,5%</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Zobrazovať trvanie profilu (miniaplikácia)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Vo vašom zariadení nemusí fungovať vôbec.</string>
+    <string name="application_is_not_started">nie je spustený</string>
+    <string name="application_is_starting_toast">štartuje…</string>
+    <string name="application_is_started_toast">je spustený</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>

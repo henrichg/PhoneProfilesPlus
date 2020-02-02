@@ -1126,7 +1126,6 @@
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Aplikacije</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Prečaci</string>
     <string name="applications_editor_dialog_not_selected">[nema odabranih]</string>
-    <string name="activate_profile_application_not_started">Aplikacija nije pokrenuta</string>
     <string name="phone_profiles_pref_notificationBackgroundColor">Boja pozadine</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_android">Izvorno</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">Tamna</string>
@@ -1403,6 +1402,9 @@
     <string name="array_pref_87_percent" formatted="false">87,5%</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Prikaži trajanje profila (vidžet)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Neće da radi uopće sa vašim uređajem.</string>
+    <string name="application_is_not_started">is not started</string>
+    <string name="application_is_starting_toast">is starting…</string>
+    <string name="application_is_started_toast">is started</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>

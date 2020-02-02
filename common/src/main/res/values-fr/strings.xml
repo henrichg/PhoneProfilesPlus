@@ -1126,7 +1126,6 @@
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Applications</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Raccourcis</string>
     <string name="applications_editor_dialog_not_selected">[non sélectionné]</string>
-    <string name="activate_profile_application_not_started">L\'application n\'est pas démarrée</string>
     <string name="phone_profiles_pref_notificationBackgroundColor">Couleur de fond</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_android">Natif</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">Sombre</string>
@@ -1403,6 +1402,9 @@
     <string name="array_pref_87_percent" formatted="false">87,5%</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Afficher la durée du profil (widget)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Peut ne pas fonctionner sur votre appareil.</string>
+    <string name="application_is_not_started">non démarré</string>
+    <string name="application_is_starting_toast">démarrage…</string>
+    <string name="application_is_started_toast">est démarré</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>
