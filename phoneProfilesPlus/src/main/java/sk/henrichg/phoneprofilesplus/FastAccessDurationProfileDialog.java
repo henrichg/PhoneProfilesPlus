@@ -83,7 +83,6 @@ class FastAccessDurationProfileDialog
             @Override
             protected Void doInBackground(Void... params) {
                 dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator);
-                /*HG*/
                 synchronized (dataWrapper.profileList) {
                     Collections.sort(dataWrapper.profileList, new FastAccessDurationProfileDialog.AlphabeticallyComparator());
                 }
@@ -137,7 +136,6 @@ class FastAccessDurationProfileDialog
     {
         long profileId = Profile.PROFILE_NO_ACTIVATE;
         if (position > 0) {
-            /*HG*/
             synchronized (dataWrapper.profileList) {
                 profileId = dataWrapper.profileList.get(position - 1)._id;
             }

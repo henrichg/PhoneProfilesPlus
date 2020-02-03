@@ -26,7 +26,6 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        /*HG*/
         synchronized (activityDataWrapper.profileList) {
             fragment.textViewNoData.setVisibility(
                     ((activityDataWrapper.profileListFilled &&
@@ -38,7 +37,6 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
     }
 
     public Object getItem(int position) {
-        /*HG*/
         synchronized (activityDataWrapper.profileList) {
             return activityDataWrapper.profileList.get(position);
         }
@@ -84,7 +82,6 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
 
 
         Profile profile;
-        /*HG*/
         synchronized (activityDataWrapper.profileList) {
             profile = activityDataWrapper.profileList.get(position);
         }

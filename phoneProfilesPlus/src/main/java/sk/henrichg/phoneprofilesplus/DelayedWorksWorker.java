@@ -1,19 +1,19 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.os.Build;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
-import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import androidx.annotation.NonNull;
-import androidx.work.WorkInfo;
-import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
@@ -22,7 +22,7 @@ public class DelayedWorksWorker extends Worker {
 
     //Context context;
 
-    static final String DELAYED_WORK_AFTER_FIRST_START = "after_first_start";
+    //static final String DELAYED_WORK_AFTER_FIRST_START = "after_first_start";
     static final String DELAYED_WORK_HANDLE_EVENTS = "handle_events";
     static final String DELAYED_WORK_START_WIFI_SCAN = "start_wifi_scan";
     static final String DELAYED_WORK_BLOCK_PROFILE_EVENT_ACTIONS = "block_profile_event_actions";
@@ -50,8 +50,8 @@ public class DelayedWorksWorker extends Worker {
             if (action == null)
                 return Result.success();
 
-            boolean activateProfiles = getInputData().getBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
-            boolean restartService = getInputData().getBoolean(PackageReplacedReceiver.EXTRA_RESTART_SERVICE, false);
+            //boolean activateProfiles = getInputData().getBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
+            //boolean restartService = getInputData().getBoolean(PackageReplacedReceiver.EXTRA_RESTART_SERVICE, false);
             String sensorType = getInputData().getString(PhoneProfilesService.EXTRA_SENSOR_TYPE);
             //int filterSelectedItem = getInputData().getInt(EditorProfilesActivity.EXTRA_SELECTED_FILTER, 0);
             //long profileId = getInputData().getLong(PPApplication.EXTRA_PROFILE_ID, 0);
@@ -66,7 +66,7 @@ public class DelayedWorksWorker extends Worker {
             Context appContext = getApplicationContext();
 
             switch (action) {
-                case DELAYED_WORK_AFTER_FIRST_START:
+                /*case DELAYED_WORK_AFTER_FIRST_START:
                     if (PhoneProfilesService.getInstance() != null) {
                         PhoneProfilesService instance = PhoneProfilesService.getInstance();
 
@@ -77,15 +77,15 @@ public class DelayedWorksWorker extends Worker {
 
                             //PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "wait for end of start is TRUE");
 
-                            /*if (Event.getGlobalEventsRunning(appContext)) {
-                                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+                            //if (Event.getGlobalEventsRunning(appContext)) {
+                            //    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
-                                if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
-                                    PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "RESTART EVENTS AFTER WAIT FOR END OF START");
-                                    dataWrapper.restartEventsWithRescan(activateProfiles, false, true, false);
-                                    //dataWrapper.invalidateDataWrapper();
-                                }
-                            }*/
+                            //    if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
+                            //        PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "RESTART EVENTS AFTER WAIT FOR END OF START");
+                            //        dataWrapper.restartEventsWithRescan(activateProfiles, false, true, false);
+                            //        //dataWrapper.invalidateDataWrapper();
+                            //    }
+                            //}
                             // start events
                             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
@@ -108,7 +108,7 @@ public class DelayedWorksWorker extends Worker {
                                 PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "global event run is enabled, first start events");
 
                                 if (activateProfiles) {
-                                    if (!DataWrapper.getIsManualProfileActivation(false/*, appContext*/)) {
+                                    if (!DataWrapper.getIsManualProfileActivation(false)) {
                                         ////// unblock all events for first start
                                         //     that may be blocked in previous application run
                                         dataWrapper.pauseAllEvents(false, false);
@@ -164,11 +164,345 @@ public class DelayedWorksWorker extends Worker {
 
                         PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "END");
                     }
-                    break;
+                    break;*/
                 case DELAYED_WORK_PACKAGE_REPLACED:
-                    PPApplication.logE("PackageReplacedReceiver.doWork", "START  restartService=" + restartService);
+                    PPApplication.logE("PackageReplacedReceiver.doWork", "START");
+                    //PPApplication.logE("PackageReplacedReceiver.doWork", "START  restartService=" + restartService);
+
+                    // wait 3 seconds
+                    int count = 0;
+                    while (PhoneProfilesService.getInstance() == null) {
+                        PPApplication.sleep(100);
+                        count++;
+                        if (count >= 30)
+                            break;
+                    }
+
+                    if (PhoneProfilesService.getInstance() == null) {
+                        Log.e("DelayedWorksWorker.doWork", "Service is not started !!!");
+                        Crashlytics.log("Service is not started !!!");
+                        return Result.failure();
+                    }
+
+                    // wait 40 seconds
+                    PhoneProfilesService instance = PhoneProfilesService.getInstance();
+                    count = 0;
+                    while (instance.getWaitForEndOfStart()) {
+                        PPApplication.sleep(100);
+                        count++;
+                        if (count >= 400)
+                            break;
+                    }
+
+                    if (instance.getWaitForEndOfStart()) {
+                        Log.e("DelayedWorksWorker.doWork", "waitForEndOfStart is true !!!");
+                        Crashlytics.log("waitForEndOfStart is true !!!");
+                        return Result.failure();
+                    }
 
                     DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+
+                    final int oldVersionCode = PPApplication.getSavedVersionCode(appContext);
+                    // save version code
+                    try {
+                        PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
+                        int actualVersionCode = PPApplication.getVersionCode(pInfo);
+                        PPApplication.setSavedVersionCode(appContext, actualVersionCode);
+
+                        String version = pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
+                        dataWrapper.addActivityLog(DataWrapper.ALTYPE_APPLICATION_UPGRADE, version, null, null, 0);
+                    } catch (Exception ignored) {
+                    }
+
+                    Permissions.setAllShowRequestPermissions(appContext, true);
+
+                    //WifiBluetoothScanner.setShowEnableLocationNotification(appContext, true, WifiBluetoothScanner.SCANNER_TYPE_WIFI);
+                    //WifiBluetoothScanner.setShowEnableLocationNotification(appContext, true, WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
+                    //PhoneStateScanner.setShowEnableLocationNotification(appContext, true);
+                    //ActivateProfileHelper.setScreenUnlocked(appContext, true);
+
+                    PPApplication.logE("PackageReplacedReceiver.doWork", "oldVersionCode=" + oldVersionCode);
+                    int actualVersionCode;
+                    try {
+                        PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
+                        actualVersionCode = PPApplication.getVersionCode(pInfo);
+                        PPApplication.logE("PackageReplacedReceiver.doWork", "actualVersionCode=" + actualVersionCode);
+
+                        if (oldVersionCode < actualVersionCode) {
+                            PPApplication.logE("PackageReplacedReceiver.doWork", "is new version");
+
+                            //PhoneProfilesService.cancelWork("delayedWorkAfterFirstStartWork", appContext);
+
+                            if (actualVersionCode <= 2322) {
+                                // for old packages use Priority in events
+                                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+                                //PPApplication.logE("PackageReplacedReceiver.doWork", "applicationEventUsePriority=true");
+                                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY, true);
+                                editor.apply();
+                            }
+                            if (actualVersionCode <= 2400) {
+                                PPApplication.logE("PackageReplacedReceiver.doWork", "donation alarm restart");
+                                PPApplication.setDaysAfterFirstStart(appContext, 0);
+                                PPApplication.setDonationNotificationCount(appContext, 0);
+                                DonationBroadcastReceiver.setAlarm(appContext);
+                            }
+
+                            //if (actualVersionCode <= 2500) {
+                            //    // for old packages hide profile notification from status bar if notification is disabled
+                            //    ApplicationPreferences.getSharedPreferences(appContext);
+                            //    if (Build.VERSION.SDK_INT < 26) {
+                            //        if (!ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, true)) {
+                            //            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                            //            PPApplication.logE("PackageReplacedReceiver.onReceive", "notificationShowInStatusBar=false");
+                            //            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, false);
+                            //            editor.apply();
+                            //        }
+                            //    }
+                            //}
+
+                            if (actualVersionCode <= 2700) {
+                                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+
+                                //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_SAVE_EDITOR_STATE, true);
+
+                                editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS, false);
+                                editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, false);
+                                editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, false);
+                                editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS, false);
+                                editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, false);
+                                editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
+                                editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
+                                editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
+                                editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, false);
+                                editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, false);
+                                editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
+                                editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS, false);
+                                editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS_SAVE, false);
+                                editor.putBoolean(EventsPrefsActivity.PREF_START_TARGET_HELPS, false);
+                                editor.apply();
+                            }
+                            if (actualVersionCode <= 3200) {
+                                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+                                editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS, true);
+                                editor.apply();
+                            }
+                            if (actualVersionCode <= 3500) {
+                                if (!ApplicationPreferences.getSharedPreferences(appContext).contains(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT)) {
+                                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT, ApplicationPreferences.applicationActivateWithAlert);
+
+                                    String rescan;
+                                    rescan = ApplicationPreferences.applicationEventLocationRescan;
+                                    if (rescan.equals("0"))
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_RESCAN, "1");
+                                    if (rescan.equals("2"))
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_RESCAN, "3");
+                                    rescan = ApplicationPreferences.applicationEventWifiRescan;
+                                    if (rescan.equals("0"))
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_RESCAN, "1");
+                                    if (rescan.equals("2"))
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_RESCAN, "3");
+                                    rescan = ApplicationPreferences.applicationEventBluetoothRescan;
+                                    if (rescan.equals("0"))
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN, "1");
+                                    if (rescan.equals("2"))
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN, "3");
+                                    rescan = ApplicationPreferences.applicationEventMobileCellsRescan;
+                                    if (rescan.equals("0"))
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "1");
+                                    if (rescan.equals("2"))
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "3");
+                                    editor.apply();
+                                }
+
+                                // continue donation notification
+                                if (PPApplication.getDaysAfterFirstStart(appContext) == 8)
+                                    PPApplication.setDonationNotificationCount(appContext, 1);
+                            }
+
+                            if (actualVersionCode <= 3900) {
+                                SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IF_WIFI_OFF,
+                                        preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_WIFI, true));
+                                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IF_BLUETOOTH_OFF,
+                                        preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH, true));
+                                editor.apply();
+                            }
+
+                            //if (actualVersionCode <= 4100) {
+                            //    SharedPreferences preferences = appContext.getSharedPreferences(PPApplication.SHARED_PROFILE_PREFS_NAME, Context.MODE_PRIVATE);
+                            //    if ((preferences.getInt(Profile.PREF_PROFILE_DEVICE_WIFI_AP, 0) == 3) &&
+                            //            (Build.VERSION.SDK_INT >= 26)) {
+                            //        // Toggle is not supported for wifi AP in Android 8+
+                            //        SharedPreferences.Editor editor = preferences.edit();
+                            //        editor.putInt(Profile.PREF_PROFILE_DEVICE_WIFI_AP, 0);
+                            //        editor.apply();
+                            //    }
+                            //}
+
+                            //if (actualVersionCode <= 4200) {
+                            //    ApplicationPreferences.getSharedPreferences(appContext);
+                            //    SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                            //    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_FIRST_START, false);
+                            //    editor.apply();
+
+                            //    SharedPreferences preferences = appContext.getSharedPreferences(PPApplication.SHARED_PROFILE_PREFS_NAME, Context.MODE_PRIVATE);
+                            //    if (preferences.getInt(Profile.PREF_PROFILE_LOCK_DEVICE, 0) == 3) {
+                            //        editor = preferences.edit();
+                            //        editor.putInt(Profile.PREF_PROFILE_LOCK_DEVICE, 1);
+                            //        editor.apply();
+                            //    }
+                            //}
+
+                            //if (actualVersionCode <= 4400) {
+                            //    ApplicationPreferences.getSharedPreferences(appContext);
+                            //    if (!ApplicationPreferences.preferences.contains(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR)) {
+                            //        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                            //        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR, ApplicationPreferences.applicationWidgetListPrefIndicator(appContext));
+                            //        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, ApplicationPreferences.applicationWidgetListBackground(appContext));
+                            //        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B, ApplicationPreferences.applicationWidgetListLightnessB(appContext));
+                            //        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T, ApplicationPreferences.applicationWidgetListLightnessT(appContext));
+                            //        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR, ApplicationPreferences.applicationWidgetListIconColor(appContext));
+                            //        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetListIconLightness(appContext));
+                            //        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS, ApplicationPreferences.applicationWidgetListRoundedCorners(appContext));
+                            //        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_TYPE, ApplicationPreferences.applicationWidgetListBackgroundType(appContext));
+                            //        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR, ApplicationPreferences.applicationWidgetListBackgroundColor(appContext));
+                            //        editor.apply();
+                            //    }
+                            //}
+
+                            if (actualVersionCode <= 4550) {
+                                if (Build.VERSION.SDK_INT < 29) {
+                                    SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+                                    boolean darkBackground = preferences.getBoolean("notificationDarkBackground", false);
+                                    if (darkBackground) {
+                                        SharedPreferences.Editor editor = preferences.edit();
+                                        editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "1");
+                                        editor.apply();
+                                    }
+                                }
+                            }
+
+                            if (actualVersionCode <= 4600) {
+                                List<Event> eventList = DatabaseHandler.getInstance(appContext).getAllEvents();
+                                for (Event event : eventList) {
+                                    if (!event._eventPreferencesCalendar._searchString.isEmpty()) {
+                                        String searchStringOrig = event._eventPreferencesCalendar._searchString;
+                                        String searchStringNew = "";
+                                        String[] searchStringSplits = searchStringOrig.split("\\|");
+                                        for (String split : searchStringSplits) {
+                                            if (!split.isEmpty()) {
+                                                String searchPattern = split;
+                                                if (searchPattern.startsWith("!")) {
+                                                    searchPattern =  "\\" + searchPattern;
+                                                }
+                                                if (!searchStringNew.isEmpty())
+                                                    //noinspection StringConcatenationInLoop
+                                                    searchStringNew = searchStringNew + "|";
+                                                //noinspection StringConcatenationInLoop
+                                                searchStringNew = searchStringNew + searchPattern;
+                                            }
+                                        }
+                                        event._eventPreferencesCalendar._searchString = searchStringNew;
+                                        DatabaseHandler.getInstance(appContext).updateEvent(event);
+                                    }
+                                }
+                            }
+
+                            if (actualVersionCode <= 4870) {
+                                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+                                editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_FILTER_SPINNER, true);
+
+                                String theme = ApplicationPreferences.applicationTheme(appContext, false);
+                                if (!(theme.equals("white") || theme.equals("dark") || theme.equals("night_mode"))) {
+                                    String defaultValue = "white";
+                                    if (Build.VERSION.SDK_INT >= 28)
+                                        defaultValue = "night_mode";
+                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, defaultValue);
+                                    GlobalGUIRoutines.switchNightMode(appContext, true);
+                                }
+
+                                editor.apply();
+                            }
+
+                            if (actualVersionCode <= 5020) {
+                                //PPApplication.logE("PackageReplacedReceiver.doWork", "set \"night_mode\" theme");
+                                if (Build.VERSION.SDK_INT >= 28) {
+                                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "night_mode");
+                                    GlobalGUIRoutines.switchNightMode(appContext, true);
+                                    editor.apply();
+                                }
+                            }
+
+                            if (actualVersionCode <= 5250) {
+                                if (oldVersionCode <= 5210) {
+                                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+
+                                    if (Build.VERSION.SDK_INT >= 26) {
+                                        NotificationManager manager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                                        NotificationChannel channel = manager.getNotificationChannel(PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL);
+
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED,
+                                                channel.getImportance() != NotificationManager.IMPORTANCE_NONE);
+                                    }
+
+                                    int filterEventsSelectedItem = ApplicationPreferences.editorEventsViewSelectedItem;
+                                    if (filterEventsSelectedItem == 2)
+                                        filterEventsSelectedItem++;
+                                    editor.putInt(ApplicationPreferences.EDITOR_EVENTS_VIEW_SELECTED_ITEM, filterEventsSelectedItem);
+                                    editor.apply();
+                                    ApplicationPreferences.editorEventsViewSelectedItem(appContext);
+                                }
+                            }
+
+                            if (actualVersionCode <= 5330) {
+                                if (oldVersionCode <= 5300) {
+                                    // for old packages hide profile notification from status bar if notification is disabled
+                                    if (Build.VERSION.SDK_INT < 26) {
+                                        SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+                                        boolean notificationStatusBar = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, true);
+                                        boolean notificationStatusBarPermanent = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, true);
+                                        if (!(notificationStatusBar && notificationStatusBarPermanent)) {
+                                            SharedPreferences.Editor editor = preferences.edit();
+                                            //PPApplication.logE("PackageReplacedReceiver.onReceive", "status bar is not permanent, set it!!");
+                                            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, false);
+                                            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, false);
+                                            editor.putString(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE, "2");
+                                            editor.apply();
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (actualVersionCode <= 5430) {
+                                SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+                                String notificationBackgroundColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
+                                SharedPreferences.Editor editor = preferences.edit();
+                                if (!preferences.contains(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR))
+                                    editor.putInt(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR, 0xFFFFFFFF);
+                                if (!preferences.contains(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE))
+                                    editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE, false);
+                                if (notificationBackgroundColor.equals("2")) {
+                                    editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE, true);
+                                    editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "1");
+                                }
+                                else
+                                if (notificationBackgroundColor.equals("4")) {
+                                    editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE, true);
+                                    editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "3");
+                                    editor.apply();
+                                }
+                                editor.apply();
+                            }
+                        }
+                    } catch (Exception ignored) {
+                    }
+
+                    PPApplication.loadApplicationPreferences(appContext);
+                    PPApplication.loadGlobalApplicationData(appContext);
+                    PPApplication.loadProfileActivationData(appContext);
 
                     /*
                     ApplicationPreferences.getSharedPreferences(appContext);
@@ -182,7 +516,7 @@ public class DelayedWorksWorker extends Worker {
                         PPApplication.sleep(2000);
                     }
 
-                    if (!PPApplication.getApplicationStarted(true)) {
+                    /*if (!PPApplication.getApplicationStarted(true)) {
                         // service is not started, start it
                         PPApplication.logE("PackageReplacedReceiver.doWork", "PP service is not started, start it");
                         if (startService(dataWrapper))
@@ -191,9 +525,10 @@ public class DelayedWorksWorker extends Worker {
                         PPApplication.logE("PackageReplacedReceiver.doWork", "PP service is started");
                         if (restartService)
                             startService(dataWrapper);
-                    }
+                    }*/
+                    startService(dataWrapper);
 
-                    if (!restartService) {
+                    /*if (!restartService) {
                         // restart service is not set, only restart events.
 
                         if (PhoneProfilesService.getInstance() != null) {
@@ -214,7 +549,7 @@ public class DelayedWorksWorker extends Worker {
                                 if (Event.getGlobalEventsRunning()) {
                                     PPApplication.logE("PackageReplacedReceiver.doWork", "global event run is enabled, first start events");
 
-                                    if (!DataWrapper.getIsManualProfileActivation(false/*, appContext*/)) {
+                                    if (!DataWrapper.getIsManualProfileActivation(false)) {
                                         ////// unblock all events for first start
                                         //     that may be blocked in previous application run
                                         dataWrapper.pauseAllEvents(false, false);
@@ -239,7 +574,7 @@ public class DelayedWorksWorker extends Worker {
                             instance.setWaitForEndOfStart(false);
                             PPApplication.logE("PackageReplacedReceiver.doWork", "instance.getWaitForEndOfStart()="+instance.getWaitForEndOfStart());
                         }
-                    }
+                    }*/
 
                     PPApplication.logE("PackageReplacedReceiver.doWork", "END");
                     break;
@@ -408,7 +743,8 @@ public class DelayedWorksWorker extends Worker {
     }
     */
 
-    private boolean startService(DataWrapper dataWrapper) {
+    //private boolean startService(DataWrapper dataWrapper) {
+    private void startService(DataWrapper dataWrapper) {
         boolean isApplicationStarted = PPApplication.getApplicationStarted(false);
 
         //PPApplication.logE("PPApplication.exitApp", "from DelayedWorksWorker.doWork shutdown=false");
@@ -430,10 +766,10 @@ public class DelayedWorksWorker extends Worker {
 
             //PPApplication.sleep(2000);
 
-            return true;
+            //return true;
         }
-        else
-            return false;
+        //else
+        //    return false;
     }
 
 }

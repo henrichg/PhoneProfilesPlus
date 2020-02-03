@@ -177,7 +177,6 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
         value = "";
         if (dataWrapper.profileListFilled)
         {
-            /*HG*/
             synchronized (dataWrapper.profileList) {
                 for (Profile profile : dataWrapper.profileList) {
                     if (profile._checked) {

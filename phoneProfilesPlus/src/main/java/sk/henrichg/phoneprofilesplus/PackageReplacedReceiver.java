@@ -1,17 +1,11 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import androidx.work.Data;
@@ -21,7 +15,7 @@ import androidx.work.WorkManager;
 
 public class PackageReplacedReceiver extends BroadcastReceiver {
 
-    static final String EXTRA_RESTART_SERVICE = "restart_service";
+    //static final String EXTRA_RESTART_SERVICE = "restart_service";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -34,12 +28,11 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
             final Context appContext = context.getApplicationContext();
 
-            final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+            //final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
             PPApplication.startHandlerThread("PackageReplacedReceiver.onReceive.1");
             final Handler handler2 = new Handler(PPApplication.handlerThread.getLooper());
             handler2.post(new Runnable() {
-                @SuppressWarnings("StringConcatenationInLoop")
                 @Override
                 public void run() {
                     PPApplication.logE("PackageReplacedReceiver.onReceive", "PackageReplacedReceiver.onReceive.1");
@@ -52,7 +45,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PackageReplacedReceiver.onReceive.1");
+                        /*PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PackageReplacedReceiver.onReceive.1");
 
                         final int oldVersionCode = PPApplication.getSavedVersionCode(appContext);
                         // save version code
@@ -73,7 +66,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                         //PhoneStateScanner.setShowEnableLocationNotification(appContext, true);
                         //ActivateProfileHelper.setScreenUnlocked(appContext, true);
 
-                        boolean restartService = false;
+                        //boolean restartService = false;
 
                         PPApplication.logE("PackageReplacedReceiver.onReceive", "oldVersionCode=" + oldVersionCode);
                         int actualVersionCode;
@@ -85,7 +78,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             if (oldVersionCode < actualVersionCode) {
                                 PPApplication.logE("PackageReplacedReceiver.onReceive", "is new version");
 
-                                restartService = true;
+                                //restartService = true;
                                 PhoneProfilesService.cancelWork("delayedWorkAfterFirstStartWork", appContext);
 
                                 if (actualVersionCode <= 2322) {
@@ -105,22 +98,22 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                                     //restartService = true;
                                 }
-                                /*
-                                if (actualVersionCode <= 2500) {
-                                    // for old packages hide profile notification from status bar if notification is disabled
-                                    ApplicationPreferences.getSharedPreferences(appContext);
-                                    if (Build.VERSION.SDK_INT < 26) {
-                                        if (!ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, true)) {
-                                            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-                                            PPApplication.logE("PackageReplacedReceiver.onReceive", "notificationShowInStatusBar=false");
-                                            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, false);
-                                            editor.apply();
 
-                                            //restartService = true;
-                                        }
-                                    }
-                                }
-                                */
+                                //if (actualVersionCode <= 2500) {
+                                //    // for old packages hide profile notification from status bar if notification is disabled
+                                //    ApplicationPreferences.getSharedPreferences(appContext);
+                                //    if (Build.VERSION.SDK_INT < 26) {
+                                //        if (!ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, true)) {
+                                //            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                                //            PPApplication.logE("PackageReplacedReceiver.onReceive", "notificationShowInStatusBar=false");
+                                //            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, false);
+                                //            editor.apply();
+
+                                //            //restartService = true;
+                                //        }
+                                //    }
+                                //}
+
                                 if (actualVersionCode <= 2700) {
                                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
 
@@ -199,55 +192,53 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     //restartService = true;
                                 }
 
-                                /*if (actualVersionCode <= 4100) {
-                                    SharedPreferences preferences = appContext.getSharedPreferences(PPApplication.SHARED_PROFILE_PREFS_NAME, Context.MODE_PRIVATE);
-                                    if ((preferences.getInt(Profile.PREF_PROFILE_DEVICE_WIFI_AP, 0) == 3) &&
-                                            (Build.VERSION.SDK_INT >= 26)) {
-                                        // Toggle is not supported for wifi AP in Android 8+
-                                        SharedPreferences.Editor editor = preferences.edit();
-                                        editor.putInt(Profile.PREF_PROFILE_DEVICE_WIFI_AP, 0);
-                                        editor.apply();
+                                //if (actualVersionCode <= 4100) {
+                                //    SharedPreferences preferences = appContext.getSharedPreferences(PPApplication.SHARED_PROFILE_PREFS_NAME, Context.MODE_PRIVATE);
+                                //    if ((preferences.getInt(Profile.PREF_PROFILE_DEVICE_WIFI_AP, 0) == 3) &&
+                                //            (Build.VERSION.SDK_INT >= 26)) {
+                                //        // Toggle is not supported for wifi AP in Android 8+
+                                //        SharedPreferences.Editor editor = preferences.edit();
+                                //        editor.putInt(Profile.PREF_PROFILE_DEVICE_WIFI_AP, 0);
+                                //        editor.apply();
 
-                                        //restartService = true;
-                                    }
-                                }*/
+                                //        //restartService = true;
+                                //    }
+                                //}
 
-                                /*if (actualVersionCode <= 4200) {
-                                    ApplicationPreferences.getSharedPreferences(appContext);
-                                    SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_FIRST_START, false);
-                                    editor.apply();
+                                //if (actualVersionCode <= 4200) {
+                                //    ApplicationPreferences.getSharedPreferences(appContext);
+                                //    SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                                //    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_FIRST_START, false);
+                                //    editor.apply();
 
-                                    SharedPreferences preferences = appContext.getSharedPreferences(PPApplication.SHARED_PROFILE_PREFS_NAME, Context.MODE_PRIVATE);
-                                    if (preferences.getInt(Profile.PREF_PROFILE_LOCK_DEVICE, 0) == 3) {
-                                        editor = preferences.edit();
-                                        editor.putInt(Profile.PREF_PROFILE_LOCK_DEVICE, 1);
-                                        editor.apply();
-                                    }
+                                //    SharedPreferences preferences = appContext.getSharedPreferences(PPApplication.SHARED_PROFILE_PREFS_NAME, Context.MODE_PRIVATE);
+                                //    if (preferences.getInt(Profile.PREF_PROFILE_LOCK_DEVICE, 0) == 3) {
+                                //        editor = preferences.edit();
+                                //        editor.putInt(Profile.PREF_PROFILE_LOCK_DEVICE, 1);
+                                //        editor.apply();
+                                //    }
 
-                                    //restartService = true;
-                                }*/
+                                //    //restartService = true;
+                                //}
 
-                                /*
-                                if (actualVersionCode <= 4400) {
-                                    ApplicationPreferences.getSharedPreferences(appContext);
-                                    if (!ApplicationPreferences.preferences.contains(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR)) {
-                                        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR, ApplicationPreferences.applicationWidgetListPrefIndicator(appContext));
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, ApplicationPreferences.applicationWidgetListBackground(appContext));
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B, ApplicationPreferences.applicationWidgetListLightnessB(appContext));
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T, ApplicationPreferences.applicationWidgetListLightnessT(appContext));
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR, ApplicationPreferences.applicationWidgetListIconColor(appContext));
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetListIconLightness(appContext));
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS, ApplicationPreferences.applicationWidgetListRoundedCorners(appContext));
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_TYPE, ApplicationPreferences.applicationWidgetListBackgroundType(appContext));
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR, ApplicationPreferences.applicationWidgetListBackgroundColor(appContext));
-                                        editor.apply();
+                                //if (actualVersionCode <= 4400) {
+                                //    ApplicationPreferences.getSharedPreferences(appContext);
+                                //    if (!ApplicationPreferences.preferences.contains(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR)) {
+                                //        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                                //        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR, ApplicationPreferences.applicationWidgetListPrefIndicator(appContext));
+                                //        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, ApplicationPreferences.applicationWidgetListBackground(appContext));
+                                //        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B, ApplicationPreferences.applicationWidgetListLightnessB(appContext));
+                                //        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T, ApplicationPreferences.applicationWidgetListLightnessT(appContext));
+                                //        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR, ApplicationPreferences.applicationWidgetListIconColor(appContext));
+                                //        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetListIconLightness(appContext));
+                                //        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS, ApplicationPreferences.applicationWidgetListRoundedCorners(appContext));
+                                //        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_TYPE, ApplicationPreferences.applicationWidgetListBackgroundType(appContext));
+                                //        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR, ApplicationPreferences.applicationWidgetListBackgroundColor(appContext));
+                                //        editor.apply();
 
-                                        //restartService = true;
-                                    }
-                                }
-                                */
+                                //        //restartService = true;
+                                //    }
+                                //}
 
                                 if (actualVersionCode <= 4550) {
                                     if (Build.VERSION.SDK_INT < 29) {
@@ -397,12 +388,12 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                         PPApplication.loadApplicationPreferences(appContext);
                         PPApplication.loadGlobalApplicationData(appContext);
-                        PPApplication.loadProfileActivationData(appContext);
+                        PPApplication.loadProfileActivationData(appContext);*/
 
                         // work for restart service
                         Data workData = new Data.Builder()
                                 .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED)
-                                .putBoolean(PackageReplacedReceiver.EXTRA_RESTART_SERVICE, restartService)
+                                //.putBoolean(PackageReplacedReceiver.EXTRA_RESTART_SERVICE, restartService)
                                 .build();
 
                         OneTimeWorkRequest worker =

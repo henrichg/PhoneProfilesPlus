@@ -66,7 +66,6 @@ public class ProfilePreferenceFragmentX extends PreferenceDialogFragmentCompat {
             protected Void doInBackground(Void... params) {
 
                 preference.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator);
-                /*HG*/
                 synchronized (preference.dataWrapper.profileList) {
                     Collections.sort(preference.dataWrapper.profileList, new AlphabeticallyComparator());
                 }

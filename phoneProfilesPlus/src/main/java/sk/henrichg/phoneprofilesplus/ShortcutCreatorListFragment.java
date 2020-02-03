@@ -181,7 +181,6 @@ public class ShortcutCreatorListFragment extends Fragment {
                 // set copy local profile list into activity profilesDataWrapper
                 fragment.activityDataWrapper.copyProfileList(this.dataWrapper);
 
-                /*HG*/
                 synchronized (fragment.activityDataWrapper.profileList) {
                     if (fragment.activityDataWrapper.profileList.size() == 0)
                         fragment.textViewNoData.setVisibility(View.VISIBLE);
@@ -241,7 +240,6 @@ public class ShortcutCreatorListFragment extends Fragment {
             {
                 super.onPreExecute();
                 //PPApplication.logE("ShortcutCreatorListFragment.createShortcut","position="+position);
-                /*HG*/
                 synchronized (activityDataWrapper.profileList) {
                     profile = activityDataWrapper.profileList.get(position);
                 }

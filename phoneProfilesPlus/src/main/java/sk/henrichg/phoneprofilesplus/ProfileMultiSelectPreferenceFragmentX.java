@@ -68,7 +68,6 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
             protected Void doInBackground(Void... params) {
 
                 preference.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator);
-                /*HG*/
                 synchronized (preference.dataWrapper.profileList) {
                     Collections.sort(preference.dataWrapper.profileList, new ProfileMultiSelectPreferenceFragmentX.AlphabeticallyComparator());
                 }
@@ -120,7 +119,6 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
     {
         //PPApplication.logE("ProfileMultiSelectPreferenceX.getValueAMSDP","value="+preference.value);
 
-        /*HG*/
         synchronized (preference.dataWrapper.profileList) {
             for (Profile profile : preference.dataWrapper.profileList)
                 profile._checked = false;

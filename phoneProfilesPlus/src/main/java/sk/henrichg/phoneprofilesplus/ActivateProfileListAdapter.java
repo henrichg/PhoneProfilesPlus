@@ -37,14 +37,13 @@ class ActivateProfileListAdapter extends BaseAdapter
 
     public int getCount()
     {
-        /*HG*/
         synchronized (activityDataWrapper.profileList) {
             boolean someData = activityDataWrapper.profileListFilled &&
                     (activityDataWrapper.profileList.size() > 0);
             fragment.textViewNoData.setVisibility(someData ? View.GONE : View.VISIBLE);
-        /*if (fragment.gridViewDivider != null)
-            fragment.gridViewDivider.setBackgroundResource(
-                    GlobalGUIRoutines.getThemeActivatorGridDividerColor(someData, fragment.getActivity()));*/
+            /*if (fragment.gridViewDivider != null)
+                fragment.gridViewDivider.setBackgroundResource(
+                        GlobalGUIRoutines.getThemeActivatorGridDividerColor(someData, fragment.getActivity()));*/
 
             int count = 0;
             if (activityDataWrapper.profileListFilled) {
@@ -63,7 +62,6 @@ class ActivateProfileListAdapter extends BaseAdapter
             return null;
         else
         {
-            /*HG*/
             synchronized (activityDataWrapper.profileList) {
                 Profile _profile = null;
 
@@ -121,7 +119,6 @@ class ActivateProfileListAdapter extends BaseAdapter
     */
     public Profile getActivatedProfile()
     {
-        /*HG*/
         synchronized (activityDataWrapper.profileList) {
             for (Profile p : activityDataWrapper.profileList) {
                 if (p._checked) {
@@ -135,7 +132,6 @@ class ActivateProfileListAdapter extends BaseAdapter
 
     public void notifyDataSetChanged(boolean refreshIcons) {
         if (refreshIcons) {
-            /*HG*/
             synchronized (activityDataWrapper.profileList) {
                 for (Profile profile : activityDataWrapper.profileList) {
                     activityDataWrapper.refreshProfileIcon(profile, true,

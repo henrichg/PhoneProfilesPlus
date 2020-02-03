@@ -491,7 +491,6 @@ public class EditorProfileListFragment extends Fragment
                 // set local profile list into activity dataWrapper
                 fragment.activityDataWrapper.copyProfileList(_dataWrapper);
 
-                /*HG*/
                 synchronized (fragment.activityDataWrapper.profileList) {
                     if (fragment.activityDataWrapper.profileList.size() == 0)
                         fragment.textViewNoData.setVisibility(View.VISIBLE);

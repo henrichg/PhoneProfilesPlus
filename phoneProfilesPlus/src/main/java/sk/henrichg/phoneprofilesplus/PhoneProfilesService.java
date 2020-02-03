@@ -15,6 +15,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.Cursor;
@@ -49,10 +50,13 @@ import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import androidx.core.content.ContextCompat;
@@ -61,6 +65,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 import me.drakeet.support.toast.ToastCompat;
 
@@ -3728,7 +3733,6 @@ public class PhoneProfilesService extends Service
         final Context appContext = getApplicationContext();
 
         serviceHasFirstStart = true;
-        PhoneProfilesService.cancelWork("delayedWorkAfterFirstStartWork", appContext);
 
         boolean deactivateProfile = false;
         boolean activateProfiles = false;
@@ -3776,6 +3780,8 @@ public class PhoneProfilesService extends Service
                     }
 
                     PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.doForFirstStart");
+
+                    //PhoneProfilesService.cancelWork("delayedWorkAfterFirstStartWork", appContext);
 
                     PPApplication.createNotificationChannels(appContext);
 
@@ -3920,7 +3926,89 @@ public class PhoneProfilesService extends Service
                         PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneProfilesService.doForFirstStart");
                     }
 
-                    // work for first start events or activate profile on boot
+                    PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "START");
+                    PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "instance.getWaitForEndOfStart()="+instance.getWaitForEndOfStart());
+
+                    // start events
+
+                    if (_activateProfiles) {
+                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_DISABLED_SCANNING_BY_PROFILE, false);
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_DISABLED_SCANNING_BY_PROFILE, false);
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_DISABLED_SCANNING_BY_PROFILE, false);
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_DISABLED_SCANNING_BY_PROFILE, false);
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, false);
+                        editor.apply();
+                        ApplicationPreferences.applicationEventWifiDisabledScannigByProfile(appContext);
+                        ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile(appContext);
+                        ApplicationPreferences.applicationEventLocationDisabledScannigByProfile(appContext);
+                        ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(appContext);
+                        ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(appContext);
+                    }
+
+                    if (Event.getGlobalEventsRunning()) {
+                        PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "global event run is enabled, first start events");
+
+                        if (_activateProfiles) {
+                            if (!DataWrapper.getIsManualProfileActivation(false/*, appContext*/)) {
+                                ////// unblock all events for first start
+                                //     that may be blocked in previous application run
+                                dataWrapper.pauseAllEvents(false, false);
+                            }
+                        }
+
+                        dataWrapper.firstStartEvents(true, false);
+                        dataWrapper.updateNotificationAndWidgets(true, true);
+                    } else {
+                        PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "global event run is not enabled, manually activate profile");
+
+                        if (_activateProfiles) {
+                            ////// unblock all events for first start
+                            //     that may be blocked in previous application run
+                            dataWrapper.pauseAllEvents(true, false);
+                        }
+
+                        dataWrapper.activateProfileOnBoot();
+                        dataWrapper.updateNotificationAndWidgets(true, true);
+                    }
+
+                    /*// set waitForEndOfStart to false only when is not enqueued packageReplacedWork
+                    try {
+                        WorkManager workInstance = WorkManager.getInstance(appContext);
+                        ListenableFuture<List<WorkInfo>> statuses = workInstance.getWorkInfosByTag("packageReplacedWork");
+                        //noinspection TryWithIdenticalCatches
+                        try {
+                            List<WorkInfo> workInfoList = statuses.get();
+                            boolean running = false;
+                            for (WorkInfo workInfo : workInfoList) {
+                                WorkInfo.State state = workInfo.getState();
+                                running = (state == WorkInfo.State.ENQUEUED) || (state == WorkInfo.State.RUNNING);
+                            }
+
+                            PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "packageReplacedWork - running="+running);
+
+                            if (!running) {
+                                instance.setWaitForEndOfStart(false);
+                                PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "instance.getWaitForEndOfStart()="+instance.getWaitForEndOfStart());
+                            }
+                        } catch (ExecutionException e) {
+                            Log.e("PhoneProfilesService.doForFirstStart.2 - worker", Log.getStackTraceString(e));
+                            instance.setWaitForEndOfStart(false);
+                        } catch (InterruptedException e) {
+                            Log.e("PhoneProfilesService.doForFirstStart.2 - worker", Log.getStackTraceString(e));
+                            instance.setWaitForEndOfStart(false);
+                        }
+                    } catch (Exception e) {
+                        Log.e("PhoneProfilesService.doForFirstStart.2 - worker", Log.getStackTraceString(e));
+                        instance.setWaitForEndOfStart(false);
+                    }
+                    //}*/
+
+                    setWaitForEndOfStart(false);
+
+                    PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "END");
+
+                    /*// work for first start events or activate profile on boot
                     Data workData = new Data.Builder()
                             .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START)
                             .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, _activateProfiles)
@@ -3930,12 +4018,12 @@ public class PhoneProfilesService extends Service
                             new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
                                     .addTag("delayedWorkAfterFirstStartWork")
                                     .setInputData(workData)
-                                    .setInitialDelay(3, TimeUnit.SECONDS)
+                                    //.setInitialDelay(3, TimeUnit.SECONDS)
                                     .build();
                     try {
                         WorkManager workManager = WorkManager.getInstance(appContext);
                         workManager.enqueueUniqueWork("delayedWorkAfterFirstStartWork", ExistingWorkPolicy.REPLACE, worker);
-                    } catch (Exception ignored) {}
+                    } catch (Exception ignored) {}*/
 
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {

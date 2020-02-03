@@ -341,7 +341,6 @@ public class ActivateProfileListFragment extends Fragment {
                 // set copy local event timeline list into activity profilesDataWrapper
                 fragment.activityDataWrapper.copyEventTimelineList(this.dataWrapper);
 
-                /*HG*/
                 synchronized (fragment.activityDataWrapper.profileList) {
                     if (fragment.activityDataWrapper.profileList.size() == 0) {
                         fragment.textViewNoData.setVisibility(View.VISIBLE);

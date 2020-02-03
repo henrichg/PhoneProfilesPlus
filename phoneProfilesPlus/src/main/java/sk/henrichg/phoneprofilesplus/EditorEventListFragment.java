@@ -529,7 +529,6 @@ public class EditorEventListFragment extends Fragment
                 // set local event list into activity dataWrapper
                 fragment.activityDataWrapper.copyEventList(_dataWrapper);
 
-                /*HG*/
                 synchronized (fragment.activityDataWrapper.eventList) {
                     if (fragment.activityDataWrapper.eventList.size() == 0)
                         fragment.textViewNoData.setVisibility(VISIBLE);
