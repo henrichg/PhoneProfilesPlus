@@ -169,7 +169,18 @@ public class DelayedWorksWorker extends Worker {
                     PPApplication.logE("PackageReplacedReceiver.doWork", "START");
                     //PPApplication.logE("PackageReplacedReceiver.doWork", "START  restartService=" + restartService);
 
-                    // wait 3 seconds
+                    if (!ApplicationPreferences.applicationPackageReplaced(appContext)) {
+                        break;
+                    }
+
+                    SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(appContext);
+                    if (sharedPreferences != null) {
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_PACKAGE_REPLACED, false);
+                        editor.apply();
+                    }
+
+                    /*// wait 3 seconds
                     int count = 0;
                     while (PhoneProfilesService.getInstance() == null) {
                         PPApplication.sleep(100);
@@ -198,7 +209,7 @@ public class DelayedWorksWorker extends Worker {
                         Log.e("DelayedWorksWorker.doWork", "waitForEndOfStart is true !!!");
                         Crashlytics.log("waitForEndOfStart is true !!!");
                         return Result.failure();
-                    }
+                    }*/
 
                     DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 

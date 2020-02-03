@@ -50,13 +50,10 @@ import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.Calendar;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import androidx.core.content.ContextCompat;
@@ -65,7 +62,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 import me.drakeet.support.toast.ToastCompat;
 
@@ -4007,6 +4003,25 @@ public class PhoneProfilesService extends Service
                     setWaitForEndOfStart(false);
 
                     PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "END");
+
+                    //if (ApplicationPreferences.applicationPackageReplaced(appContext)) {
+                        // work for package replaced
+                        Data workData = new Data.Builder()
+                                .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED)
+                                //.putBoolean(PackageReplacedReceiver.EXTRA_RESTART_SERVICE, restartService)
+                                .build();
+
+                        OneTimeWorkRequest worker =
+                                new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                        .addTag("packageReplacedWork")
+                                        .setInputData(workData)
+                                        //.setInitialDelay(5, TimeUnit.SECONDS)
+                                        .build();
+                        try {
+                            WorkManager workManager = WorkManager.getInstance(appContext);
+                            workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.REPLACE, worker);
+                        } catch (Exception ignored) {}
+                    //}
 
                     /*// work for first start events or activate profile on boot
                     Data workData = new Data.Builder()

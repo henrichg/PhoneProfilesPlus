@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.PowerManager;
 
@@ -28,14 +29,21 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
             final Context appContext = context.getApplicationContext();
 
+            SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(appContext);
+            if (sharedPreferences != null) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_PACKAGE_REPLACED, true);
+                editor.apply();
+            }
+
             //final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
-            PPApplication.startHandlerThread("PackageReplacedReceiver.onReceive.1");
+            PPApplication.startHandlerThread("PackageReplacedReceiver.onReceive");
             final Handler handler2 = new Handler(PPApplication.handlerThread.getLooper());
             handler2.post(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("PackageReplacedReceiver.onReceive", "PackageReplacedReceiver.onReceive.1");
+                    PPApplication.logE("PackageReplacedReceiver.onReceive", "PackageReplacedReceiver.onReceive");
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
@@ -45,7 +53,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        /*PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PackageReplacedReceiver.onReceive.1");
+                        /*PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PackageReplacedReceiver.onReceive");
 
                         final int oldVersionCode = PPApplication.getSavedVersionCode(appContext);
                         // save version code
@@ -384,29 +392,34 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                         } catch (Exception ignored) {
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PackageReplacedReceiver.onReceive.1");
+                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PackageReplacedReceiver.onReceive");
 
                         PPApplication.loadApplicationPreferences(appContext);
                         PPApplication.loadGlobalApplicationData(appContext);
                         PPApplication.loadProfileActivationData(appContext);*/
 
-                        // work for restart service
-                        Data workData = new Data.Builder()
-                                .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED)
-                                //.putBoolean(PackageReplacedReceiver.EXTRA_RESTART_SERVICE, restartService)
-                                .build();
-
-                        OneTimeWorkRequest worker =
-                                new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
-                                        .addTag("packageReplacedWork")
-                                        .setInputData(workData)
-                                        .setInitialDelay(5, TimeUnit.SECONDS)
+                        PhoneProfilesService instance = PhoneProfilesService.getInstance();
+                        if (instance != null) {
+                            if (!instance.getWaitForEndOfStart()) {
+                                // work for package replaced
+                                Data workData = new Data.Builder()
+                                        .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED)
+                                        //.putBoolean(PackageReplacedReceiver.EXTRA_RESTART_SERVICE, restartService)
                                         .build();
-                        try {
-                            WorkManager workManager = WorkManager.getInstance(appContext);
-                            workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.REPLACE, worker);
-                        } catch (Exception ignored) {}
 
+                                OneTimeWorkRequest worker =
+                                        new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                                .addTag("packageReplacedWork")
+                                                .setInputData(workData)
+                                                .setInitialDelay(5, TimeUnit.SECONDS)
+                                                .build();
+                                try {
+                                    WorkManager workManager = WorkManager.getInstance(appContext);
+                                    workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.REPLACE, worker);
+                                } catch (Exception ignored) {
+                                }
+                            }
+                        }
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
