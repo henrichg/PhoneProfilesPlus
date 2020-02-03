@@ -166,12 +166,15 @@ public class DelayedWorksWorker extends Worker {
                     }
                     break;*/
                 case DELAYED_WORK_PACKAGE_REPLACED:
-                    PPApplication.logE("PackageReplacedReceiver.doWork", "START");
-                    //PPApplication.logE("PackageReplacedReceiver.doWork", "START  restartService=" + restartService);
-
                     if (!ApplicationPreferences.applicationPackageReplaced(appContext)) {
+                        PhoneProfilesService instance = PhoneProfilesService.getInstance();
+                        if (instance != null)
+                            instance.setWaitForEndOfStart(false);
                         break;
                     }
+
+                    PPApplication.logE("PackageReplacedReceiver.doWork", "START");
+                    //PPApplication.logE("PackageReplacedReceiver.doWork", "START  restartService=" + restartService);
 
                     SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(appContext);
                     if (sharedPreferences != null) {

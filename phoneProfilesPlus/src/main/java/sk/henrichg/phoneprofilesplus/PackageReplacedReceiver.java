@@ -31,6 +31,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
             SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(appContext);
             if (sharedPreferences != null) {
+                PPApplication.logE("PackageReplacedReceiver.onReceive", "package replaced = true");
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_PACKAGE_REPLACED, true);
                 editor.apply();
@@ -43,7 +44,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
             handler2.post(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("PackageReplacedReceiver.onReceive", "PackageReplacedReceiver.onReceive");
+                    PPApplication.logE("PackageReplacedReceiver.onReceive - handler", "xxx");
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;

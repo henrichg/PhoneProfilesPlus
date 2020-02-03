@@ -3920,10 +3920,10 @@ public class PhoneProfilesService extends Service
                     if (PPApplication.logEnabled()) {
                         PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "PhoneProfilesService.doForFirstStart END");
                         PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneProfilesService.doForFirstStart");
-                    }
 
-                    PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "START");
-                    PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "instance.getWaitForEndOfStart()="+instance.getWaitForEndOfStart());
+                        PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "START");
+                        //PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "instance.getWaitForEndOfStart()="+instance.getWaitForEndOfStart());
+                    }
 
                     // start events
 
@@ -3941,6 +3941,9 @@ public class PhoneProfilesService extends Service
                         ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(appContext);
                         ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(appContext);
                     }
+
+                    PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "package replaced="+ApplicationPreferences.applicationPackageReplaced(appContext));
+                    setWaitForEndOfStart(ApplicationPreferences.applicationPackageReplaced(appContext));
 
                     if (Event.getGlobalEventsRunning()) {
                         PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "global event run is enabled, first start events");
@@ -4000,28 +4003,24 @@ public class PhoneProfilesService extends Service
                     }
                     //}*/
 
-                    setWaitForEndOfStart(false);
-
                     PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "END");
 
-                    //if (ApplicationPreferences.applicationPackageReplaced(appContext)) {
-                        // work for package replaced
-                        Data workData = new Data.Builder()
-                                .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED)
-                                //.putBoolean(PackageReplacedReceiver.EXTRA_RESTART_SERVICE, restartService)
-                                .build();
+                    // work for package replaced
+                    Data workData = new Data.Builder()
+                            .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED)
+                            //.putBoolean(PackageReplacedReceiver.EXTRA_RESTART_SERVICE, restartService)
+                            .build();
 
-                        OneTimeWorkRequest worker =
-                                new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
-                                        .addTag("packageReplacedWork")
-                                        .setInputData(workData)
-                                        //.setInitialDelay(5, TimeUnit.SECONDS)
-                                        .build();
-                        try {
-                            WorkManager workManager = WorkManager.getInstance(appContext);
-                            workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.REPLACE, worker);
-                        } catch (Exception ignored) {}
-                    //}
+                    OneTimeWorkRequest worker =
+                            new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                    .addTag("packageReplacedWork")
+                                    .setInputData(workData)
+                                    //.setInitialDelay(5, TimeUnit.SECONDS)
+                                    .build();
+                    try {
+                        WorkManager workManager = WorkManager.getInstance(appContext);
+                        workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.REPLACE, worker);
+                    } catch (Exception ignored) {}
 
                     /*// work for first start events or activate profile on boot
                     Data workData = new Data.Builder()
