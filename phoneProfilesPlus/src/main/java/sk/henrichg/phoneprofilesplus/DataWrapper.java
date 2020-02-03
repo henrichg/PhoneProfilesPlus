@@ -1353,8 +1353,6 @@ public class DataWrapper {
 
     long getProfileIdByName(String name, boolean fromDB)
     {
-        Log.e("DataWrapper.getProfileIdByName", "name="+name);
-        Log.e("DataWrapper.getProfileIdByName", "profileListFilled="+profileListFilled);
         if ((!profileListFilled) || fromDB)
         {
             return DatabaseHandler.getInstance(context).getProfileIdByName(name);
@@ -1362,12 +1360,10 @@ public class DataWrapper {
         else
         {
             synchronized (profileList) {
-                Log.e("DataWrapper.getProfileIdByName", "profileList.size()="+profileList.size());
                 Profile profile;
                 //noinspection ForLoopReplaceableByForEach
                 for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
                     profile = it.next();
-                    Log.e("DataWrapper.getProfileIdByName", "profile._name="+profile._name);
                     if (profile._name.equals(name))
                         return profile._id;
                 }
@@ -1382,9 +1378,7 @@ public class DataWrapper {
         switch (index) {
             case 0:
                 event = getNonInitializedEvent(baseContext.getString(R.string.default_event_name_during_the_week), index+1);
-                Log.e("DataWrapper.getPredefinedEvent", "0 profileName="+baseContext.getString(R.string.default_profile_name_home));
                 event._fkProfileStart = getProfileIdByName(baseContext.getString(R.string.default_profile_name_home), false);
-                Log.e("DataWrapper.getPredefinedEvent", "0 event._fkProfileStart="+event._fkProfileStart);
                 //if (event._fkProfileStart == 0)
                 //    event._fkProfileStart = getPredefinedProfile(0, true, baseContext)._id;
                 //event._undoneProfile = false;
@@ -1402,9 +1396,7 @@ public class DataWrapper {
                 break;
             case 1:
                 event = getNonInitializedEvent(baseContext.getString(R.string.default_event_name_weekend), index+1);
-                Log.e("DataWrapper.getPredefinedEvent", "1 profileName="+baseContext.getString(R.string.default_profile_name_home));
                 event._fkProfileStart = getProfileIdByName(baseContext.getString(R.string.default_profile_name_home), false);
-                Log.e("DataWrapper.getPredefinedEvent", "1 event._fkProfileStart="+event._fkProfileStart);
                 //if (event._fkProfileStart == 0)
                 //    event._fkProfileStart = getPredefinedProfile(0, true, baseContext)._id;
                 //event._undoneProfile = false;
@@ -1419,9 +1411,7 @@ public class DataWrapper {
                 break;
             case 2:
                 event = getNonInitializedEvent(baseContext.getString(R.string.default_event_name_during_the_work), index+1);
-                Log.e("DataWrapper.getPredefinedEvent", "2 profileName="+baseContext.getString(R.string.default_profile_name_work));
                 event._fkProfileStart = getProfileIdByName(baseContext.getString(R.string.default_profile_name_work), false);
-                Log.e("DataWrapper.getPredefinedEvent", "2 event._fkProfileStart="+event._fkProfileStart);
                 //if (event._fkProfileStart == 0)
                 //    event._fkProfileStart = getPredefinedProfile(2, true, baseContext)._id;
                 //event._undoneProfile = true;
@@ -1440,9 +1430,7 @@ public class DataWrapper {
                 break;
             case 3:
                 event = getNonInitializedEvent(baseContext.getString(R.string.default_event_name_overnight), index+1);
-                Log.e("DataWrapper.getPredefinedEvent", "3 profileName="+baseContext.getString(R.string.default_profile_name_sleep));
                 event._fkProfileStart = getProfileIdByName(baseContext.getString(R.string.default_profile_name_sleep), false);
-                Log.e("DataWrapper.getPredefinedEvent", "3 event._fkProfileStart="+event._fkProfileStart);
                 //if (event._fkProfileStart == 0)
                 //    event._fkProfileStart = getPredefinedProfile(4, true, baseContext)._id;
                 //event._undoneProfile = false;
@@ -1462,9 +1450,7 @@ public class DataWrapper {
                 break;
             case 4:
                 event = getNonInitializedEvent(baseContext.getString(R.string.default_event_name_night_call), index+1);
-                Log.e("DataWrapper.getPredefinedEvent", "4 profileName="+baseContext.getString(R.string.default_profile_name_home));
                 event._fkProfileStart = getProfileIdByName(baseContext.getString(R.string.default_profile_name_home), false);
-                Log.e("DataWrapper.getPredefinedEvent", "4 event._fkProfileStart="+event._fkProfileStart);
                 //if (event._fkProfileStart == 0)
                 //    event._fkProfileStart = getPredefinedProfile(0, true, baseContext)._id;
                 //event._undoneProfile = false;
@@ -1490,14 +1476,10 @@ public class DataWrapper {
                 break;
             case 5:
                 event = getNonInitializedEvent(baseContext.getString(R.string.default_event_name_low_battery), index+1);
-                Log.e("DataWrapper.getPredefinedEvent", "5 profileName="+baseContext.getString(R.string.default_profile_name_battery_low));
                 event._fkProfileStart = getProfileIdByName(baseContext.getString(R.string.default_profile_name_battery_low), false);
-                Log.e("DataWrapper.getPredefinedEvent", "5 event._fkProfileStart="+event._fkProfileStart);
                 //if (event._fkProfileStart == 0)
                 //    event._fkProfileStart = getPredefinedProfile(5, true, baseContext)._id;
-                Log.e("DataWrapper.getPredefinedEvent", "5 profileName="+baseContext.getString(R.string.default_profile_name_battery_ok));
                 event._fkProfileEnd = getProfileIdByName(baseContext.getString(R.string.default_profile_name_battery_ok), false);
-                Log.e("DataWrapper.getPredefinedEvent", "5 event._fkProfileEnd="+event._fkProfileEnd);
                 //if (event._fkProfileEnd == 0)
                 //    event._fkProfileEnd = getPredefinedProfile(6, true, baseContext)._id;
                 //event._undoneProfile = false;
