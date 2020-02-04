@@ -3915,8 +3915,6 @@ public class PhoneProfilesService extends Service
                     if (_activateProfiles)
                         dataWrapper.addActivityLog(DataWrapper.ALTYPE_APPLICATION_START, null, null, null, 0);
 
-                    //dataWrapper.invalidateDataWrapper();
-
                     if (PPApplication.logEnabled()) {
                         PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "PhoneProfilesService.doForFirstStart END");
                         PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneProfilesService.doForFirstStart");
@@ -3973,73 +3971,31 @@ public class PhoneProfilesService extends Service
                     if (!packageReplaced)
                         setWaitForEndOfStart(false, true);
 
-                    /*// set waitForEndOfStart to false only when is not enqueued packageReplacedWork
-                    try {
-                        WorkManager workInstance = WorkManager.getInstance(appContext);
-                        ListenableFuture<List<WorkInfo>> statuses = workInstance.getWorkInfosByTag("packageReplacedWork");
-                        //noinspection TryWithIdenticalCatches
-                        try {
-                            List<WorkInfo> workInfoList = statuses.get();
-                            boolean running = false;
-                            for (WorkInfo workInfo : workInfoList) {
-                                WorkInfo.State state = workInfo.getState();
-                                running = (state == WorkInfo.State.ENQUEUED) || (state == WorkInfo.State.RUNNING);
-                            }
-
-                            PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "packageReplacedWork - running="+running);
-
-                            if (!running) {
-                                instance.setWaitForEndOfStart(false);
-                                PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - worker", "instance.getWaitForEndOfStart()="+instance.getWaitForEndOfStart());
-                            }
-                        } catch (ExecutionException e) {
-                            Log.e("PhoneProfilesService.doForFirstStart.2 - worker", Log.getStackTraceString(e));
-                            instance.setWaitForEndOfStart(false);
-                        } catch (InterruptedException e) {
-                            Log.e("PhoneProfilesService.doForFirstStart.2 - worker", Log.getStackTraceString(e));
-                            instance.setWaitForEndOfStart(false);
-                        }
-                    } catch (Exception e) {
-                        Log.e("PhoneProfilesService.doForFirstStart.2 - worker", Log.getStackTraceString(e));
-                        instance.setWaitForEndOfStart(false);
-                    }
-                    //}*/
-
                     PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "END");
 
-                    // work for package replaced
-                    Data workData = new Data.Builder()
-                            .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED)
-                            //.putBoolean(PackageReplacedReceiver.EXTRA_RESTART_SERVICE, restartService)
-                            .build();
+                    if (packageReplaced) {
+                        PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "called work for package replaced");
 
-                    OneTimeWorkRequest worker =
-                            new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
-                                    .addTag("packageReplacedWork")
-                                    .setInputData(workData)
-                                    //.setInitialDelay(5, TimeUnit.SECONDS)
-                                    .build();
-                    try {
-                        WorkManager workManager = WorkManager.getInstance(appContext);
-                        workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.REPLACE, worker);
-                    } catch (Exception ignored) {}
+                        // work for package replaced
+                        Data workData = new Data.Builder()
+                                .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED)
+                                //.putBoolean(PackageReplacedReceiver.EXTRA_RESTART_SERVICE, restartService)
+                                .build();
 
-                    /*// work for first start events or activate profile on boot
-                    Data workData = new Data.Builder()
-                            .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START)
-                            .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, _activateProfiles)
-                            .build();
+                        OneTimeWorkRequest worker =
+                                new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                        .addTag("packageReplacedWork")
+                                        .setInputData(workData)
+                                        //.setInitialDelay(5, TimeUnit.SECONDS)
+                                        .build();
+                        try {
+                            WorkManager workManager = WorkManager.getInstance(appContext);
+                            workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.REPLACE, worker);
+                        } catch (Exception ignored) {
+                        }
+                    }
 
-                    OneTimeWorkRequest worker =
-                            new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
-                                    .addTag("delayedWorkAfterFirstStartWork")
-                                    .setInputData(workData)
-                                    //.setInitialDelay(3, TimeUnit.SECONDS)
-                                    .build();
-                    try {
-                        WorkManager workManager = WorkManager.getInstance(appContext);
-                        workManager.enqueueUniqueWork("delayedWorkAfterFirstStartWork", ExistingWorkPolicy.REPLACE, worker);
-                    } catch (Exception ignored) {}*/
+                    //dataWrapper.invalidateDataWrapper();
 
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {

@@ -3012,6 +3012,8 @@ class ActivateProfileHelper {
     }
 
     static void forceUpdateGUI(Context context, boolean alsoEditor, boolean refresh) {
+        PPApplication.showProfileNotification(/*context*/refresh, false);
+
         // icon widget
         try {
             int[] ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, IconWidgetProvider.class));
