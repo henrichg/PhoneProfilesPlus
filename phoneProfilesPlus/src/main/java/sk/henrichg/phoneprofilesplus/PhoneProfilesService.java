@@ -3940,6 +3940,11 @@ public class PhoneProfilesService extends Service
                         ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(appContext);
                     }
 
+                    boolean packageReplaced = ApplicationPreferences.applicationPackageReplaced(appContext);
+                    PPApplication.logE("******** PhoneProfilesService.doForFirstStart.2 - handler", "package replaced="+packageReplaced);
+                    if (!packageReplaced)
+                        setWaitForEndOfStart(false, true);
+
                     if (Event.getGlobalEventsRunning()) {
                         PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "global event run is enabled, first start events");
 
@@ -3966,10 +3971,6 @@ public class PhoneProfilesService extends Service
                         dataWrapper.updateNotificationAndWidgets(true, true);
                     }
 
-                    boolean packageReplaced = ApplicationPreferences.applicationPackageReplaced(appContext);
-                    PPApplication.logE("******** PhoneProfilesService.doForFirstStart.2 - handler", "package replaced="+packageReplaced);
-                    if (!packageReplaced)
-                        setWaitForEndOfStart(false, true);
 
                     PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "END");
 
@@ -3993,7 +3994,34 @@ public class PhoneProfilesService extends Service
                             workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.REPLACE, worker);
                         } catch (Exception ignored) {
                         }
-                    }
+                    }/* else {
+                        PhoneProfilesService instance = PhoneProfilesService.getInstance();
+                        if (instance != null)
+                            instance.setWaitForEndOfStart(false, false);
+
+                        // do restart events, manual profile activation
+                        if (Event.getGlobalEventsRunning()) {
+                            PPApplication.logE("PackageReplacedReceiver.doWork", "global event run is enabled, first start events");
+
+                            if (!DataWrapper.getIsManualProfileActivation(false)) {
+                                ////// unblock all events for first start
+                                //     that may be blocked in previous application run
+                                dataWrapper.pauseAllEvents(false, false);
+                            }
+
+                            dataWrapper.firstStartEvents(true, false);
+                            dataWrapper.updateNotificationAndWidgets(true, true);
+                        } else {
+                            PPApplication.logE("PackageReplacedReceiver.doWork", "global event run is not enabled, manually activate profile");
+
+                            ////// unblock all events for first start
+                            //     that may be blocked in previous application run
+                            dataWrapper.pauseAllEvents(true, false);
+
+                            dataWrapper.activateProfileOnBoot();
+                            dataWrapper.updateNotificationAndWidgets(true, true);
+                        }
+                    }*/
 
                     //dataWrapper.invalidateDataWrapper();
 
