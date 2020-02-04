@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,71 +34,80 @@ class ContactsCache {
         contactList.clear();
         contactListWithoutNumber.clear();
 
-        if (Permissions.checkContacts(context)) {
-            String[] projection = new String[]{ContactsContract.Contacts.HAS_PHONE_NUMBER,
-                    ContactsContract.Contacts._ID,
-                    ContactsContract.Contacts.DISPLAY_NAME,
-                    ContactsContract.Contacts.PHOTO_ID};
-            String selection = ContactsContract.Contacts.HAS_PHONE_NUMBER + "='1'";
-            String order = ContactsContract.Contacts.DISPLAY_NAME + " ASC";
+        try {
+            if (Permissions.checkContacts(context)) {
+                String[] projection = new String[]{ContactsContract.Contacts.HAS_PHONE_NUMBER,
+                        ContactsContract.Contacts._ID,
+                        ContactsContract.Contacts.DISPLAY_NAME,
+                        ContactsContract.Contacts.PHOTO_ID};
+                String selection = ContactsContract.Contacts.HAS_PHONE_NUMBER + "='1'";
+                String order = ContactsContract.Contacts.DISPLAY_NAME + " ASC";
 
-            Cursor mCursor = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, selection, null, order);
+                Cursor mCursor = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, selection, null, order);
 
-            if (mCursor != null) {
-                while (mCursor.moveToNext()) {
-                    //try{
-                    long contactId = mCursor.getLong(mCursor.getColumnIndex(ContactsContract.Contacts._ID));
-                    String name = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-                    //String hasPhone = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
-                    String photoId = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.PHOTO_ID));
-                    if (Integer.parseInt(mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
-                        Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId, null, null);
-                        if (phones != null) {
-                            while (phones.moveToNext()) {
-                                long phoneId = phones.getLong(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone._ID));
-                                String phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                                Contact aContact = new Contact();
-                                aContact.contactId = contactId;
-                                aContact.name = name;
-                                aContact.phoneId = phoneId;
-                                aContact.phoneNumber = phoneNumber;
-                                try {
-                                    aContact.photoId = Long.parseLong(photoId);
-                                } catch (Exception e) {
-                                    aContact.photoId = 0;
+                if (mCursor != null) {
+                    while (mCursor.moveToNext()) {
+                        //try{
+                        long contactId = mCursor.getLong(mCursor.getColumnIndex(ContactsContract.Contacts._ID));
+                        String name = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                        //String hasPhone = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+                        String photoId = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.PHOTO_ID));
+                        if (Integer.parseInt(mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
+                            Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId, null, null);
+                            if (phones != null) {
+                                while (phones.moveToNext()) {
+                                    long phoneId = phones.getLong(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone._ID));
+                                    String phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                                    Contact aContact = new Contact();
+                                    aContact.contactId = contactId;
+                                    aContact.name = name;
+                                    aContact.phoneId = phoneId;
+                                    aContact.phoneNumber = phoneNumber;
+                                    try {
+                                        aContact.photoId = Long.parseLong(photoId);
+                                    } catch (Exception e) {
+                                        aContact.photoId = 0;
+                                    }
+                                    contactList.add(aContact);
+
+                                    //if (cancelled)
+                                    //    break;
                                 }
-                                contactList.add(aContact);
-
-                                //if (cancelled)
-                                //    break;
+                                phones.close();
                             }
-                            phones.close();
                         }
-                    }
-                    Contact aContact = new Contact();
-                    aContact.contactId = contactId;
-                    aContact.name = name;
-                    aContact.phoneId = 0;
-                    aContact.phoneNumber = "";
-                    try {
-                        aContact.photoId = Long.parseLong(photoId);
-                    } catch (Exception e) {
-                        aContact.photoId = 0;
-                    }
-                    contactListWithoutNumber.add(aContact);
+                        Contact aContact = new Contact();
+                        aContact.contactId = contactId;
+                        aContact.name = name;
+                        aContact.phoneId = 0;
+                        aContact.phoneNumber = "";
+                        try {
+                            aContact.photoId = Long.parseLong(photoId);
+                        } catch (Exception e) {
+                            aContact.photoId = 0;
+                        }
+                        contactListWithoutNumber.add(aContact);
 
-                    //}catch(Exception e){}
+                        //}catch(Exception e){}
 
-                    //if (cancelled)
-                    //    break;
+                        //if (cancelled)
+                        //    break;
+                    }
+                    mCursor.close();
                 }
-                mCursor.close();
+
+                //if (cancelled)
+                //    return;
+
+                cached = true;
             }
+        } catch (Exception e) {
+            Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
 
-            //if (cancelled)
-            //    return;
+            contactList.clear();
+            contactListWithoutNumber.clear();
 
-            cached = true;
+            cached = false;
         }
 
         caching = false;
