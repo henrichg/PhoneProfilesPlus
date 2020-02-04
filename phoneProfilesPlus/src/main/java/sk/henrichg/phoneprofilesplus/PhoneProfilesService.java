@@ -3994,34 +3994,7 @@ public class PhoneProfilesService extends Service
                             workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.REPLACE, worker);
                         } catch (Exception ignored) {
                         }
-                    }/* else {
-                        PhoneProfilesService instance = PhoneProfilesService.getInstance();
-                        if (instance != null)
-                            instance.setWaitForEndOfStart(false, false);
-
-                        // do restart events, manual profile activation
-                        if (Event.getGlobalEventsRunning()) {
-                            PPApplication.logE("PackageReplacedReceiver.doWork", "global event run is enabled, first start events");
-
-                            if (!DataWrapper.getIsManualProfileActivation(false)) {
-                                ////// unblock all events for first start
-                                //     that may be blocked in previous application run
-                                dataWrapper.pauseAllEvents(false, false);
-                            }
-
-                            dataWrapper.firstStartEvents(true, false);
-                            dataWrapper.updateNotificationAndWidgets(true, true);
-                        } else {
-                            PPApplication.logE("PackageReplacedReceiver.doWork", "global event run is not enabled, manually activate profile");
-
-                            ////// unblock all events for first start
-                            //     that may be blocked in previous application run
-                            dataWrapper.pauseAllEvents(true, false);
-
-                            dataWrapper.activateProfileOnBoot();
-                            dataWrapper.updateNotificationAndWidgets(true, true);
-                        }
-                    }*/
+                    }
 
                     //dataWrapper.invalidateDataWrapper();
 
