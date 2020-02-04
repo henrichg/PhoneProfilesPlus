@@ -106,20 +106,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        boolean doServiceStart = startPPServiceWhenNotStarted();
-        if (showNotStartedToast()) {
-            finish();
-            return;
-        }
-        else
-        if (doServiceStart) {
-            finish();
-            return;
-        }
-
         //PPApplication.logE("ActivateProfileActivity.onCreate", "xxx");
-
-        activityStarted = true;
 
         GlobalGUIRoutines.setTheme(this, true, true/*, false*/, true);
         //GlobalGUIRoutines.setLanguage(this);
@@ -231,6 +218,18 @@ public class ActivateProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_activate_profile);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
 
+        boolean doServiceStart = startPPServiceWhenNotStarted();
+        if (showNotStartedToast()) {
+            finish();
+            return;
+        }
+        else
+        if (doServiceStart) {
+            finish();
+            return;
+        }
+
+        activityStarted = true;
 
         //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
@@ -281,12 +280,14 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
         boolean doServiceStart = startPPServiceWhenNotStarted();
         if (showNotStartedToast()) {
-            finish();
+            if (!isFinishing())
+                finish();
             return;
         }
         else
         if (doServiceStart) {
-            finish();
+            if (!isFinishing())
+                finish();
             return;
         }
 
@@ -304,8 +305,10 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
             refreshGUI(true, false);
         }
-        else
-            finish();
+        else {
+            if (!isFinishing())
+                finish();
+        }
 
         //-----------------------------------------------------------------------------------------
 

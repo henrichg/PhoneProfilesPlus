@@ -40,7 +40,8 @@ public class RestartEventsFromGUIActivity extends AppCompatActivity
         super.onStart();
 
         if (showNotStartedToast()) {
-            finish();
+            if (!isFinishing())
+                finish();
             return;
         }
 
@@ -55,8 +56,10 @@ public class RestartEventsFromGUIActivity extends AppCompatActivity
             //PPApplication.logE("RestartEventsFromGUIActivity.onStart", "xxx");
             dataWrapper.restartEventsWithAlert(this);
         }
-        else
-            finish();
+        else {
+            if (isFinishing())
+                finish();
+        }
     }
 
     private boolean showNotStartedToast() {

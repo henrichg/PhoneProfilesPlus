@@ -47,7 +47,8 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
         super.onStart();
 
         if (showNotStartedToast()) {
-            finish();
+            if (!isFinishing())
+                finish();
             return;
         }
 
@@ -68,8 +69,10 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
                     dataWrapper.activateProfile(profile_id, startupSource, this/*, ""*/);
             }
         }
-        else
-            finish();
+        else {
+            if (!isFinishing())
+                finish();
+        }
     }
 
     private boolean showNotStartedToast() {

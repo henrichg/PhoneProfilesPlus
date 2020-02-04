@@ -196,20 +196,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        boolean doServiceStart = startPPServiceWhenNotStarted();
-        if (showNotStartedToast()) {
-            finish();
-            return;
-        }
-        else
-        if (doServiceStart) {
-            finish();
-            return;
-        }
-
         //PPApplication.logE("EditorProfilesActivity.onCreate", "xxx");
-
-        activityStarted = true;
 
         GlobalGUIRoutines.setTheme(this, false, true/*, true*/, false);
         //GlobalGUIRoutines.setLanguage(this);
@@ -223,6 +210,19 @@ public class EditorProfilesActivity extends AppCompatActivity
         else*/
             setContentView(R.layout.activity_editor_list_onepane);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
+
+        boolean doServiceStart = startPPServiceWhenNotStarted();
+        if (showNotStartedToast()) {
+            finish();
+            return;
+        }
+        else
+        if (doServiceStart) {
+            finish();
+            return;
+        }
+
+        activityStarted = true;
 
         //drawerLayout = findViewById(R.id.editor_list_drawer_layout);
 
@@ -586,12 +586,14 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         boolean doServiceStart = startPPServiceWhenNotStarted();
         if (showNotStartedToast()) {
-            finish();
+            if (!isFinishing())
+                finish();
             return;
         }
         else
         if (doServiceStart) {
-            finish();
+            if (!isFinishing())
+                finish();
             return;
         }
 
@@ -609,8 +611,10 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             refreshGUI(true, false, true, 0, 0);
         }
-        else
-            finish();
+        else {
+            if (!isFinishing())
+                finish();
+        }
     }
 
     private boolean showNotStartedToast() {

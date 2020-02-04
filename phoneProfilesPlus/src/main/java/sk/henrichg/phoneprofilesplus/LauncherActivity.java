@@ -48,12 +48,14 @@ public class LauncherActivity extends AppCompatActivity {
 
         boolean doServiceStart = startPPServiceWhenNotStarted();
         if (showNotStartedToast()) {
-            finish();
+            if (!isFinishing())
+                finish();
             return;
         }
         else
         if (doServiceStart) {
-            finish();
+            if (!isFinishing())
+                finish();
             return;
         }
 
@@ -69,8 +71,10 @@ public class LauncherActivity extends AppCompatActivity {
 
             endOnStart();
         }
-        else
-            finish();
+        else {
+            if (!isFinishing())
+                finish();
+        }
     }
 
     private void endOnStart()

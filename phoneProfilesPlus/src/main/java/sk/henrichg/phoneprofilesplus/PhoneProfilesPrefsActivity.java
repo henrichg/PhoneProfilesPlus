@@ -56,6 +56,10 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         //PPApplication.logE("PhoneProfilesPrefsActivity.onCreate", "savedInstanceState="+savedInstanceState);
 
+
+        setContentView(R.layout.activity_preferences);
+        setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
+
         boolean doServiceStart = startPPServiceWhenNotStarted();
         if (showNotStartedToast()) {
             finish();
@@ -68,9 +72,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         }
 
         activityStarted = true;
-
-        setContentView(R.layout.activity_preferences);
-        setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
 
         Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
         setSupportActionBar(toolbar);
@@ -196,17 +197,21 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         boolean doServiceStart = startPPServiceWhenNotStarted();
         if (showNotStartedToast()) {
-            finish();
+            if (!isFinishing())
+                finish();
             return;
         }
         else
         if (doServiceStart) {
-            finish();
+            if (!isFinishing())
+                finish();
             return;
         }
 
-        if (!activityStarted)
-            finish();
+        if (!activityStarted) {
+            if (!isFinishing())
+                finish();
+        }
     }
 
     private boolean showNotStartedToast() {
