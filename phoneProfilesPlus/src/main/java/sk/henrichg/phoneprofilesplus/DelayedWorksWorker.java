@@ -166,15 +166,43 @@ public class DelayedWorksWorker extends Worker {
                     }
                     break;*/
                 case DELAYED_WORK_PACKAGE_REPLACED:
-                    if (!ApplicationPreferences.applicationPackageReplaced(appContext)) {
+                    PPApplication.logE("PackageReplacedReceiver.doWork", "START");
+
+                    boolean packageReplaced = ApplicationPreferences.applicationPackageReplaced(appContext);
+                    PPApplication.logE("PackageReplacedReceiver.doWork", "package replaced=" + packageReplaced);
+
+                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+
+                    if (!packageReplaced) {
                         PhoneProfilesService instance = PhoneProfilesService.getInstance();
                         if (instance != null)
-                            instance.setWaitForEndOfStart(false);
+                            instance.setWaitForEndOfStart(false, false);
+
+                        // do restart events, manual profile activation
+                        if (Event.getGlobalEventsRunning()) {
+                            PPApplication.logE("PackageReplacedReceiver.doWork", "global event run is enabled, first start events");
+
+                            if (!DataWrapper.getIsManualProfileActivation(false)) {
+                                ////// unblock all events for first start
+                                //     that may be blocked in previous application run
+                                dataWrapper.pauseAllEvents(false, false);
+                            }
+
+                            dataWrapper.firstStartEvents(true, false);
+                            dataWrapper.updateNotificationAndWidgets(true, true);
+                        } else {
+                            PPApplication.logE("PackageReplacedReceiver.doWork", "global event run is not enabled, manually activate profile");
+
+                            ////// unblock all events for first start
+                            //     that may be blocked in previous application run
+                            dataWrapper.pauseAllEvents(true, false);
+
+                            dataWrapper.activateProfileOnBoot();
+                            dataWrapper.updateNotificationAndWidgets(true, true);
+                        }
+
                         break;
                     }
-
-                    PPApplication.logE("PackageReplacedReceiver.doWork", "START");
-                    //PPApplication.logE("PackageReplacedReceiver.doWork", "START  restartService=" + restartService);
 
                     SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(appContext);
                     if (sharedPreferences != null) {
@@ -213,8 +241,6 @@ public class DelayedWorksWorker extends Worker {
                         Crashlytics.log("waitForEndOfStart is true !!!");
                         return Result.failure();
                     }*/
-
-                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
                     final int oldVersionCode = PPApplication.getSavedVersionCode(appContext);
                     // save version code

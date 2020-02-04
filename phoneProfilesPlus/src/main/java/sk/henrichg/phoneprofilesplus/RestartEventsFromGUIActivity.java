@@ -20,12 +20,8 @@ public class RestartEventsFromGUIActivity extends AppCompatActivity
 
         //PPApplication.logE("RestartEventsFromGUIActivity.onCreate", "xxx");
 
-        PhoneProfilesService instance = PhoneProfilesService.getInstance();
-        if (instance == null) {
-            return;
-        }
-
-        if (instance.getWaitForEndOfStart()) {
+        if (showNotStartedToast()) {
+            finish();
             return;
         }
 
@@ -43,19 +39,7 @@ public class RestartEventsFromGUIActivity extends AppCompatActivity
     {
         super.onStart();
 
-        boolean applicationStarted = PPApplication.getApplicationStarted(true);
-        boolean waitForEndOfStart = false;
-        if (applicationStarted) {
-            PhoneProfilesService instance = PhoneProfilesService.getInstance();
-            waitForEndOfStart = instance.getWaitForEndOfStart();
-            applicationStarted = !waitForEndOfStart;
-        }
-        if (!applicationStarted) {
-            String text = getString(R.string.app_name) + " " + getString(R.string.application_is_not_started);
-            if (waitForEndOfStart)
-                text = getString(R.string.app_name) + " " + getString(R.string.application_is_starting_toast);
-            Toast msg = ToastCompat.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
-            msg.show();
+        if (showNotStartedToast()) {
             finish();
             return;
         }
@@ -73,6 +57,25 @@ public class RestartEventsFromGUIActivity extends AppCompatActivity
         }
         else
             finish();
+    }
+
+    private boolean showNotStartedToast() {
+        boolean applicationStarted = PPApplication.getApplicationStarted(true);
+        boolean waitForEndOfStart = false;
+        if (applicationStarted) {
+            PhoneProfilesService instance = PhoneProfilesService.getInstance();
+            waitForEndOfStart = instance.getWaitForEndOfStart();
+            applicationStarted = !waitForEndOfStart;
+        }
+        if (!applicationStarted) {
+            String text = getString(R.string.app_name) + " " + getString(R.string.application_is_not_started);
+            if (waitForEndOfStart)
+                text = getString(R.string.app_name) + " " + getString(R.string.application_is_starting_toast);
+            Toast msg = ToastCompat.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
+            msg.show();
+            return true;
+        }
+        return false;
     }
 
     @Override

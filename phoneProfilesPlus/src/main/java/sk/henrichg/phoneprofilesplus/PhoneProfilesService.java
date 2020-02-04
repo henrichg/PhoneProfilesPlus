@@ -592,9 +592,8 @@ public class PhoneProfilesService extends Service
         return waitForEndOfStart;
     }
 
-    void setWaitForEndOfStart(boolean wait) {
-        waitForEndOfStart = wait;
-        if (!wait) {
+    void setWaitForEndOfStart(boolean wait, boolean showToast) {
+        if ((!wait) && waitForEndOfStart && showToast) {
             final Handler handler = new Handler(getMainLooper());
             handler.post(new Runnable() {
                 @Override
@@ -605,6 +604,7 @@ public class PhoneProfilesService extends Service
                 }
             });
         }
+        waitForEndOfStart = wait;
     }
 
     private void registerAllTheTimeRequiredReceivers(boolean register) {
@@ -3942,9 +3942,6 @@ public class PhoneProfilesService extends Service
                         ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(appContext);
                     }
 
-                    PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "package replaced="+ApplicationPreferences.applicationPackageReplaced(appContext));
-                    setWaitForEndOfStart(ApplicationPreferences.applicationPackageReplaced(appContext));
-
                     if (Event.getGlobalEventsRunning()) {
                         PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "global event run is enabled, first start events");
 
@@ -3970,6 +3967,11 @@ public class PhoneProfilesService extends Service
                         dataWrapper.activateProfileOnBoot();
                         dataWrapper.updateNotificationAndWidgets(true, true);
                     }
+
+                    boolean packageReplaced = ApplicationPreferences.applicationPackageReplaced(appContext);
+                    PPApplication.logE("******** PhoneProfilesService.doForFirstStart.2 - handler", "package replaced="+packageReplaced);
+                    if (!packageReplaced)
+                        setWaitForEndOfStart(false, true);
 
                     /*// set waitForEndOfStart to false only when is not enqueued packageReplacedWork
                     try {

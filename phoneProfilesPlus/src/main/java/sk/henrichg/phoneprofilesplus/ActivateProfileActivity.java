@@ -106,12 +106,14 @@ public class ActivateProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        PhoneProfilesService instance = PhoneProfilesService.getInstance();
-        if (instance == null) {
+        boolean doServiceStart = startPPServiceWhenNotStarted();
+        if (showNotStartedToast()) {
+            finish();
             return;
         }
-
-        if (instance.getWaitForEndOfStart()) {
+        else
+        if (doServiceStart) {
+            finish();
             return;
         }
 
@@ -277,78 +279,13 @@ public class ActivateProfileActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        boolean applicationStarted = PPApplication.getApplicationStarted(true);
-        boolean waitForEndOfStart = false;
-        if (applicationStarted) {
-            PhoneProfilesService instance = PhoneProfilesService.getInstance();
-            waitForEndOfStart = instance.getWaitForEndOfStart();
-            applicationStarted = !waitForEndOfStart;
-        }
-        if (!applicationStarted) {
-            String text = getString(R.string.app_name) + " " + getString(R.string.application_is_not_started);
-            if (waitForEndOfStart)
-                text = getString(R.string.app_name) + " " + getString(R.string.application_is_starting_toast);
-            Toast msg = ToastCompat.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
-            msg.show();
-        }
-
-        // this is for list widget header
-        if (!PPApplication.getApplicationStarted(true))
-        {
-            /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("EditorProfilesActivity.onStart", "application is not started");
-                PPApplication.logE("EditorProfilesActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
-                if (PhoneProfilesService.getInstance() != null)
-                    PPApplication.logE("EditorProfilesActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
-            }*/
-            // start PhoneProfilesService
-            //PPApplication.firstStartServiceStarted = false;
-            PPApplication.setApplicationStarted(getApplicationContext(), true);
-            Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
-            //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
-            PPApplication.startPPService(this, serviceIntent);
+        boolean doServiceStart = startPPServiceWhenNotStarted();
+        if (showNotStartedToast()) {
             finish();
             return;
         }
         else
-        {
-            if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
-                /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("EditorProfilesActivity.onStart", "application is started");
-                    PPApplication.logE("EditorProfilesActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
-                    if (PhoneProfilesService.getInstance() != null)
-                        PPApplication.logE("EditorProfilesActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
-                }*/
-                // start PhoneProfilesService
-                //PPApplication.firstStartServiceStarted = false;
-                Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
-                //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
-                PPApplication.startPPService(this, serviceIntent);
-                finish();
-                return;
-            }
-            //else {
-            //    PPApplication.logE("EditorProfilesActivity.onStart", "application and service is started");
-            //}
-        }
-
-        PhoneProfilesService instance = PhoneProfilesService.getInstance();
-        if (instance == null) {
-            finish();
-            return;
-        }
-
-        if (instance.getWaitForEndOfStart()) {
-            /*AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-            dialogBuilder.setMessage(R.string.application_is_initialized);
-            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-            dialogBuilder.show();*/
-
+        if (doServiceStart) {
             finish();
             return;
         }
@@ -372,6 +309,68 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
         //-----------------------------------------------------------------------------------------
 
+    }
+
+    private boolean showNotStartedToast() {
+        boolean applicationStarted = PPApplication.getApplicationStarted(true);
+        boolean waitForEndOfStart = false;
+        if (applicationStarted) {
+            PhoneProfilesService instance = PhoneProfilesService.getInstance();
+            waitForEndOfStart = instance.getWaitForEndOfStart();
+            applicationStarted = !waitForEndOfStart;
+        }
+        if (!applicationStarted) {
+            String text = getString(R.string.app_name) + " " + getString(R.string.application_is_not_started);
+            if (waitForEndOfStart)
+                text = getString(R.string.app_name) + " " + getString(R.string.application_is_starting_toast);
+            Toast msg = ToastCompat.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
+            msg.show();
+            return true;
+        }
+        return false;
+    }
+
+    private boolean startPPServiceWhenNotStarted() {
+        // this is for list widget header
+        if (!PPApplication.getApplicationStarted(true)) {
+            /*if (PPApplication.logEnabled()) {
+                PPApplication.logE("EditorProfilesActivity.onStart", "application is not started");
+                PPApplication.logE("EditorProfilesActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
+                if (PhoneProfilesService.getInstance() != null)
+                    PPApplication.logE("EditorProfilesActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
+            }*/
+            // start PhoneProfilesService
+            //PPApplication.firstStartServiceStarted = false;
+            PPApplication.setApplicationStarted(getApplicationContext(), true);
+            Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+            //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
+            PPApplication.startPPService(this, serviceIntent);
+            return true;
+        } else {
+            if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
+                /*if (PPApplication.logEnabled()) {
+                    PPApplication.logE("EditorProfilesActivity.onStart", "application is started");
+                    PPApplication.logE("EditorProfilesActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
+                    if (PhoneProfilesService.getInstance() != null)
+                        PPApplication.logE("EditorProfilesActivity.onStart", "service hasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
+                }*/
+                // start PhoneProfilesService
+                //PPApplication.firstStartServiceStarted = false;
+                Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+                //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
+                PPApplication.startPPService(this, serviceIntent);
+                return true;
+            }
+            //else {
+            //    PPApplication.logE("EditorProfilesActivity.onStart", "application and service is started");
+            //}
+        }
+
+        return false;
     }
 
     /*

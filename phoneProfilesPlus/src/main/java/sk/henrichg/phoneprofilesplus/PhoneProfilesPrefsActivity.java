@@ -56,12 +56,14 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         //PPApplication.logE("PhoneProfilesPrefsActivity.onCreate", "savedInstanceState="+savedInstanceState);
 
-        PhoneProfilesService instance = PhoneProfilesService.getInstance();
-        if (instance == null) {
+        boolean doServiceStart = startPPServiceWhenNotStarted();
+        if (showNotStartedToast()) {
+            finish();
             return;
         }
-
-        if (instance.getWaitForEndOfStart()) {
+        else
+        if (doServiceStart) {
+            finish();
             return;
         }
 
@@ -192,6 +194,22 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        boolean doServiceStart = startPPServiceWhenNotStarted();
+        if (showNotStartedToast()) {
+            finish();
+            return;
+        }
+        else
+        if (doServiceStart) {
+            finish();
+            return;
+        }
+
+        if (!activityStarted)
+            finish();
+    }
+
+    private boolean showNotStartedToast() {
         boolean applicationStarted = PPApplication.getApplicationStarted(true);
         boolean waitForEndOfStart = false;
         if (applicationStarted) {
@@ -205,8 +223,12 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                 text = getString(R.string.app_name) + " " + getString(R.string.application_is_starting_toast);
             Toast msg = ToastCompat.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
             msg.show();
+            return true;
         }
+        return false;
+    }
 
+    private boolean startPPServiceWhenNotStarted() {
         // this is for list widget header
         if (!PPApplication.getApplicationStarted(true)) {
             /*if (PPApplication.logEnabled()) {
@@ -223,8 +245,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
             PPApplication.startPPService(this, serviceIntent);
-            finish();
-            return;
+            return true;
         } else {
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
                 /*if (PPApplication.logEnabled()) {
@@ -240,33 +261,14 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
                 PPApplication.startPPService(this, serviceIntent);
-                finish();
-                return;
+                return true;
             }
             //else {
             //    PPApplication.logE("EditorProfilesActivity.onStart", "application and service is started");
             //}
         }
 
-        PhoneProfilesService instance = PhoneProfilesService.getInstance();
-        if (instance == null) {
-            finish();
-            return;
-        }
-
-        if (instance.getWaitForEndOfStart()) {
-            /*AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-            dialogBuilder.setMessage(R.string.application_is_initialized);
-            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-            dialogBuilder.show();*/
-
-            finish();
-            return;
-        }
-
-        if (!activityStarted)
-            finish();
+        return false;
     }
 
     @Override
