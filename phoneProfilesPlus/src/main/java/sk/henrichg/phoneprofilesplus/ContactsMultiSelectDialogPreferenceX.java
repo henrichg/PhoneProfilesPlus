@@ -64,35 +64,35 @@ public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
         if (contactsCache == null)
             return;
 
-        contactList = contactsCache.getList(withoutNumbers);
-        if (contactList != null)
-        {
-            String[] splits = value.split("\\|");
-            for (Contact contact : contactList)
-            {
-                contact.checked = false;
-                for (String split : splits) {
-                    try {
-                        String[] splits2 = split.split("#");
-                        long contactId = Long.parseLong(splits2[0]);
-                        long phoneId = Long.parseLong(splits2[1]);
-                        if ((contact.contactId == contactId) && (contact.phoneId == phoneId))
-                            contact.checked = true;
-                    } catch (Exception ignored) {
+        synchronized (PPApplication.contactsCacheMutex) {
+            contactList = contactsCache.getList(withoutNumbers);
+            if (contactList != null) {
+                String[] splits = value.split("\\|");
+                for (Contact contact : contactList) {
+                    contact.checked = false;
+                    for (String split : splits) {
+                        try {
+                            String[] splits2 = split.split("#");
+                            long contactId = Long.parseLong(splits2[0]);
+                            long phoneId = Long.parseLong(splits2[1]);
+                            if ((contact.contactId == contactId) && (contact.phoneId == phoneId))
+                                contact.checked = true;
+                        } catch (Exception ignored) {
+                        }
                     }
                 }
-            }
-            // move checked on top
-            int i = 0;
-            int ich = 0;
-            while (i < contactList.size()) {
-                Contact contact = contactList.get(i);
-                if (contact.checked) {
-                    contactList.remove(i);
-                    contactList.add(ich, contact);
-                    ich++;
+                // move checked on top
+                int i = 0;
+                int ich = 0;
+                while (i < contactList.size()) {
+                    Contact contact = contactList.get(i);
+                    if (contact.checked) {
+                        contactList.remove(i);
+                        contactList.add(ich, contact);
+                        ich++;
+                    }
+                    i++;
                 }
-                i++;
             }
         }
     }

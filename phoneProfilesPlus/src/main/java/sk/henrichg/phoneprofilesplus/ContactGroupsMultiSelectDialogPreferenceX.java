@@ -51,31 +51,33 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
         // change checked state by value
         ContactGroupsCache contactGroupsCache = PhoneProfilesService.getContactGroupsCache();
         if (contactGroupsCache != null) {
-            List<ContactGroup> contactGroupList = contactGroupsCache.getList();
-            if (contactGroupList != null) {
-                String[] splits = value.split("\\|");
-                for (ContactGroup contactGroup : contactGroupList) {
-                    contactGroup.checked = false;
-                    for (String split : splits) {
-                        try {
-                            long groupId = Long.parseLong(split);
-                            if (contactGroup.groupId == groupId)
-                                contactGroup.checked = true;
-                        } catch (Exception ignored) {
+            synchronized (PPApplication.contactGroupsCacheMutex) {
+                List<ContactGroup> contactGroupList = contactGroupsCache.getList();
+                if (contactGroupList != null) {
+                    String[] splits = value.split("\\|");
+                    for (ContactGroup contactGroup : contactGroupList) {
+                        contactGroup.checked = false;
+                        for (String split : splits) {
+                            try {
+                                long groupId = Long.parseLong(split);
+                                if (contactGroup.groupId == groupId)
+                                    contactGroup.checked = true;
+                            } catch (Exception ignored) {
+                            }
                         }
                     }
-                }
-                // move checked on top
-                int i = 0;
-                int ich = 0;
-                while (i < contactGroupList.size()) {
-                    ContactGroup contactGroup = contactGroupList.get(i);
-                    if (contactGroup.checked) {
-                        contactGroupList.remove(i);
-                        contactGroupList.add(ich, contactGroup);
-                        ich++;
+                    // move checked on top
+                    int i = 0;
+                    int ich = 0;
+                    while (i < contactGroupList.size()) {
+                        ContactGroup contactGroup = contactGroupList.get(i);
+                        if (contactGroup.checked) {
+                            contactGroupList.remove(i);
+                            contactGroupList.add(ich, contactGroup);
+                            ich++;
+                        }
+                        i++;
                     }
-                    i++;
                 }
             }
         }
@@ -123,13 +125,15 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
         value = "";
         ContactGroupsCache contactGroupsCache = PhoneProfilesService.getContactGroupsCache();
         if (contactGroupsCache != null) {
-            List<ContactGroup> contactGroupList = contactGroupsCache.getList();
-            if (contactGroupList != null) {
-                for (ContactGroup contactGroup : contactGroupList) {
-                    if (contactGroup.checked) {
-                        if (!value.isEmpty())
-                            value = value + "|";
-                        value = value + contactGroup.groupId;
+            synchronized (PPApplication.contactGroupsCacheMutex) {
+                List<ContactGroup> contactGroupList = contactGroupsCache.getList();
+                if (contactGroupList != null) {
+                    for (ContactGroup contactGroup : contactGroupList) {
+                        if (contactGroup.checked) {
+                            if (!value.isEmpty())
+                                value = value + "|";
+                            value = value + contactGroup.groupId;
+                        }
                     }
                 }
             }

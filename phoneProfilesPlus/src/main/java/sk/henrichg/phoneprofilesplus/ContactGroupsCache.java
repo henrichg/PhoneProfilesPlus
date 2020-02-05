@@ -29,17 +29,25 @@ class ContactGroupsCache {
         caching = true;
         //cancelled = false;
 
-        contactGroupList.clear();
-
         ContactsCache contactsCache = PhoneProfilesService.getContactsCache();
         if (contactsCache == null) {
             caching = false;
             return;
         }
 
+        ArrayList<ContactGroup> _contactGroupList = new ArrayList<>();
+
+        ArrayList<Contact> _contactList = new ArrayList<>();
+        ArrayList<Contact> _contactListWithoutNumber = new ArrayList<>();
+        synchronized (PPApplication.contactsCacheMutex) {
+            _contactList.addAll(contactsCache.getList(false));
+            _contactListWithoutNumber.addAll(contactsCache.getList(true));
+        }
+
         try {
             if (Permissions.checkContacts(context)) {
-                contactsCache.clearGroups();
+                contactsCache.clearGroups(_contactList);
+                contactsCache.clearGroups(_contactListWithoutNumber);
 
                 String[] projection = new String[]{
                         ContactsContract.Groups._ID,
@@ -63,7 +71,7 @@ class ContactGroupsCache {
                             aContactGroup.name = name;
                             aContactGroup.count = count;
 
-                            contactGroupList.add(aContactGroup);
+                            _contactGroupList.add(aContactGroup);
                         }
 
                         //if (cancelled)
@@ -78,12 +86,12 @@ class ContactGroupsCache {
                         if (mCursorGroup != null) {
                             while (mCursorGroup.moveToNext()) {
                                 long contactId = mCursorGroup.getLong(mCursorGroup.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
-                            /*if (name.equals("Family")) {
-                                Log.e("ContactGroupsCache.getContactGroupList", "contactGroupId=" + contactGroupId);
-                                Log.e("ContactGroupsCache.getContactGroupList", "contactId=" + contactId);
-                            }*/
-                                contactsCache.addGroup(contactId, contactGroupId, true);
-                                contactsCache.addGroup(contactId, contactGroupId, false);
+                                /*if (name.equals("Family")) {
+                                    Log.e("ContactGroupsCache.getContactGroupList", "contactGroupId=" + contactGroupId);
+                                    Log.e("ContactGroupsCache.getContactGroupList", "contactId=" + contactId);
+                                }*/
+                                contactsCache.addGroup(contactId, contactGroupId, _contactList);
+                                contactsCache.addGroup(contactId, contactGroupId, _contactListWithoutNumber);
                             }
                             mCursorGroup.close();
                         }
@@ -99,10 +107,19 @@ class ContactGroupsCache {
         } catch (Exception e) {
             Log.e("ContactGroupsCache.getContactList", Log.getStackTraceString(e));
 
-            contactGroupList.clear();
-            contactsCache.clearGroups();
+            _contactGroupList.clear();
+            contactsCache.clearGroups(_contactList);
+            contactsCache.clearGroups(_contactListWithoutNumber);
 
             cached = false;
+        }
+
+        synchronized (PPApplication.contactGroupsCacheMutex) {
+            contactsCache.updateContacts(_contactList, false);
+            contactsCache.updateContacts(_contactListWithoutNumber, true);
+
+            contactGroupList.clear();
+            contactGroupList.addAll(_contactGroupList);
         }
 
         caching = false;
@@ -111,7 +128,9 @@ class ContactGroupsCache {
     public int getLength()
     {
         if (cached)
-            return contactGroupList.size();
+            synchronized (PPApplication.contactGroupsCacheMutex) {
+                return contactGroupList.size();
+            }
         else
             return 0;
     }
@@ -127,46 +146,24 @@ class ContactGroupsCache {
     ContactGroup getContactGroup(int position)
     {
         if (cached)
-            return contactGroupList.get(position);
+            synchronized (PPApplication.contactGroupsCacheMutex) {
+                return contactGroupList.get(position);
+            }
         else
             return null;
     }
 
-    /*
-    public long getContactGroupId(int position)
+    void clearCache()
     {
-        if (cached)
-            return contactGroupList.get(position).groupId;
-        else
-            return 0;
-    }
-
-    public String getContactGroupDisplayName(int position)
-    {
-        if (cached)
-            return contactGroupList.get(position).name;
-        else
-            return "";
-    }
-    */
-
-    void clearCache(/*boolean nullList*/)
-    {
-        contactGroupList.clear();
-        /*if (nullList)
-            contactGroupList = null;*/
-        cached = false;
-        caching = false;
+        synchronized (PPApplication.contactGroupsCacheMutex) {
+            contactGroupList.clear();
+            cached = false;
+            caching = false;
+        }
     }
 
     boolean getCaching() {
         return caching;
     }
 
-    /*
-    void cancelCaching()
-    {
-        cancelled = true;
-    }
-    */
 }

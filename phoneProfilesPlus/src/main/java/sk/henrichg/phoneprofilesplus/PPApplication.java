@@ -90,6 +90,8 @@ public class PPApplication extends Application /*implements Application.Activity
     static final EventWifiBluetoothSensorMutex eventWifiBluetoothSensorMutex = new EventWifiBluetoothSensorMutex();
     static final EventWifiSensorMutex eventWifiSensorMutex = new EventWifiSensorMutex();
     static final EventBluetoothSensorMutex eventBluetoothSensorMutex = new EventBluetoothSensorMutex();
+    static final ContactsCacheMutex contactsCacheMutex = new ContactsCacheMutex();
+    static final ContactGroupsCacheMutex contactGroupsCacheMutex = new ContactGroupsCacheMutex();
 
     //static final String romManufacturer = getROMManufacturer();
     static final boolean deviceIsXiaomi = isXiaomi();

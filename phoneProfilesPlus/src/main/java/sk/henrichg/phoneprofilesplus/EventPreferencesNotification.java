@@ -1220,17 +1220,19 @@ class EventPreferencesNotification extends EventPreferences {
                 if (contactsCache == null)
                     return false;
 
-                List<Contact> contactList = contactsCache.getList(true);
-                if (contactList != null) {
-                    for (Contact contact : contactList) {
-                        if (contact.groups != null) {
-                            long groupId = contact.groups.indexOf(Long.valueOf(split));
-                            if (groupId != -1) {
-                                // group found in contact
-                                String _contactName = contact.name;
-                                if (text.toLowerCase().contains(_contactName.toLowerCase())) {
-                                    phoneNumberFound = true;
-                                    break;
+                synchronized (PPApplication.contactsCacheMutex) {
+                    List<Contact> contactList = contactsCache.getList(true);
+                    if (contactList != null) {
+                        for (Contact contact : contactList) {
+                            if (contact.groups != null) {
+                                long groupId = contact.groups.indexOf(Long.valueOf(split));
+                                if (groupId != -1) {
+                                    // group found in contact
+                                    String _contactName = contact.name;
+                                    if (text.toLowerCase().contains(_contactName.toLowerCase())) {
+                                        phoneNumberFound = true;
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -1288,14 +1290,16 @@ class EventPreferencesNotification extends EventPreferences {
                     if (contactsCache == null)
                         return false;
 
-                    List<Contact> contactList = contactsCache.getList(false);
-                    if (contactList != null) {
-                        for (Contact contact : contactList) {
-                            if ((contact.contactId == Long.valueOf(splits2[0])) && contact.phoneId == Long.valueOf(splits2[1])) {
-                                String _contactName = contact.name;
-                                if (text.toLowerCase().contains(_contactName.toLowerCase())) {
-                                    phoneNumberFound = true;
-                                    break;
+                    synchronized (PPApplication.contactsCacheMutex) {
+                        List<Contact> contactList = contactsCache.getList(false);
+                        if (contactList != null) {
+                            for (Contact contact : contactList) {
+                                if ((contact.contactId == Long.valueOf(splits2[0])) && contact.phoneId == Long.valueOf(splits2[1])) {
+                                    String _contactName = contact.name;
+                                    if (text.toLowerCase().contains(_contactName.toLowerCase())) {
+                                        phoneNumberFound = true;
+                                        break;
+                                    }
                                 }
                             }
                         }

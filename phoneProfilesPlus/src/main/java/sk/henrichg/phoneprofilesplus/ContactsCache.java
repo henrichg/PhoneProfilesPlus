@@ -31,8 +31,8 @@ class ContactsCache {
         caching = true;
         //cancelled = false;
 
-        contactList.clear();
-        contactListWithoutNumber.clear();
+        ArrayList<Contact> _contactList = new ArrayList<>();
+        ArrayList<Contact> _contactListWithoutNumber = new ArrayList<>();
 
         try {
             if (Permissions.checkContacts(context)) {
@@ -68,7 +68,7 @@ class ContactsCache {
                                     } catch (Exception e) {
                                         aContact.photoId = 0;
                                     }
-                                    contactList.add(aContact);
+                                    _contactList.add(aContact);
 
                                     //if (cancelled)
                                     //    break;
@@ -86,7 +86,7 @@ class ContactsCache {
                         } catch (Exception e) {
                             aContact.photoId = 0;
                         }
-                        contactListWithoutNumber.add(aContact);
+                        _contactListWithoutNumber.add(aContact);
 
                         //}catch(Exception e){}
 
@@ -104,24 +104,30 @@ class ContactsCache {
         } catch (Exception e) {
             Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
 
-            contactList.clear();
-            contactListWithoutNumber.clear();
+            _contactList.clear();
+            _contactListWithoutNumber.clear();
 
             cached = false;
+        }
+
+        synchronized (PPApplication.contactsCacheMutex) {
+            updateContacts(_contactList, false);
+            updateContacts(_contactListWithoutNumber, true);
         }
 
         caching = false;
     }
 
-    /*
-    public int getLength()
-    {
-        if (cached)
-            return contactList.size();
-        else
-            return 0;
+    void updateContacts(List<Contact> _contactList, boolean withoutNumber) {
+        if (withoutNumber) {
+            contactListWithoutNumber.clear();
+            contactListWithoutNumber.addAll(_contactList);
+        }
+        else {
+            contactList.clear();
+            contactList.addAll(_contactList);
+        }
     }
-    */
 
     List<Contact> getList(boolean withoutNumber)
     {
@@ -135,66 +141,9 @@ class ContactsCache {
             return null;
     }
 
-    /*
-    Contact getContact(int position)
-    {
-        if (cached)
-            return contactList.get(position);
-        else
-            return null;
-    }
-    */
-
-    /*
-    public long getContactId(int position)
-    {
-        if (cached)
-            return contactList.get(position).contactId;
-        else
-            return 0;
-    }
-
-    public String getContactDisplayName(int position)
-    {
-        if (cached)
-            return contactList.get(position).name;
-        else
-            return "";
-    }
-
-    public long getPhoneId(int position)
-    {
-        if (cached)
-            return contactList.get(position).phoneId;
-        else
-            return 0;
-    }
-
-    public String getContactPhoneNumber(int position)
-    {
-        if (cached)
-            return contactList.get(position).phoneNumber;
-        else
-            return "";
-    }
-
-    public long getContactPhotoId(int position)
-    {
-        if (cached)
-            return contactList.get(position).photoId;
-        else
-            return 0;
-    }
-    */
-
-    void clearGroups() {
-        for (Contact contact : contactList) {
-            if (contact.groups != null) {
-                contact.groups.clear();
-                contact.groups = null;
-            }
-        }
-        for (Contact contact : contactListWithoutNumber) {
+    // called only from ContactGroupsCache
+    void clearGroups(List<Contact> _contactList) {
+        for (Contact contact : _contactList) {
             if (contact.groups != null) {
                 contact.groups.clear();
                 contact.groups = null;
@@ -202,99 +151,63 @@ class ContactsCache {
         }
     }
 
-    void addGroup(long contactId, long contactGroupId, boolean withoutNumbers) {
-        if (withoutNumbers) {
-            for (Contact contact : contactListWithoutNumber) {
-                boolean contactFound = false;
-
-                if (contact.contactId == contactId) {
-                    contactFound = true;
-
-                    if (contact.groups == null)
-                        contact.groups = new ArrayList<>();
-
-                    // search group in contact
-                    boolean groupFound = false;
-                    for (long groupId : contact.groups) {
-                        if (groupId == contactGroupId) {
-                            groupFound = true;
-                            break;
-                        }
-                    }
-                    if (!groupFound)
-                        // group not found, add it
-                        contact.groups.add(contactGroupId);
-                }
-
-                if (contactFound)
-                    break;
-            }
-        }
-        else {
-            /*if ((contactGroupId == 1) || (contactGroupId == 15) || (contactGroupId == 20)) {
-                Log.e("ContactsCache.addGroup", "contactGroupId=" + contactGroupId);
-                Log.e("ContactsCache.addGroup", "contactId=" + contactId);
-            }*/
-            for (Contact contact : contactList) {
-                boolean contactFound = false;
-
-                if (contact.contactId == contactId) {
-                    contactFound = true;
-                    /*if ((contactGroupId == 1) || (contactGroupId == 15) || (contactGroupId == 20)) {
-                        Log.e("ContactsCache.addGroup", "contact found");
-                        Log.e("ContactsCache.addGroup", "contact.phoneNumber="+contact.phoneNumber);
-                    }*/
-
-                    if (contact.groups == null)
-                        contact.groups = new ArrayList<>();
-
-                    // search group in contact
-                    boolean groupFound = false;
-                    for (long groupId : contact.groups) {
-                        if (groupId == contactGroupId) {
-                            groupFound = true;
-                            /*if ((contactGroupId == 1) || (contactGroupId == 15) || (contactGroupId == 20)) {
-                                Log.e("ContactsCache.addGroup", "group found");
-                            }*/
-                            break;
-                        }
-                    }
-                    if (!groupFound) {
-                        // group not found, add it
-                        contact.groups.add(contactGroupId);
-                        /*if ((contactGroupId == 1) || (contactGroupId == 15) || (contactGroupId == 20)) {
-                            Log.e("ContactsCache.addGroup", "group added");
-                            Log.e("ContactsCache.addGroup", "contact.groups.size()="+contact.groups.size());
-                        }*/
-                    }
-                }
-
-                if (contactFound)
-                    break;
-            }
-        }
-    }
-
-    void clearCache(/*boolean nullList*/)
-    {
-        contactList.clear();
-        contactListWithoutNumber.clear();
-        /*if (nullList) {
-            contactList = null;
-            contactListWithoutNumber = null;
+    // called only from ContactGroupsCache
+    void addGroup(long contactId, long contactGroupId, List<Contact> _contactList) {
+        /*if ((contactGroupId == 1) || (contactGroupId == 15) || (contactGroupId == 20)) {
+            Log.e("ContactsCache.addGroup", "contactGroupId=" + contactGroupId);
+            Log.e("ContactsCache.addGroup", "contactId=" + contactId);
         }*/
-        cached = false;
-        caching = false;
+        for (Contact contact : _contactList) {
+            boolean contactFound = false;
+
+            if (contact.contactId == contactId) {
+                contactFound = true;
+                /*if ((contactGroupId == 1) || (contactGroupId == 15) || (contactGroupId == 20)) {
+                    Log.e("ContactsCache.addGroup", "contact found");
+                    Log.e("ContactsCache.addGroup", "contact.phoneNumber="+contact.phoneNumber);
+                }*/
+
+                if (contact.groups == null)
+                    contact.groups = new ArrayList<>();
+
+                // search group in contact
+                boolean groupFound = false;
+                for (long groupId : contact.groups) {
+                    if (groupId == contactGroupId) {
+                        groupFound = true;
+                        /*if ((contactGroupId == 1) || (contactGroupId == 15) || (contactGroupId == 20)) {
+                            Log.e("ContactsCache.addGroup", "group found");
+                        }*/
+                        break;
+                    }
+                }
+                if (!groupFound) {
+                    // group not found, add it
+                    contact.groups.add(contactGroupId);
+                    /*if ((contactGroupId == 1) || (contactGroupId == 15) || (contactGroupId == 20)) {
+                        Log.e("ContactsCache.addGroup", "group added");
+                        Log.e("ContactsCache.addGroup", "contact.groups.size()="+contact.groups.size());
+                    }*/
+                }
+            }
+
+            if (contactFound)
+                break;
+        }
+    }
+
+    void clearCache()
+    {
+        synchronized (PPApplication.contactsCacheMutex) {
+            contactList.clear();
+            contactListWithoutNumber.clear();
+            cached = false;
+            caching = false;
+        }
     }
 
     boolean getCaching() {
         return caching;
     }
 
-    /*
-    void cancelCaching()
-    {
-        cancelled = true;
-    }
-    */
 }

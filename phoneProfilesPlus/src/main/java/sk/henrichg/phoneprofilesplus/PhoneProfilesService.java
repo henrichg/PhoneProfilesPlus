@@ -4321,7 +4321,6 @@ public class PhoneProfilesService extends Service
         if (clear) {
             if (contactsCache != null)
                 contactsCache.clearCache();
-            contactsCache = new ContactsCache();
         }
         if (contactsCache == null)
             contactsCache = new ContactsCache();
@@ -4338,7 +4337,6 @@ public class PhoneProfilesService extends Service
         if (clear) {
             if (contactGroupsCache != null)
                 contactGroupsCache.clearCache();
-            contactGroupsCache = new ContactGroupsCache();
         }
         if (contactGroupsCache == null)
             contactGroupsCache = new ContactGroupsCache();

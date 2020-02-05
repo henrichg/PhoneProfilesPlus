@@ -604,9 +604,10 @@ class EventPreferencesCall extends EventPreferences {
                     if (contactsCache == null)
                         return false;
 
-                    List<Contact> contactList = contactsCache.getList(false);
-                    if (contactList != null) {
-                        for (Contact contact : contactList) {
+                    synchronized (PPApplication.contactsCacheMutex) {
+                        List<Contact> contactList = contactsCache.getList(false);
+                        if (contactList != null) {
+                            for (Contact contact : contactList) {
                             /*String __phoneNumber = contact.phoneNumber;
                             boolean found = false;
                             if (PhoneNumberUtils.compare(__phoneNumber, "917994279")) {
@@ -616,23 +617,24 @@ class EventPreferencesCall extends EventPreferences {
                                 Log.e("EventPreferencesCall.isPhoneNumberConfigured", "contact.groups=" + contact.groups);
                             }*/
 
-                            if (contact.groups != null) {
-                                long groupId = contact.groups.indexOf(Long.valueOf(split));
-                                if (groupId != -1) {
-                                    // group found in contact
-                                    //if (found)
-                                    //    Log.e("EventPreferencesCall.isPhoneNumberConfigured", "groupId="+groupId);
-                                    String _phoneNumber = contact.phoneNumber;
-                                    if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
-                                        phoneNumberFound = true;
+                                if (contact.groups != null) {
+                                    long groupId = contact.groups.indexOf(Long.valueOf(split));
+                                    if (groupId != -1) {
+                                        // group found in contact
                                         //if (found)
-                                        //    Log.e("EventPreferencesCall.isPhoneNumberConfigured", "phoneNumberFound="+phoneNumberFound);
-                                        break;
+                                        //    Log.e("EventPreferencesCall.isPhoneNumberConfigured", "groupId="+groupId);
+                                        String _phoneNumber = contact.phoneNumber;
+                                        if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
+                                            phoneNumberFound = true;
+                                            //if (found)
+                                            //    Log.e("EventPreferencesCall.isPhoneNumberConfigured", "phoneNumberFound="+phoneNumberFound);
+                                            break;
+                                        }
                                     }
                                 }
+                                //else
+                                //    Log.e("EventPreferencesCall.isPhoneNumberConfigured", "group is null");
                             }
-                            //else
-                            //    Log.e("EventPreferencesCall.isPhoneNumberConfigured", "group is null");
                         }
                     }
                 }
@@ -679,14 +681,16 @@ class EventPreferencesCall extends EventPreferences {
                         if (contactsCache == null)
                             return false;
 
-                        List<Contact> contactList = contactsCache.getList(false);
-                        if (contactList != null) {
-                            for (Contact contact : contactList) {
-                                if ((contact.contactId == Long.valueOf(splits2[0])) && contact.phoneId == Long.valueOf(splits2[1])) {
-                                    String _phoneNumber = contact.phoneNumber;
-                                    if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
-                                        phoneNumberFound = true;
-                                        break;
+                        synchronized (PPApplication.contactsCacheMutex) {
+                            List<Contact> contactList = contactsCache.getList(false);
+                            if (contactList != null) {
+                                for (Contact contact : contactList) {
+                                    if ((contact.contactId == Long.valueOf(splits2[0])) && contact.phoneId == Long.valueOf(splits2[1])) {
+                                        String _phoneNumber = contact.phoneNumber;
+                                        if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
+                                            phoneNumberFound = true;
+                                            break;
+                                        }
                                     }
                                 }
                             }

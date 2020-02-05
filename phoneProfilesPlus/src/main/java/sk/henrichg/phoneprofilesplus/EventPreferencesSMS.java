@@ -570,17 +570,19 @@ class EventPreferencesSMS extends EventPreferences {
                             if (contactsCache == null)
                                 return;
 
-                            List<Contact> contactList = contactsCache.getList(false);
-                            if (contactList != null) {
-                                for (Contact contact : contactList) {
-                                    if (contact.groups != null) {
-                                        long groupId = contact.groups.indexOf(Long.valueOf(split));
-                                        if (groupId != -1) {
-                                            // group found in contact
-                                            String _phoneNumber = contact.phoneNumber;
-                                            if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
-                                                phoneNumberFound = true;
-                                                break;
+                            synchronized (PPApplication.contactsCacheMutex) {
+                                List<Contact> contactList = contactsCache.getList(false);
+                                if (contactList != null) {
+                                    for (Contact contact : contactList) {
+                                        if (contact.groups != null) {
+                                            long groupId = contact.groups.indexOf(Long.valueOf(split));
+                                            if (groupId != -1) {
+                                                // group found in contact
+                                                String _phoneNumber = contact.phoneNumber;
+                                                if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
+                                                    phoneNumberFound = true;
+                                                    break;
+                                                }
                                             }
                                         }
                                     }
@@ -630,14 +632,16 @@ class EventPreferencesSMS extends EventPreferences {
                                 if (contactsCache == null)
                                     return;
 
-                                List<Contact> contactList = contactsCache.getList(false);
-                                if (contactList != null) {
-                                    for (Contact contact : contactList) {
-                                        if ((contact.contactId == Long.valueOf(splits2[0])) && contact.phoneId == Long.valueOf(splits2[1])) {
-                                            String _phoneNumber = contact.phoneNumber;
-                                            if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
-                                                phoneNumberFound = true;
-                                                break;
+                                synchronized (PPApplication.contactsCacheMutex) {
+                                    List<Contact> contactList = contactsCache.getList(false);
+                                    if (contactList != null) {
+                                        for (Contact contact : contactList) {
+                                            if ((contact.contactId == Long.valueOf(splits2[0])) && contact.phoneId == Long.valueOf(splits2[1])) {
+                                                String _phoneNumber = contact.phoneNumber;
+                                                if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
+                                                    phoneNumberFound = true;
+                                                    break;
+                                                }
                                             }
                                         }
                                     }
