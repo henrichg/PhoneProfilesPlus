@@ -280,7 +280,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                          //+"|PhoneProfilesPrefsActivity.onStart"
                                          //+"|PhoneProfilesPrefsActivity.onStop"
                                          //+"|PhoneProfilesPrefsActivity.finish"
-                                         +"|PhoneProfilesPrefsActivity.doPreferenceChanges"
+                                         //+"|PhoneProfilesPrefsActivity.doPreferenceChanges"
                                          //+"|EditorProfilesActivity.onActivityResult"
                                          //+"|PhoneProfilesPrefsFragment.onCreate"
                                          //+"|PhoneProfilesPrefsFragment.onCreatePreferences"

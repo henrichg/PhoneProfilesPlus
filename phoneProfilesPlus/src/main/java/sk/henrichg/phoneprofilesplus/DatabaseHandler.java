@@ -4058,7 +4058,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 Cursor cursor = db.query(TABLE_PROFILES,
                         new String[]{KEY_ID},
-                        KEY_NAME + "=?",
+                        "trim(" + KEY_NAME + ")=?",
                         new String[]{name}, null, null, null, null);
                 if (cursor != null) {
                     cursor.moveToFirst();

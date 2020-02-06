@@ -1353,9 +1353,10 @@ public class DataWrapper {
 
     long getProfileIdByName(String name, boolean fromDB)
     {
+        String _name = name.trim();
         if ((!profileListFilled) || fromDB)
         {
-            return DatabaseHandler.getInstance(context).getProfileIdByName(name);
+            return DatabaseHandler.getInstance(context).getProfileIdByName(_name);
         }
         else
         {
@@ -1364,7 +1365,7 @@ public class DataWrapper {
                 //noinspection ForLoopReplaceableByForEach
                 for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
                     profile = it.next();
-                    if (profile._name.equals(name))
+                    if (profile._name.trim().equals(_name))
                         return profile._id;
                 }
             }
