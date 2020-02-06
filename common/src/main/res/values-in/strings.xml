@@ -776,7 +776,7 @@
     <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Any SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Sambungkan ke SSID</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Setel volume link</string>
-    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Pertahankan pendeteksian</string>
+    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Use detection</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">Volume terkait</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Volume tidak terkait</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Gunakan ini jika deteksi link volume salah.</string>

@@ -776,7 +776,7 @@
     <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Any SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">連接到 SSID</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">設定音量連結</string>
-    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Maintain detection</string>
+    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Use detection</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">音量已連結</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">音量未連結</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">使用此配置若音量連結偵測錯誤.</string>

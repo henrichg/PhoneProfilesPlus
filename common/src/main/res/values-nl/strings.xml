@@ -776,7 +776,7 @@
     <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Elke SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Verbinden met SSID</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Stel volume samenvoegen in</string>
-    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Gedetecteerd houden</string>
+    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Use detection</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">Volumes zijn samengevoegd</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Volumes zijn niet samengevoegd</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Gebruik dit als detectie van volume samenvoegen verkeerd gaat.</string>

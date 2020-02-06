@@ -779,7 +779,7 @@
     <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Any SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">התחבר ל-SSID</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">מיזוג עוצמות הקול</string>
-    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">שמירת הערכים שאותרו</string>
+    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Use detection</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">עוצמות הקול ממוזגות</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">עוצמות הקול מופרדות</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">התשמש באפשרות זו אם זיהוי מיזוג עצמת קול שגוי.</string>

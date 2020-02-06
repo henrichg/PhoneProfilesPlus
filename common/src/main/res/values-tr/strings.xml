@@ -776,7 +776,7 @@
     <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Herhangi bir SSID (Wi-Fi ağı ismi)</string>
     <string name="profile_preferences_deviceConnectToSSID">SSID\'ye (Wi-Fi ağı) Bağlan</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Ses seviyelerini birleştirmeyi ayarla</string>
-    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Tesbit edileni muhafaza et</string>
+    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Use detection</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">Ses seviyeleri birleşik</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Ses seviyeleri birleşik değil</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Ses seviyeleri birleştirme tesbitinde hata varsa bunu kullanın.</string>

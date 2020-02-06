@@ -776,7 +776,7 @@
     <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Any SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Kapcsolódás SSID-hez</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Hangerő egyesítések beállítása</string>
-    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Folyamatosan észlelt</string>
+    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Use detection</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">Hangerők egyesítve</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Hangerők nem egyesíthetőek</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Használja ezt, ha detektálva, hogy a kötetek egyesítése hibás.</string>

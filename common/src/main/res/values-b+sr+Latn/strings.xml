@@ -776,7 +776,7 @@
     <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Bilo koji SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Poveži se na SSID</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Podesi glasnoću linka</string>
-    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Obrada detekcije</string>
+    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Use detection</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">Glasnoće su povezane</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Glasnoće nisu povezane</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Koristi ovo ako detekcija veze glasnoće je pogrešna.</string>

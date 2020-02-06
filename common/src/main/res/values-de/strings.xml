@@ -776,7 +776,7 @@
     <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Beliebige SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Mit SSID verbinden</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Lautstärken verbinden</string>
-    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Weiterhin erfassen</string>
+    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Use detection</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">Lautstärken sind verbunden</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Lautstärken sind nicht verbunden</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Nutze dies, wenn die Erkennung von verbundenen Lautstärken falsch ist.</string>

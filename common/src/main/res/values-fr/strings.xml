@@ -776,7 +776,7 @@
     <string name="connect_to_ssid_pref_dlg_summary_text_just_any">N\'importe quel SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Se connecter au SSID</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Fusion des volumes</string>
-    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Détecté automatiquement</string>
+    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Use detection</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">Un seul volume</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Deux volumes distincts</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">A utiliser si la détection de la fusion du volume est fausse.</string>

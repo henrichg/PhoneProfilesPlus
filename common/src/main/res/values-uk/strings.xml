@@ -776,7 +776,7 @@
     <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Будь-який SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Під\'єднатись до SSID</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Об\'єднати рівні гучності</string>
-    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Автовизначення</string>
+    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Use detection</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">Рівні гучності об\'єднані</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Рівні гучності не об\'єднані</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Використовуйте, якщо об\'єднаність визначається неправильно.</string>
@@ -1402,9 +1402,9 @@
     <string name="array_pref_87_percent" formatted="false">87.5%</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Показати тривалість профілю (віджет)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Взагалі може не працювати у вашому пристрої.</string>
-    <string name="application_is_not_started">is not started</string>
-    <string name="application_is_starting_toast">is starting…</string>
-    <string name="application_is_started_toast">is started</string>
+    <string name="application_is_not_started">не запущений</string>
+    <string name="application_is_starting_toast">запускається…</string>
+    <string name="application_is_started_toast">запущений</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>

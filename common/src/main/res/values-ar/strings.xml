@@ -776,7 +776,7 @@
     <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Any SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Connect to SSID</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">تعيين رابط درجة الأصوات</string>
-    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">الحفاظ على الكشف</string>
+    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Use detection</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">درجات صوت مرتبطة</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">درجات صوت غير مرتبطة</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">استخدام هذا إذا كان اكتشاف ارتباط درجة الصوت خاطئًا.</string>

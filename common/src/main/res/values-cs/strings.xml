@@ -776,7 +776,7 @@
     <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Jakékoli SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Připojit k SSID</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Nastavení sloučení hlasitosti</string>
-    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Ponechat zjištěné</string>
+    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Použít detekci</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">Hlasitosti jsou sloučeny</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Hlasitosti nejsou sloučeny</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Použijte, pokud zjištění sloučení hlasitosti je špatné.</string>

@@ -776,7 +776,7 @@
     <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Qualsiasi SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Connettiti a SSID</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Imposta miscelazione volumi</string>
-    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Continua a rilevare</string>
+    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Use detection</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">Volumi miscelati</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Volumi non miscelati</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Utilizzare se la miscelazione dei volumi non viene rilavata correttamente.</string>
