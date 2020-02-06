@@ -96,7 +96,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
         }
     }
 
-    private static void doWork(Context appContext) {
+    static void doWork(Context appContext) {
         //PPApplication.logE("TimeChangedReceiver.doWork", "xxx");
 
         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
