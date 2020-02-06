@@ -331,10 +331,12 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             // for startActivityForResult
             Intent returnIntent = new Intent();
             returnIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, invalidateEditor);
+            Permissions.grantRootChanged = false;
             setResult(RESULT_OK, returnIntent);
         }
         else {
             Intent returnIntent = new Intent();
+            Permissions.grantRootChanged = false;
             setResult(RESULT_CANCELED, returnIntent);
         }
 
@@ -380,6 +382,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventOrientationEnableScanning);
             Crashlytics.setInt(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, ApplicationPreferences.applicationEventOrientationScanInterval);
         } catch (Exception ignored) {}
+
+        if (Permissions.grantRootChanged) {
+            //PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "grant root changed");
+            invalidateEditor = true;
+        }
 
         boolean permissionsChanged = Permissions.getPermissionsChanged(appContext);
         if (permissionsChanged) {

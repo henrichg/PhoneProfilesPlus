@@ -92,6 +92,23 @@ public class PPApplication extends Application /*implements Application.Activity
     static final EventBluetoothSensorMutex eventBluetoothSensorMutex = new EventBluetoothSensorMutex();
     static final ContactsCacheMutex contactsCacheMutex = new ContactsCacheMutex();
     static final ContactGroupsCacheMutex contactGroupsCacheMutex = new ContactGroupsCacheMutex();
+    static final PhoneProfilesServiceMutex phoneProfilesServiceMutex = new PhoneProfilesServiceMutex();
+    static final RootMutex rootMutex = new RootMutex();
+    private static final ServiceListMutex serviceListMutex = new ServiceListMutex();
+    //static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
+    static final BluetoothConnectionChangeStateMutex bluetoothConnectionChangeStateMutex = new BluetoothConnectionChangeStateMutex();
+    //static final NotificationsChangeMutex notificationsChangeMutex = new NotificationsChangeMutex();
+    static final WifiScanResultsMutex wifiScanResultsMutex = new WifiScanResultsMutex();
+    static final GeofenceScannerLastLocationMutex geofenceScannerLastLocationMutex = new GeofenceScannerLastLocationMutex();
+    static final GeofenceScannerMutex geofenceScannerMutex = new GeofenceScannerMutex();
+    static final WifiBluetoothScannerMutex wifiBluetoothscannerMutex = new WifiBluetoothScannerMutex();
+    static final EventsHandlerMutex eventsHandlerMutex = new EventsHandlerMutex();
+    static final PhoneStateScannerMutex phoneStateScannerMutex = new PhoneStateScannerMutex();
+    static final OrientationScannerMutex orientationScannerMutex = new OrientationScannerMutex();
+    static final BluetoothScanMutex bluetoothScanMutex = new BluetoothScanMutex();
+    static final BluetoothLEScanMutex bluetoothLEScanMutex = new BluetoothLEScanMutex();
+    static final BluetoothScanResultsMutex bluetoothScanResultsMutex = new BluetoothScanResultsMutex();
+    static final TwilightScannerMutex twilightScannerMutex = new TwilightScannerMutex();
 
     //static final String romManufacturer = getROMManufacturer();
     static final boolean deviceIsXiaomi = isXiaomi();
@@ -827,23 +844,6 @@ public class PPApplication extends Application /*implements Application.Activity
     //public static Handler brightnessHandler;
     public static Handler screenTimeoutHandler;
 
-    public static final PhoneProfilesServiceMutex phoneProfilesServiceMutex = new PhoneProfilesServiceMutex();
-    public static final RootMutex rootMutex = new RootMutex();
-    private static final ServiceListMutex serviceListMutex = new ServiceListMutex();
-    //public static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
-    public static final BluetoothConnectionChangeStateMutex bluetoothConnectionChangeStateMutex = new BluetoothConnectionChangeStateMutex();
-    //public static final NotificationsChangeMutex notificationsChangeMutex = new NotificationsChangeMutex();
-    public static final WifiScanResultsMutex wifiScanResultsMutex = new WifiScanResultsMutex();
-    public static final GeofenceScannerLastLocationMutex geofenceScannerLastLocationMutex = new GeofenceScannerLastLocationMutex();
-    public static final GeofenceScannerMutex geofenceScannerMutex = new GeofenceScannerMutex();
-    public static final WifiBluetoothScannerMutex wifiBluetoothscannerMutex = new WifiBluetoothScannerMutex();
-    public static final EventsHandlerMutex eventsHandlerMutex = new EventsHandlerMutex();
-    public static final PhoneStateScannerMutex phoneStateScannerMutex = new PhoneStateScannerMutex();
-    public static final OrientationScannerMutex orientationScannerMutex = new OrientationScannerMutex();
-    public static final BluetoothScanMutex bluetoothScanMutex = new BluetoothScanMutex();
-    public static final BluetoothLEScanMutex bluetoothLEScanMutex = new BluetoothLEScanMutex();
-    public static final BluetoothScanResultsMutex bluetoothScanResultsMutex = new BluetoothScanResultsMutex();
-    public static final TwilightScannerMutex twilightScannerMutex = new TwilightScannerMutex();
     public static final PPNotificationListenerService ppNotificationListenerService = new PPNotificationListenerService();
 
     //public static boolean isPowerSaveMode = false;

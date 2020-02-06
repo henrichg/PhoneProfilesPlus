@@ -542,6 +542,8 @@ public class PhoneProfilesService extends Service
         }
         */
 
+        PPApplication.initRoot();
+
         synchronized (PPApplication.phoneProfilesServiceMutex) {
             instance = null;
         }

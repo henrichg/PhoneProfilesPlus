@@ -239,8 +239,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         returnIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile_id);
         returnIntent.putExtra(EditorProfilesActivity.EXTRA_NEW_PROFILE_MODE, newProfileMode);
         returnIntent.putExtra(EditorProfilesActivity.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
-        returnIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, sk.henrichg.phoneprofilesplus.Permissions.grantRootChanged);
-        sk.henrichg.phoneprofilesplus.Permissions.grantRootChanged = false;
+        returnIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, Permissions.grantRootChanged);
+        Permissions.grantRootChanged = false;
         setResult(resultCode,returnIntent);
 
         super.finish();
