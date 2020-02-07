@@ -38,38 +38,38 @@ class ActivityLogAdapter extends CursorAdapter {
         //KEY_AL_PROFILE_ICON = cursor.getColumnIndex(DatabaseHandler.KEY_AL_PROFILE_ICON);
         //KEY_AL_DURATION_DELAY = cursor.getColumnIndex(DatabaseHandler.KEY_AL_DURATION_DELAY);
 
-        activityTypeStrings.put(DataWrapper.ALTYPE_PROFILE_ACTIVATION, R.string.altype_profileActivation);
-        activityTypeStrings.put(DataWrapper.ALTYPE_AFTER_DURATION_UNDO_PROFILE, R.string.altype_afterDuration_undoProfile);
-        activityTypeStrings.put(DataWrapper.ALTYPE_AFTER_DURATION_BACKGROUND_PROFILE, R.string.altype_afterDuration_backgroundProfile);
-        activityTypeStrings.put(DataWrapper.ALTYPE_AFTER_DURATION_RESTART_EVENTS, R.string.altype_afterDuration_restartEvents);
-        activityTypeStrings.put(DataWrapper.ALTYPE_EVENT_START, R.string.altype_eventStart);
-        activityTypeStrings.put(DataWrapper.ALTYPE_EVENT_START_DELAY, R.string.altype_eventStartDelay);
-        activityTypeStrings.put(DataWrapper.ALTYPE_EVENT_END_NONE, R.string.altype_eventEnd_none);
-        activityTypeStrings.put(DataWrapper.ALTYPE_EVENT_END_ACTIVATE_PROFILE, R.string.altype_eventEnd_activateProfile);
-        activityTypeStrings.put(DataWrapper.ALTYPE_EVENT_END_UNDO_PROFILE, R.string.altype_eventEnd_undoProfile);
-        activityTypeStrings.put(DataWrapper.ALTYPE_EVENT_END_ACTIVATE_PROFILE_UNDO_PROFILE, R.string.altype_eventEnd_activateProfile_undoProfile);
-        activityTypeStrings.put(DataWrapper.ALTYPE_EVENT_END_RESTART_EVENTS, R.string.altype_eventEnd_restartEvents);
-        activityTypeStrings.put(DataWrapper.ALTYPE_EVENT_END_ACTIVATE_PROFILE_RESTART_EVENTS, R.string.altype_eventEnd_activateProfile_restartEvents);
-        activityTypeStrings.put(DataWrapper.ALTYPE_RESTART_EVENTS, R.string.altype_restartEvents);
-        activityTypeStrings.put(DataWrapper.ALTYPE_RUN_EVENTS_DISABLE, R.string.altype_runEvents_disable);
-        activityTypeStrings.put(DataWrapper.ALTYPE_RUN_EVENTS_ENABLE, R.string.altype_runEvents_enable);
-        activityTypeStrings.put(DataWrapper.ALTYPE_APPLICATION_START, R.string.altype_applicationStart);
-        activityTypeStrings.put(DataWrapper.ALTYPE_APPLICATION_START_ON_BOOT, R.string.altype_applicationStartOnBoot);
-        activityTypeStrings.put(DataWrapper.ALTYPE_APPLICATION_EXIT, R.string.altype_applicationExit);
-        activityTypeStrings.put(DataWrapper.ALTYPE_DATA_IMPORT, R.string.altype_dataImport);
-        activityTypeStrings.put(DataWrapper.ALTYPE_PAUSED_LOGGING, R.string.altype_pausedLogging);
-        activityTypeStrings.put(DataWrapper.ALTYPE_STARTED_LOGGING, R.string.altype_startedLogging);
-        activityTypeStrings.put(DataWrapper.ALTYPE_EVENT_END_DELAY, R.string.altype_eventEndDelay);
-        activityTypeStrings.put(DataWrapper.ALTYPE_EVENT_STOP, R.string.altype_eventStop);
-        activityTypeStrings.put(DataWrapper.ALTYPE_EVENT_PREFERENCES_CHANGED, R.string.altype_eventPreferencesChanged);
-        activityTypeStrings.put(DataWrapper.ALTYPE_EVENT_DELETED, R.string.altype_eventDeleted);
-        activityTypeStrings.put(DataWrapper.ALTYPE_PROFILE_DELETED, R.string.altype_profileDeleted);
-        activityTypeStrings.put(DataWrapper.ALTYPE_PROFILE_PREFERENCES_CHANGED, R.string.altype_profilePreferencesChanged);
-        activityTypeStrings.put(DataWrapper.ALTYPE_SHARED_PROFILE_PREFERENCES_CHANGED, R.string.altype_sharedProfilePreferencesChanged);
-        activityTypeStrings.put(DataWrapper.ALTYPE_ALL_EVENTS_DELETED, R.string.altype_allEventsDeleted);
-        activityTypeStrings.put(DataWrapper.ALTYPE_ALL_PROFILES_DELETED, R.string.altype_allProfilesDeleted);
-        activityTypeStrings.put(DataWrapper.ALTYPE_APPLICATION_UPGRADE, R.string.altype_applicationUpgrade);
-        activityTypeStrings.put(DataWrapper.ALTYPE_AFTER_DURATION_SPECIFIC_PROFILE, R.string.altype_afterDuration_specificProfile);
+        activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ACTIVATION, R.string.altype_profileActivation);
+        activityTypeStrings.put(PPApplication.ALTYPE_AFTER_DURATION_UNDO_PROFILE, R.string.altype_afterDuration_undoProfile);
+        activityTypeStrings.put(PPApplication.ALTYPE_AFTER_DURATION_BACKGROUND_PROFILE, R.string.altype_afterDuration_backgroundProfile);
+        activityTypeStrings.put(PPApplication.ALTYPE_AFTER_DURATION_RESTART_EVENTS, R.string.altype_afterDuration_restartEvents);
+        activityTypeStrings.put(PPApplication.ALTYPE_EVENT_START, R.string.altype_eventStart);
+        activityTypeStrings.put(PPApplication.ALTYPE_EVENT_START_DELAY, R.string.altype_eventStartDelay);
+        activityTypeStrings.put(PPApplication.ALTYPE_EVENT_END_NONE, R.string.altype_eventEnd_none);
+        activityTypeStrings.put(PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE, R.string.altype_eventEnd_activateProfile);
+        activityTypeStrings.put(PPApplication.ALTYPE_EVENT_END_UNDO_PROFILE, R.string.altype_eventEnd_undoProfile);
+        activityTypeStrings.put(PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE_UNDO_PROFILE, R.string.altype_eventEnd_activateProfile_undoProfile);
+        activityTypeStrings.put(PPApplication.ALTYPE_EVENT_END_RESTART_EVENTS, R.string.altype_eventEnd_restartEvents);
+        activityTypeStrings.put(PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE_RESTART_EVENTS, R.string.altype_eventEnd_activateProfile_restartEvents);
+        activityTypeStrings.put(PPApplication.ALTYPE_RESTART_EVENTS, R.string.altype_restartEvents);
+        activityTypeStrings.put(PPApplication.ALTYPE_RUN_EVENTS_DISABLE, R.string.altype_runEvents_disable);
+        activityTypeStrings.put(PPApplication.ALTYPE_RUN_EVENTS_ENABLE, R.string.altype_runEvents_enable);
+        activityTypeStrings.put(PPApplication.ALTYPE_APPLICATION_START, R.string.altype_applicationStart);
+        activityTypeStrings.put(PPApplication.ALTYPE_APPLICATION_START_ON_BOOT, R.string.altype_applicationStartOnBoot);
+        activityTypeStrings.put(PPApplication.ALTYPE_APPLICATION_EXIT, R.string.altype_applicationExit);
+        activityTypeStrings.put(PPApplication.ALTYPE_DATA_IMPORT, R.string.altype_dataImport);
+        activityTypeStrings.put(PPApplication.ALTYPE_PAUSED_LOGGING, R.string.altype_pausedLogging);
+        activityTypeStrings.put(PPApplication.ALTYPE_STARTED_LOGGING, R.string.altype_startedLogging);
+        activityTypeStrings.put(PPApplication.ALTYPE_EVENT_END_DELAY, R.string.altype_eventEndDelay);
+        activityTypeStrings.put(PPApplication.ALTYPE_EVENT_STOP, R.string.altype_eventStop);
+        activityTypeStrings.put(PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED, R.string.altype_eventPreferencesChanged);
+        activityTypeStrings.put(PPApplication.ALTYPE_EVENT_DELETED, R.string.altype_eventDeleted);
+        activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_DELETED, R.string.altype_profileDeleted);
+        activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_PREFERENCES_CHANGED, R.string.altype_profilePreferencesChanged);
+        activityTypeStrings.put(PPApplication.ALTYPE_SHARED_PROFILE_PREFERENCES_CHANGED, R.string.altype_sharedProfilePreferencesChanged);
+        activityTypeStrings.put(PPApplication.ALTYPE_ALL_EVENTS_DELETED, R.string.altype_allEventsDeleted);
+        activityTypeStrings.put(PPApplication.ALTYPE_ALL_PROFILES_DELETED, R.string.altype_allProfilesDeleted);
+        activityTypeStrings.put(PPApplication.ALTYPE_APPLICATION_UPGRADE, R.string.altype_applicationUpgrade);
+        activityTypeStrings.put(PPApplication.ALTYPE_AFTER_DURATION_SPECIFIC_PROFILE, R.string.altype_afterDuration_specificProfile);
 
         int otherColor = R.color.altype_other;
         /*//noinspection SwitchStatementWithTooFewBranches
@@ -85,38 +85,38 @@ class ActivityLogAdapter extends CursorAdapter {
                 break;
         }*/
 
-        activityTypeColors.put(DataWrapper.ALTYPE_PROFILE_ACTIVATION, R.color.altype_profile);
-        activityTypeColors.put(DataWrapper.ALTYPE_AFTER_DURATION_UNDO_PROFILE, R.color.altype_profile);
-        activityTypeColors.put(DataWrapper.ALTYPE_AFTER_DURATION_BACKGROUND_PROFILE, R.color.altype_profile);
-        activityTypeColors.put(DataWrapper.ALTYPE_AFTER_DURATION_RESTART_EVENTS, R.color.altype_profile);
-        activityTypeColors.put(DataWrapper.ALTYPE_AFTER_DURATION_SPECIFIC_PROFILE, R.color.altype_profile);
-        activityTypeColors.put(DataWrapper.ALTYPE_EVENT_START, R.color.altype_eventStart);
-        activityTypeColors.put(DataWrapper.ALTYPE_EVENT_START_DELAY, R.color.altype_eventDelayStartEnd);
-        activityTypeColors.put(DataWrapper.ALTYPE_EVENT_END_DELAY, R.color.altype_eventDelayStartEnd);
-        activityTypeColors.put(DataWrapper.ALTYPE_EVENT_END_NONE, R.color.altype_eventEnd);
-        activityTypeColors.put(DataWrapper.ALTYPE_EVENT_END_ACTIVATE_PROFILE, R.color.altype_eventEnd);
-        activityTypeColors.put(DataWrapper.ALTYPE_EVENT_END_UNDO_PROFILE, R.color.altype_eventEnd);
-        activityTypeColors.put(DataWrapper.ALTYPE_EVENT_END_ACTIVATE_PROFILE_UNDO_PROFILE, R.color.altype_eventEnd);
-        activityTypeColors.put(DataWrapper.ALTYPE_EVENT_END_RESTART_EVENTS, R.color.altype_eventEnd);
-        activityTypeColors.put(DataWrapper.ALTYPE_EVENT_END_ACTIVATE_PROFILE_RESTART_EVENTS, R.color.altype_eventEnd);
-        activityTypeColors.put(DataWrapper.ALTYPE_EVENT_STOP, R.color.altype_eventEnd);
-        activityTypeColors.put(DataWrapper.ALTYPE_RESTART_EVENTS, otherColor);
-        activityTypeColors.put(DataWrapper.ALTYPE_RUN_EVENTS_DISABLE, otherColor);
-        activityTypeColors.put(DataWrapper.ALTYPE_RUN_EVENTS_ENABLE, otherColor);
-        activityTypeColors.put(DataWrapper.ALTYPE_APPLICATION_START, otherColor);
-        activityTypeColors.put(DataWrapper.ALTYPE_APPLICATION_START_ON_BOOT, otherColor);
-        activityTypeColors.put(DataWrapper.ALTYPE_APPLICATION_EXIT, otherColor);
-        activityTypeColors.put(DataWrapper.ALTYPE_DATA_IMPORT, otherColor);
-        activityTypeColors.put(DataWrapper.ALTYPE_PAUSED_LOGGING, otherColor);
-        activityTypeColors.put(DataWrapper.ALTYPE_STARTED_LOGGING, otherColor);
-        activityTypeColors.put(DataWrapper.ALTYPE_EVENT_PREFERENCES_CHANGED, otherColor);
-        activityTypeColors.put(DataWrapper.ALTYPE_EVENT_DELETED, otherColor);
-        activityTypeColors.put(DataWrapper.ALTYPE_PROFILE_DELETED, otherColor);
-        activityTypeColors.put(DataWrapper.ALTYPE_PROFILE_PREFERENCES_CHANGED, otherColor);
-        activityTypeColors.put(DataWrapper.ALTYPE_SHARED_PROFILE_PREFERENCES_CHANGED, otherColor);
-        activityTypeColors.put(DataWrapper.ALTYPE_ALL_EVENTS_DELETED, otherColor);
-        activityTypeColors.put(DataWrapper.ALTYPE_ALL_PROFILES_DELETED, otherColor);
-        activityTypeColors.put(DataWrapper.ALTYPE_APPLICATION_UPGRADE, otherColor);
+        activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ACTIVATION, R.color.altype_profile);
+        activityTypeColors.put(PPApplication.ALTYPE_AFTER_DURATION_UNDO_PROFILE, R.color.altype_profile);
+        activityTypeColors.put(PPApplication.ALTYPE_AFTER_DURATION_BACKGROUND_PROFILE, R.color.altype_profile);
+        activityTypeColors.put(PPApplication.ALTYPE_AFTER_DURATION_RESTART_EVENTS, R.color.altype_profile);
+        activityTypeColors.put(PPApplication.ALTYPE_AFTER_DURATION_SPECIFIC_PROFILE, R.color.altype_profile);
+        activityTypeColors.put(PPApplication.ALTYPE_EVENT_START, R.color.altype_eventStart);
+        activityTypeColors.put(PPApplication.ALTYPE_EVENT_START_DELAY, R.color.altype_eventDelayStartEnd);
+        activityTypeColors.put(PPApplication.ALTYPE_EVENT_END_DELAY, R.color.altype_eventDelayStartEnd);
+        activityTypeColors.put(PPApplication.ALTYPE_EVENT_END_NONE, R.color.altype_eventEnd);
+        activityTypeColors.put(PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE, R.color.altype_eventEnd);
+        activityTypeColors.put(PPApplication.ALTYPE_EVENT_END_UNDO_PROFILE, R.color.altype_eventEnd);
+        activityTypeColors.put(PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE_UNDO_PROFILE, R.color.altype_eventEnd);
+        activityTypeColors.put(PPApplication.ALTYPE_EVENT_END_RESTART_EVENTS, R.color.altype_eventEnd);
+        activityTypeColors.put(PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE_RESTART_EVENTS, R.color.altype_eventEnd);
+        activityTypeColors.put(PPApplication.ALTYPE_EVENT_STOP, R.color.altype_eventEnd);
+        activityTypeColors.put(PPApplication.ALTYPE_RESTART_EVENTS, otherColor);
+        activityTypeColors.put(PPApplication.ALTYPE_RUN_EVENTS_DISABLE, otherColor);
+        activityTypeColors.put(PPApplication.ALTYPE_RUN_EVENTS_ENABLE, otherColor);
+        activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_START, otherColor);
+        activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_START_ON_BOOT, otherColor);
+        activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_EXIT, otherColor);
+        activityTypeColors.put(PPApplication.ALTYPE_DATA_IMPORT, otherColor);
+        activityTypeColors.put(PPApplication.ALTYPE_PAUSED_LOGGING, otherColor);
+        activityTypeColors.put(PPApplication.ALTYPE_STARTED_LOGGING, otherColor);
+        activityTypeColors.put(PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED, otherColor);
+        activityTypeColors.put(PPApplication.ALTYPE_EVENT_DELETED, otherColor);
+        activityTypeColors.put(PPApplication.ALTYPE_PROFILE_DELETED, otherColor);
+        activityTypeColors.put(PPApplication.ALTYPE_PROFILE_PREFERENCES_CHANGED, otherColor);
+        activityTypeColors.put(PPApplication.ALTYPE_SHARED_PROFILE_PREFERENCES_CHANGED, otherColor);
+        activityTypeColors.put(PPApplication.ALTYPE_ALL_EVENTS_DELETED, otherColor);
+        activityTypeColors.put(PPApplication.ALTYPE_ALL_PROFILES_DELETED, otherColor);
+        activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_UPGRADE, otherColor);
 
     }
 
@@ -192,7 +192,7 @@ class ActivityLogAdapter extends CursorAdapter {
         //TextView profileName;
     }
 
-    public void reload(DataWrapper dataWrapper) {
+    void reload(DataWrapper dataWrapper) {
         changeCursor(DatabaseHandler.getInstance(dataWrapper.context.getApplicationContext()).getActivityLogCursor());
     }
 }

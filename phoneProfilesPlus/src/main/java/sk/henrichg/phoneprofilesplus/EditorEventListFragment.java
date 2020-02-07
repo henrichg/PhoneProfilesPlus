@@ -760,7 +760,7 @@ public class EditorEventListFragment extends Fragment
             // event not exists
             return;
 
-        activityDataWrapper.addActivityLog(DataWrapper.ALTYPE_EVENT_DELETED, event._name, null, null, 0);
+        PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_EVENT_DELETED, event._name, null, null, 0);
 
         //listView.getRecycledViewPool().clear();
 
@@ -887,7 +887,7 @@ public class EditorEventListFragment extends Fragment
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
 
                 public void onClick(DialogInterface dialog, int which) {
-                    activityDataWrapper.addActivityLog(DataWrapper.ALTYPE_ALL_EVENTS_DELETED, null, null, null, 0);
+                    PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_EVENTS_DELETED, null, null, null, 0);
 
                     //listView.getRecycledViewPool().clear();
 

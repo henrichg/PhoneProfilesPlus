@@ -251,7 +251,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                         if (activateProfileId == Profile.PROFILE_NO_ACTIVATE)
                             activateProfileId = 0;
 
-                        dataWrapper.addActivityLog(DataWrapper.ALTYPE_AFTER_DURATION_BACKGROUND_PROFILE, null,
+                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_AFTER_DURATION_BACKGROUND_PROFILE, null,
                                 DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper, false, appContext),
                                 profile._icon, 0);
                     }
@@ -260,7 +260,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                         if (activateProfileId == activatedProfile._id)
                             activateProfileId = 0;
 
-                        dataWrapper.addActivityLog(DataWrapper.ALTYPE_AFTER_DURATION_UNDO_PROFILE, null,
+                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_AFTER_DURATION_UNDO_PROFILE, null,
                                 DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper, false, appContext),
                                 profile._icon, 0);
                     }
@@ -269,18 +269,18 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                         if (activateProfileId == Profile.PROFILE_NO_ACTIVATE)
                             activateProfileId = 0;
 
-                        dataWrapper.addActivityLog(DataWrapper.ALTYPE_AFTER_DURATION_SPECIFIC_PROFILE, null,
+                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_AFTER_DURATION_SPECIFIC_PROFILE, null,
                                 DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper, false, appContext),
                                 profile._icon, 0);
                     }
                     if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_RESTART_EVENTS) {
                         if (!forRestartEvents) {
-                            dataWrapper.addActivityLog(DataWrapper.ALTYPE_AFTER_DURATION_RESTART_EVENTS, null,
+                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_AFTER_DURATION_RESTART_EVENTS, null,
                                     DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper, false, appContext),
                                     profile._icon, 0);
 
                             //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "restart events");
-                            dataWrapper.restartEventsWithDelay(3, true, /*false,*/ DataWrapper.ALTYPE_UNDEFINED);
+                            dataWrapper.restartEventsWithDelay(3, true, /*false,*/ PPApplication.ALTYPE_UNDEFINED);
                         } else {
                             dataWrapper.activateProfileAfterDuration(0, startupSource);
                         }

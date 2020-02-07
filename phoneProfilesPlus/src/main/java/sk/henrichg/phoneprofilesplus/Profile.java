@@ -1371,7 +1371,7 @@ public class Profile {
             dataWrapper.setProfileActive(withProfile);
 
             String profileIcon = withProfile._icon;
-            dataWrapper.addActivityLog(DataWrapper.ALTYPE_PROFILE_ACTIVATION, null,
+            PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_PROFILE_ACTIVATION, null,
                                     DataWrapper.getProfileNameWithManualIndicatorAsString(withProfile, true, "", false, false, false, dataWrapper, false, dataWrapper.context),
                                     profileIcon, 0);
 

@@ -491,7 +491,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
         final DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
 
-        dataWrapper.addActivityLog(DataWrapper.ALTYPE_EVENT_PREFERENCES_CHANGED, event._name, null, null, 0);
+        PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED, event._name, null, null, 0);
 
         if ((new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) ||
                 (new_event_mode == EditorEventListFragment.EDIT_MODE_DUPLICATE))
@@ -583,7 +583,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
                         event.pauseEvent(dataWrapper, eventTimelineList, true, false,
                                 false, /*false,*/ null, false, false);
                         // must be called, because status is ESTATUS_PAUSE and in pauseEvent is not called
-                        event.doLogForPauseEvent(dataWrapper, false);
+                        event.doLogForPauseEvent(dataWrapper.context, false);
 
                         // restart Events
                         //PPApplication.logE("$$$ restartEvents", "from EventsPrefsActivity.savePreferences");

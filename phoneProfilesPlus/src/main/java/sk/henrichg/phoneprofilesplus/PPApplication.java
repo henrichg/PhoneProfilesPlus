@@ -63,6 +63,559 @@ import static android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE;
 public class PPApplication extends Application /*implements Application.ActivityLifecycleCallbacks*/ {
 
     private static PPApplication instance;
+
+    @SuppressWarnings("PointlessBooleanExpression")
+    private static final boolean logIntoLogCat = true && BuildConfig.DEBUG;
+    static final boolean logIntoFile = true;
+    @SuppressWarnings("PointlessBooleanExpression")
+    static final boolean crashIntoFile = true && BuildConfig.DEBUG;
+    private static final boolean rootToolsDebug = false;
+    private static final String logFilterTags = "##### PPApplication.onCreate"
+                                                //+"|PPApplication.isXiaomi"
+                                                //+"|PPApplication.isHuawei"
+                                                //+"|PPApplication.isSamsung"
+                                                //+"|PPApplication.isLG"
+                                                //+"|PPApplication.getEmuiRomName"
+                                                //+"|PPApplication.isEMUIROM"
+                                                //+"|PPApplication.isMIUIROM"
+                                                +"|PPApplication.exitApp"
+                                                +"|PPApplication._exitApp"
+                                                //+"|PPApplication.createProfileNotificationChannel"
+                                                +"|PhoneProfilesService.onCreate"
+                                                +"|PhoneProfilesService.onStartCommand"
+                                                +"|PhoneProfilesService.doForFirstStart"
+                                                +"|PhoneProfilesService.doCommand"
+                                                //+"|PhoneProfilesService.isServiceRunningInForeground"
+                                                //+"|PhoneProfilesService.showProfileNotification"
+                                                //+"|ShowProfileNotificationBroadcastReceiver"
+                                                //+"|PhoneProfilesService._showProfileNotification"
+                                                //+"|[CUST] PhoneProfilesService._showProfileNotification"
+                                                +"|PhoneProfilesService.stopReceiver"
+                                                +"|PhoneProfilesService.onDestroy"
+                                                +"|PhoneProfilesService.cancelWork"
+                                                +"|DataWrapper.firstStartEvents"
+                                                //+"|DataWrapper.setProfileActive"
+                                                //+"|DataWrapper.activateProfileOnBoot"
+                                                +"|BootUpReceiver"
+                                                +"|PackageReplacedReceiver"
+                                                +"|PhoneProfilesBackupAgent"
+                                                +"|ShutdownBroadcastReceiver"
+
+                                                //+"|BluetoothConnectedDevices"
+
+                                                //+"|[BRS] SettingsContentObserver.onChange"
+                                                //+"|BrightnessDialogPreferenceFragmentX"
+                                                //+"|[BRSD] SettingsContentObserver"
+
+                                                //+"|EditorProfilesActivity.finishBroadcastReceiver"
+                                                //+"|EditorProfilesActivity.onStart"
+                                                //+"|EditorProfilesActivity.onStop"
+
+                                                //+"|DataWrapper.restartEventsWithAlert"
+                                                //+"|DataWrapper.restartEventsWithDelay"
+                                                //+"|[TEST HANDLER] DataWrapper.restartEventsWithDelay"
+
+                                                // for list of TRANSACTION_* for "phone" service
+                                                //+"|[LIST] PPApplication.getTransactionCode"
+
+                                                //+"|PhoneProfilesService.onConfigurationChanged"
+                                                //+"|IgnoreBatteryOptimizationNotification"
+
+                                                 /*+"|DatabaseHandler.onUpgrade"
+                                                 +"|EditorProfilesActivity.doImportData"
+                                                 +"|PPApplication.setBlockProfileEventActions"
+                                                 +"|ImportantInfoHelpFragment.onViewCreated"
+                                                 +"|ImportantInfoNotification"*/
+
+                                                //+"|TonesHandler"
+                                                //+"|TonesHandler.isPhoneProfilesSilent"
+                                                //+"|TonesHandler.getToneName"
+                                                //+"|DatabaseHandler.fixPhoneProfilesSilentInProfiles"
+
+                                                //+"|[RJS] PPApplication"
+                                                //+"|##### ScreenOnOffBroadcastReceiver.onReceive"
+                                                //+"|@@@ ScreenOnOffBroadcastReceiver.onReceive"
+                                                //+"|[XXX] ScreenOnOffBroadcastReceiver.onReceive"
+                                                //+"|ScreenOnOffBroadcastReceiver.onReceive"
+                                                //+"|[Screen] DataWrapper.doHandleEvents"
+                                                //+"|LockDeviceAfterScreenOffBroadcastReceiver"
+
+                                                //+"|PPApplication.startHandlerThread"
+
+                                                //+"|DataWrapper.updateNotificationAndWidgets"
+                                                //+"|ActivateProfileHelper.updateGUI"
+                                                //+"|OneRowWidgetProvider.onUpdate"
+
+                                                //+"|%%%%%%% DataWrapper.doHandleEvents"
+                                                //+"|#### EventsHandler.handleEvents"
+                                                //+"|[DEFPROF] EventsHandler"
+                                                //+"|$$$ EventsHandler.handleEvents"
+                                                //+"|[NOTIFY] EventsHandler"
+                                                //+"|Profile.mergeProfiles"
+                                                //+"|@@@ Event.pauseEvent"
+                                                //+"|@@@ Event.stopEvent"
+                                                //+"|$$$ restartEvents"
+                                                //+"|DataWrapper._restartEvents"
+                                                //+"|DataWrapper.restartEvents"
+                                                //+"|PPApplication.startHandlerThread"
+                                                //+"|Event.startEvent"
+                                                //+"|Event.pauseEvent"
+                                                //+"|[DSTART] DataWrapper.doHandleEvents"
+
+                                                //+"|EditorProfilesActivity"
+                                                //+"|EditorProfilesActivity.onStart"
+                                                //+"|EditorProfilesActivity.onActivityResult"
+                                                //+"|EditorProfileListViewHolder"
+                                                //+"|EditorEventListViewHolder"
+                                                //+"|EditorProfileListFragment"
+                                                //+"|EditorEventListFragment"
+                                                //+"|EditorProfileListAdapter"
+                                                //+"|EditorEventListAdapter"
+
+                                                //+"|PostDelayedBroadcastReceiver"
+
+                                                 /*
+                                                 +"|DataWrapper.restartEventsWithDelay"
+                                                 +"|DataWrapper.restartEvents"
+                                                 +"|DataWrapper._restartEvents"
+                                                 +"|RefreshActivitiesBroadcastReceiver"
+                                                 +"|$$$$$ EditorProfilesActivity"
+                                                 */
+
+                                                //+"|ActivateProfileHelper.doExecuteForRadios"
+
+                                                //+"|[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers"
+
+                                                //+"|PPApplication.startPPService"
+
+                                                //+"|GrantPermissionActivity"
+                                                //+"|PhoneProfilesPreferencesNestedFragment.doOnActivityResult"
+
+                                                //+"|[****] BatteryBroadcastReceiver.onReceive"
+                                                 /*
+                                                 +"|[XXX] PowerSaveModeBroadcastReceiver.onReceive"
+                                                 +"|[XXX] BatteryBroadcastReceiver.onReceive"
+                                                 +"|[XXX] ScreenOnOffBroadcastReceiver.onReceive"
+                                                 */
+
+                                                //+"|DataWrapper.activateProfileFromMainThread"
+                                                //+"|ActivateProfileHelper.execute"
+                                                //+"|Profile.convertPercentsToBrightnessManualValue"
+                                                //+"|Profile.convertPercentsToBrightnessAdaptiveValue"
+                                                //+"|SettingsContentObserver"
+
+                                                //+"|$$$ DataWrapper._activateProfile"
+                                                //+"|ProfileDurationAlarmBroadcastReceiver.onReceive"
+                                                //+"|DataWrapper.activateProfileAfterDuration"
+                                                //+"|DataWrapper.getIsManualProfileActivation"
+
+                                                //+"|BillingManager"
+                                                //+"|DonationFragment"
+
+                                                //+"|Permissions.grantProfilePermissions"
+                                                //+"|Permissions.checkProfileVibrateWhenRinging"
+                                                //+"|Permissions.checkVibrateWhenRinging"
+                                                //+"|ActivateProfileHelper.executeForVolumes"
+                                                //+"|Permissions.checkProfileAccessNotificationPolicy"
+                                                //+"|ActivateProfileHelper.setZenMode"
+                                                //+"|ActivateProfileHelper.setRingerMode"
+                                                //+"|ActivateProfileHelper.setVolumes"
+                                                //+"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
+                                                //+"|ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0"
+                                                //+"|ActivateProfileHelper.isAudibleSystemRingerMode"
+                                                //+"|ActivateProfileHelper.setVibrateWhenRinging"
+                                                //+"|PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume"
+
+                                                //+"|PhoneProfilesPrefsActivity"
+                                                //+"|PhoneProfilesPrefsActivity.onCreate"
+                                                //+"|PhoneProfilesPrefsActivity.onStart"
+                                                //+"|PhoneProfilesPrefsActivity.onStop"
+                                                //+"|PhoneProfilesPrefsActivity.finish"
+                                                //+"|PhoneProfilesPrefsActivity.doPreferenceChanges"
+                                                //+"|EditorProfilesActivity.onActivityResult"
+                                                //+"|PhoneProfilesPrefsFragment.onCreate"
+                                                //+"|PhoneProfilesPrefsFragment.onCreatePreferences"
+                                                //+"|PhoneProfilesPrefsFragment.updateSharedPreferences"
+                                                //+"|PhoneProfilesPrefsFragment.initPreferenceFragment"
+                                                //+"|PhoneProfilesPrefsFragment.loadSharedPreferences"
+                                                //+"|PhoneProfilesPrefsFragment.onDestroy"
+                                                //+"|PhoneProfilesPrefsFragment.onSharedPreferenceChanged"
+                                                //+"|ProfilesPrefsActivity"
+                                                //+"|ProfilesPrefsFragment"
+                                                //+"|ProfilesPrefsFragment.onCreate"
+                                                //+"|ProfilesPrefsFragment.onDisplayPreferenceDialog"
+                                                //+"|ProfilesPrefsFragment.onActivityCreated"
+                                                //+"|ProfilesPrefsFragment.setRedTextToPreferences"
+                                                //+"|ProfilesPrefsActivity.getProfileFromPreferences"
+                                                 /*+"|EventsPrefsActivity"
+                                                 +"|EventsPrefsFragment"
+                                                 +"|PhoneProfilesPrefsNotifications"
+                                                 +"|LocationGeofencePreferenceX"
+                                                 +"|ProfilePreferenceX"
+                                                 +"|RingtonePreferenceX"
+                                                 +"|VolumeDialogPreferenceX"
+                                                 +"|VolumeDialogPreferenceFragmentX"
+                                                 +"|ApplicationsDialogPreferenceX"
+                                                 +"|ApplicationsDialogPreferenceFragmentX"
+                                                 +"|LocationGeofencePreferenceX"
+                                                 +"|LocationGeofencePreferenceFragmentX"
+                                                 +"|MobileCellsRegistrationDialogPreferenceX"
+                                                 +"|MobileCellsRegistrationDialogPreferenceFragmentX"
+                                                 +"|ProfileIconPreferenceX"
+                                                 +"|ProfileIconPreferenceFragmentX"
+                                                 +"|TimePreferenceX"
+                                                 +"|TimePreferenceFragmentX"*/
+
+                                                //+"|Event.notifyEventStart"
+                                                //+"|StartEventNotificationBroadcastReceiver"
+                                                //+"|StartEventNotificationDeletedReceiver"
+                                                //+"|PhoneProfilesService.playNotificationSound"
+
+                                                //+"|PPNotificationListenerService"
+                                                //+"|PPNotificationListenerService.onNotificationPosted"
+                                                //+"|[NOTIF] EventsHandler.handleEvents"
+                                                //+"|[NOTIF] DataWrapper.doHandleEvents"
+                                                //+"|EventPreferencesNotification.isContactConfigured"
+                                                //+"|EventPreferencesNotification.isNotificationActive"
+                                                //+"|EventPreferencesNotification.isNotificationVisible"
+                                                //+"|NotificationEventEndBroadcastReceiver"
+
+                                                //+"|[CALL] DataWrapper.doHandleEvents"
+
+                                                //+"|"+CallsCounter.LOG_TAG
+                                                //+"|[RJS] PPApplication"
+                                                //+"|[RJS] PhoneProfilesService"
+
+                                                //+"|ActivateProfileHelper.setAirplaneMode_SDK17"
+                                                //+"|ActivateProfileHelper.executeForRadios"
+                                                //+"|ActivateProfileHelper.setMobileData"
+                                                //+"|ActivateProfileHelper.doExecuteForRadios"
+                                                //+"|ActivateProfileHelper.doExecuteForRadios"
+                                                //+"|CmdMobileData.isEnabled"
+                                                //+"|$$$ WifiAP"
+
+                                                //+"|DeviceIdleModeBroadcastReceiver"
+
+                                                //+"|##### GeofenceScanner"
+                                                //+"|GeofenceScannerJob"
+                                                //+"|GeofenceScannerJob.scheduleJob"
+                                                //+"|GeofenceScannerJob.onRunJob"
+                                                //+"|LocationGeofenceEditorActivity.updateEditedMarker"
+                                                //+"|LocationModeChangedBroadcastReceiver"
+                                                //+"|PhoneProfilesService.scheduleGeofenceScannerJob"
+                                                //+"|PhoneProfilesService.startGeofenceScanner"
+                                                //+"|PhoneProfilesService.stopGeofenceScanner"
+                                                //+"|[GeoSensor] DataWrapper.doHandleEvents"
+                                                //+"|[***] GeofenceScanner"
+                                                //+"|GeofenceScanWorker"
+                                                //+"|GeofenceScanner.updateTransitionsByLastKnownLocation"
+                                                //+"|GeofenceScanWorker.doWork"
+                                                //+"|GeofenceScanner.LocationCallback"
+
+                                                //+"|WifiStateChangedBroadcastReceiver"
+                                                //+"|ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView"
+                                                //+"|WifiScanWorker.fillWifiConfigurationList"
+                                                //+"|WifiScanWorker.saveWifiConfigurationList"
+                                                //+"|WifiConnectionBroadcastReceiver"
+                                                //+"|WifiBluetoothScanner"
+                                                //+"|%%%% WifiBluetoothScanner.doScan"
+                                                //+"|$$$W WifiBluetoothScanner"
+                                                //+"|[WiFi] DataWrapper.doHandleEvents"
+                                                //+"|[***] DataWrapper.doHandleEvents"
+
+                                                 /*+"|BluetoothScanWorker.doWork"
+                                                 +"|BluetoothScanWorker.startScanner"
+                                                 +"|BluetoothScanWorker.startCLScan"
+                                                 +"|BluetoothScanWorker.stopCLScan"
+                                                 +"|BluetoothScanWorker.startLEScan"
+                                                 +"|BluetoothScanWorker.stopLEScan"
+                                                 +"|BluetoothScanWorker.doWork"
+                                                 +"|BluetoothScanWorker.finishCLScan"
+                                                 +"|BluetoothScanWorker.finishLEScan"
+                                                 +"|BluetoothScanBroadcastReceiver.onReceive"
+                                                 +"|@@@ BluetoothScanBroadcastReceiver.onReceive"
+                                                 +"|BluetoothLEScanCallback21"*/
+                                                //+"|[BTScan] DataWrapper.doHandleEvents"
+                                                //+"|BluetoothConnectedDevices"
+                                                //+"|BluetoothConnectionBroadcastReceiver"
+                                                //+"|BluetoothStateChangedBroadcastReceiver"
+                                                /*+"|BluetoothScanBroadcastReceiver"
+                                                +"|BluetoothLEScanCallback21"
+                                                +"|BluetoothLEScanBroadcastReceiver"
+                                                +"|BluetoothScanWorker"
+                                                +"|$$$B WifiBluetoothScanner"
+                                                +"|$$$BCL WifiBluetoothScanner"
+                                                +"|$$$BLE WifiBluetoothScanner"*/
+
+                                                //+"|PostDelayedBroadcastReceiver.onReceive"
+
+                                                //+"|WifiScanWorker"
+                                                //+"|WifiScanWorker.doWork"
+                                                //+"|%%%% WifiScanBroadcastReceiver.onReceive"
+
+                                                //+"|WifiSSIDPreference.refreshListView"
+
+                                                //+"|%%%%%%% DataWrapper.doHandleEvents"
+
+                                                //+"|[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver"
+                                                //+"|PhoneProfilesService.registerReceiverForOrientationSensor"
+                                                //+"|PhoneProfilesService.runEventsHandlerForOrientationChange"
+                                                //+"|PhoneProfilesService.startListeningOrientationSensors"
+                                                //+"|PhoneProfilesService.stopListeningOrientationSensors"
+                                                //+"|EventPreferencesOrientation"
+                                                //+"|OrientationScanner.onSensorChanged"
+                                                //+"|OrientationEventBroadcastReceiver"
+                                                //+"|PhoneProfilesService.startOrientationScanner"
+                                                //+"|PPPExtenderBroadcastReceiver"
+                                                //+"|[OriSensor] DataWrapper.doHandleEvents"
+
+
+                                                //+"|EventsHandler.doEndHandler"
+                                                //+"|PhoneProfilesService.doSimulatingRingingCall"
+                                                //+"|PhoneProfilesService.startSimulatingRingingCall"
+                                                //+"|PhoneProfilesService.stopSimulatingRingingCall"
+                                                //+"|PhoneProfilesService.onAudioFocusChange"
+
+                                                //+"|@@@ EventsHandler.handleEvents"
+                                                //+"|EventsHandler.doEndService"
+
+                                                //+"|RunApplicationWithDelayBroadcastReceiver"
+
+                                                //+"|PreferenceFragment"
+
+                                                //+"|PhoneProfilesService.registerAccessibilityServiceReceiver"
+                                                //+"|DatabaseHandler.getTypeProfilesCount"
+                                                //+"|[RJS] PhoneProfilesService.registerPPPPExtenderReceiver"
+                                                //+"|PPPExtenderBroadcastReceiver.onReceive"
+                                                //+"|SMSEventEndBroadcastReceiver.onReceive"
+                                                //+"|[SMS sensor]"
+
+                                                //+ "|[RJS] PhoneProfilesService.startPhoneStateScanner"
+                                                //+ "|PhoneStateScanner"
+                                                //+"|MobileCellsPreference"
+                                                //+"|MobileCellsPreference.refreshListView"
+                                                //+"|PhoneStateScanner.constructor"
+                                                //+"|PhoneStateScanner.connect"
+                                                //+"|PhoneStateScanner.disconnect"
+                                                //+"|PhoneStateScanner.startAutoRegistration"
+                                                //+"|PhoneStateScanner.stopAutoRegistration"
+                                                //+"|PhoneStateScanner.getAllCellInfo"
+                                                //+"|PhoneStateScanner.getCellLocation"
+                                                //+"|PhoneStateScanner.doAutoRegistration"
+                                                //+"|MobileCellsRegistrationDialogPreference.startRegistration"
+                                                //+"|MobileCellsRegistrationService"
+                                                //+"|NotUsedMobileCellsNotificationDeletedReceiver.onReceive"
+
+                                                //+"|PermissionsNotificationDeletedReceiver.onReceive"
+
+                                                //+"|[RJS] PhoneProfilesService.registerReceiversAndWorkers"
+                                                //+"|[RJS] PhoneProfilesService.unregisterReceiversAndWorkers"
+                                                //+"|[RJS] PhoneProfilesService.reregisterReceiversAndWorkers"
+                                                //+"|[RJS] PhoneProfilesService.registerReceiverForTimeSensor"
+
+                                                //+"|EventPreferencesActivity.savePreferences"
+
+                                                //+"|PhoneCallReceiver"
+                                                //+"|PhoneCallBroadcastReceiver"
+                                                //+"|PhoneCallBroadcastReceiver.callAnswered"
+
+                                                //+"|#### EventsHandler.handleEvents"
+                                                //+"|[CALL] EventsHandler.handleEvents"
+                                                //+"|%%%%%%% DataWrapper.doHandleEvents"
+                                                //+"|[CALL] DataWrapper.doHandleEvents"
+                                                //+"|DataWrapper.pauseAllEvents"
+                                                //+"|EventPreferencesCall"
+                                                //+"|MissedCallEventEndBroadcastReceiver"
+
+                                                //+"|StartLauncherFromNotificationReceiver"
+                                                //+"|LauncherActivity"
+                                                //+"|ActivateProfileActivity"
+
+                                                //+"|AlarmClockBroadcastReceiver"
+                                                //+"|AlarmClockEventEndBroadcastReceiver"
+                                                //+"|EventPreferencesAlarmClock.removeAlarm"
+                                                //+"|EventPreferencesAlarmClock.setAlarm"
+                                                //+"|EventPreferencesAlarmClock.computeAlarm"
+                                                //+"|NextAlarmClockBroadcastReceiver"
+                                                //+"|TimeChangedReceiver"
+
+                                                //+"|@@@ ScreenOnOffBroadcastReceiver"
+                                                //+"|LockDeviceActivity"
+
+                                                //+"|DialogHelpPopupWindow.showPopup"
+
+                                                //+"|SMSBroadcastReceiver.onReceive"
+
+                                                //+"|EditorProfilesActivity.changeEventOrder"
+                                                //+"|EditorProfilesActivity.selectDrawerItem"
+
+                                                //+"|NFCTagPreference.showEditMenu"
+
+                                                //+"|Profile.generateIconBitmap"
+
+                                                //+"|CalendarProviderChangedBroadcastReceiver"
+
+
+                                                //+"|EventPreferencesTime.computeAlarm"
+                                                /*
+                                                +"|EventPreferencesTime.removeSystemEvent"
+                                                +"|EventPreferencesTime.setSystemEventForStart"
+                                                +"|EventPreferencesTime.setSystemEventForPause"
+                                                */
+                                                //+"|EventPreferencesTime.removeAlarm"
+                                                //+"|EventPreferencesTime.setAlarm"
+                                                //+"|[TIME] DataWrapper.doHandleEvents"
+                                                /*+"|TwilightScanner"
+                                                +"|TwilightScanner.updateTwilightState"
+                                                +"|TwilightScanner.doWork"
+                                                */
+                                                //+"|EventTimeBroadcastReceiver"
+
+                                                //+"|EventPreferencesCalendar"
+                                                //+"|EventPreferencesCalendar.saveStartEndTime"
+                                                //+"|EventCalendarBroadcastReceiver"
+
+                                                //+"|DatabaseHandler.importDB"
+                                                //+ "|ApplicationsMultiSelectDialogPreference.getValueAMSDP"
+                                                //+ "|ApplicationsDialogPreference"
+                                                //+ "|ApplicationEditorDialogAdapter"
+                                                //+ "|ApplicationEditorDialogViewHolder"
+                                                //+ "|ApplicationEditorDialog"
+                                                //+ "|ApplicationEditorIntentActivity"
+                                                //+ "|ApplicationsCache.cacheApplicationsList"
+                                                //+ "|@ Application."
+
+                                                //+ "|BitmapManipulator.resampleBitmapUri"
+
+                                                //+"|CmdGoToSleep"
+                                                //+"|CmdNfc"
+                                                //+"|ActivateProfileHelper.wifiServiceExists"
+
+                                                //+"|ActivateProfileHelper.lockDevice"
+
+                                                //+"|#### setWifiEnabled"
+
+                                                //+"|PPNumberPicker"
+                                                //+"|RingtonePreference.setRingtone"
+                                                //+"|RingtonePreferenceX"
+                                                //+"|PhoneProfilesService.playNotificationSound"
+
+                                                //+"|[RJS] PhoneProfilesService.scheduleWifiWorker"
+                                                //+"|[RJS] PhoneProfilesService.cancelWifiWorker"
+
+                                                //+"|EditorProfilesActivity.selectFilterItem"
+                                                //+"|EventsPrefsFragment.onResume"
+                                                //+"|ActivateProfileHelper.setScreenCarMode"
+
+                                                //+"|FastAccessDurationDialog.updateProfileView"
+
+                                                //+"|NotUsedMobileCellsNotificationDisableReceiver"
+                                                //+"|NotUsedMobileCellsNotificationDeletedReceiver"
+
+                                                //+"|ActivateProfileHelper.executeForForceStopApplications"
+
+                                                //+"|DaysOfWeekPreferenceX"
+                                                //+"|EventPreferencesTime.getDayOfWeekByLocale"
+
+                                                //+"|SearchCalendarEventsWorker"
+
+                                                //+"|Profile.getBrightnessPercentage_A9"
+                                                //+"|Profile.getBrightnessValue_A9"
+                                                //+"|Profile.convertPercentsToBrightnessManualValue"
+                                                //+"|Profile.convertPercentsToBrightnessAdaptiveValue"
+                                                //+"|Profile.convertBrightnessToPercents"
+
+                                                //+"|EditorProfileListFragment.refreshGUI"
+                                                //+"|EditorEventListFragment.refreshGUI"
+
+                                                //+"|----- ActivateProfileHelper.execute"
+                                                //+"|BluetoothNamePreferenceFragmentX"
+
+                                                //+"|[VOL] SettingsContentObserver"
+                                                //+"|[BAT] DataWrapper.doHandleEvents"
+
+                                                //+"|ShortcutCreatorListFragment"
+                                                //+"|BitmapManipulator"
+
+                                                //+"|FetchAddressWorker"
+                                                //+"|LocationGeofenceEditorActivity.getWorkInfoByIdLiveData"
+                                                //+"|BluetoothNamePreferenceFragmentX.refreshListView"
+                                                //+"|WifiSSIDPreferenceFragmentX.refreshListView"
+                                                //+"|BluetoothNamePreferenceFragmentX.onDialogClosed"
+
+                                                //+"|[OPT] EditorProfileListFragment"
+                                                //+"|[OPT] EditorEventListFragment"
+
+                                                //+"|ActivateProfileHelper.executeForInteractivePreferences"
+
+                                                //+"|PhoneProfilesService.isLocationEnabled"
+
+                                                //+"|PhoneProfilesPrefsFragment.updateSharedPreferences"
+                                                //+"|CustomColorDialogPreferenceX"
+                                                //+"|CustomColorDialogPreferenceFragmentX"
+
+                                                //+"|[HANDLER] DisableInternalChangeWorker.doWork"
+
+                                                //+"|[HANDLER] Event.setDelayStartAlarm"
+                                                //+"|[HANDLER] Event.setDelayEndAlarm"
+                                                //+"|DonationBroadcastReceiver"
+                                                //+"|[ALARM] EventsHandler.handleEvents"
+                                                //+"|EventPreferencesSMS"
+                                                //+"|SMSEventEndBroadcastReceiver"
+                                                //+"|ElapsedAlarmsWorker"
+                                                //+"|[WIFI] ActivateProfileHelper.doExecuteForRadios"
+                                                //+"|CmdWifi.setWifi"
+
+                                                //+"|ApplicationEditorIntentActivityX"
+
+                                                //+"|WifiApManager.startTethering"
+                                                //+"|WifiApManager.stopTethering"
+                                                //+"|WifiApManager.callStartTethering"
+                                                //+"|CmdWifiAP"
+
+                                                //+"|ActivateProfileHelper.updateGUI"
+                                                //+"|UpdateGUIBroadcastReceiver"
+                                                //+"|ElapsedAlarmsWorker.doWork"
+                                                //+"|ActivateProfileActivity.refreshGUI"
+                                                //+"|EditorProfilesActivity.refreshGUI"
+                                                ;
+
+    // activity log types
+    static final int ALTYPE_UNDEFINED = 0;
+    static final int ALTYPE_PROFILE_ACTIVATION = 1;
+    static final int ALTYPE_AFTER_DURATION_UNDO_PROFILE = 21;
+    static final int ALTYPE_AFTER_DURATION_BACKGROUND_PROFILE = 22;
+    static final int ALTYPE_AFTER_DURATION_RESTART_EVENTS = 23;
+    static final int ALTYPE_EVENT_START = 3;
+    static final int ALTYPE_EVENT_START_DELAY = 4;
+    static final int ALTYPE_EVENT_END_NONE = 51;
+    static final int ALTYPE_EVENT_END_ACTIVATE_PROFILE = 52;
+    static final int ALTYPE_EVENT_END_UNDO_PROFILE = 53;
+    static final int ALTYPE_EVENT_END_ACTIVATE_PROFILE_UNDO_PROFILE = 54;
+    static final int ALTYPE_EVENT_END_RESTART_EVENTS = 55;
+    static final int ALTYPE_EVENT_END_ACTIVATE_PROFILE_RESTART_EVENTS = 56;
+    static final int ALTYPE_RESTART_EVENTS = 6;
+    static final int ALTYPE_RUN_EVENTS_DISABLE = 7;
+    static final int ALTYPE_RUN_EVENTS_ENABLE = 8;
+    static final int ALTYPE_APPLICATION_START = 9;
+    static final int ALTYPE_APPLICATION_EXIT = 10;
+    static final int ALTYPE_DATA_IMPORT = 11;
+    static final int ALTYPE_PAUSED_LOGGING = 12;
+    static final int ALTYPE_STARTED_LOGGING = 13;
+    static final int ALTYPE_EVENT_END_DELAY = 14;
+    static final int ALTYPE_EVENT_STOP = 15;
+    static final int ALTYPE_APPLICATION_START_ON_BOOT = 16;
+    static final int ALTYPE_EVENT_PREFERENCES_CHANGED = 17;
+    static final int ALTYPE_EVENT_DELETED = 18;
+    static final int ALTYPE_PROFILE_DELETED = 19;
+    static final int ALTYPE_PROFILE_PREFERENCES_CHANGED = 30;
+    static final int ALTYPE_SHARED_PROFILE_PREFERENCES_CHANGED = 31;
+    static final int ALTYPE_ALL_EVENTS_DELETED = 32;
+    static final int ALTYPE_ALL_PROFILES_DELETED = 33;
+    static final int ALTYPE_APPLICATION_UPGRADE = 34;
+    static final int ALTYPE_AFTER_DURATION_SPECIFIC_PROFILE = 35;
+
+
     private static boolean applicationStarted = false;
     static boolean globalEventsRunStop = true;
 
@@ -129,524 +682,6 @@ public class PPApplication extends Application /*implements Application.Activity
     static final int VERSION_CODE_EXTENDER_4_0 = 400;
     static final int VERSION_CODE_EXTENDER_5_1_2 = 465;
     static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_5_1_2;
-
-    @SuppressWarnings("PointlessBooleanExpression")
-    private static final boolean logIntoLogCat = true && BuildConfig.DEBUG;
-    static final boolean logIntoFile = true;
-    @SuppressWarnings("PointlessBooleanExpression")
-    static final boolean crashIntoFile = true && BuildConfig.DEBUG;
-    private static final boolean rootToolsDebug = false;
-    private static final String logFilterTags = "##### PPApplication.onCreate"
-                                         //+"|PPApplication.isXiaomi"
-                                         //+"|PPApplication.isHuawei"
-                                         //+"|PPApplication.isSamsung"
-                                         //+"|PPApplication.isLG"
-                                         //+"|PPApplication.getEmuiRomName"
-                                         //+"|PPApplication.isEMUIROM"
-                                         //+"|PPApplication.isMIUIROM"
-                                         +"|PPApplication.exitApp"
-                                         +"|PPApplication._exitApp"
-                                         //+"|PPApplication.createProfileNotificationChannel"
-                                         +"|PhoneProfilesService.onCreate"
-                                         +"|PhoneProfilesService.onStartCommand"
-                                         +"|PhoneProfilesService.doForFirstStart"
-                                         +"|PhoneProfilesService.doCommand"
-                                         //+"|PhoneProfilesService.isServiceRunningInForeground"
-                                         //+"|PhoneProfilesService.showProfileNotification"
-                                         //+"|ShowProfileNotificationBroadcastReceiver"
-                                         //+"|PhoneProfilesService._showProfileNotification"
-                                         //+"|[CUST] PhoneProfilesService._showProfileNotification"
-                                         +"|PhoneProfilesService.stopReceiver"
-                                         +"|PhoneProfilesService.onDestroy"
-                                         +"|PhoneProfilesService.cancelWork"
-                                         +"|DataWrapper.firstStartEvents"
-                                         //+"|DataWrapper.setProfileActive"
-                                         //+"|DataWrapper.activateProfileOnBoot"
-                                         +"|BootUpReceiver"
-                                         +"|PackageReplacedReceiver"
-                                         +"|PhoneProfilesBackupAgent"
-                                         +"|ShutdownBroadcastReceiver"
-
-                                         //+"|BluetoothConnectedDevices"
-
-                                         //+"|[BRS] SettingsContentObserver.onChange"
-                                         //+"|BrightnessDialogPreferenceFragmentX"
-                                         //+"|[BRSD] SettingsContentObserver"
-
-                                         //+"|EditorProfilesActivity.finishBroadcastReceiver"
-                                         //+"|EditorProfilesActivity.onStart"
-                                         //+"|EditorProfilesActivity.onStop"
-
-                                         //+"|DataWrapper.restartEventsWithAlert"
-                                         //+"|DataWrapper.restartEventsWithDelay"
-                                         //+"|[TEST HANDLER] DataWrapper.restartEventsWithDelay"
-
-                                         // for list of TRANSACTION_* for "phone" service
-                                         //+"|[LIST] PPApplication.getTransactionCode"
-
-                                         //+"|PhoneProfilesService.onConfigurationChanged"
-                                         //+"|IgnoreBatteryOptimizationNotification"
-
-                                         /*+"|DatabaseHandler.onUpgrade"
-                                         +"|EditorProfilesActivity.doImportData"
-                                         +"|PPApplication.setBlockProfileEventActions"
-                                         +"|ImportantInfoHelpFragment.onViewCreated"
-                                         +"|ImportantInfoNotification"*/
-
-                                         //+"|TonesHandler"
-                                         //+"|TonesHandler.isPhoneProfilesSilent"
-                                         //+"|TonesHandler.getToneName"
-                                         //+"|DatabaseHandler.fixPhoneProfilesSilentInProfiles"
-
-                                         //+"|[RJS] PPApplication"
-                                         //+"|##### ScreenOnOffBroadcastReceiver.onReceive"
-                                         //+"|@@@ ScreenOnOffBroadcastReceiver.onReceive"
-                                         //+"|[XXX] ScreenOnOffBroadcastReceiver.onReceive"
-                                         //+"|ScreenOnOffBroadcastReceiver.onReceive"
-                                         //+"|[Screen] DataWrapper.doHandleEvents"
-                                         //+"|LockDeviceAfterScreenOffBroadcastReceiver"
-
-                                         //+"|PPApplication.startHandlerThread"
-
-                                         //+"|DataWrapper.updateNotificationAndWidgets"
-                                         //+"|ActivateProfileHelper.updateGUI"
-                                         //+"|OneRowWidgetProvider.onUpdate"
-
-                                         //+"|%%%%%%% DataWrapper.doHandleEvents"
-                                         //+"|#### EventsHandler.handleEvents"
-                                         //+"|[DEFPROF] EventsHandler"
-                                         //+"|$$$ EventsHandler.handleEvents"
-                                         //+"|[NOTIFY] EventsHandler"
-                                         //+"|Profile.mergeProfiles"
-                                         //+"|@@@ Event.pauseEvent"
-                                         //+"|@@@ Event.stopEvent"
-                                        //+"|$$$ restartEvents"
-                                        //+"|DataWrapper._restartEvents"
-                                        //+"|DataWrapper.restartEvents"
-                                        //+"|PPApplication.startHandlerThread"
-                                        //+"|Event.startEvent"
-                                        //+"|Event.pauseEvent"
-                                        //+"|[DSTART] DataWrapper.doHandleEvents"
-
-                                         //+"|EditorProfilesActivity"
-                                         //+"|EditorProfilesActivity.onStart"
-                                         //+"|EditorProfilesActivity.onActivityResult"
-                                         //+"|EditorProfileListViewHolder"
-                                         //+"|EditorEventListViewHolder"
-                                         //+"|EditorProfileListFragment"
-                                         //+"|EditorEventListFragment"
-                                         //+"|EditorProfileListAdapter"
-                                         //+"|EditorEventListAdapter"
-
-                                         //+"|PostDelayedBroadcastReceiver"
-
-
-                                         /*
-                                         +"|DataWrapper.restartEventsWithDelay"
-                                         +"|DataWrapper.restartEvents"
-                                         +"|DataWrapper._restartEvents"
-                                         +"|RefreshActivitiesBroadcastReceiver"
-                                         +"|$$$$$ EditorProfilesActivity"
-                                         */
-
-                                         //+"|ActivateProfileHelper.doExecuteForRadios"
-
-                                         //+"|[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers"
-
-                                         //+"|PPApplication.startPPService"
-
-                                         //+"|GrantPermissionActivity"
-                                         //+"|PhoneProfilesPreferencesNestedFragment.doOnActivityResult"
-
-                                         //+"|[****] BatteryBroadcastReceiver.onReceive"
-                                         /*
-                                         +"|[XXX] PowerSaveModeBroadcastReceiver.onReceive"
-                                         +"|[XXX] BatteryBroadcastReceiver.onReceive"
-                                         +"|[XXX] ScreenOnOffBroadcastReceiver.onReceive"
-                                         */
-
-                                         //+"|DataWrapper.activateProfileFromMainThread"
-                                         //+"|ActivateProfileHelper.execute"
-                                         //+"|Profile.convertPercentsToBrightnessManualValue"
-                                         //+"|Profile.convertPercentsToBrightnessAdaptiveValue"
-                                         //+"|SettingsContentObserver"
-
-                                         //+"|$$$ DataWrapper._activateProfile"
-                                         //+"|ProfileDurationAlarmBroadcastReceiver.onReceive"
-                                         //+"|DataWrapper.activateProfileAfterDuration"
-                                         //+"|DataWrapper.getIsManualProfileActivation"
-
-                                         //+"|BillingManager"
-                                         //+"|DonationFragment"
-
-                                         //+"|Permissions.grantProfilePermissions"
-                                         //+"|Permissions.checkProfileVibrateWhenRinging"
-                                         //+"|Permissions.checkVibrateWhenRinging"
-                                         //+"|ActivateProfileHelper.executeForVolumes"
-                                         //+"|Permissions.checkProfileAccessNotificationPolicy"
-                                         //+"|ActivateProfileHelper.setZenMode"
-                                         //+"|ActivateProfileHelper.setRingerMode"
-                                         //+"|ActivateProfileHelper.setVolumes"
-                                         //+"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
-                                         //+"|ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0"
-                                         //+"|ActivateProfileHelper.isAudibleSystemRingerMode"
-                                         //+"|ActivateProfileHelper.setVibrateWhenRinging"
-                                         //+"|PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume"
-
-                                         //+"|PhoneProfilesPrefsActivity"
-                                         //+"|PhoneProfilesPrefsActivity.onCreate"
-                                         //+"|PhoneProfilesPrefsActivity.onStart"
-                                         //+"|PhoneProfilesPrefsActivity.onStop"
-                                         //+"|PhoneProfilesPrefsActivity.finish"
-                                         //+"|PhoneProfilesPrefsActivity.doPreferenceChanges"
-                                         //+"|EditorProfilesActivity.onActivityResult"
-                                         //+"|PhoneProfilesPrefsFragment.onCreate"
-                                         //+"|PhoneProfilesPrefsFragment.onCreatePreferences"
-                                         //+"|PhoneProfilesPrefsFragment.updateSharedPreferences"
-                                         //+"|PhoneProfilesPrefsFragment.initPreferenceFragment"
-                                         //+"|PhoneProfilesPrefsFragment.loadSharedPreferences"
-                                         //+"|PhoneProfilesPrefsFragment.onDestroy"
-                                         //+"|PhoneProfilesPrefsFragment.onSharedPreferenceChanged"
-                                         //+"|ProfilesPrefsActivity"
-                                         //+"|ProfilesPrefsFragment"
-                                         //+"|ProfilesPrefsFragment.onCreate"
-                                         //+"|ProfilesPrefsFragment.onDisplayPreferenceDialog"
-                                         //+"|ProfilesPrefsFragment.onActivityCreated"
-                                         //+"|ProfilesPrefsFragment.setRedTextToPreferences"
-                                         //+"|ProfilesPrefsActivity.getProfileFromPreferences"
-                                         /*+"|EventsPrefsActivity"
-                                         +"|EventsPrefsFragment"
-                                         +"|PhoneProfilesPrefsNotifications"
-                                         +"|LocationGeofencePreferenceX"
-                                         +"|ProfilePreferenceX"
-                                         +"|RingtonePreferenceX"
-                                         +"|VolumeDialogPreferenceX"
-                                         +"|VolumeDialogPreferenceFragmentX"
-                                         +"|ApplicationsDialogPreferenceX"
-                                         +"|ApplicationsDialogPreferenceFragmentX"
-                                         +"|LocationGeofencePreferenceX"
-                                         +"|LocationGeofencePreferenceFragmentX"
-                                         +"|MobileCellsRegistrationDialogPreferenceX"
-                                         +"|MobileCellsRegistrationDialogPreferenceFragmentX"
-                                         +"|ProfileIconPreferenceX"
-                                         +"|ProfileIconPreferenceFragmentX"
-                                         +"|TimePreferenceX"
-                                         +"|TimePreferenceFragmentX"*/
-
-                                         //+"|Event.notifyEventStart"
-                                         //+"|StartEventNotificationBroadcastReceiver"
-                                         //+"|StartEventNotificationDeletedReceiver"
-                                         //+"|PhoneProfilesService.playNotificationSound"
-
-                                         //+"|PPNotificationListenerService"
-                                         //+"|PPNotificationListenerService.onNotificationPosted"
-                                         //+"|[NOTIF] EventsHandler.handleEvents"
-                                         //+"|[NOTIF] DataWrapper.doHandleEvents"
-                                         //+"|EventPreferencesNotification.isContactConfigured"
-                                         //+"|EventPreferencesNotification.isNotificationActive"
-                                         //+"|EventPreferencesNotification.isNotificationVisible"
-                                         //+"|NotificationEventEndBroadcastReceiver"
-
-                                         //+"|[CALL] DataWrapper.doHandleEvents"
-
-                                         //+"|"+CallsCounter.LOG_TAG
-                                         //+"|[RJS] PPApplication"
-                                         //+"|[RJS] PhoneProfilesService"
-
-                                         //+"|ActivateProfileHelper.setAirplaneMode_SDK17"
-                                         //+"|ActivateProfileHelper.executeForRadios"
-                                         //+"|ActivateProfileHelper.setMobileData"
-                                         //+"|ActivateProfileHelper.doExecuteForRadios"
-                                        //+"|ActivateProfileHelper.doExecuteForRadios"
-                                        //+"|CmdMobileData.isEnabled"
-                                        //+"|$$$ WifiAP"
-
-                                         //+"|DeviceIdleModeBroadcastReceiver"
-
-                                         //+"|##### GeofenceScanner"
-                                         //+"|GeofenceScannerJob"
-                                         //+"|GeofenceScannerJob.scheduleJob"
-                                         //+"|GeofenceScannerJob.onRunJob"
-                                         //+"|LocationGeofenceEditorActivity.updateEditedMarker"
-                                         //+"|LocationModeChangedBroadcastReceiver"
-                                         //+"|PhoneProfilesService.scheduleGeofenceScannerJob"
-                                         //+"|PhoneProfilesService.startGeofenceScanner"
-                                         //+"|PhoneProfilesService.stopGeofenceScanner"
-                                         //+"|[GeoSensor] DataWrapper.doHandleEvents"
-                                         //+"|[***] GeofenceScanner"
-                                         //+"|GeofenceScanWorker"
-                                         //+"|GeofenceScanner.updateTransitionsByLastKnownLocation"
-                                         //+"|GeofenceScanWorker.doWork"
-                                         //+"|GeofenceScanner.LocationCallback"
-
-                                         //+"|WifiStateChangedBroadcastReceiver"
-                                         //+"|ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView"
-                                         //+"|WifiScanWorker.fillWifiConfigurationList"
-                                         //+"|WifiScanWorker.saveWifiConfigurationList"
-                                         //+"|WifiConnectionBroadcastReceiver"
-                                         //+"|WifiBluetoothScanner"
-                                         //+"|%%%% WifiBluetoothScanner.doScan"
-                                         //+"|$$$W WifiBluetoothScanner"
-                                         //+"|[WiFi] DataWrapper.doHandleEvents"
-                                         //+"|[***] DataWrapper.doHandleEvents"
-
-                                         /*+"|BluetoothScanWorker.doWork"
-                                         +"|BluetoothScanWorker.startScanner"
-                                         +"|BluetoothScanWorker.startCLScan"
-                                         +"|BluetoothScanWorker.stopCLScan"
-                                         +"|BluetoothScanWorker.startLEScan"
-                                         +"|BluetoothScanWorker.stopLEScan"
-                                         +"|BluetoothScanWorker.doWork"
-                                         +"|BluetoothScanWorker.finishCLScan"
-                                         +"|BluetoothScanWorker.finishLEScan"
-                                         +"|BluetoothScanBroadcastReceiver.onReceive"
-                                         +"|@@@ BluetoothScanBroadcastReceiver.onReceive"
-                                         +"|BluetoothLEScanCallback21"*/
-                                        //+"|[BTScan] DataWrapper.doHandleEvents"
-                                        //+"|BluetoothConnectedDevices"
-                                        //+"|BluetoothConnectionBroadcastReceiver"
-                                        //+"|BluetoothStateChangedBroadcastReceiver"
-                                        /*+"|BluetoothScanBroadcastReceiver"
-                                        +"|BluetoothLEScanCallback21"
-                                        +"|BluetoothLEScanBroadcastReceiver"
-                                        +"|BluetoothScanWorker"
-                                        +"|$$$B WifiBluetoothScanner"
-                                        +"|$$$BCL WifiBluetoothScanner"
-                                        +"|$$$BLE WifiBluetoothScanner"*/
-
-                                         //+"|PostDelayedBroadcastReceiver.onReceive"
-
-                                         //+"|WifiScanWorker"
-                                         //+"|WifiScanWorker.doWork"
-                                         //+"|%%%% WifiScanBroadcastReceiver.onReceive"
-
-                                         //+"|WifiSSIDPreference.refreshListView"
-
-                                         //+"|%%%%%%% DataWrapper.doHandleEvents"
-
-                                         //+"|[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver"
-                                         //+"|PhoneProfilesService.registerReceiverForOrientationSensor"
-                                         //+"|PhoneProfilesService.runEventsHandlerForOrientationChange"
-                                         //+"|PhoneProfilesService.startListeningOrientationSensors"
-                                         //+"|PhoneProfilesService.stopListeningOrientationSensors"
-                                         //+"|EventPreferencesOrientation"
-                                         //+"|OrientationScanner.onSensorChanged"
-                                         //+"|OrientationEventBroadcastReceiver"
-                                         //+"|PhoneProfilesService.startOrientationScanner"
-                                         //+"|PPPExtenderBroadcastReceiver"
-                                         //+"|[OriSensor] DataWrapper.doHandleEvents"
-
-
-                                         //+"|EventsHandler.doEndHandler"
-                                         //+"|PhoneProfilesService.doSimulatingRingingCall"
-                                         //+"|PhoneProfilesService.startSimulatingRingingCall"
-                                         //+"|PhoneProfilesService.stopSimulatingRingingCall"
-                                         //+"|PhoneProfilesService.onAudioFocusChange"
-
-                                         //+"|@@@ EventsHandler.handleEvents"
-                                         //+"|EventsHandler.doEndService"
-
-                                         //+"|RunApplicationWithDelayBroadcastReceiver"
-
-                                         //+"|PreferenceFragment"
-
-                                        //+"|PhoneProfilesService.registerAccessibilityServiceReceiver"
-                                        //+"|DatabaseHandler.getTypeProfilesCount"
-                                        //+"|[RJS] PhoneProfilesService.registerPPPPExtenderReceiver"
-                                        //+"|PPPExtenderBroadcastReceiver.onReceive"
-                                        //+"|SMSEventEndBroadcastReceiver.onReceive"
-                                        //+"|[SMS sensor]"
-
-                                        //+ "|[RJS] PhoneProfilesService.startPhoneStateScanner"
-                                        //+ "|PhoneStateScanner"
-                                        //+"|MobileCellsPreference"
-                                        //+"|MobileCellsPreference.refreshListView"
-                                        //+"|PhoneStateScanner.constructor"
-                                        //+"|PhoneStateScanner.connect"
-                                        //+"|PhoneStateScanner.disconnect"
-                                        //+"|PhoneStateScanner.startAutoRegistration"
-                                        //+"|PhoneStateScanner.stopAutoRegistration"
-                                        //+"|PhoneStateScanner.getAllCellInfo"
-                                        //+"|PhoneStateScanner.getCellLocation"
-                                        //+"|PhoneStateScanner.doAutoRegistration"
-                                        //+"|MobileCellsRegistrationDialogPreference.startRegistration"
-                                        //+"|MobileCellsRegistrationService"
-                                        //+"|NotUsedMobileCellsNotificationDeletedReceiver.onReceive"
-
-                                        //+"|PermissionsNotificationDeletedReceiver.onReceive"
-
-                                        //+"|[RJS] PhoneProfilesService.registerReceiversAndWorkers"
-                                        //+"|[RJS] PhoneProfilesService.unregisterReceiversAndWorkers"
-                                        //+"|[RJS] PhoneProfilesService.reregisterReceiversAndWorkers"
-                                        //+"|[RJS] PhoneProfilesService.registerReceiverForTimeSensor"
-
-                                        //+"|EventPreferencesActivity.savePreferences"
-
-                                        //+"|PhoneCallReceiver"
-                                        //+"|PhoneCallBroadcastReceiver"
-                                        //+"|PhoneCallBroadcastReceiver.callAnswered"
-
-                                        //+"|#### EventsHandler.handleEvents"
-                                        //+"|[CALL] EventsHandler.handleEvents"
-                                        //+"|%%%%%%% DataWrapper.doHandleEvents"
-                                        //+"|[CALL] DataWrapper.doHandleEvents"
-                                        //+"|DataWrapper.pauseAllEvents"
-                                        //+"|EventPreferencesCall"
-                                        //+"|MissedCallEventEndBroadcastReceiver"
-
-                                        //+"|StartLauncherFromNotificationReceiver"
-                                        //+"|LauncherActivity"
-                                        //+"|ActivateProfileActivity"
-
-                                        //+"|AlarmClockBroadcastReceiver"
-                                        //+"|AlarmClockEventEndBroadcastReceiver"
-                                        //+"|EventPreferencesAlarmClock.removeAlarm"
-                                        //+"|EventPreferencesAlarmClock.setAlarm"
-                                        //+"|EventPreferencesAlarmClock.computeAlarm"
-                                        //+"|NextAlarmClockBroadcastReceiver"
-                                        //+"|TimeChangedReceiver"
-
-                                        //+"|@@@ ScreenOnOffBroadcastReceiver"
-                                        //+"|LockDeviceActivity"
-
-                                        //+"|DialogHelpPopupWindow.showPopup"
-
-                                        //+"|SMSBroadcastReceiver.onReceive"
-
-                                        //+"|EditorProfilesActivity.changeEventOrder"
-                                        //+"|EditorProfilesActivity.selectDrawerItem"
-
-                                        //+"|NFCTagPreference.showEditMenu"
-
-                                        //+"|Profile.generateIconBitmap"
-
-                                        //+"|CalendarProviderChangedBroadcastReceiver"
-
-
-                                        //+"|EventPreferencesTime.computeAlarm"
-                                        /*
-                                        +"|EventPreferencesTime.removeSystemEvent"
-                                        +"|EventPreferencesTime.setSystemEventForStart"
-                                        +"|EventPreferencesTime.setSystemEventForPause"
-                                        */
-                                        //+"|EventPreferencesTime.removeAlarm"
-                                        //+"|EventPreferencesTime.setAlarm"
-                                        //+"|[TIME] DataWrapper.doHandleEvents"
-                                        /*+"|TwilightScanner"
-                                        +"|TwilightScanner.updateTwilightState"
-                                        +"|TwilightScanner.doWork"
-                                        */
-                                        //+"|EventTimeBroadcastReceiver"
-
-                                        //+"|EventPreferencesCalendar"
-                                        //+"|EventPreferencesCalendar.saveStartEndTime"
-                                        //+"|EventCalendarBroadcastReceiver"
-
-                                        //+"|DatabaseHandler.importDB"
-                                        //+ "|ApplicationsMultiSelectDialogPreference.getValueAMSDP"
-                                        //+ "|ApplicationsDialogPreference"
-                                        //+ "|ApplicationEditorDialogAdapter"
-                                        //+ "|ApplicationEditorDialogViewHolder"
-                                        //+ "|ApplicationEditorDialog"
-                                        //+ "|ApplicationEditorIntentActivity"
-                                        //+ "|ApplicationsCache.cacheApplicationsList"
-                                        //+ "|@ Application."
-
-                                        //+ "|BitmapManipulator.resampleBitmapUri"
-
-                                        //+"|CmdGoToSleep"
-                                        //+"|CmdNfc"
-                                        //+"|ActivateProfileHelper.wifiServiceExists"
-
-                                        //+"|ActivateProfileHelper.lockDevice"
-
-                                        //+"|#### setWifiEnabled"
-
-                                        //+"|PPNumberPicker"
-                                        //+"|RingtonePreference.setRingtone"
-                                        //+"|RingtonePreferenceX"
-                                        //+"|PhoneProfilesService.playNotificationSound"
-
-                                        //+"|[RJS] PhoneProfilesService.scheduleWifiWorker"
-                                        //+"|[RJS] PhoneProfilesService.cancelWifiWorker"
-
-                                        //+"|EditorProfilesActivity.selectFilterItem"
-                                        //+"|EventsPrefsFragment.onResume"
-                                        //+"|ActivateProfileHelper.setScreenCarMode"
-
-                                        //+"|FastAccessDurationDialog.updateProfileView"
-
-                                        //+"|NotUsedMobileCellsNotificationDisableReceiver"
-                                        //+"|NotUsedMobileCellsNotificationDeletedReceiver"
-
-                                        //+"|ActivateProfileHelper.executeForForceStopApplications"
-
-                                        //+"|DaysOfWeekPreferenceX"
-                                        //+"|EventPreferencesTime.getDayOfWeekByLocale"
-
-                                        //+"|SearchCalendarEventsWorker"
-
-                                        //+"|Profile.getBrightnessPercentage_A9"
-                                        //+"|Profile.getBrightnessValue_A9"
-                                        //+"|Profile.convertPercentsToBrightnessManualValue"
-                                        //+"|Profile.convertPercentsToBrightnessAdaptiveValue"
-                                        //+"|Profile.convertBrightnessToPercents"
-
-                                        //+"|EditorProfileListFragment.refreshGUI"
-                                        //+"|EditorEventListFragment.refreshGUI"
-
-                                        //+"|----- ActivateProfileHelper.execute"
-                                        //+"|BluetoothNamePreferenceFragmentX"
-
-                                        //+"|[VOL] SettingsContentObserver"
-                                        //+"|[BAT] DataWrapper.doHandleEvents"
-
-                                        //+"|ShortcutCreatorListFragment"
-                                        //+"|BitmapManipulator"
-
-                                        //+"|FetchAddressWorker"
-                                        //+"|LocationGeofenceEditorActivity.getWorkInfoByIdLiveData"
-                                        //+"|BluetoothNamePreferenceFragmentX.refreshListView"
-                                        //+"|WifiSSIDPreferenceFragmentX.refreshListView"
-                                        //+"|BluetoothNamePreferenceFragmentX.onDialogClosed"
-
-                                        //+"|[OPT] EditorProfileListFragment"
-                                        //+"|[OPT] EditorEventListFragment"
-
-                                        //+"|ActivateProfileHelper.executeForInteractivePreferences"
-
-                                        //+"|PhoneProfilesService.isLocationEnabled"
-
-                                        //+"|PhoneProfilesPrefsFragment.updateSharedPreferences"
-                                        //+"|CustomColorDialogPreferenceX"
-                                        //+"|CustomColorDialogPreferenceFragmentX"
-
-                                        //+"|[HANDLER] DisableInternalChangeWorker.doWork"
-
-                                        //+"|[HANDLER] Event.setDelayStartAlarm"
-                                        //+"|[HANDLER] Event.setDelayEndAlarm"
-                                        //+"|DonationBroadcastReceiver"
-                                        //+"|[ALARM] EventsHandler.handleEvents"
-                                        //+"|EventPreferencesSMS"
-                                        //+"|SMSEventEndBroadcastReceiver"
-                                        //+"|ElapsedAlarmsWorker"
-                                        //+"|[WIFI] ActivateProfileHelper.doExecuteForRadios"
-                                        //+"|CmdWifi.setWifi"
-
-                                        //+"|ApplicationEditorIntentActivityX"
-
-                                        //+"|WifiApManager.startTethering"
-                                        //+"|WifiApManager.stopTethering"
-                                        //+"|WifiApManager.callStartTethering"
-                                        //+"|CmdWifiAP"
-
-                                        //+"|ActivateProfileHelper.updateGUI"
-                                        //+"|UpdateGUIBroadcastReceiver"
-                                        //+"|ElapsedAlarmsWorker.doWork"
-                                        //+"|ActivateProfileActivity.refreshGUI"
-                                        //+"|EditorProfilesActivity.refreshGUI"
-            ;
-
 
     public static final String EXPORT_PATH = "/PhoneProfilesPlus";
     static final String LOG_FILENAME = "log.txt";
@@ -1152,6 +1187,19 @@ public class PPApplication extends Application /*implements Application.Activity
     static int getVersionCode(PackageInfo pInfo) {
         //return pInfo.versionCode;
         return (int) PackageInfoCompat.getLongVersionCode(pInfo);
+    }
+
+    //--------------------------------------------------------------
+
+    static void addActivityLog(Context context, int logType, String eventName, String profileName, String profileIcon,
+                               int durationDelay) {
+        if (PPApplication.prefActivityLogEnabled) {
+            //if (ApplicationPreferences.preferences == null)
+            //    ApplicationPreferences.preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+            //ApplicationPreferences.setApplicationDeleteOldActivityLogs(context, Integer.valueOf(preferences.getString(ApplicationPreferences.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, "7")));
+            DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.applicationDeleteOldActivityLogs,
+                    logType, eventName, profileName, profileIcon, durationDelay);
+        }
     }
 
     //--------------------------------------------------------------
@@ -2910,7 +2958,7 @@ public class PPApplication extends Application /*implements Application.Activity
                 Permissions.removeNotifications(context);
 
                 if (dataWrapper != null)
-                    dataWrapper.addActivityLog(DataWrapper.ALTYPE_APPLICATION_EXIT, null, null, null, 0);
+                    addActivityLog(context, PPApplication.ALTYPE_APPLICATION_EXIT, null, null, null, 0);
 
                 /*if (PPApplication.brightnessHandler != null) {
                     PPApplication.brightnessHandler.post(new Runnable() {

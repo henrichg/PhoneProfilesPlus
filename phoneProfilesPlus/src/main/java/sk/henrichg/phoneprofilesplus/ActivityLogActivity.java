@@ -150,10 +150,10 @@ public class ActivityLogActivity extends AppCompatActivity {
             case R.id.menu_activity_log_play_pause:
                 boolean enabled = PPApplication.prefActivityLogEnabled;
                 if (enabled)
-                    dataWrapper.addActivityLog(DataWrapper.ALTYPE_PAUSED_LOGGING, null, null, null, 0);
+                    PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_PAUSED_LOGGING, null, null, null, 0);
                 PPApplication.setActivityLogEnabled(getApplicationContext(), !enabled);
                 if (!enabled)
-                    dataWrapper.addActivityLog(DataWrapper.ALTYPE_STARTED_LOGGING, null, null, null, 0);
+                    PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_STARTED_LOGGING, null, null, null, 0);
                 activityLogAdapter.reload(dataWrapper);
                 listView.setSelection(0);
                 invalidateOptionsMenu();

@@ -3916,10 +3916,10 @@ public class PhoneProfilesService extends Service
                     PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "application started");
 
                     if (_startOnBoot)
-                        dataWrapper.addActivityLog(DataWrapper.ALTYPE_APPLICATION_START_ON_BOOT, null, null, null, 0);
+                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_START_ON_BOOT, null, null, null, 0);
                     else
                     if (_activateProfiles)
-                        dataWrapper.addActivityLog(DataWrapper.ALTYPE_APPLICATION_START, null, null, null, 0);
+                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_START, null, null, null, 0);
 
                     if (PPApplication.logEnabled()) {
                         PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "PhoneProfilesService.doForFirstStart END");

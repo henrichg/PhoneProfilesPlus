@@ -70,41 +70,6 @@ public class DataWrapper {
 
     //static final String EXTRA_INTERACTIVE = "interactive";
 
-    // activity log types
-    static final int ALTYPE_UNDEFINED = 0;
-    static final int ALTYPE_PROFILE_ACTIVATION = 1;
-    static final int ALTYPE_AFTER_DURATION_UNDO_PROFILE = 21;
-    static final int ALTYPE_AFTER_DURATION_BACKGROUND_PROFILE = 22;
-    static final int ALTYPE_AFTER_DURATION_RESTART_EVENTS = 23;
-    static final int ALTYPE_EVENT_START = 3;
-    static final int ALTYPE_EVENT_START_DELAY = 4;
-    static final int ALTYPE_EVENT_END_NONE = 51;
-    static final int ALTYPE_EVENT_END_ACTIVATE_PROFILE = 52;
-    static final int ALTYPE_EVENT_END_UNDO_PROFILE = 53;
-    static final int ALTYPE_EVENT_END_ACTIVATE_PROFILE_UNDO_PROFILE = 54;
-    static final int ALTYPE_EVENT_END_RESTART_EVENTS = 55;
-    static final int ALTYPE_EVENT_END_ACTIVATE_PROFILE_RESTART_EVENTS = 56;
-    static final int ALTYPE_RESTART_EVENTS = 6;
-    static final int ALTYPE_RUN_EVENTS_DISABLE = 7;
-    static final int ALTYPE_RUN_EVENTS_ENABLE = 8;
-    static final int ALTYPE_APPLICATION_START = 9;
-    static final int ALTYPE_APPLICATION_EXIT = 10;
-    static final int ALTYPE_DATA_IMPORT = 11;
-    static final int ALTYPE_PAUSED_LOGGING = 12;
-    static final int ALTYPE_STARTED_LOGGING = 13;
-    static final int ALTYPE_EVENT_END_DELAY = 14;
-    static final int ALTYPE_EVENT_STOP = 15;
-    static final int ALTYPE_APPLICATION_START_ON_BOOT = 16;
-    static final int ALTYPE_EVENT_PREFERENCES_CHANGED = 17;
-    static final int ALTYPE_EVENT_DELETED = 18;
-    static final int ALTYPE_PROFILE_DELETED = 19;
-    static final int ALTYPE_PROFILE_PREFERENCES_CHANGED = 30;
-    static final int ALTYPE_SHARED_PROFILE_PREFERENCES_CHANGED = 31;
-    static final int ALTYPE_ALL_EVENTS_DELETED = 32;
-    static final int ALTYPE_ALL_PROFILES_DELETED = 33;
-    static final int ALTYPE_APPLICATION_UPGRADE = 34;
-    static final int ALTYPE_AFTER_DURATION_SPECIFIC_PROFILE = 35;
-
     DataWrapper(Context _context,
                         //boolean fgui,
                         boolean mono,
@@ -1711,7 +1676,7 @@ public class DataWrapper {
         //}
 
         if (/*(mappedProfile != null) &&*/ (!merged)) {
-            addActivityLog(ALTYPE_PROFILE_ACTIVATION, null,
+            PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ACTIVATION, null,
                     getProfileNameWithManualIndicatorAsString(mappedProfile, true, "", profileDuration > 0, false, false, this, false, context),
                     profileIcon, profileDuration);
         }
@@ -4205,7 +4170,7 @@ public class DataWrapper {
         //PPApplication.logE("DataWrapper._restartEvents", "xxx");
 
         if (log)
-            addActivityLog(ALTYPE_RESTART_EVENTS, null, null, null, 0);
+            PPApplication.addActivityLog(context, PPApplication.ALTYPE_RESTART_EVENTS, null, null, null, 0);
 
         if ((ApplicationPreferences.prefEventsBlocked && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
             EventsHandler eventsHandler = new EventsHandler(context);
@@ -4768,17 +4733,6 @@ public class DataWrapper {
         DatabaseHandler.getInstance(context).resetAllEventsInDelayStart();
     }
 
-    public void addActivityLog(int logType, String eventName, String profileName, String profileIcon,
-                               int durationDelay) {
-        if (PPApplication.prefActivityLogEnabled) {
-            //if (ApplicationPreferences.preferences == null)
-            //    ApplicationPreferences.preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-            //ApplicationPreferences.setApplicationDeleteOldActivityLogs(context, Integer.valueOf(preferences.getString(ApplicationPreferences.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, "7")));
-            DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.applicationDeleteOldActivityLogs,
-                                    logType, eventName, profileName, profileIcon, durationDelay);
-        }
-    }
-
     void runStopEventsWithAlert(final Activity activity, final SwitchCompat checkBox, boolean isChecked) {
         boolean eventRunningEnabled = Event.getGlobalEventsRunning();
         if (checkBox != null) {
@@ -4845,7 +4799,7 @@ public class DataWrapper {
     private boolean globalRunStopEvents(boolean stop) {
         if (stop) {
             if (Event.getGlobalEventsRunning()) {
-                addActivityLog(ALTYPE_RUN_EVENTS_DISABLE, null, null, null, 0);
+                PPApplication.addActivityLog(context, PPApplication.ALTYPE_RUN_EVENTS_DISABLE, null, null, null, 0);
 
                 // no setup for next start
                 resetAllEventsInDelayStart(false);
@@ -4869,7 +4823,7 @@ public class DataWrapper {
         }
         else {
             if (!Event.getGlobalEventsRunning()) {
-                addActivityLog(ALTYPE_RUN_EVENTS_ENABLE, null, null, null, 0);
+                PPApplication.addActivityLog(context, PPApplication.ALTYPE_RUN_EVENTS_ENABLE, null, null, null, 0);
 
                 Event.setGlobalEventsRunning(context, true);
 

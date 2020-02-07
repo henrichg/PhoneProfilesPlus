@@ -77,7 +77,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
 
                                 //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=TimeChangedReceiver.onReceive");
 
-                                doWork(appContext);
+                                doWork(appContext, false);
 
                                 //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=TimeChangedReceiver.onReceive");
 
@@ -96,7 +96,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
         }
     }
 
-    static void doWork(Context appContext) {
+    static void doWork(Context appContext, boolean forceRestart) {
         //PPApplication.logE("TimeChangedReceiver.doWork", "xxx");
 
         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
@@ -127,8 +127,11 @@ public class TimeChangedReceiver extends BroadcastReceiver {
         //dataWrapper.clearSensorsStartTime();
         //dataWrapper.restartEvents(false, true, false, false, false);
         //dataWrapper.restartEventsWithRescan(false, false, false, false);
-        if (!DataWrapper.getIsManualProfileActivation(false/*, appContext*/)) {
-            dataWrapper.restartEventsWithRescan(true, false, false, false);
+        if (forceRestart) {
+            if (!DataWrapper.getIsManualProfileActivation(false/*, appContext*/))
+                dataWrapper.restartEventsWithRescan(true, false, false, false);
+            else
+                dataWrapper.restartEventsWithRescan(false, false, false, false);
         }
         else {
             dataWrapper.restartEventsWithRescan(false, false, false, false);

@@ -474,7 +474,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                 //PPApplication.restartEvents(appContext, true, true);
 
             // change of this parameter is as change of local time
-            TimeChangedReceiver.doWork(appContext);
+            TimeChangedReceiver.doWork(appContext, true);
         }
 
         /*
