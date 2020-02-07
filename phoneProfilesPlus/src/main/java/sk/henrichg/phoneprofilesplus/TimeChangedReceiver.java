@@ -136,9 +136,9 @@ public class TimeChangedReceiver extends BroadcastReceiver {
         //dataWrapper.restartEventsWithRescan(false, false, false, false);
         if (forceRestart) {
             if (!DataWrapper.getIsManualProfileActivation(false/*, appContext*/))
-                dataWrapper.restartEventsWithRescan(true, false, false, false);
+                dataWrapper.restartEventsWithRescan(true, false, true, false);
             else
-                dataWrapper.restartEventsWithRescan(false, false, false, false);
+                dataWrapper.restartEventsWithRescan(false, false, true, false);
         }
         else {
             dataWrapper.restartEventsWithRescan(false, false, false, false);
