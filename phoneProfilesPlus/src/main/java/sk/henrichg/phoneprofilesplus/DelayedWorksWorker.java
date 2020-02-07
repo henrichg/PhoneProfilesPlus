@@ -416,9 +416,16 @@ public class DelayedWorksWorker extends Worker {
                     editor.apply();
                     */
 
+                    PPApplication.logE("PackageReplacedReceiver.doWork", "PhoneStateScanner.enabledAutoRegistration="+PhoneStateScanner.enabledAutoRegistration);
                     if (PhoneStateScanner.enabledAutoRegistration) {
                         PhoneStateScanner.stopAutoRegistration(appContext);
-                        PPApplication.sleep(2000);
+                        PPApplication.logE("PackageReplacedReceiver.doWork", "start of wait for end of autoregistration");
+                        int count = 0;
+                        while (MobileCellsRegistrationService.serviceStarted && (count < 50)) {
+                            PPApplication.sleep(100);
+                            count++;
+                        }
+                        PPApplication.logE("PackageReplacedReceiver.doWork", "end of autoregistration");
                     }
 
                     startService(dataWrapper);
@@ -590,16 +597,21 @@ public class DelayedWorksWorker extends Worker {
     }
     */
 
-    //private boolean startService(DataWrapper dataWrapper) {
     private void startService(DataWrapper dataWrapper) {
         boolean isApplicationStarted = PPApplication.getApplicationStarted(false);
+        PPApplication.logE("PackageReplacedReceiver.startService", "isApplicationStarted="+isApplicationStarted);
 
-        //PPApplication.logE("PPApplication.exitApp", "from DelayedWorksWorker.doWork shutdown=false");
         PPApplication.exitApp(false, dataWrapper.context, dataWrapper, null, false/*, false, true*/);
 
         if (isApplicationStarted)
         {
-            PPApplication.sleep(2000);
+            PPApplication.logE("PackageReplacedReceiver.startService", "start of wait for end of service");
+            int count = 0;
+            while ((PhoneProfilesService.getInstance() != null) && (count < 50)) {
+                PPApplication.sleep(100);
+                count++;
+            }
+            PPApplication.logE("PackageReplacedReceiver.startService", "service ended");
 
             // start PhoneProfilesService
             //PPApplication.logE("DelayedWorksWorker.doWork", "xxx");
@@ -610,13 +622,7 @@ public class DelayedWorksWorker extends Worker {
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
             PPApplication.startPPService(dataWrapper.context, serviceIntent);
-
-            //PPApplication.sleep(2000);
-
-            //return true;
         }
-        //else
-        //    return false;
     }
 
 }
