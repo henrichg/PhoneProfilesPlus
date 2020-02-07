@@ -107,12 +107,19 @@ public class TimeChangedReceiver extends BroadcastReceiver {
 
             if (profile._deviceRunApplicationChange == 1) {
                 String[] splits = profile._deviceRunApplicationPackageName.split("\\|");
-                for (String split : splits)
+                for (String split : splits) {
                     RunApplicationWithDelayBroadcastReceiver.removeDelayAlarm(appContext, split);
+                    //RunApplicationWithDelayBroadcastReceiver.setDelayAlarm(appContext, split);
+                    //int startApplicationDelay = Application.getStartApplicationDelay(split);
+                    //if (Application.getStartApplicationDelay(split) > 0)
+                    //    RunApplicationWithDelayBroadcastReceiver.setDelayAlarm(appContext, startApplicationDelay, split);
+                    //else
+                    //    RunApplicationWithDelayBroadcastReceiver.removeDelayAlarm(appContext, split);
+                }
             }
         }
 
-        Profile.setActivatedProfileForDuration(appContext, 0);
+        //Profile.setActivatedProfileForDuration(appContext, 0);
 
         LockDeviceAfterScreenOffBroadcastReceiver.doWork(false, appContext);
         LockDeviceActivityFinishBroadcastReceiver.doWork();
