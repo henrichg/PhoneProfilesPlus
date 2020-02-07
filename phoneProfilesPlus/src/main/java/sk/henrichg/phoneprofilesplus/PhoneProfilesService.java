@@ -558,11 +558,15 @@ public class PhoneProfilesService extends Service
         try {
             WorkManager workManager = WorkManager.getInstance(context);
             workManager.cancelAllWorkByTag(name);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            PPApplication.logE("------------ PhoneProfilesService.cancelWork", Log.getStackTraceString(e));
+        }
         try {
             WorkManager workManager = WorkManager.getInstance(context);
             workManager.cancelUniqueWork(name);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            PPApplication.logE("------------ PhoneProfilesService.cancelWork", Log.getStackTraceString(e));
+        }
     }
 
     static PhoneProfilesService getInstance() {

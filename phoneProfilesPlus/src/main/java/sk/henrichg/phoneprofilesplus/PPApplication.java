@@ -132,7 +132,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && BuildConfig.DEBUG;
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && BuildConfig.DEBUG;
     private static final boolean rootToolsDebug = false;
@@ -158,6 +158,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                          //+"|[CUST] PhoneProfilesService._showProfileNotification"
                                          +"|PhoneProfilesService.stopReceiver"
                                          +"|PhoneProfilesService.onDestroy"
+                                         +"|PhoneProfilesService.cancelWork"
                                          +"|DataWrapper.firstStartEvents"
                                          //+"|DataWrapper.setProfileActive"
                                          //+"|DataWrapper.activateProfileOnBoot"
