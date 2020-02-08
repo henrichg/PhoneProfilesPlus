@@ -2596,7 +2596,7 @@ public class Profile {
             if (_checked) {
                 long endDurationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime;
                 if (endDurationTime > 0) {
-                    durationString = "(" + context.getString(R.string.duration_end_acronym) +":" + timeDateStringFromTimestamp(context, endDurationTime) + ")";
+                    durationString = "(" + context.getString(R.string.duration_end_acronym) +": " + timeDateStringFromTimestamp(context, endDurationTime) + ")";
                 }
             }
             else
@@ -2608,7 +2608,7 @@ public class Profile {
             if (_checked) {
                 long endDurationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime;
                 if (endDurationTime > 0) {
-                    durationString = "(" + context.getString(R.string.duration_end_acronym) +":" + timeDateStringFromTimestamp(context, endDurationTime) + ")";
+                    durationString = "(" + context.getString(R.string.duration_end_acronym) +": " + timeDateStringFromTimestamp(context, endDurationTime) + ")";
                     showEndTime = true;
                 }
             }
