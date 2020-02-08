@@ -76,8 +76,9 @@ class BluetoothConnectedDevices {
                                             BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
                                             BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
                                         } catch (Exception e) {
-                                            Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
-                                            Crashlytics.logException(e);
+                                            // not log this, profile may not exists
+                                            //Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
+                                            //Crashlytics.logException(e);
                                         }
                                         //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEADSET end");
                                         bluetoothHeadsetEnd = true;
@@ -122,8 +123,9 @@ class BluetoothConnectedDevices {
                                             BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
                                             BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
                                         } catch (Exception e) {
-                                            Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
-                                            Crashlytics.logException(e);
+                                            // not log this, profile may not exists
+                                            //Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
+                                            //Crashlytics.logException(e);
                                         }
                                         //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEALTH end");
                                         bluetoothHealthEnd = true;
@@ -168,8 +170,9 @@ class BluetoothConnectedDevices {
                                             BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
                                             BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
                                         } catch (Exception e) {
-                                            Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
-                                            Crashlytics.logException(e);
+                                            // not log this, profile may not exists
+                                            //Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
+                                            //Crashlytics.logException(e);
                                         }
                                         //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "A2DP end");
                                         bluetoothA2dpEnd = true;
