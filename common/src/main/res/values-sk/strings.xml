@@ -1406,6 +1406,7 @@
     <string name="application_is_starting_toast">štartuje…</string>
     <string name="application_is_started_toast">je spustený</string>
     <string name="popupmenu_title_click_below_toast">Na zmenu tohto parametra kliknite nižšie</string>
+    <string name="duration_end_acronym">kt</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>

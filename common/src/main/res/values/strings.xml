@@ -1476,6 +1476,8 @@
 
     <string name="popupmenu_title_click_below_toast">Click below to change this parameter</string>
 
+    <string name="duration_end_acronym">de</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
