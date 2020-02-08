@@ -1614,9 +1614,9 @@ public class EditorEventListFragment extends Fragment
         //    popup = new PopupMenu(context, view);
         //noinspection ConstantConditions
         getActivity().getMenuInflater().inflate(R.menu.event_list_item_ignore_manual_activation, popup.getMenu());
-        Menu menu = popup.getMenu();
+        /*Menu menu = popup.getMenu();
         MenuItem menuItem = menu.findItem(R.id.event_list_item_ignore_manual_activation_title);
-        menuItem.setTitle("[»] " + context.getString(R.string.event_preferences_ForceRun));
+        menuItem.setTitle("[»] " + context.getString(R.string.event_preferences_ForceRun));*/
 
         // show icons
         try {
