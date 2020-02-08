@@ -10,12 +10,11 @@
 
     <ImageView
         android:id="@+id/notification_activated_profile_restart_events"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:padding="2dp"
-        android:layout_marginEnd="3dp"
         android:contentDescription="@string/menu_restart_events"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
@@ -26,14 +25,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
         android:layout_centerVertical="true"
         android:layout_toStartOf="@id/notification_activated_profile_restart_events"
         android:layout_alignParentStart="true">
 
         <ImageView
             android:id="@+id/notification_activated_profile_icon"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
             android:contentDescription="@string/profile_preferences_profileIcon"

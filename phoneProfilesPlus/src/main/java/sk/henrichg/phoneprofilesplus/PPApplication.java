@@ -92,7 +92,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|[CUST] PhoneProfilesService._showProfileNotification"
                                                 +"|PhoneProfilesService.stopReceiver"
                                                 +"|PhoneProfilesService.onDestroy"
-                                                +"|PhoneProfilesService.cancelWork"
+                                                //+"|PhoneProfilesService.cancelWork"
                                                 +"|DataWrapper.firstStartEvents"
                                                 //+"|DataWrapper.setProfileActive"
                                                 //+"|DataWrapper.activateProfileOnBoot"
