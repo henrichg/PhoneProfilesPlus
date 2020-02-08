@@ -40,6 +40,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -1150,6 +1151,7 @@ public class EditorProfileListFragment extends Fragment
 
             //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
             Context context = view.getContext();
+            //Context context = new ContextThemeWrapper(getActivity().getBaseContext(), R.style.PopupMenu_editorItem_dayNight);
             PopupMenu popup;
             //if (android.os.Build.VERSION.SDK_INT >= 19)
             popup = new PopupMenu(context, view, Gravity.END);
@@ -1177,6 +1179,12 @@ public class EditorProfileListFragment extends Fragment
                 public boolean onMenuItemClick(android.view.MenuItem item) {
                     if (getActivity() != null) {
                         switch (item.getItemId()) {
+                            case R.id.profile_list_item_menu_show_in_activator_title:
+                                Toast msg = ToastCompat.makeText(activityDataWrapper.context,
+                                        getResources().getString(R.string.popupmenu_title_click_below_toast),
+                                        Toast.LENGTH_SHORT);
+                                msg.show();
+                                break;
                             case R.id.profile_list_item_menu_not_show_in_activator:
                                 profile._showInActivator = false;
                                 DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);

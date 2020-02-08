@@ -1281,14 +1281,14 @@
     <string name="ignore_battery_optimization_notification_title">Postavke optimizacije baterije</string>
     <string name="ignore_battery_optimization_notification_text">Klikni ovdje i dodaj PhoneProfilesPlus u \"Ne optimizuj\". Ovo je neophodno za normalan rad sa isključenim zaslonom.</string>
     <string name="ignore_battery_optimization_notification_disable_button">Ne prikazuj ponovno</string>
-    <string name="array_show_profile_in_activator_not_show">Ne prikazuj u Aktivatoru</string>
-    <string name="array_show_profile_in_activator_show">Prikaži u Aktivatoru</string>
+    <string name="array_show_profile_in_activator_not_show">Do not show</string>
+    <string name="array_show_profile_in_activator_show">Show</string>
     <string name="editor_activity_targetHelps_showInActivator_title">Prikaži profil u Aktivatoru</string>
     <string name="editor_activity_targetHelps_showInActivator_description">Klikni ovdje za postavke parametra profila \"Prikaži u Aktivatoru\".</string>
     <string name="profile_preferences_alwaysOnDisplay">(R) Uvek uključen zaslon</string>
     <string name="permission_why_profile_always_on_display">za uklj./isklj. Uvek uključen zaslon</string>
-    <string name="array_ignore_manual_activation_not_ignore">Nemojte ignorirati ručnu aktivaciju profila</string>
-    <string name="array_ignore_manual_activation_ignore">Ignoriraj ručnu aktivaciju profila</string>
+    <string name="array_ignore_manual_activation_not_ignore">Do not ignore</string>
+    <string name="array_ignore_manual_activation_ignore">Ignore</string>
     <string name="editor_activity_targetHelps_ignoreManualActivation_title">Ignoriraj ručnu aktivaciju profila</string>
     <string name="editor_activity_targetHelps_ignoreManualActivation_description">Klikni ovdje da podesiš parametar događaja \"[»] Ignoriraj ručnu aktivaciju\".</string>
     <string name="editor_activity_targetHelps_trafficLightIcon_title">\"Semafor\" ikona</string>
@@ -1405,6 +1405,7 @@
     <string name="application_is_not_started">is not started</string>
     <string name="application_is_starting_toast">is starting…</string>
     <string name="application_is_started_toast">is started</string>
+    <string name="popupmenu_title_click_below_toast">Click below to change this parameter</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>

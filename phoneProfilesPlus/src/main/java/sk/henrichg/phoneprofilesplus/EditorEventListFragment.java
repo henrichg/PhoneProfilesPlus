@@ -42,6 +42,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -1605,6 +1606,7 @@ public class EditorEventListFragment extends Fragment
     {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         Context context = view.getContext();
+        //Context context = new ContextThemeWrapper(getActivity().getBaseContext(), R.style.PopupMenu_editorItem_dayNight);
         PopupMenu popup;
         //if (android.os.Build.VERSION.SDK_INT >= 19)
         popup = new PopupMenu(context, view, Gravity.END);
@@ -1612,6 +1614,9 @@ public class EditorEventListFragment extends Fragment
         //    popup = new PopupMenu(context, view);
         //noinspection ConstantConditions
         getActivity().getMenuInflater().inflate(R.menu.event_list_item_ignore_manual_activation, popup.getMenu());
+        Menu menu = popup.getMenu();
+        MenuItem menuItem = menu.findItem(R.id.event_list_item_ignore_manual_activation_title);
+        menuItem.setTitle("[»] " + context.getString(R.string.event_preferences_ForceRun));
 
         // show icons
         try {
@@ -1634,6 +1639,12 @@ public class EditorEventListFragment extends Fragment
             public boolean onMenuItemClick(android.view.MenuItem item) {
                 if (getActivity() != null) {
                     switch (item.getItemId()) {
+                        case R.id.event_list_item_ignore_manual_activation_title:
+                            Toast msg = ToastCompat.makeText(activityDataWrapper.context,
+                                    getResources().getString(R.string.popupmenu_title_click_below_toast),
+                                    Toast.LENGTH_SHORT);
+                            msg.show();
+                            break;
                         case R.id.event_list_item_not_ignore_manual_activation:
                             event._forceRun = false;
                             DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);

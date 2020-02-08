@@ -776,7 +776,7 @@
     <string name="connect_to_ssid_pref_dlg_summary_text_just_any">N\'importe quel SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Se connecter au SSID</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Fusion des volumes</string>
-    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Use detection</string>
+    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Utiliser la détection</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">Un seul volume</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Deux volumes distincts</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">A utiliser si la détection de la fusion du volume est fausse.</string>
@@ -1281,14 +1281,14 @@
     <string name="ignore_battery_optimization_notification_title">Configuration de l\'optimisation de la batterie</string>
     <string name="ignore_battery_optimization_notification_text">Veuillez cliquer ici et ajouter PhoneProfilesPlus à \"Non optimisé\". C\'est nécessaire pour qu\'il fonctionne correctement avec l\'écran éteint.</string>
     <string name="ignore_battery_optimization_notification_disable_button">Ne plus afficher</string>
-    <string name="array_show_profile_in_activator_not_show">Non affiché dans l\'activation</string>
-    <string name="array_show_profile_in_activator_show">Afficher dans l\'Activateur</string>
+    <string name="array_show_profile_in_activator_not_show">Do not show</string>
+    <string name="array_show_profile_in_activator_show">Show</string>
     <string name="editor_activity_targetHelps_showInActivator_title">Afficher le profil dans l\'activateur</string>
     <string name="editor_activity_targetHelps_showInActivator_description">Cliquez ici pour configurer le paramètre de profil \"Afficher dans l\'activateur\".</string>
     <string name="profile_preferences_alwaysOnDisplay">(R) Affichage permanent</string>
     <string name="permission_why_profile_always_on_display">pour activer/désactiver l\'affichage permanent</string>
-    <string name="array_ignore_manual_activation_not_ignore">Ne pas ignorer l\'activation manuelle du profil</string>
-    <string name="array_ignore_manual_activation_ignore">Ignorer l\'activation manuelle du profil</string>
+    <string name="array_ignore_manual_activation_not_ignore">Do not ignore</string>
+    <string name="array_ignore_manual_activation_ignore">Ignore</string>
     <string name="editor_activity_targetHelps_ignoreManualActivation_title">Ignorer l\'activation manuelle du profil</string>
     <string name="editor_activity_targetHelps_ignoreManualActivation_description">Cliquez ici pour configurer le paramètre \"[»] Ignorer l\'activation manuelle\".</string>
     <string name="editor_activity_targetHelps_trafficLightIcon_title">Icône \"Feu de circulation\"</string>
@@ -1405,6 +1405,7 @@
     <string name="application_is_not_started">non démarré</string>
     <string name="application_is_starting_toast">démarrage…</string>
     <string name="application_is_started_toast">est démarré</string>
+    <string name="popupmenu_title_click_below_toast">Click below to change this parameter</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>

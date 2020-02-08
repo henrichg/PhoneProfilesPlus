@@ -1316,16 +1316,16 @@
     <string name="ignore_battery_optimization_notification_text">Please click here and add PhoneProfilesPlus to \"Not optimized\". It is required for working good with the screen off.</string>
     <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>
 
-    <string name="array_show_profile_in_activator_not_show">Do not show in Activator</string>
-    <string name="array_show_profile_in_activator_show">Show in Activator</string>
+    <string name="array_show_profile_in_activator_not_show">Do not show</string>
+    <string name="array_show_profile_in_activator_show">Show</string>
     <string name="editor_activity_targetHelps_showInActivator_title">Show profile in Activator</string>
     <string name="editor_activity_targetHelps_showInActivator_description">Click this to configure profile parameter \"Show in Activator\".</string>
 
     <string name="profile_preferences_alwaysOnDisplay">(R) Always-On display</string>
     <string name="permission_why_profile_always_on_display">for enable/disable Always-On display</string>
 
-    <string name="array_ignore_manual_activation_not_ignore">Don\'t ignore manual profile activation</string>
-    <string name="array_ignore_manual_activation_ignore">Ignore manual profile activation</string>
+    <string name="array_ignore_manual_activation_not_ignore">Do not ignore</string>
+    <string name="array_ignore_manual_activation_ignore">Ignore</string>
     <string name="editor_activity_targetHelps_ignoreManualActivation_title">Ignore manual profile activation</string>
     <string name="editor_activity_targetHelps_ignoreManualActivation_description">Click this to configure event parameter \"[»] Ignore manual activation\".</string>
 
@@ -1473,6 +1473,8 @@
     <string name="application_is_not_started">is not started</string>
     <string name="application_is_starting_toast">is starting…</string>
     <string name="application_is_started_toast">is started</string>
+
+    <string name="popupmenu_title_click_below_toast">Click below to change this parameter</string>
 
     <!-- **************************************************************************************** -->
 

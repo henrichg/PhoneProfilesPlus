@@ -1,10 +1,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/profile_list_item_menu_show_in_activator_title"
+        android:title="@string/profile_preferences_showInActivator"
+        android:icon="@drawable/ic_popup_menu_item_title"
+        android:orderInCategory="100" />
     <item android:id="@+id/profile_list_item_menu_not_show_in_activator"
         android:title="@string/array_show_profile_in_activator_not_show"
         android:icon="@drawable/ic_not_show_in_activator"
-        android:orderInCategory="100" />
+        android:orderInCategory="101" />
     <item android:id="@+id/profile_list_item_menu_show_in_activator"
         android:title="@string/array_show_profile_in_activator_show"
         android:icon="@drawable/ic_show_in_activator"
-        android:orderInCategory="101" />
+        android:orderInCategory="102" />
 </menu>

@@ -1281,14 +1281,14 @@
     <string name="ignore_battery_optimization_notification_title">Konfigurace optimalizace baterie</string>
     <string name="ignore_battery_optimization_notification_text">Prosím klikněte sem a přidejte PhoneProfilesPlus do \"Neoptimalizované\". Je to vyžadováno pro správnou funkci s vypnutou obrazovkou.</string>
     <string name="ignore_battery_optimization_notification_disable_button">Příště nezobrazovat</string>
-    <string name="array_show_profile_in_activator_not_show">Nezobrazit v Aktivátoru</string>
-    <string name="array_show_profile_in_activator_show">Zobrazit v Aktivátoru</string>
+    <string name="array_show_profile_in_activator_not_show">Nezobrazovat</string>
+    <string name="array_show_profile_in_activator_show">Zobrazovat</string>
     <string name="editor_activity_targetHelps_showInActivator_title">Zobrazit profil v Aktivátoru</string>
     <string name="editor_activity_targetHelps_showInActivator_description">Klikněte sem pro konfiguraci parametru \"Zobrazit v Aktivátoru\".</string>
     <string name="profile_preferences_alwaysOnDisplay">(R) Always-On displej</string>
     <string name="permission_why_profile_always_on_display">pro zapnutí/vypnutí Always-On displej</string>
-    <string name="array_ignore_manual_activation_not_ignore">Neignoruj manuální aktivaci profilu</string>
-    <string name="array_ignore_manual_activation_ignore">Ignoruj manuální aktivaci profilu</string>
+    <string name="array_ignore_manual_activation_not_ignore">Neignorovat</string>
+    <string name="array_ignore_manual_activation_ignore">Ignorovat</string>
     <string name="editor_activity_targetHelps_ignoreManualActivation_title">Ignoruj manuální aktivaci profilu</string>
     <string name="editor_activity_targetHelps_ignoreManualActivation_description">Klikněte sem pro konfiguraci parametru \"[»] Ignoruj manuální aktivaci \".</string>
     <string name="editor_activity_targetHelps_trafficLightIcon_title">Ikona \"Semafor\"</string>
@@ -1405,6 +1405,7 @@
     <string name="application_is_not_started">není spuštěn</string>
     <string name="application_is_starting_toast">startuje…</string>
     <string name="application_is_started_toast">je spuštěn</string>
+    <string name="popupmenu_title_click_below_toast">Pro změnu tohoto parametru klikněte níže</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>

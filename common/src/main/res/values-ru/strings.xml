@@ -776,7 +776,7 @@
     <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Любой SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Подключение к SSID</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Задать объединённость уровней громкости</string>
-    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Use detection</string>
+    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Использовать обнаружение</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">Уровни громкости объединены</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Уровни громкости разделены</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Используйте, если объединённость определяется неправильно.</string>
@@ -1281,14 +1281,14 @@
     <string name="ignore_battery_optimization_notification_title">Настройка оптимизации батареи</string>
     <string name="ignore_battery_optimization_notification_text">Нажмите сюда и добавьте PhoneProfilesPlus в список \"Не экономят заряд\". Это нужно для правильной работы программы при выключенном экране.</string>
     <string name="ignore_battery_optimization_notification_disable_button">Больше не показывать</string>
-    <string name="array_show_profile_in_activator_not_show">Не показывать в Активаторе</string>
-    <string name="array_show_profile_in_activator_show">Показывать в Активаторе</string>
+    <string name="array_show_profile_in_activator_not_show">Do not show</string>
+    <string name="array_show_profile_in_activator_show">Show</string>
     <string name="editor_activity_targetHelps_showInActivator_title">Показывать профиль в Активаторе</string>
     <string name="editor_activity_targetHelps_showInActivator_description">Нажмите сюда, чтобы настроить параметр профиля \"Показывать в Активаторе\".</string>
     <string name="profile_preferences_alwaysOnDisplay">(R) Always-On display</string>
     <string name="permission_why_profile_always_on_display">для включения/отключения функции Always-On display</string>
-    <string name="array_ignore_manual_activation_not_ignore">Не игнорировать ручную активацию профиля</string>
-    <string name="array_ignore_manual_activation_ignore">Игнорировать ручную активацию профиля</string>
+    <string name="array_ignore_manual_activation_not_ignore">Do not ignore</string>
+    <string name="array_ignore_manual_activation_ignore">Ignore</string>
     <string name="editor_activity_targetHelps_ignoreManualActivation_title">Игнорировать ручную активацию профиля</string>
     <string name="editor_activity_targetHelps_ignoreManualActivation_description">Нажмите сюда, чтобы настроить параметр события \"[»] Игнорировать ручную активацию\".</string>
     <string name="editor_activity_targetHelps_trafficLightIcon_title">Значок \"Светофор\"</string>
@@ -1405,6 +1405,7 @@
     <string name="application_is_not_started">не запущено</string>
     <string name="application_is_starting_toast">запускается…</string>
     <string name="application_is_started_toast">запущено</string>
+    <string name="popupmenu_title_click_below_toast">Click below to change this parameter</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>
