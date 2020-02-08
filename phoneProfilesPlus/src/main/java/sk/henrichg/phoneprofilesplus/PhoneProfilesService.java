@@ -4517,7 +4517,7 @@ public class PhoneProfilesService extends Service
                     notificationTextColor = "2";
                     break;
             }
-            if (Build.VERSION.SDK_INT < 29)
+            if ((Build.VERSION.SDK_INT >= 24) && (Build.VERSION.SDK_INT < 29))
                 useDecorator = useDecorator && (!notificationNightMode) && notificationBackgroundColor.equals("0");
 
             boolean profileIconExists = true;
@@ -4882,8 +4882,15 @@ public class PhoneProfilesService extends Service
                         else
                             restartEventsId = R.drawable.ic_widget_restart_events;
                     }
-                    else
-                        restartEventsId = R.drawable.ic_widget_restart_events;
+                    else {
+                        if (notificationTextColor.equals("1"))
+                            restartEventsId = R.drawable.ic_widget_restart_events;
+                        else
+                        if (notificationTextColor.equals("2"))
+                            restartEventsId = R.drawable.ic_widget_restart_events_dark;
+                        else
+                            restartEventsId = R.drawable.ic_widget_restart_events;
+                    }
                 }
 
                 //contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
