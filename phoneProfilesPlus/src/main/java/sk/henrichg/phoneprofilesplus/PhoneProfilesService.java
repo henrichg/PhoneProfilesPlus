@@ -3801,18 +3801,18 @@ public class PhoneProfilesService extends Service
                     if (!ApplicationPreferences.applicationNeverAskForGrantRoot) {
                         // grant root
                         PPApplication.isRootGranted();
-                    }
-                    else {
+                    } else {
                         synchronized (PPApplication.rootMutex) {
                             if (PPApplication.rootMutex.rootChecked) {
                                 try {
                                     Crashlytics.setString(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(PPApplication.rootMutex.rooted));
-                                } catch (Exception ignored) {}
-                            }
-                            else {
+                                } catch (Exception ignored) {
+                                }
+                            } else {
                                 try {
                                     Crashlytics.setString(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, "ask for grant disabled");
-                                } catch (Exception ignored) {}
+                                } catch (Exception ignored) {
+                                }
                             }
                         }
                     }
@@ -3921,8 +3921,7 @@ public class PhoneProfilesService extends Service
 
                     if (_startOnBoot)
                         PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_START_ON_BOOT, null, null, null, 0);
-                    else
-                    if (_activateProfiles)
+                    else if (_activateProfiles)
                         PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_START, null, null, null, 0);
 
                     if (PPApplication.logEnabled()) {
@@ -3951,7 +3950,7 @@ public class PhoneProfilesService extends Service
                     }
 
                     boolean packageReplaced = ApplicationPreferences.applicationPackageReplaced(appContext);
-                    PPApplication.logE("******** PhoneProfilesService.doForFirstStart.2 - handler", "package replaced="+packageReplaced);
+                    PPApplication.logE("******** PhoneProfilesService.doForFirstStart.2 - handler", "package replaced=" + packageReplaced);
                     if (!packageReplaced)
                         setWaitForEndOfStart(false, true);
 
@@ -4008,6 +4007,8 @@ public class PhoneProfilesService extends Service
 
                     //dataWrapper.invalidateDataWrapper();
 
+                } catch (Exception eee) {
+                    PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", Log.getStackTraceString(eee));
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {

@@ -357,8 +357,8 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
             }
         }
         catch (Exception e) {
-            Log.e("PPPExtenderBroadcastReceiver.isExtenderInstalled", Log.getStackTraceString(e));
-            Crashlytics.logException(e);
+            //Log.e("PPPExtenderBroadcastReceiver.isExtenderInstalled", Log.getStackTraceString(e));
+            //Crashlytics.logException(e);
             return 0;
         }
     }

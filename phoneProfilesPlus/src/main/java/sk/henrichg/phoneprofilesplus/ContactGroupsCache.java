@@ -42,8 +42,12 @@ class ContactGroupsCache {
         ArrayList<Contact> _contactList = new ArrayList<>();
         ArrayList<Contact> _contactListWithoutNumber = new ArrayList<>();
         synchronized (PPApplication.contactsCacheMutex) {
-            _contactList.addAll(contactsCache.getList(false));
-            _contactListWithoutNumber.addAll(contactsCache.getList(true));
+            List<Contact> contacts = contactsCache.getList(false);
+            if (contacts != null)
+                _contactList.addAll(contacts);
+            contacts = contactsCache.getList(true);
+            if (contacts != null)
+                _contactListWithoutNumber.addAll(contacts);
         }
 
         try {
