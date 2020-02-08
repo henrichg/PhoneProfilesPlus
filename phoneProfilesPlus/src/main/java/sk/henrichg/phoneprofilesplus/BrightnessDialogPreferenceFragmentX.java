@@ -15,6 +15,7 @@ import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.stericson.RootShell.execution.Command;
 import com.stericson.RootShell.execution.Shell;
 import com.stericson.RootTools.RootTools;
@@ -317,6 +318,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
                                         PPApplication.commandWait(command);
                                     } catch (Exception e) {
                                         Log.e("BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness", Log.getStackTraceString(e));
+                                        Crashlytics.logException(e);
                                     }
                                 }
                             }

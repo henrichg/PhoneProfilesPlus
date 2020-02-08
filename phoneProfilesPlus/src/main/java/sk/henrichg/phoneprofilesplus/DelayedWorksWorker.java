@@ -491,6 +491,7 @@ public class DelayedWorksWorker extends Worker {
                             //}
                         } catch (Exception e) {
                             Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
+                            Crashlytics.logException(e);
                         }
                     }
                     break;

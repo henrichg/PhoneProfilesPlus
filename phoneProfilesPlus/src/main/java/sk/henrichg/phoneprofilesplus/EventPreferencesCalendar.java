@@ -15,6 +15,8 @@ import android.provider.CalendarContract.Instances;
 import android.text.format.DateFormat;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -786,6 +788,7 @@ class EventPreferencesCalendar extends EventPreferences {
             }
         } catch (Exception e) {
             Log.e("EventPreferencesCalendar.saveStartEndTime", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
             cur = null;
         }
 

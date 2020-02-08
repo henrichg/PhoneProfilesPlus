@@ -4,6 +4,8 @@ import android.bluetooth.IBluetoothManager;
 import android.os.ServiceManager;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
+
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class CmdBluetooth {
 
@@ -29,6 +31,7 @@ public class CmdBluetooth {
             return true;
         } catch (Throwable e) {
             Log.e("CmdBluetooth.setBluetooth", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
             return false;
         }
     }
@@ -42,6 +45,7 @@ public class CmdBluetooth {
             return enabled;
         } catch (Throwable e) {
             Log.e("CmdBluetooth.isEnabled", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
             return false;
         }
     }

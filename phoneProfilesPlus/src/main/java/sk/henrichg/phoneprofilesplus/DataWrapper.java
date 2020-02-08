@@ -37,6 +37,8 @@ import android.text.style.CharacterStyle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -828,6 +830,7 @@ public class DataWrapper {
                 }
             } catch (Exception e) {
                 Log.e("DataWrapper.setDynamicLauncherShortcuts", Log.getStackTraceString(e));
+                Crashlytics.logException(e);
             }
         }
     }

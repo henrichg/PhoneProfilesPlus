@@ -271,12 +271,14 @@ public class PhoneProfilesService extends Service
                 context.removeStickyBroadcast(intent);
             } catch (Exception e) {
                 Log.e("PhoneProfilesService.stopReceiver", Log.getStackTraceString(e));
+                Crashlytics.logException(e);
             }
             try {
                 stopForeground(true);
                 stopSelf();
             } catch (Exception e) {
                 Log.e("PhoneProfilesService.stopReceiver", Log.getStackTraceString(e));
+                Crashlytics.logException(e);
             }
         }
     };
@@ -4714,6 +4716,7 @@ public class PhoneProfilesService extends Service
                                     iconSmallResource = Profile.profileIconNotifyColorId.get(iconIdentifier);
                                 } catch (Exception e) {
                                     Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
+                                    Crashlytics.logException(e);
                                 }
                                 notificationBuilder.setSmallIcon(iconSmallResource);
                             }
@@ -4730,6 +4733,7 @@ public class PhoneProfilesService extends Service
                                 iconSmallResource = Profile.profileIconNotifyId.get(iconIdentifier);
                             } catch (Exception e) {
                                 Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
+                                Crashlytics.logException(e);
                             }
                             notificationBuilder.setSmallIcon(iconSmallResource);
                         }
@@ -4753,6 +4757,7 @@ public class PhoneProfilesService extends Service
                                 iconSmallResource = Profile.profileIconNotifyColorId.get(iconIdentifier);
                             } catch (Exception e) {
                                 Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
+                                Crashlytics.logException(e);
                             }
                         }
                         else {
@@ -4766,6 +4771,7 @@ public class PhoneProfilesService extends Service
                                 iconSmallResource = Profile.profileIconNotifyId.get(iconIdentifier);
                             } catch (Exception e) {
                                 Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
+                                Crashlytics.logException(e);
                             }
                         }
                         notificationBuilder.setSmallIcon(iconSmallResource);
@@ -4844,6 +4850,7 @@ public class PhoneProfilesService extends Service
                     contentViewLarge.setViewVisibility(R.id.notification_activated_profile_pref_indicator, View.GONE);
             } catch (Exception e) {
                 Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
+                Crashlytics.logException(e);
             }
 
             if (Event.getGlobalEventsRunning() &&
@@ -5175,6 +5182,7 @@ public class PhoneProfilesService extends Service
                 }*/
             } catch (Exception e) {
                 Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
+                Crashlytics.logException(e);
             }
             //runningInForeground = false;
         //}
@@ -5244,6 +5252,7 @@ public class PhoneProfilesService extends Service
                 keyguardLock.disableKeyguard();
             } catch (Exception e) {
                 Log.e("PhoneProfilesService", Log.getStackTraceString(e));
+                Crashlytics.logException(e);
             }
         }
     }
@@ -5256,6 +5265,7 @@ public class PhoneProfilesService extends Service
                 keyguardLock.reenableKeyguard();
             } catch (Exception e) {
                 Log.e("PhoneProfilesService", Log.getStackTraceString(e));
+                Crashlytics.logException(e);
             }
         }
     }

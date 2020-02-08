@@ -167,6 +167,7 @@ public class BluetoothScanWorker extends Worker {
             //PPApplication.logE("BluetoothScanWorker._scheduleWork", "---------------------------------------- END");
         } catch (Exception e) {
             Log.e("BluetoothScanWorker._scheduleWork", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
         }
     }
 
@@ -212,6 +213,7 @@ public class BluetoothScanWorker extends Worker {
 
             } catch (Exception e) {
                 Log.e("BluetoothScanWorker._cancelWork", Log.getStackTraceString(e));
+                Crashlytics.logException(e);
             }
         }
     }
@@ -258,6 +260,7 @@ public class BluetoothScanWorker extends Worker {
             //PPApplication.logE("BluetoothScanWorker.waitForFinish", "END WAIT FOR FINISH");
         } catch (Exception e) {
             Log.e("BluetoothScanWorker.waitForFinish", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
         }
     }
 
@@ -303,6 +306,7 @@ public class BluetoothScanWorker extends Worker {
             }
         } catch (Exception e) {
             Log.e("BluetoothScanWorker.isWorkRunning", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
             return false;
         }
     }
@@ -332,6 +336,7 @@ public class BluetoothScanWorker extends Worker {
             }
         } catch (Exception e) {
             Log.e("BluetoothScanWorker.isWorkScheduled", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
             return false;
         }
     }

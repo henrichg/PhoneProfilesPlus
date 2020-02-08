@@ -786,6 +786,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                     });
         } catch (Exception e) {
             Log.e("LocationGeofenceEditorActivity.startIntentService", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
         }
 
     }
@@ -841,10 +842,14 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             String pkg = null;
             if (intent != null)
                 pkg = intent.getPackage();
-            if (intent == null || (pkg != null && pkg.equals("com.android.vending")))
+            if (intent == null || (pkg != null && pkg.equals("com.android.vending"))) {
                 Log.e("LocationGeofenceEditorActivity", "ignoring startActivityForResult exception ", e);
-            else
+                Crashlytics.logException(e);
+            }
+            else {
+                Crashlytics.logException(e);
                 throw e;
+            }
         }
     }
 

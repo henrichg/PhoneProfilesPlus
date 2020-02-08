@@ -54,12 +54,14 @@ public class FetchAddressWorker extends Worker {
             } catch (IOException ioException) {
                 // Catch network or other I/O problems.
                 Log.e("FetchAddressWorker.doWork", "Service not available", ioException);
+                Crashlytics.logException(ioException);
             } catch (IllegalArgumentException illegalArgumentException) {
                 // Catch invalid latitude or longitude values.
                 Log.e("FetchAddressWorker.doWork", "Invalid location. " +
                         "Latitude = " + latitude +
                         ", Longitude = " +
                         longitude, illegalArgumentException);
+                Crashlytics.logException(illegalArgumentException);
             }
 
             // Handle case where no address was found.
@@ -95,13 +97,6 @@ public class FetchAddressWorker extends Worker {
         } catch (Exception e) {
             Log.e("FetchAddressWorker.doWork", Log.getStackTraceString(e));
             Crashlytics.logException(e);
-            /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
-            Runnable r = new Runnable() {
-                public void run() {
-                    android.os.Process.killProcess(android.os.Process.myPid());
-                }
-            };
-            _handler.postDelayed(r, 1000);*/
             return Result.failure();
         }
     }

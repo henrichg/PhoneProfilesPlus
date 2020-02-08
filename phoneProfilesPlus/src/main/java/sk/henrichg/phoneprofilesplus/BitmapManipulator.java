@@ -21,6 +21,8 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.io.InputStream;
 
 import androidx.appcompat.content.res.AppCompatResources;
@@ -48,6 +50,7 @@ class BitmapManipulator {
                     contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 } catch (Exception e) {
                     Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
+                    Crashlytics.logException(e);
                 }
                 //}
                 InputStream inputStream = context.getContentResolver().openInputStream(uri);
@@ -112,6 +115,7 @@ class BitmapManipulator {
                 return decodedSampleBitmap;
             } catch (Exception e) {
                 Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
+                Crashlytics.logException(e);
                 return null;
             }
         }
@@ -374,6 +378,7 @@ class BitmapManipulator {
             return bitmap;
         } catch (Exception e) {
             Log.e("BitmapManipulator.getBitmapFromDrawable", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
             return null;
         }
     }

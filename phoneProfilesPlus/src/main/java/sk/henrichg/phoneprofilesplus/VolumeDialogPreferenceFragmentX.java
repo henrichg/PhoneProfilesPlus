@@ -16,6 +16,8 @@ import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
+
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 @SuppressWarnings("WeakerAccess")
@@ -287,6 +289,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                         }
                     } catch (Exception e) {
                         Log.e("VolumeDialogPreferenceFragmentX.onStopTrackingTouch", Log.getStackTraceString(e));
+                        Crashlytics.logException(e);
                     }
                 }
             });

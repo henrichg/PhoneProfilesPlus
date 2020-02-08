@@ -13,6 +13,8 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -75,6 +77,7 @@ class BluetoothConnectedDevices {
                                             BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
                                         } catch (Exception e) {
                                             Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
+                                            Crashlytics.logException(e);
                                         }
                                         //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEADSET end");
                                         bluetoothHeadsetEnd = true;
@@ -120,6 +123,7 @@ class BluetoothConnectedDevices {
                                             BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
                                         } catch (Exception e) {
                                             Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
+                                            Crashlytics.logException(e);
                                         }
                                         //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEALTH end");
                                         bluetoothHealthEnd = true;
@@ -165,6 +169,7 @@ class BluetoothConnectedDevices {
                                             BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
                                         } catch (Exception e) {
                                             Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
+                                            Crashlytics.logException(e);
                                         }
                                         //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "A2DP end");
                                         bluetoothA2dpEnd = true;
@@ -327,6 +332,7 @@ class BluetoothConnectedDevices {
 
             } catch (Exception e) {
                 Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
+                Crashlytics.logException(e);
             }
         }
     }

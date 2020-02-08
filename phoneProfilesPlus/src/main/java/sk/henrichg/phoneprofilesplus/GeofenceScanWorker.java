@@ -176,6 +176,7 @@ public class GeofenceScanWorker extends Worker {
             //PPApplication.logE("GeofenceScanWorker._scheduleWork", "---------------------------------------- END");
         } catch (Exception e) {
             Log.e("GeofenceScanWorker._scheduleWork", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
         }
     }
 
@@ -214,6 +215,7 @@ public class GeofenceScanWorker extends Worker {
 
             } catch (Exception e) {
                 Log.e("GeofenceScanWorker._cancelWork", Log.getStackTraceString(e));
+                Crashlytics.logException(e);
             }
         }
     }
@@ -260,6 +262,7 @@ public class GeofenceScanWorker extends Worker {
             //PPApplication.logE("GeofenceScanWorker.waitForFinish", "END WAIT FOR FINISH");
         } catch (Exception e) {
             Log.e("GeofenceScanWorker.waitForFinish", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
         }
     }
 
@@ -305,6 +308,7 @@ public class GeofenceScanWorker extends Worker {
             }
         } catch (Exception e) {
             Log.e("GeofenceScanWorker.isWorkRunning", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
             return false;
         }
     }
@@ -334,6 +338,7 @@ public class GeofenceScanWorker extends Worker {
             }
         } catch (Exception e) {
             Log.e("GeofenceScanWorker.isWorkScheduled", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
             return false;
         }
     }

@@ -1691,6 +1691,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 // no error, this is OK
             }*/ catch (Exception e) {
                 Log.e("EditorProfilesActivity.importApplicationPreferences", Log.getStackTraceString(e));
+                Crashlytics.logException(e);
                 res = false;
             }
         }finally {
@@ -2168,6 +2169,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
                             } catch (Exception e) {
                                 Log.e("EditorProfilesActivity.doExportData", Log.getStackTraceString(e));
+                                Crashlytics.logException(e);
                             }
                             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.menu_export));
                             emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -2191,6 +2193,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 startActivity(chooser);
                             } catch (Exception e) {
                                 Log.e("EditorProfilesActivity.doExportData", Log.getStackTraceString(e));
+                                Crashlytics.logException(e);
                             }
                         }
 

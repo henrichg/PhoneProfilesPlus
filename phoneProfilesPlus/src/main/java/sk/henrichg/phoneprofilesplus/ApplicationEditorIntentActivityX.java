@@ -17,6 +17,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -588,6 +590,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
                                 ok = true;
                             } catch (Exception e) {
                                 Log.e("ApplicationEditorIntentActivityX.onCreate.testButtonClick", Log.getStackTraceString(e));
+                                Crashlytics.logException(e);
                             }
                         } else {
                             try {

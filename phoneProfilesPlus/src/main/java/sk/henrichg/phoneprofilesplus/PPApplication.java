@@ -958,6 +958,7 @@ public class PPApplication extends Application /*implements Application.Activity
                 setHiddenApiExemptions.invoke(vmRuntime, new Object[]{new String[]{"L"}});
             } catch (Exception e) {
                 Log.e("PPApplication.onCreate", Log.getStackTraceString(e));
+                Crashlytics.logException(e);
             }
         }
         //////////////////////////////////////////
@@ -1013,6 +1014,7 @@ public class PPApplication extends Application /*implements Application.Activity
                 }
             */
             Log.e("PPPEApplication.onCreate", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
         }
 
         /*
@@ -1266,6 +1268,7 @@ public class PPApplication extends Application /*implements Application.Activity
             buf.close();
         } catch (IOException e) {
             Log.e("PPApplication.logIntoFile", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
         }
     }
 
@@ -2139,6 +2142,7 @@ public class PPApplication extends Application /*implements Application.Activity
             } catch (Exception ignored) {}
         } catch (Exception e) {
             Log.e("PPApplication._isRooted", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
         }
         //if (rooted)
         //	getSUVersion();
@@ -2182,6 +2186,7 @@ public class PPApplication extends Application /*implements Application.Activity
                     }*/
                 } catch (Exception e) {
                     Log.e("PPApplication.isRootGranted", Log.getStackTraceString(e));
+                    Crashlytics.logException(e);
                     //rootMutex.rootGranted = false;
                 }
                 //return rootMutex.rootGranted;
@@ -2372,6 +2377,7 @@ public class PPApplication extends Application /*implements Application.Activity
         }
         catch (Exception e) {
             Log.e("PPApplication.getServicesList", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
         }
 
         /*
@@ -2442,6 +2448,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                 break;
                             } catch (Exception e) {
                                 Log.e("PPApplication.getTransactionCode", Log.getStackTraceString(e));
+                                Crashlytics.logException(e);
                             }
                         }
                     }
@@ -2449,6 +2456,7 @@ public class PPApplication extends Application /*implements Application.Activity
             }
         } catch (ClassNotFoundException e) {
             Log.e("PPApplication.getTransactionCode", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
         }
         return code;
     }
@@ -2497,11 +2505,13 @@ public class PPApplication extends Application /*implements Application.Activity
                     //}
                 } catch (InterruptedException e) {
                     Log.e("PPApplication.commandWait", Log.getStackTraceString(e));
+                    Crashlytics.logException(e);
                 }
             }
         }
         if (!cmd.isFinished()){
             Log.e("PPApplication.commandWait", "Could not finish root command in " + (waitTill/waitTillMultiplier));
+            Crashlytics.log("PPApplication.commandWait - Could not finish root command in " + (waitTill/waitTillMultiplier));
         }
     }
 
@@ -2821,6 +2831,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
         } catch (IOException ex) {
             Log.e("PPApplication.isMIUIROM", Log.getStackTraceString(ex));
+            Crashlytics.logException(ex);
         }
 
         /*if (PPApplication.logEnabled()) {
@@ -2843,6 +2854,7 @@ public class PPApplication extends Application /*implements Application.Activity
             return line;
         } catch (IOException ex) {
             Log.e("PPApplication.getEmuiRomName", Log.getStackTraceString(ex));
+            Crashlytics.logException(ex);
             return "";
         }
     }
@@ -2911,6 +2923,7 @@ public class PPApplication extends Application /*implements Application.Activity
         catch (IOException ex)
         {
             Log.e("PPApplication.getSystemProperty", "Unable to read sysprop " + propName, ex);
+            Crashlytics.logException(ex);
             return null;
         }
         finally
@@ -2924,6 +2937,7 @@ public class PPApplication extends Application /*implements Application.Activity
                 catch (IOException e)
                 {
                     Log.e("PPApplication.getSystemProperty", "Exception while closing InputStream", e);
+                    Crashlytics.logException(e);
                 }
             }
         }
@@ -3042,6 +3056,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
         } catch (Exception e) {
             Log.e("PPApplication._exitApp", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
         }
     }
 

@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.List;
 
 import androidx.preference.ListPreference;
@@ -1054,6 +1056,7 @@ class EventPreferencesNotification extends EventPreferences {
                     }
                 } catch (Exception e) {
                     Log.e("EventPreferencesNotification.isNotificationVisible", Log.getStackTraceString(e));
+                    Crashlytics.logException(e);
                 }
 
                 return false;

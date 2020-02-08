@@ -48,6 +48,7 @@ import android.view.Surface;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 
+import com.crashlytics.android.Crashlytics;
 import com.stericson.RootShell.execution.Command;
 import com.stericson.RootShell.execution.Shell;
 import com.stericson.RootTools.RootTools;
@@ -278,6 +279,7 @@ class ActivateProfileHelper {
                                         wifiManager.setWifiEnabled(isWifiEnabled);
                                 } catch (Exception e) {
                                     Log.e("ActivateProfileHelper.doExecuteForRadios", Log.getStackTraceString(e));
+                                    Crashlytics.logException(e);
                                 }
                                 //try { Thread.sleep(200); } catch (InterruptedException e) { }
                                 //SystemClock.sleep(200);
@@ -419,6 +421,7 @@ class ActivateProfileHelper {
                             //}
                         } catch (Exception e) {
                             Log.e("ActivateProfileHelper.doExecuteForRadio", Log.getStackTraceString(e));
+                            Crashlytics.logException(e);
                         }
                     }
                 }
@@ -930,6 +933,7 @@ class ActivateProfileHelper {
             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_MUSIC, profile.getVolumeMediaValue());
         } catch (SecurityException e) {
             Log.e("ActivateProfileHelper.setMediaVolume", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
             // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
             if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                 try {
@@ -940,6 +944,7 @@ class ActivateProfileHelper {
                 }
                 catch (Exception e2) {
                     Log.e("ActivateProfileHelper.setVolumes", Log.getStackTraceString(e2));
+                    Crashlytics.logException(e2);
                 }
             }
             else {
@@ -956,12 +961,14 @@ class ActivateProfileHelper {
                             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, 0);
                         } catch (Exception ee) {
                             Log.e("ActivateProfileHelper.setMediaVolume", Log.getStackTraceString(ee));
+                            Crashlytics.logException(ee);
                         }
                     }
                 }
             }
         } catch (Exception e3) {
             Log.e("ActivateProfileHelper.setMediaVolume", Log.getStackTraceString(e3));
+            Crashlytics.logException(e3);
         }
     }
 
@@ -1105,6 +1112,7 @@ class ActivateProfileHelper {
                             //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23)");
                         } catch (Exception ee) {
                             Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(ee));
+                            Crashlytics.logException(ee);
 
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                     (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
@@ -1119,6 +1127,7 @@ class ActivateProfileHelper {
                                         //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
                                     } catch (Exception e) {
                                         Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                        Crashlytics.logException(e);
                                     }
                                 }
                             }
@@ -1147,6 +1156,7 @@ class ActivateProfileHelper {
                     catch (Exception e){
                         //Log.e("ActivateProfileHelper.setTones", "TYPE_RINGTONE");
                         Log.e("ActivateProfileHelper.setTones", Log.getStackTraceString(e));
+                        Crashlytics.logException(e);
                     }
                 } else {
                     // selected is None tone
@@ -1352,6 +1362,7 @@ class ActivateProfileHelper {
                                         PPApplication.commandWait(command);
                                     } catch (Exception e) {
                                         Log.e("ActivateProfileHelper.setNotificationLed", Log.getStackTraceString(e));
+                                        Crashlytics.logException(e);
                                     }
                                 }
                             }
@@ -1401,6 +1412,7 @@ class ActivateProfileHelper {
                                             PPApplication.commandWait(command);
                                         } catch (Exception e) {
                                             Log.e("ActivateProfileHelper.setHeadsUpNotifications", Log.getStackTraceString(e));
+                                            Crashlytics.logException(e);
                                         }
                                     }
                                 }
@@ -1453,6 +1465,7 @@ class ActivateProfileHelper {
                                     PPApplication.commandWait(command);
                                 } catch (Exception e) {
                                     Log.e("ActivateProfileHelper.setAlwaysOnDisplay", Log.getStackTraceString(e));
+                                    Crashlytics.logException(e);
                                 }
                             }
                         }
@@ -1808,6 +1821,7 @@ class ActivateProfileHelper {
                                         wallpaperManager.setBitmap(decodedSampleBitmap);
                                 } catch (IOException e) {
                                     Log.e("ActivateProfileHelper.executeForWallpaper", Log.getStackTraceString(e));
+                                    Crashlytics.logException(e);
                                 }
                             }
                         }
@@ -2056,6 +2070,7 @@ class ActivateProfileHelper {
                                 PPApplication.commandWait(command);
                             } catch (Exception e) {
                                 Log.e("ActivateProfileHelper.executeRootForAdaptiveBrightness", Log.getStackTraceString(e));
+                                Crashlytics.logException(e);
                             }
                         }
                     }
@@ -2097,6 +2112,7 @@ class ActivateProfileHelper {
                     } catch (Exception e) {
                         ok = false;
                         Log.e("ActivateProfileHelper.executeForInteractivePreferences", "1. ERROR" + Log.getStackTraceString(e));
+                        Crashlytics.logException(e);
                     }
                     if (!ok) {
                         ok = true;
@@ -2110,6 +2126,7 @@ class ActivateProfileHelper {
                         } catch (Exception e) {
                             ok = false;
                             Log.e("ActivateProfileHelper.executeForInteractivePreferences", "2. ERROR" + Log.getStackTraceString(e));
+                            Crashlytics.logException(e);
                         }
                     }
                     if (!ok) {
@@ -2120,6 +2137,7 @@ class ActivateProfileHelper {
                             //PPApplication.logE("ActivateProfileHelper.executeForInteractivePreferences", "3. OK");
                         } catch (Exception e) {
                             Log.e("ActivateProfileHelper.executeForInteractivePreferences", "3. ERROR" + Log.getStackTraceString(e));
+                            Crashlytics.logException(e);
                         }
                     }
                 }
@@ -2949,6 +2967,7 @@ class ActivateProfileHelper {
                 }
             } catch (Exception e) {
                 Log.e("ActivateProfileHelper.createKeepScreenOnView", Log.getStackTraceString(e));
+                Crashlytics.logException(e);
             }
 
             /*WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
@@ -2996,6 +3015,7 @@ class ActivateProfileHelper {
                 }
             } catch (Exception e) {
                 Log.e("ActivateProfileHelper.removeKeepScreenOnView", Log.getStackTraceString(e));
+                Crashlytics.logException(e);
             }
 
             /*if (PhoneProfilesService.getInstance().keepScreenOnView != null) {
@@ -3385,6 +3405,7 @@ class ActivateProfileHelper {
                                                 PPApplication.commandWait(command);
                                             } catch (Exception e) {
                                                 Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                                                Crashlytics.logException(e);
                                             }
                                         }
                                     }
@@ -3409,6 +3430,7 @@ class ActivateProfileHelper {
                                 PPApplication.commandWait(command);
                             } catch (Exception e) {
                                 Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                                Crashlytics.logException(e);
                             }
                         }
                     }
@@ -3532,6 +3554,7 @@ class ActivateProfileHelper {
                                                     PPApplication.commandWait(command);
                                                 } catch (Exception e) {
                                                     Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
+                                                    Crashlytics.logException(e);
                                                 }
                                             }
                                         }
@@ -3549,6 +3572,7 @@ class ActivateProfileHelper {
                                     PPApplication.commandWait(command);
                                 } catch (Exception e) {
                                     Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
+                                    Crashlytics.logException(e);
                                 }
                             }
                         }
@@ -3572,6 +3596,7 @@ class ActivateProfileHelper {
             return false;
         } catch(Exception e) {
             Log.e("ActivateProfileHelper.wifiServiceExists",Log.getStackTraceString(e));
+            Crashlytics.logException(e);
             return false;
         }
     }
@@ -3637,6 +3662,7 @@ class ActivateProfileHelper {
                                     //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-root command end");
                                 } catch (Exception e) {
                                     Log.e("ActivateProfileHelper.setWifiAP", Log.getStackTraceString(e));
+                                    Crashlytics.logException(e);
                                     //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-root command error");
                                 }
                             }
@@ -3644,6 +3670,7 @@ class ActivateProfileHelper {
                     }
                 } catch (Exception e) {
                     Log.e("ActivateProfileHelper.setWifiAP", Log.getStackTraceString(e));
+                    Crashlytics.logException(e);
                     //PPApplication.logE("$$$ WifiAP", Log.getStackTraceString(e));
                 }
             }
@@ -3678,6 +3705,7 @@ class ActivateProfileHelper {
                         PPApplication.commandWait(command);
                     } catch (Exception e) {
                         Log.e("ActivateProfileHelper.setNFC", Log.getStackTraceString(e));
+                        Crashlytics.logException(e);
                     }
                 }
                 //String command = PPApplication.getJavaCommandFile(CmdNfc.class, "nfc", context, enable);
@@ -3787,6 +3815,7 @@ class ActivateProfileHelper {
                             PPApplication.commandWait(command);
                         } catch (Exception e) {
                             Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
+                            Crashlytics.logException(e);
                             //PPApplication.logE("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
                         }
                     }
@@ -3804,6 +3833,7 @@ class ActivateProfileHelper {
                             PPApplication.commandWait(command);
                         } catch (Exception e) {
                             Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
+                            Crashlytics.logException(e);
                         }
                     }
                 }
@@ -3908,6 +3938,7 @@ class ActivateProfileHelper {
                             Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));*/
                         } catch (Exception e) {
                             Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
+                            Crashlytics.logException(e);
                             //PPApplication.logE("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
                         }
                     }
@@ -3925,6 +3956,7 @@ class ActivateProfileHelper {
                             PPApplication.commandWait(command);
                         } catch (Exception e) {
                             Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
+                            Crashlytics.logException(e);
                         }
                     }
                 }
@@ -3986,6 +4018,7 @@ class ActivateProfileHelper {
                     PPApplication.commandWait(command);
                 } catch (Exception e) {
                     Log.e("ActivateProfileHelper.setAirplaneMode_SDK17", Log.getStackTraceString(e));
+                    Crashlytics.logException(e);
                 }
                 //PPApplication.logE("ActivateProfileHelper.setAirplaneMode_SDK17", "done");
             }
@@ -4058,6 +4091,7 @@ class ActivateProfileHelper {
                                                 PPApplication.commandWait(command);
                                             } catch (Exception e) {
                                                 Log.e("ActivateProfileHelper.setPowerSaveMode", Log.getStackTraceString(e));
+                                                Crashlytics.logException(e);
                                             }
                                         }
                                     }
@@ -4143,6 +4177,7 @@ class ActivateProfileHelper {
                                         Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));*/
                                         } catch (Exception e) {
                                             Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
+                                            Crashlytics.logException(e);
                                         }
                                     }
                                 }

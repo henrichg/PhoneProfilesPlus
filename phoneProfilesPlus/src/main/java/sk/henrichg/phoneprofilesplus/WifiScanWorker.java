@@ -163,6 +163,7 @@ public class WifiScanWorker extends Worker {
             //PPApplication.logE("WifiScanWorker._scheduleWork", "---------------------------------------- END");
         } catch (Exception e) {
             Log.e("WifiScanWorker._scheduleWork", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
         }
     }
 
@@ -204,6 +205,7 @@ public class WifiScanWorker extends Worker {
 
             } catch (Exception e) {
                 Log.e("WifiScanWorker._cancelWork", Log.getStackTraceString(e));
+                Crashlytics.logException(e);
             }
         }
     }
@@ -250,6 +252,7 @@ public class WifiScanWorker extends Worker {
             //PPApplication.logE("WifiScanWorker.waitForFinish", "END WAIT FOR FINISH");
         } catch (Exception e) {
             Log.e("WifiScanWorker.waitForFinish", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
         }
     }
 
@@ -295,6 +298,7 @@ public class WifiScanWorker extends Worker {
             }
         } catch (Exception e) {
             Log.e("WifiScanWorker.isWorkRunning", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
             return false;
         }
     }
@@ -324,6 +328,7 @@ public class WifiScanWorker extends Worker {
             }
         } catch (Exception e) {
             Log.e("WifiScanWorker.isWorkScheduled", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
             return false;
         }
     }
@@ -389,6 +394,7 @@ public class WifiScanWorker extends Worker {
             //PPApplication.logE("$$$ WifiScanWorker.lock","xxx");
         } catch(Exception e) {
             Log.e("WifiScanWorker.lock", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
         }
     }
 
@@ -400,6 +406,7 @@ public class WifiScanWorker extends Worker {
             //PPApplication.logE("$$$ WifiScanWorker.unlock", "xxx");
         } catch(Exception e) {
             Log.e("WifiScanWorker.unlock", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
         }
     }
 
