@@ -561,14 +561,14 @@ public class PhoneProfilesService extends Service
             WorkManager workManager = WorkManager.getInstance(context);
             workManager.cancelAllWorkByTag(name);
         } catch (Exception e) {
-            PPApplication.logE("------------ PhoneProfilesService.cancelWork", Log.getStackTraceString(e));
+            Log.e("------------ PhoneProfilesService.cancelWork", Log.getStackTraceString(e));
             Crashlytics.logException(e);
         }
         try {
             WorkManager workManager = WorkManager.getInstance(context);
             workManager.cancelUniqueWork(name);
         } catch (Exception e) {
-            PPApplication.logE("------------ PhoneProfilesService.cancelWork", Log.getStackTraceString(e));
+            Log.e("------------ PhoneProfilesService.cancelWork", Log.getStackTraceString(e));
             Crashlytics.logException(e);
         }
     }
