@@ -14,7 +14,8 @@
         android:id="@+id/dialog_help_popup_window_linla"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:background="@drawable/cardview_background" >
 
         <include layout="@layout/popup_window_title" />
 

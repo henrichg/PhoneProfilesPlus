@@ -11,16 +11,16 @@
 <!--            <corners android:radius="@dimen/popup_corner_radius" />-->
 <!--        </shape>-->
 <!--    </item>-->
-    <item>
-        <shape android:shape="rectangle">
-            <padding
-                android:bottom="2dp" />
+<!--    <item>-->
+<!--        <shape android:shape="rectangle">-->
+<!--            <padding-->
+<!--                android:bottom="2dp" />-->
 
-            <solid android:color="#80454545" />
+<!--            <solid android:color="#80454545" />-->
 
-            <corners android:radius="@dimen/popup_corner_radius" />
-        </shape>
-    </item>
+<!--            <corners android:radius="@dimen/popup_corner_radius" />-->
+<!--        </shape>-->
+<!--    </item>-->
     <item>
         <shape android:shape="rectangle">
             <padding

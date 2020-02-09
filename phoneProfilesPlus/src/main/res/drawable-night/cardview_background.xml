@@ -2,25 +2,6 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <!-- Drop Shadow Stack -->
-    <!-- alpha 00 is for disabling shadow over popup -->
-<!--    <item>-->
-<!--        <shape android:shape="rectangle">-->
-
-<!--            <solid android:color="#00CCCCCC" />-->
-
-<!--            <corners android:radius="@dimen/popup_corner_radius" />-->
-<!--        </shape>-->
-<!--    </item>-->
-<!--    <item>-->
-<!--        <shape android:shape="rectangle">-->
-<!--            <padding-->
-<!--                android:bottom="2dp" />-->
-
-<!--            <solid android:color="#80CCCCCC" />-->
-
-<!--            <corners android:radius="@dimen/popup_corner_radius" />-->
-<!--        </shape>-->
-<!--    </item>-->
     <item>
         <shape android:shape="rectangle">
             <padding
@@ -29,7 +10,7 @@
                 android:right="1dp"
                 android:top="1dp" />
 
-            <solid android:color="#FFCCCCCC" />
+            <solid android:color="#FF454545" />
 
             <corners android:radius="@dimen/popup_corner_radius" />
         </shape>
