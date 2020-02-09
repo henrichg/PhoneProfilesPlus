@@ -709,7 +709,7 @@
     <string name="event_preference_sensor_bluetooth_summary">Bu Şart, durumun Bluetooth adı tarafından başlangıcı içindir. Değerler: Bağlantı Türü (Civarında, Bağlı iken,…), Taranan cihaz türü (Klasik, Düşük enerji,…), Bluetooth ismi.</string>
     <string name="event_preference_sensor_mobile_cells_summary">Bu Şart, durumun bağlı baz istasyonu direği (şebeke hücresi) tarafından başlangıcı içindir. Değerler: Hücreler, Hücre dışında iken başlama.</string>
     <string name="event_preference_sensor_accessories_summary">Bu Şart, durumun bağlı aksesuarlar (araba yuvası, kablolu eller serbest, kablolu kulaklık,…) tarafından başlangıcı içindir. Değerler: Aksesuar türü.</string>
-    <string name="event_preference_sensor_notification_summary">Bu Şart, durumun uygulamalardan gelen bildirim tarafından başlangıcı içindir. Değerler: Uygulamalar, Kaldırıldığı zaman bitir (Bildirim kaldırılınca durum sonlandırılır), Kalıcı çalışma, Süre (durum çalışma süresi).</string>
+    <string name="event_preference_sensor_notification_summary">Bu Şart, durumun uygulamalardan gelen bildirim tarafından başlangıcı içindir. Değerler: Uygulamalar, Kaldırıldığı zaman bitir (Bildirim kaldırılınca durum sonlandırılır), Kalıcı çalışma, Müddet (durum çalışma müddeti).</string>
     <string name="event_preference_sensor_application_summary">Bu Şart, durumun ön plandaki uygulama tarafından başlangıcı içindir. Değerler: Uygulamalar.</string>
     <string name="event_preference_sensor_orientation_summary">Bu Şart, durumun cihazın yönlendirilmesi tarafından başlangıcı içindir. Değerler: Ekran (Yukarı, Aşağı), İki tarafı (Yatay, yukarı taraf), Yakınlık (Yakın, Uzak; kullanılan yakınlık şartıdır), İhmal edilen uygulamalar (ön plandaki).</string>
     <string name="event_preference_sensor_nfc_summary">Bu Şart, durumun NFC etiketleri tarafından başlangıcı içindir. Değerler: NFC Etiketleri, Kalıcı çalışma, Süre (Durum çalışma süresi).</string>
@@ -792,7 +792,7 @@
     <string name="array_pref_applicationDisableScanning_disabled">Tarama kapalı</string>
     <string name="array_pref_applicationDisableScanning_enabled">Tarama açık</string>
     <string name="duration_pref_dlg_duration_label">Müddet:</string>
-    <string name="duration_pref_dlg_activation_end_label">Faaliyete geçirirdikten sonra:</string>
+    <string name="duration_pref_dlg_activation_end_label">Faaliyete geçirdikten sonra:</string>
     <string name="important_info_profile_zenModeM">Tercih → \"Zil modu\" → \"Rahatsız Etmeyin\" modu için sistem ayarlarında \"Bildirim erişim\" ayarlarında PhoneProfilesPlus\'ın seçilmesi lazımdır. Buraya dokunun ve PhoneProfilesPlus\'ı seçin.</string>
     <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Android 6\'da bu sistem ayarı yalnızca kök erişimi olan (root edilmiş) cihazlarda değiştirilebilir. Etkilenenler zil modları ve titreşimli \"rahatsız etmeyin\" türleridir.</string>
     <string name="setting_screen_not_found_alert">Ayar ekranı bulunamadı.</string>
@@ -1406,7 +1406,7 @@
     <string name="application_is_starting_toast">başlıyor…</string>
     <string name="application_is_started_toast">başladı</string>
     <string name="popupmenu_title_click_below_toast">Bu değeri değiştirmek için aşağıdaki düğmeye dokunun</string>
-    <string name="duration_end_acronym">de</string>
+    <string name="duration_end_acronym">mn</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• tercih değeri \"Zorla durdurulan uygulamalar\"\n• durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>

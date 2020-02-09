@@ -1406,7 +1406,7 @@
     <string name="application_is_starting_toast">запускается…</string>
     <string name="application_is_started_toast">запущено</string>
     <string name="popupmenu_title_click_below_toast">Нажмите ниже, чтобы изменить этот параметр</string>
-    <string name="duration_end_acronym">de</string>
+    <string name="duration_end_acronym">до</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>

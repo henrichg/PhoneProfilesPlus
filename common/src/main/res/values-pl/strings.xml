@@ -1281,14 +1281,14 @@
     <string name="ignore_battery_optimization_notification_title">Konfiguracja optymalizacji baterii</string>
     <string name="ignore_battery_optimization_notification_text">Kliknij tutaj i dodaj PhoneProfilesPlus do \"nieoptymalizowanych\". Jest to wymagane do prawidłowej pracy programu w czasie, gdy ekran jest wyłączony.</string>
     <string name="ignore_battery_optimization_notification_disable_button">Nie pokazuj ponownie</string>
-    <string name="array_show_profile_in_activator_not_show">Do not show</string>
-    <string name="array_show_profile_in_activator_show">Show</string>
+    <string name="array_show_profile_in_activator_not_show">Nie pokazuj</string>
+    <string name="array_show_profile_in_activator_show">Pokazuj</string>
     <string name="editor_activity_targetHelps_showInActivator_title">Pokaż profil w Aktywatorze</string>
     <string name="editor_activity_targetHelps_showInActivator_description">Kliknij tutaj, aby ustawić parametr profilu \"Pokaż w Aktywatorze\".</string>
     <string name="profile_preferences_alwaysOnDisplay">(R) wyświetlacz Always-On</string>
     <string name="permission_why_profile_always_on_display">aby włączyć/wyłączyć wyświetlacz Always-On</string>
-    <string name="array_ignore_manual_activation_not_ignore">Do not ignore</string>
-    <string name="array_ignore_manual_activation_ignore">Ignore</string>
+    <string name="array_ignore_manual_activation_not_ignore">Nie ignoruj</string>
+    <string name="array_ignore_manual_activation_ignore">Ignoruj</string>
     <string name="editor_activity_targetHelps_ignoreManualActivation_title">Ignoruj ręczną aktywację profilu</string>
     <string name="editor_activity_targetHelps_ignoreManualActivation_description">Kliknij tu, aby ustawić parametr zdarzenia \"[»] Ignoruj ręczną aktywację\".</string>
     <string name="editor_activity_targetHelps_trafficLightIcon_title">Ikona \"Sygnalizacja świetlna\"</string>
@@ -1406,8 +1406,8 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="application_is_not_started">nie jest uruchomiona</string>
     <string name="application_is_starting_toast">uruchamia się…</string>
     <string name="application_is_started_toast">jest uruchomiona</string>
-    <string name="popupmenu_title_click_below_toast">Click below to change this parameter</string>
-    <string name="duration_end_acronym">de</string>
+    <string name="popupmenu_title_click_below_toast">Kliknij poniżej, aby zmienić ten parametr</string>
+    <string name="duration_end_acronym">Do</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>

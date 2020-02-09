@@ -57,7 +57,7 @@ public class DonationFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //PPApplication.logE(TAG, "onCreateView");
-        View root = inflater.inflate(R.layout.donation_fragment, container, true);
+        View root = inflater.inflate(R.layout.donation_fragment, container, false);
 
         mLoadingView = root.findViewById(R.id.donation_google_android_market_loading);
 

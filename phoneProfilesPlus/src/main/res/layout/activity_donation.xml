@@ -5,10 +5,11 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="false" >
 
-    <fragment android:id="@+id/donation_activity_container"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:name="sk.henrichg.phoneprofilesplus.DonationFragment"
-              android:tag="donationFragment"/>
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/donation_activity_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="sk.henrichg.phoneprofilesplus.DonationFragment"
+        android:tag="donationFragment"/>
 
 </LinearLayout>

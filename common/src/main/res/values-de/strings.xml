@@ -1406,7 +1406,7 @@
     <string name="application_is_starting_toast">wird gestartet …</string>
     <string name="application_is_started_toast">gestartet</string>
     <string name="popupmenu_title_click_below_toast">Klicken Sie unten, um diesen Parameter zu ändern</string>
-    <string name="duration_end_acronym">de</string>
+    <string name="duration_end_acronym">endet</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>

@@ -3,7 +3,6 @@ package com.codetroopers.betterpickers.numberpicker;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import android.util.Log;
 
 import com.codetroopers.betterpickers.OnDialogDismissListener;
 import com.codetroopers.betterpickers.numberpicker.NumberPickerDialogFragment.NumberPickerDialogHandlerV2;

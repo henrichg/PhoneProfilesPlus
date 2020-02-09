@@ -206,9 +206,9 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_FOR_SCREEN_ON = "for_screen_on";
     //static final String EXTRA_START_LOCATION_UPDATES = "start_location_updates";
     //private static final String EXTRA_STOP_LOCATION_UPDATES = "stop_location_updates";
-    static final String EXTRA_RESTART_EVENTS = "restart_events";
+    //static final String EXTRA_RESTART_EVENTS = "restart_events";
     static final String EXTRA_UNBLOCK_EVENTS_RUN = "unblock_events_run";
-    static final String EXTRA_REACTIVATE_PROFILE = "reactivate_profile";
+    //static final String EXTRA_REACTIVATE_PROFILE = "reactivate_profile";
     static final String EXTRA_LOG_TYPE = "log_type";
     static final String EXTRA_DELAYED_WORK = "delayed_work";
     static final String EXTRA_SENSOR_TYPE = "sensor_type";
@@ -265,7 +265,7 @@ public class PhoneProfilesService extends Service
     private final BroadcastReceiver stopReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            PPApplication.logE("PhoneProfilesService.stopReceiver", "xxx");
+            //PPApplication.logE("PhoneProfilesService.stopReceiver", "xxx");
             try {
                 //noinspection deprecation
                 context.removeStickyBroadcast(intent);
@@ -4280,7 +4280,7 @@ public class PhoneProfilesService extends Service
                                     break;
                             }
                         }
-                        else
+                        /*else
                         if (intent.getBooleanExtra(EXTRA_RESTART_EVENTS, false)) {
                             PPApplication.logE("$$$ PhoneProfilesService.doCommand", "EXTRA_RESTART_EVENTS");
                             final boolean unblockEventsRun = intent.getBooleanExtra(EXTRA_UNBLOCK_EVENTS_RUN, false);
@@ -4290,7 +4290,7 @@ public class PhoneProfilesService extends Service
                             //dataWrapper.restartEvents(unblockEventsRun, true, reactivateProfile, false, false);
                             dataWrapper.restartEventsWithRescan(unblockEventsRun, false, false, false);
                             //dataWrapper.invalidateDataWrapper();
-                        }
+                        }*/
 
                         //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "--- END");
 
@@ -5147,7 +5147,7 @@ public class PhoneProfilesService extends Service
 
         if (clear || refresh || ((now - PPApplication.lastRefreshOfProfileNotification) >= PPApplication.DURATION_FOR_GUI_REFRESH))
         {
-            PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","refresh");
+            //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","refresh");
 
             final boolean _clear = clear;
             PPApplication.startHandlerThreadProfileNotification();
@@ -5164,7 +5164,7 @@ public class PhoneProfilesService extends Service
             });
         }
         else {
-            PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","do not refresh");
+            //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","do not refresh");
 
             ShowProfileNotificationBroadcastReceiver.setAlarm(getApplicationContext());
         }

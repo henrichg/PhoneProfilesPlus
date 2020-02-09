@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.fragment.app.FragmentContainerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/shortcut_creator_list"
     android:name="sk.henrichg.phoneprofilesplus.ShortcutCreatorListFragment"

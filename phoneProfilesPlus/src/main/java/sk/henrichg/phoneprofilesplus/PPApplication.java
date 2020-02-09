@@ -2725,15 +2725,16 @@ public class PPApplication extends Application /*implements Application.Activity
         } catch (Exception ignored) {}
     }
 
+/*
     public static void restartEvents(Context context, boolean unblockEventsRun, boolean reactivateProfile) {
         try {
             //PPApplication.logE("[RJS] PPApplication.restartEvents", "xxx");
-            /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_RESTART_EVENTS, true);
-            serviceIntent.putExtra(PostDelayedBroadcastReceiver.EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun);
-            serviceIntent.putExtra(PostDelayedBroadcastReceiver.EXTRA_REACTIVATE_PROFILE, reactivateProfile);
-            PPApplication.startPPService(context, serviceIntent);*/
+//            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+//            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+//            serviceIntent.putExtra(PhoneProfilesService.EXTRA_RESTART_EVENTS, true);
+//            serviceIntent.putExtra(PostDelayedBroadcastReceiver.EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun);
+//            serviceIntent.putExtra(PostDelayedBroadcastReceiver.EXTRA_REACTIVATE_PROFILE, reactivateProfile);
+//            PPApplication.startPPService(context, serviceIntent);
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_RESTART_EVENTS, true);
@@ -2742,7 +2743,7 @@ public class PPApplication extends Application /*implements Application.Activity
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception ignored) {}
     }
-
+*/
     //---------------------------------------------------------------
 
     // others ------------------------------------------------------------------

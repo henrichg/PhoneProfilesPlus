@@ -1281,14 +1281,14 @@
     <string name="ignore_battery_optimization_notification_title">Batterij optimalisatie configuratie</string>
     <string name="ignore_battery_optimization_notification_text">Klik hier en voeg PhoneProfilesPlus toe aan \"Niet geoptimaliseerd\". Dit is nodig om PhoneProfilesPlus goed te laten werken met het scherm uit.</string>
     <string name="ignore_battery_optimization_notification_disable_button">Niet opnieuw weergeven</string>
-    <string name="array_show_profile_in_activator_not_show">Do not show</string>
-    <string name="array_show_profile_in_activator_show">Show</string>
+    <string name="array_show_profile_in_activator_not_show">Niet weergeven</string>
+    <string name="array_show_profile_in_activator_show">Weergeven</string>
     <string name="editor_activity_targetHelps_showInActivator_title">Profiel in Activator weergeven</string>
     <string name="editor_activity_targetHelps_showInActivator_description">Klik hier om de profielparamer \"Zichtbaar in Activator\" te configureren.</string>
     <string name="profile_preferences_alwaysOnDisplay">(R) Altijd aan schermweergave</string>
     <string name="permission_why_profile_always_on_display">voor in- of uitschakelen van Altijd aan schermweergave</string>
-    <string name="array_ignore_manual_activation_not_ignore">Do not ignore</string>
-    <string name="array_ignore_manual_activation_ignore">Ignore</string>
+    <string name="array_ignore_manual_activation_not_ignore">Niet negeren</string>
+    <string name="array_ignore_manual_activation_ignore">Negeren</string>
     <string name="editor_activity_targetHelps_ignoreManualActivation_title">Handmatig activeren negeren</string>
     <string name="editor_activity_targetHelps_ignoreManualActivation_description">Klik hier om de event parameter \"[»] Negeren handmatige activeren\" in te stellen.</string>
     <string name="editor_activity_targetHelps_trafficLightIcon_title">\"Verkeerslicht\" icoon</string>
@@ -1405,8 +1405,8 @@
     <string name="application_is_not_started">is niet gestart</string>
     <string name="application_is_starting_toast">start…</string>
     <string name="application_is_started_toast">is gestart</string>
-    <string name="popupmenu_title_click_below_toast">Click below to change this parameter</string>
-    <string name="duration_end_acronym">de</string>
+    <string name="popupmenu_title_click_below_toast">Klik hieronder om deze parameter te wijzigen</string>
+    <string name="duration_end_acronym">nl</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>

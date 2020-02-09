@@ -59,7 +59,7 @@
         android:layout_height="match_parent"
         android:foreground="?android:windowContentOverlay">
 
-        <fragment
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/activate_profile_list"
             android:name="sk.henrichg.phoneprofilesplus.ActivateProfileListFragment"
             android:layout_width="match_parent"
