@@ -99,7 +99,7 @@
                     android:textSize="16sp"
                     android:id="@+id/event_status_popup_window_text6"
                     android:drawableStart="?attr/eventStopStatusIndicator"
-                    android:drawablePadding="4dp" />
+                    android:drawablePadding="6dp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
