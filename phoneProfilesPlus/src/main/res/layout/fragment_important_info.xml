@@ -634,7 +634,7 @@
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_event_states_manual_profile_activation"
             android:drawableStart="@drawable/ic_event_status_pause_manual_activation"
-            android:drawablePadding="4dp" />
+            android:drawablePadding="6dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -643,7 +643,7 @@
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_event_states_running"
             android:drawableStart="@drawable/ic_event_status_running"
-            android:drawablePadding="4dp" />
+            android:drawablePadding="6dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -652,7 +652,7 @@
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_event_states_paused"
             android:drawableStart="@drawable/ic_event_status_pause"
-            android:drawablePadding="4dp" />
+            android:drawablePadding="6dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -661,7 +661,7 @@
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_event_states_paused_delay"
             android:drawableStart="@drawable/ic_event_status_pause_delay"
-            android:drawablePadding="4dp" />
+            android:drawablePadding="6dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -670,7 +670,7 @@
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_event_states_running_delay"
             android:drawableStart="@drawable/ic_event_status_running_delay"
-            android:drawablePadding="4dp" />
+            android:drawablePadding="6dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

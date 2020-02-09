@@ -54,7 +54,7 @@
                     android:textSize="16sp"
                     android:id="@+id/event_status_popup_window_text8"
                     android:drawableStart="@drawable/ic_event_status_pause_manual_activation"
-                    android:drawablePadding="4dp" />
+                    android:drawablePadding="6dp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
                     android:textSize="16sp"
                     android:id="@+id/event_status_popup_window_text2"
                     android:drawableStart="@drawable/ic_event_status_running"
-                    android:drawablePadding="4dp" />
+                    android:drawablePadding="6dp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
                     android:textSize="16sp"
                     android:id="@+id/event_status_popup_window_text3"
                     android:drawableStart="@drawable/ic_event_status_pause"
-                    android:drawablePadding="4dp" />
+                    android:drawablePadding="6dp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
                     android:textSize="16sp"
                     android:id="@+id/event_status_popup_window_text4"
                     android:drawableStart="@drawable/ic_event_status_pause_delay"
-                    android:drawablePadding="4dp" />
+                    android:drawablePadding="6dp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
                     android:textSize="16sp"
                     android:id="@+id/event_status_popup_window_text5"
                     android:drawableStart="@drawable/ic_event_status_running_delay"
-                    android:drawablePadding="4dp" />
+                    android:drawablePadding="6dp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
