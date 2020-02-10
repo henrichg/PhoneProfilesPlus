@@ -1,11 +1,14 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class ExitApplicationActivity extends AppCompatActivity {
 
@@ -37,18 +40,29 @@ public class ExitApplicationActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 //PPApplication.logE("ExitApplicationActivity.onStart", "exit");
 
-                IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(getApplicationContext(), true);
-                SharedPreferences settings = ApplicationPreferences.getSharedPreferences(getApplicationContext());
+                Context appContext = getApplicationContext();
+
+                IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(appContext, true);
+                SharedPreferences settings = ApplicationPreferences.getSharedPreferences(appContext);
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
                 editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
                 editor.apply();
-                ApplicationPreferences.applicationEventNeverAskForEnableRun(getApplicationContext());
-                ApplicationPreferences.applicationNeverAskForGrantRoot(getApplicationContext());
+                ApplicationPreferences.applicationEventNeverAskForEnableRun(appContext);
+                ApplicationPreferences.applicationNeverAskForGrantRoot(appContext);
 
-                DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
+                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
                 //PPApplication.logE("PPApplication.exitApp", "from ExitApplicationActivity.onStart shutdown=false");
-                PPApplication.exitApp(true, getApplicationContext(), dataWrapper, ExitApplicationActivity.this, false/*, true, true*/);
+                PPApplication.exitApp(true, appContext, dataWrapper, ExitApplicationActivity.this, false/*, true, true*/);
+
+                // close activities
+                Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
+                intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, "activator");
+                appContext.sendBroadcast(intent);
+                intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
+                intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, "editor");
+                appContext.sendBroadcast(intent);
+
             }
         });
         dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
