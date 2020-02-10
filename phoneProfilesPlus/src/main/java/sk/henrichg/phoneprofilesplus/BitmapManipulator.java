@@ -44,16 +44,36 @@ class BitmapManipulator {
         if (uri != null) {
             try {
                 ContentResolver contentResolver = context.getContentResolver();
+
+                boolean ok = false;
+
                 //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 try {
                     context.grantUriPermission(context.getPackageName(), uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                     contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    ok = true;
                 } catch (Exception e) {
+                    // java.lang.SecurityException: UID 10157 does not have permission to
+                    // content://com.android.externalstorage.documents/document/93ED-1CEC%3AMirek%2Fmobil%2F.obr%C3%A1zek%2Fblack.jpg
+                    // [user 0]; you could obtain access using ACTION_OPEN_DOCUMENT or related APIs
                     Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
                     Crashlytics.logException(e);
                 }
+                if (!ok)
+                    return null;
                 //}
-                InputStream inputStream = context.getContentResolver().openInputStream(uri);
+
+                ok = false;
+                InputStream inputStream = null;
+                try {
+                    // check if bitmap format is supported or if exists
+                    inputStream = context.getContentResolver().openInputStream(uri);
+                    ok = true;
+                } catch (Exception ignored) {}
+                if (!ok)
+                    return null;
+
+                // bitmap format is supported and exists
                 final BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inJustDecodeBounds = true;
                 BitmapFactory.decodeStream(inputStream, null, options);
@@ -82,9 +102,9 @@ class BitmapManipulator {
                         //noinspection SuspiciousNameCombination
                         rotatedHeight = width;
                     } /*else {
-                        rotatedWidth = width;
-                        rotatedHeight = height;
-                    }*/
+                    rotatedWidth = width;
+                    rotatedHeight = height;
+                }*/
                 }
 
                 Bitmap decodedSampleBitmap;
@@ -113,9 +133,9 @@ class BitmapManipulator {
                     //PPApplication.logE("---- BitmapManipulator.resampleBitmapUri", "decodedSampleBitmap="+decodedSampleBitmap);
                 }
                 return decodedSampleBitmap;
-            } catch (Exception e) {
-                Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
-                Crashlytics.logException(e);
+            } catch (Exception ee) {
+                Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(ee));
+                Crashlytics.logException(ee);
                 return null;
             }
         }

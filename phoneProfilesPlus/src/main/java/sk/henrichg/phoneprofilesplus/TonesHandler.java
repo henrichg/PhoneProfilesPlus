@@ -31,8 +31,7 @@ class TonesHandler {
     static final String NOTIFICATION_TONE_URI_NONE = "content://settings/system/notification_sound";
     private static final String ALARM_TONE_URI_NONE = "content://settings/system/alarm_alert";
 
-    static String getPhoneProfilesSilentUri(Context context,
-                                            @SuppressWarnings("SameParameterValue") int type) {
+    static String getPhoneProfilesSilentUri(Context context, int type) {
         try {
             RingtoneManager manager = new RingtoneManager(context);
             manager.setType(type);
@@ -54,8 +53,10 @@ class TonesHandler {
                     return uriId;
             }
         } catch (Exception e) {
-            Log.e("TonesHandler.getPhoneProfilesSilentNotificationUri", Log.getStackTraceString(e));
-            Crashlytics.logException(e);
+            // FC in manager.getCursor() for RingtoneManager.TYPE_NOTIFICATION.
+            // Nokia 8 (HMD Global), hm
+            //Log.e("TonesHandler.getPhoneProfilesSilentNotificationUri", Log.getStackTraceString(e));
+            //Crashlytics.logException(e);
         }
         return "";
     }
