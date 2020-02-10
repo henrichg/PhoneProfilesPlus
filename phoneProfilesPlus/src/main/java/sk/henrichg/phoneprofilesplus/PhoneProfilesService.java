@@ -4009,6 +4009,7 @@ public class PhoneProfilesService extends Service
 
                 } catch (Exception eee) {
                     PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", Log.getStackTraceString(eee));
+                    Crashlytics.logException(eee);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {

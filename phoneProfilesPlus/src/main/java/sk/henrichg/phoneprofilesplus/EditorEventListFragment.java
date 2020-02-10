@@ -1627,9 +1627,7 @@ public class EditorEventListFragment extends Fragment
             Method method = cls.getDeclaredMethod("setForceShowIcon", new Class[]{boolean.class});
             method.setAccessible(true);
             method.invoke(menuPopupHelper, new Object[]{true});
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception ignored) {}
 
         final Event event = (Event)view.getTag();
 

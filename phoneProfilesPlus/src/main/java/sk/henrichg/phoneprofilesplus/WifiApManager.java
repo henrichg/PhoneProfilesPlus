@@ -95,7 +95,7 @@ final class WifiApManager {
             wifiApConfigurationMethod.setAccessible(true);
             return (WifiConfiguration)wifiApConfigurationMethod.invoke(mWifiManager/*, null*/);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Log.e("$$$ WifiAP", "WifiApManager.getWifiApConfiguration-exception="+e);
             Crashlytics.logException(e);
