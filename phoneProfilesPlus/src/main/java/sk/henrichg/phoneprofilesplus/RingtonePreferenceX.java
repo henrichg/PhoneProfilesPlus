@@ -317,24 +317,27 @@ public class RingtonePreferenceX extends DialogPreference {
                     try {
                         stopPlayRingtone();
 
-                        RingerModeChangeReceiver.internalChange = true;
-
-                        if (mediaPlayer == null)
-                            mediaPlayer = new MediaPlayer();
-                        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-
                         Context appContext = prefContext.getApplicationContext();
 
                         if (TonesHandler.isPhoneProfilesSilent(_ringtoneUri, appContext)) {
-                            String filename = appContext.getResources().getResourceEntryName(TonesHandler.TONE_ID) + ".ogg";
-                            File soundFile = new File(appContext.getFilesDir(), filename);
+                            //String filename = appContext.getResources().getResourceEntryName(TonesHandler.TONE_ID) + ".ogg";
+                            //File soundFile = new File(appContext.getFilesDir(), filename);
                             // /data/user/0/sk.henrichg.phoneprofilesplus/files
                             //PPApplication.logE("RingtonePreferenceX.playRingtone", "soundFile=" + soundFile);
-                            mediaPlayer.setDataSource(soundFile.getAbsolutePath());
+                            //mediaPlayer.setDataSource(soundFile.getAbsolutePath());
+                            Log.e("RingtonePreferenceX.playRingtone", "phoneprofiles_silent.ogg");
+                            return;
                         }
-                        else
-                            mediaPlayer.setDataSource(appContext, _ringtoneUri);
+                        else {
+                            if (mediaPlayer == null)
+                                mediaPlayer = new MediaPlayer();
 
+                            mediaPlayer.setDataSource(appContext, _ringtoneUri);
+                        }
+
+                        RingerModeChangeReceiver.internalChange = true;
+
+                        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
                         mediaPlayer.prepare();
                         mediaPlayer.setLooping(false);
 

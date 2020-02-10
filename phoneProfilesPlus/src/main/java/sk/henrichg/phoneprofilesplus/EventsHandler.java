@@ -601,7 +601,8 @@ class EventsHandler {
                                         // activate default profile when is not activated profile at end of events
                                         ((!activateProfileAtEnd || ((mergedProfile._id != 0) && (mergedPausedProfile._id == 0))) &&
                                                 (activatedProfileId != backgroundProfileId))
-                                ) {
+                                )
+                                {
                                     notifyBackgroundProfile = true;
                                     mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper/*, false*/);
                                     //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
