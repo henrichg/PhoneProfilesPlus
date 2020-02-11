@@ -1118,6 +1118,7 @@ public class Profile {
 
     void mergeProfiles(long withProfileId, DataWrapper dataWrapper/*, boolean setDuration*/)
     {
+        //PPApplication.logE("$$$ Profile.mergeProfiles","_id="+_id);
         //PPApplication.logE("$$$ Profile.mergeProfiles","withProfileId="+withProfileId);
 
         Profile withProfile = dataWrapper.getProfileById(withProfileId, false, false, false);
@@ -1140,231 +1141,236 @@ public class Profile {
         */
 
         if (withProfile != null) {
-            this._id = withProfile._id;
-            this._name = withProfile._name;
-            this._icon = withProfile._icon;
-            this._iconBitmap = withProfile._iconBitmap;
-            this._preferencesIndicator = withProfile._preferencesIndicator;
-            if (!withProfile._askForDuration/* && setDuration*/) {
-                this._duration = withProfile._duration;
-                this._afterDurationDo = withProfile._afterDurationDo;
-                this._afterDurationProfile = withProfile._afterDurationProfile;
+            if (this._id == 0) {
+                // copy all data from withProfile when this profile is initialized
+                copyProfile(withProfile);
             }
             else {
-                this._duration = 0;
-                this._afterDurationDo = AFTER_DURATION_DO_RESTART_EVENTS;
-                this._afterDurationProfile = PROFILE_NO_ACTIVATE;
-            }
-            this._durationNotificationSound = withProfile._durationNotificationSound;
-            this._durationNotificationVibrate = withProfile._durationNotificationVibrate;
-            this._hideStatusBarIcon = withProfile._hideStatusBarIcon;
-            this._deviceConnectToSSID = withProfile._deviceConnectToSSID;
-            this._activationByUserCount = withProfile._activationByUserCount;
+                this._id = withProfile._id;
+                this._name = withProfile._name;
+                this._icon = withProfile._icon;
+                this._iconBitmap = withProfile._iconBitmap;
+                this._preferencesIndicator = withProfile._preferencesIndicator;
+                if (!withProfile._askForDuration/* && setDuration*/) {
+                    this._duration = withProfile._duration;
+                    this._afterDurationDo = withProfile._afterDurationDo;
+                    this._afterDurationProfile = withProfile._afterDurationProfile;
+                } else {
+                    this._duration = 0;
+                    this._afterDurationDo = AFTER_DURATION_DO_RESTART_EVENTS;
+                    this._afterDurationProfile = PROFILE_NO_ACTIVATE;
+                }
+                this._durationNotificationSound = withProfile._durationNotificationSound;
+                this._durationNotificationVibrate = withProfile._durationNotificationVibrate;
+                this._hideStatusBarIcon = withProfile._hideStatusBarIcon;
+                this._deviceConnectToSSID = withProfile._deviceConnectToSSID;
+                this._activationByUserCount = withProfile._activationByUserCount;
 
-            if (withProfile._volumeRingerMode != 0) {
-                this._volumeRingerMode = withProfile._volumeRingerMode;
-                // also look at ProfilesPrefsFragment.disableDependedPref()
-                if (withProfile._volumeZenMode != 0) {
-                    this._volumeZenMode = withProfile._volumeZenMode;
+                if (withProfile._volumeRingerMode != 0) {
+                    this._volumeRingerMode = withProfile._volumeRingerMode;
+                    // also look at ProfilesPrefsFragment.disableDependedPref()
+                    if (withProfile._volumeZenMode != 0) {
+                        this._volumeZenMode = withProfile._volumeZenMode;
                     /*if ((this._volumeRingerMode == 5) && ((this._volumeZenMode == 1) || (this._volumeZenMode == 2))){
                         if (withProfile._vibrateWhenRinging != 0)
                             this._vibrateWhenRinging = withProfile._vibrateWhenRinging;
                     }*/
+                    }
+                    if (withProfile._vibrateWhenRinging != 0)
+                        this._vibrateWhenRinging = withProfile._vibrateWhenRinging;
                 }
-                if (withProfile._vibrateWhenRinging != 0)
-                    this._vibrateWhenRinging = withProfile._vibrateWhenRinging;
-            }
-            if (withProfile.getVolumeRingtoneChange())
-                this._volumeRingtone = withProfile._volumeRingtone;
-            if (withProfile.getVolumeNotificationChange())
-                this._volumeNotification = withProfile._volumeNotification;
-            if (withProfile.getVolumeAlarmChange())
-                this._volumeAlarm = withProfile._volumeAlarm;
-            if (withProfile.getVolumeMediaChange())
-                this._volumeMedia = withProfile._volumeMedia;
-            if (withProfile.getVolumeSystemChange())
-                this._volumeSystem = withProfile._volumeSystem;
-            if (withProfile.getVolumeVoiceChange())
-                this._volumeVoice = withProfile._volumeVoice;
-            if (withProfile._soundRingtoneChange != 0) {
-                this._soundRingtoneChange = withProfile._soundRingtoneChange;
-                this._soundRingtone = withProfile._soundRingtone;
-            }
-            if (withProfile._soundNotificationChange != 0) {
-                this._soundNotificationChange = withProfile._soundNotificationChange;
-                this._soundNotification = withProfile._soundNotification;
-            }
-            if (withProfile._soundAlarmChange != 0) {
-                this._soundAlarmChange = withProfile._soundAlarmChange;
-                this._soundAlarm = withProfile._soundAlarm;
-            }
-            if (withProfile._deviceAirplaneMode != 0) {
-                if (withProfile._deviceAirplaneMode != 3) // toggle
-                    this._deviceAirplaneMode = withProfile._deviceAirplaneMode;
-                else {
-                    if (this._deviceAirplaneMode == 1)
-                        this._deviceAirplaneMode = 2;
-                    else if (this._deviceAirplaneMode == 2)
-                        this._deviceAirplaneMode = 1;
+                if (withProfile.getVolumeRingtoneChange())
+                    this._volumeRingtone = withProfile._volumeRingtone;
+                if (withProfile.getVolumeNotificationChange())
+                    this._volumeNotification = withProfile._volumeNotification;
+                if (withProfile.getVolumeAlarmChange())
+                    this._volumeAlarm = withProfile._volumeAlarm;
+                if (withProfile.getVolumeMediaChange())
+                    this._volumeMedia = withProfile._volumeMedia;
+                if (withProfile.getVolumeSystemChange())
+                    this._volumeSystem = withProfile._volumeSystem;
+                if (withProfile.getVolumeVoiceChange())
+                    this._volumeVoice = withProfile._volumeVoice;
+                if (withProfile._soundRingtoneChange != 0) {
+                    this._soundRingtoneChange = withProfile._soundRingtoneChange;
+                    this._soundRingtone = withProfile._soundRingtone;
                 }
-            }
-            if (withProfile._deviceAutoSync != 0) {
-                if (withProfile._deviceAutoSync != 3) // toggle
-                    this._deviceAutoSync = withProfile._deviceAutoSync;
-                else {
-                    if (this._deviceAutoSync == 1)
-                        this._deviceAutoSync = 2;
-                    else if (this._deviceAutoSync == 2)
-                        this._deviceAutoSync = 1;
+                if (withProfile._soundNotificationChange != 0) {
+                    this._soundNotificationChange = withProfile._soundNotificationChange;
+                    this._soundNotification = withProfile._soundNotification;
                 }
-            }
-            if (withProfile._deviceMobileData != 0) {
-                if (withProfile._deviceMobileData != 3) // toggle
-                    this._deviceMobileData = withProfile._deviceMobileData;
-                else {
-                    if (this._deviceMobileData == 1)
-                        this._deviceMobileData = 2;
-                    else if (this._deviceMobileData == 2)
-                        this._deviceMobileData = 1;
+                if (withProfile._soundAlarmChange != 0) {
+                    this._soundAlarmChange = withProfile._soundAlarmChange;
+                    this._soundAlarm = withProfile._soundAlarm;
                 }
-            }
-            if (withProfile._deviceMobileDataPrefs != 0)
-                this._deviceMobileDataPrefs = withProfile._deviceMobileDataPrefs;
-            if (withProfile._deviceWiFi != 0) {
-                if (withProfile._deviceWiFi != 3) // toggle
-                    this._deviceWiFi = withProfile._deviceWiFi;
-                else {
-                    if (this._deviceWiFi == 1)
-                        this._deviceWiFi = 2;
-                    else if (this._deviceWiFi == 2)
-                        this._deviceWiFi = 1;
+                if (withProfile._deviceAirplaneMode != 0) {
+                    if (withProfile._deviceAirplaneMode != 3) // toggle
+                        this._deviceAirplaneMode = withProfile._deviceAirplaneMode;
+                    else {
+                        if (this._deviceAirplaneMode == 1)
+                            this._deviceAirplaneMode = 2;
+                        else if (this._deviceAirplaneMode == 2)
+                            this._deviceAirplaneMode = 1;
+                    }
                 }
-            }
-            if (withProfile._deviceBluetooth != 0) {
-                if (withProfile._deviceBluetooth != 3) // toggle
-                    this._deviceBluetooth = withProfile._deviceBluetooth;
-                else {
-                    if (this._deviceBluetooth == 1)
-                        this._deviceBluetooth = 2;
-                    else if (this._deviceBluetooth == 2)
-                        this._deviceBluetooth = 1;
+                if (withProfile._deviceAutoSync != 0) {
+                    if (withProfile._deviceAutoSync != 3) // toggle
+                        this._deviceAutoSync = withProfile._deviceAutoSync;
+                    else {
+                        if (this._deviceAutoSync == 1)
+                            this._deviceAutoSync = 2;
+                        else if (this._deviceAutoSync == 2)
+                            this._deviceAutoSync = 1;
+                    }
                 }
-            }
-            if (withProfile._deviceGPS != 0) {
-                if (withProfile._deviceGPS != 3) // toggle
-                    this._deviceGPS = withProfile._deviceGPS;
-                else {
-                    if (this._deviceGPS == 1)
-                        this._deviceGPS = 2;
-                    else if (this._deviceGPS == 2)
-                        this._deviceGPS = 1;
+                if (withProfile._deviceMobileData != 0) {
+                    if (withProfile._deviceMobileData != 3) // toggle
+                        this._deviceMobileData = withProfile._deviceMobileData;
+                    else {
+                        if (this._deviceMobileData == 1)
+                            this._deviceMobileData = 2;
+                        else if (this._deviceMobileData == 2)
+                            this._deviceMobileData = 1;
+                    }
                 }
-            }
-            if (withProfile._deviceLocationServicePrefs != 0)
-                this._deviceLocationServicePrefs = withProfile._deviceLocationServicePrefs;
-            if (withProfile._deviceScreenTimeout != 0)
-                this._deviceScreenTimeout = withProfile._deviceScreenTimeout;
-            if (withProfile.getDeviceBrightnessChange())
-                this._deviceBrightness = withProfile._deviceBrightness;
-            if (withProfile._deviceAutoRotate != 0)
-                this._deviceAutoRotate = withProfile._deviceAutoRotate;
-            if (withProfile._deviceRunApplicationChange != 0) {
-                this._deviceRunApplicationChange = 1;
-                if (this._deviceRunApplicationPackageName.isEmpty())
-                    this._deviceRunApplicationPackageName = withProfile._deviceRunApplicationPackageName;
-                else
-                    this._deviceRunApplicationPackageName = this._deviceRunApplicationPackageName + "|" +
-                            withProfile._deviceRunApplicationPackageName;
-            }
-            if (withProfile._deviceWallpaperChange != 0) {
-                this._deviceWallpaperChange = 1;
-                this._deviceWallpaper = withProfile._deviceWallpaper;
-                this._deviceWallpaperFor = withProfile._deviceWallpaperFor;
-            }
-            if (withProfile._volumeSpeakerPhone != 0)
-                this._volumeSpeakerPhone = withProfile._volumeSpeakerPhone;
-            if (withProfile._deviceNFC != 0) {
-                if (withProfile._deviceNFC != 3) // toggle
-                    this._deviceNFC = withProfile._deviceNFC;
-                else {
-                    if (this._deviceNFC == 1)
-                        this._deviceNFC = 2;
-                    else if (this._deviceNFC == 2)
-                        this._deviceNFC = 1;
+                if (withProfile._deviceMobileDataPrefs != 0)
+                    this._deviceMobileDataPrefs = withProfile._deviceMobileDataPrefs;
+                if (withProfile._deviceWiFi != 0) {
+                    if (withProfile._deviceWiFi != 3) // toggle
+                        this._deviceWiFi = withProfile._deviceWiFi;
+                    else {
+                        if (this._deviceWiFi == 1)
+                            this._deviceWiFi = 2;
+                        else if (this._deviceWiFi == 2)
+                            this._deviceWiFi = 1;
+                    }
                 }
-            }
-            if (withProfile._deviceKeyguard != 0)
-                this._deviceKeyguard = withProfile._deviceKeyguard;
-            if (withProfile._vibrationOnTouch != 0)
-                this._vibrationOnTouch = withProfile._vibrationOnTouch;
-            if (withProfile._deviceWiFiAP != 0) {
-                if (withProfile._deviceWiFiAP != 3) // toggle
-                    this._deviceWiFiAP = withProfile._deviceWiFiAP;
-                else {
-                    if (this._deviceWiFiAP == 1)
-                        this._deviceWiFiAP = 2;
-                    else if (this._deviceWiFiAP == 2)
-                        this._deviceWiFiAP = 1;
+                if (withProfile._deviceBluetooth != 0) {
+                    if (withProfile._deviceBluetooth != 3) // toggle
+                        this._deviceBluetooth = withProfile._deviceBluetooth;
+                    else {
+                        if (this._deviceBluetooth == 1)
+                            this._deviceBluetooth = 2;
+                        else if (this._deviceBluetooth == 2)
+                            this._deviceBluetooth = 1;
+                    }
                 }
-            }
-            if (withProfile._devicePowerSaveMode != 0) {
-                if (withProfile._devicePowerSaveMode != 3) // toggle
-                    this._devicePowerSaveMode = withProfile._devicePowerSaveMode;
-                else {
-                    if (this._devicePowerSaveMode == 1)
-                        this._devicePowerSaveMode = 2;
-                    else if (this._devicePowerSaveMode == 2)
-                        this._devicePowerSaveMode = 1;
+                if (withProfile._deviceGPS != 0) {
+                    if (withProfile._deviceGPS != 3) // toggle
+                        this._deviceGPS = withProfile._deviceGPS;
+                    else {
+                        if (this._deviceGPS == 1)
+                            this._deviceGPS = 2;
+                        else if (this._deviceGPS == 2)
+                            this._deviceGPS = 1;
+                    }
                 }
+                if (withProfile._deviceLocationServicePrefs != 0)
+                    this._deviceLocationServicePrefs = withProfile._deviceLocationServicePrefs;
+                if (withProfile._deviceScreenTimeout != 0)
+                    this._deviceScreenTimeout = withProfile._deviceScreenTimeout;
+                if (withProfile.getDeviceBrightnessChange())
+                    this._deviceBrightness = withProfile._deviceBrightness;
+                if (withProfile._deviceAutoRotate != 0)
+                    this._deviceAutoRotate = withProfile._deviceAutoRotate;
+                if (withProfile._deviceRunApplicationChange != 0) {
+                    this._deviceRunApplicationChange = 1;
+                    if (this._deviceRunApplicationPackageName.isEmpty())
+                        this._deviceRunApplicationPackageName = withProfile._deviceRunApplicationPackageName;
+                    else
+                        this._deviceRunApplicationPackageName = this._deviceRunApplicationPackageName + "|" +
+                                withProfile._deviceRunApplicationPackageName;
+                }
+                if (withProfile._deviceWallpaperChange != 0) {
+                    this._deviceWallpaperChange = 1;
+                    this._deviceWallpaper = withProfile._deviceWallpaper;
+                    this._deviceWallpaperFor = withProfile._deviceWallpaperFor;
+                }
+                if (withProfile._volumeSpeakerPhone != 0)
+                    this._volumeSpeakerPhone = withProfile._volumeSpeakerPhone;
+                if (withProfile._deviceNFC != 0) {
+                    if (withProfile._deviceNFC != 3) // toggle
+                        this._deviceNFC = withProfile._deviceNFC;
+                    else {
+                        if (this._deviceNFC == 1)
+                            this._deviceNFC = 2;
+                        else if (this._deviceNFC == 2)
+                            this._deviceNFC = 1;
+                    }
+                }
+                if (withProfile._deviceKeyguard != 0)
+                    this._deviceKeyguard = withProfile._deviceKeyguard;
+                if (withProfile._vibrationOnTouch != 0)
+                    this._vibrationOnTouch = withProfile._vibrationOnTouch;
+                if (withProfile._deviceWiFiAP != 0) {
+                    if (withProfile._deviceWiFiAP != 3) // toggle
+                        this._deviceWiFiAP = withProfile._deviceWiFiAP;
+                    else {
+                        if (this._deviceWiFiAP == 1)
+                            this._deviceWiFiAP = 2;
+                        else if (this._deviceWiFiAP == 2)
+                            this._deviceWiFiAP = 1;
+                    }
+                }
+                if (withProfile._devicePowerSaveMode != 0) {
+                    if (withProfile._devicePowerSaveMode != 3) // toggle
+                        this._devicePowerSaveMode = withProfile._devicePowerSaveMode;
+                    else {
+                        if (this._devicePowerSaveMode == 1)
+                            this._devicePowerSaveMode = 2;
+                        else if (this._devicePowerSaveMode == 2)
+                            this._devicePowerSaveMode = 1;
+                    }
+                }
+                if (withProfile._deviceNetworkType != 0)
+                    this._deviceNetworkType = withProfile._deviceNetworkType;
+                if (withProfile._notificationLed != 0)
+                    this._notificationLed = withProfile._notificationLed;
+                if (withProfile._lockDevice != 0)
+                    this._lockDevice = withProfile._lockDevice;
+                if (withProfile._applicationDisableWifiScanning != 0)
+                    this._applicationDisableWifiScanning = withProfile._applicationDisableWifiScanning;
+                if (withProfile._applicationDisableBluetoothScanning != 0)
+                    this._applicationDisableBluetoothScanning = withProfile._applicationDisableBluetoothScanning;
+                if (withProfile._deviceWiFiAPPrefs != 0)
+                    this._deviceWiFiAPPrefs = withProfile._deviceWiFiAPPrefs;
+                if (withProfile._applicationDisableLocationScanning != 0)
+                    this._applicationDisableLocationScanning = withProfile._applicationDisableLocationScanning;
+                if (withProfile._applicationDisableMobileCellScanning != 0)
+                    this._applicationDisableMobileCellScanning = withProfile._applicationDisableMobileCellScanning;
+                if (withProfile._applicationDisableOrientationScanning != 0)
+                    this._applicationDisableOrientationScanning = withProfile._applicationDisableOrientationScanning;
+                if (withProfile._headsUpNotifications != 0)
+                    this._headsUpNotifications = withProfile._headsUpNotifications;
+                if (withProfile._deviceForceStopApplicationChange != 0) {
+                    this._deviceForceStopApplicationChange = 1;
+                    if (this._deviceForceStopApplicationPackageName.isEmpty())
+                        this._deviceForceStopApplicationPackageName = withProfile._deviceForceStopApplicationPackageName;
+                    else
+                        this._deviceForceStopApplicationPackageName = this._deviceForceStopApplicationPackageName + "|" +
+                                withProfile._deviceForceStopApplicationPackageName;
+                }
+                if (withProfile._deviceNetworkTypePrefs != 0)
+                    this._deviceNetworkTypePrefs = withProfile._deviceNetworkTypePrefs;
+                if (withProfile._deviceCloseAllApplications != 0)
+                    this._deviceCloseAllApplications = withProfile._deviceCloseAllApplications;
+                if (withProfile._screenCarMode != 0)
+                    this._screenCarMode = withProfile._screenCarMode;
+                if (withProfile._dtmfToneWhenDialing != 0)
+                    this._dtmfToneWhenDialing = withProfile._dtmfToneWhenDialing;
+                if (withProfile._soundOnTouch != 0)
+                    this._soundOnTouch = withProfile._soundOnTouch;
+                if (withProfile.getVolumeDTMFChange())
+                    this._volumeDTMF = withProfile._volumeDTMF;
+                if (withProfile.getVolumeAccessibilityChange())
+                    this._volumeAccessibility = withProfile._volumeAccessibility;
+                if (withProfile.getVolumeBluetoothSCOChange())
+                    this._volumeBluetoothSCO = withProfile._volumeBluetoothSCO;
+                if (withProfile._alwaysOnDisplay != 0)
+                    this._alwaysOnDisplay = withProfile._alwaysOnDisplay;
+                if (withProfile._screenOnPermanent != 0)
+                    this._screenOnPermanent = withProfile._screenOnPermanent;
             }
-            if (withProfile._deviceNetworkType != 0)
-                this._deviceNetworkType = withProfile._deviceNetworkType;
-            if (withProfile._notificationLed != 0)
-                this._notificationLed = withProfile._notificationLed;
-            if (withProfile._lockDevice != 0)
-                this._lockDevice = withProfile._lockDevice;
-            if (withProfile._applicationDisableWifiScanning != 0)
-                this._applicationDisableWifiScanning = withProfile._applicationDisableWifiScanning;
-            if (withProfile._applicationDisableBluetoothScanning != 0)
-                this._applicationDisableBluetoothScanning = withProfile._applicationDisableBluetoothScanning;
-            if (withProfile._deviceWiFiAPPrefs != 0)
-                this._deviceWiFiAPPrefs = withProfile._deviceWiFiAPPrefs;
-            if (withProfile._applicationDisableLocationScanning != 0)
-                this._applicationDisableLocationScanning = withProfile._applicationDisableLocationScanning;
-            if (withProfile._applicationDisableMobileCellScanning != 0)
-                this._applicationDisableMobileCellScanning = withProfile._applicationDisableMobileCellScanning;
-            if (withProfile._applicationDisableOrientationScanning != 0)
-                this._applicationDisableOrientationScanning = withProfile._applicationDisableOrientationScanning;
-            if (withProfile._headsUpNotifications != 0)
-                this._headsUpNotifications = withProfile._headsUpNotifications;
-            if (withProfile._deviceForceStopApplicationChange != 0) {
-                this._deviceForceStopApplicationChange = 1;
-                if (this._deviceForceStopApplicationPackageName.isEmpty())
-                    this._deviceForceStopApplicationPackageName = withProfile._deviceForceStopApplicationPackageName;
-                else
-                    this._deviceForceStopApplicationPackageName = this._deviceForceStopApplicationPackageName + "|" +
-                            withProfile._deviceForceStopApplicationPackageName;
-            }
-            if (withProfile._deviceNetworkTypePrefs != 0)
-                this._deviceNetworkTypePrefs = withProfile._deviceNetworkTypePrefs;
-            if (withProfile._deviceCloseAllApplications != 0)
-                this._deviceCloseAllApplications = withProfile._deviceCloseAllApplications;
-            if (withProfile._screenCarMode != 0)
-                this._screenCarMode = withProfile._screenCarMode;
-            if (withProfile._dtmfToneWhenDialing != 0)
-                this._dtmfToneWhenDialing = withProfile._dtmfToneWhenDialing;
-            if (withProfile._soundOnTouch != 0)
-                this._soundOnTouch = withProfile._soundOnTouch;
-            if (withProfile.getVolumeDTMFChange())
-                this._volumeDTMF = withProfile._volumeDTMF;
-            if (withProfile.getVolumeAccessibilityChange())
-                this._volumeAccessibility = withProfile._volumeAccessibility;
-            if (withProfile.getVolumeBluetoothSCOChange())
-                this._volumeBluetoothSCO = withProfile._volumeBluetoothSCO;
-            if (withProfile._alwaysOnDisplay != 0)
-                this._alwaysOnDisplay = withProfile._alwaysOnDisplay;
-            if (withProfile._screenOnPermanent != 0)
-                this._screenOnPermanent = withProfile._screenOnPermanent;
 
             // set merged profile as activated
             DatabaseHandler.getInstance(dataWrapper.context).activateProfile(withProfile);
@@ -1393,154 +1399,282 @@ public class Profile {
         //PPApplication.logE("$$$ Profile.compareProfiles","withProfile="+withProfile._name);
 
         if (withProfile != null) {
-            if (this._id != withProfile._id)
+            if (this._id != withProfile._id) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_id");
                 return false;
+            }
 
             if (this._afterDurationDo == AFTER_DURATION_DO_SPECIFIC_PROFILE) {
                 if (this._duration > 0) {
-                    if (this._afterDurationDo != withProfile._afterDurationDo)
+                    if (this._afterDurationDo != withProfile._afterDurationDo) {
+                        //PPApplication.logE("$$$ Profile.compareProfiles","_afterDurationDo");
                         return false;
+                    }
                 }
             }
 
-            if (this._volumeRingerMode != withProfile._volumeRingerMode)
+            if (this._volumeRingerMode != withProfile._volumeRingerMode) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_volumeRingerMode");
                 return false;
-            if (this._volumeZenMode != withProfile._volumeZenMode)
+            }
+            if (this._volumeZenMode != withProfile._volumeZenMode) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_volumeZenMode");
                 return false;
+            }
             if ((this._volumeRingerMode == 1) || (this._volumeRingerMode == 4)) {
-                if (this._vibrateWhenRinging != withProfile._vibrateWhenRinging)
+                if (this._vibrateWhenRinging != withProfile._vibrateWhenRinging) {
+                    //PPApplication.logE("$$$ Profile.compareProfiles","_vibrateWhenRinging 1");
                     return false;
+                }
             }
             if ((this._volumeRingerMode == 5) && ((this._volumeZenMode == 1) || (this._volumeZenMode == 2))){
-                if (this._vibrateWhenRinging != withProfile._vibrateWhenRinging)
+                if (this._vibrateWhenRinging != withProfile._vibrateWhenRinging) {
+                    //PPApplication.logE("$$$ Profile.compareProfiles","_vibrateWhenRinging 2");
                     return false;
+                }
             }
-            if (!this._volumeRingtone.equals(withProfile._volumeRingtone))
+            if (!this._volumeRingtone.equals(withProfile._volumeRingtone)) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_volumeRingtone");
                 return false;
-            if (!this._volumeNotification.equals(withProfile._volumeNotification))
+            }
+            if (!this._volumeNotification.equals(withProfile._volumeNotification)) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_volumeNotification");
                 return false;
-            if (!this._volumeMedia.equals(withProfile._volumeMedia))
+            }
+            if (!this._volumeMedia.equals(withProfile._volumeMedia)) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_volumeMedia");
                 return false;
-            if (!this._volumeAlarm.equals(withProfile._volumeAlarm))
+            }
+            if (!this._volumeAlarm.equals(withProfile._volumeAlarm)) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_volumeAlarm");
                 return false;
-            if (!this._volumeSystem.equals(withProfile._volumeSystem))
+            }
+            if (!this._volumeSystem.equals(withProfile._volumeSystem)) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_volumeSystem");
                 return false;
-            if (!this._volumeVoice.equals(withProfile._volumeVoice))
+            }
+            if (!this._volumeVoice.equals(withProfile._volumeVoice)) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","this._volumeVoice="+this._volumeVoice);
+                //PPApplication.logE("$$$ Profile.compareProfiles","withProfile._volumeVoice="+withProfile._volumeVoice);
+                //PPApplication.logE("$$$ Profile.compareProfiles","_volumeVoice");
                 return false;
-            if (this._soundRingtoneChange != withProfile._soundRingtoneChange)
+            }
+            if (this._soundRingtoneChange != withProfile._soundRingtoneChange) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_soundRingtoneChange");
                 return false;
+            }
             if (this._soundRingtoneChange != 0) {
-                if (!this._soundRingtone.equals(withProfile._soundRingtone))
+                if (!this._soundRingtone.equals(withProfile._soundRingtone)) {
+                    //PPApplication.logE("$$$ Profile.compareProfiles","_soundRingtone");
                     return false;
+                }
             }
-            if (this._soundNotificationChange != withProfile._soundNotificationChange)
+            if (this._soundNotificationChange != withProfile._soundNotificationChange) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_soundNotificationChange");
                 return false;
+            }
             if (this._soundNotificationChange != 0) {
-                if (!this._soundNotification.equals(withProfile._soundNotification))
+                if (!this._soundNotification.equals(withProfile._soundNotification)) {
+                    //PPApplication.logE("$$$ Profile.compareProfiles","_soundNotification");
                     return false;
+                }
             }
-            if (this._soundAlarmChange != withProfile._soundAlarmChange)
+            if (this._soundAlarmChange != withProfile._soundAlarmChange) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_soundAlarmChange");
                 return false;
+            }
             if (this._soundAlarmChange != 0) {
-                if (!this._soundAlarm.equals(withProfile._soundAlarm))
+                if (!this._soundAlarm.equals(withProfile._soundAlarm)) {
+                    //PPApplication.logE("$$$ Profile.compareProfiles","_soundAlarm");
                     return false;
+                }
             }
-            if (this._deviceAirplaneMode != withProfile._deviceAirplaneMode)
+            if (this._deviceAirplaneMode != withProfile._deviceAirplaneMode) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceAirplaneMode");
                 return false;
-            if (this._deviceMobileData != withProfile._deviceMobileData)
+            }
+            if (this._deviceMobileData != withProfile._deviceMobileData) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceMobileData");
                 return false;
-            if (this._deviceMobileDataPrefs != withProfile._deviceMobileDataPrefs)
+            }
+            if (this._deviceMobileDataPrefs != withProfile._deviceMobileDataPrefs) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceMobileDataPrefs");
                 return false;
-            if (this._deviceWiFi != withProfile._deviceWiFi)
+            }
+            if (this._deviceWiFi != withProfile._deviceWiFi) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceWiFi");
                 return false;
-            if (this._deviceBluetooth != withProfile._deviceBluetooth)
+            }
+            if (this._deviceBluetooth != withProfile._deviceBluetooth) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceBluetooth");
                 return false;
-            if (this._deviceGPS != withProfile._deviceGPS)
+            }
+            if (this._deviceGPS != withProfile._deviceGPS) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceGPS");
                 return false;
-            if (this._deviceLocationServicePrefs != withProfile._deviceLocationServicePrefs)
+            }
+            if (this._deviceLocationServicePrefs != withProfile._deviceLocationServicePrefs) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceLocationServicePrefs");
                 return false;
-            if (this._deviceScreenTimeout != withProfile._deviceScreenTimeout)
+            }
+            if (this._deviceScreenTimeout != withProfile._deviceScreenTimeout) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceScreenTimeout");
                 return false;
-            if (!this._deviceBrightness.equals(withProfile._deviceBrightness))
+            }
+            if (!this._deviceBrightness.equals(withProfile._deviceBrightness)) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceBrightness");
                 return false;
-            if (this._deviceWallpaperChange != withProfile._deviceWallpaperChange)
+            }
+            if (this._deviceWallpaperChange != withProfile._deviceWallpaperChange) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceWallpaperChange");
                 return false;
+            }
             if (this._deviceWallpaperChange != 0) {
-                if (!this._deviceWallpaper.equals(withProfile._deviceWallpaper))
+                if (!this._deviceWallpaper.equals(withProfile._deviceWallpaper)) {
+                    //PPApplication.logE("$$$ Profile.compareProfiles","_deviceWallpaper");
                     return false;
-                if (this._deviceWallpaperFor != withProfile._deviceWallpaperFor)
+                }
+                if (this._deviceWallpaperFor != withProfile._deviceWallpaperFor) {
+                    //PPApplication.logE("$$$ Profile.compareProfiles","_deviceWallpaperFor");
                     return false;
+                }
             }
-            if (this._deviceRunApplicationChange != withProfile._deviceRunApplicationChange)
+            if (this._deviceRunApplicationChange != withProfile._deviceRunApplicationChange) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceRunApplicationChange");
                 return false;
+            }
             if (this._deviceRunApplicationChange != 0) {
-                if (!this._deviceRunApplicationPackageName.equals(withProfile._deviceRunApplicationPackageName))
+                if (!this._deviceRunApplicationPackageName.equals(withProfile._deviceRunApplicationPackageName)) {
+                    //PPApplication.logE("$$$ Profile.compareProfiles","_deviceRunApplicationPackageName");
                     return false;
+                }
             }
-            if (this._deviceAutoSync != withProfile._deviceAutoSync)
+            if (this._deviceAutoSync != withProfile._deviceAutoSync) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceAutoSync");
                 return false;
-            if (this._deviceAutoRotate != withProfile._deviceAutoRotate)
+            }
+            if (this._deviceAutoRotate != withProfile._deviceAutoRotate) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceAutoRotate");
                 return false;
-            if (this._volumeSpeakerPhone != withProfile._volumeSpeakerPhone)
+            }
+            if (this._volumeSpeakerPhone != withProfile._volumeSpeakerPhone) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_volumeSpeakerPhone");
                 return false;
-            if (this._deviceNFC != withProfile._deviceNFC)
+            }
+            if (this._deviceNFC != withProfile._deviceNFC) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceNFC");
                 return false;
-            if (this._deviceKeyguard != withProfile._deviceKeyguard)
+            }
+            if (this._deviceKeyguard != withProfile._deviceKeyguard) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceKeyguard");
                 return false;
-            if (this._vibrationOnTouch != withProfile._vibrationOnTouch)
+            }
+            if (this._vibrationOnTouch != withProfile._vibrationOnTouch) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_vibrationOnTouch");
                 return false;
-            if (this._deviceWiFiAP != withProfile._deviceWiFiAP)
+            }
+            if (this._deviceWiFiAP != withProfile._deviceWiFiAP) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceWiFiAP");
                 return false;
-            if (this._devicePowerSaveMode != withProfile._devicePowerSaveMode)
+            }
+            if (this._devicePowerSaveMode != withProfile._devicePowerSaveMode) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_devicePowerSaveMode");
                 return false;
-            if (this._deviceNetworkType != withProfile._deviceNetworkType)
+            }
+            if (this._deviceNetworkType != withProfile._deviceNetworkType) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceNetworkType");
                 return false;
-            if (this._notificationLed != withProfile._notificationLed)
+            }
+            if (this._notificationLed != withProfile._notificationLed) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_notificationLed");
                 return false;
-            if (this._lockDevice != withProfile._lockDevice)
+            }
+            if (this._lockDevice != withProfile._lockDevice) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_lockDevice");
                 return false;
-            if (!this._deviceConnectToSSID.equals(withProfile._deviceConnectToSSID))
+            }
+            if (!this._deviceConnectToSSID.equals(withProfile._deviceConnectToSSID)) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceConnectToSSID");
                 return false;
-            if (this._applicationDisableWifiScanning != withProfile._applicationDisableWifiScanning)
+            }
+            if (this._applicationDisableWifiScanning != withProfile._applicationDisableWifiScanning) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_applicationDisableWifiScanning");
                 return false;
-            if (this._applicationDisableBluetoothScanning != withProfile._applicationDisableBluetoothScanning)
+            }
+            if (this._applicationDisableBluetoothScanning != withProfile._applicationDisableBluetoothScanning) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_applicationDisableBluetoothScanning");
                 return false;
-            if (this._deviceWiFiAPPrefs != withProfile._deviceWiFiAPPrefs)
+            }
+            if (this._deviceWiFiAPPrefs != withProfile._deviceWiFiAPPrefs) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceWiFiAPPrefs");
                 return false;
-            if (this._applicationDisableLocationScanning != withProfile._applicationDisableLocationScanning)
+            }
+            if (this._applicationDisableLocationScanning != withProfile._applicationDisableLocationScanning) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_applicationDisableLocationScanning");
                 return false;
-            if (this._applicationDisableMobileCellScanning != withProfile._applicationDisableMobileCellScanning)
+            }
+            if (this._applicationDisableMobileCellScanning != withProfile._applicationDisableMobileCellScanning) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_applicationDisableMobileCellScanning");
                 return false;
-            if (this._applicationDisableOrientationScanning != withProfile._applicationDisableOrientationScanning)
+            }
+            if (this._applicationDisableOrientationScanning != withProfile._applicationDisableOrientationScanning) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_applicationDisableOrientationScanning");
                 return false;
-            if (this._headsUpNotifications != withProfile._headsUpNotifications)
+            }
+            if (this._headsUpNotifications != withProfile._headsUpNotifications) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_headsUpNotifications");
                 return false;
-            if (this._deviceForceStopApplicationChange != withProfile._deviceForceStopApplicationChange)
+            }
+            if (this._deviceForceStopApplicationChange != withProfile._deviceForceStopApplicationChange) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceForceStopApplicationChange");
                 return false;
+            }
             if (this._deviceForceStopApplicationChange != 0) {
-                if (!this._deviceForceStopApplicationPackageName.equals(withProfile._deviceForceStopApplicationPackageName))
+                if (!this._deviceForceStopApplicationPackageName.equals(withProfile._deviceForceStopApplicationPackageName)) {
+                    //PPApplication.logE("$$$ Profile.compareProfiles","_deviceForceStopApplicationPackageName");
                     return false;
+                }
             }
-            if (this._deviceNetworkTypePrefs != withProfile._deviceNetworkTypePrefs)
+            if (this._deviceNetworkTypePrefs != withProfile._deviceNetworkTypePrefs) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceNetworkTypePrefs");
                 return false;
-            if (this._deviceCloseAllApplications != withProfile._deviceCloseAllApplications)
+            }
+            if (this._deviceCloseAllApplications != withProfile._deviceCloseAllApplications) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceCloseAllApplications");
                 return false;
-            if (this._screenCarMode != withProfile._screenCarMode)
+            }
+            if (this._screenCarMode != withProfile._screenCarMode) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_screenCarMode");
                 return false;
-            if (this._dtmfToneWhenDialing != withProfile._dtmfToneWhenDialing)
+            }
+            if (this._dtmfToneWhenDialing != withProfile._dtmfToneWhenDialing) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_dtmfToneWhenDialing");
                 return false;
-            if (this._soundOnTouch != withProfile._soundOnTouch)
+            }
+            if (this._soundOnTouch != withProfile._soundOnTouch) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_soundOnTouch");
                 return false;
-            if (!this._volumeDTMF.equals(withProfile._volumeDTMF))
+            }
+            if (!this._volumeDTMF.equals(withProfile._volumeDTMF)) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_volumeDTMF");
                 return false;
-            if (!this._volumeAccessibility.equals(withProfile._volumeAccessibility))
+            }
+            if (!this._volumeAccessibility.equals(withProfile._volumeAccessibility)) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_volumeAccessibility");
                 return false;
-            if (!this._volumeBluetoothSCO.equals(withProfile._volumeBluetoothSCO))
+            }
+            if (!this._volumeBluetoothSCO.equals(withProfile._volumeBluetoothSCO)) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_volumeBluetoothSCO");
                 return false;
-            if (this._alwaysOnDisplay != withProfile._alwaysOnDisplay)
+            }
+            if (this._alwaysOnDisplay != withProfile._alwaysOnDisplay) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_alwaysOnDisplay");
                 return false;
-            if (this._screenOnPermanent != withProfile._screenOnPermanent)
+            }
+            if (this._screenOnPermanent != withProfile._screenOnPermanent) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_screenOnPermanent");
                 return false;
+            }
 
             return true;
         }
