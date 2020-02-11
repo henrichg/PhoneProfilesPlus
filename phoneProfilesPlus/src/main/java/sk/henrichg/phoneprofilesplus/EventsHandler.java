@@ -328,7 +328,7 @@ class EventsHandler {
             //Event notifyEventEnd = null;
             boolean notified = false;
 
-            boolean reactivateProfile = false;
+            //boolean reactivateProfile = false;
 
             if (isRestart || (sensorType.equals(SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK))) {
                 if (ppService != null) {
@@ -371,7 +371,7 @@ class EventsHandler {
                     PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "restart events");
                 }*/
 
-                reactivateProfile = true;
+                //reactivateProfile = true;
 
                 //oldActivatedProfile = null;
 
@@ -678,7 +678,7 @@ class EventsHandler {
                 if (!mergedProfile.compareProfile(oldActivatedProfile))
                     profileChanged = true;
 
-                if (profileChanged || reactivateProfile) {
+                if (profileChanged/* || reactivateProfile*/) {
                     dataWrapper.activateProfileFromEvent(mergedProfile._id, false, true, isRestart);
                     // wait for profile activation
                     doSleep = true;

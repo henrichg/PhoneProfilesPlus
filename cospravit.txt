@@ -116,6 +116,7 @@ Tu mas ako sa to id cita: https://gist.github.com/luixal/5768921.
 ----------------------
 
 Direct boot:
+- Asi nemozem spravit, nepodporuje to WorkManager. :-(
 - toto je super na to, aby sa PPP startol aj pri uzamknutej obrazovke.
 - android.intent.action.LOCKED_BOOT_COMPLETED vid:
     https://medium.com/@jordan_shifter/direct-boot-on-android-nougat-71f06c4a7c9e
@@ -725,5 +726,54 @@ startScanner()
   - rescanAsyncTask.doInBackground()
 - Bluetootk=hScanWorker
   - doWork()
+
+-------------------------------------------------------------
+
+- EventsHandler.handleEvents().reactivteProfile - nastavi sa na true ak ide o restart udalosti. Pre predvoleny profil sa robi tvrdy restart
+  Vtedy sa profil aj aktivuje A TO VZDY A TO JE CHYBA LEBO:
+                if (profileChanged || reactivateProfile)
+  A toto teda sposobuje, ze sa zaloguje aktivacia a aj sa naozaj aktivuje predvoleny profil. Cize by reactivateProfile nemal pouzivat.
+  Teda nech sa aktivuje naozaj len ak sa nieco zmeni v partametroch mergnuteho profilu.
+  Udalosti nech sa kludne restartuju.
+
+- Cize kukni, kedy vlastne sa robi ten tvrdy restart a zaroven sa nezaloguje.
+
+- Makky restart sa spravi, ak:
+    if ((ApplicationPreferences.prefEventsBlocked && (!unblockEventsRun))
+
+- Restart sa nazaloguje, ak log = false
+- Cize najprv zisti, kedy je unblockEventsRun = false
+  - DataWrapper.startEventsOnBoot() - log vtedy nerobi a ani tvrdy restart, teda ak ApplicationPreferences.prefEventsBlocked = true
+  - TimeChangeReceiver.doWork() - log vtedy nerobi a ani tvrdy restart, teda ak ApplicationPreferences.prefEventsBlocked = true
+
+
+DataWrapper.startEventsOnBoot()
+- DataWrapper.firstStartEvents()
+-- Vola restartEventsWithRescan(false, ???, false, false) ak ma zapnute ApplicationPreferences.applicationStartEvents
+   - cize unblockEventsRun = false
+   - Zavola sa _restartEventsWithRescan(false, false);
+     - zavola sa restartEvents(false, false);
+       - zavola sa _restartEvents(false, false)
+         - unblockEventsRun je sice false, ale ziadna udalost nie je blokovana
+           - zavola sa EventsHandler.handleEvents() s SENSOR_RESTART_EVENTS
+             cize sa robi tvrdy restart udalosti. Ten sa teda robi pre kazde volanie DataWrapper.firstStartEvents()
+             ak nebezi ziadna udalost, tak 100%, cize pre predvoleny profil tiez 100%
+
+-- Inac vypne global events run a vola activateProfileOnBoot()
+
+TimeChangeReceiver.doWork()
+- TimeChangeReceiver.onReceive()
+
+DataWrapper.firstStartEvents()
+- BootupReceiver.onReceive()
+
+- DelayedWorksWorker.doWork() = pre DELAYED_WORK_PACKAGE_REPLACED
+  - PackageReplacedReceiver.onReceive()
+  - DataWrapper.doForFirstStart()
+
+- PhoneProfilesService.doForFirstStart()
+  - DatatWrapper.pauseAllEvents(false, false) - !!! Co toto robi? Sa mi zda, ze tu by mohlo zapisat aktivaciu profilu, teda ak sa tu merguju
+    Vypada to tak, ze nerobi nic, kedze ziadna udalost nebezi a oba partametre su false.
+
 
 
