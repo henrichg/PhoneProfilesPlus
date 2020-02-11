@@ -1157,9 +1157,10 @@ class ActivateProfileHelper {
                         RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE, Uri.parse(splits[0]));
                     }
                     catch (Exception e){
+                        // java.lang.IllegalArgumentException: Invalid column: _data
                         //Log.e("ActivateProfileHelper.setTones", "TYPE_RINGTONE");
-                        Log.e("ActivateProfileHelper.setTones", Log.getStackTraceString(e));
-                        Crashlytics.logException(e);
+                        //Log.e("ActivateProfileHelper.setTones", Log.getStackTraceString(e));
+                        //Crashlytics.logException(e);
                     }
                 } else {
                     // selected is None tone
@@ -2118,8 +2119,9 @@ class ActivateProfileHelper {
                         //PPApplication.logE("ActivateProfileHelper.executeForInteractivePreferences", "1. OK");
                     } catch (Exception e) {
                         ok = false;
-                        Log.e("ActivateProfileHelper.executeForInteractivePreferences", "1. ERROR" + Log.getStackTraceString(e));
-                        Crashlytics.logException(e);
+                        // Xiaomi: android.content.ActivityNotFoundException: Unable to find explicit activity class {com.android.settings/com.android.settings.Settings$DataUsageSummaryActivity}; have you declared this activity in your AndroidManifest.xml?
+                        //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "1. ERROR" + Log.getStackTraceString(e));
+                        //Crashlytics.logException(e);
                     }
                     if (!ok) {
                         ok = true;
@@ -2132,8 +2134,9 @@ class ActivateProfileHelper {
                             //PPApplication.logE("ActivateProfileHelper.executeForInteractivePreferences", "2. OK");
                         } catch (Exception e) {
                             ok = false;
-                            Log.e("ActivateProfileHelper.executeForInteractivePreferences", "2. ERROR" + Log.getStackTraceString(e));
-                            Crashlytics.logException(e);
+                            // Xiaomi: java.lang.SecurityException: Permission Denial: starting Intent { act=android.settings.DATA_ROAMING_SETTINGS flg=0x10000000 cmp=com.android.phone/.Settings } from ProcessRecord{215f88f 16252:sk.henrichg.phoneprofilesplus/u0a231} (pid=16252, uid=10231) not exported from uid 1001
+                            //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "2. ERROR" + Log.getStackTraceString(e));
+                            //Crashlytics.logException(e);
                         }
                     }
                     if (!ok) {
@@ -2143,8 +2146,8 @@ class ActivateProfileHelper {
                             context.startActivity(intent);
                             //PPApplication.logE("ActivateProfileHelper.executeForInteractivePreferences", "3. OK");
                         } catch (Exception e) {
-                            Log.e("ActivateProfileHelper.executeForInteractivePreferences", "3. ERROR" + Log.getStackTraceString(e));
-                            Crashlytics.logException(e);
+                            //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "3. ERROR" + Log.getStackTraceString(e));
+                            //Crashlytics.logException(e);
                         }
                     }
                 }

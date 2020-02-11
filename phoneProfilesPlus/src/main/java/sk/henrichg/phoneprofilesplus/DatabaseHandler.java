@@ -11594,14 +11594,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
                 } catch (Exception e) {
                     Log.e("DatabaseHandler.importDB", Log.getStackTraceString(e));
-                    Crashlytics.logException(e);
+                    //getVersion(): android.database.sqlite.SQLiteCantOpenDatabaseException: unable to open database file (Sqlite code 14), (OS error - 2:No such file or directory)
+                    //Crashlytics.logException(e);
                     //PPApplication.logE("DatabaseHandler.importDB", Log.getStackTraceString(e));
                     ret = IMPORT_ERROR_BUG;
                 }
 
             } catch (Exception e) {
                 Log.e("DatabaseHandler.importDB", Log.getStackTraceString(e));
-                Crashlytics.logException(e);
+                //getVersion(): android.database.sqlite.SQLiteCantOpenDatabaseException: unable to open database file (Sqlite code 14), (OS error - 2:No such file or directory)
+                //Crashlytics.logException(e);
                 //PPApplication.logE("DatabaseHandler.importDB", Log.getStackTraceString(e));
             }
             return ret;
