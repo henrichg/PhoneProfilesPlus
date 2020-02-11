@@ -278,8 +278,9 @@ class ActivateProfileHelper {
                                     //else
                                         wifiManager.setWifiEnabled(isWifiEnabled);
                                 } catch (Exception e) {
-                                    Log.e("ActivateProfileHelper.doExecuteForRadios", Log.getStackTraceString(e));
-                                    Crashlytics.logException(e);
+                                    //WTF?: DOOGEE- X5pro - java.lang.SecurityException: Permission Denial: Enable WiFi requires com.mediatek.permission.CTA_ENABLE_WIFI
+                                    //Log.e("ActivateProfileHelper.doExecuteForRadios", Log.getStackTraceString(e));
+                                    //Crashlytics.logException(e);
                                 }
                                 //try { Thread.sleep(200); } catch (InterruptedException e) { }
                                 //SystemClock.sleep(200);
@@ -420,8 +421,9 @@ class ActivateProfileHelper {
                                     bluetoothAdapter.disable();
                             //}
                         } catch (Exception e) {
-                            Log.e("ActivateProfileHelper.doExecuteForRadio", Log.getStackTraceString(e));
-                            Crashlytics.logException(e);
+                            // WTF?: DOOGEE - X5pro -> java.lang.SecurityException: Permission Denial: Enable bluetooth requires com.mediatek.permission.CTA_ENABLE_BT
+                            //Log.e("ActivateProfileHelper.doExecuteForRadio", Log.getStackTraceString(e));
+                            //Crashlytics.logException(e);
                         }
                     }
                 }

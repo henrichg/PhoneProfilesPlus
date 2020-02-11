@@ -53,15 +53,15 @@ public class FetchAddressWorker extends Worker {
                         1);
             } catch (IOException ioException) {
                 // Catch network or other I/O problems.
-                Log.e("FetchAddressWorker.doWork", "Service not available", ioException);
-                Crashlytics.logException(ioException);
+                //Log.e("FetchAddressWorker.doWork", "Service not available", ioException);
+                //Crashlytics.logException(ioException);
             } catch (IllegalArgumentException illegalArgumentException) {
                 // Catch invalid latitude or longitude values.
-                Log.e("FetchAddressWorker.doWork", "Invalid location. " +
+                /*Log.e("FetchAddressWorker.doWork", "Invalid location. " +
                         "Latitude = " + latitude +
                         ", Longitude = " +
                         longitude, illegalArgumentException);
-                Crashlytics.logException(illegalArgumentException);
+                Crashlytics.logException(illegalArgumentException);*/
             }
 
             // Handle case where no address was found.

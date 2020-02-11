@@ -56,8 +56,8 @@ class BitmapManipulator {
                     // java.lang.SecurityException: UID 10157 does not have permission to
                     // content://com.android.externalstorage.documents/document/93ED-1CEC%3AMirek%2Fmobil%2F.obr%C3%A1zek%2Fblack.jpg
                     // [user 0]; you could obtain access using ACTION_OPEN_DOCUMENT or related APIs
-                    Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
-                    Crashlytics.logException(e);
+                    //Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
+                    //Crashlytics.logException(e);
                 }
                 if (!ok)
                     return null;
