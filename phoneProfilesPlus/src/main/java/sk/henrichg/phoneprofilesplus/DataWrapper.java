@@ -4168,11 +4168,11 @@ public class DataWrapper {
     }
 
     private void _restartEvents(final boolean unblockEventsRun, /*final boolean notClearActivatedProfile,*/
-                                /*final boolean reactivateProfile,*/ final boolean log)
+                                /*final boolean reactivateProfile,*/ final boolean logRestart)
     {
         //PPApplication.logE("DataWrapper._restartEvents", "xxx");
 
-        if (log)
+        if (logRestart)
             PPApplication.addActivityLog(context, PPApplication.ALTYPE_RESTART_EVENTS, null, null, null, 0);
 
         if ((ApplicationPreferences.prefEventsBlocked && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
@@ -4221,7 +4221,7 @@ public class DataWrapper {
     }
 
     private void restartEvents(final boolean unblockEventsRun, /*final boolean notClearActivatedProfile,*/
-                       /*final boolean reactivateProfile,*/ final boolean log/*, final boolean useHandler*/)
+                       /*final boolean reactivateProfile,*/ final boolean logRestart/*, final boolean useHandler*/)
     {
         if (!Event.getGlobalEventsRunning()) {
             // events are globally stopped
@@ -4268,10 +4268,10 @@ public class DataWrapper {
         }
         else
         */
-            _restartEvents(unblockEventsRun, /*notClearActivatedProfile, reactivateProfile,*/ log);
+            _restartEvents(unblockEventsRun, /*notClearActivatedProfile, reactivateProfile,*/ logRestart);
     }
 
-    private void _restartEventsWithRescan(/*boolean forceRestart, */boolean unblockEventsRun, boolean log) {
+    private void _restartEventsWithRescan(/*boolean forceRestart, */boolean unblockEventsRun, boolean logRestart) {
         //PPApplication.logE("$$$ DataWrapper._restartEventsWithRescan","xxx");
 
         // remove all event delay alarms
@@ -4279,7 +4279,7 @@ public class DataWrapper {
         resetAllEventsInDelayEnd(false);
         // ignore manual profile activation
         // and unblock forceRun events
-        restartEvents(unblockEventsRun, /*true, true,*/ log/*, false*/);
+        restartEvents(unblockEventsRun, /*true, true,*/ logRestart/*, false*/);
 
         //if (forceRestart || ApplicationPreferences.applicationEventWifiRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
             PPApplication.restartWifiScanner(context, false);
@@ -4296,7 +4296,7 @@ public class DataWrapper {
         PPApplication.restartTwilightScanner(context);
     }
 
-    void restartEventsWithRescan(/*final boolean forceRestart, */final boolean unblockEventsRun, boolean useHandler, final boolean log, boolean showToast)
+    void restartEventsWithRescan(/*final boolean forceRestart, */final boolean unblockEventsRun, boolean useHandler, final boolean logRestart, boolean showToast)
     {
         //PPApplication.logE("$$$ DataWrapper.restartEventsWithRescan","xxx");
 
@@ -4318,7 +4318,7 @@ public class DataWrapper {
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DataWrapper.restartEventsWithRescan");
 
-                        dataWrapper._restartEventsWithRescan(/*forceRestart, */unblockEventsRun, log);
+                        dataWrapper._restartEventsWithRescan(/*forceRestart, */unblockEventsRun, logRestart);
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DataWrapper.restartEventsWithRescan");
                     } finally {
@@ -4333,7 +4333,7 @@ public class DataWrapper {
             });
         }
         else
-            _restartEventsWithRescan(/*forceRestart, */unblockEventsRun, log);
+            _restartEventsWithRescan(/*forceRestart, */unblockEventsRun, logRestart);
 
         if (showToast) {
             if (ApplicationPreferences.notificationsToast) {
