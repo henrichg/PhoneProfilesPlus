@@ -603,13 +603,19 @@ public class PhoneProfilesService extends Service
     }
 
     void setWaitForEndOfStart(boolean wait, boolean showToast) {
-        if ((!wait) && waitForEndOfStart && showToast) {
+        final Context appContext = getApplicationContext();
+
+        if (!wait)
+            ActivateProfileHelper.updateGUI(appContext, true, true);
+
+        if ((!wait) && waitForEndOfStart && showToast &&
+                (!ApplicationPreferences.applicationPackageReplaced(appContext))) {
             final Handler handler = new Handler(getMainLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
                     String text = getString(R.string.app_name) + " " + getString(R.string.application_is_started_toast);
-                    Toast msg = ToastCompat.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
+                    Toast msg = ToastCompat.makeText(appContext, text, Toast.LENGTH_LONG);
                     msg.show();
                 }
             });
