@@ -347,7 +347,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
             PPApplication.setApplicationStarted(getApplicationContext(), true);
             Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
+            //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
             PPApplication.startPPService(this, serviceIntent);
             return true;
@@ -363,7 +363,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 //PPApplication.firstStartServiceStarted = false;
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                 //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
+                //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
                 PPApplication.startPPService(this, serviceIntent);
                 return true;

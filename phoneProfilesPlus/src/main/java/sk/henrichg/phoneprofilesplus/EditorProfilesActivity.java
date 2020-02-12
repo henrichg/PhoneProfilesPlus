@@ -650,7 +650,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             PPApplication.setApplicationStarted(getApplicationContext(), true);
             Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
+            //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
             PPApplication.startPPService(this, serviceIntent);
             return true;
@@ -666,7 +666,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 //PPApplication.firstStartServiceStarted = false;
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                 //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
+                //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
                 PPApplication.startPPService(this, serviceIntent);
                 return true;
@@ -1841,12 +1841,18 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     if (dataWrapper != null) {
                         //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EditorProfilesActivity.doImportData");
+
+                        // clear shared preferences for last activated profile
+                        Profile profile = DataWrapper.getNonInitializedProfile("", null, 0);
+                        Profile.saveProfileToSharedPreferences(profile, this.dataWrapper.context, PPApplication.ACTIVATED_PROFILE_PREFS_NAME);
+                        PPApplication.setLastActivatedProfile(this.dataWrapper.context, 0);
+
                         this.dataWrapper.updateNotificationAndWidgets(true, true);
 
                         PPApplication.setApplicationStarted(this.dataWrapper.context, true);
                         Intent serviceIntent = new Intent(this.dataWrapper.context, PhoneProfilesService.class);
                         //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
+                        //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
                         PPApplication.startPPService(activity, serviceIntent);
                     }

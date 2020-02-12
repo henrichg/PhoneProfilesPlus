@@ -4387,7 +4387,7 @@ public class DataWrapper {
                         PPApplication.setApplicationStarted(context, true);
                         Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
                         //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, false);
+                        //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, false);
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
                         PPApplication.startPPService(context, serviceIntent);
                     }
