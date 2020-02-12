@@ -66,7 +66,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && BuildConfig.DEBUG;
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && BuildConfig.DEBUG;
     private static final boolean rootToolsDebug = false;
@@ -143,13 +143,13 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|PPApplication.startHandlerThread"
 
                                                 //+"|DataWrapper.updateNotificationAndWidgets"
-                                                //+"|ActivateProfileHelper.updateGUI"
                                                 //+"|OneRowWidgetProvider.onUpdate"
 
                                                 //+"|%%%%%%% DataWrapper.doHandleEvents"
                                                 //+"|#### EventsHandler.handleEvents"
                                                 //+"|[DEFPROF] EventsHandler"
                                                 //+"|$$$ EventsHandler.handleEvents"
+                                                +"|EventsHandler.handleEvents"
                                                 //+"|Profile.mergeProfiles"
                                                 //+"|Profile.compareProfiles"
                                                 //+"|Profile.saveProfileToSharedPreferences"
@@ -209,6 +209,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|SettingsContentObserver"
 
                                                 //+"|$$$ DataWrapper._activateProfile"
+                                                +"|DataWrapper._activateProfile"
                                                 //+"|ProfileDurationAlarmBroadcastReceiver.onReceive"
                                                 //+"|DataWrapper.activateProfileAfterDuration"
                                                 //+"|DataWrapper.getIsManualProfileActivation"
@@ -579,6 +580,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
                                                 //+"|ActivateProfileHelper.updateGUI"
                                                 //+"|UpdateGUIBroadcastReceiver"
+                                                //+"|RefreshActivitiesBroadcastReceiver"
                                                 //+"|ElapsedAlarmsWorker.doWork"
                                                 //+"|ActivateProfileActivity.refreshGUI"
                                                 //+"|EditorProfilesActivity.refreshGUI"

@@ -81,13 +81,13 @@ class EventsHandler {
         synchronized (PPApplication.eventsHandlerMutex) {
             //CallsCounter.logCounter(context, "EventsHandler.handleEvents", "EventsHandler_handleEvents");
 
-            //PPApplication.logE("#### EventsHandler.handleEvents", "-- start --------------------------------");
+            PPApplication.logE("#### EventsHandler.handleEvents", "-- start --------------------------------");
 
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started
                 return;
 
-            //PPApplication.logE("#### EventsHandler.handleEvents", "-- application started --------------------------------");
+            PPApplication.logE("#### EventsHandler.handleEvents", "-- application started --------------------------------");
 
             PhoneProfilesService ppService;
 
@@ -100,7 +100,7 @@ class EventsHandler {
             //boolean interactive;
 
             this.sensorType = sensorType;
-            //PPApplication.logE("#### EventsHandler.handleEvents", "sensorType=" + this.sensorType);
+            PPApplication.logE("#### EventsHandler.handleEvents", "sensorType=" + this.sensorType);
             //CallsCounter.logCounterNoInc(context, "EventsHandler.handleEvents->sensorType=" + this.sensorType, "EventsHandler_handleEvents");
 
             //restartAtEndOfEvent = false;

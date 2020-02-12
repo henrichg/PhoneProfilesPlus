@@ -20,6 +20,9 @@ public class RefreshActivitiesBroadcastReceiver extends BroadcastReceiver {
         boolean refresh = intent.getBooleanExtra(EXTRA_REFRESH, true);
         boolean refreshIcons = intent.getBooleanExtra(EXTRA_REFRESH_ICONS, false);
         boolean refreshAlsoEditor = intent.getBooleanExtra(EXTRA_REFRESH_ALSO_EDITOR, true);
+        /*PPApplication.logE("##### RefreshActivitiesBroadcastReceiver.onReceive", "refresh="+refresh);
+        PPApplication.logE("##### RefreshActivitiesBroadcastReceiver.onReceive", "refreshIcons="+refreshIcons);
+        PPApplication.logE("##### RefreshActivitiesBroadcastReceiver.onReceive", "refreshAlsoEditor="+refreshAlsoEditor);*/
 
         Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivatorGUIBroadcastReceiver");
         refreshIntent.putExtra(EXTRA_REFRESH, refresh);

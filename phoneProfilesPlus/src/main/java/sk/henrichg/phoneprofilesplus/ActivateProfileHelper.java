@@ -3044,6 +3044,10 @@ class ActivateProfileHelper {
     }
 
     static void forceUpdateGUI(Context context, boolean alsoEditor, boolean refresh) {
+        /*PPApplication.logE("##### ActivateProfileHelper.forceUpdateGUI", "xxx");
+        PPApplication.logE("##### ActivateProfileHelper.forceUpdateGUI", "alsoEditor="+alsoEditor);
+        PPApplication.logE("##### ActivateProfileHelper.forceUpdateGUI", "refresh="+refresh);*/
+
         PPApplication.showProfileNotification(/*context*/refresh, false);
 
         // icon widget
@@ -3107,6 +3111,7 @@ class ActivateProfileHelper {
                 return;
         }
 
+        //PPApplication.logE("ActivateProfileHelper.updateGUI", "send broadcast");
         Intent intent5 = new Intent(PPApplication.ACTION_UPDATE_GUI);
         intent5.putExtra(UpdateGUIBroadcastReceiver.EXTRA_REFRESH, refresh);
         intent5.putExtra(UpdateGUIBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);

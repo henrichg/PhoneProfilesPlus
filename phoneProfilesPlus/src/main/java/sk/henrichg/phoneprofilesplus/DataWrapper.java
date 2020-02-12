@@ -1567,10 +1567,10 @@ public class DataWrapper {
         final Profile mappedProfile = _profile; //Profile.getMappedProfile(_profile, context);
         //profile = filterProfileWithBatteryEvents(profile);
 
-        /*if (mappedProfile != null)
+        if (mappedProfile != null)
             PPApplication.logE("$$$ DataWrapper._activateProfile","profileName="+mappedProfile._name);
         else
-            PPApplication.logE("$$$ DataWrapper._activateProfile","profile=null");*/
+            PPApplication.logE("$$$ DataWrapper._activateProfile","profile=null");
 
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("$$$ DataWrapper._activateProfile", "startupSource=" + startupSource);

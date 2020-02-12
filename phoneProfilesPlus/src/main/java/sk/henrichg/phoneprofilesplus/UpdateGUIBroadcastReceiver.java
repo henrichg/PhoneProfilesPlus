@@ -31,8 +31,10 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
         boolean refresh = intent.getBooleanExtra(EXTRA_REFRESH, true);
         boolean refreshAlsoEditor = intent.getBooleanExtra(EXTRA_REFRESH_ALSO_EDITOR, true);
         //boolean fromAlarm = intent.getBooleanExtra(EXTRA_FROM_ALARM, false);
+        //PPApplication.logE("##### UpdateGUIBroadcastReceiver.onReceive", "refresh="+refresh);
+        //PPApplication.logE("##### UpdateGUIBroadcastReceiver.onReceive", "refreshAlsoEditor="+refreshAlsoEditor);
 
-        doWork(true, context, refreshAlsoEditor, refresh/*, fromAlarm*/);
+        doWork(true, context, refresh, refreshAlsoEditor/*, fromAlarm*/);
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
@@ -145,6 +147,10 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
     }
 
     static void doWork(boolean useHandler, Context context, final boolean refresh, final boolean alsoEditor/*, final boolean fromAlarm*/) {
+        /*PPApplication.logE("##### UpdateGUIBroadcastReceiver.doWork", "xxx");
+        PPApplication.logE("##### UpdateGUIBroadcastReceiver.doWork", "refresh="+refresh);
+        PPApplication.logE("##### UpdateGUIBroadcastReceiver.doWork", "alsoEditor="+alsoEditor);*/
+
         final Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(true))
@@ -183,6 +189,9 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
     }
 
     private static void _doWork(/*boolean useHandler,*/ Context context, final boolean refresh, final boolean alsoEditor/*, final boolean fromAlarm*/) {
+        /*PPApplication.logE("##### UpdateGUIBroadcastReceiver._doWork", "xxx");
+        PPApplication.logE("##### UpdateGUIBroadcastReceiver._doWork", "refresh="+refresh);
+        PPApplication.logE("##### UpdateGUIBroadcastReceiver._doWork", "alsoEditor="+alsoEditor);*/
 
         if (!refresh) {
             if (ActivateProfileHelper.lockRefresh || EditorProfilesActivity.doImport)
