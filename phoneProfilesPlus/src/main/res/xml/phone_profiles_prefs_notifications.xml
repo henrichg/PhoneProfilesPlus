@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:key="categoryNotifications"
     app:title="@string/phone_profiles_pref_category_status_bar">
-
         <!--
         <Preference
             app:key="notificationStatusBarInfo"
@@ -47,16 +46,7 @@
             app:title="@string/phone_profiles_pref_notificationHideInLockscreen"
             app:defaultValue="false"
             app:layout="@layout/mp_preference_material_widget" />
-        <!--
-        <ListPreference
-            app:title="@string/phone_profiles_pref_notificationLayoutType"
-            app:summary="@string/phone_profiles_pref_notificationLayoutType_expandable"
-            app:key="notificationLayoutType"
-            app:defaultValue="0"
-            app:entries="@array/notificationLayoutTypeArray"
-            app:entryValues="@array/notificationLayoutTypeValues"
-            app:layout="@layout/mp_preference_material_widget" />
-        -->
+
         <Preference
             app:key="notificationStatusBarStyleInfo"
             app:title="@string/phone_profiles_pref_notificationStatusBarStyleInfo_title"
@@ -73,6 +63,27 @@
             app:entries="@array/notificationIconStyleArray"
             app:entryValues="@array/notificationIconStyleValues"
             app:layout="@layout/mp_preference_material_widget" />
+
+        <ListPreference
+            app:title="@string/phone_profiles_pref_notificationNotificationStyle"
+            app:summary="@string/phone_profiles_pref_notificationNotificationStyle_custom"
+            app:key="notificationNotificationStyle"
+            app:defaultValue="0"
+            app:entries="@array/notificationNotificationStyleArray"
+            app:entryValues="@array/notificationNotificationStyleValues"
+            app:layout="@layout/mp_preference_material_widget" />
+
+        <!--
+        <ListPreference
+            app:title="@string/phone_profiles_pref_notificationLayoutType"
+            app:summary="@string/phone_profiles_pref_notificationLayoutType_expandable"
+            app:key="notificationLayoutType"
+            app:defaultValue="0"
+            app:entries="@array/notificationLayoutTypeArray"
+            app:entryValues="@array/notificationLayoutTypeValues"
+            app:layout="@layout/mp_preference_material_widget" />
+        -->
+
         <SwitchPreferenceCompat
             app:key="notificationPrefIndicator"
             app:title="@string/phone_profiles_pref_notificationPrefIndicator"

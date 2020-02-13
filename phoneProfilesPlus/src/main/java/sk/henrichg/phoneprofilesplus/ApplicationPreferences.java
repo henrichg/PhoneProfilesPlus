@@ -182,6 +182,7 @@ class ApplicationPreferences {
     static boolean notificationNightMode;
     static boolean applicationEditorHideHeaderOrBottomBar;
     static boolean applicationWidgetIconShowProfileDuration;
+    static String notificationNotificationStyle;
 
     static boolean prefActivatorActivityStartTargetHelps;
     static boolean prefActivatorFragmentStartTargetHelps;
@@ -355,6 +356,7 @@ class ApplicationPreferences {
     static final String PREF_NOTIFICATION_NIGHT_MODE = "notificationNightMode";
     static final String PREF_APPLICATION_EDITOR_HIDE_HEADER_OR_BOTTOM_BAR = "applicationEditorHideHeaderOrBottomBar";
     static final String PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION = "applicationWidgetIconShowProfileDuration";
+    static final String PREF_NOTIFICATION_NOTIFICATION_STYLE = "notificationNotificationStyle";
 
     @CheckResult
     static SharedPreferences getSharedPreferences(Context context) {
@@ -1018,6 +1020,10 @@ class ApplicationPreferences {
 
     static void applicationWidgetIconShowProfileDuration(Context context) {
         applicationWidgetIconShowProfileDuration = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION, true);
+    }
+
+    static void notificationNotificationStyle(Context context) {
+        notificationNotificationStyle = getSharedPreferences(context).getString(PREF_NOTIFICATION_NOTIFICATION_STYLE, "0");
     }
 
     static void loadStartTargetHelps(Context context) {

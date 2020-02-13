@@ -1478,6 +1478,10 @@
 
     <string name="duration_end_acronym">de</string>
 
+    <string name="phone_profiles_pref_notificationNotificationStyle">Notification style</string>
+    <string name="phone_profiles_pref_notificationNotificationStyle_custom">Custom</string>
+    <string name="phone_profiles_pref_notificationNotificationStyle_native">Native</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

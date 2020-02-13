@@ -1849,6 +1849,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(PREF_NOTIFICATION_SYSTEM_SETTINGS);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION);
+        setSummary(ApplicationPreferences.PREF_NOTIFICATION_NOTIFICATION_STYLE);
 
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, getActivity().getApplicationContext());
         if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
@@ -2468,9 +2469,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = summary + getString(R.string.phone_profiles_pref_notificationStatusBarPermanent);
             }*/
             if (!summary.isEmpty()) summary = summary + " • ";
-            summary = summary + getString(R.string.phone_profiles_pref_notificationLayoutType);
-            if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_notificationStatusBarStyle);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_notificationNotificationStyle);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_notificationLayoutType);
             if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_notificationPrefIndicator);
             if (!summary.isEmpty()) summary = summary + " • ";

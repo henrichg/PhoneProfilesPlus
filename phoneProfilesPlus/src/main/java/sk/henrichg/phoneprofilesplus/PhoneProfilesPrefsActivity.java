@@ -689,6 +689,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsNotifications custom color="+fromPreference.getInt(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR, 0xFFFFFFFF));
             editor.putInt(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR, fromPreference.getInt(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR, 0xFFFFFFFF));
             editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE, fromPreference.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE, false));
+            editor.putString(ApplicationPreferences.PREF_NOTIFICATION_NOTIFICATION_STYLE, fromPreference.getString(ApplicationPreferences.PREF_NOTIFICATION_NOTIFICATION_STYLE, "0"));
         }
 
     }

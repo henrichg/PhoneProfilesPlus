@@ -549,4 +549,407 @@ class ProfilePreferencesIndicator {
 
     }
 
+    private static int maxLength;
+    private static String addIntoIndicator(String indicator, String preference, int maxLineLength)
+    {
+        String ind = indicator;
+        if (maxLineLength > 0) {
+            if (ind.length() > maxLength) {
+                ind = ind + '\n';
+                maxLength += maxLineLength;
+            }
+            else
+                if (!ind.isEmpty()) ind = ind + "-";
+        }
+        else
+            if (!ind.isEmpty()) ind = ind + "-";
+
+        ind = ind + preference;
+        return ind;
+    }
+
+    static String getString(Profile profile, int maxLineLength, Context context) {
+        // profile preferences indicator
+        String indicator1 = "";
+        if (profile != null)
+        {
+            maxLength = maxLineLength;
+            if (profile._volumeRingerMode != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (profile._volumeRingerMode == 5) {
+                        // zen mode
+                        if (profile._volumeZenMode == 1)
+                            indicator1 = addIntoIndicator(indicator1, "dnd:off", maxLineLength);
+                        if (profile._volumeZenMode == 2)
+                            indicator1 = addIntoIndicator(indicator1, "dnd:pri", maxLineLength);
+                        if (profile._volumeZenMode == 3)
+                            indicator1 = addIntoIndicator(indicator1, "dnd:sln", maxLineLength);
+                        if (profile._volumeZenMode == 4) {
+                            indicator1 = addIntoIndicator(indicator1, "dnd:off", maxLineLength);
+                            indicator1 = addIntoIndicator(indicator1, "vib", maxLineLength);
+                        }
+                        if (profile._volumeZenMode == 5) {
+                            indicator1 = addIntoIndicator(indicator1, "dnd:pri", maxLineLength);
+                            indicator1 = addIntoIndicator(indicator1, "vibr", maxLineLength);
+                        }
+                        if (profile._volumeZenMode == 6)
+                            indicator1 = addIntoIndicator(indicator1, "dnd:ala", maxLineLength);
+                    } else {
+                        // volume on
+                        if ((profile._volumeRingerMode == 1) || (profile._volumeRingerMode == 2))
+                            indicator1 = addIntoIndicator(indicator1, "ring", maxLineLength);
+                        // vibration
+                        if ((profile._volumeRingerMode == 2) || (profile._volumeRingerMode == 3))
+                            indicator1 = addIntoIndicator(indicator1, "vibr", maxLineLength);
+                        // volume off
+                        if (profile._volumeRingerMode == 4)
+                            indicator1 = addIntoIndicator(indicator1, "slnt", maxLineLength);
+                    }
+                }
+            }
+            /*// vibrate when ringing
+            if (profile._vibrateWhenRinging != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, this) == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3))
+                        indicator1 = addIntoIndicator(indicator1, "wr1");
+                    if (profile._vibrateWhenRinging == 2)
+                        indicator1 = addIntoIndicator(indicator1, "wr0");
+                }
+            }*/
+            // volume level
+            if (profile.getVolumeAlarmChange() ||
+                    profile.getVolumeMediaChange() ||
+                    profile.getVolumeNotificationChange() ||
+                    profile.getVolumeRingtoneChange() ||
+                    profile.getVolumeSystemChange() ||
+                    profile.getVolumeVoiceChange() ||
+                    profile.getVolumeDTMFChange()  ||
+                    profile.getVolumeAccessibilityChange() ||
+                    profile.getVolumeBluetoothSCOChange()) {
+                if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ALARM, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_MEDIA, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_RINGTONE, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_SYSTEM, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_VOICE, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_DTMF, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED))
+                    indicator1 = addIntoIndicator(indicator1, "volu", maxLineLength);
+            }
+            // speaker phone
+            if (profile._volumeSpeakerPhone != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (profile._volumeSpeakerPhone == 1)
+                        indicator1 = addIntoIndicator(indicator1, "spe:1", maxLineLength);
+                    if (profile._volumeSpeakerPhone == 2)
+                        indicator1 = addIntoIndicator(indicator1, "spe:0", maxLineLength);
+                }
+            }
+            // sound
+            if ((profile._soundRingtoneChange == 1) ||
+                    (profile._soundNotificationChange == 1) ||
+                    (profile._soundAlarmChange == 1)) {
+                if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED))
+                    indicator1 = addIntoIndicator(indicator1, "sond", maxLineLength);
+            }
+            // sound on touch
+            if (profile._soundOnTouch != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_ON_TOUCH, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._soundOnTouch == 1) || (profile._soundOnTouch == 3))
+                        indicator1 = addIntoIndicator(indicator1, "sto:1", maxLineLength);
+                    if (profile._soundOnTouch == 2)
+                        indicator1 = addIntoIndicator(indicator1, "sto:0", maxLineLength);
+                }
+            }
+            // vibration on touch
+            if (profile._vibrationOnTouch != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._vibrationOnTouch == 1) || (profile._vibrationOnTouch == 3))
+                        indicator1 = addIntoIndicator(indicator1, "vto:1", maxLineLength);
+                    if (profile._vibrationOnTouch == 2)
+                        indicator1 = addIntoIndicator(indicator1, "vto:0", maxLineLength);
+                }
+            }
+            // dtmf tone when dialing
+            if (profile._dtmfToneWhenDialing != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._dtmfToneWhenDialing == 1) || (profile._dtmfToneWhenDialing == 3))
+                        indicator1 = addIntoIndicator(indicator1, "dtd:1", maxLineLength);
+                    if (profile._dtmfToneWhenDialing == 2)
+                        indicator1 = addIntoIndicator(indicator1, "dtd:0", maxLineLength);
+                }
+            }
+            // airplane mode
+            if (profile._deviceAirplaneMode != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._deviceAirplaneMode == 1) || (profile._deviceAirplaneMode == 3))
+                        indicator1 = addIntoIndicator(indicator1, "arm:1", maxLineLength);
+                    if (profile._deviceAirplaneMode == 2)
+                        indicator1 = addIntoIndicator(indicator1, "arm:0", maxLineLength);
+                }
+            }
+            // auto-sync
+            if (profile._deviceAutoSync != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AUTOSYNC, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._deviceAutoSync == 1) || (profile._deviceAutoSync == 3))
+                        indicator1 = addIntoIndicator(indicator1, "asy:1", maxLineLength);
+                    if (profile._deviceAutoSync == 2)
+                        indicator1 = addIntoIndicator(indicator1, "asy:0", maxLineLength);
+                }
+            }
+            // Network type
+            if (profile._deviceNetworkType != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+                    indicator1 = addIntoIndicator(indicator1, "ntyp", maxLineLength);
+            }
+            // Network type prefs
+            if (profile._deviceNetworkTypePrefs != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+                    indicator1 = addIntoIndicator(indicator1, "ntpr", maxLineLength);
+            }
+            // mobile data
+            if (profile._deviceMobileData != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._deviceMobileData == 1) || (profile._deviceMobileData == 3))
+                        indicator1 = addIntoIndicator(indicator1, "mda:1", maxLineLength);
+                    if (profile._deviceMobileData == 2)
+                        indicator1 = addIntoIndicator(indicator1, "mda:0", maxLineLength);
+                }
+            }
+            // mobile data preferences
+            if (profile._deviceMobileDataPrefs == 1) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+                    indicator1 = addIntoIndicator(indicator1, "mdpr", maxLineLength);
+            }
+            // wifi
+            if (profile._deviceWiFi != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._deviceWiFi == 1) || (profile._deviceWiFi == 3) || (profile._deviceWiFi == 4) || (profile._deviceWiFi == 5))
+                        indicator1 = addIntoIndicator(indicator1, "wif:1", maxLineLength);
+                    if (profile._deviceWiFi == 2)
+                        indicator1 = addIntoIndicator(indicator1, "wif:0", maxLineLength);
+                }
+            }
+            // wifi AP
+            if (profile._deviceWiFiAP != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._deviceWiFiAP == 1) || (profile._deviceWiFiAP == 3))
+                        indicator1 = addIntoIndicator(indicator1, "wap:1", maxLineLength);
+                    if (profile._deviceWiFiAP == 2)
+                        indicator1 = addIntoIndicator(indicator1, "wap:0", maxLineLength);
+                }
+            }
+            // wifi AP preferences
+            if (profile._deviceWiFiAPPrefs == 1) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+                    indicator1 = addIntoIndicator(indicator1, "wapr", maxLineLength);
+            }
+            // bluetooth
+            if (profile._deviceBluetooth != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._deviceBluetooth == 1) || (profile._deviceBluetooth == 3))
+                        indicator1 = addIntoIndicator(indicator1, "blt:1", maxLineLength);
+                    if (profile._deviceBluetooth == 2)
+                        indicator1 = addIntoIndicator(indicator1, "blt:0", maxLineLength);
+                }
+            }
+            // gps
+            if (profile._deviceGPS != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._deviceGPS == 1) || (profile._deviceGPS == 3))
+                        indicator1 = addIntoIndicator(indicator1, "gps:1", maxLineLength);
+                    if (profile._deviceGPS == 2)
+                        indicator1 = addIntoIndicator(indicator1, "gps:0", maxLineLength);
+                }
+            }
+            // location settings preferences
+            if (profile._deviceLocationServicePrefs == 1) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+                    indicator1 = addIntoIndicator(indicator1, "lopr", maxLineLength);
+            }
+            // nfc
+            if (profile._deviceNFC != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._deviceNFC == 1) || (profile._deviceNFC == 3))
+                        indicator1 = addIntoIndicator(indicator1, "nfc:1", maxLineLength);
+                    if (profile._deviceNFC == 2)
+                        indicator1 = addIntoIndicator(indicator1, "nfc:0", maxLineLength);
+                }
+            }
+            // screen timeout
+            if (profile._deviceScreenTimeout != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+                    indicator1 = addIntoIndicator(indicator1, "sctm", maxLineLength);
+            }
+            // brightness/auto-brightness
+            if (profile.getDeviceBrightnessChange())
+            {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (profile.getDeviceBrightnessAutomatic())
+                        indicator1 = addIntoIndicator(indicator1, "bri:a", maxLineLength);
+                    else
+                        indicator1 = addIntoIndicator(indicator1, "bri:m", maxLineLength);
+                }
+            }
+            // auto-rotation
+            if (profile._deviceAutoRotate != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AUTOROTATE, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+                    if (profile._deviceAutoRotate == 6)
+                        indicator1 = addIntoIndicator(indicator1, "art:0", maxLineLength);
+                    else
+                        indicator1 = addIntoIndicator(indicator1, "art:1", maxLineLength);
+            }
+            // screen on permanent
+            if (profile._screenOnPermanent != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._screenOnPermanent == 1) || (profile._screenOnPermanent == 3))
+                        indicator1 = addIntoIndicator(indicator1, "son:1", maxLineLength);
+                    if (profile._screenOnPermanent == 2)
+                        indicator1 = addIntoIndicator(indicator1, "son:0", maxLineLength);
+                }
+            }
+            // wallpaper
+            if (profile._deviceWallpaperChange == 1) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+                    indicator1 = addIntoIndicator(indicator1, "walp", maxLineLength);
+            }
+            // lock screen
+            if (profile._deviceKeyguard != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_KEYGUARD, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._deviceKeyguard == 1) || (profile._deviceKeyguard == 3))
+                        indicator1 = addIntoIndicator(indicator1, "kgu:1", maxLineLength);
+                    if (profile._deviceKeyguard == 2)
+                        indicator1 = addIntoIndicator(indicator1, "kgu:0", maxLineLength);
+                }
+            }
+            // lock device
+            if (profile._lockDevice != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_LOCK_DEVICE, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+                    indicator1 = addIntoIndicator(indicator1, "lock", maxLineLength);
+            }
+            // notification led
+            if (profile._notificationLed != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._notificationLed == 1) || (profile._notificationLed == 3))
+                        indicator1 = addIntoIndicator(indicator1, "nld:1", maxLineLength);
+                    if (profile._notificationLed == 2)
+                        indicator1 = addIntoIndicator(indicator1, "nld:0", maxLineLength);
+                }
+            }
+            // heads-up notifications
+            if (profile._headsUpNotifications != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._headsUpNotifications == 1) || (profile._headsUpNotifications == 3))
+                        indicator1 = addIntoIndicator(indicator1, "hup:1", maxLineLength);
+                    if (profile._headsUpNotifications == 2)
+                        indicator1 = addIntoIndicator(indicator1, "hup:0", maxLineLength);
+                }
+            }
+            // always on display
+            if (profile._alwaysOnDisplay != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._alwaysOnDisplay == 1) || (profile._alwaysOnDisplay == 3))
+                        indicator1 = addIntoIndicator(indicator1, "aod:1", maxLineLength);
+                    if (profile._alwaysOnDisplay == 2)
+                        indicator1 = addIntoIndicator(indicator1, "aod:0", maxLineLength);
+                }
+            }
+            /*
+            // screen car mode
+            if (profile._screenCarMode != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_CAR_MODE, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (profile._screenCarMode == 1)
+                        indicator1 = addIntoIndicator(indicator1, "cm1");
+                    if (profile._screenCarMode == 2)
+                        indicator1 = addIntoIndicator(indicator1, "cm2");
+                    if (profile._screenCarMode == 3)
+                        indicator1 = addIntoIndicator(indicator1, "cm0");
+                }
+            }
+            */
+            // power save mode
+            if (profile._devicePowerSaveMode != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._devicePowerSaveMode == 1) || (profile._devicePowerSaveMode == 3))
+                        indicator1 = addIntoIndicator(indicator1, "psm:1", maxLineLength);
+                    if (profile._devicePowerSaveMode == 2)
+                        indicator1 = addIntoIndicator(indicator1, "psm:0", maxLineLength);
+                }
+            }
+            // run application
+            if (profile._deviceRunApplicationChange == 1) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+                    indicator1 = addIntoIndicator(indicator1, "ruap", maxLineLength);
+            }
+            // close all applications
+            if (profile._deviceCloseAllApplications == 1) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+                    indicator1 = addIntoIndicator(indicator1, "caap", maxLineLength);
+            }
+            // force stop application
+            if (profile._deviceForceStopApplicationChange == 1) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+                {
+                    boolean enabled;
+                    if (Build.VERSION.SDK_INT >= 29)
+                        enabled = PPPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_5_1_2);
+                    else
+                        enabled = PPPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_3_0);
+                    if (enabled)
+                        indicator1 = addIntoIndicator(indicator1, "fcst", maxLineLength);
+                }
+            }
+            // disable wifi scanning
+            if (profile._applicationDisableWifiScanning != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._applicationDisableWifiScanning == 1) || (profile._applicationDisableWifiScanning == 3))
+                        indicator1 = addIntoIndicator(indicator1, "wis:1", maxLineLength);
+                    if (profile._applicationDisableWifiScanning == 2)
+                        indicator1 = addIntoIndicator(indicator1, "wis:0", maxLineLength);
+                }
+            }
+            // disable bluetooth scanning
+            if (profile._applicationDisableBluetoothScanning != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._applicationDisableBluetoothScanning == 1) || (profile._applicationDisableBluetoothScanning == 3))
+                        indicator1 = addIntoIndicator(indicator1, "bls:1", maxLineLength);
+                    if (profile._applicationDisableBluetoothScanning == 2)
+                        indicator1 = addIntoIndicator(indicator1, "bls:0", maxLineLength);
+                }
+            }
+            // disable location scanning
+            if (profile._applicationDisableLocationScanning != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._applicationDisableLocationScanning == 1) || (profile._applicationDisableLocationScanning == 3))
+                        indicator1 = addIntoIndicator(indicator1, "los:1", maxLineLength);
+                    if (profile._applicationDisableLocationScanning == 2)
+                        indicator1 = addIntoIndicator(indicator1, "los:0", maxLineLength);
+                }
+            }
+            // disable mobile cell scanning
+            if (profile._applicationDisableMobileCellScanning != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._applicationDisableMobileCellScanning == 1) || (profile._applicationDisableMobileCellScanning == 3))
+                        indicator1 = addIntoIndicator(indicator1, "mcs:1", maxLineLength);
+                    if (profile._applicationDisableMobileCellScanning == 2)
+                        indicator1 = addIntoIndicator(indicator1, "mcs:0", maxLineLength);
+                }
+            }
+            // disable orientation scanning
+            if (profile._applicationDisableOrientationScanning != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, null,null,  true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._applicationDisableOrientationScanning == 1) || (profile._applicationDisableOrientationScanning == 3))
+                        indicator1 = addIntoIndicator(indicator1, "ors:1", maxLineLength);
+                    if (profile._applicationDisableOrientationScanning == 2)
+                        indicator1 = addIntoIndicator(indicator1, "ors:0", maxLineLength);
+                }
+            }
+        }
+        
+        return indicator1;
+    }
+
 }

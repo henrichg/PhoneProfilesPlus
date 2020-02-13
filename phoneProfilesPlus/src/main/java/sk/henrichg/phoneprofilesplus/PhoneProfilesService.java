@@ -20,6 +20,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Icon;
 import android.hardware.SensorManager;
@@ -4453,15 +4454,7 @@ public class PhoneProfilesService extends Service
                     PPApplication.logE("PhoneProfilesService._showProfileNotification", "activated profile changed");
             }*/
 
-            PendingIntent pIntentRE = null;
-            if (Event.getGlobalEventsRunning() &&
-                    PPApplication.getApplicationStarted(true)) {
-                // intent for restart events
-                Intent intentRE = new Intent(appContext, RestartEventsFromGUIActivity.class);
-                intentRE.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                pIntentRE = PendingIntent.getActivity(appContext, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
-            }
-
+            String notificationNotificationStyle = ApplicationPreferences.notificationNotificationStyle;
             boolean notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar;
             //boolean notificationStatusBarPermanent = ApplicationPreferences.notificationStatusBarPermanent(appContext);
             //boolean notificationDarkBackground = ApplicationPreferences.notificationDarkBackground(appContext);
@@ -4476,31 +4469,37 @@ public class PhoneProfilesService extends Service
 
             Notification.Builder notificationBuilder;
 
-            /*
-            boolean miui = (PPApplication.romManufacturer != null) &&
-                    (PPApplication.romManufacturer.compareToIgnoreCase("xiaomi") == 0)// &&
-                    //(android.os.Build.VERSION.SDK_INT >= 24);
-            */
-            //boolean miui = PPApplication.romIsMIUI;
-
-            //Log.e("****** PhoneProfilesService.showProfileNotification", "miui="+miui);
-
             RemoteViews contentView = null;
-            RemoteViews contentViewLarge;
+            RemoteViews contentViewLarge = null;
 
-            /*UiModeManager uiModeManager = (UiModeManager) appContext.getSystemService(Context.UI_MODE_SERVICE);
-            if (uiModeManager != null) {
-                uiModeManager.setNightMode(UiModeManager.MODE_NIGHT_NO);
-            }*/
-
-            boolean useDecorator = (!(PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) || (Build.VERSION.SDK_INT >= 26);
-            useDecorator = useDecorator && notificationUseDecoration;
-
-            int nightModeFlags =
-                appContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-
+            boolean useDecorator;
             int useNightColor = 0;
-            //if (notificationNightMode) {
+            boolean profileIconExists = true;
+
+            if (notificationNotificationStyle.equals("0")) {
+                // ----- create content view
+
+                /*
+                boolean miui = (PPApplication.romManufacturer != null) &&
+                        (PPApplication.romManufacturer.compareToIgnoreCase("xiaomi") == 0)// &&
+                        //(android.os.Build.VERSION.SDK_INT >= 24);
+                */
+                //boolean miui = PPApplication.romIsMIUI;
+
+                //Log.e("****** PhoneProfilesService.showProfileNotification", "miui="+miui);
+
+                /*UiModeManager uiModeManager = (UiModeManager) appContext.getSystemService(Context.UI_MODE_SERVICE);
+                if (uiModeManager != null) {
+                    uiModeManager.setNightMode(UiModeManager.MODE_NIGHT_NO);
+                }*/
+
+                useDecorator = (!(PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) || (Build.VERSION.SDK_INT >= 26);
+                useDecorator = useDecorator && notificationUseDecoration;
+
+                int nightModeFlags =
+                        appContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+                //if (notificationNightMode) {
                 switch (nightModeFlags) {
                     case Configuration.UI_MODE_NIGHT_YES:
                         useNightColor = 1;
@@ -4517,88 +4516,81 @@ public class PhoneProfilesService extends Service
                     case Configuration.UI_MODE_NIGHT_UNDEFINED:
                         break;
                 }
-            //}
-            switch (notificationBackgroundColor) {
-                case "1":
-                case "3":
-                    notificationTextColor = "2";
-                    break;
-            }
-            if ((Build.VERSION.SDK_INT >= 24) && (Build.VERSION.SDK_INT < 29))
-                useDecorator = useDecorator && (!notificationNightMode) && notificationBackgroundColor.equals("0");
+                //}
+                switch (notificationBackgroundColor) {
+                    case "1":
+                    case "3":
+                        notificationTextColor = "2";
+                        break;
+                }
+                if ((Build.VERSION.SDK_INT >= 24) && (Build.VERSION.SDK_INT < 29))
+                    useDecorator = useDecorator && (!notificationNightMode) && notificationBackgroundColor.equals("0");
 
-            boolean profileIconExists = true;
-            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
-                if (android.os.Build.VERSION.SDK_INT >= 24) {
-                    if (!useDecorator)
-                        contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_miui_no_decorator);
-                    else
+                if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+                    if (android.os.Build.VERSION.SDK_INT >= 24) {
+                        if (!useDecorator)
+                            contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_miui_no_decorator);
+                        else
+                            contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_miui);
+                        if (!useDecorator)
+                            contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact_miui_no_decorator);
+                        else {
+                            contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact);
+                            profileIconExists = false;
+                        }
+                    } else
                         contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_miui);
-                    if (!useDecorator)
-                        contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact_miui_no_decorator);
-                    else {
-                        contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact);
-                        profileIconExists = false;
-                    }
-                }
-                else
-                    contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_miui);
-                //PPApplication.logE("PhoneProfilesService._showProfileNotification", "miui");
-            }
-            else
-            if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
-                if (android.os.Build.VERSION.SDK_INT >= 24) {
-                    if (!useDecorator)
-                        contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_emui_no_decorator);
-                    else
+                    //PPApplication.logE("PhoneProfilesService._showProfileNotification", "miui");
+                } else if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
+                    if (android.os.Build.VERSION.SDK_INT >= 24) {
+                        if (!useDecorator)
+                            contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_emui_no_decorator);
+                        else
+                            contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_emui);
+                        if (!useDecorator)
+                            contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact_emui_no_decorator);
+                        else {
+                            contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact);
+                            profileIconExists = false;
+                        }
+                    } else
                         contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_emui);
-                    if (!useDecorator)
-                        contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact_emui_no_decorator);
-                    else {
-                        contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact);
-                        profileIconExists = false;
-                    }
+                    //PPApplication.logE("PhoneProfilesService._showProfileNotification", "emui");
+                } else if (PPApplication.deviceIsSamsung) {
+                    if (android.os.Build.VERSION.SDK_INT >= 24) {
+                        if (!useDecorator)
+                            contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_samsung_no_decorator);
+                        else
+                            contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer);
+                        if (!useDecorator)
+                            contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact_samsung_no_decorator);
+                        else {
+                            contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact);
+                            profileIconExists = false;
+                        }
+                    } else
+                        contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer);
+                    //PPApplication.logE("PhoneProfilesService._showProfileNotification", "samsung");
+                } else {
+                    if (android.os.Build.VERSION.SDK_INT >= 24) {
+                        if (!useDecorator)
+                            contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_no_decorator);
+                        else
+                            contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer);
+                        if (!useDecorator)
+                            contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact_no_decorator);
+                        else {
+                            contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact);
+                            profileIconExists = false;
+                        }
+                    } else
+                        contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer);
+                    //PPApplication.logE("PhoneProfilesService._showProfileNotification", "others");
                 }
-                else
-                    contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_emui);
-                //PPApplication.logE("PhoneProfilesService._showProfileNotification", "emui");
+                //}
             }
             else
-            if (PPApplication.deviceIsSamsung) {
-                if (android.os.Build.VERSION.SDK_INT >= 24) {
-                    if (!useDecorator)
-                        contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_samsung_no_decorator);
-                    else
-                        contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer);
-                    if (!useDecorator)
-                        contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact_samsung_no_decorator);
-                    else {
-                        contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact);
-                        profileIconExists = false;
-                    }
-                }
-                else
-                    contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer);
-                //PPApplication.logE("PhoneProfilesService._showProfileNotification", "samsung");
-            }
-            else {
-                if (android.os.Build.VERSION.SDK_INT >= 24) {
-                    if (!useDecorator)
-                        contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_no_decorator);
-                    else
-                        contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer);
-                    if (!useDecorator)
-                        contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact_no_decorator);
-                    else {
-                        contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact);
-                        profileIconExists = false;
-                    }
-                }
-                else
-                    contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer);
-                //PPApplication.logE("PhoneProfilesService._showProfileNotification", "others");
-            }
-            //}
+                useDecorator = true; // for native style use decorator, when is supported by system
 
             boolean isIconResourceID;
             String iconIdentifier;
@@ -4607,6 +4599,7 @@ public class PhoneProfilesService extends Service
             Bitmap iconBitmap;
             Bitmap preferencesIndicator;
 
+            // ----- get profile icon, preference indicators, profile name
             //PPApplication.logE("PhoneProfilesService._showProfileNotification", "profile="+profile);
             if (profile != null)
             {
@@ -4627,7 +4620,7 @@ public class PhoneProfilesService extends Service
                 if (inHandlerThread) {
                     //if (notificationStatusBarStyle.equals("0"))
                     profile.generateIconBitmap(appContext, false, 0, false);
-                    if (notificationPrefIndicator)
+                    if (notificationPrefIndicator && (notificationNotificationStyle.equals("0")))
                         profile.generatePreferencesIndicator(appContext, false, 0);
                     iconBitmap = profile._iconBitmap;
                     preferencesIndicator = profile._preferencesIndicator;
@@ -4658,6 +4651,7 @@ public class PhoneProfilesService extends Service
 
             PendingIntent pIntent = PendingIntent.getBroadcast(appContext, requestCode, launcherIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+            // ----- create notificationBuilders
             if (Build.VERSION.SDK_INT >= 26) {
                 PPApplication.createProfileNotificationChannel(appContext);
                 notificationBuilder = new Notification.Builder(appContext, PPApplication.PROFILE_NOTIFICATION_CHANNEL);
@@ -4694,6 +4688,7 @@ public class PhoneProfilesService extends Service
 
             //notificationBuilder.setTicker(profileName);
 
+            // ----- set icons
             //PPApplication.logE("PhoneProfilesService._showProfileNotification", "inHandlerThread="+inHandlerThread);
             if (inHandlerThread) {
                 if (isIconResourceID) {
@@ -4707,9 +4702,9 @@ public class PhoneProfilesService extends Service
 
                             // FC in Note 4, 6.0.1 :-/
                             boolean isNote4 = (Build.MANUFACTURER.compareToIgnoreCase("samsung") == 0) &&
-                                  /*(Build.MODEL.startsWith("SM-N910") ||  // Samsung Note 4
-                                   Build.MODEL.startsWith("SM-G900")     // Samsung Galaxy S5
-                                  ) &&*/
+                              /*(Build.MODEL.startsWith("SM-N910") ||  // Samsung Note 4
+                               Build.MODEL.startsWith("SM-G900")     // Samsung Galaxy S5
+                              ) &&*/
                                     (android.os.Build.VERSION.SDK_INT == 23);
                             //PPApplication.logE("PhoneProfilesService._showProfileNotification", "isNote4="+isNote4);
                             if ((android.os.Build.VERSION.SDK_INT >= 23) && (!isNote4)) {
@@ -4748,10 +4743,15 @@ public class PhoneProfilesService extends Service
                             notificationBuilder.setSmallIcon(iconSmallResource);
                         }
 
-                        contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
-                        if (profileIconExists) {
-                            if (contentView != null)
-                                contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
+                        if (notificationNotificationStyle.equals("0")) {
+                            contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
+                            if (profileIconExists) {
+                                if (contentView != null)
+                                    contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
+                            }
+                        }
+                        else {
+                            notificationBuilder.setLargeIcon(iconBitmap);
                         }
                     } else {
                         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "icon has NOT changed color");
@@ -4769,8 +4769,7 @@ public class PhoneProfilesService extends Service
                                 Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
                                 Crashlytics.logException(e);
                             }
-                        }
-                        else {
+                        } else {
                             //PPApplication.logE("PhoneProfilesService._showProfileNotification", "colorful icon in status bar is disabled");
                             //iconSmallResource = appContext.getResources().getIdentifier(iconIdentifier + "_notify", "drawable", appContext.getPackageName());
                             //if (iconSmallResource == 0)
@@ -4792,19 +4791,24 @@ public class PhoneProfilesService extends Service
                         int iconLargeResource = Profile.getIconResource(iconIdentifier);
                         //Bitmap largeIcon = BitmapFactory.decodeResource(appContext.getResources(), iconLargeResource);
                         Bitmap largeIcon = BitmapManipulator.getBitmapFromResource(iconLargeResource, true, appContext);
-                        contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
-                        if (profileIconExists) {
-                            if (contentView != null)
-                                contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
+                        if (notificationNotificationStyle.equals("0")) {
+                            contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
+                            if (profileIconExists) {
+                                if (contentView != null)
+                                    contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
+                            }
+                        }
+                        else {
+                            notificationBuilder.setLargeIcon(largeIcon);
                         }
                     }
                 } else {
                     //PPApplication.logE("PhoneProfilesService._showProfileNotification", "profile icon is custom - external picture");
                     // FC in Note 4, 6.0.1 :-/
                     boolean isNote4 = (Build.MANUFACTURER.compareToIgnoreCase("samsung") == 0) &&
-                            /*(Build.MODEL.startsWith("SM-N910") ||  // Samsung Note 4
-                             Build.MODEL.startsWith("SM-G900")     // Samsung Galaxy S5
-                            ) &&*/
+                        /*(Build.MODEL.startsWith("SM-N910") ||  // Samsung Note 4
+                         Build.MODEL.startsWith("SM-G900")     // Samsung Galaxy S5
+                        ) &&*/
                             (android.os.Build.VERSION.SDK_INT == 23);
                     //PPApplication.logE("PhoneProfilesService._showProfileNotification", "isNote4="+isNote4);
                     if ((Build.VERSION.SDK_INT >= 23) && (!isNote4) && (iconBitmap != null)) {
@@ -4820,44 +4824,64 @@ public class PhoneProfilesService extends Service
                         notificationBuilder.setSmallIcon(iconSmallResource);
                     }
 
-                    if (iconBitmap != null)
-                        contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
-                    else
-                        contentViewLarge.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_profile_default);
-                    if (profileIconExists) {
-                        if (contentView != null) {
-                            if (iconBitmap != null)
-                                contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
-                            else
-                                contentView.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_profile_default);
+                    if (notificationNotificationStyle.equals("0")) {
+                        if (iconBitmap != null)
+                            contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
+                        else
+                            contentViewLarge.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_profile_default);
+                        if (profileIconExists) {
+                            if (contentView != null) {
+                                if (iconBitmap != null)
+                                    contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
+                                else
+                                    contentView.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_profile_default);
+                            }
                         }
+                    }
+                    else {
+                        if (iconBitmap != null)
+                            notificationBuilder.setLargeIcon(iconBitmap);
+                        else
+                            notificationBuilder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_profile_default));
                     }
                 }
             }
             else {
                 //PPApplication.logE("PhoneProfilesService._showProfileNotification", "create empty icon");
                 notificationBuilder.setSmallIcon(R.drawable.ic_profile_default_notify);
-                contentViewLarge.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);
-                if (profileIconExists) {
-                    if (contentView != null)
-                        contentView.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);
-                }
-            }
-
-            contentViewLarge.setTextViewText(R.id.notification_activated_profile_name, profileName);
-            if (contentView != null)
-                contentView.setTextViewText(R.id.notification_activated_profile_name, profileName);
-            notificationBuilder.setContentTitle(profileName);
-            notificationBuilder.setContentText(profileName);
-
-            try {
-                if ((preferencesIndicator != null) && (notificationPrefIndicator)) {
-                    contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_pref_indicator, preferencesIndicator);
-                    contentViewLarge.setViewVisibility(R.id.notification_activated_profile_pref_indicator, View.VISIBLE);
+                if (notificationNotificationStyle.equals("0")) {
+                    contentViewLarge.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);
+                    if (profileIconExists) {
+                        if (contentView != null)
+                            contentView.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);
+                    }
                 }
                 else
-                    //contentViewLarge.setImageViewResource(R.id.notification_activated_profile_pref_indicator, R.drawable.ic_empty);
-                    contentViewLarge.setViewVisibility(R.id.notification_activated_profile_pref_indicator, View.GONE);
+                    notificationBuilder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_empty));
+            }
+
+            if (notificationNotificationStyle.equals("0")) {
+                contentViewLarge.setTextViewText(R.id.notification_activated_profile_name, profileName);
+                if (contentView != null)
+                    contentView.setTextViewText(R.id.notification_activated_profile_name, profileName);
+                notificationBuilder.setContentText(profileName);
+            }
+            notificationBuilder.setContentTitle(profileName);
+
+            try {
+                if (notificationNotificationStyle.equals("0")) {
+                    if ((preferencesIndicator != null) && (notificationPrefIndicator)) {
+                        contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_pref_indicator, preferencesIndicator);
+                        contentViewLarge.setViewVisibility(R.id.notification_activated_profile_pref_indicator, View.VISIBLE);
+                    } else
+                        //contentViewLarge.setImageViewResource(R.id.notification_activated_profile_pref_indicator, R.drawable.ic_empty);
+                        contentViewLarge.setViewVisibility(R.id.notification_activated_profile_pref_indicator, View.GONE);
+                }
+                else {
+                    //TODO sem daj textovy preferences indicator
+                    if (notificationPrefIndicator)
+                        notificationBuilder.setContentText(ProfilePreferencesIndicator.getString(profile, 0, appContext));
+                }
             } catch (Exception e) {
                 Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
                 Crashlytics.logException(e);
@@ -4866,48 +4890,68 @@ public class PhoneProfilesService extends Service
             if (Event.getGlobalEventsRunning() &&
                     PPApplication.getApplicationStarted(true)) {
 
-                //PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationBackgroundColor="+notificationBackgroundColor);
-
-                int restartEventsId;
-                if (notificationBackgroundColor.equals("1") || notificationBackgroundColor.equals("3")) {
-                    // dark or black
-                    restartEventsId = R.drawable.ic_widget_restart_events_dark;
+                PendingIntent pIntentRE = null;
+                if (Event.getGlobalEventsRunning() &&
+                        PPApplication.getApplicationStarted(true)) {
+                    // intent for restart events
+                    Intent intentRE = new Intent(appContext, RestartEventsFromGUIActivity.class);
+                    intentRE.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    pIntentRE = PendingIntent.getActivity(appContext, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
                 }
-                else
-                if (notificationBackgroundColor.equals("5")) {
-                    // custom color
-                    if (ColorUtils.calculateLuminance(notificationBackgroundCustomColor) < 0.23)
+
+                if (notificationNotificationStyle.equals("0")) {
+                    //PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationBackgroundColor="+notificationBackgroundColor);
+
+                    int restartEventsId;
+                    if (notificationBackgroundColor.equals("1") || notificationBackgroundColor.equals("3")) {
+                        // dark or black
                         restartEventsId = R.drawable.ic_widget_restart_events_dark;
-                    else
-                        restartEventsId = R.drawable.ic_widget_restart_events;
+                    } else if (notificationBackgroundColor.equals("5")) {
+                        // custom color
+                        if (ColorUtils.calculateLuminance(notificationBackgroundCustomColor) < 0.23)
+                            restartEventsId = R.drawable.ic_widget_restart_events_dark;
+                        else
+                            restartEventsId = R.drawable.ic_widget_restart_events;
+                    } else {
+                        // native
+                        if (Build.VERSION.SDK_INT >= 29) {
+                            if (useNightColor == 1)
+                                restartEventsId = R.drawable.ic_widget_restart_events_dark;
+                            else
+                                restartEventsId = R.drawable.ic_widget_restart_events;
+                        } else {
+                            if (notificationTextColor.equals("1"))
+                                restartEventsId = R.drawable.ic_widget_restart_events;
+                            else if (notificationTextColor.equals("2"))
+                                restartEventsId = R.drawable.ic_widget_restart_events_dark;
+                            else
+                                restartEventsId = R.drawable.ic_widget_restart_events;
+                        }
+                    }
+
+                    //contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
+                    contentViewLarge.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
+                    contentViewLarge.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
+
+                    if (contentView != null) {
+                        //contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
+                        contentView.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
+                        contentView.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
+                    }
                 }
                 else {
-                    // native
-                    if (Build.VERSION.SDK_INT >= 29) {
-                        if (useNightColor == 1)
-                            restartEventsId = R.drawable.ic_widget_restart_events_dark;
-                        else
-                            restartEventsId = R.drawable.ic_widget_restart_events;
-                    }
-                    else {
-                        if (notificationTextColor.equals("1"))
-                            restartEventsId = R.drawable.ic_widget_restart_events;
-                        else
-                        if (notificationTextColor.equals("2"))
-                            restartEventsId = R.drawable.ic_widget_restart_events_dark;
-                        else
-                            restartEventsId = R.drawable.ic_widget_restart_events;
-                    }
-                }
-
-                //contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
-                contentViewLarge.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
-                contentViewLarge.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
-
-                if (contentView != null) {
-                    //contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
-                    contentView.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
-                    contentView.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
+                    Notification.Action.Builder actionBuilder;
+                    if (Build.VERSION.SDK_INT >= 23)
+                        actionBuilder = new Notification.Action.Builder(
+                                Icon.createWithResource(appContext, R.drawable.ic_widget_restart_events),
+                                appContext.getString(R.string.menu_restart_events),
+                                pIntentRE);
+                    else
+                        actionBuilder = new Notification.Action.Builder(
+                                R.drawable.ic_widget_restart_events,
+                                appContext.getString(R.string.menu_restart_events),
+                                pIntentRE);
+                    notificationBuilder.addAction(actionBuilder.build());
                 }
             }
             /*else {
@@ -4918,10 +4962,11 @@ public class PhoneProfilesService extends Service
             }*/
 
             //if (Build.VERSION.SDK_INT < 29) {
-                //PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "background not 2 or 4");
-                switch (notificationBackgroundColor) {
-                    case "3":
-                        //if (!notificationNightMode || (useNightColor == 1)) {
+                if (notificationNotificationStyle.equals("0")) {
+                    //PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "background not 2 or 4");
+                    switch (notificationBackgroundColor) {
+                        case "3":
+                            //if (!notificationNightMode || (useNightColor == 1)) {
                             int color = ContextCompat.getColor(this, R.color.notificationBlackBackgroundColor);
                             contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
                             if (contentView != null)
@@ -4932,9 +4977,9 @@ public class PhoneProfilesService extends Service
                             if (contentView != null)
                                 contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", Color.TRANSPARENT);
                         }*/
-                        break;
-                    case "1":
-                        //if (!notificationNightMode || (useNightColor == 1)) {
+                            break;
+                        case "1":
+                            //if (!notificationNightMode || (useNightColor == 1)) {
                             color = ContextCompat.getColor(this, R.color.notificationDarkBackgroundColor);
                             contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
                             if (contentView != null)
@@ -4945,9 +4990,9 @@ public class PhoneProfilesService extends Service
                             if (contentView != null)
                                 contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", Color.TRANSPARENT);
                         }*/
-                        break;
-                    case "5":
-                        //if (!notificationNightMode || (useNightColor == 1)) {
+                            break;
+                        case "5":
+                            //if (!notificationNightMode || (useNightColor == 1)) {
                             //PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "background color 5");
                             contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", notificationBackgroundCustomColor);
                             if (contentView != null)
@@ -4958,57 +5003,59 @@ public class PhoneProfilesService extends Service
                             if (contentView != null)
                                 contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", Color.TRANSPARENT);
                         }*/
-                        break;
-                    default:
-                        //PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "transparent background");
-                        //int color = getResources().getColor(R.color.notificationBackground);
-                        contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", Color.TRANSPARENT);
-                        if (contentView != null)
-                            contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", Color.TRANSPARENT);
-                        break;
-                }
-
-                /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationBackgroundColor=" + notificationBackgroundColor);
-                    PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationTextColor=" + notificationTextColor);
-                    PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "notificationTextColor=" + notificationTextColor);
-                }*/
-                if (notificationTextColor.equals("1")/* && (!notificationDarkBackground)*/) {
-                    if (Build.VERSION.SDK_INT < 25)
-                        contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
-                    else
-                        contentViewLarge.setTextColor(R.id.notification_activated_profile_name,
-                                ContextCompat.getColorStateList(appContext, R.color.widget_text_color_black));
-                    if (contentView != null) {
-                        if (Build.VERSION.SDK_INT < 25)
-                            contentView.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
-                        else
-                            contentView.setTextColor(R.id.notification_activated_profile_name,
-                                    ContextCompat.getColorStateList(appContext, R.color.widget_text_color_black));
+                            break;
+                        default:
+                            //PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "transparent background");
+                            //int color = getResources().getColor(R.color.notificationBackground);
+                            contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", Color.TRANSPARENT);
+                            if (contentView != null)
+                                contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", Color.TRANSPARENT);
+                            break;
                     }
-                } else if (notificationTextColor.equals("2")/* || notificationDarkBackground*/) {
-                    //PPApplication.logE("PhoneProfilesService._showProfileNotification", "before set text color");
-                    if (Build.VERSION.SDK_INT < 25)
-                        contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
-                    else
-                        contentViewLarge.setTextColor(R.id.notification_activated_profile_name,
-                                ContextCompat.getColorStateList(appContext, R.color.widget_text_color_white));
-                    //PPApplication.logE("PhoneProfilesService._showProfileNotification", "after set text color");
-                    if (contentView != null)
-                        if (Build.VERSION.SDK_INT < 25)
-                            contentView.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
-                        else
-                            contentView.setTextColor(R.id.notification_activated_profile_name,
-                                    ContextCompat.getColorStateList(appContext, R.color.widget_text_color_white));
-                }
 
-                //PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "after set text color");
+                    /*if (PPApplication.logEnabled()) {
+                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationBackgroundColor=" + notificationBackgroundColor);
+                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationTextColor=" + notificationTextColor);
+                        PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "notificationTextColor=" + notificationTextColor);
+                    }*/
+                    if (notificationTextColor.equals("1")/* && (!notificationDarkBackground)*/) {
+                        if (Build.VERSION.SDK_INT < 25)
+                            contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
+                        else
+                            contentViewLarge.setTextColor(R.id.notification_activated_profile_name,
+                                    ContextCompat.getColorStateList(appContext, R.color.widget_text_color_black));
+                        if (contentView != null) {
+                            if (Build.VERSION.SDK_INT < 25)
+                                contentView.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
+                            else
+                                contentView.setTextColor(R.id.notification_activated_profile_name,
+                                        ContextCompat.getColorStateList(appContext, R.color.widget_text_color_black));
+                        }
+                    } else if (notificationTextColor.equals("2")/* || notificationDarkBackground*/) {
+                        //PPApplication.logE("PhoneProfilesService._showProfileNotification", "before set text color");
+                        if (Build.VERSION.SDK_INT < 25)
+                            contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
+                        else
+                            contentViewLarge.setTextColor(R.id.notification_activated_profile_name,
+                                    ContextCompat.getColorStateList(appContext, R.color.widget_text_color_white));
+                        //PPApplication.logE("PhoneProfilesService._showProfileNotification", "after set text color");
+                        if (contentView != null)
+                            if (Build.VERSION.SDK_INT < 25)
+                                contentView.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
+                            else
+                                contentView.setTextColor(R.id.notification_activated_profile_name,
+                                        ContextCompat.getColorStateList(appContext, R.color.widget_text_color_white));
+                    }
+
+                    //PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "after set text color");
+                }
             //}
 
-            if (android.os.Build.VERSION.SDK_INT >= 24) {
-                if (useDecorator)
-                    notificationBuilder.setStyle(new Notification.DecoratedCustomViewStyle());
-                //if (contentView != null) {
+            if (notificationNotificationStyle.equals("0")) {
+                if (android.os.Build.VERSION.SDK_INT >= 24) {
+                    if (useDecorator)
+                        notificationBuilder.setStyle(new Notification.DecoratedCustomViewStyle());
+                    //if (contentView != null) {
                     String layoutType = ApplicationPreferences.notificationLayoutType;
                     switch (layoutType) {
                         case "1":
@@ -5025,13 +5072,13 @@ public class PhoneProfilesService extends Service
                             notificationBuilder.setCustomBigContentView(contentViewLarge);
                             break;
                     }
-                //}
-                //else
-                //    notificationBuilder.setCustomContentView(contentViewLarge);
-            }
-            else {
-                //PPApplication.logE("PhoneProfilesService._showProfileNotification", "setContent");
-                notificationBuilder.setContent(contentViewLarge);
+                    //}
+                    //else
+                    //    notificationBuilder.setCustomContentView(contentViewLarge);
+                } else {
+                    //PPApplication.logE("PhoneProfilesService._showProfileNotification", "setContent");
+                    notificationBuilder.setContent(contentViewLarge);
+                }
             }
 
             /*if (PPApplication.logEnabled()) {
