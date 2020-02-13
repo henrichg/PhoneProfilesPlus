@@ -1610,6 +1610,7 @@ public class PPApplication extends Application /*implements Application.Activity
             ApplicationPreferences.applicationEditorHideHeaderOrBottomBar(context);
             ApplicationPreferences.applicationWidgetIconShowProfileDuration(context);
             ApplicationPreferences.notificationNotificationStyle(context);
+            ApplicationPreferences.notificationShowProfileIcon(context);
         }
     }
 

@@ -3,6 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:key="categoryNotifications"
     app:title="@string/phone_profiles_pref_category_status_bar">
+
+    <PreferenceCategory
+        app:key="notificationStatusBarCategory"
+        app:title="@string/phone_profiles_pref_notificationStatusBarCategory"
+        app:layout="@layout/mp_preference_category" >
         <!--
         <Preference
             app:key="notificationStatusBarInfo"
@@ -63,7 +68,12 @@
             app:entries="@array/notificationIconStyleArray"
             app:entryValues="@array/notificationIconStyleValues"
             app:layout="@layout/mp_preference_material_widget" />
+    </PreferenceCategory>
 
+    <PreferenceCategory
+        app:key="notificationNotificationCategory"
+        app:title="@string/phone_profiles_pref_notificationNotificationPanelCategory"
+        app:layout="@layout/mp_preference_category" >
         <ListPreference
             app:title="@string/phone_profiles_pref_notificationNotificationStyle"
             app:summary="@string/phone_profiles_pref_notificationNotificationStyle_custom"
@@ -130,5 +140,6 @@
             app:defaultValue="false"
             app:layout="@layout/mp_preference_material_widget" />
         -->
+    </PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>

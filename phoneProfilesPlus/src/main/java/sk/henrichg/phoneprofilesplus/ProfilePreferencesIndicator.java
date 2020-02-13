@@ -906,45 +906,45 @@ class ProfilePreferencesIndicator {
             if (profile._applicationDisableWifiScanning != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._applicationDisableWifiScanning == 1) || (profile._applicationDisableWifiScanning == 3))
-                        indicator1 = addIntoIndicator(indicator1, "wfs:1", maxLineLength);
-                    if (profile._applicationDisableWifiScanning == 2)
                         indicator1 = addIntoIndicator(indicator1, "wfs:0", maxLineLength);
+                    if (profile._applicationDisableWifiScanning == 2)
+                        indicator1 = addIntoIndicator(indicator1, "wfs:1", maxLineLength);
                 }
             }
             // disable bluetooth scanning
             if (profile._applicationDisableBluetoothScanning != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._applicationDisableBluetoothScanning == 1) || (profile._applicationDisableBluetoothScanning == 3))
-                        indicator1 = addIntoIndicator(indicator1, "bls:1", maxLineLength);
-                    if (profile._applicationDisableBluetoothScanning == 2)
                         indicator1 = addIntoIndicator(indicator1, "bls:0", maxLineLength);
+                    if (profile._applicationDisableBluetoothScanning == 2)
+                        indicator1 = addIntoIndicator(indicator1, "bls:1", maxLineLength);
                 }
             }
             // disable location scanning
             if (profile._applicationDisableLocationScanning != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._applicationDisableLocationScanning == 1) || (profile._applicationDisableLocationScanning == 3))
-                        indicator1 = addIntoIndicator(indicator1, "los:1", maxLineLength);
-                    if (profile._applicationDisableLocationScanning == 2)
                         indicator1 = addIntoIndicator(indicator1, "los:0", maxLineLength);
+                    if (profile._applicationDisableLocationScanning == 2)
+                        indicator1 = addIntoIndicator(indicator1, "los:1", maxLineLength);
                 }
             }
             // disable mobile cell scanning
             if (profile._applicationDisableMobileCellScanning != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._applicationDisableMobileCellScanning == 1) || (profile._applicationDisableMobileCellScanning == 3))
-                        indicator1 = addIntoIndicator(indicator1, "mcs:1", maxLineLength);
-                    if (profile._applicationDisableMobileCellScanning == 2)
                         indicator1 = addIntoIndicator(indicator1, "mcs:0", maxLineLength);
+                    if (profile._applicationDisableMobileCellScanning == 2)
+                        indicator1 = addIntoIndicator(indicator1, "mcs:1", maxLineLength);
                 }
             }
             // disable orientation scanning
             if (profile._applicationDisableOrientationScanning != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, null,null,  true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._applicationDisableOrientationScanning == 1) || (profile._applicationDisableOrientationScanning == 3))
-                        indicator1 = addIntoIndicator(indicator1, "ors:1", maxLineLength);
-                    if (profile._applicationDisableOrientationScanning == 2)
                         indicator1 = addIntoIndicator(indicator1, "ors:0", maxLineLength);
+                    if (profile._applicationDisableOrientationScanning == 2)
+                        indicator1 = addIntoIndicator(indicator1, "ors:1", maxLineLength);
                 }
             }
         }

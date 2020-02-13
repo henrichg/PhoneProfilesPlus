@@ -11,6 +11,10 @@
             app:widgetLayout="@layout/start_activity_preference"
             app:layout="@layout/mp_preference_material_widget" />
 
+    <PreferenceCategory
+        app:key="notificationStatusBarCategory"
+        app:title="@string/phone_profiles_pref_notificationStatusBarCategory"
+        app:layout="@layout/mp_preference_category" >
         <Preference
             app:key="notificationStatusBarStyleInfo"
             app:title="@string/phone_profiles_pref_notificationStatusBarStyleInfo_title"
@@ -27,6 +31,12 @@
             app:entries="@array/notificationIconStyleArray"
             app:entryValues="@array/notificationIconStyleValues"
             app:layout="@layout/mp_preference_material_widget" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="notificationNotificationCategory"
+        app:title="@string/phone_profiles_pref_notificationNotificationPanelCategory"
+        app:layout="@layout/mp_preference_category" >
 
         <ListPreference
             app:title="@string/phone_profiles_pref_notificationNotificationStyle"
@@ -85,10 +95,18 @@
             app:title="@string/phone_profiles_pref_notificationUseDecoration"
             app:defaultValue="true"
             app:layout="@layout/mp_preference_material_widget" />
+
+        <SwitchPreferenceCompat
+            app:key="notificationShowProfileIcon"
+            app:title="@string/phone_profiles_pref_notificationShowProfileIcon"
+            app:defaultValue="true"
+            app:layout="@layout/mp_preference_material_widget" />
+
         <SwitchPreferenceCompat
             app:key="notificationShowButtonExit"
             app:title="@string/phone_profiles_pref_notificationShowButtonExit"
             app:defaultValue="false"
             app:layout="@layout/mp_preference_material_widget" />
+    </PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>

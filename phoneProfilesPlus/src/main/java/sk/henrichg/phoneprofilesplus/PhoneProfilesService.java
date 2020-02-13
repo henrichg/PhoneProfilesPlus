@@ -4455,6 +4455,7 @@ public class PhoneProfilesService extends Service
             }*/
 
             String notificationNotificationStyle = ApplicationPreferences.notificationNotificationStyle;
+            boolean notificationShowProfileIcon = ApplicationPreferences.notificationShowProfileIcon && (Build.VERSION.SDK_INT >= 24);
             boolean notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar;
             //boolean notificationStatusBarPermanent = ApplicationPreferences.notificationStatusBarPermanent(appContext);
             //boolean notificationDarkBackground = ApplicationPreferences.notificationDarkBackground(appContext);
@@ -4751,7 +4752,8 @@ public class PhoneProfilesService extends Service
                             }
                         }
                         else {
-                            notificationBuilder.setLargeIcon(iconBitmap);
+                            if (notificationShowProfileIcon)
+                                notificationBuilder.setLargeIcon(iconBitmap);
                         }
                     } else {
                         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "icon has NOT changed color");
@@ -4799,7 +4801,8 @@ public class PhoneProfilesService extends Service
                             }
                         }
                         else {
-                            notificationBuilder.setLargeIcon(largeIcon);
+                            if (notificationShowProfileIcon)
+                                notificationBuilder.setLargeIcon(largeIcon);
                         }
                     }
                 } else {
@@ -4839,10 +4842,12 @@ public class PhoneProfilesService extends Service
                         }
                     }
                     else {
-                        if (iconBitmap != null)
-                            notificationBuilder.setLargeIcon(iconBitmap);
-                        else
-                            notificationBuilder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_profile_default));
+                        if (notificationShowProfileIcon) {
+                            if (iconBitmap != null)
+                                notificationBuilder.setLargeIcon(iconBitmap);
+                            else
+                                notificationBuilder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_profile_default));
+                        }
                     }
                 }
             }
@@ -4856,8 +4861,10 @@ public class PhoneProfilesService extends Service
                             contentView.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);
                     }
                 }
-                else
-                    notificationBuilder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_empty));
+                else {
+                    if (notificationShowProfileIcon)
+                        notificationBuilder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_empty));
+                }
             }
 
             if (notificationNotificationStyle.equals("0")) {
@@ -4878,7 +4885,6 @@ public class PhoneProfilesService extends Service
                         contentViewLarge.setViewVisibility(R.id.notification_activated_profile_pref_indicator, View.GONE);
                 }
                 else {
-                    //TODO sem daj textovy preferences indicator
                     if (notificationPrefIndicator)
                         notificationBuilder.setContentText(ProfilePreferencesIndicator.getString(profile, 0, appContext));
                 }

@@ -775,5 +775,13 @@ DataWrapper.firstStartEvents()
   - DatatWrapper.pauseAllEvents(false, false) - !!! Co toto robi? Sa mi zda, ze tu by mohlo zapisat aktivaciu profilu, teda ak sa tu merguju
     Vypada to tak, ze nerobi nic, kedze ziadna udalost nebezi a oba partametre su false.
 
+---------------
+
+Nativna notifikacia:
+
+API level < 24 nema dekorator, tak pre ne nedovol nastavit velkost.
+API level >= 24 ma dekorator, dovol nastavit zobrazovanie ikony profilu
+Pouzivaj to len ak je typ native, inac to zakaz.
+Cize pridaj novy parameter pre zobrazovanie ikony. Nech to je switch.
 
 
