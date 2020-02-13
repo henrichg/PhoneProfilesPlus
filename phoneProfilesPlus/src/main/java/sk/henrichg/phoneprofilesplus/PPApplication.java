@@ -103,6 +103,8 @@ public class PPApplication extends Application /*implements Application.Activity
 
                                                 //+"|BluetoothConnectedDevices"
 
+                                                +"|*********** restartEvents"
+
                                                 //+"|[BRS] SettingsContentObserver.onChange"
                                                 //+"|BrightnessDialogPreferenceFragmentX"
                                                 //+"|[BRSD] SettingsContentObserver"
@@ -151,7 +153,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|$$$ EventsHandler.handleEvents"
                                                 +"|EventsHandler.handleEvents"
                                                 //+"|Profile.mergeProfiles"
-                                                //+"|Profile.compareProfiles"
+                                                +"|Profile.compareProfiles"
                                                 //+"|Profile.saveProfileToSharedPreferences"
                                                 //+"|Profile.getProfileFromSharedPreferences"
                                                 //+"|[NOTIFY] EventsHandler"
@@ -163,7 +165,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|DataWrapper.restartEvents"
                                                 //+"|PPApplication.startHandlerThread"
                                                 //+"|Event.startEvent"
-                                                //+"|Event.pauseEvent"
+                                                +"|Event.pauseEvent"
                                                 //+"|[DSTART] DataWrapper.doHandleEvents"
 
                                                 //+"|EditorProfilesActivity"
@@ -442,7 +444,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|EventPreferencesAlarmClock.setAlarm"
                                                 //+"|EventPreferencesAlarmClock.computeAlarm"
                                                 //+"|NextAlarmClockBroadcastReceiver"
-                                                //+"|TimeChangedReceiver"
+                                                +"|TimeChangedReceiver"
 
                                                 //+"|@@@ ScreenOnOffBroadcastReceiver"
                                                 //+"|LockDeviceActivity"

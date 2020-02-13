@@ -998,6 +998,7 @@ public class DataWrapper {
         }
         //PPApplication.logE("$$$ restartEvents", "from DataWrapper.stopEventsForProfile");
         //restartEvents(false, true, true, true, true);
+        PPApplication.logE("*********** restartEvents", "from DataWrapper.stopEventsForProfile()");
         restartEventsWithRescan(false, true, true, false);
     }
 
@@ -1229,6 +1230,7 @@ public class DataWrapper {
         if (startedFromService) {
             if (ApplicationPreferences.applicationStartEvents) {
                 //restartEvents(false, false, true, false, useHandler);
+                PPApplication.logE("*********** restartEvents", "from DataWrapper.startEventsOnBoot() - 1");
                 restartEventsWithRescan(/*true, */false, useHandler, false, false);
             }
             else {
@@ -1238,6 +1240,7 @@ public class DataWrapper {
         }
         else {
             //restartEvents(false, false, true, false, useHandler);
+            PPApplication.logE("*********** restartEvents", "from DataWrapper.startEventsOnBoot() - 2");
             restartEventsWithRescan(false, useHandler, false, false);
         }
     }
@@ -4392,6 +4395,7 @@ public class DataWrapper {
                         PPApplication.startPPService(context, serviceIntent);
                     }
                     else {
+                        PPApplication.logE("*********** restartEvents", "from DataWrapper.restartEventsWithAlert() - 1");
                         restartEventsWithRescan(/*true, */true, true, true, true);
                         //IgnoreBatteryOptimizationNotification.showNotification(context);
                     }
@@ -4453,6 +4457,7 @@ public class DataWrapper {
                 });
             }
 
+            PPApplication.logE("*********** restartEvents", "from DataWrapper.restartEventsWithAlert() - 2");
             restartEventsWithRescan(/*true, */true, true, true, true);
 
             //IgnoreBatteryOptimizationNotification.showNotification(context);

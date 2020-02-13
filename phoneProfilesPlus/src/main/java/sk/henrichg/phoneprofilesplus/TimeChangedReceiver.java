@@ -135,12 +135,17 @@ public class TimeChangedReceiver extends BroadcastReceiver {
         //dataWrapper.restartEvents(false, true, false, false, false);
         //dataWrapper.restartEventsWithRescan(false, false, false, false);
         if (forceRestart) {
-            if (!DataWrapper.getIsManualProfileActivation(false/*, appContext*/))
+            if (!DataWrapper.getIsManualProfileActivation(false/*, appContext*/)) {
+                PPApplication.logE("*********** restartEvents", "from TimeChangedReceiver.doWork() - 1");
                 dataWrapper.restartEventsWithRescan(true, false, true, false);
-            else
+            }
+            else {
+                PPApplication.logE("*********** restartEvents", "from TimeChangedReceiver.doWork() - 2");
                 dataWrapper.restartEventsWithRescan(false, false, true, false);
+            }
         }
         else {
+            PPApplication.logE("*********** restartEvents", "from TimeChangedReceiver.doWork() - 3");
             dataWrapper.restartEventsWithRescan(false, false, false, false);
         }
     }

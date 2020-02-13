@@ -504,6 +504,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
             //PPApplication.logE("$$$ restartEvents","from EventsPrefsActivity.savePreferences");
             PPApplication.setBlockProfileEventActions(true, dataWrapper.context);
             //dataWrapper.restartEvents(false, true, true, true, true);
+            PPApplication.logE("*********** restartEvents", "from EventPrefsActivity.savePreferences()");
             dataWrapper.restartEventsWithRescan(/*true, */false, true, true, false);
         }
         else
@@ -549,6 +550,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
                             //PPApplication.logE("$$$ restartEvents", "from EventsPrefsActivity.savePreferences");
                             PPApplication.setBlockProfileEventActions(true, dataWrapper.context);
                             //dataWrapper.restartEvents(false, true, true, true, false);
+                            PPApplication.logE("*********** restartEvents", "from EventPrefsActivity.saveUpdateOfPreferences() - 1");
                             dataWrapper.restartEventsWithRescan(/*true, */false, false, true, false);
                         }
 
@@ -589,6 +591,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
                         //PPApplication.logE("$$$ restartEvents", "from EventsPrefsActivity.savePreferences");
                         PPApplication.setBlockProfileEventActions(true, dataWrapper.context);
                         //dataWrapper.restartEvents(false, true, true, true, false);
+                        PPApplication.logE("*********** restartEvents", "from EventPrefsActivity.saveUpdateOfPreferences() - 2");
                         dataWrapper.restartEventsWithRescan(/*true, */false, false, true, false);
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventsPrefsActivity.savePreferences.2");

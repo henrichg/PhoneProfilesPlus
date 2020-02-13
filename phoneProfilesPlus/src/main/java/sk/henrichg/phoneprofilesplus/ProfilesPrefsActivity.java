@@ -613,6 +613,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 if (Event.getGlobalEventsRunning()) {
                     if (!DataWrapper.getIsManualProfileActivation(false/*, getApplicationContext()*/)) {
                         //dataWrapper.restartEvents(false, true, true, true, true);
+                        PPApplication.logE("*********** restartEvents", "from ProfilePrefsActivity.savePreferences()");
                         dataWrapper.restartEventsWithRescan(false, true, true, false);
                     }
                     else {

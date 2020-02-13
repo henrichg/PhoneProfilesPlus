@@ -673,6 +673,7 @@ public class EditorEventListFragment extends Fragment
                 // restart events
                 //PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.runStopEvent");
                 //activityDataWrapper.restartEvents(false, true, true, true, true);
+                PPApplication.logE("*********** restartEvents", "from EditorEventListFragment.runStopEvents() - 1");
                 activityDataWrapper.restartEventsWithRescan(/*true, */false, true, true, false);
 
                 /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
@@ -703,6 +704,7 @@ public class EditorEventListFragment extends Fragment
                 // restart events
                 //PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.runStopEvent");
                 //activityDataWrapper.restartEvents(false, true, true, true, true);
+                PPApplication.logE("*********** restartEvents", "from EditorEventListFragment.runStopEvents() - 2");
                 activityDataWrapper.restartEventsWithRescan(/*true, */false, true, true, false);
 
                 /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
@@ -776,6 +778,7 @@ public class EditorEventListFragment extends Fragment
         // restart events
         //PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.deleteEvent");
         //activityDataWrapper.restartEvents(false, true, true, true, true);
+        PPApplication.logE("*********** restartEvents", "from EditorEventListFragment.deleteEvent()");
         activityDataWrapper.restartEventsWithRescan(/*true, */false, true, true, false);
 
         eventListAdapter.notifyDataSetChanged();

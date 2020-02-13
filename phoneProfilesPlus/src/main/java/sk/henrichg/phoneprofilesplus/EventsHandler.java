@@ -81,13 +81,13 @@ class EventsHandler {
         synchronized (PPApplication.eventsHandlerMutex) {
             //CallsCounter.logCounter(context, "EventsHandler.handleEvents", "EventsHandler_handleEvents");
 
-            PPApplication.logE("#### EventsHandler.handleEvents", "-- start --------------------------------");
+            //PPApplication.logE("#### EventsHandler.handleEvents", "-- start --------------------------------");
 
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started
                 return;
 
-            PPApplication.logE("#### EventsHandler.handleEvents", "-- application started --------------------------------");
+            //PPApplication.logE("#### EventsHandler.handleEvents", "-- application started --------------------------------");
 
             PhoneProfilesService ppService;
 
@@ -567,7 +567,9 @@ class EventsHandler {
                         PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "ppService.willBeDoRestartEvents=" + ppService.willBeDoRestartEvents);
                 }*/
                 // no manual profile activation
-                if (runningEventCountE == 0) {
+                if ((runningEventCountE == 0) && (mergedProfile._id == 0)) {
+                    // Activate default profile, when not any event is running and at end of event is not
+                    // merged any profile. This keeps last activated profile from paused events.
                     if ((ppService != null) && (!ppService.willBeDoRestartEvents)) {
                         // activate default profile, only when will not be do restart events from paused events
 
@@ -604,13 +606,15 @@ class EventsHandler {
                                 )
                                 {
                                     notifyBackgroundProfile = true;
-                                    mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper/*, false*/);
+                                    //mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper/*, false*/);
+                                    mergedProfile = dataWrapper.getProfileById(backgroundProfileId, false, false, false);
                                     //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
                                 }
                             } else {
                                 if ((activatedProfileId != backgroundProfileId) || isRestart) {
                                     notifyBackgroundProfile = true;
-                                    mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper/*, false*/);
+                                    //mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper/*, false*/);
+                                    mergedProfile = dataWrapper.getProfileById(backgroundProfileId, false, false, false);
                                     //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
                                 }
                             }
@@ -630,7 +634,8 @@ class EventsHandler {
                     if (activatedProfile == null) {
                         // if not profile activated, activate Default profile
                         notifyBackgroundProfile = true;
-                        mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper/*, false*/);
+                        //mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper/*, false*/);
+                        mergedProfile = dataWrapper.getProfileById(backgroundProfileId, false, false, false);
                         //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
                     }
                 }

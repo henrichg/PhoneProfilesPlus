@@ -906,9 +906,9 @@ class ProfilePreferencesIndicator {
             if (profile._applicationDisableWifiScanning != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._applicationDisableWifiScanning == 1) || (profile._applicationDisableWifiScanning == 3))
-                        indicator1 = addIntoIndicator(indicator1, "wis:1", maxLineLength);
+                        indicator1 = addIntoIndicator(indicator1, "wfs:1", maxLineLength);
                     if (profile._applicationDisableWifiScanning == 2)
-                        indicator1 = addIntoIndicator(indicator1, "wis:0", maxLineLength);
+                        indicator1 = addIntoIndicator(indicator1, "wfs:0", maxLineLength);
                 }
             }
             // disable bluetooth scanning

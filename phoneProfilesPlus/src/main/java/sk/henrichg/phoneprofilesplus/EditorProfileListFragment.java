@@ -667,6 +667,7 @@ public class EditorProfileListFragment extends Fragment
         }
         else {
             //activityDataWrapper.restartEvents(false, true, true, true, true);
+            PPApplication.logE("*********** restartEvents", "from EditorProfileListFragment.deleteProfile()");
             activityDataWrapper.restartEventsWithRescan(false, true, true, false);
         }
 
