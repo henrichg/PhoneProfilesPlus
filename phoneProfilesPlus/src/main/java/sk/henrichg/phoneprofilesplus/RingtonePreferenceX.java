@@ -307,7 +307,7 @@ public class RingtonePreferenceX extends DialogPreference {
         if (audioManager != null) {
 
             final Uri _ringtoneUri = Uri.parse(ringtoneUri);
-            Crashlytics.log("RingtonePreferenceX.playRingtone - ringtoneUri="+ringtoneUri);
+            //Crashlytics.log("RingtonePreferenceX.playRingtone - ringtoneUri="+ringtoneUri);
 
             PPApplication.startHandlerThreadPlayTone();
             final Handler handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
@@ -448,8 +448,8 @@ public class RingtonePreferenceX extends DialogPreference {
                         //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, prefContext);
  */
                     } catch (Exception e) {
-                        Log.e("RingtonePreferenceX.playRingtone", Log.getStackTraceString(e));
-                        Crashlytics.logException(e);
+                        //Log.e("RingtonePreferenceX.playRingtone", Log.getStackTraceString(e));
+                        //Crashlytics.logException(e);
                         stopPlayRingtone();
 
                         OneTimeWorkRequest disableInternalChangeWorker =
