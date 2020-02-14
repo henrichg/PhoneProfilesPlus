@@ -1623,46 +1623,45 @@ public class EditorProfilesActivity extends AppCompatActivity
         ObjectInputStream input = null;
         try {
             try {
-                input = new ObjectInputStream(new FileInputStream(src));
-                Editor prefEdit;
-                if (what == 1)
-                    prefEdit = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE).edit();
-                else
-                    prefEdit = getSharedPreferences("profile_preferences_default_profile", Activity.MODE_PRIVATE).edit();
-                prefEdit.clear();
-                //noinspection unchecked
-                Map<String, ?> entries = (Map<String, ?>) input.readObject();
-                for (Entry<String, ?> entry : entries.entrySet()) {
-                    Object v = entry.getValue();
-                    String key = entry.getKey();
-
-                    if (v instanceof Boolean)
-                        prefEdit.putBoolean(key, (Boolean) v);
-                    else if (v instanceof Float)
-                        prefEdit.putFloat(key, (Float) v);
-                    else if (v instanceof Integer)
-                        prefEdit.putInt(key, (Integer) v);
-                    else if (v instanceof Long)
-                        prefEdit.putLong(key, (Long) v);
-                    else if (v instanceof String)
-                        prefEdit.putString(key, ((String) v));
-
+                if (src.exists()) {
+                    input = new ObjectInputStream(new FileInputStream(src));
+                    Editor prefEdit;
                     if (what == 1)
-                    {
-                        if (key.equals(ApplicationPreferences.PREF_APPLICATION_THEME))
-                        {
-                            if (v.equals("light") || v.equals("material") || v.equals("color") || v.equals("dlight")) {
-                                String defaultValue = "white";
-                                if (Build.VERSION.SDK_INT >= 28)
-                                    defaultValue = "night_mode";
-                                prefEdit.putString(key, defaultValue);
+                        prefEdit = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE).edit();
+                    else
+                        prefEdit = getSharedPreferences("profile_preferences_default_profile", Activity.MODE_PRIVATE).edit();
+                    prefEdit.clear();
+                    //noinspection unchecked
+                    Map<String, ?> entries = (Map<String, ?>) input.readObject();
+                    for (Entry<String, ?> entry : entries.entrySet()) {
+                        Object v = entry.getValue();
+                        String key = entry.getKey();
+
+                        if (v instanceof Boolean)
+                            prefEdit.putBoolean(key, (Boolean) v);
+                        else if (v instanceof Float)
+                            prefEdit.putFloat(key, (Float) v);
+                        else if (v instanceof Integer)
+                            prefEdit.putInt(key, (Integer) v);
+                        else if (v instanceof Long)
+                            prefEdit.putLong(key, (Long) v);
+                        else if (v instanceof String)
+                            prefEdit.putString(key, ((String) v));
+
+                        if (what == 1) {
+                            if (key.equals(ApplicationPreferences.PREF_APPLICATION_THEME)) {
+                                if (v.equals("light") || v.equals("material") || v.equals("color") || v.equals("dlight")) {
+                                    String defaultValue = "white";
+                                    if (Build.VERSION.SDK_INT >= 28)
+                                        defaultValue = "night_mode";
+                                    prefEdit.putString(key, defaultValue);
+                                }
                             }
+                            if (key.equals(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES))
+                                ActivateProfileHelper.setMergedRingNotificationVolumes(getApplicationContext(), true, prefEdit);
+                            if (key.equals(ApplicationPreferences.PREF_APPLICATION_FIRST_START))
+                                prefEdit.putBoolean(ApplicationPreferences.PREF_APPLICATION_FIRST_START, false);
                         }
-                        if (key.equals(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES))
-                            ActivateProfileHelper.setMergedRingNotificationVolumes(getApplicationContext(), true, prefEdit);
-                        if (key.equals(ApplicationPreferences.PREF_APPLICATION_FIRST_START))
-                            prefEdit.putBoolean(ApplicationPreferences.PREF_APPLICATION_FIRST_START, false);
-                    }
 
                     /*if (what == 2) {
                         if (key.equals(Profile.PREF_PROFILE_LOCK_DEVICE)) {
@@ -1670,23 +1669,25 @@ public class EditorProfilesActivity extends AppCompatActivity
                             prefEdit.putString(Profile.PREF_PROFILE_LOCK_DEVICE, "1");
                         }
                     }*/
-                }
-                prefEdit.apply();
-                if (what == 1) {
-                    // save version code
-                    try {
-                        Context appContext = getApplicationContext();
-                        PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
-                        int actualVersionCode = PPApplication.getVersionCode(pInfo);
-                        PPApplication.setSavedVersionCode(appContext, actualVersionCode);
-                    } catch (Exception ignored) {
                     }
+                    prefEdit.apply();
+                    if (what == 1) {
+                        // save version code
+                        try {
+                            Context appContext = getApplicationContext();
+                            PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
+                            int actualVersionCode = PPApplication.getVersionCode(pInfo);
+                            PPApplication.setSavedVersionCode(appContext, actualVersionCode);
+                        } catch (Exception ignored) {
+                        }
+                    }
+
+                    PPApplication.loadApplicationPreferences(getApplicationContext());
+                    PPApplication.loadGlobalApplicationData(getApplicationContext());
+                    PPApplication.loadProfileActivationData(getApplicationContext());
                 }
-
-                PPApplication.loadApplicationPreferences(getApplicationContext());
-                PPApplication.loadGlobalApplicationData(getApplicationContext());
-                PPApplication.loadProfileActivationData(getApplicationContext());
-
+                else
+                    res = false;
             }/* catch (FileNotFoundException ignored) {
                 // no error, this is OK
             }*/ catch (Exception e) {
