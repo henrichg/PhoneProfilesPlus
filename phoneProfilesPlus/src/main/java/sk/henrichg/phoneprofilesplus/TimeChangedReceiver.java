@@ -17,8 +17,8 @@ public class TimeChangedReceiver extends BroadcastReceiver {
         if ((intent != null) && (intent.getAction() != null)) {
             final String action = intent.getAction();
             //PPApplication.logE("TimeChangedReceiver.onReceive", "action="+action);
-            if (action.equals(Intent.ACTION_TIMEZONE_CHANGED) ||
-                    action.equals(Intent.ACTION_TIME_CHANGED)/* ||
+            if (action.equals(Intent.ACTION_TIMEZONE_CHANGED)/* ||
+                    action.equals(Intent.ACTION_TIME_CHANGED) ||
                     action.equals(Intent.ACTION_TIME_TICK)*/) {
                 //CallsCounter.logCounter(context, "TimeChangedReceiver.onReceive", "TimeChangedReceiver_onReceive");
 
@@ -96,7 +96,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
         }
     }
 
-    static void doWork(Context appContext, boolean forceRestart) {
+    static void doWork(Context appContext, boolean logRestart/*, boolean forceRestart*/) {
         //PPApplication.logE("TimeChangedReceiver.doWork", "xxx");
 
         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
@@ -134,8 +134,8 @@ public class TimeChangedReceiver extends BroadcastReceiver {
         //dataWrapper.clearSensorsStartTime();
         //dataWrapper.restartEvents(false, true, false, false, false);
         //dataWrapper.restartEventsWithRescan(false, false, false, false);
-        if (forceRestart) {
-            if (!DataWrapper.getIsManualProfileActivation(false/*, appContext*/)) {
+        /*if (forceRestart) {
+            if (!DataWrapper.getIsManualProfileActivation(false)) {
                 PPApplication.logE("*********** restartEvents", "from TimeChangedReceiver.doWork() - 1");
                 dataWrapper.restartEventsWithRescan(true, false, true, false);
             }
@@ -147,7 +147,8 @@ public class TimeChangedReceiver extends BroadcastReceiver {
         else {
             PPApplication.logE("*********** restartEvents", "from TimeChangedReceiver.doWork() - 3");
             dataWrapper.restartEventsWithRescan(false, false, false, false);
-        }
+        }*/
+        dataWrapper.restartEventsWithRescan(true, false, false, logRestart, false);
     }
 
 }

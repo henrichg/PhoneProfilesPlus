@@ -999,7 +999,7 @@ public class DataWrapper {
         //PPApplication.logE("$$$ restartEvents", "from DataWrapper.stopEventsForProfile");
         //restartEvents(false, true, true, true, true);
         PPApplication.logE("*********** restartEvents", "from DataWrapper.stopEventsForProfile()");
-        restartEventsWithRescan(false, true, true, false);
+        restartEventsWithRescan(false, true, false, true, false);
     }
 
     void stopEventsForProfileFromMainThread(final Profile profile,
@@ -1058,7 +1058,7 @@ public class DataWrapper {
 
                     if (status == Event.ESTATUS_RUNNING) {
                         if (!(event._forceRun && event._noPauseByManualActivation)) {
-                            event.pauseEvent(this, eventTimelineList, false, true, noSetSystemEvent, /*true,*/ null, false, false);
+                            event.pauseEvent(this, eventTimelineList, false, true, noSetSystemEvent, true, null, false, false);
                         }
                     }
 
@@ -1231,7 +1231,7 @@ public class DataWrapper {
             if (ApplicationPreferences.applicationStartEvents) {
                 //restartEvents(false, false, true, false, useHandler);
                 PPApplication.logE("*********** restartEvents", "from DataWrapper.startEventsOnBoot() - 1");
-                restartEventsWithRescan(/*true, */false, useHandler, false, false);
+                restartEventsWithRescan(/*true, */false, useHandler, false, false, false);
             }
             else {
                 Event.setGlobalEventsRunning(context, false);
@@ -1241,7 +1241,7 @@ public class DataWrapper {
         else {
             //restartEvents(false, false, true, false, useHandler);
             PPApplication.logE("*********** restartEvents", "from DataWrapper.startEventsOnBoot() - 2");
-            restartEventsWithRescan(false, useHandler, false, false);
+            restartEventsWithRescan(false, useHandler, false, false, false);
         }
     }
 
@@ -2068,6 +2068,9 @@ public class DataWrapper {
         }
     }
 
+    boolean startProfileMerged;
+    boolean endProfileMerged;
+
     @SuppressLint({ "NewApi", "SimpleDateFormat" })
     void doHandleEvents(Event event, boolean statePause,
                                     boolean forRestartEvents, /*boolean interactive,*/
@@ -2078,6 +2081,9 @@ public class DataWrapper {
         //if (!Permissions.grantEventPermissions(context, event, true, false))
         if (!EditorProfilesActivity.displayRedTextToPreferencesNotification(null, event, context))
             return;
+
+        startProfileMerged = false;
+        endProfileMerged = false;
 
         int newEventStatus;// = Event.ESTATUS_NONE;
 
@@ -4100,7 +4106,9 @@ public class DataWrapper {
                             if (!event._isInDelayStart) {
                                 // no delay alarm is set
                                 // start event
+                                long oldMergedProfile = mergedProfile._id;
                                 event.startEvent(this, eventTimelineList, /*interactive,*/ forRestartEvents, mergedProfile);
+                                startProfileMerged = oldMergedProfile != mergedProfile._id;
                                 //if (event._name.equals("Doma"))
                                 //    PPApplication.logE("[***] DataWrapper.doHandleEvents", "mergedProfile._id=" + mergedProfile._id);
                             }
@@ -4112,7 +4120,9 @@ public class DataWrapper {
                         if (forDelayStartAlarm && event._isInDelayStart) {
                             // called for delay alarm
                             // start event
+                            long oldMergedProfile = mergedProfile._id;
                             event.startEvent(this, eventTimelineList, /*interactive,*/ forRestartEvents, mergedProfile);
+                            startProfileMerged = oldMergedProfile != mergedProfile._id;
                             //PPApplication.logE("[DSTART] DataWrapper.doHandleEvents", "mergedProfile=" + mergedProfile._name);
                         }
                     }
@@ -4151,16 +4161,20 @@ public class DataWrapper {
                             if (!event._isInDelayEnd) {
                                 // no delay alarm is set
                                 // pause event
+                                long oldMergedProfile = mergedProfile._id;
                                 event.pauseEvent(this, eventTimelineList, true, false,
-                                        false, /*true,*/ mergedProfile, !forRestartEvents, forRestartEvents);
+                                        false, true, mergedProfile, !forRestartEvents, forRestartEvents);
+                                endProfileMerged = oldMergedProfile != mergedProfile._id;
                             }
                         }
 
                         if (forDelayEndAlarm && event._isInDelayEnd) {
                             // called for delay alarm
                             // pause event
+                            long oldMergedProfile = mergedProfile._id;
                             event.pauseEvent(this, eventTimelineList, true, false,
-                                    false, /*true,*/ mergedProfile, !forRestartEvents, forRestartEvents);
+                                    false, true, mergedProfile, !forRestartEvents, forRestartEvents);
+                            endProfileMerged = oldMergedProfile != mergedProfile._id;
                         }
                     }
                 }
@@ -4171,12 +4185,16 @@ public class DataWrapper {
     }
 
     private void _restartEvents(final boolean unblockEventsRun, /*final boolean notClearActivatedProfile,*/
-                                /*final boolean reactivateProfile,*/ final boolean logRestart)
+                                /*final boolean reactivateProfile,*/ final boolean manualRestart, final boolean logRestart)
     {
         //PPApplication.logE("DataWrapper._restartEvents", "xxx");
 
-        if (logRestart)
-            PPApplication.addActivityLog(context, PPApplication.ALTYPE_RESTART_EVENTS, null, null, null, 0);
+        if (logRestart) {
+            if (manualRestart)
+                PPApplication.addActivityLog(context, PPApplication.ALTYPE_MANUAL_RESTART_EVENTS, null, null, null, 0);
+            else
+                PPApplication.addActivityLog(context, PPApplication.ALTYPE_RESTART_EVENTS, null, null, null, 0);
+        }
 
         if ((ApplicationPreferences.prefEventsBlocked && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
             EventsHandler eventsHandler = new EventsHandler(context);
@@ -4224,7 +4242,8 @@ public class DataWrapper {
     }
 
     private void restartEvents(final boolean unblockEventsRun, /*final boolean notClearActivatedProfile,*/
-                       /*final boolean reactivateProfile,*/ final boolean logRestart/*, final boolean useHandler*/)
+                       /*final boolean reactivateProfile,*/ final boolean manualRestart, final boolean logRestart
+                       /*, final boolean useHandler*/)
     {
         if (!Event.getGlobalEventsRunning()) {
             // events are globally stopped
@@ -4271,10 +4290,10 @@ public class DataWrapper {
         }
         else
         */
-            _restartEvents(unblockEventsRun, /*notClearActivatedProfile, reactivateProfile,*/ logRestart);
+            _restartEvents(unblockEventsRun, /*notClearActivatedProfile, reactivateProfile,*/ manualRestart, logRestart);
     }
 
-    private void _restartEventsWithRescan(/*boolean forceRestart, */boolean unblockEventsRun, boolean logRestart) {
+    private void _restartEventsWithRescan(/*boolean forceRestart, */boolean unblockEventsRun, boolean manualRestart, boolean logRestart) {
         //PPApplication.logE("$$$ DataWrapper._restartEventsWithRescan","xxx");
 
         // remove all event delay alarms
@@ -4282,7 +4301,7 @@ public class DataWrapper {
         resetAllEventsInDelayEnd(false);
         // ignore manual profile activation
         // and unblock forceRun events
-        restartEvents(unblockEventsRun, /*true, true,*/ logRestart/*, false*/);
+        restartEvents(unblockEventsRun, /*true, true,*/ manualRestart, logRestart/*, false*/);
 
         //if (forceRestart || ApplicationPreferences.applicationEventWifiRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
             PPApplication.restartWifiScanner(context, false);
@@ -4299,7 +4318,9 @@ public class DataWrapper {
         PPApplication.restartTwilightScanner(context);
     }
 
-    void restartEventsWithRescan(/*final boolean forceRestart, */final boolean unblockEventsRun, boolean useHandler, final boolean logRestart, boolean showToast)
+    void restartEventsWithRescan(/*final boolean forceRestart, */
+            final boolean unblockEventsRun, boolean useHandler,
+            final boolean manualRestart, final boolean logRestart, boolean showToast)
     {
         //PPApplication.logE("$$$ DataWrapper.restartEventsWithRescan","xxx");
 
@@ -4321,7 +4342,7 @@ public class DataWrapper {
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DataWrapper.restartEventsWithRescan");
 
-                        dataWrapper._restartEventsWithRescan(/*forceRestart, */unblockEventsRun, logRestart);
+                        dataWrapper._restartEventsWithRescan(/*forceRestart, */unblockEventsRun, manualRestart, logRestart);
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DataWrapper.restartEventsWithRescan");
                     } finally {
@@ -4336,7 +4357,7 @@ public class DataWrapper {
             });
         }
         else
-            _restartEventsWithRescan(/*forceRestart, */unblockEventsRun, logRestart);
+            _restartEventsWithRescan(/*forceRestart, */unblockEventsRun, manualRestart, logRestart);
 
         if (showToast) {
             if (ApplicationPreferences.notificationsToast) {
@@ -4396,7 +4417,7 @@ public class DataWrapper {
                     }
                     else {
                         PPApplication.logE("*********** restartEvents", "from DataWrapper.restartEventsWithAlert() - 1");
-                        restartEventsWithRescan(/*true, */true, true, true, true);
+                        restartEventsWithRescan(/*true, */true, true, true, true, true);
                         //IgnoreBatteryOptimizationNotification.showNotification(context);
                     }
                 }
@@ -4458,7 +4479,7 @@ public class DataWrapper {
             }
 
             PPApplication.logE("*********** restartEvents", "from DataWrapper.restartEventsWithAlert() - 2");
-            restartEventsWithRescan(/*true, */true, true, true, true);
+            restartEventsWithRescan(/*true, */true, true, true, true, true);
 
             //IgnoreBatteryOptimizationNotification.showNotification(context);
         }

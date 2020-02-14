@@ -21,7 +21,7 @@ class ActivityLogAdapter extends CursorAdapter {
     private final int KEY_AL_EVENT_NAME;
     private final int KEY_AL_PROFILE_NAME;
     //private final int KEY_AL_PROFILE_ICON;
-    //private final int KEY_AL_DURATION_DELAY;
+    private final int KEY_AL_DURATION_DELAY;
 
     @SuppressLint("UseSparseArrays")
     private final HashMap<Integer, Integer> activityTypeStrings = new HashMap<>();
@@ -36,9 +36,10 @@ class ActivityLogAdapter extends CursorAdapter {
         KEY_AL_EVENT_NAME = cursor.getColumnIndex(DatabaseHandler.KEY_AL_EVENT_NAME);
         KEY_AL_PROFILE_NAME = cursor.getColumnIndex(DatabaseHandler.KEY_AL_PROFILE_NAME);
         //KEY_AL_PROFILE_ICON = cursor.getColumnIndex(DatabaseHandler.KEY_AL_PROFILE_ICON);
-        //KEY_AL_DURATION_DELAY = cursor.getColumnIndex(DatabaseHandler.KEY_AL_DURATION_DELAY);
+        KEY_AL_DURATION_DELAY = cursor.getColumnIndex(DatabaseHandler.KEY_AL_DURATION_DELAY);
 
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ACTIVATION, R.string.altype_profileActivation);
+        activityTypeStrings.put(PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION, R.string.altype_mergedProfileActivation);
         activityTypeStrings.put(PPApplication.ALTYPE_AFTER_DURATION_UNDO_PROFILE, R.string.altype_afterDuration_undoProfile);
         activityTypeStrings.put(PPApplication.ALTYPE_AFTER_DURATION_BACKGROUND_PROFILE, R.string.altype_afterDuration_backgroundProfile);
         activityTypeStrings.put(PPApplication.ALTYPE_AFTER_DURATION_RESTART_EVENTS, R.string.altype_afterDuration_restartEvents);
@@ -64,6 +65,7 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeStrings.put(PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED, R.string.altype_eventPreferencesChanged);
         activityTypeStrings.put(PPApplication.ALTYPE_EVENT_DELETED, R.string.altype_eventDeleted);
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_DELETED, R.string.altype_profileDeleted);
+        activityTypeStrings.put(PPApplication.ALTYPE_MANUAL_RESTART_EVENTS, R.string.altype_manualRestartEvents);
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_PREFERENCES_CHANGED, R.string.altype_profilePreferencesChanged);
         activityTypeStrings.put(PPApplication.ALTYPE_SHARED_PROFILE_PREFERENCES_CHANGED, R.string.altype_sharedProfilePreferencesChanged);
         activityTypeStrings.put(PPApplication.ALTYPE_ALL_EVENTS_DELETED, R.string.altype_allEventsDeleted);
@@ -86,6 +88,7 @@ class ActivityLogAdapter extends CursorAdapter {
         }*/
 
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ACTIVATION, R.color.altype_profile);
+        activityTypeColors.put(PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION, R.color.altype_profile);
         activityTypeColors.put(PPApplication.ALTYPE_AFTER_DURATION_UNDO_PROFILE, R.color.altype_profile);
         activityTypeColors.put(PPApplication.ALTYPE_AFTER_DURATION_BACKGROUND_PROFILE, R.color.altype_profile);
         activityTypeColors.put(PPApplication.ALTYPE_AFTER_DURATION_RESTART_EVENTS, R.color.altype_profile);
@@ -112,6 +115,7 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED, otherColor);
         activityTypeColors.put(PPApplication.ALTYPE_EVENT_DELETED, otherColor);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_DELETED, otherColor);
+        activityTypeColors.put(PPApplication.ALTYPE_MANUAL_RESTART_EVENTS, otherColor);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_PREFERENCES_CHANGED, otherColor);
         activityTypeColors.put(PPApplication.ALTYPE_SHARED_PROFILE_PREFERENCES_CHANGED, otherColor);
         activityTypeColors.put(PPApplication.ALTYPE_ALL_EVENTS_DELETED, otherColor);
@@ -137,6 +141,15 @@ class ActivityLogAdapter extends CursorAdapter {
         //noinspection ConstantConditions
         rowData.logTypeColor.setBackgroundColor(ContextCompat.getColor(context, activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE))));
         rowData.logDateTime.setText(GlobalGUIRoutines.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
+
+        int logType = cursor.getInt(KEY_AL_LOG_TYPE);
+        //noinspection ConstantConditions
+        String logTypeText = context.getString(activityTypeStrings.get(logType));
+        if (logType == PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION) {
+            logTypeText = logTypeText + " (" + cursor.getString(KEY_AL_DURATION_DELAY) + ")";
+        }
+        rowData.logType.setText(logTypeText);
+
         //noinspection ConstantConditions
         rowData.logType.setText(activityTypeStrings.get(cursor.getInt(KEY_AL_LOG_TYPE)));
         String logData = "";
@@ -166,8 +179,15 @@ class ActivityLogAdapter extends CursorAdapter {
         //noinspection ConstantConditions
         rowData.logTypeColor.setBackgroundColor(ContextCompat.getColor(context, activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE))));
         rowData.logDateTime.setText(GlobalGUIRoutines.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
+
+        int logType = cursor.getInt(KEY_AL_LOG_TYPE);
         //noinspection ConstantConditions
-        rowData.logType.setText(activityTypeStrings.get(cursor.getInt(KEY_AL_LOG_TYPE)));
+        String logTypeText = context.getString(activityTypeStrings.get(logType));
+        if (logType == PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION) {
+            logTypeText = logTypeText + " (" + cursor.getString(KEY_AL_DURATION_DELAY) + ")";
+        }
+        rowData.logType.setText(logTypeText);
+
         String logData = "";
         String event_name = cursor.getString(KEY_AL_EVENT_NAME);
         String profile_name = cursor.getString(KEY_AL_PROFILE_NAME);

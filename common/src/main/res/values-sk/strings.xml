@@ -620,7 +620,7 @@
     <string name="phone_profiles_pref_applicationWidgetIconBackground">Nepriehľadnosť pozadia (miniapl.)</string>
     <string name="phone_profiles_pref_applicationWidgetIconLightnessB">Svetlosť pozadia (miniapl.)</string>
     <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Svetlosť textu (miniapl.)</string>
-    <string name="altype_eventStop">zastavenie udalosti</string>
+    <string name="altype_eventStop">stop udalosti</string>
     <string name="info_notification_manage_events_from_tasker">Môžete ovládať udalosti z Tasker-a. Nakonfigurujte task \"System\"/\"Send Intent\" s parametrami:</string>
     <string name="info_notification_manage_events_from_tasker_restart_events">reštart udalostí:</string>
     <string name="info_notification_manage_events_from_tasker_enable_run_for_event">povoliť spúšťanie udalosti:</string>

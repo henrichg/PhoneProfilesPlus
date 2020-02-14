@@ -1602,7 +1602,7 @@ class Event {
                             boolean activateReturnProfile,
                             boolean ignoreGlobalPref,
                             boolean noSetSystemEvent,
-                            //boolean log,
+                            boolean log,
                             Profile mergedProfile,
                             boolean allowRestart,
                             boolean forRestartEvents)
@@ -1687,7 +1687,7 @@ class Event {
         //PPApplication.logE("@@@ Event.pauseEvent","-- new status="+this._status);
         DatabaseHandler.getInstance(dataWrapper.context).updateEventStatus(this);
 
-        if (/*log &&*/ (status != this._status)) {
+        if (log && (status != this._status)) {
             doLogForPauseEvent(dataWrapper.context, allowRestart);
         }
 
@@ -1766,7 +1766,7 @@ class Event {
 
         if (this._status != ESTATUS_STOP)
         {
-            pauseEvent(dataWrapper, eventTimelineList, activateReturnProfile, ignoreGlobalPref, true, /*false,*/ null, false/*allowRestart*/, false);
+            pauseEvent(dataWrapper, eventTimelineList, activateReturnProfile, ignoreGlobalPref, true, false, null, false/*allowRestart*/, false);
         }
 
         setSystemEvent(dataWrapper.context, ESTATUS_STOP);

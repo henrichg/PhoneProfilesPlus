@@ -337,7 +337,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_AL_EVENT_NAME = "eventName";
     static final String KEY_AL_PROFILE_NAME = "profileName";
     private static final String KEY_AL_PROFILE_ICON = "profileIcon";
-    private static final String KEY_AL_DURATION_DELAY = "durationDelay";
+    static final String KEY_AL_DURATION_DELAY = "durationDelay";
 
     // Geofences Columns names
     static final String KEY_G_ID = "_id";

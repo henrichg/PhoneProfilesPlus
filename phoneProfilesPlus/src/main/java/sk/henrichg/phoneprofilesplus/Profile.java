@@ -1376,10 +1376,11 @@ public class Profile {
             DatabaseHandler.getInstance(dataWrapper.context).activateProfile(withProfile);
             dataWrapper.setProfileActive(withProfile);
 
+            /* Do not log this, logged is merged profile in EventsHandler
             String profileIcon = withProfile._icon;
             PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_PROFILE_ACTIVATION, null,
                                     DataWrapper.getProfileNameWithManualIndicatorAsString(withProfile, true, "", false, false, false, dataWrapper, false, dataWrapper.context),
-                                    profileIcon, 0);
+                                    profileIcon, 0);*/
 
             /*
             PPApplication.logE("$$$ Profile.mergeProfiles", "**** END");

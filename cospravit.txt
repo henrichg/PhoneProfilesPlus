@@ -784,4 +784,19 @@ API level >= 24 ma dekorator, dovol nastavit zobrazovanie ikony profilu
 Pouzivaj to len ak je typ native, inac to zakaz.
 Cize pridaj novy parameter pre zobrazovanie ikony. Nech to je switch.
 
+----------------
+
+Full restart udalosti:
+- prechadza vsetky udalosti jednu za druhou v opacnom poradi startu
+- pauzuje len to co bezi, lebo nema co ine pauzovat
+- potom prechadza vsetky udalosti jednu za druhou v poradi startu
+- spusta to co spustit ma
+Na TimeChangedReceiver spravi tzv. ciastocny restart, kde nezrusi manualne aktivovany profil, ktory blokuje udalosti.
+To preto, aby sa nezmenil stav. Proste, ked je manualna aktivacia, tak sa udalosti neodblokuju. Teda okrem tych, co
+maju _forceRun = true. Pre ne sa blokovanie ignoruje, spustia sa.
+Kedy sa blokuju udalosti:
+- blokuje sa, ak sa profil aktivuje manualne
+Len restart udalosti vie odblokovat ich beh. Ma na to parameter. Ide ut o ten full restart.
+
+
 

@@ -945,7 +945,7 @@ public class PhoneProfilesService extends Service
                 timeChangedReceiver = new TimeChangedReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 //intentFilter5.addAction(Intent.ACTION_TIME_TICK);
-                intentFilter5.addAction(Intent.ACTION_TIME_CHANGED);
+                //intentFilter5.addAction(Intent.ACTION_TIME_CHANGED);
                 intentFilter5.addAction(Intent.ACTION_TIMEZONE_CHANGED);
                 appContext.registerReceiver(timeChangedReceiver, intentFilter5);
             }

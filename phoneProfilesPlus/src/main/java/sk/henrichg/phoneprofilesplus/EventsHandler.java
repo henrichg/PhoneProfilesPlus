@@ -315,19 +315,18 @@ class EventsHandler {
             Profile mergedProfile = DataWrapper.getNonInitializedProfile("", "", 0);
             Profile mergedPausedProfile = DataWrapper.getNonInitializedProfile("", "", 0);
 
+            int mergedProfilesCount = 0;
+
             //Profile oldActivatedProfile = dataWrapper.getActivatedProfileFromDB(false, false);
             Profile oldActivatedProfile = Profile.getProfileFromSharedPreferences(context, PPApplication.ACTIVATED_PROFILE_PREFS_NAME);
             boolean profileChanged = false;
 
-            //Profile activatedProfile0 = null;
-
-            //int runningEventCount0;
-            //int runningEventCountP;
             boolean activateProfileAtEnd = false;
             boolean anyEventPaused = false;
             //Event notifyEventEnd = null;
             boolean notified = false;
 
+            // do not reactivate profile, activate only changes
             //boolean reactivateProfile = false;
 
             if (isRestart || (sensorType.equals(SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK))) {
@@ -403,6 +402,11 @@ class EventsHandler {
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
 
                         if (running && paused) {
+                            if (dataWrapper.startProfileMerged)
+                                mergedProfilesCount++;
+                            if (dataWrapper.endProfileMerged)
+                                mergedProfilesCount++;
+
                             anyEventPaused = true;
                             //notifyEventEnd = _event;
                             _event.notifyEventEnd(false);
@@ -436,6 +440,11 @@ class EventsHandler {
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
 
                         if (running && paused) {
+                            if (dataWrapper.startProfileMerged)
+                                mergedProfilesCount++;
+                            if (dataWrapper.endProfileMerged)
+                                mergedProfilesCount++;
+
                             _event.notifyEventStart(context, false);
                         }
                     }
@@ -478,6 +487,11 @@ class EventsHandler {
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
 
                         if (running && paused) {
+                            if (dataWrapper.startProfileMerged)
+                                mergedProfilesCount++;
+                            if (dataWrapper.endProfileMerged)
+                                mergedProfilesCount++;
+
                             anyEventPaused = true;
                             //notifyEventEnd = _event;
                             if (_event.notifyEventEnd(!notified))
@@ -525,6 +539,11 @@ class EventsHandler {
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
 
                         if (running && paused) {
+                            if (dataWrapper.startProfileMerged)
+                                mergedProfilesCount++;
+                            if (dataWrapper.endProfileMerged)
+                                mergedProfilesCount++;
+
                             if (_event.notifyEventStart(context, !notified))
                                 notified = true;
                         }
@@ -567,9 +586,7 @@ class EventsHandler {
                         PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "ppService.willBeDoRestartEvents=" + ppService.willBeDoRestartEvents);
                 }*/
                 // no manual profile activation
-                if ((runningEventCountE == 0) && (mergedProfile._id == 0)) {
-                    // Activate default profile, when not any event is running and at end of event is not
-                    // merged any profile. This keeps last activated profile from paused events.
+                if (runningEventCountE == 0) {
                     if ((ppService != null) && (!ppService.willBeDoRestartEvents)) {
                         // activate default profile, only when will not be do restart events from paused events
 
@@ -606,15 +623,13 @@ class EventsHandler {
                                 )
                                 {
                                     notifyBackgroundProfile = true;
-                                    //mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper/*, false*/);
-                                    mergedProfile = dataWrapper.getProfileById(backgroundProfileId, false, false, false);
+                                    mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper/*, false*/);
                                     //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
                                 }
                             } else {
                                 if ((activatedProfileId != backgroundProfileId) || isRestart) {
                                     notifyBackgroundProfile = true;
-                                    //mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper/*, false*/);
-                                    mergedProfile = dataWrapper.getProfileById(backgroundProfileId, false, false, false);
+                                    mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper/*, false*/);
                                     //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
                                 }
                             }
@@ -634,8 +649,7 @@ class EventsHandler {
                     if (activatedProfile == null) {
                         // if not profile activated, activate Default profile
                         notifyBackgroundProfile = true;
-                        //mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper/*, false*/);
-                        mergedProfile = dataWrapper.getProfileById(backgroundProfileId, false, false, false);
+                        mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper/*, false*/);
                         //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
                     }
                 }
@@ -688,6 +702,19 @@ class EventsHandler {
                 //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### profileChanged=" + profileChanged);
 
                 if (profileChanged/* || reactivateProfile*/) {
+                    // log only when merged profile is not the same as last activated
+
+                    //if (mergedProfilesCount > 1) {
+                        PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION, null,
+                                DataWrapper.getProfileNameWithManualIndicatorAsString(mergedProfile, true, "", false, false, false, dataWrapper, false, dataWrapper.context),
+                                mergedProfile._icon, mergedProfilesCount);
+                    //}
+                    /*else {
+                        PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_PROFILE_ACTIVATION, null,
+                                DataWrapper.getProfileNameWithManualIndicatorAsString(mergedProfile, true, "", false, false, false, dataWrapper, false, dataWrapper.context),
+                                mergedProfile._icon, 0);
+                    }*/
+
                     dataWrapper.activateProfileFromEvent(mergedProfile._id, false, true, isRestart);
                     // wait for profile activation
                     doSleep = true;

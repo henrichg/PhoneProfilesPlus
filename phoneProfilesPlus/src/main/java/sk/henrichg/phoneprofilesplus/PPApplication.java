@@ -165,7 +165,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|DataWrapper.restartEvents"
                                                 //+"|PPApplication.startHandlerThread"
                                                 //+"|Event.startEvent"
-                                                +"|Event.pauseEvent"
+                                                //+"|Event.pauseEvent"
                                                 //+"|[DSTART] DataWrapper.doHandleEvents"
 
                                                 //+"|EditorProfilesActivity"
@@ -254,8 +254,8 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|ProfilesPrefsFragment.onActivityCreated"
                                                 //+"|ProfilesPrefsFragment.setRedTextToPreferences"
                                                 //+"|ProfilesPrefsActivity.getProfileFromPreferences"
-                                                 /*+"|EventsPrefsActivity"
-                                                 +"|EventsPrefsFragment"
+                                                 //+"|EventsPrefsActivity"
+                                                 /*+"|EventsPrefsFragment"
                                                  +"|PhoneProfilesPrefsNotifications"
                                                  +"|LocationGeofencePreferenceX"
                                                  +"|ProfilePreferenceX"
@@ -591,6 +591,7 @@ public class PPApplication extends Application /*implements Application.Activity
     // activity log types
     static final int ALTYPE_UNDEFINED = 0;
     static final int ALTYPE_PROFILE_ACTIVATION = 1;
+    static final int ALTYPE_MERGED_PROFILE_ACTIVATION = 2;
     static final int ALTYPE_AFTER_DURATION_UNDO_PROFILE = 21;
     static final int ALTYPE_AFTER_DURATION_BACKGROUND_PROFILE = 22;
     static final int ALTYPE_AFTER_DURATION_RESTART_EVENTS = 23;
@@ -616,6 +617,7 @@ public class PPApplication extends Application /*implements Application.Activity
     static final int ALTYPE_EVENT_PREFERENCES_CHANGED = 17;
     static final int ALTYPE_EVENT_DELETED = 18;
     static final int ALTYPE_PROFILE_DELETED = 19;
+    static final int ALTYPE_MANUAL_RESTART_EVENTS = 20;
     static final int ALTYPE_PROFILE_PREFERENCES_CHANGED = 30;
     static final int ALTYPE_SHARED_PROFILE_PREFERENCES_CHANGED = 31;
     static final int ALTYPE_ALL_EVENTS_DELETED = 32;
