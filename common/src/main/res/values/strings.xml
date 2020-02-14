@@ -1486,7 +1486,7 @@
     <string name="phone_profiles_pref_notificationNotificationStyle_native">Native</string>
     <string name="phone_profiles_pref_notificationShowProfileIcon">Show profile icon</string>
 
-    <string name="altype_mergedProfileActivation">profiles from events activation</string>
+    <string name="altype_mergedProfileActivation">profiles activation from events</string>
     <string name="altype_manualRestartEvents">manual restart events</string>
 
     <!-- **************************************************************************************** -->

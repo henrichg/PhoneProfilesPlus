@@ -624,12 +624,15 @@ class EventsHandler {
                                 {
                                     notifyBackgroundProfile = true;
                                     mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper/*, false*/);
+                                    mergedProfilesCount++;
+
                                     //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
                                 }
                             } else {
                                 if ((activatedProfileId != backgroundProfileId) || isRestart) {
                                     notifyBackgroundProfile = true;
                                     mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper/*, false*/);
+                                    mergedProfilesCount++;
                                     //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
                                 }
                             }
@@ -650,6 +653,7 @@ class EventsHandler {
                         // if not profile activated, activate Default profile
                         notifyBackgroundProfile = true;
                         mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper/*, false*/);
+                        mergedProfilesCount++;
                         //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
                     }
                 }

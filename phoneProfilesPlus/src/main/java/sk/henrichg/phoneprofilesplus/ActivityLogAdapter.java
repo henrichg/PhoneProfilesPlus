@@ -146,7 +146,9 @@ class ActivityLogAdapter extends CursorAdapter {
         //noinspection ConstantConditions
         String logTypeText = context.getString(activityTypeStrings.get(logType));
         if (logType == PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION) {
-            logTypeText = logTypeText + " (" + cursor.getString(KEY_AL_DURATION_DELAY) + ")";
+            String profilesCount = cursor.getString(KEY_AL_DURATION_DELAY);
+            if (profilesCount != null)
+                logTypeText = logTypeText + " (" + profilesCount + ")";
         }
         rowData.logType.setText(logTypeText);
 
