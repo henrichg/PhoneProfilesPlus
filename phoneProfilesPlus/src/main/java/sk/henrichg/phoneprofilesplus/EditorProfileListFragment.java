@@ -639,7 +639,7 @@ public class EditorProfileListFragment extends Fragment
             // profile not exists
             return;
 
-        PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_PROFILE_DELETED, null, profile._name, profile._icon, 0);
+        PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_PROFILE_DELETED, null, profile._name, profile._icon, 0, "");
 
         Profile activatedProfile = activityDataWrapper.getActivatedProfile(false, false);
         if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
@@ -767,7 +767,7 @@ public class EditorProfileListFragment extends Fragment
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
 
                 public void onClick(DialogInterface dialog, int which) {
-                    PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_PROFILES_DELETED, null, null, null, 0);
+                    PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_PROFILES_DELETED, null, null, null, 0, "");
 
                     // remove alarm for profile duration
                     synchronized (activityDataWrapper.profileList) {

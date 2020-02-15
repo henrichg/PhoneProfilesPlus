@@ -1204,13 +1204,13 @@ public class PPApplication extends Application /*implements Application.Activity
     //--------------------------------------------------------------
 
     static void addActivityLog(Context context, int logType, String eventName, String profileName, String profileIcon,
-                               int durationDelay) {
+                               int durationDelay, String profilesEventsCount) {
         if (PPApplication.prefActivityLogEnabled) {
             //if (ApplicationPreferences.preferences == null)
             //    ApplicationPreferences.preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
             //ApplicationPreferences.setApplicationDeleteOldActivityLogs(context, Integer.valueOf(preferences.getString(ApplicationPreferences.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, "7")));
             DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.applicationDeleteOldActivityLogs,
-                    logType, eventName, profileName, profileIcon, durationDelay);
+                    logType, eventName, profileName, profileIcon, durationDelay, profilesEventsCount);
         }
     }
 
@@ -2975,7 +2975,7 @@ public class PPApplication extends Application /*implements Application.Activity
             //    ApplicationPreferences.forceNotUseAlarmClock = true;
 
             if (dataWrapper != null)
-                dataWrapper.stopAllEvents(false, false);
+                dataWrapper.stopAllEvents(false, false, false);
 
             if (!shutdown) {
 
@@ -2985,7 +2985,7 @@ public class PPApplication extends Application /*implements Application.Activity
                 Permissions.removeNotifications(context);
 
                 if (dataWrapper != null)
-                    addActivityLog(context, PPApplication.ALTYPE_APPLICATION_EXIT, null, null, null, 0);
+                    addActivityLog(context, PPApplication.ALTYPE_APPLICATION_EXIT, null, null, null, 0, "");
 
                 /*if (PPApplication.brightnessHandler != null) {
                     PPApplication.brightnessHandler.post(new Runnable() {

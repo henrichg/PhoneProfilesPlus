@@ -3927,9 +3927,9 @@ public class PhoneProfilesService extends Service
                     PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "application started");
 
                     if (_startOnBoot)
-                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_START_ON_BOOT, null, null, null, 0);
+                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_START_ON_BOOT, null, null, null, 0, "");
                     else if (_activateProfiles)
-                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_START, null, null, null, 0);
+                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_START, null, null, null, 0, "");
 
                     if (PPApplication.logEnabled()) {
                         PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "PhoneProfilesService.doForFirstStart END");

@@ -596,7 +596,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 Profile.setActivatedProfileForDuration(getApplicationContext(), profile._id);
             }
 
-            PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_PROFILE_PREFERENCES_CHANGED, null, profile._name, profile._icon, 0);
+            PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_PROFILE_PREFERENCES_CHANGED, null, profile._name, profile._icon, 0, "");
 
             if ((new_profile_mode == EditorProfileListFragment.EDIT_MODE_INSERT) ||
                     (new_profile_mode == EditorProfileListFragment.EDIT_MODE_DUPLICATE)) {

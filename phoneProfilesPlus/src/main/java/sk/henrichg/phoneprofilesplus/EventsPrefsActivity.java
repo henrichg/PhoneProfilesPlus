@@ -494,7 +494,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
         final DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
 
-        PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED, event._name, null, null, 0);
+        PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED, event._name, null, null, 0, "");
 
         if ((new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) ||
                 (new_event_mode == EditorEventListFragment.EDIT_MODE_DUPLICATE))
@@ -547,7 +547,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
                                     false, false, null, false, false);
                             // stop event
                             event.stopEvent(dataWrapper, eventTimelineList, true, false,
-                                    true/*, false*/);
+                                    true, true);
 
                             // restart Events
                             //PPApplication.logE("$$$ restartEvents", "from EventsPrefsActivity.savePreferences");

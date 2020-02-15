@@ -316,6 +316,7 @@ class EventsHandler {
             Profile mergedPausedProfile = DataWrapper.getNonInitializedProfile("", "", 0);
 
             int mergedProfilesCount = 0;
+            int usedEventsCount = 0;
 
             //Profile oldActivatedProfile = dataWrapper.getActivatedProfileFromDB(false, false);
             Profile oldActivatedProfile = Profile.getProfileFromSharedPreferences(context, PPApplication.ACTIVATED_PROFILE_PREFS_NAME);
@@ -406,6 +407,7 @@ class EventsHandler {
                                 mergedProfilesCount++;
                             if (dataWrapper.endProfileMerged)
                                 mergedProfilesCount++;
+                            usedEventsCount++;
 
                             anyEventPaused = true;
                             //notifyEventEnd = _event;
@@ -444,6 +446,7 @@ class EventsHandler {
                                 mergedProfilesCount++;
                             if (dataWrapper.endProfileMerged)
                                 mergedProfilesCount++;
+                            usedEventsCount++;
 
                             _event.notifyEventStart(context, false);
                         }
@@ -491,6 +494,7 @@ class EventsHandler {
                                 mergedProfilesCount++;
                             if (dataWrapper.endProfileMerged)
                                 mergedProfilesCount++;
+                            usedEventsCount++;
 
                             anyEventPaused = true;
                             //notifyEventEnd = _event;
@@ -543,6 +547,7 @@ class EventsHandler {
                                 mergedProfilesCount++;
                             if (dataWrapper.endProfileMerged)
                                 mergedProfilesCount++;
+                            usedEventsCount++;
 
                             if (_event.notifyEventStart(context, !notified))
                                 notified = true;
@@ -711,7 +716,7 @@ class EventsHandler {
                     //if (mergedProfilesCount > 1) {
                         PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION, null,
                                 DataWrapper.getProfileNameWithManualIndicatorAsString(mergedProfile, true, "", false, false, false, dataWrapper, false, dataWrapper.context),
-                                mergedProfile._icon, mergedProfilesCount);
+                                mergedProfile._icon, 0, mergedProfilesCount + " [" + usedEventsCount + "]");
                     //}
                     /*else {
                         PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_PROFILE_ACTIVATION, null,

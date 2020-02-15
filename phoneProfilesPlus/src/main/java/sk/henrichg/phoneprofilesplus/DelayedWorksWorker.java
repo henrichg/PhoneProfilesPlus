@@ -115,7 +115,7 @@ public class DelayedWorksWorker extends Worker {
                         PPApplication.setSavedVersionCode(appContext, actualVersionCode);
 
                         String version = pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
-                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_UPGRADE, version, null, null, 0);
+                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_UPGRADE, version, null, null, 0, "");
                     } catch (Exception ignored) {
                     }
 

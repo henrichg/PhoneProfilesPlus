@@ -22,6 +22,7 @@ class ActivityLogAdapter extends CursorAdapter {
     private final int KEY_AL_PROFILE_NAME;
     //private final int KEY_AL_PROFILE_ICON;
     private final int KEY_AL_DURATION_DELAY;
+    private final int KEY_AL_PROFILE_EVENT_COUNT;
 
     @SuppressLint("UseSparseArrays")
     private final HashMap<Integer, Integer> activityTypeStrings = new HashMap<>();
@@ -37,6 +38,7 @@ class ActivityLogAdapter extends CursorAdapter {
         KEY_AL_PROFILE_NAME = cursor.getColumnIndex(DatabaseHandler.KEY_AL_PROFILE_NAME);
         //KEY_AL_PROFILE_ICON = cursor.getColumnIndex(DatabaseHandler.KEY_AL_PROFILE_ICON);
         KEY_AL_DURATION_DELAY = cursor.getColumnIndex(DatabaseHandler.KEY_AL_DURATION_DELAY);
+        KEY_AL_PROFILE_EVENT_COUNT = cursor.getColumnIndex(DatabaseHandler.KEY_AL_PROFILE_EVENT_COUNT);
 
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ACTIVATION, R.string.altype_profileActivation);
         activityTypeStrings.put(PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION, R.string.altype_mergedProfileActivation);
@@ -146,9 +148,9 @@ class ActivityLogAdapter extends CursorAdapter {
         //noinspection ConstantConditions
         String logTypeText = context.getString(activityTypeStrings.get(logType));
         if (logType == PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION) {
-            String profilesCount = cursor.getString(KEY_AL_DURATION_DELAY);
-            if (profilesCount != null)
-                logTypeText = logTypeText + " (" + profilesCount + ")";
+            String profileEventCount = cursor.getString(KEY_AL_PROFILE_EVENT_COUNT);
+            if (profileEventCount != null)
+                logTypeText = logTypeText + " " + profileEventCount;
         }
         rowData.logType.setText(logTypeText);
 
@@ -186,7 +188,9 @@ class ActivityLogAdapter extends CursorAdapter {
         //noinspection ConstantConditions
         String logTypeText = context.getString(activityTypeStrings.get(logType));
         if (logType == PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION) {
-            logTypeText = logTypeText + " (" + cursor.getString(KEY_AL_DURATION_DELAY) + ")";
+            String profileEventCount = cursor.getString(KEY_AL_PROFILE_EVENT_COUNT);
+            if (profileEventCount != null)
+                logTypeText = logTypeText + ": " + profileEventCount;
         }
         rowData.logType.setText(logTypeText);
 

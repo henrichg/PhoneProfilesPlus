@@ -208,7 +208,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
 
                                         final List<EventTimeline> eventTimelineList = _dataWrapper.getEventTimelineList(false);
                                         event.stopEvent(_dataWrapper, eventTimelineList, true, false,
-                                                true/*, true*/); // activate return profile
+                                                true, true); // activate return profile
                                         //_dataWrapper.restartEvents(false, true, true, true, false);
                                         PPApplication.logE("*********** restartEvents", "from ActionForExternalApplicationActivity.onStart() - ACTION_STOP_EVENT");
                                         _dataWrapper.restartEventsWithRescan(/*true, */false, false, false, true, true);

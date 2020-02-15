@@ -38,7 +38,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2408;
+    private static final int DATABASE_VERSION = 2409;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -338,6 +338,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_AL_PROFILE_NAME = "profileName";
     private static final String KEY_AL_PROFILE_ICON = "profileIcon";
     static final String KEY_AL_DURATION_DELAY = "durationDelay";
+    static final String KEY_AL_PROFILE_EVENT_COUNT = "profileEventCount";
 
     // Geofences Columns names
     static final String KEY_G_ID = "_id";
@@ -720,7 +721,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_AL_EVENT_NAME + " TEXT,"
                 + KEY_AL_PROFILE_NAME + " TEXT,"
                 + KEY_AL_PROFILE_ICON + " TEXT,"
-                + KEY_AL_DURATION_DELAY + " INTEGER"
+                + KEY_AL_DURATION_DELAY + " INTEGER,"
+                + KEY_AL_PROFILE_EVENT_COUNT + " TEXT"
                 + ")";
         db.execSQL(CREATE_ACTIVITYLOG_TABLE);
 
@@ -3014,6 +3016,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }
 
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SCREEN_ON_PERMANENT + "=0");
+        }
+
+        if (oldVersion < 2409) {
+            db.execSQL("ALTER TABLE " + TABLE_ACTIVITY_LOG + " ADD COLUMN " + KEY_AL_PROFILE_EVENT_COUNT + " TEXT");
+
+            db.execSQL("UPDATE " + TABLE_ACTIVITY_LOG + " SET " + KEY_AL_PROFILE_EVENT_COUNT + "=\"1 [0]\"");
         }
 
         //PPApplication.logE("DatabaseHandler.onUpgrade", "END");
@@ -7597,7 +7605,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Adding activity log
     void addActivityLog(int deleteOldActivityLogs, int logType, String eventName, String profileName, String profileIcon,
-                        int durationDelay) {
+                        int durationDelay, String profileEventsCount) {
         importExportLock.lock();
         try {
             try {
@@ -7613,6 +7621,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_AL_PROFILE_ICON, profileIcon);
                 if (durationDelay > 0)
                     values.put(KEY_AL_DURATION_DELAY, durationDelay);
+                values.put(KEY_AL_PROFILE_EVENT_COUNT, profileEventsCount);
 
                 db.beginTransaction();
 
@@ -7684,7 +7693,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_AL_EVENT_NAME + "," +
                         KEY_AL_PROFILE_NAME + "," +
                         KEY_AL_PROFILE_ICON + "," +
-                        KEY_AL_DURATION_DELAY +
+                        KEY_AL_DURATION_DELAY + "," +
+                        KEY_AL_PROFILE_EVENT_COUNT +
                         " FROM " + TABLE_ACTIVITY_LOG +
                         " ORDER BY " + KEY_AL_ID + " DESC";
 
@@ -11354,10 +11364,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                             }
 
                                             // for non existent fields set default value
-                                        /*if (exportedDBObj.getVersion() < 30)
-                                        {
-                                            values.put(KEY_E_USE_END_TIME, 0);
-                                        }*/
+                                            if (exportedDBObj.getVersion() < 2409)
+                                            {
+                                                values.put(KEY_AL_PROFILE_EVENT_COUNT, "1 [0]");
+                                            }
 
                                             // Inserting Row do db z SQLiteOpenHelper
                                             db.insert(TABLE_ACTIVITY_LOG, null, values);

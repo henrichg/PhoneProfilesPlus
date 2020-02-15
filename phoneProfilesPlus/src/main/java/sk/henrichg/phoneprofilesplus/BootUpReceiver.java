@@ -81,7 +81,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 //    PhoneProfilesService.getInstance().removeRestartEventsForFirstStartHandler(true);
 
                                 final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
-                                PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_START_ON_BOOT, null, null, null, 0);
+                                PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_START_ON_BOOT, null, null, null, 0, "");
 
                                 // start events
                                 if (Event.getGlobalEventsRunning()) {

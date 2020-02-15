@@ -989,7 +989,7 @@ public class DataWrapper {
                 //if ((event.getStatusFromDB(this) == Event.ESTATUS_RUNNING) &&
                 //	(event._fkProfileStart == profile._id))
                 if (event._fkProfileStart == profile._id)
-                    event.stopEvent(this, eventTimelineList, false, true, true/*saveEventStatus*//*, false*/);
+                    event.stopEvent(this, eventTimelineList, false, true, true/*saveEventStatus*/, false);
             }
         }
         if (alsoUnlink) {
@@ -1115,7 +1115,7 @@ public class DataWrapper {
     }
 
     // stops all events
-    void stopAllEvents(boolean saveEventStatus, boolean alsoDelete/*, boolean activateReturnProfile*/)
+    void stopAllEvents(boolean saveEventStatus, boolean alsoDelete/*, boolean activateReturnProfile*/, boolean log)
     {
         List<EventTimeline> eventTimelineList = getEventTimelineList(true);
         synchronized (eventList) {
@@ -1125,7 +1125,7 @@ public class DataWrapper {
                 Event event = it.next();
                 //if (event.getStatusFromDB(this) != Event.ESTATUS_STOP)
                 event.stopEvent(this, eventTimelineList, false/*activateReturnProfile*/,
-                        true, saveEventStatus/*, false*/);
+                        true, saveEventStatus, log);
             }
         }
         if (alsoDelete) {
@@ -1154,7 +1154,7 @@ public class DataWrapper {
 
                     //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DataWrapper.stopAllEventsFromMainThread");
 
-                    dataWrapper.stopAllEvents(saveEventStatus, alsoDelete);
+                    dataWrapper.stopAllEvents(saveEventStatus, alsoDelete, true);
 
                     //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DataWrapper.stopAllEventsFromMainThread");
                 } finally {
@@ -1684,7 +1684,7 @@ public class DataWrapper {
         if (/*(mappedProfile != null) &&*/ (!merged)) {
             PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ACTIVATION, null,
                     getProfileNameWithManualIndicatorAsString(mappedProfile, true, "", profileDuration > 0, false, false, this, false, context),
-                    profileIcon, profileDuration);
+                    profileIcon, profileDuration, "");
         }
 
         //if (mappedProfile != null)
@@ -4191,9 +4191,9 @@ public class DataWrapper {
 
         if (logRestart) {
             if (manualRestart)
-                PPApplication.addActivityLog(context, PPApplication.ALTYPE_MANUAL_RESTART_EVENTS, null, null, null, 0);
+                PPApplication.addActivityLog(context, PPApplication.ALTYPE_MANUAL_RESTART_EVENTS, null, null, null, 0, "");
             else
-                PPApplication.addActivityLog(context, PPApplication.ALTYPE_RESTART_EVENTS, null, null, null, 0);
+                PPApplication.addActivityLog(context, PPApplication.ALTYPE_RESTART_EVENTS, null, null, null, 0, "");
         }
 
         if ((ApplicationPreferences.prefEventsBlocked && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
@@ -4828,7 +4828,7 @@ public class DataWrapper {
     private boolean globalRunStopEvents(boolean stop) {
         if (stop) {
             if (Event.getGlobalEventsRunning()) {
-                PPApplication.addActivityLog(context, PPApplication.ALTYPE_RUN_EVENTS_DISABLE, null, null, null, 0);
+                PPApplication.addActivityLog(context, PPApplication.ALTYPE_RUN_EVENTS_DISABLE, null, null, null, 0, "");
 
                 // no setup for next start
                 resetAllEventsInDelayStart(false);
@@ -4852,7 +4852,7 @@ public class DataWrapper {
         }
         else {
             if (!Event.getGlobalEventsRunning()) {
-                PPApplication.addActivityLog(context, PPApplication.ALTYPE_RUN_EVENTS_ENABLE, null, null, null, 0);
+                PPApplication.addActivityLog(context, PPApplication.ALTYPE_RUN_EVENTS_ENABLE, null, null, null, 0, "");
 
                 Event.setGlobalEventsRunning(context, true);
 
