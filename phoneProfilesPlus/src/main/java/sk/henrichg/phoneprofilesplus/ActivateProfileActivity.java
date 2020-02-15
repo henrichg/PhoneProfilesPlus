@@ -26,7 +26,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import me.drakeet.support.toast.ToastCompat;
+//import me.drakeet.support.toast.ToastCompat;
 
 public class ActivateProfileActivity extends AppCompatActivity {
 
@@ -316,18 +316,17 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
     private boolean showNotStartedToast() {
         boolean applicationStarted = PPApplication.getApplicationStarted(true);
-        boolean waitForEndOfStart = false;
+        boolean fullyStarted = true;
         if (applicationStarted) {
             PhoneProfilesService instance = PhoneProfilesService.getInstance();
-            waitForEndOfStart = instance.getWaitForEndOfStart();
-            applicationStarted = !waitForEndOfStart;
+            fullyStarted = instance.getApplicationFullyStarted();
+            applicationStarted = fullyStarted && (!PPApplication.applicationPackageReplaced);
         }
         if (!applicationStarted) {
             String text = getString(R.string.app_name) + " " + getString(R.string.application_is_not_started);
-            if (waitForEndOfStart)
+            if (!fullyStarted)
                 text = getString(R.string.app_name) + " " + getString(R.string.application_is_starting_toast);
-            Toast msg = ToastCompat.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
-            msg.show();
+            GlobalGUIRoutines.showToast(getApplicationContext(), text, Toast.LENGTH_LONG);
             return true;
         }
         return false;

@@ -209,7 +209,7 @@ class ApplicationPreferences {
     
     private static SharedPreferences preferences = null;
 
-    static final String PREF_APPLICATION_PACKAGE_REPLACED = "applicationPackageReplaced";
+    //static final String PREF_APPLICATION_PACKAGE_REPLACED = "applicationPackageReplaced";
     static final String PREF_APPLICATION_FIRST_START = "applicationFirstStart";
     static final String PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN = "applicationEventNeverAskForEnableRun";
     static final String PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT = "applicationNeverAskForGrantRoot";
@@ -372,10 +372,11 @@ class ApplicationPreferences {
         return getSharedPreferences(context).edit();
     }
 
-
+    /*
     static boolean applicationPackageReplaced(Context context) {
         return ApplicationPreferences.getSharedPreferences(context).getBoolean(ApplicationPreferences.PREF_APPLICATION_PACKAGE_REPLACED, false);
     }
+    */
 
     static boolean applicationFirstStart(Context context) {
         return ApplicationPreferences.getSharedPreferences(context).getBoolean(ApplicationPreferences.PREF_APPLICATION_FIRST_START, true);

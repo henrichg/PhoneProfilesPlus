@@ -628,6 +628,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
     private static boolean applicationStarted = false;
     static boolean globalEventsRunStop = true;
+    static boolean applicationPackageReplaced = false;
 
     static boolean restoreFinished = true;
 
@@ -3028,8 +3029,8 @@ public class PPApplication extends Application /*implements Application.Activity
             //PhoneProfilesService.getInstance().showProfileNotification(false);
             //context.stopService(new Intent(context, PhoneProfilesService.class));
             PhoneProfilesService.stop(context);
-            if (PhoneProfilesService.getInstance() != null)
-                PhoneProfilesService.getInstance().setWaitForEndOfStart(true, false);
+            //if (PhoneProfilesService.getInstance() != null)
+            //    PhoneProfilesService.getInstance().setApplicationFullyStarted(false, false);
 
             Permissions.setAllShowRequestPermissions(context.getApplicationContext(), true);
 

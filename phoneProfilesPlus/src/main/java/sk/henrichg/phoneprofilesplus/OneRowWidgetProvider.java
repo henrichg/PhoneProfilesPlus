@@ -64,6 +64,13 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
                 Profile profile = dataWrapper.getActivatedProfile(true, applicationWidgetOneRowPrefIndicator);
 
+                boolean fullyStarted = false;
+                if (PhoneProfilesService.getInstance() != null)
+                    fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
+                boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
+                if ((!fullyStarted) || applicationPackageReplaced)
+                    profile = null;
+
                 try {
                     if (!refreshWidget) {
                         String pNameWidget = PPApplication.prefWidgetProfileName2;

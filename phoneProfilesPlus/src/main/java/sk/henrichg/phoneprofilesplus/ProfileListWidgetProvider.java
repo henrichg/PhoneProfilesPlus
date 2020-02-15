@@ -198,6 +198,14 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             //if (applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
 
             Profile profile = DatabaseHandler.getInstance(dataWrapper.context).getActivatedProfile();
+
+            boolean fullyStarted = false;
+            if (PhoneProfilesService.getInstance() != null)
+                fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
+            boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
+            if ((!fullyStarted) || applicationPackageReplaced)
+                profile = null;
+
             dataWrapper.getEventTimelineList(true);
 
             boolean isIconResourceID;

@@ -63,7 +63,7 @@ public class DelayedWorksWorker extends Worker {
                 case DELAYED_WORK_PACKAGE_REPLACED:
                     PPApplication.logE("PackageReplacedReceiver.doWork", "START");
 
-                    boolean packageReplaced = ApplicationPreferences.applicationPackageReplaced(appContext);
+                    boolean packageReplaced = PPApplication.applicationPackageReplaced; //ApplicationPreferences.applicationPackageReplaced(appContext);
                     PPApplication.logE("PackageReplacedReceiver.doWork", "package replaced=" + packageReplaced);
 
                     DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
@@ -71,7 +71,7 @@ public class DelayedWorksWorker extends Worker {
                     if (!packageReplaced) {
                         PhoneProfilesService instance = PhoneProfilesService.getInstance();
                         if (instance != null)
-                            instance.setWaitForEndOfStart(false, false);
+                            instance.setApplicationFullyStarted(true, false);
 
                         // do restart events, manual profile activation
                         if (Event.getGlobalEventsRunning()) {
@@ -97,14 +97,6 @@ public class DelayedWorksWorker extends Worker {
                         }
 
                         break;
-                    }
-
-                    SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(appContext);
-                    if (sharedPreferences != null) {
-                        PPApplication.logE("--------------- PackageReplacedReceiver.doWork", "package replaced set to false");
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_PACKAGE_REPLACED, false);
-                        editor.apply();
                     }
 
                     final int oldVersionCode = PPApplication.getSavedVersionCode(appContext);
@@ -427,6 +419,15 @@ public class DelayedWorksWorker extends Worker {
                         }
                         PPApplication.logE("PackageReplacedReceiver.doWork", "end of autoregistration");
                     }
+
+                    /*SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(appContext);
+                    if (sharedPreferences != null) {
+                        PPApplication.logE("--------------- PackageReplacedReceiver.doWork", "package replaced set to false");
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_PACKAGE_REPLACED, false);
+                        editor.apply();
+                    }*/
+                    PPApplication.applicationPackageReplaced = false;
 
                     startService(dataWrapper);
 

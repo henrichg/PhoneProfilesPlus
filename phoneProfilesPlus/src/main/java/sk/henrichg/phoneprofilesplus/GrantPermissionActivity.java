@@ -25,7 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
-import me.drakeet.support.toast.ToastCompat;
+//import me.drakeet.support.toast.ToastCompat;
 
 public class GrantPermissionActivity extends AppCompatActivity {
 
@@ -174,10 +174,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
             if (grantType == Permissions.GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION) {
                 boolean granted = Permissions.checkPlayRingtoneNotification(context, grantAlsoContacts, permissions);
                 if (granted) {
-                    Toast msg = ToastCompat.makeText(context.getApplicationContext(),
+                    GlobalGUIRoutines.showToast(context.getApplicationContext(),
                             context.getResources().getString(R.string.toast_permissions_granted),
                             Toast.LENGTH_SHORT);
-                    msg.show();
                     finish();
                     return;
                 }
@@ -189,10 +188,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 mergedNotification = true;*/
                 permissions = Permissions.recheckPermissions(context, permissions);
                 if (permissions.size() == 0) {
-                    Toast msg = ToastCompat.makeText(context.getApplicationContext(),
+                    GlobalGUIRoutines.showToast(context.getApplicationContext(),
                             context.getResources().getString(R.string.toast_permissions_granted),
                             Toast.LENGTH_SHORT);
-                    msg.show();
                     finish();
                     return;
                 }
@@ -215,10 +213,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 mergedNotification = true;*/
                 permissions = Permissions.recheckPermissions(context, permissions);
                 if (permissions.size() == 0) {
-                    Toast msg = ToastCompat.makeText(context.getApplicationContext(),
+                    GlobalGUIRoutines.showToast(context.getApplicationContext(),
                             context.getResources().getString(R.string.toast_permissions_granted),
                             Toast.LENGTH_SHORT);
-                    msg.show();
                     finish();
                     return;
                 }
@@ -1708,10 +1705,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
         if (permissionsForRecheck != null) {
             permissions = Permissions.recheckPermissions(context, permissionsForRecheck);
             if (permissions.size() != 0) {
-                Toast msg = ToastCompat.makeText(context.getApplicationContext(),
+                GlobalGUIRoutines.showToast(context.getApplicationContext(),
                         context.getResources().getString(R.string.toast_permissions_not_granted),
                         Toast.LENGTH_LONG);
-                msg.show();
             }
         }
 

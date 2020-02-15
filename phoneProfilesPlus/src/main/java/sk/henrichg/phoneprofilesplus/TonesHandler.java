@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.util.Log;
 import android.widget.Toast;
+//import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 
@@ -20,7 +21,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import me.drakeet.support.toast.ToastCompat;
+//import me.drakeet.support.toast.ToastCompat;
 
 class TonesHandler {
 
@@ -433,10 +434,9 @@ class TonesHandler {
             if (!(ringtone/* && notification && alarm*/))
                 strId = R.string.toast_tone_installation_installed_error;
 
-            Toast msg = ToastCompat.makeText(context.getApplicationContext(),
+        GlobalGUIRoutines.showToast(context.getApplicationContext(),
                     context.getResources().getString(strId),
                     Toast.LENGTH_SHORT);
-            msg.show();
         //}
     }
 

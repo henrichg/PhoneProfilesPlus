@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import me.drakeet.support.toast.ToastCompat;
+//import me.drakeet.support.toast.ToastCompat;
 
 public class NFCTagWriteActivity extends AppCompatActivity {
 
@@ -118,7 +118,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
             nfcManager.setOnTagWriteListener(new NFCTagReadWriteManager.TagWriteListener() {
                 @Override
                 public void onTagWritten() {
-                    ToastCompat.makeText(getApplicationContext(), R.string.write_nfc_tag_written, Toast.LENGTH_LONG).show();
+                    GlobalGUIRoutines.showToast(getApplicationContext(), getString(R.string.write_nfc_tag_written), Toast.LENGTH_LONG);
                     Intent returnIntent = new Intent();
                     returnIntent.putExtra(EXTRA_TAG_NAME, tagName);
                     returnIntent.putExtra(EXTRA_TAG_DB_ID, tagDbId);

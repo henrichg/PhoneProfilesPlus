@@ -57,6 +57,13 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
                 Profile profile = dataWrapper.getActivatedProfile(true, false);
 
+                boolean fullyStarted = false;
+                if (PhoneProfilesService.getInstance() != null)
+                    fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
+                boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
+                if ((!fullyStarted) || applicationPackageReplaced)
+                    profile = null;
+
                 try {
                     if (!refreshWidget) {
                         String pNameWidget = PPApplication.prefWidgetProfileName1;

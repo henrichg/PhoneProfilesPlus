@@ -53,7 +53,7 @@ import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
-import me.drakeet.support.toast.ToastCompat;
+//import me.drakeet.support.toast.ToastCompat;
 
 public class DataWrapper {
 
@@ -1567,13 +1567,25 @@ public class DataWrapper {
         ProfileDurationAlarmBroadcastReceiver.removeAlarm(_profile, context);
         Profile.setActivatedProfileForDuration(context, 0);
 
-        final Profile mappedProfile = _profile; //Profile.getMappedProfile(_profile, context);
+        //final Profile mappedProfile = _profile; //Profile.getMappedProfile(_profile, context);
         //profile = filterProfileWithBatteryEvents(profile);
 
-        if (mappedProfile != null)
-            PPApplication.logE("$$$ DataWrapper._activateProfile","profileName="+mappedProfile._name);
+        if (_profile != null)
+            PPApplication.logE("$$$ DataWrapper._activateProfile","profileName="+_profile._name);
         else
             PPApplication.logE("$$$ DataWrapper._activateProfile","profile=null");
+
+        boolean fullyStarted = false;
+        if (PhoneProfilesService.getInstance() != null)
+            fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
+        boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
+        if ((!fullyStarted) || applicationPackageReplaced) {
+            // do not activate profile during application start
+            PPApplication.showProfileNotification(/*context*/startupSource == PPApplication.STARTUP_SOURCE_BOOT, false);
+            //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper._activateProfile");
+            ActivateProfileHelper.updateGUI(context, true, startupSource == PPApplication.STARTUP_SOURCE_BOOT);
+            return;
+        }
 
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("$$$ DataWrapper._activateProfile", "startupSource=" + startupSource);
@@ -1612,30 +1624,31 @@ public class DataWrapper {
 
         DatabaseHandler.getInstance(context).activateProfile(_profile);
         setProfileActive(_profile);
-        Profile.saveProfileToSharedPreferences(_profile, context, PPApplication.ACTIVATED_PROFILE_PREFS_NAME);
+        if (_profile != null)
+            Profile.saveProfileToSharedPreferences(_profile, context, PPApplication.ACTIVATED_PROFILE_PREFS_NAME);
 
         //PPApplication.logE("$$$ DataWrapper._activateProfile","after activation");
 
-        String profileIcon; //= "";
+        String profileIcon = "";
         int profileDuration = 0;
-        //if (mappedProfile != null)
-        //{
-            profileIcon = mappedProfile._icon;
+        if (_profile != null)
+        {
+            profileIcon = _profile._icon;
 
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("$$$ DataWrapper._activateProfile", "duration=" + mappedProfile._duration);
                 PPApplication.logE("$$$ DataWrapper._activateProfile", "afterDurationDo=" + mappedProfile._afterDurationDo);
             }*/
-            if ((mappedProfile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING) &&
-                (mappedProfile._duration > 0)) {
-                profileDuration = mappedProfile._duration;
+            if ((_profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING) &&
+                (_profile._duration > 0)) {
+                profileDuration = _profile._duration;
             }
 
             // activation with duration
             if (((startupSource != PPApplication.STARTUP_SOURCE_SERVICE) &&
                  (startupSource != PPApplication.STARTUP_SOURCE_BOOT) &&
                  (startupSource != PPApplication.STARTUP_SOURCE_LAUNCHER_START)) ||
-                (mappedProfile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE))
+                (_profile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE))
             {
                 /*if (mappedProfile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE)
                     // manual profile activation
@@ -1659,14 +1672,14 @@ public class DataWrapper {
                 else
                     Profile.setActivatedProfileForDuration(context, 0);
 
-                ProfileDurationAlarmBroadcastReceiver.setAlarm(mappedProfile, forRestartEvents, startupSource, context);
+                ProfileDurationAlarmBroadcastReceiver.setAlarm(_profile, forRestartEvents, startupSource, context);
                 ///////////
             }
             else {
                 //PPApplication.logE("$$$ DataWrapper._activateProfile","NO manual profile activation");
                 profileDuration = 0;
             }
-        //}
+        }
 
         //PPApplication.logE("$$$ DataWrapper._activateProfile","before update GUI");
 
@@ -1678,12 +1691,12 @@ public class DataWrapper {
 
         //if (mappedProfile != null) {
             //PPApplication.logE("$$$ DataWrapper._activateProfile","execute activation");
-            ActivateProfileHelper.execute(context, mappedProfile);
+            ActivateProfileHelper.execute(context, _profile);
         //}
 
         if (/*(mappedProfile != null) &&*/ (!merged)) {
             PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ACTIVATION, null,
-                    getProfileNameWithManualIndicatorAsString(mappedProfile, true, "", profileDuration > 0, false, false, this, false, context),
+                    getProfileNameWithManualIndicatorAsString(_profile, true, "", profileDuration > 0, false, false, this, false, context),
                     profileIcon, profileDuration, "");
         }
 
@@ -1693,10 +1706,10 @@ public class DataWrapper {
             {
                 // toast notification
                 if (PPApplication.toastHandler != null) {
-                    //final Profile __profile = profile;
+                    final Profile __profile = _profile;
                     PPApplication.toastHandler.post(new Runnable() {
                         public void run() {
-                            showToastAfterActivation(mappedProfile);
+                            showToastAfterActivation(__profile);
                         }
                     });
                 }// else
@@ -1763,20 +1776,20 @@ public class DataWrapper {
 
     private void showToastAfterActivation(Profile profile)
     {
-        boolean waitForEndOfStart = true;
+        boolean fullyStarted = false;
         if (PhoneProfilesService.getInstance() != null)
-            waitForEndOfStart = PhoneProfilesService.getInstance().getWaitForEndOfStart();
+            fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
+        fullyStarted = fullyStarted && (!PPApplication.applicationPackageReplaced);
 
-        if (waitForEndOfStart)
+        if (!fullyStarted)
             return;
 
         try {
             String profileName = getProfileNameWithManualIndicatorAsString(profile, true, "", false, false, false, this, false, context);
-            Toast msg = ToastCompat.makeText(context.getApplicationContext(),
+            GlobalGUIRoutines.showToast(context.getApplicationContext(),
                     context.getResources().getString(R.string.toast_profile_activated_0) + ": " + profileName + " " +
                             context.getResources().getString(R.string.toast_profile_activated_1),
                     Toast.LENGTH_SHORT);
-            msg.show();
         }
         catch (Exception ignored) {
         }
@@ -4364,10 +4377,9 @@ public class DataWrapper {
 
         if (showToast) {
             if (ApplicationPreferences.notificationsToast) {
-                Toast msg = ToastCompat.makeText(context.getApplicationContext(),
+                GlobalGUIRoutines.showToast(context.getApplicationContext(),
                         context.getResources().getString(R.string.toast_events_restarted),
                         Toast.LENGTH_SHORT);
-                msg.show();
             }
         }
     }

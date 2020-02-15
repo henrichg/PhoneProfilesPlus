@@ -9,7 +9,7 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 import androidx.appcompat.app.AppCompatActivity;
-import me.drakeet.support.toast.ToastCompat;
+//import me.drakeet.support.toast.ToastCompat;
 
 public class NFCTagReadActivity extends AppCompatActivity {
 
@@ -60,7 +60,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
 
             @Override
             public void onTagRead(String tagData) {
-                ToastCompat.makeText(getApplicationContext(), "("+getString(R.string.app_name)+") "+getString(R.string.read_nfc_tag_read)+": "+tagData, Toast.LENGTH_LONG).show();
+                GlobalGUIRoutines.showToast(getApplicationContext(), "("+getString(R.string.app_name)+") "+getString(R.string.read_nfc_tag_read)+": "+tagData, Toast.LENGTH_LONG);
 
                 final String _tagData = tagData;
 

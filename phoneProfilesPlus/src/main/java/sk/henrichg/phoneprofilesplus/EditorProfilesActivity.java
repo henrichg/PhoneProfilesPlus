@@ -62,7 +62,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import me.drakeet.support.toast.ToastCompat;
+//import me.drakeet.support.toast.ToastCompat;
 import sk.henrichg.phoneprofilesplus.EditorEventListFragment.OnStartEventPreferences;
 import sk.henrichg.phoneprofilesplus.EditorProfileListFragment.OnStartProfilePreferences;
 
@@ -619,18 +619,17 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     private boolean showNotStartedToast() {
         boolean applicationStarted = PPApplication.getApplicationStarted(true);
-        boolean waitForEndOfStart = false;
+        boolean fullyStarted = true;
         if (applicationStarted) {
             PhoneProfilesService instance = PhoneProfilesService.getInstance();
-            waitForEndOfStart = instance.getWaitForEndOfStart();
-            applicationStarted = !waitForEndOfStart;
+            fullyStarted = instance.getApplicationFullyStarted();
+            applicationStarted = fullyStarted && (!PPApplication.applicationPackageReplaced);
         }
         if (!applicationStarted) {
             String text = getString(R.string.app_name) + " " + getString(R.string.application_is_not_started);
-            if (waitForEndOfStart)
+            if (!fullyStarted)
                 text = getString(R.string.app_name) + " " + getString(R.string.application_is_starting_toast);
-            Toast msg = ToastCompat.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
-            msg.show();
+            GlobalGUIRoutines.showToast(getApplicationContext(), text, Toast.LENGTH_LONG);
             return true;
         }
         return false;
@@ -981,9 +980,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }
                 else {
                     // toast notification
-                    Toast msg = ToastCompat.makeText(getApplicationContext(), getString(R.string.toast_debug_log_files_not_exists),
+                    GlobalGUIRoutines.showToast(getApplicationContext(), getString(R.string.toast_debug_log_files_not_exists),
                                                         Toast.LENGTH_SHORT);
-                    msg.show();
                 }
 
                 return true;
@@ -1869,10 +1867,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                         PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_DATA_IMPORT, null, null, null, 0, "");
 
                         // toast notification
-                        Toast msg = ToastCompat.makeText(this.dataWrapper.context.getApplicationContext(),
+                        GlobalGUIRoutines.showToast(this.dataWrapper.context.getApplicationContext(),
                                 getResources().getString(R.string.toast_import_ok),
                                 Toast.LENGTH_SHORT);
-                        msg.show();
 
                         // refresh activity
                         if (!isFinishing())
@@ -2145,8 +2142,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                         Context context = this.dataWrapper.context.getApplicationContext();
                         // toast notification
-                        Toast msg = ToastCompat.makeText(context, getString(R.string.toast_export_ok), Toast.LENGTH_SHORT);
-                        msg.show();
+                        GlobalGUIRoutines.showToast(context, getString(R.string.toast_export_ok), Toast.LENGTH_SHORT);
 
                         if (email) {
                             // email backup

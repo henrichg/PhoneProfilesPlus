@@ -35,7 +35,7 @@ import androidx.preference.PreferenceManager;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.SwitchPreferenceCompat;
 import androidx.recyclerview.widget.RecyclerView;
-import me.drakeet.support.toast.ToastCompat;
+//import me.drakeet.support.toast.ToastCompat;
 
 @SuppressWarnings("WeakerAccess")
 public class ProfilesPrefsFragment extends PreferenceFragmentCompat
@@ -910,8 +910,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         String text = getResources().getString(R.string.profileicon_pref_dialog_custom_icon_image_too_large);
                         text = text + " " + (width * BitmapManipulator.ICON_BITMAP_SIZE_MULTIPLIER);
                         text = text + "x" + (height * BitmapManipulator.ICON_BITMAP_SIZE_MULTIPLIER);
-                        Toast msg = ToastCompat.makeText(getActivity().getApplicationContext(), text, Toast.LENGTH_LONG);
-                        msg.show();
+                        GlobalGUIRoutines.showToast(getActivity().getApplicationContext(), text, Toast.LENGTH_LONG);
                     }
                 }
             }

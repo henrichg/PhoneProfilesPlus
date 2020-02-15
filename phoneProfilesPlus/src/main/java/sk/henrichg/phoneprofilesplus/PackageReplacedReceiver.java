@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.PowerManager;
 
@@ -29,13 +28,14 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
             final Context appContext = context.getApplicationContext();
 
-            SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(appContext);
+            /*SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(appContext);
             if (sharedPreferences != null) {
                 PPApplication.logE("--------------- PackageReplacedReceiver.onReceive", "package replaced set to true");
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_PACKAGE_REPLACED, true);
                 editor.apply();
-            }
+            }*/
+            PPApplication.applicationPackageReplaced = true;
 
             //final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
@@ -59,7 +59,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                         //PhoneProfilesService instance = PhoneProfilesService.getInstance();
                         //if (instance != null) {
                         //    if (!instance.getWaitForEndOfStart()) {
-                            if (ApplicationPreferences.applicationPackageReplaced(appContext)) {
+                            //if (ApplicationPreferences.applicationPackageReplaced(appContext)) {
+                            if (PPApplication.applicationPackageReplaced) {
                                 PPApplication.logE("PackageReplacedReceiver.onReceive", "called work for package replaced");
 
                                 // work for package replaced

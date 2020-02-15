@@ -583,9 +583,9 @@ class EventsHandler {
             long backgroundProfileId = Profile.PROFILE_NO_ACTIVATE;
             boolean notifyBackgroundProfile = false;
 
-            boolean waitForEndOfStart = true;
-            if (ppService != null)
-                waitForEndOfStart = ppService.getWaitForEndOfStart();
+            //boolean fullyStarted = false;
+            //if (ppService != null)
+            //    fullyStarted = ppService.getApplicationFullyStarted();
 
             if (!DataWrapper.getIsManualProfileActivation(false/*, context.getApplicationContext()*/)) {
                 /*if (PPApplication.logEnabled()) {
@@ -603,8 +603,8 @@ class EventsHandler {
                         //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "no events running");
                         // no events running
                         backgroundProfileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile);
-                        if (waitForEndOfStart)
-                            backgroundProfileId = Profile.PROFILE_NO_ACTIVATE;
+                        //if (!fullyStarted)
+                        //    backgroundProfileId = Profile.PROFILE_NO_ACTIVATE;
                         if (backgroundProfileId != Profile.PROFILE_NO_ACTIVATE) {
                             //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "default profile is set");
                             long activatedProfileId = 0;
@@ -656,8 +656,8 @@ class EventsHandler {
                 //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "active profile is activated manually");
                 // manual profile activation
                 backgroundProfileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile);
-                if (waitForEndOfStart)
-                    backgroundProfileId = Profile.PROFILE_NO_ACTIVATE;
+                //if (!fullyStarted)
+                //    backgroundProfileId = Profile.PROFILE_NO_ACTIVATE;
                 if (backgroundProfileId != Profile.PROFILE_NO_ACTIVATE) {
                     if (activatedProfile == null) {
                         // if not profile activated, activate Default profile
@@ -757,11 +757,11 @@ class EventsHandler {
             if (!notified) {
                 // notify default profile
                 if (!backgroundProfileNotificationSound.isEmpty() || backgroundProfileNotificationVibrate) {
-                    //if (ppService != null) {
+                    if (ppService != null) {
                         ppService.playNotificationSound(backgroundProfileNotificationSound, backgroundProfileNotificationVibrate);
                         //PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "default profile notified");
                         notified = true;
-                    //}
+                    }
                 }
             }
 

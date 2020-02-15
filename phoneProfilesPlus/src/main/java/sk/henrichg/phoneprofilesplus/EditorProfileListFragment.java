@@ -45,7 +45,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import me.drakeet.support.toast.ToastCompat;
+//import me.drakeet.support.toast.ToastCompat;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -519,10 +519,9 @@ public class EditorProfileListFragment extends Fragment
                 {
                     //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfileListFragment.LoadProfileListAsyncTask");
                     ActivateProfileHelper.updateGUI(_dataWrapper.context, true, true);
-                    Toast msg = ToastCompat.makeText(_dataWrapper.context.getApplicationContext(),
+                    GlobalGUIRoutines.showToast(_dataWrapper.context.getApplicationContext(),
                             fragment.getResources().getString(R.string.toast_predefined_profiles_generated),
                             Toast.LENGTH_SHORT);
-                    msg.show();
                 }
                 /*if (defaultEventsGenerated)
                 {
@@ -1178,10 +1177,9 @@ public class EditorProfileListFragment extends Fragment
                     if (getActivity() != null) {
                         switch (item.getItemId()) {
                             case R.id.profile_list_item_menu_show_in_activator_title:
-                                Toast msg = ToastCompat.makeText(activityDataWrapper.context,
+                                GlobalGUIRoutines.showToast(activityDataWrapper.context,
                                         getResources().getString(R.string.popupmenu_title_click_below_toast),
                                         Toast.LENGTH_SHORT);
-                                msg.show();
                                 break;
                             case R.id.profile_list_item_menu_not_show_in_activator:
                                 profile._showInActivator = false;

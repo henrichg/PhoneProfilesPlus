@@ -20,7 +20,7 @@ import androidx.preference.MultiSelectListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
-import me.drakeet.support.toast.ToastCompat;
+//import me.drakeet.support.toast.ToastCompat;
 
 class EventPreferencesBattery extends EventPreferences {
 
@@ -336,11 +336,10 @@ class EventPreferencesBattery extends EventPreferences {
                     boolean OK = ((iNewValue >= 0) && (iNewValue <= iHightLevelValue));
 
                     if (!OK) {
-                        Toast msg = ToastCompat.makeText(_context.getApplicationContext(),
+                        GlobalGUIRoutines.showToast(_context.getApplicationContext(),
                                 _context.getResources().getString(R.string.event_preferences_battery_level_low) + ": " +
                                         _context.getResources().getString(R.string.event_preferences_battery_level_bad_value),
                                 Toast.LENGTH_SHORT);
-                        msg.show();
                     }
 
                     return OK;
@@ -369,11 +368,10 @@ class EventPreferencesBattery extends EventPreferences {
                     boolean OK = ((iNewValue >= iLowLevelValue) && (iNewValue <= 100));
 
                     if (!OK) {
-                        Toast msg = ToastCompat.makeText(_context.getApplicationContext(),
+                        GlobalGUIRoutines.showToast(_context.getApplicationContext(),
                                 _context.getResources().getString(R.string.event_preferences_battery_level_hight) + ": " +
                                         _context.getResources().getString(R.string.event_preferences_battery_level_bad_value),
                                 Toast.LENGTH_SHORT);
-                        msg.show();
                     }
 
                     return OK;

@@ -37,6 +37,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.xml.sax.XMLReader;
 
@@ -1227,5 +1228,16 @@ class GlobalGUIRoutines {
                     Settings.System.TRANSITION_ANIMATION_SCALE, 1);
         }*/
         return (duration != 0 && transition != 0);
+    }
+
+    static void showToast(final Context context, final String text, final int lenght) {
+        Handler handler = new Handler(getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                Toast msg = Toast/*Compat*/.makeText(context.getApplicationContext(), text, lenght);
+                msg.show();
+            }
+        });
     }
 }

@@ -64,7 +64,7 @@ import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
-import me.drakeet.support.toast.ToastCompat;
+//import me.drakeet.support.toast.ToastCompat;
 
 import static android.app.Notification.DEFAULT_SOUND;
 import static android.app.Notification.DEFAULT_VIBRATE;
@@ -74,7 +74,7 @@ public class PhoneProfilesService extends Service
 {
     private static volatile PhoneProfilesService instance = null;
     private boolean serviceHasFirstStart = false;
-    private boolean waitForEndOfStart = true;
+    private boolean applicationFullyStarted = false;
 
     private KeyguardManager keyguardManager = null;
     @SuppressWarnings("deprecation")
@@ -311,7 +311,7 @@ public class PhoneProfilesService extends Service
         serviceHasFirstStart = false;
         //serviceRunning = false;
         //runningInForeground = false;
-        waitForEndOfStart = true;
+        applicationFullyStarted = false;
         //ApplicationPreferences.forceNotUseAlarmClock = false;
 
         final Context appContext = getApplicationContext();
@@ -554,7 +554,7 @@ public class PhoneProfilesService extends Service
         serviceHasFirstStart = false;
         //serviceRunning = false;
         //runningInForeground = false;
-        waitForEndOfStart = true;
+        applicationFullyStarted = false;
     }
 
     static void cancelWork(String name, Context context) {
@@ -599,29 +599,25 @@ public class PhoneProfilesService extends Service
 //        return serviceRunning;
 //    }
 
-    boolean getWaitForEndOfStart() {
-        return waitForEndOfStart;
+    boolean getApplicationFullyStarted() {
+        return applicationFullyStarted;
     }
 
-    void setWaitForEndOfStart(boolean wait, boolean showToast) {
+    void setApplicationFullyStarted(boolean started, boolean showToast) {
+        applicationFullyStarted = started;
+
         final Context appContext = getApplicationContext();
 
-        if (!wait)
+        if (started)
             ActivateProfileHelper.updateGUI(appContext, true, true);
 
-        if ((!wait) && waitForEndOfStart && showToast &&
-                (!ApplicationPreferences.applicationPackageReplaced(appContext))) {
-            final Handler handler = new Handler(getMainLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    String text = getString(R.string.app_name) + " " + getString(R.string.application_is_started_toast);
-                    Toast msg = ToastCompat.makeText(appContext, text, Toast.LENGTH_LONG);
-                    msg.show();
-                }
-            });
+        if (started && showToast &&
+                //(!ApplicationPreferences.applicationPackageReplaced(appContext))) {
+                (!PPApplication.applicationPackageReplaced)) {
+
+            String text = getString(R.string.app_name) + " " + getString(R.string.application_is_started_toast);
+            GlobalGUIRoutines.showToast(appContext, text, Toast.LENGTH_LONG);
         }
-        waitForEndOfStart = wait;
     }
 
     private void registerAllTheTimeRequiredReceivers(boolean register) {
@@ -3956,10 +3952,10 @@ public class PhoneProfilesService extends Service
                         ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(appContext);
                     }
 
-                    boolean packageReplaced = ApplicationPreferences.applicationPackageReplaced(appContext);
+                    boolean packageReplaced = PPApplication.applicationPackageReplaced; //ApplicationPreferences.applicationPackageReplaced(appContext);
                     PPApplication.logE("******** PhoneProfilesService.doForFirstStart.2 - handler", "package replaced=" + packageReplaced);
                     if (!packageReplaced)
-                        setWaitForEndOfStart(false, true);
+                        setApplicationFullyStarted(true, true);
 
                     if (Event.getGlobalEventsRunning()) {
                         PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "global event run is enabled, first start events");
@@ -3990,7 +3986,7 @@ public class PhoneProfilesService extends Service
 
                     PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "END");
 
-                    if (packageReplaced) {
+                    if (PPApplication.applicationPackageReplaced) {
                         PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "called work for package replaced");
 
                         // work for package replaced
@@ -5223,6 +5219,14 @@ public class PhoneProfilesService extends Service
                 public void run() {
                     DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
                     Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
+
+                    boolean fullyStarted = false;
+                    if (PhoneProfilesService.getInstance() != null)
+                        fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
+                    boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
+                    if ((!fullyStarted) || applicationPackageReplaced)
+                        profile = null;
+
                     //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification", "_showProfileNotification()");
                     _showProfileNotification(profile, true, dataWrapper, _clear || refresh  /*, cleared*/);
                     //dataWrapper.invalidateDataWrapper();
