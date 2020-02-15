@@ -2460,16 +2460,16 @@ public class PPApplication extends Application /*implements Application.Activity
                                 code = field.getInt(field);
                                 break;
                             } catch (Exception e) {
-                                Log.e("PPApplication.getTransactionCode", Log.getStackTraceString(e));
-                                Crashlytics.logException(e);
+                                //Log.e("PPApplication.getTransactionCode", Log.getStackTraceString(e));
+                                //Crashlytics.logException(e);
                             }
                         }
                     }
                 }
             }
         } catch (ClassNotFoundException e) {
-            Log.e("PPApplication.getTransactionCode", Log.getStackTraceString(e));
-            Crashlytics.logException(e);
+            //Log.e("PPApplication.getTransactionCode", Log.getStackTraceString(e));
+            //Crashlytics.logException(e);
         }
         return code;
     }
