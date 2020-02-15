@@ -531,10 +531,10 @@ public class DataWrapper {
         }
     }
 
-    void activateProfileFromEvent(long profile_id, boolean manual, boolean merged, boolean forRestartEvents)
+    void activateProfileFromEvent(long profile_id, boolean manualActivation, boolean merged, boolean forRestartEvents)
     {
         int startupSource = PPApplication.STARTUP_SOURCE_SERVICE;
-        if (manual)
+        if (manualActivation)
             startupSource = PPApplication.STARTUP_SOURCE_SERVICE_MANUAL;
         Profile profile = getProfileById(profile_id, false, false, merged);
         if (profile == null)
@@ -4238,7 +4238,10 @@ public class DataWrapper {
         }*/
 
         EventsHandler eventsHandler = new EventsHandler(context);
-        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS);
+        if (manualRestart)
+            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_MANUAL_RESTART_EVENTS);
+        else
+            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS);
     }
 
     private void restartEvents(final boolean unblockEventsRun, /*final boolean notClearActivatedProfile,*/

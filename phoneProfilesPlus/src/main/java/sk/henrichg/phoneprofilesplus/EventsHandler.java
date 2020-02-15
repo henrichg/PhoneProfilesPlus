@@ -39,6 +39,7 @@ class EventsHandler {
     static final String SENSOR_TYPE_RADIO_SWITCH = "radioSwitch";
     static final String SENSOR_TYPE_RESTART_EVENTS = "restartEvents";
     static final String SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK = "restartEventsNotUnblock";
+    static final String SENSOR_TYPE_MANUAL_RESTART_EVENTS = "manualRestartEvents";
     static final String SENSOR_TYPE_PHONE_CALL = "phoneCall";
     static final String SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED = "calendarProviderChanged";
     static final String SENSOR_TYPE_SEARCH_CALENDAR_EVENTS = "searchCalendarEvents";
@@ -202,7 +203,7 @@ class EventsHandler {
 
             dataWrapper.fillEventList();
 
-            boolean isRestart = sensorType.equals(SENSOR_TYPE_RESTART_EVENTS);
+            boolean isRestart = sensorType.equals(SENSOR_TYPE_RESTART_EVENTS) || sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS);
 
             //interactive = (!isRestart) || _interactive;
 
@@ -407,7 +408,8 @@ class EventsHandler {
                                 mergedProfilesCount++;
                             if (dataWrapper.endProfileMerged)
                                 mergedProfilesCount++;
-                            usedEventsCount++;
+                            if (dataWrapper.startProfileMerged || dataWrapper.endProfileMerged)
+                                usedEventsCount++;
 
                             anyEventPaused = true;
                             //notifyEventEnd = _event;
@@ -446,7 +448,8 @@ class EventsHandler {
                                 mergedProfilesCount++;
                             if (dataWrapper.endProfileMerged)
                                 mergedProfilesCount++;
-                            usedEventsCount++;
+                            if (dataWrapper.startProfileMerged || dataWrapper.endProfileMerged)
+                                usedEventsCount++;
 
                             _event.notifyEventStart(context, false);
                         }
@@ -494,7 +497,8 @@ class EventsHandler {
                                 mergedProfilesCount++;
                             if (dataWrapper.endProfileMerged)
                                 mergedProfilesCount++;
-                            usedEventsCount++;
+                            if (dataWrapper.startProfileMerged || dataWrapper.endProfileMerged)
+                                usedEventsCount++;
 
                             anyEventPaused = true;
                             //notifyEventEnd = _event;
@@ -547,7 +551,8 @@ class EventsHandler {
                                 mergedProfilesCount++;
                             if (dataWrapper.endProfileMerged)
                                 mergedProfilesCount++;
-                            usedEventsCount++;
+                            if (dataWrapper.startProfileMerged || dataWrapper.endProfileMerged)
+                                usedEventsCount++;
 
                             if (_event.notifyEventStart(context, !notified))
                                 notified = true;
@@ -710,19 +715,13 @@ class EventsHandler {
                     profileChanged = true;
                 //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### profileChanged=" + profileChanged);
 
-                if (profileChanged/* || reactivateProfile*/) {
+                if (profileChanged || sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS)) {
                     // log only when merged profile is not the same as last activated
+                    // or for manual restart events
 
-                    //if (mergedProfilesCount > 1) {
-                        PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION, null,
-                                DataWrapper.getProfileNameWithManualIndicatorAsString(mergedProfile, true, "", false, false, false, dataWrapper, false, dataWrapper.context),
-                                mergedProfile._icon, 0, mergedProfilesCount + " [" + usedEventsCount + "]");
-                    //}
-                    /*else {
-                        PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_PROFILE_ACTIVATION, null,
-                                DataWrapper.getProfileNameWithManualIndicatorAsString(mergedProfile, true, "", false, false, false, dataWrapper, false, dataWrapper.context),
-                                mergedProfile._icon, 0);
-                    }*/
+                    PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION, null,
+                            DataWrapper.getProfileNameWithManualIndicatorAsString(mergedProfile, true, "", false, false, false, dataWrapper, false, dataWrapper.context),
+                            mergedProfile._icon, 0, mergedProfilesCount + " [" + usedEventsCount + "]");
 
                     dataWrapper.activateProfileFromEvent(mergedProfile._id, false, true, isRestart);
                     // wait for profile activation
