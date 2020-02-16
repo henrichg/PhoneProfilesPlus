@@ -1376,7 +1376,7 @@
     <string name="time_duration_picker_minute_sign">m</string>
     <string name="time_duration_picker_second_sign">s</string>
 
-    <string name="phone_profiles_pref_category_status_bar">Status bar</string>
+    <string name="phone_profiles_pref_category_status_bar">Application notification</string>
     <string name="editor_drawer_title_events_order">Order</string>
     <string name="editor_activity_targetHelps_orderSpinner_title">Events order</string>
     <string name="editor_activity_targetHelps_orderSpinner_description">Click this to switch between order of Events view.</string>

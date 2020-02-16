@@ -1335,7 +1335,7 @@
     <string name="time_duration_picker_hour_sign">h</string>
     <string name="time_duration_picker_minute_sign">m</string>
     <string name="time_duration_picker_second_sign">s</string>
-    <string name="phone_profiles_pref_category_status_bar">Status bar</string>
+    <string name="phone_profiles_pref_category_status_bar">Application notification</string>
     <string name="editor_drawer_title_events_order">Order</string>
     <string name="editor_activity_targetHelps_orderSpinner_title">Events order</string>
     <string name="editor_activity_targetHelps_orderSpinner_description">Click this to switch between order of Events view.</string>
@@ -1410,6 +1410,14 @@
     <string name="application_is_started_toast">is started</string>
     <string name="popupmenu_title_click_below_toast">Click below to change this parameter</string>
     <string name="duration_end_acronym">de</string>
+    <string name="phone_profiles_pref_notificationStatusBarCategory">Status bar</string>
+    <string name="phone_profiles_pref_notificationNotificationPanelCategory">Notification panel</string>
+    <string name="phone_profiles_pref_notificationNotificationStyle">Notification style</string>
+    <string name="phone_profiles_pref_notificationNotificationStyle_custom">Custom</string>
+    <string name="phone_profiles_pref_notificationNotificationStyle_native">Native</string>
+    <string name="phone_profiles_pref_notificationShowProfileIcon">Show profile icon</string>
+    <string name="altype_mergedProfileActivation">profiles activation from events</string>
+    <string name="altype_manualRestartEvents">manual restart events</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>

@@ -1332,7 +1332,7 @@
     <string name="time_duration_picker_hour_sign">h</string>
     <string name="time_duration_picker_minute_sign">m</string>
     <string name="time_duration_picker_second_sign">s</string>
-    <string name="phone_profiles_pref_category_status_bar">Pasek statusu</string>
+    <string name="phone_profiles_pref_category_status_bar">Application notification</string>
     <string name="editor_drawer_title_events_order">Kolejność</string>
     <string name="editor_activity_targetHelps_orderSpinner_title">Kolejność zdarzeń</string>
     <string name="editor_activity_targetHelps_orderSpinner_description">Kliknij tutaj, aby przełączyć kolejność widoku Zdarzeń.</string>
@@ -1408,6 +1408,14 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="application_is_started_toast">jest uruchomiona</string>
     <string name="popupmenu_title_click_below_toast">Kliknij poniżej, aby zmienić ten parametr</string>
     <string name="duration_end_acronym">Do</string>
+    <string name="phone_profiles_pref_notificationStatusBarCategory">Status bar</string>
+    <string name="phone_profiles_pref_notificationNotificationPanelCategory">Notification panel</string>
+    <string name="phone_profiles_pref_notificationNotificationStyle">Notification style</string>
+    <string name="phone_profiles_pref_notificationNotificationStyle_custom">Custom</string>
+    <string name="phone_profiles_pref_notificationNotificationStyle_native">Native</string>
+    <string name="phone_profiles_pref_notificationShowProfileIcon">Show profile icon</string>
+    <string name="altype_mergedProfileActivation">profiles activation from events</string>
+    <string name="altype_manualRestartEvents">manual restart events</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>
