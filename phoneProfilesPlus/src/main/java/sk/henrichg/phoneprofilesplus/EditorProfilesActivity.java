@@ -2189,14 +2189,16 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's
                                 intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(getPackageManager()), info.icon));
                             }
-                            try {
-                                Intent chooser = Intent.createChooser(intents.remove(intents.size() - 1), context.getString(R.string.email_chooser));
-                                //noinspection ToArrayCallWithZeroLengthArrayArgument
-                                chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[intents.size()]));
-                                startActivity(chooser);
-                            } catch (Exception e) {
-                                Log.e("EditorProfilesActivity.doExportData", Log.getStackTraceString(e));
-                                Crashlytics.logException(e);
+                            if (intents.size() > 0) {
+                                try {
+                                    Intent chooser = Intent.createChooser(intents.remove(intents.size() - 1), context.getString(R.string.email_chooser));
+                                    //noinspection ToArrayCallWithZeroLengthArrayArgument
+                                    chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[intents.size()]));
+                                    startActivity(chooser);
+                                } catch (Exception e) {
+                                    Log.e("EditorProfilesActivity.doExportData", Log.getStackTraceString(e));
+                                    Crashlytics.logException(e);
+                                }
                             }
                         }
 
