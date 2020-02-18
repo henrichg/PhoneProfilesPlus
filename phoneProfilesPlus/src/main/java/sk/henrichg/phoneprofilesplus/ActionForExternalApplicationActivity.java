@@ -145,7 +145,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
 
                                         List<EventTimeline> eventTimelineList = _dataWrapper.getEventTimelineList(false);
                                         event.pauseEvent(_dataWrapper, eventTimelineList, true, false,
-                                                false, true, null, false, false); // activate return profile
+                                                false, true, null, false, false);
                                         //_dataWrapper.restartEvents(false, true, true, true, false);
                                         PPApplication.logE("*********** restartEvents", "from ActionForExternalApplicationActivity.onStart() - ACTION_ENABLE_RUN_FOR_EVENT");
                                         _dataWrapper.restartEventsWithRescan(/*true, */false, false, false, true, true);
@@ -176,7 +176,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                         Event event = dataWrapper.getEventById(event_id);
                         if (event.getStatus() == Event.ESTATUS_RUNNING) {
                             event.pauseEvent(dataWrapper, eventTimelineList, true, false,
-                                    false, true, null, true, false); // activate return profile
+                                    false, true, null, true, false);
                         }
                         dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
                     } else {

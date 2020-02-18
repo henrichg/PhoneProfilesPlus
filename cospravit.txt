@@ -798,5 +798,17 @@ Kedy sa blokuju udalosti:
 - blokuje sa, ak sa profil aktivuje manualne
 Len restart udalosti vie odblokovat ich beh. Ma na to parameter. Ide ut o ten full restart.
 
+--------------
+
+Start udalosti:
+1. Start s delay nastavi alarm pre SENSOR_TYPE_EVENT_DELAY_START a NENASTAVI event._status na ESTATUS_RUNNING, necha ho ESTATUS_PAUSE
+2. Po delay znova testuje, ci sa zmeni stav udalosti a tiez ci event._isInDelayStart je uz false. Az tu vola startEvemt(), cize nastavi ESTATUS_RUNNING.
+Vysledok je, ze pocas delay je stale PAUSE az po delay je RUNNING.
+
+Koniec udalosti:
+1. Koniec s delay nastavi alarm pre SENSOR_TYPE_EVENT_DELAY_END a NENASTAVI event._status na ESTATUS_PAUSE, necha ho ESTATUS_RUNNING
+2. Po delay znova testuje, ci sa zmeni stav udalosti a tiez ci event._isInDelayEnd je uz false. Az tu vola pauseEvemt(), cize nastavi ESTATUS_PAUSE.
+Vysledok je, ze pocas delay je stale RUNNING az po delay je PAUSE.
+
 
 

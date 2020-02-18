@@ -323,14 +323,15 @@ class EventsHandler {
             Profile oldActivatedProfile = Profile.getProfileFromSharedPreferences(context, PPApplication.ACTIVATED_PROFILE_PREFS_NAME);
             boolean profileChanged = false;
 
-            boolean activateProfileAtEnd = false;
-            boolean anyEventPaused = false;
+            //boolean activateProfileAtEnd = false;
+            //boolean anyEventPaused = false;
             //Event notifyEventEnd = null;
             boolean notified = false;
 
             // do not reactivate profile, activate only changes
             //boolean reactivateProfile = false;
 
+            /*
             if (isRestart || (sensorType.equals(SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK))) {
                 if (ppService != null) {
                     // check if exists delayed restart events
@@ -365,6 +366,7 @@ class EventsHandler {
                     }
                 }
             }
+            */
 
             if (isRestart) {
                 /*if (PPApplication.logEnabled()) {
@@ -411,7 +413,7 @@ class EventsHandler {
                             if (dataWrapper.startProfileMerged || dataWrapper.endProfileMerged)
                                 usedEventsCount++;
 
-                            anyEventPaused = true;
+                            //anyEventPaused = true;
                             //notifyEventEnd = _event;
                             _event.notifyEventEnd(false);
                         }
@@ -500,17 +502,18 @@ class EventsHandler {
                             if (dataWrapper.startProfileMerged || dataWrapper.endProfileMerged)
                                 usedEventsCount++;
 
-                            anyEventPaused = true;
+                            //anyEventPaused = true;
                             //notifyEventEnd = _event;
                             if (_event.notifyEventEnd(!notified))
                                 notified = true;
 
+                            /*
                             if ((ppService != null) && (_event._atEndDo == Event.EATENDDO_RESTART_EVENTS)) {
                                 //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "has restart events=");
                                 ppService.willBeDoRestartEvents = true;
-                            }
-                            if ((!activateProfileAtEnd) && ((_event._atEndDo == Event.EATENDDO_UNDONE_PROFILE) || (_event._fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)))
-                                activateProfileAtEnd = true;
+                            }*/
+                            //if ((!activateProfileAtEnd) && ((_event._atEndDo == Event.EATENDDO_UNDONE_PROFILE) || (_event._fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)))
+                            //    activateProfileAtEnd = true;
 
                             /*if (PPApplication.logEnabled()) {
                                 if (ppService != null)
@@ -597,7 +600,7 @@ class EventsHandler {
                 }*/
                 // no manual profile activation
                 if (runningEventCountE == 0) {
-                    if ((ppService != null) && (!ppService.willBeDoRestartEvents)) {
+                    //if ((ppService != null) && (!ppService.willBeDoRestartEvents)) {
                         // activate default profile, only when will not be do restart events from paused events
 
                         //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "no events running");
@@ -614,8 +617,8 @@ class EventsHandler {
                             if (ApplicationPreferences.applicationBackgroundProfileUsage) {
                                 // do not activate default profile when not any event is paused and no any profile is activated
                                 // for example for screen on/off broadcast, when no any event is running
-                                if (!anyEventPaused && (mergedProfile._id == 0) && (mergedPausedProfile._id == 0))
-                                    activateProfileAtEnd = true;
+                                //if (!anyEventPaused && (mergedProfile._id == 0) && (mergedPausedProfile._id == 0))
+                                //    activateProfileAtEnd = true;
 
                                 /*if (PPApplication.logEnabled()) {
                                     PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "anyEventPaused=" + anyEventPaused);
@@ -628,8 +631,9 @@ class EventsHandler {
                                 if ((activatedProfileId == 0) ||
                                         isRestart ||
                                         // activate default profile when is not activated profile at end of events
-                                        ((!activateProfileAtEnd || ((mergedProfile._id != 0) && (mergedPausedProfile._id == 0))) &&
-                                                (activatedProfileId != backgroundProfileId))
+                                        (
+                                        // (!activateProfileAtEnd || ((mergedProfile._id != 0) && (mergedPausedProfile._id == 0))) &&
+                                        (activatedProfileId != backgroundProfileId))
                                 )
                                 {
                                     notifyBackgroundProfile = true;
@@ -639,7 +643,9 @@ class EventsHandler {
                                     //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
                                 }
                             } else {
-                                if ((activatedProfileId != backgroundProfileId) || isRestart) {
+                                if ((activatedProfileId == 0) ||
+                                        isRestart ||
+                                        (activatedProfileId != backgroundProfileId)) {
                                     notifyBackgroundProfile = true;
                                     mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper/*, false*/);
                                     mergedProfilesCount++;
@@ -647,7 +653,7 @@ class EventsHandler {
                                 }
                             }
                         }
-                    }
+                    //}
                     //else
                     //if (ppService != null)
                     //    ppService.willBeDoRestartEvents = false;
@@ -728,11 +734,11 @@ class EventsHandler {
                     doSleep = true;
                 }
             } else {
-                if ((ppService != null) && (!ppService.willBeDoRestartEvents)) {
+                //if ((ppService != null) && (!ppService.willBeDoRestartEvents)) {
                     // update only when will not be do restart events from paused events
                     //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EventsHandler.handleEvents");
                     dataWrapper.updateNotificationAndWidgets(false, false);
-                }
+                //}
             }
 
             /*

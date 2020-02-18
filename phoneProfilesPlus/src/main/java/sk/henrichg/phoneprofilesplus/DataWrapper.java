@@ -4089,7 +4089,7 @@ public class DataWrapper {
                 //if (event._name.equals("Doma"))
                     //PPApplication.logE("[***] DataWrapper.doHandleEvents", " do new event status");
 
-                if ((newEventStatus == Event.ESTATUS_RUNNING) && (!statePause)) {
+                if (((newEventStatus == Event.ESTATUS_RUNNING) /*|| forRestartEvents*/) && (!statePause)) {
                     /*if (PPApplication.logEnabled()) {
                         if (event._name.equals("Doma")) {
                             PPApplication.logE("[***] DataWrapper.doHandleEvents", "start event");
@@ -4102,15 +4102,17 @@ public class DataWrapper {
                     else {
                         if (!forDelayStartAlarm) {
                             // called not for delay alarm
-                            /*if (restartEvent) {
+                            /*if (forRestartEvents) {
                                 event._isInDelayStart = false;
                             } else*/ {
                                 if (!event._isInDelayStart) {
                                     // if not delay alarm is set, set it
+                                    // this also set event._isInDelayStart
                                     event.setDelayStartAlarm(this); // for start delay
                                 }
                                 if (event._isInDelayStart) {
                                     // if delay expires, start event
+                                    // this also set event._isInDelayStart
                                     event.checkDelayStart(/*this*/);
                                 }
                             }
@@ -4139,7 +4141,7 @@ public class DataWrapper {
                             //PPApplication.logE("[DSTART] DataWrapper.doHandleEvents", "mergedProfile=" + mergedProfile._name);
                         }
                     }
-                } else if (((newEventStatus == Event.ESTATUS_PAUSE) || forRestartEvents) && statePause) {
+                } else if (((newEventStatus == Event.ESTATUS_PAUSE) /*|| forRestartEvents*/) && statePause) {
                     // when pausing and it is for restart events, force pause
 
                     /*if (PPApplication.logEnabled()) {
@@ -4159,15 +4161,17 @@ public class DataWrapper {
                             //if (event._name.equals("Doma"))
                             //    PPApplication.logE("[***] DataWrapper.doHandleEvents", "!forDelayEndAlarm");
                             // called not for delay alarm
-                            if (forRestartEvents) {
+                            /*if (forRestartEvents) {
                                 event._isInDelayEnd = false;
-                            } else {
+                            } else*/ {
                                 if (!event._isInDelayEnd) {
                                     // if not delay alarm is set, set it
+                                    // this also set event._isInDelayEnd
                                     event.setDelayEndAlarm(this); // for end delay
                                 }
                                 if (event._isInDelayEnd) {
                                     // if delay expires, pause event
+                                    // this also set event._isInDelayEnd
                                     event.checkDelayEnd(/*this*/);
                                 }
                             }
@@ -4261,14 +4265,14 @@ public class DataWrapper {
                        /*final boolean reactivateProfile,*/ final boolean manualRestart, final boolean logRestart
                        /*, final boolean useHandler*/)
     {
-        if (!Event.getGlobalEventsRunning()) {
+        /*if (!Event.getGlobalEventsRunning()) {
             // events are globally stopped
 
             if (PhoneProfilesService.getInstance() != null)
                 PhoneProfilesService.getInstance().willBeDoRestartEvents = false;
 
             return;
-        }
+        }*/
 
         /*
         PPApplication.logE("DataWrapper.restartEvents", "useHandler="+useHandler);
@@ -4507,8 +4511,8 @@ public class DataWrapper {
     {
         //PPApplication.logE("[TEST HANDLER] DataWrapper.restartEventsWithDelay","xxx"); //"clearOld="+clearOld);
 
-        if (PhoneProfilesService.getInstance() != null)
-            PhoneProfilesService.getInstance().willBeDoRestartEvents = true;
+        /*if (PhoneProfilesService.getInstance() != null)
+            PhoneProfilesService.getInstance().willBeDoRestartEvents = true;*/
 
         //final DataWrapper dataWrapper = copyDataWrapper();
 

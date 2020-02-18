@@ -89,7 +89,7 @@ public class PhoneProfilesService extends Service
     LockDeviceActivity lockDeviceActivity = null;
     int screenTimeoutBeforeDeviceLock = 0;
 
-    boolean willBeDoRestartEvents = false;
+    //boolean willBeDoRestartEvents = false;
 
     private static final StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = new StartLauncherFromNotificationReceiver();
     private static final UpdateGUIBroadcastReceiver updateGUIBroadcastReceiver = new UpdateGUIBroadcastReceiver();
@@ -431,7 +431,7 @@ public class PhoneProfilesService extends Service
         ringingMediaPlayer = null;
         //notificationMediaPlayer = null;
 
-        willBeDoRestartEvents = false;
+        //willBeDoRestartEvents = false;
 
         PPApplication.logE("$$$ PhoneProfilesService.onCreate", "OK created");
 

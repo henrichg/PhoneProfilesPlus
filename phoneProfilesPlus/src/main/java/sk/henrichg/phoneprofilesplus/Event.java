@@ -1580,7 +1580,9 @@ class Event {
             }
 
             // restart events when is set
-            if ((_atEndDo == EATENDDO_RESTART_EVENTS) && allowRestart) {
+            if ((_atEndDo == EATENDDO_RESTART_EVENTS) && allowRestart && !forRestartEvents) {
+                // test of forRestartEvents is requred!!!
+                // Do not restart events when is event paused during restart events !!!
                 PPApplication.logE("@@@ Event.pauseEvent","doActivateEndProfile-restart events");
                 // do not reactivate profile to avoid infinite loop
                 dataWrapper.restartEventsWithDelay(5, true, /*true,*/ PPApplication.ALTYPE_UNDEFINED);
