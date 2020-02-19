@@ -1992,6 +1992,10 @@ class Event {
                 return;
         }
 
+        if (getStatus() == ESTATUS_RUNNING)
+            // event is already in running status
+            return;
+
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("@@@ Event.setDelayStartAlarm", "event_id=" + this._id + "-----------------------------------");
             PPApplication.logE("@@@ Event.setDelayStartAlarm", "-- event_name=" + this._name);
@@ -2207,6 +2211,10 @@ class Event {
                 // forceRun event is temporary blocked
                 return;
         }
+
+        if (getStatus() == ESTATUS_PAUSE)
+            // event is already in pause status
+            return;
 
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("@@@ Event.setDelayEndAlarm", "event_id=" + this._id + "-----------------------------------");
