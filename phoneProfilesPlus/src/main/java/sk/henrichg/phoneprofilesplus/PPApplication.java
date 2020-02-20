@@ -65,7 +65,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && BuildConfig.DEBUG;
-    static final boolean logIntoFile = true;
+    static final boolean logIntoFile = false;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && BuildConfig.DEBUG;
     private static final boolean rootToolsDebug = false;
@@ -102,7 +102,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
                                                 //+"|BluetoothConnectedDevices"
 
-                                                +"|*********** restartEvents"
+                                                //+"|*********** restartEvents"
 
                                                 //+"|[BRS] SettingsContentObserver.onChange"
                                                 //+"|BrightnessDialogPreferenceFragmentX"
@@ -150,9 +150,9 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|#### EventsHandler.handleEvents"
                                                 //+"|[DEFPROF] EventsHandler"
                                                 //+"|$$$ EventsHandler.handleEvents"
-                                                +"|EventsHandler.handleEvents"
+                                                //+"|EventsHandler.handleEvents"
                                                 //+"|Profile.mergeProfiles"
-                                                +"|Profile.compareProfiles"
+                                                //+"|Profile.compareProfiles"
                                                 //+"|Profile.saveProfileToSharedPreferences"
                                                 //+"|Profile.getProfileFromSharedPreferences"
                                                 //+"|[NOTIFY] EventsHandler"
@@ -210,7 +210,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|SettingsContentObserver"
 
                                                 //+"|$$$ DataWrapper._activateProfile"
-                                                +"|DataWrapper._activateProfile"
+                                                //+"|DataWrapper._activateProfile"
                                                 //+"|ProfileDurationAlarmBroadcastReceiver.onReceive"
                                                 //+"|DataWrapper.activateProfileAfterDuration"
                                                 //+"|DataWrapper.getIsManualProfileActivation"
@@ -443,7 +443,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|EventPreferencesAlarmClock.setAlarm"
                                                 //+"|EventPreferencesAlarmClock.computeAlarm"
                                                 //+"|NextAlarmClockBroadcastReceiver"
-                                                +"|TimeChangedReceiver"
+                                                //+"|TimeChangedReceiver"
 
                                                 //+"|@@@ ScreenOnOffBroadcastReceiver"
                                                 //+"|LockDeviceActivity"

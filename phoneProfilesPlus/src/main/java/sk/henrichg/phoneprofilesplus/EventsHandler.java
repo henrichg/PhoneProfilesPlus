@@ -96,7 +96,7 @@ class EventsHandler {
             //boolean interactive;
 
             this.sensorType = sensorType;
-            PPApplication.logE("#### EventsHandler.handleEvents", "sensorType=" + this.sensorType);
+            //PPApplication.logE("#### EventsHandler.handleEvents", "sensorType=" + this.sensorType);
             //CallsCounter.logCounterNoInc(context, "EventsHandler.handleEvents->sensorType=" + this.sensorType, "EventsHandler_handleEvents");
 
             //restartAtEndOfEvent = false;
