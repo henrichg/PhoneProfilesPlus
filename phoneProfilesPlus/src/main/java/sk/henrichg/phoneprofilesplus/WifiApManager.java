@@ -9,7 +9,7 @@ import android.os.Build;
 import android.os.ResultReceiver;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -78,7 +78,8 @@ final class WifiApManager {
         } catch (Exception e) {
             //Log.e(TAG, "", e);
             Log.e("$$$ WifiAP", "WifiApManager.setWifiApState-exception="+e);
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -98,7 +99,8 @@ final class WifiApManager {
         catch (Exception e)
         {
             Log.e("$$$ WifiAP", "WifiApManager.getWifiApConfiguration-exception="+e);
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
             return null;
         }
     }
@@ -121,7 +123,8 @@ final class WifiApManager {
             return (Boolean) wifiApEnabled.invoke(mWifiManager);
         } catch (Exception e) {
             Log.e("$$$ WifiAP", "WifiApManager.isWifiAPEnabled-exception="+e);
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
             return false;
         }
 
@@ -174,7 +177,8 @@ final class WifiApManager {
                 callStartTethering(internalConnectivityManagerField.get(mConnectivityManager));
             } catch (Exception e) {
                 Log.e("WifiApManager.startTethering", Log.getStackTraceString(e));
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
                 //PPApplication.logE("WifiApManager.startTethering", Log.getStackTraceString(e));
             }
         }
@@ -188,7 +192,8 @@ final class WifiApManager {
                 stopTetheringMethod.invoke(mConnectivityManager, 0);
             } catch (Exception e) {
                 Log.e("WifiApManager.stopTethering", Log.getStackTraceString(e));
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
                 //PPApplication.logE("WifiApManager.stopTethering", Log.getStackTraceString(e));
             }
         }

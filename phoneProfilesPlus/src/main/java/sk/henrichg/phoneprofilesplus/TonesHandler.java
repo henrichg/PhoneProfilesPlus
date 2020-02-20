@@ -12,9 +12,8 @@ import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.util.Log;
 import android.widget.Toast;
-//import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -261,7 +260,8 @@ class TonesHandler {
 
             } catch (Exception e) {
                 Log.e("TonesHandler._installTone", "Error writing " + filename, e);
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
                 isError = true;
             } finally {
                 // Close the streams
@@ -277,13 +277,15 @@ class TonesHandler {
 
             if (!outFile.exists()) {
                 Log.e("TonesHandler._installTone", "Error writing " + filename);
-                Crashlytics.log("TonesHandler._installTone - Error writing " + filename);
+                FirebaseCrashlytics.getInstance().log("TonesHandler._installTone - Error writing " + filename);
+                //Crashlytics.log("TonesHandler._installTone - Error writing " + filename);
                 isError = true;
             }
             else {
                 if (!outFile.setReadable(true, false)) {
                     Log.e("TonesHandler._installTone", "Error setting readable to all " + filename);
-                    Crashlytics.log("TonesHandler._installTone - Error setting readable to all " + filename);
+                    FirebaseCrashlytics.getInstance().log("TonesHandler._installTone - Error setting readable to all " + filename);
+                    //Crashlytics.log("TonesHandler._installTone - Error setting readable to all " + filename);
                 }
             }
         //}
@@ -341,7 +343,8 @@ class TonesHandler {
                 }
                 else {
                     Log.e("TonesHandler._installTone","newUri is empty");
-                    Crashlytics.log("TonesHandler._installTone - newUri is empty");
+                    FirebaseCrashlytics.getInstance().log("TonesHandler._installTone - newUri is empty");
+                    //Crashlytics.log("TonesHandler._installTone - newUri is empty");
                     isError = true;
                 }
 
@@ -410,7 +413,8 @@ class TonesHandler {
                 */
             } catch (Exception e) {
                 Log.e("TonesHandler._installTone", "Error installing tone " + filename, e);
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
                 isError = true;
             }
         }

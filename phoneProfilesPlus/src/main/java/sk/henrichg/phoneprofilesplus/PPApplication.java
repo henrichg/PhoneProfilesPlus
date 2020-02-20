@@ -22,7 +22,7 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.crashlytics.android.Crashlytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.look.Slook;
 import com.stericson.RootShell.RootShell;
@@ -56,7 +56,6 @@ import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 import dev.doubledot.doki.views.DokiContentView;
-import io.fabric.sdk.android.Fabric;
 
 import static android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE;
 
@@ -969,7 +968,8 @@ public class PPApplication extends Application /*implements Application.Activity
                 setHiddenApiExemptions.invoke(vmRuntime, new Object[]{new String[]{"L"}});
             } catch (Exception e) {
                 Log.e("PPApplication.onCreate", Log.getStackTraceString(e));
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
         }
         //////////////////////////////////////////
@@ -997,9 +997,11 @@ public class PPApplication extends Application /*implements Application.Activity
             Fabric.with(this, crashlyticsKit);
             */
             //if (!BuildConfig.DEBUG) {
-                Fabric.with(this, new Crashlytics());
+//                Fabric.with(this, new Crashlytics());
             //}
             // Crashlytics.getInstance().core.logException(exception); -- this log will be associated with crash log.
+
+            FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true);
         } catch (Exception e) {
             /*
             java.lang.IllegalStateException:
@@ -1025,7 +1027,8 @@ public class PPApplication extends Application /*implements Application.Activity
                 }
             */
             Log.e("PPPEApplication.onCreate", Log.getStackTraceString(e));
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
 
         /*
@@ -1042,7 +1045,8 @@ public class PPApplication extends Application /*implements Application.Activity
         */
 
         try {
-            Crashlytics.setBool("DEBUG", BuildConfig.DEBUG);
+            FirebaseCrashlytics.getInstance().setCustomKey("DEBUG", BuildConfig.DEBUG);
+            //Crashlytics.setBool("DEBUG", BuildConfig.DEBUG);
         } catch (Exception ignored) {}
 
         //if (BuildConfig.DEBUG) {
@@ -1279,7 +1283,8 @@ public class PPApplication extends Application /*implements Application.Activity
             buf.close();
         } catch (IOException e) {
             Log.e("PPApplication.logIntoFile", Log.getStackTraceString(e));
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -2124,7 +2129,8 @@ public class PPApplication extends Application /*implements Application.Activity
 
         if (rootMutex.rootChecked) {
             try {
-                Crashlytics.setString(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(rootMutex.rooted));
+                FirebaseCrashlytics.getInstance().setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(rootMutex.rooted));
+                //Crashlytics.setString(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(rootMutex.rooted));
             } catch (Exception ignored) {}
             return rootMutex.rooted;
         }
@@ -2151,11 +2157,13 @@ public class PPApplication extends Application /*implements Application.Activity
             }
             rootMutex.rootChecked = true;
             try {
-                Crashlytics.setString(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(rootMutex.rooted));
+                FirebaseCrashlytics.getInstance().setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(rootMutex.rooted));
+                //Crashlytics.setString(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(rootMutex.rooted));
             } catch (Exception ignored) {}
         } catch (Exception e) {
             Log.e("PPApplication._isRooted", Log.getStackTraceString(e));
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
         //if (rooted)
         //	getSUVersion();
@@ -2199,7 +2207,8 @@ public class PPApplication extends Application /*implements Application.Activity
                     }*/
                 } catch (Exception e) {
                     Log.e("PPApplication.isRootGranted", Log.getStackTraceString(e));
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                     //rootMutex.rootGranted = false;
                 }
                 //return rootMutex.rootGranted;
@@ -2390,7 +2399,8 @@ public class PPApplication extends Application /*implements Application.Activity
         }
         catch (Exception e) {
             Log.e("PPApplication.getServicesList", Log.getStackTraceString(e));
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
 
         /*
@@ -2518,13 +2528,15 @@ public class PPApplication extends Application /*implements Application.Activity
                     //}
                 } catch (InterruptedException e) {
                     Log.e("PPApplication.commandWait", Log.getStackTraceString(e));
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
             }
         }
         if (!cmd.isFinished()){
             Log.e("PPApplication.commandWait", "Could not finish root command in " + (waitTill/waitTillMultiplier));
-            Crashlytics.log("PPApplication.commandWait - Could not finish root command in " + (waitTill/waitTillMultiplier));
+            FirebaseCrashlytics.getInstance().log("PPApplication.commandWait - Could not finish root command in " + (waitTill/waitTillMultiplier));
+            //Crashlytics.log("PPApplication.commandWait - Could not finish root command in " + (waitTill/waitTillMultiplier));
         }
     }
 
@@ -2845,7 +2857,8 @@ public class PPApplication extends Application /*implements Application.Activity
 
         } catch (IOException ex) {
             Log.e("PPApplication.isMIUIROM", Log.getStackTraceString(ex));
-            Crashlytics.logException(ex);
+            FirebaseCrashlytics.getInstance().recordException(ex);
+            //Crashlytics.logException(ex);
         }
 
         /*if (PPApplication.logEnabled()) {
@@ -2868,7 +2881,8 @@ public class PPApplication extends Application /*implements Application.Activity
             return line;
         } catch (IOException ex) {
             Log.e("PPApplication.getEmuiRomName", Log.getStackTraceString(ex));
-            Crashlytics.logException(ex);
+            FirebaseCrashlytics.getInstance().recordException(ex);
+            //Crashlytics.logException(ex);
             return "";
         }
     }
@@ -2937,7 +2951,8 @@ public class PPApplication extends Application /*implements Application.Activity
         catch (IOException ex)
         {
             Log.e("PPApplication.getSystemProperty", "Unable to read sysprop " + propName, ex);
-            Crashlytics.logException(ex);
+            FirebaseCrashlytics.getInstance().recordException(ex);
+            //Crashlytics.logException(ex);
             return null;
         }
         finally
@@ -2951,7 +2966,8 @@ public class PPApplication extends Application /*implements Application.Activity
                 catch (IOException e)
                 {
                     Log.e("PPApplication.getSystemProperty", "Exception while closing InputStream", e);
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
             }
         }
@@ -3070,7 +3086,8 @@ public class PPApplication extends Application /*implements Application.Activity
 
         } catch (Exception e) {
             Log.e("PPApplication._exitApp", Log.getStackTraceString(e));
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 

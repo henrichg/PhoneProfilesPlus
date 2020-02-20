@@ -16,7 +16,7 @@ import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 
-import com.crashlytics.android.Crashlytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.List;
 
@@ -138,7 +138,8 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                     }
                 } catch (Exception e) {
                     Log.e("PPPExtenderBroadcastReceiver.onReceive", Log.getStackTraceString(e));
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
                 break;
             case PPApplication.ACTION_ACCESSIBILITY_SERVICE_UNBIND:

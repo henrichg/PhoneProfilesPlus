@@ -10,7 +10,7 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import androidx.preference.DialogPreference;
 
@@ -160,7 +160,8 @@ public class VolumeDialogPreferenceX extends DialogPreference {
             }
         } catch (Exception e) {
             Log.e("VolumeDialogPreferenceX.getValueVDP", Log.getStackTraceString(e));
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
             value = 0;
         }
         //value = value - minimumValue;

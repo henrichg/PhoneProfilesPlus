@@ -4,7 +4,7 @@ import android.nfc.INfcAdapter;
 import android.os.ServiceManager;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 /**
  * A shell executable for NTC toggle.
@@ -30,7 +30,8 @@ public class CmdNfc {
             return enable ? adapter.enable() : adapter.disable(true);
         } catch (Throwable e) {
             Log.e("CmdNfc.setNFC", Log.getStackTraceString(e));
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
             return false;
         }
     }

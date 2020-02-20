@@ -14,7 +14,7 @@ import android.os.Bundle;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.List;
 
@@ -1056,7 +1056,8 @@ class EventPreferencesNotification extends EventPreferences {
                     }
                 } catch (Exception e) {
                     Log.e("EventPreferencesNotification.isNotificationVisible", Log.getStackTraceString(e));
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
 
                 return false;

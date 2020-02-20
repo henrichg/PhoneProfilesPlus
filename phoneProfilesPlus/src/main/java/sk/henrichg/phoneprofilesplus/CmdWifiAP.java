@@ -7,7 +7,7 @@ import android.os.ResultReceiver;
 import android.os.ServiceManager;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 @SuppressWarnings("WeakerAccess")
 public class CmdWifiAP {
@@ -39,17 +39,22 @@ public class CmdWifiAP {
 
                 ResultReceiver dummyResultReceiver = new ResultReceiver(null);
                 connectivityAdapter.startTethering(0, dummyResultReceiver, false, packageName);
-            }
-            else {
+            } else {
                 connectivityAdapter.stopTethering(0, packageName);
             }
 
             //PPApplication.logE("CmdWifiAP.setWifiAP", "END=");
             return true;
-        } catch (Throwable e) {
-            //Log.e("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
+        } catch (java.lang.SecurityException ee) {
+            Log.e("CmdWifiAP.setWifiAP", Log.getStackTraceString(ee));
+            FirebaseCrashlytics.getInstance().log(Log.getStackTraceString(ee));
             //Crashlytics.logException(e);
             //PPApplication.logE("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
+            return false;
+        } catch (Throwable e) {
+            Log.e("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
+            //Crashlytics.logException(e);
+            PPApplication.logE("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
             return false;
         }
     }
@@ -64,8 +69,8 @@ public class CmdWifiAP {
             return enabled;
         } catch (Throwable e) {
             Log.e("CmdWifiAP.isEnabled", Log.getStackTraceString(e));
-            Crashlytics.logException(e);
-            //PPApplication.logE("CmdWifiAP.isEnabled", Log.getStackTraceString(e));
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
             return false;
         }
     }

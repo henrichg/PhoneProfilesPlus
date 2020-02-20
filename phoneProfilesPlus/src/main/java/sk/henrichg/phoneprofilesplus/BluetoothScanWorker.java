@@ -12,8 +12,8 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -105,7 +105,8 @@ public class BluetoothScanWorker extends Worker {
             return Result.success();
         } catch (Exception e) {
             Log.e("BluetoothScanWorker.doWork", Log.getStackTraceString(e));
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
             /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
             Runnable r = new Runnable() {
                 public void run() {
@@ -167,7 +168,8 @@ public class BluetoothScanWorker extends Worker {
             //PPApplication.logE("BluetoothScanWorker._scheduleWork", "---------------------------------------- END");
         } catch (Exception e) {
             Log.e("BluetoothScanWorker._scheduleWork", Log.getStackTraceString(e));
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -213,7 +215,8 @@ public class BluetoothScanWorker extends Worker {
 
             } catch (Exception e) {
                 Log.e("BluetoothScanWorker._cancelWork", Log.getStackTraceString(e));
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
         }
     }
@@ -260,7 +263,8 @@ public class BluetoothScanWorker extends Worker {
             //PPApplication.logE("BluetoothScanWorker.waitForFinish", "END WAIT FOR FINISH");
         } catch (Exception e) {
             Log.e("BluetoothScanWorker.waitForFinish", Log.getStackTraceString(e));
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -306,7 +310,8 @@ public class BluetoothScanWorker extends Worker {
             }
         } catch (Exception e) {
             Log.e("BluetoothScanWorker.isWorkRunning", Log.getStackTraceString(e));
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
             return false;
         }
     }
@@ -336,7 +341,8 @@ public class BluetoothScanWorker extends Worker {
             }
         } catch (Exception e) {
             Log.e("BluetoothScanWorker.isWorkScheduled", Log.getStackTraceString(e));
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
             return false;
         }
     }

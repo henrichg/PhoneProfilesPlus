@@ -5,8 +5,8 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -71,7 +71,8 @@ public class SearchCalendarEventsWorker extends Worker {
             return Result.success();
         } catch (Exception e) {
             Log.e("SearchCalendarEventsWorker.doWork", Log.getStackTraceString(e));
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
             /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
             Runnable r = new Runnable() {
                 public void run() {
@@ -117,7 +118,8 @@ public class SearchCalendarEventsWorker extends Worker {
             //PPApplication.logE("SearchCalendarEventsWorker._scheduleWork", "---------------------------------------- END");
         } catch (Exception e) {
             Log.e("SearchCalendarEventsWorker._scheduleWork", Log.getStackTraceString(e));
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -150,7 +152,8 @@ public class SearchCalendarEventsWorker extends Worker {
 
             } catch (Exception e) {
                 Log.e("SearchCalendarEventsWorker._cancelWork", Log.getStackTraceString(e));
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
         }
     }
@@ -197,7 +200,8 @@ public class SearchCalendarEventsWorker extends Worker {
             //PPApplication.logE("SearchCalendarEventsWorker.waitForFinish", "END WAIT FOR FINISH");
         } catch (Exception e) {
             Log.e("SearchCalendarEventsWorker.waitForFinish", Log.getStackTraceString(e));
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -245,7 +249,8 @@ public class SearchCalendarEventsWorker extends Worker {
             }
         } catch (Exception e) {
             Log.e("SearchCalendarEventsWorker.isWorkRunning", Log.getStackTraceString(e));
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
             return false;
         }
     }
@@ -275,7 +280,8 @@ public class SearchCalendarEventsWorker extends Worker {
             }
         } catch (Exception e) {
             Log.e("SearchCalendarEventsWorker.isWorkScheduled", Log.getStackTraceString(e));
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
             return false;
         }
     }

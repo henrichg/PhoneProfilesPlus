@@ -6,7 +6,7 @@ import android.location.Geocoder;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -96,7 +96,8 @@ public class FetchAddressWorker extends Worker {
             return Result.success(outputData);
         } catch (Exception e) {
             Log.e("FetchAddressWorker.doWork", Log.getStackTraceString(e));
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
             return Result.failure();
         }
     }

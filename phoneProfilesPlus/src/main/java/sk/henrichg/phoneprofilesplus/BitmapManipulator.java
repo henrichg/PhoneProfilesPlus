@@ -21,7 +21,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.io.InputStream;
 
@@ -135,7 +135,8 @@ class BitmapManipulator {
                 return decodedSampleBitmap;
             } catch (Exception ee) {
                 Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(ee));
-                Crashlytics.logException(ee);
+                FirebaseCrashlytics.getInstance().recordException(ee);
+                //Crashlytics.logException(ee);
                 return null;
             }
         }
@@ -398,7 +399,8 @@ class BitmapManipulator {
             return bitmap;
         } catch (Exception e) {
             Log.e("BitmapManipulator.getBitmapFromDrawable", Log.getStackTraceString(e));
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
             return null;
         }
     }

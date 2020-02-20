@@ -17,8 +17,6 @@ import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
-
 import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Map;
