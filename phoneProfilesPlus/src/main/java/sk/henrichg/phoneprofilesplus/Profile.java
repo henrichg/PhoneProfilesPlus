@@ -1425,7 +1425,7 @@ public class Profile {
             }
             if ((this._volumeRingerMode == 1) || (this._volumeRingerMode == 4)) {
                 if (this._vibrateWhenRinging != withProfile._vibrateWhenRinging) {
-                    /PPApplication.logE("$$$ Profile.compareProfiles","_vibrateWhenRinging 1");
+                    //PPApplication.logE("$$$ Profile.compareProfiles","_vibrateWhenRinging 1");
                     return false;
                 }
             }
@@ -1467,7 +1467,7 @@ public class Profile {
             }
             if (this._soundRingtoneChange != 0) {
                 if (!this._soundRingtone.equals(withProfile._soundRingtone)) {
-                    /PPApplication.logE("$$$ Profile.compareProfiles","_soundRingtone");
+                    //PPApplication.logE("$$$ Profile.compareProfiles","_soundRingtone");
                     return false;
                 }
             }
