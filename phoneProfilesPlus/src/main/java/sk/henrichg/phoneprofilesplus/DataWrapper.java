@@ -4090,7 +4090,9 @@ public class DataWrapper {
                 //if (event._name.equals("Doma"))
                     //PPApplication.logE("[***] DataWrapper.doHandleEvents", " do new event status");
 
-                if (((newEventStatus == Event.ESTATUS_RUNNING) /*|| forRestartEvents*/) && (!statePause)) {
+                if ((newEventStatus == Event.ESTATUS_RUNNING) && (!statePause)) {
+                    // do start of events, all sensors are passed
+
                     /*if (PPApplication.logEnabled()) {
                         if (event._name.equals("Doma")) {
                             PPApplication.logE("[***] DataWrapper.doHandleEvents", "start event");
@@ -4142,8 +4144,16 @@ public class DataWrapper {
                             //PPApplication.logE("[DSTART] DataWrapper.doHandleEvents", "mergedProfile=" + mergedProfile._name);
                         }
                     }
-                } else if (((newEventStatus == Event.ESTATUS_PAUSE) /*|| forRestartEvents*/) && statePause) {
-                    // when pausing and it is for restart events, force pause
+                } else if (((newEventStatus == Event.ESTATUS_PAUSE) || forRestartEvents) && statePause) {
+                    // do end of events, some sensors are not passed
+                    // when pausing and it is for restart events (forRestartEvent=true), force pause
+
+                    if (newEventStatus == Event.ESTATUS_RUNNING) {
+                        //event must be running, all sensors are passed
+                        if (!forRestartEvents)
+                            // it is not restart event, do not pause this event
+                            return;
+                    }
 
                     /*if (PPApplication.logEnabled()) {
                         if (event._name.equals("Doma")) {
