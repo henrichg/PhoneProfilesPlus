@@ -7,14 +7,9 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.telephony.TelephonyManager;
 
-import com.google.common.util.concurrent.ListenableFuture;
-
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.work.WorkInfo;
-import androidx.work.WorkManager;
 
 class EventsHandler {
     

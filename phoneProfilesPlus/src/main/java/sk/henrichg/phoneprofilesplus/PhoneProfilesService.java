@@ -618,15 +618,15 @@ public class PhoneProfilesService extends Service
         return applicationFullyStarted;
     }
 
-    void setApplicationFullyStarted(boolean started, boolean showToast) {
-        applicationFullyStarted = started;
+    void setApplicationFullyStarted(/*boolean started, */boolean showToast) {
+        applicationFullyStarted = true; //started;
 
         final Context appContext = getApplicationContext();
 
-        if (started)
+        //if (started)
             ActivateProfileHelper.updateGUI(appContext, true, true);
 
-        if (started && showToast &&
+        if (/*started && */showToast &&
                 //(!ApplicationPreferences.applicationPackageReplaced(appContext))) {
                 (!PPApplication.applicationPackageReplaced)) {
 
@@ -3972,7 +3972,7 @@ public class PhoneProfilesService extends Service
                     boolean packageReplaced = PPApplication.applicationPackageReplaced; //ApplicationPreferences.applicationPackageReplaced(appContext);
                     PPApplication.logE("******** PhoneProfilesService.doForFirstStart.2 - handler", "package replaced=" + packageReplaced);
                     if (!packageReplaced)
-                        setApplicationFullyStarted(true, true);
+                        setApplicationFullyStarted(/*true, */true);
 
                     if (Event.getGlobalEventsRunning()) {
                         PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "global event run is enabled, first start events");

@@ -54,6 +54,7 @@
       <w>brsd</w>
       <w>bssid</w>
       <w>busybox</w>
+      <w>caap</w>
       <w>cardview</w>
       <w>català</w>
       <w>cccccc</w>
@@ -83,7 +84,9 @@
       <w>dlight</w>
       <w>doki</w>
       <w>doma</w>
+      <w>doogee</w>
       <w>doubledot</w>
+      <w>drakeet</w>
       <w>droom</w>
       <w>dropshadow</w>
       <w>dstart</w>
@@ -112,12 +115,15 @@
       <w>eventtime</w>
       <w>evernote</w>
       <w>exportdata</w>
+      <w>externalstorage</w>
       <w>failsafe</w>
       <w>false;</w>
+      <w>fcst</w>
       <w>ffffff</w>
       <w>fffffff</w>
       <w>fgui</w>
       <w>firebase</w>
+      <w>fmobil</w>
       <w>français</w>
       <w>fstype</w>
       <w>funanduseful</w>
@@ -145,6 +151,7 @@
       <w>incall</w>
       <w>incallui</w>
       <w>informations</w>
+      <w>infos</w>
       <w>infront</w>
       <w>inode</w>
       <w>inodes</w>
@@ -174,15 +181,19 @@
       <w>listwidget</w>
       <w>llew</w>
       <w>lockscreen</w>
+      <w>lopr</w>
       <w>lëtzebuergesch</w>
       <w>macosx</w>
       <w>magisk</w>
       <w>masshardt</w>
+      <w>mdpr</w>
       <w>mdroid</w>
+      <w>mediatek</w>
       <w>melayu</w>
       <w>messager</w>
       <w>mimetype</w>
       <w>minwidth</w>
+      <w>mirek</w>
       <w>miui</w>
       <w>miuirom</w>
       <w>mmss</w>
@@ -195,10 +206,13 @@
       <w>ndef</w>
       <w>nederlands</w>
       <w>nexec</w>
+      <w>nokia</w>
       <w>norsk</w>
       <w>notconnected</w>
       <w>notif</w>
       <w>notinfront</w>
+      <w>ntpr</w>
+      <w>ntyp</w>
       <w>onepane</w>
       <w>oneplus</w>
       <w>oppo</w>
@@ -249,6 +263,7 @@
       <w>ringtones</w>
       <w>română</w>
       <w>rssi</w>
+      <w>ruap</w>
       <w>runevents</w>
       <w>runnables</w>
       <w>samsung</w>
@@ -257,6 +272,7 @@
       <w>screenlayout</w>
       <w>screenoff</w>
       <w>screenon</w>
+      <w>sctm</w>
       <w>securitycenter</w>
       <w>seekbar</w>
       <w>selinux</w>
@@ -267,11 +283,14 @@
       <w>sikun</w>
       <w>sipcall</w>
       <w>skus</w>
+      <w>slnt</w>
       <w>slook</w>
       <w>slovenčina</w>
       <w>slovenščina</w>
+      <w>sond</w>
       <w>sonyericsson</w>
       <w>splunchy</w>
+      <w>sqlite</w>
       <w>squareup</w>
       <w>srpski</w>
       <w>ssid</w>
@@ -308,9 +327,13 @@
       <w>usagestats</w>
       <w>userid</w>
       <w>vert</w>
+      <w>vibr</w>
       <w>visibile</w>
       <w>visiblity</w>
       <w>việt</w>
+      <w>volu</w>
+      <w>walp</w>
+      <w>wapr</w>
       <w>wcdma</w>
       <w>wificonnected</w>
       <w>wifiinfront</w>

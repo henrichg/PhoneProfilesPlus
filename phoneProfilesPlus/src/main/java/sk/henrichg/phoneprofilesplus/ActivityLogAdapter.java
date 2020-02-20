@@ -21,7 +21,7 @@ class ActivityLogAdapter extends CursorAdapter {
     private final int KEY_AL_EVENT_NAME;
     private final int KEY_AL_PROFILE_NAME;
     //private final int KEY_AL_PROFILE_ICON;
-    private final int KEY_AL_DURATION_DELAY;
+    //private final int KEY_AL_DURATION_DELAY;
     private final int KEY_AL_PROFILE_EVENT_COUNT;
 
     @SuppressLint("UseSparseArrays")
@@ -37,7 +37,7 @@ class ActivityLogAdapter extends CursorAdapter {
         KEY_AL_EVENT_NAME = cursor.getColumnIndex(DatabaseHandler.KEY_AL_EVENT_NAME);
         KEY_AL_PROFILE_NAME = cursor.getColumnIndex(DatabaseHandler.KEY_AL_PROFILE_NAME);
         //KEY_AL_PROFILE_ICON = cursor.getColumnIndex(DatabaseHandler.KEY_AL_PROFILE_ICON);
-        KEY_AL_DURATION_DELAY = cursor.getColumnIndex(DatabaseHandler.KEY_AL_DURATION_DELAY);
+        //KEY_AL_DURATION_DELAY = cursor.getColumnIndex(DatabaseHandler.KEY_AL_DURATION_DELAY);
         KEY_AL_PROFILE_EVENT_COUNT = cursor.getColumnIndex(DatabaseHandler.KEY_AL_PROFILE_EVENT_COUNT);
 
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ACTIVATION, R.string.altype_profileActivation);

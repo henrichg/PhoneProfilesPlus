@@ -1394,13 +1394,13 @@ public class Profile {
         }
     }
 
-    @SuppressWarnings("RedundantIfStatement")
     boolean compareProfile(Profile withProfile)
     {
         PPApplication.logE("$$$ Profile.compareProfiles","name="+_name);
-        PPApplication.logE("$$$ Profile.compareProfiles","withProfile="+withProfile._name);
 
         if (withProfile != null) {
+            PPApplication.logE("$$$ Profile.compareProfiles","withProfile="+withProfile._name);
+
             if (this._id != withProfile._id) {
                 PPApplication.logE("$$$ Profile.compareProfiles","_id");
                 return false;

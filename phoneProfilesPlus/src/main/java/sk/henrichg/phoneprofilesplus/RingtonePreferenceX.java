@@ -17,7 +17,6 @@ import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.Log;
 
-import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Timer;

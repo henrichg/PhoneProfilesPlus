@@ -1230,12 +1230,12 @@ class GlobalGUIRoutines {
         return (duration != 0 && transition != 0);
     }
 
-    static void showToast(final Context context, final String text, final int lenght) {
+    static void showToast(final Context context, final String text, final int length) {
         Handler handler = new Handler(getMainLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
-                Toast msg = Toast/*Compat*/.makeText(context.getApplicationContext(), text, lenght);
+                Toast msg = Toast/*Compat*/.makeText(context.getApplicationContext(), text, length);
                 msg.show();
             }
         });

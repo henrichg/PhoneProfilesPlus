@@ -77,6 +77,18 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
                     }
                     PPApplication.exitApp(false, appContext, dataWrapper, null, false/*, false, false*/);
 
+                    DatabaseHandler.getInstance(appContext).updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
+                    DatabaseHandler.getInstance(appContext).updateAllEventsSensorsPassed(EventPreferences.SENSOR_PASSED_WAITING);
+                    DatabaseHandler.getInstance(appContext).deactivateProfile();
+                    DatabaseHandler.getInstance(appContext).unblockAllEvents();
+                    DatabaseHandler.getInstance(appContext).disableNotAllowedPreferences();
+                    //this.dataWrapper.invalidateProfileList();
+                    //this.dataWrapper.invalidateEventList();
+                    //this.dataWrapper.invalidateEventTimelineList();
+                    Event.setEventsBlocked(appContext, false);
+                    DatabaseHandler.getInstance(appContext).unblockAllEvents();
+                    Event.setForceRunEventRunning(appContext, false);
+
                     // save version code
                     try {
                         PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
