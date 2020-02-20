@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.util.Log;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
+import com.crashlytics.android.Crashlytics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,8 +112,8 @@ class ContactGroupsCache {
             }
         } catch (Exception e) {
             Log.e("ContactGroupsCache.getContactList", Log.getStackTraceString(e));
-            FirebaseCrashlytics.getInstance().recordException(e);
-            //Crashlytics.logException(e);
+            //FirebaseCrashlytics.getInstance().recordException(e);
+            Crashlytics.logException(e);
 
             _contactGroupList.clear();
             contactsCache.clearGroups(_contactList);

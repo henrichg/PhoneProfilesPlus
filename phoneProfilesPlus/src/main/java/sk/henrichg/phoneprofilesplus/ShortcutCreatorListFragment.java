@@ -23,7 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
+import com.crashlytics.android.Crashlytics;
 
 import java.lang.ref.WeakReference;
 import java.util.Collections;
@@ -422,8 +422,8 @@ public class ShortcutCreatorListFragment extends Fragment {
                     getActivity().finish();
                 } catch (Exception e) {
                     Log.e("ShortcutCreatorListFragment.createShortcut", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
-                    //Crashlytics.logException(e);
+                    //FirebaseCrashlytics.getInstance().recordException(e);
+                    Crashlytics.logException(e);
                 }
             }
 

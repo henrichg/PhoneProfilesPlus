@@ -8,7 +8,7 @@ import android.telephony.SubscriptionManager;
 import android.util.Log;
 
 import com.android.internal.telephony.ITelephony;
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
+import com.crashlytics.android.Crashlytics;
 
 import java.util.List;
 
@@ -77,8 +77,8 @@ public class CmdMobileData {
             return enabled;
         } catch (Throwable e) {
             Log.e("CmdMobileData.isEnabled", Log.getStackTraceString(e));
-            FirebaseCrashlytics.getInstance().recordException(e);
-            //Crashlytics.logException(e);
+            //FirebaseCrashlytics.getInstance().recordException(e);
+            Crashlytics.logException(e);
             return false;
         }
     }

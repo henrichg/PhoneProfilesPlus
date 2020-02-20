@@ -5,7 +5,7 @@ import android.os.ServiceManager;
 import android.os.SystemClock;
 import android.util.Log;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
+import com.crashlytics.android.Crashlytics;
 
 @SuppressWarnings("WeakerAccess")
 public class CmdGoToSleep {
@@ -28,8 +28,8 @@ public class CmdGoToSleep {
             return true;
         } catch (Throwable e) {
             Log.e("CmdGoToSleep.doSleep", Log.getStackTraceString(e));
-            FirebaseCrashlytics.getInstance().recordException(e);
-            //Crashlytics.logException(e);
+            //FirebaseCrashlytics.getInstance().recordException(e);
+            Crashlytics.logException(e);
             return false;
         }
     }

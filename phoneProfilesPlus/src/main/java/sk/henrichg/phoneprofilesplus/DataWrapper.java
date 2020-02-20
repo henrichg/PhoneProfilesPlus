@@ -37,7 +37,7 @@ import android.text.style.CharacterStyle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
+import com.crashlytics.android.Crashlytics;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -830,8 +830,8 @@ public class DataWrapper {
                 }
             } catch (Exception e) {
                 Log.e("DataWrapper.setDynamicLauncherShortcuts", Log.getStackTraceString(e));
-                FirebaseCrashlytics.getInstance().recordException(e);
-                //Crashlytics.logException(e);
+                //FirebaseCrashlytics.getInstance().recordException(e);
+                Crashlytics.logException(e);
             }
         }
     }

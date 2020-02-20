@@ -7,7 +7,7 @@ import android.os.ResultReceiver;
 import android.os.ServiceManager;
 import android.util.Log;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
+import com.crashlytics.android.Crashlytics;
 
 @SuppressWarnings("WeakerAccess")
 public class CmdWifiAP {
@@ -47,8 +47,8 @@ public class CmdWifiAP {
             return true;
         } catch (java.lang.SecurityException ee) {
             Log.e("CmdWifiAP.setWifiAP", Log.getStackTraceString(ee));
-            FirebaseCrashlytics.getInstance().log(Log.getStackTraceString(ee));
-            //Crashlytics.logException(e);
+            //FirebaseCrashlytics.getInstance().log(Log.getStackTraceString(ee));
+            Crashlytics.logException(ee);
             //PPApplication.logE("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
             return false;
         } catch (Throwable e) {
@@ -69,8 +69,8 @@ public class CmdWifiAP {
             return enabled;
         } catch (Throwable e) {
             Log.e("CmdWifiAP.isEnabled", Log.getStackTraceString(e));
-            FirebaseCrashlytics.getInstance().recordException(e);
-            //Crashlytics.logException(e);
+            //FirebaseCrashlytics.getInstance().recordException(e);
+            Crashlytics.logException(e);
             return false;
         }
     }

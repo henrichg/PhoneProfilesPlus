@@ -34,10 +34,10 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -1027,9 +1027,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                 return true;
             case R.id.menu_test_crash:
                 //TODO throw new RuntimeException("test Crashlytics + TopExceptionHandler");
-                throw new RuntimeException("Test Crash");
-                //Crashlytics.getInstance().crash();
-                //return true;
+                //throw new RuntimeException("Test Crash");
+                Crashlytics.getInstance().crash();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -1691,8 +1691,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 // no error, this is OK
             }*/ catch (Exception e) {
                 Log.e("EditorProfilesActivity.importApplicationPreferences", Log.getStackTraceString(e));
-                FirebaseCrashlytics.getInstance().recordException(e);
-                //Crashlytics.logException(e);
+                //FirebaseCrashlytics.getInstance().recordException(e);
+                Crashlytics.logException(e);
                 res = false;
             }
         }finally {
@@ -2174,8 +2174,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
                             } catch (Exception e) {
                                 Log.e("EditorProfilesActivity.doExportData", Log.getStackTraceString(e));
-                                FirebaseCrashlytics.getInstance().recordException(e);
-                                //Crashlytics.logException(e);
+                                //FirebaseCrashlytics.getInstance().recordException(e);
+                                Crashlytics.logException(e);
                             }
                             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.menu_export));
                             emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -2200,8 +2200,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     startActivity(chooser);
                                 } catch (Exception e) {
                                     Log.e("EditorProfilesActivity.doExportData", Log.getStackTraceString(e));
-                                    FirebaseCrashlytics.getInstance().recordException(e);
-                                    //Crashlytics.logException(e);
+                                    //FirebaseCrashlytics.getInstance().recordException(e);
+                                    Crashlytics.logException(e);
                                 }
                             }
                         }

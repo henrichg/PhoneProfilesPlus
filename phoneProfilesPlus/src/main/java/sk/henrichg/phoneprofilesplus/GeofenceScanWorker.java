@@ -5,8 +5,8 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.common.util.concurrent.ListenableFuture;
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -103,8 +103,8 @@ public class GeofenceScanWorker extends Worker {
             return Result.success();
         } catch (Exception e) {
             Log.e("GeofenceScanWorker.doWork", Log.getStackTraceString(e));
-            FirebaseCrashlytics.getInstance().recordException(e);
-            //Crashlytics.logException(e);
+            //FirebaseCrashlytics.getInstance().recordException(e);
+            Crashlytics.logException(e);
             /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
             Runnable r = new Runnable() {
                 public void run() {
@@ -177,8 +177,8 @@ public class GeofenceScanWorker extends Worker {
             //PPApplication.logE("GeofenceScanWorker._scheduleWork", "---------------------------------------- END");
         } catch (Exception e) {
             Log.e("GeofenceScanWorker._scheduleWork", Log.getStackTraceString(e));
-            FirebaseCrashlytics.getInstance().recordException(e);
-            //Crashlytics.logException(e);
+            //FirebaseCrashlytics.getInstance().recordException(e);
+            Crashlytics.logException(e);
         }
     }
 
@@ -217,8 +217,8 @@ public class GeofenceScanWorker extends Worker {
 
             } catch (Exception e) {
                 Log.e("GeofenceScanWorker._cancelWork", Log.getStackTraceString(e));
-                FirebaseCrashlytics.getInstance().recordException(e);
-                //Crashlytics.logException(e);
+                //FirebaseCrashlytics.getInstance().recordException(e);
+                Crashlytics.logException(e);
             }
         }
     }
@@ -265,8 +265,8 @@ public class GeofenceScanWorker extends Worker {
             //PPApplication.logE("GeofenceScanWorker.waitForFinish", "END WAIT FOR FINISH");
         } catch (Exception e) {
             Log.e("GeofenceScanWorker.waitForFinish", Log.getStackTraceString(e));
-            FirebaseCrashlytics.getInstance().recordException(e);
-            //Crashlytics.logException(e);
+            //FirebaseCrashlytics.getInstance().recordException(e);
+            Crashlytics.logException(e);
         }
     }
 
@@ -312,8 +312,8 @@ public class GeofenceScanWorker extends Worker {
             }
         } catch (Exception e) {
             Log.e("GeofenceScanWorker.isWorkRunning", Log.getStackTraceString(e));
-            FirebaseCrashlytics.getInstance().recordException(e);
-            //Crashlytics.logException(e);
+            //FirebaseCrashlytics.getInstance().recordException(e);
+            Crashlytics.logException(e);
             return false;
         }
     }
@@ -343,8 +343,8 @@ public class GeofenceScanWorker extends Worker {
             }
         } catch (Exception e) {
             Log.e("GeofenceScanWorker.isWorkScheduled", Log.getStackTraceString(e));
-            FirebaseCrashlytics.getInstance().recordException(e);
-            //Crashlytics.logException(e);
+            //FirebaseCrashlytics.getInstance().recordException(e);
+            Crashlytics.logException(e);
             return false;
         }
     }

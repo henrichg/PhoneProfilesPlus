@@ -16,7 +16,7 @@ import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
+import com.crashlytics.android.Crashlytics;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
@@ -289,8 +289,8 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                         }
                     } catch (Exception e) {
                         Log.e("VolumeDialogPreferenceFragmentX.onStopTrackingTouch", Log.getStackTraceString(e));
-                        FirebaseCrashlytics.getInstance().recordException(e);
-                        //Crashlytics.logException(e);
+                        //FirebaseCrashlytics.getInstance().recordException(e);
+                        Crashlytics.logException(e);
                     }
                 }
             });

@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.firebase.crashlytics'
-//apply plugin: 'io.fabric'
+//apply plugin: 'com.google.firebase.crashlytics'
+apply plugin: 'io.fabric'
 apply from: '../dependencies.gradle'
 
 android {
@@ -37,6 +37,11 @@ android {
             debuggable true
             // Disable fabric build ID generation for debug builds
             //ext.enableCrashlytics = false
+            /*firebaseCrashlytics {
+                // If you don't need crash reporting for your debug build,
+                // you can speed up your build by disabling mapping file uploading.
+                mappingFileUploadEnabled true
+            }*/
         }
     }
 
@@ -55,8 +60,8 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
 
     implementation 'com.google.firebase:firebase-analytics:17.2.2'
-    implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta01'
-    //implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+    //implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta01'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
     implementation 'androidx.core:core:1.2.0'
     implementation 'androidx.fragment:fragment:1.2.1'

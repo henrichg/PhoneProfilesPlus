@@ -18,7 +18,7 @@ import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
+import com.crashlytics.android.Crashlytics;
 
 import java.util.ArrayList;
 
@@ -1406,8 +1406,8 @@ class Permissions {
                     //    context.startActivity(intent);
                 } catch (Exception e) {
                     Log.e("Permissions.grantProfilePermissions", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
-                    //Crashlytics.logException(e);
+                    //FirebaseCrashlytics.getInstance().recordException(e);
+                    Crashlytics.logException(e);
                     //return false;
                 }
             }
@@ -1656,8 +1656,8 @@ class Permissions {
                     //    context.startActivity(intent);
                 } catch (Exception e) {
                     Log.e("Permissions.grantEventPermissions", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
-                    //Crashlytics.logException(e);
+                    //FirebaseCrashlytics.getInstance().recordException(e);
+                    Crashlytics.logException(e);
                     //return false;
                 }
             }

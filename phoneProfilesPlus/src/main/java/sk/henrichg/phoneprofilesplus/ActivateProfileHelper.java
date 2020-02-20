@@ -48,7 +48,7 @@ import android.view.Surface;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
+import com.crashlytics.android.Crashlytics;
 import com.stericson.RootShell.execution.Command;
 import com.stericson.RootShell.execution.Shell;
 import com.stericson.RootTools.RootTools;
@@ -935,8 +935,8 @@ class ActivateProfileHelper {
             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_MUSIC, profile.getVolumeMediaValue());
         } catch (SecurityException e) {
             Log.e("ActivateProfileHelper.setMediaVolume", Log.getStackTraceString(e));
-            FirebaseCrashlytics.getInstance().recordException(e);
-            //Crashlytics.logException(e);
+            //FirebaseCrashlytics.getInstance().recordException(e);
+            Crashlytics.logException(e);
             // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
             if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                 try {
@@ -947,8 +947,8 @@ class ActivateProfileHelper {
                 }
                 catch (Exception e2) {
                     Log.e("ActivateProfileHelper.setVolumes", Log.getStackTraceString(e2));
-                    FirebaseCrashlytics.getInstance().recordException(e);
-                    //Crashlytics.logException(e2);
+                    //FirebaseCrashlytics.getInstance().recordException(e);
+                    Crashlytics.logException(e2);
                 }
             }
             else {
@@ -973,8 +973,8 @@ class ActivateProfileHelper {
             }
         } catch (Exception e3) {
             Log.e("ActivateProfileHelper.setMediaVolume", Log.getStackTraceString(e3));
-            FirebaseCrashlytics.getInstance().recordException(e3);
-            //Crashlytics.logException(e3);
+            //FirebaseCrashlytics.getInstance().recordException(e3);
+            Crashlytics.logException(e3);
         }
     }
 
@@ -1833,8 +1833,8 @@ class ActivateProfileHelper {
                                         wallpaperManager.setBitmap(decodedSampleBitmap);
                                 } catch (IOException e) {
                                     Log.e("ActivateProfileHelper.executeForWallpaper", Log.getStackTraceString(e));
-                                    FirebaseCrashlytics.getInstance().recordException(e);
-                                    //Crashlytics.logException(e);
+                                    //FirebaseCrashlytics.getInstance().recordException(e);
+                                    Crashlytics.logException(e);
                                 }
                             }
                         }
@@ -2983,8 +2983,8 @@ class ActivateProfileHelper {
                 }
             } catch (Exception e) {
                 Log.e("ActivateProfileHelper.createKeepScreenOnView", Log.getStackTraceString(e));
-                FirebaseCrashlytics.getInstance().recordException(e);
-                //Crashlytics.logException(e);
+                //FirebaseCrashlytics.getInstance().recordException(e);
+                Crashlytics.logException(e);
             }
 
             /*WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
@@ -3032,8 +3032,8 @@ class ActivateProfileHelper {
                 }
             } catch (Exception e) {
                 Log.e("ActivateProfileHelper.removeKeepScreenOnView", Log.getStackTraceString(e));
-                FirebaseCrashlytics.getInstance().recordException(e);
-                //Crashlytics.logException(e);
+                //FirebaseCrashlytics.getInstance().recordException(e);
+                Crashlytics.logException(e);
             }
 
             /*if (PhoneProfilesService.getInstance().keepScreenOnView != null) {
@@ -3623,8 +3623,8 @@ class ActivateProfileHelper {
             return false;
         } catch(Exception e) {
             Log.e("ActivateProfileHelper.wifiServiceExists",Log.getStackTraceString(e));
-            FirebaseCrashlytics.getInstance().recordException(e);
-            //Crashlytics.logException(e);
+            //FirebaseCrashlytics.getInstance().recordException(e);
+            Crashlytics.logException(e);
             return false;
         }
     }
@@ -3699,8 +3699,8 @@ class ActivateProfileHelper {
                     }
                 } catch (Exception e) {
                     Log.e("ActivateProfileHelper.setWifiAP", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
-                    //Crashlytics.logException(e);
+                    //FirebaseCrashlytics.getInstance().recordException(e);
+                    Crashlytics.logException(e);
                     //PPApplication.logE("$$$ WifiAP", Log.getStackTraceString(e));
                 }
             }

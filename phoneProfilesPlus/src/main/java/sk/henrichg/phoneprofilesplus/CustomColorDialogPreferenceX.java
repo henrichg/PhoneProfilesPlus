@@ -17,7 +17,7 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.Log;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
+import com.crashlytics.android.Crashlytics;
 import com.kunzisoft.androidclearchroma.ChromaUtil;
 
 import androidx.appcompat.widget.AppCompatImageView;
@@ -118,8 +118,8 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
             //setSummary(summaryPreference);
         } catch (Exception e) {
             Log.e("CustomColorDialogPreferenceX.setColorInWidget", Log.getStackTraceString(e));
-            FirebaseCrashlytics.getInstance().recordException(e);
-            //Crashlytics.logException(e);
+            //FirebaseCrashlytics.getInstance().recordException(e);
+            Crashlytics.logException(e);
         }
     }
 
