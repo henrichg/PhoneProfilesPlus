@@ -1394,6 +1394,7 @@ public class Profile {
         }
     }
 
+    @SuppressWarnings("RedundantIfStatement")
     boolean compareProfile(Profile withProfile)
     {
         //PPApplication.logE("$$$ Profile.compareProfiles","name="+_name);

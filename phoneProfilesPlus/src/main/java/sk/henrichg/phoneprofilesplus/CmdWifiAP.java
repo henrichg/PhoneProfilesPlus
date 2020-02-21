@@ -48,12 +48,12 @@ public class CmdWifiAP {
         } catch (java.lang.SecurityException ee) {
             Log.e("CmdWifiAP.setWifiAP", Log.getStackTraceString(ee));
             //FirebaseCrashlytics.getInstance().log(Log.getStackTraceString(ee));
-            Crashlytics.logException(ee);
+            //Crashlytics.logException(ee);
             //PPApplication.logE("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
             return false;
         } catch (Throwable e) {
             Log.e("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
-            //Crashlytics.logException(e);
+            Crashlytics.logException(e);
             PPApplication.logE("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
             return false;
         }
