@@ -786,6 +786,11 @@ class EventPreferencesCalendar extends EventPreferences {
                 }
                 cur = cr.query(builder.build(), INSTANCE_PROJECTION, selection.toString(), _selectionArgs, Instances.BEGIN + " ASC");
             }
+        } catch (SecurityException e) {
+            Log.e("EventPreferencesCalendar.saveStartEndTime", Log.getStackTraceString(e));
+            //FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
+            cur = null;
         } catch (Exception e) {
             Log.e("EventPreferencesCalendar.saveStartEndTime", Log.getStackTraceString(e));
             //FirebaseCrashlytics.getInstance().recordException(e);
