@@ -1332,7 +1332,7 @@
     <string name="time_duration_picker_hour_sign">h</string>
     <string name="time_duration_picker_minute_sign">m</string>
     <string name="time_duration_picker_second_sign">s</string>
-    <string name="phone_profiles_pref_category_status_bar">Application notification</string>
+    <string name="phone_profiles_pref_category_status_bar">Application de notification</string>
     <string name="editor_drawer_title_events_order">Ordre</string>
     <string name="editor_activity_targetHelps_orderSpinner_title">Ordre des événements</string>
     <string name="editor_activity_targetHelps_orderSpinner_description">Cliquez ici pour naviguer dans l\'ordre des événements.</string>
@@ -1407,14 +1407,14 @@
     <string name="application_is_started_toast">est démarré</string>
     <string name="popupmenu_title_click_below_toast">Click below to change this parameter</string>
     <string name="duration_end_acronym">de</string>
-    <string name="phone_profiles_pref_notificationStatusBarCategory">Status bar</string>
-    <string name="phone_profiles_pref_notificationNotificationPanelCategory">Notification panel</string>
-    <string name="phone_profiles_pref_notificationNotificationStyle">Notification style</string>
-    <string name="phone_profiles_pref_notificationNotificationStyle_custom">Custom</string>
+    <string name="phone_profiles_pref_notificationStatusBarCategory">Barre d\'état</string>
+    <string name="phone_profiles_pref_notificationNotificationPanelCategory">Panneau des notifications</string>
+    <string name="phone_profiles_pref_notificationNotificationStyle">Style de notification</string>
+    <string name="phone_profiles_pref_notificationNotificationStyle_custom">Personalisé</string>
     <string name="phone_profiles_pref_notificationNotificationStyle_native">Native</string>
-    <string name="phone_profiles_pref_notificationShowProfileIcon">Show profile icon</string>
-    <string name="altype_mergedProfileActivation">profiles activation from events</string>
-    <string name="altype_manualRestartEvents">manual restart events</string>
+    <string name="phone_profiles_pref_notificationShowProfileIcon">Afficher l\'icône du profil</string>
+    <string name="altype_mergedProfileActivation">activation de profils à partir d\'événements</string>
+    <string name="altype_manualRestartEvents">redémarrage manuel des événements</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>

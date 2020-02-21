@@ -64,7 +64,7 @@ dependencies {
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
     implementation 'androidx.core:core:1.2.0'
-    implementation 'androidx.fragment:fragment:1.2.1'
+    implementation 'androidx.fragment:fragment:1.2.2'
     implementation 'androidx.activity:activity:1.1.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
