@@ -591,14 +591,15 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
                             } catch (Exception e) {
                                 Log.e("ApplicationEditorIntentActivityX.onCreate.testButtonClick", Log.getStackTraceString(e));
                                 //FirebaseCrashlytics.getInstance().recordException(e);
-                                Crashlytics.logException(e);
+                                //Crashlytics.logException(e);
                             }
                         } else {
                             try {
                                 sendBroadcast(testIntent);
                                 //PPApplication.logE("ApplicationEditorIntentActivityX.onCreate.testButtonClick", "broadcast sent");
                                 ok = true;
-                            } catch (Exception ignored) {
+                            } catch (Exception e) {
+                                Log.e("ApplicationEditorIntentActivityX.onCreate.testButtonClick", Log.getStackTraceString(e));
                             }
                         }
                     }
