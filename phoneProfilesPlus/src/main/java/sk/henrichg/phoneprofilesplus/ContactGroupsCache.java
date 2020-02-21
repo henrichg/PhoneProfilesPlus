@@ -24,8 +24,7 @@ class ContactGroupsCache {
         caching = false;
     }
 
-    void getContactGroupList(Context context)
-    {
+    void getContactGroupList(Context context) {
         if (cached || caching) return;
 
         caching = true;
@@ -110,6 +109,16 @@ class ContactGroupsCache {
 
                 cached = true;
             }
+        } catch (SecurityException e) {
+            Log.e("ContactGroupsCache.getContactList", Log.getStackTraceString(e));
+            //FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
+
+            _contactGroupList.clear();
+            contactsCache.clearGroups(_contactList);
+            contactsCache.clearGroups(_contactListWithoutNumber);
+
+            cached = false;
         } catch (Exception e) {
             Log.e("ContactGroupsCache.getContactList", Log.getStackTraceString(e));
             //FirebaseCrashlytics.getInstance().recordException(e);

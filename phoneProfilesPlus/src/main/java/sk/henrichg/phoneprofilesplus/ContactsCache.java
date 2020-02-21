@@ -103,6 +103,15 @@ class ContactsCache {
 
                 cached = true;
             }
+        } catch (SecurityException e) {
+            Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
+            //FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
+
+            _contactList.clear();
+            _contactListWithoutNumber.clear();
+
+            cached = false;
         } catch (Exception e) {
             Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
             //FirebaseCrashlytics.getInstance().recordException(e);
