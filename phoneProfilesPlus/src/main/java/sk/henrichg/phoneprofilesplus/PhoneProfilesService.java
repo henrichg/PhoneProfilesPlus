@@ -4401,6 +4401,11 @@ public class PhoneProfilesService extends Service
 
         final Context appContext = this; //dataWrapper.context.getApplicationContext();
 
+        if (Build.VERSION.SDK_INT >= 26) {
+            if (!PPApplication.createProfileNotificationChannel(appContext))
+                return;
+        }
+
         //if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBar(appContext))
         //if (true)
         //{
@@ -4668,7 +4673,6 @@ public class PhoneProfilesService extends Service
 
             // ----- create notificationBuilders
             if (Build.VERSION.SDK_INT >= 26) {
-                PPApplication.createProfileNotificationChannel(appContext);
                 notificationBuilder = new Notification.Builder(appContext, PPApplication.PROFILE_NOTIFICATION_CHANNEL);
                 //notificationBuilder.setSettingsText("Test");
             }

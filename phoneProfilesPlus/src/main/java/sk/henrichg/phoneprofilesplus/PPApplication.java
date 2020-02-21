@@ -1855,7 +1855,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
     // notification channels -------------------------
 
-    static void createProfileNotificationChannel(/*Profile profile, */Context context) {
+    static boolean createProfileNotificationChannel(/*Profile profile, */Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
             int importance;
             //PPApplication.logE("PPApplication.createProfileNotificationChannel","show in status bar="+ApplicationPreferences.notificationShowInStatusBar(context));
@@ -1898,9 +1898,14 @@ public class PPApplication extends Application /*implements Application.Activity
             channel.setShowBadge(false);
 
             NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-            if (notificationManager != null)
+            if (notificationManager != null) {
                 notificationManager.createNotificationChannel(channel);
+                return true;
+            }
+            else
+                return false;
         }
+        return true;
     }
 
     static void createMobileCellsRegistrationNotificationChannel(Context context) {
