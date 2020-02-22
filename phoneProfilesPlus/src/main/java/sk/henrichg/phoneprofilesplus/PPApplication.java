@@ -586,6 +586,8 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|ElapsedAlarmsWorker.doWork"
                                                 //+"|ActivateProfileActivity.refreshGUI"
                                                 //+"|EditorProfilesActivity.refreshGUI"
+
+                                                +"|DelayedWorksWorker.doWork"
                                                 ;
 
     // activity log types

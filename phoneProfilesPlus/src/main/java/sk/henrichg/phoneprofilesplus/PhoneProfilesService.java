@@ -25,6 +25,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Icon;
 import android.hardware.SensorManager;
 import android.location.LocationManager;
+import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
@@ -5949,7 +5950,23 @@ public class PhoneProfilesService extends Service
                     //int result = audioManager.requestAudioFocus(this, usedRingingStream, requestType);
                     //if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
                         ringingMediaPlayer = new MediaPlayer();
-                        ringingMediaPlayer.setAudioStreamType(stream);
+
+                        if (stream == AudioManager.STREAM_RING) {
+                            AudioAttributes attrs = new AudioAttributes.Builder()
+                                    .setUsage(AudioAttributes.USAGE_NOTIFICATION_RINGTONE)
+                                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                                    .build();
+                            ringingMediaPlayer.setAudioAttributes(attrs);
+                        }
+                        else {
+                            AudioAttributes attrs = new AudioAttributes.Builder()
+                                    .setUsage(AudioAttributes.USAGE_ALARM)
+                                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                                    .build();
+                            ringingMediaPlayer.setAudioAttributes(attrs);
+                        }
+                        //ringingMediaPlayer.setAudioStreamType(stream);
+
                         ringingMediaPlayer.setDataSource(this, Uri.parse(ringtone));
                         ringingMediaPlayer.prepare();
                         ringingMediaPlayer.setLooping(true);
@@ -6227,7 +6244,14 @@ public class PhoneProfilesService extends Service
                     //int result = audioManager.requestAudioFocus(this, usedNotificationStream, requestType);
                     //if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
                         notificationMediaPlayer = new MediaPlayer();
-                        notificationMediaPlayer.setAudioStreamType(usedNotificationStream);
+
+                        AudioAttributes attrs = new AudioAttributes.Builder()
+                                .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                                .build();
+                        notificationMediaPlayer.setAudioAttributes(attrs);
+                        //notificationMediaPlayer.setAudioStreamType(usedNotificationStream);
+
                         notificationMediaPlayer.setDataSource(this, Uri.parse(notificationTone));
                         notificationMediaPlayer.prepare();
                         notificationMediaPlayer.setLooping(false);
@@ -6411,7 +6435,14 @@ public class PhoneProfilesService extends Service
                         RingerModeChangeReceiver.internalChange = true;
 
                         notificationMediaPlayer = new MediaPlayer();
-                        notificationMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+                        AudioAttributes attrs = new AudioAttributes.Builder()
+                                .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                                .build();
+                        notificationMediaPlayer.setAudioAttributes(attrs);
+                        //notificationMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
                         notificationMediaPlayer.setDataSource(this, notificationUri);
                         notificationMediaPlayer.prepare();
                         notificationMediaPlayer.setLooping(false);

@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -77,8 +78,14 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                     else
                         preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
 
-                    if (preference.mediaPlayer != null)
-                        preference.mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                    if (preference.mediaPlayer != null) {
+                        AudioAttributes attrs = new AudioAttributes.Builder()
+                                .setUsage(AudioAttributes.USAGE_MEDIA)
+                                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                                .build();
+                        preference.mediaPlayer.setAudioAttributes(attrs);
+                        //preference.mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                    }
                 } catch (Exception ignored) {}
             }
         });
@@ -283,7 +290,13 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                             preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
 
                         if (preference.mediaPlayer != null) {
-                            preference.mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                            AudioAttributes attrs = new AudioAttributes.Builder()
+                                    .setUsage(AudioAttributes.USAGE_MEDIA)
+                                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                                    .build();
+                            preference.mediaPlayer.setAudioAttributes(attrs);
+                            //preference.mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
                             //PPApplication.logE("VolumeDialogPreferenceFragmentX.onStopTrackingTouch", "start playing");
                             preference.mediaPlayer.start();
                         }

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.Cursor;
+import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.Ringtone;
@@ -334,7 +335,13 @@ public class RingtonePreferenceX extends DialogPreference {
 
                         RingerModeChangeReceiver.internalChange = true;
 
-                        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                        AudioAttributes attrs = new AudioAttributes.Builder()
+                                .setUsage(AudioAttributes.USAGE_MEDIA)
+                                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                                .build();
+                        mediaPlayer.setAudioAttributes(attrs);
+                        //mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
                         mediaPlayer.prepare();
                         mediaPlayer.setLooping(false);
 
