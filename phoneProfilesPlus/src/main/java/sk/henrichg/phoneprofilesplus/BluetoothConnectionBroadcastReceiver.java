@@ -58,8 +58,12 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                     //PPApplication.logE("$$$ BluetoothConnectionBroadcastReceiver.onReceive", "action=" + action + " with newName == null");
                     return;
                 }
-                if (newName.equals(device.getName())) {
-                    //PPApplication.logE("$$$ BluetoothConnectionBroadcastReceiver.onReceive", "action=" + action + " with not changed name");
+                try {
+                    if (newName.equals(device.getName())) {
+                        //PPApplication.logE("$$$ BluetoothConnectionBroadcastReceiver.onReceive", "action=" + action + " with not changed name");
+                        return;
+                    }
+                } catch (SecurityException e) {
                     return;
                 }
             }
