@@ -753,12 +753,14 @@ public class DataWrapper {
             shortcutIntent.setAction(ActionForExternalApplicationActivity.ACTION_RESTART_EVENTS);*/
             shortcutIntent = new Intent(context.getApplicationContext(), BackgroundActivateProfileActivity.class);
             shortcutIntent.setAction(Intent.ACTION_MAIN);
+            shortcutIntent.addCategory(Intent.ACTION_DEFAULT);
             shortcutIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SHORTCUT);
             shortcutIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, Profile.RESTART_EVENTS_PROFILE_ID);
         }
         else {
             shortcutIntent = new Intent(context.getApplicationContext(), BackgroundActivateProfileActivity.class);
             shortcutIntent.setAction(Intent.ACTION_MAIN);
+            shortcutIntent.addCategory(Intent.ACTION_DEFAULT);
             shortcutIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SHORTCUT);
             shortcutIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
         }
@@ -805,6 +807,7 @@ public class DataWrapper {
 
                     Profile _profile = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color|1|0|0", 0);
                     _profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
+                    // first profile is restart events
                     shortcuts.add(createShortcutInfo(_profile, true));
 
                     for (Profile profile : countedProfiles) {
@@ -826,7 +829,8 @@ public class DataWrapper {
                         }
                     }
 
-                    shortcutManager.setDynamicShortcuts(shortcuts);
+                    if (shortcuts.size() > 0)
+                        shortcutManager.setDynamicShortcuts(shortcuts);
                 }
             } catch (Exception e) {
                 Log.e("DataWrapper.setDynamicLauncherShortcuts", Log.getStackTraceString(e));
