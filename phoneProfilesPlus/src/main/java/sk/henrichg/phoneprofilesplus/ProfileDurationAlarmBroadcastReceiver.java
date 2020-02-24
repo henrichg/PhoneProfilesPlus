@@ -88,7 +88,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 .setInitialDelay(profile._duration, TimeUnit.SECONDS)
                                 .build();
                 try {
-                    WorkManager workManager = WorkManager.getInstance(context);
+                    WorkManager workManager = PPApplication.getWorkManagerInstance(context);
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - profile._duration=" + profile._duration);
                         PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - profile._id=" + profile._id);

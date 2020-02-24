@@ -260,7 +260,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
             }
         } catch (Exception ignored) {}
         try {
-            WorkManager workManager = WorkManager.getInstance(context);
+            WorkManager workManager = PPApplication.getWorkManagerInstance(context);
             //workManager.cancelUniqueWork("elapsedAlarmsAlarmClockSensorWork_"+(int)_event._id);
             workManager.cancelAllWorkByTag("elapsedAlarmsAlarmClockSensorWork_"+(int)_event._id);
         } catch (Exception ignored) {}

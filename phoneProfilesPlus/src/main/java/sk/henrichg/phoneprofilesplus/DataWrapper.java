@@ -4581,7 +4581,7 @@ public class DataWrapper {
                             .setInitialDelay(delay, TimeUnit.SECONDS)
                             .build();
             try {
-                WorkManager workManager = WorkManager.getInstance(context);
+                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
                 //workManager.enqueueUniqueWork("restartEventsWithDelayNotClearOldWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
                 workManager.enqueueUniqueWork("restartEventsWithDelayWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
             } catch (Exception ignored) {}

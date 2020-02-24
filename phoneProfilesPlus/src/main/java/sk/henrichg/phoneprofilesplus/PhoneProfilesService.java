@@ -573,7 +573,7 @@ public class PhoneProfilesService extends Service
 
     static void cancelWork(String name, Context context) {
         try {
-            WorkManager workManager = WorkManager.getInstance(context);
+            WorkManager workManager = PPApplication.getWorkManagerInstance(context);
             workManager.cancelAllWorkByTag(name);
         } catch (Exception e) {
             Log.e("------------ PhoneProfilesService.cancelWork", Log.getStackTraceString(e));
@@ -581,7 +581,7 @@ public class PhoneProfilesService extends Service
             Crashlytics.logException(e);
         }
         try {
-            WorkManager workManager = WorkManager.getInstance(context);
+            WorkManager workManager = PPApplication.getWorkManagerInstance(context);
             workManager.cancelUniqueWork(name);
         } catch (Exception e) {
             Log.e("------------ PhoneProfilesService.cancelWork", Log.getStackTraceString(e));
@@ -4020,7 +4020,7 @@ public class PhoneProfilesService extends Service
                                         //.setInitialDelay(5, TimeUnit.SECONDS)
                                         .build();
                         try {
-                            WorkManager workManager = WorkManager.getInstance(appContext);
+                            WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
                             workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.REPLACE, worker);
                         } catch (Exception ignored) {
                         }
@@ -5609,7 +5609,7 @@ public class PhoneProfilesService extends Service
             }
         } catch (Exception ignored) {}
         try {
-            WorkManager workManager = WorkManager.getInstance(context);
+            WorkManager workManager = PPApplication.getWorkManagerInstance(context);
             //workManager.cancelUniqueWork("elapsedAlarmsOrientationSensorWork");
             workManager.cancelAllWorkByTag("elapsedAlarmsOrientationSensorWork");
         } catch (Exception ignored) {}
@@ -6036,7 +6036,7 @@ public class PhoneProfilesService extends Service
                                     .setInitialDelay(3, TimeUnit.SECONDS)
                                     .build();
                     try {
-                        WorkManager workManager = WorkManager.getInstance(getApplicationContext());
+                        WorkManager workManager = PPApplication.getWorkManagerInstance(getApplicationContext());
                         workManager.cancelUniqueWork("disableInternalChangeWork");
                         workManager.cancelAllWorkByTag("disableInternalChangeWork");
                         workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
@@ -6093,7 +6093,7 @@ public class PhoneProfilesService extends Service
                         .setInitialDelay(3, TimeUnit.SECONDS)
                         .build();
         try {
-            WorkManager workManager = WorkManager.getInstance(getApplicationContext());
+            WorkManager workManager = PPApplication.getWorkManagerInstance(getApplicationContext());
             workManager.cancelUniqueWork("disableInternalChangeWork");
             workManager.cancelAllWorkByTag("disableInternalChangeWork");
             workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
@@ -6496,7 +6496,7 @@ public class PhoneProfilesService extends Service
                                                 .setInitialDelay(3, TimeUnit.SECONDS)
                                                 .build();
                                 try {
-                                    WorkManager workManager = WorkManager.getInstance(getApplicationContext());
+                                    WorkManager workManager = PPApplication.getWorkManagerInstance(getApplicationContext());
                                     workManager.cancelUniqueWork("disableInternalChangeWork");
                                     workManager.cancelAllWorkByTag("disableInternalChangeWork");
                                     workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
@@ -6557,7 +6557,7 @@ public class PhoneProfilesService extends Service
                                         .setInitialDelay(3, TimeUnit.SECONDS)
                                         .build();
                         try {
-                            WorkManager workManager = WorkManager.getInstance(getApplicationContext());
+                            WorkManager workManager = PPApplication.getWorkManagerInstance(getApplicationContext());
                             workManager.cancelUniqueWork("disableInternalChangeWork");
                             workManager.cancelAllWorkByTag("disableInternalChangeWork");
                             workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);

@@ -746,7 +746,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                         .build();
 
         try {
-            WorkManager workManager = WorkManager.getInstance(getApplicationContext());
+            WorkManager workManager = PPApplication.getWorkManagerInstance(getApplicationContext());
             workManager.enqueueUniqueWork(FETCH_ADDRESS_WORK_TAG, ExistingWorkPolicy.REPLACE, fetchAddressWorker);
 
             workManager.getWorkInfoByIdLiveData(fetchAddressWorker.getId())

@@ -113,7 +113,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                                             .setInitialDelay(5, TimeUnit.SECONDS)
                                                             .build();
                                             try {
-                                                WorkManager workManager = WorkManager.getInstance(appContext);
+                                                WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
                                                 workManager.enqueueUniqueWork("startWifiScanWork", ExistingWorkPolicy.REPLACE, worker);
                                             } catch (Exception ignored) {}
 

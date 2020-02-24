@@ -406,7 +406,7 @@ public class RingtonePreferenceX extends DialogPreference {
                                                 .build();
                                 PhoneProfilesService.cancelWork("disableInternalChangeWork", prefContext.getApplicationContext());
                                 try {
-                                    WorkManager workManager = WorkManager.getInstance(prefContext.getApplicationContext());
+                                    WorkManager workManager = PPApplication.getWorkManagerInstance(prefContext.getApplicationContext());
                                     workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                                 } catch (Exception ignored) {}
 
@@ -463,7 +463,7 @@ public class RingtonePreferenceX extends DialogPreference {
                                         .build();
                         PhoneProfilesService.cancelWork("disableInternalChangeWork", prefContext.getApplicationContext());
                         try {
-                            WorkManager workManager = WorkManager.getInstance(prefContext.getApplicationContext());
+                            WorkManager workManager = PPApplication.getWorkManagerInstance(prefContext.getApplicationContext());
                             workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                         } catch (Exception ignored) {}
 

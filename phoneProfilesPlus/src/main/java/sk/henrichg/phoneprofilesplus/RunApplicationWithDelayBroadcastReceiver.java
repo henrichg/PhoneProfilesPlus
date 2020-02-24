@@ -92,7 +92,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                                 .setInitialDelay(startApplicationDelay, TimeUnit.SECONDS)
                                 .build();
                 try {
-                    WorkManager workManager = WorkManager.getInstance(context);
+                    WorkManager workManager = PPApplication.getWorkManagerInstance(context);
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.setAlarm", "enqueueUniqueWork - startApplicationDelay=" + startApplicationDelay);
                         PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.setAlarm", "enqueueUniqueWork - runApplicationData=" + runApplicationData);

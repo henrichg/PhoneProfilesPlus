@@ -331,7 +331,7 @@ class EventPreferencesNFC extends EventPreferences {
             }
         } catch (Exception ignored) {}
         try {
-            WorkManager workManager = WorkManager.getInstance(context);
+            WorkManager workManager = PPApplication.getWorkManagerInstance(context);
             //workManager.cancelUniqueWork("elapsedAlarmsNFCSensorWork_"+(int)_event._id);
             workManager.cancelAllWorkByTag("elapsedAlarmsNFCSensorWork_"+(int)_event._id);
         } catch (Exception ignored) {}

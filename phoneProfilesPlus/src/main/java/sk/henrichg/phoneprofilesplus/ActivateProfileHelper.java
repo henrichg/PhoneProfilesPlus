@@ -1289,7 +1289,7 @@ class ActivateProfileHelper {
                                                 .build();
                                 PhoneProfilesService.cancelWork("disableInternalChangeWork", context);
                                 try {
-                                    WorkManager workManager = WorkManager.getInstance(context);
+                                    WorkManager workManager = PPApplication.getWorkManagerInstance(context);
                                     workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                                 } catch (Exception ignored) {}
 
@@ -2658,7 +2658,7 @@ class ActivateProfileHelper {
                                 .setInitialDelay(200, TimeUnit.MILLISECONDS)
                                 .build();
                 try {
-                    WorkManager workManager = WorkManager.getInstance(context);
+                    WorkManager workManager = PPApplication.getWorkManagerInstance(context);
                     workManager.enqueueUniqueWork("delayedWorkCloseAllApplications", ExistingWorkPolicy.REPLACE, worker);
                 } catch (Exception ignored) {
                 }
@@ -2806,7 +2806,7 @@ class ActivateProfileHelper {
                         .build();
         PhoneProfilesService.cancelWork("disableInternalChangeWork", context);
         try {
-            WorkManager workManager = WorkManager.getInstance(context);
+            WorkManager workManager = PPApplication.getWorkManagerInstance(context);
             workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
         } catch (Exception ignored) {}
 

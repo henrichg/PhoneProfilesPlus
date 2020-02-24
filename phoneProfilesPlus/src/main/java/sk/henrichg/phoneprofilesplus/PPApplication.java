@@ -63,6 +63,7 @@ import static android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE;
 public class PPApplication extends Application /*implements Application.ActivityLifecycleCallbacks*/ {
 
     private static PPApplication instance;
+    private static WorkManager workManagerInstance;
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && BuildConfig.DEBUG;
@@ -954,29 +955,6 @@ public class PPApplication extends Application /*implements Application.Activity
         if (checkAppReplacingState())
             return;
 
-        ///////////////////////////////////////////
-        // Bypass Android's hidden API restrictions
-        // https://github.com/tiann/FreeReflection
-        if (Build.VERSION.SDK_INT >= 28) {
-            try {
-                Method forName = Class.class.getDeclaredMethod("forName", String.class);
-                Method getDeclaredMethod = Class.class.getDeclaredMethod("getDeclaredMethod", String.class, Class[].class);
-
-                Class<?> vmRuntimeClass = (Class<?>) forName.invoke(null, "dalvik.system.VMRuntime");
-                Method getRuntime = (Method) getDeclaredMethod.invoke(vmRuntimeClass, "getRuntime", null);
-                Method setHiddenApiExemptions = (Method) getDeclaredMethod.invoke(vmRuntimeClass, "setHiddenApiExemptions", new Class[]{String[].class});
-
-                Object vmRuntime = getRuntime.invoke(null);
-
-                setHiddenApiExemptions.invoke(vmRuntime, new Object[]{new String[]{"L"}});
-            } catch (Exception e) {
-                Log.e("PPApplication.onCreate", Log.getStackTraceString(e));
-                //FirebaseCrashlytics.getInstance().recordException(e);
-                Crashlytics.logException(e);
-            }
-        }
-        //////////////////////////////////////////
-
         // Fix for FC: java.lang.IllegalArgumentException: register too many Broadcast Receivers
         //LoadedApkHuaWei.hookHuaWeiVerifier(this);
 
@@ -1031,8 +1009,31 @@ public class PPApplication extends Application /*implements Application.Activity
             */
             Log.e("PPPEApplication.onCreate", Log.getStackTraceString(e));
             //FirebaseCrashlytics.getInstance().recordException(e);
-            Crashlytics.logException(e);
+            //Crashlytics.logException(e);
         }
+
+        ///////////////////////////////////////////
+        // Bypass Android's hidden API restrictions
+        // https://github.com/tiann/FreeReflection
+        if (Build.VERSION.SDK_INT >= 28) {
+            try {
+                Method forName = Class.class.getDeclaredMethod("forName", String.class);
+                Method getDeclaredMethod = Class.class.getDeclaredMethod("getDeclaredMethod", String.class, Class[].class);
+
+                Class<?> vmRuntimeClass = (Class<?>) forName.invoke(null, "dalvik.system.VMRuntime");
+                Method getRuntime = (Method) getDeclaredMethod.invoke(vmRuntimeClass, "getRuntime", null);
+                Method setHiddenApiExemptions = (Method) getDeclaredMethod.invoke(vmRuntimeClass, "setHiddenApiExemptions", new Class[]{String[].class});
+
+                Object vmRuntime = getRuntime.invoke(null);
+
+                setHiddenApiExemptions.invoke(vmRuntime, new Object[]{new String[]{"L"}});
+            } catch (Exception e) {
+                Log.e("PPApplication.onCreate", Log.getStackTraceString(e));
+                //FirebaseCrashlytics.getInstance().recordException(e);
+                Crashlytics.logException(e);
+            }
+        }
+        //////////////////////////////////////////
 
         /*
         // set up ANR-WatchDog
@@ -1046,6 +1047,8 @@ public class PPApplication extends Application /*implements Application.Activity
         });
         anrWatchDog.start();
         */
+
+        workManagerInstance = getWorkManagerInstance(getApplicationContext());
 
         try {
             //FirebaseCrashlytics.getInstance().setCustomKey("DEBUG", BuildConfig.DEBUG);
@@ -1162,6 +1165,12 @@ public class PPApplication extends Application /*implements Application.Activity
         super.attachBaseContext(base);
         GlobalGUIRoutines.collator = GlobalGUIRoutines.getCollator();
         MultiDex.install(this);
+    }
+
+    static WorkManager getWorkManagerInstance(Context context) {
+        if (workManagerInstance == null)
+            workManagerInstance = WorkManager.getInstance(context.getApplicationContext());
+        return workManagerInstance;
     }
 
     // workaround for: java.lang.NullPointerException: Attempt to invoke virtual method
@@ -3342,7 +3351,7 @@ public class PPApplication extends Application /*implements Application.Activity
                             .setInitialDelay(30, TimeUnit.SECONDS)
                             .build();
             try {
-                WorkManager workManager = WorkManager.getInstance(context.getApplicationContext());
+                WorkManager workManager = PPApplication.getWorkManagerInstance(context.getApplicationContext());
                 workManager.enqueueUniqueWork("setBlockProfileEventsActionWork", ExistingWorkPolicy.REPLACE, worker);
             } catch (Exception ignored) {}
 

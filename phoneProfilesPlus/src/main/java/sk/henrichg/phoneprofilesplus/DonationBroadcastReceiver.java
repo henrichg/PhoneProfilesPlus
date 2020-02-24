@@ -145,7 +145,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
             }
         } catch (Exception ignored) {}
         try {
-            WorkManager workManager = WorkManager.getInstance(context);
+            WorkManager workManager = PPApplication.getWorkManagerInstance(context);
             workManager.cancelUniqueWork("elapsedAlarmsDonationWork");
             workManager.cancelAllWorkByTag("elapsedAlarmsDonationWork");
         } catch (Exception ignored) {}

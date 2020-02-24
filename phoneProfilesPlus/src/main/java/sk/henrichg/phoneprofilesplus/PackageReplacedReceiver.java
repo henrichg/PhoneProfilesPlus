@@ -76,7 +76,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                                 .setInitialDelay(5, TimeUnit.SECONDS)
                                                 .build();
                                 try {
-                                    WorkManager workManager = WorkManager.getInstance(appContext);
+                                    WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
                                     workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.REPLACE, worker);
                                 } catch (Exception ignored) {
                                 }

@@ -547,7 +547,7 @@ class EventPreferencesNotification extends EventPreferences {
             }
         } catch (Exception ignored) {}
         try {
-            WorkManager workManager = WorkManager.getInstance(context);
+            WorkManager workManager = PPApplication.getWorkManagerInstance(context);
             //workManager.cancelUniqueWork("elapsedAlarmsNotificationSensorWork_"+(int)_event._id);
             workManager.cancelAllWorkByTag("elapsedAlarmsNotificationSensorWork_"+(int)_event._id);
         } catch (Exception ignored) {}

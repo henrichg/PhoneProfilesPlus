@@ -460,7 +460,7 @@ class EventPreferencesCalendar extends EventPreferences {
             }
         } catch (Exception ignored) {}
         try {
-            WorkManager workManager = WorkManager.getInstance(context);
+            WorkManager workManager = PPApplication.getWorkManagerInstance(context);
            // workManager.cancelUniqueWork("elapsedAlarmsCalendarSensorWork_"+(int)_event._id);
             workManager.cancelAllWorkByTag("elapsedAlarmsCalendarSensorWork_"+(int)_event._id);
         } catch (Exception ignored) {}

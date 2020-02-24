@@ -71,7 +71,7 @@ public class ShowProfileNotificationBroadcastReceiver extends BroadcastReceiver 
                             .setInitialDelay(PPApplication.DURATION_FOR_GUI_REFRESH+100, TimeUnit.MILLISECONDS)
                             .build();
             try {
-                WorkManager workManager = WorkManager.getInstance(context);
+                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
                 //workManager.enqueueUniqueWork("elapsedAlarmsShowProfileNotificationWork", ExistingWorkPolicy.REPLACE, worker);
                 workManager.enqueue(worker);
             } catch (Exception ignored) {}

@@ -82,7 +82,7 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
                             .setInitialDelay(PPApplication.DURATION_FOR_GUI_REFRESH+100, TimeUnit.MILLISECONDS)
                             .build();
             try {
-                WorkManager workManager = WorkManager.getInstance(context);
+                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
                 //if (PPApplication.logEnabled()) {
                 //    PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.setAlarm", "enqueueUniqueWork - refresh=" + refresh);
                 //    PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.setAlarm", "enqueueUniqueWork - alsoEditor=" + alsoEditor);

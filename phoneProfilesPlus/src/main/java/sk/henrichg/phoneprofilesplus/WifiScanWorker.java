@@ -130,7 +130,7 @@ public class WifiScanWorker extends Worker {
 
     private static void _scheduleWork(final Context context, final boolean shortInterval) {
         try {
-            WorkManager workManager = WorkManager.getInstance(context);
+            WorkManager workManager = PPApplication.getWorkManagerInstance(context);
 
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("WifiScanWorker._scheduleWork", "---------------------------------------- START");
@@ -220,7 +220,7 @@ public class WifiScanWorker extends Worker {
         }
 
         try {
-            WorkManager workManager = WorkManager.getInstance(context);
+            WorkManager workManager = PPApplication.getWorkManagerInstance(context);
 
             //PPApplication.logE("WifiScanWorker.waitForFinish", "START WAIT FOR FINISH");
             long start = SystemClock.uptimeMillis();
@@ -280,7 +280,7 @@ public class WifiScanWorker extends Worker {
 
     private static boolean isWorkRunning(Context context) {
         try {
-            WorkManager instance = WorkManager.getInstance(context);
+            WorkManager instance = PPApplication.getWorkManagerInstance(context);
             ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosByTag(WORK_TAG);
             //noinspection TryWithIdenticalCatches
             try {
@@ -311,7 +311,7 @@ public class WifiScanWorker extends Worker {
     static boolean isWorkScheduled(Context context) {
         //PPApplication.logE("WifiScanWorker.isWorkScheduled", "xxx");
         try {
-            WorkManager instance = WorkManager.getInstance(context);
+            WorkManager instance = PPApplication.getWorkManagerInstance(context);
             ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosByTag(WORK_TAG);
             //noinspection TryWithIdenticalCatches
             try {

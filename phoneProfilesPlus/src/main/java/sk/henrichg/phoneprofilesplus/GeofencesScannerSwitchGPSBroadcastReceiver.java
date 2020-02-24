@@ -93,7 +93,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
                             .setInitialDelay(delay, TimeUnit.MINUTES)
                             .build();
             try {
-                WorkManager workManager = WorkManager.getInstance(context);
+                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
                 //PPApplication.logE("[HANDLER] GeofencesScannerSwitchGPSBroadcastReceiver.setAlarm", "enqueueUniqueWork - delay="+delay);
                 workManager.enqueueUniqueWork("elapsedAlarmsGeofenceScannerSwitchGPSWork", ExistingWorkPolicy.REPLACE, worker);
             } catch (Exception ignored) {}

@@ -1172,7 +1172,7 @@ class EventPreferencesTime extends EventPreferences {
             }
         } catch (Exception ignored) {}
         try {
-            WorkManager workManager = WorkManager.getInstance(context);
+            WorkManager workManager = PPApplication.getWorkManagerInstance(context);
 
             //if (testEvent)
             //    PPApplication.logE("EventPreferencesTime.removeAlarm", "from work manager");

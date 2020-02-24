@@ -2059,7 +2059,7 @@ class Event {
                                 .setInitialDelay(this._delayStart, TimeUnit.SECONDS)
                                 .build();
                 try {
-                    WorkManager workManager = WorkManager.getInstance(_context);
+                    WorkManager workManager = PPApplication.getWorkManagerInstance(_context);
                     //PPApplication.logE("[HANDLER] Event.setDelayStartAlarm", "enqueueUniqueWork - this._delayStart="+this._delayStart);
                     workManager.enqueue(worker);
                     PPApplication.elapsedAlarmsEventDelayStartWork.add("elapsedAlarmsEventDelayStartWork_"+(int) this._id);
@@ -2279,7 +2279,7 @@ class Event {
                                 .setInitialDelay(this._delayEnd, TimeUnit.SECONDS)
                                 .build();
                 try {
-                    WorkManager workManager = WorkManager.getInstance(_context);
+                    WorkManager workManager = PPApplication.getWorkManagerInstance(_context);
                     //PPApplication.logE("[HANDLER] Event.setDelayEndAlarm", "enqueueUniqueWork - this._delayEnd="+this._delayEnd);
                     workManager.enqueue(worker);
                     PPApplication.elapsedAlarmsEventDelayEndWork.add("elapsedAlarmsEventDelayEndWork_"+(int) this._id);

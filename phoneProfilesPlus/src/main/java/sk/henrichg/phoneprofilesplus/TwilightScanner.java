@@ -457,7 +457,7 @@ class TwilightScanner {
                     }
                 } catch (Exception ignored) {}
                 try {
-                    WorkManager workManager = WorkManager.getInstance(context);
+                    WorkManager workManager = PPApplication.getWorkManagerInstance(context);
                     workManager.cancelUniqueWork("elapsedAlarmsTwilightScannerWork");
                     workManager.cancelAllWorkByTag("elapsedAlarmsTwilightScannerWork");
                 } catch (Exception ignored) {}

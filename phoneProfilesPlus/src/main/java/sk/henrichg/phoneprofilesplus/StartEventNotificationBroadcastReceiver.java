@@ -100,7 +100,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                                 .setInitialDelay(event._repeatNotificationIntervalStart, TimeUnit.SECONDS)
                                 .build();
                 try {
-                    WorkManager workManager = WorkManager.getInstance(context);
+                    WorkManager workManager = PPApplication.getWorkManagerInstance(context);
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.setAlarm", "enqueueUniqueWork - event._repeatNotificationIntervalStart=" + event._repeatNotificationIntervalStart);
                         PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.setAlarm", "enqueueUniqueWork - event._id=" + event._id);

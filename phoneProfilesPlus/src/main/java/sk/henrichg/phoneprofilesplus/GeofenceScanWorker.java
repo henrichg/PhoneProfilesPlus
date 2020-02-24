@@ -124,7 +124,7 @@ public class GeofenceScanWorker extends Worker {
 
     private static void _scheduleWork(final Context context, boolean shortInterval/*, final boolean forScreenOn*/) {
         try {
-            WorkManager workManager = WorkManager.getInstance(context);
+            WorkManager workManager = PPApplication.getWorkManagerInstance(context);
 
             //PPApplication.logE("GeofenceScanWorker._scheduleWork", "---------------------------------------- START");
 
@@ -230,7 +230,7 @@ public class GeofenceScanWorker extends Worker {
         }
 
         try {
-            WorkManager workManager = WorkManager.getInstance(context);
+            WorkManager workManager = PPApplication.getWorkManagerInstance(context);
 
             //PPApplication.logE("GeofenceScanWorker.waitForFinish", "START WAIT FOR FINISH");
             long start = SystemClock.uptimeMillis();
@@ -290,7 +290,7 @@ public class GeofenceScanWorker extends Worker {
 
     private static boolean isWorkRunning(Context context) {
         try {
-            WorkManager instance = WorkManager.getInstance(context);
+            WorkManager instance = PPApplication.getWorkManagerInstance(context);
             ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosByTag(WORK_TAG);
             //noinspection TryWithIdenticalCatches
             try {
@@ -321,7 +321,7 @@ public class GeofenceScanWorker extends Worker {
     static boolean isWorkScheduled(Context context) {
         //PPApplication.logE("GeofenceScanWorker.isWorkScheduled", "xxx");
         try {
-            WorkManager instance = WorkManager.getInstance(context);
+            WorkManager instance = PPApplication.getWorkManagerInstance(context);
             ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosByTag(WORK_TAG);
             //noinspection TryWithIdenticalCatches
             try {
