@@ -934,9 +934,9 @@ class ActivateProfileHelper {
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, 0);
             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_MUSIC, profile.getVolumeMediaValue());
         } catch (SecurityException e) {
-            Log.e("ActivateProfileHelper.setMediaVolume", Log.getStackTraceString(e));
+            //Log.e("ActivateProfileHelper.setMediaVolume", Log.getStackTraceString(e));
             //FirebaseCrashlytics.getInstance().recordException(e);
-            Crashlytics.logException(e);
+            //Crashlytics.logException(e);
             // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
             if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                 try {
