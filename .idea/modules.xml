@@ -2,14 +2,14 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AndroidClearChroma/AndroidClearChroma.iml" filepath="$PROJECT_DIR$/AndroidClearChroma/AndroidClearChroma.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PhoneProfilesPlus.iml" filepath="$PROJECT_DIR$/PhoneProfilesPlus.iml" />
-      <module fileurl="file://$PROJECT_DIR$/RootShell/RootShell.iml" filepath="$PROJECT_DIR$/RootShell/RootShell.iml" />
-      <module fileurl="file://$PROJECT_DIR$/RootTools/RootTools.iml" filepath="$PROJECT_DIR$/RootTools/RootTools.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android-betterpickers/android-betterpickers.iml" filepath="$PROJECT_DIR$/android-betterpickers/android-betterpickers.iml" />
-      <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/phoneProfilesPlus/phoneProfilesPlus.iml" filepath="$PROJECT_DIR$/phoneProfilesPlus/phoneProfilesPlus.iml" />
-      <module fileurl="file://$PROJECT_DIR$/time-duration-picker/time-duration-picker.iml" filepath="$PROJECT_DIR$/time-duration-picker/time-duration-picker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AndroidClearChroma/AndroidClearChroma.iml" filepath="$PROJECT_DIR$/AndroidClearChroma/AndroidClearChroma.iml" group="PhoneProfilesPlus/AndroidClearChroma" />
+      <module fileurl="file://$PROJECT_DIR$/PhoneProfilesPlus.iml" filepath="$PROJECT_DIR$/PhoneProfilesPlus.iml" group="PhoneProfilesPlus" />
+      <module fileurl="file://$PROJECT_DIR$/RootShell/RootShell.iml" filepath="$PROJECT_DIR$/RootShell/RootShell.iml" group="PhoneProfilesPlus/RootShell" />
+      <module fileurl="file://$PROJECT_DIR$/RootTools/RootTools.iml" filepath="$PROJECT_DIR$/RootTools/RootTools.iml" group="PhoneProfilesPlus/RootTools" />
+      <module fileurl="file://$PROJECT_DIR$/android-betterpickers/android-betterpickers.iml" filepath="$PROJECT_DIR$/android-betterpickers/android-betterpickers.iml" group="PhoneProfilesPlus/android-betterpickers" />
+      <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" group="PhoneProfilesPlus/common" />
+      <module fileurl="file://$PROJECT_DIR$/phoneProfilesPlus/phoneProfilesPlus.iml" filepath="$PROJECT_DIR$/phoneProfilesPlus/phoneProfilesPlus.iml" group="PhoneProfilesPlus/phoneProfilesPlus" />
+      <module fileurl="file://$PROJECT_DIR$/time-duration-picker/time-duration-picker.iml" filepath="$PROJECT_DIR$/time-duration-picker/time-duration-picker.iml" group="PhoneProfilesPlus/time-duration-picker" />
     </modules>
   </component>
 </project>
