@@ -322,7 +322,7 @@ public class Profile {
             R.drawable.ic_profile_work_6, R.drawable.ic_profile_work_7, R.drawable.ic_profile_work_8,
             R.drawable.ic_profile_work_9, R.drawable.ic_profile_work_10, R.drawable.ic_profile_work_11,
             R.drawable.ic_profile_work_13, R.drawable.ic_profile_work_14, R.drawable.ic_profile_work_15,
-            R.drawable.ic_profile_work_16,
+            R.drawable.ic_profile_work_16, R.drawable.ic_profile_work_17, R.drawable.ic_profile_work_18,
 
             R.drawable.ic_profile_sleep, R.drawable.ic_profile_sleep_2, R.drawable.ic_profile_sleep_3,
             R.drawable.ic_profile_night, R.drawable.ic_profile_call_1, R.drawable.ic_profile_food_1,
@@ -371,7 +371,7 @@ public class Profile {
             0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff,
             0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff,
             0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff,
-            0xffa801ff,
+            0xffa801ff, 0xffa801ff, 0xffa801ff,
 
             // sleep, food, alarm
             0xff0099cc, 0xff0099cc, 0xff0099cc, 0xff0099cc, 0xff0099cc,
@@ -451,6 +451,8 @@ public class Profile {
         profileIconIdMap.put("ic_profile_work_14", R.drawable.ic_profile_work_14);
         profileIconIdMap.put("ic_profile_work_15", R.drawable.ic_profile_work_15);
         profileIconIdMap.put("ic_profile_work_16", R.drawable.ic_profile_work_16);
+        profileIconIdMap.put("ic_profile_work_17", R.drawable.ic_profile_work_17);
+        profileIconIdMap.put("ic_profile_work_18", R.drawable.ic_profile_work_18);
         profileIconIdMap.put("ic_profile_sleep", R.drawable.ic_profile_sleep);
         profileIconIdMap.put("ic_profile_sleep_2", R.drawable.ic_profile_sleep_2);
         profileIconIdMap.put("ic_profile_sleep_3", R.drawable.ic_profile_sleep_3);
@@ -556,6 +558,8 @@ public class Profile {
         profileIconNotifyId.put("ic_profile_work_14", R.drawable.ic_profile_work_14_notify);
         profileIconNotifyId.put("ic_profile_work_15", R.drawable.ic_profile_work_15_notify);
         profileIconNotifyId.put("ic_profile_work_16", R.drawable.ic_profile_work_16_notify);
+        profileIconNotifyId.put("ic_profile_work_17", R.drawable.ic_profile_work_17_notify);
+        profileIconNotifyId.put("ic_profile_work_18", R.drawable.ic_profile_work_18_notify);
         profileIconNotifyId.put("ic_profile_sleep", R.drawable.ic_profile_sleep_notify);
         profileIconNotifyId.put("ic_profile_sleep_2", R.drawable.ic_profile_sleep_2_notify);
         profileIconNotifyId.put("ic_profile_sleep_3", R.drawable.ic_profile_sleep_3_notify);
@@ -661,6 +665,8 @@ public class Profile {
         profileIconNotifyColorId.put("ic_profile_work_14", R.drawable.ic_profile_work_14_notify_color);
         profileIconNotifyColorId.put("ic_profile_work_15", R.drawable.ic_profile_work_15_notify_color);
         profileIconNotifyColorId.put("ic_profile_work_16", R.drawable.ic_profile_work_16_notify_color);
+        profileIconNotifyColorId.put("ic_profile_work_17", R.drawable.ic_profile_work_17_notify_color);
+        profileIconNotifyColorId.put("ic_profile_work_18", R.drawable.ic_profile_work_18_notify_color);
         profileIconNotifyColorId.put("ic_profile_sleep", R.drawable.ic_profile_sleep_notify_color);
         profileIconNotifyColorId.put("ic_profile_sleep_2", R.drawable.ic_profile_sleep_2_notify_color);
         profileIconNotifyColorId.put("ic_profile_sleep_3", R.drawable.ic_profile_sleep_3_notify_color);
@@ -1729,7 +1735,7 @@ public class Profile {
         int value;
         try {
             String[] splits = _icon.split("\\|");
-            value = Integer.valueOf(splits[3]);
+            value = Integer.parseInt(splits[3]);
         } catch (Exception e) {
             value = 0;
         }
