@@ -6423,9 +6423,10 @@ public class PhoneProfilesService extends Service
             //PPApplication.logE("PhoneProfilesService.playNotificationSound", "notificationSound="+notificationSound);
             if (!notificationSound.isEmpty())
             {
-                int ringerMode = ApplicationPreferences.prefRingerMode;
-                int zenMode = ApplicationPreferences.prefZenMode;
-                boolean isAudible = ActivateProfileHelper.isAudibleRinging(ringerMode, zenMode/*, false*/);
+                //int ringerMode = ApplicationPreferences.prefRingerMode;
+                //int zenMode = ApplicationPreferences.prefZenMode;
+                //boolean isAudible = ActivateProfileHelper.isAudibleRinging(ringerMode, zenMode/*, false*/);
+                boolean isAudible = ActivateProfileHelper.isAudibleSystemRingerMode(audioManager, this);
                 //PPApplication.logE("PhoneProfilesService.playNotificationSound", "isAudible="+isAudible);
                 if (isAudible) {
 
@@ -6437,8 +6438,8 @@ public class PhoneProfilesService extends Service
                         notificationMediaPlayer = new MediaPlayer();
 
                         AudioAttributes attrs = new AudioAttributes.Builder()
-                                .setUsage(AudioAttributes.USAGE_NOTIFICATION)
-                                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                                .setUsage(AudioAttributes.USAGE_MEDIA)
+                                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                                 .build();
                         notificationMediaPlayer.setAudioAttributes(attrs);
                         //notificationMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);

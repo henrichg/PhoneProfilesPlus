@@ -81,7 +81,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                     if (preference.mediaPlayer != null) {
                         AudioAttributes attrs = new AudioAttributes.Builder()
                                 .setUsage(AudioAttributes.USAGE_MEDIA)
-                                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                                 .build();
                         preference.mediaPlayer.setAudioAttributes(attrs);
                         //preference.mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
