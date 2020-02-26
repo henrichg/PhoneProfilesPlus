@@ -900,6 +900,11 @@ startOrientationScanner() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
 startPhoneStateScanner() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
 startTwilightScanner() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
 - PPApplication.restartAllScanners()
+  - restartEventsWithRescan (true...);
+  - grant permissions
+  - BatteryBroadcastReceiver.onReceive() - required for scanning during screen on/off
+  - PowerSaveModeBroadcastReceiver.onReceive() - required for scanning during screen on/off
+  - ScreenOnOffBroadcastReceiver.onReceive() - required for scanning during screen on/off
 
 registerReceiversAndWorkers() - PPService.doCommand(EXTRA_REGISTER_RECEIVERS_AND_WORKERS)
 - global run/stop events
