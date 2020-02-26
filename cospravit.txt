@@ -845,53 +845,77 @@ registerWifiAPStateChangeBroadcastReceiver() - PPService.doCommand(SCANNER_RESTA
 - PPApplication.restartAllScanners()
 
 registerWifiConnectionBroadcastReceiver() - PPService.doCommand(SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER)
+- PPApplication.reregisterReceiversForWifiScanner()
 registerWifiConnectionBroadcastReceiver() - PPService.doCommand(SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER)
+- PPApplication.forceRegisterReceiversForWifiScanner()
 registerWifiConnectionBroadcastReceiver() - PPService.doCommand(SCANNER_RESTART_WIFI_SCANNER)
+- PPApplication.restartWifiScanner()
 registerWifiConnectionBroadcastReceiver() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
 - PPApplication.restartAllScanners()
 
 registerWifiScannerReceiver() - PPService.doCommand(SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER)
+- PPApplication.reregisterReceiversForWifiScanner()
 registerWifiScannerReceiver() - PPService.doCommand(SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER)
+- PPApplication.forceRegisterReceiversForWifiScanner()
 registerWifiScannerReceiver() - PPService.doCommand(SCANNER_RESTART_WIFI_SCANNER)
+- PPApplication.restartWifiScanner()
 registerWifiScannerReceiver() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
 - PPApplication.restartAllScanners()
 
 scheduleBluetoothWorker() - PPService.doCommand(SCANNER_RESTART_BLUETOOTH_SCANNER)
+- PPApplication.restartBluetoothScanner()
 scheduleBluetoothWorker() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
 - PPApplication.restartAllScanners()
 
 scheduleGeofenceWorker() - PPService.doCommand(SCANNER_START_GEOFENCE_SCANNER)
+- ???
 scheduleGeofenceWorker() - PPService.doCommand(SCANNER_STOP_GEOFENCE_SCANNER)
+- ???
 scheduleGeofenceWorker() - PPService.doCommand(SCANNER_RESTART_GEOFENCE_SCANNER)
+- PPApplication.restartGeofenceScanner()
 scheduleGeofenceWorker() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
 - PPApplication.restartAllScanners()
 
 scheduleWifiWorker() - PPService.doCommand(SCANNER_RESTART_WIFI_SCANNER)
+- PPApplication.restartWifiScanner()
 scheduleWifiWorker() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
 - PPApplication.restartAllScanners()
 
 startGeofenceScanner() - PPService.doCommand(SCANNER_START_GEOFENCE_SCANNER)
+- ???
 startGeofenceScanner() - PPService.doCommand(SCANNER_STOP_GEOFENCE_SCANNER)
+- ???
 startGeofenceScanner() - PPService.doCommand(SCANNER_RESTART_GEOFENCE_SCANNER)
+- PPApplication.restartGeofenceScanner()
 startGeofenceScanner() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
 - PPApplication.restartAllScanners()
 
 startOrientationScanner() - PPService.doCommand(SCANNER_START_ORIENTATION_SCANNER)
+- ???
 startOrientationScanner() - PPService.doCommand(SCANNER_STOP_ORIENTATION_SCANNER)
+- ???
 startOrientationScanner() - PPService.doCommand(SCANNER_RESTART_ORIENTATION_SCANNER)
+- PPApplication.restartOrientationScanner()
 startOrientationScanner() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
 - PPApplication.restartAllScanners()
 
 startPhoneStateScanner() - PPService.doCommand(SCANNER_START_PHONE_STATE_SCANNER)
+- ???
 startPhoneStateScanner() - PPService.doCommand(SCANNER_STOP_PHONE_STATE_SCANNER)
+- ???
 startPhoneStateScanner() - PPService.doCommand(SCANNER_RESTART_PHONE_STATE_SCANNER)
+- PPApplication.restartPhoneStateScanner()
 startPhoneStateScanner() - PPService.doCommand(SCANNER_FORCE_START_PHONE_STATE_SCANNER)
+- PPApplication.forceStartPhoneStateScanner()
 startPhoneStateScanner() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
 - PPApplication.restartAllScanners()
 
 startTwilightScanner() - PPService.doCommand(SCANNER_START_TWILIGHT_SCANNER)
+- ???
 startTwilightScanner() - PPService.doCommand(SCANNER_STOP_TWILIGHT_SCANNER)
+- ???
 startTwilightScanner() - PPService.doCommand(SCANNER_RESTART_TWILIGHT_SCANNER)
+- PPApplication.restartTwilightScanner()
 startTwilightScanner() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
 - PPApplication.restartAllScanners()
 
