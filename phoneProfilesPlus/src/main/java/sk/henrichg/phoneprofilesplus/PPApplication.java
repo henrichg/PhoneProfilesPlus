@@ -786,16 +786,16 @@ public class PPApplication extends Application /*implements Application.Activity
     private static final String PREF_LAST_ACTIVATED_PROFILE = "last_activated_profile";
 
     // scanner start/stop types
-    static final int SCANNER_START_GEOFENCE_SCANNER = 1;
-    static final int SCANNER_STOP_GEOFENCE_SCANNER = 2;
+    //static final int SCANNER_START_GEOFENCE_SCANNER = 1;
+    //static final int SCANNER_STOP_GEOFENCE_SCANNER = 2;
     static final int SCANNER_RESTART_GEOFENCE_SCANNER = 3;
 
-    static final int SCANNER_START_ORIENTATION_SCANNER = 4;
-    static final int SCANNER_STOP_ORIENTATION_SCANNER = 5;
+    //static final int SCANNER_START_ORIENTATION_SCANNER = 4;
+    //static final int SCANNER_STOP_ORIENTATION_SCANNER = 5;
     static final int SCANNER_RESTART_ORIENTATION_SCANNER = 6;
 
-    static final int SCANNER_START_PHONE_STATE_SCANNER = 7;
-    static final int SCANNER_STOP_PHONE_STATE_SCANNER = 8;
+    //static final int SCANNER_START_PHONE_STATE_SCANNER = 7;
+    //static final int SCANNER_STOP_PHONE_STATE_SCANNER = 8;
     static final int SCANNER_FORCE_START_PHONE_STATE_SCANNER = 9;
     static final int SCANNER_RESTART_PHONE_STATE_SCANNER = 10;
 
@@ -807,8 +807,8 @@ public class PPApplication extends Application /*implements Application.Activity
     static final int SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER = 15;
     static final int SCANNER_RESTART_BLUETOOTH_SCANNER = 16;
 
-    static final int SCANNER_START_TWILIGHT_SCANNER = 17;
-    static final int SCANNER_STOP_TWILIGHT_SCANNER = 18;
+    //static final int SCANNER_START_TWILIGHT_SCANNER = 17;
+    //static final int SCANNER_STOP_TWILIGHT_SCANNER = 18;
     static final int SCANNER_RESTART_TWILIGHT_SCANNER = 19;
 
     static final int SCANNER_RESTART_ALL_SCANNERS = 50;

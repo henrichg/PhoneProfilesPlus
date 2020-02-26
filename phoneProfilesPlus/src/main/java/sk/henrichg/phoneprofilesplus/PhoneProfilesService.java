@@ -4217,41 +4217,41 @@ public class PhoneProfilesService extends Service
                             final boolean forScreenOn = intent.getBooleanExtra(EXTRA_FOR_SCREEN_ON, false);
                             //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "forScreenOn="+forScreenOn);
                             switch (intent.getIntExtra(EXTRA_START_STOP_SCANNER_TYPE, 0)) {
-                                case PPApplication.SCANNER_START_GEOFENCE_SCANNER:
+                                /*case PPApplication.SCANNER_START_GEOFENCE_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_START_GEOFENCE_SCANNER");
                                     startGeofenceScanner(true, true, true, false);
-                                    scheduleGeofenceWorker(true, true, /*false,*/ false);
-                                    break;
-                                case PPApplication.SCANNER_STOP_GEOFENCE_SCANNER:
+                                    scheduleGeofenceWorker(true, true, false);
+                                    break;*/
+                                /*case PPApplication.SCANNER_STOP_GEOFENCE_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_STOP_GEOFENCE_SCANNER");
                                     startGeofenceScanner(false, true, false, false);
-                                    scheduleGeofenceWorker(false, false, /*false,*/ false);
-                                    break;
-                                case PPApplication.SCANNER_START_ORIENTATION_SCANNER:
+                                    scheduleGeofenceWorker(false, false, false);
+                                    break;*/
+                                /*case PPApplication.SCANNER_START_ORIENTATION_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_START_ORIENTATION_SCANNER");
                                     startOrientationScanner(true, true, true);
-                                    break;
-                                case PPApplication.SCANNER_STOP_ORIENTATION_SCANNER:
+                                    break;*/
+                                /*case PPApplication.SCANNER_STOP_ORIENTATION_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_STOP_ORIENTATION_SCANNER");
                                     startOrientationScanner(false, true, false);
-                                    break;
-                                case PPApplication.SCANNER_START_PHONE_STATE_SCANNER:
+                                    break;*/
+                                /*case PPApplication.SCANNER_START_PHONE_STATE_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_START_PHONE_STATE_SCANNER");
                                     PhoneStateScanner.forceStart = false;
                                     startPhoneStateScanner(true, true, true, false, false);
-                                    break;
-                                case PPApplication.SCANNER_STOP_PHONE_STATE_SCANNER:
+                                    break;*/
+                                /*case PPApplication.SCANNER_STOP_PHONE_STATE_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_STOP_PHONE_STATE_SCANNER");
                                     startPhoneStateScanner(false, true, false, false, false);
-                                    break;
-                                case PPApplication.SCANNER_START_TWILIGHT_SCANNER:
+                                    break;*/
+                                /*case PPApplication.SCANNER_START_TWILIGHT_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_START_TWILIGHT_SCANNER");
                                     startTwilightScanner(true, true, true);
-                                    break;
-                                case PPApplication.SCANNER_STOP_TWILIGHT_SCANNER:
+                                    break;*/
+                                /*case PPApplication.SCANNER_STOP_TWILIGHT_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_STOP_TWILIGHT_SCANNER");
                                     startTwilightScanner(false, true, false);
-                                    break;
+                                    break;*/
                                 case PPApplication.SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
                                     registerWifiConnectionBroadcastReceiver(true, true, false);
