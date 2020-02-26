@@ -30,6 +30,7 @@ public class RestartEventsWithDelayWorker extends Worker {
             //Data outputData;
 
             // Get the input
+            boolean alsoRescan = getInputData().getBoolean(PhoneProfilesService.EXTRA_ALSO_RESCAN, false);
             boolean unblockEventsRun = getInputData().getBoolean(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, false);
             int logType = getInputData().getInt(PhoneProfilesService.EXTRA_LOG_TYPE, 0);
 
@@ -45,7 +46,7 @@ public class RestartEventsWithDelayWorker extends Worker {
                 PPApplication.addActivityLog(context, logType, null, null, null, 0, "");
             //dataWrapper.restartEvents(unblockEventsRun, true, true, false);
             //PPApplication.logE("*********** restartEvents", "from RestartEventsWithDelayWorker.doWork()");
-            dataWrapper.restartEventsWithRescan(/*true, */unblockEventsRun, false, false, true, false);
+            dataWrapper.restartEventsWithRescan(alsoRescan, unblockEventsRun, false, false, true, false);
             //dataWrapper.invalidateDataWrapper();
 
             return Result.success();

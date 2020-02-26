@@ -25,6 +25,7 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
 
         // required for reschedule workers for power save mode
         //PPApplication.logE("[XXX] PowerSaveModeBroadcastReceiver.onReceive", "restartAllScanners");
+        PPApplication.logE("[RJS] PowerSaveModeBroadcastReceiver.onReceive", "restart all scanners");
         PPApplication.restartAllScanners(appContext, true);
         /*PPApplication.restartWifiScanner(appContext, true);
         PPApplication.restartBluetoothScanner(appContext, true);

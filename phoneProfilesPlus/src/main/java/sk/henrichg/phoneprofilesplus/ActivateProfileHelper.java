@@ -2571,6 +2571,7 @@ class ActivateProfileHelper {
             editor.apply();
             ApplicationPreferences.applicationEventWifiEnableScanning(context);
             ApplicationPreferences.applicationEventWifiDisabledScannigByProfile(context);
+            PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableWifiScanning");
             PPApplication.restartWifiScanner(context, false);
         }
         if (profile._applicationDisableBluetoothScanning != 0) {
@@ -2580,6 +2581,7 @@ class ActivateProfileHelper {
             editor.apply();
             ApplicationPreferences.applicationEventBluetoothEnableScanning(context);
             ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile(context);
+            PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableBluetoothScanning");
             PPApplication.restartBluetoothScanner(context, false);
         }
         if (profile._applicationDisableLocationScanning != 0) {
@@ -2589,6 +2591,7 @@ class ActivateProfileHelper {
             editor.apply();
             ApplicationPreferences.applicationEventLocationEnableScanning(context);
             ApplicationPreferences.applicationEventLocationDisabledScannigByProfile(context);
+            PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableLocationScanning");
             PPApplication.restartGeofenceScanner(context, false);
         }
         if (profile._applicationDisableMobileCellScanning != 0) {
@@ -2598,6 +2601,7 @@ class ActivateProfileHelper {
             editor.apply();
             ApplicationPreferences.applicationEventMobileCellEnableScanning(context);
             ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(context);
+            PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableMobileCellScanning");
             PPApplication.restartPhoneStateScanner(context, false);
         }
         if (profile._applicationDisableOrientationScanning != 0) {
@@ -2607,6 +2611,7 @@ class ActivateProfileHelper {
             editor.apply();
             ApplicationPreferences.applicationEventOrientationEnableScanning(context);
             ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(context);
+            PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableOrientationScanning");
             PPApplication.restartOrientationScanner(context);
         }
 

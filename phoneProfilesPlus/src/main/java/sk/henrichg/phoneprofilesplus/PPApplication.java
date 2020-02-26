@@ -102,6 +102,8 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 +"|PhoneProfilesBackupAgent"
                                                 +"|ShutdownBroadcastReceiver"
 
+                                                +"|[RJS] "
+
                                                 //+"|BluetoothConnectedDevices"
 
                                                 //+"|*********** restartEvents"

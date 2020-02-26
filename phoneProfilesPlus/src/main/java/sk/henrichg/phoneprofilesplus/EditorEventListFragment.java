@@ -673,7 +673,7 @@ public class EditorEventListFragment extends Fragment
                 //PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.runStopEvent");
                 //activityDataWrapper.restartEvents(false, true, true, true, true);
                 //PPApplication.logE("*********** restartEvents", "from EditorEventListFragment.runStopEvents() - 1");
-                activityDataWrapper.restartEventsWithRescan(/*true, */false, true, false, true, false);
+                activityDataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
 
                 /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -704,7 +704,7 @@ public class EditorEventListFragment extends Fragment
                 //PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.runStopEvent");
                 //activityDataWrapper.restartEvents(false, true, true, true, true);
                 //PPApplication.logE("*********** restartEvents", "from EditorEventListFragment.runStopEvents() - 2");
-                activityDataWrapper.restartEventsWithRescan(/*true, */false, true, false, true, false);
+                activityDataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
 
                 /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -778,7 +778,7 @@ public class EditorEventListFragment extends Fragment
         //PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.deleteEvent");
         //activityDataWrapper.restartEvents(false, true, true, true, true);
         //PPApplication.logE("*********** restartEvents", "from EditorEventListFragment.deleteEvent()");
-        activityDataWrapper.restartEventsWithRescan(/*true, */false, true, false, true, false);
+        activityDataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
 
         eventListAdapter.notifyDataSetChanged();
 

@@ -1572,11 +1572,12 @@ public class GrantPermissionActivity extends AppCompatActivity {
             /*if (Permissions.bluetoothNamePreference != null)
                 Permissions.bluetoothNamePreference.refreshListView(true, "");*/
 
+            PPApplication.logE("[RJS] GrantPermissionActivity.finishGrant", "restart wifi and bluetooth scanners");
             PPApplication.restartWifiScanner(context, false);
             PPApplication.restartBluetoothScanner(context, false);
 
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(5, false, /*false,*/ PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(5, true, false, /*false,*/ PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_CALENDAR_DIALOG) {
@@ -1585,7 +1586,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             /*if (Permissions.calendarsMultiSelectDialogPreference != null)
                 Permissions.calendarsMultiSelectDialogPreference.refreshListView(true);*/
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(5, false, /*false,*/ PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(5, true, false, /*false,*/ PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_CONTACT_DIALOG) {
@@ -1596,7 +1597,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             /*if (Permissions.contactGroupsMultiSelectDialogPreference != null)
                 Permissions.contactGroupsMultiSelectDialogPreference.refreshListView(true);*/
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(5, false, /*false,*/ PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(5, true, false, /*false,*/ PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_EVENT) {
@@ -1608,19 +1609,18 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 for (Permissions.PermissionType permissionType : permissions) {
                     if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION) ||
                             permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
-                        PPApplication.restartWifiScanner(context, false);
-                        PPApplication.restartBluetoothScanner(context, false);
-                        PPApplication.restartGeofenceScanner(context, false);
-                        PPApplication.restartTwilightScanner(context);
+                        PPApplication.logE("[RJS] GrantPermissionActivity.finishGrant", "restart all scanners");
+                        PPApplication.restartAllScanners(context, false);
                         break;
                     }
                 }
             }
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(5, false, /*false,*/ PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(5, true, false, /*false,*/ PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY) {
+            PPApplication.logE("[RJS] GrantPermissionActivity.finishGrant", "restart geofence scanner");
             PPApplication.restartGeofenceScanner(context, false);
 
             setResult(Activity.RESULT_OK);
@@ -1629,7 +1629,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 Permissions.locationGeofenceEditorActivity.getLastLocation();*/
 
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(5, false, /*false,*/ PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(5, true, false, /*false,*/ PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_BRIGHTNESS_DIALOG) {
@@ -1645,7 +1645,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             /*if (Permissions.mobileCellsPreference != null)
                 Permissions.mobileCellsPreference.refreshListView(true);*/
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(5, false, /*false,*/ PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(5, true, false, /*false,*/ PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG) {

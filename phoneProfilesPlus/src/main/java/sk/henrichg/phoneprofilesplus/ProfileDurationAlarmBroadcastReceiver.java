@@ -280,7 +280,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                     profile._icon, 0, "");
 
                             //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "restart events");
-                            dataWrapper.restartEventsWithDelay(3, true, /*false,*/ PPApplication.ALTYPE_UNDEFINED);
+                            dataWrapper.restartEventsWithDelay(3, false, true, /*false,*/ PPApplication.ALTYPE_UNDEFINED);
                         } else {
                             dataWrapper.activateProfileAfterDuration(0, startupSource);
                         }

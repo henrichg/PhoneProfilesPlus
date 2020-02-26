@@ -445,33 +445,39 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         if (permissionsChanged ||
                 (wifiScannerEnabled != ApplicationPreferences.applicationEventWifiEnableScanning) ||
                 (wifiScanInterval != ApplicationPreferences.applicationEventWifiScanInterval)) {
+            PPApplication.logE("[RJS] PhoneProfilesPrefsActivity.doPreferenceChanged", "restart wifi scanner");
             PPApplication.restartWifiScanner(appContext, false);
         }
 
         if (permissionsChanged ||
                 (bluetoothScannerEnabled != ApplicationPreferences.applicationEventBluetoothEnableScanning) ||
                 (bluetoothScanInterval != ApplicationPreferences.applicationEventBluetoothScanInterval)) {
+            PPApplication.logE("[RJS] PhoneProfilesPrefsActivity.doPreferenceChanged", "restart bluetooth scanner");
             PPApplication.restartBluetoothScanner(appContext, false);
         }
 
         if (permissionsChanged ||
                 (locationScannerEnabled != ApplicationPreferences.applicationEventLocationEnableScanning) ||
                 (locationScanInterval != ApplicationPreferences.applicationEventLocationUpdateInterval)) {
+            PPApplication.logE("[RJS] PhoneProfilesPrefsActivity.doPreferenceChanged", "restart location scanner");
             PPApplication.restartGeofenceScanner(appContext, false);
         }
 
         if (permissionsChanged ||
                 (orientationScannerEnabled != ApplicationPreferences.applicationEventOrientationEnableScanning) ||
                 orientationScanInterval != ApplicationPreferences.applicationEventOrientationScanInterval) {
+            PPApplication.logE("[RJS] PhoneProfilesPrefsActivity.doPreferenceChanged", "restart orientation scanner");
             PPApplication.restartOrientationScanner(appContext);
         }
 
         if (permissionsChanged ||
                 mobileCellScannerEnabled != ApplicationPreferences.applicationEventMobileCellEnableScanning) {
+            PPApplication.logE("[RJS] PhoneProfilesPrefsActivity.doPreferenceChanged", "restart phone state scanner");
             PPApplication.restartPhoneStateScanner(appContext, false);
         }
 
         if (permissionsChanged) {
+            PPApplication.logE("[RJS] PhoneProfilesPrefsActivity.doPreferenceChanged", "restart twilight scanner");
             PPApplication.restartTwilightScanner(appContext);
         }
 

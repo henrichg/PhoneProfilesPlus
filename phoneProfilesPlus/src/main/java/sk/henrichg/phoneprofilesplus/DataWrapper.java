@@ -1004,7 +1004,7 @@ public class DataWrapper {
         //PPApplication.logE("$$$ restartEvents", "from DataWrapper.stopEventsForProfile");
         //restartEvents(false, true, true, true, true);
         //PPApplication.logE("*********** restartEvents", "from DataWrapper.stopEventsForProfile()");
-        restartEventsWithRescan(false, true, false, true, false);
+        restartEventsWithRescan(true, false, true, false, true, false);
     }
 
     void stopEventsForProfileFromMainThread(final Profile profile,
@@ -1236,7 +1236,7 @@ public class DataWrapper {
             if (ApplicationPreferences.applicationStartEvents) {
                 //restartEvents(false, false, true, false, useHandler);
                 //PPApplication.logE("*********** restartEvents", "from DataWrapper.startEventsOnBoot() - 1");
-                restartEventsWithRescan(/*true, */false, useHandler, false, false, false);
+                restartEventsWithRescan(true, false, useHandler, false, false, false);
             }
             else {
                 Event.setGlobalEventsRunning(context, false);
@@ -1246,7 +1246,7 @@ public class DataWrapper {
         else {
             //restartEvents(false, false, true, false, useHandler);
             //PPApplication.logE("*********** restartEvents", "from DataWrapper.startEventsOnBoot() - 2");
-            restartEventsWithRescan(false, useHandler, false, false, false);
+            restartEventsWithRescan(true, false, useHandler, false, false, false);
         }
     }
 
@@ -4328,32 +4328,39 @@ public class DataWrapper {
             _restartEvents(unblockEventsRun, /*notClearActivatedProfile, reactivateProfile,*/ manualRestart, logRestart);
     }
 
-    private void _restartEventsWithRescan(/*boolean forceRestart, */boolean unblockEventsRun, boolean manualRestart, boolean logRestart) {
+    private void _restartEventsWithRescan(boolean alsoRescan, boolean unblockEventsRun, boolean manualRestart, boolean logRestart) {
         //PPApplication.logE("$$$ DataWrapper._restartEventsWithRescan","xxx");
 
-        // remove all event delay alarms
-        resetAllEventsInDelayStart(false);
-        resetAllEventsInDelayEnd(false);
-        // ignore manual profile activation
-        // and unblock forceRun events
+        if (alsoRescan) {
+            // remove all event delay alarms
+            resetAllEventsInDelayStart(false);
+            resetAllEventsInDelayEnd(false);
+        }
+
         restartEvents(unblockEventsRun, /*true, true,*/ manualRestart, logRestart/*, false*/);
 
-        //if (forceRestart || ApplicationPreferences.applicationEventWifiRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
+        if (alsoRescan) {
+            PPApplication.logE("[RJS] DataWrapper._restartEventsWithRescan", "restart all scanners");
+            PPApplication.restartAllScanners(context, false);
+            /*
+            //if (forceRestart || ApplicationPreferences.applicationEventWifiRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
             PPApplication.restartWifiScanner(context, false);
-        //}
-        //if (forceRestart || ApplicationPreferences.applicationEventBluetoothRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
+            //}
+            //if (forceRestart || ApplicationPreferences.applicationEventBluetoothRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
             PPApplication.restartBluetoothScanner(context, false);
-        //}
-        //if (forceRestart || ApplicationPreferences.applicationEventLocationRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
+            //}
+            //if (forceRestart || ApplicationPreferences.applicationEventLocationRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
             PPApplication.restartGeofenceScanner(context, false);
-        //}
-        //if (forceRestart || ApplicationPreferences.applicationEventMobileCellsRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
+            //}
+            //if (forceRestart || ApplicationPreferences.applicationEventMobileCellsRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
             PPApplication.restartPhoneStateScanner(context, false);
-        //}
-        PPApplication.restartTwilightScanner(context);
+            //}
+            PPApplication.restartTwilightScanner(context);
+            */
+        }
     }
 
-    void restartEventsWithRescan(/*final boolean forceRestart, */
+    void restartEventsWithRescan(final boolean alsoRescan,
             final boolean unblockEventsRun, boolean useHandler,
             final boolean manualRestart, final boolean logRestart, boolean showToast)
     {
@@ -4377,7 +4384,7 @@ public class DataWrapper {
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DataWrapper.restartEventsWithRescan");
 
-                        dataWrapper._restartEventsWithRescan(/*forceRestart, */unblockEventsRun, manualRestart, logRestart);
+                        dataWrapper._restartEventsWithRescan(alsoRescan, unblockEventsRun, manualRestart, logRestart);
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DataWrapper.restartEventsWithRescan");
                     } finally {
@@ -4392,7 +4399,7 @@ public class DataWrapper {
             });
         }
         else
-            _restartEventsWithRescan(/*forceRestart, */unblockEventsRun, manualRestart, logRestart);
+            _restartEventsWithRescan(alsoRescan, unblockEventsRun, manualRestart, logRestart);
 
         if (showToast) {
             if (ApplicationPreferences.notificationsToast) {
@@ -4451,7 +4458,7 @@ public class DataWrapper {
                     }
                     else {
                         //PPApplication.logE("*********** restartEvents", "from DataWrapper.restartEventsWithAlert() - 1");
-                        restartEventsWithRescan(/*true, */true, true, true, true, true);
+                        restartEventsWithRescan(true, true, true, true, true, true);
                         //IgnoreBatteryOptimizationNotification.showNotification(context);
                     }
                 }
@@ -4513,7 +4520,7 @@ public class DataWrapper {
             }
 
             //PPApplication.logE("*********** restartEvents", "from DataWrapper.restartEventsWithAlert() - 2");
-            restartEventsWithRescan(/*true, */true, true, true, true, true);
+            restartEventsWithRescan(true, true, true, true, true, true);
 
             //IgnoreBatteryOptimizationNotification.showNotification(context);
         }
@@ -4521,7 +4528,7 @@ public class DataWrapper {
 
     @SuppressLint("NewApi")
     // delay is in seconds, max 5
-    void restartEventsWithDelay(int delay, final boolean unblockEventsRun, /*final boolean reactivateProfile,*/
+    void restartEventsWithDelay(int delay, boolean alsoRescan, final boolean unblockEventsRun, /*final boolean reactivateProfile,*/
                                 /*boolean clearOld,*/ final int logType)
     {
         //PPApplication.logE("[TEST HANDLER] DataWrapper.restartEventsWithDelay","xxx"); //"clearOld="+clearOld);
@@ -4570,6 +4577,7 @@ public class DataWrapper {
         }
         else {*/
             Data workData = new Data.Builder()
+                        .putBoolean(PhoneProfilesService.EXTRA_ALSO_RESCAN, alsoRescan)
                         .putBoolean(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun)
                         .putInt(PhoneProfilesService.EXTRA_LOG_TYPE, logType)
                         .build();
