@@ -1572,7 +1572,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             /*if (Permissions.bluetoothNamePreference != null)
                 Permissions.bluetoothNamePreference.refreshListView(true, "");*/
 
-            PPApplication.logE("[RJS] GrantPermissionActivity.finishGrant", "restart wifi and bluetooth scanners");
+            //PPApplication.logE("[RJS] GrantPermissionActivity.finishGrant", "restart wifi and bluetooth scanners");
             PPApplication.restartWifiScanner(context, false);
             PPApplication.restartBluetoothScanner(context, false);
 
@@ -1609,7 +1609,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 for (Permissions.PermissionType permissionType : permissions) {
                     if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION) ||
                             permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
-                        PPApplication.logE("[RJS] GrantPermissionActivity.finishGrant", "restart all scanners");
+                        //PPApplication.logE("[RJS] GrantPermissionActivity.finishGrant", "restart all scanners");
                         PPApplication.restartAllScanners(context, false);
                         break;
                     }
@@ -1620,7 +1620,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         }
         else
         if (grantType == Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY) {
-            PPApplication.logE("[RJS] GrantPermissionActivity.finishGrant", "restart geofence scanner");
+            //PPApplication.logE("[RJS] GrantPermissionActivity.finishGrant", "restart geofence scanner");
             PPApplication.restartGeofenceScanner(context, false);
 
             setResult(Activity.RESULT_OK);

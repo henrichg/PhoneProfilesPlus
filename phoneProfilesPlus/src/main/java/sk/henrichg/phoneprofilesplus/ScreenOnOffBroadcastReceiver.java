@@ -56,7 +56,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                         }*/
                         PPApplication.isScreenOn = true;
 
-                        PPApplication.logE("[RJS] ScreenOnOffBroadcastReceiver.onReceive", "restart all scanners for SCREEN_ON");
+                        //PPApplication.logE("[RJS] ScreenOnOffBroadcastReceiver.onReceive", "restart all scanners for SCREEN_ON");
                         PPApplication.restartAllScanners(appContext, true);
                     } else if ((action != null) && action.equals(Intent.ACTION_SCREEN_OFF)) {
                         /*if (PPApplication.logEnabled()) {
@@ -78,7 +78,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
 
-                        PPApplication.logE("[RJS] ScreenOnOffBroadcastReceiver.onReceive", "restart all scanners for SCREEN_OFF");
+                        //PPApplication.logE("[RJS] ScreenOnOffBroadcastReceiver.onReceive", "restart all scanners for SCREEN_OFF");
                         PPApplication.restartAllScanners(appContext, true);
 
                         final Handler handler = new Handler(appContext.getMainLooper());

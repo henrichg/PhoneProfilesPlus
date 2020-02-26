@@ -4340,7 +4340,7 @@ public class DataWrapper {
         restartEvents(unblockEventsRun, /*true, true,*/ manualRestart, logRestart/*, false*/);
 
         if (alsoRescan) {
-            PPApplication.logE("[RJS] DataWrapper._restartEventsWithRescan", "restart all scanners");
+            //PPApplication.logE("[RJS] DataWrapper._restartEventsWithRescan", "restart all scanners");
             PPApplication.restartAllScanners(context, false);
             /*
             //if (forceRestart || ApplicationPreferences.applicationEventWifiRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
