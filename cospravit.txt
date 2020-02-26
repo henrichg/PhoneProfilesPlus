@@ -813,109 +813,91 @@ Vysledok je, ze pocas delay je stale RUNNING az po delay je PAUSE.
 --------------
 
 registerBluetoothScannerReceiver() - PPService.doCommand(SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER)
-- PPApplication.reregisterReceiversForBluetoothScanner()
-registerBluetoothScannerReceiver() - PPService.doCommand(SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER)
-- PPApplication.forceRegisterReceiversForBluetoothScanner()
-registerBluetoothScannerReceiver() - PPService.doCommand(SCANNER_RESTART_BLUETOOTH_SCANNER)
-- PPApplication.restartBluetoothScanner()
-registerBluetoothScannerReceiver() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
-- PPApplication.restartAllScanners()
-
 registerBluetoothStateChangedBroadcastReceiver() - PPService.doCommand(SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER)
 - PPApplication.reregisterReceiversForBluetoothScanner()
+  - BluetoothNamePreferenceX
+
+registerBluetoothScannerReceiver() - PPService.doCommand(SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER)
 registerBluetoothStateChangedBroadcastReceiver() - PPService.doCommand(SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER)
 - PPApplication.forceRegisterReceiversForBluetoothScanner()
+  - BluetoothNamePreferenceX
+
+registerBluetoothScannerReceiver() - PPService.doCommand(SCANNER_RESTART_BLUETOOTH_SCANNER)
 registerBluetoothStateChangedBroadcastReceiver() - PPService.doCommand(SCANNER_RESTART_BLUETOOTH_SCANNER)
 - PPApplication.restartBluetoothScanner()
-registerBluetoothStateChangedBroadcastReceiver() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
-- PPApplication.restartAllScanners()
+  - Profile._applicationDisableBluetoothScanning
+  - grant permissions
+  - save application preferences
 
 registerLocationModeChangedBroadcastReceiver() - PPService.doCommand(SCANNER_RESTART_GEOFENCE_SCANNER)
+scheduleGeofenceWorker() - PPService.doCommand(SCANNER_RESTART_GEOFENCE_SCANNER)
+startGeofenceScanner() - PPService.doCommand(SCANNER_RESTART_GEOFENCE_SCANNER)
 - PPApplication.restartGeofenceScanner()
-registerLocationModeChangedBroadcastReceiver() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
-- PPApplication.restartAllScanners()
+  - Profile._applicationDisableLocationScanning
+  - grant permissions
+  - save application preferences
 
 registerWifiAPStateChangeBroadcastReceiver() - PPService.doCommand(SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER)
-- PPApplication.reregisterReceiversForWifiScanner()
-registerWifiAPStateChangeBroadcastReceiver() - PPService.doCommand(SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER)
-- PPApplication.forceRegisterReceiversForWifiScanner()
-registerWifiAPStateChangeBroadcastReceiver() - PPService.doCommand(SCANNER_RESTART_WIFI_SCANNER)
-- PPApplication.restartWifiScanner()
-registerWifiAPStateChangeBroadcastReceiver() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
-- PPApplication.restartAllScanners()
-
 registerWifiConnectionBroadcastReceiver() - PPService.doCommand(SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER)
-- PPApplication.reregisterReceiversForWifiScanner()
-registerWifiConnectionBroadcastReceiver() - PPService.doCommand(SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER)
-- PPApplication.forceRegisterReceiversForWifiScanner()
-registerWifiConnectionBroadcastReceiver() - PPService.doCommand(SCANNER_RESTART_WIFI_SCANNER)
-- PPApplication.restartWifiScanner()
-registerWifiConnectionBroadcastReceiver() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
-- PPApplication.restartAllScanners()
-
 registerWifiScannerReceiver() - PPService.doCommand(SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER)
 - PPApplication.reregisterReceiversForWifiScanner()
+  - WifiSSIDPreferenceX
+
+registerWifiAPStateChangeBroadcastReceiver() - PPService.doCommand(SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER)
+registerWifiConnectionBroadcastReceiver() - PPService.doCommand(SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER)
 registerWifiScannerReceiver() - PPService.doCommand(SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER)
 - PPApplication.forceRegisterReceiversForWifiScanner()
+  - WifiSSIDPreferenceX
+
+registerWifiAPStateChangeBroadcastReceiver() - PPService.doCommand(SCANNER_RESTART_WIFI_SCANNER)
+registerWifiConnectionBroadcastReceiver() - PPService.doCommand(SCANNER_RESTART_WIFI_SCANNER)
 registerWifiScannerReceiver() - PPService.doCommand(SCANNER_RESTART_WIFI_SCANNER)
+scheduleWifiWorker() - PPService.doCommand(SCANNER_RESTART_WIFI_SCANNER)
 - PPApplication.restartWifiScanner()
-registerWifiScannerReceiver() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
-- PPApplication.restartAllScanners()
+  - Profile._applicationDisableWifiScanning
+  - grant permissions
+  - save application preferences
 
 scheduleBluetoothWorker() - PPService.doCommand(SCANNER_RESTART_BLUETOOTH_SCANNER)
 - PPApplication.restartBluetoothScanner()
-scheduleBluetoothWorker() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
-- PPApplication.restartAllScanners()
+  - Profile._applicationDisableBluetoothScanning
+  - grant permissions
+  - save application preferences
 
-scheduleGeofenceWorker() - PPService.doCommand(SCANNER_START_GEOFENCE_SCANNER)
-- ???
-scheduleGeofenceWorker() - PPService.doCommand(SCANNER_STOP_GEOFENCE_SCANNER)
-- ???
-scheduleGeofenceWorker() - PPService.doCommand(SCANNER_RESTART_GEOFENCE_SCANNER)
-- PPApplication.restartGeofenceScanner()
-scheduleGeofenceWorker() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
-- PPApplication.restartAllScanners()
-
-scheduleWifiWorker() - PPService.doCommand(SCANNER_RESTART_WIFI_SCANNER)
-- PPApplication.restartWifiScanner()
-scheduleWifiWorker() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
-- PPApplication.restartAllScanners()
-
-startGeofenceScanner() - PPService.doCommand(SCANNER_START_GEOFENCE_SCANNER)
-- ???
-startGeofenceScanner() - PPService.doCommand(SCANNER_STOP_GEOFENCE_SCANNER)
-- ???
-startGeofenceScanner() - PPService.doCommand(SCANNER_RESTART_GEOFENCE_SCANNER)
-- PPApplication.restartGeofenceScanner()
-startGeofenceScanner() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
-- PPApplication.restartAllScanners()
-
-startOrientationScanner() - PPService.doCommand(SCANNER_START_ORIENTATION_SCANNER)
-- ???
-startOrientationScanner() - PPService.doCommand(SCANNER_STOP_ORIENTATION_SCANNER)
-- ???
 startOrientationScanner() - PPService.doCommand(SCANNER_RESTART_ORIENTATION_SCANNER)
 - PPApplication.restartOrientationScanner()
-startOrientationScanner() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
-- PPApplication.restartAllScanners()
+  - Profile.__applicationDisableOrientationScanning
+  - save application preferences
 
-startPhoneStateScanner() - PPService.doCommand(SCANNER_START_PHONE_STATE_SCANNER)
-- ???
-startPhoneStateScanner() - PPService.doCommand(SCANNER_STOP_PHONE_STATE_SCANNER)
-- ???
 startPhoneStateScanner() - PPService.doCommand(SCANNER_RESTART_PHONE_STATE_SCANNER)
 - PPApplication.restartPhoneStateScanner()
+  - Profile._applicationDisableMobileCellScanning
+  - MobileCellsPreferencesX
+  - MobileCellsRegistrationService
+  - save application preferences
+
 startPhoneStateScanner() - PPService.doCommand(SCANNER_FORCE_START_PHONE_STATE_SCANNER)
 - PPApplication.forceStartPhoneStateScanner()
-startPhoneStateScanner() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
-- PPApplication.restartAllScanners()
+  - MobileCellsPreferencesX
+  - MobileCellsRegistrationService
 
-startTwilightScanner() - PPService.doCommand(SCANNER_START_TWILIGHT_SCANNER)
-- ???
-startTwilightScanner() - PPService.doCommand(SCANNER_STOP_TWILIGHT_SCANNER)
-- ???
 startTwilightScanner() - PPService.doCommand(SCANNER_RESTART_TWILIGHT_SCANNER)
 - PPApplication.restartTwilightScanner()
+  - save event preferences with twilight time sensor
+  - save application preferences
+
+registerBluetoothScannerReceiver() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
+registerBluetoothStateChangedBroadcastReceiver() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
+registerLocationModeChangedBroadcastReceiver() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
+registerWifiAPStateChangeBroadcastReceiver() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
+registerWifiConnectionBroadcastReceiver() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
+registerWifiScannerReceiver() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
+scheduleBluetoothWorker() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
+scheduleGeofenceWorker() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
+scheduleWifiWorker() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
+startGeofenceScanner() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
+startOrientationScanner() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
+startPhoneStateScanner() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
 startTwilightScanner() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
 - PPApplication.restartAllScanners()
 
