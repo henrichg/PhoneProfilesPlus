@@ -102,7 +102,13 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 +"|PhoneProfilesBackupAgent"
                                                 +"|ShutdownBroadcastReceiver"
 
-                                                +"|[RJS] "
+                                                //+"|[RJS] "
+                                                //+"|BluetoothScanWorker._scheduleWork"
+                                                //+"|GeofenceScanWorker._scheduleWork"
+                                                //+"|SearchCalendarEventsWorker._scheduleWork"
+                                                //+"|WifiScanWorker._scheduleWork"
+                                                //+"|WifiScanWorker._cancelWork"
+                                                //+"|WifiScanWorker.isWorkScheduled"
 
                                                 //+"|BluetoothConnectedDevices"
 

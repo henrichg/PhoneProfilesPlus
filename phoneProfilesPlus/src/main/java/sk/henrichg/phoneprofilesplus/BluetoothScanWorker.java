@@ -150,7 +150,7 @@ public class BluetoothScanWorker extends Worker {
             //PPApplication.logE("BluetoothScanWorker._scheduleWork", "interval=" + interval);
 
             if (!shortInterval) {
-                //PPApplication.logE("BluetoothScanWorker._scheduleWork", "exact work");
+                //PPApplication.logE("BluetoothScanWorker._scheduleWork", "delay work");
                 OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(BluetoothScanWorker.class)
                         .setInitialDelay(interval, TimeUnit.MINUTES)
                         .addTag(WORK_TAG)
@@ -329,7 +329,7 @@ public class BluetoothScanWorker extends Worker {
                 boolean running = false;
                 for (WorkInfo workInfo : workInfoList) {
                     WorkInfo.State state = workInfo.getState();
-                    running = state == WorkInfo.State.RUNNING | state == WorkInfo.State.ENQUEUED;
+                    running = state == WorkInfo.State.RUNNING || state == WorkInfo.State.ENQUEUED;
                 }
                 return running;
             } catch (ExecutionException e) {

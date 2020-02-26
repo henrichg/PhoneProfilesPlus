@@ -100,7 +100,7 @@ public class SearchCalendarEventsWorker extends Worker {
             }*/
 
             if (!shortInterval) {
-                //PPApplication.logE("SearchCalendarEventsWorker._scheduleWork", "exact work");
+                //PPApplication.logE("SearchCalendarEventsWorker._scheduleWork", "delay work");
                 OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(SearchCalendarEventsWorker.class)
                         .setInitialDelay(24, TimeUnit.HOURS)
                         .addTag(WORK_TAG)
@@ -268,7 +268,7 @@ public class SearchCalendarEventsWorker extends Worker {
                 boolean running = false;
                 for (WorkInfo workInfo : workInfoList) {
                     WorkInfo.State state = workInfo.getState();
-                    running = state == WorkInfo.State.RUNNING | state == WorkInfo.State.ENQUEUED;
+                    running = state == WorkInfo.State.RUNNING || state == WorkInfo.State.ENQUEUED;
                 }
                 return running;
             } catch (ExecutionException e) {

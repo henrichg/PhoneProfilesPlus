@@ -87,7 +87,7 @@ public class WifiScanWorker extends Worker {
                 startScanner(context, false);
             }
 
-            //PPApplication.logE("[SCHEDULE] WifiScanWorker.doWork", "schedule work");
+            //PPApplication.logE("[RJS] WifiScanWorker.doWork", "schedule work");
             scheduleWork(context.getApplicationContext(), false, null, false/*, false, false*/);
 
             /*PPApplication.startHandlerThreadPPScanners();
@@ -146,7 +146,7 @@ public class WifiScanWorker extends Worker {
             //PPApplication.logE("WifiScanWorker._scheduleWork", "interval=" + interval);
 
             if (!shortInterval) {
-                //PPApplication.logE("WifiScanWorker._scheduleWork", "exact work");
+                //PPApplication.logE("WifiScanWorker._scheduleWork", "delay work");
                 OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(WifiScanWorker.class)
                         .setInitialDelay(interval, TimeUnit.MINUTES)
                         .addTag(WORK_TAG)
@@ -321,7 +321,8 @@ public class WifiScanWorker extends Worker {
                 boolean running = false;
                 for (WorkInfo workInfo : workInfoList) {
                     WorkInfo.State state = workInfo.getState();
-                    running = state == WorkInfo.State.RUNNING | state == WorkInfo.State.ENQUEUED;
+                    running = state == WorkInfo.State.RUNNING || state == WorkInfo.State.ENQUEUED;
+                    //PPApplication.logE("WifiScanWorker.isWorkScheduled", "running="+running);
                 }
                 return running;
             } catch (ExecutionException e) {

@@ -3108,9 +3108,6 @@ public class PhoneProfilesService extends Service
         handler.post(new Runnable() {
             @Override
             public void run() {
-                //if (cancel) {
-                    cancelWifiWorker(appContext, handler);
-                //}
                 if (schedule) {
                     //PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiWorker", "SCHEDULE");
                     boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
@@ -3131,8 +3128,11 @@ public class PhoneProfilesService extends Service
                                         WifiScanWorker.scheduleWork(appContext, true, handler, true/*, forScreenOn, afterEnableWifi*/);
                                     } else {
                                         //PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiWorker", "scheduled");
-                                        if (rescan)
+                                        if (rescan) {
+                                            //PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiWorker", "rescan");
+                                            cancelWifiWorker(appContext, handler);
                                             WifiScanWorker.scheduleWork(appContext, true, handler, true/*, forScreenOn, afterEnableWifi*/);
+                                        }
                                     }
                                 } else
                                     cancelWifiWorker(appContext, handler);
@@ -3144,6 +3144,8 @@ public class PhoneProfilesService extends Service
                     else
                         cancelWifiWorker(appContext, handler);
                 }
+                else
+                    cancelWifiWorker(appContext, handler);
             }
         });
     }
@@ -3172,9 +3174,6 @@ public class PhoneProfilesService extends Service
         handler.post(new Runnable() {
             @Override
             public void run() {
-                //if (cancel) {
-                    cancelBluetoothWorker(appContext, handler);
-                //}
                 if (schedule) {
                     //PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothWorker", "SCHEDULE");
                     boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext).allowed ==
@@ -3195,8 +3194,10 @@ public class PhoneProfilesService extends Service
                                         BluetoothScanWorker.scheduleWork(appContext, true, handler, true/*, forScreenOn*/);
                                     } else {
                                         //PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothWorker", "scheduled");
-                                        if (rescan)
+                                        if (rescan) {
+                                            cancelBluetoothWorker(appContext, handler);
                                             BluetoothScanWorker.scheduleWork(appContext, true, handler, true/*, forScreenOn*/);
+                                        }
                                     }
                                 } else
                                     cancelBluetoothWorker(appContext, handler);
@@ -3208,6 +3209,8 @@ public class PhoneProfilesService extends Service
                     else
                         cancelBluetoothWorker(appContext, handler);
                 }
+                else
+                    cancelBluetoothWorker(appContext, handler);
             }
         });
     }
@@ -3233,9 +3236,6 @@ public class PhoneProfilesService extends Service
         handler.post(new Runnable() {
             @Override
             public void run() {
-                //if (cancel) {
-                cancelGeofenceWorker(appContext, handler);
-                //}
                 if (schedule) {
                     //PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceWorker", "SCHEDULE");
                     boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
@@ -3260,6 +3260,8 @@ public class PhoneProfilesService extends Service
                                                 getGeofencesScanner().updateTransitionsByLastKnownLocation(false);
                                             }
                                         }
+                                        if (rescan)
+                                            cancelGeofenceWorker(appContext, handler);
                                         GeofenceScanWorker.scheduleWork(appContext, false, handler, true/*, forScreenOn*/);
                                     }
                                 } else
@@ -3272,6 +3274,8 @@ public class PhoneProfilesService extends Service
                     else
                         cancelGeofenceWorker(appContext, handler);
                 }
+                else
+                    cancelGeofenceWorker(appContext, handler);
             }
         });
     }
@@ -3286,7 +3290,7 @@ public class PhoneProfilesService extends Service
         //    PPApplication.logE("[RJS] PhoneProfilesService.cancelSearchCalendarEventsWorker", "not scheduled");
     }
 
-    private void scheduleSearchCalendarEventsWorker(final boolean schedule, final boolean cancel, final boolean checkDatabase) {
+    private void scheduleSearchCalendarEventsWorker(final boolean schedule, final boolean rescan, final boolean checkDatabase) {
         final Context appContext = getApplicationContext();
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleSearchCalendarEventsWorker", "PhoneProfilesService_scheduleSearchCalendarEventsWorker");
         //PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsWorker", "xxx");
@@ -3296,9 +3300,6 @@ public class PhoneProfilesService extends Service
         handler.post(new Runnable() {
             @Override
             public void run() {
-                if (cancel) {
-                    cancelSearchCalendarEventsWorker(appContext, handler);
-                }
                 if (schedule) {
                     //PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsWorker", "SCHEDULE");
                     boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, appContext).allowed ==
@@ -3309,9 +3310,11 @@ public class PhoneProfilesService extends Service
                             eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_CALENDAR, false);
                         }
                         if (eventCount > 0) {
-                            if (!SearchCalendarEventsWorker.isWorkScheduled(appContext)) {
+                            if (!SearchCalendarEventsWorker.isWorkScheduled(appContext) || rescan) {
                                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleSearchCalendarEventsWorker->SCHEDULE", "PhoneProfilesService_scheduleSearchCalendarEventsWorker");
                                 //PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsWorker", "SCHEDULE xxx");
+                                if (rescan)
+                                    cancelSearchCalendarEventsWorker(appContext, handler);
                                 SearchCalendarEventsWorker.scheduleWork(appContext, true, handler, true);
                             }
                             //else
@@ -3323,6 +3326,8 @@ public class PhoneProfilesService extends Service
                     else
                         cancelSearchCalendarEventsWorker(appContext, handler);
                 }
+                else
+                    cancelSearchCalendarEventsWorker(appContext, handler);
             }
         });
     }
@@ -3754,7 +3759,7 @@ public class PhoneProfilesService extends Service
 
         scheduleWifiWorker(false,  false, /*false, false, false,*/ false);
         scheduleBluetoothWorker(false,  false, /*false, false,*/ false);
-        scheduleSearchCalendarEventsWorker(false, true, false);
+        scheduleSearchCalendarEventsWorker(false, false, false);
 
         scheduleGeofenceWorker(false,  false, /*false,*/ false);
         startGeofenceScanner(false, true, false, false);
@@ -3794,7 +3799,7 @@ public class PhoneProfilesService extends Service
 
         scheduleWifiWorker(true,  true, /*false, false, false,*/ false);
         scheduleBluetoothWorker(true,  true, /*false, false,*/ false);
-        scheduleSearchCalendarEventsWorker(true, false, true);
+        scheduleSearchCalendarEventsWorker(true, true, true);
 
         startGeofenceScanner(true, true, true, false);
         scheduleGeofenceWorker(true,  true, /*false,*/ false);

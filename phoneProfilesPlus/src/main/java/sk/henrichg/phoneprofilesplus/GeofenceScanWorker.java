@@ -159,7 +159,7 @@ public class GeofenceScanWorker extends Worker {
             }
 
             if (!shortInterval) {
-                //PPApplication.logE("GeofenceScanWorker._scheduleWork", "exact work");
+                //PPApplication.logE("GeofenceScanWorker._scheduleWork", "delay work");
                 OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(GeofenceScanWorker.class)
                         .setInitialDelay(interval, TimeUnit.SECONDS)
                         .addTag(WORK_TAG)
@@ -331,7 +331,7 @@ public class GeofenceScanWorker extends Worker {
                 boolean running = false;
                 for (WorkInfo workInfo : workInfoList) {
                     WorkInfo.State state = workInfo.getState();
-                    running = state == WorkInfo.State.RUNNING | state == WorkInfo.State.ENQUEUED;
+                    running = state == WorkInfo.State.RUNNING || state == WorkInfo.State.ENQUEUED;
                 }
                 return running;
             } catch (ExecutionException e) {
