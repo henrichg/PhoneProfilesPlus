@@ -4798,9 +4798,9 @@ public class PhoneProfilesService extends Service
                                     //noinspection ConstantConditions
                                     iconSmallResource = Profile.profileIconNotifyColorId.get(iconIdentifier);
                                 } catch (Exception e) {
-                                    Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
+                                    //Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
                                     //FirebaseCrashlytics.getInstance().recordException(e);
-                                    Crashlytics.logException(e);
+                                    //Crashlytics.logException(e);
                                 }
                                 notificationBuilder.setSmallIcon(iconSmallResource);
                             }
@@ -4816,9 +4816,9 @@ public class PhoneProfilesService extends Service
                                 //noinspection ConstantConditions
                                 iconSmallResource = Profile.profileIconNotifyId.get(iconIdentifier);
                             } catch (Exception e) {
-                                Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
+                                //Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
                                 //FirebaseCrashlytics.getInstance().recordException(e);
-                                Crashlytics.logException(e);
+                                //Crashlytics.logException(e);
                             }
                             notificationBuilder.setSmallIcon(iconSmallResource);
                         }
@@ -4847,9 +4847,9 @@ public class PhoneProfilesService extends Service
                                 //noinspection ConstantConditions
                                 iconSmallResource = Profile.profileIconNotifyColorId.get(iconIdentifier);
                             } catch (Exception e) {
-                                Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
+                                //Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
                                 //FirebaseCrashlytics.getInstance().recordException(e);
-                                Crashlytics.logException(e);
+                                //Crashlytics.logException(e);
                             }
                         } else {
                             //PPApplication.logE("PhoneProfilesService._showProfileNotification", "colorful icon in status bar is disabled");
@@ -4861,9 +4861,9 @@ public class PhoneProfilesService extends Service
                                 //noinspection ConstantConditions
                                 iconSmallResource = Profile.profileIconNotifyId.get(iconIdentifier);
                             } catch (Exception e) {
-                                Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
+                                //Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
                                 //FirebaseCrashlytics.getInstance().recordException(e);
-                                Crashlytics.logException(e);
+                                //Crashlytics.logException(e);
                             }
                         }
                         notificationBuilder.setSmallIcon(iconSmallResource);
