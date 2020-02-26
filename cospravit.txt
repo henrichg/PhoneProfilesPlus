@@ -918,5 +918,13 @@ reregisterReceiversAndWorkers() - PPService.doCommand(EXTRA_REREGISTER_RECEIVERS
 - save event preferences
 - application preferences changes
 
+------------
 
+TOTO KUKNI
+2020-02-26 10:24:25.188 27941-28204/sk.henrichg.phoneprofilesplus E/[RJS] PhoneProfilesService.unregisterPPPPExtenderReceiver: UNREGISTER
+2020-02-26 10:24:25.189 27941-28204/sk.henrichg.phoneprofilesplus E/[RJS] PhoneProfilesService.registerPPPPExtenderReceiver: REGISTER PPApplication.REGISTRATION_TYPE_LOCK_DEVICE_REGISTER
+2020-02-26 10:24:25.190 27941-28204/sk.henrichg.phoneprofilesplus E/[RJS] PhoneProfilesService.unregisterPPPPExtenderReceiver: UNREGISTER
+2020-02-26 10:24:25.192 27941-28204/sk.henrichg.phoneprofilesplus E/[RJS] PhoneProfilesService.unregisterPPPPExtenderReceiver: UNREGISTER
+2020-02-26 10:24:25.192 27941-28204/sk.henrichg.phoneprofilesplus E/[RJS] PhoneProfilesService.registerPPPPExtenderReceiver: REGISTER pppExtenderCallBroadcastReceiver
+2020-02-26 10:24:25.194 27941-28204/sk.henrichg.phoneprofilesplus E/[RJS] PhoneProfilesService.registerPPPPExtenderReceiver: REGISTER PPApplication.REGISTRATION_TYPE_CALL_REGISTER
 
