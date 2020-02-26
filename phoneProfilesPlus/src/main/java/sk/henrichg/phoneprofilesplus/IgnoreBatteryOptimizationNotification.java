@@ -53,11 +53,13 @@ class IgnoreBatteryOptimizationNotification {
 
                         if (show) {
                             PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                            if (!pm.isIgnoringBatteryOptimizations(appContext.getPackageName())) {
-                                showNotification(appContext,
-                                        appContext.getString(R.string.ignore_battery_optimization_notification_title),
-                                        appContext.getString(R.string.ignore_battery_optimization_notification_text));
-                            }
+                            try {
+                                if (!pm.isIgnoringBatteryOptimizations(appContext.getPackageName())) {
+                                    showNotification(appContext,
+                                            appContext.getString(R.string.ignore_battery_optimization_notification_title),
+                                            appContext.getString(R.string.ignore_battery_optimization_notification_text));
+                                }
+                            } catch (Exception ignore) {}
                         }
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=IgnoreBatteryOptimizationNotification_showNotification");
