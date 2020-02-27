@@ -282,8 +282,6 @@
     <string name="event_name_background_profile">Profilo predefinito</string>
     <string name="phone_profiles_pref_applicationEventWifiRescan">Rianalizza Wi-Fi</string>
     <string name="phone_profiles_pref_applicationEventBluetoothRescan">Rianalizza Bluetooth</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Schermo attivo</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Schermo attivo &amp; Riavvia gli eventi</string>
     <string name="profile_preferences_volumeZenMode">Tipo di interruzioni</string>
     <string name="array_pref_zenModeArray_all">Tutto</string>
     <string name="array_pref_zenModeArray_priority">Priorità</string>
@@ -1661,4 +1659,6 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <!--    <string name="array_pref_value_no" translatable="false">no</string>-->
     <!--    <string name="array_pref_value_th" translatable="false">th</string>-->
     <!--    <string name="array_pref_value_vi" translatable="false">vi</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Screen On</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Screen On &amp; Restart events</string>-->
 </resources>

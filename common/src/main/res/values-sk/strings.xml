@@ -282,8 +282,6 @@
     <string name="event_name_background_profile">Predvolený profil</string>
     <string name="phone_profiles_pref_applicationEventWifiRescan">Preskenuj Wi-Fi</string>
     <string name="phone_profiles_pref_applicationEventBluetoothRescan">Preskenuj Bluetooth</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Zapnutie obrazovky</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Zapnutie obrazovky &amp; Reštart udalostí</string>
     <string name="profile_preferences_volumeZenMode">Typy vyrušení</string>
     <string name="array_pref_zenModeArray_all">Všetky</string>
     <string name="array_pref_zenModeArray_priority">Prioritné</string>
@@ -1660,4 +1658,6 @@
     <!--    <string name="array_pref_value_no" translatable="false">no</string>-->
     <!--    <string name="array_pref_value_th" translatable="false">th</string>-->
     <!--    <string name="array_pref_value_vi" translatable="false">vi</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Screen On</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Screen On &amp; Restart events</string>-->
 </resources>

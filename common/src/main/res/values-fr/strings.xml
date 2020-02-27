@@ -282,8 +282,6 @@
     <string name="event_name_background_profile">Profil par défaut</string>
     <string name="phone_profiles_pref_applicationEventWifiRescan">Rescanner Wi-Fi</string>
     <string name="phone_profiles_pref_applicationEventBluetoothRescan">Rescannner Bluetooth</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Allumer l\'écran</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Écran allumé ; Redémarrer les évènements</string>
     <string name="profile_preferences_volumeZenMode">Type d\'interruptions</string>
     <string name="array_pref_zenModeArray_all">Tous</string>
     <string name="array_pref_zenModeArray_priority">Priorité</string>
@@ -1660,4 +1658,6 @@
     <!--    <string name="array_pref_value_no" translatable="false">no</string>-->
     <!--    <string name="array_pref_value_th" translatable="false">th</string>-->
     <!--    <string name="array_pref_value_vi" translatable="false">vi</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Screen On</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Screen On &amp; Restart events</string>-->
 </resources>

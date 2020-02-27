@@ -282,8 +282,6 @@
     <string name="event_name_background_profile">Standaardprofiel</string>
     <string name="phone_profiles_pref_applicationEventWifiRescan">Wi-Fi opnieuw scannen</string>
     <string name="phone_profiles_pref_applicationEventBluetoothRescan">Bluetooth opnieuw scannen</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Scherm Aan</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Scherm aan en events opnieuw opstarten</string>
     <string name="profile_preferences_volumeZenMode">Onderbrekingentype</string>
     <string name="array_pref_zenModeArray_all">Alles</string>
     <string name="array_pref_zenModeArray_priority">Prioriteit</string>
@@ -1660,4 +1658,6 @@
     <!--    <string name="array_pref_value_no" translatable="false">no</string>-->
     <!--    <string name="array_pref_value_th" translatable="false">th</string>-->
     <!--    <string name="array_pref_value_vi" translatable="false">vi</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Screen On</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Screen On &amp; Restart events</string>-->
 </resources>

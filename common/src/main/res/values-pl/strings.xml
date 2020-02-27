@@ -282,8 +282,6 @@
     <string name="event_name_background_profile">Profil domyślny</string>
     <string name="phone_profiles_pref_applicationEventWifiRescan">Skanuj Wi-Fi</string>
     <string name="phone_profiles_pref_applicationEventBluetoothRescan">Skanuj Bluetooth</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Ekran włączony</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Ekran włączony &amp; Zrestartuj zdarzenia</string>
     <string name="profile_preferences_volumeZenMode">Typ przerwania</string>
     <string name="array_pref_zenModeArray_all">Wszystkie</string>
     <string name="array_pref_zenModeArray_priority">Priorytet</string>
@@ -1661,4 +1659,6 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <!--    <string name="array_pref_value_no" translatable="false">no</string>-->
     <!--    <string name="array_pref_value_th" translatable="false">th</string>-->
     <!--    <string name="array_pref_value_vi" translatable="false">vi</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Screen On</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Screen On &amp; Restart events</string>-->
 </resources>

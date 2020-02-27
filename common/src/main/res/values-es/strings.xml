@@ -282,8 +282,6 @@
     <string name="event_name_background_profile">Perfil predeterminado</string>
     <string name="phone_profiles_pref_applicationEventWifiRescan">Reescanear Wi-Fi</string>
     <string name="phone_profiles_pref_applicationEventBluetoothRescan">Reescanear Bluetooth</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Pantalla encendida</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Pantalla encendida &amp; Reescanear eventos</string>
     <string name="profile_preferences_volumeZenMode">Tipo de interrupciones</string>
     <string name="array_pref_zenModeArray_all">Todo</string>
     <string name="array_pref_zenModeArray_priority">Prioridad</string>
@@ -546,11 +544,11 @@
     <string name="applications_preference_applicationType_application">aplicación</string>
     <string name="applications_preference_applicationType_shortcut">atajo</string>
     <string name="phone_profiles_pref_eventWifiAppSettings_summary">Configuración de parámetros de búsqueda de Wi-Fi en ajustes de aplicación.</string>
-    <string name="phone_profiles_pref_eventBluetoothAppSettings_summary">Setup Bluetooth scanning parameters in application settings.</string>
+    <string name="phone_profiles_pref_eventBluetoothAppSettings_summary">Configuración de los parámetros de búsqueda de Wi-Fi en los ajustes de aplicación.</string>
     <string name="phone_profiles_pref_category_orientation_scanning">Escaneo de orientación</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanInterval">Intervalos de escaneo de orientación (segundos)</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">El escaner de orientación, está en modo de ahorro de batería</string>
-    <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Setup Orientation scanning parameters in application settings.</string>
+    <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Configurar los parámetros de orientación en la configuración de la aplicación.</string>
     <string name="array_pref_screenTimeoutArray_24hours">24 horas</string>
     <string name="array_pref_screenTimeoutArray_alwaysOn">Siempre encendido</string>
     <string name="profile_preferences_deviceScreenTimeoutInfo_summary">SI la opción \"24 horas\" no está funcionando en tu dispositivo (LG), utilice la opción \"Siempre Encendido\". La opción \"Siempre Encendido\" puede causar problemas con dispositivos Samsung. De ser así, utilice la opción \"24 horas\".</string>
@@ -586,7 +584,7 @@
     <string name="mobile_cells_pref_dlg_help" tools:ignore="TypographyOther">(N) nuevo celular, (C) conectado a celular.</string>
     <string name="mobile_cells_pref_dlg_cell_name_hint">Nombre del celular</string>
     <string name="mobile_cells_pref_dlg_cell_rename_title">Renombrar los celulares</string>
-    <string name="phone_profiles_pref_eventMobileCellsAppSettings_summary">Setup Mobile cell scanning parameters in application settings.</string>
+    <string name="phone_profiles_pref_eventMobileCellsAppSettings_summary">Configurar la exploración de celdas de redes celulares en los ajustes de la aplicación.</string>
     <string name="phone_profiles_pref_category_mobile_cells_scanning">Escaneo del celular móvil</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Registro del celular</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode">Escaneo del celular móvil en modo Ahorro de Energía</string>
@@ -773,10 +771,10 @@
     <string name="event_preferences_radioSwitch_airplaneMode">Modo avión</string>
     <string name="event_preferences_radioSwitch_info_title">Configuración del sensor</string>
     <string name="event_preferences_radioSwitch_info_summary">El estado de todas las radios debe ser cumplido para iniciar el evento. Configurar solo las radios que necesite.</string>
-    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Any SSID</string>
+    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Cualquier SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Conectar a SIMS</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Configurar enlaces de volúmenes</string>
-    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Use detection</string>
+    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Usar detección</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">Volúmenes vinculados</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Volúmenes no vinculados</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Use esto si la detección del enlace de volumen no funciona.</string>
@@ -833,7 +831,7 @@
     <string name="important_info_quick_guide_events_1"><b>EVENTS:</b> Te permite configurar cuando un perfil es activado. Los Eventos deben iniciar y finalizar. Puedes configurar qué pasará al inicio de un evento, y qué pasará cuando termine un evento.</string>
     <string name="important_info_quick_guide_events_2">Los Eventos contienen parámetros importantes de sensor, los cuales deben ser cumplidos todos antes que ser puesto en funcionamiento. Si algún sensor no cumple con los parámetros, el evento finalizará (pausa).</string>
     <string name="important_info_quick_guide_sensors_1">Ejemplos de sensores:</string>
-    <string name="important_info_quick_guide_sensors_2"><![CDATA[<b>Time sensor:</b> Start and End on a specified day of the week, or at a specified time.]]></string>
+    <string name="important_info_quick_guide_sensors_2"><![CDATA[<b>Sensor de tiempo:</b> Iniciar y finalizar en un día específico de la semana, o a una hora específica.]]></string>
     <string name="important_info_quick_guide_sensors_3"><![CDATA[<b>Wi-Fi sensor:</b> Start and End by Wi-Fi SSID (connected, device nearby). The Nearby feature is useful to detect device location. For example: Start event when the device is within scanning range of your home Wi-Fi network.]]></string>
     <string name="important_info_quick_guide_sensors_4"><![CDATA[<b>Bluetooth sensor:</b> Similar to Wi-Fi sensor. Useful for car Bluetooth.]]></string>
     <string name="important_info_quick_guide_sensors_5"><![CDATA[<b>Location sensor:</b> Start and End by device location (GPS). You must enable Location Services in device system settings.]]></string>
@@ -1660,4 +1658,6 @@
     <!--    <string name="array_pref_value_no" translatable="false">no</string>-->
     <!--    <string name="array_pref_value_th" translatable="false">th</string>-->
     <!--    <string name="array_pref_value_vi" translatable="false">vi</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Screen On</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Screen On &amp; Restart events</string>-->
 </resources>

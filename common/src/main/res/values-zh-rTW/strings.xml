@@ -282,8 +282,6 @@
     <string name="event_name_background_profile">預設設定檔</string>
     <string name="phone_profiles_pref_applicationEventWifiRescan">重新掃描 Wi-Fi</string>
     <string name="phone_profiles_pref_applicationEventBluetoothRescan">重新掃描藍牙</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOn">螢幕打開</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">螢幕打開和重新開機事件</string>
     <string name="profile_preferences_volumeZenMode">干擾類型</string>
     <string name="array_pref_zenModeArray_all">全部</string>
     <string name="array_pref_zenModeArray_priority">優先</string>
@@ -1660,4 +1658,6 @@
     <!--    <string name="array_pref_value_no" translatable="false">no</string>-->
     <!--    <string name="array_pref_value_th" translatable="false">th</string>-->
     <!--    <string name="array_pref_value_vi" translatable="false">vi</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Screen On</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Screen On &amp; Restart events</string>-->
 </resources>

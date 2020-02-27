@@ -282,8 +282,6 @@
     <string name="event_name_background_profile">Профіль за замовчуванням</string>
     <string name="phone_profiles_pref_applicationEventWifiRescan">Пересканувати Wi-Fi</string>
     <string name="phone_profiles_pref_applicationEventBluetoothRescan">Пересканувати Bluetooth</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Увімкнення екрану</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Увімкнення екрану &amp; Перезавантаження подій</string>
     <string name="profile_preferences_volumeZenMode">Типи режиму сповіщень</string>
     <string name="array_pref_zenModeArray_all">Усі</string>
     <string name="array_pref_zenModeArray_priority">Важливі</string>
@@ -1660,4 +1658,6 @@
     <!--    <string name="array_pref_value_no" translatable="false">no</string>-->
     <!--    <string name="array_pref_value_th" translatable="false">th</string>-->
     <!--    <string name="array_pref_value_vi" translatable="false">vi</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Screen On</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Screen On &amp; Restart events</string>-->
 </resources>
