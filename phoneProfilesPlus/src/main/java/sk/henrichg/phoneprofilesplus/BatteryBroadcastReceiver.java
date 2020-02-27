@@ -133,15 +133,29 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
             if (levelReceived)
                 batteryPct = pct;
 
+            // restart scanners when any is enabled
             // required for reschedule workers for power save mode
-            //PPApplication.logE("[****] BatteryBroadcastReceiver.onReceive", "restartAllScanners");
-            //PPApplication.logE("[RJS] BatteryBroadcastReceiver.onReceive", "restart all scanners");
-            PPApplication.restartAllScanners(appContext, true);
-            /*PPApplication.restartWifiScanner(appContext, true);
-            PPApplication.restartBluetoothScanner(appContext, true);
-            PPApplication.restartGeofenceScanner(appContext, true);
-            PPApplication.restartPhoneStateScanner(appContext, true);
-            PPApplication.restartOrientationScanner(appContext);*/
+            boolean restart = false;
+            if (ApplicationPreferences.applicationEventLocationEnableScanning)
+                restart = true;
+            else
+            if (ApplicationPreferences.applicationEventWifiEnableScanning)
+                restart = true;
+            else
+            if (ApplicationPreferences.applicationEventBluetoothEnableScanning)
+                restart = true;
+            else
+            if (ApplicationPreferences.applicationEventMobileCellEnableScanning)
+                restart = true;
+            else
+            if (ApplicationPreferences.applicationEventOrientationEnableScanning)
+                restart = true;
+            if (restart) {
+                //PPApplication.logE("[****] BatteryBroadcastReceiver.onReceive", "restartAllScanners");
+                //PPApplication.logE("[RJS] BatteryBroadcastReceiver.onReceive", "restart all scanners");
+                // for screenOn=true -> used only for geofence scanner - start scan with GPS On
+                PPApplication.restartAllScanners(appContext, true);
+            }
 
             if (Event.getGlobalEventsRunning()) {
                 PPApplication.startHandlerThread("BatteryBroadcastReceiver.onReceive");

@@ -3290,7 +3290,7 @@ public class PhoneProfilesService extends Service
         //    PPApplication.logE("[RJS] PhoneProfilesService.cancelSearchCalendarEventsWorker", "not scheduled");
     }
 
-    private void scheduleSearchCalendarEventsWorker(final boolean schedule, final boolean rescan, final boolean checkDatabase) {
+    private void scheduleSearchCalendarEventsWorker(final boolean schedule, final boolean checkDatabase, final boolean rescan) {
         final Context appContext = getApplicationContext();
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleSearchCalendarEventsWorker", "PhoneProfilesService_scheduleSearchCalendarEventsWorker");
         //PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsWorker", "xxx");
@@ -3710,12 +3710,12 @@ public class PhoneProfilesService extends Service
         WifiScanWorker.initialize(appContext, !fromCommand);
         BluetoothScanWorker.initialize(appContext, !fromCommand);
 
-        scheduleWifiWorker(true,  true, /*false, false, false,*/ false);
-        scheduleBluetoothWorker(true,  true, /*false, false,*/ false);
+        scheduleWifiWorker(true,  true, /*false, false, false,*/ true);
+        scheduleBluetoothWorker(true,  true, /*false, false,*/ true);
         scheduleSearchCalendarEventsWorker(true, true, true);
 
         startGeofenceScanner(true, true, true, false);
-        scheduleGeofenceWorker(true,  true, /*false,*/ false);
+        scheduleGeofenceWorker(true,  true, /*false,*/ true);
 
         startPhoneStateScanner(true, true, true, false, false);
         startOrientationScanner(true, true, true);
@@ -3797,12 +3797,12 @@ public class PhoneProfilesService extends Service
         registerReceiverForOrientationSensor(true, true);
         registerReceiverForNotificationSensor(true,true);
 
-        scheduleWifiWorker(true,  true, /*false, false, false,*/ false);
-        scheduleBluetoothWorker(true,  true, /*false, false,*/ false);
+        scheduleWifiWorker(true,  true, /*false, false, false,*/ true);
+        scheduleBluetoothWorker(true,  true, /*false, false,*/ true);
         scheduleSearchCalendarEventsWorker(true, true, true);
 
         startGeofenceScanner(true, true, true, false);
-        scheduleGeofenceWorker(true,  true, /*false,*/ false);
+        scheduleGeofenceWorker(true,  true, /*false,*/ true);
 
         startPhoneStateScanner(true, true, true, false, false);
         startOrientationScanner(true, true, true);

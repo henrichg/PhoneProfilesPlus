@@ -1610,7 +1610,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION) ||
                             permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
                         //PPApplication.logE("[RJS] GrantPermissionActivity.finishGrant", "restart all scanners");
-                        PPApplication.restartAllScanners(context, false);
+                        // for screenOn=true -> used only for geofence scanner - start scan with GPS On
+                        PPApplication.restartAllScanners(context, true);
                         break;
                     }
                 }

@@ -4341,7 +4341,8 @@ public class DataWrapper {
 
         if (alsoRescan) {
             //PPApplication.logE("[RJS] DataWrapper._restartEventsWithRescan", "restart all scanners");
-            PPApplication.restartAllScanners(context, false);
+            // for screenOn=true -> used only for geofence scanner - start scan with GPS On
+            PPApplication.restartAllScanners(context, true);
             /*
             //if (forceRestart || ApplicationPreferences.applicationEventWifiRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
             PPApplication.restartWifiScanner(context, false);

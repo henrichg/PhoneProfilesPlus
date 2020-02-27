@@ -23,15 +23,29 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
+        // restart scanners when any is enabled
         // required for reschedule workers for power save mode
-        //PPApplication.logE("[XXX] PowerSaveModeBroadcastReceiver.onReceive", "restartAllScanners");
-        //PPApplication.logE("[RJS] PowerSaveModeBroadcastReceiver.onReceive", "restart all scanners");
-        PPApplication.restartAllScanners(appContext, true);
-        /*PPApplication.restartWifiScanner(appContext, true);
-        PPApplication.restartBluetoothScanner(appContext, true);
-        PPApplication.restartGeofenceScanner(appContext, true);
-        PPApplication.restartPhoneStateScanner(appContext, true);
-        PPApplication.restartOrientationScanner(appContext);*/
+        boolean restart = false;
+        if (ApplicationPreferences.applicationEventLocationEnableScanning)
+            restart = true;
+        else
+        if (ApplicationPreferences.applicationEventWifiEnableScanning)
+            restart = true;
+        else
+        if (ApplicationPreferences.applicationEventBluetoothEnableScanning)
+            restart = true;
+        else
+        if (ApplicationPreferences.applicationEventMobileCellEnableScanning)
+            restart = true;
+        else
+        if (ApplicationPreferences.applicationEventOrientationEnableScanning)
+            restart = true;
+        if (restart) {
+            //PPApplication.logE("[XXX] PowerSaveModeBroadcastReceiver.onReceive", "restartAllScanners");
+            //PPApplication.logE("[RJS] PowerSaveModeBroadcastReceiver.onReceive", "restart all scanners");
+            // for screenOn=true -> used only for geofence scanner - start scan with GPS On
+            PPApplication.restartAllScanners(appContext, true);
+        }
 
         PPApplication.startHandlerThread("PowerSaveModeBroadcastReceiver.onReceive");
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
