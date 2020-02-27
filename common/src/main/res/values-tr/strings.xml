@@ -280,8 +280,6 @@
     <string name="event_preferences_sms_contacts">Kişiler</string>
     <string name="toast_events_restarted">Durumlar tekrar başladı</string>
     <string name="event_name_background_profile">Varsayılan tercih</string>
-    <string name="phone_profiles_pref_applicationEventWifiRescan">Wi-Fi\'yi tekrar tara</string>
-    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Bluetooth\'u tekrar tara</string>
     <string name="profile_preferences_volumeZenMode">Kesinti türü</string>
     <string name="array_pref_zenModeArray_all">Tamamı</string>
     <string name="array_pref_zenModeArray_priority">Öncelik</string>
@@ -514,7 +512,6 @@
     <string name="info_notification_event_states_running_delay">Ertelemeli çalışıyor: Durum çalışıyor, fakat değerleri artık yerine gelmeyecek. Durum ertelemenin bitmesini bekliyor.</string>
     <string name="profile_preferences_askForDuration">Müddet için sor</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">Pilin en iyi duruma getirilmesi</string>
-    <string name="phone_profiles_pref_applicationEventLocationRescan">Konumu tekrar tara</string>
     <string name="profile_preferences_deviceNetworkType">(R) Şebeke ağ türü</string>
     <string name="array_pref_powerSaveMode_useSystem">Pil tasarrufunu kullan</string>
     <string name="phone_profiles_pref_applicationBatterySaver">Pil Tasarrufu</string>
@@ -589,7 +586,6 @@
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Hücrelerin kaydı</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode">\"Güç tasarrufu\" modunda Şebeke hücrelerini tara</string>
     <string name="array_pref_scanInPowerSaveMode_scan">Tara</string>
-    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Şebeke hücrelerini tekrar tara</string>
     <string name="mobile_cells_registration_pref_dlg_start_button">Başla</string>
     <string name="mobile_cells_registration_pref_dlg_stop_button">Durdur</string>
     <string name="mobile_cells_registration_pref_dlg_status_started">Başladı</string>
@@ -1660,4 +1656,8 @@
     <!--    <string name="array_pref_value_vi" translatable="false">vi</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Screen On</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Screen On &amp; Restart events</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventWifiRescan">Re-scan Wi-Fi</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Re-scan Bluetooth</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
 </resources>

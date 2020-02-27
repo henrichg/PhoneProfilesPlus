@@ -69,7 +69,7 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
 
                 preference.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator);
                 synchronized (preference.dataWrapper.profileList) {
-                    Collections.sort(preference.dataWrapper.profileList, new ProfileMultiSelectPreferenceFragmentX.AlphabeticallyComparator());
+                    Collections.sort(preference.dataWrapper.profileList, new AlphabeticallyComparator());
                 }
 
                 getValuePMSDP();
@@ -105,7 +105,7 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
         preference.fragment = null;
     }
 
-    private class AlphabeticallyComparator implements Comparator<Profile> {
+    private static class AlphabeticallyComparator implements Comparator<Profile> {
 
         public int compare(Profile lhs, Profile rhs) {
             if (GlobalGUIRoutines.collator != null)

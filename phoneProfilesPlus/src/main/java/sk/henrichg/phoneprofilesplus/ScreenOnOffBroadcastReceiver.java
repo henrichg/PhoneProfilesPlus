@@ -51,140 +51,139 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                         PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "start of handler post");
                     }*/
 
-                    if (action.equals(Intent.ACTION_SCREEN_ON)) {
-                        /*if (PPApplication.logEnabled()) {
-                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen on");
-                            PPApplication.logE("[XXX] ScreenOnOffBroadcastReceiver.onReceive", "restartAllScanners");
-                        }*/
-                        PPApplication.isScreenOn = true;
+                    switch (action) {
+                        case Intent.ACTION_SCREEN_ON: {
+                            /*if (PPApplication.logEnabled()) {
+                                PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen on");
+                                PPApplication.logE("[XXX] ScreenOnOffBroadcastReceiver.onReceive", "restartAllScanners");
+                            }*/
+                            PPApplication.isScreenOn = true;
 
-                        // restart scanners for screen on when any is enabled
-                        boolean restart = false;
-                        if (ApplicationPreferences.applicationEventLocationEnableScanning)
-                            restart = true;
-                        else
-                        if (ApplicationPreferences.applicationEventWifiEnableScanning)
-                            restart = true;
-                        else
-                        if (ApplicationPreferences.applicationEventBluetoothEnableScanning)
-                            restart = true;
-                        else
-                        if (ApplicationPreferences.applicationEventMobileCellEnableScanning)
-                            restart = true;
-                        else
-                        if (ApplicationPreferences.applicationEventOrientationEnableScanning)
-                            restart = true;
-                        if (restart) {
-                            //PPApplication.logE("[RJS] ScreenOnOffBroadcastReceiver.onReceive", "restart all scanners for SCREEN_ON");
-                            // for screenOn=true -> used only for geofence scanner - start scan with GPS On
-                            PPApplication.restartAllScanners(appContext, true);
-                        }
-                    } else if (action.equals(Intent.ACTION_SCREEN_OFF)) {
-                        /*if (PPApplication.logEnabled()) {
-                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen off");
-                            PPApplication.logE("[XXX] ScreenOnOffBroadcastReceiver.onReceive", "restartAllScanners");
-                        }*/
-                        PPApplication.isScreenOn = false;
-
-                        KeyguardManager keyguardManager = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
-                        if (keyguardManager != null) {
-                            boolean secureKeyguard = keyguardManager.isKeyguardSecure();
-                            //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "secureKeyguard=" + secureKeyguard);
-
-                            if (secureKeyguard) {
-                                int lockDeviceTime = Settings.Secure.getInt(appContext.getContentResolver(), "lock_screen_lock_after_timeout", 5000);
-                                //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "lockDeviceTime="+lockDeviceTime);
-                                if (lockDeviceTime > 0)
-                                    LockDeviceAfterScreenOffBroadcastReceiver.setAlarm(lockDeviceTime, appContext);
+                            // restart scanners for screen on when any is enabled
+                            boolean restart = false;
+                            if (ApplicationPreferences.applicationEventLocationEnableScanning)
+                                restart = true;
+                            else if (ApplicationPreferences.applicationEventWifiEnableScanning)
+                                restart = true;
+                            else if (ApplicationPreferences.applicationEventBluetoothEnableScanning)
+                                restart = true;
+                            else if (ApplicationPreferences.applicationEventMobileCellEnableScanning)
+                                restart = true;
+                            else if (ApplicationPreferences.applicationEventOrientationEnableScanning)
+                                restart = true;
+                            if (restart) {
+                                //PPApplication.logE("[RJS] ScreenOnOffBroadcastReceiver.onReceive", "restart all scanners for SCREEN_ON");
+                                // for screenOn=true -> used only for geofence scanner - start scan with GPS On
+                                PPApplication.restartAllScanners(appContext, true);
                             }
+                            break;
                         }
+                        case Intent.ACTION_SCREEN_OFF: {
+                            /*if (PPApplication.logEnabled()) {
+                                PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen off");
+                                PPApplication.logE("[XXX] ScreenOnOffBroadcastReceiver.onReceive", "restartAllScanners");
+                            }*/
+                            PPApplication.isScreenOn = false;
 
-                        //PPApplication.logE("[RJS] ScreenOnOffBroadcastReceiver.onReceive", "restart all scanners for SCREEN_OFF");
+                            KeyguardManager keyguardManager = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
+                            if (keyguardManager != null) {
+                                boolean secureKeyguard = keyguardManager.isKeyguardSecure();
+                                //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "secureKeyguard=" + secureKeyguard);
 
-                        // for screen off restart scanners only when it is required for any scanner
-                        boolean restart = false;
-                        if (ApplicationPreferences.applicationEventLocationEnableScanning &&
-                            ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn)
-                            restart = true;
-                        else
-                        if (ApplicationPreferences.applicationEventWifiEnableScanning &&
-                            ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn)
-                            restart = true;
-                        else
-                        if (ApplicationPreferences.applicationEventBluetoothEnableScanning &&
-                            ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn)
-                            restart = true;
-                        else
-                        if (ApplicationPreferences.applicationEventMobileCellEnableScanning &&
-                            ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn)
-                            restart = true;
-                        else
-                        if (ApplicationPreferences.applicationEventOrientationEnableScanning &&
-                            ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn)
-                            restart = true;
-                        if (restart) {
-                            // for screenOn=false -> used only for geofence scanner - use last usage of GPS for scan
-                            PPApplication.restartAllScanners(appContext, false);
-                        }
-
-                        final Handler handler = new Handler(appContext.getMainLooper());
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (PhoneProfilesService.getInstance() != null) {
-                                    if (PhoneProfilesService.getInstance().lockDeviceActivity != null) {
-                                        try {
-                                            PhoneProfilesService.getInstance().lockDeviceActivity.finish();
-                                        } catch (Exception ignored) {}
-                                    }
+                                if (secureKeyguard) {
+                                    int lockDeviceTime = Settings.Secure.getInt(appContext.getContentResolver(), "lock_screen_lock_after_timeout", 5000);
+                                    //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "lockDeviceTime="+lockDeviceTime);
+                                    if (lockDeviceTime > 0)
+                                        LockDeviceAfterScreenOffBroadcastReceiver.setAlarm(lockDeviceTime, appContext);
                                 }
                             }
-                        });
 
-                        if (!Event.getGlobalEventsRunning()) {
-                            PPApplication.showProfileNotification(/*appContext*/true, false);
-                        }
-                    } else if (action.equals(Intent.ACTION_USER_PRESENT)) {
-                        //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen unlock");
+                            //PPApplication.logE("[RJS] ScreenOnOffBroadcastReceiver.onReceive", "restart all scanners for SCREEN_OFF");
 
-                        if (ApplicationPreferences.notificationShowInStatusBar &&
-                                ApplicationPreferences.notificationHideInLockScreen) {
-                            PPApplication.showProfileNotification(/*appContext*/true, false);
-                        }
-
-                        // change screen timeout
-                        final int screenTimeout = ApplicationPreferences.prefActivatedProfileScreenTimeout;
-                        //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screenTimeout=" + screenTimeout);
-                        if ((screenTimeout > 0) && (Permissions.checkScreenTimeout(appContext))) {
-                            if (PPApplication.screenTimeoutHandler != null) {
-                                PPApplication.screenTimeoutHandler.post(new Runnable() {
-                                    public void run() {
-                                        ActivateProfileHelper.setScreenTimeout(screenTimeout, appContext);
-                                    }
-                                });
+                            // for screen off restart scanners only when it is required for any scanner
+                            boolean restart = false;
+                            if (ApplicationPreferences.applicationEventLocationEnableScanning &&
+                                    ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn)
+                                restart = true;
+                            else if (ApplicationPreferences.applicationEventWifiEnableScanning &&
+                                    ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn)
+                                restart = true;
+                            else if (ApplicationPreferences.applicationEventBluetoothEnableScanning &&
+                                    ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn)
+                                restart = true;
+                            else if (ApplicationPreferences.applicationEventMobileCellEnableScanning &&
+                                    ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn)
+                                restart = true;
+                            else if (ApplicationPreferences.applicationEventOrientationEnableScanning &&
+                                    ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn)
+                                restart = true;
+                            if (restart) {
+                                // for screenOn=false -> used only for geofence scanner - use last usage of GPS for scan
+                                PPApplication.restartAllScanners(appContext, false);
                             }
-                        }
 
-                        // enable/disable keyguard
-                        try {
-                            // start PhoneProfilesService
-                            /*Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
-                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_SWITCH_KEYGUARD, true);
-                            PPApplication.startPPService(appContext, serviceIntent);*/
-                            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-                            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                            commandIntent.putExtra(PhoneProfilesService.EXTRA_SWITCH_KEYGUARD, true);
-                            PPApplication.runCommand(appContext, commandIntent);
-                        } catch (Exception ignored) {
-                        }
+                            final Handler handler = new Handler(appContext.getMainLooper());
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (PhoneProfilesService.getInstance() != null) {
+                                        if (PhoneProfilesService.getInstance().lockDeviceActivity != null) {
+                                            try {
+                                                PhoneProfilesService.getInstance().lockDeviceActivity.finish();
+                                            } catch (Exception ignored) {
+                                            }
+                                        }
+                                    }
+                                }
+                            });
 
-                        /*if ((wakeLock != null) && wakeLock.isHeld()) {
+                            if (!Event.getGlobalEventsRunning()) {
+                                PPApplication.showProfileNotification(/*appContext*/true, false);
+                            }
+                            break;
+                        }
+                        case Intent.ACTION_USER_PRESENT:
+                            //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen unlock");
+
+                            if (ApplicationPreferences.notificationShowInStatusBar &&
+                                    ApplicationPreferences.notificationHideInLockScreen) {
+                                PPApplication.showProfileNotification(/*appContext*/true, false);
+                            }
+
+                            // change screen timeout
+                            final int screenTimeout = ApplicationPreferences.prefActivatedProfileScreenTimeout;
+                            //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screenTimeout=" + screenTimeout);
+                            if ((screenTimeout > 0) && (Permissions.checkScreenTimeout(appContext))) {
+                                if (PPApplication.screenTimeoutHandler != null) {
+                                    PPApplication.screenTimeoutHandler.post(new Runnable() {
+                                        public void run() {
+                                            ActivateProfileHelper.setScreenTimeout(screenTimeout, appContext);
+                                        }
+                                    });
+                                }
+                            }
+
+                            // enable/disable keyguard
                             try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {}
-                        }
-                        return;*/
+                                // start PhoneProfilesService
+                                /*Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
+                                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                                serviceIntent.putExtra(PhoneProfilesService.EXTRA_SWITCH_KEYGUARD, true);
+                                PPApplication.startPPService(appContext, serviceIntent);*/
+                                Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+                                //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                                commandIntent.putExtra(PhoneProfilesService.EXTRA_SWITCH_KEYGUARD, true);
+                                PPApplication.runCommand(appContext, commandIntent);
+                            } catch (Exception ignored) {
+                            }
+
+                            /*if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {}
+                            }
+                            return;*/
+                            break;
                     }
 
                     if (Event.getGlobalEventsRunning()) {

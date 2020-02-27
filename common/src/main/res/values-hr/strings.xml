@@ -280,8 +280,6 @@
     <string name="event_preferences_sms_contacts">Kontakti</string>
     <string name="toast_events_restarted">Događaji su restartovani</string>
     <string name="event_name_background_profile">Predodređeni profil</string>
-    <string name="phone_profiles_pref_applicationEventWifiRescan">Ponovo skeniraj Wi-Fi</string>
-    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Ponovo skeniraj Bluetooth</string>
     <string name="profile_preferences_volumeZenMode">Tip prekida</string>
     <string name="array_pref_zenModeArray_all">Svi</string>
     <string name="array_pref_zenModeArray_priority">Prioritet</string>
@@ -514,7 +512,6 @@
     <string name="info_notification_event_states_running_delay">Pokretanje sa kašnjenjem: događaj je pokrenut ali parametri nisu ispunjeni. Događaj čeka kašnjenje da istekne.</string>
     <string name="profile_preferences_askForDuration">Pitaj za trajanje</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">Optimizacija baterije</string>
-    <string name="phone_profiles_pref_applicationEventLocationRescan">Ponovno skeniranje lokacije</string>
     <string name="profile_preferences_deviceNetworkType">(R) Tip mobilne mreže</string>
     <string name="array_pref_powerSaveMode_useSystem">Koristi uštedu baterije</string>
     <string name="phone_profiles_pref_applicationBatterySaver">Ušteda baterije</string>
@@ -589,7 +586,6 @@
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Registracija ćelije</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode">Skeniranje mobilne ćelije u modu uštede energije</string>
     <string name="array_pref_scanInPowerSaveMode_scan">Skeniraj</string>
-    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Ponovo skeniraj mobilne ćelije</string>
     <string name="mobile_cells_registration_pref_dlg_start_button">Start</string>
     <string name="mobile_cells_registration_pref_dlg_stop_button">Zaustavi</string>
     <string name="mobile_cells_registration_pref_dlg_status_started">Započeto</string>
@@ -1660,4 +1656,8 @@
     <!--    <string name="array_pref_value_vi" translatable="false">vi</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Screen On</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Screen On &amp; Restart events</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventWifiRescan">Re-scan Wi-Fi</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Re-scan Bluetooth</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
 </resources>

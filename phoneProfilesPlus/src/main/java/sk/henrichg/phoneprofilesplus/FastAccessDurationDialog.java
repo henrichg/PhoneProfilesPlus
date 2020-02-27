@@ -238,7 +238,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 mActivity.getResources().getStringArray(R.array.afterProfileDurationDoArray));
         spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        afterDoSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(mActivity/*.getBaseContext()*/, R.color.highlighted_spinner_all));
+        afterDoSpinner.setBackgroundTintList(ContextCompat.getColorStateList(mActivity/*.getBaseContext()*/, R.color.highlighted_spinner_all));
         /*switch (ApplicationPreferences.applicationTheme(mActivity, true)) {
             case "dark":
                 afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);
@@ -260,7 +260,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ((GlobalGUIRoutines.HighlightedSpinnerAdapter)afterDoSpinner.getAdapter()).setSelection(position);
-                mAfterDo = Integer.valueOf(afterDoValues[position]);
+                mAfterDo = Integer.parseInt(afterDoValues[position]);
 
                 updateProfileView();
             }

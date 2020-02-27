@@ -74,8 +74,10 @@ class NotUsedMobileCellsDetectedAdapter extends BaseAdapter {
 
                 boolean anyChecked = false;
                 for (Event _event : eventList) {
-                    if (_event.getStatus() == 1)
+                    if (_event.getStatus() == 1) {
                         anyChecked = true;
+                        break;
+                    }
                 }
                 activity.mDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(
                         !activity.cellNameTextView.getText().toString().isEmpty() && anyChecked);

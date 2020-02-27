@@ -148,7 +148,7 @@ class AddEventAdapter extends BaseAdapter {
                 String[] splits = event._startWhenActivatedProfile.split("\\|");
                 Profile profile;
                 if (splits.length == 1) {
-                    profile = dialog.eventListFragment.activityDataWrapper.getProfileById(Long.valueOf(event._startWhenActivatedProfile), false, false, false);
+                    profile = dialog.eventListFragment.activityDataWrapper.getProfileById(Long.parseLong(event._startWhenActivatedProfile), false, false, false);
                     if (profile != null)
                         eventName = eventName + " " + "[#] " + profile._name;
                 } else {

@@ -89,7 +89,7 @@ public class ProfilePreferenceFragmentX extends PreferenceDialogFragmentCompat {
                 if (preference.profileId.isEmpty())
                     iProfileId = 0;
                 else
-                    iProfileId = Long.valueOf(preference.profileId);
+                    iProfileId = Long.parseLong(preference.profileId);
                 if ((preference.addNoActivateItem == 1) && (iProfileId == Profile.PROFILE_NO_ACTIVATE))
                     position = 0;
                 else
@@ -141,7 +141,7 @@ public class ProfilePreferenceFragmentX extends PreferenceDialogFragmentCompat {
         dismiss();
     }
 
-    private class AlphabeticallyComparator implements Comparator<Profile> {
+    private static class AlphabeticallyComparator implements Comparator<Profile> {
 
         public int compare(Profile lhs, Profile rhs) {
             if (GlobalGUIRoutines.collator != null)

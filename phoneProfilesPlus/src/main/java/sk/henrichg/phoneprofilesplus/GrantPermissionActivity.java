@@ -418,7 +418,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 whyString = whyString + "<li>";
                 whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_write_settings) + "</b>";
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[0]);
-                if (whyPermissionString != null)
+                //if (whyPermissionString != null)
                     whyString = whyString + whyPermissionString;
                 whyString = whyString + "</li>";
             }
@@ -430,7 +430,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     permissionTypes[i] = whyPermissionType[3][i] || whyPermissionType[6][i];
                 }
                 String whyPermissionString = getWhyPermissionString(permissionTypes);
-                if (whyPermissionString != null)
+                //if (whyPermissionString != null)
                     whyString = whyString + whyPermissionString;
                 whyString = whyString + "</li>";
             }
@@ -442,7 +442,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     permissionTypes[i] = whyPermissionType[4][i] || whyPermissionType[5][i];
                 }
                 String whyPermissionString = getWhyPermissionString(permissionTypes);
-                if (whyPermissionString != null)
+                //if (whyPermissionString != null)
                     whyString = whyString + whyPermissionString;
                 whyString = whyString + "</li>";
             }
@@ -450,7 +450,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 whyString = whyString + "<li>";
                 whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_calendar) + "</b>";
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[7]);
-                if (whyPermissionString != null)
+                //if (whyPermissionString != null)
                     whyString = whyString + whyPermissionString;
                 whyString = whyString + "</li>";
             }
@@ -458,7 +458,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 whyString = whyString + "<li>";
                 whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_contacts) + "</b>";
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[8]);
-                if (whyPermissionString != null)
+                //if (whyPermissionString != null)
                     whyString = whyString + whyPermissionString;
                 whyString = whyString + "</li>";
             }
@@ -470,7 +470,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     permissionTypes[i] = whyPermissionType[12][i] || whyPermissionType[13][i];
                 }
                 String whyPermissionString = getWhyPermissionString(permissionTypes);
-                if (whyPermissionString != null)
+                //if (whyPermissionString != null)
                     whyString = whyString + whyPermissionString;
                 whyString = whyString + "</li>";
             }
@@ -489,7 +489,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 else
                     whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_draw_overlays_miui) + "</b>";
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[2]);
-                if (whyPermissionString != null)
+                //if (whyPermissionString != null)
                     whyString = whyString + whyPermissionString;
                 whyString = whyString + "</li>";
             }

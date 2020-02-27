@@ -319,14 +319,14 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
                 }
 
                 List<WifiSSIDData> wifiConfigurationList = WifiScanWorker.getWifiConfigurationList(prefContext);
-                if (wifiConfigurationList != null) {
+                //if (wifiConfigurationList != null) {
                     for (WifiSSIDData wifiConfiguration : wifiConfigurationList) {
                         //if ((wifiConfiguration.bssid != null) && (wifiConfiguration.ssid != null))
                         // bssid is null from configuration list
                         if (wifiConfiguration.ssid != null)
                             _SSIDList.add(new WifiSSIDData(wifiConfiguration.ssid.replace("\"", ""), wifiConfiguration.bssid, false, true, false));
                     }
-                }
+                //}
 
                 List<WifiSSIDData> scanResults = WifiScanWorker.getScanResults(prefContext);
                 if (scanResults != null) {
@@ -395,7 +395,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
                     }
                 }
 
-                Collections.sort(_SSIDList, new WifiSSIDPreferenceFragmentX.SortList());
+                Collections.sort(_SSIDList, new SortList());
 
                 _SSIDList.add(0, new WifiSSIDData(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE, "", false, false, false));
                 _SSIDList.add(0, new WifiSSIDData(EventPreferencesWifi.ALL_SSIDS_VALUE, "", false, false, false));
@@ -447,7 +447,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
         rescanAsyncTask.execute();
     }
 
-    private class SortList implements Comparator<WifiSSIDData> {
+    private static class SortList implements Comparator<WifiSSIDData> {
 
         public int compare(WifiSSIDData lhs, WifiSSIDData rhs) {
             if (GlobalGUIRoutines.collator != null)

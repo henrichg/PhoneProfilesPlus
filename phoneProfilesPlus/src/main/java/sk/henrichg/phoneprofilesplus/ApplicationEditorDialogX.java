@@ -153,7 +153,7 @@ class ApplicationEditorDialogX
                 activity.getResources().getStringArray(R.array.applicationsEditorDialogFilterArray));
         spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(activity/*.getBaseContext()*/, R.color.highlighted_spinner_all));
+        filterSpinner.setBackgroundTintList(ContextCompat.getColorStateList(activity/*.getBaseContext()*/, R.color.highlighted_spinner_all));
 /*        switch (ApplicationPreferences.applicationTheme(activity, true)) {
             case "dark":
                 filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);
@@ -192,7 +192,7 @@ class ApplicationEditorDialogX
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ((GlobalGUIRoutines.HighlightedSpinnerAdapter)filterSpinner.getAdapter()).setSelection(position);
 
-                selectedFilter = Integer.valueOf(filterValues[position]);
+                selectedFilter = Integer.parseInt(filterValues[position]);
                 if (selectedFilter == 2)
                     addButton.setVisibility(View.VISIBLE);
                 else

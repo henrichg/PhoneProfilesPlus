@@ -280,8 +280,6 @@
     <string name="event_preferences_sms_contacts">Contatti</string>
     <string name="toast_events_restarted">Eventi riavviati</string>
     <string name="event_name_background_profile">Profilo predefinito</string>
-    <string name="phone_profiles_pref_applicationEventWifiRescan">Rianalizza Wi-Fi</string>
-    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Rianalizza Bluetooth</string>
     <string name="profile_preferences_volumeZenMode">Tipo di interruzioni</string>
     <string name="array_pref_zenModeArray_all">Tutto</string>
     <string name="array_pref_zenModeArray_priority">Priorità</string>
@@ -514,7 +512,6 @@
     <string name="info_notification_event_states_running_delay">In esecuzione con ritardo: l\'evento è in esecuzione, ma i parametri non sono più rispettati. L\'evento è in attesa.</string>
     <string name="profile_preferences_askForDuration">Chiedere la durata</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">Ottimizzazione della batteria</string>
-    <string name="phone_profiles_pref_applicationEventLocationRescan">Rianalizza posizione</string>
     <string name="profile_preferences_deviceNetworkType">(R) Tipo di rete mobile</string>
     <string name="array_pref_powerSaveMode_useSystem">Usa risparmio batteria</string>
     <string name="phone_profiles_pref_applicationBatterySaver">Risparmio Batteria</string>
@@ -589,7 +586,6 @@
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Registrazione celle</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode">Scansione delle celle mobili in modalità di risparmio energetico</string>
     <string name="array_pref_scanInPowerSaveMode_scan">Scansione</string>
-    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rianalizza celle mobili</string>
     <string name="mobile_cells_registration_pref_dlg_start_button">Avvio</string>
     <string name="mobile_cells_registration_pref_dlg_stop_button">Ferma</string>
     <string name="mobile_cells_registration_pref_dlg_status_started">Avviato</string>
@@ -1661,4 +1657,8 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <!--    <string name="array_pref_value_vi" translatable="false">vi</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Screen On</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Screen On &amp; Restart events</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventWifiRescan">Re-scan Wi-Fi</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Re-scan Bluetooth</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
 </resources>

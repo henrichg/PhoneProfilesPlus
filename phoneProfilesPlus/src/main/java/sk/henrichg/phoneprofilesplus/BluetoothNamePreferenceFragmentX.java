@@ -336,11 +336,11 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
                 }
 
                 List<BluetoothDeviceData> boundedDevicesList = BluetoothScanWorker.getBoundedDevicesList(prefContext);
-                if (boundedDevicesList != null) {
+                //if (boundedDevicesList != null) {
                     for (BluetoothDeviceData device : boundedDevicesList) {
                         _bluetoothList.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false, 0, true, false));
                     }
-                }
+                //}
 
                 List<BluetoothDeviceData> scanResults = BluetoothScanWorker.getScanResults(prefContext);
                 //PPApplication.logE("BluetoothNamePreferenceFragmentX.refreshListView", "scanResults="+scanResults);
@@ -421,7 +421,7 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
                     }
                 }
 
-                Collections.sort(_bluetoothList, new BluetoothNamePreferenceFragmentX.SortList());
+                Collections.sort(_bluetoothList, new SortList());
 
                 //if (android.os.Build.VERSION.SDK_INT >= 18) {
                 _bluetoothList.add(0, new BluetoothDeviceData(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE, "", BluetoothDevice.DEVICE_TYPE_DUAL, false, 0, false, false));
@@ -481,7 +481,7 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
         rescanAsyncTask.execute();
     }
 
-    private class SortList implements Comparator<BluetoothDeviceData> {
+    private static class SortList implements Comparator<BluetoothDeviceData> {
 
         public int compare(BluetoothDeviceData lhs, BluetoothDeviceData rhs) {
             if (GlobalGUIRoutines.collator != null)

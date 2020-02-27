@@ -22,6 +22,7 @@ import com.codetroopers.betterpickers.R;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DecimalFormat;
+import java.util.Arrays;
 
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.TooltipCompat;
@@ -163,9 +164,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         mDivider = findViewById(R.id.divider);
         mError = findViewById(R.id.error);
 
-        for (int i = 0; i < mInput.length; i++) {
-            mInput[i] = -1;
-        }
+        Arrays.fill(mInput, -1);
 
         View v1 = findViewById(R.id.first);
         View v2 = findViewById(R.id.second);
@@ -439,6 +438,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         for (int i : mInput) {
             if (i == 10) {
                 containsDecimal = true;
+                break;
             }
         }
         return containsDecimal;

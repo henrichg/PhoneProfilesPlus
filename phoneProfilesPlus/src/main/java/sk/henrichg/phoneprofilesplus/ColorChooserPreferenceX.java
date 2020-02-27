@@ -63,7 +63,7 @@ public class ColorChooserPreferenceX extends DialogPreference {
 
     private void setColorInWidget() {
 
-        int color = Integer.valueOf(value);
+        int color = Integer.parseInt(value);
 
         Drawable selector = createSelector(color);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

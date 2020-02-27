@@ -247,7 +247,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
                     long activateProfileId = 0;
                     if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_BACKGROUND_PROFILE) {
-                        activateProfileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile);
+                        activateProfileId = Long.parseLong(ApplicationPreferences.applicationBackgroundProfile);
                         if (activateProfileId == Profile.PROFILE_NO_ACTIVATE)
                             activateProfileId = 0;
 

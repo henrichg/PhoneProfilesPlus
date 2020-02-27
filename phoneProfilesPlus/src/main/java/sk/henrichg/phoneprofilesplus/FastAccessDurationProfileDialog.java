@@ -84,7 +84,7 @@ class FastAccessDurationProfileDialog
             protected Void doInBackground(Void... params) {
                 dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator);
                 synchronized (dataWrapper.profileList) {
-                    Collections.sort(dataWrapper.profileList, new FastAccessDurationProfileDialog.AlphabeticallyComparator());
+                    Collections.sort(dataWrapper.profileList, new AlphabeticallyComparator());
                 }
 
                 return null;
@@ -149,7 +149,7 @@ class FastAccessDurationProfileDialog
             mDialog.show();
     }
 
-    private class AlphabeticallyComparator implements Comparator<Profile> {
+    private static class AlphabeticallyComparator implements Comparator<Profile> {
 
         public int compare(Profile lhs, Profile rhs) {
             if (GlobalGUIRoutines.collator != null)

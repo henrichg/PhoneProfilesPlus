@@ -280,8 +280,6 @@
     <string name="event_preferences_sms_contacts">Kapcsolatok</string>
     <string name="toast_events_restarted">Események újra indítása</string>
     <string name="event_name_background_profile">Alapértelmezett profil</string>
-    <string name="phone_profiles_pref_applicationEventWifiRescan">Wi-Fi újraellenőrzése</string>
-    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Bluetooth újraellenőrzése</string>
     <string name="profile_preferences_volumeZenMode">Megszakítások típusa</string>
     <string name="array_pref_zenModeArray_all">Mindegyik</string>
     <string name="array_pref_zenModeArray_priority">Elsőbbség</string>
@@ -514,7 +512,6 @@
     <string name="info_notification_event_states_running_delay">Futtatás késleltetve: esemény fut, de a paraméterek nem teljesülnek. Esemény ki várja a késleltetést.</string>
     <string name="profile_preferences_askForDuration">Kérés időtartama</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">Akkumulátor optimalizálása</string>
-    <string name="phone_profiles_pref_applicationEventLocationRescan">Újra ellenőrzi a helyzetet</string>
     <string name="profile_preferences_deviceNetworkType">(R) Mobilhálózat típusa</string>
     <string name="array_pref_powerSaveMode_useSystem">Energiatakarékos használat</string>
     <string name="phone_profiles_pref_applicationBatterySaver">Energiatakarékos</string>
@@ -589,7 +586,6 @@
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Cellák regisztrációja</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode">Mobil cellák ellenőrzése energiatakarékos üzemmódban</string>
     <string name="array_pref_scanInPowerSaveMode_scan">Ellenőrzés</string>
-    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Mobil cellák újraellenőrzése</string>
     <string name="mobile_cells_registration_pref_dlg_start_button">Start</string>
     <string name="mobile_cells_registration_pref_dlg_stop_button">Leállítás</string>
     <string name="mobile_cells_registration_pref_dlg_status_started">Elindítva</string>
@@ -1660,4 +1656,8 @@
     <!--    <string name="array_pref_value_vi" translatable="false">vi</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Screen On</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Screen On &amp; Restart events</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventWifiRescan">Re-scan Wi-Fi</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Re-scan Bluetooth</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
 </resources>

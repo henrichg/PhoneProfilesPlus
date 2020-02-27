@@ -98,8 +98,8 @@ public class InfoDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
                     }*/
 
                     String[] splits = _importantInfoTagDataString.split(",");
-                    int page = Integer.valueOf(splits[0]);
-                    int resource = Integer.valueOf(splits[1]);
+                    int page = Integer.parseInt(splits[0]);
+                    int resource = Integer.parseInt(splits[1]);
 
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView.onClick", "page=" + page);

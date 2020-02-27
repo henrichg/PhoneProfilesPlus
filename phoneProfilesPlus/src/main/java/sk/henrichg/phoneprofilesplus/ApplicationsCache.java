@@ -17,7 +17,7 @@ import androidx.collection.LruCache;
 
 class ApplicationsCache {
 
-    private class SortList implements Comparator<Application> {
+    private static class SortList implements Comparator<Application> {
 
         public int compare(Application lhs, Application rhs) {
             if (GlobalGUIRoutines.collator != null) {

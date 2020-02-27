@@ -164,7 +164,7 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
                             }
                         //}
 
-                        Collections.sort(_SSIDList, new ConnectToSSIDDialogPreferenceFragmentX.SortList());
+                        Collections.sort(_SSIDList, new SortList());
 
                         //if (preference.disableSharedProfile == 0)
                         //    _SSIDList.add(0, new WifiSSIDData(Profile.CONNECTTOSSID_SHAREDPROFILE, "", false, false, false));
@@ -192,7 +192,7 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
         }.execute();
     }
 
-    private class SortList implements Comparator<WifiSSIDData> {
+    private static class SortList implements Comparator<WifiSSIDData> {
 
         public int compare(WifiSSIDData lhs, WifiSSIDData rhs) {
             if (GlobalGUIRoutines.collator != null)

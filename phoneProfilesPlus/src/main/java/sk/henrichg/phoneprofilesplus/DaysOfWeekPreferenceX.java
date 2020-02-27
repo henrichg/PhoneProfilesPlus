@@ -97,8 +97,10 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
                 for (DayOfWeek dayOfWeek : daysOfWeekList) {
                     dayOfWeek.checked = false;
                     for (String split : splits) {
-                        if (dayOfWeek.value.equals(split))
+                        if (dayOfWeek.value.equals(split)) {
                             dayOfWeek.checked = true;
+                            break;
+                        }
                     }
                 }
             }
@@ -118,7 +120,7 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
                     allIsConfigured = true;
                     break;
                 }
-                daySet[Integer.valueOf(split)] = true;
+                daySet[Integer.parseInt(split)] = true;
             }
         }
         if (!allIsConfigured) {

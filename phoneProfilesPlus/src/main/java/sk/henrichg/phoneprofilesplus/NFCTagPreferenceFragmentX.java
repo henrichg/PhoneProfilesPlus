@@ -272,7 +272,7 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
                     }
                 }
 
-                Collections.sort(_nfcTagList, new NFCTagPreferenceFragmentX.SortList());
+                Collections.sort(_nfcTagList, new SortList());
 
                 // move checked on top
                 int i = 0;
@@ -320,7 +320,7 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
         rescanAsyncTask.execute();
     }
 
-    private class SortList implements Comparator<NFCTag> {
+    private static class SortList implements Comparator<NFCTag> {
 
         public int compare(NFCTag lhs, NFCTag rhs) {
             if (GlobalGUIRoutines.collator != null)

@@ -907,7 +907,7 @@ class Event {
                         String[] splits = startWhenActivatedProfile.split("\\|");
                         Profile profile;
                         if (splits.length == 1) {
-                            profile = dataWrapper.getProfileById(Long.valueOf(startWhenActivatedProfile), false, false, false);
+                            profile = dataWrapper.getProfileById(Long.parseLong(startWhenActivatedProfile), false, false, false);
                             if (profile != null)
                                 summary = summary + profile._name;
                         }
@@ -1353,7 +1353,7 @@ class Event {
                 boolean found = false;
                 String[] splits = _startWhenActivatedProfile.split("\\|");
                 for (String split : splits) {
-                    if (activatedProfile._id == Long.valueOf(split)) {
+                    if (activatedProfile._id == Long.parseLong(split)) {
                         found = true;
                         break;
                     }

@@ -280,8 +280,6 @@
     <string name="event_preferences_sms_contacts">Contacten</string>
     <string name="toast_events_restarted">Event opnieuw gestart</string>
     <string name="event_name_background_profile">Standaardprofiel</string>
-    <string name="phone_profiles_pref_applicationEventWifiRescan">Wi-Fi opnieuw scannen</string>
-    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Bluetooth opnieuw scannen</string>
     <string name="profile_preferences_volumeZenMode">Onderbrekingentype</string>
     <string name="array_pref_zenModeArray_all">Alles</string>
     <string name="array_pref_zenModeArray_priority">Prioriteit</string>
@@ -514,7 +512,6 @@
     <string name="info_notification_event_states_running_delay">Uitvoeren met vertraging: Event draait, maar parameters voldoen niet meer. Event wacht gedurende de vertraging.</string>
     <string name="profile_preferences_askForDuration">Vraag naar tijdsduur</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">Batterij optimalisatie</string>
-    <string name="phone_profiles_pref_applicationEventLocationRescan">Locatie opnieuw scannen</string>
     <string name="profile_preferences_deviceNetworkType">(R) Mobiel netwerk type</string>
     <string name="array_pref_powerSaveMode_useSystem">Gebruik accubesparing</string>
     <string name="phone_profiles_pref_applicationBatterySaver">Accubesparing</string>
@@ -589,7 +586,6 @@
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Cel registratie</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode">Zendmast cel scannen in Energiebesparingsmodus</string>
     <string name="array_pref_scanInPowerSaveMode_scan">Scannen</string>
-    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Herscan zendmast cellen</string>
     <string name="mobile_cells_registration_pref_dlg_start_button">Start</string>
     <string name="mobile_cells_registration_pref_dlg_stop_button">Stop</string>
     <string name="mobile_cells_registration_pref_dlg_status_started">Gestart</string>
@@ -1660,4 +1656,8 @@
     <!--    <string name="array_pref_value_vi" translatable="false">vi</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Screen On</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Screen On &amp; Restart events</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventWifiRescan">Re-scan Wi-Fi</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Re-scan Bluetooth</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
 </resources>

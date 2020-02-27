@@ -610,7 +610,7 @@ class ApplicationPreferences {
     }
 
     static void applicationEventWifiScanInterval(Context context) {
-        applicationEventWifiScanInterval = Integer.valueOf(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, "15"));
+        applicationEventWifiScanInterval = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, "15"));
     }
 
     static void applicationBackgroundProfile(Context context) {
@@ -638,7 +638,7 @@ class ApplicationPreferences {
     }
 
     static void applicationEventBluetoothScanInterval(Context context) {
-        applicationEventBluetoothScanInterval = Integer.valueOf(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, "15"));
+        applicationEventBluetoothScanInterval = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, "15"));
     }
 
     /*static void applicationEventWifiRescan(Context context) {
@@ -670,11 +670,11 @@ class ApplicationPreferences {
     }
 
     static void applicationEventBluetoothLEScanDuration(Context context) {
-        applicationEventBluetoothLEScanDuration = Integer.valueOf(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION, "10"));
+        applicationEventBluetoothLEScanDuration = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION, "10"));
     }
 
     static void applicationEventLocationUpdateInterval(Context context) {
-        applicationEventLocationUpdateInterval = Integer.valueOf(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, "15"));
+        applicationEventLocationUpdateInterval = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, "15"));
     }
 
     static void applicationEventLocationUpdateInPowerSaveMode(Context context) {
@@ -690,7 +690,7 @@ class ApplicationPreferences {
     }*/
 
     static void applicationEventOrientationScanInterval(Context context) {
-        applicationEventOrientationScanInterval = Integer.valueOf(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, "10"));
+        applicationEventOrientationScanInterval = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, "10"));
     }
 
     static void applicationEventOrientationScanInPowerSaveMode(Context context) {
@@ -706,7 +706,7 @@ class ApplicationPreferences {
     }*/
 
     static void applicationDeleteOldActivityLogs(Context context) {
-        applicationDeleteOldActivityLogs = Integer.valueOf(getSharedPreferences(context).getString(PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, "7"));
+        applicationDeleteOldActivityLogs = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, "7"));
     }
 
     static void applicationWidgetIconBackground(Context context) {
@@ -730,7 +730,7 @@ class ApplicationPreferences {
     }
 
     static void applicationForceSetMergeRingNotificationVolumes(Context context) {
-        applicationForceSetMergeRingNotificationVolumes = Integer.valueOf(getSharedPreferences(context).getString(PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES, "0"));
+        applicationForceSetMergeRingNotificationVolumes = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES, "0"));
     }
 
     /*

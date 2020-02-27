@@ -280,8 +280,6 @@
     <string name="event_preferences_sms_contacts">Kontakty</string>
     <string name="toast_events_restarted">Zdarzenia zrestartowane</string>
     <string name="event_name_background_profile">Profil domyślny</string>
-    <string name="phone_profiles_pref_applicationEventWifiRescan">Skanuj Wi-Fi</string>
-    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Skanuj Bluetooth</string>
     <string name="profile_preferences_volumeZenMode">Typ przerwania</string>
     <string name="array_pref_zenModeArray_all">Wszystkie</string>
     <string name="array_pref_zenModeArray_priority">Priorytet</string>
@@ -514,7 +512,6 @@
     <string name="info_notification_event_states_running_delay">Uruchamianie z opóźnieniem: zdarzenie jest uruchomione, ale parametry nie są spełnione. Zdarzenie czeka na wygaśnięcie opóźnienia.</string>
     <string name="profile_preferences_askForDuration">Pytaj o czas trwania</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">Optymalizacja baterii</string>
-    <string name="phone_profiles_pref_applicationEventLocationRescan">Ponownie przeskanuj lokalizację</string>
     <string name="profile_preferences_deviceNetworkType">(R) Typ sieci mobilnej</string>
     <string name="array_pref_powerSaveMode_useSystem">Gdy włączone systemowe \"Oszczędzanie baterii\"</string>
     <string name="phone_profiles_pref_applicationBatterySaver">Oszczędzanie baterii</string>
@@ -589,7 +586,6 @@
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Rejestracja stacji</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode">Skanowanie stacji bazowych w trybie oszczędzania baterii</string>
     <string name="array_pref_scanInPowerSaveMode_scan">Skanuj</string>
-    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Przeskanuj ponownie stacje bazowe</string>
     <string name="mobile_cells_registration_pref_dlg_start_button">Rozpocznij</string>
     <string name="mobile_cells_registration_pref_dlg_stop_button">Zatrzymaj</string>
     <string name="mobile_cells_registration_pref_dlg_status_started">Rozpoczęte</string>
@@ -1661,4 +1657,8 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <!--    <string name="array_pref_value_vi" translatable="false">vi</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Screen On</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Screen On &amp; Restart events</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventWifiRescan">Re-scan Wi-Fi</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Re-scan Bluetooth</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
 </resources>

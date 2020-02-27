@@ -210,18 +210,16 @@ class EventPreferencesCall extends EventPreferences {
             if (listPreference != null) {
                 Preference preferenceDuration = prefMng.findPreference(PREF_EVENT_CALL_DURATION);
                 Preference preferencePermanentRun = prefMng.findPreference(PREF_EVENT_CALL_PERMANENT_RUN);
+                boolean enabledCall = value.equals(String.valueOf(CALL_EVENT_MISSED_CALL)) ||
+                        value.equals(String.valueOf(CALL_EVENT_INCOMING_CALL_ENDED)) ||
+                        value.equals(String.valueOf(CALL_EVENT_OUTGOING_CALL_ENDED));
                 if (preferenceDuration != null) {
-                    boolean enabled = value.equals(String.valueOf(CALL_EVENT_MISSED_CALL)) ||
-                            value.equals(String.valueOf(CALL_EVENT_INCOMING_CALL_ENDED)) ||
-                            value.equals(String.valueOf(CALL_EVENT_OUTGOING_CALL_ENDED));
+                    boolean enabled = enabledCall;
                     enabled = enabled && !preferences.getBoolean(PREF_EVENT_CALL_PERMANENT_RUN, false);
                     preferenceDuration.setEnabled(enabled);
                 }
                 if (preferencePermanentRun != null)
-                    preferencePermanentRun.setEnabled(value.equals(String.valueOf(CALL_EVENT_MISSED_CALL)) ||
-                            value.equals(String.valueOf(CALL_EVENT_INCOMING_CALL_ENDED)) ||
-                            value.equals(String.valueOf(CALL_EVENT_OUTGOING_CALL_ENDED))
-                    );
+                    preferencePermanentRun.setEnabled(enabledCall);
             }
         }
         if (key.equals(PREF_EVENT_CALL_PERMANENT_RUN)) {
@@ -685,7 +683,7 @@ class EventPreferencesCall extends EventPreferences {
                             List<Contact> contactList = contactsCache.getList(false);
                             if (contactList != null) {
                                 for (Contact contact : contactList) {
-                                    if ((contact.contactId == Long.valueOf(splits2[0])) && contact.phoneId == Long.valueOf(splits2[1])) {
+                                    if ((contact.contactId == Long.parseLong(splits2[0])) && contact.phoneId == Long.parseLong(splits2[1])) {
                                         String _phoneNumber = contact.phoneNumber;
                                         if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
                                             phoneNumberFound = true;

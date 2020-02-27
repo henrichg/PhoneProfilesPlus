@@ -438,8 +438,10 @@ class EventPreferencesNFC extends EventPreferences {
 
             String[] splits = this._nfcTags.split("\\|");
             for (String tag : splits) {
-                if (tag.equals(tagName))
+                if (tag.equals(tagName)) {
                     tagFound = true;
+                    break;
+                }
             }
 
             //PPApplication.logE("EventPreferencesNFC.saveStartTime", "tagFound=" + tagFound);

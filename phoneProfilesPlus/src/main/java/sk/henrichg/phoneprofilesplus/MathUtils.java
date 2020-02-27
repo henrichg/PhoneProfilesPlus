@@ -32,15 +32,15 @@ public final class MathUtils {
     }
 
     public static int constrain(int amount, int low, int high) {
-        return amount < low ? low : (amount > high ? high : amount);
+        return amount < low ? low : (Math.min(amount, high));
     }
 
     public static long constrain(long amount, long low, long high) {
-        return amount < low ? low : (amount > high ? high : amount);
+        return amount < low ? low : (Math.min(amount, high));
     }
 
     public static float constrain(float amount, float low, float high) {
-        return amount < low ? low : (amount > high ? high : amount);
+        return amount < low ? low : (Math.min(amount, high));
     }
 
     public static float log(float a) {
@@ -60,35 +60,35 @@ public final class MathUtils {
     }
 
     public static float max(float a, float b) {
-        return a > b ? a : b;
+        return Math.max(a, b);
     }
 
     public static float max(int a, int b) {
-        return a > b ? a : b;
+        return Math.max(a, b);
     }
 
     public static float max(float a, float b, float c) {
-        return a > b ? (a > c ? a : c) : (b > c ? b : c);
+        return a > b ? (Math.max(a, c)) : (Math.max(b, c));
     }
 
     public static float max(int a, int b, int c) {
-        return a > b ? (a > c ? a : c) : (b > c ? b : c);
+        return a > b ? (Math.max(a, c)) : (Math.max(b, c));
     }
 
     public static float min(float a, float b) {
-        return a < b ? a : b;
+        return Math.min(a, b);
     }
 
     public static float min(int a, int b) {
-        return a < b ? a : b;
+        return Math.min(a, b);
     }
 
     public static float min(float a, float b, float c) {
-        return a < b ? (a < c ? a : c) : (b < c ? b : c);
+        return a < b ? (Math.min(a, c)) : (Math.min(b, c));
     }
 
     public static float min(int a, int b, int c) {
-        return a < b ? (a < c ? a : c) : (b < c ? b : c);
+        return a < b ? (Math.min(a, c)) : (Math.min(b, c));
     }
 
     public static float dist(float x1, float y1, float x2, float y2) {

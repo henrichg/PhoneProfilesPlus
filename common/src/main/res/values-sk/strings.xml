@@ -280,8 +280,6 @@
     <string name="event_preferences_sms_contacts">Kontakty</string>
     <string name="toast_events_restarted">Udalosti reštartované</string>
     <string name="event_name_background_profile">Predvolený profil</string>
-    <string name="phone_profiles_pref_applicationEventWifiRescan">Preskenuj Wi-Fi</string>
-    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Preskenuj Bluetooth</string>
     <string name="profile_preferences_volumeZenMode">Typy vyrušení</string>
     <string name="array_pref_zenModeArray_all">Všetky</string>
     <string name="array_pref_zenModeArray_priority">Prioritné</string>
@@ -514,7 +512,6 @@
     <string name="info_notification_event_states_running_delay">Beží s pozdržaním: udalosť je spustená, ale parametre už nie sú splnené. Udalosť čaká v pozdržaní.</string>
     <string name="profile_preferences_askForDuration">Pýtať si trvanie</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">Optimalizácia batérie</string>
-    <string name="phone_profiles_pref_applicationEventLocationRescan">Preskenuj polohu</string>
     <string name="profile_preferences_deviceNetworkType">(R) Typ mobilnej siete</string>
     <string name="array_pref_powerSaveMode_useSystem">Používaj Šetrič batérie</string>
     <string name="phone_profiles_pref_applicationBatterySaver">Šetrič batérie</string>
@@ -589,7 +586,6 @@
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Registrácia buniek</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode">Skenovanie mobilných buniek v režime úspory energie</string>
     <string name="array_pref_scanInPowerSaveMode_scan">Skenovať</string>
-    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Preskenuj mobilné bunky</string>
     <string name="mobile_cells_registration_pref_dlg_start_button">Štart</string>
     <string name="mobile_cells_registration_pref_dlg_stop_button">Zastaviť</string>
     <string name="mobile_cells_registration_pref_dlg_status_started">Spustené</string>
@@ -1660,4 +1656,8 @@
     <!--    <string name="array_pref_value_vi" translatable="false">vi</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Screen On</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Screen On &amp; Restart events</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventWifiRescan">Re-scan Wi-Fi</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Re-scan Bluetooth</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
 </resources>

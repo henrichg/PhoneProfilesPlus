@@ -54,8 +54,10 @@ public class BluetoothNamePreferenceX extends DialogPreference {
         String[] splits = value.split("\\|");
         boolean found = false;
         for (String _bluetoothName : splits) {
-            if (_bluetoothName.equals(bluetoothName))
+            if (_bluetoothName.equals(bluetoothName)) {
                 found = true;
+                break;
+            }
         }
         if (!found) {
             if (!value.isEmpty())

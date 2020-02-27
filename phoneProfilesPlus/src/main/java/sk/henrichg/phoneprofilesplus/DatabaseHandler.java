@@ -3672,7 +3672,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 splits = oldFkProfiles.split("\\|");
                                 StringBuilder newFkProfiles = new StringBuilder();
                                 for (String split : splits) {
-                                    long fkProfile = Long.valueOf(split);
+                                    long fkProfile = Long.parseLong(split);
                                     if (fkProfile != profile._id) {
                                         if (newFkProfiles.length() > 0)
                                             newFkProfiles.append("|");
@@ -5017,7 +5017,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 String[] splits = oldFkProfiles.split("\\|");
                                 StringBuilder newFkProfiles = new StringBuilder();
                                 for (String split : splits) {
-                                    long fkProfile = Long.valueOf(split);
+                                    long fkProfile = Long.parseLong(split);
                                     if (fkProfile != profile._id) {
                                         if (newFkProfiles.length() > 0)
                                             newFkProfiles.append("|");
@@ -10832,7 +10832,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                                 String[] splits = fkProfiles.split("\\|");
                                                                 StringBuilder newFkProfiles = new StringBuilder();
                                                                 for (String split : splits) {
-                                                                    long fkProfile = Long.valueOf(split);
+                                                                    long fkProfile = Long.parseLong(split);
                                                                     int profileIdx = exportedDBEventProfileIds.indexOf(fkProfile);
                                                                     if (profileIdx != -1) {
                                                                         if (newFkProfiles.length() > 0)

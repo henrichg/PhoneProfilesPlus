@@ -280,8 +280,6 @@
     <string name="event_preferences_sms_contacts">Contactos</string>
     <string name="toast_events_restarted">Eventos reiniciados</string>
     <string name="event_name_background_profile">Perfil predeterminado</string>
-    <string name="phone_profiles_pref_applicationEventWifiRescan">Reescanear Wi-Fi</string>
-    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Reescanear Bluetooth</string>
     <string name="profile_preferences_volumeZenMode">Tipo de interrupciones</string>
     <string name="array_pref_zenModeArray_all">Todo</string>
     <string name="array_pref_zenModeArray_priority">Prioridad</string>
@@ -514,7 +512,6 @@
     <string name="info_notification_event_states_running_delay">Funcionando con retraso: el evento está en funcionamiento, sin embargo no se cumplen los parámetros. El evento está en espera debido a un retraso.</string>
     <string name="profile_preferences_askForDuration">Preguntar Duración</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">Optimización de batería</string>
-    <string name="phone_profiles_pref_applicationEventLocationRescan">Reescanear localización</string>
     <string name="profile_preferences_deviceNetworkType">(R) Tipo de red móvil</string>
     <string name="array_pref_powerSaveMode_useSystem">Activar ahorro de batería</string>
     <string name="phone_profiles_pref_applicationBatterySaver">Ahorro de batería</string>
@@ -589,7 +586,6 @@
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Registro del celular</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode">Escaneo del celular móvil en modo Ahorro de Energía</string>
     <string name="array_pref_scanInPowerSaveMode_scan">Escaneo</string>
-    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Vuelva a escanear los celulares móviles</string>
     <string name="mobile_cells_registration_pref_dlg_start_button">Inicio</string>
     <string name="mobile_cells_registration_pref_dlg_stop_button">Parar</string>
     <string name="mobile_cells_registration_pref_dlg_status_started">Iniciado</string>
@@ -1660,4 +1656,8 @@
     <!--    <string name="array_pref_value_vi" translatable="false">vi</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Screen On</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Screen On &amp; Restart events</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventWifiRescan">Re-scan Wi-Fi</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Re-scan Bluetooth</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
 </resources>

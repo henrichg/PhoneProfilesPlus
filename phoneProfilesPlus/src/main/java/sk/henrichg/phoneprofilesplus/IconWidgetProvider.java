@@ -134,7 +134,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         int green;
                         int blue;
                         if (applicationWidgetIconBackgroundType) {
-                            int bgColor = Integer.valueOf(applicationWidgetIconBackgroundColor);
+                            int bgColor = Integer.parseInt(applicationWidgetIconBackgroundColor);
                             red = Color.red(bgColor);
                             green = Color.green(bgColor);
                             blue = Color.blue(bgColor);

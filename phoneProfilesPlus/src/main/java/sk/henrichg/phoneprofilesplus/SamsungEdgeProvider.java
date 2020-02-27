@@ -72,7 +72,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         int green;
         int blue;
         if (applicationSamsungEdgeBackgroundType) {
-            int bgColor = Integer.valueOf(applicationSamsungEdgeBackgroundColor);
+            int bgColor = Integer.parseInt(applicationSamsungEdgeBackgroundColor);
             red = Color.red(bgColor);
             green = Color.green(bgColor);
             blue = Color.blue(bgColor);

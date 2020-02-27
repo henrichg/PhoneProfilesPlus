@@ -117,7 +117,7 @@ public class ShortcutCreatorListFragment extends Fragment {
         Handler progressBarHandler;
         Runnable progressBarRunnable;
 
-        private class ProfileComparator implements Comparator<Profile> {
+        private static class ProfileComparator implements Comparator<Profile> {
             public int compare(Profile lhs, Profile rhs) {
                 if (GlobalGUIRoutines.collator != null)
                     return GlobalGUIRoutines.collator.compare(lhs._name, rhs._name);

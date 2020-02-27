@@ -85,8 +85,10 @@ public class NFCTagPreferenceX extends DialogPreference {
         String[] splits = value.split("\\|");
         boolean found = false;
         for (String tag : splits) {
-            if (tag.equals(tagName))
+            if (tag.equals(tagName)) {
                 found = true;
+                break;
+            }
         }
         if (!found) {
             if (!value.isEmpty())

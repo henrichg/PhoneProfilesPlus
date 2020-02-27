@@ -280,8 +280,6 @@
     <string name="event_preferences_sms_contacts">אנשי קשר</string>
     <string name="toast_events_restarted">אירועים הופעלו מחדש</string>
     <string name="event_name_background_profile">פרופיל ברירת מחדל</string>
-    <string name="phone_profiles_pref_applicationEventWifiRescan">סריקה מחדש של Wi-Fi</string>
-    <string name="phone_profiles_pref_applicationEventBluetoothRescan">סריקה מחדש של Bluetooth</string>
     <string name="profile_preferences_volumeZenMode">סוג התפרצויות</string>
     <string name="array_pref_zenModeArray_all">כולם</string>
     <string name="array_pref_zenModeArray_priority">עדיפות</string>
@@ -514,7 +512,6 @@
     <string name="info_notification_event_states_running_delay">פועל עם השהיה: אירוע מופעל, אך הפרמטרים כבר לא מתקיימים. האירוע ממתין בהשהיה.</string>
     <string name="profile_preferences_askForDuration">בקשה להגדרת משך-זמן</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">מיטוב הסוללה</string>
-    <string name="phone_profiles_pref_applicationEventLocationRescan">סריקה מחדש של מיקום</string>
     <string name="profile_preferences_deviceNetworkType">(R) סוג הרשת הסלולרית</string>
     <string name="array_pref_powerSaveMode_useSystem">שימוש בחיסכון בסוללה</string>
     <string name="phone_profiles_pref_applicationBatterySaver">חיסכון בסוללה</string>
@@ -589,7 +586,6 @@
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">רישום תאים</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode">סריקת תאים סלולריים במצב חיסכון בצריכת חשמל</string>
     <string name="array_pref_scanInPowerSaveMode_scan">סריקה</string>
-    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">סריקה מחדש של תאים סלולריים</string>
     <string name="mobile_cells_registration_pref_dlg_start_button">התחלה</string>
     <string name="mobile_cells_registration_pref_dlg_stop_button">עצירה</string>
     <string name="mobile_cells_registration_pref_dlg_status_started">החל</string>
@@ -1663,4 +1659,8 @@
     <!--    <string name="array_pref_value_vi" translatable="false">vi</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Screen On</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Screen On &amp; Restart events</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventWifiRescan">Re-scan Wi-Fi</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Re-scan Bluetooth</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
 </resources>

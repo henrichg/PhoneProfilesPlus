@@ -34,7 +34,7 @@ class ProfilePreferenceAdapterX extends BaseAdapter {
             else
                 this.profileId = 0;
         else
-            this.profileId = Long.valueOf(profileId);
+            this.profileId = Long.parseLong(profileId);
 
         inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }

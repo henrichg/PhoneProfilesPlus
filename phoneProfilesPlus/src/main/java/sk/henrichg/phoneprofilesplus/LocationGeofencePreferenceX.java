@@ -153,7 +153,7 @@ public class LocationGeofencePreferenceX extends DialogPreference {
                     if (_geofence.isEmpty()) {
                         setSummary(R.string.applications_multiselect_summary_text_not_selected);
                     } else if (splits.length == 1) {
-                        setSummary(EventPreferencesLocation.getGeofenceName(Long.valueOf(_geofence), context));
+                        setSummary(EventPreferencesLocation.getGeofenceName(Long.parseLong(_geofence), context));
                     } else {
                         String selectedLocations = context.getString(R.string.applications_multiselect_summary_text_selected);
                         selectedLocations = selectedLocations + " " + splits.length;

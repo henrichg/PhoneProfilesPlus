@@ -280,8 +280,6 @@
     <string name="event_preferences_sms_contacts">Kontak</string>
     <string name="toast_events_restarted">Acara dimulai ulang</string>
     <string name="event_name_background_profile">Profil standar</string>
-    <string name="phone_profiles_pref_applicationEventWifiRescan">Re-scan Wi-Fi</string>
-    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Re-scan Bluetooth</string>
     <string name="profile_preferences_volumeZenMode">Tipe interupsi</string>
     <string name="array_pref_zenModeArray_all">Semua</string>
     <string name="array_pref_zenModeArray_priority">Prioritas</string>
@@ -514,7 +512,6 @@
     <string name="info_notification_event_states_running_delay">Berjalan dengan delay: event berjalan, tapi parameternya tidak terpenuhi. Acara menunggu penundaan berakhir.</string>
     <string name="profile_preferences_askForDuration">Meminta Durasi</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">Pengoptimalan baterai</string>
-    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan lokasi</string>
     <string name="profile_preferences_deviceNetworkType">(R) Jenis jaringan seluler</string>
     <string name="array_pref_powerSaveMode_useSystem">Gunakan Penghemat baterai</string>
     <string name="phone_profiles_pref_applicationBatterySaver">Penghemat baterai</string>
@@ -589,7 +586,6 @@
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Pendaftaran sel</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode">Pemindaian sel seluler pada mode Hemat Daya</string>
     <string name="array_pref_scanInPowerSaveMode_scan">Scan</string>
-    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan sel ponsel</string>
     <string name="mobile_cells_registration_pref_dlg_start_button">Mulai</string>
     <string name="mobile_cells_registration_pref_dlg_stop_button">Berhenti</string>
     <string name="mobile_cells_registration_pref_dlg_status_started">Dimulai</string>
@@ -1660,4 +1656,8 @@
     <!--    <string name="array_pref_value_vi" translatable="false">vi</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Screen On</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Screen On &amp; Restart events</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventWifiRescan">Re-scan Wi-Fi</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Re-scan Bluetooth</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
 </resources>

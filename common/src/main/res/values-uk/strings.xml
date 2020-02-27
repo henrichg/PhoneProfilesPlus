@@ -280,8 +280,6 @@
     <string name="event_preferences_sms_contacts">Контакти</string>
     <string name="toast_events_restarted">Події перезавантажено</string>
     <string name="event_name_background_profile">Профіль за замовчуванням</string>
-    <string name="phone_profiles_pref_applicationEventWifiRescan">Пересканувати Wi-Fi</string>
-    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Пересканувати Bluetooth</string>
     <string name="profile_preferences_volumeZenMode">Типи режиму сповіщень</string>
     <string name="array_pref_zenModeArray_all">Усі</string>
     <string name="array_pref_zenModeArray_priority">Важливі</string>
@@ -514,7 +512,6 @@
     <string name="info_notification_event_states_running_delay">Запущено із затримкою: подію запущено, але параметри не відповідають умовам. Подія у стані очікування.</string>
     <string name="profile_preferences_askForDuration">Запит Тривалості</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">Економія заряду батареї</string>
-    <string name="phone_profiles_pref_applicationEventLocationRescan">Перевизначити місцезнаходження</string>
     <string name="profile_preferences_deviceNetworkType">(R) Тип мобільної мережі</string>
     <string name="array_pref_powerSaveMode_useSystem">Використовувати Режим Енергозбереження</string>
     <string name="phone_profiles_pref_applicationBatterySaver">Режим Енергозбереження</string>
@@ -589,7 +586,6 @@
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Реєстрація вишок</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode">Сканування мобільних вишок в режимі енергозбереження</string>
     <string name="array_pref_scanInPowerSaveMode_scan">Сканування</string>
-    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Повторне сканування мобільних вишок</string>
     <string name="mobile_cells_registration_pref_dlg_start_button">Запустити</string>
     <string name="mobile_cells_registration_pref_dlg_stop_button">Зупинити</string>
     <string name="mobile_cells_registration_pref_dlg_status_started">Запущено</string>
@@ -1660,4 +1656,8 @@
     <!--    <string name="array_pref_value_vi" translatable="false">vi</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Screen On</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Screen On &amp; Restart events</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventWifiRescan">Re-scan Wi-Fi</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Re-scan Bluetooth</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
 </resources>

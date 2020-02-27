@@ -109,7 +109,7 @@ class EventPreferencesLocation extends EventPreferences {
                             //noinspection StringConcatenationInLoop
                             selectedLocations = selectedLocations + context.getString(R.string.applications_multiselect_summary_text_not_selected);
                         } else if (splits.length == 1) {
-                            selectedLocations = selectedLocations + getGeofenceName(Long.valueOf(_geofence), context);
+                            selectedLocations = selectedLocations + getGeofenceName(Long.parseLong(_geofence), context);
                         } else {
                             selectedLocations = context.getString(R.string.applications_multiselect_summary_text_selected);
                             selectedLocations = selectedLocations + " " + splits.length;

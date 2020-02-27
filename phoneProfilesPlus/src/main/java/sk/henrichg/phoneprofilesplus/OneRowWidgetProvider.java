@@ -135,7 +135,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         int greenBackground;
                         int blueBackground;
                         if (applicationWidgetOneRowBackgroundType) {
-                            int bgColor = Integer.valueOf(applicationWidgetOneRowBackgroundColor);
+                            int bgColor = Integer.parseInt(applicationWidgetOneRowBackgroundColor);
                             redBackground = Color.red(bgColor);
                             greenBackground = Color.green(bgColor);
                             blueBackground = Color.blue(bgColor);

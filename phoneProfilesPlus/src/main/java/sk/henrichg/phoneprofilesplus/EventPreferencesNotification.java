@@ -1300,7 +1300,7 @@ class EventPreferencesNotification extends EventPreferences {
                         List<Contact> contactList = contactsCache.getList(false);
                         if (contactList != null) {
                             for (Contact contact : contactList) {
-                                if ((contact.contactId == Long.valueOf(splits2[0])) && contact.phoneId == Long.valueOf(splits2[1])) {
+                                if ((contact.contactId == Long.parseLong(splits2[0])) && contact.phoneId == Long.parseLong(splits2[1])) {
                                     String _contactName = contact.name;
                                     if (text.toLowerCase().contains(_contactName.toLowerCase())) {
                                         phoneNumberFound = true;

@@ -57,7 +57,7 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
 
     }
 
-    @SuppressWarnings("WeakerAccess")
+    @SuppressWarnings({"WeakerAccess", "InnerClassMayBeStatic"})
     public class RootArgs {
 
         String[] args;

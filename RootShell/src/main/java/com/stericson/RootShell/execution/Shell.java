@@ -158,7 +158,7 @@ public class Shell {
                     (display != null) &&
                     (internal != null) &&
                     (display.endsWith("SUPERSU")) &&
-                    (Integer.valueOf(internal) >= 190)) {
+                    (Integer.parseInt(internal) >= 190)) {
                 cmd += " --context " + this.shellContext.getValue();
             } else {
                 RootShell.log("Su binary --context switch not supported!");

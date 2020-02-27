@@ -280,8 +280,6 @@
     <string name="event_preferences_sms_contacts">联系人</string>
     <string name="toast_events_restarted">事件已启动</string>
     <string name="event_name_background_profile">默认情景</string>
-    <string name="phone_profiles_pref_applicationEventWifiRescan">重新扫描 Wi-Fi</string>
-    <string name="phone_profiles_pref_applicationEventBluetoothRescan">重新扫描蓝牙</string>
     <string name="profile_preferences_volumeZenMode">中断类型</string>
     <string name="array_pref_zenModeArray_all">所有</string>
     <string name="array_pref_zenModeArray_priority">优先级</string>
@@ -514,7 +512,6 @@
     <string name="info_notification_event_states_running_delay">延后运行：事件正在运行，但是参数不满足要求，事件将等待参数变化。</string>
     <string name="profile_preferences_askForDuration">询问时间段</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">电池优化</string>
-    <string name="phone_profiles_pref_applicationEventLocationRescan">重新扫描定位</string>
     <string name="profile_preferences_deviceNetworkType">(R) 移动网络类型</string>
     <string name="array_pref_powerSaveMode_useSystem">使用节电程序</string>
     <string name="phone_profiles_pref_applicationBatterySaver">节电模式</string>
@@ -589,7 +586,6 @@
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">网络注册</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode">在节电模式下的移动网络扫描</string>
     <string name="array_pref_scanInPowerSaveMode_scan">扫描</string>
-    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">重新扫描移动网络</string>
     <string name="mobile_cells_registration_pref_dlg_start_button">启动</string>
     <string name="mobile_cells_registration_pref_dlg_stop_button">停止</string>
     <string name="mobile_cells_registration_pref_dlg_status_started">已启动</string>
@@ -1660,4 +1656,8 @@
     <!--    <string name="array_pref_value_vi" translatable="false">vi</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Screen On</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Screen On &amp; Restart events</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventWifiRescan">Re-scan Wi-Fi</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Re-scan Bluetooth</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
 </resources>

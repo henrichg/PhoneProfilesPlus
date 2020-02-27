@@ -36,7 +36,7 @@ public class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCom
 
         int preselect = 0;
         for (int i = 0; i < preference.mColors.length; i++) {
-            if (preference.mColors[i] == Integer.valueOf(preference.value)) {
+            if (preference.mColors[i] == Integer.parseInt(preference.value)) {
                 preselect = i;
                 break;
             }

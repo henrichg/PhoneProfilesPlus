@@ -517,7 +517,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                         if (_registeredCellData != null) {
                             //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add cells from preference value - registeredCellData.cellId="+registeredCellData.cellId);
                             //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add cells from preference value - cell="+cell);
-                            if (Integer.valueOf(cell) == _registeredCellData.cellId)
+                            if (Integer.parseInt(cell) == _registeredCellData.cellId)
                                 _registeredCellInValue = true;
                         }
                     }
@@ -539,9 +539,9 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                     }
 
                     if (_sortCellsBy == 0)
-                        Collections.sort(_cellsList, new MobileCellsPreferenceFragmentX.SortByNameList());
+                        Collections.sort(_cellsList, new SortByNameList());
                     else
-                        Collections.sort(_cellsList, new MobileCellsPreferenceFragmentX.SortByConnectionList());
+                        Collections.sort(_cellsList, new SortByConnectionList());
 
 
                     //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add cells into filtered list");
@@ -634,7 +634,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         rescanAsyncTask.execute();
     }
 
-    private class SortByNameList implements Comparator<MobileCellsData> {
+    private static class SortByNameList implements Comparator<MobileCellsData> {
 
         public int compare(MobileCellsData lhs, MobileCellsData rhs) {
             if (GlobalGUIRoutines.collator != null) {
@@ -667,7 +667,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
 
     }
 
-    private class SortByConnectionList implements Comparator<MobileCellsData> {
+    private static class SortByConnectionList implements Comparator<MobileCellsData> {
 
         public int compare(MobileCellsData lhs, MobileCellsData rhs) {
             if (GlobalGUIRoutines.collator != null) {

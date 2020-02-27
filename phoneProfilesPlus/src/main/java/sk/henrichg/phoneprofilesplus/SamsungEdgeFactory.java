@@ -236,7 +236,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
         profileList = newProfileList;
     }
 
-    private class ProfileComparator implements Comparator<Profile> {
+    private static class ProfileComparator implements Comparator<Profile> {
 
         public int compare(Profile lhs, Profile rhs) {
             int res = 0;

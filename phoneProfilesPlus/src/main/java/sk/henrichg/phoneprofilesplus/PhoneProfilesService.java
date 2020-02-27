@@ -3332,7 +3332,7 @@ public class PhoneProfilesService extends Service
         });
     }
 
-    private void startGeofenceScanner(boolean start, boolean stop, boolean checkDatabase, boolean forScreenOn) {
+    private void startGeofenceScanner(boolean start, @SuppressWarnings("SameParameterValue") boolean stop, boolean checkDatabase, boolean forScreenOn) {
         synchronized (PPApplication.geofenceScannerMutex) {
             Context appContext = getApplicationContext();
             //CallsCounter.logCounter(appContext, "PhoneProfilesService.startGeofenceScanner", "PhoneProfilesService_startGeofenceScanner");
@@ -4337,27 +4337,45 @@ public class PhoneProfilesService extends Service
                                     break;
                                 case PPApplication.SCANNER_RESTART_ALL_SCANNERS:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_ALL_SCANNERS");
-                                    registerWifiConnectionBroadcastReceiver(true, true, false);
-                                    //registerWifiStateChangedBroadcastReceiver(true, true, false);
-                                    registerWifiAPStateChangeBroadcastReceiver(true, true, false);
-                                    registerWifiScannerReceiver(true, true, false);
-                                    scheduleWifiWorker(true, true, /*forScreenOn, false, false,*/ true);
 
-                                    //registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
-                                    registerBluetoothStateChangedBroadcastReceiver(true, true, false);
-                                    registerBluetoothScannerReceivers(true, true, false);
-                                    scheduleBluetoothWorker(true, true, /*forScreenOn, false,*/ true);
+                                    // wifi
+                                    if (ApplicationPreferences.applicationEventWifiEnableScanning) {
+                                        registerWifiConnectionBroadcastReceiver(true, true, false);
+                                        //registerWifiStateChangedBroadcastReceiver(true, true, false);
+                                        registerWifiAPStateChangeBroadcastReceiver(true, true, false);
+                                        registerWifiScannerReceiver(true, true, false);
+                                        scheduleWifiWorker(true, true, /*forScreenOn, false, false,*/ true);
+                                    }
 
-                                    PhoneStateScanner.forceStart = false;
-                                    startPhoneStateScanner(true, true, true, false, true);
+                                    // bluetooth
+                                    if (ApplicationPreferences.applicationEventBluetoothEnableScanning) {
+                                        //registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
+                                        registerBluetoothStateChangedBroadcastReceiver(true, true, false);
+                                        registerBluetoothScannerReceivers(true, true, false);
+                                        scheduleBluetoothWorker(true, true, /*forScreenOn, false,*/ true);
+                                    }
 
-                                    registerLocationModeChangedBroadcastReceiver(true, true);
-                                    startGeofenceScanner(true, false, true, forScreenOn);
-                                    scheduleGeofenceWorker(true, true, /*forScreenOn,*/ true);
+                                    // mobile cells
+                                    if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
+                                        PhoneStateScanner.forceStart = false;
+                                        startPhoneStateScanner(true, true, true, false, true);
+                                    }
 
-                                    startOrientationScanner(true, false, true);
+                                    // location
+                                    if (ApplicationPreferences.applicationEventLocationEnableScanning) {
+                                        registerLocationModeChangedBroadcastReceiver(true, true);
+                                        startGeofenceScanner(true, true, true, forScreenOn);
+                                        scheduleGeofenceWorker(true, true, /*forScreenOn,*/ true);
+                                    }
 
-                                    startTwilightScanner(true, false, true);
+                                    // orientation
+                                    if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
+                                        startOrientationScanner(true, true, true);
+                                    }
+
+                                    // twilight
+                                    startTwilightScanner(true, true, true);
+
                                     break;
                             }
                         }

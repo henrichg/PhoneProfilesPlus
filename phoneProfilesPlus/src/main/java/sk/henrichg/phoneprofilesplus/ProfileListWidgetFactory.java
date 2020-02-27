@@ -265,7 +265,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         //}
     }
 
-    private class ProfileComparator implements Comparator<Profile> {
+    private static class ProfileComparator implements Comparator<Profile> {
 
         public int compare(Profile lhs, Profile rhs) {
             int res = 0;

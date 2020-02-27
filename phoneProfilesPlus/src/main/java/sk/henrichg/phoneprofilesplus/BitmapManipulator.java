@@ -472,7 +472,7 @@ class BitmapManipulator {
             // choose the smallest ratio as InSampleSize value, this will guarantee
             // a final image with both dimensions larger than or equal to the
             // requested height and width
-            inSampleSize = (heightRatio < widthRatio) ? heightRatio : widthRatio;
+            inSampleSize = Math.min(heightRatio, widthRatio);
         }
         return inSampleSize;
     }

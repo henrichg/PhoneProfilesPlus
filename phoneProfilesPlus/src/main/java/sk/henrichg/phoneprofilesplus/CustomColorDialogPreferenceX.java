@@ -81,6 +81,7 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
 
         Paint paintImage = new Paint();
         paintImage.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
+        //noinspection IntegerDivisionInFloatingPointContext
         canvas.drawBitmap(bitmap, -(bitmap.getWidth() - widthLight)/2 , -(bitmap.getHeight() - heightLight)/2, paintImage);
 
         return output;
@@ -98,6 +99,7 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
             if (colorPreview != null) {
                 int shapeWidth = getContext().getResources()
                         .getDimensionPixelSize(R.dimen.acch_shape_preference_width);
+                @SuppressWarnings("IntegerDivisionInFloatingPointContext")
                 float radius = shapeWidth / 2;
 
                 colorPreview.setImageResource(R.drawable.acch_circle);

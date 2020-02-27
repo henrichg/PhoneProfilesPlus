@@ -205,7 +205,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 String[] splits = event._startWhenActivatedProfile.split("\\|");
                 Profile profile;
                 if (splits.length == 1) {
-                    profile = editorFragment.activityDataWrapper.getProfileById(Long.valueOf(event._startWhenActivatedProfile), false, false, false);
+                    profile = editorFragment.activityDataWrapper.getProfileById(Long.parseLong(event._startWhenActivatedProfile), false, false, false);
                     if (profile != null) {
                         if (addedLF)
                             _eventName = _eventName + "  ";

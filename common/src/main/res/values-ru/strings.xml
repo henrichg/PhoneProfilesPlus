@@ -280,8 +280,6 @@
     <string name="event_preferences_sms_contacts">Контакты</string>
     <string name="toast_events_restarted">События перезапущены</string>
     <string name="event_name_background_profile">Профиль по умолчанию</string>
-    <string name="phone_profiles_pref_applicationEventWifiRescan">Пересканировать Wi-Fi</string>
-    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Пересканировать Bluetooth</string>
     <string name="profile_preferences_volumeZenMode">Типы режима оповещения</string>
     <string name="array_pref_zenModeArray_all">Все</string>
     <string name="array_pref_zenModeArray_priority">Важные</string>
@@ -514,7 +512,6 @@
     <string name="info_notification_event_states_running_delay">Запущено с задержкой: событие запущено, но параметры не соответствуют условиям. Событие в состоянии ожидания.</string>
     <string name="profile_preferences_askForDuration">Запрос продолжительности</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">Экономия заряда батареи</string>
-    <string name="phone_profiles_pref_applicationEventLocationRescan">Переопределять местоположение</string>
     <string name="profile_preferences_deviceNetworkType">(R) Тип мобильной сети</string>
     <string name="array_pref_powerSaveMode_useSystem">Экономия батареи</string>
     <string name="phone_profiles_pref_applicationBatterySaver">Режим энергосбережения</string>
@@ -589,7 +586,6 @@
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Регистрация вышек</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode">Сканирование мобильных вышек в режиме энергосбережения</string>
     <string name="array_pref_scanInPowerSaveMode_scan">Сканировать</string>
-    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Пересканировать мобильные вышки</string>
     <string name="mobile_cells_registration_pref_dlg_start_button">Старт</string>
     <string name="mobile_cells_registration_pref_dlg_stop_button">Стоп</string>
     <string name="mobile_cells_registration_pref_dlg_status_started">Запущено</string>
@@ -1660,4 +1656,8 @@
     <!--    <string name="array_pref_value_vi" translatable="false">vi</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Screen On</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Screen On &amp; Restart events</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventWifiRescan">Re-scan Wi-Fi</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Re-scan Bluetooth</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
+    <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
 </resources>

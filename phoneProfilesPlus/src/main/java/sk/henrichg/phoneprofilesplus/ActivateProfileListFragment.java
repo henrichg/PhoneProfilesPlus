@@ -250,7 +250,7 @@ public class ActivateProfileListFragment extends Fragment {
         Handler progressBarHandler;
         Runnable progressBarRunnable;
 
-        private class ProfileComparator implements Comparator<Profile> {
+        private static class ProfileComparator implements Comparator<Profile> {
             public int compare(Profile lhs, Profile rhs) {
                 int res = 0;
                 if ((lhs != null) && (rhs != null))

@@ -54,8 +54,10 @@ public class WifiSSIDPreferenceX extends DialogPreference {
         String[] splits = value.split("\\|");
         boolean found = false;
         for (String _ssid : splits) {
-            if (_ssid.equals(ssid))
+            if (_ssid.equals(ssid)) {
                 found = true;
+                break;
+            }
         }
         if (!found) {
             if (!value.isEmpty())

@@ -141,7 +141,7 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
         else
             mSeekBarSeconds.setMax(59);
         final String sMin = GlobalGUIRoutines.getDurationString(preference.mMin);
-        int iValue = Integer.valueOf(preference.value);
+        int iValue = Integer.parseInt(preference.value);
         hours = iValue / 3600;
         minutes = (iValue % 3600) / 60;
         seconds = iValue % 60;

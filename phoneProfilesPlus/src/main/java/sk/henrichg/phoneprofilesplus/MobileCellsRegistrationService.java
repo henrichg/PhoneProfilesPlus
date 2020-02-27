@@ -320,7 +320,7 @@ public class MobileCellsRegistrationService extends Service {
         }
     }
 
-    public class MobileCellsPreferenceUseBroadcastReceiver extends BroadcastReceiver {
+    public static class MobileCellsPreferenceUseBroadcastReceiver extends BroadcastReceiver {
 
         MobileCellsPreferenceUseBroadcastReceiver() {
         }

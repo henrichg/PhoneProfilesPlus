@@ -600,7 +600,7 @@ class EventsHandler {
 
                         //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "no events running");
                         // no events running
-                        backgroundProfileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile);
+                        backgroundProfileId = Long.parseLong(ApplicationPreferences.applicationBackgroundProfile);
                         //if (!fullyStarted)
                         //    backgroundProfileId = Profile.PROFILE_NO_ACTIVATE;
                         if (backgroundProfileId != Profile.PROFILE_NO_ACTIVATE) {
@@ -656,7 +656,7 @@ class EventsHandler {
             } else {
                 //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "active profile is activated manually");
                 // manual profile activation
-                backgroundProfileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile);
+                backgroundProfileId = Long.parseLong(ApplicationPreferences.applicationBackgroundProfile);
                 //if (!fullyStarted)
                 //    backgroundProfileId = Profile.PROFILE_NO_ACTIVATE;
                 if (backgroundProfileId != Profile.PROFILE_NO_ACTIVATE) {
