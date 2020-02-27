@@ -1544,8 +1544,8 @@ public class PPApplication extends Application /*implements Application.Activity
             ApplicationPreferences.applicationActivatorGridLayout(context);
             ApplicationPreferences.applicationWidgetListGridLayout(context);
             ApplicationPreferences.applicationEventBluetoothScanInterval(context);
-            ApplicationPreferences.applicationEventWifiRescan(context);
-            ApplicationPreferences.applicationEventBluetoothRescan(context);
+            //ApplicationPreferences.applicationEventWifiRescan(context);
+            //ApplicationPreferences.applicationEventBluetoothRescan(context);
             ApplicationPreferences.applicationWidgetIconHideProfileName(context);
             ApplicationPreferences.applicationShortcutEmblem(context);
             ApplicationPreferences.applicationEventWifiScanInPowerSaveMode(context);
@@ -1555,11 +1555,11 @@ public class PPApplication extends Application /*implements Application.Activity
             ApplicationPreferences.applicationEventLocationUpdateInterval(context);
             ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context);
             ApplicationPreferences.applicationEventLocationUseGPS(context);
-            ApplicationPreferences.applicationEventLocationRescan(context);
+            //ApplicationPreferences.applicationEventLocationRescan(context);
             ApplicationPreferences.applicationEventOrientationScanInterval(context);
             ApplicationPreferences.applicationEventOrientationScanInPowerSaveMode(context);
             ApplicationPreferences.applicationEventMobileCellsScanInPowerSaveMode(context);
-            ApplicationPreferences.applicationEventMobileCellsRescan(context);
+            //ApplicationPreferences.applicationEventMobileCellsRescan(context);
             ApplicationPreferences.applicationDeleteOldActivityLogs(context);
             ApplicationPreferences.applicationWidgetIconBackground(context);
             ApplicationPreferences.applicationWidgetIconLightnessB(context);

@@ -447,14 +447,14 @@
         <item>1</item>
         <item>2</item>
     </string-array>
-    <string-array name="applicationEventRescanArray">
+    <!--<string-array name="applicationEventRescanArray">
         <item>@string/phone_profiles_pref_applicationEventRescan_screenOn</item>
         <item>@string/phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents</item>
     </string-array>
     <string-array name="applicationEventRescanValues">
         <item>1</item>
         <item>3</item>
-    </string-array>
+    </string-array>-->
     <string-array name="zenModeArray" tools:ignore="InconsistentArrays">
         <item>@string/array_pref_zenModeArray_all</item>
         <item>@string/array_pref_zenModeArray_allWithVibration</item>

@@ -188,7 +188,7 @@ public class DelayedWorksWorker extends Worker {
                                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
                                     editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT, ApplicationPreferences.applicationActivateWithAlert);
 
-                                    String rescan;
+                                    /*String rescan;
                                     rescan = ApplicationPreferences.applicationEventLocationRescan;
                                     if (rescan.equals("0"))
                                         editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_RESCAN, "1");
@@ -208,7 +208,8 @@ public class DelayedWorksWorker extends Worker {
                                     if (rescan.equals("0"))
                                         editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "1");
                                     if (rescan.equals("2"))
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "3");
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "3");*/
+
                                     editor.apply();
                                 }
 

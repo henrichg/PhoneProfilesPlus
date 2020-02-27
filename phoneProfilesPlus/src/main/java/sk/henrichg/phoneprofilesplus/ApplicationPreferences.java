@@ -91,8 +91,8 @@ class ApplicationPreferences {
     static boolean applicationActivatorGridLayout;
     static boolean applicationWidgetListGridLayout;
     static int applicationEventBluetoothScanInterval;
-    static String applicationEventWifiRescan;
-    static String applicationEventBluetoothRescan;
+    //static String applicationEventWifiRescan;
+    //static String applicationEventBluetoothRescan;
     static boolean applicationWidgetIconHideProfileName;
     static boolean applicationShortcutEmblem;
     static String applicationEventWifiScanInPowerSaveMode;
@@ -102,11 +102,11 @@ class ApplicationPreferences {
     static int applicationEventLocationUpdateInterval;
     static String applicationEventLocationUpdateInPowerSaveMode;
     static boolean  applicationEventLocationUseGPS;
-    static String  applicationEventLocationRescan;
+    //static String  applicationEventLocationRescan;
     static int applicationEventOrientationScanInterval;
     static String applicationEventOrientationScanInPowerSaveMode;
     static String applicationEventMobileCellsScanInPowerSaveMode;
-    static String applicationEventMobileCellsRescan;
+    //static String applicationEventMobileCellsRescan;
     static int applicationDeleteOldActivityLogs;
     static String applicationWidgetIconBackground;
     static String applicationWidgetIconLightnessB;
@@ -268,8 +268,8 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT = "applicationActivatorGridLayout";
     static final String PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT = "applicationWidgetListGridLayout";
     static final String PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL = "applicationEventBluetoothScanInterval";
-    static final String PREF_APPLICATION_EVENT_WIFI_RESCAN = "applicationEventWifiRescan";
-    static final String PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN = "applicationEventBluetoothRescan";
+    //static final String PREF_APPLICATION_EVENT_WIFI_RESCAN = "applicationEventWifiRescan";
+    //static final String PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN = "applicationEventBluetoothRescan";
     static final String PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME = "applicationWidgetIconHideProfileName";
     static final String PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES = "applicationUnlinkRingerNotificationVolumes";
     //static final String PREF_APPLICATION_RINGER_NOTIFICATION_VOLUMES_UNLINKED_INFO = "applicationRingerNotificationVolumesUnlinkedInfo";
@@ -281,11 +281,11 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL = "applicationEventLocationUpdateInterval";
     static final String PREF_APPLICATION_EVENT_LOCATION_UPDATE_IN_POWER_SAVE_MODE = "applicationEventLocationUpdateInPowerSaveMode";
     static final String PREF_APPLICATION_EVENT_LOCATION_USE_GPS = "applicationEventLocationUseGPS";
-    static final String PREF_APPLICATION_EVENT_LOCATION_RESCAN = "applicationEventLocationRescan";
+    //static final String PREF_APPLICATION_EVENT_LOCATION_RESCAN = "applicationEventLocationRescan";
     static final String PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL = "applicationEventOrientationScanInterval";
     static final String PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_POWER_SAVE_MODE = "applicationEventOrientationScanInPowerSaveMode";
     static final String PREF_APPLICATION_EVENT_MOBILE_CELLS_SCAN_IN_POWER_SAVE_MODE = "applicationEventMobileCellScanInPowerSaveMode";
-    static final String PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN = "applicationEventMobileCellsRescan";
+    //static final String PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN = "applicationEventMobileCellsRescan";
     static final String PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN = "notificationHideInLockscreen";
     static final String PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS = "applicationDeleteOldActivityLogs";
     static final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND = "applicationWidgetIconBackground";
@@ -641,13 +641,13 @@ class ApplicationPreferences {
         applicationEventBluetoothScanInterval = Integer.valueOf(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, "15"));
     }
 
-    static void applicationEventWifiRescan(Context context) {
+    /*static void applicationEventWifiRescan(Context context) {
         applicationEventWifiRescan = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_WIFI_RESCAN, "1");
-    }
+    }*/
 
-    static void applicationEventBluetoothRescan(Context context) {
+    /*static void applicationEventBluetoothRescan(Context context) {
         applicationEventBluetoothRescan = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN, "1");
-    }
+    }*/
 
     static void applicationWidgetIconHideProfileName(Context context) {
         applicationWidgetIconHideProfileName = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME, false);
@@ -685,9 +685,9 @@ class ApplicationPreferences {
         applicationEventLocationUseGPS = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_LOCATION_USE_GPS, false);
     }
 
-    static void applicationEventLocationRescan(Context context) {
+    /*static void applicationEventLocationRescan(Context context) {
         applicationEventLocationRescan = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_LOCATION_RESCAN, "1");
-    }
+    }*/
 
     static void applicationEventOrientationScanInterval(Context context) {
         applicationEventOrientationScanInterval = Integer.valueOf(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, "10"));
@@ -701,9 +701,9 @@ class ApplicationPreferences {
         applicationEventMobileCellsScanInPowerSaveMode = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_MOBILE_CELLS_SCAN_IN_POWER_SAVE_MODE, "1");
     }
 
-    static void applicationEventMobileCellsRescan(Context context) {
+    /*static void applicationEventMobileCellsRescan(Context context) {
         applicationEventMobileCellsRescan = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "1");
-    }
+    }*/
 
     static void applicationDeleteOldActivityLogs(Context context) {
         applicationDeleteOldActivityLogs = Integer.valueOf(getSharedPreferences(context).getString(PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, "7"));

@@ -69,7 +69,7 @@
         app:defaultValue="false"
         app:dependency="applicationEventBluetoothEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <!--<ListPreference
         app:title="@string/phone_profiles_pref_applicationEventBluetoothRescan"
         app:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
         app:key="applicationEventBluetoothRescan"
@@ -77,6 +77,6 @@
         app:entries="@array/applicationEventRescanArray"
         app:entryValues="@array/applicationEventRescanValues"
         app:dependency="applicationEventBluetoothEnableScannig"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget" />-->
     
 </androidx.preference.PreferenceScreen>

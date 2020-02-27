@@ -61,7 +61,7 @@
         app:defaultValue="false"
         app:dependency="applicationEventLocationEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <!--<ListPreference
         app:title="@string/phone_profiles_pref_applicationEventLocationRescan"
         app:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
         app:key="applicationEventLocationRescan"
@@ -69,7 +69,7 @@
         app:entries="@array/applicationEventRescanArray"
         app:entryValues="@array/applicationEventRescanValues"
         app:dependency="applicationEventLocationEnableScannig"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget" />-->
     <SwitchPreferenceCompat
         app:key="applicationEventLocationUseGPS"
         app:title="@string/phone_profiles_pref_applicationEventLocationsUseGPS"
