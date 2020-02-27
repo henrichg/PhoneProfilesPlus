@@ -250,30 +250,25 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
 
                     try {
                         if (preference.volumeType.equalsIgnoreCase("RINGTONE")) {
-                            String ringtoneUri = Settings.System.DEFAULT_RINGTONE_URI.toString();
-                            Uri _ringtoneUri = Uri.parse(ringtoneUri);
+                            Uri _ringtoneUri =  Settings.System.DEFAULT_RINGTONE_URI;
                             preference.mediaPlayer = MediaPlayer.create(_context, _ringtoneUri);
                         }
                         else if (preference.volumeType.equalsIgnoreCase("NOTIFICATION")) {
-                            String ringtoneUri = Settings.System.DEFAULT_NOTIFICATION_URI.toString();
-                            Uri _ringtoneUri = Uri.parse(ringtoneUri);
+                            Uri _ringtoneUri = Settings.System.DEFAULT_NOTIFICATION_URI;
                             preference.mediaPlayer = MediaPlayer.create(_context, _ringtoneUri);
                         }
                         else if (preference.volumeType.equalsIgnoreCase("MEDIA")) {
-                            String ringtoneUri = Settings.System.DEFAULT_RINGTONE_URI.toString();
-                            Uri _ringtoneUri = Uri.parse(ringtoneUri);
+                            Uri _ringtoneUri = Settings.System.DEFAULT_RINGTONE_URI;
                             preference.mediaPlayer = MediaPlayer.create(_context, _ringtoneUri);
                         }
                         else if (preference.volumeType.equalsIgnoreCase("ALARM")) {
-                            String ringtoneUri = Settings.System.DEFAULT_ALARM_ALERT_URI.toString();
-                            Uri _ringtoneUri = Uri.parse(ringtoneUri);
+                            Uri _ringtoneUri = Settings.System.DEFAULT_ALARM_ALERT_URI;
                             preference.mediaPlayer = MediaPlayer.create(_context, _ringtoneUri);
                         }
                         else if (preference.volumeType.equalsIgnoreCase("SYSTEM"))
                             preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
                         else if (preference.volumeType.equalsIgnoreCase("VOICE")) {
-                            String ringtoneUri = Settings.System.DEFAULT_RINGTONE_URI.toString();
-                            Uri _ringtoneUri = Uri.parse(ringtoneUri);
+                            Uri _ringtoneUri = Settings.System.DEFAULT_RINGTONE_URI;
                             preference.mediaPlayer = MediaPlayer.create(_context, _ringtoneUri);
                         }
                         else if (preference.volumeType.equalsIgnoreCase("DTMF"))
@@ -281,8 +276,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                         else if ((Build.VERSION.SDK_INT >= 26) && preference.volumeType.equalsIgnoreCase("ACCESSIBILITY"))
                             preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
                         else if (preference.volumeType.equalsIgnoreCase("BLUETOOTHSCO")) {
-                            String ringtoneUri = Settings.System.DEFAULT_RINGTONE_URI.toString();
-                            Uri _ringtoneUri = Uri.parse(ringtoneUri);
+                            Uri _ringtoneUri = Settings.System.DEFAULT_RINGTONE_URI;
                             preference.mediaPlayer = MediaPlayer.create(_context, _ringtoneUri);
                         }
                         else
