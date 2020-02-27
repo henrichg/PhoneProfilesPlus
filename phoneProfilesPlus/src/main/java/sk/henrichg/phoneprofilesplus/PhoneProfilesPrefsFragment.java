@@ -2557,6 +2557,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             summary = summary + getString(R.string.phone_profiles_pref_applicationRestartEventsAlert);
         }
         if (key.equals("locationScanningCategoryRoot")) {
+            ApplicationPreferences.applicationEventLocationEnableScanning(context);
+            ApplicationPreferences.applicationEventLocationDisabledScannigByProfile(context);
             summary = summary + getString(R.string.phone_profiles_pref_applicationEventLocationEnableScanning) + ": ";
             if (ApplicationPreferences.applicationEventLocationEnableScanning) {
                 summary = summary + getString(R.string.array_pref_applicationDisableScanning_enabled);
@@ -2593,6 +2595,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context);
             }
             else {
+                ApplicationPreferences.applicationEventWifiEnableScanning(context);
+                ApplicationPreferences.applicationEventWifiDisabledScannigByProfile(context);
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventWifiEnableScanning) + ": ";
                 if (ApplicationPreferences.applicationEventWifiEnableScanning) {
                     summary = summary + getString(R.string.array_pref_applicationDisableScanning_enabled);
@@ -2637,6 +2641,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context);
             }
             else {
+                ApplicationPreferences.applicationEventBluetoothEnableScanning(context);
+                ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile(context);
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventBluetoothEnableScanning) + ": ";
                 if (ApplicationPreferences.applicationEventBluetoothEnableScanning) {
                     summary = summary + getString(R.string.array_pref_applicationDisableScanning_enabled);
@@ -2673,6 +2679,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 //addEnd = false;
             }
             else {
+                ApplicationPreferences.applicationEventMobileCellEnableScanning(context);
+                ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(context);
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventMobileCellEnableScanning) + ": ";
                 if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
                     summary = summary + getString(R.string.array_pref_applicationDisableScanning_enabled);
@@ -2702,6 +2710,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context);
             }
             else {
+                ApplicationPreferences.applicationEventOrientationEnableScanning(context);
+                ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(context);
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventOrientationEnableScanning) + ": ";
                 if (ApplicationPreferences.applicationEventOrientationEnableScanning)
                     summary = summary + getString(R.string.array_pref_applicationDisableScanning_enabled);

@@ -755,7 +755,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                         public void onChanged(@Nullable WorkInfo workInfo) {
                             //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "xxx");
 
-                            if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                            if ((workInfo != null) && (workInfo.getState() == WorkInfo.State.SUCCEEDED)) {
                                 //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "WorkInfo.State.SUCCEEDED");
 
                                 Data outputData = workInfo.getOutputData();

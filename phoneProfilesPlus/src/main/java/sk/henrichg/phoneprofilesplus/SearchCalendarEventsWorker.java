@@ -268,7 +268,7 @@ public class SearchCalendarEventsWorker extends Worker {
                 boolean running = false;
                 for (WorkInfo workInfo : workInfoList) {
                     WorkInfo.State state = workInfo.getState();
-                    running = state == WorkInfo.State.RUNNING || state == WorkInfo.State.ENQUEUED;
+                    running = (state == WorkInfo.State.RUNNING) || (state == WorkInfo.State.ENQUEUED);
                 }
                 return running;
             } catch (ExecutionException e) {
