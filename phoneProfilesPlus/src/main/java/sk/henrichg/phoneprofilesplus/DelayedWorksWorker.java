@@ -476,6 +476,13 @@ public class DelayedWorksWorker extends Worker {
                     else
                     if (!isServiceRunning(appContext))
                         startService(dataWrapper, false);
+                    else {
+                        PhoneProfilesService instance = PhoneProfilesService.getInstance();
+                        if (instance != null) {
+                            instance.setApplicationFullyStarted(/*true, */true);
+                            ActivateProfileHelper.updateGUI(appContext, true, true);
+                        }
+                    }
 
                     PPApplication.logE("PackageReplacedReceiver.doWork", "END");
                     break;
