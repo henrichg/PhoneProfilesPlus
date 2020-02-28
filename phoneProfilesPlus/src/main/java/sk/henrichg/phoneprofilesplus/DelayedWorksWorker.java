@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.ActivityManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -118,6 +119,7 @@ public class DelayedWorksWorker extends Worker {
                     //PhoneStateScanner.setShowEnableLocationNotification(appContext, true);
                     //ActivateProfileHelper.setScreenUnlocked(appContext, true);
 
+                    boolean restartService = false;
                     PPApplication.logE("PackageReplacedReceiver.doWork", "oldVersionCode=" + oldVersionCode);
                     int actualVersionCode;
                     try {
@@ -136,12 +138,16 @@ public class DelayedWorksWorker extends Worker {
                                 //PPApplication.logE("PackageReplacedReceiver.doWork", "applicationEventUsePriority=true");
                                 editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY, true);
                                 editor.apply();
+
+                                restartService = true;
                             }
                             if (actualVersionCode <= 2400) {
                                 PPApplication.logE("PackageReplacedReceiver.doWork", "donation alarm restart");
                                 PPApplication.setDaysAfterFirstStart(appContext, 0);
                                 PPApplication.setDonationNotificationCount(appContext, 0);
                                 DonationBroadcastReceiver.setAlarm(appContext);
+
+                                restartService = true;
                             }
 
                             //if (actualVersionCode <= 2500) {
@@ -153,6 +159,8 @@ public class DelayedWorksWorker extends Worker {
                             //            PPApplication.logE("PackageReplacedReceiver.onReceive", "notificationShowInStatusBar=false");
                             //            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, false);
                             //            editor.apply();
+                            //
+                            //            restartService = true;
                             //        }
                             //    }
                             //}
@@ -177,11 +185,15 @@ public class DelayedWorksWorker extends Worker {
                                 editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS_SAVE, false);
                                 editor.putBoolean(EventsPrefsActivity.PREF_START_TARGET_HELPS, false);
                                 editor.apply();
+
+                                restartService = true;
                             }
                             if (actualVersionCode <= 3200) {
                                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
                                 editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS, true);
                                 editor.apply();
+
+                                restartService = true;
                             }
                             if (actualVersionCode <= 3500) {
                                 if (!ApplicationPreferences.getSharedPreferences(appContext).contains(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT)) {
@@ -211,11 +223,16 @@ public class DelayedWorksWorker extends Worker {
                                         editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "3");*/
 
                                     editor.apply();
+
+                                    restartService = true;
                                 }
 
                                 // continue donation notification
-                                if (PPApplication.getDaysAfterFirstStart(appContext) == 8)
+                                if (PPApplication.getDaysAfterFirstStart(appContext) == 8) {
                                     PPApplication.setDonationNotificationCount(appContext, 1);
+
+                                    restartService = true;
+                                }
                             }
 
                             if (actualVersionCode <= 3900) {
@@ -226,6 +243,8 @@ public class DelayedWorksWorker extends Worker {
                                 editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IF_BLUETOOTH_OFF,
                                         preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH, true));
                                 editor.apply();
+
+                                restartService = true;
                             }
 
                             //if (actualVersionCode <= 4100) {
@@ -236,6 +255,8 @@ public class DelayedWorksWorker extends Worker {
                             //        SharedPreferences.Editor editor = preferences.edit();
                             //        editor.putInt(Profile.PREF_PROFILE_DEVICE_WIFI_AP, 0);
                             //        editor.apply();
+                            //
+                            //        restartService = true;
                             //    }
                             //}
 
@@ -251,6 +272,8 @@ public class DelayedWorksWorker extends Worker {
                             //        editor.putInt(Profile.PREF_PROFILE_LOCK_DEVICE, 1);
                             //        editor.apply();
                             //    }
+                            //
+                            //    restartService = true;
                             //}
 
                             //if (actualVersionCode <= 4400) {
@@ -267,6 +290,8 @@ public class DelayedWorksWorker extends Worker {
                             //        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_TYPE, ApplicationPreferences.applicationWidgetListBackgroundType(appContext));
                             //        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR, ApplicationPreferences.applicationWidgetListBackgroundColor(appContext));
                             //        editor.apply();
+                            //
+                            //        restartService = true;
                             //    }
                             //}
 
@@ -278,6 +303,8 @@ public class DelayedWorksWorker extends Worker {
                                         SharedPreferences.Editor editor = preferences.edit();
                                         editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "1");
                                         editor.apply();
+
+                                        restartService = true;
                                     }
                                 }
                             }
@@ -304,6 +331,8 @@ public class DelayedWorksWorker extends Worker {
                                         }
                                         event._eventPreferencesCalendar._searchString = searchStringNew;
                                         DatabaseHandler.getInstance(appContext).updateEvent(event);
+
+                                        restartService = true;
                                     }
                                 }
                             }
@@ -322,6 +351,8 @@ public class DelayedWorksWorker extends Worker {
                                 }
 
                                 editor.apply();
+
+                                restartService = true;
                             }
 
                             if (actualVersionCode <= 5020) {
@@ -331,6 +362,8 @@ public class DelayedWorksWorker extends Worker {
                                     editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "night_mode");
                                     GlobalGUIRoutines.switchNightMode(appContext, true);
                                     editor.apply();
+
+                                    restartService = true;
                                 }
                             }
 
@@ -352,6 +385,8 @@ public class DelayedWorksWorker extends Worker {
                                     editor.putInt(ApplicationPreferences.EDITOR_EVENTS_VIEW_SELECTED_ITEM, filterEventsSelectedItem);
                                     editor.apply();
                                     ApplicationPreferences.editorEventsViewSelectedItem(appContext);
+
+                                    restartService = true;
                                 }
                             }
 
@@ -369,6 +404,8 @@ public class DelayedWorksWorker extends Worker {
                                             editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, false);
                                             editor.putString(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE, "2");
                                             editor.apply();
+
+                                            restartService = true;
                                         }
                                     }
                                 }
@@ -393,6 +430,8 @@ public class DelayedWorksWorker extends Worker {
                                     editor.apply();
                                 }
                                 editor.apply();
+
+                                restartService = true;
                             }
                         }
                     } catch (Exception ignored) {
@@ -430,7 +469,13 @@ public class DelayedWorksWorker extends Worker {
                     }*/
                     PPApplication.applicationPackageReplaced = false;
 
-                    startService(dataWrapper);
+                    // Start service only when is not started or restart is required
+                    // Is not needed to start it when it is not required. Code is already replaced after this call.
+                    if (restartService)
+                        startService(dataWrapper, true);
+                    else
+                    if (!isServiceRunning(appContext))
+                        startService(dataWrapper, false);
 
                     PPApplication.logE("PackageReplacedReceiver.doWork", "END");
                     break;
@@ -605,11 +650,12 @@ public class DelayedWorksWorker extends Worker {
     }
     */
 
-    private void startService(DataWrapper dataWrapper) {
+    private void startService(DataWrapper dataWrapper, boolean exitApp) {
         boolean isApplicationStarted = PPApplication.getApplicationStarted(false);
         PPApplication.logE("PackageReplacedReceiver.startService", "isApplicationStarted="+isApplicationStarted);
 
-        PPApplication.exitApp(false, dataWrapper.context, dataWrapper, null, false/*, false, true*/);
+        if (exitApp)
+            PPApplication.exitApp(false, dataWrapper.context, dataWrapper, null, false/*, false, true*/);
 
         DatabaseHandler.getInstance(dataWrapper.context).updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
         DatabaseHandler.getInstance(dataWrapper.context).updateAllEventsSensorsPassed(EventPreferences.SENSOR_PASSED_WAITING);
@@ -643,6 +689,26 @@ public class DelayedWorksWorker extends Worker {
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
             PPApplication.startPPService(dataWrapper.context, serviceIntent);
         }
+    }
+
+    public static boolean isServiceRunning(Context context) {
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        if (manager != null) {
+            Class<?> serviceClass = PhoneProfilesService.class;
+            for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+                if (serviceClass.getName().equals(service.service.getClassName())) {
+//                    if (inForeground) {
+//                        PPApplication.logE("PhoneProfilesService.isServiceRunningInForeground", "service.foreground=" + service.foreground);
+//                        return service.foreground;
+//                    }
+//                    else
+                        PPApplication.logE("PackageReplacedReceiver.isServiceRunning", "true");
+                        return true;
+                }
+            }
+        }
+        PPApplication.logE("PackageReplacedReceiver.isServiceRunning", "false");
+        return false;
     }
 
 }
