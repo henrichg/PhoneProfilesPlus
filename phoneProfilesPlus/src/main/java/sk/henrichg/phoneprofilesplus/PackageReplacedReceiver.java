@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.widget.Toast;
 
 import java.util.concurrent.TimeUnit;
 
@@ -23,6 +24,9 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
         if ((intent != null) && (intent.getAction() != null) && intent.getAction().equals(Intent.ACTION_MY_PACKAGE_REPLACED)) {
             PPApplication.logE("##### PackageReplacedReceiver.onReceive", "xxx");
+
+            String text = context.getString(R.string.app_name) + " " + context.getString(R.string.application_is_starting_toast);
+            GlobalGUIRoutines.showToast(context.getApplicationContext(), text, Toast.LENGTH_LONG);
 
             PPApplication.setBlockProfileEventActions(true, context);
 

@@ -1725,6 +1725,9 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         if (Permissions.checkImport(getApplicationContext())) {
 
+            String text = getString(R.string.app_name) + " " + getString(R.string.application_is_starting_toast);
+            GlobalGUIRoutines.showToast(getApplicationContext(), text, Toast.LENGTH_LONG);
+
             @SuppressLint("StaticFieldLeak")
             class ImportAsyncTask extends AsyncTask<Void, Integer, Integer> {
                 private final DataWrapper dataWrapper;

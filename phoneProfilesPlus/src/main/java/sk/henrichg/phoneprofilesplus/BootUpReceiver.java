@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.widget.Toast;
 
 public class BootUpReceiver extends BroadcastReceiver {
 
@@ -31,6 +32,10 @@ public class BootUpReceiver extends BroadcastReceiver {
         if (okAction) {
 
             PPApplication.logE("@@@ BootUpReceiver.onReceive", "#### -- start");
+
+            String text = context.getString(R.string.app_name) + " " + context.getString(R.string.application_is_starting_toast);
+            GlobalGUIRoutines.showToast(context.getApplicationContext(), text, Toast.LENGTH_LONG);
+
 
             PPApplication.setBlockProfileEventActions(true, context);
 

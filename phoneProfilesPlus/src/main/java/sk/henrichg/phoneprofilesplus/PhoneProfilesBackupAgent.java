@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.widget.Toast;
 
 public class PhoneProfilesBackupAgent extends BackupAgentHelper {
 
@@ -23,6 +24,9 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
         // Do NOT CLOSE APPLICATION AFTER RESTORE.
 
         final Context appContext = getApplicationContext();
+
+        String text = getString(R.string.app_name) + " " + getString(R.string.application_is_starting_toast);
+        GlobalGUIRoutines.showToast(appContext, text, Toast.LENGTH_LONG);
 
         final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
