@@ -2931,6 +2931,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             preference = prefMng.findPreference(PREF_VOLUME_NOTIFICATION_VOLUME0);
             if (preference != null)
                 preference.setEnabled(enabled);
+
+            String ringerMode = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, "0");
+            enabled = (Profile.getVolumeRingtoneChange(sValue) ||
+                    Profile.getVolumeRingtoneChange(notificationValue)) &&
+                    ringerMode.equals("0");
+            preference = prefMng.findPreference("prf_pref_volumeSoundMode_info");
+            if (preference != null)
+                preference.setEnabled(enabled);
         }
         if (key.equals(Profile.PREF_PROFILE_VOLUME_NOTIFICATION)) {
             String ringtoneValue = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGTONE, "");
@@ -2941,6 +2949,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference.setEnabled(enabled);
             enabled = getEnableVolumeNotificationVolume0(enabled, sValue/*, context*/);
             preference = prefMng.findPreference(PREF_VOLUME_NOTIFICATION_VOLUME0);
+            if (preference != null)
+                preference.setEnabled(enabled);
+
+            String ringerMode = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, "0");
+            enabled = (Profile.getVolumeRingtoneChange(sValue) ||
+                    Profile.getVolumeRingtoneChange(ringtoneValue)) &&
+                    ringerMode.equals("0");
+            preference = prefMng.findPreference("prf_pref_volumeSoundMode_info");
             if (preference != null)
                 preference.setEnabled(enabled);
         }
