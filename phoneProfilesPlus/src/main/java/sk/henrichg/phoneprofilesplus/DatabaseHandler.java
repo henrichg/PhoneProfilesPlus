@@ -38,7 +38,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2409;
+    private static final int DATABASE_VERSION = 2410;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -3022,6 +3022,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("ALTER TABLE " + TABLE_ACTIVITY_LOG + " ADD COLUMN " + KEY_AL_PROFILE_EVENT_COUNT + " TEXT");
 
             db.execSQL("UPDATE " + TABLE_ACTIVITY_LOG + " SET " + KEY_AL_PROFILE_EVENT_COUNT + "=\"1 [0]\"");
+        }
+
+        if (oldVersion < 2410) {
+            final String selectQuery = "SELECT " + KEY_ID + "," +
+                                                   KEY_DEVICE_SCREEN_TIMEOUT +
+                                        " FROM " + TABLE_PROFILES;
+
+            Cursor cursor = db.rawQuery(selectQuery, null);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    long id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ID)));
+                    int screenTimeout = cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_SCREEN_TIMEOUT));
+
+                    if ((screenTimeout == 6) || (screenTimeout == 8)) {
+                        db.execSQL("UPDATE " + TABLE_PROFILES +
+                                " SET " + KEY_DEVICE_SCREEN_TIMEOUT + "=0, " +
+                                            KEY_SCREEN_ON_PERMANENT + "=1" + " " +
+                                "WHERE " + KEY_ID + "=" + id);
+                    }
+
+                } while (cursor.moveToNext());
+            }
+
+            cursor.close();
         }
 
         //PPApplication.logE("DatabaseHandler.onUpgrade", "END");
@@ -10779,6 +10804,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                             if (values.size() > 0)
                                                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
                                                         new String[]{String.valueOf(profileId)});
+                                        } while (cursorImportDB.moveToNext());
+                                    }
+                                }
+
+                                if (exportedDBObj.getVersion() < 2410) {
+                                    if (cursorImportDB.moveToFirst()) {
+                                        do {
+                                            profileId = Long.parseLong(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_ID)));
+                                            int screenTimeout = cursorImportDB.getInt(cursorImportDB.getColumnIndex(KEY_DEVICE_SCREEN_TIMEOUT));
+
+                                            if ((screenTimeout == 6) || (screenTimeout == 8)) {
+                                                values = new ContentValues();
+                                                values.put(KEY_DEVICE_SCREEN_TIMEOUT, 0);
+                                                values.put(KEY_SCREEN_ON_PERMANENT, 1);
+                                                if (values.size() > 0)
+                                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                                            new String[]{String.valueOf(profileId)});
+                                            }
                                         } while (cursorImportDB.moveToNext());
                                     }
                                 }

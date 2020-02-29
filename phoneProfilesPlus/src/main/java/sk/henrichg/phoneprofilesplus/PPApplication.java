@@ -3042,7 +3042,7 @@ public class PPApplication extends Application /*implements Application.Activity
                 if (PPApplication.screenTimeoutHandler != null) {
                     PPApplication.screenTimeoutHandler.post(new Runnable() {
                         public void run() {
-                            ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(context);
+                            //ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(context);
                             //ActivateProfileHelper.removeBrightnessView(context);
                             ActivateProfileHelper.removeKeepScreenOnView();
                         }

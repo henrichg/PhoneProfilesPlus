@@ -4,14 +4,14 @@
     app:title="@string/profile_preferences_category_screen"
     app:key="prf_pref_screenCategory" >
 
-    <Preference
+    <!--<Preference
         app:key="prf_pref_deviceScreenTimeoutInfo"
         app:title="@string/profile_preferences_deviceScreenTimeout"
         app:summary="@string/profile_preferences_deviceScreenTimeoutInfo_summary"
         app:shouldDisableView="false"
         app:enabled="false"
         app:widgetLayout="@layout/info_preference"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget" />-->
     <ListPreference
         app:title="@string/profile_preferences_deviceScreenTimeout"
         app:summary="@string/array_pref_no_change"
@@ -19,6 +19,15 @@
         app:defaultValue="0"
         app:entries="@array/screenTimeoutArray"
         app:entryValues="@array/screenTimeoutValues"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <ListPreference
+        app:title="@string/profile_preferences_deviceScreenOnPermanent"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_screenOnPermanent"
+        app:defaultValue="0"
+        app:entries="@array/screenOnPermanentArray"
+        app:entryValues="@array/screenOnPermanentValues"
         app:layout="@layout/mp_preference_material_widget" />
 
     <ListPreference
@@ -58,16 +67,6 @@
         app:entries="@array/displayRotationArray"
         app:entryValues="@array/displayRotationValues"
         app:layout="@layout/mp_preference_material_widget" />
-
-    <ListPreference
-        app:title="@string/profile_preferences_deviceScreenOnPermanent"
-        app:summary="@string/array_pref_no_change"
-        app:key="prf_pref_screenOnPermanent"
-        app:defaultValue="0"
-        app:entries="@array/screenOnPermanentArray"
-        app:entryValues="@array/screenOnPermanentValues"
-        app:layout="@layout/mp_preference_material_widget" />
-
     <ListPreference
         app:title="@string/profile_preferences_deviceKeyguard"
         app:summary="@string/array_pref_no_change"

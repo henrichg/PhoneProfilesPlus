@@ -433,6 +433,11 @@ public class DelayedWorksWorker extends Worker {
 
                                 restartService = true;
                             }
+
+                            if (actualVersionCode <= 5700) {
+                                // restart service for move screen timeout 24hr and permanent to Keep screen on
+                                restartService = true;
+                            }
                         }
                     } catch (Exception ignored) {
                     }

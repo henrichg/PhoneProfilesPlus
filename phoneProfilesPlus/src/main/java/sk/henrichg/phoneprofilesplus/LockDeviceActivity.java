@@ -80,7 +80,7 @@ public class LockDeviceActivity extends AppCompatActivity {
             //PPApplication.logE("LockDeviceActivity.onCreate", "displayed=true");
 
             PhoneProfilesService.getInstance().screenTimeoutBeforeDeviceLock = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
-            ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(getApplicationContext());
+            //ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(getApplicationContext());
 
             Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1000);
 

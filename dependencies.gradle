@@ -21,6 +21,7 @@
 //        for API level >= 26
 // 5300 = PPService as foreground also for android < 26
 // 5400 = move night mode background color to "Use night mode"
+// 5700 = removed usage of screen timeout 24 hours and permanent on
 
 ext.ppVersions = [
     publishVersion: '4.1.6.5b',

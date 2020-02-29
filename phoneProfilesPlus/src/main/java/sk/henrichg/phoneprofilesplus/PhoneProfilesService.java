@@ -6665,7 +6665,7 @@ public class PhoneProfilesService extends Service
         if (PPApplication.screenTimeoutHandler != null) {
             PPApplication.screenTimeoutHandler.post(new Runnable() {
                 public void run() {
-                    ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(getApplicationContext());
+                    //ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(getApplicationContext());
                     ActivateProfileHelper.removeKeepScreenOnView();
                 }
             });

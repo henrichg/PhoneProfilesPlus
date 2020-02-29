@@ -37,8 +37,8 @@
         <item>@string/array_pref_screenTimeoutArray_5minutes</item>
         <item>@string/array_pref_screenTimeoutArray_10minutes</item>
         <item>@string/array_pref_screenTimeoutArray_30minutes</item>
-        <item>@string/array_pref_screenTimeoutArray_24hours</item>
-        <item>@string/array_pref_screenTimeoutArray_alwaysOn</item>
+<!--        <item>@string/array_pref_screenTimeoutArray_24hours</item>-->
+<!--        <item>@string/array_pref_screenTimeoutArray_alwaysOn</item>-->
     </string-array>
     <string-array name="screenTimeoutValues">
         <item>0</item>
@@ -49,8 +49,8 @@
         <item>7</item>
         <item>5</item>
         <item>9</item>
-        <item>6</item>
-        <item>8</item>
+<!--        <item>6</item>-->
+<!--        <item>8</item>-->
     </string-array>
 <!--    <string-array name="languageArray">
         <item>@string/phone_profiles_pref_applicationLanguage_system</item>
