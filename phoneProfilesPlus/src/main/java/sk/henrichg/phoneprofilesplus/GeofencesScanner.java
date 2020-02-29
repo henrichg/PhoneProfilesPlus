@@ -9,6 +9,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.ConnectionResult;
@@ -560,8 +561,14 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         //}
         NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        if (mNotificationManager != null)
-            mNotificationManager.notify(PPApplication.GEOFENCE_SCANNER_ERROR_NOTIFICATION_ID, mBuilder.build());
+        if (mNotificationManager != null) {
+            try {
+                mNotificationManager.notify(PPApplication.GEOFENCE_SCANNER_ERROR_NOTIFICATION_ID, mBuilder.build());
+            } catch (Exception e) {
+                Log.e("GeofencesScanner.showErrorNotification", Log.getStackTraceString(e));
+                Crashlytics.logException(e);
+            }
+        }
     }
 
 }

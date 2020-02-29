@@ -14,7 +14,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.widget.Toast;
+
+import com.crashlytics.android.Crashlytics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -904,8 +907,14 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
             //}
             NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            if (mNotificationManager != null)
-                mNotificationManager.notify(notificationID, mBuilder.build());
+            if (mNotificationManager != null) {
+                try {
+                    mNotificationManager.notify(notificationID, mBuilder.build());
+                } catch (Exception e) {
+                    Log.e("GrantPermissionActivity.showNotification", Log.getStackTraceString(e));
+                    Crashlytics.logException(e);
+                }
+            }
         }
         finish();
     }

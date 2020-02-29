@@ -11,6 +11,9 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 import android.os.IBinder;
+import android.util.Log;
+
+import com.crashlytics.android.Crashlytics;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
@@ -258,8 +261,14 @@ public class MobileCellsRegistrationService extends Service {
 
         Notification notification = mBuilder.build();
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        if (mNotificationManager != null)
-            mNotificationManager.notify(PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_ID, notification);
+        if (mNotificationManager != null) {
+            try {
+                mNotificationManager.notify(PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_ID, notification);
+            } catch (Exception e) {
+                Log.e("MobileCellsRegistrationService.showResultNotification", Log.getStackTraceString(e));
+                Crashlytics.logException(e);
+            }
+        }
     }
 
     private void removeResultNotification() {

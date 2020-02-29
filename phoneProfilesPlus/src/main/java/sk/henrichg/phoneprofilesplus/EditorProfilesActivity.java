@@ -3181,8 +3181,14 @@ public class EditorProfilesActivity extends AppCompatActivity
         mBuilder.setOnlyAlertOnce(true);
 
         NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        if (mNotificationManager != null)
-            mNotificationManager.notify(notificationID, mBuilder.build());
+        if (mNotificationManager != null) {
+            try {
+                mNotificationManager.notify(notificationID, mBuilder.build());
+            } catch (Exception e) {
+                Log.e("EditorProfilesActivity.displayRedTextToPreferencesNotification", Log.getStackTraceString(e));
+                Crashlytics.logException(e);
+            }
+        }
 
         return false;
     }

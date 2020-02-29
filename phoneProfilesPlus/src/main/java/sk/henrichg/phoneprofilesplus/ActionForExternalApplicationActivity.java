@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.util.Log;
+
+import com.crashlytics.android.Crashlytics;
 
 import java.util.List;
 
@@ -293,8 +296,14 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
             mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         //}
         NotificationManager mNotificationManager = (NotificationManager)getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-        if (mNotificationManager != null)
-            mNotificationManager.notify(PPApplication.ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_ID, mBuilder.build());
+        if (mNotificationManager != null) {
+            try {
+                mNotificationManager.notify(PPApplication.ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_ID, mBuilder.build());
+            } catch (Exception e) {
+                Log.e("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
+                Crashlytics.logException(e);
+            }
+        }
     }
 
     @Override

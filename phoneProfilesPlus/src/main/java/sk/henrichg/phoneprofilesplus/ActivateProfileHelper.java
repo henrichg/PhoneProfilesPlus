@@ -2716,8 +2716,14 @@ class ActivateProfileHelper {
         notification.defaults &= ~DEFAULT_VIBRATE;
 
         NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        if (mNotificationManager != null)
-            mNotificationManager.notify(notificationId, notification);
+        if (mNotificationManager != null) {
+            try {
+                mNotificationManager.notify(notificationId, notification);
+            } catch (Exception e) {
+                Log.e("ActivateProfileHelper.showNotificationForInteractiveParameters", Log.getStackTraceString(e));
+                Crashlytics.logException(e);
+            }
+        }
     }
 
     static void setScreenTimeout(int screenTimeout, Context context) {

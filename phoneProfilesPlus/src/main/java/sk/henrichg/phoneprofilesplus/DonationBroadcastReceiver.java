@@ -9,6 +9,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.util.Log;
+
+import com.crashlytics.android.Crashlytics;
 
 import java.util.Calendar;
 
@@ -306,8 +309,14 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                 notification.defaults &= ~DEFAULT_VIBRATE;
 
                 NotificationManager mNotificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                if (mNotificationManager != null)
-                    mNotificationManager.notify(PPApplication.ABOUT_APPLICATION_DONATE_NOTIFICATION_ID, notification);
+                if (mNotificationManager != null) {
+                    try {
+                        mNotificationManager.notify(PPApplication.ABOUT_APPLICATION_DONATE_NOTIFICATION_ID, notification);
+                    } catch (Exception e) {
+                        Log.e("DonationBroadcastReceiver._doWork", Log.getStackTraceString(e));
+                        Crashlytics.logException(e);
+                    }
+                }
             }
 
         }

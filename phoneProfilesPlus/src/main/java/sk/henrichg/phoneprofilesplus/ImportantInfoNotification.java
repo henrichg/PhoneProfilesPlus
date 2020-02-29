@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.os.Build;
+import android.util.Log;
+
+import com.crashlytics.android.Crashlytics;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
@@ -179,8 +182,14 @@ class ImportantInfoNotification {
             mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         //}
         NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        if (mNotificationManager != null)
-            mNotificationManager.notify(PPApplication.IMPORTANT_INFO_NOTIFICATION_ID, mBuilder.build());
+        if (mNotificationManager != null) {
+            try {
+                mNotificationManager.notify(PPApplication.IMPORTANT_INFO_NOTIFICATION_ID, mBuilder.build());
+            } catch (Exception e) {
+                Log.e("ImportantInfoNotification.showNotification", Log.getStackTraceString(e));
+                Crashlytics.logException(e);
+            }
+        }
     }
 
     static void removeNotification(Context context)

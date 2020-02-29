@@ -11,6 +11,9 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.telephony.TelephonyManager;
+import android.util.Log;
+
+import com.crashlytics.android.Crashlytics;
 
 import java.util.Calendar;
 import java.util.List;
@@ -2751,8 +2754,13 @@ class Event {
 
                 NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                 if (mNotificationManager != null) {
-                    int notificationID = -(99999999 + (int) _id);
-                    mNotificationManager.notify(notificationID, notification);
+                    try {
+                        int notificationID = -(99999999 + (int) _id);
+                        mNotificationManager.notify(notificationID, notification);
+                    } catch (Exception e) {
+                        Log.e("Event.notifyEventStart", Log.getStackTraceString(e));
+                        Crashlytics.logException(e);
+                    }
                 }
 
                 StartEventNotificationBroadcastReceiver.setAlarm(this, context);

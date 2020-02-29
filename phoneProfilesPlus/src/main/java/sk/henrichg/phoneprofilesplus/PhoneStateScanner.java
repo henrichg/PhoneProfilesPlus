@@ -23,6 +23,9 @@ import android.telephony.CellLocation;
 import android.telephony.PhoneStateListener;
 import android.telephony.ServiceState;
 import android.telephony.TelephonyManager;
+import android.util.Log;
+
+import com.crashlytics.android.Crashlytics;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -944,8 +947,14 @@ class PhoneStateScanner extends PhoneStateListener {
                         mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 
                         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                        if (mNotificationManager != null)
-                            mNotificationManager.notify(_registeredCell + NEW_MOBILE_CELLS_NOTIFICATION_ID, mBuilder.build());
+                        if (mNotificationManager != null) {
+                            try {
+                                mNotificationManager.notify(_registeredCell + NEW_MOBILE_CELLS_NOTIFICATION_ID, mBuilder.build());
+                            } catch (Exception e) {
+                                Log.e("PhoneProfilesService.doAutoRegistration", Log.getStackTraceString(e));
+                                Crashlytics.logException(e);
+                            }
+                        }
                     }
                 }
             }

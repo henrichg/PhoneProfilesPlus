@@ -9,6 +9,9 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.util.Log;
+
+import com.crashlytics.android.Crashlytics;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
@@ -112,8 +115,14 @@ class IgnoreBatteryOptimizationNotification {
         mBuilder.addAction(actionBuilder.build());
 
         NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        if (mNotificationManager != null)
-            mNotificationManager.notify(PPApplication.IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ID, mBuilder.build());
+        if (mNotificationManager != null) {
+            try {
+                mNotificationManager.notify(PPApplication.IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ID, mBuilder.build());
+            } catch (Exception e) {
+                Log.e("IgnoreBatteryOptimizationNotification.showNotification", Log.getStackTraceString(e));
+                Crashlytics.logException(e);
+            }
+        }
     }
 
     static void removeNotification(Context context)
