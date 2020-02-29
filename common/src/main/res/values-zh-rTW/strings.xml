@@ -548,7 +548,6 @@
     <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Setup Orientation scanning parameters in application settings.</string>
     <string name="array_pref_screenTimeoutArray_24hours">24 小時</string>
     <string name="array_pref_screenTimeoutArray_alwaysOn">恆亮</string>
-    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">如果 \"24 小時\" 選項無法在您的裝置上正常運行 (如 LG), 請使用 \"恆亮\". 若 \"恆亮\" 選項在您的裝置上會造成問題 (如三星), 此時請使用 \"24 小時\".</string>
     <string name="profile_preferences_vibrateWhenRinging">鈴響時震動</string>
     <string name="permissions_for_play_ringtone_notification_text1">您選擇了存放在 SD 卡上的鈴聲/通知音效. 音效無法被播放因為這需要某些許可權.</string>
     <string name="permissions_for_play_ringtone_notification_text2">請在下一個對話方塊中授予許可權. 音效即可被播放.</string>
@@ -1409,6 +1408,8 @@
     <string name="phone_profiles_pref_notificationShowProfileIcon">Show profile icon</string>
     <string name="altype_mergedProfileActivation">profiles activation from events</string>
     <string name="altype_manualRestartEvents">manual restart events</string>
+    <string name="profile_preferences_configureSoundMode_info">Please configure also profile parameter \"Sound profile\"/\"Sound mode\"</string>
+    <string name="profile_preferences_category_volumeTypes">Volume types</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>
@@ -1660,4 +1661,5 @@
     <!--    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Re-scan Bluetooth</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
+    <!--    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">If option \"24 hours\" is not working on your device (LG), use option \"Always On\". Option \"Always On\" may cause problems with Samsung devices. If so, then use option \"24 hours\".</string>-->
 </resources>

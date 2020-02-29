@@ -548,7 +548,6 @@
     <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Richten Sie die Ausrichtungs-Parameter in den Anwendungseinstellungen ein.</string>
     <string name="array_pref_screenTimeoutArray_24hours">24 Stunden</string>
     <string name="array_pref_screenTimeoutArray_alwaysOn">Immer an</string>
-    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">Wenn die Option „24 Stunden” auf Ihrem Gerät (LG) nicht funktioniert, verwenden Sie die Option „Immer aktiviert”. Die Option „Immer aktiviert” kann zu Problemen mit Samsung-Geräten führen. In diesem Fall verwenden Sie die Option „24 Stunden”.</string>
     <string name="profile_preferences_vibrateWhenRinging">Beim Klingeln vibrieren</string>
     <string name="permissions_for_play_ringtone_notification_text1">Du hast einen Benachrichtigungs-/Anrufton von der SD-Karte gewählt. Der Ton wird nicht abgespielt, da dies Berechtigungen benötigt.</string>
     <string name="permissions_for_play_ringtone_notification_text2">Bitte erteile sie in den nächsten Dialogen. Der Ton wird dann abgespielt.</string>
@@ -1409,6 +1408,8 @@
     <string name="phone_profiles_pref_notificationShowProfileIcon">Profilsymbol anzeigen</string>
     <string name="altype_mergedProfileActivation">Profile aus Ereignissen aktivieren</string>
     <string name="altype_manualRestartEvents">Manuelle Neustart-Ereignisse</string>
+    <string name="profile_preferences_configureSoundMode_info">Please configure also profile parameter \"Sound profile\"/\"Sound mode\"</string>
+    <string name="profile_preferences_category_volumeTypes">Volume types</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>
@@ -1660,4 +1661,5 @@
     <!--    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Re-scan Bluetooth</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
+    <!--    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">If option \"24 hours\" is not working on your device (LG), use option \"Always On\". Option \"Always On\" may cause problems with Samsung devices. If so, then use option \"24 hours\".</string>-->
 </resources>

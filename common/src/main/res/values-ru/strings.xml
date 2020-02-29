@@ -548,7 +548,6 @@
     <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Установите параметры сканирования ориентации в настройках приложения.</string>
     <string name="array_pref_screenTimeoutArray_24hours">24 часа</string>
     <string name="array_pref_screenTimeoutArray_alwaysOn">Включено всегда</string>
-    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">Если опция \"24 часа\" не работает на вашем устройстве (LG), попробуйте использовать вариант \"Включено всегда\". Опция \"Включено всегда\" может не работать на вашем устройстве (Samsung), попробуйте использовать вариант \"24 часа\".</string>
     <string name="profile_preferences_vibrateWhenRinging">Вибрация при звонке</string>
     <string name="permissions_for_play_ringtone_notification_text1">Вы выбрали мелодию звонка/уведомления, расположенную на sdcard. Звук не будет воспроизводиться, поскольку для этого требуются дополнительные разрешения.</string>
     <string name="permissions_for_play_ringtone_notification_text2">Дайте разрешения в следующих диалоговых окнах. Затем мелодия будет установлена.</string>
@@ -1409,6 +1408,8 @@
     <string name="phone_profiles_pref_notificationShowProfileIcon">Показать значок профиля</string>
     <string name="altype_mergedProfileActivation">активация профилей из событий</string>
     <string name="altype_manualRestartEvents">вручную перезапустить события</string>
+    <string name="profile_preferences_configureSoundMode_info">Please configure also profile parameter \"Sound profile\"/\"Sound mode\"</string>
+    <string name="profile_preferences_category_volumeTypes">Volume types</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>
@@ -1660,4 +1661,5 @@
     <!--    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Re-scan Bluetooth</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
+    <!--    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">If option \"24 hours\" is not working on your device (LG), use option \"Always On\". Option \"Always On\" may cause problems with Samsung devices. If so, then use option \"24 hours\".</string>-->
 </resources>

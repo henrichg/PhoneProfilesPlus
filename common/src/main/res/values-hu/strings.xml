@@ -548,7 +548,6 @@
     <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Tájolás ellenőrzési paramétereit az alkalmazás beállításokban teheti.</string>
     <string name="array_pref_screenTimeoutArray_24hours">24 óra</string>
     <string name="array_pref_screenTimeoutArray_alwaysOn">Mindig bekapcsolva</string>
-    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">Amikor a \"24 óra\" opció nem működik a készülékedben (LG), használd a \"Mindig bekapcsolva\" opciót. \"Mindig bekapcsolva\" opció lehet, hogy nem jól működik a készülékeden (Samsung), akkor használd a \"24 óra\" opciót.</string>
     <string name="profile_preferences_vibrateWhenRinging">Csengetéskor rezegjen</string>
     <string name="permissions_for_play_ringtone_notification_text1">Csengő/értesítés hangot a Sdcard-ról választotta. Hang nem fog lejátszódni, mert ehhez bizonyos engedélyekre van szükség.</string>
     <string name="permissions_for_play_ringtone_notification_text2">Végezd el a beállításokat. Majd a hang le fog játszódni.</string>
@@ -1409,6 +1408,8 @@
     <string name="phone_profiles_pref_notificationShowProfileIcon">Show profile icon</string>
     <string name="altype_mergedProfileActivation">profiles activation from events</string>
     <string name="altype_manualRestartEvents">manual restart events</string>
+    <string name="profile_preferences_configureSoundMode_info">Please configure also profile parameter \"Sound profile\"/\"Sound mode\"</string>
+    <string name="profile_preferences_category_volumeTypes">Volume types</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Engedélyezze a PhoneProfilesPlusExtender alkalmazását:\n• profilparaméter \"Alkalmazások eröltetett leállítása\"\n• eseményparaméterek: \"Alkalmazás-érzékelő\", \"Tájolás-érzékelő\", \"SMS / MMS-érzékelő\", \"Hívásérzékelő\".</string>
@@ -1660,4 +1661,5 @@
     <!--    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Re-scan Bluetooth</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
+    <!--    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">If option \"24 hours\" is not working on your device (LG), use option \"Always On\". Option \"Always On\" may cause problems with Samsung devices. If so, then use option \"24 hours\".</string>-->
 </resources>

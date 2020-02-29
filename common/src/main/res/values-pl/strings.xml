@@ -548,7 +548,6 @@
     <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Skonfiguruj opcje skanowania orientacji w ustawieniach aplikacji.</string>
     <string name="array_pref_screenTimeoutArray_24hours">24 godziny</string>
     <string name="array_pref_screenTimeoutArray_alwaysOn">Zawsze włączony</string>
-    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">Gdy opcja \"24 godziny\" nie działa na Twoim urządzeniu (LG), użyj opcji \"Zawsze włączony\". Opcja \"Zawsze włączony\" może powodować problemy na niektórych urządzeniach (Samsung). Użyj wtedy opcji \"24 godziny\".</string>
     <string name="profile_preferences_vibrateWhenRinging">Wibracje podczas dzwonienia</string>
     <string name="permissions_for_play_ringtone_notification_text1">Zaznaczyłeś sygnał dzwonka/powiadomienia z SDCard. Dźwięk nie może zostać odtworzony, ponieważ to wymaga pewnych uprawnień.</string>
     <string name="permissions_for_play_ringtone_notification_text2">Proszę przyznać je w następnym oknie dialogowym. Dźwięk będzie wtedy grał.</string>
@@ -1410,6 +1409,8 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="phone_profiles_pref_notificationShowProfileIcon">Pokaż ikonę profilu</string>
     <string name="altype_mergedProfileActivation">aktywacja profili ze zdarzeń</string>
     <string name="altype_manualRestartEvents">ręczny restart zdarzeń</string>
+    <string name="profile_preferences_configureSoundMode_info">Please configure also profile parameter \"Sound profile\"/\"Sound mode\"</string>
+    <string name="profile_preferences_category_volumeTypes">Volume types</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>
@@ -1661,4 +1662,5 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <!--    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Re-scan Bluetooth</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
+    <!--    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">If option \"24 hours\" is not working on your device (LG), use option \"Always On\". Option \"Always On\" may cause problems with Samsung devices. If so, then use option \"24 hours\".</string>-->
 </resources>

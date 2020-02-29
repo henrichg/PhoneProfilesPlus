@@ -436,7 +436,7 @@
     <string name="phone_profiles_pref_category_wifi_scanning">Skenování Wi-Fi</string>
     <string name="phone_profiles_pref_category_bluetooth_scanning">Skenování Bluetooth</string>
     <string name="profile_preferences_category_activation_duration">Trvání aktivace</string>
-    <string name="profile_preferences_category_sound_profile">Zvukové profily</string>
+    <string name="profile_preferences_category_sound_profile">Zvukový profil</string>
     <string name="profile_preferences_category_radios">Rádia</string>
     <string name="profile_preferences_category_screen">Obrazovka</string>
     <string name="profile_preferences_category_others">Ostatní</string>
@@ -548,7 +548,6 @@
     <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Nastav parametry skenování orientace v nastavení aplikace.</string>
     <string name="array_pref_screenTimeoutArray_24hours">24 hodin</string>
     <string name="array_pref_screenTimeoutArray_alwaysOn">Vždy zapnuto</string>
-    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">Když volba \"24 hodin\" nefunguje na vašem zařízení (LG), použijte volbu \"Vždy zapnuto\". Volba \"Vždy zapnuto\", může dělat problémy ve vašem zařízení Samsung. Tehdy použijte volbu \"24 hodin\".</string>
     <string name="profile_preferences_vibrateWhenRinging">Vibrovat při vyzvánění</string>
     <string name="permissions_for_play_ringtone_notification_text1">Máte nastavený zvuk vyzvánění/notifikací z SD karty. Tón nebude přehrán, protože to vyžaduje některá povolení.</string>
     <string name="permissions_for_play_ringtone_notification_text2">Prosím, povolte je v následujících dialogových oknech. Pak zvuk bude přehráván.</string>
@@ -1409,6 +1408,8 @@
     <string name="phone_profiles_pref_notificationShowProfileIcon">Zobrazovat ikonu profilu</string>
     <string name="altype_mergedProfileActivation">aktivace profilu z událostí</string>
     <string name="altype_manualRestartEvents">manuální restart událostí</string>
+    <string name="profile_preferences_configureSoundMode_info">Prosím nakonfigurujte i parametr profilu \"Zvukový profil\"/\"Režim zvuku\"</string>
+    <string name="profile_preferences_category_volumeTypes">Typy hlasitosti</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>
@@ -1660,4 +1661,5 @@
     <!--    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Re-scan Bluetooth</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
+    <!--    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">If option \"24 hours\" is not working on your device (LG), use option \"Always On\". Option \"Always On\" may cause problems with Samsung devices. If so, then use option \"24 hours\".</string>-->
 </resources>

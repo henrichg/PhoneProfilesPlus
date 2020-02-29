@@ -548,7 +548,6 @@
     <string name="phone_profiles_pref_eventOrientationAppSettings_summary">在应用程序设置中设置手机方向扫描参数。</string>
     <string name="array_pref_screenTimeoutArray_24hours">24 小时</string>
     <string name="array_pref_screenTimeoutArray_alwaysOn">始终开启</string>
-    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">如果在你的设备 (LG) 上选项“24小时”不起作用, 请使用“一直开启”；而反过来如果选项“Always On”在你的设备 (Samsung) 上造成问题, 则请使用选项“24 小时”。</string>
     <string name="profile_preferences_vibrateWhenRinging">响铃时震动</string>
     <string name="permissions_for_play_ringtone_notification_text1">您已从 SD 卡选择铃声/通知音。由于需要某些权限，铃声不会被播放。</string>
     <string name="permissions_for_play_ringtone_notification_text2">请在下一个对话框中授权，然后铃声才会播放。</string>
@@ -1409,6 +1408,8 @@
     <string name="phone_profiles_pref_notificationShowProfileIcon">Show profile icon</string>
     <string name="altype_mergedProfileActivation">profiles activation from events</string>
     <string name="altype_manualRestartEvents">manual restart events</string>
+    <string name="profile_preferences_configureSoundMode_info">Please configure also profile parameter \"Sound profile\"/\"Sound mode\"</string>
+    <string name="profile_preferences_category_volumeTypes">Volume types</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：n•配置文件参数“强制停止应用程序”n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>
@@ -1660,4 +1661,5 @@
     <!--    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Re-scan Bluetooth</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
+    <!--    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">If option \"24 hours\" is not working on your device (LG), use option \"Always On\". Option \"Always On\" may cause problems with Samsung devices. If so, then use option \"24 hours\".</string>-->
 </resources>

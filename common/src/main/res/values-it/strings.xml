@@ -548,7 +548,6 @@
     <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Definire i parametri di orientamento nelle impostazioni dell\'applicazione.</string>
     <string name="array_pref_screenTimeoutArray_24hours">24 ore</string>
     <string name="array_pref_screenTimeoutArray_alwaysOn">Sempre attivo</string>
-    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">Se l\'opzione \"24 ore\" non funziona sul dispositivo (LG), usare l\'opzione \"Sempre attivo\". L\'opzione \"Sempre attivo\" potrebbe avere alcuni problemi sul dispositivo (Samsung), usare quindi l\'opzione \"24 ore\".</string>
     <string name="profile_preferences_vibrateWhenRinging">Vibra quando squilla</string>
     <string name="permissions_for_play_ringtone_notification_text1">Hai selezionato un tono di suoneria/notifica da sdcard. Il tono non verrà riprodotto perché sono necessarie alcune autorizzazioni.</string>
     <string name="permissions_for_play_ringtone_notification_text2">Si prega di concederle nella finestra successiva. Poi verrà riprodotto il tono.</string>
@@ -1410,6 +1409,8 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="phone_profiles_pref_notificationShowProfileIcon">Show profile icon</string>
     <string name="altype_mergedProfileActivation">profiles activation from events</string>
     <string name="altype_manualRestartEvents">manual restart events</string>
+    <string name="profile_preferences_configureSoundMode_info">Please configure also profile parameter \"Sound profile\"/\"Sound mode\"</string>
+    <string name="profile_preferences_category_volumeTypes">Volume types</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>
@@ -1661,4 +1662,5 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <!--    <string name="phone_profiles_pref_applicationEventBluetoothRescan">Re-scan Bluetooth</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
+    <!--    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">If option \"24 hours\" is not working on your device (LG), use option \"Always On\". Option \"Always On\" may cause problems with Samsung devices. If so, then use option \"24 hours\".</string>-->
 </resources>
