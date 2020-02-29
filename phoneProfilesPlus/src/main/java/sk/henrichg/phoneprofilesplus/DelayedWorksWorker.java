@@ -698,7 +698,7 @@ public class DelayedWorksWorker extends Worker {
         }
     }
 
-    public static boolean isServiceRunning(Context context) {
+    private static boolean isServiceRunning(Context context) {
         ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         if (manager != null) {
             Class<?> serviceClass = PhoneProfilesService.class;
