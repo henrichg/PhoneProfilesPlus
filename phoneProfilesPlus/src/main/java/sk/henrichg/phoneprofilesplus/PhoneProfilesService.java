@@ -85,8 +85,6 @@ public class PhoneProfilesService extends Service
     BrightnessView screenTimeoutAlwaysOnView = null;
     //BrightnessView keepScreenOnView = null;
 
-    PowerManager.WakeLock keepScreenOnWakeLock = null;
-
     LockDeviceActivity lockDeviceActivity = null;
     int screenTimeoutBeforeDeviceLock = 0;
 

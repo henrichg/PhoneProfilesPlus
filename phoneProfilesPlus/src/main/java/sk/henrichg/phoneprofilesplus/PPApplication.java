@@ -596,7 +596,8 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|ActivateProfileActivity.refreshGUI"
                                                 //+"|EditorProfilesActivity.refreshGUI"
 
-                                                +"|DelayedWorksWorker.doWork"
+                                                //+"|DelayedWorksWorker.doWork"
+                                                //+"|ActivateProfileHelper.setScreenOnPermanent"
                                                 ;
 
     // activity log types
@@ -684,6 +685,8 @@ public class PPApplication extends Application /*implements Application.Activity
     static final BluetoothLEScanMutex bluetoothLEScanMutex = new BluetoothLEScanMutex();
     static final BluetoothScanResultsMutex bluetoothScanResultsMutex = new BluetoothScanResultsMutex();
     static final TwilightScannerMutex twilightScannerMutex = new TwilightScannerMutex();
+
+    static PowerManager.WakeLock keepScreenOnWakeLock;
 
     //static final String romManufacturer = getROMManufacturer();
     static final boolean deviceIsXiaomi = isXiaomi();

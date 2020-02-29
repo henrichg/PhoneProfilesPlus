@@ -1494,6 +1494,7 @@ class ActivateProfileHelper {
     }
 
     private static void setScreenOnPermanent(Profile profile, Context context) {
+        //PPApplication.logE("******** ActivateProfileHelper.setScreenOnPermanent", "profile._screenOnPermanent="+profile._screenOnPermanent);
         if (profile._screenOnPermanent == 1)
             createKeepScreenOnView(context);
         else
@@ -2976,20 +2977,20 @@ class ActivateProfileHelper {
     {
         removeKeepScreenOnView();
 
-        if (PhoneProfilesService.getInstance() != null) {
+        //if (PhoneProfilesService.getInstance() != null) {
             final Context appContext = context.getApplicationContext();
 
-            PhoneProfilesService service = PhoneProfilesService.getInstance();
+            //PhoneProfilesService service = PhoneProfilesService.getInstance();
             PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
             try {
                 if (powerManager != null) {
                     //Log.e("ActivateProfileHelper.createKeepScreenOnView", "keepScreenOnWakeLock="+service.keepScreenOnWakeLock);
-                    if ((service.keepScreenOnWakeLock == null) || (!service.keepScreenOnWakeLock.isHeld())) {
-                        if (service.keepScreenOnWakeLock == null)
+                    if ((PPApplication.keepScreenOnWakeLock == null) || (!PPApplication.keepScreenOnWakeLock.isHeld())) {
+                        if (PPApplication.keepScreenOnWakeLock == null)
                             //noinspection deprecation
-                            service.keepScreenOnWakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK |
+                            PPApplication.keepScreenOnWakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK |
                                     PowerManager.ACQUIRE_CAUSES_WAKEUP, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_createKeepScreenOnView");
-                        service.keepScreenOnWakeLock.acquire();
+                        PPApplication.keepScreenOnWakeLock.acquire();
                     }
                 }
             } catch (Exception e) {
@@ -3025,21 +3026,21 @@ class ActivateProfileHelper {
                     PhoneProfilesService.getInstance().keepScreenOnView = null;
                 }
             }*/
-        }
+        //}
     }
 
     static void removeKeepScreenOnView(/*Context context*/)
     {
-        if (PhoneProfilesService.getInstance() != null) {
+        //if (PhoneProfilesService.getInstance() != null) {
             //final Context appContext = context.getApplicationContext();
 
-            PhoneProfilesService service = PhoneProfilesService.getInstance();
+            //PhoneProfilesService service = PhoneProfilesService.getInstance();
 
             try {
                 //Log.e("ActivateProfileHelper.removeKeepScreenOnView", "keepScreenOnWakeLock="+service.keepScreenOnWakeLock);
-                if ((service.keepScreenOnWakeLock != null) && service.keepScreenOnWakeLock.isHeld()) {
-                        service.keepScreenOnWakeLock.release();
-                        service.keepScreenOnWakeLock = null;
+                if ((PPApplication.keepScreenOnWakeLock != null) && PPApplication.keepScreenOnWakeLock.isHeld()) {
+                    PPApplication.keepScreenOnWakeLock.release();
+                    PPApplication.keepScreenOnWakeLock = null;
                 }
             } catch (Exception e) {
                 Log.e("ActivateProfileHelper.removeKeepScreenOnView", Log.getStackTraceString(e));
@@ -3057,7 +3058,7 @@ class ActivateProfileHelper {
                     PhoneProfilesService.getInstance().keepScreenOnView = null;
                 }
             }*/
-        }
+        //}
     }
 
     static void forceUpdateGUI(Context context, boolean alsoEditor, boolean refresh) {

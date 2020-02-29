@@ -500,8 +500,8 @@ public class DelayedWorksWorker extends Worker {
                     PPApplication.blockProfileEventActions = false;
                     break;
                 case DELAYED_WORK_CLOSE_ALL_APPLICATIONS:
-                    Log.e("DelayedWorksWorker.doWork", "DELAYED_WORK_CLOSE_ALL_APPLICATIONS");
-                    Log.e("DelayedWorksWorker.doWork", "PPApplication.blockProfileEventActions="+PPApplication.blockProfileEventActions);
+                    //Log.e("DelayedWorksWorker.doWork", "DELAYED_WORK_CLOSE_ALL_APPLICATIONS");
+                    //Log.e("DelayedWorksWorker.doWork", "PPApplication.blockProfileEventActions="+PPApplication.blockProfileEventActions);
                     if (!PPApplication.blockProfileEventActions) {
                         try {
                             /*boolean appFound = false;
