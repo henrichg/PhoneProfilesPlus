@@ -311,11 +311,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(notificationAccessPreference);
             } else {
-                if (ringerModePreference != null) {
+                /*if (ringerModePreference != null) {
                     CharSequence[] entries = ringerModePreference.getEntries();
                     entries[4] = "(S) " + getString(R.string.array_pref_soundModeArray_ZenMode);
                     ringerModePreference.setEntries(entries);
-                }
+                }*/
 
                 boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
                 @SuppressLint("InlinedApi")
@@ -377,6 +377,20 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         if (ringerModePreference != null) {
+            CharSequence[] entries = ringerModePreference.getEntries();
+            if (Build.VERSION.SDK_INT < 23) {
+                entries[1] = entries[1] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeL_Off) + ")";
+                entries[2] = entries[2] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeL_Off) + ")";
+                entries[3] = entries[3] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeL_On) + ")";
+            }
+            else {
+                entries[1] = entries[1] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
+                entries[2] = entries[2] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
+                entries[3] = entries[3] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_On) + ")";
+            }
+            ringerModePreference.setEntries(entries);
+            setSummary(Profile.PREF_PROFILE_VOLUME_RINGER_MODE);
+
             ringerModePreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -1208,6 +1222,21 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 String value = GlobalGUIRoutines.getListPreferenceString(ringerMode,
                                         R.array.soundModeValues, R.array.soundModeArray, context);
+
+                if (ringerMode != null) {
+                    boolean zenModeOffValue = ringerMode.equals("1") || ringerMode.equals("2") || ringerMode.equals("3");
+                    if (Build.VERSION.SDK_INT < 23) {
+                        if (zenModeOffValue)
+                            value = value + " (" + getString(R.string.array_pref_soundModeArray_ZenModeL_Off) + ")";
+                        else if (ringerMode.equals("4"))
+                            value = value + " (" + getString(R.string.array_pref_soundModeArray_ZenModeL_On) + ")";
+                    } else {
+                        if (zenModeOffValue)
+                            value = value + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
+                        else if (ringerMode.equals("4"))
+                            value = value + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_On) + ")";
+                    }
+                }
 
                 summary = summary + title + ": <b>" + value + "</b>";
             }
