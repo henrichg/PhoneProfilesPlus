@@ -82,7 +82,7 @@ public class PhoneProfilesService extends Service
     private KeyguardManager.KeyguardLock keyguardLock = null;
 
     //BrightnessView brightnessView = null;
-    BrightnessView screenTimeoutAlwaysOnView = null;
+    //BrightnessView screenTimeoutAlwaysOnView = null;
     //BrightnessView keepScreenOnView = null;
 
     LockDeviceActivity lockDeviceActivity = null;

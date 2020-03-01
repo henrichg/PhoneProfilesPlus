@@ -118,6 +118,7 @@
       <w>externalstorage</w>
       <w>failsafe</w>
       <w>false;</w>
+      <w>fblack</w>
       <w>fcst</w>
       <w>ffffff</w>
       <w>fffffff</w>
@@ -288,6 +289,7 @@
       <w>slovenčina</w>
       <w>slovenščina</w>
       <w>sond</w>
+      <w>sonification</w>
       <w>sonyericsson</w>
       <w>splunchy</w>
       <w>sqlite</w>
@@ -312,6 +314,7 @@
       <w>timedurationpicker</w>
       <w>timelines</w>
       <w>tiếng</w>
+      <w>toastcompat</w>
       <w>topbar</w>
       <w>topjohnwu</w>
       <w>toybox</w>
