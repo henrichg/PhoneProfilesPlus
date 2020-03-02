@@ -1410,6 +1410,10 @@
     <string name="altype_manualRestartEvents">manuálny reštart udalostí</string>
     <string name="profile_preferences_configureSoundMode_info">Prosím nakonfigurujte aj parameter profilu \"Zvukový profil\"/\"Režim zvuku\"</string>
     <string name="profile_preferences_category_volumeTypes">Typy hlasitosti</string>
+    <string name="array_pref_soundModeArray_ZenModeL_Off">Vyrušenia vypnté</string>
+    <string name="array_pref_soundModeArray_ZenModeL_On">Vyrušenia zapnté</string>
+    <string name="array_pref_soundModeArray_ZenModeM_Off">Nerušiť vypnuté</string>
+    <string name="array_pref_soundModeArray_ZenModeM_On">Nerušiť zapnuté</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>

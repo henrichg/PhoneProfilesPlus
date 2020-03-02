@@ -1409,8 +1409,12 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="phone_profiles_pref_notificationShowProfileIcon">Pokaż ikonę profilu</string>
     <string name="altype_mergedProfileActivation">aktywacja profili ze zdarzeń</string>
     <string name="altype_manualRestartEvents">ręczny restart zdarzeń</string>
-    <string name="profile_preferences_configureSoundMode_info">Please configure also profile parameter \"Sound profile\"/\"Sound mode\"</string>
-    <string name="profile_preferences_category_volumeTypes">Volume types</string>
+    <string name="profile_preferences_configureSoundMode_info">Proszę skonfigurować również parametr profilu \"Profil dźwięku\"/\"Tryb dźwięku\"</string>
+    <string name="profile_preferences_category_volumeTypes">Typy głośności</string>
+    <string name="array_pref_soundModeArray_ZenModeL_Off">Interruptions off</string>
+    <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions on</string>
+    <string name="array_pref_soundModeArray_ZenModeM_Off">Do not disturb off</string>
+    <string name="array_pref_soundModeArray_ZenModeM_On">Do not disturb on</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>

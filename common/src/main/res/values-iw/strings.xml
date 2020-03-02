@@ -1413,6 +1413,10 @@
     <string name="altype_manualRestartEvents">manual restart events</string>
     <string name="profile_preferences_configureSoundMode_info">Please configure also profile parameter \"Sound profile\"/\"Sound mode\"</string>
     <string name="profile_preferences_category_volumeTypes">Volume types</string>
+    <string name="array_pref_soundModeArray_ZenModeL_Off">Interruptions off</string>
+    <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions on</string>
+    <string name="array_pref_soundModeArray_ZenModeM_Off">Do not disturb off</string>
+    <string name="array_pref_soundModeArray_ZenModeM_On">Do not disturb on</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>

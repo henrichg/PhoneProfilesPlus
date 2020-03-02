@@ -436,7 +436,7 @@
     <string name="phone_profiles_pref_category_wifi_scanning">WLAN-Suche</string>
     <string name="phone_profiles_pref_category_bluetooth_scanning">Bluetooth-Suche</string>
     <string name="profile_preferences_category_activation_duration">Dauer der Aktivierung</string>
-    <string name="profile_preferences_category_sound_profile">Soundprofil</string>
+    <string name="profile_preferences_category_sound_profile">Audioprofil</string>
     <string name="profile_preferences_category_radios">Verbindungen</string>
     <string name="profile_preferences_category_screen">Bildschirm</string>
     <string name="profile_preferences_category_others">Andere</string>
@@ -1408,8 +1408,12 @@
     <string name="phone_profiles_pref_notificationShowProfileIcon">Profilsymbol anzeigen</string>
     <string name="altype_mergedProfileActivation">Profile aus Ereignissen aktivieren</string>
     <string name="altype_manualRestartEvents">Manuelle Neustart-Ereignisse</string>
-    <string name="profile_preferences_configureSoundMode_info">Please configure also profile parameter \"Sound profile\"/\"Sound mode\"</string>
-    <string name="profile_preferences_category_volumeTypes">Volume types</string>
+    <string name="profile_preferences_configureSoundMode_info">Bitte konfigurieren Sie auch den Profilparameter „Audioprofil”/„Audiomodus”</string>
+    <string name="profile_preferences_category_volumeTypes">Laufwerkstypen</string>
+    <string name="array_pref_soundModeArray_ZenModeL_Off">Interruptions off</string>
+    <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions on</string>
+    <string name="array_pref_soundModeArray_ZenModeM_Off">Do not disturb off</string>
+    <string name="array_pref_soundModeArray_ZenModeM_On">Do not disturb on</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>
