@@ -74,8 +74,13 @@
         android:orderInCategory="250"
         app:showAsAction="never" />
     <item android:id="@+id/menu_test_crash"
-        android:title="Test crash"
+        android:title="Test fatal exception"
         android:orderInCategory="255"
+        app:showAsAction="never"
+        tools:ignore="HardcodedText" />
+    <item android:id="@+id/menu_test_nonFatal"
+        android:title="Test non-fatal exception"
+        android:orderInCategory="256"
         app:showAsAction="never"
         tools:ignore="HardcodedText" />
     <item android:id="@+id/menu_exit"

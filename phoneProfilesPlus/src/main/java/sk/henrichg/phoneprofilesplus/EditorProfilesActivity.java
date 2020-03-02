@@ -813,6 +813,11 @@ public class EditorProfilesActivity extends AppCompatActivity
         {
             menuItem.setVisible(BuildConfig.DEBUG);
         }
+        menuItem = menu.findItem(R.id.menu_test_nonFatal);
+        if (menuItem != null)
+        {
+            menuItem.setVisible(BuildConfig.DEBUG);
+        }
 
         onNextLayout(editorToolbar, new Runnable() {
             @Override
@@ -1026,9 +1031,23 @@ public class EditorProfilesActivity extends AppCompatActivity
                     dialog.show();
                 return true;
             case R.id.menu_test_crash:
-                //TODO throw new RuntimeException("test Crashlytics + TopExceptionHandler");
                 //throw new RuntimeException("Test Crash");
                 Crashlytics.getInstance().crash();
+                return true;
+            case R.id.menu_test_nonFatal:
+                try {
+                    throw new RuntimeException("Test non-fatal exception");
+                } catch (Exception e) {
+                    // You must relaunch PPP to get this exception in Firebase console:
+                    //
+                    // Crashlytics processes exceptions on a dedicated background thread, so the performance
+                    // impact to your app is minimal. To reduce your users’ network traffic, Crashlytics batches
+                    // logged exceptions together and sends them the next time the app launches.
+                    //
+                    // Crashlytics only stores the most recent 8 exceptions in a given app session. If your app
+                    // throws more than 8 exceptions in a session, older exceptions are lost.
+                    Crashlytics.logException(e);
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
