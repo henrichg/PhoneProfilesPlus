@@ -1047,6 +1047,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     // Crashlytics only stores the most recent 8 exceptions in a given app session. If your app
                     // throws more than 8 exceptions in a session, older exceptions are lost.
                     Crashlytics.logException(e);
+                    //Crashlytics.getInstance().core.logException(e);
                 }
                 return true;
             default:
