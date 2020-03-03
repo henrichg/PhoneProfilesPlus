@@ -546,8 +546,6 @@
     <string name="phone_profiles_pref_applicationEventOrientationScanInterval">فترة البحث عن الإتجاة (بالثواني)</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">البحث عن الاتجاه في وضع توفير الطاقة</string>
     <string name="phone_profiles_pref_eventOrientationAppSettings_summary">تكوين عوامل الإتجاة في إعدادات التطبيق.</string>
-    <string name="array_pref_screenTimeoutArray_24hours">24 ساعة</string>
-    <string name="array_pref_screenTimeoutArray_alwaysOn">تشغيل دائم</string>
     <string name="profile_preferences_vibrateWhenRinging">إهتزاز عند الرنين</string>
     <string name="permissions_for_play_ringtone_notification_text1">You have selected a ringer/notification tone from the SDCard. Tone cannot be played because this requires some permissions.</string>
     <string name="permissions_for_play_ringtone_notification_text2">Please grant them in next dialog. Tone will then be played.</string>
@@ -1666,4 +1664,6 @@
     <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
     <!--    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">If option \"24 hours\" is not working on your device (LG), use option \"Always On\". Option \"Always On\" may cause problems with Samsung devices. If so, then use option \"24 hours\".</string>-->
+    <!--    <string name="array_pref_screenTimeoutArray_24hours">24 hours</string>-->
+    <!--    <string name="array_pref_screenTimeoutArray_alwaysOn">Always On</string>-->
 </resources>

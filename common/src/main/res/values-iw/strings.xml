@@ -546,8 +546,6 @@
     <string name="phone_profiles_pref_applicationEventOrientationScanInterval">מרווח סריקת כיוון המכשיר (שניות)</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">סריקת כיוון המכשיר במצב חיסכון בצריכת חשמל</string>
     <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Setup Orientation scanning parameters in application settings.</string>
-    <string name="array_pref_screenTimeoutArray_24hours">24 שעות</string>
-    <string name="array_pref_screenTimeoutArray_alwaysOn">מופעל תמיד</string>
     <string name="profile_preferences_vibrateWhenRinging">רטט בעת צלצול</string>
     <string name="permissions_for_play_ringtone_notification_text1">נבחר צליל צלצול/הודעות מכרטיס sdcard. הצליל לא יושמע כיוון שפעולה זו דורשת הרשאות מסוימות.</string>
     <string name="permissions_for_play_ringtone_notification_text2">אנא התירו אותן בתיבות דו-שיח הבאות, ואז הצליל יושמע.</string>
@@ -1669,4 +1667,6 @@
     <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
     <!--    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">If option \"24 hours\" is not working on your device (LG), use option \"Always On\". Option \"Always On\" may cause problems with Samsung devices. If so, then use option \"24 hours\".</string>-->
+    <!--    <string name="array_pref_screenTimeoutArray_24hours">24 hours</string>-->
+    <!--    <string name="array_pref_screenTimeoutArray_alwaysOn">Always On</string>-->
 </resources>

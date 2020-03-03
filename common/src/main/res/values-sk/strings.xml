@@ -546,8 +546,6 @@
     <string name="phone_profiles_pref_applicationEventOrientationScanInterval">Interval skenovania orientácie (sek.)</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">Skenovanie orientácie v režime Šetrič batérie</string>
     <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Nastav parametre skenovania orientácie v nastaveniach aplikácie.</string>
-    <string name="array_pref_screenTimeoutArray_24hours">24 hodín</string>
-    <string name="array_pref_screenTimeoutArray_alwaysOn">Vždy zapnutá</string>
     <string name="profile_preferences_vibrateWhenRinging">Vibrovať pri zvonení</string>
     <string name="permissions_for_play_ringtone_notification_text1">Máte nastavený tón zvonenia/notifikácie z SD karty. Tón nebude prehratý, pretože to vyžaduje niektoré povolenia.</string>
     <string name="permissions_for_play_ringtone_notification_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách. Potom tón bude prehrávaný.</string>
@@ -1666,4 +1664,6 @@
     <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
     <!--    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">If option \"24 hours\" is not working on your device (LG), use option \"Always On\". Option \"Always On\" may cause problems with Samsung devices. If so, then use option \"24 hours\".</string>-->
+    <!--    <string name="array_pref_screenTimeoutArray_24hours">24 hours</string>-->
+    <!--    <string name="array_pref_screenTimeoutArray_alwaysOn">Always On</string>-->
 </resources>

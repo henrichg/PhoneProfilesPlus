@@ -546,8 +546,6 @@
     <string name="phone_profiles_pref_applicationEventOrientationScanInterval">Интервал определения положения (сек)</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">Сканирование положения в режиме энергосбережения</string>
     <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Установите параметры сканирования ориентации в настройках приложения.</string>
-    <string name="array_pref_screenTimeoutArray_24hours">24 часа</string>
-    <string name="array_pref_screenTimeoutArray_alwaysOn">Включено всегда</string>
     <string name="profile_preferences_vibrateWhenRinging">Вибрация при звонке</string>
     <string name="permissions_for_play_ringtone_notification_text1">Вы выбрали мелодию звонка/уведомления, расположенную на sdcard. Звук не будет воспроизводиться, поскольку для этого требуются дополнительные разрешения.</string>
     <string name="permissions_for_play_ringtone_notification_text2">Дайте разрешения в следующих диалоговых окнах. Затем мелодия будет установлена.</string>
@@ -786,7 +784,7 @@
     <string name="array_pref_applicationDisableScanning_enabled">Сканирование включено</string>
     <string name="duration_pref_dlg_duration_label">Продолжительность:</string>
     <string name="duration_pref_dlg_activation_end_label">Окончание активации:</string>
-    <string name="important_info_profile_zenModeM">Для установки значения \"Режимы оповещения\" в разделе \"Режим звонка\" необходимо включить службу PhoneProfilesPlus в настройках системы \"Доступ к уведомлениям\". Нажмите здесь, чтобы включить службу PhoneProfilesPlus.</string>
+    <string name="important_info_profile_zenModeM">Для установки значения \"Не беспокоить\" в разделе \"Режим звонка\" необходимо включить службу PhoneProfilesPlus в настройках системы \"Доступ к уведомлениям\". Нажмите здесь, чтобы включить службу PhoneProfilesPlus.</string>
     <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">В Android 6 системные параметры, такие как режим звонка и вибрация, могут быть изменены только на разблокированных устройствах, имеющих права Суперпользователя.</string>
     <string name="setting_screen_not_found_alert">Настройки экрана не найдены.</string>
     <string name="action_for_external_application_notification_no_profile_text">Параметр profile_name отсутствует или является пустым.</string>
@@ -1410,10 +1408,10 @@
     <string name="altype_manualRestartEvents">вручную перезапустить события</string>
     <string name="profile_preferences_configureSoundMode_info">Пожалуйста, настройте также параметр профиля \"Звук профиля\"/\"Звуковой режим\"</string>
     <string name="profile_preferences_category_volumeTypes">Типы уровней громкости</string>
-    <string name="array_pref_soundModeArray_ZenModeL_Off">Interruptions off</string>
-    <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions on</string>
-    <string name="array_pref_soundModeArray_ZenModeM_Off">Do not disturb off</string>
-    <string name="array_pref_soundModeArray_ZenModeM_On">Do not disturb on</string>
+    <string name="array_pref_soundModeArray_ZenModeL_Off">Оповещения отключены</string>
+    <string name="array_pref_soundModeArray_ZenModeL_On">Оповещения включены</string>
+    <string name="array_pref_soundModeArray_ZenModeM_Off">Режим \"Не беспокоить\" отключён</string>
+    <string name="array_pref_soundModeArray_ZenModeM_On">Режим \"Не беспокоить\" включён</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>
@@ -1666,4 +1664,6 @@
     <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
     <!--    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">If option \"24 hours\" is not working on your device (LG), use option \"Always On\". Option \"Always On\" may cause problems with Samsung devices. If so, then use option \"24 hours\".</string>-->
+    <!--    <string name="array_pref_screenTimeoutArray_24hours">24 hours</string>-->
+    <!--    <string name="array_pref_screenTimeoutArray_alwaysOn">Always On</string>-->
 </resources>

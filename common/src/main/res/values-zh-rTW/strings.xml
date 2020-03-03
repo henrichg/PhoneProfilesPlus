@@ -546,8 +546,6 @@
     <string name="phone_profiles_pref_applicationEventOrientationScanInterval">手機翻轉掃描間隔 (秒)</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">在省電模式下也進行翻轉掃描</string>
     <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Setup Orientation scanning parameters in application settings.</string>
-    <string name="array_pref_screenTimeoutArray_24hours">24 小時</string>
-    <string name="array_pref_screenTimeoutArray_alwaysOn">恆亮</string>
     <string name="profile_preferences_vibrateWhenRinging">鈴響時震動</string>
     <string name="permissions_for_play_ringtone_notification_text1">您選擇了存放在 SD 卡上的鈴聲/通知音效. 音效無法被播放因為這需要某些許可權.</string>
     <string name="permissions_for_play_ringtone_notification_text2">請在下一個對話方塊中授予許可權. 音效即可被播放.</string>
@@ -1666,4 +1664,6 @@
     <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
     <!--    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">If option \"24 hours\" is not working on your device (LG), use option \"Always On\". Option \"Always On\" may cause problems with Samsung devices. If so, then use option \"24 hours\".</string>-->
+    <!--    <string name="array_pref_screenTimeoutArray_24hours">24 hours</string>-->
+    <!--    <string name="array_pref_screenTimeoutArray_alwaysOn">Always On</string>-->
 </resources>

@@ -1,5 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
 class DebugVersion {
-    static boolean enabled = false;
+    static final boolean enabled = false;
 }

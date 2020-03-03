@@ -546,8 +546,6 @@
     <string name="phone_profiles_pref_applicationEventOrientationScanInterval">Интервал скенирања оријентације ( у секундама)</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">Скенирање оријентације у моду уштеде енергије</string>
     <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Подешавање параметара скенирања оријентације у подешавањима апликације.</string>
-    <string name="array_pref_screenTimeoutArray_24hours">24 сата</string>
-    <string name="array_pref_screenTimeoutArray_alwaysOn">Увек укључено</string>
     <string name="profile_preferences_vibrateWhenRinging">Вибрирај када звони</string>
     <string name="permissions_for_play_ringtone_notification_text1">Изабрали сте звоно/обавештење звук са СД Картице. Овај звук се не може користити јер захтева неке дозволе.</string>
     <string name="permissions_for_play_ringtone_notification_text2">Омогућите их у следећем дијалогу. Звук ће онда моћи да се користи.</string>
@@ -1666,4 +1664,6 @@
     <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
     <!--    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">If option \"24 hours\" is not working on your device (LG), use option \"Always On\". Option \"Always On\" may cause problems with Samsung devices. If so, then use option \"24 hours\".</string>-->
+    <!--    <string name="array_pref_screenTimeoutArray_24hours">24 hours</string>-->
+    <!--    <string name="array_pref_screenTimeoutArray_alwaysOn">Always On</string>-->
 </resources>

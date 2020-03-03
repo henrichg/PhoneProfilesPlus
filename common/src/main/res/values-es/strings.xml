@@ -546,8 +546,6 @@
     <string name="phone_profiles_pref_applicationEventOrientationScanInterval">Intervalos de escaneo de orientación (segundos)</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">El escaner de orientación, está en modo de ahorro de batería</string>
     <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Configurar los parámetros de orientación en la configuración de la aplicación.</string>
-    <string name="array_pref_screenTimeoutArray_24hours">24 horas</string>
-    <string name="array_pref_screenTimeoutArray_alwaysOn">Siempre encendido</string>
     <string name="profile_preferences_vibrateWhenRinging">Vibrar cuando suene</string>
     <string name="permissions_for_play_ringtone_notification_text1">Has seleccionado un timbre/notificación desde la SDCard. El tono no puede ser reproducido porque este requiere de algunos permisos.</string>
     <string name="permissions_for_play_ringtone_notification_text2">Por favor, concédalos en el próximo diálogo. Entonces el tono será reproducido.</string>
@@ -1666,4 +1664,6 @@
     <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
     <!--    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">If option \"24 hours\" is not working on your device (LG), use option \"Always On\". Option \"Always On\" may cause problems with Samsung devices. If so, then use option \"24 hours\".</string>-->
+    <!--    <string name="array_pref_screenTimeoutArray_24hours">24 hours</string>-->
+    <!--    <string name="array_pref_screenTimeoutArray_alwaysOn">Always On</string>-->
 </resources>

@@ -546,8 +546,6 @@
     <string name="phone_profiles_pref_applicationEventOrientationScanInterval">Інтервал визначення орієнтації екрану (сек)</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">Визначення орієнтації екрану у режимі енергозбереження</string>
     <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Встановити параметри сканування Орієнтації екрану в налаштуваннях додатку.</string>
-    <string name="array_pref_screenTimeoutArray_24hours">24 години</string>
-    <string name="array_pref_screenTimeoutArray_alwaysOn">Завжди увімкнено</string>
     <string name="profile_preferences_vibrateWhenRinging">Вібрувати під час дзвінка</string>
     <string name="permissions_for_play_ringtone_notification_text1">Ви вибрали сигнал дзвінка/сповіщення із SD-карти. Сигнал не буде відтворюватись, тому що це вимагає деяких дозволів.</string>
     <string name="permissions_for_play_ringtone_notification_text2">Надайте дозвіл у наступному діалоговому вікні. Після цього сигнал буде відтворено.</string>
@@ -1412,8 +1410,8 @@
     <string name="profile_preferences_category_volumeTypes">Типи гучності</string>
     <string name="array_pref_soundModeArray_ZenModeL_Off">Interruptions off</string>
     <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions on</string>
-    <string name="array_pref_soundModeArray_ZenModeM_Off">Do not disturb off</string>
-    <string name="array_pref_soundModeArray_ZenModeM_On">Do not disturb on</string>
+    <string name="array_pref_soundModeArray_ZenModeM_Off">Режим \"Не турбувати\" вимкнено</string>
+    <string name="array_pref_soundModeArray_ZenModeM_On">Режим \"Не турбувати\" ввімкнено</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>
@@ -1666,4 +1664,6 @@
     <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
     <!--    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">If option \"24 hours\" is not working on your device (LG), use option \"Always On\". Option \"Always On\" may cause problems with Samsung devices. If so, then use option \"24 hours\".</string>-->
+    <!--    <string name="array_pref_screenTimeoutArray_24hours">24 hours</string>-->
+    <!--    <string name="array_pref_screenTimeoutArray_alwaysOn">Always On</string>-->
 </resources>

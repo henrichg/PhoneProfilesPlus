@@ -805,6 +805,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         menuItem = menu.findItem(R.id.menu_email_debug_logs_to_author);
         if (menuItem != null)
         {
+            //noinspection ConstantConditions
             menuItem.setVisible(PPApplication.logIntoFile || PPApplication.crashIntoFile);
         }
 

@@ -546,8 +546,6 @@
     <string name="phone_profiles_pref_applicationEventOrientationScanInterval">Interval pemindaian orientasi (detik)</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">Pemindaian orientasi pada mode Hemat Daya</string>
     <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Setup Orientation scanning parameters in application settings.</string>
-    <string name="array_pref_screenTimeoutArray_24hours">24 jam</string>
-    <string name="array_pref_screenTimeoutArray_alwaysOn">Selalu Aktif</string>
     <string name="profile_preferences_vibrateWhenRinging">Getar saat berdering</string>
     <string name="permissions_for_play_ringtone_notification_text1">Anda telah memilih nada dering / notifikasi dari SDCard. Nada tidak bisa dimainkan karena ini memerlukan beberapa izin.</string>
     <string name="permissions_for_play_ringtone_notification_text2">Tolong berikan mereka di dialog berikutnya. Nada kemudian akan dimainkan.</string>
@@ -1666,4 +1664,6 @@
     <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
     <!--    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">If option \"24 hours\" is not working on your device (LG), use option \"Always On\". Option \"Always On\" may cause problems with Samsung devices. If so, then use option \"24 hours\".</string>-->
+    <!--    <string name="array_pref_screenTimeoutArray_24hours">24 hours</string>-->
+    <!--    <string name="array_pref_screenTimeoutArray_alwaysOn">Always On</string>-->
 </resources>

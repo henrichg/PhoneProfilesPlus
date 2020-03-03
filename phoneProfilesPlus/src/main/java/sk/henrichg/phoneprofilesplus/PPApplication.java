@@ -1325,6 +1325,7 @@ public class PPApplication extends Application /*implements Application.Activity
     }
 
     static public boolean logEnabled() {
+        //noinspection ConstantConditions
         return (logIntoLogCat || logIntoFile);
     }
 

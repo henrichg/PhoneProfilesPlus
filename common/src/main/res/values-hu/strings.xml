@@ -546,8 +546,6 @@
     <string name="phone_profiles_pref_applicationEventOrientationScanInterval">Tájolás ellenőrzés intervallum (sec)</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">Tájolás vizsgálat Energia takarékos módban</string>
     <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Tájolás ellenőrzési paramétereit az alkalmazás beállításokban teheti.</string>
-    <string name="array_pref_screenTimeoutArray_24hours">24 óra</string>
-    <string name="array_pref_screenTimeoutArray_alwaysOn">Mindig bekapcsolva</string>
     <string name="profile_preferences_vibrateWhenRinging">Csengetéskor rezegjen</string>
     <string name="permissions_for_play_ringtone_notification_text1">Csengő/értesítés hangot a Sdcard-ról választotta. Hang nem fog lejátszódni, mert ehhez bizonyos engedélyekre van szükség.</string>
     <string name="permissions_for_play_ringtone_notification_text2">Végezd el a beállításokat. Majd a hang le fog játszódni.</string>
@@ -1666,4 +1664,6 @@
     <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
     <!--    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">If option \"24 hours\" is not working on your device (LG), use option \"Always On\". Option \"Always On\" may cause problems with Samsung devices. If so, then use option \"24 hours\".</string>-->
+    <!--    <string name="array_pref_screenTimeoutArray_24hours">24 hours</string>-->
+    <!--    <string name="array_pref_screenTimeoutArray_alwaysOn">Always On</string>-->
 </resources>

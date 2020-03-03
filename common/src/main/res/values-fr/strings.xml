@@ -546,8 +546,6 @@
     <string name="phone_profiles_pref_applicationEventOrientationScanInterval">Intervalle d\'analyse de l\'orientation (s)</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">Analyse de l\'orientation en mode économie d\'énergie</string>
     <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Configurez les paramètres de détection de l\'orientation dans les paramètres de l\'application. </string>
-    <string name="array_pref_screenTimeoutArray_24hours">24 heures</string>
-    <string name="array_pref_screenTimeoutArray_alwaysOn">Toujours allumé</string>
     <string name="profile_preferences_vibrateWhenRinging">Vibrer quand ça sonne</string>
     <string name="permissions_for_play_ringtone_notification_text1">Vous avez sélectionné des sonneries et des notifications de la carte Sd. Les sons ne sont pas joué, parce que ceci exige certaines autorisations.</string>
     <string name="permissions_for_play_ringtone_notification_text2">S\'il vous plaît validez les boîtes de dialogues suivantes pour que les sons soient joués.</string>
@@ -1410,10 +1408,10 @@
     <string name="altype_manualRestartEvents">redémarrage manuel des événements</string>
     <string name="profile_preferences_configureSoundMode_info">Veuillez également configurer le paramètre de profil \"Profile audio\"/\"Mode\"</string>
     <string name="profile_preferences_category_volumeTypes">Types de volume</string>
-    <string name="array_pref_soundModeArray_ZenModeL_Off">Interruptions off</string>
-    <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions on</string>
-    <string name="array_pref_soundModeArray_ZenModeM_Off">Do not disturb off</string>
-    <string name="array_pref_soundModeArray_ZenModeM_On">Do not disturb on</string>
+    <string name="array_pref_soundModeArray_ZenModeL_Off">Interruptions désactivées</string>
+    <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions activées</string>
+    <string name="array_pref_soundModeArray_ZenModeM_Off">Ne pas déranger désactivé</string>
+    <string name="array_pref_soundModeArray_ZenModeM_On">Ne pas déranger activé</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>
@@ -1666,4 +1664,6 @@
     <!--    <string name="phone_profiles_pref_applicationEventLocationRescan">Re-scan location</string>-->
     <!--    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>-->
     <!--    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">If option \"24 hours\" is not working on your device (LG), use option \"Always On\". Option \"Always On\" may cause problems with Samsung devices. If so, then use option \"24 hours\".</string>-->
+    <!--    <string name="array_pref_screenTimeoutArray_24hours">24 hours</string>-->
+    <!--    <string name="array_pref_screenTimeoutArray_alwaysOn">Always On</string>-->
 </resources>
