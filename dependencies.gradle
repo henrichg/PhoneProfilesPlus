@@ -24,8 +24,8 @@
 // 5700 = removed usage of screen timeout 24 hours and permanent on
 
 ext.ppVersions = [
-    publishVersion: '4.1.6.5b',
-    publishVersionCode: 5582,
+    publishVersion: '4.1.6.5',
+    publishVersionCode: 5700,
 
     minSdk: 21,
     targetSdk: 28,
