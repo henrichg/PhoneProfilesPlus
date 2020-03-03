@@ -2450,7 +2450,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         String summary = "";
         if (key.equals("applicationInterfaceCategoryRoot")) {
-            /*if (BuildConfig.DEBUG) {
+            /*if (DebugVersion.enabled) {
                 // force set it to english for debug mode
                 preferenceCategory.setTitle("Application interface (not translated in DEBUG)");
             }*/

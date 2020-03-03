@@ -66,10 +66,10 @@ public class PPApplication extends Application /*implements Application.Activity
     private static WorkManager workManagerInstance;
 
     @SuppressWarnings("PointlessBooleanExpression")
-    private static final boolean logIntoLogCat = true && BuildConfig.DEBUG;
+    private static final boolean logIntoLogCat = true && DebugVersion.enabled;
     static final boolean logIntoFile = false;
     @SuppressWarnings("PointlessBooleanExpression")
-    static final boolean crashIntoFile = true && BuildConfig.DEBUG;
+    static final boolean crashIntoFile = true && DebugVersion.enabled;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
                                                 //+"|PPApplication.isXiaomi"
@@ -975,7 +975,7 @@ public class PPApplication extends Application /*implements Application.Activity
         */
 
         try {
-            //if (!BuildConfig.DEBUG) {
+            //if (!DebugVersion.enabled) {
                 // Obtain the FirebaseAnalytics instance.
                 //firebaseAnalytics = FirebaseAnalytics.getInstance(this);
             //}
@@ -983,12 +983,12 @@ public class PPApplication extends Application /*implements Application.Activity
             /*
             // Set up Crashlytics, disabled for debug builds
             Crashlytics crashlyticsKit = new Crashlytics.Builder()
-                    .core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
+                    .core(new CrashlyticsCore.Builder().disabled(DebugVersion.enabled).build())
                     .build();
 
             Fabric.with(this, crashlyticsKit);
             */
-            //if (!BuildConfig.DEBUG) {
+            //if (!DebugVersion.enabled) {
                 Fabric.with(this, new Crashlytics());
             //}
             // Crashlytics.getInstance().core.logException(exception); -- this log will be associated with crash log.
@@ -1062,11 +1062,11 @@ public class PPApplication extends Application /*implements Application.Activity
         workManagerInstance = getWorkManagerInstance(getApplicationContext());
 
         try {
-            //FirebaseCrashlytics.getInstance().setCustomKey("DEBUG", BuildConfig.DEBUG);
-            Crashlytics.setBool("DEBUG", BuildConfig.DEBUG);
+            //FirebaseCrashlytics.getInstance().setCustomKey("DEBUG", DebugVersion.enabled);
+            Crashlytics.setBool("DEBUG", DebugVersion.enabled);
         } catch (Exception ignored) {}
 
-        //if (BuildConfig.DEBUG) {
+        //if (DebugVersion.enabled) {
         int actualVersionCode = 0;
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);

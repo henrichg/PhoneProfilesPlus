@@ -5275,7 +5275,7 @@ public class PhoneProfilesService extends Service
 
     void showProfileNotification(final boolean refresh, boolean forServiceStart/*, final boolean cleared*/) {
         //if (Build.VERSION.SDK_INT >= 26) {
-            //if (BuildConfig.DEBUG)
+            //if (DebugVersion.enabled)
             //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
 
         //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","forServiceStart="+forServiceStart);
@@ -5302,7 +5302,7 @@ public class PhoneProfilesService extends Service
             }
         //}
 
-        //if (BuildConfig.DEBUG)
+        //if (DebugVersion.enabled)
         //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
 
         //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","before run handler");

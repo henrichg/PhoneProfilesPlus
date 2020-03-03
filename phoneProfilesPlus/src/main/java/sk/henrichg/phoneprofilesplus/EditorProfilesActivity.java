@@ -811,12 +811,12 @@ public class EditorProfilesActivity extends AppCompatActivity
         menuItem = menu.findItem(R.id.menu_test_crash);
         if (menuItem != null)
         {
-            menuItem.setVisible(BuildConfig.DEBUG);
+            menuItem.setVisible(DebugVersion.enabled);
         }
         menuItem = menu.findItem(R.id.menu_test_nonFatal);
         if (menuItem != null)
         {
-            menuItem.setVisible(BuildConfig.DEBUG);
+            menuItem.setVisible(DebugVersion.enabled);
         }
 
         onNextLayout(editorToolbar, new Runnable() {

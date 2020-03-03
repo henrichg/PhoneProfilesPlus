@@ -37,7 +37,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
         removeAlarm(context);
 
         Calendar now = Calendar.getInstance();
-        //if (BuildConfig.DEBUG) {
+        //if (DebugVersion.enabled) {
         //    now.add(Calendar.MINUTE, 1);
         //} else {
             // each day at 13:30
@@ -202,7 +202,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
         int daysForNextNotification = PPApplication.getDaysForNextDonationNotification(appContext);
         boolean donationDonated = PPApplication.getDonationDonated(appContext);
 
-        if (BuildConfig.DEBUG) {
+        if (DebugVersion.enabled) {
             donationDonated = false;
                                 /*if (donationNotificationCount == 5) {
                                     donationNotificationCount = 3;
