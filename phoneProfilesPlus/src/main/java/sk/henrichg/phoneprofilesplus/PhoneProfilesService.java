@@ -631,7 +631,7 @@ public class PhoneProfilesService extends Service
                 (!PPApplication.applicationPackageReplaced)) {
 
             String text = getString(R.string.app_name) + " " + getString(R.string.application_is_started_toast);
-            GlobalGUIRoutines.showToast(appContext, text, Toast.LENGTH_LONG);
+            GlobalGUIRoutines.showToast(appContext, text, Toast.LENGTH_SHORT);
         }
     }
 

@@ -629,7 +629,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             String text = getString(R.string.app_name) + " " + getString(R.string.application_is_not_started);
             if (!fullyStarted)
                 text = getString(R.string.app_name) + " " + getString(R.string.application_is_starting_toast);
-            GlobalGUIRoutines.showToast(getApplicationContext(), text, Toast.LENGTH_LONG);
+            GlobalGUIRoutines.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
             return true;
         }
         return false;
@@ -1746,7 +1746,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         if (Permissions.checkImport(getApplicationContext())) {
 
             String text = getString(R.string.app_name) + " " + getString(R.string.application_is_starting_toast);
-            GlobalGUIRoutines.showToast(getApplicationContext(), text, Toast.LENGTH_LONG);
+            GlobalGUIRoutines.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
 
             @SuppressLint("StaticFieldLeak")
             class ImportAsyncTask extends AsyncTask<Void, Integer, Integer> {
