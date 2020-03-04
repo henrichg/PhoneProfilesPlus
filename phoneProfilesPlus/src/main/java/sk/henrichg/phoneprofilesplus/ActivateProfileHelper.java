@@ -922,6 +922,9 @@ class ActivateProfileHelper {
             }
         }
 
+        int value = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
+        PPApplication.logE("[VOL] ActivateProfileHelper.setVolumes", "STREAM_VOICE_CALL="+value);
+
     }
 
     static void setMediaVolume(Context context, AudioManager audioManager, int value) {

@@ -118,6 +118,9 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|BrightnessDialogPreferenceFragmentX"
                                                 //+"|[BRSD] SettingsContentObserver"
 
+                                                +"|[VOL] SettingsContentObserver.onChange"
+                                                +"|[VOL] ActivateProfileHelper.setVolumes"
+
                                                 //+"|EditorProfilesActivity.finishBroadcastReceiver"
                                                 //+"|EditorProfilesActivity.onStart"
                                                 //+"|EditorProfilesActivity.onStop"
