@@ -90,9 +90,9 @@ public class TimeDurationPicker extends FrameLayout {
         unitLabelViews = new TextView[] { hoursLabel, minutesLabel, secondsLabel };
 
         backspaceButton = findViewById(R.id.backspace);
-        TooltipCompat.setTooltipText(backspaceButton, mContext.getString(R.string.backspace_button_tooltip));
+        TooltipCompat.setTooltipText(backspaceButton, context.getString(R.string.backspace_button_tooltip));
         clearButton = findViewById(R.id.clear);
-        TooltipCompat.setTooltipText(clearButton, mContext.getString(R.string.clear_button_tooltip));
+        TooltipCompat.setTooltipText(clearButton, context.getString(R.string.clear_button_tooltip));
 
         separatorView = findViewById(R.id.separator);
 
