@@ -34,5 +34,5 @@ ext.ppVersions = [
 
     annotationXLib: '1.1.0',
     appcompatXLib: '1.1.0',
-    workXLib: '2.3.2'
+    workXLib: '2.3.3'
 ]
