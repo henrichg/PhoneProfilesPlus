@@ -61,7 +61,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
                             Profile profile = DatabaseHandler.getInstance(appContext).getActivatedProfile();
                             if (profile._screenOnPermanent == 1)
-                                ActivateProfileHelper.createKeepScreenOnView(appContext, true);
+                                ActivateProfileHelper.createKeepScreenOnView(appContext);
                             else
                                 ActivateProfileHelper.removeKeepScreenOnView();
 
