@@ -106,8 +106,8 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
                 boolean audibleSystemRingerMode = ActivateProfileHelper.isAudibleSystemRingerMode(audioManager, context);
                 //PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "audibleSystemRingerMode="+audibleSystemRingerMode);
                 if (audibleSystemRingerMode) {
-                    DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
-                    final Profile profile = dataWrapper.getActivatedProfile(false, false);
+                    //DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
+                    final Profile profile = DatabaseHandler.getInstance(context).getActivatedProfile();
                     //PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "profile="+profile);
                     if (profile != null) {
                         //PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "profile._name="+profile._name);
@@ -157,9 +157,8 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         // audio mode is set to MODE_IN_CALL by system
         //PPApplication.logE("PhoneCallBroadcastReceiver.callAnswered", "audio mode="+audioManager.getMode());
 
-        DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
-
-        Profile profile = dataWrapper.getActivatedProfile(false, false);
+        //DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
+        Profile profile = DatabaseHandler.getInstance(context).getActivatedProfile();
         //profile = Profile.getMappedProfile(profile, context);
 
         if (profile != null) {
