@@ -31,11 +31,10 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             @Override
             public void run() {
                 //PPApplication.logE("OneRowWidgetProvider.onUpdate", "in handler");
-                String applicationWidgetOneRowIconLightness = ApplicationPreferences.applicationWidgetOneRowIconLightness;
+                /*String applicationWidgetOneRowIconLightness = ApplicationPreferences.applicationWidgetOneRowIconLightness;
                 String applicationWidgetOneRowIconColor = ApplicationPreferences.applicationWidgetOneRowIconColor;
                 boolean applicationWidgetOneRowCustomIconLightness = ApplicationPreferences.applicationWidgetOneRowCustomIconLightness;
-                //boolean applicationWidgetOneRowPrefIndicator = ApplicationPreferences.applicationWidgetOneRowPrefIndicator(context);
-                boolean applicationWidgetOneRowPrefIndicator = ApplicationPreferences.applicationWidgetListPrefIndicator;
+                boolean applicationWidgetOneRowPrefIndicator = ApplicationPreferences.applicationWidgetOneRowPrefIndicator;
                 boolean applicationWidgetOneRowBackgroundType = ApplicationPreferences.applicationWidgetOneRowBackgroundType;
                 String applicationWidgetOneRowBackgroundColor = ApplicationPreferences.applicationWidgetOneRowBackgroundColor;
                 String applicationWidgetOneRowLightnessB = ApplicationPreferences.applicationWidgetOneRowLightnessB;
@@ -43,26 +42,46 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 boolean applicationWidgetOneRowShowBorder = ApplicationPreferences.applicationWidgetOneRowShowBorder;
                 String applicationWidgetOneRowLightnessBorder = ApplicationPreferences.applicationWidgetOneRowLightnessBorder;
                 boolean applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
-                String applicationWidgetOneRowLightnessT = ApplicationPreferences.applicationWidgetOneRowLightnessT;
+                String applicationWidgetOneRowLightnessT = ApplicationPreferences.applicationWidgetOneRowLightnessT;*/
 
                 //PPApplication.logE("OneRowWidgetProvider.onUpdate", "applicationWidgetOneRowShowBorder="+applicationWidgetOneRowShowBorder);
 
                 int monochromeValue = 0xFF;
-                if (applicationWidgetOneRowIconLightness.equals("0")) monochromeValue = 0x00;
-                if (applicationWidgetOneRowIconLightness.equals("12")) monochromeValue = 0x20;
-                if (applicationWidgetOneRowIconLightness.equals("25")) monochromeValue = 0x40;
-                if (applicationWidgetOneRowIconLightness.equals("37")) monochromeValue = 0x60;
-                if (applicationWidgetOneRowIconLightness.equals("50")) monochromeValue = 0x80;
-                if (applicationWidgetOneRowIconLightness.equals("62")) monochromeValue = 0xA0;
-                if (applicationWidgetOneRowIconLightness.equals("75")) monochromeValue = 0xC0;
-                if (applicationWidgetOneRowIconLightness.equals("87")) monochromeValue = 0xE0;
-                //if (applicationWidgetOneRowIconLightness.equals("100")) monochromeValue = 0xFF;
+                switch (ApplicationPreferences.applicationWidgetOneRowIconLightness) {
+                    case "0":
+                        monochromeValue = 0x00;
+                        break;
+                    case "12":
+                        monochromeValue = 0x20;
+                        break;
+                    case "25":
+                        monochromeValue = 0x40;
+                        break;
+                    case "37":
+                        monochromeValue = 0x60;
+                        break;
+                    case "50":
+                        monochromeValue = 0x80;
+                        break;
+                    case "62":
+                        monochromeValue = 0xA0;
+                        break;
+                    case "75":
+                        monochromeValue = 0xC0;
+                        break;
+                    case "87":
+                        monochromeValue = 0xE0;
+                        break;
+                    case "100":
+                        monochromeValue = 0xFF;
+                        break;
+                }
 
                 DataWrapper dataWrapper = new DataWrapper(context,
-                        applicationWidgetOneRowIconColor.equals("1"), monochromeValue,
-                        applicationWidgetOneRowCustomIconLightness);
+                        ApplicationPreferences.applicationWidgetOneRowIconColor.equals("1"), monochromeValue,
+                        ApplicationPreferences.applicationWidgetOneRowCustomIconLightness);
 
-                Profile profile = dataWrapper.getActivatedProfile(true, applicationWidgetOneRowPrefIndicator);
+                Profile profile = dataWrapper.getActivatedProfile(true, ApplicationPreferences.applicationWidgetOneRowPrefIndicator);
 
                 boolean fullyStarted = false;
                 if (PhoneProfilesService.getInstance() != null)
@@ -93,65 +112,145 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     int redBackground = 0x00;
                     int greenBackground;
                     int blueBackground;
-                    if (applicationWidgetOneRowBackgroundType) {
-                        int bgColor = Integer.parseInt(applicationWidgetOneRowBackgroundColor);
+                    if (ApplicationPreferences.applicationWidgetOneRowBackgroundType) {
+                        int bgColor = Integer.parseInt(ApplicationPreferences.applicationWidgetOneRowBackgroundColor);
                         redBackground = Color.red(bgColor);
                         greenBackground = Color.green(bgColor);
                         blueBackground = Color.blue(bgColor);
                     } else {
-                        //if (applicationWidgetOneRowLightnessB.equals("0")) redBackground = 0x00;
-                        if (applicationWidgetOneRowLightnessB.equals("12")) redBackground = 0x20;
-                        if (applicationWidgetOneRowLightnessB.equals("25")) redBackground = 0x40;
-                        if (applicationWidgetOneRowLightnessB.equals("37")) redBackground = 0x60;
-                        if (applicationWidgetOneRowLightnessB.equals("50")) redBackground = 0x80;
-                        if (applicationWidgetOneRowLightnessB.equals("62")) redBackground = 0xA0;
-                        if (applicationWidgetOneRowLightnessB.equals("75")) redBackground = 0xC0;
-                        if (applicationWidgetOneRowLightnessB.equals("87")) redBackground = 0xE0;
-                        if (applicationWidgetOneRowLightnessB.equals("100")) redBackground = 0xFF;
+                        switch (ApplicationPreferences.applicationWidgetOneRowLightnessB) {
+                            case "0":
+                                redBackground = 0x00;
+                                break;
+                            case "12":
+                                redBackground = 0x20;
+                                break;
+                            case "25":
+                                redBackground = 0x40;
+                                break;
+                            case "37":
+                                redBackground = 0x60;
+                                break;
+                            case "50":
+                                redBackground = 0x80;
+                                break;
+                            case "62":
+                                redBackground = 0xA0;
+                                break;
+                            case "75":
+                                redBackground = 0xC0;
+                                break;
+                            case "87":
+                                redBackground = 0xE0;
+                                break;
+                            case "100":
+                                redBackground = 0xFF;
+                                break;
+                        }
                         greenBackground = redBackground;
                         blueBackground = redBackground;
                     }
 
                     int alphaBackground = 0x40;
-                    if (applicationWidgetOneRowBackground.equals("0")) alphaBackground = 0x00;
-                    if (applicationWidgetOneRowBackground.equals("12")) alphaBackground = 0x20;
-                    //if (applicationWidgetOneRowBackground.equals("25")) alphaBackground = 0x40;
-                    if (applicationWidgetOneRowBackground.equals("37")) alphaBackground = 0x60;
-                    if (applicationWidgetOneRowBackground.equals("50")) alphaBackground = 0x80;
-                    if (applicationWidgetOneRowBackground.equals("62")) alphaBackground = 0xA0;
-                    if (applicationWidgetOneRowBackground.equals("75")) alphaBackground = 0xC0;
-                    if (applicationWidgetOneRowBackground.equals("87")) alphaBackground = 0xE0;
-                    if (applicationWidgetOneRowBackground.equals("100")) alphaBackground = 0xFF;
+                    switch (ApplicationPreferences.applicationWidgetOneRowBackground) {
+                        case "0":
+                            alphaBackground = 0x00;
+                            break;
+                        case "12":
+                            alphaBackground = 0x20;
+                            break;
+                        case "25":
+                            alphaBackground = 0x40;
+                            break;
+                        case "37":
+                            alphaBackground = 0x60;
+                            break;
+                        case "50":
+                            alphaBackground = 0x80;
+                            break;
+                        case "62":
+                            alphaBackground = 0xA0;
+                            break;
+                        case "75":
+                            alphaBackground = 0xC0;
+                            break;
+                        case "87":
+                            alphaBackground = 0xE0;
+                            break;
+                        case "100":
+                            alphaBackground = 0xFF;
+                            break;
+                    }
 
                     int redBorder = 0xFF;
                     int greenBorder;
                     int blueBorder;
-                    if (applicationWidgetOneRowShowBorder) {
+                    if (ApplicationPreferences.applicationWidgetOneRowShowBorder) {
                         //PPApplication.logE("OneRowWidgetProvider.onUpdate", "");
-                        if (applicationWidgetOneRowLightnessBorder.equals("0")) redBorder = 0x00;
-                        if (applicationWidgetOneRowLightnessBorder.equals("12")) redBorder = 0x20;
-                        if (applicationWidgetOneRowLightnessBorder.equals("25")) redBorder = 0x40;
-                        if (applicationWidgetOneRowLightnessBorder.equals("37")) redBorder = 0x60;
-                        if (applicationWidgetOneRowLightnessBorder.equals("50")) redBorder = 0x80;
-                        if (applicationWidgetOneRowLightnessBorder.equals("62")) redBorder = 0xA0;
-                        if (applicationWidgetOneRowLightnessBorder.equals("75")) redBorder = 0xC0;
-                        if (applicationWidgetOneRowLightnessBorder.equals("87")) redBorder = 0xE0;
-                        //if (applicationWidgetOneRowLightnessBorder.equals("100")) redBorder = 0xFF;
+                        switch (ApplicationPreferences.applicationWidgetOneRowLightnessBorder) {
+                            case "0":
+                                redBorder = 0x00;
+                                break;
+                            case "12":
+                                redBorder = 0x20;
+                                break;
+                            case "25":
+                                redBorder = 0x40;
+                                break;
+                            case "37":
+                                redBorder = 0x60;
+                                break;
+                            case "50":
+                                redBorder = 0x80;
+                                break;
+                            case "62":
+                                redBorder = 0xA0;
+                                break;
+                            case "75":
+                                redBorder = 0xC0;
+                                break;
+                            case "87":
+                                redBorder = 0xE0;
+                                break;
+                            case "100":
+                                redBorder = 0xFF;
+                                break;
+                        }
                         //PPApplication.logE("OneRowWidgetProvider.onUpdate", "redBorder="+redBorder);
                     }
                     greenBorder = redBorder;
                     blueBorder = redBorder;
 
                     int redText = 0xFF;
-                    if (applicationWidgetOneRowLightnessT.equals("0")) redText = 0x00;
-                    if (applicationWidgetOneRowLightnessT.equals("12")) redText = 0x20;
-                    if (applicationWidgetOneRowLightnessT.equals("25")) redText = 0x40;
-                    if (applicationWidgetOneRowLightnessT.equals("37")) redText = 0x60;
-                    if (applicationWidgetOneRowLightnessT.equals("50")) redText = 0x80;
-                    if (applicationWidgetOneRowLightnessT.equals("62")) redText = 0xA0;
-                    if (applicationWidgetOneRowLightnessT.equals("75")) redText = 0xC0;
-                    if (applicationWidgetOneRowLightnessT.equals("87")) redText = 0xE0;
-                    //if (applicationWidgetOneRowLightnessT.equals("100")) redText = 0xFF;
+                    switch (ApplicationPreferences.applicationWidgetOneRowLightnessT) {
+                        case "0":
+                            redText = 0x00;
+                            break;
+                        case "12":
+                            redText = 0x20;
+                            break;
+                        case "25":
+                            redText = 0x40;
+                            break;
+                        case "37":
+                            redText = 0x60;
+                            break;
+                        case "50":
+                            redText = 0x80;
+                            break;
+                        case "62":
+                            redText = 0xA0;
+                            break;
+                        case "75":
+                            redText = 0xC0;
+                            break;
+                        case "87":
+                            redText = 0xE0;
+                            break;
+                        case "100":
+                            redText = 0xFF;
+                            break;
+                    }
                     int greenText = redText;
                     int blueText = redText;
 
@@ -173,9 +272,9 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         profile._icon = Profile.PROFILE_ICON_DEFAULT + "|1|0|0";
 
                         profile.generateIconBitmap(context,
-                                applicationWidgetOneRowIconColor.equals("1"),
+                                ApplicationPreferences.applicationWidgetOneRowIconColor.equals("1"),
                                 monochromeValue,
-                                applicationWidgetOneRowCustomIconLightness);
+                                ApplicationPreferences.applicationWidgetOneRowCustomIconLightness);
                         isIconResourceID = profile.getIsIconResourceID();
                         iconIdentifier = profile.getIconIdentifier();
                         pName = profile._name;
@@ -191,16 +290,16 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     for (int widgetId : allWidgetIds) {
 
                         RemoteViews remoteViews;
-                        if (applicationWidgetOneRowPrefIndicator)
+                        if (ApplicationPreferences.applicationWidgetOneRowPrefIndicator)
                             remoteViews = new RemoteViews(context.getPackageName(), R.layout.one_row_widget);
                         else
                             remoteViews = new RemoteViews(context.getPackageName(), R.layout.one_row_widget_no_indicator);
 
-                        if (applicationWidgetOneRowRoundedCorners) {
+                        if (ApplicationPreferences.applicationWidgetOneRowRoundedCorners) {
                             //PPApplication.logE("OneRowWidgetProvider.onUpdate", "rounded corners");
                             remoteViews.setViewVisibility(R.id.widget_one_row_background, VISIBLE);
                             remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, View.INVISIBLE);
-                            if (applicationWidgetOneRowShowBorder) {
+                            if (ApplicationPreferences.applicationWidgetOneRowShowBorder) {
                                 //PPApplication.logE("OneRowWidgetProvider.onUpdate", "VISIBLE border");
                                 remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, VISIBLE);
                             }
@@ -214,13 +313,13 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             remoteViews.setInt(R.id.widget_one_row_background, "setImageAlpha", alphaBackground);
                             //else
                             //    remoteViews.setInt(R.id.widget_one_row_background, "setAlpha", alpha);
-                            if (applicationWidgetOneRowShowBorder)
+                            if (ApplicationPreferences.applicationWidgetOneRowShowBorder)
                                 remoteViews.setInt(R.id.widget_one_row_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
                         } else {
                             //PPApplication.logE("OneRowWidgetProvider.onUpdate", "NOT rounded corners");
                             remoteViews.setViewVisibility(R.id.widget_one_row_background, View.INVISIBLE);
                             remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, View.INVISIBLE);
-                            if (applicationWidgetOneRowShowBorder) {
+                            if (ApplicationPreferences.applicationWidgetOneRowShowBorder) {
                                 //PPApplication.logE("OneRowWidgetProvider.onUpdate", "VISIBLE border");
                                 remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, VISIBLE);
                             }
@@ -234,7 +333,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             remoteViews.setInt(R.id.widget_one_row_background, "setImageAlpha", 0);
                             //else
                             //    remoteViews.setInt(R.id.widget_one_row_background, "setAlpha", 0);*/
-                            if (applicationWidgetOneRowShowBorder)
+                            if (ApplicationPreferences.applicationWidgetOneRowShowBorder)
                                 remoteViews.setInt(R.id.widget_one_row_not_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
                         }
 
@@ -254,7 +353,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         remoteViews.setTextColor(R.id.widget_one_row_header_profile_name, Color.argb(0xFF, redText, greenText, blueText));
 
                         remoteViews.setTextViewText(R.id.widget_one_row_header_profile_name, profileName);
-                        if (applicationWidgetOneRowPrefIndicator) {
+                        if (ApplicationPreferences.applicationWidgetOneRowPrefIndicator) {
                             if (profile._preferencesIndicator == null)
                                 //remoteViews.setImageViewResource(R.id.widget_one_row_header_profile_pref_indicator, R.drawable.ic_empty);
                                 remoteViews.setViewVisibility(R.id.widget_one_row_header_profile_pref_indicator, GONE);

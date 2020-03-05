@@ -1614,7 +1614,7 @@ public class PPApplication extends Application /*implements Application.Activity
             ApplicationPreferences.applicationUseAlarmClock(context);
             ApplicationPreferences.applicationNeverAskForGrantRoot(context);
             ApplicationPreferences.notificationShowButtonExit(context);
-            //ApplicationPreferences.applicationWidgetOneRowPrefIndicator(context);
+            ApplicationPreferences.applicationWidgetOneRowPrefIndicator(context);
             ApplicationPreferences.applicationWidgetOneRowBackground(context);
             ApplicationPreferences.applicationWidgetOneRowLightnessB(context);
             ApplicationPreferences.applicationWidgetOneRowLightnessT(context);

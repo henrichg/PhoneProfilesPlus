@@ -25,7 +25,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness;
+                /*String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness;
                 String applicationWidgetIconColor = ApplicationPreferences.applicationWidgetIconColor;
                 boolean applicationWidgetIconCustomIconLightness = ApplicationPreferences.applicationWidgetIconCustomIconLightness;
                 boolean applicationWidgetIconHideProfileName = ApplicationPreferences.applicationWidgetIconHideProfileName;
@@ -37,23 +37,43 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 String applicationWidgetIconLightnessBorder = ApplicationPreferences.applicationWidgetIconLightnessBorder;
                 boolean applicationWidgetIconRoundedCorners = ApplicationPreferences.applicationWidgetIconRoundedCorners;
                 String applicationWidgetIconLightnessT = ApplicationPreferences.applicationWidgetIconLightnessT;
-                boolean showProfileDuration = ApplicationPreferences.applicationWidgetIconShowProfileDuration;
+                boolean showProfileDuration = ApplicationPreferences.applicationWidgetIconShowProfileDuration;*/
 
                 int monochromeValue = 0xFF;
-                if (applicationWidgetIconLightness.equals("0")) monochromeValue = 0x00;
-                if (applicationWidgetIconLightness.equals("12")) monochromeValue = 0x20;
-                if (applicationWidgetIconLightness.equals("25")) monochromeValue = 0x40;
-                if (applicationWidgetIconLightness.equals("37")) monochromeValue = 0x60;
-                if (applicationWidgetIconLightness.equals("50")) monochromeValue = 0x80;
-                if (applicationWidgetIconLightness.equals("62")) monochromeValue = 0xA0;
-                if (applicationWidgetIconLightness.equals("75")) monochromeValue = 0xC0;
-                if (applicationWidgetIconLightness.equals("87")) monochromeValue = 0xE0;
-                //if (applicationWidgetIconLightness.equals("100")) monochromeValue = 0xFF;
+                switch (ApplicationPreferences.applicationWidgetIconLightness) {
+                    case "0":
+                        monochromeValue = 0x00;
+                        break;
+                    case "12":
+                        monochromeValue = 0x20;
+                        break;
+                    case "25":
+                        monochromeValue = 0x40;
+                        break;
+                    case "37":
+                        monochromeValue = 0x60;
+                        break;
+                    case "50":
+                        monochromeValue = 0x80;
+                        break;
+                    case "62":
+                        monochromeValue = 0xA0;
+                        break;
+                    case "75":
+                        monochromeValue = 0xC0;
+                        break;
+                    case "87":
+                        monochromeValue = 0xE0;
+                        break;
+                    case "100":
+                        monochromeValue = 0xFF;
+                        break;
+                }
 
                 DataWrapper dataWrapper = new DataWrapper(context,
-                        applicationWidgetIconColor.equals("1"),
+                        ApplicationPreferences.applicationWidgetIconColor.equals("1"),
                         monochromeValue,
-                        applicationWidgetIconCustomIconLightness);
+                        ApplicationPreferences.applicationWidgetIconCustomIconLightness);
 
                 Profile profile = dataWrapper.getActivatedProfile(true, false);
 
@@ -86,63 +106,143 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     int redBackground = 0x00;
                     int greenBackground;
                     int blueBackground;
-                    if (applicationWidgetIconBackgroundType) {
-                        int bgColor = Integer.parseInt(applicationWidgetIconBackgroundColor);
+                    if (ApplicationPreferences.applicationWidgetIconBackgroundType) {
+                        int bgColor = Integer.parseInt(ApplicationPreferences.applicationWidgetIconBackgroundColor);
                         redBackground = Color.red(bgColor);
                         greenBackground = Color.green(bgColor);
                         blueBackground = Color.blue(bgColor);
                     } else {
-                        //if (applicationWidgetIconLightnessB.equals("0")) redBackground = 0x00;
-                        if (applicationWidgetIconLightnessB.equals("12")) redBackground = 0x20;
-                        if (applicationWidgetIconLightnessB.equals("25")) redBackground = 0x40;
-                        if (applicationWidgetIconLightnessB.equals("37")) redBackground = 0x60;
-                        if (applicationWidgetIconLightnessB.equals("50")) redBackground = 0x80;
-                        if (applicationWidgetIconLightnessB.equals("62")) redBackground = 0xA0;
-                        if (applicationWidgetIconLightnessB.equals("75")) redBackground = 0xC0;
-                        if (applicationWidgetIconLightnessB.equals("87")) redBackground = 0xE0;
-                        if (applicationWidgetIconLightnessB.equals("100")) redBackground = 0xFF;
+                        switch (ApplicationPreferences.applicationWidgetIconLightnessB) {
+                            case "0":
+                                redBackground = 0x00;
+                                break;
+                            case "12":
+                                redBackground = 0x20;
+                                break;
+                            case "25":
+                                redBackground = 0x40;
+                                break;
+                            case "37":
+                                redBackground = 0x60;
+                                break;
+                            case "50":
+                                redBackground = 0x80;
+                                break;
+                            case "62":
+                                redBackground = 0xA0;
+                                break;
+                            case "75":
+                                redBackground = 0xC0;
+                                break;
+                            case "87":
+                                redBackground = 0xE0;
+                                break;
+                            case "100":
+                                redBackground = 0xFF;
+                                break;
+                        }
                         greenBackground = redBackground;
                         blueBackground = redBackground;
                     }
 
                     int alphaBackground = 0x40;
-                    if (applicationWidgetIconBackground.equals("0")) alphaBackground = 0x00;
-                    if (applicationWidgetIconBackground.equals("12")) alphaBackground = 0x20;
-                    //if (applicationWidgetIconBackground.equals("25")) alphaBackground = 0x40;
-                    if (applicationWidgetIconBackground.equals("37")) alphaBackground = 0x60;
-                    if (applicationWidgetIconBackground.equals("50")) alphaBackground = 0x80;
-                    if (applicationWidgetIconBackground.equals("62")) alphaBackground = 0xA0;
-                    if (applicationWidgetIconBackground.equals("75")) alphaBackground = 0xC0;
-                    if (applicationWidgetIconBackground.equals("87")) alphaBackground = 0xE0;
-                    if (applicationWidgetIconBackground.equals("100")) alphaBackground = 0xFF;
+                    switch (ApplicationPreferences.applicationWidgetIconBackground) {
+                        case "0":
+                            alphaBackground = 0x00;
+                            break;
+                        case "12":
+                            alphaBackground = 0x20;
+                            break;
+                        case "25":
+                            alphaBackground = 0x40;
+                            break;
+                        case "37":
+                            alphaBackground = 0x60;
+                            break;
+                        case "50":
+                            alphaBackground = 0x80;
+                            break;
+                        case "62":
+                            alphaBackground = 0xA0;
+                            break;
+                        case "75":
+                            alphaBackground = 0xC0;
+                            break;
+                        case "87":
+                            alphaBackground = 0xE0;
+                            break;
+                        case "100":
+                            alphaBackground = 0xFF;
+                            break;
+                    }
 
                     int redBorder = 0xFF;
                     int greenBorder;
                     int blueBorder;
-                    if (applicationWidgetIconShowBorder) {
-                        if (applicationWidgetIconLightnessBorder.equals("0")) redBorder = 0x00;
-                        if (applicationWidgetIconLightnessBorder.equals("12")) redBorder = 0x20;
-                        if (applicationWidgetIconLightnessBorder.equals("25")) redBorder = 0x40;
-                        if (applicationWidgetIconLightnessBorder.equals("37")) redBorder = 0x60;
-                        if (applicationWidgetIconLightnessBorder.equals("50")) redBorder = 0x80;
-                        if (applicationWidgetIconLightnessBorder.equals("62")) redBorder = 0xA0;
-                        if (applicationWidgetIconLightnessBorder.equals("75")) redBorder = 0xC0;
-                        if (applicationWidgetIconLightnessBorder.equals("87")) redBorder = 0xE0;
-                        //if (applicationWidgetIconLightnessBorder.equals("100")) redBorder = 0xFF;
+                    if (ApplicationPreferences.applicationWidgetIconShowBorder) {
+                        switch (ApplicationPreferences.applicationWidgetIconLightnessBorder) {
+                            case "0":
+                                redBorder = 0x00;
+                                break;
+                            case "12":
+                                redBorder = 0x20;
+                                break;
+                            case "25":
+                                redBorder = 0x40;
+                                break;
+                            case "37":
+                                redBorder = 0x60;
+                                break;
+                            case "50":
+                                redBorder = 0x80;
+                                break;
+                            case "62":
+                                redBorder = 0xA0;
+                                break;
+                            case "75":
+                                redBorder = 0xC0;
+                                break;
+                            case "87":
+                                redBorder = 0xE0;
+                                break;
+                            case "100":
+                                redBorder = 0xFF;
+                                break;
+                        }
                     }
                     greenBorder = redBorder;
                     blueBorder = redBorder;
 
                     int redText = 0xFF;
-                    if (applicationWidgetIconLightnessT.equals("0")) redText = 0x00;
-                    if (applicationWidgetIconLightnessT.equals("12")) redText = 0x20;
-                    if (applicationWidgetIconLightnessT.equals("25")) redText = 0x40;
-                    if (applicationWidgetIconLightnessT.equals("37")) redText = 0x60;
-                    if (applicationWidgetIconLightnessT.equals("50")) redText = 0x80;
-                    if (applicationWidgetIconLightnessT.equals("62")) redText = 0xA0;
-                    if (applicationWidgetIconLightnessT.equals("75")) redText = 0xC0;
-                    if (applicationWidgetIconLightnessT.equals("87")) redText = 0xE0;
-                    //if (applicationWidgetIconLightnessT.equals("100")) redText = 0xFF;
+                    switch (ApplicationPreferences.applicationWidgetIconLightnessT) {
+                        case "0":
+                            redText = 0x00;
+                            break;
+                        case "12":
+                            redText = 0x20;
+                            break;
+                        case "25":
+                            redText = 0x40;
+                            break;
+                        case "37":
+                            redText = 0x60;
+                            break;
+                        case "50":
+                            redText = 0x80;
+                            break;
+                        case "62":
+                            redText = 0xA0;
+                            break;
+                        case "75":
+                            redText = 0xC0;
+                            break;
+                        case "87":
+                            redText = 0xE0;
+                            break;
+                        case "100":
+                            redText = 0xFF;
+                            break;
+                    }
                     int greenText = redText;
                     int blueText = redText;
 
@@ -154,7 +254,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         isIconResourceID = profile.getIsIconResourceID();
                         iconIdentifier = profile.getIconIdentifier();
                         pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, false, "", true, false, false, dataWrapper, false, context);
-                        if (showProfileDuration)
+                        if (ApplicationPreferences.applicationWidgetIconShowProfileDuration)
                             profileName = DataWrapper.getProfileNameWithManualIndicator(profile, false, "", true, true, true, dataWrapper, false, context);
                         else
                             profileName = DataWrapper.getProfileNameWithManualIndicator(profile, false, "", false, true, false, dataWrapper, false, context);
@@ -165,8 +265,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         profile._icon = Profile.PROFILE_ICON_DEFAULT + "|1|0|0";
 
                         profile.generateIconBitmap(context,
-                                applicationWidgetIconColor.equals("1"), monochromeValue,
-                                applicationWidgetIconCustomIconLightness);
+                                ApplicationPreferences.applicationWidgetIconColor.equals("1"), monochromeValue,
+                                ApplicationPreferences.applicationWidgetIconCustomIconLightness);
                         isIconResourceID = profile.getIsIconResourceID();
                         iconIdentifier = profile.getIconIdentifier();
                         pName = profile._name;
@@ -183,19 +283,19 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
                         // prepare view for widget update
                         RemoteViews remoteViews;
-                        if (applicationWidgetIconHideProfileName)
+                        if (ApplicationPreferences.applicationWidgetIconHideProfileName)
                             remoteViews = new RemoteViews(context.getPackageName(), R.layout.icon_widget_no_profile_name);
                         else {
-                            if ((profile._duration > 0) && (showProfileDuration))
+                            if ((profile._duration > 0) && (ApplicationPreferences.applicationWidgetIconShowProfileDuration))
                                 remoteViews = new RemoteViews(context.getPackageName(), R.layout.icon_widget);
                             else
                                 remoteViews = new RemoteViews(context.getPackageName(), R.layout.icon_widget_one_line_text);
                         }
 
-                        if (applicationWidgetIconRoundedCorners) {
+                        if (ApplicationPreferences.applicationWidgetIconRoundedCorners) {
                             remoteViews.setViewVisibility(R.id.widget_icon_background, View.VISIBLE);
                             remoteViews.setViewVisibility(R.id.widget_icon_not_rounded_border, View.INVISIBLE);
-                            if (applicationWidgetIconShowBorder)
+                            if (ApplicationPreferences.applicationWidgetIconShowBorder)
                                 remoteViews.setViewVisibility(R.id.widget_icon_rounded_border, View.VISIBLE);
                             else
                                 remoteViews.setViewVisibility(R.id.widget_icon_rounded_border, View.INVISIBLE);
@@ -205,12 +305,12 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             remoteViews.setInt(R.id.widget_icon_background, "setImageAlpha", alphaBackground);
                             //else
                             //    remoteViews.setInt(R.id.widget_icon_background, "setAlpha", alpha);
-                            if (applicationWidgetIconShowBorder)
+                            if (ApplicationPreferences.applicationWidgetIconShowBorder)
                                 remoteViews.setInt(R.id.widget_icon_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
                         } else {
                             remoteViews.setViewVisibility(R.id.widget_icon_background, View.INVISIBLE);
                             remoteViews.setViewVisibility(R.id.widget_icon_rounded_border, View.INVISIBLE);
-                            if (applicationWidgetIconShowBorder)
+                            if (ApplicationPreferences.applicationWidgetIconShowBorder)
                                 remoteViews.setViewVisibility(R.id.widget_icon_not_rounded_border, View.VISIBLE);
                             else
                                 remoteViews.setViewVisibility(R.id.widget_icon_not_rounded_border, View.INVISIBLE);
@@ -220,7 +320,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             remoteViews.setInt(R.id.widget_icon_background, "setImageAlpha", 0);
                             //else
                             //    remoteViews.setInt(R.id.widget_icon_background, "setAlpha", 0);*/
-                            if (applicationWidgetIconShowBorder)
+                            if (ApplicationPreferences.applicationWidgetIconShowBorder)
                                 remoteViews.setInt(R.id.widget_icon_not_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
                         }
 
@@ -238,7 +338,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
                         remoteViews.setTextColor(R.id.icon_widget_name, Color.argb(0xFF, redText, greenText, blueText));
 
-                        if (!applicationWidgetIconHideProfileName)
+                        if (!ApplicationPreferences.applicationWidgetIconHideProfileName)
                             remoteViews.setTextViewText(R.id.icon_widget_name, profileName);
 
                         // intent for start LauncherActivity on widget click

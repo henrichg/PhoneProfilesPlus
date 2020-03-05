@@ -153,7 +153,7 @@ class ApplicationPreferences {
     static boolean applicationEventOrientationDisabledScannigByProfile;
     static boolean applicationUseAlarmClock;
     static boolean notificationShowButtonExit;
-    //static boolean applicationWidgetOneRowPrefIndicator;
+    static boolean applicationWidgetOneRowPrefIndicator;
     static String applicationWidgetOneRowBackground;
     static String applicationWidgetOneRowLightnessB;
     static String applicationWidgetOneRowLightnessT;
@@ -327,7 +327,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_USE_ALARM_CLOCK = "applicationUseAlarmClock";
     static final String PREF_NOTIFICATION_SHOW_BUTTON_EXIT = "notificationShowButtonExit";
     static final String PREF_APPLICATION_BACKGROUND_PROFILE_USAGE = "applicationBackgroundProfileUsage";
-    //static final String PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR = "applicationWidgetOneRowPrefIndicator";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR = "applicationWidgetOneRowPrefIndicator";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND = "applicationWidgetOneRowBackground";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B = "applicationWidgetOneRowLightnessB";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T = "applicationWidgetOneRowLightnessT";
@@ -897,12 +897,9 @@ class ApplicationPreferences {
         notificationShowButtonExit = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_SHOW_BUTTON_EXIT, false);
     }
 
-    /*
-    static boolean applicationWidgetOneRowPrefIndicator(Context context) {
+    static void applicationWidgetOneRowPrefIndicator(Context context) {
         applicationWidgetOneRowPrefIndicator = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR, true);
-        return applicationWidgetOneRowPrefIndicator;
     }
-    */
 
     static void applicationWidgetOneRowBackground(Context context) {
         applicationWidgetOneRowBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, "25");
