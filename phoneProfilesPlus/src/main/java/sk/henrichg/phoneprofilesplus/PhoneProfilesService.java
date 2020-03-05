@@ -4111,7 +4111,7 @@ public class PhoneProfilesService extends Service
         if (!serviceHasFirstStart)
             doForFirstStart(intent);
 
-        return START_STICKY;
+        return START_REDELIVER_INTENT;
     }
 
     private void doCommand(final Intent intent) {
