@@ -59,6 +59,12 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             }*/
                             PPApplication.isScreenOn = true;
 
+                            Profile profile = DatabaseHandler.getInstance(appContext).getActivatedProfile();
+                            if (profile._screenOnPermanent == 1)
+                                ActivateProfileHelper.createKeepScreenOnView(appContext, true);
+                            else
+                                ActivateProfileHelper.removeKeepScreenOnView();
+
                             // restart scanners for screen on when any is enabled
                             boolean restart = false;
                             if (ApplicationPreferences.applicationEventLocationEnableScanning)
@@ -97,6 +103,8 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                         LockDeviceAfterScreenOffBroadcastReceiver.setAlarm(lockDeviceTime, appContext);
                                 }
                             }
+
+                            //ActivateProfileHelper.removeKeepScreenOnView();
 
                             //PPApplication.logE("[RJS] ScreenOnOffBroadcastReceiver.onReceive", "restart all scanners for SCREEN_OFF");
 

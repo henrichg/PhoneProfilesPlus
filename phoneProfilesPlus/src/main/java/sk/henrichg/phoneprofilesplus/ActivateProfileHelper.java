@@ -1497,7 +1497,7 @@ class ActivateProfileHelper {
     private static void setScreenOnPermanent(Profile profile, Context context) {
         //PPApplication.logE("******** ActivateProfileHelper.setScreenOnPermanent", "profile._screenOnPermanent="+profile._screenOnPermanent);
         if (profile._screenOnPermanent == 1)
-            createKeepScreenOnView(context);
+            createKeepScreenOnView(context, false);
         else
         if (profile._screenOnPermanent == 2)
             removeKeepScreenOnView();
@@ -2975,7 +2975,7 @@ class ActivateProfileHelper {
     */
 
     @SuppressLint("WakelockTimeout")
-    private static void createKeepScreenOnView(Context context)
+    static void createKeepScreenOnView(Context context, boolean force)
     {
         removeKeepScreenOnView();
 
@@ -2987,7 +2987,7 @@ class ActivateProfileHelper {
             try {
                 if (powerManager != null) {
                     //Log.e("ActivateProfileHelper.createKeepScreenOnView", "keepScreenOnWakeLock="+service.keepScreenOnWakeLock);
-                    if ((PPApplication.keepScreenOnWakeLock == null) || (!PPApplication.keepScreenOnWakeLock.isHeld())) {
+                    if ((PPApplication.keepScreenOnWakeLock == null) || (!PPApplication.keepScreenOnWakeLock.isHeld()) || force) {
                         if (PPApplication.keepScreenOnWakeLock == null)
                             //noinspection deprecation
                             PPApplication.keepScreenOnWakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK |
