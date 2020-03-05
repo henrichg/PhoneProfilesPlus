@@ -126,8 +126,8 @@ class SettingsContentObserver  extends ContentObserver {
                 //previousVolumeSystem = volumeChangeDetect(AudioManager.STREAM_SYSTEM, previousVolumeSystem, audioManager);
             }
             //previousVolumeVoice = volumeChangeDetect(AudioManager.STREAM_VOICE_CALL, previousVolumeVoice, audioManager);
-            int value = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
-            PPApplication.logE("[VOL] SettingsContentObserver.onChange", "STREAM_VOICE_CALL="+value);
+            //int value = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
+            //PPApplication.logE("[VOL] SettingsContentObserver.onChange", "STREAM_VOICE_CALL="+value);
             //////////////
         }
 

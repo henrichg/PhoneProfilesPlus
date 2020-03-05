@@ -923,7 +923,7 @@ class ActivateProfileHelper {
         }
 
         int value = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
-        PPApplication.logE("[VOL] ActivateProfileHelper.setVolumes", "STREAM_VOICE_CALL="+value);
+        //PPApplication.logE("[VOL] ActivateProfileHelper.setVolumes", "STREAM_VOICE_CALL="+value);
 
     }
 
