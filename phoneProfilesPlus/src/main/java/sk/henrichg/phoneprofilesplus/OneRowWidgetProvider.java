@@ -155,16 +155,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     int greenText = redText;
                     int blueText = redText;
 
-                    int restartEventsLightness = 0xFF;
-                    if (applicationWidgetOneRowLightnessT.equals("0")) restartEventsLightness = 0x00;
-                    if (applicationWidgetOneRowLightnessT.equals("12")) restartEventsLightness = 0x20;
-                    if (applicationWidgetOneRowLightnessT.equals("25")) restartEventsLightness = 0x40;
-                    if (applicationWidgetOneRowLightnessT.equals("37")) restartEventsLightness = 0x60;
-                    if (applicationWidgetOneRowLightnessT.equals("50")) restartEventsLightness = 0x80;
-                    if (applicationWidgetOneRowLightnessT.equals("62")) restartEventsLightness = 0xA0;
-                    if (applicationWidgetOneRowLightnessT.equals("75")) restartEventsLightness = 0xC0;
-                    if (applicationWidgetOneRowLightnessT.equals("87")) restartEventsLightness = 0xE0;
-                    //if (applicationWidgetOneRowLightnessT.equals("100")) restartEventsLightness = 0xFF;
+                    int restartEventsLightness = redText;
 
                     boolean isIconResourceID;
                     String iconIdentifier;
