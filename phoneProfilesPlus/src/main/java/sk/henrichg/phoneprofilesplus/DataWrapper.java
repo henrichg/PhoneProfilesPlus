@@ -4700,7 +4700,9 @@ public class DataWrapper {
     static Spannable getProfileNameWithManualIndicator(Profile profile, boolean addEventName, String indicators, boolean addDuration, boolean multiLine,
                                                        boolean durationInNextLine, DataWrapper dataWrapper, boolean fromDB) {
         if (dataWrapper != null) {
-            List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(fromDB);
+            List<EventTimeline> eventTimelineList = null;
+            if (addEventName)
+                eventTimelineList = dataWrapper.getEventTimelineList(fromDB);
             return getProfileNameWithManualIndicator(profile, eventTimelineList, addEventName, indicators, addDuration, multiLine, durationInNextLine, dataWrapper, fromDB);
         }
         else {
