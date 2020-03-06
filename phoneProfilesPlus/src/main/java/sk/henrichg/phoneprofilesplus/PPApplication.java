@@ -601,6 +601,8 @@ public class PPApplication extends Application /*implements Application.Activity
 
                                                 //+"|DelayedWorksWorker.doWork"
                                                 //+"|ActivateProfileHelper.setScreenOnPermanent"
+
+                                                //+"|ActivateProfileHelper.executeForRunApplications"
                                                 ;
 
     // activity log types

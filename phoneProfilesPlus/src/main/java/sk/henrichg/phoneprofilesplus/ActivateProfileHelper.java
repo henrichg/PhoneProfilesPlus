@@ -1945,13 +1945,13 @@ class ActivateProfileHelper {
                                         }
                                     }
                                 } else {
-                                    //Log.d("ActivateProfileHelper.executeForRunApplications","no shortcut");
+                                    //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","no shortcut");
                                     String packageName = Application.getPackageName(split);
                                     intent = packageManager.getLaunchIntentForPackage(packageName);
                                     if (intent != null) {
                                         //if (!isRunning(procInfo, packageName)) {
                                         //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName+": not running");
-                                        //Log.d("ActivateProfileHelper.executeForRunApplications","intent="+intent);
+                                        //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","intent="+intent);
                                         intent.addCategory(Intent.CATEGORY_LAUNCHER);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         try {
@@ -1959,7 +1959,9 @@ class ActivateProfileHelper {
                                             //try { Thread.sleep(1000); } catch (InterruptedException e) { }
                                             //SystemClock.sleep(1000);
                                             PPApplication.sleep(1000);
-                                        } catch (Exception ignored) {
+                                            //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","application started");
+                                        } catch (Exception e) {
+                                            //Log.e("ActivateProfileHelper.executeForRunApplications", Log.getStackTraceString(e));
                                         }
                                         //}
                                         //else
