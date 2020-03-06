@@ -303,7 +303,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         monochromeValue);
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
-                profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, false, dataWrapper, false, dataWrapper.context);
+                profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, false, dataWrapper, false);
             }
             else
             {
@@ -827,7 +827,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
                 String pName;
                 if (profile != null)
-                    pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper, true, context);
+                    pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper, true);
                 else
                     pName = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
 

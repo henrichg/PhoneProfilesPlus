@@ -842,7 +842,7 @@ public class EditorProfileListFragment extends Fragment
         }
         else
         {
-            Spannable profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, false, activityDataWrapper, true, activityDataWrapper.context);
+            Spannable profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, false, activityDataWrapper, true);
             Spannable sbt = new SpannableString(profileName);
             Object[] spansToRemove = sbt.getSpans(0, profileName.length(), Object.class);
             for (Object span : spansToRemove) {
@@ -1099,7 +1099,7 @@ public class EditorProfileListFragment extends Fragment
 
         String pName;
         if (profileFromDB != null)
-            pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper, true, activityDataWrapper.context);
+            pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper, true);
         else
             pName = getResources().getString(R.string.profiles_header_profile_name_no_activated);
         //PPApplication.logE("EditorProfileListFragment.refreshGUI", "pName="+pName);

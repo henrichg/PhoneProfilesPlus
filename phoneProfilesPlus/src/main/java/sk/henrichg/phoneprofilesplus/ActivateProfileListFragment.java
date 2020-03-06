@@ -454,9 +454,9 @@ public class ActivateProfileListFragment extends Fragment {
         }
         else
         {
-            activatedProfileHeader.setTag(DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, activityDataWrapper, false, activityDataWrapper.context));
+            activatedProfileHeader.setTag(DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, activityDataWrapper, false));
 
-            activeProfileName.setText(DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, false, activityDataWrapper, false, activityDataWrapper.context));
+            activeProfileName.setText(DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, false, activityDataWrapper, false));
             if (profile.getIsIconResourceID())
             {
                 if (profile._iconBitmap != null)
@@ -573,7 +573,7 @@ public class ActivateProfileListFragment extends Fragment {
 
         String pName;
         if (profileFromDB != null)
-            pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper, true, activityDataWrapper.context);
+            pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper, true);
         else
             pName = getResources().getString(R.string.profiles_header_profile_name_no_activated);
 
