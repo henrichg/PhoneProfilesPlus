@@ -1489,7 +1489,7 @@
     <string name="array_pref_soundModeArray_ZenModeM_On">Do not disturb on</string>
 
     <string name="draw_over_apps_permission_notification_title">\"Draw over apps\" permission</string>
-    <string name="draw_over_apps_permission_notification_text">You must grant permission \"Draw over apps\". It is required to start activities outside of PhoneProfilesPlus. Click here to grant this permission.</string>
+    <string name="draw_over_apps_permission_notification_text">You must grant permission \"Draw over apps\". It is required to start activities when PhoneProfilesPlus is in background. Click here to grant this permission.</string>
 
     <!-- **************************************************************************************** -->
 
