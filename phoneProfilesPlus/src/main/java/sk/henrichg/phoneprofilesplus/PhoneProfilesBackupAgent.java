@@ -102,6 +102,7 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
                     }
 
                     Permissions.setAllShowRequestPermissions(appContext, true);
+                    DrawOverAppsPermissionNotification.showNotification(appContext);
                     IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(appContext, true);
                     IgnoreBatteryOptimizationNotification.showNotification(appContext);
 

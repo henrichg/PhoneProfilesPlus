@@ -3947,6 +3947,7 @@ public class PhoneProfilesService extends Service
 
                     // show info notification
                     ImportantInfoNotification.showInfoNotification(appContext);
+                    DrawOverAppsPermissionNotification.showNotification(appContext);
                     IgnoreBatteryOptimizationNotification.showNotification(appContext);
 
                     // must be first

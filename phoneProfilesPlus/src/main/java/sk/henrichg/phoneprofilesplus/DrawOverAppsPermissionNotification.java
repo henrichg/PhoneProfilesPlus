@@ -1,0 +1,104 @@
+package sk.henrichg.phoneprofilesplus;
+
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Handler;
+import android.os.PowerManager;
+import android.provider.Settings;
+import android.util.Log;
+
+import com.crashlytics.android.Crashlytics;
+
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
+
+class DrawOverAppsPermissionNotification {
+
+    static void showNotification(Context context) {
+        if (Build.VERSION.SDK_INT >= 29) {
+            //PPApplication.logE("DrawOverAppsPermissionNotification.showNotification", "xxx");
+
+            final Context appContext = context.getApplicationContext();
+            PPApplication.startHandlerThread("DrawOverAppsPermissionNotification.showNotification");
+            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DrawOverAppsPermissionNotification_showNotification");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+
+                        //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DrawOverAppsPermissionNotification.showNotification");
+
+                        try {
+                            if (!Settings.canDrawOverlays(appContext)) {
+                                showNotification(appContext,
+                                        appContext.getString(R.string.draw_over_apps_permission_notification_title),
+                                        appContext.getString(R.string.draw_over_apps_permission_notification_text));
+                            }
+                        } catch (Exception ignore) {}
+
+                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DrawOverAppsPermissionNotification");
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    static private void showNotification(Context context, String title, String text) {
+        PPApplication.createExclamationNotificationChannel(context);
+        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
+                .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
+                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                .setContentTitle(title) // title for notification
+                .setContentText(text) // message for notification
+                .setAutoCancel(true); // clear notification after click
+        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
+        final Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+        intent.setData(Uri.parse("package:" + context.getPackageName()));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(pi);
+        mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
+        //if (android.os.Build.VERSION.SDK_INT >= 21)
+        //{
+            mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+            mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+        //}
+        mBuilder.setOnlyAlertOnce(true);
+
+        NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (mNotificationManager != null) {
+            try {
+                mNotificationManager.notify(PPApplication.DRAW_OVER_APPS_NOTIFICATION_ID, mBuilder.build());
+            } catch (Exception e) {
+                Log.e("DrawOverAppsPermissionNotification.showNotification", Log.getStackTraceString(e));
+                Crashlytics.logException(e);
+            }
+        }
+    }
+
+    static void removeNotification(Context context)
+    {
+        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationManager != null)
+            notificationManager.cancel(PPApplication.DRAW_OVER_APPS_NOTIFICATION_ID);
+    }
+
+}

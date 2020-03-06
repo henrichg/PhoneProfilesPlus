@@ -768,6 +768,7 @@ public class PPApplication extends Application /*implements Application.Activity
     //static final int GRANT_LOG_TO_FILE_PERMISSIONS_NOTIFICATION_ID = 700439;
     //static final int LOCATION_SETTINGS_FOR_MOBILE_CELLS_SCANNING_NOTIFICATION_ID = 700440;
     static final int IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ID = 700441;
+    static final int DRAW_OVER_APPS_NOTIFICATION_ID = 700442;
 
     // shared preferences names !!! Configure also in res/xml/phoneprofiles_backup_scheme.xml !!!
     static final String APPLICATION_PREFS_NAME = "phone_profile_preferences";
@@ -3032,6 +3033,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
                 // remove notifications
                 ImportantInfoNotification.removeNotification(context);
+                DrawOverAppsPermissionNotification.removeNotification(context);
                 IgnoreBatteryOptimizationNotification.removeNotification(context);
                 Permissions.removeNotifications(context);
 

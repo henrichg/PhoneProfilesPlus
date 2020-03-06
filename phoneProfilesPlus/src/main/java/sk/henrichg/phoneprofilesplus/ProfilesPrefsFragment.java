@@ -3127,6 +3127,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
     static boolean isRedTextNotificationRequired(Profile profile, Context context) {
         boolean grantedAllPermissions = Permissions.checkProfilePermissions(context, profile).size() == 0;
+        /*if (Build.VERSION.SDK_INT >= 29) {
+            if (!Settings.canDrawOverlays(context))
+                grantedAllPermissions = false;
+        }*/
         boolean grantedRoot = Profile.isProfilePreferenceAllowed("-", profile, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
         boolean enabledNotificationAccess = (profile._volumeRingerMode == 0) || ActivateProfileHelper.canChangeZenMode(context, false);
         boolean accessibilityNotRequired = true;

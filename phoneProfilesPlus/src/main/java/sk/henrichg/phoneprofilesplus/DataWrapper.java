@@ -1566,6 +1566,7 @@ public class DataWrapper {
     private void _activateProfile(Profile _profile, boolean merged, int startupSource, final boolean forRestartEvents)
     {
         // show notification when battery optimization is not enabled
+        DrawOverAppsPermissionNotification.showNotification(context);
         IgnoreBatteryOptimizationNotification.showNotification(context);
 
         // remove last configured profile duration alarm
@@ -4220,6 +4221,8 @@ public class DataWrapper {
                                 /*final boolean reactivateProfile,*/ final boolean manualRestart, final boolean logRestart)
     {
         //PPApplication.logE("DataWrapper._restartEvents", "xxx");
+
+        DrawOverAppsPermissionNotification.showNotification(context);
 
         if (logRestart) {
             if (manualRestart)
