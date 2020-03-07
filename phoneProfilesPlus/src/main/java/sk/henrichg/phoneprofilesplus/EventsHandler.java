@@ -77,7 +77,7 @@ class EventsHandler {
         synchronized (PPApplication.eventsHandlerMutex) {
             //CallsCounter.logCounter(context, "EventsHandler.handleEvents", "EventsHandler_handleEvents");
 
-            //PPApplication.logE("#### EventsHandler.handleEvents", "-- start --------------------------------");
+            PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "-- start --------------------------------");
 
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started
@@ -96,7 +96,7 @@ class EventsHandler {
             //boolean interactive;
 
             this.sensorType = sensorType;
-            //PPApplication.logE("#### EventsHandler.handleEvents", "sensorType=" + this.sensorType);
+            PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "sensorType=" + this.sensorType);
             //CallsCounter.logCounterNoInc(context, "EventsHandler.handleEvents->sensorType=" + this.sensorType, "EventsHandler_handleEvents");
 
             //restartAtEndOfEvent = false;
@@ -168,7 +168,7 @@ class EventsHandler {
                 doEndHandler(null);
                 //dataWrapper.invalidateDataWrapper();
 
-                //PPApplication.logE("#### EventsHandler.handleEvents", "-- end: events globally stopped --------------------------------");
+                PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "-- end: events globally stopped --------------------------------");
 
                 return;
             }
@@ -189,7 +189,7 @@ class EventsHandler {
                 doEndHandler(null);
                 //dataWrapper.invalidateDataWrapper();
 
-                //PPApplication.logE("#### EventsHandler.handleEvents", "-- end: not events found --------------------------------");
+                PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "-- end: not events found --------------------------------");
 
                 return;
             }
@@ -784,7 +784,7 @@ class EventsHandler {
 
             //dataWrapper.invalidateDataWrapper();
 
-            //PPApplication.logE("#### EventsHandler.handleEvents", "-- end --------------------------------");
+            PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "-- end --------------------------------");
         }
     }
 

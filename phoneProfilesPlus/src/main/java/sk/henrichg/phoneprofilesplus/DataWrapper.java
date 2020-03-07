@@ -4368,7 +4368,7 @@ public class DataWrapper {
             final boolean unblockEventsRun, boolean useHandler,
             final boolean manualRestart, final boolean logRestart, boolean showToast)
     {
-        //PPApplication.logE("$$$ DataWrapper.restartEventsWithRescan","xxx");
+        PPApplication.logE("[TEST BATTERY] DataWrapper.restartEventsWithRescan","xxx");
 
         if (useHandler) {
             final DataWrapper dataWrapper = copyDataWrapper();
@@ -4535,7 +4535,7 @@ public class DataWrapper {
     void restartEventsWithDelay(int delay, boolean alsoRescan, final boolean unblockEventsRun, /*final boolean reactivateProfile,*/
                                 /*boolean clearOld,*/ final int logType)
     {
-        //PPApplication.logE("[TEST HANDLER] DataWrapper.restartEventsWithDelay","xxx"); //"clearOld="+clearOld);
+        PPApplication.logE("[TEST BATTERY] DataWrapper.restartEventsWithDelay","xxx"); //"clearOld="+clearOld);
 
         /*if (PhoneProfilesService.getInstance() != null)
             PhoneProfilesService.getInstance().willBeDoRestartEvents = true;*/
