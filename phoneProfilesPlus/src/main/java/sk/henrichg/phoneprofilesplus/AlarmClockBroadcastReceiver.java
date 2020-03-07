@@ -12,7 +12,7 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //PPApplication.logE("##### AlarmClockBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("##### AlarmClockBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "AlarmClockBroadcastReceiver.onReceive", "AlarmClockBroadcastReceiver_onReceive");
 
