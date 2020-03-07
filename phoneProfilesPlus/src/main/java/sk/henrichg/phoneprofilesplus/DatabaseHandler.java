@@ -10810,7 +10810,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     volume = Math.round(fVolume);
                                                     //Log.e("DatabaseHandler.importDB", "new max ringtone volume="+audioManager.getStreamMaxVolume(AudioManager.STREAM_RING));
                                                     //Log.e("DatabaseHandler.importDB", "new ringtone volume="+volume);
-                                                    values.put(KEY_VOLUME_RINGTONE, volume+"|"+splits[1]+"|"+splits[2]);
+                                                    if (splits.length == 3)
+                                                        values.put(KEY_VOLUME_RINGTONE, volume+"|"+splits[1]+"|"+splits[2]);
+                                                    else
+                                                        values.put(KEY_VOLUME_RINGTONE, volume+"|"+splits[1]);
                                                 } catch (Exception e) {
                                                     //Log.e("DatabaseHandler.importDB", Log.getStackTraceString(e));
                                                     Crashlytics.logException(e);
@@ -10825,7 +10828,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     float percentage = fVolume / maximumVolumeNotification * 100f;
                                                     fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION) / 100f * percentage;
                                                     volume = Math.round(fVolume);
-                                                    values.put(KEY_VOLUME_NOTIFICATION, volume+"|"+splits[1]+"|"+splits[2]);
+                                                    if (splits.length == 3)
+                                                        values.put(KEY_VOLUME_NOTIFICATION, volume+"|"+splits[1]+"|"+splits[2]);
+                                                    else
+                                                        values.put(KEY_VOLUME_NOTIFICATION, volume+"|"+splits[1]);
                                                 } catch (Exception e) {
                                                     Crashlytics.logException(e);
                                                 }
@@ -10839,7 +10845,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     float percentage = fVolume / maximumVolumeMusic * 100f;
                                                     fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC) / 100f * percentage;
                                                     volume = Math.round(fVolume);
-                                                    values.put(KEY_VOLUME_MEDIA, volume+"|"+splits[1]+"|"+splits[2]);
+                                                    if (splits.length == 3)
+                                                        values.put(KEY_VOLUME_MEDIA, volume+"|"+splits[1]+"|"+splits[2]);
+                                                    else
+                                                        values.put(KEY_VOLUME_MEDIA, volume+"|"+splits[1]);
                                                 } catch (Exception e) {
                                                     Crashlytics.logException(e);
                                                 }
@@ -10853,7 +10862,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     float percentage = fVolume / maximumVolumeAlarm * 100f;
                                                     fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM) / 100f * percentage;
                                                     volume = Math.round(fVolume);
-                                                    values.put(KEY_VOLUME_ALARM, volume+"|"+splits[1]+"|"+splits[2]);
+                                                    if (splits.length == 3)
+                                                        values.put(KEY_VOLUME_ALARM, volume+"|"+splits[1]+"|"+splits[2]);
+                                                    else
+                                                        values.put(KEY_VOLUME_ALARM, volume+"|"+splits[1]);
                                                 } catch (Exception e) {
                                                     Crashlytics.logException(e);
                                                 }
@@ -10867,7 +10879,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     float percentage = fVolume / maximumVolumeSystem * 100f;
                                                     fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM) / 100f * percentage;
                                                     volume = Math.round(fVolume);
-                                                    values.put(KEY_VOLUME_SYSTEM, volume+"|"+splits[1]+"|"+splits[2]);
+                                                    if (splits.length == 3)
+                                                        values.put(KEY_VOLUME_SYSTEM, volume+"|"+splits[1]+"|"+splits[2]);
+                                                    else
+                                                        values.put(KEY_VOLUME_SYSTEM, volume+"|"+splits[1]);
                                                 } catch (Exception e) {
                                                     Crashlytics.logException(e);
                                                 }
@@ -10881,7 +10896,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     float percentage = fVolume / maximumVolumeVoiceCall * 100f;
                                                     fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL) / 100f * percentage;
                                                     volume = Math.round(fVolume);
-                                                    values.put(KEY_VOLUME_VOICE, volume+"|"+splits[1]+"|"+splits[2]);
+                                                    if (splits.length == 3)
+                                                        values.put(KEY_VOLUME_VOICE, volume+"|"+splits[1]+"|"+splits[2]);
+                                                    else
+                                                        values.put(KEY_VOLUME_VOICE, volume+"|"+splits[1]);
                                                 } catch (Exception e) {
                                                     Crashlytics.logException(e);
                                                 }
@@ -10895,7 +10913,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     float percentage = fVolume / maximumVolumeDTFM * 100f;
                                                     fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF) / 100f * percentage;
                                                     volume = Math.round(fVolume);
-                                                    values.put(KEY_VOLUME_DTMF, volume+"|"+splits[1]+"|"+splits[2]);
+                                                    if (splits.length == 3)
+                                                        values.put(KEY_VOLUME_DTMF, volume+"|"+splits[1]+"|"+splits[2]);
+                                                    else
+                                                        values.put(KEY_VOLUME_DTMF, volume+"|"+splits[1]);
                                                 } catch (Exception e) {
                                                     Crashlytics.logException(e);
                                                 }
@@ -10909,7 +10930,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     float percentage = fVolume / maximumVolumeAccessibility * 100f;
                                                     fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY) / 100f * percentage;
                                                     volume = Math.round(fVolume);
-                                                    values.put(KEY_VOLUME_ACCESSIBILITY, volume+"|"+splits[1]+"|"+splits[2]);
+                                                    if (splits.length == 3)
+                                                        values.put(KEY_VOLUME_ACCESSIBILITY, volume+"|"+splits[1]+"|"+splits[2]);
+                                                    else
+                                                        values.put(KEY_VOLUME_ACCESSIBILITY, volume+"|"+splits[1]);
                                                 } catch (Exception e) {
                                                     Crashlytics.logException(e);
                                                 }
@@ -10923,7 +10947,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     float percentage = fVolume / maximumVolumeBluetoothSCO * 100f;
                                                     fVolume = audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO) / 100f * percentage;
                                                     volume = Math.round(fVolume);
-                                                    values.put(KEY_VOLUME_BLUETOOTH_SCO, volume+"|"+splits[1]+"|"+splits[2]);
+                                                    if (splits.length == 3)
+                                                        values.put(KEY_VOLUME_BLUETOOTH_SCO, volume+"|"+splits[1]+"|"+splits[2]);
+                                                    else
+                                                        values.put(KEY_VOLUME_BLUETOOTH_SCO, volume+"|"+splits[1]);
                                                 } catch (Exception e) {
                                                     Crashlytics.logException(e);
                                                 }

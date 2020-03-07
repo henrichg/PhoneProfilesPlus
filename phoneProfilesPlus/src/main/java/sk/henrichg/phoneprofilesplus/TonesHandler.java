@@ -315,7 +315,13 @@ class TonesHandler {
                 contentValues.put(MediaStore.Audio.Media.IS_NOTIFICATION, true);
                 contentValues.put(MediaStore.Audio.Media.IS_RINGTONE, true);
                 contentValues.put(MediaStore.Audio.Media.IS_MUSIC, false);
-                context.getContentResolver().delete(contentUri, MediaStore.MediaColumns.DATA + "='" + outAbsPath + "'", null);
+
+                try {
+                    context.getContentResolver().delete(contentUri, MediaStore.MediaColumns.DATA + "='" + outAbsPath + "'", null);
+                } catch (Exception eee) {
+                    Crashlytics.logException(eee);
+                }
+
                 Uri newUri = context.getContentResolver().insert(contentUri, contentValues);
 
                 if (newUri != null) {
