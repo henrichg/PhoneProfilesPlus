@@ -3947,8 +3947,8 @@ public class PhoneProfilesService extends Service
 
                     // show info notification
                     ImportantInfoNotification.showInfoNotification(appContext);
-                    DrawOverAppsPermissionNotification.showNotification(appContext);
-                    IgnoreBatteryOptimizationNotification.showNotification(appContext);
+                    DrawOverAppsPermissionNotification.showNotification(appContext, false);
+                    IgnoreBatteryOptimizationNotification.showNotification(appContext, false);
 
                     // must be first
                     createContactsCache(appContext, true);

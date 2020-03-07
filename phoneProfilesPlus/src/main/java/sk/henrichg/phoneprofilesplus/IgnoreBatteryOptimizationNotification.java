@@ -21,60 +21,91 @@ class IgnoreBatteryOptimizationNotification {
     private static final String PREF_SHOW_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ON_START = "show_ignore_battery_optimization_notification_on_start";
     static final String IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_DISABLE_ACTION = PPApplication.PACKAGE_NAME + ".IgnoreBatteryOptimizationNotification.DISABLE_ACTION";
 
-    static void showNotification(Context context) {
+    static void showNotification(Context context, boolean useHandler) {
         if (Build.VERSION.SDK_INT >= 23) {
             //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "xxx");
 
             final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThread("IgnoreBatteryOptimizationNotification.showNotification");
-            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
 
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":IgnoreBatteryOptimizationNotification_showNotification");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+            if (useHandler) {
+                PPApplication.startHandlerThread("IgnoreBatteryOptimizationNotification.showNotification");
+                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
 
-                        //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=IgnoreBatteryOptimizationNotification.showNotification");
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":IgnoreBatteryOptimizationNotification_showNotification");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                        boolean show = ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart;
-                        //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 1=" + show);
-                        /*if (Event.getGlobalEventsRunning()) {
-                            //show = show && DataWrapper.getIsManualProfileActivation(false, appContext);
-                            //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 2=" + show);
-                            DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
-                            show = show && (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_ALL, false) != 0);
-                            //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 3=" + show);
-                        }
-                        else
+                            //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=IgnoreBatteryOptimizationNotification.showNotification");
+
+                            boolean show = ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart;
+                            //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 1=" + show);
+                            /*if (Event.getGlobalEventsRunning()) {
+                                //show = show && DataWrapper.getIsManualProfileActivation(false, appContext);
+                                //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 2=" + show);
+                                DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
+                                show = show && (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_ALL, false) != 0);
+                                //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 3=" + show);
+                            }
+                            else
                             show = false;*/
 
-                        if (show) {
-                            PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                            try {
-                                if (!pm.isIgnoringBatteryOptimizations(appContext.getPackageName())) {
-                                    showNotification(appContext,
-                                            appContext.getString(R.string.ignore_battery_optimization_notification_title),
-                                            appContext.getString(R.string.ignore_battery_optimization_notification_text));
+                            if (show) {
+                                PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                                try {
+                                    if (!pm.isIgnoringBatteryOptimizations(appContext.getPackageName())) {
+                                        showNotification(appContext,
+                                                appContext.getString(R.string.ignore_battery_optimization_notification_title),
+                                                appContext.getString(R.string.ignore_battery_optimization_notification_text));
+                                    }
+                                } catch (Exception ignore) {
                                 }
-                            } catch (Exception ignore) {}
-                        }
+                            }
 
-                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=IgnoreBatteryOptimizationNotification_showNotification");
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {}
+                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=IgnoreBatteryOptimizationNotification_showNotification");
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
                         }
                     }
+                });
+
+            }
+            else {
+                boolean show = ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart;
+                //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 1=" + show);
+                /*if (Event.getGlobalEventsRunning()) {
+                    //show = show && DataWrapper.getIsManualProfileActivation(false, appContext);
+                    //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 2=" + show);
+                    DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
+                    show = show && (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_ALL, false) != 0);
+                    //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 3=" + show);
                 }
-            });
+                else
+                show = false;*/
+
+                if (show) {
+                    PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    try {
+                        if (!pm.isIgnoringBatteryOptimizations(appContext.getPackageName())) {
+                            showNotification(appContext,
+                                    appContext.getString(R.string.ignore_battery_optimization_notification_title),
+                                    appContext.getString(R.string.ignore_battery_optimization_notification_text));
+                        }
+                    } catch (Exception ignore) {
+                    }
+                }
+            }
         }
     }
 

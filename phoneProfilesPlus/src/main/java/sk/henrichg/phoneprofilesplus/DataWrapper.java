@@ -1565,6 +1565,14 @@ public class DataWrapper {
 
     private void _activateProfile(Profile _profile, boolean merged, int startupSource, final boolean forRestartEvents)
     {
+        // show notification when battery optimization is not enabled
+        DrawOverAppsPermissionNotification.showNotification(context, false);
+        IgnoreBatteryOptimizationNotification.showNotification(context, false);
+
+        // remove last configured profile duration alarm
+        ProfileDurationAlarmBroadcastReceiver.removeAlarm(_profile, context);
+        Profile.setActivatedProfileForDuration(context, 0);
+
         //final Profile mappedProfile = _profile; //Profile.getMappedProfile(_profile, context);
         //profile = filterProfileWithBatteryEvents(profile);
 
@@ -1582,11 +1590,6 @@ public class DataWrapper {
             PPApplication.showProfileNotification(/*context*/startupSource == PPApplication.STARTUP_SOURCE_BOOT, false);
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper._activateProfile");
             ActivateProfileHelper.updateGUI(context, true, startupSource == PPApplication.STARTUP_SOURCE_BOOT);
-
-            // remove last configured profile duration alarm
-            ProfileDurationAlarmBroadcastReceiver.removeAlarm(_profile, context);
-            Profile.setActivatedProfileForDuration(context, 0);
-
             return;
         }
 
@@ -1702,10 +1705,6 @@ public class DataWrapper {
                     getProfileNameWithManualIndicatorAsString(_profile, true, "", profileDuration > 0, false, false, this, false),
                     profileIcon, profileDuration, "");
         }
-
-        // remove last configured profile duration alarm
-        ProfileDurationAlarmBroadcastReceiver.removeAlarm(_profile, context);
-        Profile.setActivatedProfileForDuration(context, 0);
 
         //if (mappedProfile != null)
         //{
@@ -4362,7 +4361,7 @@ public class DataWrapper {
             */
         }
 
-        DrawOverAppsPermissionNotification.showNotification(context);
+        DrawOverAppsPermissionNotification.showNotification(context, false);
     }
 
     void restartEventsWithRescan(final boolean alsoRescan,

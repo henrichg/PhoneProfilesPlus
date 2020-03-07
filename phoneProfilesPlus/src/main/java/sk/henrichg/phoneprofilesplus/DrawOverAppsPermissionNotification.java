@@ -19,45 +19,60 @@ import androidx.core.content.ContextCompat;
 
 class DrawOverAppsPermissionNotification {
 
-    static void showNotification(Context context) {
+    static void showNotification(Context context, boolean useHandler) {
         if (Build.VERSION.SDK_INT >= 29) {
             //PPApplication.logE("DrawOverAppsPermissionNotification.showNotification", "xxx");
 
             final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThread("DrawOverAppsPermissionNotification.showNotification");
-            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
 
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DrawOverAppsPermissionNotification_showNotification");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+            if (useHandler) {
+                PPApplication.startHandlerThread("DrawOverAppsPermissionNotification.showNotification");
+                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
 
-                        //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DrawOverAppsPermissionNotification.showNotification");
-
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
                         try {
-                            if (!Settings.canDrawOverlays(appContext)) {
-                                showNotification(appContext,
-                                        appContext.getString(R.string.draw_over_apps_permission_notification_title),
-                                        appContext.getString(R.string.draw_over_apps_permission_notification_text));
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DrawOverAppsPermissionNotification_showNotification");
+                                wakeLock.acquire(10 * 60 * 1000);
                             }
-                        } catch (Exception ignore) {}
 
-                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DrawOverAppsPermissionNotification");
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DrawOverAppsPermissionNotification.showNotification");
+
                             try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {}
+                                if (!Settings.canDrawOverlays(appContext)) {
+                                    showNotification(appContext,
+                                            appContext.getString(R.string.draw_over_apps_permission_notification_title),
+                                            appContext.getString(R.string.draw_over_apps_permission_notification_text));
+                                }
+                            } catch (Exception ignore) {
+                            }
+
+                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DrawOverAppsPermissionNotification");
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
                         }
                     }
+                });
+            }
+            else {
+                try {
+                    if (!Settings.canDrawOverlays(appContext)) {
+                        showNotification(appContext,
+                                appContext.getString(R.string.draw_over_apps_permission_notification_title),
+                                appContext.getString(R.string.draw_over_apps_permission_notification_text));
+                    }
+                } catch (Exception ignore) {
                 }
-            });
+            }
         }
     }
 

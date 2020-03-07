@@ -1900,9 +1900,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                         if (!isFinishing())
                             GlobalGUIRoutines.reloadActivity(activity, true);
 
-                        DrawOverAppsPermissionNotification.showNotification(this.dataWrapper.context);
+                        DrawOverAppsPermissionNotification.showNotification(this.dataWrapper.context, true);
                         IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(this.dataWrapper.context.getApplicationContext(), true);
-                        IgnoreBatteryOptimizationNotification.showNotification(this.dataWrapper.context.getApplicationContext());
+                        IgnoreBatteryOptimizationNotification.showNotification(this.dataWrapper.context.getApplicationContext(), true);
                     } else {
                         //PPApplication.logE("EditorProfilesActivity.doImportData", "error restore");
 

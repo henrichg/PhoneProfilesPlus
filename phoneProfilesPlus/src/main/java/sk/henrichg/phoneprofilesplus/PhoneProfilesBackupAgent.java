@@ -102,9 +102,9 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
                     }
 
                     Permissions.setAllShowRequestPermissions(appContext, true);
-                    DrawOverAppsPermissionNotification.showNotification(appContext);
+                    DrawOverAppsPermissionNotification.showNotification(appContext, false);
                     IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(appContext, true);
-                    IgnoreBatteryOptimizationNotification.showNotification(appContext);
+                    IgnoreBatteryOptimizationNotification.showNotification(appContext, false);
 
                     //WifiBluetoothScanner.setShowEnableLocationNotification(appContext, true, WifiBluetoothScanner.SCANNER_TYPE_WIFI);
                     //WifiBluetoothScanner.setShowEnableLocationNotification(appContext, true, WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
