@@ -173,7 +173,8 @@ public class ShowProfileNotificationBroadcastReceiver extends BroadcastReceiver 
             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
             Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
             //PPApplication.logE("ShowProfileNotificationBroadcastReceiver._doWork", "_showProfileNotification()");
-            PhoneProfilesService.getInstance()._showProfileNotification(profile, true, dataWrapper, false  /*, cleared*/);
+            if (PhoneProfilesService.getInstance() != null)
+                PhoneProfilesService.getInstance()._showProfileNotification(profile, true, dataWrapper, false  /*, cleared*/);
             //dataWrapper.invalidateDataWrapper();
         }
     }
