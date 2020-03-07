@@ -1565,14 +1565,6 @@ public class DataWrapper {
 
     private void _activateProfile(Profile _profile, boolean merged, int startupSource, final boolean forRestartEvents)
     {
-        // show notification when battery optimization is not enabled
-        DrawOverAppsPermissionNotification.showNotification(context);
-        IgnoreBatteryOptimizationNotification.showNotification(context);
-
-        // remove last configured profile duration alarm
-        ProfileDurationAlarmBroadcastReceiver.removeAlarm(_profile, context);
-        Profile.setActivatedProfileForDuration(context, 0);
-
         //final Profile mappedProfile = _profile; //Profile.getMappedProfile(_profile, context);
         //profile = filterProfileWithBatteryEvents(profile);
 
@@ -1590,6 +1582,11 @@ public class DataWrapper {
             PPApplication.showProfileNotification(/*context*/startupSource == PPApplication.STARTUP_SOURCE_BOOT, false);
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper._activateProfile");
             ActivateProfileHelper.updateGUI(context, true, startupSource == PPApplication.STARTUP_SOURCE_BOOT);
+
+            // remove last configured profile duration alarm
+            ProfileDurationAlarmBroadcastReceiver.removeAlarm(_profile, context);
+            Profile.setActivatedProfileForDuration(context, 0);
+
             return;
         }
 
@@ -1705,6 +1702,10 @@ public class DataWrapper {
                     getProfileNameWithManualIndicatorAsString(_profile, true, "", profileDuration > 0, false, false, this, false),
                     profileIcon, profileDuration, "");
         }
+
+        // remove last configured profile duration alarm
+        ProfileDurationAlarmBroadcastReceiver.removeAlarm(_profile, context);
+        Profile.setActivatedProfileForDuration(context, 0);
 
         //if (mappedProfile != null)
         //{
@@ -4222,8 +4223,6 @@ public class DataWrapper {
     {
         //PPApplication.logE("DataWrapper._restartEvents", "xxx");
 
-        DrawOverAppsPermissionNotification.showNotification(context);
-
         if (logRestart) {
             if (manualRestart)
                 PPApplication.addActivityLog(context, PPApplication.ALTYPE_MANUAL_RESTART_EVENTS, null, null, null, 0, "");
@@ -4362,6 +4361,8 @@ public class DataWrapper {
             PPApplication.restartTwilightScanner(context);
             */
         }
+
+        DrawOverAppsPermissionNotification.showNotification(context);
     }
 
     void restartEventsWithRescan(final boolean alsoRescan,
