@@ -146,7 +146,7 @@ public class PhoneProfilesService extends Service
     private StartEventNotificationBroadcastReceiver startEventNotificationBroadcastReceiver = null;
     private GeofencesScannerSwitchGPSBroadcastReceiver geofencesScannerSwitchGPSBroadcastReceiver = null;
     private LockDeviceActivityFinishBroadcastReceiver lockDeviceActivityFinishBroadcastReceiver = null;
-    private AlarmClockBroadcastReceiver alarmClockBroadcastReceiver = null;
+    AlarmClockBroadcastReceiver alarmClockBroadcastReceiver = null;
     private AlarmClockEventEndBroadcastReceiver alarmClockEventEndBroadcastReceiver = null;
     private NotificationEventEndBroadcastReceiver notificationEventEndBroadcastReceiver = null;
     private LockDeviceAfterScreenOffBroadcastReceiver lockDeviceAfterScreenOffBroadcastReceiver = null;

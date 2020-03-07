@@ -12,7 +12,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### NextAlarmClockBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("##### NextAlarmClockBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "NextAlarmClockBroadcastReceiver.onReceive", "NextAlarmClockBroadcastReceiver_onReceive");
 
@@ -46,7 +46,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                             String packageName = infoPendingIntent.getCreatorPackage();
                             if (packageName != null) {
                                 if (!packageName.equals(context.getPackageName())) {
-                                    PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "packageName=" + packageName);
+                                    //PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "packageName=" + packageName);
 
                                     // com.google.android.deskclock - Google Clock
                                     // com.sec.android.app.clockpackage - Samsung Clock
@@ -79,12 +79,12 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                                         setAlarm(_time, alarmManager, context);
                                 }
                             } else {
-                                PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "packageName == null");
-                                //setAlarm(_time, alarmManager, context);
+                                //PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "packageName == null");
+                                setAlarm(_time, alarmManager, context);
                             }
                         } else {
-                            PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "infoPendingIntent == null");
-                            //setAlarm(_time, alarmManager, context);
+                            //PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "infoPendingIntent == null");
+                            setAlarm(_time, alarmManager, context);
                         }
                     }
                     //else {
@@ -115,28 +115,34 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
     private void setAlarm(long alarmTime, AlarmManager alarmManager, Context context) {
         removeAlarm(alarmManager, context);
 
-        //long alarmTime = time;// - Event.EVENT_ALARM_TIME_SOFT_OFFSET;
+        //PhoneProfilesService instance = PhoneProfilesService.getInstance();
+        //if (instance == null)
+        //    return;
 
-        /*if (PPApplication.logEnabled()) {
-            @SuppressLint("SimpleDateFormat")
-            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-            String result = sdf.format(alarmTime);
-            PPApplication.logE("NextAlarmClockBroadcastReceiver.setAlarm", "alarmTime=" + result);
-        }*/
+        //if (instance.alarmClockBroadcastReceiver != null) {
+            //long alarmTime = time;// - Event.EVENT_ALARM_TIME_SOFT_OFFSET;
 
-        //Intent intent = new Intent(context, AlarmClockBroadcastReceiver.class);
-        Intent intent = new Intent();
-        intent.setAction(PhoneProfilesService.ACTION_ALARM_CLOCK_BROADCAST_RECEIVER);
-        //intent.setClass(context, AlarmClockBroadcastReceiver.class);
+            /*if (PPApplication.logEnabled()) {
+                @SuppressLint("SimpleDateFormat")
+                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                String result = sdf.format(alarmTime);
+                PPApplication.logE("NextAlarmClockBroadcastReceiver.setAlarm", "alarmTime=" + result);
+            }*/
 
-        // set alarm
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 9998, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        // !!! DO NOT USE ALARM CLOCK !!!
-        if (android.os.Build.VERSION.SDK_INT >= 23)
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-        else //if (android.os.Build.VERSION.SDK_INT >= 19)
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-        //else
-        //    alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
+            //Intent intent = new Intent(context, AlarmClockBroadcastReceiver.class);
+            Intent intent = new Intent();
+            intent.setAction(PhoneProfilesService.ACTION_ALARM_CLOCK_BROADCAST_RECEIVER);
+            //intent.setClass(context, AlarmClockBroadcastReceiver.class);
+
+            // set alarm
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 9998, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            // !!! DO NOT USE ALARM CLOCK !!!
+            if (android.os.Build.VERSION.SDK_INT >= 23)
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+            else //if (android.os.Build.VERSION.SDK_INT >= 19)
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+            //else
+            //    alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
+        //}
     }
 }

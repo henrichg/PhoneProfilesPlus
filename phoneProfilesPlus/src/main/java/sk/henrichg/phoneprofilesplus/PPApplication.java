@@ -450,12 +450,12 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|LauncherActivity"
                                                 //+"|ActivateProfileActivity"
 
-                                                +"|AlarmClockBroadcastReceiver"
+                                                //+"|AlarmClockBroadcastReceiver"
                                                 //+"|AlarmClockEventEndBroadcastReceiver"
                                                 //+"|EventPreferencesAlarmClock.removeAlarm"
                                                 //+"|EventPreferencesAlarmClock.setAlarm"
                                                 //+"|EventPreferencesAlarmClock.computeAlarm"
-                                                +"|NextAlarmClockBroadcastReceiver"
+                                                //+"|NextAlarmClockBroadcastReceiver"
                                                 //+"|TimeChangedReceiver"
 
                                                 //+"|@@@ ScreenOnOffBroadcastReceiver"
