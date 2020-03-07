@@ -603,6 +603,8 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|ActivateProfileHelper.setScreenOnPermanent"
 
                                                 //+"|ActivateProfileHelper.executeForRunApplications"
+
+                                                //+"|IconWidgetProvider"
                                                 ;
 
     // activity log types

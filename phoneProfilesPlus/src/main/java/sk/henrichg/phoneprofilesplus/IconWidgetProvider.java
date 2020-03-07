@@ -10,12 +10,13 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
 public class IconWidgetProvider extends AppWidgetProvider {
 
-    boolean refreshWidget = true;
+    private boolean refreshWidget = true;
 
     @Override
     public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds)
@@ -39,6 +40,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 String applicationWidgetIconLightnessT = ApplicationPreferences.applicationWidgetIconLightnessT;
                 boolean showProfileDuration = ApplicationPreferences.applicationWidgetIconShowProfileDuration;*/
 
+                //PPApplication.logE("IconWidgetProvider.onUpdate", "ApplicationPreferences.applicationWidgetIconLightness="+ApplicationPreferences.applicationWidgetIconLightness);
                 int monochromeValue = 0xFF;
                 switch (ApplicationPreferences.applicationWidgetIconLightness) {
                     case "0":
@@ -70,22 +72,34 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         break;
                 }
 
+                //PPApplication.logE("IconWidgetProvider.onUpdate", "ApplicationPreferences.applicationWidgetIconColor="+ApplicationPreferences.applicationWidgetIconColor);
+                //PPApplication.logE("IconWidgetProvider.onUpdate", "ApplicationPreferences.applicationWidgetIconCustomIconLightness="+ApplicationPreferences.applicationWidgetIconCustomIconLightness);
                 DataWrapper dataWrapper = new DataWrapper(context,
                         ApplicationPreferences.applicationWidgetIconColor.equals("1"),
                         monochromeValue,
                         ApplicationPreferences.applicationWidgetIconCustomIconLightness);
 
                 Profile profile = dataWrapper.getActivatedProfile(true, false);
+                //PPApplication.logE("IconWidgetProvider.onUpdate", "profile="+profile);
+                //if (profile != null)
+                //    PPApplication.logE("IconWidgetProvider.onUpdate", "profile._name="+profile._name);
 
                 boolean fullyStarted = false;
                 if (PhoneProfilesService.getInstance() != null)
                     fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
+                //PPApplication.logE("IconWidgetProvider.onUpdate", "fullyStarted="+fullyStarted);
+
+                //PPApplication.logE("IconWidgetProvider.onUpdate", "PPApplication.applicationPackageReplaced="+PPApplication.applicationPackageReplaced);
                 boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
                 if ((!fullyStarted) || applicationPackageReplaced)
                     profile = null;
 
                 try {
+                    //PPApplication.logE("IconWidgetProvider.onUpdate", "refreshWidget="+refreshWidget);
                     if (!refreshWidget) {
+                        refreshWidget = true;
+
+                        //PPApplication.logE("IconWidgetProvider.onUpdate", "PPApplication.prefWidgetProfileName1="+PPApplication.prefWidgetProfileName1);
                         String pNameWidget = PPApplication.prefWidgetProfileName1;
 
                         if (!pNameWidget.isEmpty()) {
@@ -103,6 +117,9 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     }
 
                     // set background
+                    //PPApplication.logE("IconWidgetProvider.onUpdate", "ApplicationPreferences.applicationWidgetIconBackgroundType="+ApplicationPreferences.applicationWidgetIconBackgroundType);
+                    //PPApplication.logE("IconWidgetProvider.onUpdate", "ApplicationPreferences.applicationWidgetIconBackgroundColor="+ApplicationPreferences.applicationWidgetIconBackgroundColor);
+                    //PPApplication.logE("IconWidgetProvider.onUpdate", "ApplicationPreferences.applicationWidgetIconLightnessB="+ApplicationPreferences.applicationWidgetIconLightnessB);
                     int redBackground = 0x00;
                     int greenBackground;
                     int blueBackground;
@@ -145,6 +162,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         blueBackground = redBackground;
                     }
 
+                    //PPApplication.logE("IconWidgetProvider.onUpdate", "ApplicationPreferences.applicationWidgetIconBackground="+ApplicationPreferences.applicationWidgetIconBackground);
                     int alphaBackground = 0x40;
                     switch (ApplicationPreferences.applicationWidgetIconBackground) {
                         case "0":
@@ -176,6 +194,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             break;
                     }
 
+                    //PPApplication.logE("IconWidgetProvider.onUpdate", "ApplicationPreferences.applicationWidgetIconShowBorder="+ApplicationPreferences.applicationWidgetIconShowBorder);
+                    //PPApplication.logE("IconWidgetProvider.onUpdate", "ApplicationPreferences.applicationWidgetIconLightnessBorder="+ApplicationPreferences.applicationWidgetIconLightnessBorder);
                     int redBorder = 0xFF;
                     int greenBorder;
                     int blueBorder;
@@ -213,6 +233,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     greenBorder = redBorder;
                     blueBorder = redBorder;
 
+                    //PPApplication.logE("IconWidgetProvider.onUpdate", "ApplicationPreferences.applicationWidgetIconLightnessT="+ApplicationPreferences.applicationWidgetIconLightnessT);
                     int redText = 0xFF;
                     switch (ApplicationPreferences.applicationWidgetIconLightnessT) {
                         case "0":
@@ -246,6 +267,9 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     int greenText = redText;
                     int blueText = redText;
 
+                    //PPApplication.logE("IconWidgetProvider.onUpdate", "ApplicationPreferences.applicationWidgetIconShowProfileDuration="+ApplicationPreferences.applicationWidgetIconShowProfileDuration);
+                    //PPApplication.logE("IconWidgetProvider.onUpdate", "ApplicationPreferences.applicationWidgetIconColor="+ApplicationPreferences.applicationWidgetIconColor);
+                    //PPApplication.logE("IconWidgetProvider.onUpdate", "ApplicationPreferences.applicationWidgetIconCustomIconLightness="+ApplicationPreferences.applicationWidgetIconCustomIconLightness);
                     boolean isIconResourceID;
                     String iconIdentifier;
                     String pName;
@@ -276,22 +300,35 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     PPApplication.setWidgetProfileName(context, 1, pName);
 
                     // get all IconWidgetProvider widgets in launcher
-                    ComponentName thisWidget = new ComponentName(context, IconWidgetProvider.class);
-                    int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
+                    //ComponentName thisWidget = new ComponentName(context, IconWidgetProvider.class);
+                    //int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
+                    //PPApplication.logE("IconWidgetProvider.onUpdate", "allWidgetIds="+allWidgetIds);
+                    //PPApplication.logE("IconWidgetProvider.onUpdate", "allWidgetIds.length="+allWidgetIds.length);
 
-                    for (int widgetId : allWidgetIds) {
+                    //PPApplication.logE("IconWidgetProvider.onUpdate", "appWidgetIds.length="+appWidgetIds.length);
+                    //for (int widgetId : appWidgetIds) {
 
                         // prepare view for widget update
+                        //PPApplication.logE("IconWidgetProvider.onUpdate", "ApplicationPreferences.applicationWidgetIconHideProfileName="+ApplicationPreferences.applicationWidgetIconHideProfileName);
+                        //PPApplication.logE("IconWidgetProvider.onUpdate", "ApplicationPreferences.applicationWidgetIconShowProfileDuration="+ApplicationPreferences.applicationWidgetIconShowProfileDuration);
                         RemoteViews remoteViews;
-                        if (ApplicationPreferences.applicationWidgetIconHideProfileName)
+                        if (ApplicationPreferences.applicationWidgetIconHideProfileName) {
+                            //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget_no_profile_name");
                             remoteViews = new RemoteViews(context.getPackageName(), R.layout.icon_widget_no_profile_name);
+                        }
                         else {
-                            if ((profile._duration > 0) && (ApplicationPreferences.applicationWidgetIconShowProfileDuration))
+                            if ((profile._duration > 0) && (ApplicationPreferences.applicationWidgetIconShowProfileDuration)) {
+                                //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget");
                                 remoteViews = new RemoteViews(context.getPackageName(), R.layout.icon_widget);
-                            else
+                            }
+                            else {
+                                //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget_one_line_text");
                                 remoteViews = new RemoteViews(context.getPackageName(), R.layout.icon_widget_one_line_text);
+                            }
                         }
 
+                        //PPApplication.logE("IconWidgetProvider.onUpdate", "ApplicationPreferences.applicationWidgetIconRoundedCorners="+ApplicationPreferences.applicationWidgetIconRoundedCorners);
+                        //PPApplication.logE("IconWidgetProvider.onUpdate", "ApplicationPreferences.applicationWidgetIconShowBorder="+ApplicationPreferences.applicationWidgetIconShowBorder);
                         if (ApplicationPreferences.applicationWidgetIconRoundedCorners) {
                             remoteViews.setViewVisibility(R.id.widget_icon_background, View.VISIBLE);
                             remoteViews.setViewVisibility(R.id.widget_icon_not_rounded_border, View.INVISIBLE);
@@ -338,6 +375,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
                         remoteViews.setTextColor(R.id.icon_widget_name, Color.argb(0xFF, redText, greenText, blueText));
 
+                        //PPApplication.logE("IconWidgetProvider.onUpdate", "ApplicationPreferences.applicationWidgetIconHideProfileName="+ApplicationPreferences.applicationWidgetIconHideProfileName);
                         if (!ApplicationPreferences.applicationWidgetIconHideProfileName)
                             remoteViews.setTextViewText(R.id.icon_widget_name, profileName);
 
@@ -352,13 +390,27 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
                         // widget update
                         try {
-                            appWidgetManager.updateAppWidget(widgetId, remoteViews);
-                        } catch (Exception ignored) {}
-                    }
-                } catch (Exception ignored) {}
+                            //appWidgetManager.updateAppWidget(widgetId, remoteViews);
+                            ComponentName thisWidget = new ComponentName(context, IconWidgetProvider.class);
+                            appWidgetManager.updateAppWidget(thisWidget, remoteViews);
+                        } catch (Exception e) {
+                            //PPApplication.logE("IconWidgetProvider.onUpdate", Log.getStackTraceString(e));
+                        }
+                    //}
+                } catch (Exception e) {
+                    //PPApplication.logE("IconWidgetProvider.onUpdate", Log.getStackTraceString(e));
+                }
 
                 //dataWrapper.invalidateDataWrapper();
             }
         });
     }
+
+    void updateWidgets(Context context, boolean refresh) {
+        AppWidgetManager manager = AppWidgetManager.getInstance(context);
+        int[] ids = manager.getAppWidgetIds(new ComponentName(context, IconWidgetProvider.class));
+        refreshWidget = refresh;
+        onUpdate(context, manager, ids);
+    }
+
 }

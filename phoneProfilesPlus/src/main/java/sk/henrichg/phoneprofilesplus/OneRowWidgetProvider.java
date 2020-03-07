@@ -19,7 +19,7 @@ import static android.view.View.VISIBLE;
 
 public class OneRowWidgetProvider extends AppWidgetProvider {
 
-    boolean refreshWidget = true;
+    private boolean refreshWidget = true;
 
     @Override
     public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds)
@@ -92,6 +92,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
                 try {
                     if (!refreshWidget) {
+                        refreshWidget = true;
+
                         String pNameWidget = PPApplication.prefWidgetProfileName2;
 
                         if (!pNameWidget.isEmpty()) {
@@ -284,10 +286,10 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     PPApplication.setWidgetProfileName(context, 2, pName);
 
                     // get all OneRowWidgetProvider widgets in launcher
-                    ComponentName thisWidget = new ComponentName(context, OneRowWidgetProvider.class);
-                    int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
+                    //ComponentName thisWidget = new ComponentName(context, OneRowWidgetProvider.class);
+                    //int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
 
-                    for (int widgetId : allWidgetIds) {
+                    //for (int widgetId : appWidgetIds) {
 
                         RemoteViews remoteViews;
                         if (ApplicationPreferences.applicationWidgetOneRowPrefIndicator)
@@ -391,14 +393,23 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
                         // widget update
                         try {
-                            appWidgetManager.updateAppWidget(widgetId, remoteViews);
+                            //appWidgetManager.updateAppWidget(widgetId, remoteViews);
+                            ComponentName thisWidget = new ComponentName(context, OneRowWidgetProvider.class);
+                            appWidgetManager.updateAppWidget(thisWidget, remoteViews);
                         } catch (Exception ignored) {}
-                    }
+                    //}
                 } catch (Exception ignored) {}
 
                 //dataWrapper.invalidateDataWrapper();
             }
         });
+    }
+
+    void updateWidgets(Context context, boolean refresh) {
+        AppWidgetManager manager = AppWidgetManager.getInstance(context);
+        int[] ids = manager.getAppWidgetIds(new ComponentName(context, OneRowWidgetProvider.class));
+        refreshWidget = refresh;
+        onUpdate(context, manager, ids);
     }
 
 }

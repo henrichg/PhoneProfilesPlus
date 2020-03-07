@@ -3076,19 +3076,15 @@ class ActivateProfileHelper {
 
         // icon widget
         try {
-            int[] ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, IconWidgetProvider.class));
             IconWidgetProvider myWidget = new IconWidgetProvider();
-            myWidget.refreshWidget = refresh;
-            myWidget.onUpdate(context, AppWidgetManager.getInstance(context), ids);
+            myWidget.updateWidgets(context, refresh);
         } catch (Exception ignored) {
         }
 
         // one row widget
         try {
-            int[] ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, OneRowWidgetProvider.class));
             OneRowWidgetProvider myWidget = new OneRowWidgetProvider();
-            myWidget.refreshWidget = refresh;
-            myWidget.onUpdate(context, AppWidgetManager.getInstance(context), ids);
+            myWidget.updateWidgets(context, refresh);
         } catch (Exception ignored) {
         }
 

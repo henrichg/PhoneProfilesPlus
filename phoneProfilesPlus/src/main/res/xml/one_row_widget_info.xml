@@ -6,7 +6,7 @@
     android:minHeight="40dp" 
     android:minResizeWidth="110dp" 
     android:minResizeHeight="40dp"
-    android:initialLayout="@layout/one_row_widget" 
+    android:initialLayout="@layout/empty_widget"
     android:resizeMode="horizontal" 
     android:updatePeriodMillis="0">
 </appwidget-provider>

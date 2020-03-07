@@ -7,7 +7,7 @@
     android:minHeight="250dp"
     android:minResizeWidth="110dp"
     android:minResizeHeight="40dp"
-    android:initialLayout="@layout/profile_list_widget"
+    android:initialLayout="@layout/empty_widget"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="0"
     android:widgetCategory="keyguard|home_screen"
