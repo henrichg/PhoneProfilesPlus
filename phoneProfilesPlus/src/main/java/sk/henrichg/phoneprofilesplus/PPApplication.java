@@ -1933,7 +1933,8 @@ public class PPApplication extends Application /*implements Application.Activity
             NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null) {
                 notificationManager.createNotificationChannel(channel);
-                return true;
+                NotificationChannel newChannel = notificationManager.getNotificationChannel(PROFILE_NOTIFICATION_CHANNEL);
+                return newChannel != null;
             }
             else
                 return false;
