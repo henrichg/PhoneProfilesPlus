@@ -890,6 +890,7 @@ class EventsHandler {
 
         //if (eventType > 0) {
             int eventCount = 0;
+            boolean breakLoop = false;
             for (Event _event : dataWrapper.eventList) {
                 boolean eventEnabled;
                 if (onlyRunning)
@@ -1011,11 +1012,14 @@ class EventsHandler {
                         case SENSOR_TYPE_DEVICE_IDLE_MODE:
                             //eventType = DatabaseHandler.ETYPE_????;
                             sensorEnabled = true;
+                            breakLoop = true;
                             break;
                     }
 
                     if (sensorEnabled)
                         eventCount++;
+                    if (breakLoop)
+                        break;
                 }
             }
             return eventCount > 0;
