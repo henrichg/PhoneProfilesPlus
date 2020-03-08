@@ -109,6 +109,7 @@ class EventsHandler {
             //PPApplication.setApplicationStarted(context, true);
 
             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+            dataWrapper.fillEventList();
 
             // save ringer mode, zen mode, ringtone before handle events
             // used by ringing call simulation
@@ -165,7 +166,7 @@ class EventsHandler {
             if (!Event.getGlobalEventsRunning()) {
                 // events are globally stopped
 
-                doEndHandler(null);
+                doEndHandler(dataWrapper);
                 //dataWrapper.invalidateDataWrapper();
 
                 PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "-- end: events globally stopped --------------------------------");
@@ -177,16 +178,22 @@ class EventsHandler {
             // start orientation listener only when events exists
             if (ppService != null) {
                 if (!PhoneProfilesService.isOrientationScannerStarted()) {
-                    if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION) > 0)
-                        PPApplication.startOrientationScanner(context);
+                    int eventCount = 0;
+                    for (Event _event : dataWrapper.eventList) {
+                        if ((_event.getStatus() != Event.ESTATUS_STOP) &&
+                                (_event._eventPreferencesOrientation._enabled))
+                            eventCount++;
+                    }
+                    //if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION) > 0)
+                    //    PPApplication.startOrientationScanner(context);
                 }
             }
             */
 
-            if (!eventsExists(sensorType, false)) {
+            if (!eventsExists(sensorType, dataWrapper, false)) {
                 // events not exists
 
-                doEndHandler(null);
+                doEndHandler(dataWrapper);
                 //dataWrapper.invalidateDataWrapper();
 
                 PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "-- end: not events found --------------------------------");
@@ -196,8 +203,6 @@ class EventsHandler {
 
             //PPApplication.logE("#### EventsHandler.handleEvents", "do EventsHandler");
 
-            dataWrapper.fillEventList();
-
             boolean isRestart = sensorType.equals(SENSOR_TYPE_RESTART_EVENTS) || sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS);
 
             //interactive = (!isRestart) || _interactive;
@@ -206,8 +211,14 @@ class EventsHandler {
             if (isRestart) {
                 if (Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, context.getApplicationContext()).allowed ==
                         PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    int eventCount = DatabaseHandler.getInstance(context.getApplicationContext())
-                            .getTypeEventsCount(DatabaseHandler.ETYPE_CALENDAR, false);
+                    int eventCount = 0;
+                    for (Event _event : dataWrapper.eventList) {
+                        if ((_event.getStatus() != Event.ESTATUS_STOP) &&
+                                (_event._eventPreferencesCalendar._enabled))
+                            eventCount++;
+                    }
+                    //int eventCount = DatabaseHandler.getInstance(context.getApplicationContext())
+                    //        .getTypeEventsCount(DatabaseHandler.ETYPE_CALENDAR, false);
                     if (eventCount > 0)
                         saveCalendarStartEndTime = true;
                 }
@@ -788,9 +799,9 @@ class EventsHandler {
         }
     }
 
-    private boolean eventsExists(String broadcastReceiverType, boolean onlyRunning) {
-        int eventType = 0;
-        switch (broadcastReceiverType) {
+    private boolean eventsExists(String sensorType, DataWrapper dataWrapper, boolean onlyRunning) {
+        /*int eventType = 0;
+        switch (sensorType) {
             case SENSOR_TYPE_BATTERY:
             case SENSOR_TYPE_POWER_SAVE_MODE:
                 eventType = DatabaseHandler.ETYPE_BATTERY;
@@ -811,12 +822,12 @@ class EventsHandler {
             case SENSOR_TYPE_HEADSET_CONNECTION:
                 eventType = DatabaseHandler.ETYPE_PERIPHERAL;
                 break;
-            /*case SENSOR_TYPE_EVENT_DELAY_START:
-                eventType = DatabaseHandler.ETYPE_????;
-                break;
-            case SENSOR_TYPE_EVENT_DELAY_END:
-                eventType = DatabaseHandler.ETYPE_????;
-                break;*/
+            //case SENSOR_TYPE_EVENT_DELAY_START:
+            //    eventType = DatabaseHandler.ETYPE_????;
+            //    break;
+            //case SENSOR_TYPE_EVENT_DELAY_END:
+            //    eventType = DatabaseHandler.ETYPE_????;
+            //    break;
             case SENSOR_TYPE_TIME:
                 eventType = DatabaseHandler.ETYPE_TIME;
                 break;
@@ -826,20 +837,20 @@ class EventsHandler {
             case SENSOR_TYPE_NOTIFICATION:
                 eventType = DatabaseHandler.ETYPE_NOTIFICATION;
                 break;
-            /*case SENSOR_TYPE_NOTIFICATION_EVENT_END:
-                eventType = DatabaseHandler.ETYPE_NOTIFICATION;
-                break;*/
+            //case SENSOR_TYPE_NOTIFICATION_EVENT_END:
+            //    eventType = DatabaseHandler.ETYPE_NOTIFICATION;
+            //    break;
             case SENSOR_TYPE_PHONE_CALL:
             case SENSOR_TYPE_PHONE_CALL_EVENT_END:
                 eventType = DatabaseHandler.ETYPE_CALL;
                 break;
-            /*case SENSOR_TYPE_RESTART_EVENTS:
-                eventType = DatabaseHandler.ETYPE_???;
-                break;*/
-            /*// call doEventService for all screen on/off changes
-            case SENSOR_TYPE_SCREEN:
-                eventType = DatabaseHandler.ETYPE_SCREEN;
-                break;*/
+            //case SENSOR_TYPE_RESTART_EVENTS:
+            //    eventType = DatabaseHandler.ETYPE_???;
+            //    break;
+            // call doEventService for all screen on/off changes
+            //case SENSOR_TYPE_SCREEN:
+            //    eventType = DatabaseHandler.ETYPE_SCREEN;
+            //    break;
             case SENSOR_TYPE_SMS:
             case SENSOR_TYPE_SMS_EVENT_END:
                 eventType = DatabaseHandler.ETYPE_SMS;
@@ -851,9 +862,9 @@ class EventsHandler {
             case SENSOR_TYPE_WIFI_SCANNER:
                 eventType = DatabaseHandler.ETYPE_WIFI_NEARBY;
                 break;
-            /*case SENSOR_TYPE_DEVICE_IDLE_MODE:
-                eventType = DatabaseHandler.ETYPE_????;
-                break;*/
+            //case SENSOR_TYPE_DEVICE_IDLE_MODE:
+            //    eventType = DatabaseHandler.ETYPE_????;
+            //    break;
             case SENSOR_TYPE_GEOFENCES_SCANNER:
             case SENSOR_TYPE_LOCATION_MODE:
                 eventType = DatabaseHandler.ETYPE_LOCATION;
@@ -875,12 +886,145 @@ class EventsHandler {
             case SENSOR_TYPE_ALARM_CLOCK_EVENT_END:
                 eventType = DatabaseHandler.ETYPE_ALARM_CLOCK;
                 break;
-        }
+        }*/
 
-        if (eventType > 0)
-            return DatabaseHandler.getInstance(context.getApplicationContext()).getTypeEventsCount(eventType, onlyRunning) > 0;
-        else
-            return true;
+        //if (eventType > 0) {
+            int eventCount = 0;
+            for (Event _event : dataWrapper.eventList) {
+                boolean eventEnabled;
+                if (onlyRunning)
+                    eventEnabled = _event.getStatus() == Event.ESTATUS_RUNNING;
+                else
+                    eventEnabled = _event.getStatus() != Event.ESTATUS_STOP;
+                if (eventEnabled) {
+                    boolean sensorEnabled = false;
+
+                    switch (sensorType) {
+                        case SENSOR_TYPE_BATTERY:
+                        case SENSOR_TYPE_POWER_SAVE_MODE:
+                            //eventType = DatabaseHandler.ETYPE_BATTERY;
+                            sensorEnabled = _event._eventPreferencesBattery._enabled;
+                            break;
+                        case SENSOR_TYPE_BLUETOOTH_CONNECTION:
+                        case SENSOR_TYPE_BLUETOOTH_STATE:
+                            //eventType = DatabaseHandler.ETYPE_BLUETOOTH_CONNECTED;
+                            sensorEnabled = _event._eventPreferencesBluetooth._enabled;
+                            sensorEnabled = sensorEnabled &&
+                                    ((_event._eventPreferencesBluetooth._connectionType == 0) ||
+                                     (_event._eventPreferencesBluetooth._connectionType == 2));
+                            break;
+                        case SENSOR_TYPE_BLUETOOTH_SCANNER:
+                            //eventType = DatabaseHandler.ETYPE_BLUETOOTH_NEARBY;
+                            sensorEnabled = _event._eventPreferencesBluetooth._enabled;
+                            sensorEnabled = sensorEnabled &&
+                                    ((_event._eventPreferencesBluetooth._connectionType == 1) ||
+                                     (_event._eventPreferencesBluetooth._connectionType == 3));
+                            break;
+                        case SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED:
+                        case SENSOR_TYPE_CALENDAR:
+                        case SENSOR_TYPE_SEARCH_CALENDAR_EVENTS:
+                            //eventType = DatabaseHandler.ETYPE_CALENDAR;
+                            sensorEnabled = _event._eventPreferencesCalendar._enabled;
+                            break;
+                        case SENSOR_TYPE_DOCK_CONNECTION:
+                        case SENSOR_TYPE_HEADSET_CONNECTION:
+                            //eventType = DatabaseHandler.ETYPE_PERIPHERAL;
+                            sensorEnabled = _event._eventPreferencesPeripherals._enabled;
+                            break;
+                        /*case SENSOR_TYPE_EVENT_DELAY_START:
+                            eventType = DatabaseHandler.ETYPE_????;
+                            break;
+                        case SENSOR_TYPE_EVENT_DELAY_END:
+                            eventType = DatabaseHandler.ETYPE_????;
+                            break;*/
+                        case SENSOR_TYPE_TIME:
+                            //eventType = DatabaseHandler.ETYPE_TIME;
+                            sensorEnabled = _event._eventPreferencesTime._enabled;
+                            break;
+                        case SENSOR_TYPE_APPLICATION:
+                            //eventType = DatabaseHandler.ETYPE_APPLICATION;
+                            sensorEnabled = _event._eventPreferencesApplication._enabled;
+                            break;
+                        case SENSOR_TYPE_NOTIFICATION:
+                            //eventType = DatabaseHandler.ETYPE_NOTIFICATION;
+                            sensorEnabled = _event._eventPreferencesNotification._enabled;
+                            break;
+                        /*case SENSOR_TYPE_NOTIFICATION_EVENT_END:
+                            eventType = DatabaseHandler.ETYPE_NOTIFICATION;
+                            break;*/
+                        case SENSOR_TYPE_PHONE_CALL:
+                        case SENSOR_TYPE_PHONE_CALL_EVENT_END:
+                            //eventType = DatabaseHandler.ETYPE_CALL;
+                            sensorEnabled = _event._eventPreferencesCall._enabled;
+                            break;
+                        /*case SENSOR_TYPE_RESTART_EVENTS:
+                            eventType = DatabaseHandler.ETYPE_???;
+                            break;*/
+                        /*// call doEventService for all screen on/off changes
+                        case SENSOR_TYPE_SCREEN:
+                            eventType = DatabaseHandler.ETYPE_SCREEN;
+                            break;*/
+                        case SENSOR_TYPE_SMS:
+                        case SENSOR_TYPE_SMS_EVENT_END:
+                            //eventType = DatabaseHandler.ETYPE_SMS;
+                            sensorEnabled = _event._eventPreferencesSMS._enabled;
+                            break;
+                        case SENSOR_TYPE_WIFI_CONNECTION:
+                        case SENSOR_TYPE_WIFI_STATE:
+                            //eventType = DatabaseHandler.ETYPE_WIFI_CONNECTED;
+                            sensorEnabled = _event._eventPreferencesWifi._enabled;
+                            sensorEnabled = sensorEnabled &&
+                                    ((_event._eventPreferencesWifi._connectionType == 0) ||
+                                     (_event._eventPreferencesWifi._connectionType == 2));
+                            break;
+                        case SENSOR_TYPE_WIFI_SCANNER:
+                            //eventType = DatabaseHandler.ETYPE_WIFI_NEARBY;
+                            sensorEnabled = _event._eventPreferencesWifi._enabled;
+                            sensorEnabled = sensorEnabled &&
+                                    ((_event._eventPreferencesWifi._connectionType == 1) ||
+                                     (_event._eventPreferencesWifi._connectionType == 3));
+                            break;
+                        /*case SENSOR_TYPE_DEVICE_IDLE_MODE:
+                            eventType = DatabaseHandler.ETYPE_????;
+                            break;*/
+                        case SENSOR_TYPE_GEOFENCES_SCANNER:
+                        case SENSOR_TYPE_LOCATION_MODE:
+                            //eventType = DatabaseHandler.ETYPE_LOCATION;
+                            sensorEnabled = _event._eventPreferencesLocation._enabled;
+                            break;
+                        case SENSOR_TYPE_DEVICE_ORIENTATION:
+                            //eventType = DatabaseHandler.ETYPE_ORIENTATION;
+                            sensorEnabled = _event._eventPreferencesOrientation._enabled;
+                            break;
+                        case SENSOR_TYPE_PHONE_STATE:
+                            //eventType = DatabaseHandler.ETYPE_MOBILE_CELLS;
+                            sensorEnabled = _event._eventPreferencesMobileCells._enabled;
+                            break;
+                        case SENSOR_TYPE_NFC_TAG:
+                        case SENSOR_TYPE_NFC_EVENT_END:
+                            //eventType = DatabaseHandler.ETYPE_NFC;
+                            sensorEnabled = _event._eventPreferencesNFC._enabled;
+                            break;
+                        case SENSOR_TYPE_RADIO_SWITCH:
+                            //eventType = DatabaseHandler.ETYPE_RADIO_SWITCH;
+                            sensorEnabled = _event._eventPreferencesRadioSwitch._enabled;
+                            break;
+                        case SENSOR_TYPE_ALARM_CLOCK:
+                        case SENSOR_TYPE_ALARM_CLOCK_EVENT_END:
+                            //eventType = DatabaseHandler.ETYPE_ALARM_CLOCK;
+                            sensorEnabled = _event._eventPreferencesAlarmClock._enabled;
+                            break;
+                    }
+
+                    if (sensorEnabled)
+                        eventCount++;
+                }
+            }
+            return eventCount > 0;
+            //return DatabaseHandler.getInstance(context.getApplicationContext()).getTypeEventsCount(eventType, onlyRunning) > 0;
+        //}
+        //else
+        //    return true;
     }
 
     private void doEndHandler(DataWrapper dataWrapper) {
@@ -890,7 +1034,7 @@ class EventsHandler {
         if (sensorType.equals(SENSOR_TYPE_PHONE_CALL)) {
             TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 
-            if (eventsExists(sensorType, true)) {
+            if (eventsExists(sensorType, dataWrapper, true)) {
                 //PPApplication.logE("EventsHandler.doEndHandler", "running event exists");
                 // doEndHandler is called even if no event exists, but ringing call simulation is only for running event with call sensor
                 //if (android.os.Build.VERSION.SDK_INT >= 21) {
