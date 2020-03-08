@@ -931,12 +931,6 @@ class EventsHandler {
                             //eventType = DatabaseHandler.ETYPE_PERIPHERAL;
                             sensorEnabled = _event._eventPreferencesPeripherals._enabled;
                             break;
-                        /*case SENSOR_TYPE_EVENT_DELAY_START:
-                            eventType = DatabaseHandler.ETYPE_????;
-                            break;
-                        case SENSOR_TYPE_EVENT_DELAY_END:
-                            eventType = DatabaseHandler.ETYPE_????;
-                            break;*/
                         case SENSOR_TYPE_TIME:
                             //eventType = DatabaseHandler.ETYPE_TIME;
                             sensorEnabled = _event._eventPreferencesTime._enabled;
@@ -957,13 +951,6 @@ class EventsHandler {
                             //eventType = DatabaseHandler.ETYPE_CALL;
                             sensorEnabled = _event._eventPreferencesCall._enabled;
                             break;
-                        /*case SENSOR_TYPE_RESTART_EVENTS:
-                            eventType = DatabaseHandler.ETYPE_???;
-                            break;*/
-                        /*// call doEventService for all screen on/off changes
-                        case SENSOR_TYPE_SCREEN:
-                            eventType = DatabaseHandler.ETYPE_SCREEN;
-                            break;*/
                         case SENSOR_TYPE_SMS:
                         case SENSOR_TYPE_SMS_EVENT_END:
                             //eventType = DatabaseHandler.ETYPE_SMS;
@@ -984,9 +971,6 @@ class EventsHandler {
                                     ((_event._eventPreferencesWifi._connectionType == 1) ||
                                      (_event._eventPreferencesWifi._connectionType == 3));
                             break;
-                        /*case SENSOR_TYPE_DEVICE_IDLE_MODE:
-                            eventType = DatabaseHandler.ETYPE_????;
-                            break;*/
                         case SENSOR_TYPE_GEOFENCES_SCANNER:
                         case SENSOR_TYPE_LOCATION_MODE:
                             //eventType = DatabaseHandler.ETYPE_LOCATION;
@@ -1013,6 +997,20 @@ class EventsHandler {
                         case SENSOR_TYPE_ALARM_CLOCK_EVENT_END:
                             //eventType = DatabaseHandler.ETYPE_ALARM_CLOCK;
                             sensorEnabled = _event._eventPreferencesAlarmClock._enabled;
+                            break;
+                        case SENSOR_TYPE_SCREEN:
+                            // call doEventService for all screen on/off changes
+                            //eventType = DatabaseHandler.ETYPE_SCREEN;
+                            //sensorEnabled = _event._eventPreferencesScreen._enabled;
+                        case SENSOR_TYPE_RESTART_EVENTS:
+                            //eventType = DatabaseHandler.ETYPE_???;
+                        case SENSOR_TYPE_EVENT_DELAY_START:
+                            //eventType = DatabaseHandler.ETYPE_????;
+                        case SENSOR_TYPE_EVENT_DELAY_END:
+                            //eventType = DatabaseHandler.ETYPE_????;
+                        case SENSOR_TYPE_DEVICE_IDLE_MODE:
+                            //eventType = DatabaseHandler.ETYPE_????;
+                            sensorEnabled = true;
                             break;
                     }
 
