@@ -13,7 +13,7 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //PPApplication.logE("##### WifiConnectionBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[TEST BATTERY] WifiConnectionBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "WifiConnectionBroadcastReceiver.onReceive", "WifiConnectionBroadcastReceiver_onReceive");
 
         final Context appContext = context.getApplicationContext();
@@ -30,49 +30,57 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
                 final NetworkInfo info = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
 
                 if ((info != null)/* && (ConnectivityManager.TYPE_WIFI == info.getType ())*/) {
+                    final NetworkInfo.DetailedState detailedState = info.getDetailedState();
+                    PPApplication.logE("[TEST BATTERY] WifiConnectionBroadcastReceiver.onReceive", "detailedState="+detailedState);
 
-                    PPApplication.startHandlerThread("WifiConnectionBroadcastReceiver.onReceive");
-                    final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                            PowerManager.WakeLock wakeLock = null;
-                            try {
-                                if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":WifiConnectionBroadcastReceiver_onReceive");
-                                    wakeLock.acquire(10 * 60 * 1000);
-                                }
+                    if ((detailedState == NetworkInfo.DetailedState.CONNECTED) ||
+                        (detailedState == NetworkInfo.DetailedState.DISCONNECTED)) {
 
-                                //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiConnectionBroadcastReceiver.onReceive");
+                        PPApplication.logE("[TEST BATTERY] WifiConnectionBroadcastReceiver.onReceive", "connected or disconnected");
 
-                                boolean isConnected;
-                                if (Build.VERSION.SDK_INT < 28)
-                                    isConnected = info.getState() == NetworkInfo.State.CONNECTED;
-                                else
-                                    isConnected = info.isConnected();
+                        PPApplication.startHandlerThread("WifiConnectionBroadcastReceiver.onReceive");
+                        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                                PowerManager.WakeLock wakeLock = null;
+                                try {
+                                    if (powerManager != null) {
+                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":WifiConnectionBroadcastReceiver_onReceive");
+                                        wakeLock.acquire(10 * 60 * 1000);
+                                    }
 
-                                //PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "isConnected=" + isConnected);
+                                    //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiConnectionBroadcastReceiver.onReceive");
 
-                                if (PhoneProfilesService.getInstance() != null) {
-                                    if (PhoneProfilesService.getInstance().connectToSSIDStarted) {
-                                        // connect to SSID is started
+                                    boolean isConnected;
+                                    /*if (Build.VERSION.SDK_INT < 28)
+                                        isConnected = info.getState() == NetworkInfo.State.CONNECTED;
+                                    else
+                                        isConnected = info.isConnected();*/
+                                    isConnected = detailedState == NetworkInfo.DetailedState.CONNECTED;
 
-                                        if (isConnected) {
-                                            //WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
-                                            //WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-                                            //PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifiInfo.getSSID()=" + wifiInfo.getSSID());
-                                            //PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "PhoneProfilesService.connectToSSID=" + PhoneProfilesService.connectToSSID);
-                                            //if ((PhoneProfilesService.connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) ||
-                                            //    (wifiInfo.getSSID().equals(PhoneProfilesService.connectToSSID)))
-                                            PhoneProfilesService.getInstance().connectToSSIDStarted = false;
+                                    //PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "isConnected=" + isConnected);
+
+                                    if (PhoneProfilesService.getInstance() != null) {
+                                        if (PhoneProfilesService.getInstance().connectToSSIDStarted) {
+                                            // connect to SSID is started
+
+                                            if (isConnected) {
+                                                //WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
+                                                //WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+                                                //PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifiInfo.getSSID()=" + wifiInfo.getSSID());
+                                                //PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "PhoneProfilesService.connectToSSID=" + PhoneProfilesService.connectToSSID);
+                                                //if ((PhoneProfilesService.connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) ||
+                                                //    (wifiInfo.getSSID().equals(PhoneProfilesService.connectToSSID)))
+                                                PhoneProfilesService.getInstance().connectToSSIDStarted = false;
+                                            }
                                         }
                                     }
-                                }
 
-                                if (Event.getGlobalEventsRunning()) {
-                                    //if ((info.getState() == NetworkInfo.State.CONNECTED) ||
-                                    //        (info.getState() == NetworkInfo.State.DISCONNECTED)) {
+                                    if (Event.getGlobalEventsRunning()) {
+                                        //if ((info.getState() == NetworkInfo.State.CONNECTED) ||
+                                        //        (info.getState() == NetworkInfo.State.DISCONNECTED)) {
                                         if (!(ApplicationPreferences.prefEventWifiScanRequest ||
                                                 ApplicationPreferences.prefEventWifiWaitForResult ||
                                                 ApplicationPreferences.prefEventWifiEnabledForScan)) {
@@ -91,20 +99,22 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
 
                                             }
                                         } //else
-                                            //PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is scanned");
-                                    //}
-                                }
+                                        //PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is scanned");
+                                        //}
+                                    }
 
-                                //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiConnectionBroadcastReceiver.onReceive");
-                            } finally {
-                                if ((wakeLock != null) && wakeLock.isHeld()) {
-                                    try {
-                                        wakeLock.release();
-                                    } catch (Exception ignored) {}
+                                    //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiConnectionBroadcastReceiver.onReceive");
+                                } finally {
+                                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                                        try {
+                                            wakeLock.release();
+                                        } catch (Exception ignored) {
+                                        }
+                                    }
                                 }
                             }
-                        }
-                    });
+                        });
+                    }
                 }
             }
         }
