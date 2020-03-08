@@ -17,7 +17,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //PPApplication.logE("##### BatteryBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[TEST BATTERY] BatteryBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "BatteryBroadcastReceiver.onReceive", "BatteryBroadcastReceiver_onReceive");
         //CallsCounter.logCounterNoInc(context, "BatteryBroadcastReceiver.onReceive->action="+intent.getAction(), "BatteryBroadcastReceiver_onReceive");
@@ -30,7 +30,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
 
         boolean statusReceived = false;
         int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-        //PPApplication.logE("BatteryBroadcastReceiver.onReceive", "status=" + status);
+
         boolean _isCharging = false;
         int _plugged = -1;
         if (status != -1) {
@@ -60,7 +60,6 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
         int pct = -100;
         int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
         int scale;
-        //PPApplication.logE("BatteryBroadcastReceiver.onReceive", "level=" + level);
         if (level != -1) {
             levelReceived = true;
             scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
@@ -119,37 +118,55 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
         PPApplication.logE("BatteryBroadcastReceiver.onReceive", "lowLevel=" + Math.round(_level / (float) scale * 100));
         */
 
-        if ((statusReceived && (isCharging != _isCharging) && (plugged != _plugged)) ||
+        if (statusReceived &&
+                ((isCharging != _isCharging) || (plugged != _plugged)) ||
                 //(statusReceived && (_batteryLow != -1) && (batteryLow != (_batteryLow == 1))) ||
                 (levelReceived && (batteryPct != pct))) {
-            //PPApplication.logE("BatteryBroadcastReceiver.onReceive", "state changed");
+            PPApplication.logE("[TEST BATTERY] BatteryBroadcastReceiver.onReceive", "state changed");
 
-            if (statusReceived) {
+            //if (statusReceived) {
                 isCharging = _isCharging;
                 /*if (_batteryLow != -1)
                     batteryLow = (_batteryLow == 1);*/
                 plugged = _plugged;
-            }
+            //}
             if (levelReceived)
                 batteryPct = pct;
 
             // restart scanners when any is enabled
             // required for reschedule workers for power save mode
             boolean restart = false;
-            if (ApplicationPreferences.applicationEventLocationEnableScanning)
-                restart = true;
-            else
-            if (ApplicationPreferences.applicationEventWifiEnableScanning)
-                restart = true;
-            else
-            if (ApplicationPreferences.applicationEventBluetoothEnableScanning)
-                restart = true;
-            else
-            if (ApplicationPreferences.applicationEventMobileCellEnableScanning)
-                restart = true;
-            else
-            if (ApplicationPreferences.applicationEventOrientationEnableScanning)
-                restart = true;
+            if (!PPApplication.isScreenOn) {
+                // screen is off
+                // test also if scanner is enabled only during screen on
+                if (ApplicationPreferences.applicationEventLocationEnableScanning &&
+                        ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn)
+                    restart = true;
+                else if (ApplicationPreferences.applicationEventWifiEnableScanning &&
+                        ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn)
+                    restart = true;
+                else if (ApplicationPreferences.applicationEventBluetoothEnableScanning &&
+                        ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn)
+                    restart = true;
+                else if (ApplicationPreferences.applicationEventMobileCellEnableScanning &&
+                        ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn)
+                    restart = true;
+                else if (ApplicationPreferences.applicationEventOrientationEnableScanning &&
+                        ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn)
+                    restart = true;
+            }
+            else {
+                if (ApplicationPreferences.applicationEventLocationEnableScanning)
+                    restart = true;
+                else if (ApplicationPreferences.applicationEventWifiEnableScanning)
+                    restart = true;
+                else if (ApplicationPreferences.applicationEventBluetoothEnableScanning)
+                    restart = true;
+                else if (ApplicationPreferences.applicationEventMobileCellEnableScanning)
+                    restart = true;
+                else if (ApplicationPreferences.applicationEventOrientationEnableScanning)
+                    restart = true;
+            }
             if (restart) {
                 //PPApplication.logE("[****] BatteryBroadcastReceiver.onReceive", "restartAllScanners");
                 //PPApplication.logE("[RJS] BatteryBroadcastReceiver.onReceive", "restart all scanners");

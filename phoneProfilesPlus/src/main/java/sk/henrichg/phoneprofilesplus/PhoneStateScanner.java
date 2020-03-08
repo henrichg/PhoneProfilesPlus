@@ -115,7 +115,7 @@ class PhoneStateScanner extends PhoneStateListener {
             telephonyManager.listen(this,
                     //  PhoneStateListener.LISTEN_CALL_STATE
                     PhoneStateListener.LISTEN_CELL_INFO // Requires API 17
-                            | PhoneStateListener.LISTEN_CELL_LOCATION
+                            //| PhoneStateListener.LISTEN_CELL_LOCATION
                             //| PhoneStateListener.LISTEN_DATA_ACTIVITY
                             //| PhoneStateListener.LISTEN_DATA_CONNECTION_STATE
                             | PhoneStateListener.LISTEN_SERVICE_STATE
@@ -353,6 +353,7 @@ class PhoneStateScanner extends PhoneStateListener {
                     else
                         getAllCellInfo(cellInfo);
 
+                    PPApplication.logE("[TEST BATTERY] PhoneStateScanner.onCellInfoChanged()", "xxx");
                     handleEvents(appContext);
 
                     //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneStateScanner.onCellInfoChanged");
@@ -399,6 +400,7 @@ class PhoneStateScanner extends PhoneStateListener {
                             PPApplication.logE("PhoneStateScanner.onServiceStateChanged", "registeredCell=NOT valid");
                     }*/
 
+                    PPApplication.logE("[TEST BATTERY] PhoneStateScanner.onServiceStateChanged()", "xxx");
                     handleEvents(appContext);
 
                     //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneStateScanner.onServiceStateChanged");
@@ -528,6 +530,7 @@ class PhoneStateScanner extends PhoneStateListener {
                             PPApplication.logE("PhoneStateScanner.onCellLocationChanged", "registeredCell=NOT valid");
                     }*/
 
+                    PPApplication.logE("[TEST BATTERY] PhoneStateScanner.onCellLocationChanged()", "xxx");
                     handleEvents(appContext);
 
                     //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneStateScanner.onCellLocationChanged");
@@ -588,6 +591,7 @@ class PhoneStateScanner extends PhoneStateListener {
                                 PPApplication.logE("PhoneStateScanner.rescanMobileCells", "registeredCell=NOT valid");
                         }*/
 
+                        PPApplication.logE("[TEST BATTERY] PhoneStateScanner.rescanMobileCells()", "xxx");
                         handleEvents(appContext);
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneStateScanner.rescanMobileCells");

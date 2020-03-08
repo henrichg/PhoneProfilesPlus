@@ -159,6 +159,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                                 }
                             }
 
+                            PPApplication.logE("[TEST BATTERY] NotUsedMobileCellsDetectedActivity.onStart()", "xxx");
                             PhoneStateScanner.handleEvents(appContext);
 
                             //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=NotUsedMobileCellsDetectedActivity.onClick");

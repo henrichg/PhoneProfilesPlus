@@ -84,13 +84,15 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                 });
                 break;
             case PPApplication.ACTION_FOREGROUND_APPLICATION_CHANGED:
+                Log.e("[TEST BATTERY] PPPExtenderBroadcastReceiver.onReceive", "ACTION_FOREGROUND_APPLICATION_CHANGED");
+
                 final String packageName = intent.getStringExtra(EXTRA_PACKAGE_NAME);
                 final String className = intent.getStringExtra(EXTRA_CLASS_NAME);
 
-                /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "packageName=" + packageName);
-                    PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "className=" + className);
-                }*/
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("[TEST BATTERY] PPPExtenderBroadcastReceiver.onReceive", "packageName=" + packageName);
+                    PPApplication.logE("[TEST BATTERY] PPPExtenderBroadcastReceiver.onReceive", "className=" + className);
+                }
 
                 try {
                     ComponentName componentName = new ComponentName(packageName, className);
@@ -143,6 +145,8 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                 }
                 break;
             case PPApplication.ACTION_ACCESSIBILITY_SERVICE_UNBIND:
+                Log.e("[TEST BATTERY] PPPExtenderBroadcastReceiver.onReceive", "ACTION_ACCESSIBILITY_SERVICE_UNBIND");
+
                 setApplicationInForeground(appContext, "");
 
                 PPApplication.startHandlerThread("PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_UNBIND");
