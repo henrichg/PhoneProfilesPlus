@@ -612,12 +612,12 @@ class PhoneStateScanner extends PhoneStateListener {
         //PPApplication.logE("PhoneStateScanner.handleEvents", "xxx");
         if (Event.getGlobalEventsRunning())
         {
-            if (DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {
+            //if (DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {
                 //PPApplication.logE("PhoneStateScanner.handleEvents", "start events handler");
                 // start events handler
                 EventsHandler eventsHandler = new EventsHandler(context);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_STATE);
-            }
+            //}
         }
 
         /*

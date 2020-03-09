@@ -47,26 +47,19 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_IDLE_MODE);
 
-                            /* Not needed, workers are started in maintenance window
                             // rescan
                             if (PhoneProfilesService.getInstance() != null) {
                                 PPApplication.logE("DeviceIdleModeBroadcastReceiver.onReceive", "rescan/reschedule workers");
-
-                                PhoneProfilesService.getInstance().scheduleWifiWorker(true,  true, //true, false, false,
-                                        false);
-                                PhoneProfilesService.getInstance().scheduleBluetoothWorker(true,  true, //true, false,
-                                        false);
-                                PhoneProfilesService.getInstance().scheduleGeofenceScanWorker(true,  true, //true,
-                                        false);
-                            }*/
-                            if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {
+                                PPApplication.restartAllScanners(appContext, true);
+                            }
+                            /*if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {
                                 // rescan mobile cells
                                 synchronized (PPApplication.phoneStateScannerMutex) {
                                     if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isPhoneStateScannerStarted()) {
                                         PhoneProfilesService.getInstance().getPhoneStateScanner().rescanMobileCells();
                                     }
                                 }
-                            }
+                            }*/
 
                             //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DeviceIdleModeBroadcastReceiver.onReceive");
                         } finally {

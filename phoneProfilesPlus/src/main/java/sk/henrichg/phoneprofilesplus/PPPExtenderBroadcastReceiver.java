@@ -68,8 +68,12 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 
                             //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED");
 
-                            if (PhoneProfilesService.getInstance() != null)
-                                PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, true);
+                            if (PhoneProfilesService.getInstance() != null) {
+                                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+                                dataWrapper.fillEventList();
+                                dataWrapper.fillProfileList(false, false);
+                                PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, dataWrapper);
+                            }
 
                             //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED");
                         } finally {
@@ -118,11 +122,13 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 
                                         //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_FOREGROUND_APPLICATION_CHANGED");
 
-                                        DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
+                                        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+                                        dataWrapper.fillEventList();
+                                        //DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
                                         EventsHandler eventsHandler = new EventsHandler(appContext);
-                                        if (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false) > 0)
+                                        if (dataWrapper.getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false) > 0)
                                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
-                                        if (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false) > 0)
+                                        if (dataWrapper.getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false) > 0)
                                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
 
                                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_FOREGROUND_APPLICATION_CHANGED");
@@ -164,11 +170,13 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 
                             //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_UNBIND");
 
-                            DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
+                            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+                            dataWrapper.fillEventList();
+                            //DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
                             EventsHandler eventsHandler = new EventsHandler(appContext);
-                            if (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false) > 0)
+                            if (dataWrapper.getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false) > 0)
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
-                            if (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false) > 0)
+                            if (dataWrapper.getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false) > 0)
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
 
                             //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_UNBIND");
@@ -242,11 +250,11 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 
                                 //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_SMS_MMS_RECEIVED");
 
-                                if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false) > 0) {
+                                //if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false) > 0) {
                                     EventsHandler eventsHandler = new EventsHandler(appContext);
                                     eventsHandler.setEventSMSParameters(origin, time);
                                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SMS);
-                                }
+                                //}
 
                                 //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_SMS_MMS_RECEIVED");
                             } finally {
@@ -290,11 +298,11 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 
                                 //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_CALL_RECEIVED");
 
-                                if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false) > 0) {
+                                //if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false) > 0) {
                                     EventsHandler eventsHandler = new EventsHandler(appContext);
                                     eventsHandler.setEventCallParameters(/*servicePhoneEvent, */callEventType, phoneNumber, eventTime);
                                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL);
-                                }
+                                //}
 
                                 //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_CALL_RECEIVED");
                             } finally {

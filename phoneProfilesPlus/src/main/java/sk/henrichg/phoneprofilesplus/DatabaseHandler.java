@@ -72,7 +72,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int PTYPE_LOCK_DEVICE = 3;
 
     // event type
-    private static final int ETYPE_ALL = -1;
+    static final int ETYPE_ALL = -1;
     static final int ETYPE_TIME = 1;
     static final int ETYPE_BATTERY = 2;
     static final int ETYPE_CALL = 3;
@@ -91,7 +91,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_MOBILE_CELLS = 16;
     static final int ETYPE_NFC = 17;
     static final int ETYPE_RADIO_SWITCH = 18;
-    private static final int ETYPE_RADIO_SWITCH_WIFI = 19;
+    static final int ETYPE_RADIO_SWITCH_WIFI = 19;
     static final int ETYPE_RADIO_SWITCH_BLUETOOTH = 20;
     static final int ETYPE_RADIO_SWITCH_MOBILE_DATA = 21;
     static final int ETYPE_RADIO_SWITCH_GPS = 22;
@@ -4358,7 +4358,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //}
     }
 
-    int getTypeProfilesCount(int profileType/*, boolean sharedProfile*/)
+    /*
+    int getTypeProfilesCount(int profileType)
     {
         importExportLock.lock();
         try {
@@ -4419,6 +4420,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             stopRunningCommand();
         }
     }
+    */
 
     private long getActivationByUserCount(long profileId) {
         importExportLock.lock();
@@ -6646,6 +6648,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    /*
     int getTypeEventsCount(int eventType, boolean onlyRunning)
     {
         importExportLock.lock();
@@ -6751,6 +6754,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             stopRunningCommand();
         }
     }
+    */
 
     void updateEventCalendarTimes(Event event)
     {

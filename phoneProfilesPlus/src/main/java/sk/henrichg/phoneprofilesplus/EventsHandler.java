@@ -898,7 +898,7 @@ class EventsHandler {
                 else
                     eventEnabled = _event.getStatus() != Event.ESTATUS_STOP;
                 if (eventEnabled) {
-                    boolean sensorEnabled = false;
+                    boolean sensorEnabled;
 
                     switch (sensorType) {
                         case SENSOR_TYPE_BATTERY:
@@ -1011,6 +1011,7 @@ class EventsHandler {
                             //eventType = DatabaseHandler.ETYPE_????;
                         case SENSOR_TYPE_DEVICE_IDLE_MODE:
                             //eventType = DatabaseHandler.ETYPE_????;
+                        default:
                             sensorEnabled = true;
                             breakLoop = true;
                             break;

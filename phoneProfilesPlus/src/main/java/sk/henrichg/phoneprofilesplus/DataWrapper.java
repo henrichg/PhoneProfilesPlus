@@ -5013,4 +5013,163 @@ public class DataWrapper {
         }
     }
 
+    int getTypeEventsCount(int eventType, @SuppressWarnings("SameParameterValue") boolean onlyRunning) {
+        int eventCount = 0;
+        boolean breakLoop = false;
+        for (Event _event : eventList) {
+            boolean eventEnabled;
+            if (onlyRunning)
+                eventEnabled = _event.getStatus() == Event.ESTATUS_RUNNING;
+            else
+                eventEnabled = _event.getStatus() != Event.ESTATUS_STOP;
+            if (eventEnabled) {
+                boolean sensorEnabled;
+                switch (eventType) {
+                    case DatabaseHandler.ETYPE_TIME:
+                        sensorEnabled = _event._eventPreferencesTime._enabled;
+                        break;
+                    case DatabaseHandler.ETYPE_BATTERY:
+                        sensorEnabled = _event._eventPreferencesBattery._enabled;
+                        break;
+                    case DatabaseHandler.ETYPE_CALL:
+                        sensorEnabled = _event._eventPreferencesCall._enabled;
+                        break;
+                    case DatabaseHandler.ETYPE_PERIPHERAL:
+                        sensorEnabled = _event._eventPreferencesPeripherals._enabled;
+                        break;
+                    case DatabaseHandler.ETYPE_CALENDAR:
+                        sensorEnabled = _event._eventPreferencesCalendar._enabled;
+                        break;
+                    case DatabaseHandler.ETYPE_WIFI_CONNECTED:
+                        sensorEnabled = _event._eventPreferencesWifi._enabled;
+                        sensorEnabled = sensorEnabled &&
+                                ((_event._eventPreferencesWifi._connectionType == 0) ||
+                                        (_event._eventPreferencesWifi._connectionType == 2));
+                        break;
+                    case DatabaseHandler.ETYPE_WIFI_NEARBY:
+                        sensorEnabled = _event._eventPreferencesWifi._enabled;
+                        sensorEnabled = sensorEnabled &&
+                                ((_event._eventPreferencesWifi._connectionType == 1) ||
+                                        (_event._eventPreferencesWifi._connectionType == 3));
+                        break;
+                    case DatabaseHandler.ETYPE_SCREEN:
+                        sensorEnabled = _event._eventPreferencesScreen._enabled;
+                        break;
+                    case DatabaseHandler.ETYPE_BLUETOOTH_CONNECTED:
+                        sensorEnabled = _event._eventPreferencesBluetooth._enabled;
+                        sensorEnabled = sensorEnabled &&
+                                ((_event._eventPreferencesBluetooth._connectionType == 0) ||
+                                        (_event._eventPreferencesBluetooth._connectionType == 2));
+                        break;
+                    case DatabaseHandler.ETYPE_BLUETOOTH_NEARBY:
+                        sensorEnabled = _event._eventPreferencesBluetooth._enabled;
+                        sensorEnabled = sensorEnabled &&
+                                ((_event._eventPreferencesBluetooth._connectionType == 1) ||
+                                        (_event._eventPreferencesBluetooth._connectionType == 3));
+                        break;
+                    case DatabaseHandler.ETYPE_SMS:
+                        sensorEnabled = _event._eventPreferencesSMS._enabled;
+                        break;
+                    case DatabaseHandler.ETYPE_NOTIFICATION:
+                        sensorEnabled = _event._eventPreferencesNotification._enabled;
+                        break;
+                    case DatabaseHandler.ETYPE_APPLICATION:
+                        sensorEnabled = _event._eventPreferencesApplication._enabled;
+                        break;
+                    case DatabaseHandler.ETYPE_LOCATION:
+                        sensorEnabled = _event._eventPreferencesLocation._enabled;
+                        break;
+                    case DatabaseHandler.ETYPE_ORIENTATION:
+                        sensorEnabled = _event._eventPreferencesOrientation._enabled;
+                        break;
+                    case DatabaseHandler.ETYPE_MOBILE_CELLS:
+                        sensorEnabled = _event._eventPreferencesMobileCells._enabled;
+                        break;
+                    case DatabaseHandler.ETYPE_NFC:
+                        sensorEnabled = _event._eventPreferencesNFC._enabled;
+                        break;
+                    case DatabaseHandler.ETYPE_RADIO_SWITCH:
+                        sensorEnabled = _event._eventPreferencesRadioSwitch._enabled;
+                        break;
+                    case DatabaseHandler.ETYPE_RADIO_SWITCH_WIFI:
+                        sensorEnabled = _event._eventPreferencesRadioSwitch._enabled;
+                        sensorEnabled = sensorEnabled &&
+                                (_event._eventPreferencesRadioSwitch._wifi != 0);
+                        break;
+                    case DatabaseHandler.ETYPE_RADIO_SWITCH_BLUETOOTH:
+                        sensorEnabled = _event._eventPreferencesRadioSwitch._enabled;
+                        sensorEnabled = sensorEnabled &&
+                                (_event._eventPreferencesRadioSwitch._bluetooth != 0);
+                        break;
+                    case DatabaseHandler.ETYPE_RADIO_SWITCH_MOBILE_DATA:
+                        sensorEnabled = _event._eventPreferencesRadioSwitch._enabled;
+                        sensorEnabled = sensorEnabled &&
+                                (_event._eventPreferencesRadioSwitch._mobileData != 0);
+                        break;
+                    case DatabaseHandler.ETYPE_RADIO_SWITCH_GPS:
+                        sensorEnabled = _event._eventPreferencesRadioSwitch._enabled;
+                        sensorEnabled = sensorEnabled &&
+                                (_event._eventPreferencesRadioSwitch._gps != 0);
+                        break;
+                    case DatabaseHandler.ETYPE_RADIO_SWITCH_NFC:
+                        sensorEnabled = _event._eventPreferencesRadioSwitch._enabled;
+                        sensorEnabled = sensorEnabled &&
+                                (_event._eventPreferencesRadioSwitch._nfc != 0);
+                        break;
+                    case DatabaseHandler.ETYPE_RADIO_SWITCH_AIRPLANE_MODE:
+                        sensorEnabled = _event._eventPreferencesRadioSwitch._enabled;
+                        sensorEnabled = sensorEnabled &&
+                                (_event._eventPreferencesRadioSwitch._airplaneMode != 0);
+                        break;
+                    case DatabaseHandler.ETYPE_ALARM_CLOCK:
+                        sensorEnabled = _event._eventPreferencesAlarmClock._enabled;
+                        break;
+                    case DatabaseHandler.ETYPE_TIME_TWILIGHT:
+                        sensorEnabled = _event._eventPreferencesTime._enabled;
+                        sensorEnabled = sensorEnabled &&
+                                (_event._eventPreferencesTime._timeType != 0);
+                        break;
+                    case DatabaseHandler.ETYPE_ALL:
+                    default:
+                        sensorEnabled = true;
+                        breakLoop = true;
+                        break;
+                }
+
+                if (sensorEnabled)
+                    eventCount++;
+                if (breakLoop)
+                    break;
+            }
+        }
+        return eventCount;
+    }
+
+    int getTypeProfilesCount(int profileType/*, boolean sharedProfile*/) {
+        int profileCount = 0;
+        boolean breakLoop = false;
+        for (Profile _profile : profileList) {
+            boolean profileEnabled;
+            switch (profileType) {
+                case DatabaseHandler.PTYPE_CONNECT_TO_SSID:
+                    profileEnabled = !_profile._deviceConnectToSSID.equals( Profile.CONNECTTOSSID_JUSTANY);
+                    break;
+                case DatabaseHandler.PTYPE_FORCE_STOP:
+                    profileEnabled = _profile._deviceForceStopApplicationChange != 0;
+                    break;
+                case DatabaseHandler.PTYPE_LOCK_DEVICE:
+                    profileEnabled = _profile._lockDevice != 0;
+                    break;
+                default:
+                    profileEnabled = true;
+                    breakLoop = true;
+                    break;
+            }
+            if (profileEnabled)
+                profileCount++;
+            if (breakLoop)
+                break;
+        }
+        return profileCount;
+    }
 }

@@ -51,7 +51,7 @@ class WifiBluetoothScanner {
     //private static final String PREF_SHOW_ENABLE_LOCATION_NOTIFICATION_BLUETOOTH = "show_enable_location_notification_bluetooth";
 
     public WifiBluetoothScanner(Context context) {
-        this.context = context;
+        this.context = context.getApplicationContext();
     }
 
     void doScan(String scannerType) {
@@ -64,7 +64,7 @@ class WifiBluetoothScanner {
 
             //PPApplication.logE("%%%% WifiBluetoothScanner.doScan", "-- START ------------");
 
-            DataWrapper dataWrapper;
+            //DataWrapper dataWrapper;
 
             //PPApplication.logE("%%%% WifiBluetoothScanner.doScan", "scannerType=" + scannerType);
 
@@ -128,18 +128,18 @@ class WifiBluetoothScanner {
 
                     if (canScan) {
 
-                        dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+                        //dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
 
                         // check if wifi scan events exists
                         //lock();
-                        boolean wifiEventsExists = DatabaseHandler.getInstance(context.getApplicationContext()).getTypeEventsCount(DatabaseHandler.ETYPE_WIFI_NEARBY, false) > 0;
+                        //boolean wifiEventsExists = DatabaseHandler.getInstance(context.getApplicationContext()).getTypeEventsCount(DatabaseHandler.ETYPE_WIFI_NEARBY, false) > 0;
                         //unlock();
-                        int forceScan = ApplicationPreferences.prefForceOneWifiScan;
-                        boolean scan = (wifiEventsExists || (forceScan == FORCE_ONE_SCAN_FROM_PREF_DIALOG));
-                        if (scan) {
-                            if (wifiEventsExists)
+                        //int forceScan = ApplicationPreferences.prefForceOneWifiScan;
+                        boolean scan; //(wifiEventsExists || (forceScan == FORCE_ONE_SCAN_FROM_PREF_DIALOG));
+                        //if (scan) {
+                        //    if (wifiEventsExists)
                                 scan = isLocationEnabled(context/*, scannerType*/);
-                        }
+                        //}
                         /*if (PPApplication.logEnabled()) {
                             PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "wifiEventsExists=" + wifiEventsExists);
                             PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "forceScan=" + forceScan);
@@ -198,7 +198,7 @@ class WifiBluetoothScanner {
 
                                 // enable wifi
                                 int wifiState;
-                                wifiState = enableWifi(dataWrapper, WifiScanWorker.wifi, wifiBluetoothChangeHandler);
+                                wifiState = enableWifi(WifiScanWorker.wifi, wifiBluetoothChangeHandler);
 
                                 if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
                                     //PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "startScan");
@@ -315,13 +315,13 @@ class WifiBluetoothScanner {
 
                         //PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "start bt scan");
 
-                        dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+                        //dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
 
                         // check if bluetooth scan events exists
                         //lock();
-                        boolean bluetoothEventsExists = DatabaseHandler.getInstance(context.getApplicationContext()).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTH_NEARBY, false) > 0;
-                        int forceScan = ApplicationPreferences.prefForceOneBluetoothScan;
-                        int forceScanLE = ApplicationPreferences.prefForceOneBluetoothLEScan;
+                        //boolean bluetoothEventsExists = DatabaseHandler.getInstance(context.getApplicationContext()).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTH_NEARBY, false) > 0;
+                        //int forceScan = ApplicationPreferences.prefForceOneBluetoothScan;
+                        //int forceScanLE = ApplicationPreferences.prefForceOneBluetoothLEScan;
                         boolean classicDevicesScan = true; //DatabaseHandler.getInstance(context.getApplicationContext()).getBluetoothDevicesTypeCount(EventPreferencesBluetooth.DTYPE_CLASSIC, forceScanLE) > 0;
                         boolean leDevicesScan = bluetoothLESupported(context);
                         /*if (bluetoothLESupported(context))
@@ -335,18 +335,18 @@ class WifiBluetoothScanner {
                         }*/
 
                         //unlock();
-                        boolean scan = (bluetoothEventsExists ||
-                                       (forceScan == FORCE_ONE_SCAN_FROM_PREF_DIALOG) ||
-                                       (forceScanLE == FORCE_ONE_SCAN_FROM_PREF_DIALOG));
-                        if (scan) {
+                        //boolean scan= (bluetoothEventsExists ||
+                                       //(forceScan == FORCE_ONE_SCAN_FROM_PREF_DIALOG) ||
+                                       //(forceScanLE == FORCE_ONE_SCAN_FROM_PREF_DIALOG));
+                        //if (scan) {
                             if (leDevicesScan)
                                 leDevicesScan = isLocationEnabled(context/*, scannerType*/);
-                        }
-                        if (!scan) {
+                        //}
+                        /*if (!scan) {
                             // bluetooth scan events not exists
                             //PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "no bt scan events");
                             BluetoothScanWorker.cancelWork(context, true, null);
-                        } else {
+                        } else*/ {
                             //PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "scan=true");
 
                             if (BluetoothScanWorker.bluetooth == null)
@@ -400,10 +400,9 @@ class WifiBluetoothScanner {
                                         //lock();
 
                                         // enable bluetooth
-                                        bluetoothState = enableBluetooth(dataWrapper,
-                                                BluetoothScanWorker.bluetooth,
-                                                wifiBluetoothChangeHandler,
-                                                false);
+                                        bluetoothState = enableBluetooth(BluetoothScanWorker.bluetooth,
+                                                                        wifiBluetoothChangeHandler,
+                                                                        false);
                                         //PPApplication.logE("$$$BCL WifiBluetoothScanner.doScan", "bluetoothState=" + bluetoothState);
 
                                         if (bluetoothState == BluetoothAdapter.STATE_ON) {
@@ -444,10 +443,9 @@ class WifiBluetoothScanner {
                                         lock();*/
 
                                         // enable bluetooth
-                                        bluetoothState = enableBluetooth(dataWrapper,
-                                                BluetoothScanWorker.bluetooth,
-                                                wifiBluetoothChangeHandler,
-                                                true);
+                                        bluetoothState = enableBluetooth(BluetoothScanWorker.bluetooth,
+                                                                        wifiBluetoothChangeHandler,
+                                                                        true);
 
                                         if (bluetoothState == BluetoothAdapter.STATE_ON) {
                                             //PPApplication.logE("$$$BLE WifiBluetoothScanner.doScan", "start LE scan");
@@ -614,7 +612,7 @@ class WifiBluetoothScanner {
     */
 
     @SuppressLint("NewApi")
-    private int enableWifi(DataWrapper dataWrapper, WifiManager wifi, Handler wifiBluetoothChangeHandler)
+    private int enableWifi(WifiManager wifi, Handler wifiBluetoothChangeHandler)
     {
         //PPApplication.logE("@@@ WifiBluetoothScanner.enableWifi","xxx");
 
@@ -640,14 +638,14 @@ class WifiBluetoothScanner {
                 boolean applicationEventWifiScanIfWifiOff = ApplicationPreferences.applicationEventWifiScanIfWifiOff;
                 if (applicationEventWifiScanIfWifiOff || (forceScan != FORCE_ONE_SCAN_DISABLED))
                 {
-                    boolean wifiEventsExists = DatabaseHandler.getInstance(dataWrapper.context).getTypeEventsCount(DatabaseHandler.ETYPE_WIFI_NEARBY, false) > 0;
-                    boolean scan = ((wifiEventsExists && applicationEventWifiScanIfWifiOff) ||
+                    //boolean wifiEventsExists = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_WIFI_NEARBY, false) > 0;
+                    boolean scan = ((/*wifiEventsExists &&*/ applicationEventWifiScanIfWifiOff) ||
                             (forceScan == FORCE_ONE_SCAN_FROM_PREF_DIALOG));
                     if (scan)
                     {
                         WifiScanWorker.setWifiEnabledForScan(context, true);
-                        WifiScanWorker.setScanRequest(dataWrapper.context, true);
-                        WifiScanWorker.lock(dataWrapper.context);
+                        WifiScanWorker.setScanRequest(context, true);
+                        WifiScanWorker.lock(context);
                         final WifiManager _wifi = wifi;
                         //PPApplication.logE("[HANDLER] WifiBluetoothScanner.enableWifi", "before start handler");
                         wifiBluetoothChangeHandler.post(new Runnable() {
@@ -706,8 +704,7 @@ class WifiBluetoothScanner {
     }
 
     @SuppressLint("NewApi")
-    private int enableBluetooth(DataWrapper dataWrapper,
-                                BluetoothAdapter bluetooth,
+    private int enableBluetooth(BluetoothAdapter bluetooth,
                                 Handler wifiBluetoothChangeHandler,
                                 boolean forLE)
     {
@@ -728,17 +725,17 @@ class WifiBluetoothScanner {
             boolean applicationEventBluetoothScanIfBluetoothOff = ApplicationPreferences.applicationEventBluetoothScanIfBluetoothOff;
             if (applicationEventBluetoothScanIfBluetoothOff || (forceScan != FORCE_ONE_SCAN_DISABLED))
             {
-                boolean bluetoothEventsExists = DatabaseHandler.getInstance(dataWrapper.context).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTH_NEARBY, false) > 0;
-                boolean scan = ((bluetoothEventsExists && applicationEventBluetoothScanIfBluetoothOff) ||
+                //boolean bluetoothEventsExists = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTH_NEARBY, false) > 0;
+                boolean scan = ((/*bluetoothEventsExists &&*/ applicationEventBluetoothScanIfBluetoothOff) ||
                         (forceScan == FORCE_ONE_SCAN_FROM_PREF_DIALOG));
                 if (scan)
                 {
                     //PPApplication.logE("$$$B WifiBluetoothScanner.enableBluetooth","set enabled");
                     BluetoothScanWorker.setBluetoothEnabledForScan(context, true);
                     if (!forLE)
-                        BluetoothScanWorker.setScanRequest(dataWrapper.context, true);
+                        BluetoothScanWorker.setScanRequest(context, true);
                     else
-                        BluetoothScanWorker.setLEScanRequest(dataWrapper.context, true);
+                        BluetoothScanWorker.setLEScanRequest(context, true);
                     final BluetoothAdapter _bluetooth = bluetooth;
                     wifiBluetoothChangeHandler.post(new Runnable() {
                         @Override

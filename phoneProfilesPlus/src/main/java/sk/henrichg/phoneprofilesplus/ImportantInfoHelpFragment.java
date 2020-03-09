@@ -195,8 +195,10 @@ public class ImportantInfoHelpFragment extends Fragment {
         if (news4340) {
             news = true;
 
-            int smsSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false);
-            int callSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false);
+            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+            dataWrapper.fillEventList();
+            int smsSensorsCount = dataWrapper.getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false);
+            int callSensorsCount = dataWrapper.getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false);
             if ((smsSensorsCount == 0) && (callSensorsCount == 0)) {
                 // extender is not needed
                 TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_text2);
@@ -233,8 +235,10 @@ public class ImportantInfoHelpFragment extends Fragment {
         }
 
         if (news3670) {
-            int applicationSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false);
-            int orientationSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false);
+            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+            dataWrapper.fillEventList();
+            int applicationSensorsCount = dataWrapper.getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false);
+            int orientationSensorsCount = dataWrapper.getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false);
             boolean news_extender = true;
             if ((applicationSensorsCount == 0) && (orientationSensorsCount == 0)) {
                 // extender is installed or not needed
