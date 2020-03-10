@@ -71,7 +71,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                             if (PhoneProfilesService.getInstance() != null) {
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
                                 dataWrapper.fillEventList();
-                                dataWrapper.fillProfileList(false, false);
+                                //dataWrapper.fillProfileList(false, false);
                                 PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, dataWrapper);
                             }
 

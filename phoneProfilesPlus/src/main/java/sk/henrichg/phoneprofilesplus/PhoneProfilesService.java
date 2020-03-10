@@ -2103,6 +2103,7 @@ public class PhoneProfilesService extends Service
                 int lockDeviceCount = 0;
                 if (dataWrapper != null) {
                     if (forceStopAllowed) {
+                        dataWrapper.fillProfileList(false, false);
                         /*if (DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_FORCE_STOP, true) > 0) {
                             Profile profile = Profile.getProfileFromSharedPreferences(appContext, PPApplication.SHARED_PROFILE_PREFS_NAME);
                             if (profile._deviceForceStopApplicationChange != 0)
@@ -2112,6 +2113,7 @@ public class PhoneProfilesService extends Service
                             forceStopCount = dataWrapper.getTypeProfilesCount(DatabaseHandler.PTYPE_FORCE_STOP/*, false*/);
                     }
                     if (lockDeviceAllowed) {
+                        dataWrapper.fillProfileList(false, false);
                         /*if (DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_LOCK_DEVICE, true) > 0) {
                             Profile profile = Profile.getProfileFromSharedPreferences(appContext, PPApplication.SHARED_PROFILE_PREFS_NAME);
                             if (profile._lockDevice != 0)
@@ -2789,6 +2791,7 @@ public class PhoneProfilesService extends Service
                 int eventScannerCount = 1;
                 if (dataWrapper != null/* || (wifiConnectionBroadcastReceiver == null)*/) {
                     if (profileAllowed) {
+                        dataWrapper.fillProfileList(false, false);
                         //profileCount = 0;
                         /*if (DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_CONNECT_TO_SSID, true) > 0) {
                             Profile profile = Profile.getProfileFromSharedPreferences(appContext, PPApplication.SHARED_PROFILE_PREFS_NAME);
@@ -3564,7 +3567,7 @@ public class PhoneProfilesService extends Service
 
         DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
         dataWrapper.fillEventList();
-        dataWrapper.fillProfileList(false, false);
+        //dataWrapper.fillProfileList(false, false);
 
         // required for battery event
         registerBatteryEventReceiver(true, dataWrapper);
@@ -3776,7 +3779,7 @@ public class PhoneProfilesService extends Service
 
         DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
         dataWrapper.fillEventList();
-        dataWrapper.fillProfileList(false, false);
+        //dataWrapper.fillProfileList(false, false);
 
         registerBatteryEventReceiver(true, dataWrapper);
         registerBatteryChangedReceiver(true, dataWrapper);
@@ -4242,7 +4245,7 @@ public class PhoneProfilesService extends Service
                             PPApplication.logE("$$$ PhoneProfilesService.doCommand", "EXTRA_START_STOP_SCANNER");
                             DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
                             dataWrapper.fillEventList();
-                            dataWrapper.fillProfileList(false, false);
+                            //dataWrapper.fillProfileList(false, false);
                             final boolean forScreenOn = intent.getBooleanExtra(EXTRA_FOR_SCREEN_ON, false);
                             //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "forScreenOn="+forScreenOn);
                             switch (intent.getIntExtra(EXTRA_START_STOP_SCANNER_TYPE, 0)) {

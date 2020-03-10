@@ -3066,7 +3066,7 @@ public class PPApplication extends Application /*implements Application.Activity
             }
 
             if (dataWrapper != null) {
-                if (!dataWrapper.profileListFilled)
+                //if (!dataWrapper.profileListFilled)
                     dataWrapper.fillProfileList(false, false);
                 for (Profile profile : dataWrapper.profileList)
                     ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, context);
