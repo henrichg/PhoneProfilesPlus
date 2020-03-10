@@ -76,7 +76,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
                                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
                                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, true);
-                                PPApplication.startPPService(appContext, serviceIntent);
+                                PPApplication.startPPService(appContext, serviceIntent, true);
                             }
                             else {
                                 // service is started by PPApplication

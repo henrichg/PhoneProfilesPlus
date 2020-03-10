@@ -64,6 +64,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
     private static PPApplication instance;
     private static WorkManager workManagerInstance;
+    static boolean startForegroundNotification = true;
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
@@ -1175,7 +1176,7 @@ public class PPApplication extends Application /*implements Application.Activity
                 //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
                 //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
-                startPPService(getApplicationContext(), serviceIntent);
+                startPPService(getApplicationContext(), serviceIntent, true);
             } catch (Exception ignored) {
             }
         }
@@ -1455,7 +1456,9 @@ public class PPApplication extends Application /*implements Application.Activity
 
     //--------------------------------------------------------------
 
-    static void startPPService(Context context, Intent serviceIntent) {
+    static void startPPService(Context context, Intent serviceIntent, boolean isPPService) {
+        if (isPPService)
+            PPApplication.startForegroundNotification = true;
         //PPApplication.logE("PPApplication.startPPService", "xxx");
         if (Build.VERSION.SDK_INT < 26)
             context.getApplicationContext().startService(serviceIntent);

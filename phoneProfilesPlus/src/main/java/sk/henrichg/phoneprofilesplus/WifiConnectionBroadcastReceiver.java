@@ -12,7 +12,7 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[TEST BATTERY] WifiConnectionBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("[TEST BATTERY] WifiConnectionBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "WifiConnectionBroadcastReceiver.onReceive", "WifiConnectionBroadcastReceiver_onReceive");
 
         final Context appContext = context.getApplicationContext();
@@ -30,12 +30,12 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
 
                 if ((info != null)/* && (ConnectivityManager.TYPE_WIFI == info.getType ())*/) {
                     final NetworkInfo.DetailedState detailedState = info.getDetailedState();
-                    PPApplication.logE("[TEST BATTERY] WifiConnectionBroadcastReceiver.onReceive", "detailedState="+detailedState);
+                    //PPApplication.logE("[TEST BATTERY] WifiConnectionBroadcastReceiver.onReceive", "detailedState="+detailedState);
 
                     if ((detailedState == NetworkInfo.DetailedState.CONNECTED) ||
                         (detailedState == NetworkInfo.DetailedState.DISCONNECTED)) {
 
-                        PPApplication.logE("[TEST BATTERY] WifiConnectionBroadcastReceiver.onReceive", "connected or disconnected");
+                        //PPApplication.logE("[TEST BATTERY] WifiConnectionBroadcastReceiver.onReceive", "connected or disconnected");
 
                         PPApplication.startHandlerThread("WifiConnectionBroadcastReceiver.onReceive");
                         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());

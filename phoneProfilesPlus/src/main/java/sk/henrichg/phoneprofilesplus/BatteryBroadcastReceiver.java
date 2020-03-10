@@ -17,7 +17,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[TEST BATTERY] BatteryBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("[TEST BATTERY] BatteryBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "BatteryBroadcastReceiver.onReceive", "BatteryBroadcastReceiver_onReceive");
         //CallsCounter.logCounterNoInc(context, "BatteryBroadcastReceiver.onReceive->action="+intent.getAction(), "BatteryBroadcastReceiver_onReceive");
@@ -122,7 +122,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
                 ((isCharging != _isCharging) || (plugged != _plugged)) ||
                 //(statusReceived && (_batteryLow != -1) && (batteryLow != (_batteryLow == 1))) ||
                 (levelReceived && (batteryPct != pct))) {
-            PPApplication.logE("[TEST BATTERY] BatteryBroadcastReceiver.onReceive", "state changed");
+            //PPApplication.logE("[TEST BATTERY] BatteryBroadcastReceiver.onReceive", "state changed");
 
             //if (statusReceived) {
                 isCharging = _isCharging;

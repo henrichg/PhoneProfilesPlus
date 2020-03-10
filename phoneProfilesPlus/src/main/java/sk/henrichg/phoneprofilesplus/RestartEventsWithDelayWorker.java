@@ -25,7 +25,7 @@ public class RestartEventsWithDelayWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            PPApplication.logE("[TEST BATTERY] RestartEventsWithDelayWorker.doWork", "xxx");
+            //PPApplication.logE("[TEST BATTERY] RestartEventsWithDelayWorker.doWork", "xxx");
 
             //Data outputData;
 

@@ -172,7 +172,7 @@ public class LauncherActivity extends AppCompatActivity {
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
-            PPApplication.startPPService(this, serviceIntent);
+            PPApplication.startPPService(this, serviceIntent, true);
             return true;
         } else {
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
@@ -188,7 +188,7 @@ public class LauncherActivity extends AppCompatActivity {
                 //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
                 //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
-                PPApplication.startPPService(this, serviceIntent);
+                PPApplication.startPPService(this, serviceIntent, true);
                 return true;
             }
             //else {

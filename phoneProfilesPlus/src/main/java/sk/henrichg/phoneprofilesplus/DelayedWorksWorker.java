@@ -699,7 +699,7 @@ public class DelayedWorksWorker extends Worker {
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
-            PPApplication.startPPService(dataWrapper.context, serviceIntent);
+            PPApplication.startPPService(dataWrapper.context, serviceIntent, true);
         }
     }
 

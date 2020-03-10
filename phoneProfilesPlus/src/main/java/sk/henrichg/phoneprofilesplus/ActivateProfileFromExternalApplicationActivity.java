@@ -60,7 +60,7 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
-            PPApplication.startPPService(this, serviceIntent);
+            PPApplication.startPPService(this, serviceIntent, true);
             finish();
             return;
         }
