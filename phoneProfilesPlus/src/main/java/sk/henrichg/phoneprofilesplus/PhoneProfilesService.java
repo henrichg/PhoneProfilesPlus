@@ -4856,11 +4856,13 @@ public class PhoneProfilesService extends Service
                         }
 
                         if (notificationNotificationStyle.equals("0")) {
-                            contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
-                            if (profileIconExists) {
-                                if (contentView != null)
-                                    contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
-                            }
+                            try {
+                                contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
+                                if (profileIconExists) {
+                                    if (contentView != null)
+                                        contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
+                                }
+                            } catch (Exception ignored) {}
                         }
                         else {
                             if (notificationShowProfileIcon)
@@ -4907,11 +4909,13 @@ public class PhoneProfilesService extends Service
                         //Bitmap largeIcon = BitmapFactory.decodeResource(appContext.getResources(), iconLargeResource);
                         Bitmap largeIcon = BitmapManipulator.getBitmapFromResource(iconLargeResource, true, appContext);
                         if (notificationNotificationStyle.equals("0")) {
-                            contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
-                            if (profileIconExists) {
-                                if (contentView != null)
-                                    contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
-                            }
+                            try {
+                                contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
+                                if (profileIconExists) {
+                                    if (contentView != null)
+                                        contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
+                                }
+                            } catch (Exception ignored) {}
                         }
                         else {
                             if (notificationShowProfileIcon)
@@ -4941,18 +4945,20 @@ public class PhoneProfilesService extends Service
                     }
 
                     if (notificationNotificationStyle.equals("0")) {
-                        if (iconBitmap != null)
-                            contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
-                        else
-                            contentViewLarge.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_profile_default);
-                        if (profileIconExists) {
-                            if (contentView != null) {
-                                if (iconBitmap != null)
-                                    contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
-                                else
-                                    contentView.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_profile_default);
+                        try {
+                            if (iconBitmap != null)
+                                contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
+                            else
+                                contentViewLarge.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_profile_default);
+                            if (profileIconExists) {
+                                if (contentView != null) {
+                                    if (iconBitmap != null)
+                                        contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
+                                    else
+                                        contentView.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_profile_default);
+                                }
                             }
-                        }
+                        } catch (Exception ignored) {}
                     }
                     else {
                         if (notificationShowProfileIcon) {
@@ -4968,11 +4974,13 @@ public class PhoneProfilesService extends Service
                 //PPApplication.logE("PhoneProfilesService._showProfileNotification", "create empty icon");
                 notificationBuilder.setSmallIcon(R.drawable.ic_profile_default_notify);
                 if (notificationNotificationStyle.equals("0")) {
-                    contentViewLarge.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);
-                    if (profileIconExists) {
-                        if (contentView != null)
-                            contentView.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);
-                    }
+                    try {
+                        contentViewLarge.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);
+                        if (profileIconExists) {
+                            if (contentView != null)
+                                contentView.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);
+                        }
+                    } catch (Exception ignored) {}
                 }
                 else {
                     if (notificationShowProfileIcon)
@@ -5049,15 +5057,17 @@ public class PhoneProfilesService extends Service
                         }
                     }
 
-                    //contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
-                    contentViewLarge.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
-                    contentViewLarge.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
+                    try {
+                        //contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
+                        contentViewLarge.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
+                        contentViewLarge.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
 
-                    if (contentView != null) {
-                        //contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
-                        contentView.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
-                        contentView.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
-                    }
+                        if (contentView != null) {
+                            //contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
+                            contentView.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
+                            contentView.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
+                        }
+                    } catch (Exception ignored) {}
                 }
                 else {
                     Notification.Action.Builder actionBuilder;

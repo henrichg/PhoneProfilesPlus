@@ -647,7 +647,7 @@ class EventPreferencesNotification extends EventPreferences {
     // search if any configured package names are visible in status bar
     private StatusBarNotification isNotificationActive(StatusBarNotification[] statusBarNotifications, String packageName, boolean checkEnd/*, Context context*/) {
         for (StatusBarNotification statusBarNotification : statusBarNotifications) {
-            String _packageName = statusBarNotification.getPackageName();
+            String packageNameFromNotification = statusBarNotification.getPackageName();
 
             boolean testText = false;
             if (_checkContacts)
@@ -871,12 +871,12 @@ class EventPreferencesNotification extends EventPreferences {
 
             if (testText && textFound) {
                 if (checkEnd) {
-                    if (_packageName.endsWith(packageName)) {
+                    if (packageNameFromNotification.endsWith(packageName)) {
                         //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName returned=" + _packageName);
                         return statusBarNotification;
                     }
                 } else {
-                    if (_packageName.equals(packageName)) {
+                    if (packageNameFromNotification.equals(packageName)) {
                         //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName returned=" + _packageName);
                         return statusBarNotification;
                     }
@@ -884,12 +884,12 @@ class EventPreferencesNotification extends EventPreferences {
             }
             else if (!testText) {
                 if (checkEnd) {
-                    if (_packageName.endsWith(packageName)) {
+                    if (packageNameFromNotification.endsWith(packageName)) {
                         //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName returned=" + _packageName);
                         return statusBarNotification;
                     }
                 } else {
-                    if (_packageName.equals(packageName)) {
+                    if (packageNameFromNotification.equals(packageName)) {
                         //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName returned=" + _packageName);
                         return statusBarNotification;
                     }

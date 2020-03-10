@@ -1412,6 +1412,8 @@
     <string name="array_pref_soundModeArray_ZenModeL_On">Prekidi uključeni</string>
     <string name="array_pref_soundModeArray_ZenModeM_Off">Ne ometaj - isključeno</string>
     <string name="array_pref_soundModeArray_ZenModeM_On">Ne ometaj - uključeno</string>
+    <string name="draw_over_apps_permission_notification_title">\"Draw over apps\" permission</string>
+    <string name="draw_over_apps_permission_notification_text">You must grant permission \"Draw over apps\". It is required to start activities when PhoneProfilesPlus is in background. Click here to grant this permission.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>

@@ -376,14 +376,14 @@
     <string name="permission_group_name_write_settings">Úprava nastavení systému</string>
     <string name="permission_group_name_storage">Úložisko</string>
     <string name="permission_group_name_phone">Telefón</string>
-    <string name="permissions_alert_title">Vyžaduje sa povolenie</string>
+    <string name="permissions_alert_title">Vyžaduje sa udelenie povolení</string>
     <string name="permissions_for_profile_text1">Aktivácia profilu</string>
     <string name="permissions_for_profile_text1m">Niektoré profily</string>
     <string name="permissions_for_profile_text2">vyžaduje nasledujúce povolenia:</string>
     <string name="permissions_for_profile_text3">Prosím, povoľte ich v nasledujúcich dialógových oknách. Potom sa aktivuje profil.</string>
-    <string name="permissions_for_profile_text_notification">Vyžaduje sa povolenie</string>
+    <string name="permissions_for_profile_text_notification">Vyžaduje sa udelenie povolení</string>
     <string name="permissions_for_profile_big_text_notification">vyžaduje udelenie niektorých povolení.</string>
-    <string name="permissions_notification_text">Vyžaduje sa povolenie</string>
+    <string name="permissions_notification_text">Vyžaduje sa udelenie povolení</string>
     <string name="toast_tone_installation_installed_ok">Tón \"PhoneProfiles Silent\" je nainštalovaný.</string>
     <string name="toast_tone_installation_installed_error">Chyba pri inštalácii tónu \"PhoneProfiles Silent\"!</string>
     <string name="toast_permissions_granted">Povolenia sú už udelené</string>
@@ -1412,6 +1412,8 @@
     <string name="array_pref_soundModeArray_ZenModeL_On">Vyrušenia zapnté</string>
     <string name="array_pref_soundModeArray_ZenModeM_Off">Nerušiť vypnuté</string>
     <string name="array_pref_soundModeArray_ZenModeM_On">Nerušiť zapnuté</string>
+    <string name="draw_over_apps_permission_notification_title">Povolenie \"Vykresliť cez ďalšie aplikácie\"</string>
+    <string name="draw_over_apps_permission_notification_text">Musíte udeliť povolenie \"Vykresliť cez ďalšie aplikácie\". Je vyžadované pre štart aktivít keď je PhoneProfilesPlus na pozadí. Kliknite sem pre udelenie tohoto povolenia.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>

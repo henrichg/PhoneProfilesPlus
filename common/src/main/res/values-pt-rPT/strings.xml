@@ -1412,6 +1412,8 @@
     <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions on</string>
     <string name="array_pref_soundModeArray_ZenModeM_Off">Do not disturb off</string>
     <string name="array_pref_soundModeArray_ZenModeM_On">Do not disturb on</string>
+    <string name="draw_over_apps_permission_notification_title">\"Draw over apps\" permission</string>
+    <string name="draw_over_apps_permission_notification_text">You must grant permission \"Draw over apps\". It is required to start activities when PhoneProfilesPlus is in background. Click here to grant this permission.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Permitir PhoneProfilesPlusExtender por:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>

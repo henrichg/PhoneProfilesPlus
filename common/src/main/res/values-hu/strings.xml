@@ -764,10 +764,10 @@
     <string name="event_preferences_radioSwitch_airplaneMode">Repülőgép üzemmód</string>
     <string name="event_preferences_radioSwitch_info_title">Érzékelő konfigurációk</string>
     <string name="event_preferences_radioSwitch_info_summary">Az esemény indításához az összes rádiót be kell állítani. Állítsa be azokat a rádiókat, melyre önnek szüksége van.</string>
-    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Any SSID</string>
+    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Bármelyik SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Kapcsolódás SSID-hez</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Hangerő egyesítések beállítása</string>
-    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Use detection</string>
+    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Érzékelőt használ</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">Hangerők egyesítve</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Hangerők nem egyesíthetőek</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Használja ezt, ha detektálva, hogy a kötetek egyesítése hibás.</string>
@@ -1272,14 +1272,14 @@
     <string name="ignore_battery_optimization_notification_title">Az akkumulátor optimalizálása</string>
     <string name="ignore_battery_optimization_notification_text">Kérlek kattints ide és add a PhoneProfilesPlus-t a \"nem optimalizált\" alkalmazásokhoz. Ez ahhoz kell, hogy az applikáció kikapcsolt kijelzőnél is jól működjön.</string>
     <string name="ignore_battery_optimization_notification_disable_button">Ne jelenjen meg többet</string>
-    <string name="array_show_profile_in_activator_not_show">Do not show</string>
-    <string name="array_show_profile_in_activator_show">Show</string>
+    <string name="array_show_profile_in_activator_not_show">Ne jelenjen meg</string>
+    <string name="array_show_profile_in_activator_show">Megjelenít</string>
     <string name="editor_activity_targetHelps_showInActivator_title">Profil mutatása az aktivátorban</string>
     <string name="editor_activity_targetHelps_showInActivator_description">Kattintson erre a profilparaméterre \"Jelenjen meg a profilok között\" konfigurálásához.</string>
     <string name="profile_preferences_alwaysOnDisplay">(R) Képernyő mindig bekapcsolva</string>
     <string name="permission_why_profile_always_on_display">Always-On display engedélyezéséhez/tiltásához</string>
-    <string name="array_ignore_manual_activation_not_ignore">Do not ignore</string>
-    <string name="array_ignore_manual_activation_ignore">Ignore</string>
+    <string name="array_ignore_manual_activation_not_ignore">Ne hagyd figyelmen kívül</string>
+    <string name="array_ignore_manual_activation_ignore">Mellőz</string>
     <string name="editor_activity_targetHelps_ignoreManualActivation_title">Figyelmen kívül hagyja a kézi profil aktiválást</string>
     <string name="editor_activity_targetHelps_ignoreManualActivation_description">Kattintson erre az eseményparaméter konfigurálásához: \"[»] Figyelmen kívül haggya a kézi aktiválást\".</string>
     <string name="editor_activity_targetHelps_trafficLightIcon_title">\"Lámpa\" ikon</string>
@@ -1323,7 +1323,7 @@
     <string name="time_duration_picker_hour_sign">ó</string>
     <string name="time_duration_picker_minute_sign">p</string>
     <string name="time_duration_picker_second_sign">mp</string>
-    <string name="phone_profiles_pref_category_status_bar">Application notification</string>
+    <string name="phone_profiles_pref_category_status_bar">Alkalmazás értesítés</string>
     <string name="editor_drawer_title_events_order">Rendezés</string>
     <string name="editor_activity_targetHelps_orderSpinner_title">Események rendezése</string>
     <string name="editor_activity_targetHelps_orderSpinner_description">Kattints ide a rendezési módok választásához az esemény nézetben.</string>
@@ -1356,15 +1356,15 @@
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">To enable \"Interruptions type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Do not disturb access\" in system settings. Click here to enable it.</string>
     <string name="editor_activity_targetHelps_bottomNavigation_description_2">Click it, when is activated, to show hidden header and bottom toolbar.</string>
-    <string name="event_preferences_notifications_checkContacts">Check contacts</string>
-    <string name="event_preferences_notifications_contact_groups">Contact groups</string>
-    <string name="event_preferences_notifications_contacts">Contacts</string>
-    <string name="event_preferences_notifications_checkText">Check text</string>
-    <string name="event_preferences_notifications_text">Text</string>
-    <string name="profile_preferences_red_texts_title">Error in profile preferences</string>
-    <string name="profile_preferences_red_texts_text_1">Profile</string>
-    <string name="event_preferences_red_texts_text_1">Event</string>
-    <string name="event_preferences_red_texts_title">Error in event preferences</string>
+    <string name="event_preferences_notifications_checkContacts">Kontaktok ellenőrzése</string>
+    <string name="event_preferences_notifications_contact_groups">Névjegy csoportok</string>
+    <string name="event_preferences_notifications_contacts">Kapcsolatok</string>
+    <string name="event_preferences_notifications_checkText">Ellenőrizze a szöveget</string>
+    <string name="event_preferences_notifications_text">Szöveg</string>
+    <string name="profile_preferences_red_texts_title">Hiba a profilbeállításokban</string>
+    <string name="profile_preferences_red_texts_text_1">Profil</string>
+    <string name="event_preferences_red_texts_text_1">Esemény</string>
+    <string name="event_preferences_red_texts_title">Hiba az esemény beállításoknál</string>
     <string name="preferences_red_texts_text_2">has some errors in it\'s preferences.</string>
     <string name="preferences_red_texts_text_click">Click this notification to open it.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi and Bluetooth confirm dialogs</string>
@@ -1412,6 +1412,8 @@
     <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions on</string>
     <string name="array_pref_soundModeArray_ZenModeM_Off">Do not disturb off</string>
     <string name="array_pref_soundModeArray_ZenModeM_On">Do not disturb on</string>
+    <string name="draw_over_apps_permission_notification_title">\"Draw over apps\" permission</string>
+    <string name="draw_over_apps_permission_notification_text">You must grant permission \"Draw over apps\". It is required to start activities when PhoneProfilesPlus is in background. Click here to grant this permission.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Engedélyezze a PhoneProfilesPlusExtender alkalmazását:\n• profilparaméter \"Alkalmazások eröltetett leállítása\"\n• eseményparaméterek: \"Alkalmazás-érzékelő\", \"Tájolás-érzékelő\", \"SMS / MMS-érzékelő\", \"Hívásérzékelő\".</string>

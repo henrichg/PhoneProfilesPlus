@@ -35,7 +35,7 @@
     <string name="phone_profiles_pref_category_activation">Активация профиля</string>
     <string name="phone_profiles_pref_category_start">Запуск приложения</string>
     <string name="phone_profiles_pref_applicationActivate">Активировать профиль при запуске</string>
-    <string name="phone_profiles_pref_applicationClose">Закрыть после активации профиля</string>
+    <string name="phone_profiles_pref_applicationClose">Закрывать после активации профиля</string>
     <string name="phone_profiles_pref_applicationPrefIndicator">Индикатор настроек</string>
     <string name="phone_profiles_pref_applicationHeader">Показывать активированный профиль</string>
     <string name="phone_profiles_pref_applicationAlert">Подтверждать активацию профиля</string>
@@ -67,9 +67,9 @@
     <string name="profile_preferences_deviceWallpaper">Обои</string>
     <string name="profile_preferences_deviceWallpaperChange">Изменить обои</string>
     <string name="array_pref_no_change">Не изменять</string>
-    <string name="array_pref_hardwareModeArray_on">Включать</string>
-    <string name="array_pref_hardwareModeArray_off">Выключать</string>
-    <string name="array_pref_hardwareModeArray_toggle">Переключать</string>
+    <string name="array_pref_hardwareModeArray_on">Включить</string>
+    <string name="array_pref_hardwareModeArray_off">Выключить</string>
+    <string name="array_pref_hardwareModeArray_toggle">Переключить</string>
     <string name="array_pref_screenTimeoutArray_15seconds">15 секунд</string>
     <string name="array_pref_screenTimeoutArray_30seconds">30 секунд</string>
     <string name="array_pref_screenTimeoutArray_1minute">1 минута</string>
@@ -90,7 +90,7 @@
     <string name="profile_preferences_deviceMobileDataPrefs">(I) Настройки мобильных данных</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_color">Цветная иконка</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_android">Встроенная</string>
-    <string name="phone_profiles_pref_applicationLongClickActivation">Активация профиля долгим нажатием</string>
+    <string name="phone_profiles_pref_applicationLongClickActivation">Активировать профиль долгим нажатием</string>
     <string name="alert_title_delete_all_profiles">Удалить все профили</string>
     <string name="alert_message_delete_all_profiles">Вы уверены?</string>
     <string name="alert_title_delete_all_events">Удалить все события</string>
@@ -152,7 +152,7 @@
     <string name="array_pref_270_degrees" formatted="false">270°</string>
     <string name="array_pref_change">Изменить</string>
     <string name="array_pref_no_show">Не показывать</string>
-    <string name="array_pref_show">Показывать</string>
+    <string name="array_pref_show">Показать</string>
     <string name="array_pref_no_run">Не запускать</string>
     <string name="array_pref_run">Запускать</string>
     <string name="profile_list_item_menu_activate">Активировать</string>
@@ -163,9 +163,9 @@
     <string name="event_list_item_menu_duplicate">Создать копию</string>
     <string name="event_list_item_menu_delete">Удалить</string>
     <string name="phone_profiles_pref_notificationPrefIndicator">Показывать индикатор настроек</string>
-    <string name="phone_profiles_pref_applicationHomeLauncher">Запуск с домашнего экрана</string>
-    <string name="phone_profiles_pref_applicationWidgetLauncher">Запуск из виджета</string>
-    <string name="phone_profiles_pref_notificationLauncher">Запуск из уведомления</string>
+    <string name="phone_profiles_pref_applicationHomeLauncher">Запускать с домашнего экрана</string>
+    <string name="phone_profiles_pref_applicationWidgetLauncher">Запускать из виджета</string>
+    <string name="phone_profiles_pref_notificationLauncher">Запускать из уведомления</string>
     <string name="array_pref_launcher_activator">Активатор</string>
     <string name="array_pref_launcher_editor">Редактор</string>
     <string name="profile_preferences_deviceLocationServicePrefs">(I) Настройки местоположения</string>
@@ -297,34 +297,34 @@
     <string name="event_preferences_sms_contact_groups">Группы контактов</string>
     <string name="title_activity_activity_log">Журнал событий</string>
     <string name="menu_activity_log">Журнал событий</string>
-    <string name="altype_profileActivation">Активация профиля</string>
-    <string name="altype_afterDuration_undoProfile">По окончании - отменить профиль</string>
-    <string name="altype_afterDuration_backgroundProfile">По окончании - профиль по умолчанию</string>
-    <string name="altype_afterDuration_restartEvents">По окончании - перезапустить события</string>
-    <string name="altype_eventStart">Запуск события</string>
-    <string name="altype_eventStartDelay">Запуск события с задержкой</string>
-    <string name="altype_eventEnd_none">Приостановка события</string>
-    <string name="altype_eventEnd_activateProfile">Приостановка события - активация профиля</string>
-    <string name="altype_eventEnd_undoProfile">Приостановка события - отмена профиля</string>
-    <string name="altype_eventEnd_activateProfile_undoProfile">Приостановка события - активация и отмена профиля</string>
-    <string name="altype_restartEvents">Перезапустить события</string>
-    <string name="altype_runEvents_disable">Остановить события</string>
-    <string name="altype_runEvents_enable">Разрешить запуск событий</string>
-    <string name="altype_applicationStart">Запуск приложения</string>
-    <string name="altype_applicationExit">Выход из приложения</string>
+    <string name="altype_profileActivation">активация профиля</string>
+    <string name="altype_afterDuration_undoProfile">срок действия истёк - отмена профиля</string>
+    <string name="altype_afterDuration_backgroundProfile">срок действия истёк - профиль по умолчанию</string>
+    <string name="altype_afterDuration_restartEvents">срок действия истёк - перезапуск событий</string>
+    <string name="altype_eventStart">запуск события</string>
+    <string name="altype_eventStartDelay">запуск события с задержкой</string>
+    <string name="altype_eventEnd_none">приостановка события</string>
+    <string name="altype_eventEnd_activateProfile">приостановка события - активация профиля</string>
+    <string name="altype_eventEnd_undoProfile">приостановка события - отмена профиля</string>
+    <string name="altype_eventEnd_activateProfile_undoProfile">приостановка события - активация и отмена профиля</string>
+    <string name="altype_restartEvents">перезапуск событий</string>
+    <string name="altype_runEvents_disable">остановка событий</string>
+    <string name="altype_runEvents_enable">запуск событий разрешён</string>
+    <string name="altype_applicationStart">запуск приложения</string>
+    <string name="altype_applicationExit">выход из приложения</string>
     <string name="altype_dataImport">восстановление настроек</string>
     <string name="array_event_pref_calendarSearchField_location">Местоположении</string>
     <string name="profile_preferences_vibrationOnTouch">Вибрация при нажатии</string>
     <string name="phone_profiles_pref_notificationShowInStatusBar">Показывать в строке состояния</string>
     <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Показывать в строке состояния и на экране блокировки</string>
-    <string name="menu_activity_log_reload">Перезагрузить</string>
+    <string name="menu_activity_log_reload">Обновить</string>
     <string name="event_preferences_atEndDo">И выполнить</string>
     <string name="array_pref_atEndDo_none">Ничего</string>
     <string name="array_pref_atEndDo_undoneProfile">Отменить данный профиль</string>
     <string name="array_pref_atEndDo_restartEvents">Перезапустить события</string>
     <string name="event_preference_profile_restartEvents">Перезапустить</string>
-    <string name="altype_eventEnd_restartEvents">Приостановить событие - перезапустить события</string>
-    <string name="altype_eventEnd_activateProfile_restartEvents">Приостановка события - активация профиля и перезапуск событий</string>
+    <string name="altype_eventEnd_restartEvents">приостановка события - перезапуск событий</string>
+    <string name="altype_eventEnd_activateProfile_restartEvents">приостановка события - активация профиля и перезапуск событий</string>
     <string name="event_preference_calendar_availability">Доступность</string>
     <string name="array_event_pref_calendarAvailability_noCheck">Не проверять</string>
     <string name="array_event_pref_calendarAvailability_busy">Занят</string>
@@ -344,7 +344,7 @@
     <string name="important_info_events">События</string>
     <string name="important_info_system">Системные</string>
     <string name="important_info_profile_root">Для некоторых настроек профиля требуются права Суперпользователя. Эти настройки отмечены буквой \"(R)\".</string>
-    <string name="event_preferences_eventStartWhenActivatedProfile">[#] Начать только когда активирован профиль</string>
+    <string name="event_preferences_eventStartWhenActivatedProfile">[#] Начать, только когда активирован профиль</string>
     <string name="profile_preference_do_not_apply">Не применять</string>
     <string name="pref_dlg_info_about_wildcards_1">Можно использовать подстановочные знаки: \"%\" = любые символы, \"_\" = один любой символ.</string>
     <string name="pref_dlg_info_about_wildcards_2">Если у вас есть \"%\" или \"_\"</string>
@@ -508,7 +508,7 @@
     <string name="permissions_for_brightness_dialog_text1">Выбор яркости требует дополнительных разрешений.</string>
     <string name="permissions_for_brightness_dialog_text2">Добавьте разрешения в следующих диалогах.</string>
     <string name="event_preferences_category_sensors">Параметры датчиков</string>
-    <string name="altype_eventEndDelay">Остановка события с задержкой</string>
+    <string name="altype_eventEndDelay">окончание события с задержкой</string>
     <string name="info_notification_event_states_running_delay">Запущено с задержкой: событие запущено, но параметры не соответствуют условиям. Событие в состоянии ожидания.</string>
     <string name="profile_preferences_askForDuration">Запрос продолжительности</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">Экономия заряда батареи</string>
@@ -565,9 +565,9 @@
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Найдите приложение PhoneProfilesPlus и разрешите доступ.</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Если вы испытываете проблемы с активацией профилей или на некоторое время оставляете устройство с выключенным экраном, добавьте PhoneProfilesPlus в список \"Не экономят заряд\".</string>
     <string name="profile_preferences_deviceWallpaperFor">Поменять обои для</string>
-    <string name="array_pref_device_wallpaper_homescreen">Домашний экран</string>
-    <string name="array_pref_device_wallpaper_lockscreen">Экран блокировки</string>
-    <string name="array_pref_device_wallpaper_all">Домашний экран и экран блокировки</string>
+    <string name="array_pref_device_wallpaper_homescreen">Домашнего экрана</string>
+    <string name="array_pref_device_wallpaper_lockscreen">Экрана блокировки</string>
+    <string name="array_pref_device_wallpaper_all">Домашнего экрана и экрана блокировки</string>
     <string name="event_type_mobile_cells">Мобильные вышки</string>
     <string name="event_preferences_category_eventMobileCellsParameters">Датчик мобильных вышек</string>
     <string name="event_preferences_mobile_cells_cells">Вышки</string>
@@ -611,10 +611,10 @@
     <string name="phone_profiles_pref_applicationWidgetIconBackground">Непрозрачность фона (виджет)</string>
     <string name="phone_profiles_pref_applicationWidgetIconLightnessB">Яркость фона (виджет)</string>
     <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Яркость текста (виджет)</string>
-    <string name="altype_eventStop">событие остановки</string>
+    <string name="altype_eventStop">остановка события</string>
     <string name="info_notification_manage_events_from_tasker">Вы можете управлять событиями из Tasker. Настройте задачу \"System\"/\"Send Intent\" с параметрами:</string>
     <string name="info_notification_manage_events_from_tasker_restart_events">перезапустить события:</string>
-    <string name="info_notification_manage_events_from_tasker_enable_run_for_event">разрешить запуск для событий:</string>
+    <string name="info_notification_manage_events_from_tasker_enable_run_for_event">разрешить запуск события:</string>
     <string name="info_notification_manage_events_from_tasker_pause_event">приостановить событие:</string>
     <string name="info_notification_manage_events_from_tasker_stop_event">остановить событие:</string>
     <string name="phone_profiles_pref_category_eventRun">Запуск события</string>
@@ -658,7 +658,7 @@
     <string name="editor_event_list_item_profile_start_icon">Значок начала события</string>
     <string name="editor_event_list_item_profile_end_icon">Значок окончания события</string>
     <string name="run_stop_events_indicator">Включить/остановить индикатор запуска событий</string>
-    <string name="important_info_how_to_show">Эта важная информация может быть просмотрена в Редакторе при нажатии на значке вопросительного знака в панели инструментов.</string>
+    <string name="important_info_how_to_show">Эту важную информацию можно посмотреть из Редактора, нажав на вопросительный знак на панели инструментов.</string>
     <string name="preference_not_allowed_reason_not_supported_by_application">не поддерживается приложением</string>
     <string name="preference_not_allowed_reason_detail_old_android">старая версия Android</string>
     <string name="preference_not_allowed_reason_detail_network_type">неподдерживаемый тип сети или не может быть изменено</string>
@@ -687,7 +687,7 @@
     <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">Включить использование параметра \"Приоритет\" в настройках приложения.</string>
     <string name="profile_preferences_volumeNotificationVolume0_NowConfigured">Текущие настройки:</string>
     <string name="profile_preferences_volumeRingtone0Info_title">Громкость звонка = 0</string>
-    <string name="profile_preferences_volumeRingtone0Info_summary">Громкость звонка = 0 настраивает устройство в тихий режим. Громкость уведомления игнорируется.</string>
+    <string name="profile_preferences_volumeRingtone0Info_summary">Громкость звонка = 0 настраивает устройство в тихий режим. Громкость уведомлений игнорируется.</string>
     <string name="event_preferences_event_priorityInfo_summary">Приоритет: событие не будет запущено, если выполняется событие с более высоким приоритетом.</string>
     <string name="profile_preferences_preferenceTypesInfo_title">Типы параметров</string>
     <string name="event_preference_sensor_time_summary">Этот датчик предназначен для начала события по времени. Параметры: Время начала, время окончания, дни недели.</string>
@@ -749,7 +749,7 @@
     <string name="array_pref_lockDevice_screenOff">Использовать быстрое выключение экрана</string>
     <string name="lockDevice_screenOff_text">Быстрый экран выключения блокировки</string>
     <string name="event_preferences_calendar_start_before_event">Перед началом события</string>
-    <string name="event_preferences_startBeforeEvent">Ожидать перед началом события</string>
+    <string name="event_preferences_startBeforeEvent">Запустить до начала события</string>
     <string name="event_preferences_category_eventRadioSwitchParameters">Датчик радиомодулей</string>
     <string name="event_preference_sensor_radioSwitch_summary">Этот датчик предназначен для запуска события переключением радиомодулей (вкл./выкл.). Параметры: \"Wi-Fi\", \"Bluetooth\", \"Мобильные данные\", \"GPS\", \"NFC\", \"Режим полёта\".</string>
     <string name="event_type_radioSwitch">Радиомодули</string>
@@ -816,8 +816,8 @@
     <string name="important_info_quick_guide_tab">Краткое руководство</string>
     <string name="important_info_important_info_tab">Важная информация</string>
     <string name="important_info_quick_guide_1">PhoneProfilesPlus (PPP) состоит из двух компонентов:</string>
-    <string name="important_info_quick_guide_2"><![CDATA[<b>ПРОФИЛИ:</b> указывает, как изменить настройки устройства.]]></string>
-    <string name="important_info_quick_guide_3"><![CDATA[<b>СОБЫТИЯ:</b> указывает, когда следует изменить настройки устройства.]]></string>
+    <string name="important_info_quick_guide_2"><![CDATA[<b>ПРОФИЛИ:</b> указывают, как изменить настройки устройства.]]></string>
+    <string name="important_info_quick_guide_3"><![CDATA[<b>СОБЫТИЯ:</b> указывают, когда изменить настройки устройства.]]></string>
     <string name="important_info_quick_guide_profiles_1"><b>ПРОФИЛИ:</b> Позволяют вам настроить параметры устройства, такие как режим звонка, уровни громкости, мелодию звонка и звуки уведомлений, переключение радиомодулей (Wi-Fi, Bluetooth, мобильные данные и т.д.). Когда профиль активирован, соответствующие ему параметры постоянны. Если вы хотите изменить какой-то параметр, нужно активировать другой профиль.</string>
     <string name="important_info_quick_guide_profiles_2">Профили можно активировать вручную или событием.</string>
     <string name="important_info_quick_guide_profiles_3">Вы можете вручную активировать профиль через Активатор (всплывающее окно со списком доступных профилей). Активатор можно вызвать нажатием на иконку приложения на домашнем экране, через виджеты приложения и, для устройств Samsung Edge, из панели Edge. Также вы можете напрямую активировать нужный профиль через виджет приложения 4x4, ярлык профиля или, на устройствах Samsung Edge, из панели Edge.</string>
@@ -875,8 +875,8 @@
     <string name="array_event_pref_missed_call">Пропущенный вызов</string>
     <string name="start_event_notification_title">Событие перезапущено</string>
     <string name="start_event_notification_text1">Название события</string>
-    <string name="event_preferences_notificationRepeat">Повторение уведомления</string>
-    <string name="event_preferences_notificationRepeatInterval">Интервал повтора уведомлений</string>
+    <string name="event_preferences_notificationRepeat">Повторять уведомление</string>
+    <string name="event_preferences_notificationRepeatInterval">Интервал повтора уведомления</string>
     <string name="duration_pref_dlg_activation_hours_label">Часы:</string>
     <string name="duration_pref_dlg_activation_minutes_label">Минуты:</string>
     <string name="duration_pref_dlg_activation_seconds_label">Секунды:</string>
@@ -1405,13 +1405,15 @@
     <string name="phone_profiles_pref_notificationNotificationStyle_native">Родной</string>
     <string name="phone_profiles_pref_notificationShowProfileIcon">Показать значок профиля</string>
     <string name="altype_mergedProfileActivation">активация профилей из событий</string>
-    <string name="altype_manualRestartEvents">вручную перезапустить события</string>
+    <string name="altype_manualRestartEvents">ручной перезапуск событий</string>
     <string name="profile_preferences_configureSoundMode_info">Пожалуйста, настройте также параметр профиля \"Звук профиля\"/\"Звуковой режим\"</string>
     <string name="profile_preferences_category_volumeTypes">Типы уровней громкости</string>
     <string name="array_pref_soundModeArray_ZenModeL_Off">Оповещения отключены</string>
     <string name="array_pref_soundModeArray_ZenModeL_On">Оповещения включены</string>
     <string name="array_pref_soundModeArray_ZenModeM_Off">Режим \"Не беспокоить\" отключён</string>
     <string name="array_pref_soundModeArray_ZenModeM_On">Режим \"Не беспокоить\" включён</string>
+    <string name="draw_over_apps_permission_notification_title">\"Draw over apps\" permission</string>
+    <string name="draw_over_apps_permission_notification_text">You must grant permission \"Draw over apps\". It is required to start activities when PhoneProfilesPlus is in background. Click here to grant this permission.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>
