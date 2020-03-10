@@ -5317,7 +5317,7 @@ public class PhoneProfilesService extends Service
 
         //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","forServiceStart="+forServiceStart);
 
-        boolean clear = false;
+        /*boolean clear = false;
         if (Build.MANUFACTURER.equals("HMD Global"))
             // clear it for redraw icon in "Glance view" for "HMD Global" mobiles
             clear = true;
@@ -5326,7 +5326,7 @@ public class PhoneProfilesService extends Service
             clear = true;
         if (clear) {
             clearProfileNotification(getApplicationContext(), true);
-        }
+        }*/
 
         //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","refresh="+(clear || refresh));
 
@@ -5346,11 +5346,11 @@ public class PhoneProfilesService extends Service
 
         long now = SystemClock.elapsedRealtime();
 
-        if (clear || refresh || ((now - PPApplication.lastRefreshOfProfileNotification) >= PPApplication.DURATION_FOR_GUI_REFRESH))
+        if (/*clear ||*/ refresh || ((now - PPApplication.lastRefreshOfProfileNotification) >= PPApplication.DURATION_FOR_GUI_REFRESH))
         {
             //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","refresh");
 
-            final boolean _clear = clear;
+            //final boolean _clear = clear;
             PPApplication.startHandlerThreadProfileNotification();
             final Handler handler = new Handler(PPApplication.handlerThreadProfileNotification.getLooper());
             handler.post(new Runnable() {
@@ -5367,7 +5367,7 @@ public class PhoneProfilesService extends Service
                         profile = null;
 
                     //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification", "_showProfileNotification()");
-                    _showProfileNotification(profile, true, dataWrapper, _clear || refresh  /*, cleared*/);
+                    _showProfileNotification(profile, true, dataWrapper, /*_clear ||*/ refresh  /*, cleared*/);
                     //dataWrapper.invalidateDataWrapper();
                 }
             });
@@ -5381,7 +5381,7 @@ public class PhoneProfilesService extends Service
         PPApplication.lastRefreshOfProfileNotification = SystemClock.elapsedRealtime();
     }
 
-    void clearProfileNotification(Context context, boolean onlyEmpty)
+    void clearProfileNotification(/*Context context, boolean onlyEmpty*/)
     {
         /*if (onlyEmpty) {
             final Context appContext = getApplicationContext();
@@ -5393,15 +5393,15 @@ public class PhoneProfilesService extends Service
             try {
                 //final Context appContext = getApplicationContext();
                 //if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBarPermanent(appContext))
-                if (onlyEmpty) {
+                /*if (onlyEmpty) {
                     NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                     if (notificationManager != null)
                         notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
                 }
-                else {
+                else {*/
                     PPApplication.startForegroundNotification = true;
                     stopForeground(true);
-                }
+                //}
             } catch (Exception e) {
                 Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
                 //FirebaseCrashlytics.getInstance().recordException(e);

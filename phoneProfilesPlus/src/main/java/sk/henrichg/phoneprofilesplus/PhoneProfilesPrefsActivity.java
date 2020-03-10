@@ -281,7 +281,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         //PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "xxx");
 
         if (PhoneProfilesService.getInstance() != null)
-            PhoneProfilesService.getInstance().clearProfileNotification(getApplicationContext(), false);
+            PhoneProfilesService.getInstance().clearProfileNotification(/*getApplicationContext(), false*/);
 
         Handler handler = new Handler(getMainLooper());
         handler.postDelayed(new Runnable() {
