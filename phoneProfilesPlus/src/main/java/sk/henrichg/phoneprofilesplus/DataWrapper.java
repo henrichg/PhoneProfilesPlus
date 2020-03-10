@@ -2097,7 +2097,6 @@ public class DataWrapper {
                                     /*boolean reactivate,*/ Profile mergedProfile,
                                     String sensorType)
     {
-        //if (!Permissions.grantEventPermissions(context, event, true, false))
         if (!EditorProfilesActivity.displayRedTextToPreferencesNotification(null, event, context))
             return;
 
@@ -2151,7 +2150,8 @@ public class DataWrapper {
 
         if (event._eventPreferencesTime._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    && Permissions.checkEventLocation(context, event, null)) {
+                // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
+                /*&& Permissions.checkEventLocation(context, event, null)*/) {
                 /*boolean testEvent = (event._name != null) && event._name.equals("Plugged In Nighttime");
                 if (testEvent) {
                     if (PPApplication.logEnabled()) {
@@ -2337,9 +2337,10 @@ public class DataWrapper {
         }
 
         if (event._eventPreferencesCall._enabled) {
-            if ((Event.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) &&
-                    Permissions.checkEventCallContacts(context, event, null)/* &&
-                    this is not required, is only for simulating ringing -> Permissions.checkEventPhoneBroadcast(context, event, null)*/) {
+            if ((Event.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+                // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
+                /*&& Permissions.checkEventCallContacts(context, event, null)*//* &&
+                  this is not required, is only for simulating ringing -> Permissions.checkEventPhoneBroadcast(context, event, null)*/) {
                 int callEventType = ApplicationPreferences.prefEventCallEventType;
                 String phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
 
@@ -2576,8 +2577,9 @@ public class DataWrapper {
         }
 
         if (event._eventPreferencesCalendar._enabled) {
-            if ((Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) &&
-                    (Permissions.checkEventCalendar(context, event, null))) {
+            if ((Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+                // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
+                /*&& (Permissions.checkEventCalendar(context, event, null))*/) {
                 // compute start datetime
                 long startAlarmTime;
                 long endAlarmTime;
@@ -2620,7 +2622,8 @@ public class DataWrapper {
 
         if (event._eventPreferencesWifi._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    && Permissions.checkEventLocation(context, event, null)) {
+                // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
+                /*&& Permissions.checkEventLocation(context, event, null)*/) {
                 //if (event._name.equals("Doma"))
                 //    PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "-------- eventSSID=" + event._eventPreferencesWifi._SSID);
 
@@ -2985,8 +2988,9 @@ public class DataWrapper {
 
         if (event._eventPreferencesBluetooth._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    && Permissions.checkEventLocation(context, event, null)
-                    && Permissions.checkEventBluetoothForEMUI(context, event, null)) {
+                // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
+                /*&& Permissions.checkEventLocation(context, event, null)
+                && Permissions.checkEventBluetoothForEMUI(context, event, null)*/) {
                 bluetoothPassed = false;
 
                 List<BluetoothDeviceData> boundedDevicesList = BluetoothScanWorker.getBoundedDevicesList(context);
@@ -3231,7 +3235,8 @@ public class DataWrapper {
 
         if (event._eventPreferencesSMS._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    && Permissions.checkEventSMSContacts(context, event, null)
+                // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
+                /*&& Permissions.checkEventSMSContacts(context, event, null)*/
                 /* moved to Extender && Permissions.checkEventSMSBroadcast(context, event, null)*/) {
                 // compute start time
 
@@ -3354,7 +3359,8 @@ public class DataWrapper {
 
         if (event._eventPreferencesLocation._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    && Permissions.checkEventLocation(context, event, null)) {
+                // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
+                /*&& Permissions.checkEventLocation(context, event, null)*/) {
                 if (!ApplicationPreferences.applicationEventLocationEnableScanning) {
                     //if (forRestartEvents)
                     //    locationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesLocation.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
@@ -3632,7 +3638,8 @@ public class DataWrapper {
 
         if (event._eventPreferencesMobileCells._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    && Permissions.checkEventLocation(context, event, null)) {
+                    // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
+                    /*&& Permissions.checkEventLocation(context, event, null)*/) {
                 if (!ApplicationPreferences.applicationEventMobileCellEnableScanning) {
                     //if (forRestartEvents)
                     //    mobileCellPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesMobileCells.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;

@@ -3117,7 +3117,6 @@ public class EditorProfilesActivity extends AppCompatActivity
         if ((profile == null) && (event == null))
             return true;
 
-
         if ((profile != null) && (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, context)))
             return true;
         if ((event != null) && (!EventsPrefsFragment.isRedTextNotificationRequired(event, context)))
