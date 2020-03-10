@@ -89,6 +89,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 +"|PhoneProfilesService.doCommand"
                                                 //+"|PhoneProfilesService.isServiceRunningInForeground"
                                                 //+"|PhoneProfilesService.showProfileNotification"
+                                                +"|PhoneProfilesService._showProfileNotification"
                                                 //+"|ShowProfileNotificationBroadcastReceiver"
                                                 //+"|PhoneProfilesService._showProfileNotification"
                                                 //+"|[CUST] PhoneProfilesService._showProfileNotification"
