@@ -5317,7 +5317,7 @@ public class PhoneProfilesService extends Service
 
         //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","forServiceStart="+forServiceStart);
 
-        /*boolean clear = false;
+        boolean clear = false;
         if (Build.MANUFACTURER.equals("HMD Global"))
             // clear it for redraw icon in "Glance view" for "HMD Global" mobiles
             clear = true;
@@ -5325,8 +5325,9 @@ public class PhoneProfilesService extends Service
             // clear it for redraw icon in "Glance view" for LG with Android 9
             clear = true;
         if (clear) {
-            clearProfileNotification(getApplicationContext(), true);
-        }*/
+            // next show will be with startForeground()
+            clearProfileNotification(/*getApplicationContext(), true*/);
+        }
 
         //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","refresh="+(clear || refresh));
 
@@ -5346,11 +5347,11 @@ public class PhoneProfilesService extends Service
 
         long now = SystemClock.elapsedRealtime();
 
-        if (/*clear ||*/ refresh || ((now - PPApplication.lastRefreshOfProfileNotification) >= PPApplication.DURATION_FOR_GUI_REFRESH))
+        if (clear || refresh || ((now - PPApplication.lastRefreshOfProfileNotification) >= PPApplication.DURATION_FOR_GUI_REFRESH))
         {
             //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","refresh");
 
-            //final boolean _clear = clear;
+            final boolean _clear = clear;
             PPApplication.startHandlerThreadProfileNotification();
             final Handler handler = new Handler(PPApplication.handlerThreadProfileNotification.getLooper());
             handler.post(new Runnable() {
@@ -5367,7 +5368,7 @@ public class PhoneProfilesService extends Service
                         profile = null;
 
                     //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification", "_showProfileNotification()");
-                    _showProfileNotification(profile, true, dataWrapper, /*_clear ||*/ refresh  /*, cleared*/);
+                    _showProfileNotification(profile, true, dataWrapper, _clear || refresh  /*, cleared*/);
                     //dataWrapper.invalidateDataWrapper();
                 }
             });
