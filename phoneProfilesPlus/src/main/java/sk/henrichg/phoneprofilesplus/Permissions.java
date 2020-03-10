@@ -980,7 +980,6 @@ class Permissions {
             checkEventSMSContacts(context, event, permissions);
             checkEventLocation(context, event, permissions);
             checkEventBluetoothForEMUI(context, event, permissions);
-
             return permissions;
         }
         else
@@ -999,22 +998,22 @@ class Permissions {
         }
     }
 
-    static boolean checkEventCallContacts(Context context, Event event, ArrayList<PermissionType>  permissions) {
-        if (event == null) return true;
+    static private void checkEventCallContacts(Context context, Event event, ArrayList<PermissionType>  permissions) {
+        if (event == null) return;// true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
                 if (event._eventPreferencesCall._enabled) {
                     boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
                     if ((permissions != null) && (!granted))
                         permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.READ_CONTACTS));
-                    return granted;
-                } else
-                    return true;
+                    //return granted;
+                } //else
+                    //return true;
             } catch (Exception e) {
-                return false;
+                //return false;
             }
         }
-        else {
+        /*else {
             try {
                 if (event._eventPreferencesCall._enabled)
                     return hasPermission(context, permission.READ_CONTACTS);
@@ -1023,25 +1022,25 @@ class Permissions {
             } catch (Exception e) {
                 return false;
             }
-        }
+        }*/
     }
 
-    static boolean checkEventSMSContacts(Context context, Event event, ArrayList<PermissionType>  permissions) {
-        if (event == null) return true;
+    static private void checkEventSMSContacts(Context context, Event event, ArrayList<PermissionType>  permissions) {
+        if (event == null) return; // true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
                 if (event._eventPreferencesSMS._enabled) {
                     boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
                     if ((permissions != null) && (!granted))
                         permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.READ_CONTACTS));
-                    return granted;
-                } else
-                    return true;
+                    //return granted;
+                } //else
+                    //return true;
             } catch (Exception e) {
-                return false;
+                //return false;
             }
         }
-        else {
+        /*else {
             try {
                 if (event._eventPreferencesSMS._enabled)
                     return hasPermission(context, permission.READ_CONTACTS);
@@ -1050,7 +1049,7 @@ class Permissions {
             } catch (Exception e) {
                 return false;
             }
-        }
+        }*/
     }
 
     static boolean checkCalendar(Context context) {
@@ -1064,22 +1063,22 @@ class Permissions {
         }
     }
 
-    static boolean checkEventCalendar(Context context, Event event, ArrayList<PermissionType>  permissions) {
-        if (event == null) return true;
+    static private void checkEventCalendar(Context context, Event event, ArrayList<PermissionType>  permissions) {
+        if (event == null) return; // true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
                 if (event._eventPreferencesCalendar._enabled) {
                     boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED;
                     if ((permissions != null) && (!granted))
                         permissions.add(new PermissionType(PERMISSION_EVENT_CALENDAR_PREFERENCES, permission.READ_CALENDAR));
-                    return granted;
-                } else
-                    return true;
+                    //return granted;
+                } //else
+                    //return true;
             } catch (Exception e) {
-                return false;
+                //return false;
             }
         }
-        else {
+        /*else {
             try {
                 if (event._eventPreferencesCalendar._enabled)
                     return hasPermission(context, permission.READ_CALENDAR);
@@ -1088,7 +1087,7 @@ class Permissions {
             } catch (Exception e) {
                 return false;
             }
-        }
+        }*/
     }
 
     @SuppressWarnings("SameReturnValue")
@@ -1164,8 +1163,8 @@ class Permissions {
         }
     }
 
-    static boolean checkEventLocation(Context context, Event event, ArrayList<PermissionType>  permissions) {
-        if (event == null) return true;
+    static private void checkEventLocation(Context context, Event event, ArrayList<PermissionType>  permissions) {
+        if (event == null) return; // true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
                 if ((event._eventPreferencesWifi._enabled &&
@@ -1219,14 +1218,14 @@ class Permissions {
                                 permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                         }
                     }
-                    return grantedAccessCoarseLocation && grantedAccessFineLocation;
-                } else
-                    return true;
+                    //return grantedAccessCoarseLocation && grantedAccessFineLocation;
+                } //else
+                    //return true;
             } catch (Exception e) {
-                return false;
+                //return false;
             }
         }
-        else {
+        /*else {
             try {
                 if ((event._eventPreferencesWifi._enabled &&
                         ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
@@ -1245,11 +1244,11 @@ class Permissions {
             } catch (Exception e) {
                 return false;
             }
-        }
+        }*/
     }
 
-    static boolean checkEventBluetoothForEMUI(Context context, Event event, ArrayList<PermissionType>  permissions) {
-        if (event == null) return true;
+    static private void checkEventBluetoothForEMUI(Context context, Event event, ArrayList<PermissionType>  permissions) {
+        if (event == null) return; // true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
                 if (event._eventPreferencesBluetooth._enabled &&
@@ -1260,14 +1259,14 @@ class Permissions {
                         if (!granted)
                             permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_SWITCH_PREFERENCES, permission.WRITE_SETTINGS));
                     }
-                    return granted;
-                } else
-                    return true;
+                    //return granted;
+                } //else
+                    //return true;
             } catch (Exception e) {
-                return false;
+                //return false;
             }
         }
-        else {
+        /*else {
             try {
                 if (event._eventPreferencesBluetooth._enabled &&
                     ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NEARBY) ||
@@ -1278,7 +1277,7 @@ class Permissions {
             } catch (Exception e) {
                 return false;
             }
-        }
+        }*/
     }
 
     private static void checkEventPhoneBroadcast(Context context, Event event, ArrayList<PermissionType>  permissions) {
