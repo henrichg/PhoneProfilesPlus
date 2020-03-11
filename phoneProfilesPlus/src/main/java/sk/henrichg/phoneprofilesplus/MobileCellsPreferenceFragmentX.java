@@ -318,7 +318,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         }
 
         MobileCellsPreferenceX.forceStart = false;
-        PPApplication.restartPhoneStateScanner(prefContext, false);
+        PPApplication.restartPhoneStateScanner(prefContext);
 
         preference.fragment = null;
     }

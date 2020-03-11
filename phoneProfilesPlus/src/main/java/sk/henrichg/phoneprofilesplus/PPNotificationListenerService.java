@@ -67,6 +67,8 @@ public class PPNotificationListenerService extends NotificationListenerService {
         super.onNotificationPosted(sbn);
         //CallsCounter.logCounter(getApplicationContext(), "PPNotificationListenerService.onNotificationPosted", "PPNotificationListenerService_onNotificationPosted");
 
+        //PPApplication.logE("[TEST BATTERY] PPNotificationListenerService.onNotificationPosted", "xxx");
+
         if (sbn == null)
             return;
 
@@ -152,6 +154,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
     @Override
     public void onNotificationRemoved(StatusBarNotification sbn) {
         super.onNotificationRemoved(sbn);
+        //PPApplication.logE("[TEST BATTERY] PPNotificationListenerService.onNotificationRemoved","xxx");
 
         //CallsCounter.logCounter(getApplicationContext(), "PPNotificationListenerService.onNotificationRemoved", "PPNotificationListenerService_onNotificationRemoved");
 

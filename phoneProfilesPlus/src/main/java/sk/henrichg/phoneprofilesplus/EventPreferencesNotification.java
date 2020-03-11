@@ -1033,7 +1033,7 @@ class EventPreferencesNotification extends EventPreferences {
                         for (String split : splits) {
                             // get only package name = remove activity
                             String packageName = Application.getPackageName(split);
-                            //PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "packageName=" + packageName);
+                            //PPApplication.logE("[TEST BATTERY] EventPreferencesNotification.isNotificationVisible", "packageName=" + packageName);
                             // search for package name in saved package names
                             notification = isNotificationActive(statusBarNotifications, packageName, false/*, context*/);
                             //PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification=" + notification);

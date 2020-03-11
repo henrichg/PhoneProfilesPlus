@@ -2575,7 +2575,7 @@ class ActivateProfileHelper {
             ApplicationPreferences.applicationEventWifiEnableScanning(context);
             ApplicationPreferences.applicationEventWifiDisabledScannigByProfile(context);
             //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableWifiScanning");
-            PPApplication.restartWifiScanner(context, false);
+            PPApplication.restartWifiScanner(context);
         }
         if (profile._applicationDisableBluetoothScanning != 0) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
@@ -2585,7 +2585,7 @@ class ActivateProfileHelper {
             ApplicationPreferences.applicationEventBluetoothEnableScanning(context);
             ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile(context);
             //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableBluetoothScanning");
-            PPApplication.restartBluetoothScanner(context, false);
+            PPApplication.restartBluetoothScanner(context);
         }
         if (profile._applicationDisableLocationScanning != 0) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
@@ -2595,7 +2595,7 @@ class ActivateProfileHelper {
             ApplicationPreferences.applicationEventLocationEnableScanning(context);
             ApplicationPreferences.applicationEventLocationDisabledScannigByProfile(context);
             //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableLocationScanning");
-            PPApplication.restartGeofenceScanner(context, false);
+            PPApplication.restartGeofenceScanner(context);
         }
         if (profile._applicationDisableMobileCellScanning != 0) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
@@ -2605,7 +2605,7 @@ class ActivateProfileHelper {
             ApplicationPreferences.applicationEventMobileCellEnableScanning(context);
             ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(context);
             //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableMobileCellScanning");
-            PPApplication.restartPhoneStateScanner(context, false);
+            PPApplication.restartPhoneStateScanner(context);
         }
         if (profile._applicationDisableOrientationScanning != 0) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);

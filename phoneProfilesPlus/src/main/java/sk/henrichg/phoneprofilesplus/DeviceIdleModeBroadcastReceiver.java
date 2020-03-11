@@ -50,7 +50,7 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                             // rescan
                             if (PhoneProfilesService.getInstance() != null) {
                                 PPApplication.logE("DeviceIdleModeBroadcastReceiver.onReceive", "rescan/reschedule workers");
-                                PPApplication.restartAllScanners(appContext, true);
+                                PPApplication.restartAllScanners(appContext, false);
                             }
                             /*if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {
                                 // rescan mobile cells

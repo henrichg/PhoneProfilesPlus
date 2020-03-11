@@ -3308,7 +3308,7 @@ public class DataWrapper {
             if ((Event.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 notificationPassed = event._eventPreferencesNotification.isNotificationVisible(context);
 
-                //PPApplication.logE("[NOTIF] DataWrapper.doHandleEvents", "notificationPassed=" + notificationPassed);
+                //PPApplication.logE("[TEST BATTERY] DataWrapper.doHandleEvents", "notificationPassed=" + notificationPassed);
 
                 if (!notAllowedNotification) {
                     if (notificationPassed)
@@ -4350,7 +4350,7 @@ public class DataWrapper {
         if (alsoRescan) {
             //PPApplication.logE("[RJS] DataWrapper._restartEventsWithRescan", "restart all scanners");
             // for screenOn=true -> used only for geofence scanner - start scan with GPS On
-            PPApplication.restartAllScanners(context, true);
+            PPApplication.restartAllScanners(context, false);
             /*
             //if (forceRestart || ApplicationPreferences.applicationEventWifiRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
             PPApplication.restartWifiScanner(context, false);

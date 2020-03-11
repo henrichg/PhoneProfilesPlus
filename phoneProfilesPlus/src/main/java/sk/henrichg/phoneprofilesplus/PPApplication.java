@@ -2620,7 +2620,7 @@ public class PPApplication extends Application /*implements Application.Activity
         } catch (Exception ignored) {}
     }
 
-    public static void restartWifiScanner(Context context, boolean forScreenOn) {
+    public static void restartWifiScanner(Context context/*, boolean forScreenOn*/) {
         try {
             //PPApplication.logE("[RJS] PPApplication.restartWifiScanner", "xxx");
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
@@ -2633,7 +2633,6 @@ public class PPApplication extends Application /*implements Application.Activity
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_WIFI_SCANNER);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception ignored) {}
     }
@@ -2670,7 +2669,7 @@ public class PPApplication extends Application /*implements Application.Activity
         } catch (Exception ignored) {}
     }
 
-    public static void restartBluetoothScanner(Context context, boolean forScreenOn) {
+    public static void restartBluetoothScanner(Context context/*, boolean forScreenOn*/) {
         try {
             //PPApplication.logE("[RJS] PPApplication.restartBluetoothScanner", "xxx");
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
@@ -2683,12 +2682,11 @@ public class PPApplication extends Application /*implements Application.Activity
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_BLUETOOTH_SCANNER);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception ignored) {}
     }
 
-    public static void restartGeofenceScanner(Context context, boolean forScreenOn) {
+    public static void restartGeofenceScanner(Context context/*, boolean forScreenOn*/) {
         try {
             //PPApplication.logE("[RJS] PPApplication.restartGeofenceScanner", "xxx");
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
@@ -2701,7 +2699,6 @@ public class PPApplication extends Application /*implements Application.Activity
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_GEOFENCE_SCANNER);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception ignored) {}
     }
@@ -2719,12 +2716,11 @@ public class PPApplication extends Application /*implements Application.Activity
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_ORIENTATION_SCANNER);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, true);
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception ignored) {}
     }
 
-    public static void forceStartPhoneStateScanner(Context context) {
+    public static void forceStartPhoneStateScanner(Context context/*, boolean forScreenOn*/) {
         try {
             //PPApplication.logE("[RJS] PhoneProfilesService.forceStartPhoneStateScanner", "xxx");
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
@@ -2740,7 +2736,7 @@ public class PPApplication extends Application /*implements Application.Activity
         } catch (Exception ignored) {}
     }
 
-    public static void restartPhoneStateScanner(Context context, boolean forScreenOn) {
+    public static void restartPhoneStateScanner(Context context/*, boolean forScreenOn*/) {
         try {
             //PPApplication.logE("[RJS] PPApplication.restartPhoneStateScanner", "xxx");
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
@@ -2753,7 +2749,6 @@ public class PPApplication extends Application /*implements Application.Activity
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_PHONE_STATE_SCANNER);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception ignored) {}
     }
@@ -2771,12 +2766,11 @@ public class PPApplication extends Application /*implements Application.Activity
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_TWILIGHT_SCANNER);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, true);
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception ignored) {}
     }
 
-    public static void restartAllScanners(Context context, boolean forScreenOn) {
+    public static void restartAllScanners(Context context, boolean fromBatteryChange) {
         try {
             //PPApplication.logE("[RJS] PPApplication.restartAllScanners", "xxx");
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
@@ -2789,7 +2783,7 @@ public class PPApplication extends Application /*implements Application.Activity
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_ALL_SCANNERS);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_FROM_BATTERY_CHANGE, fromBatteryChange);
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception ignored) {}
     }

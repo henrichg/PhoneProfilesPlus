@@ -80,7 +80,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             if (restart) {
                                 //PPApplication.logE("[RJS] ScreenOnOffBroadcastReceiver.onReceive", "restart all scanners for SCREEN_ON");
                                 // for screenOn=true -> used only for geofence scanner - start scan with GPS On
-                                PPApplication.restartAllScanners(appContext, true);
+                                PPApplication.restartAllScanners(appContext, false);
                             }
                             break;
                         }

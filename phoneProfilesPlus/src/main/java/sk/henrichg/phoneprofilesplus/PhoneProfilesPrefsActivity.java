@@ -446,21 +446,21 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                 (wifiScannerEnabled != ApplicationPreferences.applicationEventWifiEnableScanning) ||
                 (wifiScanInterval != ApplicationPreferences.applicationEventWifiScanInterval)) {
             //PPApplication.logE("[RJS] PhoneProfilesPrefsActivity.doPreferenceChanged", "restart wifi scanner");
-            PPApplication.restartWifiScanner(appContext, false);
+            PPApplication.restartWifiScanner(appContext);
         }
 
         if (permissionsChanged ||
                 (bluetoothScannerEnabled != ApplicationPreferences.applicationEventBluetoothEnableScanning) ||
                 (bluetoothScanInterval != ApplicationPreferences.applicationEventBluetoothScanInterval)) {
             //PPApplication.logE("[RJS] PhoneProfilesPrefsActivity.doPreferenceChanged", "restart bluetooth scanner");
-            PPApplication.restartBluetoothScanner(appContext, false);
+            PPApplication.restartBluetoothScanner(appContext);
         }
 
         if (permissionsChanged ||
                 (locationScannerEnabled != ApplicationPreferences.applicationEventLocationEnableScanning) ||
                 (locationScanInterval != ApplicationPreferences.applicationEventLocationUpdateInterval)) {
             //PPApplication.logE("[RJS] PhoneProfilesPrefsActivity.doPreferenceChanged", "restart location scanner");
-            PPApplication.restartGeofenceScanner(appContext, false);
+            PPApplication.restartGeofenceScanner(appContext);
         }
 
         if (permissionsChanged ||
@@ -473,7 +473,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         if (permissionsChanged ||
                 mobileCellScannerEnabled != ApplicationPreferences.applicationEventMobileCellEnableScanning) {
             //PPApplication.logE("[RJS] PhoneProfilesPrefsActivity.doPreferenceChanged", "restart phone state scanner");
-            PPApplication.restartPhoneStateScanner(appContext, false);
+            PPApplication.restartPhoneStateScanner(appContext);
         }
 
         if (permissionsChanged) {

@@ -203,7 +203,7 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_REGISTER_RECEIVERS_AND_WORKERS = "register_receivers_and_workers";
     static final String EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS = "unregister_receivers_and_workers";
     static final String EXTRA_REREGISTER_RECEIVERS_AND_WORKERS = "reregister_receivers_and_workers";
-    static final String EXTRA_FOR_SCREEN_ON = "for_screen_on";
+    static final String EXTRA_FROM_BATTERY_CHANGE = "from_battery_change";
     //static final String EXTRA_START_LOCATION_UPDATES = "start_location_updates";
     //private static final String EXTRA_STOP_LOCATION_UPDATES = "stop_location_updates";
     //static final String EXTRA_RESTART_EVENTS = "restart_events";
@@ -4246,8 +4246,6 @@ public class PhoneProfilesService extends Service
                             DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
                             dataWrapper.fillEventList();
                             //dataWrapper.fillProfileList(false, false);
-                            final boolean forScreenOn = intent.getBooleanExtra(EXTRA_FOR_SCREEN_ON, false);
-                            //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "forScreenOn="+forScreenOn);
                             switch (intent.getIntExtra(EXTRA_START_STOP_SCANNER_TYPE, 0)) {
                                 /*case PPApplication.SCANNER_START_GEOFENCE_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_START_GEOFENCE_SCANNER");
@@ -4338,7 +4336,7 @@ public class PhoneProfilesService extends Service
                                 case PPApplication.SCANNER_RESTART_GEOFENCE_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_GEOFENCE_SCANNER");
                                     registerLocationModeChangedBroadcastReceiver(true, dataWrapper);
-                                    startGeofenceScanner(true, true, dataWrapper, forScreenOn);
+                                    startGeofenceScanner(true, true, dataWrapper, true);
                                     scheduleGeofenceWorker(true, dataWrapper, /*forScreenOn,*/ true);
                                     break;
                                 case PPApplication.SCANNER_RESTART_ORIENTATION_SCANNER:
@@ -4352,39 +4350,61 @@ public class PhoneProfilesService extends Service
                                 case PPApplication.SCANNER_RESTART_ALL_SCANNERS:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_ALL_SCANNERS");
 
+                                    final boolean fromBatteryChange = intent.getBooleanExtra(EXTRA_FROM_BATTERY_CHANGE, false);
+                                    PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "fromBatteryChange="+fromBatteryChange);
+
                                     // wifi
                                     if (ApplicationPreferences.applicationEventWifiEnableScanning) {
-                                        registerWifiConnectionBroadcastReceiver(true, dataWrapper, false);
-                                        //registerWifiStateChangedBroadcastReceiver(true, true, false);
-                                        registerWifiAPStateChangeBroadcastReceiver(true, dataWrapper, false);
-                                        registerWifiScannerReceiver(true, dataWrapper, false);
-                                        scheduleWifiWorker(true, dataWrapper, /*forScreenOn, false, false,*/ true);
+                                        boolean canRestart = (!ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
+                                        if ((!fromBatteryChange) || canRestart) {
+                                            registerWifiConnectionBroadcastReceiver(true, dataWrapper, false);
+                                            //registerWifiStateChangedBroadcastReceiver(true, true, false);
+                                            registerWifiAPStateChangeBroadcastReceiver(true, dataWrapper, false);
+                                            registerWifiScannerReceiver(true, dataWrapper, false);
+                                            scheduleWifiWorker(true, dataWrapper, /*forScreenOn, false, false,*/ true);
+                                        }
                                     }
 
                                     // bluetooth
                                     if (ApplicationPreferences.applicationEventBluetoothEnableScanning) {
-                                        //registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
-                                        registerBluetoothStateChangedBroadcastReceiver(true, dataWrapper, false);
-                                        registerBluetoothScannerReceivers(true, dataWrapper, false);
-                                        scheduleBluetoothWorker(true, dataWrapper, /*forScreenOn, false,*/ true);
+                                        boolean canRestart = (!ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
+                                        if ((!fromBatteryChange) || canRestart) {
+                                            //registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
+                                            registerBluetoothStateChangedBroadcastReceiver(true, dataWrapper, false);
+                                            registerBluetoothScannerReceivers(true, dataWrapper, false);
+                                            scheduleBluetoothWorker(true, dataWrapper, /*forScreenOn, false,*/ true);
+                                        }
                                     }
 
                                     // mobile cells
                                     if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
-                                        PhoneStateScanner.forceStart = false;
-                                        startPhoneStateScanner(true, true, dataWrapper, false, true);
+                                        boolean canRestart = (!ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
+                                        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn="+ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn);
+                                        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "PPApplication.isScreenOn="+PPApplication.isScreenOn);
+                                        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "mobile cells - canRestart="+canRestart);
+                                        if ((!fromBatteryChange) || canRestart) {
+                                            PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "mobile cells - restart");
+                                            PhoneStateScanner.forceStart = false;
+                                            startPhoneStateScanner(true, true, dataWrapper, false, true);
+                                        }
                                     }
 
                                     // location
                                     if (ApplicationPreferences.applicationEventLocationEnableScanning) {
-                                        registerLocationModeChangedBroadcastReceiver(true, dataWrapper);
-                                        startGeofenceScanner(true, true, dataWrapper, forScreenOn);
-                                        scheduleGeofenceWorker(true, dataWrapper, /*forScreenOn,*/ true);
+                                        boolean canRestart = (!ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
+                                        if ((!fromBatteryChange) || canRestart) {
+                                            registerLocationModeChangedBroadcastReceiver(true, dataWrapper);
+                                            startGeofenceScanner(true, true, dataWrapper, true);
+                                            scheduleGeofenceWorker(true, dataWrapper, /*forScreenOn,*/ true);
+                                        }
                                     }
 
                                     // orientation
                                     if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
-                                        startOrientationScanner(true, true, dataWrapper);
+                                        boolean canRestart = (!ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
+                                        if ((!fromBatteryChange) || canRestart) {
+                                            startOrientationScanner(true, true, dataWrapper);
+                                        }
                                     }
 
                                     // twilight
