@@ -3660,20 +3660,13 @@ public class DataWrapper {
                             if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isPhoneStateScannerStarted()) {
                                 if (PhoneStateScanner.isValidCellId(PhoneStateScanner.registeredCell)) {
                                     String registeredCell = Integer.toString(PhoneStateScanner.registeredCell);
-
-                                    String[] splits = event._eventPreferencesMobileCells._cells.split("\\|");
-                                    boolean[] registered = new boolean[splits.length];
-                                    int i = 0;
-                                    for (String cell : splits) {
-                                        registered[i] = cell.equals(registeredCell);
-                                        i++;
-                                    }
-
                                     if (event._eventPreferencesMobileCells._whenOutside) {
                                         // all mobile cells must not be registered
+                                        String[] splits = event._eventPreferencesMobileCells._cells.split("\\|");
                                         mobileCellPassed = true;
-                                        for (boolean reg : registered) {
-                                            if (reg) {
+                                        for (String cell : splits) {
+                                            if (cell.equals(registeredCell)) {
+                                                // one of cells in configuration is registered
                                                 mobileCellPassed = false;
                                                 break;
                                             }
@@ -3681,9 +3674,11 @@ public class DataWrapper {
                                     }
                                     else {
                                         // one mobile cell must be registered
+                                        String[] splits = event._eventPreferencesMobileCells._cells.split("\\|");
                                         mobileCellPassed = false;
-                                        for (boolean reg : registered) {
-                                            if (reg) {
+                                        for (String cell : splits) {
+                                            if (cell.equals(registeredCell)) {
+                                                // one of cells in configuration is registered
                                                 mobileCellPassed = true;
                                                 break;
                                             }
