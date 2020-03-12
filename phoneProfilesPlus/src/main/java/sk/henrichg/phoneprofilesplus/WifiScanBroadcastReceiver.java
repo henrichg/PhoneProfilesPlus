@@ -105,7 +105,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
                                     if (forceOneScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                                     {
-                                        //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "start EventsHandler (1)");
+                                        //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "start work");
 
                                         Data workData = new Data.Builder()
                                                 .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS)

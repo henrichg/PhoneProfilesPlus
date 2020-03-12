@@ -104,7 +104,9 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 +"|PhoneProfilesBackupAgent"
                                                 +"|ShutdownBroadcastReceiver"
 
-                                                +"|[TEST BATTERY]"
+                                                //+"|[TEST BATTERY]"
+                                                //+"|[WiFi] DataWrapper.doHandleEvents"
+                                                //+"|WifiScanBroadcastReceiver"
 
                                                 //+"|[RJS] "
                                                 //+"|BluetoothScanWorker._scheduleWork"

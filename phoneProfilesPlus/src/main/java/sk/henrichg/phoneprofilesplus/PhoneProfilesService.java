@@ -4351,12 +4351,16 @@ public class PhoneProfilesService extends Service
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_ALL_SCANNERS");
 
                                     final boolean fromBatteryChange = intent.getBooleanExtra(EXTRA_FROM_BATTERY_CHANGE, false);
-                                    PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "fromBatteryChange="+fromBatteryChange);
+                                    //PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "fromBatteryChange="+fromBatteryChange);
 
                                     // wifi
                                     if (ApplicationPreferences.applicationEventWifiEnableScanning) {
                                         boolean canRestart = (!ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
+                                        /*PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn="+ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn);
+                                        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "PPApplication.isScreenOn="+PPApplication.isScreenOn);
+                                        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "wifi - canRestart="+canRestart);*/
                                         if ((!fromBatteryChange) || canRestart) {
+                                            //PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "wifi - restart");
                                             registerWifiConnectionBroadcastReceiver(true, dataWrapper, false);
                                             //registerWifiStateChangedBroadcastReceiver(true, true, false);
                                             registerWifiAPStateChangeBroadcastReceiver(true, dataWrapper, false);
@@ -4379,11 +4383,11 @@ public class PhoneProfilesService extends Service
                                     // mobile cells
                                     if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
                                         boolean canRestart = (!ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
-                                        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn="+ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn);
-                                        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "PPApplication.isScreenOn="+PPApplication.isScreenOn);
-                                        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "mobile cells - canRestart="+canRestart);
+                                        //PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn="+ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn);
+                                        //PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "PPApplication.isScreenOn="+PPApplication.isScreenOn);
+                                        //PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "mobile cells - canRestart="+canRestart);
                                         if ((!fromBatteryChange) || canRestart) {
-                                            PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "mobile cells - restart");
+                                            //PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "mobile cells - restart");
                                             PhoneStateScanner.forceStart = false;
                                             startPhoneStateScanner(true, true, dataWrapper, false, true);
                                         }

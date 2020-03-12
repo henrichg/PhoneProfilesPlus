@@ -2771,8 +2771,8 @@ public class DataWrapper {
                     }
                 }
 
-                //if (event._name.equals("Doma"))
-                //    PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiPassed - connected =" + wifiPassed);
+               // if (event._name.equals("Doma"))
+               //     PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiPassed - connected =" + wifiPassed);
 
                 if ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
                         (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY)) {
@@ -2898,9 +2898,9 @@ public class DataWrapper {
                                         }
                                     }
 
-                                } //else
-                                    //if (event._name.equals("Doma"))
-                                    //    PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "scanResults == null");
+                                } /*else
+                                    if (event._name.equals("Doma"))
+                                        PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "scanResults == null");*/
                             }
                         }
                     }
