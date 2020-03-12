@@ -5301,14 +5301,14 @@ public class PhoneProfilesService extends Service
 
                 //if ((Build.VERSION.SDK_INT >= 26) || notificationStatusBarPermanent) {
                     if (PPApplication.startForegroundNotification) {
-                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "startForeground()");
+                        //PPApplication.logE("PhoneProfilesService._showProfileNotification", "startForeground()");
                         startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
                         PPApplication.startForegroundNotification = false;
                     }
                     else {
                         NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
                         if (notificationManager != null) {
-                            PPApplication.logE("PhoneProfilesService._showProfileNotification", "notify()");
+                            //PPApplication.logE("PhoneProfilesService._showProfileNotification", "notify()");
                             notificationManager.notify(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
                         }
                     }

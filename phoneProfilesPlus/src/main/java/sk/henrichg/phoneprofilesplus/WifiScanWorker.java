@@ -629,7 +629,11 @@ public class WifiScanWorker extends Worker {
 
         if (Permissions.checkLocation(context)) {
             List<ScanResult> _scanResults = wifi.getScanResults();
-            //PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "_scanResults="+_scanResults);
+            if (PPApplication.logEnabled()) {
+                int wifiState = wifi.getWifiState();
+                PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "wifiState=" + wifiState);
+                PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "_scanResults=" + _scanResults);
+            }
             if (_scanResults != null) {
                 //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                 //boolean isScreenOn = PPApplication.isScreenOn(pm);
@@ -637,16 +641,17 @@ public class WifiScanWorker extends Worker {
                 //if ((android.os.Build.VERSION.SDK_INT < 21) || (_scanResults.size() > 0) || isScreenOn) {
                 save = true;
                 scanResults.clear();
-                for (ScanResult device : _scanResults) {
+                for (ScanResult _device : _scanResults) {
                     boolean found = false;
-                    for (WifiSSIDData _device : scanResults) {
-                        if (_device.bssid.equals(device.BSSID)) {
+                    for (WifiSSIDData device : scanResults) {
+                        if (device.bssid.equals(_device.BSSID)) {
+                            // is already in scanResults
                             found = true;
                             break;
                         }
                     }
                     if (!found) {
-                        scanResults.add(new WifiSSIDData(device.SSID, device.BSSID, false, false, true));
+                        scanResults.add(new WifiSSIDData(_device.SSID, _device.BSSID, false, false, true));
                     }
                 }
                 //}
