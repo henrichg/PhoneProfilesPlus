@@ -644,22 +644,31 @@ class EventPreferencesNotification extends EventPreferences {
     }
 
 
-    // search if any configured package names are visible in status bar
-    private StatusBarNotification isNotificationActive(StatusBarNotification[] statusBarNotifications, String packageName, boolean checkEnd/*, Context context*/) {
-        for (StatusBarNotification statusBarNotification : statusBarNotifications) {
-            String packageNameFromNotification = statusBarNotification.getPackageName();
+    // test statusBarNotification for event parameters
+    private StatusBarNotification isNotificationActive(StatusBarNotification statusBarNotification, String packageName, boolean checkEnd/*, Context context*/) {
+        String packageNameFromNotification = statusBarNotification.getPackageName();
+
+        boolean packageNameFound = false;
+        if (checkEnd) {
+            if (packageNameFromNotification.endsWith(packageName)) {
+                //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName returned=" + _packageName);
+                packageNameFound = true;
+            }
+        } else {
+            if (packageNameFromNotification.equals(packageName)) {
+                //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName returned=" + _packageName);
+                packageNameFound = true;
+            }
+        }
+        if (packageNameFound) {
 
             boolean testText = false;
-            if (_checkContacts)
-                testText = true;
-            if (_checkText)
-                testText = true;
 
             String notificationTicker = "";
             String notificationTitle = "";
             String notificationText = "";
-            if (testText) {
-                testText = false;
+
+            if (_checkContacts || _checkText) {
                 if (statusBarNotification.getNotification().tickerText != null) {
                     notificationTicker = statusBarNotification.getNotification().tickerText.toString();
                     testText = true;
@@ -684,6 +693,8 @@ class EventPreferencesNotification extends EventPreferences {
 
             boolean textFound = false;
             if (testText) {
+                // title or text or ticker is set in notification
+
                 if (_checkContacts) {
                     if (_contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) {
                         boolean phoneNumberFound = false;
@@ -698,26 +709,27 @@ class EventPreferencesNotification extends EventPreferences {
                             textFound = phoneNumberFound;
                         else
                             textFound = !phoneNumberFound;
-                    }
-                    else
+                    } else
+                        // all contacts
                         textFound = true;
                 }
                 if (_checkText) {
                     String searchText = "";
-                    for (int i = 0; i < 3; i++) {
-                        if (i == 0) {
+                    for (int whatTest = 0; whatTest < 3; whatTest++) {
+                        // test in loop title (0), text(1), ticker(2)
+                        if (whatTest == 0) {
                             if (!notificationTitle.isEmpty())
                                 searchText = notificationTitle;
                             else
                                 continue;
                         }
-                        if (i == 1) {
+                        if (whatTest == 1) {
                             if (!notificationText.isEmpty())
                                 searchText = notificationText;
                             else
                                 continue;
                         }
-                        if (i == 2) {
+                        if (whatTest == 2) {
                             if (!notificationTicker.isEmpty())
                                 searchText = notificationTicker;
                             else
@@ -766,11 +778,11 @@ class EventPreferencesNotification extends EventPreferences {
 
                                 ++argsId;
 
-                                /*if (PPApplication.logEnabled()) {
-                                    PPApplication.logE("EventPreferencesNotification.isNotificationActive", "split=" + split);
-                                    PPApplication.logE("EventPreferencesNotification.isNotificationActive", "searchPattern=" + searchPattern);
-                                    PPApplication.logE("EventPreferencesNotification.isNotificationActive", "argsId=" + argsId);
-                                }*/
+                            /*if (PPApplication.logEnabled()) {
+                                PPApplication.logE("EventPreferencesNotification.isNotificationActive", "split=" + split);
+                                PPApplication.logE("EventPreferencesNotification.isNotificationActive", "searchPattern=" + searchPattern);
+                                PPApplication.logE("EventPreferencesNotification.isNotificationActive", "argsId=" + argsId);
+                            }*/
                             }
                         }
                         //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "positiveExists=" + positiveExists);
@@ -814,11 +826,11 @@ class EventPreferencesNotification extends EventPreferences {
 
                                 ++argsId;
 
-                                /*if (PPApplication.logEnabled()) {
-                                    PPApplication.logE("EventPreferencesNotification.isNotificationActive", "split=" + split);
-                                    PPApplication.logE("EventPreferencesNotification.isNotificationActive", "searchPattern=" + searchPattern);
-                                    PPApplication.logE("EventPreferencesNotification.isNotificationActive", "argsId=" + argsId);
-                                }*/
+                            /*if (PPApplication.logEnabled()) {
+                                PPApplication.logE("EventPreferencesNotification.isNotificationActive", "split=" + split);
+                                PPApplication.logE("EventPreferencesNotification.isNotificationActive", "searchPattern=" + searchPattern);
+                                PPApplication.logE("EventPreferencesNotification.isNotificationActive", "argsId=" + argsId);
+                            }*/
                             }
                         }
                         //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "negativeExists=" + negativeExists);
@@ -827,10 +839,10 @@ class EventPreferencesNotification extends EventPreferences {
                         if (positiveExists) {
                             for (String _positiveText : positiveList) {
                                 if ((_positiveText != null) && (!_positiveText.isEmpty())) {
-                                    /*if (PPApplication.logEnabled()) {
-                                        PPApplication.logE("EventPreferencesNotification.isNotificationActive", "searchText.toLowerCase()=" + searchText.toLowerCase());
-                                        PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_positiveText.toLowerCase()=" + _positiveText.toLowerCase());
-                                    }*/
+                                /*if (PPApplication.logEnabled()) {
+                                    PPApplication.logE("EventPreferencesNotification.isNotificationActive", "searchText.toLowerCase()=" + searchText.toLowerCase());
+                                    PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_positiveText.toLowerCase()=" + _positiveText.toLowerCase());
+                                }*/
                                     if (searchText.toLowerCase().matches(_positiveText.toLowerCase())) {
                                         foundPositive = true;
                                         break;
@@ -842,10 +854,10 @@ class EventPreferencesNotification extends EventPreferences {
                         if (negativeExists) {
                             for (String _negativeText : negativeList) {
                                 if ((_negativeText != null) && (!_negativeText.isEmpty())) {
-                                    /*if (PPApplication.logEnabled()) {
-                                        PPApplication.logE("EventPreferencesNotification.isNotificationActive", "searchText.toLowerCase()=" + searchText.toLowerCase());
-                                        PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_negativeText.toLowerCase()=" + _negativeText.toLowerCase());
-                                    }*/
+                                /*if (PPApplication.logEnabled()) {
+                                    PPApplication.logE("EventPreferencesNotification.isNotificationActive", "searchText.toLowerCase()=" + searchText.toLowerCase());
+                                    PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_negativeText.toLowerCase()=" + _negativeText.toLowerCase());
+                                }*/
                                     if (searchText.toLowerCase().matches(_negativeText.toLowerCase())) {
                                         foundNegative = false;
                                         break;
@@ -864,40 +876,23 @@ class EventPreferencesNotification extends EventPreferences {
                         if (textFound)
                             break;
                     }
-
                 }
             }
             //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "textFound=" + textFound);
 
-            if (testText && textFound) {
-                if (checkEnd) {
-                    if (packageNameFromNotification.endsWith(packageName)) {
-                        //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName returned=" + _packageName);
-                        return statusBarNotification;
-                    }
-                } else {
-                    if (packageNameFromNotification.equals(packageName)) {
-                        //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName returned=" + _packageName);
-                        return statusBarNotification;
-                    }
-                }
+            if (testText) {
+                // is configured test text (_checkContacts or _checkText = true)
+                if (textFound)
+                    return statusBarNotification;
+                else
+                    return null;
             }
-            else if (!testText) {
-                if (checkEnd) {
-                    if (packageNameFromNotification.endsWith(packageName)) {
-                        //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName returned=" + _packageName);
-                        return statusBarNotification;
-                    }
-                } else {
-                    if (packageNameFromNotification.equals(packageName)) {
-                        //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName returned=" + _packageName);
-                        return statusBarNotification;
-                    }
-                }
+            else {
+                // is not configured test text (_checkContacts and _checkText = false)
+                return statusBarNotification;
             }
-            else
-                return null;
         }
+        // package name not found
         return null;
     }
 
@@ -909,150 +904,151 @@ class EventPreferencesNotification extends EventPreferences {
                 try {
                     StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();
                     if ((statusBarNotifications != null) && (statusBarNotifications.length > 0)) {
-                        StatusBarNotification notification;
-                        if (this._inCall) {
-                            // Nexus/Pixel??? stock ROM
-                            notification = isNotificationActive(statusBarNotifications, "com.google.android.dialer", false/*, context*/);
-                            if (notification != null) {
-                                if (_duration != 0) {
-                                    long postTime = notification.getPostTime() + this._duration * 1000;
+                        for (StatusBarNotification statusBarNotification : statusBarNotifications) {
+                            if (this._inCall) {
+                                // Nexus/Pixel??? stock ROM
+                                StatusBarNotification activeNotification = isNotificationActive(statusBarNotification, "com.google.android.dialer", false/*, context*/);
+                                if (activeNotification != null) {
+                                    if (_duration != 0) {
+                                        long postTime = activeNotification.getPostTime() + this._duration * 1000;
 
-                                /*if (PPApplication.logEnabled()) {
-                                    Calendar calendar = Calendar.getInstance();
-                                    PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
+                                    /*if (PPApplication.logEnabled()) {
+                                        Calendar calendar = Calendar.getInstance();
+                                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
 
-                                    calendar.setTimeInMillis(postTime);
-                                    PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
-                                }*/
+                                        calendar.setTimeInMillis(postTime);
+                                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
+                                    }*/
 
-                                    if (System.currentTimeMillis() < postTime)
+                                        if (System.currentTimeMillis() < postTime)
+                                            return true;
+                                    } else
                                         return true;
-                                } else
-                                    return true;
+                                }
+                                // Samsung, MIUI, EMUI, Sony
+                                activeNotification = isNotificationActive(statusBarNotification, "android.incallui", true/*, context*/);
+                                if (activeNotification != null) {
+                                    if (_duration != 0) {
+                                        long postTime = activeNotification.getPostTime() + this._duration * 1000;
+
+                                    /*if (PPApplication.logEnabled()) {
+                                        Calendar calendar = Calendar.getInstance();
+                                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
+
+                                        calendar.setTimeInMillis(postTime);
+                                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
+                                    }*/
+
+                                        if (System.currentTimeMillis() < postTime)
+                                            return true;
+                                    } else
+                                        return true;
+                                }
                             }
-                            // Samsung, MIUI, EMUI, Sony
-                            notification = isNotificationActive(statusBarNotifications, "android.incallui", true/*, context*/);
-                            if (notification != null) {
-                                if (_duration != 0) {
-                                    long postTime = notification.getPostTime() + this._duration * 1000;
+                            if (this._missedCall) {
+                                // Samsung, MIUI, Nexus/Pixel??? stock ROM, Sony
+                                StatusBarNotification activeNotification = isNotificationActive(statusBarNotification, "com.android.server.telecom", false/*, context*/);
+                                if (activeNotification != null) {
+                                    if (_duration != 0) {
+                                        long postTime = activeNotification.getPostTime() + this._duration * 1000;
 
-                                /*if (PPApplication.logEnabled()) {
-                                    Calendar calendar = Calendar.getInstance();
-                                    PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
+                                    /*if (PPApplication.logEnabled()) {
+                                        Calendar calendar = Calendar.getInstance();
+                                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
 
-                                    calendar.setTimeInMillis(postTime);
-                                    PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
-                                }*/
+                                        calendar.setTimeInMillis(postTime);
+                                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
+                                    }*/
 
-                                    if (System.currentTimeMillis() < postTime)
+                                        if (System.currentTimeMillis() < postTime)
+                                            return true;
+                                    } else
                                         return true;
-                                } else
-                                    return true;
+                                }
+                                // Samsung One UI
+                                activeNotification = isNotificationActive(statusBarNotification, "com.samsung.android.dialer", false/*, context*/);
+                                if (activeNotification != null) {
+                                    if (_duration != 0) {
+                                        long postTime = activeNotification.getPostTime() + this._duration * 1000;
+
+                                    /*if (PPApplication.logEnabled()) {
+                                        Calendar calendar = Calendar.getInstance();
+                                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
+
+                                        calendar.setTimeInMillis(postTime);
+                                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
+                                    }*/
+
+                                        if (System.currentTimeMillis() < postTime)
+                                            return true;
+                                    } else
+                                        return true;
+                                }
+                                // LG
+                                activeNotification = isNotificationActive(statusBarNotification, "com.android.phone", false/*, context*/);
+                                if (activeNotification != null) {
+                                    if (_duration != 0) {
+                                        long postTime = activeNotification.getPostTime() + this._duration * 1000;
+
+                                    /*if (PPApplication.logEnabled()) {
+                                        Calendar calendar = Calendar.getInstance();
+                                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
+
+                                        calendar.setTimeInMillis(postTime);
+                                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
+                                    }*/
+
+                                        if (System.currentTimeMillis() < postTime)
+                                            return true;
+                                    } else
+                                        return true;
+                                }
+                                // EMUI
+                                activeNotification = isNotificationActive(statusBarNotification, "com.android.contacts", false/*, context*/);
+                                if (activeNotification != null) {
+                                    if (_duration != 0) {
+                                        long postTime = activeNotification.getPostTime() + this._duration * 1000;
+
+                                    /*if (PPApplication.logEnabled()) {
+                                        Calendar calendar = Calendar.getInstance();
+                                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
+
+                                        calendar.setTimeInMillis(postTime);
+                                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
+                                    }*/
+
+                                        if (System.currentTimeMillis() < postTime)
+                                            return true;
+                                    } else
+                                        return true;
+                                }
                             }
-                        }
-                        if (this._missedCall) {
-                            // Samsung, MIUI, Nexus/Pixel??? stock ROM, Sony
-                            notification = isNotificationActive(statusBarNotifications, "com.android.server.telecom", false/*, context*/);
-                            if (notification != null) {
-                                if (_duration != 0) {
-                                    long postTime = notification.getPostTime() + this._duration * 1000;
 
-                                /*if (PPApplication.logEnabled()) {
-                                    Calendar calendar = Calendar.getInstance();
-                                    PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
+                            String[] splits = this._applications.split("\\|");
+                            for (String split : splits) {
+                                // get only package name = remove activity
+                                String packageName = Application.getPackageName(split);
+                                //PPApplication.logE("[TEST BATTERY] EventPreferencesNotification.isNotificationVisible", "packageName=" + packageName);
+                                // search for package name in saved package names
+                                StatusBarNotification activeNotification = isNotificationActive(statusBarNotification, packageName, false/*, context*/);
+                                //PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification=" + notification);
+                                if (activeNotification != null) {
+                                    if (_duration != 0) {
+                                        long postTime = activeNotification.getPostTime() + this._duration * 1000;
 
-                                    calendar.setTimeInMillis(postTime);
-                                    PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
-                                }*/
+                                    /*if (PPApplication.logEnabled()) {
+                                        Calendar calendar = Calendar.getInstance();
+                                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
 
-                                    if (System.currentTimeMillis() < postTime)
+                                        calendar.setTimeInMillis(postTime);
+                                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
+                                    }*/
+
+                                        if (System.currentTimeMillis() < postTime)
+                                            return true;
+                                    } else
                                         return true;
-                                } else
-                                    return true;
-                            }
-                            // Samsung One UI
-                            notification = isNotificationActive(statusBarNotifications, "com.samsung.android.dialer", false/*, context*/);
-                            if (notification != null) {
-                                if (_duration != 0) {
-                                    long postTime = notification.getPostTime() + this._duration * 1000;
-
-                                /*if (PPApplication.logEnabled()) {
-                                    Calendar calendar = Calendar.getInstance();
-                                    PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
-
-                                    calendar.setTimeInMillis(postTime);
-                                    PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
-                                }*/
-
-                                    if (System.currentTimeMillis() < postTime)
-                                        return true;
-                                } else
-                                    return true;
-                            }
-                            // LG
-                            notification = isNotificationActive(statusBarNotifications, "com.android.phone", false/*, context*/);
-                            if (notification != null) {
-                                if (_duration != 0) {
-                                    long postTime = notification.getPostTime() + this._duration * 1000;
-
-                                /*if (PPApplication.logEnabled()) {
-                                    Calendar calendar = Calendar.getInstance();
-                                    PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
-
-                                    calendar.setTimeInMillis(postTime);
-                                    PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
-                                }*/
-
-                                    if (System.currentTimeMillis() < postTime)
-                                        return true;
-                                } else
-                                    return true;
-                            }
-                            // EMUI
-                            notification = isNotificationActive(statusBarNotifications, "com.android.contacts", false/*, context*/);
-                            if (notification != null) {
-                                if (_duration != 0) {
-                                    long postTime = notification.getPostTime() + this._duration * 1000;
-
-                                /*if (PPApplication.logEnabled()) {
-                                    Calendar calendar = Calendar.getInstance();
-                                    PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
-
-                                    calendar.setTimeInMillis(postTime);
-                                    PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
-                                }*/
-
-                                    if (System.currentTimeMillis() < postTime)
-                                        return true;
-                                } else
-                                    return true;
-                            }
-                        }
-
-                        String[] splits = this._applications.split("\\|");
-                        for (String split : splits) {
-                            // get only package name = remove activity
-                            String packageName = Application.getPackageName(split);
-                            //PPApplication.logE("[TEST BATTERY] EventPreferencesNotification.isNotificationVisible", "packageName=" + packageName);
-                            // search for package name in saved package names
-                            notification = isNotificationActive(statusBarNotifications, packageName, false/*, context*/);
-                            //PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification=" + notification);
-                            if (notification != null) {
-                                if (_duration != 0) {
-                                    long postTime = notification.getPostTime() + this._duration * 1000;
-
-                                /*if (PPApplication.logEnabled()) {
-                                    Calendar calendar = Calendar.getInstance();
-                                    PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
-
-                                    calendar.setTimeInMillis(postTime);
-                                    PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
-                                }*/
-
-                                    if (System.currentTimeMillis() < postTime)
-                                        return true;
-                                } else
-                                    return true;
+                                }
                             }
                         }
                     }
@@ -1116,59 +1112,67 @@ class EventPreferencesNotification extends EventPreferences {
             if (service != null) {
                 StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();
                 StatusBarNotification newestNotification = null;
-                StatusBarNotification notification;
+                StatusBarNotification activeNotification;
 
-                if (this._inCall) {
-                    // Nexus/Pixel??? stock ROM
-                    notification = isNotificationActive(statusBarNotifications, "com.google.android.dialer", false/*, context*/);
-                    if (notification != null) {
-                        //noinspection ConstantConditions
-                        if ((newestNotification == null) || (notification.getPostTime() > newestNotification.getPostTime()))
-                            newestNotification = notification;
+                for (StatusBarNotification statusBarNotification : statusBarNotifications) {
+                    if (this._inCall) {
+                        // Nexus/Pixel??? stock ROM
+                        activeNotification = isNotificationActive(statusBarNotification, "com.google.android.dialer", false/*, context*/);
+                        if (activeNotification != null) {
+                            if ((newestNotification == null) || (activeNotification.getPostTime() > newestNotification.getPostTime())) {
+                                newestNotification = activeNotification;
+                            }
+                        }
+                        // Samsung, MIUI, EMUI, Sony
+                        activeNotification = isNotificationActive(statusBarNotification, "android.incallui", true/*, context*/);
+                        if (activeNotification != null) {
+                            if ((newestNotification == null) || (activeNotification.getPostTime() > newestNotification.getPostTime())) {
+                                newestNotification = activeNotification;
+                            }
+                        }
                     }
-                    // Samsung, MIUI, EMUI, Sony
-                    notification = isNotificationActive(statusBarNotifications, "android.incallui", true/*, context*/);
-                    if (notification != null) {
-                        if ((newestNotification == null) || (notification.getPostTime() > newestNotification.getPostTime()))
-                            newestNotification = notification;
+                    if (this._missedCall) {
+                        // Samsung, MIUI, Nexus/Pixel??? stock ROM, Sony
+                        activeNotification = isNotificationActive(statusBarNotification, "com.android.server.telecom", false/*, context*/);
+                        if (activeNotification != null) {
+                            if ((newestNotification == null) || (activeNotification.getPostTime() > newestNotification.getPostTime())) {
+                                newestNotification = activeNotification;
+                            }
+                        }
+                        // Samsung One UI
+                        activeNotification = isNotificationActive(statusBarNotification, "com.samsung.android.dialer", false/*, context*/);
+                        if (activeNotification != null) {
+                            if ((newestNotification == null) || (activeNotification.getPostTime() > newestNotification.getPostTime())) {
+                                newestNotification = activeNotification;
+                            }
+                        }
+                        // LG
+                        activeNotification = isNotificationActive(statusBarNotification, "com.android.phone", false/*, context*/);
+                        if (activeNotification != null) {
+                            if ((newestNotification == null) || (activeNotification.getPostTime() > newestNotification.getPostTime())) {
+                                newestNotification = activeNotification;
+                            }
+                        }
+                        // EMUI
+                        activeNotification = isNotificationActive(statusBarNotification, "com.android.contacts", false/*, context*/);
+                        if (activeNotification != null) {
+                            if ((newestNotification == null) || (activeNotification.getPostTime() > newestNotification.getPostTime())) {
+                                newestNotification = activeNotification;
+                            }
+                        }
                     }
-                }
-                if (this._missedCall) {
-                    // Samsung, MIUI, Nexus/Pixel??? stock ROM, Sony
-                    notification = isNotificationActive(statusBarNotifications, "com.android.server.telecom", false/*, context*/);
-                    if (notification != null) {
-                        if ((newestNotification == null) || (notification.getPostTime() > newestNotification.getPostTime()))
-                            newestNotification = notification;
-                    }
-                    // Samsung One UI
-                    notification = isNotificationActive(statusBarNotifications, "com.samsung.android.dialer", false/*, context*/);
-                    if (notification != null) {
-                        if ((newestNotification == null) || (notification.getPostTime() > newestNotification.getPostTime()))
-                            newestNotification = notification;
-                    }
-                    // LG
-                    notification = isNotificationActive(statusBarNotifications, "com.android.phone", false/*, context*/);
-                    if (notification != null) {
-                        if ((newestNotification == null) || (notification.getPostTime() > newestNotification.getPostTime()))
-                            newestNotification = notification;
-                    }
-                    // EMUI
-                    notification = isNotificationActive(statusBarNotifications, "com.android.contacts", false/*, context*/);
-                    if (notification != null) {
-                        if ((newestNotification == null) || (notification.getPostTime() > newestNotification.getPostTime()))
-                            newestNotification = notification;
-                    }
-                }
 
-                String[] splits = this._applications.split("\\|");
-                for (String split : splits) {
-                    // get only package name = remove activity
-                    String packageName = Application.getPackageName(split);
-                    // search for package name in saved package names
-                    notification = isNotificationActive(statusBarNotifications, packageName, false/*, context*/);
-                    if (notification != null) {
-                        if ((newestNotification == null) || (notification.getPostTime() > newestNotification.getPostTime()))
-                            newestNotification = notification;
+                    String[] splits = this._applications.split("\\|");
+                    for (String split : splits) {
+                        // get only package name = remove activity
+                        String packageName = Application.getPackageName(split);
+                        // search for package name in saved package names
+                        activeNotification = isNotificationActive(statusBarNotification, packageName, false/*, context*/);
+                        if (activeNotification != null) {
+                            if ((newestNotification == null) || (activeNotification.getPostTime() > newestNotification.getPostTime())) {
+                                newestNotification = activeNotification;
+                            }
+                        }
                     }
                 }
 

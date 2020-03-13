@@ -335,13 +335,15 @@ public class PPNotificationListenerService extends NotificationListenerService {
         String packageName = context.getPackageName();
 
         //if (packageNames != null) {
-            for (String pkgName : packageNames) {
+            return packageNames.contains(packageName);
+
+            /*for (String pkgName : packageNames) {
                 //if (className.contains(pkgName)) {
                 if (packageName.equals(pkgName)) {
                     return true;
                 }
             }
-            return false;
+            return false;*/
         //}
         //else
         //    return false;
