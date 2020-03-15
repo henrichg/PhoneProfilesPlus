@@ -107,8 +107,8 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|[TEST BATTERY]"
                                                 //+"|[WiFi] DataWrapper.doHandleEvents"
                                                 //+"|WifiScanBroadcastReceiver"
-                                                +"|WifiBluetoothScanner.enableWifi"
-                                                +"|WifiScanWorker.fillScanResults"
+                                                //+"|WifiBluetoothScanner.enableWifi"
+                                                //+"|WifiScanWorker.fillScanResults"
 
                                                 //+"|[RJS] "
                                                 //+"|BluetoothScanWorker._scheduleWork"
@@ -3054,15 +3054,16 @@ public class PPApplication extends Application /*implements Application.Activity
                         }
                     });
                 }*/
-                if (PPApplication.screenTimeoutHandler != null) {
-                    PPApplication.screenTimeoutHandler.post(new Runnable() {
-                        public void run() {
+                //if (PPApplication.screenTimeoutHandler != null) {
+                //    PPApplication.screenTimeoutHandler.post(new Runnable() {
+                //        public void run() {
                             //ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(context);
                             //ActivateProfileHelper.removeBrightnessView(context);
+                            //PPApplication.logE("******** PPApplication._exitApp()", "remove wakelock");
                             ActivateProfileHelper.removeKeepScreenOnView();
-                        }
-                    });
-                }
+                //        }
+                //    });
+                //}
 
                 //PPApplication.initRoot();
             }

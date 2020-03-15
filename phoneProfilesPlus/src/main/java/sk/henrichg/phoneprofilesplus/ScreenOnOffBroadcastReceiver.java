@@ -60,6 +60,8 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             PPApplication.isScreenOn = true;
 
                             Profile profile = DatabaseHandler.getInstance(appContext).getActivatedProfile();
+                            //if (profile != null)
+                            //    PPApplication.logE("******** ScreenOnOffBroadcastReceiver.onReceive", "profile._screenOnPermanent="+profile._screenOnPermanent);
                             if ((profile != null) && (profile._screenOnPermanent == 1))
                                 ActivateProfileHelper.createKeepScreenOnView(appContext);
                             else

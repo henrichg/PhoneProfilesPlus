@@ -2977,7 +2977,7 @@ class ActivateProfileHelper {
 
     @SuppressLint("WakelockTimeout")
     static void createKeepScreenOnView(Context context) {
-        removeKeepScreenOnView();
+        //removeKeepScreenOnView();
 
         //if (PhoneProfilesService.getInstance() != null) {
         final Context appContext = context.getApplicationContext();
