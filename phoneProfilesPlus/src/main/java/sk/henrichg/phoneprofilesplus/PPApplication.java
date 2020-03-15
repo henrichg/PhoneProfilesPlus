@@ -107,6 +107,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|[TEST BATTERY]"
                                                 //+"|[WiFi] DataWrapper.doHandleEvents"
                                                 //+"|WifiScanBroadcastReceiver"
+                                                //+"|DelayedWorksWorker.doWork"
                                                 //+"|WifiBluetoothScanner.enableWifi"
                                                 //+"|WifiScanWorker.fillScanResults"
 
@@ -170,7 +171,9 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|%%%%%%% DataWrapper.doHandleEvents"
                                                 //+"|#### EventsHandler.handleEvents"
                                                 //+"|[DEFPROF] EventsHandler"
-                                                //+"|$$$ EventsHandler.handleEvents"
+                                                //+"|EventsHandler.handleEvents"
+                                                //+"|DataWrapper.activateProfileFromEvent"
+                                                //+"|DataWrapper._activateProfile"
                                                 //+"|EventsHandler.handleEvents"
                                                 //+"|Profile.mergeProfiles"
                                                 //+"|Profile.compareProfiles"

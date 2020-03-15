@@ -464,6 +464,7 @@ class EventsHandler {
                     }
                 }
             } else {
+                //PPApplication.logE("[TEST BATTERY]  EventsHandler.handleEvents", "NO restart events");
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("$$$ EventsHandler.handleEvents", "NO restart events");
                     PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "NO restart events");
@@ -707,6 +708,8 @@ class EventsHandler {
 
             boolean doSleep = false;
 
+            //PPApplication.logE("[TEST BATTERY]  EventsHandler.handleEvents", "mergedProfile._name="+mergedProfile._name);
+
             if (mergedProfile._id != 0) {
                 // activate merged profile
                 /*if (PPApplication.logEnabled()) {
@@ -726,8 +729,9 @@ class EventsHandler {
                 if (!mergedProfile.compareProfile(oldActivatedProfile))
                     profileChanged = true;
                 //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### profileChanged=" + profileChanged);
+                //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### isRestart=" + isRestart);
 
-                if (profileChanged || sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS)) {
+                if (profileChanged || isRestart /*sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS)*/) {
                     // log only when merged profile is not the same as last activated
                     // or for manual restart events
 

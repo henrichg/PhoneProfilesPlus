@@ -543,6 +543,7 @@ public class DataWrapper {
         //        /*false, monochrome, monochromeValue,*/
         //        startupSource, false,true, false)) {
         if (EditorProfilesActivity.displayRedTextToPreferencesNotification(profile, null, context)) {
+            //PPApplication.logE("DataWrapper.activateProfileFromEvent", "***********");
             _activateProfile(profile, merged, startupSource, forRestartEvents);
         }
     }
@@ -1581,10 +1582,15 @@ public class DataWrapper {
         else
             PPApplication.logE("$$$ DataWrapper._activateProfile","profile=null");*/
 
+        if (_profile != null)
+            Profile.saveProfileToSharedPreferences(_profile, context, PPApplication.ACTIVATED_PROFILE_PREFS_NAME);
+
         boolean fullyStarted = false;
         if (PhoneProfilesService.getInstance() != null)
             fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
         boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
+        //PPApplication.logE("DataWrapper._activateProfile", "fullyStarted="+fullyStarted);
+        //PPApplication.logE("DataWrapper._activateProfile", "applicationPackageReplaced="+applicationPackageReplaced);
         if ((!fullyStarted) || applicationPackageReplaced) {
             // do not activate profile during application start
             PPApplication.showProfileNotification(/*context*/startupSource == PPApplication.STARTUP_SOURCE_BOOT, false);
@@ -1592,6 +1598,7 @@ public class DataWrapper {
             ActivateProfileHelper.updateGUI(context, true, startupSource == PPApplication.STARTUP_SOURCE_BOOT);
             return;
         }
+        //PPApplication.logE("DataWrapper._activateProfile", "activate");
 
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("$$$ DataWrapper._activateProfile", "startupSource=" + startupSource);
@@ -1630,8 +1637,6 @@ public class DataWrapper {
 
         DatabaseHandler.getInstance(context).activateProfile(_profile);
         setProfileActive(_profile);
-        if (_profile != null)
-            Profile.saveProfileToSharedPreferences(_profile, context, PPApplication.ACTIVATED_PROFILE_PREFS_NAME);
 
         //PPApplication.logE("$$$ DataWrapper._activateProfile","after activation");
 
