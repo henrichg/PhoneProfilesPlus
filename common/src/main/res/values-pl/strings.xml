@@ -1413,8 +1413,8 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions on</string>
     <string name="array_pref_soundModeArray_ZenModeM_Off">Do not disturb off</string>
     <string name="array_pref_soundModeArray_ZenModeM_On">Do not disturb on</string>
-    <string name="draw_over_apps_permission_notification_title">\"Draw over apps\" permission</string>
-    <string name="draw_over_apps_permission_notification_text">You must grant permission \"Draw over apps\". It is required to start activities when PhoneProfilesPlus is in background. Click here to grant this permission.</string>
+    <string name="draw_over_apps_permission_notification_title">Zezwolenie na \"Rysuj nad aplikacjami\"</string>
+    <string name="draw_over_apps_permission_notification_text">Musisz przyznać uprawnienie \"Rysuj nad aplikacjami\". Jest to wymagane aby uruchamiać aktywności, gdy PhoneProfilesPlus działa w tle. Kliknij tutaj, aby przyznać to uprawnienie.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>

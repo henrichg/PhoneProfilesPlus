@@ -1412,8 +1412,8 @@
     <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions activées</string>
     <string name="array_pref_soundModeArray_ZenModeM_Off">Ne pas déranger désactivé</string>
     <string name="array_pref_soundModeArray_ZenModeM_On">Ne pas déranger activé</string>
-    <string name="draw_over_apps_permission_notification_title">\"Draw over apps\" permission</string>
-    <string name="draw_over_apps_permission_notification_text">You must grant permission \"Draw over apps\". It is required to start activities when PhoneProfilesPlus is in background. Click here to grant this permission.</string>
+    <string name="draw_over_apps_permission_notification_title">Autorisation \"Dessiner sur les applications\"</string>
+    <string name="draw_over_apps_permission_notification_text">Vous devez accorder la permission \"Dessiner sur les applications\". Il est requis pour démarrer des activités lorsque PhoneProfilesPlus est en arrière-plan. Cliquez ici pour accorder cette autorisation.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>

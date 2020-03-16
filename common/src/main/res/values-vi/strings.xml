@@ -24,9 +24,9 @@
     <string name="toast_profile_activated_1">đã kích hoạt</string>
     <string name="preference_profile_no_change">Không đổi</string>
     <string name="title_activity_phone_profiles_preferences">Cấu hình ứng dụng</string>
-    <string name="menu_exit">Exit</string>
+    <string name="menu_exit">Thoát</string>
     <string name="activate_profile_alert_message">Activate profile?</string>
-    <string name="brightness_pref_dialog_no_change_chb">Do not change</string>
+    <string name="brightness_pref_dialog_no_change_chb">Vui lòng đừng thay đổi</string>
     <string name="brightness_pref_dialog_automatic_chb">Automatic</string>
     <string name="volume_pref_dialog_no_change_chb">Do not change</string>
     <string name="phone_profiles_pref_category_activator">Activator</string>
