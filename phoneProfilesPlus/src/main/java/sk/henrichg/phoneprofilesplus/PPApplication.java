@@ -1190,6 +1190,12 @@ public class PPApplication extends Application /*implements Application.Activity
         }
     }
 
+    static PPApplication getInstance() {
+        //synchronized (PPApplication.phoneProfilesServiceMutex) {
+        return instance;
+        //}
+    }
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);

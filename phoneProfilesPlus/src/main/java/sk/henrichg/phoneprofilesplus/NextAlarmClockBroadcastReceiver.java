@@ -115,11 +115,13 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
     private void setAlarm(long alarmTime, AlarmManager alarmManager, Context context) {
         removeAlarm(alarmManager, context);
 
-        PhoneProfilesService instance = PhoneProfilesService.getInstance();
-        if (instance == null)
-            return;
+        //PhoneProfilesService instance = PhoneProfilesService.getInstance();
+        //if (instance == null)
+        //    return;
 
-        if (instance.alarmClockBroadcastReceiver != null) {
+        // !!! Keep disabled "if", next alarm my be is received before registering
+        // AlarmClockBroadcastReceiver for example from Editor
+        //if (instance.alarmClockBroadcastReceiver != null) {
             //long alarmTime = time;// - Event.EVENT_ALARM_TIME_SOFT_OFFSET;
 
             /*if (PPApplication.logEnabled()) {
@@ -143,6 +145,6 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                 alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
             //else
             //    alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
-        }
+        //}
     }
 }

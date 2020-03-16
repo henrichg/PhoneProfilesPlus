@@ -146,12 +146,11 @@ public class PhoneProfilesService extends Service
     private StartEventNotificationBroadcastReceiver startEventNotificationBroadcastReceiver = null;
     private GeofencesScannerSwitchGPSBroadcastReceiver geofencesScannerSwitchGPSBroadcastReceiver = null;
     private LockDeviceActivityFinishBroadcastReceiver lockDeviceActivityFinishBroadcastReceiver = null;
-    AlarmClockBroadcastReceiver alarmClockBroadcastReceiver = null;
+    private AlarmClockBroadcastReceiver alarmClockBroadcastReceiver = null;
     private AlarmClockEventEndBroadcastReceiver alarmClockEventEndBroadcastReceiver = null;
     private NotificationEventEndBroadcastReceiver notificationEventEndBroadcastReceiver = null;
     private LockDeviceAfterScreenOffBroadcastReceiver lockDeviceAfterScreenOffBroadcastReceiver = null;
     private OrientationEventBroadcastReceiver orientationEventBroadcastReceiver = null;
-
     private PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
     private DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
 
@@ -300,15 +299,17 @@ public class PhoneProfilesService extends Service
             instance = this;
         }
 
-        PPApplication.sensorManager = (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
-        PPApplication.accelerometerSensor = PPApplication.getAccelerometerSensor(getApplicationContext());
-        PPApplication.magneticFieldSensor = PPApplication.getMagneticFieldSensor(getApplicationContext());
-        PPApplication.proximitySensor = PPApplication.getProximitySensor(getApplicationContext());
-        PPApplication.lightSensor = PPApplication.getLightSensor(getApplicationContext());
+        if (PPApplication.getInstance() == null) {
+            PPApplication.sensorManager = (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
+            PPApplication.accelerometerSensor = PPApplication.getAccelerometerSensor(getApplicationContext());
+            PPApplication.magneticFieldSensor = PPApplication.getMagneticFieldSensor(getApplicationContext());
+            PPApplication.proximitySensor = PPApplication.getProximitySensor(getApplicationContext());
+            PPApplication.lightSensor = PPApplication.getLightSensor(getApplicationContext());
 
-        PPApplication.loadApplicationPreferences(getApplicationContext());
-        PPApplication.loadGlobalApplicationData(getApplicationContext());
-        PPApplication.loadProfileActivationData(getApplicationContext());
+            PPApplication.loadApplicationPreferences(getApplicationContext());
+            PPApplication.loadGlobalApplicationData(getApplicationContext());
+            PPApplication.loadProfileActivationData(getApplicationContext());
+        }
 
         serviceHasFirstStart = false;
         //serviceRunning = false;
