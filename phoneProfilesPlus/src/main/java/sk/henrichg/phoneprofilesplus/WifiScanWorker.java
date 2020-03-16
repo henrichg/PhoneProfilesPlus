@@ -631,8 +631,8 @@ public class WifiScanWorker extends Worker {
             List<ScanResult> _scanResults = wifi.getScanResults();
             if (PPApplication.logEnabled()) {
                 int wifiState = wifi.getWifiState();
-                PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "wifiState=" + wifiState);
-                PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "_scanResults=" + _scanResults);
+                //PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "wifiState=" + wifiState);
+                //PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "_scanResults=" + _scanResults);
             }
             if (_scanResults != null) {
                 //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);

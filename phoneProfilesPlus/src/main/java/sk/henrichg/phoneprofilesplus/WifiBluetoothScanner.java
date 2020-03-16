@@ -631,7 +631,7 @@ class WifiBluetoothScanner {
                 //if (android.os.Build.VERSION.SDK_INT >= 18)
                     isScanAlwaysAvailable = wifi.isScanAlwaysAvailable();
             }
-            PPApplication.logE("@@@ WifiBluetoothScanner.enableWifi","isScanAlwaysAvailable="+isScanAlwaysAvailable);
+            //PPApplication.logE("@@@ WifiBluetoothScanner.enableWifi","isScanAlwaysAvailable="+isScanAlwaysAvailable);
             isWifiEnabled = isWifiEnabled || isScanAlwaysAvailable;
             if (!isWifiEnabled)
             {
