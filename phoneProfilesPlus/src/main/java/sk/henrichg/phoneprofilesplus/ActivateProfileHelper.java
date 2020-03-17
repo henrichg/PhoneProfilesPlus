@@ -2631,9 +2631,9 @@ class ActivateProfileHelper {
         }
 
         /*
-        // set screen car mode
-        if (profile._screenCarMode != 0) {
-            setScreenCarMode(context, profile._screenCarMode);
+        // set screen night mode
+        if (profile._screenNightMode != 0) {
+            setScreenNightMode(context, profile._screenNightMode);
         }
         */
 
@@ -4269,14 +4269,14 @@ class ActivateProfileHelper {
     }
 
     /*
-    private static void setScreenCarMode(Context context, final int value) {
-        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_CAR_MODE, null, null, false, context).allowed
+    private static void setScreenNightMode(Context context, final int value) {
+        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE, null, null, false, context).allowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
             if (Build.VERSION.SDK_INT > 26) {
                 if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                     try {
                         // Not working in Samsung S8 :-(
-                        PPApplication.logE("ActivateProfileHelper.setScreenCarMode", "(G1)");
+                        PPApplication.logE("ActivateProfileHelper.setScreenNightMode", "(G1)");
                         if (value == 1)
                             Settings.Global.putInt(context.getContentResolver(), "night_mode_enabled", 1);
                         else
@@ -4288,13 +4288,13 @@ class ActivateProfileHelper {
 //                            Settings.Secure.putInt(context.getContentResolver(), "ui_night_mode", 1);
                     }
                     catch (Exception e2) {
-                        PPApplication.logE("ActivateProfileHelper.setScreenCarMode", Log.getStackTraceString(e2));
+                        PPApplication.logE("ActivateProfileHelper.setScreenNightMode", Log.getStackTraceString(e2));
                     }
                 }
             }
             else {
                 UiModeManager uiModeManager = (UiModeManager) context.getSystemService(Context.UI_MODE_SERVICE);
-                PPApplication.logE("ActivateProfileHelper.setScreenCarMode", "uiModeManager=" + uiModeManager);
+                PPApplication.logE("ActivateProfileHelper.setScreenNightMode", "uiModeManager=" + uiModeManager);
                 if (uiModeManager != null) {
                     switch (value) {
                         case 1:
@@ -4310,8 +4310,8 @@ class ActivateProfileHelper {
                             uiModeManager.setNightMode(UiModeManager.MODE_NIGHT_NO);
                             break;
                     }
-                    PPApplication.logE("ActivateProfileHelper.setScreenCarMode", "currentModeType=" + uiModeManager.getCurrentModeType());
-                    PPApplication.logE("ActivateProfileHelper.setScreenCarMode", "nightMode=" + uiModeManager.getNightMode());
+                    PPApplication.logE("ActivateProfileHelper.setScreenNightMode", "currentModeType=" + uiModeManager.getCurrentModeType());
+                    PPApplication.logE("ActivateProfileHelper.setScreenNightMode", "nightMode=" + uiModeManager.getNightMode());
                 }
             }
         }

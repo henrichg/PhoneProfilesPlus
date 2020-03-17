@@ -1604,9 +1604,7 @@
     <!--<string name="phone_profiles_pref_nightModeOffApplicationTheme">Theme for night mode off</string>-->
     <!--    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-hide side panel</string>-->
     <!--    <string name="editor_activity_targetHelps_navigationIcon_description">Click this or swipe from left screen side to right to open \"Views\" side panel, where you can switch between Profiles and Events views.</string> -->
-    <!--    <string name="profile_preferences_screenCarMode">Car mode</string>-->
-    <!--    <string name="array_pref_screenCarMode_onWithNightNode">On with night mode</string>-->
-    <!--    <string name="array_pref_screenCarMode_onWithoutNightNode">On without night mode</string>-->
+    <!--    <string name="profile_preferences_screenNightMode">Night mode</string>-->
 <!--    <string name="donation_google_android_market">Google Play Store</string>-->
 <!--    <string name="donation_google_android_market_text">How much?</string>-->
 <!--    <string name="donation_google_android_market_donate_button">Donate</string>-->

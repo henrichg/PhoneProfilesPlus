@@ -535,7 +535,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
                                                 //+"|EditorProfilesActivity.selectFilterItem"
                                                 //+"|EventsPrefsFragment.onResume"
-                                                //+"|ActivateProfileHelper.setScreenCarMode"
+                                                //+"|ActivateProfileHelper.setScreenNightMode"
 
                                                 //+"|FastAccessDurationDialog.updateProfileView"
 

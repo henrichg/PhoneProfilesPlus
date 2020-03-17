@@ -405,17 +405,17 @@ class ProfilePreferencesIndicator {
             }
             /*
             // screen night mode
-            if (profile._screenCarMode != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_CAR_MODE, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if (profile._screenCarMode == 1)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_car_mode_with_night_on;
-                    if (profile._screenCarMode == 2)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_car_mode_without_night_on;
-                    if (profile._screenCarMode == 3) {
+            if (profile._screenNightMode != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (profile._screenNightMode == 1)
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_night_mode_with_night_on;
+                    if (profile._screenNightMode == 2)
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_night_mode_without_night_on;
+                    if (profile._screenNightMode == 3) {
                         if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_car_mode_off_mono;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_night_mode_off_mono;
                         else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_car_mode_off;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_night_mode_off;
                     }
                 }
             }
@@ -858,15 +858,15 @@ class ProfilePreferencesIndicator {
                 }
             }
             /*
-            // screen car mode
-            if (profile._screenCarMode != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_CAR_MODE, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if (profile._screenCarMode == 1)
-                        indicator1 = addIntoIndicator(indicator1, "cm1");
-                    if (profile._screenCarMode == 2)
-                        indicator1 = addIntoIndicator(indicator1, "cm2");
-                    if (profile._screenCarMode == 3)
-                        indicator1 = addIntoIndicator(indicator1, "cm0");
+            // screen night mode
+            if (profile._screenNightMode != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (profile._screenNightMode == 1)
+                        indicator1 = addIntoIndicator(indicator1, "ngm:1");
+                    if (profile._screenNightMode == 2)
+                        indicator1 = addIntoIndicator(indicator1, "ngm:2");
+                    if (profile._screenNightMode == 3)
+                        indicator1 = addIntoIndicator(indicator1, "ngm:0");
                 }
             }
             */

@@ -92,7 +92,7 @@ public class Profile {
     long _activationByUserCount;
     int _deviceNetworkTypePrefs;
     int _deviceCloseAllApplications;
-    int _screenCarMode;
+    int _screenNightMode;
     int _dtmfToneWhenDialing;
     int _soundOnTouch;
     String _volumeDTMF;
@@ -173,7 +173,7 @@ public class Profile {
     static final String PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME = "prf_pref_deviceForceStopApplicationPackageName";
     static final String PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS = "prf_pref_deviceNetworkTypePrefs";
     static final String PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS = "prf_pref_deviceCloseAllApplications";
-    static final String PREF_PROFILE_SCREEN_CAR_MODE = "prf_pref_screenCarMode";
+    static final String PREF_PROFILE_SCREEN_NIGHT_MODE = "prf_pref_screenNightMode";
     static final String PREF_PROFILE_DTMF_TONE_WHEN_DIALING = "prf_pref_dtmfToneWhenDialing";
     static final String PREF_PROFILE_SOUND_ON_TOUCH = "prf_pref_soundOnTouch";
     static final String PREF_PROFILE_VOLUME_DTMF = "prf_pref_volumeDTMF";
@@ -254,7 +254,7 @@ public class Profile {
         defaultValuesString.put("prf_pref_deviceForceStopApplicationPackageName", "-");
         defaultValuesString.put("prf_pref_deviceNetworkTypePrefs", "0");
         defaultValuesString.put("prf_pref_deviceCloseAllApplications", "0");
-        defaultValuesString.put("prf_pref_screenCarMode", "0");
+        defaultValuesString.put("prf_pref_screenNightMode", "0");
         defaultValuesString.put("prf_pref_dtmfToneWhenDialing", "0");
         defaultValuesString.put("prf_pref_soundOnTouch", "0");
         defaultValuesString.put("prf_pref_volumeDTMF", "-1|1|0");
@@ -799,7 +799,7 @@ public class Profile {
                    long activationByUserCount,
                    int deviceNetworkTypePrefs,
                    int deviceCloseAllApplications,
-                   int screenCarMode,
+                   int screenNightMode,
                    int dtmfToneWhenDialing,
                    int soundOnTouch,
                    String volumeDTMF,
@@ -873,7 +873,7 @@ public class Profile {
         this._deviceForceStopApplicationPackageName = deviceForceStopApplicationPackageName;
         this._deviceNetworkTypePrefs = deviceNetworkTypePrefs;
         this._deviceCloseAllApplications = deviceCloseAllApplications;
-        this._screenCarMode = screenCarMode;
+        this._screenNightMode = screenNightMode;
         this._dtmfToneWhenDialing = dtmfToneWhenDialing;
         this._soundOnTouch = soundOnTouch;
         this._volumeDTMF = volumeDTMF;
@@ -953,7 +953,7 @@ public class Profile {
                    long activationByUserCount,
                    int deviceNetworkTypePrefs,
                    int deviceCloseAllApplications,
-                   int screenCarMode,
+                   int screenNightMode,
                    int dtmfToneWhenDialing,
                    int soundOnTouch,
                    String volumeDTMF,
@@ -1026,7 +1026,7 @@ public class Profile {
         this._deviceForceStopApplicationPackageName = deviceForceStopApplicationPackageName;
         this._deviceNetworkTypePrefs = deviceNetworkTypePrefs;
         this._deviceCloseAllApplications = deviceCloseAllApplications;
-        this._screenCarMode = screenCarMode;
+        this._screenNightMode = screenNightMode;
         this._dtmfToneWhenDialing = dtmfToneWhenDialing;
         this._soundOnTouch = soundOnTouch;
         this._volumeDTMF = volumeDTMF;
@@ -1107,7 +1107,7 @@ public class Profile {
         this._deviceForceStopApplicationPackageName = profile._deviceForceStopApplicationPackageName;
         this._deviceNetworkTypePrefs = profile._deviceNetworkTypePrefs;
         this._deviceCloseAllApplications = profile._deviceCloseAllApplications;
-        this._screenCarMode = profile._screenCarMode;
+        this._screenNightMode = profile._screenNightMode;
         this._dtmfToneWhenDialing = profile._dtmfToneWhenDialing;
         this._soundOnTouch = profile._soundOnTouch;
         this._volumeDTMF = profile._volumeDTMF;
@@ -1360,8 +1360,8 @@ public class Profile {
                     this._deviceNetworkTypePrefs = withProfile._deviceNetworkTypePrefs;
                 if (withProfile._deviceCloseAllApplications != 0)
                     this._deviceCloseAllApplications = withProfile._deviceCloseAllApplications;
-                if (withProfile._screenCarMode != 0)
-                    this._screenCarMode = withProfile._screenCarMode;
+                if (withProfile._screenNightMode != 0)
+                    this._screenNightMode = withProfile._screenNightMode;
                 if (withProfile._dtmfToneWhenDialing != 0)
                     this._dtmfToneWhenDialing = withProfile._dtmfToneWhenDialing;
                 if (withProfile._soundOnTouch != 0)
@@ -1652,8 +1652,8 @@ public class Profile {
                 //PPApplication.logE("$$$ Profile.compareProfiles","_deviceCloseAllApplications");
                 return false;
             }
-            if (this._screenCarMode != withProfile._screenCarMode) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_screenCarMode");
+            if (this._screenNightMode != withProfile._screenNightMode) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_screenNightMode");
                 return false;
             }
             if (this._dtmfToneWhenDialing != withProfile._dtmfToneWhenDialing) {
@@ -2918,7 +2918,7 @@ public class Profile {
         profile._deviceForceStopApplicationPackageName = preferences.getString(PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, "-");
         profile._deviceNetworkTypePrefs = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, "0"));
         profile._deviceCloseAllApplications = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS, "0"));
-        profile._screenCarMode = Integer.parseInt(preferences.getString(PREF_PROFILE_SCREEN_CAR_MODE, "0"));
+        profile._screenNightMode = Integer.parseInt(preferences.getString(PREF_PROFILE_SCREEN_NIGHT_MODE, "0"));
         profile._dtmfToneWhenDialing = Integer.parseInt(preferences.getString(PREF_PROFILE_DTMF_TONE_WHEN_DIALING, "0"));
         profile._soundOnTouch = Integer.parseInt(preferences.getString(PREF_PROFILE_SOUND_ON_TOUCH, "0"));
         profile._volumeDTMF = preferences.getString(PREF_PROFILE_VOLUME_DTMF, getVolumeLevelString(70, maximumValueDTMF)+"|0|0");
@@ -2991,7 +2991,7 @@ public class Profile {
         editor.putString(PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, profile._deviceForceStopApplicationPackageName);
         editor.putString(PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, String.valueOf(profile._deviceNetworkTypePrefs));
         editor.putString(PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS, String.valueOf(profile._deviceCloseAllApplications));
-        editor.putString(PREF_PROFILE_SCREEN_CAR_MODE, String.valueOf(profile._screenCarMode));
+        editor.putString(PREF_PROFILE_SCREEN_NIGHT_MODE, String.valueOf(profile._screenNightMode));
         editor.putString(PREF_PROFILE_DTMF_TONE_WHEN_DIALING, String.valueOf(profile._dtmfToneWhenDialing));
         editor.putString(PREF_PROFILE_SOUND_ON_TOUCH, String.valueOf(profile._soundOnTouch));
         editor.putString(PREF_PROFILE_VOLUME_DTMF, profile._volumeDTMF);
@@ -3078,7 +3078,7 @@ public class Profile {
                     profile._activationByUserCount,
                     profile._deviceNetworkTypePrefs,
                     profile._deviceCloseAllApplications,
-                    profile._screenCarMode,
+                    profile._screenNightMode,
                     profile._dtmfToneWhenDialing,
                     profile._soundOnTouch,
                     profile._volumeDTMF,
@@ -3203,8 +3203,8 @@ public class Profile {
                 mappedProfile._deviceNetworkTypePrefs = sharedProfile._deviceNetworkTypePrefs;
             if (profile._deviceCloseAllApplications == SHARED_PROFILE_VALUE)
                 mappedProfile._deviceCloseAllApplications = sharedProfile._deviceCloseAllApplications;
-            if (profile._screenCarMode == SHARED_PROFILE_VALUE)
-                mappedProfile._screenCarMode = sharedProfile._screenCarMode;
+            if (profile._screenNightMode == SHARED_PROFILE_VALUE)
+                mappedProfile._screenNightMode = sharedProfile._screenNightMode;
             if (profile._dtmfToneWhenDialing == SHARED_PROFILE_VALUE)
                 mappedProfile._dtmfToneWhenDialing = sharedProfile._dtmfToneWhenDialing;
             if (profile._soundOnTouch == SHARED_PROFILE_VALUE)
