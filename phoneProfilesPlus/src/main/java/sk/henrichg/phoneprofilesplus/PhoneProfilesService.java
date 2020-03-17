@@ -298,6 +298,7 @@ public class PhoneProfilesService extends Service
         synchronized (PPApplication.phoneProfilesServiceMutex) {
             instance = this;
         }
+        PPApplication.startForegroundNotification = true;
 
         if (PPApplication.getInstance() == null) {
             PPApplication.sensorManager = (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
