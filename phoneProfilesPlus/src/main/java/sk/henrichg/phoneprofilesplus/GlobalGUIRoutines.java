@@ -39,6 +39,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
+
 import org.xml.sax.XMLReader;
 
 import java.text.Collator;
@@ -1236,8 +1238,12 @@ class GlobalGUIRoutines {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                Toast msg = Toast/*Compat*/.makeText(context.getApplicationContext(), text, length);
-                msg.show();
+                try {
+                    Toast msg = Toast/*Compat*/.makeText(context.getApplicationContext(), text, length);
+                    msg.show();
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
             }
         });
     }
