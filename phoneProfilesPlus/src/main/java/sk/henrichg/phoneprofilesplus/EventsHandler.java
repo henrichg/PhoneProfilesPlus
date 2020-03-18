@@ -736,7 +736,7 @@ class EventsHandler {
                     // or for manual restart events
 
                     PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION, null,
-                            DataWrapper.getProfileNameWithManualIndicatorAsString(mergedProfile, true, "", false, false, false, dataWrapper, false),
+                            DataWrapper.getProfileNameWithManualIndicatorAsString(mergedProfile, true, "", false, false, false, dataWrapper),
                             mergedProfile._icon, 0, mergedProfilesCount + " [" + usedEventsCount + "]");
 
                     dataWrapper.activateProfileFromEvent(mergedProfile._id, false, true, isRestart);

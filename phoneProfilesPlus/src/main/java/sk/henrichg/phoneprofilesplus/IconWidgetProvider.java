@@ -104,7 +104,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         if (!pNameWidget.isEmpty()) {
                             String pName;
                             if (profile != null)
-                                pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper, true);
+                                pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper);
                             else
                                 pName = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
 
@@ -276,11 +276,11 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     if (profile != null) {
                         isIconResourceID = profile.getIsIconResourceID();
                         iconIdentifier = profile.getIconIdentifier();
-                        pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, false, "", true, false, false, dataWrapper, false);
+                        pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, false, "", true, false, false, dataWrapper);
                         if (ApplicationPreferences.applicationWidgetIconShowProfileDuration)
-                            profileName = DataWrapper.getProfileNameWithManualIndicator(profile, false, "", true, true, true, dataWrapper, false);
+                            profileName = DataWrapper.getProfileNameWithManualIndicator(profile, false, "", true, true, true, dataWrapper);
                         else
-                            profileName = DataWrapper.getProfileNameWithManualIndicator(profile, false, "", false, true, false, dataWrapper, false);
+                            profileName = DataWrapper.getProfileNameWithManualIndicator(profile, false, "", false, true, false, dataWrapper);
                     } else {
                         // create empty profile and set icon resource
                         profile = new Profile();

@@ -4554,7 +4554,7 @@ public class PhoneProfilesService extends Service
                     if (!pNameNotification.isEmpty()) {
                         String pName;
                         if (profile != null)
-                            pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper, false);
+                            pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper);
                         else
                             pName = appContext.getResources().getString(R.string.profiles_header_profile_name_no_activated);
 
@@ -4743,7 +4743,7 @@ public class PhoneProfilesService extends Service
                 //PPApplication.logE("PhoneProfilesService.showProfileNotification", "profile != null");
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
-                profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, false, dataWrapper, false);
+                profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, false, dataWrapper);
                 //pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, dataWrapper, false, appContext);
                 // get string from spannable
                 Spannable sbt = new SpannableString(profileName);
