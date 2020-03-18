@@ -4748,13 +4748,13 @@ public class DataWrapper {
                     {
                         if ((!ApplicationPreferences.prefEventsBlocked) || (event._forceRun))
                         {
-                            Profile profile;
-                            profile = dataWrapper.getActivatedProfile(false, false);
-                            if ((profile != null) && (event._fkProfileStart == profile._id))
+                            //Profile profile;
+                            //profile = dataWrapper.getActivatedProfile(false, false);
+                            //if ((profile != null) && (event._fkProfileStart == profile._id))
                                 // last started event activates activated profile
                                 return event._name;
-                            else
-                                return "?";
+                            //else
+                            //    return "?";
                         }
                         else
                             return "?";
@@ -4767,12 +4767,12 @@ public class DataWrapper {
                     long profileId = ApplicationPreferences.applicationDefaultProfile;
                     if ((!ApplicationPreferences.prefEventsBlocked) && (profileId != Profile.PROFILE_NO_ACTIVATE))
                     {
-                        Profile profile;
-                        profile = dataWrapper.getActivatedProfile(false, false);
-                        if ((profile != null) && (profile._id == profileId))
+                        //Profile profile;
+                        //profile = dataWrapper.getActivatedProfile(false, false);
+                        //if ((profile != null) && (profile._id == profileId))
                             return dataWrapper.context.getString(R.string.event_name_background_profile);
-                        else
-                            return "?";
+                        //else
+                        //    return "?";
                     }
                     else
                         return "?";
@@ -4789,13 +4789,13 @@ public class DataWrapper {
                     {
                         if ((!ApplicationPreferences.prefEventsBlocked) || (event._forceRun))
                         {
-                            Profile profile;
-                            profile = dataWrapper.getActivatedProfileFromDB(false, false);
-                            if ((profile != null) && (event._fkProfileStart == profile._id))
+                            //Profile profile;
+                            //profile = dataWrapper.getActivatedProfileFromDB(false, false);
+                            //if ((profile != null) && (event._fkProfileStart == profile._id))
                                 // last started event activates activated profile
                                 return event._name;
-                            else
-                                return "?";
+                            //else
+                            //    return "?";
                         }
                         else
                             return "?";
@@ -4808,12 +4808,12 @@ public class DataWrapper {
                     long profileId = ApplicationPreferences.applicationDefaultProfile;
                     if ((!ApplicationPreferences.prefEventsBlocked) && (profileId != Profile.PROFILE_NO_ACTIVATE))
                     {
-                        Profile profile;
-                        profile = dataWrapper.getActivatedProfileFromDB(false, false);
-                        if ((profile != null) && (profile._id == profileId))
+                        //Profile profile;
+                        //profile = dataWrapper.getActivatedProfileFromDB(false, false);
+                        //if ((profile != null) && (profile._id == profileId))
                             return dataWrapper.context.getString(R.string.event_name_background_profile);
-                        else
-                            return "?";
+                        //else
+                        //    return "?";
                     }
                     else
                         return "?";
