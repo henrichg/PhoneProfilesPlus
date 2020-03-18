@@ -636,12 +636,12 @@ public class DataWrapper {
             }
         }
         // unlink profile from Background profile
-        if (Long.parseLong(ApplicationPreferences.applicationBackgroundProfile) == profile._id)
+        if (ApplicationPreferences.applicationDefaultProfile == profile._id)
         {
             Editor editor = ApplicationPreferences.getEditor(context);
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE));
+            editor.putString(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE));
             editor.apply();
-            ApplicationPreferences.applicationBackgroundProfile(context);
+            ApplicationPreferences.applicationDefaultProfile(context);
         }
     }
 
@@ -670,9 +670,9 @@ public class DataWrapper {
         }
         // unlink profiles from Background profile
         Editor editor = ApplicationPreferences.getEditor(context);
-        editor.putString(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE));
+        editor.putString(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE));
         editor.apply();
-        ApplicationPreferences.applicationBackgroundProfile(context);
+        ApplicationPreferences.applicationDefaultProfile(context);
     }
 
     void refreshProfileIcon(Profile profile,
@@ -1212,7 +1212,7 @@ public class DataWrapper {
                 profileId = profile._id;
             else
             {
-                profileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context));
+                profileId = Long.valueOf(ApplicationPreferences.applicationDefaultProfile(context));
                 if (profileId == Profile.PROFILE_NO_ACTIVATE)
                     profileId = 0;
             }
@@ -1220,7 +1220,7 @@ public class DataWrapper {
             long profileId = PPApplication.prefLastActivatedProfile;
             //PPApplication.logE("DataWrapper.activateProfileOnBoot", "lastActivatedProfile="+profileId);
             if (profileId == 0) {
-                profileId = Long.parseLong(ApplicationPreferences.applicationBackgroundProfile);
+                profileId = ApplicationPreferences.applicationDefaultProfile;
                 if (profileId == Profile.PROFILE_NO_ACTIVATE)
                     profileId = 0;
             }
@@ -4766,7 +4766,7 @@ public class DataWrapper {
             }
             else
             {
-                long profileId = Long.parseLong(ApplicationPreferences.applicationBackgroundProfile);
+                long profileId = ApplicationPreferences.applicationDefaultProfile;
                 if ((!ApplicationPreferences.prefEventsBlocked) && (profileId != Profile.PROFILE_NO_ACTIVATE))
                 {
                     Profile profile;

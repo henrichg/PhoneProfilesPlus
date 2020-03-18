@@ -623,7 +623,7 @@ public class PPApplication extends Application /*implements Application.Activity
     static final int ALTYPE_PROFILE_ACTIVATION = 1;
     static final int ALTYPE_MERGED_PROFILE_ACTIVATION = 2;
     static final int ALTYPE_AFTER_DURATION_UNDO_PROFILE = 21;
-    static final int ALTYPE_AFTER_DURATION_BACKGROUND_PROFILE = 22;
+    static final int ALTYPE_AFTER_DURATION_DEFAULT_PROFILE = 22;
     static final int ALTYPE_AFTER_DURATION_RESTART_EVENTS = 23;
     static final int ALTYPE_EVENT_START = 3;
     static final int ALTYPE_EVENT_START_DELAY = 4;
@@ -1568,10 +1568,10 @@ public class PPApplication extends Application /*implements Application.Activity
             ApplicationPreferences.applicationWidgetLauncher(context);
             ApplicationPreferences.applicationNotificationLauncher(context);
             ApplicationPreferences.applicationEventWifiScanInterval(context);
-            ApplicationPreferences.applicationBackgroundProfile(context);
-            ApplicationPreferences.applicationBackgroundProfileNotificationSound(context);
-            ApplicationPreferences.applicationBackgroundProfileNotificationVibrate(context);
-            ApplicationPreferences.applicationBackgroundProfileUsage(context);
+            ApplicationPreferences.applicationDefaultProfile(context);
+            ApplicationPreferences.applicationDefaultProfileNotificationSound(context);
+            ApplicationPreferences.applicationDefaultProfileNotificationVibrate(context);
+            ApplicationPreferences.applicationDefaultProfileUsage(context);
             ApplicationPreferences.applicationActivatorGridLayout(context);
             ApplicationPreferences.applicationWidgetListGridLayout(context);
             ApplicationPreferences.applicationEventBluetoothScanInterval(context);

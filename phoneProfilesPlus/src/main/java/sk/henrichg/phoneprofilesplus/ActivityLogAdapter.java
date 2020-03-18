@@ -43,7 +43,7 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ACTIVATION, R.string.altype_profileActivation);
         activityTypeStrings.put(PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION, R.string.altype_mergedProfileActivation);
         activityTypeStrings.put(PPApplication.ALTYPE_AFTER_DURATION_UNDO_PROFILE, R.string.altype_afterDuration_undoProfile);
-        activityTypeStrings.put(PPApplication.ALTYPE_AFTER_DURATION_BACKGROUND_PROFILE, R.string.altype_afterDuration_backgroundProfile);
+        activityTypeStrings.put(PPApplication.ALTYPE_AFTER_DURATION_DEFAULT_PROFILE, R.string.altype_afterDuration_backgroundProfile);
         activityTypeStrings.put(PPApplication.ALTYPE_AFTER_DURATION_RESTART_EVENTS, R.string.altype_afterDuration_restartEvents);
         activityTypeStrings.put(PPApplication.ALTYPE_EVENT_START, R.string.altype_eventStart);
         activityTypeStrings.put(PPApplication.ALTYPE_EVENT_START_DELAY, R.string.altype_eventStartDelay);
@@ -92,7 +92,7 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ACTIVATION, R.color.altype_profile);
         activityTypeColors.put(PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION, R.color.altype_profile);
         activityTypeColors.put(PPApplication.ALTYPE_AFTER_DURATION_UNDO_PROFILE, R.color.altype_profile);
-        activityTypeColors.put(PPApplication.ALTYPE_AFTER_DURATION_BACKGROUND_PROFILE, R.color.altype_profile);
+        activityTypeColors.put(PPApplication.ALTYPE_AFTER_DURATION_DEFAULT_PROFILE, R.color.altype_profile);
         activityTypeColors.put(PPApplication.ALTYPE_AFTER_DURATION_RESTART_EVENTS, R.color.altype_profile);
         activityTypeColors.put(PPApplication.ALTYPE_AFTER_DURATION_SPECIFIC_PROFILE, R.color.altype_profile);
         activityTypeColors.put(PPApplication.ALTYPE_EVENT_START, R.color.altype_eventStart);

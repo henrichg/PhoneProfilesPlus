@@ -280,7 +280,7 @@ public class Profile {
 
     static final int AFTER_DURATION_DO_NOTHING = 0;
     static final int AFTER_DURATION_DO_UNDO_PROFILE = 1;
-    static final int AFTER_DURATION_DO_BACKGROUND_PROFILE = 2;
+    static final int AFTER_DURATION_DO_DEFAULT_PROFILE = 2;
     static final int AFTER_DURATION_DO_RESTART_EVENTS = 3;
     static final int AFTER_DURATION_DO_SPECIFIC_PROFILE = 4;
 

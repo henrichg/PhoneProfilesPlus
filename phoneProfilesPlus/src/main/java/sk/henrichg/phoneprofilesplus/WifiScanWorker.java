@@ -788,7 +788,7 @@ public class WifiScanWorker extends Worker {
         }
     }
 
-    static String getSSID(WifiManager wifiManager, WifiInfo wifiInfo, List<WifiSSIDData> wifiConfigurationList)
+    private static String getSSID(WifiManager wifiManager, WifiInfo wifiInfo, List<WifiSSIDData> wifiConfigurationList)
     {
         String SSID = wifiInfo.getSSID();
         if (SSID == null)

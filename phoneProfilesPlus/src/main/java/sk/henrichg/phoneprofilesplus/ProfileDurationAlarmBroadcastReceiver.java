@@ -246,12 +246,12 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                     }
 
                     long activateProfileId = 0;
-                    if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_BACKGROUND_PROFILE) {
+                    if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_DEFAULT_PROFILE) {
                         activateProfileId = ApplicationPreferences.applicationDefaultProfile;
                         if (activateProfileId == Profile.PROFILE_NO_ACTIVATE)
                             activateProfileId = 0;
 
-                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_AFTER_DURATION_BACKGROUND_PROFILE, null,
+                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_AFTER_DURATION_DEFAULT_PROFILE, null,
                                 DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper, false),
                                 profile._icon, 0, "");
                     }

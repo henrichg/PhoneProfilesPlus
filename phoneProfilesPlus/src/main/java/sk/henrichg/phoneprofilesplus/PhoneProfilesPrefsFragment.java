@@ -1641,7 +1641,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }*/
         }
         if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_RINGTONE_PREFERENCE) {
-            RingtonePreferenceX preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE_NOTIFICATION_SOUND);
+            RingtonePreferenceX preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND);
             if (preference != null)
                 preference.refreshListView();
         }
@@ -1755,7 +1755,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_WIFI);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IN_POWER_SAVE_MODE);
         //setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_RESCAN);
-        setSummary(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE);
         setSummary(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL);
@@ -1816,7 +1816,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(PREF_AUTOSTART_MANAGER);
         setSummary(PREF_NOTIFICATION_SYSTEM_SETTINGS);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR);
-        setSummary(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE_USAGE);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_USAGE);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY);
         setSummary(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING);
@@ -2210,7 +2210,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         String stringValue = preferences.getString(key, "");
 
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE)) {
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE)) {
             long lProfileId;
             try {
                 lProfileId = Long.parseLong(stringValue);
@@ -2220,13 +2220,13 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             ProfilePreferenceX profilePreference = (ProfilePreferenceX) preference;
             profilePreference.setSummary(lProfileId);
 
-            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE_NOTIFICATION_SOUND);
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND);
             if (_preference != null)
                 _preference.setEnabled(lProfileId != Profile.PROFILE_NO_ACTIVATE);
-            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE_NOTIFICATION_VIBRATE);
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_VIBRATE);
             if (_preference != null)
                 _preference.setEnabled(lProfileId != Profile.PROFILE_NO_ACTIVATE);
-            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE_USAGE);
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_USAGE);
             if (_preference != null)
                 _preference.setEnabled(lProfileId != Profile.PROFILE_NO_ACTIVATE);
         } else if (preference instanceof ListPreference) {

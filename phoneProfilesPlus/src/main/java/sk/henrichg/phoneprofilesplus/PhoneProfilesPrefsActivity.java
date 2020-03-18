@@ -38,7 +38,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     private int bluetoothScanInterval;
     private int locationScanInterval;
     private int orientationScanInterval;
-    //private String activeBackgroundProfile;
+    //private String activeDefaultProfile;
     private boolean useAlarmClockEnabled;
 
     private boolean invalidateEditor = false;
@@ -494,16 +494,16 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         }
 
         /*
-        if (activeBackgroundProfile != PPApplication.applicationBackgroundProfile)
+        if (activeDefaultProfile != PPApplication.applicationDefaultProfile)
         {
-            long lApplicationBackgroundProfile = Long.valueOf(PPApplication.applicationBackgroundProfile);
-            if (lApplicationBackgroundProfile != PPApplication.PROFILE_NO_ACTIVATE)
+            long lApplicationDefaultProfile = Long.valueOf(PPApplication.applicationDefaultProfile);
+            if (lApplicationDefaultProfile != PPApplication.PROFILE_NO_ACTIVATE)
             {
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
                 if (dataWrapper.getActivatedProfile() == null)
                 {
                     dataWrapper.getActivateProfileHelper().initialize(dataWrapper, null, getApplicationContext());
-                    dataWrapper.activateProfile(lApplicationBackgroundProfile, PPApplication.STARTUP_SOURCE_SERVICE, null, "");
+                    dataWrapper.activateProfile(lApplicationDefaultProfile, PPApplication.STARTUP_SOURCE_SERVICE, null, "");
                 }
                 //invalidateEditor = true;
             }
@@ -730,10 +730,10 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         @Override
         void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
             //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsProfileActivation");
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE, "-999"));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE_USAGE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE_USAGE, false));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE_NOTIFICATION_SOUND, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE_NOTIFICATION_SOUND, ""));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE_NOTIFICATION_VIBRATE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE_NOTIFICATION_VIBRATE, false));
+            editor.putString(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE, "-999"));
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_USAGE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_USAGE, false));
+            editor.putString(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND, ""));
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_VIBRATE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_VIBRATE, false));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_ALERT, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_ALERT, true));
             editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_TOAST, fromPreference.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_TOAST, true));
         }

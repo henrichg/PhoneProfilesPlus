@@ -85,10 +85,10 @@ class ApplicationPreferences {
     static String applicationWidgetLauncher;
     static String applicationNotificationLauncher;
     static int applicationEventWifiScanInterval;
-    static String applicationBackgroundProfile;
-    static String applicationBackgroundProfileNotificationSound;
-    static boolean applicationBackgroundProfileNotificationVibrate;
-    static boolean applicationBackgroundProfileUsage;
+    static long applicationDefaultProfile;
+    static String applicationDefaultProfileNotificationSound;
+    static boolean applicationDefaultProfileNotificationVibrate;
+    static boolean applicationDefaultProfileUsage;
     static boolean applicationActivatorGridLayout;
     static boolean applicationWidgetListGridLayout;
     static int applicationEventBluetoothScanInterval;
@@ -263,9 +263,9 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_LAUNCHER = "applicationWidgetLauncher";
     static final String PREF_APPLICATION_NOTIFICATION_LAUNCHER = "applicationNotificationLauncher";
     static final String PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL = "applicationEventWifiScanInterval";
-    static final String PREF_APPLICATION_BACKGROUND_PROFILE = "applicationBackgroundProfile";
-    static final String PREF_APPLICATION_BACKGROUND_PROFILE_NOTIFICATION_SOUND = "applicationBackgroundProfileNotificationSound";
-    static final String PREF_APPLICATION_BACKGROUND_PROFILE_NOTIFICATION_VIBRATE = "applicationBackgroundProfileNotificationVibrate";
+    static final String PREF_APPLICATION_DEFAULT_PROFILE = "applicationBackgroundProfile";
+    static final String PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND = "applicationBackgroundProfileNotificationSound";
+    static final String PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_VIBRATE = "applicationBackgroundProfileNotificationVibrate";
     static final String PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT = "applicationActivatorGridLayout";
     static final String PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT = "applicationWidgetListGridLayout";
     static final String PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL = "applicationEventBluetoothScanInterval";
@@ -326,7 +326,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING = "applicationEventOrientationEnableScannig";
     static final String PREF_APPLICATION_USE_ALARM_CLOCK = "applicationUseAlarmClock";
     static final String PREF_NOTIFICATION_SHOW_BUTTON_EXIT = "notificationShowButtonExit";
-    static final String PREF_APPLICATION_BACKGROUND_PROFILE_USAGE = "applicationBackgroundProfileUsage";
+    static final String PREF_APPLICATION_DEFAULT_PROFILE_USAGE = "applicationBackgroundProfileUsage";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR = "applicationWidgetOneRowPrefIndicator";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND = "applicationWidgetOneRowBackground";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B = "applicationWidgetOneRowLightnessB";
@@ -614,20 +614,20 @@ class ApplicationPreferences {
         applicationEventWifiScanInterval = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, "15"));
     }
 
-    static void applicationBackgroundProfile(Context context) {
-        applicationBackgroundProfile = getSharedPreferences(context).getString(PREF_APPLICATION_BACKGROUND_PROFILE, "-999");
+    static void applicationDefaultProfile(Context context) {
+        applicationDefaultProfile = Long.parseLong(getSharedPreferences(context).getString(PREF_APPLICATION_DEFAULT_PROFILE, "-999"));
     }
 
-    static void applicationBackgroundProfileNotificationSound(Context context) {
-        applicationBackgroundProfileNotificationSound = getSharedPreferences(context).getString(PREF_APPLICATION_BACKGROUND_PROFILE_NOTIFICATION_SOUND, "");
+    static void applicationDefaultProfileNotificationSound(Context context) {
+        applicationDefaultProfileNotificationSound = getSharedPreferences(context).getString(PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND, "");
     }
 
-    static void applicationBackgroundProfileNotificationVibrate(Context context) {
-        applicationBackgroundProfileNotificationVibrate = getSharedPreferences(context).getBoolean(PREF_APPLICATION_BACKGROUND_PROFILE_NOTIFICATION_VIBRATE, false);
+    static void applicationDefaultProfileNotificationVibrate(Context context) {
+        applicationDefaultProfileNotificationVibrate = getSharedPreferences(context).getBoolean(PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_VIBRATE, false);
     }
 
-    static void applicationBackgroundProfileUsage(Context context) {
-        applicationBackgroundProfileUsage = getSharedPreferences(context).getBoolean(PREF_APPLICATION_BACKGROUND_PROFILE_USAGE, false);
+    static void applicationDefaultProfileUsage(Context context) {
+        applicationDefaultProfileUsage = getSharedPreferences(context).getBoolean(PREF_APPLICATION_DEFAULT_PROFILE_USAGE, false);
     }
 
     static void applicationActivatorGridLayout(Context context) {
