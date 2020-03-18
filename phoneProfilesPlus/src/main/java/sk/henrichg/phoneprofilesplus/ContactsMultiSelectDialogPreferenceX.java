@@ -65,19 +65,27 @@ public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
             return;
 
         synchronized (PPApplication.contactsCacheMutex) {
-            contactList = contactsCache.getList(withoutNumbers);
+            contactList = contactsCache.getList(/*withoutNumbers*/);
             if (contactList != null) {
                 String[] splits = value.split("\\|");
                 for (Contact contact : contactList) {
-                    contact.checked = false;
-                    for (String split : splits) {
-                        try {
-                            String[] splits2 = split.split("#");
-                            long contactId = Long.parseLong(splits2[0]);
-                            long phoneId = Long.parseLong(splits2[1]);
-                            if ((contact.contactId == contactId) && (contact.phoneId == phoneId))
-                                contact.checked = true;
-                        } catch (Exception ignored) {
+                    if (withoutNumbers || (contact.phoneId != 0)) {
+                        contact.checked = false;
+                        for (String split : splits) {
+                            try {
+                                String[] splits2 = split.split("#");
+                                long contactId = Long.parseLong(splits2[0]);
+                                if (withoutNumbers) {
+                                    if (contact.contactId == contactId)
+                                        contact.checked = true;
+                                }
+                                else {
+                                    long phoneId = Long.parseLong(splits2[1]);
+                                    if ((contact.contactId == contactId) && (contact.phoneId == phoneId))
+                                        contact.checked = true;
+                                }
+                            } catch (Exception ignored) {
+                            }
                         }
                     }
                 }

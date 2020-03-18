@@ -10557,7 +10557,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                             values.put(KEY_DEVICE_CLOSE_ALL_APPLICATIONS, 0);
                                         }
                                         if (exportedDBObj.getVersion() < 2090) {
-                                            values.put(KEY_SCREEN_CAR_MODE, 0);
+                                            values.put(KEY_SCREEN_NIGHT_MODE, 0);
                                         }
                                         if (exportedDBObj.getVersion() < 2100) {
                                             values.put(KEY_DTMF_TONE_WHEN_DIALING, 0);
@@ -10690,7 +10690,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     cursorImportDB.getLong(cursorImportDB.getColumnIndex(KEY_ACTIVATION_BY_USER_COUNT)),
                                                     cursorImportDB.getInt(cursorImportDB.getColumnIndex(KEY_DEVICE_NETWORK_TYPE_PREFS)),
                                                     cursorImportDB.getInt(cursorImportDB.getColumnIndex(KEY_DEVICE_CLOSE_ALL_APPLICATIONS)),
-                                                    cursorImportDB.getInt(cursorImportDB.getColumnIndex(KEY_SCREEN_CAR_MODE)),
+                                                    cursorImportDB.getInt(cursorImportDB.getColumnIndex(KEY_SCREEN_NIGHT_MODE)),
                                                     cursorImportDB.getInt(cursorImportDB.getColumnIndex(KEY_DTMF_TONE_WHEN_DIALING)),
                                                     cursorImportDB.getInt(cursorImportDB.getColumnIndex(KEY_SOUND_ON_TOUCH)),
 
@@ -10769,7 +10769,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                 values.put(KEY_ACTIVATION_BY_USER_COUNT, profile._activationByUserCount);
                                                 values.put(KEY_DEVICE_NETWORK_TYPE_PREFS, profile._deviceNetworkTypePrefs);
                                                 values.put(KEY_DEVICE_CLOSE_ALL_APPLICATIONS, profile._deviceCloseAllApplications);
-                                                values.put(KEY_SCREEN_CAR_MODE, profile._screenCarMode);
+                                                values.put(KEY_SCREEN_NIGHT_MODE, profile._screenNightMode);
                                                 values.put(KEY_DTMF_TONE_WHEN_DIALING, profile._dtmfToneWhenDialing);
                                                 values.put(KEY_SOUND_ON_TOUCH, profile._soundOnTouch);
 

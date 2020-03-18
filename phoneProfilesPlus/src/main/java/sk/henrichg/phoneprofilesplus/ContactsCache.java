@@ -13,7 +13,7 @@ import java.util.List;
 class ContactsCache {
 
     private final ArrayList<Contact> contactList;
-    private final ArrayList<Contact> contactListWithoutNumber;
+    //private final ArrayList<Contact> contactListWithoutNumber;
     private boolean cached;
     private boolean caching;
     //private boolean cancelled;
@@ -21,7 +21,7 @@ class ContactsCache {
     ContactsCache()
     {
         contactList = new ArrayList<>();
-        contactListWithoutNumber = new ArrayList<>();
+        //contactListWithoutNumber = new ArrayList<>();
         cached = false;
         caching = false;
     }
@@ -34,7 +34,7 @@ class ContactsCache {
         //cancelled = false;
 
         ArrayList<Contact> _contactList = new ArrayList<>();
-        ArrayList<Contact> _contactListWithoutNumber = new ArrayList<>();
+        //ArrayList<Contact> _contactListWithoutNumber = new ArrayList<>();
 
         try {
             if (Permissions.checkContacts(context)) {
@@ -78,17 +78,19 @@ class ContactsCache {
                                 phones.close();
                             }
                         }
-                        Contact aContact = new Contact();
-                        aContact.contactId = contactId;
-                        aContact.name = name;
-                        aContact.phoneId = 0;
-                        aContact.phoneNumber = "";
-                        try {
-                            aContact.photoId = Long.parseLong(photoId);
-                        } catch (Exception e) {
-                            aContact.photoId = 0;
+                        else {
+                            Contact aContact = new Contact();
+                            aContact.contactId = contactId;
+                            aContact.name = name;
+                            aContact.phoneId = 0;
+                            aContact.phoneNumber = "";
+                            try {
+                                aContact.photoId = Long.parseLong(photoId);
+                            } catch (Exception e) {
+                                aContact.photoId = 0;
+                            }
+                            _contactList.add(aContact);
                         }
-                        _contactListWithoutNumber.add(aContact);
 
                         //}catch(Exception e){}
 
@@ -109,7 +111,7 @@ class ContactsCache {
             //Crashlytics.logException(e);
 
             _contactList.clear();
-            _contactListWithoutNumber.clear();
+            //_contactListWithoutNumber.clear();
 
             cached = false;
         } catch (Exception e) {
@@ -118,36 +120,36 @@ class ContactsCache {
             Crashlytics.logException(e);
 
             _contactList.clear();
-            _contactListWithoutNumber.clear();
+            //_contactListWithoutNumber.clear();
 
             cached = false;
         }
 
         synchronized (PPApplication.contactsCacheMutex) {
-            updateContacts(_contactList, false);
-            updateContacts(_contactListWithoutNumber, true);
+            updateContacts(_contactList/*, false*/);
+            //updateContacts(_contactListWithoutNumber, true);
         }
 
         caching = false;
     }
 
-    void updateContacts(List<Contact> _contactList, boolean withoutNumber) {
-        if (withoutNumber) {
+    void updateContacts(List<Contact> _contactList/*, boolean withoutNumber*/) {
+        /*if (withoutNumber) {
             contactListWithoutNumber.clear();
             contactListWithoutNumber.addAll(_contactList);
         }
-        else {
+        else {*/
             contactList.clear();
             contactList.addAll(_contactList);
-        }
+        //}
     }
 
-    List<Contact> getList(boolean withoutNumber)
+    List<Contact> getList(/*boolean withoutNumber*/)
     {
         if (cached) {
-            if (withoutNumber)
+            /*if (withoutNumber)
                 return contactListWithoutNumber;
-            else
+            else*/
                 return contactList;
         }
         else
@@ -213,7 +215,7 @@ class ContactsCache {
     {
         synchronized (PPApplication.contactsCacheMutex) {
             contactList.clear();
-            contactListWithoutNumber.clear();
+            //contactListWithoutNumber.clear();
             cached = false;
             caching = false;
         }

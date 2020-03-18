@@ -39,20 +39,20 @@ class ContactGroupsCache {
         ArrayList<ContactGroup> _contactGroupList = new ArrayList<>();
 
         ArrayList<Contact> _contactList = new ArrayList<>();
-        ArrayList<Contact> _contactListWithoutNumber = new ArrayList<>();
+        //ArrayList<Contact> _contactListWithoutNumber = new ArrayList<>();
         synchronized (PPApplication.contactsCacheMutex) {
-            List<Contact> contacts = contactsCache.getList(false);
+            List<Contact> contacts = contactsCache.getList(/*false*/);
             if (contacts != null)
                 _contactList.addAll(contacts);
-            contacts = contactsCache.getList(true);
+            /*contacts = contactsCache.getList(true);
             if (contacts != null)
-                _contactListWithoutNumber.addAll(contacts);
+                _contactListWithoutNumber.addAll(contacts);*/
         }
 
         try {
             if (Permissions.checkContacts(context)) {
                 contactsCache.clearGroups(_contactList);
-                contactsCache.clearGroups(_contactListWithoutNumber);
+                //contactsCache.clearGroups(_contactListWithoutNumber);
 
                 String[] projection = new String[]{
                         ContactsContract.Groups._ID,
@@ -96,7 +96,7 @@ class ContactGroupsCache {
                                     Log.e("ContactGroupsCache.getContactGroupList", "contactId=" + contactId);
                                 }*/
                                 contactsCache.addGroup(contactId, contactGroupId, _contactList);
-                                contactsCache.addGroup(contactId, contactGroupId, _contactListWithoutNumber);
+                                //contactsCache.addGroup(contactId, contactGroupId, _contactListWithoutNumber);
                             }
                             mCursorGroup.close();
                         }
@@ -116,7 +116,7 @@ class ContactGroupsCache {
 
             _contactGroupList.clear();
             contactsCache.clearGroups(_contactList);
-            contactsCache.clearGroups(_contactListWithoutNumber);
+            //contactsCache.clearGroups(_contactListWithoutNumber);
 
             cached = false;
         } catch (Exception e) {
@@ -126,14 +126,14 @@ class ContactGroupsCache {
 
             _contactGroupList.clear();
             contactsCache.clearGroups(_contactList);
-            contactsCache.clearGroups(_contactListWithoutNumber);
+            //contactsCache.clearGroups(_contactListWithoutNumber);
 
             cached = false;
         }
 
         synchronized (PPApplication.contactGroupsCacheMutex) {
-            contactsCache.updateContacts(_contactList, false);
-            contactsCache.updateContacts(_contactListWithoutNumber, true);
+            contactsCache.updateContacts(_contactList/*, false*/);
+            //contactsCache.updateContacts(_contactListWithoutNumber, true);
 
             contactGroupList.clear();
             contactGroupList.addAll(_contactGroupList);

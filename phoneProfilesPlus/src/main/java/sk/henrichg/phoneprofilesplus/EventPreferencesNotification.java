@@ -1231,7 +1231,7 @@ class EventPreferencesNotification extends EventPreferences {
                     return false;
 
                 synchronized (PPApplication.contactsCacheMutex) {
-                    List<Contact> contactList = contactsCache.getList(true);
+                    List<Contact> contactList = contactsCache.getList(/*true*/);
                     if (contactList != null) {
                         for (Contact contact : contactList) {
                             if (contact.groups != null) {
@@ -1301,14 +1301,16 @@ class EventPreferencesNotification extends EventPreferences {
                         return false;
 
                     synchronized (PPApplication.contactsCacheMutex) {
-                        List<Contact> contactList = contactsCache.getList(false);
+                        List<Contact> contactList = contactsCache.getList(/*false*/);
                         if (contactList != null) {
                             for (Contact contact : contactList) {
-                                if ((contact.contactId == Long.parseLong(splits2[0])) && contact.phoneId == Long.parseLong(splits2[1])) {
-                                    String _contactName = contact.name;
-                                    if (text.toLowerCase().contains(_contactName.toLowerCase())) {
-                                        phoneNumberFound = true;
-                                        break;
+                                if (contact.phoneId != 0) {
+                                    if ((contact.contactId == Long.parseLong(splits2[0])) && contact.phoneId == Long.parseLong(splits2[1])) {
+                                        String _contactName = contact.name;
+                                        if (text.toLowerCase().contains(_contactName.toLowerCase())) {
+                                            phoneNumberFound = true;
+                                            break;
+                                        }
                                     }
                                 }
                             }

@@ -571,17 +571,19 @@ class EventPreferencesSMS extends EventPreferences {
                                 return;
 
                             synchronized (PPApplication.contactsCacheMutex) {
-                                List<Contact> contactList = contactsCache.getList(false);
+                                List<Contact> contactList = contactsCache.getList(/*false*/);
                                 if (contactList != null) {
                                     for (Contact contact : contactList) {
                                         if (contact.groups != null) {
                                             long groupId = contact.groups.indexOf(Long.valueOf(split));
                                             if (groupId != -1) {
                                                 // group found in contact
-                                                String _phoneNumber = contact.phoneNumber;
-                                                if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
-                                                    phoneNumberFound = true;
-                                                    break;
+                                                if (contact.phoneId != 0) {
+                                                    String _phoneNumber = contact.phoneNumber;
+                                                    if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
+                                                        phoneNumberFound = true;
+                                                        break;
+                                                    }
                                                 }
                                             }
                                         }
@@ -633,14 +635,16 @@ class EventPreferencesSMS extends EventPreferences {
                                     return;
 
                                 synchronized (PPApplication.contactsCacheMutex) {
-                                    List<Contact> contactList = contactsCache.getList(false);
+                                    List<Contact> contactList = contactsCache.getList(/*false*/);
                                     if (contactList != null) {
                                         for (Contact contact : contactList) {
-                                            if ((contact.contactId == Long.parseLong(splits2[0])) && contact.phoneId == Long.parseLong(splits2[1])) {
-                                                String _phoneNumber = contact.phoneNumber;
-                                                if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
-                                                    phoneNumberFound = true;
-                                                    break;
+                                            if (contact.phoneId != 0) {
+                                                if ((contact.contactId == Long.parseLong(splits2[0])) && contact.phoneId == Long.parseLong(splits2[1])) {
+                                                    String _phoneNumber = contact.phoneNumber;
+                                                    if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
+                                                        phoneNumberFound = true;
+                                                        break;
+                                                    }
                                                 }
                                             }
                                         }

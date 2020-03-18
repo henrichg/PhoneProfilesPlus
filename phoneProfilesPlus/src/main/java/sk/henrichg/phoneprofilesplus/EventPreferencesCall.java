@@ -603,7 +603,7 @@ class EventPreferencesCall extends EventPreferences {
                         return false;
 
                     synchronized (PPApplication.contactsCacheMutex) {
-                        List<Contact> contactList = contactsCache.getList(false);
+                        List<Contact> contactList = contactsCache.getList(/*false*/);
                         if (contactList != null) {
                             for (Contact contact : contactList) {
                             /*String __phoneNumber = contact.phoneNumber;
@@ -621,12 +621,14 @@ class EventPreferencesCall extends EventPreferences {
                                         // group found in contact
                                         //if (found)
                                         //    Log.e("EventPreferencesCall.isPhoneNumberConfigured", "groupId="+groupId);
-                                        String _phoneNumber = contact.phoneNumber;
-                                        if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
-                                            phoneNumberFound = true;
-                                            //if (found)
-                                            //    Log.e("EventPreferencesCall.isPhoneNumberConfigured", "phoneNumberFound="+phoneNumberFound);
-                                            break;
+                                        if (contact.phoneId != 0) {
+                                            String _phoneNumber = contact.phoneNumber;
+                                            if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
+                                                phoneNumberFound = true;
+                                                //if (found)
+                                                //    Log.e("EventPreferencesCall.isPhoneNumberConfigured", "phoneNumberFound="+phoneNumberFound);
+                                                break;
+                                            }
                                         }
                                     }
                                 }
@@ -680,14 +682,16 @@ class EventPreferencesCall extends EventPreferences {
                             return false;
 
                         synchronized (PPApplication.contactsCacheMutex) {
-                            List<Contact> contactList = contactsCache.getList(false);
+                            List<Contact> contactList = contactsCache.getList(/*false*/);
                             if (contactList != null) {
                                 for (Contact contact : contactList) {
-                                    if ((contact.contactId == Long.parseLong(splits2[0])) && contact.phoneId == Long.parseLong(splits2[1])) {
-                                        String _phoneNumber = contact.phoneNumber;
-                                        if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
-                                            phoneNumberFound = true;
-                                            break;
+                                    if (contact.phoneId != 0) {
+                                        if ((contact.contactId == Long.parseLong(splits2[0])) && contact.phoneId == Long.parseLong(splits2[1])) {
+                                            String _phoneNumber = contact.phoneNumber;
+                                            if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
+                                                phoneNumberFound = true;
+                                                break;
+                                            }
                                         }
                                     }
                                 }
