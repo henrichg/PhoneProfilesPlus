@@ -56,13 +56,14 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     //Log.d("ActionForExternalApplicationActivity.onCreate", "profileName="+profileName);
 
                     if (!profileName.isEmpty()) {
-                        dataWrapper.fillProfileList(false, false);
-                        for (Profile profile : this.dataWrapper.profileList) {
+                        //dataWrapper.fillProfileList(false, false);
+                        profile_id = dataWrapper.getProfileIdByName(profileName, true);
+                        /*for (Profile profile : this.dataWrapper.profileList) {
                             if (profile._name.trim().equals(profileName)) {
                                 profile_id = profile._id;
                                 break;
                             }
-                        }
+                        }*/
                         //Log.d("ActionForExternalApplicationActivity.onCreate", "profile_id="+profile_id);
                     }
                 }
@@ -73,13 +74,14 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     //Log.d("ActionForExternalApplicationActivity.onCreate", "eventName=" + eventName);
 
                     if (!eventName.isEmpty()) {
-                        dataWrapper.fillEventList();
+                        event_id = dataWrapper.getEventIdByName(eventName, true);
+                        /*dataWrapper.fillEventList();
                         for (Event event : dataWrapper.eventList) {
                             if (event._name.trim().equals(eventName)) {
                                 event_id = event._id;
                                 break;
                             }
-                        }
+                        }*/
                         //Log.d("ActionForExternalApplicationActivity.onCreate", "event_id=" + event_id);
                     }
                 }

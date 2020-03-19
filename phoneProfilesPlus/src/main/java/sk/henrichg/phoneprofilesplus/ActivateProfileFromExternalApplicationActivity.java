@@ -37,13 +37,14 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
             //Log.d("ActivateProfileFromExternalApplicationActivity.onCreate", "profileName="+profileName);
 
             if (!profileName.isEmpty()) {
-                dataWrapper.fillProfileList(false, false);
+                profile_id = dataWrapper.getProfileIdByName(profileName, true);
+                /*dataWrapper.fillProfileList(false, false);
                 for (Profile profile : dataWrapper.profileList) {
                     if (profile._name.trim().equals(profileName)) {
                         profile_id = profile._id;
                         break;
                     }
-                }
+                }*/
                 //Log.d("ActivateProfileFromExternalApplicationActivity.onCreate", "profile_id="+profile_id);
             }
         }

@@ -3078,15 +3078,19 @@ public class PPApplication extends Application /*implements Application.Activity
             }
 
             if (dataWrapper != null) {
-                //if (!dataWrapper.profileListFilled)
-                    dataWrapper.fillProfileList(false, false);
-                for (Profile profile : dataWrapper.profileList)
-                    ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, context);
+                synchronized (dataWrapper.profileList) {
+                    if (!dataWrapper.profileListFilled)
+                        dataWrapper.fillProfileList(false, false);
+                    for (Profile profile : dataWrapper.profileList)
+                        ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, context);
+                }
 
-                if (!dataWrapper.eventListFilled)
-                    dataWrapper.fillEventList();
-                for (Event event : dataWrapper.eventList)
-                    StartEventNotificationBroadcastReceiver.removeAlarm(event, context);
+                synchronized (dataWrapper.eventList) {
+                    if (!dataWrapper.eventListFilled)
+                        dataWrapper.fillEventList();
+                    for (Event event : dataWrapper.eventList)
+                        StartEventNotificationBroadcastReceiver.removeAlarm(event, context);
+                }
             }
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
             Profile.setActivatedProfileForDuration(context, 0);

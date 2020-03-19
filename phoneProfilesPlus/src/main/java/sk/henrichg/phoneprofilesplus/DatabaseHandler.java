@@ -6328,6 +6328,44 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    long getEventIdByName(String name)
+    {
+        importExportLock.lock();
+        try {
+            long id = 0;
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.query(TABLE_EVENTS,
+                        new String[]{KEY_E_ID},
+                        "trim(" + KEY_E_NAME + ")=?",
+                        new String[]{name}, null, null, null, null);
+                if (cursor != null) {
+                    cursor.moveToFirst();
+
+                    int rc = cursor.getCount();
+
+                    if (rc == 1) {
+                        id = cursor.getLong(cursor.getColumnIndex(KEY_E_ID));
+                    }
+
+                    cursor.close();
+                }
+
+                //db.close();
+
+            } catch (Exception e) {
+                Crashlytics.logException(e);
+            }
+            return id;
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
     int getEventSensorPassed(EventPreferences eventPreferences, int eventType)
     {
         if (eventPreferences._event != null) {
