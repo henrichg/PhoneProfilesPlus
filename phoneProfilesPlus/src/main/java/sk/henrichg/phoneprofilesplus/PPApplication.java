@@ -13,12 +13,14 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.hardware.display.DisplayManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.PowerManager;
 import android.util.Log;
 import android.util.Pair;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -1103,6 +1105,19 @@ public class PPApplication extends Application /*implements Application.Activity
             isScreenOn = pm.isInteractive();
         else
             isScreenOn = false;
+        /*DisplayManager displayManager = (DisplayManager) getSystemService(Context.DISPLAY_SERVICE);
+        if (displayManager == null)
+            isScreenOn = false;
+        else {
+            Display[] displays = displayManager.getDisplays();
+            if ((displays == null) || (displays.length == 0))
+                isScreenOn = false;
+            else {
+                int state = displays[0].getState();
+                if ((state == Display.STATE_ON) || (state == Display.STATE_ON_SUSPEND))
+                    isScreenOn = true;
+            }
+        }*/
 
         //	Debug.startMethodTracing("phoneprofiles");
 

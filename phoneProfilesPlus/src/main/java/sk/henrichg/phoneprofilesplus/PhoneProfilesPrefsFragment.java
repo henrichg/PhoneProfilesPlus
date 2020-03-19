@@ -55,6 +55,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_DRAW_OVERLAYS_PERMISSIONS = "permissionsDrawOverlaysPermissions";
     private static final int RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS = 1998;
     private static final String PREF_GRANT_ROOT_PERMISSION = "permissionsGrantRootPermission";
+    private static final String PREF_GRANT_G1_PERMISSION = "permissionsGrantG1Permission";
 
     private static final String PREF_WIFI_LOCATION_SYSTEM_SETTINGS = "applicationEventWiFiLocationSystemSettings";
     private static final String PREF_BLUETOOTH_LOCATION_SYSTEM_SETTINGS = "applicationEventBluetoothLocationSystemSettings";
@@ -850,14 +851,45 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
 
             if (!PPApplication.isRooted(true)) {
-                PreferenceScreen preferenceCategory = findPreference("categoryPermissions");
+                //PreferenceScreen preferenceCategory = findPreference("categoryPermissions");
                 preference = findPreference(PREF_GRANT_ROOT_PERMISSION);
-                if ((preferenceCategory != null) && (preference != null))
-                    preferenceCategory.removePreference(preference);
+                //if ((preferenceCategory != null) && (preference != null))
+                //    preferenceCategory.removePreference(preference);
+                if (preference != null)
+                    preference.setEnabled(false);
             }
+            preference = findPreference(PREF_GRANT_G1_PERMISSION);
+            if (preference != null) {
+                preference.setSummary(getString(R.string.important_info_profile_grant) + " " +
+                        getString(R.string.profile_preferences_types_G1_show_info));
+            }
+
         }
         else {
-            if (PPApplication.isRooted(true)) {
+            // hide user permissions
+            PreferenceScreen preferenceCategory = findPreference("categoryPermissions");
+            if (preferenceCategory != null) {
+                preference = findPreference(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
+                if (preference != null)
+                    preferenceCategory.removePreference(preference);
+                //preference = findPreference(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
+                //if (preference != null)
+                //    preferenceCategory.removePreference(preference);
+                preference = findPreference(PREF_DRAW_OVERLAYS_PERMISSIONS);
+                if (preference != null)
+                    preferenceCategory.removePreference(preference);
+                preference = findPreference(PREF_APPLICATION_PERMISSIONS);
+                if (preference != null)
+                    preferenceCategory.removePreference(preference);
+            }
+
+            if (!PPApplication.isRooted(true)) {
+                preference = findPreference(PREF_GRANT_ROOT_PERMISSION);
+                if (preference != null)
+                    preference.setEnabled(false);
+            }
+
+            /*if (PPApplication.isRooted(true)) {
                 PreferenceScreen preferenceCategory = findPreference("categoryPermissions");
                 if (preferenceCategory != null) {
                     preference = findPreference(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
@@ -879,9 +911,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 Preference preferenceCategory = findPreference("categoryPermissionsRoot");
                 if ((preferenceScreen != null) && (preferenceCategory != null))
                         preferenceScreen.removePreference(preferenceCategory);
-            }
+            }*/
 
-            PreferenceScreen preferenceCategory = findPreference("wifiScanningCategory");
+            preferenceCategory = findPreference("wifiScanningCategory");
             preference = findPreference(PREF_WIFI_LOCATION_SYSTEM_SETTINGS);
             if ((preferenceCategory != null) && (preference != null))
                 preferenceCategory.removePreference(preference);
@@ -908,6 +940,19 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 });
             }
+        }
+        preference = findPreference(PREF_GRANT_G1_PERMISSION);
+        if (preference != null) {
+            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intentLaunch = new Intent(getActivity(), ImportantInfoActivity.class);
+                    intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, 0);
+                    intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SCROLL_TO, R.id.activity_info_notification_profile_grant_1_howTo_1);
+                    startActivity(intentLaunch);
+                    return false;
+                }
+            });
         }
 
         if (!WifiBluetoothScanner.bluetoothLESupported(getActivity().getApplicationContext())) {
@@ -1809,6 +1854,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         //setSummary(PREF_APPLICATION_POWER_MANAGER);
         setSummary(PREF_POWER_SAVE_MODE_SETTINGS);
         setSummary(PREF_GRANT_ROOT_PERMISSION);
+        setSummary(PREF_GRANT_G1_PERMISSION);
         setSummary(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
         //setSummary(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
         setSummary(PREF_DRAW_OVERLAYS_PERMISSIONS);

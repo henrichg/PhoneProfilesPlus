@@ -973,7 +973,7 @@ public class DataWrapper {
         }
     }
 
-    long getEventIdByName(String name, boolean fromDB)
+    long getEventIdByName(String name, @SuppressWarnings("SameParameterValue") boolean fromDB)
     {
         String _name = name.trim();
         if ((!eventListFilled) || fromDB)

@@ -29,6 +29,12 @@
         app:widgetLayout="@layout/start_activity_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
+        app:key="permissionsGrantG1Permission"
+        app:title="@string/profile_preferences_types_G1_permission"
+        app:summary="@string/important_info_profile_grant"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget"/>
+    <Preference
         app:key="permissionsApplicationPermissions"
         app:title="@string/phone_profiles_pref_applicationPermissions"
         app:summary="@string/phone_profiles_pref_applicationPermissions_summary"
