@@ -7716,6 +7716,55 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    String getLastStartedEventName() {
+        importExportLock.lock();
+        try {
+            String eventName = "?";
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                String query =
+                        "SELECT "+KEY_ET_FK_EVENT+" FROM "+TABLE_EVENT_TIMELINE+" ORDER BY "+KEY_ET_EORDER+" DESC LIMIT 1";
+                Cursor cursor1 = db.rawQuery(query, null);
+
+                long lastEvent = 0;
+
+                if (cursor1.getCount() > 0) {
+                    if (cursor1.moveToFirst()) {
+                        lastEvent = cursor1.getLong(0);
+                    }
+
+                    if (lastEvent > 0) {
+                        query = "SELECT "+KEY_E_NAME+","+KEY_E_FORCE_RUN+
+                                " FROM "+TABLE_EVENTS+
+                                " WHERE "+KEY_E_ID+"="+lastEvent;
+                        Cursor cursor2 = db.rawQuery(query, null);
+
+                        if (cursor2.getCount() > 0) {
+                            if (cursor2.moveToFirst()) {
+                                String _eventName = cursor2.getString(0);
+                                boolean _forceRun = cursor2.getInt(1) == 1;
+                                if ((!ApplicationPreferences.prefEventsBlocked) || _forceRun)
+                                    eventName = _eventName;
+                            }
+                        }
+                        cursor2.close();
+                    }
+                }
+                cursor1.close();
+                //db.close();
+            } catch (Exception e) {
+                Crashlytics.logException(e);
+            }
+            return eventName;
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
 // ACTIVITY LOG -------------------------------------------------------------------
 
     // Adding activity log

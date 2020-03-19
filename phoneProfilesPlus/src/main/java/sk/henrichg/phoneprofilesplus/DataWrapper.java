@@ -4779,6 +4779,11 @@ public class DataWrapper {
                 }
             }
             else {
+                String eventName = DatabaseHandler.getInstance(dataWrapper.context).getLastStartedEventName();
+                if (!eventName.equals("?")) {
+                    return eventName;
+                }
+                /*
                 List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(true);
                 if (eventTimelineList.size() > 0)
                 {
@@ -4802,7 +4807,7 @@ public class DataWrapper {
                     }
                     else
                         return "?";
-                }
+                }*/
                 else
                 {
                     long profileId = ApplicationPreferences.applicationDefaultProfile;
