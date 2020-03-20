@@ -2178,6 +2178,7 @@ public class DataWrapper {
         }*/
 
         if (event._eventPreferencesTime._enabled) {
+            int oldSensorPassed = event._eventPreferencesTime.getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                 // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
                 /*&& Permissions.checkEventLocation(context, event, null)*/) {
@@ -2260,11 +2261,15 @@ public class DataWrapper {
                 }
             } else
                 notAllowedTime = true;
-            event._eventPreferencesTime.setSensorPassed(event._eventPreferencesTime.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
-            DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_TIME);
+            int newSensorPassed = event._eventPreferencesTime.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                event._eventPreferencesTime.setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_TIME);
+            }
         }
 
         if (event._eventPreferencesBattery._enabled) {
+            int oldSensorPassed = event._eventPreferencesBattery.getSensorPassed();
             if (Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 boolean isPowerSaveMode = isPowerSaveMode(context);
                 //PPApplication.logE("[BAT] DataWrapper.doHandleEvents", "isPowerSaveMode=" + isPowerSaveMode);
@@ -2361,11 +2366,15 @@ public class DataWrapper {
                 }
             } else
                 notAllowedBattery = true;
-            event._eventPreferencesBattery.setSensorPassed(event._eventPreferencesBattery.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
-            DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_BATTERY);
+            int newSensorPassed = event._eventPreferencesBattery.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                event._eventPreferencesBattery.setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_BATTERY);
+            }
         }
 
         if (event._eventPreferencesCall._enabled) {
+            int oldSensorPassed = event._eventPreferencesCall.getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                 // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
                 /*&& Permissions.checkEventCallContacts(context, event, null)*//* &&
@@ -2535,11 +2544,15 @@ public class DataWrapper {
             }
             else
                 notAllowedCall = true;
-            event._eventPreferencesCall.setSensorPassed(event._eventPreferencesCall.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
-            DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_CALL);
+            int newSensorPassed = event._eventPreferencesCall.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                event._eventPreferencesCall.setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_CALL);
+            }
         }
 
         if (event._eventPreferencesPeripherals._enabled) {
+            int oldSensorPassed = event._eventPreferencesPeripherals.getSensorPassed();
             if (Event.isEventPreferenceAllowed(EventPreferencesPeripherals.PREF_EVENT_PERIPHERAL_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if ((event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_DESK_DOCK) ||
                         (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_CAR_DOCK)) {
@@ -2601,11 +2614,15 @@ public class DataWrapper {
                 }
             } else
                 notAllowedPeripheral = true;
-            event._eventPreferencesPeripherals.setSensorPassed(event._eventPreferencesPeripherals.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
-            DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_PERIPHERAL);
+            int newSensorPassed = event._eventPreferencesPeripherals.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                event._eventPreferencesPeripherals.setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_PERIPHERAL);
+            }
         }
 
         if (event._eventPreferencesCalendar._enabled) {
+            int oldSensorPassed = event._eventPreferencesCalendar.getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                 // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
                 /*&& (Permissions.checkEventCalendar(context, event, null))*/) {
@@ -2644,12 +2661,16 @@ public class DataWrapper {
                 }
             } else
                 notAllowedCalendar = true;
-            event._eventPreferencesCalendar.setSensorPassed(event._eventPreferencesCalendar.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
-            DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_CALENDAR);
+            int newSensorPassed = event._eventPreferencesCalendar.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                event._eventPreferencesCalendar.setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_CALENDAR);
+            }
         }
         
 
         if (event._eventPreferencesWifi._enabled) {
+            int oldSensorPassed = event._eventPreferencesWifi.getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                 // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
                 /*&& Permissions.checkEventLocation(context, event, null)*/) {
@@ -2948,11 +2969,15 @@ public class DataWrapper {
                 }
             } else
                 notAllowedWifi = true;
-            event._eventPreferencesWifi.setSensorPassed(event._eventPreferencesWifi.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
-            DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_WIFI);
+            int newSensorPassed = event._eventPreferencesWifi.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                event._eventPreferencesWifi.setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_WIFI);
+            }
         }
 
         if (event._eventPreferencesScreen._enabled) {
+            int oldSensorPassed = event._eventPreferencesScreen.getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 //PPApplication.logE("[Screen] DataWrapper.doHandleEvents", "xxx");
 
@@ -3010,12 +3035,16 @@ public class DataWrapper {
                 }
             } else
                 notAllowedScreen = true;
-            event._eventPreferencesScreen.setSensorPassed(event._eventPreferencesScreen.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
-            DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_SCREEN);
+            int newSensorPassed = event._eventPreferencesScreen.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                event._eventPreferencesScreen.setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_SCREEN);
+            }
         }
 
 
         if (event._eventPreferencesBluetooth._enabled) {
+            int oldSensorPassed = event._eventPreferencesBluetooth.getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                 // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
                 /*&& Permissions.checkEventLocation(context, event, null)
@@ -3258,11 +3287,15 @@ public class DataWrapper {
                 }
             } else
                 notAllowedBluetooth = true;
-            event._eventPreferencesBluetooth.setSensorPassed(event._eventPreferencesBluetooth.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
-            DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_BLUETOOTH);
+            int newSensorPassed = event._eventPreferencesBluetooth.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                event._eventPreferencesBluetooth.setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_BLUETOOTH);
+            }
         }
 
         if (event._eventPreferencesSMS._enabled) {
+            int oldSensorPassed = event._eventPreferencesSMS.getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                 // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
                 /*&& Permissions.checkEventSMSContacts(context, event, null)*/
@@ -3329,11 +3362,15 @@ public class DataWrapper {
                 }
             } else
                 notAllowedSms = true;
-            event._eventPreferencesSMS.setSensorPassed(event._eventPreferencesSMS.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
-            DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_SMS);
+            int newSensorPassed = event._eventPreferencesSMS.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                event._eventPreferencesSMS.setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_SMS);
+            }
         }
 
         if (event._eventPreferencesNotification._enabled) {
+            int oldSensorPassed = event._eventPreferencesNotification.getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 notificationPassed = event._eventPreferencesNotification.isNotificationVisible(context);
 
@@ -3347,12 +3384,16 @@ public class DataWrapper {
                 }
             } else
                 notAllowedNotification = true;
-            event._eventPreferencesNotification.setSensorPassed(event._eventPreferencesNotification.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
-            DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_NOTIFICATION);
+            int newSensorPassed = event._eventPreferencesNotification.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                event._eventPreferencesNotification.setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_NOTIFICATION);
+            }
         }
 
 
         if (event._eventPreferencesApplication._enabled) {
+            int oldSensorPassed = event._eventPreferencesApplication.getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 applicationPassed = false;
 
@@ -3382,11 +3423,15 @@ public class DataWrapper {
                 }
             } else
                 notAllowedApplication = true;
-            event._eventPreferencesApplication.setSensorPassed(event._eventPreferencesApplication.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
-            DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_APPLICATION);
+            int newSensorPassed = event._eventPreferencesApplication.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                event._eventPreferencesApplication.setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_APPLICATION);
+            }
         }
 
         if (event._eventPreferencesLocation._enabled) {
+            int oldSensorPassed = event._eventPreferencesLocation.getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                 // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
                 /*&& Permissions.checkEventLocation(context, event, null)*/) {
@@ -3478,11 +3523,15 @@ public class DataWrapper {
                 }
             } else
                 notAllowedLocation = true;
-            event._eventPreferencesLocation.setSensorPassed(event._eventPreferencesLocation.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
-            DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_LOCATION);
+            int newSensorPassed = event._eventPreferencesLocation.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                event._eventPreferencesLocation.setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_LOCATION);
+            }
         }
 
         if (event._eventPreferencesOrientation._enabled) {
+            int oldSensorPassed = event._eventPreferencesOrientation.getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                 boolean inCall = false;
@@ -3661,11 +3710,15 @@ public class DataWrapper {
                 }
             } else
                 notAllowedOrientation = true;
-            event._eventPreferencesOrientation.setSensorPassed(event._eventPreferencesOrientation.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
-            DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_ORIENTATION);
+            int newSensorPassed = event._eventPreferencesOrientation.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                event._eventPreferencesOrientation.setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_ORIENTATION);
+            }
         }
 
         if (event._eventPreferencesMobileCells._enabled) {
+            int oldSensorPassed = event._eventPreferencesMobileCells.getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                     // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
                     /*&& Permissions.checkEventLocation(context, event, null)*/) {
@@ -3730,11 +3783,15 @@ public class DataWrapper {
                 }
             } else
                 notAllowedMobileCell = true;
-            event._eventPreferencesMobileCells.setSensorPassed(event._eventPreferencesMobileCells.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
-            DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_MOBILE_CELLS);
+            int newSensorPassed = event._eventPreferencesMobileCells.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                event._eventPreferencesMobileCells.setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_MOBILE_CELLS);
+            }
         }
 
         if (event._eventPreferencesNFC._enabled) {
+            int oldSensorPassed = event._eventPreferencesNFC.getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 // compute start time
 
@@ -3790,11 +3847,15 @@ public class DataWrapper {
 
             } else
                 notAllowedNfc = true;
-            event._eventPreferencesNFC.setSensorPassed(event._eventPreferencesNFC.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
-            DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_NFC);
+            int newSensorPassed = event._eventPreferencesNFC.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                event._eventPreferencesNFC.setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_NFC);
+            }
         }
 
         if (event._eventPreferencesRadioSwitch._enabled) {
+            int oldSensorPassed = event._eventPreferencesRadioSwitch.getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 radioSwitchPassed = true;
                 boolean tested = false;
@@ -3911,11 +3972,15 @@ public class DataWrapper {
                 }
             } else
                 notAllowedRadioSwitch = true;
-            event._eventPreferencesRadioSwitch.setSensorPassed(event._eventPreferencesRadioSwitch.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
-            DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_RADIO_SWITCH);
+            int newSensorPassed = event._eventPreferencesRadioSwitch.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                event._eventPreferencesRadioSwitch.setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_RADIO_SWITCH);
+            }
         }
 
         if (event._eventPreferencesAlarmClock._enabled) {
+            int oldSensorPassed = event._eventPreferencesAlarmClock.getSensorPassed();
             if (Event.isEventPreferenceAllowed(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 // compute start time
 
@@ -3971,8 +4036,11 @@ public class DataWrapper {
                 }
             } else
                 notAllowedAlarmClock = true;
-            event._eventPreferencesAlarmClock.setSensorPassed(event._eventPreferencesAlarmClock.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
-            DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_ALARM_CLOCK);
+            int newSensorPassed = event._eventPreferencesAlarmClock.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                event._eventPreferencesAlarmClock.setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_ALARM_CLOCK);
+            }
         }
 
         List<EventTimeline> eventTimelineList = getEventTimelineList(true);
