@@ -643,7 +643,7 @@
     <string name="permissions_draw_overlays_not_allowed_confirm">Nepovolily jste \"Vykreslit přes další aplikace\". Příště se již neptat?</string>
     <string name="phone_profiles_pref_drawOverlaysPermissions">Vykreslit přes další aplikace</string>
     <string name="phone_profiles_pref_drawOverlaysPermissions_summary">Prosím najděte aplikaci \"Phone Profile Plus\" a povolte ji.</string>
-    <string name="preference_not_allowed_reason_not_configured_in_system_settings">ne nakonfigurované v Systémových Nastaveních</string>
+    <string name="preference_not_allowed_reason_not_configured_in_system_settings">není nakonfigurováno v Systémových Nastaveních</string>
     <string name="mobile_cells_pref_dlg_last_connected">připojeno:</string>
     <string name="bluetooth_name_pref_dlg_add_bt_name_icon">Přidat název Bluetooth</string>
     <string name="mobile_cells_pref_dlg_rename_icon">Přejmenovat buňky</string>

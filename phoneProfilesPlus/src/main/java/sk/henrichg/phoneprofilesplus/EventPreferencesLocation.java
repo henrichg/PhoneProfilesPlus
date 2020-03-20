@@ -209,7 +209,7 @@ class EventPreferencesLocation extends EventPreferences {
         Preference preference = prefMng.findPreference(PREF_EVENT_LOCATION_GEOFENCES);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_LOCATION_GEOFENCES, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable, true);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable, false);
         }
     }
 
