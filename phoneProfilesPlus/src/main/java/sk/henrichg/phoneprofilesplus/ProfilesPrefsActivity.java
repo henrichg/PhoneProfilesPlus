@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.Toast;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
@@ -67,6 +68,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             // check if profile exists in db
             DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
             if (dataWrapper.getProfileById(profile_id, false, false, false) == null) {
+                GlobalGUIRoutines.showToast(getApplicationContext(),
+                        getString(R.string.profile_preferences_profile_not_found),
+                        Toast.LENGTH_SHORT);
                 super.finish();
                 return;
             }
