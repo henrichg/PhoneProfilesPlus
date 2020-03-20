@@ -1492,6 +1492,9 @@
     <string name="draw_over_apps_permission_notification_text">You must grant permission \"Draw over apps\". It is required to start activities when PhoneProfilesPlus is in background. Click here to grant this permission.</string>
 
     <string name="profile_preferences_types_G1_permission">Grant for (G1) preferences</string>
+    <string name="preferences_grantG1Preferences_title">Grant for (G1) preferences not enabled</string>
+    <string name="preferences_grantG1Preferences_summary">Grant for (G1) preferences not enabled. Click here to grant it.</string>
+    <string name="phone_profiles_pref_grantG1Permission_summary">Please grant WRITE_SECURE_SETTINGS permission for PhoneProfilesPlus. Is required for profile and event parameters, marked with (G1). Then ROOT will not be needed.</string>
 
     <!-- **************************************************************************************** -->
 

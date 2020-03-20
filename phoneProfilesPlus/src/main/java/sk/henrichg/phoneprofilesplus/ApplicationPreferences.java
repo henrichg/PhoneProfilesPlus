@@ -44,6 +44,7 @@ class ApplicationPreferences {
 
     static boolean applicationEventNeverAskForEnableRun;
     static boolean applicationNeverAskForGrantRoot;
+    static boolean applicationNeverAskForGrantG1Permission;
     static int editorOrderSelectedItem;
     static int editorSelectedView;
     static int editorProfilesViewSelectedItem;
@@ -214,6 +215,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_FIRST_START = "applicationFirstStart";
     static final String PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN = "applicationEventNeverAskForEnableRun";
     static final String PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT = "applicationNeverAskForGrantRoot";
+    static final String PREF_APPLICATION_NEVER_ASK_FOR_GRANT_G1_PERMISSION = "applicationNeverAskForGrantG1Permission";
 
     static final String EDITOR_ORDER_SELECTED_ITEM = "editor_order_selected_item";
     static final String EDITOR_SELECTED_VIEW = "editor_selected_view";
@@ -422,6 +424,10 @@ class ApplicationPreferences {
 
     static void applicationNeverAskForGrantRoot(Context context) {
         applicationNeverAskForGrantRoot = getSharedPreferences(context).getBoolean(PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
+    }
+
+    static void applicationNeverAskForGrantG1Permission(Context context) {
+        applicationNeverAskForGrantG1Permission = getSharedPreferences(context).getBoolean(PREF_APPLICATION_NEVER_ASK_FOR_GRANT_G1_PERMISSION, false);
     }
 
     static void editorOrderSelectedItem(Context context) {

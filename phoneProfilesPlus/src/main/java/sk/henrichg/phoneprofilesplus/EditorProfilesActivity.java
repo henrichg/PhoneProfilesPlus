@@ -1009,9 +1009,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                         SharedPreferences.Editor editor = settings.edit();
                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_G1_PERMISSION, false);
                         editor.apply();
                         ApplicationPreferences.applicationEventNeverAskForEnableRun(getApplicationContext());
                         ApplicationPreferences.applicationNeverAskForGrantRoot(getApplicationContext());
+                        ApplicationPreferences.applicationNeverAskForGrantG1Permission(getApplicationContext());
 
                         PPApplication.exitApp(true, getApplicationContext(), EditorProfilesActivity.this.getDataWrapper(),
                                 EditorProfilesActivity.this, false/*, true, true*/);

@@ -46,9 +46,11 @@ public class ExitApplicationActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
                 editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_G1_PERMISSION, false);
                 editor.apply();
                 ApplicationPreferences.applicationEventNeverAskForEnableRun(appContext);
                 ApplicationPreferences.applicationNeverAskForGrantRoot(appContext);
+                ApplicationPreferences.applicationNeverAskForGrantG1Permission(appContext);
 
                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
                 //PPApplication.logE("PPApplication.exitApp", "from ExitApplicationActivity.onStart shutdown=false");

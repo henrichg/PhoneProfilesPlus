@@ -3487,8 +3487,11 @@ public class Profile {
                 {
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                 }
-                else
+                else {
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
+                    if ((profile != null) && (profile._deviceGPS != 0))
+                        return preferenceAllowed;
+                }
             }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
@@ -3533,8 +3536,11 @@ public class Profile {
 
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                 }
-                else
+                else {
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
+                    if ((profile != null) && (profile._deviceNFC != 0))
+                        return preferenceAllowed;
+                }
             }
             else
             {
@@ -3746,8 +3752,11 @@ public class Profile {
                     else
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
-                else
+                else {
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
+                    if ((profile != null) && (profile._devicePowerSaveMode != 0))
+                        return preferenceAllowed;
+                }
             /*}
             else {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
@@ -4003,8 +4012,11 @@ public class Profile {
                     else
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
-                else
+                else {
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
+                    if ((profile != null) && (profile._headsUpNotifications != 0))
+                        return preferenceAllowed;
+                }
             }
             //else
             //if (value != -10)

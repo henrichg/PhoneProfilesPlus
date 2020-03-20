@@ -800,7 +800,7 @@
     <string name="ringtone_preference_default_alarm">Predvolený tón budíka</string>
     <string name="ringtone_preference_none">Žiadny</string>
     <string name="event_preferences_notificationVibrate">Upozorni vibráciami</string>
-    <string name="important_info_profile_grant">Niektoré parametre profilu vyžadujú povolenie WRITE_SECURE_SETTINGS. ROOT nie je potrebný. Tieto parametre sú označená ako \"(G1)\".</string>
+    <string name="important_info_profile_grant">Niektoré parametre profilu vyžadujú povolenie WRITE_SECURE_SETTINGS. ROOT nie je potrebný. Tieto parametre sú označené ako \"(G1)\".</string>
     <string name="important_info_profile_grant_lookSectionProfiles">Pre viac informácií, pozrite si sekciu \"Profily\" ďalej nižšie.</string>
     <string name="important_info_profile_grant_1_howTo_1">Môžete udeliť povolenie pre PhoneProfilesPlus potrebné pre parametre profilu označené (G1). Potrebný je počítač s nainštalovaným adb.</string>
     <string name="important_info_profile_grant_1_howTo_2">Ak v počítači nemáte nainštalovaný adb:</string>

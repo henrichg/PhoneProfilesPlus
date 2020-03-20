@@ -946,10 +946,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    Intent intentLaunch = new Intent(getActivity(), ImportantInfoActivity.class);
-                    intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, 0);
-                    intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SCROLL_TO, R.id.activity_info_notification_profile_grant_1_howTo_1);
-                    startActivity(intentLaunch);
+                    Permissions.grantG1Permission(null, getActivity());
                     return false;
                 }
             });

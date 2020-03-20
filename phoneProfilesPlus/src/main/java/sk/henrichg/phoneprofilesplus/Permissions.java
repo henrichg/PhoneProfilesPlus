@@ -2311,47 +2311,51 @@ class Permissions {
     //---------------------
 
     static void grantRootX(final ProfilesPrefsFragment fragment, final Activity activity) {
-        final AppCompatCheckBox doNotShowAgain = new AppCompatCheckBox(activity);
-
-        FrameLayout container = new FrameLayout(activity);
-        container.addView(doNotShowAgain);
-        FrameLayout.LayoutParams containerParams = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT);
-        containerParams.leftMargin = GlobalGUIRoutines.dpToPx(20);
-        container.setLayoutParams(containerParams);
-
-        FrameLayout superContainer = new FrameLayout(activity);
-        superContainer.addView(container);
-
-        doNotShowAgain.setText(R.string.alert_message_enable_event_check_box);
-        doNotShowAgain.setChecked(ApplicationPreferences.applicationNeverAskForGrantRoot);
-        doNotShowAgain.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
-                SharedPreferences.Editor editor = settings.edit();
-                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, isChecked);
-                editor.apply();
-                ApplicationPreferences.applicationNeverAskForGrantRoot(activity.getApplicationContext());
-            }
-        });
-
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.phone_profiles_pref_grantRootPermission);
         dialogBuilder.setMessage(R.string.phone_profiles_pref_grantRootPermission_summary);
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         //dialogBuilder.setView(doNotShowAgain);
-        dialogBuilder.setView(superContainer);
+
+        if (fragment != null) {
+            AppCompatCheckBox doNotShowAgain = new AppCompatCheckBox(activity);
+
+            FrameLayout container = new FrameLayout(activity);
+            container.addView(doNotShowAgain);
+            FrameLayout.LayoutParams containerParams = new FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.MATCH_PARENT,
+                    FrameLayout.LayoutParams.WRAP_CONTENT);
+            containerParams.leftMargin = GlobalGUIRoutines.dpToPx(20);
+            container.setLayoutParams(containerParams);
+
+            FrameLayout superContainer = new FrameLayout(activity);
+            superContainer.addView(container);
+
+            dialogBuilder.setView(superContainer);
+
+            doNotShowAgain.setText(R.string.alert_message_enable_event_check_box);
+            doNotShowAgain.setChecked(ApplicationPreferences.applicationNeverAskForGrantRoot);
+            doNotShowAgain.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, isChecked);
+                    editor.apply();
+                    ApplicationPreferences.applicationNeverAskForGrantRoot(activity.getApplicationContext());
+                }
+            });
+        }
+
         dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
-                SharedPreferences.Editor editor = settings.edit();
-                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
-                editor.apply();
-                ApplicationPreferences.applicationNeverAskForGrantRoot(activity.getApplicationContext());
-
                 if (fragment != null) {
+                    SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
+                    editor.apply();
+                    ApplicationPreferences.applicationNeverAskForGrantRoot(activity.getApplicationContext());
+
                     grantRootChanged = true;
                     fragment.setRedTextToPreferences();
                 }
@@ -2411,6 +2415,84 @@ class Permissions {
             public void onClick(DialogInterface dialog, int which) {
                 if (fragment != null) {
                     grantRootChanged = true;
+                    fragment.setRedTextToPreferences();
+                }
+            }
+        });
+        AlertDialog dialog = dialogBuilder.create();
+        /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                if (positive != null) positive.setAllCaps(false);
+                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                if (negative != null) negative.setAllCaps(false);
+            }
+        });*/
+        if (!activity.isFinishing())
+            dialog.show();
+    }
+
+    static void grantG1Permission(final ProfilesPrefsFragment fragment, final Activity activity) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+        dialogBuilder.setTitle(R.string.profile_preferences_types_G1_permission);
+        dialogBuilder.setMessage(R.string.phone_profiles_pref_grantG1Permission_summary);
+        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+        //dialogBuilder.setView(doNotShowAgain);
+
+        if (fragment != null) {
+            AppCompatCheckBox doNotShowAgain = new AppCompatCheckBox(activity);
+
+            FrameLayout container = new FrameLayout(activity);
+            container.addView(doNotShowAgain);
+            FrameLayout.LayoutParams containerParams = new FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.MATCH_PARENT,
+                    FrameLayout.LayoutParams.WRAP_CONTENT);
+            containerParams.leftMargin = GlobalGUIRoutines.dpToPx(20);
+            container.setLayoutParams(containerParams);
+
+            FrameLayout superContainer = new FrameLayout(activity);
+            superContainer.addView(container);
+
+            dialogBuilder.setView(superContainer);
+
+            doNotShowAgain.setText(R.string.alert_message_enable_event_check_box);
+            doNotShowAgain.setChecked(ApplicationPreferences.applicationNeverAskForGrantG1Permission);
+            doNotShowAgain.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_G1_PERMISSION, isChecked);
+                    editor.apply();
+                    ApplicationPreferences.applicationNeverAskForGrantG1Permission(activity.getApplicationContext());
+                }
+            });
+        }
+
+        dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                if (fragment != null) {
+                    SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_G1_PERMISSION, false);
+                    editor.apply();
+                    ApplicationPreferences.applicationNeverAskForGrantG1Permission(activity.getApplicationContext());
+
+                    //grantRootChanged = true;
+                    fragment.setRedTextToPreferences();
+                }
+
+                Intent intentLaunch = new Intent(activity, ImportantInfoActivity.class);
+                intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, 0);
+                intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SCROLL_TO, R.id.activity_info_notification_profile_grant_1_howTo_1);
+                activity.startActivity(intentLaunch);
+            }
+        });
+        dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                if (fragment != null) {
+                    //grantRootChanged = true;
                     fragment.setRedTextToPreferences();
                 }
             }
