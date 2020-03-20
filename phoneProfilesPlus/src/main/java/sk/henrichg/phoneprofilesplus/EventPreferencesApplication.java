@@ -171,7 +171,7 @@ class EventPreferencesApplication extends EventPreferences {
         Preference preference = prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_APPLICATION_APPLICATIONS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable, true);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable, false);
         }
         boolean isAccessibilityEnabled = event._eventPreferencesApplication.isAccessibilityServiceEnabled(context) == 1;
         preference = prefMng.findPreference(PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS);
