@@ -101,6 +101,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     static final String EXTRA_NEW_EVENT_MODE = "new_event_mode";
     static final String EXTRA_PREDEFINED_EVENT_INDEX = "predefined_event_index";
     //static final String EXTRA_SELECTED_FILTER = "selected_filter";
+    static final String EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION = "from_red_text_preferences_notification";
 
     // request code for startActivityForResult with intent BackgroundActivateProfileActivity
     static final int REQUEST_CODE_ACTIVATE_PROFILE = 6220;
@@ -3134,8 +3135,8 @@ public class EditorProfilesActivity extends AppCompatActivity
         if (profile != null) {
             intent = new Intent(context, ProfilesPrefsActivity.class);
             intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-            intent.putExtra(EditorProfilesActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
-            intent.putExtra(EditorProfilesActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
+            intent.putExtra(EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
+            intent.putExtra(EXTRA_PREDEFINED_PROFILE_INDEX, 0);
         }
         if (event != null) {
             intent = new Intent(context, EventsPrefsActivity.class);
@@ -3184,6 +3185,8 @@ public class EditorProfilesActivity extends AppCompatActivity
             intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
             notificationID = -(9999 + (int) event._id);
         }
+
+        intent.putExtra(EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, true);
 
         PPApplication.createGrantPermissionNotificationChannel(context);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
