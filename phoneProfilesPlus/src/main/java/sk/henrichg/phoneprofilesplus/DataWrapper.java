@@ -5159,10 +5159,8 @@ public class DataWrapper {
         }
     }
 
-    int getTypeEventsCount(int eventType, @SuppressWarnings("SameParameterValue") boolean onlyRunning) {
+    boolean eventTypeExists(int eventType, @SuppressWarnings("SameParameterValue") boolean onlyRunning) {
         synchronized (eventList) {
-            int eventCount = 0;
-            boolean breakLoop = false;
             for (Event _event : eventList) {
                 boolean eventEnabled;
                 if (onlyRunning)
@@ -5276,27 +5274,29 @@ public class DataWrapper {
                             sensorEnabled = sensorEnabled &&
                                     (_event._eventPreferencesTime._timeType != 0);
                             break;
+                        case DatabaseHandler.ETYPE_BATTERY_WITH_LEVEL:
+                            sensorEnabled = _event._eventPreferencesBattery._enabled;
+                            sensorEnabled = sensorEnabled &&
+                                    (_event._eventPreferencesBattery._levelLow > 0);
+                            sensorEnabled = sensorEnabled &&
+                                    (_event._eventPreferencesBattery._levelHight < 100);
+                            break;
                         case DatabaseHandler.ETYPE_ALL:
                         default:
                             sensorEnabled = true;
-                            breakLoop = true;
                             break;
                     }
 
                     if (sensorEnabled)
-                        eventCount++;
-                    if (breakLoop)
-                        break;
+                        return true;
                 }
             }
-            return eventCount;
+            return false;
         }
     }
 
-    int getTypeProfilesCount(int profileType/*, boolean sharedProfile*/) {
+    boolean profileTypeExists(int profileType/*, boolean sharedProfile*/) {
         synchronized (profileList) {
-            int profileCount = 0;
-            boolean breakLoop = false;
             for (Profile _profile : profileList) {
                 boolean profileEnabled;
                 switch (profileType) {
@@ -5311,15 +5311,12 @@ public class DataWrapper {
                         break;
                     default:
                         profileEnabled = true;
-                        breakLoop = true;
                         break;
                 }
                 if (profileEnabled)
-                    profileCount++;
-                if (breakLoop)
-                    break;
+                    return true;
             }
-            return profileCount;
+            return false;
         }
     }
 }

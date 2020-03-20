@@ -197,9 +197,10 @@ public class ImportantInfoHelpFragment extends Fragment {
 
             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
             dataWrapper.fillEventList();
-            int smsSensorsCount = dataWrapper.getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false);
-            int callSensorsCount = dataWrapper.getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false);
-            if ((smsSensorsCount == 0) && (callSensorsCount == 0)) {
+            boolean sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_SMS, false);
+            if (!sensorExists)
+                sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_CALL, false);
+            if (!sensorExists) {
                 // extender is not needed
                 TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_text2);
                 infoText1.setVisibility(View.GONE);
@@ -237,10 +238,11 @@ public class ImportantInfoHelpFragment extends Fragment {
         if (news3670) {
             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
             dataWrapper.fillEventList();
-            int applicationSensorsCount = dataWrapper.getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false);
-            int orientationSensorsCount = dataWrapper.getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false);
+            boolean sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION, false);
+            if (!sensorExists)
+                sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION, false);
             boolean news_extender = true;
-            if ((applicationSensorsCount == 0) && (orientationSensorsCount == 0)) {
+            if (!sensorExists) {
                 // extender is installed or not needed
                 news_extender = false;
                 TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_text1);

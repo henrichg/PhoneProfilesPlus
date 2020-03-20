@@ -102,8 +102,9 @@ class ImportantInfoNotification {
         if (news4340) {
             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
             dataWrapper.fillEventList();
-            int smsSensorsCount = dataWrapper.getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false);
-            int callSensorsCount = dataWrapper.getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false);
+            boolean sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_SMS, false);
+            if (!sensorExists)
+                sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_CALL, false);
 
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("ImportantInfoNotification.canShowNotification", "smsSensorsCount=" + smsSensorsCount);
@@ -111,7 +112,7 @@ class ImportantInfoNotification {
             }*/
 
             //noinspection RedundantIfStatement
-            if ((smsSensorsCount == 0) && (callSensorsCount == 0))
+            if (!sensorExists)
                 news = false;
             else {
                 news = true;
@@ -121,10 +122,11 @@ class ImportantInfoNotification {
         if (news3670) {
             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
             dataWrapper.fillEventList();
-            int applicationSensorsCount = dataWrapper.getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false);
-            int orientationSensorsCount = dataWrapper.getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false);
+            boolean sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION, false);
+            if (!sensorExists)
+                sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION, false);
             //noinspection RedundantIfStatement
-            if ((applicationSensorsCount == 0) && (orientationSensorsCount == 0))
+            if (!sensorExists)
                 news = false;
             else {
                 news = true;

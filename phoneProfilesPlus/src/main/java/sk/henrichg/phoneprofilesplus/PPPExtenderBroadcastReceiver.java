@@ -126,9 +126,9 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                                         dataWrapper.fillEventList();
                                         //DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
                                         EventsHandler eventsHandler = new EventsHandler(appContext);
-                                        if (dataWrapper.getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false) > 0)
+                                        if (dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION, false))
                                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
-                                        if (dataWrapper.getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false) > 0)
+                                        if (dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION, false))
                                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
 
                                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_FOREGROUND_APPLICATION_CHANGED");
@@ -174,9 +174,9 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                             dataWrapper.fillEventList();
                             //DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
                             EventsHandler eventsHandler = new EventsHandler(appContext);
-                            if (dataWrapper.getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false) > 0)
+                            if (dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION, false))
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
-                            if (dataWrapper.getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false) > 0)
+                            if (dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION, false))
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
 
                             //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_UNBIND");
