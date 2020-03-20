@@ -27,8 +27,6 @@
         app:key="eventMobileCellsRegistrationInfo"
         app:title="@string/phone_profiles_pref_applicationEventMobileCellsRegistration"
         app:summary="@string/phone_profiles_pref_applicationEventMobileCellsRegistrationInfo_summary"
-        app:shouldDisableView="false"
-        app:enabled="false"
         app:dependency="eventMobileCellsEnabled"
         app:widgetLayout="@layout/info_preference"
         app:layout="@layout/mp_preference_material_widget" />

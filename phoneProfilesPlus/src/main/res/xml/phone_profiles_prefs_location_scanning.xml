@@ -8,8 +8,6 @@
         app:key="applicationEventLocationInfo"
         app:title="@string/phone_profiles_pref_applicationEventLocation_info"
         app:summary="@string/empty_string"
-        app:shouldDisableView="false"
-        app:enabled="false"
         app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationEventLocationEnableScannig"

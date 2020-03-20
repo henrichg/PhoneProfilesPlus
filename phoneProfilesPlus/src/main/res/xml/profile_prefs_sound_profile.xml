@@ -8,8 +8,6 @@
         app:key="prf_pref_volumeVibrateWhenRingingRootInfo"
         app:title="@string/profile_preferences_volumeVibrateWhenRingingRootInfo_title"
         app:summary="@string/profile_preferences_volumeVibrateWhenRingingRootInfoM_summary"
-        app:shouldDisableView="false"
-        app:enabled="false"
         app:widgetLayout="@layout/info_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference

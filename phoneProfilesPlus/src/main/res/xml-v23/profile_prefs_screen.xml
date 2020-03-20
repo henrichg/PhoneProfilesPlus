@@ -88,8 +88,6 @@
         app:key="prf_pref_notificationLedInfo"
         app:title="@string/profile_preferences_notificationLed_23"
         app:summary="@string/profile_preferences_notificationLedInfo_summary"
-        app:shouldDisableView="false"
-        app:enabled="false"
         app:widgetLayout="@layout/info_preference"
         app:dependency="prf_pref_notificationLed"
         app:layout="@layout/mp_preference_material_widget" />

@@ -8,8 +8,6 @@
         app:key="prf_pref_durationInfo"
         app:title="@string/preferences_durationInfo_summary"
         app:summary="@string/empty_string"
-        app:shouldDisableView="false"
-        app:enabled="false"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.DurationDialogPreferenceX
         app:key="prf_pref_duration"
@@ -49,8 +47,6 @@
             app:key="prf_pref_durationNotificationSoundInfo"
             app:title="@string/profile_preferences_durationNotificationSound"
             app:summary="@string/preferences_durationNotificationSoundInfo_summary"
-            app:shouldDisableView="false"
-            app:enabled="false"
             app:layout="@layout/mp_preference_material_widget"
             app:widgetLayout="@layout/info_preference" />
         <sk.henrichg.phoneprofilesplus.RingtonePreferenceX

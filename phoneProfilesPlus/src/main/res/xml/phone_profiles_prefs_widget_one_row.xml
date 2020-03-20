@@ -8,8 +8,6 @@
         app:key="applicationWidgetOneRowNotWorkingMIUIInfo"
         app:title="@string/phone_profiles_pref_widget_not_working_miui_info"
         app:summary="@string/phone_profiles_pref_widget_not_working_miui_info_summary"
-        app:shouldDisableView="false"
-        app:enabled="false"
         app:widgetLayout="@layout/exclamation_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat

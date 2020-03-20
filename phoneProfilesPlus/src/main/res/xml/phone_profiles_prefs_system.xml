@@ -12,8 +12,6 @@
             app:key="applicationUnlinkRingerNotificationVolumesInfo"
             app:title="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary"
             app:summary="@string/empty_string"
-            app:shouldDisableView="false"
-            app:enabled="false"
             app:layout="@layout/mp_preference_material_widget" />
         <SwitchPreferenceCompat
             app:key="applicationUnlinkRingerNotificationVolumes"
@@ -30,8 +28,6 @@
             app:key="applicationForceSetMergeRingNotificationVolumesInfo"
             app:title="@string/phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes"
             app:summary="@string/phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info"
-            app:shouldDisableView="false"
-            app:enabled="false"
             app:widgetLayout="@layout/info_preference"
             app:layout="@layout/mp_preference_material_widget" />
         <ListPreference
