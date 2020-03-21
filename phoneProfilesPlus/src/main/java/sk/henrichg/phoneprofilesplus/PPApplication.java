@@ -105,7 +105,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 +"|ShutdownBroadcastReceiver"
 
                                                 //+"|[TEST BATTERY]"
-                                                //+"|[WiFi] DataWrapper.doHandleEvents"
+                                                //+"|[WiFi] EventsHandler.doHandleEvents"
                                                 //+"|WifiScanBroadcastReceiver"
                                                 //+"|DelayedWorksWorker.doWork"
                                                 //+"|WifiBluetoothScanner.enableWifi"

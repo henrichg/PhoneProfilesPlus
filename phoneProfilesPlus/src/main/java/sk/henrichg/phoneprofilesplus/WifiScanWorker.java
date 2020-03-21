@@ -630,8 +630,8 @@ public class WifiScanWorker extends Worker {
         if (Permissions.checkLocation(context)) {
             List<ScanResult> _scanResults = wifi.getScanResults();
             /*if (PPApplication.logEnabled()) {
-                int wifiState = wifi.getWifiState();
-                PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "wifiState=" + wifiState);
+                //int wifiState = wifi.getWifiState();
+                //PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "wifiState=" + wifiState);
                 PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "_scanResults=" + _scanResults);
             }*/
             if (_scanResults != null) {

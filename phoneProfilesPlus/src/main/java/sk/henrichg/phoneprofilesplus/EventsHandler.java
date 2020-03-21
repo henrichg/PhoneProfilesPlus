@@ -1693,7 +1693,7 @@ class EventsHandler {
                         /*if (PPApplication.logEnabled()) {
                             if (event._name.equals("Doma")) {
                                 PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "wifi connected");
-                                PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "wifiSSID=" + WifiScanWorker.getSSID(wifiManager, wifiInfo, wifiConfigurationList));
+                                PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "wifiSSID="+wifiInfo.getSSID());
                                 PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "wifiBSSID=" + wifiInfo.getBSSID());
                             }
                         }*/
@@ -1769,8 +1769,8 @@ class EventsHandler {
                     }
                 }
 
-                // if (event._name.equals("Doma"))
-                //     PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "wifiPassed - connected =" + wifiPassed);
+                //if (event._name.equals("Doma"))
+                //    PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "wifiPassed - connected =" + wifiPassed);
 
                 if ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
                         (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY)) {
@@ -1904,9 +1904,11 @@ class EventsHandler {
                     }
                 }
 
-                /*if (event._name.equals("Doma")) {
-                    PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "------- wifiPassed=" + wifiPassed);
-                    PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "------- notAllowedWifi=" + notAllowedWifi);
+                /*if (PPApplication.logEnabled()) {
+                    if (event._name.equals("Doma")) {
+                        PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "------- wifiPassed=" + wifiPassed);
+                        PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "------- notAllowedWifi=" + notAllowedWifi);
+                    }
                 }*/
 
                 if (!notAllowedWifi) {
