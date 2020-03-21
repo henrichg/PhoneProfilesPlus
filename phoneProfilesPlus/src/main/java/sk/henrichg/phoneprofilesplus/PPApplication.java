@@ -13,14 +13,12 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
-import android.hardware.display.DisplayManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.PowerManager;
 import android.util.Log;
 import android.util.Pair;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 
