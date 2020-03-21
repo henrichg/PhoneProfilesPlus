@@ -29,7 +29,8 @@ public class NFCEventEndBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        //if (useHandler) {
+        if (Event.getGlobalEventsRunning()) {
+            //if (useHandler) {
             PPApplication.startHandlerThread("NFCEventEndBroadcastReceiver.doWork");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
@@ -45,11 +46,9 @@ public class NFCEventEndBroadcastReceiver extends BroadcastReceiver {
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=NFCEventEndBroadcastReceiver.doWork");
 
-                        if (Event.getGlobalEventsRunning()) {
-                            //PPApplication.logE("NFCEventEndBroadcastReceiver.doWork", "handle events");
-                            EventsHandler eventsHandler = new EventsHandler(appContext);
-                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NFC_EVENT_END);
-                        }
+                        //PPApplication.logE("NFCEventEndBroadcastReceiver.doWork", "handle events");
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NFC_EVENT_END);
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=NFCEventEndBroadcastReceiver.doWork");
                     } finally {
@@ -62,14 +61,15 @@ public class NFCEventEndBroadcastReceiver extends BroadcastReceiver {
                     }
                 }
             });
-        /*}
-        else {
-            if (Event.getGlobalEventsRunning(appContext)) {
-                PPApplication.logE("NFCEventEndBroadcastReceiver.doWork", "handle events");
-                EventsHandler eventsHandler = new EventsHandler(appContext);
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NFC_EVENT_END);
-            }
-        }*/
+            /*}
+            else {
+                if (Event.getGlobalEventsRunning(appContext)) {
+                    PPApplication.logE("NFCEventEndBroadcastReceiver.doWork", "handle events");
+                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NFC_EVENT_END);
+                }
+            }*/
+        }
     }
 
 }

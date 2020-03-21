@@ -29,7 +29,8 @@ public class EventCalendarBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        //if (useHandler) {
+        if (Event.getGlobalEventsRunning()) {
+            //if (useHandler) {
             PPApplication.startHandlerThread("EventCalendarBroadcastReceiver.doWork");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
@@ -45,11 +46,9 @@ public class EventCalendarBroadcastReceiver extends BroadcastReceiver {
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=EventCalendarBroadcastReceiver.doWork");
 
-                        if (Event.getGlobalEventsRunning()) {
-                            //PPApplication.logE("EventCalendarBroadcastReceiver.doWork", "handle events");
-                            EventsHandler eventsHandler = new EventsHandler(appContext);
-                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR);
-                        }
+                        //PPApplication.logE("EventCalendarBroadcastReceiver.doWork", "handle events");
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR);
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventCalendarBroadcastReceiver.doWork");
                     } finally {
@@ -62,14 +61,15 @@ public class EventCalendarBroadcastReceiver extends BroadcastReceiver {
                     }
                 }
             });
-        /*}
-        else {
-            if (Event.getGlobalEventsRunning(appContext)) {
-                PPApplication.logE("EventCalendarBroadcastReceiver.doWork", "handle events");
-                EventsHandler eventsHandler = new EventsHandler(appContext);
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR);
-            }
-        }*/
+            /*}
+            else {
+                if (Event.getGlobalEventsRunning(appContext)) {
+                    PPApplication.logE("EventCalendarBroadcastReceiver.doWork", "handle events");
+                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR);
+                }
+            }*/
+        }
     }
 
 }

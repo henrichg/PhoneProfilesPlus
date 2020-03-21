@@ -492,7 +492,7 @@ public class DelayedWorksWorker extends Worker {
                     PPApplication.logE("PackageReplacedReceiver.doWork", "END");
                     break;
                 case DELAYED_WORK_HANDLE_EVENTS:
-                    if (sensorType != null) {
+                    if (Event.getGlobalEventsRunning() && (sensorType != null)) {
                         //PPApplication.logE("DelayedWorksWorker.doWork", "DELAYED_WORK_HANDLE_EVENTS");
                         // start events handler
                         EventsHandler eventsHandler = new EventsHandler(appContext);

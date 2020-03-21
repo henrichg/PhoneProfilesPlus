@@ -155,41 +155,43 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 
                 setApplicationInForeground(appContext, "");
 
-                PPApplication.startHandlerThread("PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_UNBIND");
-                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = null;
-                        try {
-                            if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPExtenderBroadcastReceiver_onReceive_ACTION_ACCESSIBILITY_SERVICE_UNBIND");
-                                wakeLock.acquire(10 * 60 * 1000);
-                            }
+                if (Event.getGlobalEventsRunning()) {
+                    PPApplication.startHandlerThread("PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_UNBIND");
+                    final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            try {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPExtenderBroadcastReceiver_onReceive_ACTION_ACCESSIBILITY_SERVICE_UNBIND");
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
 
-                            //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_UNBIND");
+                                //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_UNBIND");
 
-                            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
-                            dataWrapper.fillEventList();
-                            //DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
-                            EventsHandler eventsHandler = new EventsHandler(appContext);
-                            if (dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION/*, false*/))
-                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
-                            if (dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/))
-                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
+                                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+                                dataWrapper.fillEventList();
+                                //DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
+                                EventsHandler eventsHandler = new EventsHandler(appContext);
+                                if (dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION/*, false*/))
+                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
+                                if (dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/))
+                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
 
-                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_UNBIND");
-                        } finally {
-                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                try {
-                                    wakeLock.release();
-                                } catch (Exception ignored) {
+                                //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_UNBIND");
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
+                                    }
                                 }
                             }
                         }
-                    }
-                });
+                    });
+                }
                 break;
             case PPApplication.ACTION_FORCE_STOP_APPLICATIONS_END:
                 final long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
@@ -316,7 +318,6 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                         }
                     });
                 }
-
                 break;
         }
     }

@@ -29,7 +29,8 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        //if (useHandler) {
+        if (Event.getGlobalEventsRunning()) {
+            //if (useHandler) {
             PPApplication.startHandlerThread("NotificationEventEndBroadcastReceiver.doWork");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
@@ -45,11 +46,9 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=NotificationEventEndBroadcastReceiver.doWork");
 
-                        if (Event.getGlobalEventsRunning()) {
-                            //PPApplication.logE("NotificationEventEndBroadcastReceiver.doWork", "handle events");
-                            EventsHandler eventsHandler = new EventsHandler(appContext);
-                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
-                        }
+                        //PPApplication.logE("NotificationEventEndBroadcastReceiver.doWork", "handle events");
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=NotificationEventEndBroadcastReceiver.doWork");
                     } finally {
@@ -62,14 +61,15 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
                     }
                 }
             });
-        /*}
-        else {
-            if (Event.getGlobalEventsRunning(appContext)) {
-                PPApplication.logE("NotificationEventEndBroadcastReceiver.doWork", "handle events");
-                EventsHandler eventsHandler = new EventsHandler(appContext);
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
-            }
-        }*/
+            /*}
+            else {
+                if (Event.getGlobalEventsRunning(appContext)) {
+                    PPApplication.logE("NotificationEventEndBroadcastReceiver.doWork", "handle events");
+                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
+                }
+            }*/
+        }
     }
 
 }

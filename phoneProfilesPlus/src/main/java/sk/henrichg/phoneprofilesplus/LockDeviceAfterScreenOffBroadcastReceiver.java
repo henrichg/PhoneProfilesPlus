@@ -141,42 +141,39 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
             // application is not started
             return;
 
-        if (useHandler) {
-            PPApplication.startHandlerThread("LockDeviceAfterScreenOffBroadcastReceiver.doWork");
-            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":LockDeviceAfterScreenOffBroadcastReceiver_doWork");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+        if (Event.getGlobalEventsRunning()) {
+            if (useHandler) {
+                PPApplication.startHandlerThread("LockDeviceAfterScreenOffBroadcastReceiver.doWork");
+                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":LockDeviceAfterScreenOffBroadcastReceiver_doWork");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                        //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=LockDeviceAfterScreenOffBroadcastReceiver.doWork");
+                            //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=LockDeviceAfterScreenOffBroadcastReceiver.doWork");
 
-                        if (Event.getGlobalEventsRunning()) {
                             //PPApplication.logE("LockDeviceAfterScreenOffBroadcastReceiver.doWork", "handle events");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
-                        }
 
-                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=LockDeviceAfterScreenOffBroadcastReceiver.doWork");
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
+                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=LockDeviceAfterScreenOffBroadcastReceiver.doWork");
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
                             }
                         }
                     }
-                }
-            });
-        }
-        else {
-            if (Event.getGlobalEventsRunning()) {
+                });
+            } else {
                 //PPApplication.logE("LockDeviceAfterScreenOffBroadcastReceiver.doWork", "handle events");
                 EventsHandler eventsHandler = new EventsHandler(appContext);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);

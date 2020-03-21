@@ -29,7 +29,8 @@ public class EventTimeBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        //if (useHandler) {
+        if (Event.getGlobalEventsRunning()) {
+            //if (useHandler) {
             PPApplication.startHandlerThread("EventTimeBroadcastReceiver.doWork");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
@@ -45,11 +46,9 @@ public class EventTimeBroadcastReceiver extends BroadcastReceiver {
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=EventTimeBroadcastReceiver.doWork");
 
-                        if (Event.getGlobalEventsRunning()) {
-                            //PPApplication.logE("EventDelayStartBroadcastReceiver.doWork", "handle events");
-                            EventsHandler eventsHandler = new EventsHandler(appContext);
-                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_TIME);
-                        }
+                        //PPApplication.logE("EventDelayStartBroadcastReceiver.doWork", "handle events");
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_TIME);
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventTimeBroadcastReceiver.doWork");
                     } finally {
@@ -62,14 +61,15 @@ public class EventTimeBroadcastReceiver extends BroadcastReceiver {
                     }
                 }
             });
-        /*}
-        else {
-            if (Event.getGlobalEventsRunning(appContext)) {
-                PPApplication.logE("EventTimeBroadcastReceiver.doWork", "handle events");
-                EventsHandler eventsHandler = new EventsHandler(appContext);
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_TIME);
-            }
-        }*/
+            /*}
+            else {
+                if (Event.getGlobalEventsRunning(appContext)) {
+                    PPApplication.logE("EventTimeBroadcastReceiver.doWork", "handle events");
+                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_TIME);
+                }
+            }*/
+        }
     }
 
 }

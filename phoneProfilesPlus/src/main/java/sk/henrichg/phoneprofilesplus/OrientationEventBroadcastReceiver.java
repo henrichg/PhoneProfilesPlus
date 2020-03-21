@@ -34,7 +34,8 @@ public class OrientationEventBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        //if (useHandler) {
+        if (Event.getGlobalEventsRunning()) {
+            //if (useHandler) {
             PPApplication.startHandlerThread("OrientationEventBroadcastReceiver.doWork");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
@@ -50,11 +51,9 @@ public class OrientationEventBroadcastReceiver extends BroadcastReceiver {
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=SMSEventEndBroadcastReceiver.doWork");
 
-                        if (Event.getGlobalEventsRunning()) {
-                            //PPApplication.logE("SMSEventEndBroadcastReceiver.doWork", "handle events");
-                            EventsHandler eventsHandler = new EventsHandler(appContext);
-                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
-                        }
+                        //PPApplication.logE("SMSEventEndBroadcastReceiver.doWork", "handle events");
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=SMSEventEndBroadcastReceiver.doWork");
                     } finally {
@@ -67,14 +66,15 @@ public class OrientationEventBroadcastReceiver extends BroadcastReceiver {
                     }
                 }
             });
-        /*}
-        else {
-            if (Event.getGlobalEventsRunning(appContext)) {
-                PPApplication.logE("SMSEventEndBroadcastReceiver.doWork", "handle events");
-                EventsHandler eventsHandler = new EventsHandler(appContext);
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SMS_EVENT_END);
-            }
-        }*/
+            /*}
+            else {
+                if (Event.getGlobalEventsRunning(appContext)) {
+                    PPApplication.logE("SMSEventEndBroadcastReceiver.doWork", "handle events");
+                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SMS_EVENT_END);
+                }
+            }*/
+        }
     }
 
 }
