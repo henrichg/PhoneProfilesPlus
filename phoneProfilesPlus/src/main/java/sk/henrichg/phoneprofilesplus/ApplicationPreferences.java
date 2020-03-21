@@ -387,6 +387,8 @@ class ApplicationPreferences {
 
     static String applicationTheme(Context context, boolean useNightMode) {
         synchronized (PPApplication.applicationPreferencesMutex) {
+            if (applicationTheme == null)
+                applicationTheme(context);
             String _applicationTheme = applicationTheme;
             if (_applicationTheme.equals("light") ||
                     _applicationTheme.equals("material") ||
