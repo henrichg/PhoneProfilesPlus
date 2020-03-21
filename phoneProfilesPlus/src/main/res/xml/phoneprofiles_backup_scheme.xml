@@ -13,4 +13,9 @@
     <exclude domain="sharedpref" path="permissions_list.xml"/>
     <exclude domain="sharedpref" path="evernote_jobs.xml" />
     <exclude domain="database" path="evernote_jobs.db" />
+
+    <exclude domain="file" path="phoneprofiles_silent.ogg" />
+    <exclude domain="external" path="log.txt" />
+    <exclude domain="external" path="crash.txt" />
+
 </full-backup-content>
