@@ -851,7 +851,7 @@
     <string name="event_preferences_applications_AccessibilitySettingsForExtender_summary">\"Uygulamalar\" değerini kullanabilmek için sistem ayarlarında \"Erişilebilirlik\" tercihlerinde PhoneProfilesPlusExtender\'a izin verin.</string>
     <string name="event_preferences_orientation_AccessibilitySettingsForExtender_summary">\"Uygulamalar için ihmal et\" değerini açmak için \"Sistem Ayarları\" → \"Erişilebilirlik\" ayarlarında PhoneProfilesPlusExtender\'a izin verin.</string>
     <string name="event_preferences_applications_PPPExtender_install_summary">\"Uygulamalar\" değerlerini kullanmak üzere PhoneProfilesPlusExtender\'ı yüklemek için buraya dokunun.</string>
-    <string name="event_preferences_orientation_PPPExtender_install_summary">\"Uygulamalar için ihmal et\" değerini kullanmaya imkan veren PhoneProfilesPlusExtender\'ı yüklemek için buraya dokunun.</string>
+    <string name="event_preferences_orientation_PPPExtender_install_summary">\"Uygulamalar için ihmal et\" değerini kullanmaya imkân veren PhoneProfilesPlusExtender\'ı yüklemek için buraya dokunun.</string>
     <string name="event_preferences_applications_PPPExtender_upgrade_summary">Değişiklikleri kontrol etmek ve PhoneProfilesPlusExtender\'ı güncellemek için buraya dokunun.</string>
     <string name="about_application_extender_source_code">Kaynak kod - Extender:</string>
     <string name="pref_dlg_info_about_wildcards_4">Daha fazla kelime ayarlayabilirsiniz. \"|\" karakteri ile ayırın.</string>
