@@ -801,7 +801,6 @@
     <string name="ringtone_preference_none">Keine</string>
     <string name="event_preferences_notificationVibrate">Benachrichtigung per Vibration</string>
     <string name="important_info_profile_grant">Einige Profileinstellungen benötigen die WRITE_SECURE_SETTINGS Berechtigung. Dazu ist ROOT erforderlich. Diese Einstellungen sind mit \"(G1)\" gekennzeichnet.</string>
-    <string name="important_info_profile_grant_lookSectionProfiles">Für weitere Informationen schauen Sie weiter unten, unter dem Abschnitt \"Profile\".</string>
     <string name="important_info_profile_grant_1_howTo_1">Die mit (G1) markierten Profilparameter benötigen eine spezielle Berechtigung für PhoneProfilesPlus. Dies erfolgt über Ihren PC mit installierter ADB (Android Debug Bridge).</string>
     <string name="important_info_profile_grant_1_howTo_2">Wenn Sie ADB (Android Debug Bridge) nicht auf Ihrem PC installiert haben:</string>
     <string name="important_info_profile_grant_1_howTo_3">SDK-Plattform-Werkzeuge herunter von:</string>
@@ -854,7 +853,6 @@
     <string name="event_preferences_applications_PPPExtender_install_summary">Um die \"App\" Parameter zu aktivieren klicken sie hier um den PhoneProfilesPlusExtender zu installieren.</string>
     <string name="event_preferences_orientation_PPPExtender_install_summary">Um die \"Ignorieren für Apps\" Parameter zu aktivieren klicken sie hier um den PhoneProfilesPlusExtender zu installieren.</string>
     <string name="event_preferences_applications_PPPExtender_upgrade_summary">Hier klicken, um nach Änderungen zu suchen und PhoneProfilesPlusExtender zu aktualisieren.</string>
-    <string name="important_info_accessibility_service_text1">Aufgrund einer Änderung der Regeln von Google, über die Nutzung der Eingabehilfen installieren Sie PhoneProfilesPlusExtender um die Event Sensoren \"Anwendungen\" und \"Ausrichtungsparameter\" zu verwenden. Überprüfen Sie die Parameter dieser Sensoren für weitere Informationen.</string>
     <string name="about_application_extender_source_code">Quellcode - Erweiterer:</string>
     <string name="pref_dlg_info_about_wildcards_4">Weitere Strings können konfiguriert werden. \"|\" für deren Separierung verwenden.</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_title">Standardprofil</string>
@@ -1078,7 +1076,6 @@
     <string name="phone_profiles_pref_applicationWidgetIconShowBorder">Rahmen anzeigen (Widget)</string>
     <string name="event_preferences_sms_AccessibilitySettingsForExtender_summary">PhoneProfilesPlusExtender „Eingabehilfen” in den Systemeinstellungen zulassen. Die Funktion Eingabehilfen ist derzeit deaktiviert. Diese wird aber für den Empfang von SMS und MMS benötigt.</string>
     <string name="event_preferences_sms_PPPExtender_install_summary">Klicken Sie hier, um PhoneProfilesPlusExtender zu installieren. Dieser Dienst wird für den Empfang von SMS und MMS benötigt.</string>
-    <string name="important_info_accessibility_service_text2">Aufgrund einer Änderung der Regeln durch Google, über die Verwendung von Berechtigungen für den Empfang von SMS und MMS, müssen Sie PhoneProfilesPlusExtender installieren, um den SMS/MMS-Ereignissensor zu verwenden. Überprüfen Sie die Parameter dieses Sensors für weitere Informationen.</string>
     <string name="permission_not_granted">Nicht gewährt</string>
     <string name="permission_granted">Gewährt</string>
     <string name="menu_dark_theme_on">Dunkles Thema aktivieren</string>
@@ -1100,7 +1097,6 @@
     <string name="event_preferences_call_PPPExtender_install_summary">Klicken Sie hier, um PhoneProfilesPlusExtender zu installieren. Dieser Dienst wird für das Entgegennehmen von Anrufen benötigt.</string>
     <string name="permission_why_event_sms_preferences">Um Kontakte im SMS/MMS-Sensor auszulesen</string>
     <string name="permission_why_event_call_preferences">Um Kontakte auszulesen, zur Ruferkennung (bei „Nachtruf”) im Anrufsensor</string>
-    <string name="important_info_accessibility_service_text3">Aufgrund einer Änderung der Regeln durch Google, über die Verwendung von Berechtigungen für eingehende Anrufe, müssen Sie PhoneProfilesPlusExtender installieren, um den Anruf-Sensor zu verwenden. Überprüfen Sie die Parameter dieses Sensors für weitere Informationen.</string>
     <string name="phone_profiles_pref_notificationUseDecoration">Dekoration verwenden</string>
     <string name="phone_profiles_pref_notificationLayoutType">Layout-Typ</string>
     <string name="phone_profiles_pref_notificationLayoutType_expandable">Erweiterbar</string>
@@ -1414,6 +1410,12 @@
     <string name="array_pref_soundModeArray_ZenModeM_On">Bitte nicht stören (Ein)</string>
     <string name="draw_over_apps_permission_notification_title">\"Draw over apps\" permission</string>
     <string name="draw_over_apps_permission_notification_text">You must grant permission \"Draw over apps\". It is required to start activities when PhoneProfilesPlus is in background. Click here to grant this permission.</string>
+    <string name="profile_preferences_types_G1_permission">G1-Einstellungen zulassen</string>
+    <string name="preferences_grantG1Preferences_title">„G1-Einstellungen zulassen” nicht aktiviert</string>
+    <string name="preferences_grantG1Preferences_summary">„G1-Einstellungen zulassen” nicht aktiviert. Hier klicken, um sie zu gewähren.</string>
+    <string name="phone_profiles_pref_grantG1Permission_summary">Bitte erteilen Sie WRITE_SECURE_SETTINGS die Erlaubnis für PhoneProfilesPlus. Wird für Profil- und Ereignisparameter benötigt, die mit (G1) gekennzeichnet sind. Dadurch wird ROOT-Zugriff nicht benötigt.</string>
+    <string name="profile_preferences_profile_not_found">Profile not found. Deleted?</string>
+    <string name="event_preferences_event_not_found">Event not found. Deleted?</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>
@@ -1517,9 +1519,7 @@
     <!--<string name="phone_profiles_pref_nightModeOffApplicationTheme">Theme for night mode off</string>-->
     <!--    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-hide side panel</string>-->
     <!--    <string name="editor_activity_targetHelps_navigationIcon_description">Click this or swipe from left screen side to right to open \"Views\" side panel, where you can switch between Profiles and Events views.</string> -->
-    <!--    <string name="profile_preferences_screenCarMode">Car mode</string>-->
-    <!--    <string name="array_pref_screenCarMode_onWithNightNode">On with night mode</string>-->
-    <!--    <string name="array_pref_screenCarMode_onWithoutNightNode">On without night mode</string>-->
+    <!--    <string name="profile_preferences_screenNightMode">Night mode</string>-->
     <!--    <string name="donation_google_android_market">Google Play Store</string>-->
     <!--    <string name="donation_google_android_market_text">How much?</string>-->
     <!--    <string name="donation_google_android_market_donate_button">Donate</string>-->
@@ -1668,4 +1668,8 @@
     <!--    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">If option \"24 hours\" is not working on your device (LG), use option \"Always On\". Option \"Always On\" may cause problems with Samsung devices. If so, then use option \"24 hours\".</string>-->
     <!--    <string name="array_pref_screenTimeoutArray_24hours">24 hours</string>-->
     <!--    <string name="array_pref_screenTimeoutArray_alwaysOn">Always On</string>-->
+    <!--    <string name="important_info_profile_grant_lookSectionProfiles">For more information, look at the \"Profiles\" section further below.</string>-->
+    <!--    <string name="important_info_accessibility_service_text1">Due to a change of rules by Google, about usage of accessibility services, you must install PhoneProfilesPlusExtender to use the Application event sensor and Orientation event sensor. Check the parameters of these sensors for more information.</string>-->
+    <!--    <string name="important_info_accessibility_service_text2">Due to a change of rules by Google, about usage of permissions for receive SMS and MMS, you must install PhoneProfilesPlusExtender to use the SMS/MMS event sensor. Check the parameters of this sensor for more information.</string>-->
+    <!--    <string name="important_info_accessibility_service_text3">Due to a change of rules by Google, about usage of permissions for receive calls, you must install PhoneProfilesPlusExtender to use the Call event sensor. Check the parameters of this sensor for more information.</string>-->
 </resources>

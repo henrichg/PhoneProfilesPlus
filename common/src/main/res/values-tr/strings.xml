@@ -801,7 +801,6 @@
     <string name="ringtone_preference_none">Hiçbiri</string>
     <string name="event_preferences_notificationVibrate">Titreşimle bildir</string>
     <string name="important_info_profile_grant">Bazı tercih ayarları WRITE_SECURE_SETTINGS izni gereklidir. KÖK lüzumlu değildir. Bu Ayarlar \"(G1)\" ile işaretlenmiştir.</string>
-    <string name="important_info_profile_grant_lookSectionProfiles">Daha fazla malumat için daha aşağıdaki \"Tercihler\" bölümüne bakın.</string>
     <string name="important_info_profile_grant_1_howTo_1">PhoneProfilesPlus\'ın (G1) ile işaretlenmiş tercih değerleri için lüzumlu izni verebilirsiniz. Bu adb yüklü bir bilgisayar gerektirir.</string>
     <string name="important_info_profile_grant_1_howTo_2">Adb yüklü bilgisayar yoksa:</string>
     <string name="important_info_profile_grant_1_howTo_3">SDK platformu araçlarını şuradan indirin:</string>
@@ -854,7 +853,6 @@
     <string name="event_preferences_applications_PPPExtender_install_summary">\"Uygulamalar\" değerlerini kullanmak üzere PhoneProfilesPlusExtender\'ı yüklemek için buraya dokunun.</string>
     <string name="event_preferences_orientation_PPPExtender_install_summary">\"Uygulamalar için ihmal et\" değerini kullanmaya imkan veren PhoneProfilesPlusExtender\'ı yüklemek için buraya dokunun.</string>
     <string name="event_preferences_applications_PPPExtender_upgrade_summary">Değişiklikleri kontrol etmek ve PhoneProfilesPlusExtender\'ı güncellemek için buraya dokunun.</string>
-    <string name="important_info_accessibility_service_text1">Erişebilirlik hizmetleri hakkında Google kuralları değişikliği sebebiyle, Durum Şartı \"Uygulama durum şartı\" ve \"Ekran döndürme şartı\" için PhoneProfilesPlusExtender\'ı yüklemeniz icab ediyor. Daha fazla malumat için bu Şartların değerlerine bakınız.</string>
     <string name="about_application_extender_source_code">Kaynak kod - Extender:</string>
     <string name="pref_dlg_info_about_wildcards_4">Daha fazla kelime ayarlayabilirsiniz. \"|\" karakteri ile ayırın.</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_title">Varsayılan tercih</string>
@@ -1078,7 +1076,6 @@
     <string name="phone_profiles_pref_applicationWidgetIconShowBorder">Kenarı göster (widget)</string>
     <string name="event_preferences_sms_AccessibilitySettingsForExtender_summary">• \"Erişebilirlik\" için PhoneProfilesPlusExtender\'a sistem ayarlarında izin verin. Erişebilirlik özelliği kullanılmıyor. Bu hizmet, SMS ve MMS almak için lüzumlu.</string>
     <string name="event_preferences_sms_PPPExtender_install_summary">PhoneProfilesPlusExtender\'ı kurmak için buraya dokunun. Çalışan hizmet, SMS ve MMS almak için lüzumlu.</string>
-    <string name="important_info_accessibility_service_text2">SMS ve MMS alma izinlerini kullanmak hakkında Google kuralları değişikliği sebebiyle, Durum şartı \"SMS/MMS şartları\" için PhoneProfilesPlusExtender\'ı yüklemeniz icab ediyor. Daha fazla malumat için bu Şartın değerlerine bakınız.</string>
     <string name="permission_not_granted">İzin verilmedi</string>
     <string name="permission_granted">İzin verildi</string>
     <string name="menu_dark_theme_on">Koyu Temaya geç</string>
@@ -1100,7 +1097,6 @@
     <string name="event_preferences_call_PPPExtender_install_summary">PhoneProfilesPlusExtender\'ı kurmak için buraya dokunun. Çalışan hizmet, gelen çağrıları almak için lüzumlu.</string>
     <string name="permission_why_event_sms_preferences">SMS/MMS şartında kişi verilerini okumak için</string>
     <string name="permission_why_event_call_preferences">Çağrı şartında çalan çağrıyı tesbit etmek (\"gece çağrıları\" için), kişileri okumak için</string>
-    <string name="important_info_accessibility_service_text3">Gelen çağrıları alma izinlerini kullanmak hakkında Google kuralları değişikliği sebebiyle, Durum Şartı \"Çağrı şartı\" için PhoneProfilesPlusExtender\'ı yüklemeniz icab ediyor. Daha fazla malumat için bu Şartın değerlerine bakınız.</string>
     <string name="phone_profiles_pref_notificationUseDecoration">Dekorasyonu kullan</string>
     <string name="phone_profiles_pref_notificationLayoutType">Düzen türü</string>
     <string name="phone_profiles_pref_notificationLayoutType_expandable">Genişletilebilir</string>
@@ -1414,6 +1410,12 @@
     <string name="array_pref_soundModeArray_ZenModeM_On">\"Rahatsız etmeyin\" ayarı açık</string>
     <string name="draw_over_apps_permission_notification_title">\"Diğer uygulamaların üzerinde çalışsın\" izni</string>
     <string name="draw_over_apps_permission_notification_text">\"Diğer uygulamaların üzerinde çalışsın\" iznini vermelisiniz. Bu, PhoneProfilesPlus\'ın arka planda çalışırken durumların başlatılması için lüzumludur. İzni vermek için buraya dokunun.</string>
+    <string name="profile_preferences_types_G1_permission">(G1) tercihleri için izni verin</string>
+    <string name="preferences_grantG1Preferences_title">(G1) tercihleri için izni verme kapalı</string>
+    <string name="preferences_grantG1Preferences_summary">(G1) tercihleri için izni verme kapalı. İzni vermek için buraya dokunun.</string>
+    <string name="phone_profiles_pref_grantG1Permission_summary">Lutfen, tercih ve durum değerleri için lüzumlu olan PhoneProfilesPlus\'a kök izni verin. Tercih ve durum değerleri için lüzumlu değerler, (G1) ile işaretlenmiştir. Sonra KÖK iznine gerek olmayacaktır.</string>
+    <string name="profile_preferences_profile_not_found">Profile not found. Deleted?</string>
+    <string name="event_preferences_event_not_found">Event not found. Deleted?</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• tercih değeri \"Zorla durdurulan uygulamalar\"\n• durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>
@@ -1517,9 +1519,7 @@
     <!--<string name="phone_profiles_pref_nightModeOffApplicationTheme">Theme for night mode off</string>-->
     <!--    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-hide side panel</string>-->
     <!--    <string name="editor_activity_targetHelps_navigationIcon_description">Click this or swipe from left screen side to right to open \"Views\" side panel, where you can switch between Profiles and Events views.</string> -->
-    <!--    <string name="profile_preferences_screenCarMode">Car mode</string>-->
-    <!--    <string name="array_pref_screenCarMode_onWithNightNode">On with night mode</string>-->
-    <!--    <string name="array_pref_screenCarMode_onWithoutNightNode">On without night mode</string>-->
+    <!--    <string name="profile_preferences_screenNightMode">Night mode</string>-->
     <!--    <string name="donation_google_android_market">Google Play Store</string>-->
     <!--    <string name="donation_google_android_market_text">How much?</string>-->
     <!--    <string name="donation_google_android_market_donate_button">Donate</string>-->
@@ -1668,4 +1668,8 @@
     <!--    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">If option \"24 hours\" is not working on your device (LG), use option \"Always On\". Option \"Always On\" may cause problems with Samsung devices. If so, then use option \"24 hours\".</string>-->
     <!--    <string name="array_pref_screenTimeoutArray_24hours">24 hours</string>-->
     <!--    <string name="array_pref_screenTimeoutArray_alwaysOn">Always On</string>-->
+    <!--    <string name="important_info_profile_grant_lookSectionProfiles">For more information, look at the \"Profiles\" section further below.</string>-->
+    <!--    <string name="important_info_accessibility_service_text1">Due to a change of rules by Google, about usage of accessibility services, you must install PhoneProfilesPlusExtender to use the Application event sensor and Orientation event sensor. Check the parameters of these sensors for more information.</string>-->
+    <!--    <string name="important_info_accessibility_service_text2">Due to a change of rules by Google, about usage of permissions for receive SMS and MMS, you must install PhoneProfilesPlusExtender to use the SMS/MMS event sensor. Check the parameters of this sensor for more information.</string>-->
+    <!--    <string name="important_info_accessibility_service_text3">Due to a change of rules by Google, about usage of permissions for receive calls, you must install PhoneProfilesPlusExtender to use the Call event sensor. Check the parameters of this sensor for more information.</string>-->
 </resources>

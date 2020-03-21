@@ -74,11 +74,12 @@ class ImportantInfoNotification {
         //PPApplication.logE("ImportantInfoNotification.canShowNotification", "packageVersionCode="+packageVersionCode);
 
         boolean newsLatest = (packageVersionCode >= ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
-        boolean news4550 = ((packageVersionCode >= 4550) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
-        boolean news4340 = ((packageVersionCode >= 4340) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
-        boolean news3670 = ((packageVersionCode >= 3670) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
-        boolean news1804 = ((packageVersionCode >= 1804) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
-        boolean news1772 = ((packageVersionCode >= 1772) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
+        //boolean news4550 = ((packageVersionCode >= 4550) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
+        //boolean news4340 = ((packageVersionCode >= 4340) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
+        //boolean news3670 = ((packageVersionCode >= 3670) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
+        //boolean news1804 = ((packageVersionCode >= 1804) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
+        //boolean news1772 = ((packageVersionCode >= 1772) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
+
         boolean afterInstall = savedVersionCode == 0;
 
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
@@ -94,22 +95,22 @@ class ImportantInfoNotification {
             news = false;
         }
 
-        if (news4550) {
+        /*if (news4550) {
             if (Build.VERSION.SDK_INT >= 28)
                 news = true;
-        }
+        }*/
 
-        if (news4340) {
+        /*if (news4340) {
             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
             dataWrapper.fillEventList();
-            boolean sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_SMS/*, false*/);
+            boolean sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_SMS);
             if (!sensorExists)
-                sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_CALL/*, false*/);
+                sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_CALL);
 
-            /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("ImportantInfoNotification.canShowNotification", "smsSensorsCount=" + smsSensorsCount);
-                PPApplication.logE("ImportantInfoNotification.canShowNotification", "callSensorsCount=" + callSensorsCount);
-            }*/
+            //if (PPApplication.logEnabled()) {
+            //    PPApplication.logE("ImportantInfoNotification.canShowNotification", "smsSensorsCount=" + smsSensorsCount);
+            //    PPApplication.logE("ImportantInfoNotification.canShowNotification", "callSensorsCount=" + callSensorsCount);
+            //}
 
             //noinspection RedundantIfStatement
             if (!sensorExists)
@@ -117,33 +118,33 @@ class ImportantInfoNotification {
             else {
                 news = true;
             }
-        }
+        }*/
 
-        if (news3670) {
+        /*if (news3670) {
             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
             dataWrapper.fillEventList();
-            boolean sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION/*, false*/);
+            boolean sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION);
             if (!sensorExists)
-                sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/);
+                sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION);
             //noinspection RedundantIfStatement
             if (!sensorExists)
                 news = false;
             else {
                 news = true;
             }
-        }
+        }*/
 
-        if (news1804) {
+        /*if (news1804) {
             if (android.os.Build.VERSION.SDK_INT >= 23) {
                 news = true;
             }
-        }
+        }*/
 
-        if (news1772) {
+        /*if (news1772) {
             //if (android.os.Build.VERSION.SDK_INT >= 21) {
                 news = true;
             //}
-        }
+        }*/
 
         if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)) {
             newExtender = true;

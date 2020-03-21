@@ -69,6 +69,8 @@ public class ImportantInfoHelpFragment extends Fragment {
         boolean news = false;
         boolean newsLatest = (!firstInstallation) && (versionCode >= ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
         //PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "newsLatest="+newsLatest);
+
+        /*
         boolean news4550 = (!firstInstallation) && (versionCode >= 4550) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
         //PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "news4550="+news4550);
         boolean news4340 = (!firstInstallation) && (versionCode >= 4340) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
@@ -85,6 +87,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         //PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "news1804="+news1804);
         boolean news1772 = (!firstInstallation) && ((versionCode >= 1772) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         //PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "news1772="+news1772);
+        */
 
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
 
@@ -100,7 +103,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         }
 
-        if (news4550) {
+/*        if (news4550) {
             if (Build.VERSION.SDK_INT >= 28) {
                 TextView infoText21 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location_news);
                 infoText21.setOnClickListener(new View.OnClickListener() {
@@ -121,15 +124,15 @@ public class ImportantInfoHelpFragment extends Fragment {
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                             dialogBuilder.setPositiveButton(android.R.string.ok, null);
                             AlertDialog dialog = dialogBuilder.create();
-                            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                @Override
-                                public void onShow(DialogInterface dialog) {
-                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                    if (positive != null) positive.setAllCaps(false);
-                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                    if (negative != null) negative.setAllCaps(false);
-                                }
-                            });*/
+//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                @Override
+//                                public void onShow(DialogInterface dialog) {
+//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                    if (positive != null) positive.setAllCaps(false);
+//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                    if (negative != null) negative.setAllCaps(false);
+//                                }
+//                            });
                             if (!activity.isFinishing())
                                 dialog.show();
                         }
@@ -146,10 +149,10 @@ public class ImportantInfoHelpFragment extends Fragment {
                 infoText21.setVisibility(View.GONE);
             }
         }
-        else {
+        else {*/
             if (Build.VERSION.SDK_INT >= 28) {
-                TextView infoText21 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location_news);
-                infoText21.setVisibility(View.GONE);
+                //TextView infoText21 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location_news);
+                //infoText21.setVisibility(View.GONE);
                 TextView infoText22 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location);
                 infoText22.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -169,15 +172,15 @@ public class ImportantInfoHelpFragment extends Fragment {
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                             dialogBuilder.setPositiveButton(android.R.string.ok, null);
                             AlertDialog dialog = dialogBuilder.create();
-                            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                @Override
-                                public void onShow(DialogInterface dialog) {
-                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                    if (positive != null) positive.setAllCaps(false);
-                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                    if (negative != null) negative.setAllCaps(false);
-                                }
-                            });*/
+//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                @Override
+//                                public void onShow(DialogInterface dialog) {
+//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                    if (positive != null) positive.setAllCaps(false);
+//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                    if (negative != null) negative.setAllCaps(false);
+//                                }
+//                            });
                             if (!activity.isFinishing())
                                 dialog.show();
                         }
@@ -187,19 +190,19 @@ public class ImportantInfoHelpFragment extends Fragment {
             else {
                 TextView infoText22 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location);
                 infoText22.setVisibility(View.GONE);
-                TextView infoText21 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location_news);
-                infoText21.setVisibility(View.GONE);
+                //TextView infoText21 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location_news);
+                //infoText21.setVisibility(View.GONE);
             }
-        }
+        //}
 
-        if (news4340) {
+        /*if (news4340) {
             news = true;
 
             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
             dataWrapper.fillEventList();
-            boolean sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_SMS/*, false*/);
+            boolean sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_SMS);
             if (!sensorExists)
-                sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_CALL/*, false*/);
+                sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_CALL);
             if (!sensorExists) {
                 // extender is not needed
                 TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_text2);
@@ -211,8 +214,9 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoText1.setVisibility(View.GONE);
             infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_text3);
             infoText1.setVisibility(View.GONE);
-        }
+        }*/
 
+        /*
         if (news3985) {
             news = true;
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_privacy_policy_backup_files_2_news);
@@ -234,13 +238,14 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoText1 = view.findViewById(R.id.activity_info_notification_privacy_policy_backup_files_2_news);
             infoText1.setVisibility(View.GONE);
         }
+        */
 
-        if (news3670) {
+        /*if (news3670) {
             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
             dataWrapper.fillEventList();
-            boolean sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION/*, false*/);
+            boolean sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION);
             if (!sensorExists)
-                sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/);
+                sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION);
             boolean news_extender = true;
             if (!sensorExists) {
                 // extender is installed or not needed
@@ -253,9 +258,9 @@ public class ImportantInfoHelpFragment extends Fragment {
         else {
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_text1);
             infoText1.setVisibility(View.GONE);
-        }
+        }*/
 
-        if (news3640) {
+        /*if (news3640) {
             news = true;
         }
         else {
@@ -264,9 +269,9 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoText1.setVisibility(View.GONE);
             TextView infoText2 = view.findViewById(R.id.activity_info_notification_profile_grant_lookSectionProfiles_news);
             infoText2.setVisibility(View.GONE);
-        }
+        }*/
 
-        if (news2190) {
+        /*if (news2190) {
             TextView infoText1 = view.findViewById(R.id.activity_info_event_start_order1);
             infoText1.setVisibility(View.GONE);
             TextView infoText2 = view.findViewById(R.id.activity_info_event_start_order2);
@@ -278,9 +283,9 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoText1.setVisibility(View.GONE);
             TextView infoText2 = view.findViewById(R.id.activity_info_event_start_order2_news);
             infoText2.setVisibility(View.GONE);
-        }
+        }*/
 
-        if (news1804) {
+        /*if (news1804) {
             if (android.os.Build.VERSION.SDK_INT >= 23) {
                 TextView infoText16 = view.findViewById(R.id.activity_info_notification_profile_ringerMode_root);
                 infoText16.setVisibility(View.GONE);
@@ -305,15 +310,15 @@ public class ImportantInfoHelpFragment extends Fragment {
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                             dialogBuilder.setPositiveButton(android.R.string.ok, null);
                             AlertDialog dialog = dialogBuilder.create();
-                            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                @Override
-                                public void onShow(DialogInterface dialog) {
-                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                    if (positive != null) positive.setAllCaps(false);
-                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                    if (negative != null) negative.setAllCaps(false);
-                                }
-                            });*/
+//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                @Override
+//                                public void onShow(DialogInterface dialog) {
+//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                    if (positive != null) positive.setAllCaps(false);
+//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                    if (negative != null) negative.setAllCaps(false);
+//                                }
+//                            });
                             if (!activity.isFinishing())
                                 dialog.show();
                         }
@@ -340,15 +345,15 @@ public class ImportantInfoHelpFragment extends Fragment {
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                             dialogBuilder.setPositiveButton(android.R.string.ok, null);
                             AlertDialog dialog = dialogBuilder.create();
-                            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                @Override
-                                public void onShow(DialogInterface dialog) {
-                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                    if (positive != null) positive.setAllCaps(false);
-                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                    if (negative != null) negative.setAllCaps(false);
-                                }
-                            });*/
+//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                @Override
+//                                public void onShow(DialogInterface dialog) {
+//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                    if (positive != null) positive.setAllCaps(false);
+//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                    if (negative != null) negative.setAllCaps(false);
+//                                }
+//                            });
                             if (!activity.isFinishing())
                                 dialog.show();
                         }
@@ -359,82 +364,83 @@ public class ImportantInfoHelpFragment extends Fragment {
                 news = true;
             }
         }
-        else {
-            TextView infoText15 = view.findViewById(R.id.activity_info_notification_profile_ringerMode_root_news);
-            infoText15.setVisibility(View.GONE);
-            TextView infoText17 = view.findViewById(R.id.activity_info_notification_profile_adaptiveBrightness_root_news);
-            infoText17.setVisibility(View.GONE);
-            TextView infoText19 = view.findViewById(R.id.activity_info_notification_wifiScanning_location_news);
-            infoText19.setVisibility(View.GONE);
-            TextView infoText20 = view.findViewById(R.id.activity_info_notification_wifiScanning_location);
-            infoText20.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    boolean ok = false;
-                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
-                        try {
-                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivity(intent);
-                            ok = true;
-                        } catch (Exception ignored) {}
-                    }
-                    if (!ok) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-                        /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                            @Override
-                            public void onShow(DialogInterface dialog) {
-                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                if (positive != null) positive.setAllCaps(false);
-                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                if (negative != null) negative.setAllCaps(false);
-                            }
-                        });*/
-                        if (!activity.isFinishing())
-                            dialog.show();
-                    }
-                }
-            });
-            TextView infoText21 = view.findViewById(R.id.activity_info_notification_bluetoothScanning_location_news);
-            infoText21.setVisibility(View.GONE);
-            TextView infoText22 = view.findViewById(R.id.activity_info_notification_bluetoothScanning_location);
-            infoText22.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    boolean ok = false;
-                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
-                        try {
-                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivity(intent);
-                            ok = true;
-                        } catch (Exception ignored) {}
-                    }
-                    if (!ok) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-                        /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                            @Override
-                            public void onShow(DialogInterface dialog) {
-                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                if (positive != null) positive.setAllCaps(false);
-                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                if (negative != null) negative.setAllCaps(false);
-                            }
-                        });*/
-                        if (!activity.isFinishing())
-                            dialog.show();
-                    }
-                }
-            });
+        else {*/
+            //TextView infoText15 = view.findViewById(R.id.activity_info_notification_profile_ringerMode_root_news);
+            //infoText15.setVisibility(View.GONE);
+            //TextView infoText17 = view.findViewById(R.id.activity_info_notification_profile_adaptiveBrightness_root_news);
+            //infoText17.setVisibility(View.GONE);
+            //TextView infoText19 = view.findViewById(R.id.activity_info_notification_wifiScanning_location_news);
+            //infoText19.setVisibility(View.GONE);
             if (Build.VERSION.SDK_INT >= 23) {
+                TextView infoText20 = view.findViewById(R.id.activity_info_notification_wifiScanning_location);
+                infoText20.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        boolean ok = false;
+                        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
+                            try {
+                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                startActivity(intent);
+                                ok = true;
+                            } catch (Exception ignored) {}
+                        }
+                        if (!ok) {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            AlertDialog dialog = dialogBuilder.create();
+//                        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                            @Override
+//                            public void onShow(DialogInterface dialog) {
+//                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                if (positive != null) positive.setAllCaps(false);
+//                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                if (negative != null) negative.setAllCaps(false);
+//                            }
+//                        });
+                            if (!activity.isFinishing())
+                                dialog.show();
+                        }
+                    }
+                });
+                //TextView infoText21 = view.findViewById(R.id.activity_info_notification_bluetoothScanning_location_news);
+                //infoText21.setVisibility(View.GONE);
+                TextView infoText22 = view.findViewById(R.id.activity_info_notification_bluetoothScanning_location);
+                infoText22.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        boolean ok = false;
+                        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
+                            try {
+                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                startActivity(intent);
+                                ok = true;
+                            } catch (Exception ignored) {}
+                        }
+                        if (!ok) {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            AlertDialog dialog = dialogBuilder.create();
+                        /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                            @Override
+                            public void onShow(DialogInterface dialog) {
+                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                if (positive != null) positive.setAllCaps(false);
+                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                if (negative != null) negative.setAllCaps(false);
+                            }
+                        });*/
+                            if (!activity.isFinishing())
+                                dialog.show();
+                        }
+                    }
+                });
+
                 TextView infoText10a = view.findViewById(R.id.activity_info_notification_app_standby);
                 infoText10a.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -506,9 +512,9 @@ public class ImportantInfoHelpFragment extends Fragment {
                     }
                 });
             }
-        }
+        //}
 
-        if (news1772) {
+        /*if (news1772) {
             //if (android.os.Build.VERSION.SDK_INT >= 21) {
                 TextView infoText14 = view.findViewById(R.id.activity_info_notification_profile_zenMode);
                 infoText14.setVisibility(View.GONE);
@@ -540,15 +546,15 @@ public class ImportantInfoHelpFragment extends Fragment {
                                 //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                                 dialogBuilder.setPositiveButton(android.R.string.ok, null);
                                 AlertDialog dialog = dialogBuilder.create();
-                                /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                    @Override
-                                    public void onShow(DialogInterface dialog) {
-                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                        if (positive != null) positive.setAllCaps(false);
-                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                        if (negative != null) negative.setAllCaps(false);
-                                    }
-                                });*/
+//                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                    @Override
+//                                    public void onShow(DialogInterface dialog) {
+//                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                        if (positive != null) positive.setAllCaps(false);
+//                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                        if (negative != null) negative.setAllCaps(false);
+//                                    }
+//                                });
                                 if (!activity.isFinishing())
                                     dialog.show();
                             }
@@ -558,9 +564,9 @@ public class ImportantInfoHelpFragment extends Fragment {
                 }
             //}
         }
-        else {
-            TextView infoText13 = view.findViewById(R.id.activity_info_notification_profile_zenMode_news);
-            infoText13.setVisibility(View.GONE);
+        else {*/
+            //TextView infoText13 = view.findViewById(R.id.activity_info_notification_profile_zenMode_news);
+            //infoText13.setVisibility(View.GONE);
 
             boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
             if ((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
@@ -604,23 +610,23 @@ public class ImportantInfoHelpFragment extends Fragment {
                     }
                 });
             }
-        }
+        //}
 
         if (android.os.Build.VERSION.SDK_INT < 23) {
-            TextView infoText15 = view.findViewById(R.id.activity_info_notification_profile_ringerMode_root_news);
-            infoText15.setVisibility(View.GONE);
+            //TextView infoText15 = view.findViewById(R.id.activity_info_notification_profile_ringerMode_root_news);
+            //infoText15.setVisibility(View.GONE);
             TextView infoText16 = view.findViewById(R.id.activity_info_notification_profile_ringerMode_root);
             infoText16.setVisibility(View.GONE);
-            TextView infoText17 = view.findViewById(R.id.activity_info_notification_profile_adaptiveBrightness_root_news);
-            infoText17.setVisibility(View.GONE);
+            //TextView infoText17 = view.findViewById(R.id.activity_info_notification_profile_adaptiveBrightness_root_news);
+            //infoText17.setVisibility(View.GONE);
             TextView infoText18 = view.findViewById(R.id.activity_info_notification_profile_adaptiveBrightness_root);
             infoText18.setVisibility(View.GONE);
-            TextView infoText19 = view.findViewById(R.id.activity_info_notification_wifiScanning_location_news);
-            infoText19.setVisibility(View.GONE);
+            //TextView infoText19 = view.findViewById(R.id.activity_info_notification_wifiScanning_location_news);
+            //infoText19.setVisibility(View.GONE);
             TextView infoText20 = view.findViewById(R.id.activity_info_notification_wifiScanning_location);
             infoText20.setVisibility(View.GONE);
-            TextView infoText21 = view.findViewById(R.id.activity_info_notification_bluetoothScanning_location_news);
-            infoText21.setVisibility(View.GONE);
+            //TextView infoText21 = view.findViewById(R.id.activity_info_notification_bluetoothScanning_location_news);
+            //infoText21.setVisibility(View.GONE);
             TextView infoText22 = view.findViewById(R.id.activity_info_notification_bluetoothScanning_location);
             infoText22.setVisibility(View.GONE);
             TextView infoText10a = view.findViewById(R.id.activity_info_notification_app_standby);

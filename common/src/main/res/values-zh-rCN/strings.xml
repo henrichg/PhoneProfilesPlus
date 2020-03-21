@@ -801,7 +801,6 @@
     <string name="ringtone_preference_none">无</string>
     <string name="event_preferences_notificationVibrate">通过振动通知</string>
     <string name="important_info_profile_grant">某些配置文件首选项需要WRITE_SECURE_SETTINGS权限。 ROOT不是必需的。这些首选项标有“(G1)”。</string>
-    <string name="important_info_profile_grant_lookSectionProfiles">有关更多信息，请查看下面的“配置文件”部分。</string>
     <string name="important_info_profile_grant_1_howTo_1">标有(G1)的配置文件参数需要PhoneProfilesPlus的特殊权限。这是通过安装了adb的PC完成的。</string>
     <string name="important_info_profile_grant_1_howTo_2">如果您的PC上没有安装adb：</string>
     <string name="important_info_profile_grant_1_howTo_3">从以下位置下载SDK平台工具：</string>
@@ -854,7 +853,6 @@
     <string name="event_preferences_applications_PPPExtender_install_summary">要启用“Applications ”参数，请单击此处以安装PhoneProfilesPlusExtender。</string>
     <string name="event_preferences_orientation_PPPExtender_install_summary">要启用“忽略应用程序”参数，请单击此处以安装PhoneProfilesPlusExtender。</string>
     <string name="event_preferences_applications_PPPExtender_upgrade_summary">单击此处检查更改并升级 PhoneProfilesPlusExtender。</string>
-    <string name="important_info_accessibility_service_text1">由于Google更改了规则，关于辅助功能服务的使用，您必须安装PhoneProfilesPlusExtender才能使用Application事件传感器和Orientation事件传感器。有关更多信息，请检查这些传感器的参数。</string>
     <string name="about_application_extender_source_code">源代码 - 扩展器：</string>
     <string name="pref_dlg_info_about_wildcards_4">您可以配置更多字符串。用字符分开 “|”.</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_title">默认配置文件</string>
@@ -1078,7 +1076,6 @@
     <string name="phone_profiles_pref_applicationWidgetIconShowBorder">显示边框(小部件)</string>
     <string name="event_preferences_sms_AccessibilitySettingsForExtender_summary">在系统设置中允许PhoneProfilesPlusExtender“辅助功能”。不使用辅助功能，接收短信和彩信需要运行服务。</string>
     <string name="event_preferences_sms_PPPExtender_install_summary">单击此处安装PhoneProfilesPlusExtender。接收短信和彩信需要运行服务。</string>
-    <string name="important_info_accessibility_service_text2">由于Google更改了规则，关于接收短信和彩信的权限的使用，您必须安装PhoneProfilesPlusExtender才能使用SMS / MMS事件传感器。有关详细信息，请检查此传感器的参数。</string>
     <string name="permission_not_granted">未授权</string>
     <string name="permission_granted">已授权</string>
     <string name="menu_dark_theme_on">打开黑暗主题</string>
@@ -1100,7 +1097,6 @@
     <string name="event_preferences_call_PPPExtender_install_summary">单击此处安装PhoneProfilesPlusExtender。接听电话需要运行服务。</string>
     <string name="permission_why_event_sms_preferences">用于SMS / MMS传感器中的读取联系人</string>
     <string name="permission_why_event_call_preferences">对于读取联系人，检测呼叫传感器中的振铃呼叫(用于“夜间呼叫”)</string>
-    <string name="important_info_accessibility_service_text3">由于Google更改了规则，关于接收呼叫权限的使用，您必须安装PhoneProfilesPlusExtender才能使用呼叫事件传感器。有关详细信息，请检查此传感器的参数。</string>
     <string name="phone_profiles_pref_notificationUseDecoration">使用装饰</string>
     <string name="phone_profiles_pref_notificationLayoutType">布局类型</string>
     <string name="phone_profiles_pref_notificationLayoutType_expandable">扩展</string>
@@ -1414,6 +1410,12 @@
     <string name="array_pref_soundModeArray_ZenModeM_On">Do not disturb on</string>
     <string name="draw_over_apps_permission_notification_title">\"Draw over apps\" permission</string>
     <string name="draw_over_apps_permission_notification_text">You must grant permission \"Draw over apps\". It is required to start activities when PhoneProfilesPlus is in background. Click here to grant this permission.</string>
+    <string name="profile_preferences_types_G1_permission">Grant for (G1) preferences</string>
+    <string name="preferences_grantG1Preferences_title">Grant for (G1) preferences not enabled</string>
+    <string name="preferences_grantG1Preferences_summary">Grant for (G1) preferences not enabled. Click here to grant it.</string>
+    <string name="phone_profiles_pref_grantG1Permission_summary">Please grant WRITE_SECURE_SETTINGS permission for PhoneProfilesPlus. Is required for profile and event parameters, marked with (G1). Then ROOT will not be needed.</string>
+    <string name="profile_preferences_profile_not_found">Profile not found. Deleted?</string>
+    <string name="event_preferences_event_not_found">Event not found. Deleted?</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：n•配置文件参数“强制停止应用程序”n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>
@@ -1517,9 +1519,7 @@
     <!--<string name="phone_profiles_pref_nightModeOffApplicationTheme">Theme for night mode off</string>-->
     <!--    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-hide side panel</string>-->
     <!--    <string name="editor_activity_targetHelps_navigationIcon_description">Click this or swipe from left screen side to right to open \"Views\" side panel, where you can switch between Profiles and Events views.</string> -->
-    <!--    <string name="profile_preferences_screenCarMode">Car mode</string>-->
-    <!--    <string name="array_pref_screenCarMode_onWithNightNode">On with night mode</string>-->
-    <!--    <string name="array_pref_screenCarMode_onWithoutNightNode">On without night mode</string>-->
+    <!--    <string name="profile_preferences_screenNightMode">Night mode</string>-->
     <!--    <string name="donation_google_android_market">Google Play Store</string>-->
     <!--    <string name="donation_google_android_market_text">How much?</string>-->
     <!--    <string name="donation_google_android_market_donate_button">Donate</string>-->
@@ -1668,4 +1668,8 @@
     <!--    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">If option \"24 hours\" is not working on your device (LG), use option \"Always On\". Option \"Always On\" may cause problems with Samsung devices. If so, then use option \"24 hours\".</string>-->
     <!--    <string name="array_pref_screenTimeoutArray_24hours">24 hours</string>-->
     <!--    <string name="array_pref_screenTimeoutArray_alwaysOn">Always On</string>-->
+    <!--    <string name="important_info_profile_grant_lookSectionProfiles">For more information, look at the \"Profiles\" section further below.</string>-->
+    <!--    <string name="important_info_accessibility_service_text1">Due to a change of rules by Google, about usage of accessibility services, you must install PhoneProfilesPlusExtender to use the Application event sensor and Orientation event sensor. Check the parameters of these sensors for more information.</string>-->
+    <!--    <string name="important_info_accessibility_service_text2">Due to a change of rules by Google, about usage of permissions for receive SMS and MMS, you must install PhoneProfilesPlusExtender to use the SMS/MMS event sensor. Check the parameters of this sensor for more information.</string>-->
+    <!--    <string name="important_info_accessibility_service_text3">Due to a change of rules by Google, about usage of permissions for receive calls, you must install PhoneProfilesPlusExtender to use the Call event sensor. Check the parameters of this sensor for more information.</string>-->
 </resources>
