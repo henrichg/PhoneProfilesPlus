@@ -102,9 +102,9 @@ class ImportantInfoNotification {
         if (news4340) {
             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
             dataWrapper.fillEventList();
-            boolean sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_SMS, false);
+            boolean sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_SMS/*, false*/);
             if (!sensorExists)
-                sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_CALL, false);
+                sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_CALL/*, false*/);
 
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("ImportantInfoNotification.canShowNotification", "smsSensorsCount=" + smsSensorsCount);
@@ -122,9 +122,9 @@ class ImportantInfoNotification {
         if (news3670) {
             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
             dataWrapper.fillEventList();
-            boolean sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION, false);
+            boolean sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION/*, false*/);
             if (!sensorExists)
-                sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION, false);
+                sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/);
             //noinspection RedundantIfStatement
             if (!sensorExists)
                 news = false;

@@ -197,9 +197,9 @@ public class ImportantInfoHelpFragment extends Fragment {
 
             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
             dataWrapper.fillEventList();
-            boolean sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_SMS, false);
+            boolean sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_SMS/*, false*/);
             if (!sensorExists)
-                sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_CALL, false);
+                sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_CALL/*, false*/);
             if (!sensorExists) {
                 // extender is not needed
                 TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_text2);
@@ -238,9 +238,9 @@ public class ImportantInfoHelpFragment extends Fragment {
         if (news3670) {
             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
             dataWrapper.fillEventList();
-            boolean sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION, false);
+            boolean sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION/*, false*/);
             if (!sensorExists)
-                sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION, false);
+                sensorExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/);
             boolean news_extender = true;
             if (!sensorExists) {
                 // extender is installed or not needed
