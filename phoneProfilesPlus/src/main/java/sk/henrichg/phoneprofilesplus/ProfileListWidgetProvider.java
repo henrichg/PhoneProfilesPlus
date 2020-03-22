@@ -823,7 +823,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 createProfilesDataWrapper(context);
 
                 Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
-                dataWrapper.getEventTimelineList(true);
+                //dataWrapper.getEventTimelineList(true);
 
                 String pName;
                 if (profile != null)

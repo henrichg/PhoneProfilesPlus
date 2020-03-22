@@ -366,7 +366,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                 createProfilesDataWrapper(context);
 
                 Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
-                dataWrapper.getEventTimelineList(true);
+                //dataWrapper.getEventTimelineList(true);
 
                 String pName;
                 if (profile != null)
