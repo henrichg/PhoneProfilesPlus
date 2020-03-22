@@ -148,8 +148,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
 
                                         //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.1");
 
-                                        List<EventTimeline> eventTimelineList = _dataWrapper.getEventTimelineList(false);
-                                        event.pauseEvent(_dataWrapper, eventTimelineList, true, false,
+                                        event.pauseEvent(_dataWrapper, true, false,
                                                 false, true, null, false, false);
                                         //_dataWrapper.restartEvents(false, true, true, true, false);
                                         //PPApplication.logE("*********** restartEvents", "from ActionForExternalApplicationActivity.onStart() - ACTION_ENABLE_RUN_FOR_EVENT");
@@ -177,10 +176,9 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     break;
                 case ACTION_PAUSE_EVENT:
                     if (event_id != 0) {
-                        List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
                         Event event = dataWrapper.getEventById(event_id);
                         if (event.getStatus() == Event.ESTATUS_RUNNING) {
-                            event.pauseEvent(dataWrapper, eventTimelineList, true, false,
+                            event.pauseEvent(dataWrapper, true, false,
                                     false, true, null, true, false);
                         }
                         dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
@@ -211,8 +209,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
 
                                         //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.2");
 
-                                        final List<EventTimeline> eventTimelineList = _dataWrapper.getEventTimelineList(false);
-                                        event.stopEvent(_dataWrapper, eventTimelineList, true, false,
+                                        event.stopEvent(_dataWrapper, true, false,
                                                 true, true); // activate return profile
                                         //_dataWrapper.restartEvents(false, true, true, true, false);
                                         //PPApplication.logE("*********** restartEvents", "from ActionForExternalApplicationActivity.onStart() - ACTION_STOP_EVENT");

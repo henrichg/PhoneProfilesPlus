@@ -650,17 +650,17 @@ public class EditorEventListFragment extends Fragment
             if (Event.getGlobalEventsRunning()) {
                 // events are not globally stopped
 
-                List<EventTimeline> eventTimelineList = activityDataWrapper.getEventTimelineList(true);
+                activityDataWrapper.getEventTimelineList(true);
                 if (event.getStatusFromDB(activityDataWrapper.context) == Event.ESTATUS_STOP) {
                     // pause event
                     //IgnoreBatteryOptimizationNotification.showNotification(activityDataWrapper.context.getApplicationContext());
                     // not needed to use handlerThread, profile is not activated (activateReturnProfile=false)
-                    event.pauseEvent(activityDataWrapper, eventTimelineList, false, false,
+                    event.pauseEvent(activityDataWrapper, false, false,
                             false, true, null, false, false);
                 } else {
                     // stop event
                     // not needed to use handlerThread, profile is not activated (activateReturnProfile=false)
-                    event.stopEvent(activityDataWrapper, eventTimelineList, false, false,
+                    event.stopEvent(activityDataWrapper, false, false,
                             true, true); // activate return profile
                 }
 

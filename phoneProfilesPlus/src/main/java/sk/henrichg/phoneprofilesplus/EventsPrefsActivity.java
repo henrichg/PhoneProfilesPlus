@@ -535,7 +535,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
     static void saveUpdateOfPreferences(final Event event, final DataWrapper dataWrapper, final int old_event_status) {
         // save preferences into profile
-        final List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(true);
+        dataWrapper.getEventTimelineList(true);
 
         if (event.getStatus() == Event.ESTATUS_STOP)
         {
@@ -556,10 +556,10 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
                         if (old_event_status != Event.ESTATUS_STOP) {
                             // pause event - must be called, because status is ESTATUS_STOP
-                            event.pauseEvent(dataWrapper, eventTimelineList, true, false,
+                            event.pauseEvent(dataWrapper, true, false,
                                     false, false, null, false, false);
                             // stop event
-                            event.stopEvent(dataWrapper, eventTimelineList, true, false,
+                            event.stopEvent(dataWrapper, true, false,
                                     true, true);
 
                             // restart Events
@@ -598,7 +598,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
                         //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.savePreferences.2");
 
                         // pause event
-                        event.pauseEvent(dataWrapper, eventTimelineList, true, false,
+                        event.pauseEvent(dataWrapper, true, false,
                                 false, false, null, false, false);
                         // must be called, because status is ESTATUS_PAUSE and in pauseEvent is not called
                         // ESTATUS_PAUSE is set in Event.saveSharedPreferences()

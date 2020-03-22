@@ -1305,7 +1305,6 @@ class Event {
     }
 
     void startEvent(DataWrapper dataWrapper,
-                            List<EventTimeline> eventTimelineList,
                             //boolean ignoreGlobalPref,
                             //boolean interactive,
                             boolean forRestartEvents,
@@ -1368,6 +1367,8 @@ class Event {
                 }
             }
         }
+
+        List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
 
         // search for running event with higher priority
         boolean applicationEventUsePriority = ApplicationPreferences.applicationEventUsePriority;
@@ -1603,7 +1604,6 @@ class Event {
     }
 
     void pauseEvent(DataWrapper dataWrapper,
-                            List<EventTimeline> eventTimelineList,
                             boolean activateReturnProfile,
                             boolean ignoreGlobalPref,
                             boolean noSetSystemEvent,
@@ -1644,6 +1644,8 @@ class Event {
             PPApplication.logE("@@@ Event.pauseEvent", "event_id=" + this._id + "-----------------------------------");
             PPApplication.logE("@@@ Event.pauseEvent", "-- event_name=" + this._name);
         }*/
+
+        List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
 
         int timeLineSize = eventTimelineList.size();
 
@@ -1748,7 +1750,6 @@ class Event {
     }
 
     void stopEvent(DataWrapper dataWrapper,
-                            List<EventTimeline> eventTimelineList,
                             boolean activateReturnProfile,
                             boolean ignoreGlobalPref,
                             boolean saveEventStatus,
@@ -1771,7 +1772,7 @@ class Event {
 
         if (this._status != ESTATUS_STOP)
         {
-            pauseEvent(dataWrapper, eventTimelineList, activateReturnProfile, ignoreGlobalPref, true, false, null, false/*allowRestart*/, false);
+            pauseEvent(dataWrapper, activateReturnProfile, ignoreGlobalPref, true, false, null, false/*allowRestart*/, false);
         }
 
         setSystemEvent(dataWrapper.context, ESTATUS_STOP);

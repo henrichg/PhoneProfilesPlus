@@ -395,6 +395,8 @@ class EventsHandler {
             }
             */
 
+            List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
+
             if (isRestart) {
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("$$$ EventsHandler.handleEvents", "restart events");
@@ -404,10 +406,6 @@ class EventsHandler {
                 //reactivateProfile = true;
 
                 //oldActivatedProfile = null;
-
-                // get running events count
-                //List<EventTimeline> _etl = dataWrapper.getEventTimelineList(true);
-                //runningEventCount0 = _etl.size();
 
                 // 1. pause events
                 sortEventsByStartOrderDesc(dataWrapper.eventList);
@@ -495,10 +493,6 @@ class EventsHandler {
                 //oldActivatedProfile = dataWrapper.getActivatedProfile();
 
                 //activatedProfile0 = dataWrapper.getActivatedProfileFromDB();
-
-                // get running events count
-                //List<EventTimeline> _etl = dataWrapper.getEventTimelineList(true);
-                //runningEventCount0 = _etl.size();
 
                 //1. pause events
                 sortEventsByStartOrderDesc(dataWrapper.eventList);
@@ -609,7 +603,6 @@ class EventsHandler {
             //// activate background profile when no profile is activated
 
             // get running events count
-            List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(true);
             int runningEventCountE = eventTimelineList.size();
 
             Profile activatedProfile = dataWrapper.getActivatedProfileFromDB(false, false);
@@ -710,13 +703,6 @@ class EventsHandler {
             String defaultProfileNotificationSound = "";
             boolean defaultProfileNotificationVibrate = false;
 
-            //if (/*(!isRestart) &&*/ (runningEventCountE > runningEventCountP)) {
-            // only running events is increased, play event notification sound
-
-            //EventTimeline eventTimeline = eventTimelineList.get(runningEventCountE - 1);
-            //notifyEventStart = dataWrapper.getEventById(eventTimeline._fkEvent);
-            //}
-            //else
             if (/*(!isRestart) &&*/ (defaultProfileId != Profile.PROFILE_NO_ACTIVATE) && notifyDefaultProfile) {
                 // only when activated is background profile, play event notification sound
 
@@ -3013,8 +2999,6 @@ class EventsHandler {
             }
         }
 
-        List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
-
         boolean allPassed = true;
         boolean someNotAllowed = false;
         if (!notAllowedTime)
@@ -3199,7 +3183,7 @@ class EventsHandler {
                                 // no delay alarm is set
                                 // start event
                                 long oldMergedProfile = mergedProfile._id;
-                                event.startEvent(dataWrapper, eventTimelineList, /*interactive,*/ forRestartEvents, mergedProfile);
+                                event.startEvent(dataWrapper, /*interactive,*/ forRestartEvents, mergedProfile);
                                 startProfileMerged = oldMergedProfile != mergedProfile._id;
                                 //if (event._name.equals("Doma"))
                                 //    PPApplication.logE("[***] EventsHandler.doHandleEvents", "mergedProfile._id=" + mergedProfile._id);
@@ -3213,7 +3197,7 @@ class EventsHandler {
                             // called for delay alarm
                             // start event
                             long oldMergedProfile = mergedProfile._id;
-                            event.startEvent(dataWrapper, eventTimelineList, /*interactive,*/ forRestartEvents, mergedProfile);
+                            event.startEvent(dataWrapper, /*interactive,*/ forRestartEvents, mergedProfile);
                             startProfileMerged = oldMergedProfile != mergedProfile._id;
                             //PPApplication.logE("[DSTART] EventsHandler.doHandleEvents", "mergedProfile=" + mergedProfile._name);
                         }
@@ -3264,7 +3248,7 @@ class EventsHandler {
                                 // no delay alarm is set
                                 // pause event
                                 long oldMergedProfile = mergedProfile._id;
-                                event.pauseEvent(dataWrapper, eventTimelineList, true, false,
+                                event.pauseEvent(dataWrapper, true, false,
                                         false, true, mergedProfile, !forRestartEvents, forRestartEvents);
                                 endProfileMerged = oldMergedProfile != mergedProfile._id;
                             }
@@ -3274,7 +3258,7 @@ class EventsHandler {
                             // called for delay alarm
                             // pause event
                             long oldMergedProfile = mergedProfile._id;
-                            event.pauseEvent(dataWrapper, eventTimelineList, true, false,
+                            event.pauseEvent(dataWrapper, true, false,
                                     false, true, mergedProfile, !forRestartEvents, forRestartEvents);
                             endProfileMerged = oldMergedProfile != mergedProfile._id;
                         }

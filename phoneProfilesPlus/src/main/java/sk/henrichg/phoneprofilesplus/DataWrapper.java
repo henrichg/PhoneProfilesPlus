@@ -959,7 +959,7 @@ public class DataWrapper {
     // stops all events associated with profile
     private void stopEventsForProfile(Profile profile, boolean alsoUnlink/*, boolean saveEventStatus*/)
     {
-        List<EventTimeline> eventTimelineList = getEventTimelineList(true);
+        getEventTimelineList(true);
 
         synchronized (eventList) {
             fillEventList();
@@ -969,7 +969,7 @@ public class DataWrapper {
                 //if ((event.getStatusFromDB(this) == Event.ESTATUS_RUNNING) &&
                 //	(event._fkProfileStart == profile._id))
                 if (event._fkProfileStart == profile._id)
-                    event.stopEvent(this, eventTimelineList, false, true, true/*saveEventStatus*/, false);
+                    event.stopEvent(this, false, true, true/*saveEventStatus*/, false);
             }
         }
         if (alsoUnlink) {
@@ -1019,7 +1019,7 @@ public class DataWrapper {
     // pauses all events
     void pauseAllEvents(boolean noSetSystemEvent, boolean blockEvents/*, boolean activateReturnProfile*/)
     {
-        List<EventTimeline> eventTimelineList = getEventTimelineList(true);
+        getEventTimelineList(true);
 
         synchronized (eventList) {
             //PPApplication.logE("DataWrapper.pauseAllEvents", "eventListFilled="+eventListFilled);
@@ -1038,7 +1038,7 @@ public class DataWrapper {
 
                     if (status == Event.ESTATUS_RUNNING) {
                         if (!(event._forceRun && event._noPauseByManualActivation)) {
-                            event.pauseEvent(this, eventTimelineList, false, true, noSetSystemEvent, true, null, false, false);
+                            event.pauseEvent(this, false, true, noSetSystemEvent, true, null, false, false);
                         }
                     }
 
@@ -1097,14 +1097,14 @@ public class DataWrapper {
     // stops all events
     void stopAllEvents(boolean saveEventStatus, boolean alsoDelete/*, boolean activateReturnProfile*/, boolean log)
     {
-        List<EventTimeline> eventTimelineList = getEventTimelineList(true);
+        getEventTimelineList(true);
         synchronized (eventList) {
             fillEventList();
             //noinspection ForLoopReplaceableByForEach
             for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
                 Event event = it.next();
                 //if (event.getStatusFromDB(this) != Event.ESTATUS_STOP)
-                event.stopEvent(this, eventTimelineList, false/*activateReturnProfile*/,
+                event.stopEvent(this, false/*activateReturnProfile*/,
                         true, saveEventStatus, log);
             }
         }
