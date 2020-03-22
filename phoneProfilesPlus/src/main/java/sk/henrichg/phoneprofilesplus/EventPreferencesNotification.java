@@ -662,13 +662,6 @@ class EventPreferencesNotification extends EventPreferences {
                 }
             }
 
-            if (!(_checkContacts || _checkText)) {
-                if (packageNameFound)
-                    return statusBarNotification;
-                else
-                    return null;
-            }
-
             if (packageNameFound) {
 
                 boolean testText = false;
@@ -677,7 +670,7 @@ class EventPreferencesNotification extends EventPreferences {
                 String notificationTitle = "";
                 String notificationText = "";
 
-                //if (_checkContacts || _checkText) {
+                if (_checkContacts || _checkText) {
                     if (statusBarNotification.getNotification().tickerText != null) {
                         notificationTicker = statusBarNotification.getNotification().tickerText.toString();
                         testText = true;
@@ -698,7 +691,7 @@ class EventPreferencesNotification extends EventPreferences {
                         PPApplication.logE("EventPreferencesNotification.isNotificationActive", "notificationTitle=" + notificationTitle);
                         PPApplication.logE("EventPreferencesNotification.isNotificationActive", "notificationText=" + notificationText);
                     }*/
-                //}
+                }
 
                 boolean textFound = false;
                 if (testText) {
