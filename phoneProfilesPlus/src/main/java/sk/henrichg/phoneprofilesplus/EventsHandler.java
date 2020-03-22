@@ -1211,6 +1211,7 @@ class EventsHandler {
                 notAllowedTime = true;
             int newSensorPassed = event._eventPreferencesTime.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "time - sensor pass changed");
                 event._eventPreferencesTime.setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_TIME);
             }
@@ -1316,6 +1317,7 @@ class EventsHandler {
                 notAllowedBattery = true;
             int newSensorPassed = event._eventPreferencesBattery.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "battery - sensor pass changed");
                 event._eventPreferencesBattery.setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_BATTERY);
             }
@@ -1494,6 +1496,7 @@ class EventsHandler {
                 notAllowedCall = true;
             int newSensorPassed = event._eventPreferencesCall.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "call - sensor pass changed");
                 event._eventPreferencesCall.setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_CALL);
             }
@@ -1564,6 +1567,7 @@ class EventsHandler {
                 notAllowedPeripheral = true;
             int newSensorPassed = event._eventPreferencesPeripherals.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "peripherals - sensor pass changed");
                 event._eventPreferencesPeripherals.setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_PERIPHERAL);
             }
@@ -1611,6 +1615,7 @@ class EventsHandler {
                 notAllowedCalendar = true;
             int newSensorPassed = event._eventPreferencesCalendar.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "calendar - sensor pass changed");
                 event._eventPreferencesCalendar.setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_CALENDAR);
             }
@@ -1920,7 +1925,11 @@ class EventsHandler {
             } else
                 notAllowedWifi = true;
             int newSensorPassed = event._eventPreferencesWifi.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "wifi - event._name="+event._name);
+            //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "wifi - old pass="+oldSensorPassed);
+            //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "wifi - new pass="+newSensorPassed);
             if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "wifi - sensor pass changed");
                 event._eventPreferencesWifi.setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_WIFI);
             }
@@ -1987,6 +1996,7 @@ class EventsHandler {
                 notAllowedScreen = true;
             int newSensorPassed = event._eventPreferencesScreen.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "screen - sensor pass changed");
                 event._eventPreferencesScreen.setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_SCREEN);
             }
@@ -2239,6 +2249,7 @@ class EventsHandler {
                 notAllowedBluetooth = true;
             int newSensorPassed = event._eventPreferencesBluetooth.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "bluetooth - sensor pass changed");
                 event._eventPreferencesBluetooth.setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_BLUETOOTH);
             }
@@ -2314,6 +2325,7 @@ class EventsHandler {
                 notAllowedSms = true;
             int newSensorPassed = event._eventPreferencesSMS.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "sms - sensor pass changed");
                 event._eventPreferencesSMS.setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_SMS);
             }
@@ -2336,6 +2348,7 @@ class EventsHandler {
                 notAllowedNotification = true;
             int newSensorPassed = event._eventPreferencesNotification.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "notification - sensor pass changed");
                 event._eventPreferencesNotification.setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_NOTIFICATION);
             }
@@ -2375,6 +2388,7 @@ class EventsHandler {
                 notAllowedApplication = true;
             int newSensorPassed = event._eventPreferencesApplication.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "application - sensor pass changed");
                 event._eventPreferencesApplication.setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_APPLICATION);
             }
@@ -2475,6 +2489,7 @@ class EventsHandler {
                 notAllowedLocation = true;
             int newSensorPassed = event._eventPreferencesLocation.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "location - sensor pass changed");
                 event._eventPreferencesLocation.setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_LOCATION);
             }
@@ -2662,6 +2677,7 @@ class EventsHandler {
                 notAllowedOrientation = true;
             int newSensorPassed = event._eventPreferencesOrientation.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "orientation - sensor pass changed");
                 event._eventPreferencesOrientation.setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_ORIENTATION);
             }
@@ -2735,6 +2751,7 @@ class EventsHandler {
                 notAllowedMobileCell = true;
             int newSensorPassed = event._eventPreferencesMobileCells.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "mobile cells - sensor pass changed");
                 event._eventPreferencesMobileCells.setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_MOBILE_CELLS);
             }
@@ -2799,6 +2816,7 @@ class EventsHandler {
                 notAllowedNfc = true;
             int newSensorPassed = event._eventPreferencesNFC.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "nfc - sensor pass changed");
                 event._eventPreferencesNFC.setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_NFC);
             }
@@ -2924,6 +2942,7 @@ class EventsHandler {
                 notAllowedRadioSwitch = true;
             int newSensorPassed = event._eventPreferencesRadioSwitch.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "radio switch - sensor pass changed");
                 event._eventPreferencesRadioSwitch.setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_RADIO_SWITCH);
             }
@@ -2988,6 +3007,7 @@ class EventsHandler {
                 notAllowedAlarmClock = true;
             int newSensorPassed = event._eventPreferencesAlarmClock.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "alarm clock - sensor pass changed");
                 event._eventPreferencesAlarmClock.setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_ALARM_CLOCK);
             }
