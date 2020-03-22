@@ -646,251 +646,263 @@ class EventPreferencesNotification extends EventPreferences {
 
     // test statusBarNotification for event parameters
     private StatusBarNotification isNotificationActive(StatusBarNotification statusBarNotification, String packageName, boolean checkEnd/*, Context context*/) {
-        String packageNameFromNotification = statusBarNotification.getPackageName();
+        try {
+            String packageNameFromNotification = statusBarNotification.getPackageName();
 
-        boolean packageNameFound = false;
-        if (checkEnd) {
-            if (packageNameFromNotification.endsWith(packageName)) {
-                //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName returned=" + _packageName);
-                packageNameFound = true;
-            }
-        } else {
-            if (packageNameFromNotification.equals(packageName)) {
-                //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName returned=" + _packageName);
-                packageNameFound = true;
-            }
-        }
-        if (packageNameFound) {
-
-            boolean testText = false;
-
-            String notificationTicker = "";
-            String notificationTitle = "";
-            String notificationText = "";
-
-            if (_checkContacts || _checkText) {
-                if (statusBarNotification.getNotification().tickerText != null) {
-                    notificationTicker = statusBarNotification.getNotification().tickerText.toString();
-                    testText = true;
+            boolean packageNameFound = false;
+            if (checkEnd) {
+                if (packageNameFromNotification.endsWith(packageName)) {
+                    //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName returned=" + _packageName);
+                    packageNameFound = true;
                 }
-                Bundle extras = statusBarNotification.getNotification().extras;
-                if (extras != null) {
-                    if (extras.getString("android.title") != null) {
-                        notificationTitle = extras.getString("android.title");
-                        testText = true;
-                    }
-                    if (extras.getCharSequence("android.text") != null) {
-                        notificationText = extras.getCharSequence("android.text").toString();
-                        testText = true;
-                    }
-                }
-                /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("EventPreferencesNotification.isNotificationActive", "notificationTicker=" + notificationTicker);
-                    PPApplication.logE("EventPreferencesNotification.isNotificationActive", "notificationTitle=" + notificationTitle);
-                    PPApplication.logE("EventPreferencesNotification.isNotificationActive", "notificationText=" + notificationText);
-                }*/
-            }
-
-            boolean textFound = false;
-            if (testText) {
-                // title or text or ticker is set in notification
-
-                if (_checkContacts) {
-                    if (_contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) {
-                        boolean phoneNumberFound = false;
-                        if (!notificationTitle.isEmpty())
-                            phoneNumberFound = isContactConfigured(notificationTitle/*, context*/);
-                        if (!notificationText.isEmpty() && (!phoneNumberFound))
-                            phoneNumberFound = isContactConfigured(notificationText/*, context*/);
-                        if (!notificationTicker.isEmpty() && (!phoneNumberFound))
-                            phoneNumberFound = isContactConfigured(notificationTicker/*, context*/);
-
-                        if (_contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_WHITE_LIST)
-                            textFound = phoneNumberFound;
-                        else
-                            textFound = !phoneNumberFound;
-                    } else
-                        // all contacts
-                        textFound = true;
-                }
-                if (_checkText) {
-                    String searchText = "";
-                    for (int whatTest = 0; whatTest < 3; whatTest++) {
-                        // test in loop title (0), text(1), ticker(2)
-                        if (whatTest == 0) {
-                            if (!notificationTitle.isEmpty())
-                                searchText = notificationTitle;
-                            else
-                                continue;
-                        }
-                        if (whatTest == 1) {
-                            if (!notificationText.isEmpty())
-                                searchText = notificationText;
-                            else
-                                continue;
-                        }
-                        if (whatTest == 2) {
-                            if (!notificationTicker.isEmpty())
-                                searchText = notificationTicker;
-                            else
-                                continue;
-                        }
-
-                        String[] textSplits = _text.split("\\|");
-
-                        String[] positiveList = new String[textSplits.length];
-                        String[] negativeList = new String[textSplits.length];
-                        int argsId;
-
-                        // positive strings
-                        boolean positiveExists = false;
-                        argsId = 0;
-                        for (String split : textSplits) {
-                            if (!split.isEmpty()) {
-                                String searchPattern = split;
-
-                                if (searchPattern.startsWith("!")) {
-                                    // only positive
-                                    continue;
-                                }
-
-                                // when in searchPattern are not wildcards add %
-                                if (!(searchPattern.contains("%") || searchPattern.contains("_")))
-                                    searchPattern = "%" + searchPattern + "%";
-
-                                searchPattern = searchPattern.replace("\\%", "{^^}");
-                                searchPattern = searchPattern.replace("\\_", "[^^]");
-
-                                searchPattern = searchPattern.replace("%", "(.*)");
-                                searchPattern = searchPattern.replace("_", "(.)");
-
-                                searchPattern = searchPattern.replace("{^^}", "\\%");
-                                searchPattern = searchPattern.replace("[^^]", "\\_");
-
-                                //if (!searchPattern.startsWith("(.*)"))
-                                //    searchPattern = searchPattern + "^";
-                                //if (!searchPattern.endsWith("(.*)"))
-                                //    searchPattern = searchPattern + "$";
-
-                                positiveList[argsId] = searchPattern;
-
-                                positiveExists = true;
-
-                                ++argsId;
-
-                            /*if (PPApplication.logEnabled()) {
-                                PPApplication.logE("EventPreferencesNotification.isNotificationActive", "split=" + split);
-                                PPApplication.logE("EventPreferencesNotification.isNotificationActive", "searchPattern=" + searchPattern);
-                                PPApplication.logE("EventPreferencesNotification.isNotificationActive", "argsId=" + argsId);
-                            }*/
-                            }
-                        }
-                        //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "positiveExists=" + positiveExists);
-
-                        // negative strings
-                        boolean negativeExists = false;
-                        argsId = 0;
-                        for (String split : textSplits) {
-                            if (!split.isEmpty()) {
-                                String searchPattern = split;
-
-                                if (!searchPattern.startsWith("!")) {
-                                    // only negative
-                                    continue;
-                                }
-
-                                // remove !
-                                searchPattern = searchPattern.substring(1);
-
-                                // when in searchPattern are not wildcards add %
-                                if (!(searchPattern.contains("%") || searchPattern.contains("_")))
-                                    searchPattern = "%" + searchPattern + "%";
-
-                                searchPattern = searchPattern.replace("\\%", "{^^}");
-                                searchPattern = searchPattern.replace("\\_", "[^^]");
-
-                                searchPattern = searchPattern.replace("%", "(.*)");
-                                searchPattern = searchPattern.replace("_", "(.)");
-
-                                searchPattern = searchPattern.replace("{^^}", "\\%");
-                                searchPattern = searchPattern.replace("[^^]", "\\_");
-
-                                //if (!searchPattern.startsWith("(.*)"))
-                                //    searchPattern = searchPattern + "^";
-                                //if (!searchPattern.endsWith("(.*)"))
-                                //    searchPattern = searchPattern + "$";
-
-                                negativeList[argsId] = searchPattern;
-
-                                negativeExists = true;
-
-                                ++argsId;
-
-                            /*if (PPApplication.logEnabled()) {
-                                PPApplication.logE("EventPreferencesNotification.isNotificationActive", "split=" + split);
-                                PPApplication.logE("EventPreferencesNotification.isNotificationActive", "searchPattern=" + searchPattern);
-                                PPApplication.logE("EventPreferencesNotification.isNotificationActive", "argsId=" + argsId);
-                            }*/
-                            }
-                        }
-                        //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "negativeExists=" + negativeExists);
-
-                        boolean foundPositive = false;
-                        if (positiveExists) {
-                            for (String _positiveText : positiveList) {
-                                if ((_positiveText != null) && (!_positiveText.isEmpty())) {
-                                /*if (PPApplication.logEnabled()) {
-                                    PPApplication.logE("EventPreferencesNotification.isNotificationActive", "searchText.toLowerCase()=" + searchText.toLowerCase());
-                                    PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_positiveText.toLowerCase()=" + _positiveText.toLowerCase());
-                                }*/
-                                    if (searchText.toLowerCase().matches(_positiveText.toLowerCase())) {
-                                        foundPositive = true;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        boolean foundNegative = true;
-                        if (negativeExists) {
-                            for (String _negativeText : negativeList) {
-                                if ((_negativeText != null) && (!_negativeText.isEmpty())) {
-                                /*if (PPApplication.logEnabled()) {
-                                    PPApplication.logE("EventPreferencesNotification.isNotificationActive", "searchText.toLowerCase()=" + searchText.toLowerCase());
-                                    PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_negativeText.toLowerCase()=" + _negativeText.toLowerCase());
-                                }*/
-                                    if (searchText.toLowerCase().matches(_negativeText.toLowerCase())) {
-                                        foundNegative = false;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-
-                        /*if (PPApplication.logEnabled()) {
-                            PPApplication.logE("EventPreferencesNotification.isNotificationActive", "foundPositive=" + foundPositive);
-                            PPApplication.logE("EventPreferencesNotification.isNotificationActive", "foundNegative=" + foundNegative);
-                        }*/
-
-                        textFound = foundPositive && foundNegative;
-
-                        if (textFound)
-                            break;
-                    }
+            } else {
+                if (packageNameFromNotification.equals(packageName)) {
+                    //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_packageName returned=" + _packageName);
+                    packageNameFound = true;
                 }
             }
-            //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "textFound=" + textFound);
 
-            if (testText) {
-                // is configured test text (_checkContacts or _checkText = true)
-                if (textFound)
+            if (!(_checkContacts || _checkText)) {
+                if (packageNameFound)
                     return statusBarNotification;
                 else
                     return null;
             }
-            else {
-                // is not configured test text (_checkContacts and _checkText = false)
-                return statusBarNotification;
+
+            if (packageNameFound) {
+
+                boolean testText = false;
+
+                String notificationTicker = "";
+                String notificationTitle = "";
+                String notificationText = "";
+
+                //if (_checkContacts || _checkText) {
+                    if (statusBarNotification.getNotification().tickerText != null) {
+                        notificationTicker = statusBarNotification.getNotification().tickerText.toString();
+                        testText = true;
+                    }
+                    Bundle extras = statusBarNotification.getNotification().extras;
+                    if (extras != null) {
+                        if (extras.getString("android.title") != null) {
+                            notificationTitle = extras.getString("android.title");
+                            testText = true;
+                        }
+                        if (extras.getCharSequence("android.text") != null) {
+                            notificationText = extras.getCharSequence("android.text").toString();
+                            testText = true;
+                        }
+                    }
+                    /*if (PPApplication.logEnabled()) {
+                        PPApplication.logE("EventPreferencesNotification.isNotificationActive", "notificationTicker=" + notificationTicker);
+                        PPApplication.logE("EventPreferencesNotification.isNotificationActive", "notificationTitle=" + notificationTitle);
+                        PPApplication.logE("EventPreferencesNotification.isNotificationActive", "notificationText=" + notificationText);
+                    }*/
+                //}
+
+                boolean textFound = false;
+                if (testText) {
+                    // title or text or ticker is set in notification
+
+                    if (_checkContacts) {
+                        if (_contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) {
+                            boolean phoneNumberFound = false;
+                            if (!notificationTitle.isEmpty())
+                                phoneNumberFound = isContactConfigured(notificationTitle/*, context*/);
+                            if (!notificationText.isEmpty() && (!phoneNumberFound))
+                                phoneNumberFound = isContactConfigured(notificationText/*, context*/);
+                            if (!notificationTicker.isEmpty() && (!phoneNumberFound))
+                                phoneNumberFound = isContactConfigured(notificationTicker/*, context*/);
+
+                            if (_contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_WHITE_LIST)
+                                textFound = phoneNumberFound;
+                            else
+                                textFound = !phoneNumberFound;
+                        } else
+                            // all contacts
+                            textFound = true;
+                    }
+                    if (_checkText) {
+                        String searchText = "";
+                        for (int whatTest = 0; whatTest < 3; whatTest++) {
+                            // test in loop title (0), text(1), ticker(2)
+                            if (whatTest == 0) {
+                                if (!notificationTitle.isEmpty())
+                                    searchText = notificationTitle;
+                                else
+                                    continue;
+                            }
+                            if (whatTest == 1) {
+                                if (!notificationText.isEmpty())
+                                    searchText = notificationText;
+                                else
+                                    continue;
+                            }
+                            if (whatTest == 2) {
+                                if (!notificationTicker.isEmpty())
+                                    searchText = notificationTicker;
+                                else
+                                    continue;
+                            }
+
+                            String[] textSplits = _text.split("\\|");
+
+                            String[] positiveList = new String[textSplits.length];
+                            String[] negativeList = new String[textSplits.length];
+                            int argsId;
+
+                            // positive strings
+                            boolean positiveExists = false;
+                            argsId = 0;
+                            for (String split : textSplits) {
+                                if (!split.isEmpty()) {
+                                    String searchPattern = split;
+
+                                    if (searchPattern.startsWith("!")) {
+                                        // only positive
+                                        continue;
+                                    }
+
+                                    // when in searchPattern are not wildcards add %
+                                    if (!(searchPattern.contains("%") || searchPattern.contains("_")))
+                                        searchPattern = "%" + searchPattern + "%";
+
+                                    searchPattern = searchPattern.replace("\\%", "{^^}");
+                                    searchPattern = searchPattern.replace("\\_", "[^^]");
+
+                                    searchPattern = searchPattern.replace("%", "(.*)");
+                                    searchPattern = searchPattern.replace("_", "(.)");
+
+                                    searchPattern = searchPattern.replace("{^^}", "\\%");
+                                    searchPattern = searchPattern.replace("[^^]", "\\_");
+
+                                    //if (!searchPattern.startsWith("(.*)"))
+                                    //    searchPattern = searchPattern + "^";
+                                    //if (!searchPattern.endsWith("(.*)"))
+                                    //    searchPattern = searchPattern + "$";
+
+                                    positiveList[argsId] = searchPattern;
+
+                                    positiveExists = true;
+
+                                    ++argsId;
+
+                                    /*if (PPApplication.logEnabled()) {
+                                        PPApplication.logE("EventPreferencesNotification.isNotificationActive", "split=" + split);
+                                        PPApplication.logE("EventPreferencesNotification.isNotificationActive", "searchPattern=" + searchPattern);
+                                        PPApplication.logE("EventPreferencesNotification.isNotificationActive", "argsId=" + argsId);
+                                    }*/
+                                }
+                            }
+                            //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "positiveExists=" + positiveExists);
+
+                            // negative strings
+                            boolean negativeExists = false;
+                            argsId = 0;
+                            for (String split : textSplits) {
+                                if (!split.isEmpty()) {
+                                    String searchPattern = split;
+
+                                    if (!searchPattern.startsWith("!")) {
+                                        // only negative
+                                        continue;
+                                    }
+
+                                    // remove !
+                                    searchPattern = searchPattern.substring(1);
+
+                                    // when in searchPattern are not wildcards add %
+                                    if (!(searchPattern.contains("%") || searchPattern.contains("_")))
+                                        searchPattern = "%" + searchPattern + "%";
+
+                                    searchPattern = searchPattern.replace("\\%", "{^^}");
+                                    searchPattern = searchPattern.replace("\\_", "[^^]");
+
+                                    searchPattern = searchPattern.replace("%", "(.*)");
+                                    searchPattern = searchPattern.replace("_", "(.)");
+
+                                    searchPattern = searchPattern.replace("{^^}", "\\%");
+                                    searchPattern = searchPattern.replace("[^^]", "\\_");
+
+                                    //if (!searchPattern.startsWith("(.*)"))
+                                    //    searchPattern = searchPattern + "^";
+                                    //if (!searchPattern.endsWith("(.*)"))
+                                    //    searchPattern = searchPattern + "$";
+
+                                    negativeList[argsId] = searchPattern;
+
+                                    negativeExists = true;
+
+                                    ++argsId;
+
+                                    /*if (PPApplication.logEnabled()) {
+                                        PPApplication.logE("EventPreferencesNotification.isNotificationActive", "split=" + split);
+                                        PPApplication.logE("EventPreferencesNotification.isNotificationActive", "searchPattern=" + searchPattern);
+                                        PPApplication.logE("EventPreferencesNotification.isNotificationActive", "argsId=" + argsId);
+                                    }*/
+                                }
+                            }
+                            //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "negativeExists=" + negativeExists);
+
+                            boolean foundPositive = false;
+                            if (positiveExists) {
+                                for (String _positiveText : positiveList) {
+                                    if ((_positiveText != null) && (!_positiveText.isEmpty())) {
+                                        /*if (PPApplication.logEnabled()) {
+                                            PPApplication.logE("EventPreferencesNotification.isNotificationActive", "searchText.toLowerCase()=" + searchText.toLowerCase());
+                                            PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_positiveText.toLowerCase()=" + _positiveText.toLowerCase());
+                                        }*/
+                                        if (searchText.toLowerCase().matches(_positiveText.toLowerCase())) {
+                                            foundPositive = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            boolean foundNegative = true;
+                            if (negativeExists) {
+                                for (String _negativeText : negativeList) {
+                                    if ((_negativeText != null) && (!_negativeText.isEmpty())) {
+                                        /*if (PPApplication.logEnabled()) {
+                                            PPApplication.logE("EventPreferencesNotification.isNotificationActive", "searchText.toLowerCase()=" + searchText.toLowerCase());
+                                            PPApplication.logE("EventPreferencesNotification.isNotificationActive", "_negativeText.toLowerCase()=" + _negativeText.toLowerCase());
+                                        }*/
+                                        if (searchText.toLowerCase().matches(_negativeText.toLowerCase())) {
+                                            foundNegative = false;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+
+                            /*if (PPApplication.logEnabled()) {
+                                PPApplication.logE("EventPreferencesNotification.isNotificationActive", "foundPositive=" + foundPositive);
+                                PPApplication.logE("EventPreferencesNotification.isNotificationActive", "foundNegative=" + foundNegative);
+                            }*/
+
+                            textFound = foundPositive && foundNegative;
+
+                            if (textFound)
+                                break;
+                        }
+                    }
+                }
+                //PPApplication.logE("EventPreferencesNotification.isNotificationActive", "textFound=" + textFound);
+
+                if (testText) {
+                    // is configured test text (_checkContacts or _checkText = true)
+                    if (textFound)
+                        return statusBarNotification;
+                    else
+                        return null;
+                } else {
+                    // is not configured test text (_checkContacts and _checkText = false)
+                    return statusBarNotification;
+                }
             }
+        } catch (Exception e) {
+            Log.e("EventPreferencesNotification.isNotificationActive", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
         }
         // package name not found
         return null;
@@ -912,13 +924,13 @@ class EventPreferencesNotification extends EventPreferences {
                                     if (_duration != 0) {
                                         long postTime = activeNotification.getPostTime() + this._duration * 1000;
 
-                                    /*if (PPApplication.logEnabled()) {
-                                        Calendar calendar = Calendar.getInstance();
-                                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
+                                        /*if (PPApplication.logEnabled()) {
+                                            Calendar calendar = Calendar.getInstance();
+                                            PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
 
-                                        calendar.setTimeInMillis(postTime);
-                                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
-                                    }*/
+                                            calendar.setTimeInMillis(postTime);
+                                            PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
+                                        }*/
 
                                         if (System.currentTimeMillis() < postTime)
                                             return true;
@@ -931,13 +943,13 @@ class EventPreferencesNotification extends EventPreferences {
                                     if (_duration != 0) {
                                         long postTime = activeNotification.getPostTime() + this._duration * 1000;
 
-                                    /*if (PPApplication.logEnabled()) {
-                                        Calendar calendar = Calendar.getInstance();
-                                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
+                                        /*if (PPApplication.logEnabled()) {
+                                            Calendar calendar = Calendar.getInstance();
+                                            PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
 
-                                        calendar.setTimeInMillis(postTime);
-                                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
-                                    }*/
+                                            calendar.setTimeInMillis(postTime);
+                                            PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
+                                        }*/
 
                                         if (System.currentTimeMillis() < postTime)
                                             return true;
@@ -952,13 +964,13 @@ class EventPreferencesNotification extends EventPreferences {
                                     if (_duration != 0) {
                                         long postTime = activeNotification.getPostTime() + this._duration * 1000;
 
-                                    /*if (PPApplication.logEnabled()) {
-                                        Calendar calendar = Calendar.getInstance();
-                                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
+                                        /*if (PPApplication.logEnabled()) {
+                                            Calendar calendar = Calendar.getInstance();
+                                            PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
 
-                                        calendar.setTimeInMillis(postTime);
-                                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
-                                    }*/
+                                            calendar.setTimeInMillis(postTime);
+                                            PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
+                                        }*/
 
                                         if (System.currentTimeMillis() < postTime)
                                             return true;
@@ -971,13 +983,13 @@ class EventPreferencesNotification extends EventPreferences {
                                     if (_duration != 0) {
                                         long postTime = activeNotification.getPostTime() + this._duration * 1000;
 
-                                    /*if (PPApplication.logEnabled()) {
-                                        Calendar calendar = Calendar.getInstance();
-                                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
+                                        /*if (PPApplication.logEnabled()) {
+                                            Calendar calendar = Calendar.getInstance();
+                                            PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
 
-                                        calendar.setTimeInMillis(postTime);
-                                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
-                                    }*/
+                                            calendar.setTimeInMillis(postTime);
+                                            PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
+                                        }*/
 
                                         if (System.currentTimeMillis() < postTime)
                                             return true;
@@ -990,13 +1002,13 @@ class EventPreferencesNotification extends EventPreferences {
                                     if (_duration != 0) {
                                         long postTime = activeNotification.getPostTime() + this._duration * 1000;
 
-                                    /*if (PPApplication.logEnabled()) {
-                                        Calendar calendar = Calendar.getInstance();
-                                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
+                                        /*if (PPApplication.logEnabled()) {
+                                            Calendar calendar = Calendar.getInstance();
+                                            PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
 
-                                        calendar.setTimeInMillis(postTime);
-                                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
-                                    }*/
+                                            calendar.setTimeInMillis(postTime);
+                                            PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
+                                        }*/
 
                                         if (System.currentTimeMillis() < postTime)
                                             return true;
@@ -1009,13 +1021,13 @@ class EventPreferencesNotification extends EventPreferences {
                                     if (_duration != 0) {
                                         long postTime = activeNotification.getPostTime() + this._duration * 1000;
 
-                                    /*if (PPApplication.logEnabled()) {
-                                        Calendar calendar = Calendar.getInstance();
-                                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
+                                        /*if (PPApplication.logEnabled()) {
+                                            Calendar calendar = Calendar.getInstance();
+                                            PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
 
-                                        calendar.setTimeInMillis(postTime);
-                                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
-                                    }*/
+                                            calendar.setTimeInMillis(postTime);
+                                            PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
+                                        }*/
 
                                         if (System.currentTimeMillis() < postTime)
                                             return true;
@@ -1036,13 +1048,13 @@ class EventPreferencesNotification extends EventPreferences {
                                     if (_duration != 0) {
                                         long postTime = activeNotification.getPostTime() + this._duration * 1000;
 
-                                    /*if (PPApplication.logEnabled()) {
-                                        Calendar calendar = Calendar.getInstance();
-                                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
+                                        /*if (PPApplication.logEnabled()) {
+                                            Calendar calendar = Calendar.getInstance();
+                                            PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "current time=" + calendar.getTime());
 
-                                        calendar.setTimeInMillis(postTime);
-                                        PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
-                                    }*/
+                                            calendar.setTimeInMillis(postTime);
+                                            PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification postTime=" + calendar.getTime());
+                                        }*/
 
                                         if (System.currentTimeMillis() < postTime)
                                             return true;
@@ -1057,8 +1069,6 @@ class EventPreferencesNotification extends EventPreferences {
                     //FirebaseCrashlytics.getInstance().recordException(e);
                     Crashlytics.logException(e);
                 }
-
-                return false;
             }
         }
 
