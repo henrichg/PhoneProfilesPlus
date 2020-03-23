@@ -84,19 +84,9 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     EventsHandler eventsHandler = new EventsHandler(appContext);
                                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
 
-                                    //}
-
-                                /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
-                                boolean bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHCONNECTED) > 0;
-                                dataWrapper.invalidateDataWrapper();
-
-                                if (bluetoothEventsExists) {
-                                */
-
                                     // start events handler
                                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_STATE);
 
-                                    //}
                                 }
 
                             }

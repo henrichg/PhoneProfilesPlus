@@ -314,7 +314,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
                                                 //+"|"+CallsCounter.LOG_TAG
                                                 //+"|[RJS] PPApplication"
-                                                //+"|[RJS] PhoneProfilesService"
+                                                +"|[RJS] PhoneProfilesService"
 
                                                 //+"|ActivateProfileHelper.setAirplaneMode_SDK17"
                                                 //+"|ActivateProfileHelper.executeForRadios"
