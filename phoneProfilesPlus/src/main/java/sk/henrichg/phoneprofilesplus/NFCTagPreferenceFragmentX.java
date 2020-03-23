@@ -323,8 +323,8 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
     private static class SortList implements Comparator<NFCTag> {
 
         public int compare(NFCTag lhs, NFCTag rhs) {
-            if (GlobalGUIRoutines.collator != null)
-                return GlobalGUIRoutines.collator.compare(lhs._name, rhs._name);
+            if (PPApplication.collator != null)
+                return PPApplication.collator.compare(lhs._name, rhs._name);
             else
                 return 0;
         }

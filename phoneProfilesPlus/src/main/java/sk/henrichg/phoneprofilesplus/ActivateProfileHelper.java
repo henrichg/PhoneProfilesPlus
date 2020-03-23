@@ -67,8 +67,6 @@ import static android.app.Notification.DEFAULT_VIBRATE;
 
 class ActivateProfileHelper {
 
-    static boolean lockRefresh = false;
-
     static boolean disableScreenTimeoutInternalChange = false;
     static boolean brightnessDialogInternalChange = false;
 
@@ -3064,77 +3062,6 @@ class ActivateProfileHelper {
                 }
             }*/
         //}
-    }
-
-    static void forceUpdateGUI(Context context, boolean alsoEditor, boolean refresh) {
-        /*PPApplication.logE("##### ActivateProfileHelper.forceUpdateGUI", "xxx");
-        PPApplication.logE("##### ActivateProfileHelper.forceUpdateGUI", "alsoEditor="+alsoEditor);
-        PPApplication.logE("##### ActivateProfileHelper.forceUpdateGUI", "refresh="+refresh);*/
-
-        PPApplication.showProfileNotification(/*context*/refresh, false);
-
-        // icon widget
-        try {
-            IconWidgetProvider myWidget = new IconWidgetProvider();
-            myWidget.updateWidgets(context, refresh);
-        } catch (Exception ignored) {
-        }
-
-        // one row widget
-        try {
-            OneRowWidgetProvider myWidget = new OneRowWidgetProvider();
-            myWidget.updateWidgets(context, refresh);
-        } catch (Exception ignored) {
-        }
-
-        // list widget
-        try {
-            ProfileListWidgetProvider myWidget = new ProfileListWidgetProvider();
-            myWidget.updateWidgets(context, refresh);
-        } catch (Exception ignored) {
-        }
-
-        // Samsung edge panel
-        if ((PPApplication.sLook != null) && PPApplication.sLookCocktailPanelEnabled) {
-            try {
-                SamsungEdgeProvider myWidget = new SamsungEdgeProvider();
-                myWidget.updateWidgets(context, refresh);
-            } catch (Exception ignored) {
-            }
-        }
-
-        // dash clock extension
-        Intent intent3 = new Intent(PPApplication.PACKAGE_NAME + ".DashClockBroadcastReceiver");
-        intent3.putExtra(DashClockBroadcastReceiver.EXTRA_REFRESH, refresh);
-        LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
-
-        // activities
-        Intent intent5 = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
-        intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, refresh);
-        intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
-        LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
-    }
-
-    static void updateGUI(Context context, boolean alsoEditor, boolean refresh)
-    {
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("ActivateProfileHelper.updateGUI", "lockRefresh=" + lockRefresh);
-            PPApplication.logE("ActivateProfileHelper.updateGUI", "doImport=" + EditorProfilesActivity.doImport);
-            PPApplication.logE("ActivateProfileHelper.updateGUI", "alsoEditor=" + alsoEditor);
-            PPApplication.logE("ActivateProfileHelper.updateGUI", "refresh=" + refresh);
-        }*/
-
-        if (!refresh) {
-            if (lockRefresh || EditorProfilesActivity.doImport)
-                // no refresh widgets
-                return;
-        }
-
-        //PPApplication.logE("ActivateProfileHelper.updateGUI", "send broadcast");
-        Intent intent5 = new Intent(PPApplication.ACTION_UPDATE_GUI);
-        intent5.putExtra(UpdateGUIBroadcastReceiver.EXTRA_REFRESH, refresh);
-        intent5.putExtra(UpdateGUIBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
-        context.sendBroadcast(intent5);
     }
 
     static boolean isAirplaneMode(Context context)

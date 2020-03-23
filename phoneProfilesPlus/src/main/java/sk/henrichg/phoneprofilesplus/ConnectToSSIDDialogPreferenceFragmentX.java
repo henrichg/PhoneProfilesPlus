@@ -195,8 +195,8 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
     private static class SortList implements Comparator<WifiSSIDData> {
 
         public int compare(WifiSSIDData lhs, WifiSSIDData rhs) {
-            if (GlobalGUIRoutines.collator != null)
-                return GlobalGUIRoutines.collator.compare(lhs.ssid, rhs.ssid);
+            if (PPApplication.collator != null)
+                return PPApplication.collator.compare(lhs.ssid, rhs.ssid);
             else
                 return 0;
         }

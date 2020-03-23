@@ -518,8 +518,8 @@ public class EditorProfileListFragment extends Fragment
                 if (defaultProfilesGenerated)
                 {
                     //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfileListFragment.LoadProfileListAsyncTask");
-                    ActivateProfileHelper.updateGUI(_dataWrapper.context, true, true);
-                    GlobalGUIRoutines.showToast(_dataWrapper.context.getApplicationContext(),
+                    PPApplication.updateGUI(_dataWrapper.context, true, true);
+                    PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
                             fragment.getResources().getString(R.string.toast_predefined_profiles_generated),
                             Toast.LENGTH_SHORT);
                 }
@@ -662,7 +662,7 @@ public class EditorProfileListFragment extends Fragment
             updateHeader(_profile);
             PPApplication.showProfileNotification(/*activityDataWrapper.context*/true, false);
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfileListFragment.deleteProfile");
-            ActivateProfileHelper.updateGUI(activityDataWrapper.context, true, true);
+            PPApplication.updateGUI(activityDataWrapper.context, true, true);
         }
         else {
             //activityDataWrapper.restartEvents(false, true, true, true, true);
@@ -791,7 +791,7 @@ public class EditorProfileListFragment extends Fragment
                     updateHeader(null);
                     PPApplication.showProfileNotification(/*activityDataWrapper.context*/true, false);
                     //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfileListFragment.deleteAllProfiles");
-                    ActivateProfileHelper.updateGUI(activityDataWrapper.context, true, true);
+                    PPApplication.updateGUI(activityDataWrapper.context, true, true);
 
                     activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
 
@@ -1066,8 +1066,8 @@ public class EditorProfileListFragment extends Fragment
     {
         class AlphabeticallyComparator implements Comparator<Profile> {
             public int compare(Profile lhs, Profile rhs) {
-                if (GlobalGUIRoutines.collator != null)
-                    return GlobalGUIRoutines.collator.compare(lhs._name, rhs._name);
+                if (PPApplication.collator != null)
+                    return PPApplication.collator.compare(lhs._name, rhs._name);
                 else
                     return 0;
             }
@@ -1177,7 +1177,7 @@ public class EditorProfileListFragment extends Fragment
                     if (getActivity() != null) {
                         switch (item.getItemId()) {
                             case R.id.profile_list_item_menu_show_in_activator_title:
-                                GlobalGUIRoutines.showToast(activityDataWrapper.context,
+                                PPApplication.showToast(activityDataWrapper.context,
                                         getResources().getString(R.string.popupmenu_title_click_below_toast),
                                         Toast.LENGTH_SHORT);
                                 break;

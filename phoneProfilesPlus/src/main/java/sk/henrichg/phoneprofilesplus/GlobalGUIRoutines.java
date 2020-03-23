@@ -43,14 +43,12 @@ import com.crashlytics.android.Crashlytics;
 
 import org.xml.sax.XMLReader;
 
-import java.text.Collator;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.TimeZone;
 
 import androidx.annotation.NonNull;
@@ -62,8 +60,6 @@ import mobi.upod.timedurationpicker.TimeDurationPicker;
 import static android.os.Looper.getMainLooper;
 
 class GlobalGUIRoutines {
-
-    static Collator collator = null;
 
     // import/export
     static final String DB_FILEPATH = "/data/" + PPApplication.PACKAGE_NAME + "/databases";
@@ -120,33 +116,6 @@ class GlobalGUIRoutines {
         PPApplication.createNotificationChannels(context);
     }
 */
-    static Collator getCollator(/*Context context*/)
-    {
-        //if (android.os.Build.VERSION.SDK_INT < 24) {
-            // get application Locale
-//            String lang = ApplicationPreferences.applicationLanguage(context);
-            Locale appLocale;
-//            if (!lang.equals("system")) {
-//                String[] langSplit = lang.split("-");
-//                if (langSplit.length == 1)
-//                    appLocale = new Locale(lang);
-//                else
-//                    appLocale = new Locale(langSplit[0], langSplit[1]);
-//            } else {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    appLocale = Resources.getSystem().getConfiguration().getLocales().get(0);
-                } else {
-                    appLocale = Resources.getSystem().getConfiguration().locale;
-                }
-//            }
-            // get collator for application locale
-            return Collator.getInstance(appLocale);
-//        }
-//        else {
-//            //Log.d("GlobalGUIRoutines.getCollator", java.util.Locale.getDefault().toString());
-//            return Collator.getInstance();
-//        }
-    }
 
     public static void setTheme(Activity activity, boolean forPopup, boolean withToolbar/*, boolean withDrawerLayout*/, boolean forActivator)
     {
@@ -502,6 +471,14 @@ class GlobalGUIRoutines {
         return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 
+    private static int dip(int dp) {
+        return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, Resources.getSystem().getDisplayMetrics()));
+    }
+
+    private static int sip(int sp) {
+        return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, Resources.getSystem().getDisplayMetrics()));
+    }
+
     /*
     static int pxToDp(int px)
     {
@@ -644,14 +621,6 @@ class GlobalGUIRoutines {
         else
             return  htmlSpanned;
 
-    }
-
-    private static int dip(int dp) {
-        return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, Resources.getSystem().getDisplayMetrics()));
-    }
-
-    private static int sip(int sp) {
-        return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, Resources.getSystem().getDisplayMetrics()));
     }
 
     private static SpannableStringBuilder addBullets(Spanned htmlSpanned) {
@@ -1178,7 +1147,6 @@ class GlobalGUIRoutines {
 
     }
 
-
     static class HighlightedSpinnerAdapter extends ArrayAdapter<String> {
 
         private int mSelectedIndex = -1;
@@ -1233,18 +1201,4 @@ class GlobalGUIRoutines {
         return (duration != 0 && transition != 0);
     }
 
-    static void showToast(final Context context, final String text, final int length) {
-        Handler handler = new Handler(getMainLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Toast msg = Toast/*Compat*/.makeText(context.getApplicationContext(), text, length);
-                    msg.show();
-                } catch (Exception e) {
-                    Crashlytics.logException(e);
-                }
-            }
-        });
-    }
 }

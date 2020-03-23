@@ -778,7 +778,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             disableDependedPref(Profile.PREF_PROFILE_LOCK_DEVICE);
             setRedTextToPreferences();
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from ProfilesPrefsFragment.onResume");
-            ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
+            PPApplication.updateGUI(context.getApplicationContext(), true, true);
         }
     }
 
@@ -930,7 +930,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         String text = getResources().getString(R.string.profileicon_pref_dialog_custom_icon_image_too_large);
                         text = text + " " + (width * BitmapManipulator.ICON_BITMAP_SIZE_MULTIPLIER);
                         text = text + "x" + (height * BitmapManipulator.ICON_BITMAP_SIZE_MULTIPLIER);
-                        GlobalGUIRoutines.showToast(getActivity().getApplicationContext(), text, Toast.LENGTH_LONG);
+                        PPApplication.showToast(getActivity().getApplicationContext(), text, Toast.LENGTH_LONG);
                     }
                 }
             }

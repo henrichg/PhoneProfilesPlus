@@ -34,7 +34,7 @@ public class BootUpReceiver extends BroadcastReceiver {
             PPApplication.logE("@@@ BootUpReceiver.onReceive", "#### -- start");
 
             String text = context.getString(R.string.app_name) + " " + context.getString(R.string.application_is_starting_toast);
-            GlobalGUIRoutines.showToast(context.getApplicationContext(), text, Toast.LENGTH_SHORT);
+            PPApplication.showToast(context.getApplicationContext(), text, Toast.LENGTH_SHORT);
 
 
             PPApplication.setBlockProfileEventActions(true, context);
@@ -100,7 +100,7 @@ public class BootUpReceiver extends BroadcastReceiver {
 
                                     dataWrapper.firstStartEvents(true, false);
                                     PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from BootUpReceiver.onReceive");
-                                    dataWrapper.updateNotificationAndWidgets(true, true);
+                                    PPApplication.updateNotificationAndWidgets(true, true, appContext);
                                 } else {
                                     PPApplication.logE("BootUpReceiver.onReceive", "global event run is not enabled, manually activate profile");
 
@@ -110,7 +110,7 @@ public class BootUpReceiver extends BroadcastReceiver {
 
                                     dataWrapper.activateProfileOnBoot();
                                     PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from BootUpReceiver.onReceive");
-                                    dataWrapper.updateNotificationAndWidgets(true, true);
+                                    PPApplication.updateNotificationAndWidgets(true, true, appContext);
                                 }
                             }
                         } else {

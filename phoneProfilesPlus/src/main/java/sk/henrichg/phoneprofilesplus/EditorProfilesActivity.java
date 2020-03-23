@@ -630,7 +630,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             String text = getString(R.string.app_name) + " " + getString(R.string.application_is_not_started);
             if (!fullyStarted)
                 text = getString(R.string.app_name) + " " + getString(R.string.application_is_starting_toast);
-            GlobalGUIRoutines.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
+            PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
             return true;
         }
         return false;
@@ -987,7 +987,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }
                 else {
                     // toast notification
-                    GlobalGUIRoutines.showToast(getApplicationContext(), getString(R.string.toast_debug_log_files_not_exists),
+                    PPApplication.showToast(getApplicationContext(), getString(R.string.toast_debug_log_files_not_exists),
                                                         Toast.LENGTH_SHORT);
                 }
 
@@ -1749,7 +1749,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         if (Permissions.checkImport(getApplicationContext())) {
 
             String text = getString(R.string.app_name) + " " + getString(R.string.application_is_starting_toast);
-            GlobalGUIRoutines.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
+            PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
 
             @SuppressLint("StaticFieldLeak")
             class ImportAsyncTask extends AsyncTask<Void, Integer, Integer> {
@@ -1874,7 +1874,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         Profile.saveProfileToSharedPreferences(profile, this.dataWrapper.context, PPApplication.ACTIVATED_PROFILE_PREFS_NAME);
                         PPApplication.setLastActivatedProfile(this.dataWrapper.context, 0);
 
-                        this.dataWrapper.updateNotificationAndWidgets(true, true);
+                        PPApplication.updateNotificationAndWidgets(true, true, this.dataWrapper.context);
 
                         PPApplication.setApplicationStarted(this.dataWrapper.context, true);
                         Intent serviceIntent = new Intent(this.dataWrapper.context, PhoneProfilesService.class);
@@ -1895,7 +1895,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_DATA_IMPORT, null, null, null, 0, "");
 
                         // toast notification
-                        GlobalGUIRoutines.showToast(this.dataWrapper.context.getApplicationContext(),
+                        PPApplication.showToast(this.dataWrapper.context.getApplicationContext(),
                                 getResources().getString(R.string.toast_import_ok),
                                 Toast.LENGTH_SHORT);
 
@@ -2171,7 +2171,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                         Context context = this.dataWrapper.context.getApplicationContext();
                         // toast notification
-                        GlobalGUIRoutines.showToast(context, getString(R.string.toast_export_ok), Toast.LENGTH_SHORT);
+                        PPApplication.showToast(context, getString(R.string.toast_export_ok), Toast.LENGTH_SHORT);
 
                         if (email) {
                             // email backup
@@ -2331,7 +2331,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 fragment.updateHeader(activeProfile);
                 PPApplication.showProfileNotification(/*getApplicationContext()*/true, false);
                 //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfilesActivity.redrawProfileListFragment");
-                ActivateProfileHelper.updateGUI(fragment.activityDataWrapper.context, true, true);
+                PPApplication.updateGUI(fragment.activityDataWrapper.context, true, true);
 
                 fragment.activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
 

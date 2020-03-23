@@ -484,8 +484,8 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
     private static class SortList implements Comparator<BluetoothDeviceData> {
 
         public int compare(BluetoothDeviceData lhs, BluetoothDeviceData rhs) {
-            if (GlobalGUIRoutines.collator != null)
-                return GlobalGUIRoutines.collator.compare(lhs.getName(), rhs.getName());
+            if (PPApplication.collator != null)
+                return PPApplication.collator.compare(lhs.getName(), rhs.getName());
             else
                 return 0;
         }

@@ -85,7 +85,7 @@ public class DelayedWorksWorker extends Worker {
                             }
 
                             dataWrapper.firstStartEvents(true, false);
-                            dataWrapper.updateNotificationAndWidgets(true, true);
+                            PPApplication.updateNotificationAndWidgets(true, true, appContext);
                         } else {
                             PPApplication.logE("PackageReplacedReceiver.doWork", "global event run is not enabled, manually activate profile");
 
@@ -94,7 +94,7 @@ public class DelayedWorksWorker extends Worker {
                             dataWrapper.pauseAllEvents(true, false);
 
                             dataWrapper.activateProfileOnBoot();
-                            dataWrapper.updateNotificationAndWidgets(true, true);
+                            PPApplication.updateNotificationAndWidgets(true, true, appContext);
                         }
 
                         break;
@@ -485,7 +485,7 @@ public class DelayedWorksWorker extends Worker {
                         PhoneProfilesService instance = PhoneProfilesService.getInstance();
                         if (instance != null) {
                             instance.setApplicationFullyStarted(/*true, */true);
-                            ActivateProfileHelper.updateGUI(appContext, true, true);
+                            PPApplication.updateGUI(appContext, true, true);
                         }
                     }
 

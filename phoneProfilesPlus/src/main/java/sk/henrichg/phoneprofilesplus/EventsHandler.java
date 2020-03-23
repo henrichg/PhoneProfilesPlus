@@ -91,7 +91,7 @@ class EventsHandler {
     static final String SENSOR_TYPE_ALARM_CLOCK_EVENT_END = "alarmClockEventEnd";
 
     public EventsHandler(Context context) {
-        this.context = context;
+        this.context = context.getApplicationContext();
     }
     
     void handleEvents(String sensorType) {
@@ -264,16 +264,16 @@ class EventsHandler {
                     if ((_event._eventPreferencesTime._enabled) && (_event.getStatus() != Event.ESTATUS_STOP)) {
                         PPApplication.logE("[TIME] EventsHandler.handleEvents", "event._id=" + _event._id);
                         if (_event.getStatus() == Event.ESTATUS_RUNNING)
-                            _event._eventPreferencesTime.setSystemEventForPause(dataWrapper.context);
+                            _event._eventPreferencesTime.setSystemEventForPause(context);
                         if (_event.getStatus() == Event.ESTATUS_PAUSE)
-                            _event._eventPreferencesTime.setSystemEventForStart(dataWrapper.context);
+                            _event._eventPreferencesTime.setSystemEventForStart(context);
                     }
                 }
             }*/
 
             if (isRestart) {
                 // for restart events, set startTime to 0
-                dataWrapper.clearSensorsStartTime(/*false*/);
+                dataWrapper.clearSensorsStartTime();
             } else {
                 if (sensorType.equals(SENSOR_TYPE_SMS)) {
                     // search for sms events, save start time
@@ -338,7 +338,7 @@ class EventsHandler {
             }*/
 
             // no refresh notification and widgets
-            ActivateProfileHelper.lockRefresh = true;
+            PPApplication.lockRefresh = true;
 
             Profile mergedProfile = DataWrapper.getNonInitializedProfile("", "", 0);
             //Profile mergedPausedProfile = DataWrapper.getNonInitializedProfile("", "", 0);
@@ -588,7 +588,7 @@ class EventsHandler {
                 }
             }
 
-            ActivateProfileHelper.lockRefresh = false;
+            PPApplication.lockRefresh = false;
 
             /*if (mergedProfile._id == 0)
                 PPApplication.logE("$$$ EventsHandler.handleEvents", "no profile for activation");
@@ -744,7 +744,7 @@ class EventsHandler {
                     // log only when merged profile is not the same as last activated
                     // or for manual restart events
 
-                    PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION, null,
+                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION, null,
                             DataWrapper.getProfileNameWithManualIndicatorAsString(mergedProfile, true, "", false, false, false, dataWrapper),
                             mergedProfile._icon, 0, mergedProfilesCount + " [" + usedEventsCount + "]");
 
@@ -756,7 +756,7 @@ class EventsHandler {
                 //if ((ppService != null) && (!ppService.willBeDoRestartEvents)) {
                     // update only when will not be do restart events from paused events
                     //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EventsHandler.handleEvents");
-                    dataWrapper.updateNotificationAndWidgets(false, false);
+                PPApplication.updateNotificationAndWidgets(false, false, context);
                 //}
             }
 
@@ -3269,7 +3269,6 @@ class EventsHandler {
 
         //PPApplication.logE("%%% EventsHandler.doHandleEvents","--- end --------------------------");
     }
-
 
 //--------
 

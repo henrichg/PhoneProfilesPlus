@@ -24,7 +24,7 @@ public class LocaleChangedReceiver extends BroadcastReceiver {
                     public void run() {
                         //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=LocaleChangedReceiver.onReceive");
 
-                        GlobalGUIRoutines.collator = GlobalGUIRoutines.getCollator();
+                        PPApplication.collator = PPApplication.getCollator();
                         //if (ApplicationPreferences.applicationLanguage(appContext).equals("system")) {
                             PPApplication.showProfileNotification(/*appContext*/true, false);
                         //}

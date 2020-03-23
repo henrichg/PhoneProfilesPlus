@@ -26,7 +26,7 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
         final Context appContext = getApplicationContext();
 
         String text = getString(R.string.app_name) + " " + getString(R.string.application_is_starting_toast);
-        GlobalGUIRoutines.showToast(appContext, text, Toast.LENGTH_SHORT);
+        PPApplication.showToast(appContext, text, Toast.LENGTH_SHORT);
 
         final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 

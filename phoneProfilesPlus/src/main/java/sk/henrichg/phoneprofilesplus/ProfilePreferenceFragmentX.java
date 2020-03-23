@@ -144,8 +144,8 @@ public class ProfilePreferenceFragmentX extends PreferenceDialogFragmentCompat {
     private static class AlphabeticallyComparator implements Comparator<Profile> {
 
         public int compare(Profile lhs, Profile rhs) {
-            if (GlobalGUIRoutines.collator != null)
-                return GlobalGUIRoutines.collator.compare(lhs._name, rhs._name);
+            if (PPApplication.collator != null)
+                return PPApplication.collator.compare(lhs._name, rhs._name);
             else
                 return 0;
         }

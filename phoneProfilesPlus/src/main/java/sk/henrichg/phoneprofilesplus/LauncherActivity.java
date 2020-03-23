@@ -65,7 +65,7 @@ public class LauncherActivity extends AppCompatActivity {
 
                 PPApplication.showProfileNotification(/*getApplicationContext()*/true, false);
                 //PPApplication.logE("ActivateProfileHelper.updateGUI", "from LauncherActivity.onStart");
-                ActivateProfileHelper.updateGUI(dataWrapper.context, true, true);
+                PPApplication.updateGUI(dataWrapper.context, true, true);
                 startupSource = PPApplication.STARTUP_SOURCE_LAUNCHER;
             }
 
@@ -150,7 +150,7 @@ public class LauncherActivity extends AppCompatActivity {
             String text = getString(R.string.app_name) + " " + getString(R.string.application_is_not_started);
             if (!fullyStarted)
                 text = getString(R.string.app_name) + " " + getString(R.string.application_is_starting_toast);
-            GlobalGUIRoutines.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
+            PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
             return true;
         }
         return false;

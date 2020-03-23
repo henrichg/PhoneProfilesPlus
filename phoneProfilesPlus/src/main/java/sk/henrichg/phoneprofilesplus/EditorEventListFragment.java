@@ -554,7 +554,7 @@ public class EditorEventListFragment extends Fragment
 
                 if (defaultEventsGenerated)
                 {
-                    GlobalGUIRoutines.showToast(_dataWrapper.context.getApplicationContext(),
+                    PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
                             fragment.getResources().getString(R.string.toast_predefined_events_generated),
                             Toast.LENGTH_SHORT);
                 }
@@ -1221,8 +1221,8 @@ public class EditorEventListFragment extends Fragment
 
         class EventNameComparator implements Comparator<Event> {
             public int compare(Event lhs, Event rhs) {
-                if (GlobalGUIRoutines.collator != null)
-                    return GlobalGUIRoutines.collator.compare(lhs._name, rhs._name);
+                if (PPApplication.collator != null)
+                    return PPApplication.collator.compare(lhs._name, rhs._name);
                 else
                     return 0;
             }
@@ -1236,14 +1236,14 @@ public class EditorEventListFragment extends Fragment
 
         class ProfileNameComparator implements Comparator<Event> {
             public int compare(Event lhs, Event rhs) {
-                if (GlobalGUIRoutines.collator != null) {
+                if (PPApplication.collator != null) {
                     Profile profileLhs = dataWrapper.getProfileById(lhs._fkProfileStart, false, false,false);
                     Profile profileRhs = dataWrapper.getProfileById(rhs._fkProfileStart, false, false, false);
                     String nameLhs = "";
                     if (profileLhs != null) nameLhs = profileLhs._name;
                     String nameRhs = "";
                     if (profileRhs != null) nameRhs = profileRhs._name;
-                    return GlobalGUIRoutines.collator.compare(nameLhs, nameRhs);
+                    return PPApplication.collator.compare(nameLhs, nameRhs);
                 }
                 else
                     return 0;
@@ -1639,7 +1639,7 @@ public class EditorEventListFragment extends Fragment
                 if (getActivity() != null) {
                     switch (item.getItemId()) {
                         case R.id.event_list_item_ignore_manual_activation_title:
-                            GlobalGUIRoutines.showToast(activityDataWrapper.context,
+                            PPApplication.showToast(activityDataWrapper.context,
                                     getResources().getString(R.string.popupmenu_title_click_below_toast),
                                     Toast.LENGTH_SHORT);
                             break;

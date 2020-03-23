@@ -80,7 +80,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
             // check if profile exists in db
             DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
             if (dataWrapper.getEventById(event_id) == null) {
-                GlobalGUIRoutines.showToast(getApplicationContext(),
+                PPApplication.showToast(getApplicationContext(),
                         getString(R.string.event_preferences_event_not_found),
                         Toast.LENGTH_SHORT);
                 super.finish();

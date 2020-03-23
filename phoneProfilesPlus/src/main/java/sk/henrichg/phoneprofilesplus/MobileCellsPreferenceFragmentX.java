@@ -637,7 +637,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
     private static class SortByNameList implements Comparator<MobileCellsData> {
 
         public int compare(MobileCellsData lhs, MobileCellsData rhs) {
-            if (GlobalGUIRoutines.collator != null) {
+            if (PPApplication.collator != null) {
                 String _lhs = "";
                 if (lhs._new)
                     _lhs = _lhs + "0000";
@@ -659,7 +659,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                 else
                     _rhs = _rhs + "0003" + rhs.name;
                 _rhs = _rhs + "-" + rhs.cellId;
-                return GlobalGUIRoutines.collator.compare(_lhs, _rhs);
+                return PPApplication.collator.compare(_lhs, _rhs);
             }
             else
                 return 0;
@@ -670,7 +670,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
     private static class SortByConnectionList implements Comparator<MobileCellsData> {
 
         public int compare(MobileCellsData lhs, MobileCellsData rhs) {
-            if (GlobalGUIRoutines.collator != null) {
+            if (PPApplication.collator != null) {
                 String _lhs;// = "";
                 /*if (lhs._new)
                     _lhs = _lhs + "0000";
@@ -694,7 +694,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                     _rhs = _rhs + "0003" + rhs.name;
                 _rhs = _rhs + "-" + rhs.cellId;*/
                 _rhs = String.valueOf(rhs.lastConnectedTime);
-                return GlobalGUIRoutines.collator.compare(_rhs, _lhs);
+                return PPApplication.collator.compare(_rhs, _lhs);
             }
             else
                 return 0;

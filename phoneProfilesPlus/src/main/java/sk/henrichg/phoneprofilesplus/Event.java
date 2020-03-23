@@ -1457,7 +1457,7 @@ class Event {
                 dataWrapper.activateProfileFromEvent(this._fkProfileStart, false, false, forRestartEvents);
             else {
                 //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from Event.startEvent");
-                dataWrapper.updateNotificationAndWidgets(false, false);
+                PPApplication.updateNotificationAndWidgets(false, false, dataWrapper.context);
             }
         }
         else {
@@ -1598,7 +1598,7 @@ class Event {
         if (!profileActivated)
         {
             //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from Event.doActivateEndProfile");
-            dataWrapper.updateNotificationAndWidgets(false, false);
+            PPApplication.updateNotificationAndWidgets(false, false, dataWrapper.context);
         }
 
     }

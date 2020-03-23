@@ -61,7 +61,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
             @Override
             public void onTagRead(String tagData) {
                 if (Event.getGlobalEventsRunning()) {
-                    GlobalGUIRoutines.showToast(getApplicationContext(), "(" + getString(R.string.app_name) + ") " + getString(R.string.read_nfc_tag_read) + ": " + tagData, Toast.LENGTH_LONG);
+                    PPApplication.showToast(getApplicationContext(), "(" + getString(R.string.app_name) + ") " + getString(R.string.read_nfc_tag_read) + ": " + tagData, Toast.LENGTH_LONG);
 
                     final String _tagData = tagData;
 

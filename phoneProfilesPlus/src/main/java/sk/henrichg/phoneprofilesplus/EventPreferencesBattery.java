@@ -336,7 +336,7 @@ class EventPreferencesBattery extends EventPreferences {
                     boolean OK = ((iNewValue >= 0) && (iNewValue <= iHightLevelValue));
 
                     if (!OK) {
-                        GlobalGUIRoutines.showToast(_context.getApplicationContext(),
+                        PPApplication.showToast(_context.getApplicationContext(),
                                 _context.getResources().getString(R.string.event_preferences_battery_level_low) + ": " +
                                         _context.getResources().getString(R.string.event_preferences_battery_level_bad_value),
                                 Toast.LENGTH_SHORT);
@@ -368,7 +368,7 @@ class EventPreferencesBattery extends EventPreferences {
                     boolean OK = ((iNewValue >= iLowLevelValue) && (iNewValue <= 100));
 
                     if (!OK) {
-                        GlobalGUIRoutines.showToast(_context.getApplicationContext(),
+                        PPApplication.showToast(_context.getApplicationContext(),
                                 _context.getResources().getString(R.string.event_preferences_battery_level_hight) + ": " +
                                         _context.getResources().getString(R.string.event_preferences_battery_level_bad_value),
                                 Toast.LENGTH_SHORT);

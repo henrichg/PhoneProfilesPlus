@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Build;
@@ -21,6 +22,7 @@ import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.samsung.android.sdk.SsdkUnsupportedException;
@@ -38,10 +40,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.text.Collator;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -58,6 +62,7 @@ import androidx.work.WorkManager;
 import dev.doubledot.doki.views.DokiContentView;
 import io.fabric.sdk.android.Fabric;
 
+import static android.os.Looper.getMainLooper;
 import static android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE;
 
 public class PPApplication extends Application /*implements Application.ActivityLifecycleCallbacks*/ {
@@ -662,6 +667,9 @@ public class PPApplication extends Application /*implements Application.Activity
 
     static boolean restoreFinished = true;
 
+    static Collator collator = null;
+
+    static boolean lockRefresh = false;
     static long lastRefreshOfGUI = 0;
     static long lastRefreshOfProfileNotification = 0;
 
@@ -1212,7 +1220,7 @@ public class PPApplication extends Application /*implements Application.Activity
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        GlobalGUIRoutines.collator = GlobalGUIRoutines.getCollator();
+        collator = getCollator();
         MultiDex.install(this);
     }
 
@@ -1496,6 +1504,101 @@ public class PPApplication extends Application /*implements Application.Activity
     static void runCommand(Context context, Intent intent) {
         //PPApplication.logE("PPApplication.runCommand", "xxx");
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+    }
+
+    //--------------------------------------------------------------
+
+    static void forceUpdateGUI(Context context, boolean alsoEditor, boolean refresh) {
+        /*PPApplication.logE("##### ActivateProfileHelper.forceUpdateGUI", "xxx");
+        PPApplication.logE("##### ActivateProfileHelper.forceUpdateGUI", "alsoEditor="+alsoEditor);
+        PPApplication.logE("##### ActivateProfileHelper.forceUpdateGUI", "refresh="+refresh);*/
+
+        PPApplication.showProfileNotification(/*context*/refresh, false);
+
+        // icon widget
+        try {
+            IconWidgetProvider myWidget = new IconWidgetProvider();
+            myWidget.updateWidgets(context, refresh);
+        } catch (Exception ignored) {
+        }
+
+        // one row widget
+        try {
+            OneRowWidgetProvider myWidget = new OneRowWidgetProvider();
+            myWidget.updateWidgets(context, refresh);
+        } catch (Exception ignored) {
+        }
+
+        // list widget
+        try {
+            ProfileListWidgetProvider myWidget = new ProfileListWidgetProvider();
+            myWidget.updateWidgets(context, refresh);
+        } catch (Exception ignored) {
+        }
+
+        // Samsung edge panel
+        if ((PPApplication.sLook != null) && PPApplication.sLookCocktailPanelEnabled) {
+            try {
+                SamsungEdgeProvider myWidget = new SamsungEdgeProvider();
+                myWidget.updateWidgets(context, refresh);
+            } catch (Exception ignored) {
+            }
+        }
+
+        // dash clock extension
+        Intent intent3 = new Intent(PPApplication.PACKAGE_NAME + ".DashClockBroadcastReceiver");
+        intent3.putExtra(DashClockBroadcastReceiver.EXTRA_REFRESH, refresh);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
+
+        // activities
+        Intent intent5 = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
+        intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, refresh);
+        intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
+    }
+
+    static void updateGUI(Context context, boolean alsoEditor, boolean refresh)
+    {
+        /*if (PPApplication.logEnabled()) {
+            PPApplication.logE("ActivateProfileHelper.updateGUI", "lockRefresh=" + lockRefresh);
+            PPApplication.logE("ActivateProfileHelper.updateGUI", "doImport=" + EditorProfilesActivity.doImport);
+            PPApplication.logE("ActivateProfileHelper.updateGUI", "alsoEditor=" + alsoEditor);
+            PPApplication.logE("ActivateProfileHelper.updateGUI", "refresh=" + refresh);
+        }*/
+
+        if (!refresh) {
+            if (lockRefresh || EditorProfilesActivity.doImport)
+                // no refresh widgets
+                return;
+        }
+
+        //PPApplication.logE("ActivateProfileHelper.updateGUI", "send broadcast");
+        Intent intent5 = new Intent(PPApplication.ACTION_UPDATE_GUI);
+        intent5.putExtra(UpdateGUIBroadcastReceiver.EXTRA_REFRESH, refresh);
+        intent5.putExtra(UpdateGUIBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
+        context.sendBroadcast(intent5);
+    }
+
+    static void updateNotificationAndWidgets(boolean refresh, boolean forService, Context context)
+    {
+        PPApplication.showProfileNotification(/*context*/refresh, forService);
+        //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.updateNotificationAndWidgets");
+        updateGUI(context, true, refresh);
+    }
+
+    static void showToast(final Context context, final String text, final int length) {
+        Handler handler = new Handler(context.getApplicationContext().getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Toast msg = Toast/*Compat*/.makeText(context.getApplicationContext(), text, length);
+                    msg.show();
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
+            }
+        });
     }
 
     //--------------------------------------------------------------
@@ -3131,7 +3234,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from PPApplication._exitApp");
             //ActivateProfileHelper.updateGUI(context, false, true);
-            ActivateProfileHelper.forceUpdateGUI(context, false, true);
+            PPApplication.forceUpdateGUI(context, false, true);
 
             if (!shutdown) {
                 Handler _handler = new Handler(context.getMainLooper());
@@ -3424,6 +3527,37 @@ public class PPApplication extends Application /*implements Application.Activity
             }, 30000);*/
         }
     }
+
+    //--------------------
+
+    static Collator getCollator(/*Context context*/)
+    {
+        //if (android.os.Build.VERSION.SDK_INT < 24) {
+        // get application Locale
+//            String lang = ApplicationPreferences.applicationLanguage(context);
+        Locale appLocale;
+//            if (!lang.equals("system")) {
+//                String[] langSplit = lang.split("-");
+//                if (langSplit.length == 1)
+//                    appLocale = new Locale(lang);
+//                else
+//                    appLocale = new Locale(langSplit[0], langSplit[1]);
+//            } else {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            appLocale = Resources.getSystem().getConfiguration().getLocales().get(0);
+        } else {
+            appLocale = Resources.getSystem().getConfiguration().locale;
+        }
+//            }
+        // get collator for application locale
+        return Collator.getInstance(appLocale);
+//        }
+//        else {
+//            //Log.d("GlobalGUIRoutines.getCollator", java.util.Locale.getDefault().toString());
+//            return Collator.getInstance();
+//        }
+    }
+
 
 /*    //-----------------------------
 

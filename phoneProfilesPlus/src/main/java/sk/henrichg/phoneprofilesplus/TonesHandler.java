@@ -444,7 +444,7 @@ class TonesHandler {
             if (!(ringtone/* && notification && alarm*/))
                 strId = R.string.toast_tone_installation_installed_error;
 
-        GlobalGUIRoutines.showToast(context.getApplicationContext(),
+        PPApplication.showToast(context.getApplicationContext(),
                     context.getResources().getString(strId),
                     Toast.LENGTH_SHORT);
         //}

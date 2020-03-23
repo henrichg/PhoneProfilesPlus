@@ -20,14 +20,14 @@ class ApplicationsCache {
     private static class SortList implements Comparator<Application> {
 
         public int compare(Application lhs, Application rhs) {
-            if (GlobalGUIRoutines.collator != null) {
+            if (PPApplication.collator != null) {
                 if (lhs == null)
                     return -1;
                 else
                 if (rhs == null)
                     return 1;
                 else
-                    return GlobalGUIRoutines.collator.compare(lhs.appLabel, rhs.appLabel);
+                    return PPApplication.collator.compare(lhs.appLabel, rhs.appLabel);
             }
             else
                 return 0;

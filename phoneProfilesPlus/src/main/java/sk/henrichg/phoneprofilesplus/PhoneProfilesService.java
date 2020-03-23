@@ -626,14 +626,14 @@ public class PhoneProfilesService extends Service
         final Context appContext = getApplicationContext();
 
         //if (started)
-            ActivateProfileHelper.updateGUI(appContext, true, true);
+        PPApplication.updateGUI(appContext, true, true);
 
         if (/*started && */showToast &&
                 //(!ApplicationPreferences.applicationPackageReplaced(appContext))) {
                 (!PPApplication.applicationPackageReplaced)) {
 
             String text = getString(R.string.app_name) + " " + getString(R.string.application_is_started_toast);
-            GlobalGUIRoutines.showToast(appContext, text, Toast.LENGTH_SHORT);
+            PPApplication.showToast(appContext, text, Toast.LENGTH_SHORT);
         }
     }
 
@@ -4074,7 +4074,7 @@ public class PhoneProfilesService extends Service
                         }
 
                         dataWrapper.firstStartEvents(true, false);
-                        dataWrapper.updateNotificationAndWidgets(true, true);
+                        PPApplication.updateNotificationAndWidgets(true, true, appContext);
                     } else {
                         PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "global event run is not enabled, manually activate profile");
 
@@ -4085,7 +4085,7 @@ public class PhoneProfilesService extends Service
                         }
 
                         dataWrapper.activateProfileOnBoot();
-                        dataWrapper.updateNotificationAndWidgets(true, true);
+                        PPApplication.updateNotificationAndWidgets(true, true, appContext);
                     }
 
 
@@ -4475,7 +4475,7 @@ public class PhoneProfilesService extends Service
         //PPApplication.logE("PhoneProfilesService.onConfigurationChanged", "xxx");
         PPApplication.showProfileNotification(true, false/*, false*/);
         //PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesService.obConfigurationChanged");
-        ActivateProfileHelper.updateGUI(getApplicationContext(), true, true);
+        PPApplication.updateGUI(getApplicationContext(), true, true);
     }
 
     //------------------------

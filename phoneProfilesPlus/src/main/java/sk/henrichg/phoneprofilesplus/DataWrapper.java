@@ -534,13 +534,6 @@ public class DataWrapper {
         }
     }
 
-    void updateNotificationAndWidgets(boolean refresh, boolean forService)
-    {
-        PPApplication.showProfileNotification(/*context*/refresh, forService);
-        //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.updateNotificationAndWidgets");
-        ActivateProfileHelper.updateGUI(context, true, refresh);
-    }
-
     private Profile getProfileByIdFromDB(long id, boolean generateIcon, boolean generateIndicators, boolean merged)
     {
         Profile profile = DatabaseHandler.getInstance(context).getProfile(id, merged);
@@ -1571,7 +1564,7 @@ public class DataWrapper {
             // do not activate profile during application start
             PPApplication.showProfileNotification(/*context*/startupSource == PPApplication.STARTUP_SOURCE_BOOT, false);
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper._activateProfile");
-            ActivateProfileHelper.updateGUI(context, true, startupSource == PPApplication.STARTUP_SOURCE_BOOT);
+            PPApplication.updateGUI(context, true, startupSource == PPApplication.STARTUP_SOURCE_BOOT);
             return;
         }
         //PPApplication.logE("DataWrapper._activateProfile", "activate");
@@ -1600,13 +1593,13 @@ public class DataWrapper {
         {
             // manual profile activation
 
-            ActivateProfileHelper.lockRefresh = true;
+            PPApplication.lockRefresh = true;
 
             // pause all events
             // for forceRun events set system events and block all events
             pauseAllEvents(false, true/*, true*/);
 
-            ActivateProfileHelper.lockRefresh = false;
+            PPApplication.lockRefresh = false;
         }
 
         //PPApplication.logE("$$$ DataWrapper._activateProfile","before activation");
@@ -1672,7 +1665,7 @@ public class DataWrapper {
 
         PPApplication.showProfileNotification(/*context*/startupSource == PPApplication.STARTUP_SOURCE_BOOT, false);
         //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper._activateProfile");
-        ActivateProfileHelper.updateGUI(context, true, startupSource == PPApplication.STARTUP_SOURCE_BOOT);
+        PPApplication.updateGUI(context, true, startupSource == PPApplication.STARTUP_SOURCE_BOOT);
 
         //PPApplication.logE("$$$ DataWrapper._activateProfile","after update GUI");
 
@@ -1689,7 +1682,7 @@ public class DataWrapper {
 
         //if (mappedProfile != null)
         //{
-            if (ApplicationPreferences.notificationsToast && (!ActivateProfileHelper.lockRefresh))
+            if (ApplicationPreferences.notificationsToast && (!PPApplication.lockRefresh))
             {
                 // toast notification
                 if (PPApplication.toastHandler != null) {
@@ -1773,7 +1766,7 @@ public class DataWrapper {
 
         try {
             String profileName = getProfileNameWithManualIndicatorAsString(profile, true, "", false, false, false, this);
-            GlobalGUIRoutines.showToast(context.getApplicationContext(),
+            PPApplication.showToast(context.getApplicationContext(),
                     context.getResources().getString(R.string.toast_profile_activated_0) + ": " + profileName + " " +
                             context.getResources().getString(R.string.toast_profile_activated_1),
                     Toast.LENGTH_SHORT);
@@ -2030,7 +2023,7 @@ public class DataWrapper {
 
             PPApplication.showProfileNotification(/*context*/false, false);
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.activateProfile");
-            ActivateProfileHelper.updateGUI(context, true, startupSource == PPApplication.STARTUP_SOURCE_BOOT);
+            PPApplication.updateGUI(context, true, startupSource == PPApplication.STARTUP_SOURCE_BOOT);
 
             // for startActivityForResult
             if (activity != null)
@@ -2055,7 +2048,7 @@ public class DataWrapper {
             Profile.setActivatedProfileForDuration(context, 0);
             PPApplication.showProfileNotification(/*context*/false, false);
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.activateProfileAfterDuration");
-            ActivateProfileHelper.updateGUI(context, true, false);
+            PPApplication.updateGUI(context, true, false);
             return;
         }
         //if (Permissions.grantProfilePermissions(context, profile, false, true,
@@ -2260,7 +2253,7 @@ public class DataWrapper {
 
         if (showToast) {
             if (ApplicationPreferences.notificationsToast) {
-                GlobalGUIRoutines.showToast(context.getApplicationContext(),
+                PPApplication.showToast(context.getApplicationContext(),
                         context.getResources().getString(R.string.toast_events_restarted),
                         Toast.LENGTH_SHORT);
             }
@@ -2732,7 +2725,7 @@ public class DataWrapper {
                         else if (activity instanceof ActivateProfileActivity)
                             ((ActivateProfileActivity) activity).refreshGUI(true, false);*/
                         //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.runStopEventsWithAlert");
-                        ActivateProfileHelper.updateGUI(activity, true, true);
+                        PPApplication.updateGUI(activity, true, true);
                     }
                 }
             });
@@ -2764,7 +2757,7 @@ public class DataWrapper {
                 else if (activity instanceof ActivateProfileActivity)
                     ((ActivateProfileActivity) activity).refreshGUI(true, false);*/
                 //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.runStopEventsWithAlert");
-                ActivateProfileHelper.updateGUI(activity, true, true);
+                PPApplication.updateGUI(activity, true, true);
             }
         }
     }
@@ -2869,6 +2862,14 @@ public class DataWrapper {
         return false;
     }
 
+    void clearSensorsStartTime() {
+        synchronized (eventList) {
+            for (Event _event : eventList) {
+                clearSensorsStartTime(_event, false/*force*/);
+            }
+        }
+    }
+
     private void clearSensorsStartTime(Event _event, boolean force) {
         if (force || _event._eventPreferencesSMS._permanentRun) {
             _event._eventPreferencesSMS._startTime = 0;
@@ -2900,14 +2901,6 @@ public class DataWrapper {
             _event._eventPreferencesAlarmClock._startTime = 0;
             DatabaseHandler.getInstance(context.getApplicationContext()).updateAlarmClockStartTime(_event);
             _event._eventPreferencesAlarmClock.removeAlarm(context);
-        }
-    }
-
-    void clearSensorsStartTime(/*boolean force*/) {
-        synchronized (eventList) {
-            for (Event _event : eventList) {
-                clearSensorsStartTime(_event, false/*force*/);
-            }
         }
     }
 

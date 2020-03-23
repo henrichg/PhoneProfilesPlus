@@ -177,7 +177,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             if (grantType == Permissions.GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION) {
                 boolean granted = Permissions.checkPlayRingtoneNotification(context, grantAlsoContacts, permissions);
                 if (granted) {
-                    GlobalGUIRoutines.showToast(context.getApplicationContext(),
+                    PPApplication.showToast(context.getApplicationContext(),
                             context.getResources().getString(R.string.toast_permissions_granted),
                             Toast.LENGTH_SHORT);
                     finish();
@@ -191,7 +191,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 mergedNotification = true;*/
                 permissions = Permissions.recheckPermissions(context, permissions);
                 if (permissions.size() == 0) {
-                    GlobalGUIRoutines.showToast(context.getApplicationContext(),
+                    PPApplication.showToast(context.getApplicationContext(),
                             context.getResources().getString(R.string.toast_permissions_granted),
                             Toast.LENGTH_SHORT);
                     finish();
@@ -216,7 +216,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 mergedNotification = true;*/
                 permissions = Permissions.recheckPermissions(context, permissions);
                 if (permissions.size() == 0) {
-                    GlobalGUIRoutines.showToast(context.getApplicationContext(),
+                    PPApplication.showToast(context.getApplicationContext(),
                             context.getResources().getString(R.string.toast_permissions_granted),
                             Toast.LENGTH_SHORT);
                     finish();
@@ -1268,7 +1268,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             if (permissionsChanged) {
                 PPApplication.showProfileNotification(/*context*/true, false);
                 //PPApplication.logE("ActivateProfileHelper.updateGUI", "from GrantPermissionActivity.onActivityResult");
-                ActivateProfileHelper.updateGUI(context, !finishActivity, true);
+                PPApplication.updateGUI(context, !finishActivity, true);
 
                 if (finishActivity) {
                     setResult(Activity.RESULT_CANCELED);
@@ -1715,7 +1715,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         if (permissionsForRecheck != null) {
             permissions = Permissions.recheckPermissions(context, permissionsForRecheck);
             if (permissions.size() != 0) {
-                GlobalGUIRoutines.showToast(context.getApplicationContext(),
+                PPApplication.showToast(context.getApplicationContext(),
                         context.getResources().getString(R.string.toast_permissions_not_granted),
                         Toast.LENGTH_LONG);
             }
@@ -1728,7 +1728,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         //if (grantType != Permissions.GRANT_TYPE_PROFILE) {
             PPApplication.showProfileNotification(/*context*/true, false);
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from GrantPermissionActivity.finishGrant");
-            ActivateProfileHelper.updateGUI(getApplicationContext(), true, true);
+            PPApplication.updateGUI(getApplicationContext(), true, true);
         //}
     }
 
