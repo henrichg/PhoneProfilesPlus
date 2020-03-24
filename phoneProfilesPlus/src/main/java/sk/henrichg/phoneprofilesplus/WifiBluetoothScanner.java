@@ -148,7 +148,7 @@ class WifiBluetoothScanner {
                             // wifi scan events not exists
                             //PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "worker removed");
                             //PPApplication.logE("[RJS] WifiBluetoothScanner.doScan", "worker removed");
-                            WifiScanWorker.cancelWork(context, true, null);
+                            WifiScanWorker.cancelWork(context, true/*, null*/);
                         } else {
                             //PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "can scan");
 
