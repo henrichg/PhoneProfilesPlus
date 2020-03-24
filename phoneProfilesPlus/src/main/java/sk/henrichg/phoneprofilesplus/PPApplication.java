@@ -62,7 +62,6 @@ import androidx.work.WorkManager;
 import dev.doubledot.doki.views.DokiContentView;
 import io.fabric.sdk.android.Fabric;
 
-import static android.os.Looper.getMainLooper;
 import static android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE;
 
 public class PPApplication extends Application /*implements Application.ActivityLifecycleCallbacks*/ {

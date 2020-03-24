@@ -43,7 +43,7 @@ public class GeofenceScanWorker extends Worker {
 
             if (Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, context).allowed !=
                     PreferenceAllowed.PREFERENCE_ALLOWED) {
-                cancelWork(context, false, null);
+                cancelWork(context, false/*, null*/);
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("GeofenceScanWorker.doWork", "return - not allowed geofence scanning");
                     PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- END");
@@ -55,7 +55,7 @@ public class GeofenceScanWorker extends Worker {
             boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
             if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode.equals("2")) {
                 //PPApplication.logE("GeofenceScanWorker.doWork", "update in power save mode is not allowed");
-                cancelWork(context, false, null);
+                cancelWork(context, false/*, null*/);
                 //PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- END");
                 return Result.success();
             }
@@ -87,7 +87,7 @@ public class GeofenceScanWorker extends Worker {
             }
 
             //PPApplication.logE("GeofenceScanWorker.doWork - handler", "schedule work");
-            scheduleWork(context.getApplicationContext(), false, null, false/*, false*/);
+            scheduleWork(context.getApplicationContext(), false, /*null,*/ false/*, false*/);
 
             /*PPApplication.startHandlerThreadPPScanners();
             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
@@ -184,11 +184,11 @@ public class GeofenceScanWorker extends Worker {
 
     static void scheduleWork(final Context context,
                             @SuppressWarnings("SameParameterValue") final boolean useHandler,
-                            final Handler _handler, final boolean startScanning/*, final boolean forScreenOn*/) {
+                            /*final Handler _handler, */final boolean startScanning/*, final boolean forScreenOn*/) {
         //PPApplication.logE("GeofenceScanWorker.scheduleWork", "startScanning="+startScanning);
 
         //if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.isGeofenceScannerStarted()) {
-        if (useHandler && (_handler == null)) {
+        if (useHandler/* && (_handler == null)*/) {
             PPApplication.startHandlerThreadPPScanners();
             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
             handler.post(new Runnable() {
@@ -270,10 +270,10 @@ public class GeofenceScanWorker extends Worker {
         }
     }
 
-    static void cancelWork(final Context context, final boolean useHandler, final Handler _handler) {
+    static void cancelWork(final Context context, final boolean useHandler/*, final Handler _handler*/) {
         //PPApplication.logE("GeofenceScanWorker.cancelWork", "xxx");
 
-        if (useHandler && (_handler == null)) {
+        if (useHandler /*&& (_handler == null)*/) {
             PPApplication.startHandlerThreadPPScanners();
             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
             handler.post(new Runnable() {

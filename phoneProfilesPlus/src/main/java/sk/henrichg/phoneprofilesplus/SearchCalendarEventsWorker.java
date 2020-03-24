@@ -54,7 +54,7 @@ public class SearchCalendarEventsWorker extends Worker {
             }
 
             //PPApplication.logE("SearchCalendarEventsWorker.doWork - handler", "schedule work");
-            scheduleWork(context.getApplicationContext(), false, null, false);
+            scheduleWork(context.getApplicationContext(), false, /*null,*/ false);
 
             /*PPApplication.startHandlerThreadPPScanners();
             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
@@ -123,10 +123,10 @@ public class SearchCalendarEventsWorker extends Worker {
         }
     }
 
-    static void scheduleWork(final Context context, final boolean useHandler, final Handler _handler, final boolean shortInterval) {
+    static void scheduleWork(final Context context, final boolean useHandler, /*final Handler _handler,*/ final boolean shortInterval) {
         //PPApplication.logE("SearchCalendarEventsWorker.scheduleWork", "shortInterval="+shortInterval);
 
-        if (useHandler && (_handler == null)) {
+        if (useHandler/* && (_handler == null)*/) {
             PPApplication.startHandlerThreadPPScanners();
             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
             handler.post(new Runnable() {
@@ -206,11 +206,11 @@ public class SearchCalendarEventsWorker extends Worker {
     }
 
     static void cancelWork(final Context context,
-                           @SuppressWarnings("SameParameterValue") final boolean useHandler,
-                           final Handler _handler) {
+                           @SuppressWarnings("SameParameterValue") final boolean useHandler/*,
+                           final Handler _handler*/) {
         //PPApplication.logE("SearchCalendarEventsWorker.cancelWork", "xxx");
 
-        if (useHandler && (_handler == null)) {
+        if (useHandler /*&& (_handler == null)*/) {
             PPApplication.startHandlerThreadPPScanners();
             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
             handler.post(new Runnable() {

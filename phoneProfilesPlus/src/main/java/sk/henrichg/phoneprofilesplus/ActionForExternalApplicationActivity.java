@@ -10,8 +10,6 @@ import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 
-import java.util.List;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;

@@ -57,7 +57,7 @@ public class WifiScanWorker extends Worker {
 
             if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed !=
                     PreferenceAllowed.PREFERENCE_ALLOWED) {
-                cancelWork(context, false, null);
+                cancelWork(context, false/*, null*/);
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("WifiScanWorker.doWork", "return - not allowed wifi scanning");
                     PPApplication.logE("WifiScanWorker.doWork", "---------------------------------------- END");
@@ -68,7 +68,7 @@ public class WifiScanWorker extends Worker {
             //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
             boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
             if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode.equals("2")) {
-                cancelWork(context, false, null);
+                cancelWork(context, false/*, null*/);
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("WifiScanWorker.doWork", "return - update in power save mode is not allowed");
                     PPApplication.logE("WifiScanWorker.doWork", "---------------------------------------- END");
@@ -88,7 +88,7 @@ public class WifiScanWorker extends Worker {
             }
 
             //PPApplication.logE("[RJS] WifiScanWorker.doWork", "schedule work");
-            scheduleWork(context.getApplicationContext(), false, null, false/*, false, false*/);
+            scheduleWork(context.getApplicationContext(), false, /*null,*/ false/*, false, false*/);
 
             /*PPApplication.startHandlerThreadPPScanners();
             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
@@ -169,12 +169,12 @@ public class WifiScanWorker extends Worker {
         }
     }
 
-    static void scheduleWork(final Context context, final boolean useHandler, final Handler _handler, final boolean shortInterval/*, final boolean forScreenOn, final boolean afterEnableWifi*/) {
+    static void scheduleWork(final Context context, final boolean useHandler, /*final Handler _handler,*/ final boolean shortInterval/*, final boolean forScreenOn, final boolean afterEnableWifi*/) {
         //PPApplication.logE("WifiScanWorker.scheduleWork", "shortInterval="+shortInterval);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
-            if (useHandler && (_handler == null)) {
+            if (useHandler /*&& (_handler == null)*/) {
                 PPApplication.startHandlerThreadPPScanners();
                 final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
                 handler.post(new Runnable() {
@@ -260,10 +260,10 @@ public class WifiScanWorker extends Worker {
         }
     }
 
-    static void cancelWork(final Context context, final boolean useHandler, final Handler _handler) {
+    static void cancelWork(final Context context, final boolean useHandler/*, final Handler _handler*/) {
         //PPApplication.logE("WifiScanWorker.cancelWork", "xxx");
 
-        if (useHandler && (_handler == null)) {
+        if (useHandler /*&& (_handler == null)*/) {
             PPApplication.startHandlerThreadPPScanners();
             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
             handler.post(new Runnable() {

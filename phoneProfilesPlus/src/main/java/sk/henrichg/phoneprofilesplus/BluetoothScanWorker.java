@@ -65,7 +65,7 @@ public class BluetoothScanWorker extends Worker {
 
             if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed !=
                     PreferenceAllowed.PREFERENCE_ALLOWED) {
-                cancelWork(context, false, null);
+                cancelWork(context, false/*, null*/);
                 //PPApplication.logE("BluetoothScanWorker.doWork", "---------------------------------------- END");
                 return Result.success();
             }
@@ -74,7 +74,7 @@ public class BluetoothScanWorker extends Worker {
             boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
             if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode.equals("2")) {
                 //PPApplication.logE("BluetoothScanWorker.doWork", "update in power save mode is not allowed");
-                cancelWork(context, false, null);
+                cancelWork(context, false/*, null*/);
                 //PPApplication.logE("BluetoothScanWorker.doWork", "---------------------------------------- START");
                 return Result.success();
             }
@@ -88,7 +88,7 @@ public class BluetoothScanWorker extends Worker {
             }
 
             //PPApplication.logE("BluetoothScanWorker.doWork - handler", "schedule work");
-            scheduleWork(context.getApplicationContext(), false, null, false/*, false*/);
+            scheduleWork(context.getApplicationContext(), false, /*null,*/ false/*, false*/);
 
             /*PPApplication.startHandlerThreadPPScanners();
             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
@@ -173,12 +173,12 @@ public class BluetoothScanWorker extends Worker {
         }
     }
 
-    static void scheduleWork(final Context context, final boolean useHandler, final Handler _handler, final boolean shortInterval/*, final boolean forScreenOn*/) {
+    static void scheduleWork(final Context context, final boolean useHandler, /*final Handler _handler,*/ final boolean shortInterval/*, final boolean forScreenOn*/) {
         //PPApplication.logE("BluetoothScanWorker.scheduleJob", "shortInterval="+shortInterval);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
-            if (useHandler && (_handler == null)) {
+            if (useHandler /*&& (_handler == null)*/) {
                 PPApplication.startHandlerThreadPPScanners();
                 final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
                 handler.post(new Runnable() {
@@ -268,10 +268,10 @@ public class BluetoothScanWorker extends Worker {
         }
     }
 
-    static void cancelWork(final Context context, final boolean useHandler, final Handler _handler) {
+    static void cancelWork(final Context context, final boolean useHandler/*, final Handler _handler*/) {
         //PPApplication.logE("BluetoothScanWorker.cancelWork", "xxx");
 
-        if (useHandler && (_handler == null)) {
+        if (useHandler /*&& (_handler == null)*/) {
             PPApplication.startHandlerThreadPPScanners();
             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
             handler.post(new Runnable() {
