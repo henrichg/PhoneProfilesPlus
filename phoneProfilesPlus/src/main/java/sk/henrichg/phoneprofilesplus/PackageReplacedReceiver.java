@@ -43,6 +43,28 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
             //final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
+            PPApplication.logE("PackageReplacedReceiver.onReceive", "called work for package replaced");
+            PPApplication.logE("PackageReplacedReceiver.onReceive", "start of delayed work");
+
+            // work for package replaced
+            Data workData = new Data.Builder()
+                    .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED)
+                    //.putBoolean(PackageReplacedReceiver.EXTRA_RESTART_SERVICE, restartService)
+                    .build();
+
+            OneTimeWorkRequest worker =
+                    new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                            .addTag("packageReplacedWork")
+                            .setInputData(workData)
+                            .setInitialDelay(5, TimeUnit.SECONDS)
+                            .build();
+            try {
+                WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
+                workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.REPLACE, worker);
+            } catch (Exception ignored) {
+            }
+
+            /*
             PPApplication.startHandlerThread("PackageReplacedReceiver.onReceive");
             final Handler handler2 = new Handler(PPApplication.handlerThread.getLooper());
             handler2.post(new Runnable() {
@@ -95,7 +117,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                     }
                 }
             });
-
+            */
         }
     }
 

@@ -1953,23 +1953,28 @@ public class PhoneProfilesService extends Service
         }
         if (register) {
             //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForOrientationSensor", "REGISTER");
-            boolean allowed = false;
-            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/);
-            if (eventsExists)
-                allowed = Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
-                    PreferenceAllowed.PREFERENCE_ALLOWED;
-            if (allowed) {
-                if (orientationEventBroadcastReceiver == null) {
-                    //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForOrientationSensor->REGISTER registerReceiverForOrientationSensor", "PhoneProfilesService_registerReceiverForOrientationSensor");
-                    //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForOrientationSensor", "REGISTER orientationEventBroadcastReceiver");
-                    orientationEventBroadcastReceiver = new OrientationEventBroadcastReceiver();
-                    IntentFilter intentFilter22 = new IntentFilter(PhoneProfilesService.ACTION_ORIENTATION_EVENT_BROADCAST_RECEIVER);
-                    appContext.registerReceiver(orientationEventBroadcastReceiver, intentFilter22);
+            if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
+                boolean eventAllowed = false;
+                if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn)) {
+                    // start only for screen On
+                    boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/);
+                    if (eventsExists)
+                        eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
+                                PreferenceAllowed.PREFERENCE_ALLOWED;
                 }
-                //else
-                //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForOrientationSensor", "registered registerReceiverForOrientationSensor");
-            }
-            else
+                if (eventAllowed) {
+                    if (orientationEventBroadcastReceiver == null) {
+                        //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForOrientationSensor->REGISTER registerReceiverForOrientationSensor", "PhoneProfilesService_registerReceiverForOrientationSensor");
+                        //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForOrientationSensor", "REGISTER orientationEventBroadcastReceiver");
+                        orientationEventBroadcastReceiver = new OrientationEventBroadcastReceiver();
+                        IntentFilter intentFilter22 = new IntentFilter(PhoneProfilesService.ACTION_ORIENTATION_EVENT_BROADCAST_RECEIVER);
+                        appContext.registerReceiver(orientationEventBroadcastReceiver, intentFilter22);
+                    }
+                    //else
+                    //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForOrientationSensor", "registered registerReceiverForOrientationSensor");
+                } else
+                    registerReceiverForOrientationSensor(false, dataWrapper);
+            } else
                 registerReceiverForOrientationSensor(false, dataWrapper);
         }
     }
