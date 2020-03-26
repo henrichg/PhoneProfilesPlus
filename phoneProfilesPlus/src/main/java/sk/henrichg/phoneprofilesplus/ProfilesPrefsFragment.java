@@ -3141,6 +3141,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)
                 grantedG1Permission = false;
             else
+            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED))
                 grantedRoot = false;
         }
         boolean enabledNotificationAccess = (profile._volumeRingerMode == 0) || ActivateProfileHelper.canChangeZenMode(context, false);
@@ -3275,7 +3276,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             preferenceCategory.removePreference(preference);
                     }
                 } else {
-                    if (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) {
+                    if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED)) {
                         Preference preference = prefMng.findPreference(PRF_GRANT_ROOT);
                         if (preference == null) {
                             PreferenceScreen preferenceCategory = findPreference("rootScreen");

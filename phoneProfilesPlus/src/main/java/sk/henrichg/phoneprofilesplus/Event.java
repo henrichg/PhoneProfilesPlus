@@ -2457,7 +2457,7 @@ class Event {
 
         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
 
-        boolean checked = false;
+        //boolean checked = false;
 
         if (preferenceKey.equals(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED))
         {
@@ -2466,10 +2466,10 @@ class Event {
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            checked = true;
-        }
-        if (checked)
             return preferenceAllowed;
+        }
+        //if (checked)
+        //    return preferenceAllowed;
 
         if (preferenceKey.equals(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED))
         {
@@ -2478,10 +2478,10 @@ class Event {
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            checked = true;
-        }
-        if (checked)
             return preferenceAllowed;
+        }
+        //if (checked)
+        //    return preferenceAllowed;
 
         if (preferenceKey.equals(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED))
         {
@@ -2491,10 +2491,10 @@ class Event {
                 PPApplication.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 PPApplication.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
             }*/
-            checked = true;
-        }
-        if (checked)
             return preferenceAllowed;
+        }
+        //if (checked)
+        //    return preferenceAllowed;
 
         if (preferenceKey.equals(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED))
         {
@@ -2502,10 +2502,10 @@ class Event {
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             //else
             //    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED;
-            checked = true;
-        }
-        if (checked)
             return preferenceAllowed;
+        }
+        //if (checked)
+        //    return preferenceAllowed;
 
         if (preferenceKey.equals(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED))
         {
@@ -2525,10 +2525,10 @@ class Event {
             }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            checked = true;
-        }
-        if (checked)
             return preferenceAllowed;
+        }
+        //if (checked)
+        //    return preferenceAllowed;
 
         if (preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED) ||
                 preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED_NO_CHECK_SIM))
@@ -2552,10 +2552,10 @@ class Event {
             }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            checked = true;
-        }
-        if (checked)
             return preferenceAllowed;
+        }
+        //if (checked)
+        //    return preferenceAllowed;
 
         if (preferenceKey.equals(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED))
         {
@@ -2564,10 +2564,10 @@ class Event {
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            checked = true;
-        }
-        if (checked)
             return preferenceAllowed;
+        }
+        //if (checked)
+        //    return preferenceAllowed;
 
         if (preferenceKey.equals(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED) ||
                 preferenceKey.equals(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED_NO_CHECK_SIM))
@@ -2591,10 +2591,10 @@ class Event {
             }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            checked = true;
-        }
-        if (checked)
             return preferenceAllowed;
+        }
+        //if (checked)
+        //    return preferenceAllowed;
 
         if (preferenceKey.equals(EventPreferencesCall.PREF_EVENT_CALL_ENABLED) ||
                 preferenceKey.equals(EventPreferencesCall.PREF_EVENT_CALL_ENABLED_NO_CHECK_SIM))
@@ -2618,10 +2618,10 @@ class Event {
             }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            checked = true;
-        }
-        if (checked)
             return preferenceAllowed;
+        }
+        //if (checked)
+        //    return preferenceAllowed;
 
         if (preferenceKey.equals(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED))
         {
@@ -2630,10 +2630,10 @@ class Event {
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            checked = true;
-        }
-        if (checked)
             return preferenceAllowed;
+        }
+        //if (checked)
+        //    return preferenceAllowed;
 
         if (preferenceKey.equals(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED))
         {
@@ -2641,13 +2641,12 @@ class Event {
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             //else
             //    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-            checked = true;
-        }
-        if (checked)
             return preferenceAllowed;
+        }
+        //if (checked)
+        //    return preferenceAllowed;
 
         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-
         return preferenceAllowed;
     }
 

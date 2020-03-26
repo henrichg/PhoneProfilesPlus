@@ -3237,7 +3237,7 @@ public class Profile {
 
         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
 
-        boolean checked = false;
+        //boolean checked = false;
 
         boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
 
@@ -3254,6 +3254,7 @@ public class Profile {
                         if (profile._deviceAirplaneMode != 0) {
                             if (applicationNeverAskForGrantRoot) {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
                                 return preferenceAllowed;
                             }
@@ -3264,6 +3265,7 @@ public class Profile {
                         if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
                             if (applicationNeverAskForGrantRoot) {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
                                 return preferenceAllowed;
                             }
@@ -3280,10 +3282,15 @@ public class Profile {
             //}
             //else
             //    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            checked = true;
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                return preferenceAllowed;
         }
-        if (checked && (profile == null))
-            return preferenceAllowed;
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_WIFI))
         {
@@ -3292,10 +3299,15 @@ public class Profile {
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            checked = true;
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                return preferenceAllowed;
         }
-        if (checked && (profile == null))
-            return preferenceAllowed;
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_BLUETOOTH))
         {
@@ -3304,10 +3316,15 @@ public class Profile {
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            checked = true;
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                return preferenceAllowed;
         }
-        if (checked && (profile == null))
-            return preferenceAllowed;
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA))
         {
@@ -3377,6 +3394,7 @@ public class Profile {
                             if (profile._deviceMobileData != 0) {
                                 if (applicationNeverAskForGrantRoot) {
                                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                     // not needed to test all parameters
                                     return preferenceAllowed;
                                 }
@@ -3387,6 +3405,7 @@ public class Profile {
                             if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
                                 if (applicationNeverAskForGrantRoot) {
                                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                     // not needed to test all parameters
                                     return preferenceAllowed;
                                 }
@@ -3423,10 +3442,15 @@ public class Profile {
                 //Log.d("Profile.isProfilePreferenceAllowed", "mobile data not supported");
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             }
-            checked = true;
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                return preferenceAllowed;
         }
-        if (checked && (profile == null))
-            return preferenceAllowed;
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
         {
@@ -3436,10 +3460,15 @@ public class Profile {
             }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            checked = true;
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                return preferenceAllowed;
         }
-        if (checked && (profile == null))
-            return preferenceAllowed;
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_GPS))
         {
@@ -3461,6 +3490,7 @@ public class Profile {
                         if (profile._deviceGPS != 0) {
                             if (applicationNeverAskForGrantRoot) {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
                                 return preferenceAllowed;
                             }
@@ -3471,6 +3501,7 @@ public class Profile {
                         if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
                             if (applicationNeverAskForGrantRoot) {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
                                 return preferenceAllowed;
                             }
@@ -3495,10 +3526,15 @@ public class Profile {
             }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            checked = true;
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                return preferenceAllowed;
         }
-        if (checked && (profile == null))
-            return preferenceAllowed;
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_NFC))
         {
@@ -3518,6 +3554,7 @@ public class Profile {
                         if (profile._deviceNFC != 0) {
                             if (applicationNeverAskForGrantRoot) {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
                                 return preferenceAllowed;
                             }
@@ -3528,6 +3565,7 @@ public class Profile {
                         if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
                             if (applicationNeverAskForGrantRoot) {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
                                 return preferenceAllowed;
                             }
@@ -3547,10 +3585,15 @@ public class Profile {
                 //PPApplication.logE("PPApplication.hardwareCheck","NFC=not presented");
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             }
-            checked = true;
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                return preferenceAllowed;
         }
-        if (checked && (profile == null))
-            return preferenceAllowed;
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP))
         {
@@ -3577,6 +3620,7 @@ public class Profile {
                             if (profile._deviceWiFiAP != 0) {
                                 if (applicationNeverAskForGrantRoot) {
                                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                     // not needed to test all parameters
                                     return preferenceAllowed;
                                 }
@@ -3587,6 +3631,7 @@ public class Profile {
                             if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
                                 if (applicationNeverAskForGrantRoot) {
                                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                     // not needed to test all parameters
                                     return preferenceAllowed;
                                 }
@@ -3615,10 +3660,15 @@ public class Profile {
                 PPApplication.logE("$$$ WifiAP", "Profile.isProfilePreferenceAllowed-preferenceAllowed.allowed=" + preferenceAllowed.allowed);
                 PPApplication.logE("$$$ WifiAP", "Profile.isProfilePreferenceAllowed-preferenceAllowed.notAllowedReason=" + preferenceAllowed.notAllowedReason);
             }*/
-            checked = true;
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                return preferenceAllowed;
         }
-        if (checked && (profile == null))
-            return preferenceAllowed;
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING))
         {
@@ -3631,6 +3681,7 @@ public class Profile {
                         if (profile._vibrateWhenRinging != 0) {
                             if (applicationNeverAskForGrantRoot) {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
                                 return preferenceAllowed;
                             }
@@ -3641,6 +3692,7 @@ public class Profile {
                         if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
                             if (applicationNeverAskForGrantRoot) {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
                                 return preferenceAllowed;
                             }
@@ -3657,10 +3709,15 @@ public class Profile {
             }
             else
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            checked = true;
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                return preferenceAllowed;
         }
-        if (checked && (profile == null))
-            return preferenceAllowed;
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS))
         {
@@ -3680,6 +3737,7 @@ public class Profile {
                             if (profile.getDeviceBrightnessChange() && profile.getDeviceBrightnessAutomatic()) {
                                 if (applicationNeverAskForGrantRoot) {
                                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                     // not needed to test all parameters
                                     return preferenceAllowed;
                                 }
@@ -3691,6 +3749,7 @@ public class Profile {
                             if (Profile.getDeviceBrightnessChange(value) && Profile.getDeviceBrightnessAutomatic(value)) {
                                 if (applicationNeverAskForGrantRoot) {
                                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                     // not needed to test all parameters
                                     return preferenceAllowed;
                                 }
@@ -3711,10 +3770,15 @@ public class Profile {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
             }*/
-            checked = true;
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                return preferenceAllowed;
         }
-        if (checked && (profile == null))
-            return preferenceAllowed;
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE))
         {
@@ -3731,6 +3795,7 @@ public class Profile {
                         if (profile._devicePowerSaveMode != 0) {
                             if (applicationNeverAskForGrantRoot) {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
                                 return preferenceAllowed;
                             }
@@ -3741,6 +3806,7 @@ public class Profile {
                         if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
                             if (applicationNeverAskForGrantRoot) {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
                                 return preferenceAllowed;
                             }
@@ -3762,10 +3828,15 @@ public class Profile {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
             }*/
-            checked = true;
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                return preferenceAllowed;
         }
-        if (checked && (profile == null))
-            return preferenceAllowed;
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE))
         {
@@ -3783,6 +3854,7 @@ public class Profile {
                                 if (profile._deviceNetworkType != 0) {
                                     if (applicationNeverAskForGrantRoot) {
                                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                         // not needed to test all parameters
                                         return preferenceAllowed;
                                     }
@@ -3793,6 +3865,7 @@ public class Profile {
                                 if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
                                     if (applicationNeverAskForGrantRoot) {
                                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                         // not needed to test all parameters
                                         return preferenceAllowed;
                                     }
@@ -3822,10 +3895,15 @@ public class Profile {
             }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            checked = true;
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                return preferenceAllowed;
         }
-        if (checked && (profile == null))
-            return preferenceAllowed;
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_NOTIFICATION_LED))
         {
@@ -3844,6 +3922,7 @@ public class Profile {
                         if (profile._notificationLed != 0) {
                             if (applicationNeverAskForGrantRoot) {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
                                 return preferenceAllowed;
                             }
@@ -3854,6 +3933,7 @@ public class Profile {
                         if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
                             if (applicationNeverAskForGrantRoot) {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
                                 return preferenceAllowed;
                             }
@@ -3875,10 +3955,15 @@ public class Profile {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
             }
-            checked = true;
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                return preferenceAllowed;
         }
-        if (checked && (profile == null))
-            return preferenceAllowed;
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_KEYGUARD))
         {
@@ -3892,10 +3977,15 @@ public class Profile {
                 } else
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             }
-            checked = true;
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                return preferenceAllowed;
         }
-        if (checked && (profile == null))
-            return preferenceAllowed;
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID))
         {
@@ -3904,10 +3994,15 @@ public class Profile {
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            checked = true;
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                return preferenceAllowed;
         }
-        if (checked && (profile == null))
-            return preferenceAllowed;
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING))
         {
@@ -3916,10 +4011,15 @@ public class Profile {
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            checked = true;
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                return preferenceAllowed;
         }
-        if (checked && (profile == null))
-            return preferenceAllowed;
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING))
         {
@@ -3928,10 +4028,15 @@ public class Profile {
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            checked = true;
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                return preferenceAllowed;
         }
-        if (checked && (profile == null))
-            return preferenceAllowed;
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS))
         {
@@ -3941,10 +4046,15 @@ public class Profile {
             }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            checked = true;
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                return preferenceAllowed;
         }
-        if (checked && (profile == null))
-            return preferenceAllowed;
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING))
         {
@@ -3952,28 +4062,41 @@ public class Profile {
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            checked = true;
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                return preferenceAllowed;
         }
-        if (checked && (profile == null))
-            return preferenceAllowed;
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING))
         {
-            boolean hasAccelerometer = PPApplication.accelerometerSensor != null;
-            //boolean hasMagneticField = PPApplication.magneticFieldSensor != null;
-            boolean hasProximity = PPApplication.proximitySensor != null;
-            boolean hasLight = PPApplication.lightSensor != null;
+            if (PPApplication.sensorManager != null) {
+                boolean hasAccelerometer = PPApplication.accelerometerSensor != null;
+                //boolean hasMagneticField = PPApplication.magneticFieldSensor != null;
+                boolean hasProximity = PPApplication.proximitySensor != null;
+                boolean hasLight = PPApplication.lightSensor != null;
 
-            boolean enabled = hasAccelerometer;
-            enabled = enabled || hasProximity || hasLight;
-            if (enabled)
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                if (hasAccelerometer || hasProximity || hasLight)
+                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                else
+                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            checked = true;
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            //noinspection ConstantConditions
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                return preferenceAllowed;
         }
-        if (checked && (profile == null))
-            return preferenceAllowed;
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS))
         {
@@ -3991,6 +4114,7 @@ public class Profile {
                         if (profile._headsUpNotifications != 0) {
                             if (applicationNeverAskForGrantRoot) {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
                                 return preferenceAllowed;
                             }
@@ -4001,6 +4125,7 @@ public class Profile {
                         if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
                             if (applicationNeverAskForGrantRoot) {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
                                 return preferenceAllowed;
                             }
@@ -4025,10 +4150,15 @@ public class Profile {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
             }
-            checked = true;
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                return preferenceAllowed;
         }
-        if (checked && (profile == null))
-            return preferenceAllowed;
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE))
         {
@@ -4036,10 +4166,16 @@ public class Profile {
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             //else
             //    preferenceAllowed.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED;
-            checked = true;
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            //noinspection ConstantConditions
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                return preferenceAllowed;
         }
-        if (checked && (profile == null))
-            return preferenceAllowed;
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE))
         {
@@ -4047,10 +4183,16 @@ public class Profile {
             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             //else
             //    preferenceAllowed.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED;
-            checked = true;
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            //noinspection ConstantConditions
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                return preferenceAllowed;
         }
-        if (checked && (profile == null))
-            return preferenceAllowed;
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS))
         {
@@ -4060,10 +4202,15 @@ public class Profile {
             }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            checked = true;
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                return preferenceAllowed;
         }
-        if (checked && (profile == null))
-            return preferenceAllowed;
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY))
         {
@@ -4074,10 +4221,15 @@ public class Profile {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
             }
-            checked = true;
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                return preferenceAllowed;
         }
-        if (checked && (profile == null))
-            return preferenceAllowed;
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY))
         {
@@ -4118,13 +4270,17 @@ public class Profile {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
             }
-            checked = true;
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                return preferenceAllowed;
         }
-        if (checked && (profile == null))
-            return preferenceAllowed;
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
 
         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-
         return preferenceAllowed;
     }
 

@@ -20,6 +20,7 @@ class PreferenceAllowed {
     private static final int PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION = 9;
     static final int PREFERENCE_NOT_ALLOWED_NO_SIM_CARD = 10;
     static final int PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION = 11;
+    static final int PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED = 12;
 
     String getNotAllowedPreferenceReasonString(Context context) {
         switch (notAllowedReason) {
