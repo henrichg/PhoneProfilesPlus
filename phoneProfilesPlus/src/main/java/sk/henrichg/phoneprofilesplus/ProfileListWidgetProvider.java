@@ -293,12 +293,12 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             Spannable profileName;
             if (profile != null)
             {
-                profile.generateIconBitmap(context,
+                profile.generateIconBitmap(context.getApplicationContext(),
                         ApplicationPreferences.applicationWidgetListIconColor.equals("1"),
                         monochromeValue,
                         ApplicationPreferences.applicationWidgetListCustomIconLightness);
                 if (ApplicationPreferences.applicationWidgetListPrefIndicator)
-                    profile.generatePreferencesIndicator(context,
+                    profile.generatePreferencesIndicator(context.getApplicationContext(),
                             ApplicationPreferences.applicationWidgetListIconColor.equals("1"),
                         monochromeValue);
                 isIconResourceID = profile.getIsIconResourceID();
@@ -312,7 +312,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 profile._name = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
                 profile._icon = Profile.PROFILE_ICON_DEFAULT+"|1|0|0";
 
-                profile.generateIconBitmap(context,
+                profile.generateIconBitmap(context.getApplicationContext(),
                         ApplicationPreferences.applicationWidgetListIconColor.equals("1"),
                         monochromeValue,
                         ApplicationPreferences.applicationWidgetListCustomIconLightness);

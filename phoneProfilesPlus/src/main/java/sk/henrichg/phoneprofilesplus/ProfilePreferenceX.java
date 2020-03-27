@@ -165,7 +165,7 @@ public class ProfilePreferenceX extends DialogPreference {
         if (profile != null)
         {
             if (showDuration == 1)
-                setSummary(profile.getProfileNameWithDuration("", "", false, false, prefContext));
+                setSummary(profile.getProfileNameWithDuration("", "", false, false, prefContext.getApplicationContext()));
             else
                 setSummary(profile._name);
         }

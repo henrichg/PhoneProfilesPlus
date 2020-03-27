@@ -160,7 +160,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
                 sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 row.setTextViewText(R.id.widget_profile_list_item_profile_name, sb);
             } else {
-                Spannable profileName = profile.getProfileNameWithDuration("", "", true, false, context);
+                Spannable profileName = profile.getProfileNameWithDuration("", "", true, false, context.getApplicationContext());
                 row.setTextViewText(R.id.widget_profile_list_item_profile_name, profileName);
             }
             /*if (!applicationSamsungEdgeGridLayout) {

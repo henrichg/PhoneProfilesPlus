@@ -3148,7 +3148,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         boolean accessibilityNotRequired = true;
         if ((profile._lockDevice == 3) || (profile._deviceForceStopApplicationChange != 0))
             accessibilityNotRequired = false;
-        boolean accessibilityEnabled = accessibilityNotRequired || (profile.isAccessibilityServiceEnabled(context) == 1);
+        boolean accessibilityEnabled = accessibilityNotRequired || (profile.isAccessibilityServiceEnabled(context.getApplicationContext()) == 1);
 
         return (!grantedAllPermissions) || (!grantedRoot) || (!grantedG1Permission) || (!enabledNotificationAccess) || (!accessibilityEnabled);
     }
@@ -3367,7 +3367,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
 
                 // not enabled accessibility service
-                int accessibilityEnabled = profile.isAccessibilityServiceEnabled(context);
+                int accessibilityEnabled = profile.isAccessibilityServiceEnabled(context.getApplicationContext());
                 if (accessibilityEnabled == 1) {
                     Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
                     if (preference != null) {

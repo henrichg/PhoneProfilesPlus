@@ -489,7 +489,7 @@ class ActivateProfileHelper {
 
     }
 
-    private static void executeForRadios(final Profile profile, final Context context)
+    private static void executeForRadios(final Profile profile, Context context)
     {
         final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadRadios();
@@ -509,8 +509,8 @@ class ActivateProfileHelper {
                     boolean _isAirplaneMode = false;
                     boolean _setAirplaneMode = false;
                     if (profile._deviceAirplaneMode != 0) {
-                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, null, null, false, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                            _isAirplaneMode = isAirplaneMode(context);
+                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                            _isAirplaneMode = isAirplaneMode(appContext);
                             switch (profile._deviceAirplaneMode) {
                                 case 1:
                                     if (!_isAirplaneMode) {
@@ -537,7 +537,7 @@ class ActivateProfileHelper {
                         PPApplication.sleep(2500);
                         //PPApplication.logE("ActivateProfileHelper.executeForRadios", "after sleep");
                     }
-                    doExecuteForRadios(context, profile);
+                    doExecuteForRadios(appContext, profile);
 
                     /*if (_setAirplaneMode && (!_isAirplaneMode)) {
                         // 200 milliseconds is in doExecuteForRadios
@@ -1110,9 +1110,9 @@ class ActivateProfileHelper {
 
         //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "lValue="+lValue);
         if (lValue != -1) {
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, null, false, context).allowed
+            Context appContext = context.getApplicationContext();
+            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, null, false, appContext).allowed
                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                Context appContext = context.getApplicationContext();
                 if (Permissions.checkVibrateWhenRinging(appContext)) {
                     if (android.os.Build.VERSION.SDK_INT < 23) {    // Not working in Android M (exception)
                         Settings.System.putInt(appContext.getContentResolver(), "vibrate_when_ringing", lValue);

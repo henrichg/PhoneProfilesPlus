@@ -1403,8 +1403,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                     Profile profile = DatabaseHandler.getInstance(getApplicationContext()).getProfile(profile_id, false);
                     if (profile != null) {
                         // generate bitmaps
-                        profile.generateIconBitmap(getBaseContext(), false, 0, false);
-                        profile.generatePreferencesIndicator(getBaseContext(), false, 0);
+                        profile.generateIconBitmap(getApplicationContext(), false, 0, false);
+                        profile.generatePreferencesIndicator(getApplicationContext(), false, 0);
 
                         // redraw list fragment , notifications, widgets after finish ProfilesPrefsActivity
                         redrawProfileListFragment(profile, newProfileMode);

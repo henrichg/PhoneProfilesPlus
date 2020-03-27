@@ -273,7 +273,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         profile._name = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
                         profile._icon = Profile.PROFILE_ICON_DEFAULT + "|1|0|0";
 
-                        profile.generateIconBitmap(context,
+                        profile.generateIconBitmap(context.getApplicationContext(),
                                 ApplicationPreferences.applicationWidgetOneRowIconColor.equals("1"),
                                 monochromeValue,
                                 ApplicationPreferences.applicationWidgetOneRowCustomIconLightness);

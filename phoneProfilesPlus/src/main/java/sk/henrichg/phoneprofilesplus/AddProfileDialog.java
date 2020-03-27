@@ -85,15 +85,15 @@ class AddProfileDialog
                 profile = DataWrapper.getNonInitializedProfile(
                         activity.getResources().getString(R.string.profile_name_default),
                         Profile.PROFILE_ICON_DEFAULT, 0);
-                profile.generateIconBitmap(activity, false, 0xFF, false);
+                profile.generateIconBitmap(activity.getApplicationContext(), false, 0xFF, false);
                 if (applicationEditorPrefIndicator)
-                    profile.generatePreferencesIndicator(activity, false, 0xFF);
+                    profile.generatePreferencesIndicator(activity.getApplicationContext(), false, 0xFF);
                 profileList.add(profile);
                 for (int index = 0; index < 7; index++) {
                     profile = profileListFragment.activityDataWrapper.getPredefinedProfile(index, false, activity);
-                    profile.generateIconBitmap(activity, false, 0xFF, false);
+                    profile.generateIconBitmap(activity.getApplicationContext(), false, 0xFF, false);
                     if (applicationEditorPrefIndicator)
-                        profile.generatePreferencesIndicator(activity, false, 0xFF);
+                        profile.generatePreferencesIndicator(activity.getApplicationContext(), false, 0xFF);
                     profileList.add(profile);
                 }
 

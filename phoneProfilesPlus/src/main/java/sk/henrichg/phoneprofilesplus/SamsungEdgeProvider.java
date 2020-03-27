@@ -121,7 +121,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             Spannable profileName;
             if (profile != null)
             {
-                profile.generateIconBitmap(context,
+                profile.generateIconBitmap(context.getApplicationContext(),
                         applicationSamsungEdgeIconColor.equals("1"),
                         monochromeValue,
                         applicationSamsungEdgeCustomIconLightness);
@@ -139,7 +139,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                 profile._name = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
                 profile._icon = Profile.PROFILE_ICON_DEFAULT+"|1|0|0";
 
-                profile.generateIconBitmap(context,
+                profile.generateIconBitmap(context.getApplicationContext(),
                         applicationSamsungEdgeIconColor.equals("1"),
                         monochromeValue,
                         applicationSamsungEdgeCustomIconLightness);

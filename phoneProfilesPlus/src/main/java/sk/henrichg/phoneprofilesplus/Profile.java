@@ -3233,6 +3233,8 @@ public class Profile {
                                                         SharedPreferences sharedPreferences,
                                                         boolean fromUIThread, Context context)
     {
+        Context appContext = context.getApplicationContext();
+
         PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
 
         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
@@ -3294,7 +3296,7 @@ public class Profile {
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_WIFI))
         {
-            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_WIFI))
+            if (PPApplication.hasSystemFeature(appContext, PackageManager.FEATURE_WIFI))
                 // device has Wifi
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
@@ -3311,7 +3313,7 @@ public class Profile {
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_BLUETOOTH))
         {
-            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_BLUETOOTH))
+            if (PPApplication.hasSystemFeature(appContext, PackageManager.FEATURE_BLUETOOTH))
                 // device has bluetooth
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
@@ -3329,10 +3331,10 @@ public class Profile {
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA))
         {
             boolean mobileDataSupported = false;
-            if (!PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY)) {
+            if (!PPApplication.hasSystemFeature(appContext, PackageManager.FEATURE_TELEPHONY)) {
                 ConnectivityManager connManager = null;
                 try {
-                    connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                    connManager = (ConnectivityManager) appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
                 } catch (Exception ignored) {
                     // java.lang.NullPointerException: missing IConnectivityManager
                     // Dual SIM?? Bug in Android ???
@@ -3381,8 +3383,8 @@ public class Profile {
                 //{
                     // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.MODIFY_PHONE_STATE
                     // not working :-/
-                    if (Permissions.hasPermission(context, Manifest.permission.MODIFY_PHONE_STATE)) {
-                        if (ActivateProfileHelper.canSetMobileData(context))
+                    if (Permissions.hasPermission(appContext, Manifest.permission.MODIFY_PHONE_STATE)) {
+                        if (ActivateProfileHelper.canSetMobileData(appContext))
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                     }
                     else
@@ -3421,7 +3423,7 @@ public class Profile {
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
                         } else {
                             preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                            preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                            preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                         }
 
                     }
@@ -3454,7 +3456,7 @@ public class Profile {
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
         {
-            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY))
+            if (PPApplication.hasSystemFeature(appContext, PackageManager.FEATURE_TELEPHONY))
             {
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             }
@@ -3472,12 +3474,12 @@ public class Profile {
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_GPS))
         {
-            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_LOCATION_GPS))
+            if (PPApplication.hasSystemFeature(appContext, PackageManager.FEATURE_LOCATION_GPS))
             {
                 // device has gps
                 // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
-                if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-                    if (ActivateProfileHelper.canSetMobileData(context))
+                if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                    if (ActivateProfileHelper.canSetMobileData(appContext))
                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                 }
                 else
@@ -3514,7 +3516,7 @@ public class Profile {
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
                 else
-                if (ActivateProfileHelper.canExploitGPS(context))
+                if (ActivateProfileHelper.canExploitGPS(appContext))
                 {
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                 }
@@ -3538,12 +3540,12 @@ public class Profile {
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_NFC))
         {
-            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_NFC))
+            if (PPApplication.hasSystemFeature(appContext, PackageManager.FEATURE_NFC))
             {
                 //PPApplication.logE("PPApplication.hardwareCheck","NFC=presented");
 
                 // device has nfc
-                if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                 }
                 else
@@ -3597,19 +3599,19 @@ public class Profile {
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP))
         {
-            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_WIFI)) {
+            if (PPApplication.hasSystemFeature(appContext, PackageManager.FEATURE_WIFI)) {
                 // device has Wifi
                 if (android.os.Build.VERSION.SDK_INT < 26) {
-                    if (WifiApManager.canExploitWifiAP(context))
+                    if (WifiApManager.canExploitWifiAP(appContext))
                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                     else {
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                        preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                        preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                     }
                 }
                 else
                 if (Build.VERSION.SDK_INT < 28) {
-                    if (WifiApManager.canExploitWifiTethering(context))
+                    if (WifiApManager.canExploitWifiTethering(appContext))
                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                     else
                     if (PPApplication.isRooted(fromUIThread)) {
@@ -3645,7 +3647,7 @@ public class Profile {
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
                         } else {
                             preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                            preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                            preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                         }
                     }
                     else
@@ -3783,7 +3785,7 @@ public class Profile {
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE))
         {
             //if (android.os.Build.VERSION.SDK_INT >= 21) {
-                if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                 }
                 else
@@ -3840,9 +3842,9 @@ public class Profile {
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE))
         {
-            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY))
+            if (PPApplication.hasSystemFeature(appContext, PackageManager.FEATURE_TELEPHONY))
             {
-                final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     final int phoneType = telephonyManager.getPhoneType();
                     if ((phoneType == TelephonyManager.PHONE_TYPE_GSM) || (phoneType == TelephonyManager.PHONE_TYPE_CDMA)) {
@@ -3879,18 +3881,18 @@ public class Profile {
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
                             } else {
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                                preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_network_type);
+                                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_network_type);
                             }
                         } else
                             preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                     } else {
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                        preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_network_type);
+                        preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_network_type);
                     }
                 }
                 else {
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                    preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_network_type);
+                    preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_network_type);
                 }
             }
             else
@@ -3907,7 +3909,7 @@ public class Profile {
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_NOTIFICATION_LED))
         {
-            int value = Settings.System.getInt(context.getContentResolver(), "notification_light_pulse"/*Settings.System.NOTIFICATION_LIGHT_PULSE*/, -10);
+            int value = Settings.System.getInt(appContext.getContentResolver(), "notification_light_pulse"/*Settings.System.NOTIFICATION_LIGHT_PULSE*/, -10);
             if ((value != -10) && (android.os.Build.VERSION.SDK_INT >= 23)) {
                 /* not working (private secure settings) :-/
                 if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
@@ -3953,7 +3955,7 @@ public class Profile {
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
+                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_old_android);
             }
 
             //checked = true;
@@ -3968,12 +3970,12 @@ public class Profile {
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_KEYGUARD))
         {
             boolean secureKeyguard;
-            KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+            KeyguardManager keyguardManager = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
             if (keyguardManager != null) {
                 secureKeyguard = keyguardManager.isKeyguardSecure();
                 if (secureKeyguard) {
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_APPLICATION;
-                    preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_secure_lock);
+                    preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_secure_lock);
                 } else
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             }
@@ -3989,7 +3991,7 @@ public class Profile {
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID))
         {
-            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_WIFI))
+            if (PPApplication.hasSystemFeature(appContext, PackageManager.FEATURE_WIFI))
                 // device has Wifi
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
@@ -4006,7 +4008,7 @@ public class Profile {
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING))
         {
-            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_WIFI))
+            if (PPApplication.hasSystemFeature(appContext, PackageManager.FEATURE_WIFI))
                 // device has Wifi
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
@@ -4023,7 +4025,7 @@ public class Profile {
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING))
         {
-            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_BLUETOOTH))
+            if (PPApplication.hasSystemFeature(appContext, PackageManager.FEATURE_BLUETOOTH))
                 // device has bluetooth
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
@@ -4040,7 +4042,7 @@ public class Profile {
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS))
         {
-            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_WIFI))
+            if (PPApplication.hasSystemFeature(appContext, PackageManager.FEATURE_WIFI))
             {
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             }
@@ -4058,7 +4060,7 @@ public class Profile {
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING))
         {
-            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY))
+            if (PPApplication.hasSystemFeature(appContext, PackageManager.FEATURE_TELEPHONY))
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
@@ -4100,9 +4102,9 @@ public class Profile {
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS))
         {
-            int value = Settings.Global.getInt(context.getContentResolver(), "heads_up_notifications_enabled", -10);
+            int value = Settings.Global.getInt(appContext.getContentResolver(), "heads_up_notifications_enabled", -10);
             if ((value != -10)/* && (android.os.Build.VERSION.SDK_INT >= 21)*/) {
-                if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                 }
                 else
@@ -4148,7 +4150,7 @@ public class Profile {
             //    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
             }
 
             //checked = true;
@@ -4196,7 +4198,7 @@ public class Profile {
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS))
         {
-            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY))
+            if (PPApplication.hasSystemFeature(appContext, PackageManager.FEATURE_TELEPHONY))
             {
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             }
@@ -4219,7 +4221,7 @@ public class Profile {
             }
             else {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
+                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_old_android);
             }
 
             //checked = true;
@@ -4268,7 +4270,7 @@ public class Profile {
             }
             else {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
+                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_old_android);
             }
 
             //checked = true;
