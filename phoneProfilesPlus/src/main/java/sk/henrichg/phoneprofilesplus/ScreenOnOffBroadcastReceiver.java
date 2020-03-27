@@ -138,14 +138,14 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    if (PhoneProfilesService.getInstance() != null) {
-                                        if (PhoneProfilesService.getInstance().lockDeviceActivity != null) {
+                                    //if (PhoneProfilesService.getInstance() != null) {
+                                        if (PPApplication.lockDeviceActivity != null) {
                                             try {
-                                                PhoneProfilesService.getInstance().lockDeviceActivity.finish();
+                                                PPApplication.lockDeviceActivity.finish();
                                             } catch (Exception ignored) {
                                             }
                                         }
-                                    }
+                                    //}
                                 }
                             });
 

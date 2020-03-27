@@ -77,88 +77,6 @@ public class PhoneProfilesService extends Service
     private boolean serviceHasFirstStart = false;
     private boolean applicationFullyStarted = false;
 
-    private KeyguardManager keyguardManager = null;
-    @SuppressWarnings("deprecation")
-    private KeyguardManager.KeyguardLock keyguardLock = null;
-
-    //BrightnessView brightnessView = null;
-    //BrightnessView screenTimeoutAlwaysOnView = null;
-    //BrightnessView keepScreenOnView = null;
-
-    LockDeviceActivity lockDeviceActivity = null;
-    int screenTimeoutBeforeDeviceLock = 0;
-
-    //boolean willBeDoRestartEvents = false;
-
-    private static final StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = new StartLauncherFromNotificationReceiver();
-    private static final UpdateGUIBroadcastReceiver updateGUIBroadcastReceiver = new UpdateGUIBroadcastReceiver();
-    private static final ShowProfileNotificationBroadcastReceiver showProfileNotificationBroadcastReceiver = new ShowProfileNotificationBroadcastReceiver();
-    private static final RefreshActivitiesBroadcastReceiver refreshActivitiesBroadcastReceiver = new RefreshActivitiesBroadcastReceiver();
-    private static final DashClockBroadcastReceiver dashClockBroadcastReceiver = new DashClockBroadcastReceiver();
-
-    private TimeChangedReceiver timeChangedReceiver = null;
-    private PermissionsNotificationDeletedReceiver permissionsNotificationDeletedReceiver = null;
-    private StartEventNotificationDeletedReceiver startEventNotificationDeletedReceiver = null;
-    private NotUsedMobileCellsNotificationDeletedReceiver notUsedMobileCellsNotificationDeletedReceiver = null;
-    private ShutdownBroadcastReceiver shutdownBroadcastReceiver = null;
-    private ScreenOnOffBroadcastReceiver screenOnOffReceiver = null;
-    private InterruptionFilterChangedBroadcastReceiver interruptionFilterChangedReceiver = null;
-    private PhoneCallBroadcastReceiver phoneCallBroadcastReceiver = null;
-    private RingerModeChangeReceiver ringerModeChangeReceiver = null;
-    private WifiStateChangedBroadcastReceiver wifiStateChangedBroadcastReceiver = null;
-    private NotUsedMobileCellsNotificationDisableReceiver notUsedMobileCellsNotificationDisableReceiver = null;
-    private DonationBroadcastReceiver donationBroadcastReceiver = null;
-    //private StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = null;
-    private IgnoreBatteryOptimizationDisableReceiver ignoreBatteryOptimizationDisableReceiver = null;
-
-    private BatteryBroadcastReceiver batteryEventReceiver = null;
-    private BatteryBroadcastReceiver batteryChangeLevelReceiver = null;
-    private HeadsetConnectionBroadcastReceiver headsetPlugReceiver = null;
-    private NFCStateChangedBroadcastReceiver nfcStateChangedBroadcastReceiver = null;
-    private DockConnectionBroadcastReceiver dockConnectionBroadcastReceiver = null;
-    private WifiConnectionBroadcastReceiver wifiConnectionBroadcastReceiver = null;
-    private BluetoothConnectionBroadcastReceiver bluetoothConnectionBroadcastReceiver = null;
-    private BluetoothStateChangedBroadcastReceiver bluetoothStateChangedBroadcastReceiver = null;
-    private WifiAPStateChangeBroadcastReceiver wifiAPStateChangeBroadcastReceiver = null;
-    private LocationModeChangedBroadcastReceiver locationModeChangedBroadcastReceiver = null;
-    private AirplaneModeStateChangedBroadcastReceiver airplaneModeStateChangedBroadcastReceiver = null;
-    //private SMSBroadcastReceiver smsBroadcastReceiver = null;
-    //private SMSBroadcastReceiver mmsBroadcastReceiver = null;
-    private CalendarProviderChangedBroadcastReceiver calendarProviderChangedBroadcastReceiver = null;
-    private WifiScanBroadcastReceiver wifiScanReceiver = null;
-    private BluetoothScanBroadcastReceiver bluetoothScanReceiver = null;
-    private BluetoothLEScanBroadcastReceiver bluetoothLEScanReceiver = null;
-    private PPPExtenderBroadcastReceiver pppExtenderBroadcastReceiver = null;
-    private PPPExtenderBroadcastReceiver pppExtenderForceStopApplicationBroadcastReceiver = null;
-    private PPPExtenderBroadcastReceiver pppExtenderForegroundApplicationBroadcastReceiver = null;
-    private PPPExtenderBroadcastReceiver pppExtenderSMSBroadcastReceiver = null;
-    private PPPExtenderBroadcastReceiver pppExtenderCallBroadcastReceiver = null;
-    private EventTimeBroadcastReceiver eventTimeBroadcastReceiver = null;
-    private EventCalendarBroadcastReceiver eventCalendarBroadcastReceiver = null;
-    private EventDelayStartBroadcastReceiver eventDelayStartBroadcastReceiver = null;
-    private EventDelayEndBroadcastReceiver eventDelayEndBroadcastReceiver = null;
-    private ProfileDurationAlarmBroadcastReceiver profileDurationAlarmBroadcastReceiver = null;
-    private SMSEventEndBroadcastReceiver smsEventEndBroadcastReceiver = null;
-    //private NotificationCancelAlarmBroadcastReceiver notificationCancelAlarmBroadcastReceiver = null;
-    private NFCEventEndBroadcastReceiver nfcEventEndBroadcastReceiver = null;
-    private RunApplicationWithDelayBroadcastReceiver runApplicationWithDelayBroadcastReceiver = null;
-    private MissedCallEventEndBroadcastReceiver missedCallEventEndBroadcastReceiver = null;
-    private StartEventNotificationBroadcastReceiver startEventNotificationBroadcastReceiver = null;
-    private GeofencesScannerSwitchGPSBroadcastReceiver geofencesScannerSwitchGPSBroadcastReceiver = null;
-    private LockDeviceActivityFinishBroadcastReceiver lockDeviceActivityFinishBroadcastReceiver = null;
-    private AlarmClockBroadcastReceiver alarmClockBroadcastReceiver = null;
-    private AlarmClockEventEndBroadcastReceiver alarmClockEventEndBroadcastReceiver = null;
-    private NotificationEventEndBroadcastReceiver notificationEventEndBroadcastReceiver = null;
-    private LockDeviceAfterScreenOffBroadcastReceiver lockDeviceAfterScreenOffBroadcastReceiver = null;
-    private OrientationEventBroadcastReceiver orientationEventBroadcastReceiver = null;
-    private PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
-    private DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
-
-    private SettingsContentObserver settingsContentObserver = null;
-    private MobileDataStateChangedContentObserver mobileDataStateChangedContentObserver = null;
-    private ContactsContentObserver contactsContentObserver = null;
-
-
     static final String ACTION_COMMAND = PPApplication.PACKAGE_NAME + ".PhoneProfilesService.ACTION_COMMAND";
     private static final String ACTION_STOP = PPApplication.PACKAGE_NAME + ".PhoneProfilesService.ACTION_STOP_SERVICE";
     static final String ACTION_START_LAUNCHER_FROM_NOTIFICATION = PPApplication.PACKAGE_NAME + ".PhoneProfilesService.ACTION_START_LAUNCHER_FROM_NOTIFICATION";
@@ -213,19 +131,6 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_DELAYED_WORK = "delayed_work";
     static final String EXTRA_SENSOR_TYPE = "sensor_type";
     static final String EXTRA_ELAPSED_ALARMS_WORK = "elapsed_alarms_work";
-
-    //-----------------------
-
-    private OrientationScanner orientationScanner = null;
-
-    private boolean mStartedOrientationSensors = false;
-
-    private GeofencesScanner geofencesScanner = null;
-
-    private PhoneStateScanner phoneStateScanner = null;
-
-    private TwilightScanner twilightScanner = null;
-
 
     //------------------------
 
@@ -326,13 +231,13 @@ public class PhoneProfilesService extends Service
 
         IntentFilter intentFilter5 = new IntentFilter();
         intentFilter5.addAction(PhoneProfilesService.ACTION_START_LAUNCHER_FROM_NOTIFICATION);
-        appContext.registerReceiver(startLauncherFromNotificationReceiver, intentFilter5);
+        appContext.registerReceiver(PPApplication.startLauncherFromNotificationReceiver, intentFilter5);
 
-        appContext.registerReceiver(showProfileNotificationBroadcastReceiver, new IntentFilter(PPApplication.ACTION_SHOW_PROFILE_NOTIFICATION));
-        appContext.registerReceiver(updateGUIBroadcastReceiver, new IntentFilter(PPApplication.ACTION_UPDATE_GUI));
-        LocalBroadcastManager.getInstance(appContext).registerReceiver(refreshActivitiesBroadcastReceiver,
+        appContext.registerReceiver(PPApplication.showProfileNotificationBroadcastReceiver, new IntentFilter(PPApplication.ACTION_SHOW_PROFILE_NOTIFICATION));
+        appContext.registerReceiver(PPApplication.updateGUIBroadcastReceiver, new IntentFilter(PPApplication.ACTION_UPDATE_GUI));
+        LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.refreshActivitiesBroadcastReceiver,
                 new IntentFilter(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver"));
-        LocalBroadcastManager.getInstance(appContext).registerReceiver(dashClockBroadcastReceiver,
+        LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.dashClockBroadcastReceiver,
                 new IntentFilter(PPApplication.PACKAGE_NAME + ".DashClockBroadcastReceiver"));
 
         PPApplication.logE("PhoneProfilesService.onCreate", "before show profile notification");
@@ -438,10 +343,11 @@ public class PhoneProfilesService extends Service
 
         //PPApplication.initPhoneProfilesServiceMessenger(appContext);
 
-        keyguardManager = (KeyguardManager)appContext.getSystemService(Context.KEYGUARD_SERVICE);
-        if (keyguardManager != null)
+        if (PPApplication.keyguardManager == null)
+            PPApplication.keyguardManager = (KeyguardManager)appContext.getSystemService(Context.KEYGUARD_SERVICE);
+        if (PPApplication.keyguardManager != null)
             //noinspection deprecation
-            keyguardLock = keyguardManager.newKeyguardLock("phoneProfilesPlus.keyguardLock");
+            PPApplication.keyguardLock = PPApplication.keyguardManager.newKeyguardLock("phoneProfilesPlus.keyguardLock");
 
         ringingMediaPlayer = null;
         //notificationMediaPlayer = null;
@@ -535,19 +441,19 @@ public class PhoneProfilesService extends Service
         }
 
         try {
-            appContext.unregisterReceiver(startLauncherFromNotificationReceiver);
+            appContext.unregisterReceiver(PPApplication.startLauncherFromNotificationReceiver);
         } catch (Exception ignored) {}
         try {
-            appContext.unregisterReceiver(showProfileNotificationBroadcastReceiver);
+            appContext.unregisterReceiver(PPApplication.showProfileNotificationBroadcastReceiver);
         } catch (Exception ignored) {}
         try {
-            appContext.unregisterReceiver(updateGUIBroadcastReceiver);
+            appContext.unregisterReceiver(PPApplication.updateGUIBroadcastReceiver);
         } catch (Exception ignored) {}
         try {
-            LocalBroadcastManager.getInstance(appContext).unregisterReceiver(refreshActivitiesBroadcastReceiver);
+            LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.refreshActivitiesBroadcastReceiver);
         } catch (Exception ignored) {}
         try {
-            LocalBroadcastManager.getInstance(appContext).unregisterReceiver(dashClockBroadcastReceiver);
+            LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.dashClockBroadcastReceiver);
         } catch (Exception ignored) {}
 
         /*
@@ -643,174 +549,174 @@ public class PhoneProfilesService extends Service
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
         //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "xxx");
         if (!register) {
-            if (timeChangedReceiver != null) {
+            if (PPApplication.timeChangedReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER time changed", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER time changed");
                 try {
-                    appContext.unregisterReceiver(timeChangedReceiver);
-                    timeChangedReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.timeChangedReceiver);
+                    PPApplication.timeChangedReceiver = null;
                 } catch (Exception e) {
-                    timeChangedReceiver = null;
+                    PPApplication.timeChangedReceiver = null;
                 }
             }
-            if (permissionsNotificationDeletedReceiver != null) {
+            if (PPApplication.permissionsNotificationDeletedReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER permissions notification delete", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER permissions notification delete");
                 try {
-                    appContext.unregisterReceiver(permissionsNotificationDeletedReceiver);
-                    permissionsNotificationDeletedReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.permissionsNotificationDeletedReceiver);
+                    PPApplication.permissionsNotificationDeletedReceiver = null;
                 } catch (Exception e) {
-                    permissionsNotificationDeletedReceiver = null;
+                    PPApplication.permissionsNotificationDeletedReceiver = null;
                 }
             }
-            if (startEventNotificationDeletedReceiver != null) {
+            if (PPApplication.startEventNotificationDeletedReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER start event notification delete", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER start event notification delete");
                 try {
-                    appContext.unregisterReceiver(startEventNotificationDeletedReceiver);
-                    startEventNotificationDeletedReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.startEventNotificationDeletedReceiver);
+                    PPApplication.startEventNotificationDeletedReceiver = null;
                 } catch (Exception e) {
-                    startEventNotificationDeletedReceiver = null;
+                    PPApplication.startEventNotificationDeletedReceiver = null;
                 }
             }
-            if (notUsedMobileCellsNotificationDeletedReceiver != null) {
+            if (PPApplication.notUsedMobileCellsNotificationDeletedReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER not used mobile cells notification delete", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER not used mobile cells notification delete");
                 try {
-                    appContext.unregisterReceiver(notUsedMobileCellsNotificationDeletedReceiver);
-                    notUsedMobileCellsNotificationDeletedReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.notUsedMobileCellsNotificationDeletedReceiver);
+                    PPApplication.notUsedMobileCellsNotificationDeletedReceiver = null;
                 } catch (Exception e) {
-                    notUsedMobileCellsNotificationDeletedReceiver = null;
+                    PPApplication.notUsedMobileCellsNotificationDeletedReceiver = null;
                 }
             }
-            if (shutdownBroadcastReceiver != null) {
+            if (PPApplication.shutdownBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER shutdown", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER shutdown");
                 try {
-                    appContext.unregisterReceiver(shutdownBroadcastReceiver);
-                    shutdownBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.shutdownBroadcastReceiver);
+                    PPApplication.shutdownBroadcastReceiver = null;
                 } catch (Exception e) {
-                    shutdownBroadcastReceiver = null;
+                    PPApplication.shutdownBroadcastReceiver = null;
                 }
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered shutdown");
-            if (screenOnOffReceiver != null) {
+            if (PPApplication.screenOnOffReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER screen on off", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER screen on off");
                 try {
-                    appContext.unregisterReceiver(screenOnOffReceiver);
-                    screenOnOffReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.screenOnOffReceiver);
+                    PPApplication.screenOnOffReceiver = null;
                 } catch (Exception e) {
-                    screenOnOffReceiver = null;
+                    PPApplication.screenOnOffReceiver = null;
                 }
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered screen on off");
-            if (interruptionFilterChangedReceiver != null) {
+            if (PPApplication.interruptionFilterChangedReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER interruption filter", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER interruption filter");
                 try {
-                    appContext.unregisterReceiver(interruptionFilterChangedReceiver);
-                    interruptionFilterChangedReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.interruptionFilterChangedReceiver);
+                    PPApplication.interruptionFilterChangedReceiver = null;
                 } catch (Exception e) {
-                    interruptionFilterChangedReceiver = null;
+                    PPApplication.interruptionFilterChangedReceiver = null;
                 }
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered interruption filter");
-            if (phoneCallBroadcastReceiver != null) {
+            if (PPApplication.phoneCallBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER phone call", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER phone call");
                 try {
-                    appContext.unregisterReceiver(phoneCallBroadcastReceiver);
-                    phoneCallBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.phoneCallBroadcastReceiver);
+                    PPApplication.phoneCallBroadcastReceiver = null;
                 } catch (Exception e) {
-                    phoneCallBroadcastReceiver = null;
+                    PPApplication.phoneCallBroadcastReceiver = null;
                 }
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered phone call");
-            if (ringerModeChangeReceiver != null) {
+            if (PPApplication.ringerModeChangeReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER ringer mode change", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER ringer mode change");
                 try {
-                    appContext.unregisterReceiver(ringerModeChangeReceiver);
-                    ringerModeChangeReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.ringerModeChangeReceiver);
+                    PPApplication.ringerModeChangeReceiver = null;
                 } catch (Exception e) {
-                    ringerModeChangeReceiver = null;
+                    PPApplication.ringerModeChangeReceiver = null;
                 }
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered ringer mode change");
-            if (settingsContentObserver != null) {
+            if (PPApplication.settingsContentObserver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER settings content observer", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER settings content observer");
                 try {
-                    appContext.getContentResolver().unregisterContentObserver(settingsContentObserver);
-                    settingsContentObserver = null;
+                    appContext.getContentResolver().unregisterContentObserver(PPApplication.settingsContentObserver);
+                    PPApplication.settingsContentObserver = null;
                 } catch (Exception e) {
-                    settingsContentObserver = null;
+                    PPApplication.settingsContentObserver = null;
                 }
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered settings content observer");
-            if (deviceIdleModeReceiver != null) {
+            if (PPApplication.deviceIdleModeReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER device idle mode", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER device idle mode");
                 try {
-                    appContext.unregisterReceiver(deviceIdleModeReceiver);
-                    deviceIdleModeReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.deviceIdleModeReceiver);
+                    PPApplication.deviceIdleModeReceiver = null;
                 } catch (Exception e) {
-                    deviceIdleModeReceiver = null;
+                    PPApplication.deviceIdleModeReceiver = null;
                 }
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered device idle mode");
-            if (bluetoothConnectionBroadcastReceiver != null) {
+            if (PPApplication.bluetoothConnectionBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER bluetooth connection", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER bluetooth connection");
                 try {
-                    appContext.unregisterReceiver(bluetoothConnectionBroadcastReceiver);
-                    bluetoothConnectionBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.bluetoothConnectionBroadcastReceiver);
+                    PPApplication.bluetoothConnectionBroadcastReceiver = null;
                 } catch (Exception e) {
-                    bluetoothConnectionBroadcastReceiver = null;
+                    PPApplication.bluetoothConnectionBroadcastReceiver = null;
                 }
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered eventDelayStartBroadcastReceiver");
-            if (eventDelayStartBroadcastReceiver != null) {
+            if (PPApplication.eventDelayStartBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER eventDelayStartBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER eventDelayStartBroadcastReceiver");
                 try {
-                    appContext.unregisterReceiver(eventDelayStartBroadcastReceiver);
-                    eventDelayStartBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.eventDelayStartBroadcastReceiver);
+                    PPApplication.eventDelayStartBroadcastReceiver = null;
                 } catch (Exception e) {
-                    eventDelayStartBroadcastReceiver = null;
+                    PPApplication.eventDelayStartBroadcastReceiver = null;
                 }
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered eventDelayStartBroadcastReceiver");
-            if (eventDelayEndBroadcastReceiver != null) {
+            if (PPApplication.eventDelayEndBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER eventDelayEndBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER eventDelayEndBroadcastReceiver");
                 try {
-                    appContext.unregisterReceiver(eventDelayEndBroadcastReceiver);
-                    eventDelayEndBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.eventDelayEndBroadcastReceiver);
+                    PPApplication.eventDelayEndBroadcastReceiver = null;
                 } catch (Exception e) {
-                    eventDelayEndBroadcastReceiver = null;
+                    PPApplication.eventDelayEndBroadcastReceiver = null;
                 }
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered eventDelayEndBroadcastReceiver");
-            if (profileDurationAlarmBroadcastReceiver != null) {
+            if (PPApplication.profileDurationAlarmBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER profileDurationAlarmBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER profileDurationAlarmBroadcastReceiver");
                 try {
-                    appContext.unregisterReceiver(profileDurationAlarmBroadcastReceiver);
-                    profileDurationAlarmBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.profileDurationAlarmBroadcastReceiver);
+                    PPApplication.profileDurationAlarmBroadcastReceiver = null;
                 } catch (Exception e) {
-                    profileDurationAlarmBroadcastReceiver = null;
+                    PPApplication.profileDurationAlarmBroadcastReceiver = null;
                 }
             }
             //else
@@ -829,213 +735,213 @@ public class PhoneProfilesService extends Service
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered notificationCancelAlarmBroadcastReceiver");
             */
-            if (runApplicationWithDelayBroadcastReceiver != null) {
+            if (PPApplication.runApplicationWithDelayBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER runApplicationWithDelayBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER runApplicationWithDelayBroadcastReceiver");
                 try {
-                    appContext.unregisterReceiver(runApplicationWithDelayBroadcastReceiver);
-                    runApplicationWithDelayBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.runApplicationWithDelayBroadcastReceiver);
+                    PPApplication.runApplicationWithDelayBroadcastReceiver = null;
                 } catch (Exception e) {
-                    runApplicationWithDelayBroadcastReceiver = null;
+                    PPApplication.runApplicationWithDelayBroadcastReceiver = null;
                 }
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered runApplicationWithDelayBroadcastReceiver");
-            if (startEventNotificationBroadcastReceiver != null) {
+            if (PPApplication.startEventNotificationBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER startEventNotificationBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER startEventNotificationBroadcastReceiver");
                 try {
-                    appContext.unregisterReceiver(startEventNotificationBroadcastReceiver);
-                    startEventNotificationBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.startEventNotificationBroadcastReceiver);
+                    PPApplication.startEventNotificationBroadcastReceiver = null;
                 } catch (Exception e) {
-                    startEventNotificationBroadcastReceiver = null;
+                    PPApplication.startEventNotificationBroadcastReceiver = null;
                 }
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered startEventNotificationBroadcastReceiver");
-            if (lockDeviceActivityFinishBroadcastReceiver != null) {
+            if (PPApplication.lockDeviceActivityFinishBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER lockDeviceActivityFinishBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER lockDeviceActivityFinishBroadcastReceiver");
                 try {
-                    appContext.unregisterReceiver(lockDeviceActivityFinishBroadcastReceiver);
-                    lockDeviceActivityFinishBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.lockDeviceActivityFinishBroadcastReceiver);
+                    PPApplication.lockDeviceActivityFinishBroadcastReceiver = null;
                 } catch (Exception e) {
-                    lockDeviceActivityFinishBroadcastReceiver = null;
+                    PPApplication.lockDeviceActivityFinishBroadcastReceiver = null;
                 }
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered postDelayedBroadcastReceiver");
-            if (pppExtenderBroadcastReceiver != null) {
+            if (PPApplication.pppExtenderBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER pppExtenderBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER pppExtenderBroadcastReceiver");
                 try {
-                    appContext.unregisterReceiver(pppExtenderBroadcastReceiver);
-                    pppExtenderBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.pppExtenderBroadcastReceiver);
+                    PPApplication.pppExtenderBroadcastReceiver = null;
                 } catch (Exception e) {
-                    pppExtenderBroadcastReceiver = null;
+                    PPApplication.pppExtenderBroadcastReceiver = null;
                 }
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered pppExtenderBroadcastReceiver");
-            if (notUsedMobileCellsNotificationDisableReceiver != null) {
+            if (PPApplication.notUsedMobileCellsNotificationDisableReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER notUsedMobileCellsNotificationDisableReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER notUsedMobileCellsNotificationDisableReceiver");
                 try {
-                    appContext.unregisterReceiver(notUsedMobileCellsNotificationDisableReceiver);
-                    notUsedMobileCellsNotificationDisableReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.notUsedMobileCellsNotificationDisableReceiver);
+                    PPApplication.notUsedMobileCellsNotificationDisableReceiver = null;
                 } catch (Exception e) {
-                    notUsedMobileCellsNotificationDisableReceiver = null;
+                    PPApplication.notUsedMobileCellsNotificationDisableReceiver = null;
                 }
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered notUsedMobileCellsNotificationDisableReceiver");
-            if (donationBroadcastReceiver != null) {
+            if (PPApplication.donationBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER donationBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER donationBroadcastReceiver");
                 try {
-                    appContext.unregisterReceiver(donationBroadcastReceiver);
-                    donationBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.donationBroadcastReceiver);
+                    PPApplication.donationBroadcastReceiver = null;
                 } catch (Exception e) {
-                    donationBroadcastReceiver = null;
+                    PPApplication.donationBroadcastReceiver = null;
                 }
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered donationBroadcastReceiver");
-            if (ignoreBatteryOptimizationDisableReceiver != null) {
+            if (PPApplication.ignoreBatteryOptimizationDisableReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER ignoreBatteryOptimizationDisableReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER ignoreBatteryOptimizationDisableReceiver");
                 try {
-                    appContext.unregisterReceiver(ignoreBatteryOptimizationDisableReceiver);
-                    ignoreBatteryOptimizationDisableReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.ignoreBatteryOptimizationDisableReceiver);
+                    PPApplication.ignoreBatteryOptimizationDisableReceiver = null;
                 } catch (Exception e) {
-                    ignoreBatteryOptimizationDisableReceiver = null;
+                    PPApplication.ignoreBatteryOptimizationDisableReceiver = null;
                 }
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered ignoreBatteryOptimizationDisableReceiver");
-            if (lockDeviceAfterScreenOffBroadcastReceiver != null) {
+            if (PPApplication.lockDeviceAfterScreenOffBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER lockDeviceAfterScreenOffBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER lockDeviceAfterScreenOffBroadcastReceiver");
                 try {
-                    appContext.unregisterReceiver(lockDeviceAfterScreenOffBroadcastReceiver);
-                    lockDeviceAfterScreenOffBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.lockDeviceAfterScreenOffBroadcastReceiver);
+                    PPApplication.lockDeviceAfterScreenOffBroadcastReceiver = null;
                 } catch (Exception e) {
-                    lockDeviceAfterScreenOffBroadcastReceiver = null;
+                    PPApplication.lockDeviceAfterScreenOffBroadcastReceiver = null;
                 }
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered lockDeviceAfterScreenOffBroadcastReceiver");
-            if (contactsContentObserver != null) {
+            if (PPApplication.contactsContentObserver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER contacts content observer", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER contacts content observer");
                 try {
-                    appContext.getContentResolver().unregisterContentObserver(contactsContentObserver);
-                    contactsContentObserver = null;
+                    appContext.getContentResolver().unregisterContentObserver(PPApplication.contactsContentObserver);
+                    PPApplication.contactsContentObserver = null;
                 } catch (Exception e) {
-                    contactsContentObserver = null;
+                    PPApplication.contactsContentObserver = null;
                 }
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered contacts content observer");
-            if (wifiStateChangedBroadcastReceiver != null) {
+            if (PPApplication.wifiStateChangedBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER wifiStateChangedBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER wifiStateChangedBroadcastReceiver");
                 try {
-                    appContext.unregisterReceiver(wifiStateChangedBroadcastReceiver);
-                    wifiStateChangedBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.wifiStateChangedBroadcastReceiver);
+                    PPApplication.wifiStateChangedBroadcastReceiver = null;
                 } catch (Exception e) {
-                    wifiStateChangedBroadcastReceiver = null;
+                    PPApplication.wifiStateChangedBroadcastReceiver = null;
                 }
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered wifiStateChangedBroadcastReceiver");
         }
         if (register) {
-            if (timeChangedReceiver == null) {
+            if (PPApplication.timeChangedReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER time changed", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER time changed");
                 //PPApplication.lastUptimeTime = SystemClock.elapsedRealtime();
                 //PPApplication.lastEpochTime = System.currentTimeMillis();
-                timeChangedReceiver = new TimeChangedReceiver();
+                PPApplication.timeChangedReceiver = new TimeChangedReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 //intentFilter5.addAction(Intent.ACTION_TIME_TICK);
                 //intentFilter5.addAction(Intent.ACTION_TIME_CHANGED);
                 intentFilter5.addAction(Intent.ACTION_TIMEZONE_CHANGED);
-                appContext.registerReceiver(timeChangedReceiver, intentFilter5);
+                appContext.registerReceiver(PPApplication.timeChangedReceiver, intentFilter5);
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered time changed");
 
-            if (permissionsNotificationDeletedReceiver == null) {
+            if (PPApplication.permissionsNotificationDeletedReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER permissions notification delete", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER permissions notification delete");
-                permissionsNotificationDeletedReceiver = new PermissionsNotificationDeletedReceiver();
+                PPApplication.permissionsNotificationDeletedReceiver = new PermissionsNotificationDeletedReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(GrantPermissionActivity.NOTIFICATION_DELETED_ACTION);
-                appContext.registerReceiver(permissionsNotificationDeletedReceiver, intentFilter5);
+                appContext.registerReceiver(PPApplication.permissionsNotificationDeletedReceiver, intentFilter5);
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered permissions notification delete");
 
-            if (startEventNotificationDeletedReceiver == null) {
+            if (PPApplication.startEventNotificationDeletedReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER start event notification delete", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER start event notification delete");
-                startEventNotificationDeletedReceiver = new StartEventNotificationDeletedReceiver();
+                PPApplication.startEventNotificationDeletedReceiver = new StartEventNotificationDeletedReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(StartEventNotificationDeletedReceiver.START_EVENT_NOTIFICATION_DELETED_ACTION);
-                appContext.registerReceiver(startEventNotificationDeletedReceiver, intentFilter5);
+                appContext.registerReceiver(PPApplication.startEventNotificationDeletedReceiver, intentFilter5);
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered start event notification delete");
 
-            if (notUsedMobileCellsNotificationDeletedReceiver == null) {
+            if (PPApplication.notUsedMobileCellsNotificationDeletedReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER not used mobile cells notification delete", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER not used mobile cells notification delete");
-                notUsedMobileCellsNotificationDeletedReceiver = new NotUsedMobileCellsNotificationDeletedReceiver();
+                PPApplication.notUsedMobileCellsNotificationDeletedReceiver = new NotUsedMobileCellsNotificationDeletedReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(PhoneStateScanner.NEW_MOBILE_CELLS_NOTIFICATION_DELETED_ACTION);
-                appContext.registerReceiver(notUsedMobileCellsNotificationDeletedReceiver, intentFilter5);
+                appContext.registerReceiver(PPApplication.notUsedMobileCellsNotificationDeletedReceiver, intentFilter5);
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered not used mobile cells notification delete");
 
-            if (shutdownBroadcastReceiver == null) {
+            if (PPApplication.shutdownBroadcastReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER shutdown", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER shutdown");
-                shutdownBroadcastReceiver = new ShutdownBroadcastReceiver();
+                PPApplication.shutdownBroadcastReceiver = new ShutdownBroadcastReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(Intent.ACTION_SHUTDOWN);
-                appContext.registerReceiver(shutdownBroadcastReceiver, intentFilter5);
+                appContext.registerReceiver(PPApplication.shutdownBroadcastReceiver, intentFilter5);
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered shutdown");
 
             // required for Lock device, Hide notification in lock screen, screen timeout +
             // screen on/off event + rescan wifi, bluetooth, location, mobile cells
-            if (screenOnOffReceiver == null) {
+            if (PPApplication.screenOnOffReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER screen on off", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER screen on off");
-                screenOnOffReceiver = new ScreenOnOffBroadcastReceiver();
+                PPApplication.screenOnOffReceiver = new ScreenOnOffBroadcastReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(Intent.ACTION_SCREEN_ON);
                 intentFilter5.addAction(Intent.ACTION_SCREEN_OFF);
                 intentFilter5.addAction(Intent.ACTION_USER_PRESENT);
-                appContext.registerReceiver(screenOnOffReceiver, intentFilter5);
+                appContext.registerReceiver(PPApplication.screenOnOffReceiver, intentFilter5);
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered screen on off");
 
             // required for Do not disturb ringer mode
-            if (interruptionFilterChangedReceiver == null) {
+            if (PPApplication.interruptionFilterChangedReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER interruption filter", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER interruption filter");
                 if (android.os.Build.VERSION.SDK_INT >= 23) {
                     boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
                     if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, appContext)) {
-                        interruptionFilterChangedReceiver = new InterruptionFilterChangedBroadcastReceiver();
+                        PPApplication.interruptionFilterChangedReceiver = new InterruptionFilterChangedBroadcastReceiver();
                         IntentFilter intentFilter11 = new IntentFilter();
                         intentFilter11.addAction(NotificationManager.ACTION_INTERRUPTION_FILTER_CHANGED);
-                        appContext.registerReceiver(interruptionFilterChangedReceiver, intentFilter11);
+                        appContext.registerReceiver(PPApplication.interruptionFilterChangedReceiver, intentFilter11);
                     }
                 }
             }
@@ -1043,104 +949,104 @@ public class PhoneProfilesService extends Service
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered interruption filter");
 
             // required for unlink ring and notification volume
-            if (phoneCallBroadcastReceiver == null) {
+            if (PPApplication.phoneCallBroadcastReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER phone call", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER phone call");
-                phoneCallBroadcastReceiver = new PhoneCallBroadcastReceiver();
+                PPApplication.phoneCallBroadcastReceiver = new PhoneCallBroadcastReceiver();
                 IntentFilter intentFilter6 = new IntentFilter();
                 intentFilter6.addAction(TelephonyManager.ACTION_PHONE_STATE_CHANGED);
-                appContext.registerReceiver(phoneCallBroadcastReceiver, intentFilter6);
+                appContext.registerReceiver(PPApplication.phoneCallBroadcastReceiver, intentFilter6);
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered phone call");
 
             // required for unlink ring and notification volume
-            if (ringerModeChangeReceiver == null) {
+            if (PPApplication.ringerModeChangeReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER ringer mode change", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER ringer mode change");
-                ringerModeChangeReceiver = new RingerModeChangeReceiver();
+                PPApplication.ringerModeChangeReceiver = new RingerModeChangeReceiver();
                 IntentFilter intentFilter7 = new IntentFilter();
                 intentFilter7.addAction(AudioManager.RINGER_MODE_CHANGED_ACTION);
-                appContext.registerReceiver(ringerModeChangeReceiver, intentFilter7);
+                appContext.registerReceiver(PPApplication.ringerModeChangeReceiver, intentFilter7);
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered ringer mode change");
 
             // required for unlink ring and notification volume
-            if (settingsContentObserver == null) {
+            if (PPApplication.settingsContentObserver == null) {
                 try {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER settings content observer", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                     //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER settings content observer");
                     //settingsContentObserver = new SettingsContentObserver(this, new Handler(getMainLooper()));
-                    settingsContentObserver = new SettingsContentObserver(appContext, new Handler());
-                    appContext.getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, settingsContentObserver);
+                    PPApplication.settingsContentObserver = new SettingsContentObserver(appContext, new Handler());
+                    appContext.getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, PPApplication.settingsContentObserver);
                 } catch (Exception ignored) {}
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered settings content observer");
 
             // required for start EventsHandler in idle maintenance window
-            if (deviceIdleModeReceiver == null) {
+            if (PPApplication.deviceIdleModeReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER device idle mode", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER device idle mode");
                 if (android.os.Build.VERSION.SDK_INT >= 23) {
-                    deviceIdleModeReceiver = new DeviceIdleModeBroadcastReceiver();
+                    PPApplication.deviceIdleModeReceiver = new DeviceIdleModeBroadcastReceiver();
                     IntentFilter intentFilter9 = new IntentFilter();
                     intentFilter9.addAction(PowerManager.ACTION_DEVICE_IDLE_MODE_CHANGED);
                     // is @hide :-(
                     //if (android.os.Build.VERSION.SDK_INT >= 24)
                     //    intentFilter9.addAction(PowerManager.ACTION_LIGHT_DEVICE_IDLE_MODE_CHANGED);
-                    appContext.registerReceiver(deviceIdleModeReceiver, intentFilter9);
+                    appContext.registerReceiver(PPApplication.deviceIdleModeReceiver, intentFilter9);
                 }
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered device idle mode");
 
             // required for (un)register connected bluetooth devices
-            if (bluetoothConnectionBroadcastReceiver == null) {
+            if (PPApplication.bluetoothConnectionBroadcastReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER bluetooth connection", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER bluetooth connection");
 
-                bluetoothConnectionBroadcastReceiver = new BluetoothConnectionBroadcastReceiver();
+                PPApplication.bluetoothConnectionBroadcastReceiver = new BluetoothConnectionBroadcastReceiver();
                 IntentFilter intentFilter14 = new IntentFilter();
                 intentFilter14.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
                 intentFilter14.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
                 //intentFilter14.addAction(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED);
                 intentFilter14.addAction(BluetoothDevice.ACTION_NAME_CHANGED);
-                appContext.registerReceiver(bluetoothConnectionBroadcastReceiver, intentFilter14);
+                appContext.registerReceiver(PPApplication.bluetoothConnectionBroadcastReceiver, intentFilter14);
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered bluetooth connection");
 
-            if (eventDelayStartBroadcastReceiver == null) {
+            if (PPApplication.eventDelayStartBroadcastReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER eventDelayStartBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER eventDelayStartBroadcastReceiver");
 
-                eventDelayStartBroadcastReceiver = new EventDelayStartBroadcastReceiver();
+                PPApplication.eventDelayStartBroadcastReceiver = new EventDelayStartBroadcastReceiver();
                 IntentFilter intentFilter14 = new IntentFilter(PhoneProfilesService.ACTION_EVENT_DELAY_START_BROADCAST_RECEIVER);
-                appContext.registerReceiver(eventDelayStartBroadcastReceiver, intentFilter14);
+                appContext.registerReceiver(PPApplication.eventDelayStartBroadcastReceiver, intentFilter14);
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered eventDelayStartBroadcastReceiver");
 
-            if (eventDelayEndBroadcastReceiver == null) {
+            if (PPApplication.eventDelayEndBroadcastReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER eventDelayEndBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER eventDelayEndBroadcastReceiver");
 
-                eventDelayEndBroadcastReceiver = new EventDelayEndBroadcastReceiver();
+                PPApplication.eventDelayEndBroadcastReceiver = new EventDelayEndBroadcastReceiver();
                 IntentFilter intentFilter14 = new IntentFilter(PhoneProfilesService.ACTION_EVENT_DELAY_END_BROADCAST_RECEIVER);
-                appContext.registerReceiver(eventDelayEndBroadcastReceiver, intentFilter14);
+                appContext.registerReceiver(PPApplication.eventDelayEndBroadcastReceiver, intentFilter14);
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered eventDelayEndBroadcastReceiver");
 
-            if (profileDurationAlarmBroadcastReceiver == null) {
+            if (PPApplication.profileDurationAlarmBroadcastReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER profileDurationAlarmBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER profileDurationAlarmBroadcastReceiver");
 
-                profileDurationAlarmBroadcastReceiver = new ProfileDurationAlarmBroadcastReceiver();
+                PPApplication.profileDurationAlarmBroadcastReceiver = new ProfileDurationAlarmBroadcastReceiver();
                 IntentFilter intentFilter14 = new IntentFilter(PhoneProfilesService.ACTION_PROFILE_DURATION_BROADCAST_RECEIVER);
-                appContext.registerReceiver(profileDurationAlarmBroadcastReceiver, intentFilter14);
+                appContext.registerReceiver(PPApplication.profileDurationAlarmBroadcastReceiver, intentFilter14);
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered profileDurationAlarmBroadcastReceiver");
@@ -1158,116 +1064,116 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered notificationCancelAlarmBroadcastReceiver");
             */
 
-            if (runApplicationWithDelayBroadcastReceiver == null) {
+            if (PPApplication.runApplicationWithDelayBroadcastReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER runApplicationWithDelayBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER runApplicationWithDelayBroadcastReceiver");
 
-                runApplicationWithDelayBroadcastReceiver = new RunApplicationWithDelayBroadcastReceiver();
+                PPApplication.runApplicationWithDelayBroadcastReceiver = new RunApplicationWithDelayBroadcastReceiver();
                 IntentFilter intentFilter14 = new IntentFilter(PhoneProfilesService.ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER);
-                appContext.registerReceiver(runApplicationWithDelayBroadcastReceiver, intentFilter14);
+                appContext.registerReceiver(PPApplication.runApplicationWithDelayBroadcastReceiver, intentFilter14);
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered runApplicationWithDelayBroadcastReceiver");
 
-            if (startEventNotificationBroadcastReceiver == null) {
+            if (PPApplication.startEventNotificationBroadcastReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER startEventNotificationBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER startEventNotificationBroadcastReceiver");
 
-                startEventNotificationBroadcastReceiver = new StartEventNotificationBroadcastReceiver();
+                PPApplication.startEventNotificationBroadcastReceiver = new StartEventNotificationBroadcastReceiver();
                 IntentFilter intentFilter14 = new IntentFilter(PhoneProfilesService.ACTION_START_EVENT_NOTIFICATION_BROADCAST_RECEIVER);
-                appContext.registerReceiver(startEventNotificationBroadcastReceiver, intentFilter14);
+                appContext.registerReceiver(PPApplication.startEventNotificationBroadcastReceiver, intentFilter14);
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered startEventNotificationBroadcastReceiver");
 
-            if (lockDeviceActivityFinishBroadcastReceiver == null) {
+            if (PPApplication.lockDeviceActivityFinishBroadcastReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER lockDeviceActivityFinishBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER lockDeviceActivityFinishBroadcastReceiver");
 
-                lockDeviceActivityFinishBroadcastReceiver = new LockDeviceActivityFinishBroadcastReceiver();
+                PPApplication.lockDeviceActivityFinishBroadcastReceiver = new LockDeviceActivityFinishBroadcastReceiver();
                 IntentFilter intentFilter14 = new IntentFilter(PhoneProfilesService.ACTION_LOCK_DEVICE_ACTIVITY_FINISH_BROADCAST_RECEIVER);
-                appContext.registerReceiver(lockDeviceActivityFinishBroadcastReceiver, intentFilter14);
+                appContext.registerReceiver(PPApplication.lockDeviceActivityFinishBroadcastReceiver, intentFilter14);
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered lockDeviceActivityFinishBroadcastReceiver");
 
-            if (pppExtenderBroadcastReceiver == null) {
+            if (PPApplication.pppExtenderBroadcastReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER pppExtenderBroadcastReceiver", "PhoneProfilesService_pppExtenderBroadcastReceiver");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER pppExtenderBroadcastReceiver");
 
-                pppExtenderBroadcastReceiver = new PPPExtenderBroadcastReceiver();
+                PPApplication.pppExtenderBroadcastReceiver = new PPPExtenderBroadcastReceiver();
                 IntentFilter intentFilter14 = new IntentFilter();
                 intentFilter14.addAction(PPApplication.ACTION_ACCESSIBILITY_SERVICE_CONNECTED);
-                appContext.registerReceiver(pppExtenderBroadcastReceiver, intentFilter14,
+                appContext.registerReceiver(PPApplication.pppExtenderBroadcastReceiver, intentFilter14,
                         PPApplication.ACCESSIBILITY_SERVICE_PERMISSION, null);
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered pppExtenderBroadcastReceiver");
 
-            if (notUsedMobileCellsNotificationDisableReceiver == null) {
+            if (PPApplication.notUsedMobileCellsNotificationDisableReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER notUsedMobileCellsNotificationDisableReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER notUsedMobileCellsNotificationDisableReceiver");
-                notUsedMobileCellsNotificationDisableReceiver = new NotUsedMobileCellsNotificationDisableReceiver();
+                PPApplication.notUsedMobileCellsNotificationDisableReceiver = new NotUsedMobileCellsNotificationDisableReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(PhoneStateScanner.NEW_MOBILE_CELLS_NOTIFICATION_DISABLE_ACTION);
-                appContext.registerReceiver(notUsedMobileCellsNotificationDisableReceiver, intentFilter5);
+                appContext.registerReceiver(PPApplication.notUsedMobileCellsNotificationDisableReceiver, intentFilter5);
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered notUsedMobileCellsNotificationDisableReceiver");
 
-            if (donationBroadcastReceiver == null) {
+            if (PPApplication.donationBroadcastReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER donationBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER donationBroadcastReceiver");
-                donationBroadcastReceiver = new DonationBroadcastReceiver();
+                PPApplication.donationBroadcastReceiver = new DonationBroadcastReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(PPApplication.ACTION_DONATION);
-                appContext.registerReceiver(donationBroadcastReceiver, intentFilter5);
+                appContext.registerReceiver(PPApplication.donationBroadcastReceiver, intentFilter5);
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered donationBroadcastReceiver");
 
-            if (ignoreBatteryOptimizationDisableReceiver == null) {
+            if (PPApplication.ignoreBatteryOptimizationDisableReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER ignoreBatteryOptimizationDisableReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER ignoreBatteryOptimizationDisableReceiver");
-                ignoreBatteryOptimizationDisableReceiver = new IgnoreBatteryOptimizationDisableReceiver();
+                PPApplication.ignoreBatteryOptimizationDisableReceiver = new IgnoreBatteryOptimizationDisableReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(IgnoreBatteryOptimizationNotification.IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_DISABLE_ACTION);
-                appContext.registerReceiver(ignoreBatteryOptimizationDisableReceiver, intentFilter5);
+                appContext.registerReceiver(PPApplication.ignoreBatteryOptimizationDisableReceiver, intentFilter5);
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered ignoreBatteryOptimizationDisableReceiver");
 
-            if (lockDeviceAfterScreenOffBroadcastReceiver == null) {
+            if (PPApplication.lockDeviceAfterScreenOffBroadcastReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER lockDeviceAfterScreenOffBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER lockDeviceAfterScreenOffBroadcastReceiver");
 
-                lockDeviceAfterScreenOffBroadcastReceiver = new LockDeviceAfterScreenOffBroadcastReceiver();
+                PPApplication.lockDeviceAfterScreenOffBroadcastReceiver = new LockDeviceAfterScreenOffBroadcastReceiver();
                 IntentFilter intentFilter14 = new IntentFilter();
                 intentFilter14.addAction(LockDeviceAfterScreenOffBroadcastReceiver.ACTION_LOCK_DEVICE_AFTER_SCREEN_OFF);
-                appContext.registerReceiver(lockDeviceAfterScreenOffBroadcastReceiver, intentFilter14);
+                appContext.registerReceiver(PPApplication.lockDeviceAfterScreenOffBroadcastReceiver, intentFilter14);
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered lockDeviceAfterScreenOffBroadcastReceiver");
 
-            if (contactsContentObserver == null) {
+            if (PPApplication.contactsContentObserver == null) {
                 try {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER contacts content observer", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                     //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER contacts content observer");
-                    contactsContentObserver = new ContactsContentObserver(appContext, new Handler());
-                    appContext.getContentResolver().registerContentObserver(ContactsContract.Contacts.CONTENT_URI, true, contactsContentObserver);
+                    PPApplication.contactsContentObserver = new ContactsContentObserver(appContext, new Handler());
+                    appContext.getContentResolver().registerContentObserver(ContactsContract.Contacts.CONTENT_URI, true, PPApplication.contactsContentObserver);
                 } catch (Exception ignored) {}
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered settings content observer");
 
-            if (wifiStateChangedBroadcastReceiver == null) {
+            if (PPApplication.wifiStateChangedBroadcastReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER wifiStateChangedBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER wifiStateChangedBroadcastReceiver");
 
-                wifiStateChangedBroadcastReceiver = new WifiStateChangedBroadcastReceiver();
+                PPApplication.wifiStateChangedBroadcastReceiver = new WifiStateChangedBroadcastReceiver();
                 IntentFilter intentFilter8 = new IntentFilter();
                 intentFilter8.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
-                appContext.registerReceiver(wifiStateChangedBroadcastReceiver, intentFilter8);
+                appContext.registerReceiver(PPApplication.wifiStateChangedBroadcastReceiver, intentFilter8);
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered lockDeviceAfterScreenOffBroadcastReceiver");
@@ -1279,14 +1185,14 @@ public class PhoneProfilesService extends Service
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerBatteryEventReceiver", "PhoneProfilesService_registerBatteryEventReceiver");
         //PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryEventReceiver", "xxx");
         if (!register) {
-            if (batteryEventReceiver != null) {
+            if (PPApplication.batteryEventReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerBatteryEventReceiver->UNREGISTER", "PhoneProfilesService_registerBatteryEventReceiver");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryEventReceiver", "UNREGISTER");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryEventReceiver", "UNREGISTER");
                 try {
-                    appContext.unregisterReceiver(batteryEventReceiver);
-                    batteryEventReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.batteryEventReceiver);
+                    PPApplication.batteryEventReceiver = null;
                 } catch (Exception e) {
-                    batteryEventReceiver = null;
+                    PPApplication.batteryEventReceiver = null;
                 }
             }
             //else
@@ -1331,16 +1237,16 @@ public class PhoneProfilesService extends Service
                         PreferenceAllowed.PREFERENCE_ALLOWED;
             }
             if (allowed) {
-                if (batteryEventReceiver == null) {
+                if (PPApplication.batteryEventReceiver == null) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerBatteryEventReceiver->REGISTER", "PhoneProfilesService_registerBatteryEventReceiver");
-                    //PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryEventReceiver", "REGISTER batteryEventReceiver");
-                    batteryEventReceiver = new BatteryBroadcastReceiver();
+                    PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryEventReceiver", "REGISTER batteryEventReceiver");
+                    PPApplication.batteryEventReceiver = new BatteryBroadcastReceiver();
                     IntentFilter intentFilter1 = new IntentFilter();
                     intentFilter1.addAction(Intent.ACTION_POWER_CONNECTED);
                     intentFilter1.addAction(Intent.ACTION_POWER_DISCONNECTED);
                     intentFilter1.addAction(Intent.ACTION_BATTERY_LOW);
                     intentFilter1.addAction(Intent.ACTION_BATTERY_OKAY);
-                    appContext.registerReceiver(batteryEventReceiver, intentFilter1);
+                    appContext.registerReceiver(PPApplication.batteryEventReceiver, intentFilter1);
                 }
                 //else
                 //    PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryEventReceiver", "registered");
@@ -1355,14 +1261,14 @@ public class PhoneProfilesService extends Service
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerBatteryChangedReceiver", "PhoneProfilesService_registerBatteryChangedReceiver");
         //PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryChangedReceiver", "xxx");
         if (!register) {
-            if (batteryChangeLevelReceiver != null) {
+            if (PPApplication.batteryChangeLevelReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerBatteryChangedReceiver->UNREGISTER", "PhoneProfilesService_registerBatteryChangedReceiver");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryChangedReceiver", "UNREGISTER");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryChangedReceiver", "UNREGISTER");
                 try {
-                    appContext.unregisterReceiver(batteryChangeLevelReceiver);
-                    batteryChangeLevelReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.batteryChangeLevelReceiver);
+                    PPApplication.batteryChangeLevelReceiver = null;
                 } catch (Exception e) {
-                    batteryChangeLevelReceiver = null;
+                    PPApplication.batteryChangeLevelReceiver = null;
                 }
             }
             //else
@@ -1414,13 +1320,13 @@ public class PhoneProfilesService extends Service
             }
             if (allowed) {
                 // get power save mode from PPP settings (tested will be value "1" = 5%, "2" = 15%)
-                if (batteryChangeLevelReceiver == null) {
+                if (PPApplication.batteryChangeLevelReceiver == null) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerBatteryChangedReceiver->REGISTER", "PhoneProfilesService_registerBatteryChangedReceiver");
-                    //PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryChangedReceiver", "REGISTER batteryChangeLevelReceiver");
-                    batteryChangeLevelReceiver = new BatteryBroadcastReceiver();
+                    PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryChangedReceiver", "REGISTER batteryChangeLevelReceiver");
+                    PPApplication.batteryChangeLevelReceiver = new BatteryBroadcastReceiver();
                     IntentFilter intentFilter1_1 = new IntentFilter();
                     intentFilter1_1.addAction(Intent.ACTION_BATTERY_CHANGED);
-                    appContext.registerReceiver(batteryChangeLevelReceiver, intentFilter1_1);
+                    appContext.registerReceiver(PPApplication.batteryChangeLevelReceiver, intentFilter1_1);
                 }
                 //else
                 //    PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryChangedReceiver", "registered");
@@ -1435,26 +1341,26 @@ public class PhoneProfilesService extends Service
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForPeripheralsSensor", "PhoneProfilesService_registerReceiverForPeripheralsSensor");
         //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeripheralsSensor", "xxx");
         if (!register) {
-            if (headsetPlugReceiver != null) {
+            if (PPApplication.headsetPlugReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForPeripheralsSensor->UNREGISTER headset plug", "PhoneProfilesService_registerReceiverForPeripheralsSensor");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeripheralsSensor", "UNREGISTER headset plug");
                 try {
-                    appContext.unregisterReceiver(headsetPlugReceiver);
-                    headsetPlugReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.headsetPlugReceiver);
+                    PPApplication.headsetPlugReceiver = null;
                 } catch (Exception e) {
-                    headsetPlugReceiver = null;
+                    PPApplication.headsetPlugReceiver = null;
                 }
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeripheralsSensor", "not registered headset plug");
-            if (dockConnectionBroadcastReceiver != null) {
+            if (PPApplication.dockConnectionBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForPeripheralsSensor->UNREGISTER dock connection", "PhoneProfilesService_registerReceiverForPeripheralsSensor");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeripheralsSensor", "UNREGISTER dock connection");
                 try {
-                    appContext.unregisterReceiver(dockConnectionBroadcastReceiver);
-                    dockConnectionBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.dockConnectionBroadcastReceiver);
+                    PPApplication.dockConnectionBroadcastReceiver = null;
                 } catch (Exception e) {
-                    dockConnectionBroadcastReceiver = null;
+                    PPApplication.dockConnectionBroadcastReceiver = null;
                 }
             }
             //else
@@ -1469,26 +1375,26 @@ public class PhoneProfilesService extends Service
                 allowed = Event.isEventPreferenceAllowed(EventPreferencesPeripherals.PREF_EVENT_PERIPHERAL_ENABLED, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
             if (allowed) {
-                if (headsetPlugReceiver == null) {
+                if (PPApplication.headsetPlugReceiver == null) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForPeripheralsSensor->REGISTER headset plug", "PhoneProfilesService_registerReceiverForPeripheralsSensor");
                     //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeripheralsSensor", "REGISTER headset plug");
-                    headsetPlugReceiver = new HeadsetConnectionBroadcastReceiver();
+                    PPApplication.headsetPlugReceiver = new HeadsetConnectionBroadcastReceiver();
                     IntentFilter intentFilter2 = new IntentFilter();
                     intentFilter2.addAction(Intent.ACTION_HEADSET_PLUG);
                     intentFilter2.addAction(BluetoothHeadset.ACTION_AUDIO_STATE_CHANGED);
                     intentFilter2.addAction(BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED);
-                    appContext.registerReceiver(headsetPlugReceiver, intentFilter2);
+                    appContext.registerReceiver(PPApplication.headsetPlugReceiver, intentFilter2);
                 }
                 //else
                 //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeripheralsSensor", "registered headset plug");
-                if (dockConnectionBroadcastReceiver == null) {
+                if (PPApplication.dockConnectionBroadcastReceiver == null) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForPeripheralsSensor->REGISTER dock connection", "PhoneProfilesService_registerReceiverForPeripheralsSensor");
                     //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeripheralsSensor", "REGISTER dock connection");
-                    dockConnectionBroadcastReceiver = new DockConnectionBroadcastReceiver();
+                    PPApplication.dockConnectionBroadcastReceiver = new DockConnectionBroadcastReceiver();
                     IntentFilter intentFilter12 = new IntentFilter();
                     intentFilter12.addAction(Intent.ACTION_DOCK_EVENT);
                     intentFilter12.addAction("android.intent.action.ACTION_DOCK_EVENT");
-                    appContext.registerReceiver(dockConnectionBroadcastReceiver, intentFilter12);
+                    appContext.registerReceiver(PPApplication.dockConnectionBroadcastReceiver, intentFilter12);
                 }
                 //else
                 //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeripheralsSensor", "registered dock connection");
@@ -1527,14 +1433,14 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForSMSSensor", "not registered MMS");*/
-            if (smsEventEndBroadcastReceiver != null) {
+            if (PPApplication.smsEventEndBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForSMSSensor->UNREGISTER smsEventEndBroadcastReceiver", "PhoneProfilesService_registerReceiverForSMSSensor");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForSMSSensor", "UNREGISTER smsEventEndBroadcastReceiver");
                 try {
-                    appContext.unregisterReceiver(smsEventEndBroadcastReceiver);
-                    smsEventEndBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.smsEventEndBroadcastReceiver);
+                    PPApplication.smsEventEndBroadcastReceiver = null;
                 } catch (Exception e) {
-                    smsEventEndBroadcastReceiver = null;
+                    PPApplication.smsEventEndBroadcastReceiver = null;
                 }
             }
             //else
@@ -1577,12 +1483,12 @@ public class PhoneProfilesService extends Service
                 }
                 else
                     PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForSMSSensor", "registered MMS");*/
-                if (smsEventEndBroadcastReceiver == null) {
+                if (PPApplication.smsEventEndBroadcastReceiver == null) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForSMSSensor->REGISTER smsEventEndBroadcastReceiver", "PhoneProfilesService_registerReceiverForSMSSensor");
                     //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForSMSSensor", "REGISTER smsEventEndBroadcastReceiver");
-                    smsEventEndBroadcastReceiver = new SMSEventEndBroadcastReceiver();
+                    PPApplication.smsEventEndBroadcastReceiver = new SMSEventEndBroadcastReceiver();
                     IntentFilter intentFilter22 = new IntentFilter(PhoneProfilesService.ACTION_SMS_EVENT_END_BROADCAST_RECEIVER);
-                    appContext.registerReceiver(smsEventEndBroadcastReceiver, intentFilter22);
+                    appContext.registerReceiver(PPApplication.smsEventEndBroadcastReceiver, intentFilter22);
                 }
                 //else
                 //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForSMSSensor", "registered smsEventEndBroadcastReceiver");
@@ -1597,26 +1503,26 @@ public class PhoneProfilesService extends Service
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForCalendarSensor", "PhoneProfilesService_registerReceiverForCalendarSensor");
         //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForCalendarSensor", "xxx");
         if (!register) {
-            if (calendarProviderChangedBroadcastReceiver != null) {
+            if (PPApplication.calendarProviderChangedBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForCalendarSensor->UNREGISTER calendarProviderChangedBroadcastReceiver", "PhoneProfilesService_registerReceiverForCalendarSensor");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForCalendarSensor", "UNREGISTER calendarProviderChangedBroadcastReceiver");
                 try {
-                    appContext.unregisterReceiver(calendarProviderChangedBroadcastReceiver);
-                    calendarProviderChangedBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.calendarProviderChangedBroadcastReceiver);
+                    PPApplication.calendarProviderChangedBroadcastReceiver = null;
                 } catch (Exception e) {
-                    calendarProviderChangedBroadcastReceiver = null;
+                    PPApplication.calendarProviderChangedBroadcastReceiver = null;
                 }
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForCalendarSensor", "not registered eventCalendarBroadcastReceiver");
-            if (eventCalendarBroadcastReceiver != null) {
+            if (PPApplication.eventCalendarBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForCalendarSensor->UNREGISTER eventCalendarBroadcastReceiver", "PhoneProfilesService_registerReceiverForCalendarSensor");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForCalendarSensor", "UNREGISTER eventCalendarBroadcastReceiver");
                 try {
-                    appContext.unregisterReceiver(eventCalendarBroadcastReceiver);
-                    eventCalendarBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.eventCalendarBroadcastReceiver);
+                    PPApplication.eventCalendarBroadcastReceiver = null;
                 } catch (Exception e) {
-                    eventCalendarBroadcastReceiver = null;
+                    PPApplication.eventCalendarBroadcastReceiver = null;
                 }
             }
             //else
@@ -1631,25 +1537,25 @@ public class PhoneProfilesService extends Service
                 allowed = Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
             if (allowed) {
-                if (calendarProviderChangedBroadcastReceiver == null) {
+                if (PPApplication.calendarProviderChangedBroadcastReceiver == null) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForCalendarSensor->REGISTER calendarProviderChangedBroadcastReceiver", "PhoneProfilesService_registerReceiverForCalendarSensor");
                     //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForCalendarSensor", "REGISTER calendarProviderChangedBroadcastReceiver");
-                    calendarProviderChangedBroadcastReceiver = new CalendarProviderChangedBroadcastReceiver();
+                    PPApplication.calendarProviderChangedBroadcastReceiver = new CalendarProviderChangedBroadcastReceiver();
                     IntentFilter intentFilter23 = new IntentFilter();
                     intentFilter23.addAction(Intent.ACTION_PROVIDER_CHANGED);
                     intentFilter23.addDataScheme("content");
                     intentFilter23.addDataAuthority("com.android.calendar", null);
                     intentFilter23.setPriority(Integer.MAX_VALUE);
-                    appContext.registerReceiver(calendarProviderChangedBroadcastReceiver, intentFilter23);
+                    appContext.registerReceiver(PPApplication.calendarProviderChangedBroadcastReceiver, intentFilter23);
                 }
                 //else
                 //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForCalendarSensor", "registered calendarProviderChangedBroadcastReceiver");
-                if (eventCalendarBroadcastReceiver == null) {
+                if (PPApplication.eventCalendarBroadcastReceiver == null) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForCalendarSensor->REGISTER eventCalendarBroadcastReceiver", "PhoneProfilesService_registerReceiverForCalendarSensor");
                     //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForCalendarSensor", "REGISTER eventCalendarBroadcastReceiver");
-                    eventCalendarBroadcastReceiver = new EventCalendarBroadcastReceiver();
+                    PPApplication.eventCalendarBroadcastReceiver = new EventCalendarBroadcastReceiver();
                     IntentFilter intentFilter23 = new IntentFilter(PhoneProfilesService.ACTION_EVENT_CALENDAR_BROADCAST_RECEIVER);
-                    appContext.registerReceiver(eventCalendarBroadcastReceiver, intentFilter23);
+                    appContext.registerReceiver(PPApplication.eventCalendarBroadcastReceiver, intentFilter23);
                 }
                 //else
                 //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForCalendarSensor", "registered calendarProviderChangedBroadcastReceiver");
@@ -1664,14 +1570,14 @@ public class PhoneProfilesService extends Service
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForRadioSwitchAirplaneModeSensor", "PhoneProfilesService_registerReceiverForRadioSwitchAirplaneModeSensor");
         //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchAirplaneModeSensor", "xxx");
         if (!register) {
-            if (airplaneModeStateChangedBroadcastReceiver != null) {
+            if (PPApplication.airplaneModeStateChangedBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForRadioSwitchAirplaneModeSensor->UNREGISTER", "PhoneProfilesService_registerReceiverForRadioSwitchAirplaneModeSensor");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchAirplaneModeSensor", "UNREGISTER");
                 try {
-                    appContext.unregisterReceiver(airplaneModeStateChangedBroadcastReceiver);
-                    airplaneModeStateChangedBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.airplaneModeStateChangedBroadcastReceiver);
+                    PPApplication.airplaneModeStateChangedBroadcastReceiver = null;
                 } catch (Exception e) {
-                    airplaneModeStateChangedBroadcastReceiver = null;
+                    PPApplication.airplaneModeStateChangedBroadcastReceiver = null;
                 }
             }
             //else
@@ -1686,13 +1592,13 @@ public class PhoneProfilesService extends Service
                 allowed = Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
             if (allowed) {
-                if (airplaneModeStateChangedBroadcastReceiver == null) {
+                if (PPApplication.airplaneModeStateChangedBroadcastReceiver == null) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForRadioSwitchAirplaneModeSensor->REGISTER", "PhoneProfilesService_registerReceiverForRadioSwitchAirplaneModeSensor");
                     //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchAirplaneModeSensor", "REGISTER airplaneModeStateChangedBroadcastReceiver");
-                    airplaneModeStateChangedBroadcastReceiver = new AirplaneModeStateChangedBroadcastReceiver();
+                    PPApplication.airplaneModeStateChangedBroadcastReceiver = new AirplaneModeStateChangedBroadcastReceiver();
                     IntentFilter intentFilter19 = new IntentFilter();
                     intentFilter19.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED);
-                    appContext.registerReceiver(airplaneModeStateChangedBroadcastReceiver, intentFilter19);
+                    appContext.registerReceiver(PPApplication.airplaneModeStateChangedBroadcastReceiver, intentFilter19);
                 }
                 //else
                 //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchAirplaneModeSensor", "registered");
@@ -1708,14 +1614,14 @@ public class PhoneProfilesService extends Service
         //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchNFCSensor", "xxx");
         if (!register) {
             if (PPApplication.hasSystemFeature(this, PackageManager.FEATURE_NFC)) {
-                if (nfcStateChangedBroadcastReceiver != null) {
+                if (PPApplication.nfcStateChangedBroadcastReceiver != null) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForRadioSwitchNFCSensor->UNREGISTER", "PhoneProfilesService_registerReceiverForRadioSwitchNFCSensor");
                     //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchNFCSensor", "UNREGISTER");
                     try {
-                        appContext.unregisterReceiver(nfcStateChangedBroadcastReceiver);
-                        nfcStateChangedBroadcastReceiver = null;
+                        appContext.unregisterReceiver(PPApplication.nfcStateChangedBroadcastReceiver);
+                        PPApplication.nfcStateChangedBroadcastReceiver = null;
                     } catch (Exception e) {
-                        nfcStateChangedBroadcastReceiver = null;
+                        PPApplication.nfcStateChangedBroadcastReceiver = null;
                     }
                 }
                 //else
@@ -1731,14 +1637,14 @@ public class PhoneProfilesService extends Service
                 allowed = Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
             if (allowed) {
-                if (nfcStateChangedBroadcastReceiver == null) {
+                if (PPApplication.nfcStateChangedBroadcastReceiver == null) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForRadioSwitchNFCSensor->REGISTER", "PhoneProfilesService_registerReceiverForRadioSwitchNFCSensor");
                     //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchNFCSensor", "REGISTER nfcStateChangedBroadcastReceiver");
                     //if (android.os.Build.VERSION.SDK_INT >= 18) {
                         if (PPApplication.hasSystemFeature(this, PackageManager.FEATURE_NFC)) {
-                            nfcStateChangedBroadcastReceiver = new NFCStateChangedBroadcastReceiver();
+                            PPApplication.nfcStateChangedBroadcastReceiver = new NFCStateChangedBroadcastReceiver();
                             IntentFilter intentFilter21 = new IntentFilter(NfcAdapter.ACTION_ADAPTER_STATE_CHANGED);
-                            appContext.registerReceiver(nfcStateChangedBroadcastReceiver, intentFilter21);
+                            appContext.registerReceiver(PPApplication.nfcStateChangedBroadcastReceiver, intentFilter21);
                             //PPApplication.logE("$$$ PhoneProfilesService.onCreate", "registered");
                         }
                     //}
@@ -1755,14 +1661,14 @@ public class PhoneProfilesService extends Service
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor", "PhoneProfilesService_registerReceiverForRadioSwitchMobileDataSensor");
         //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor", "xxx");
         if (!register) {
-            if (mobileDataStateChangedContentObserver != null) {
+            if (PPApplication.mobileDataStateChangedContentObserver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor->UNREGISTER", "PhoneProfilesService_registerReceiverForRadioSwitchMobileDataSensor");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor", "UNREGISTER");
                 try {
-                    appContext.getContentResolver().unregisterContentObserver(mobileDataStateChangedContentObserver);
-                    mobileDataStateChangedContentObserver = null;
+                    appContext.getContentResolver().unregisterContentObserver(PPApplication.mobileDataStateChangedContentObserver);
+                    PPApplication.mobileDataStateChangedContentObserver = null;
                 } catch (Exception e) {
-                    mobileDataStateChangedContentObserver = null;
+                    PPApplication.mobileDataStateChangedContentObserver = null;
                 }
             }
             //else
@@ -1777,11 +1683,11 @@ public class PhoneProfilesService extends Service
                 allowed = Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
             if (allowed) {
-                if (mobileDataStateChangedContentObserver == null) {
+                if (PPApplication.mobileDataStateChangedContentObserver == null) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor->REGISTER", "PhoneProfilesService_registerReceiverForRadioSwitchMobileDataSensor");
                     //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor", "REGISTER mobileDataStateChangedContentObserver");
-                    mobileDataStateChangedContentObserver = new MobileDataStateChangedContentObserver(appContext, new Handler());
-                    appContext.getContentResolver().registerContentObserver(Settings.Global.getUriFor("mobile_data"), true, mobileDataStateChangedContentObserver);
+                    PPApplication.mobileDataStateChangedContentObserver = new MobileDataStateChangedContentObserver(appContext, new Handler());
+                    appContext.getContentResolver().registerContentObserver(Settings.Global.getUriFor("mobile_data"), true, PPApplication.mobileDataStateChangedContentObserver);
                 }
                 //else
                 //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor", "registered");
@@ -1799,26 +1705,26 @@ public class PhoneProfilesService extends Service
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForAlarmClockSensor", "PhoneProfilesService_registerReceiverForAlarmClockSensor");
         //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "xxx");
         if (!register) {
-            if (alarmClockBroadcastReceiver != null) {
+            if (PPApplication.alarmClockBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForAlarmClockSensor->UNREGISTER ALARM CLOCK", "PhoneProfilesService_registerReceiverForAlarmClockSensor");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "UNREGISTER ALARM CLOCK");
                 try {
-                    appContext.unregisterReceiver(alarmClockBroadcastReceiver);
-                    alarmClockBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.alarmClockBroadcastReceiver);
+                    PPApplication.alarmClockBroadcastReceiver = null;
                 } catch (Exception e) {
-                    alarmClockBroadcastReceiver = null;
+                    PPApplication.alarmClockBroadcastReceiver = null;
                 }
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "not registered ALARM CLOCK");
-            if (alarmClockEventEndBroadcastReceiver != null) {
+            if (PPApplication.alarmClockEventEndBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForAlarmClockSensor->UNREGISTER alarmClockEventEndBroadcastReceiver", "PhoneProfilesService_registerReceiverForAlarmClockSensor");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "UNREGISTER alarmClockEventEndBroadcastReceiver");
                 try {
-                    appContext.unregisterReceiver(alarmClockEventEndBroadcastReceiver);
-                    alarmClockEventEndBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.alarmClockEventEndBroadcastReceiver);
+                    PPApplication.alarmClockEventEndBroadcastReceiver = null;
                 } catch (Exception e) {
-                    alarmClockEventEndBroadcastReceiver = null;
+                    PPApplication.alarmClockEventEndBroadcastReceiver = null;
                 }
             }
             //else
@@ -1877,21 +1783,21 @@ public class PhoneProfilesService extends Service
                 else {*/
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForAlarmClockSensor->REGISTER ALARM CLOCK", "PhoneProfilesService_registerReceiverForAlarmClockSensor");
                     //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "REGISTER ALARM CLOCK");
-                    if (alarmClockBroadcastReceiver == null) {
+                    if (PPApplication.alarmClockBroadcastReceiver == null) {
                         //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "REGISTER alarmClockBroadcastReceiver");
-                        alarmClockBroadcastReceiver = new AlarmClockBroadcastReceiver();
+                        PPApplication.alarmClockBroadcastReceiver = new AlarmClockBroadcastReceiver();
                         IntentFilter intentFilter21 = new IntentFilter(PhoneProfilesService.ACTION_ALARM_CLOCK_BROADCAST_RECEIVER);
-                        appContext.registerReceiver(alarmClockBroadcastReceiver, intentFilter21);
+                        appContext.registerReceiver(PPApplication.alarmClockBroadcastReceiver, intentFilter21);
                     }
                     //else
                     //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "registered ALARM CLOCK");
                 //}
-                if (alarmClockEventEndBroadcastReceiver == null) {
+                if (PPApplication.alarmClockEventEndBroadcastReceiver == null) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForAlarmClockSensor->REGISTER alarmClockEventEndBroadcastReceiver", "PhoneProfilesService_registerReceiverForSMSSensor");
                     //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "REGISTER alarmClockEventEndBroadcastReceiver");
-                    alarmClockEventEndBroadcastReceiver = new AlarmClockEventEndBroadcastReceiver();
+                    PPApplication.alarmClockEventEndBroadcastReceiver = new AlarmClockEventEndBroadcastReceiver();
                     IntentFilter intentFilter22 = new IntentFilter(PhoneProfilesService.ACTION_ALARM_CLOCK_EVENT_END_BROADCAST_RECEIVER);
-                    appContext.registerReceiver(alarmClockEventEndBroadcastReceiver, intentFilter22);
+                    appContext.registerReceiver(PPApplication.alarmClockEventEndBroadcastReceiver, intentFilter22);
                 }
                 //else
                 //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "registered alarmClockEventEndBroadcastReceiver");
@@ -1906,14 +1812,14 @@ public class PhoneProfilesService extends Service
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForNotificationSensor", "PhoneProfilesService_registerReceiverForNotificationSensor");
         //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForNotificationSensor", "xxx");
         if (!register) {
-            if (notificationEventEndBroadcastReceiver != null) {
+            if (PPApplication.notificationEventEndBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForNotificationSensor->UNREGISTER notificationEventEndBroadcastReceiver", "PhoneProfilesService_registerReceiverForNotificationSensor");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForNotificationSensor", "UNREGISTER notificationEventEndBroadcastReceiver");
                 try {
-                    appContext.unregisterReceiver(notificationEventEndBroadcastReceiver);
-                    notificationEventEndBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.notificationEventEndBroadcastReceiver);
+                    PPApplication.notificationEventEndBroadcastReceiver = null;
                 } catch (Exception e) {
-                    notificationEventEndBroadcastReceiver = null;
+                    PPApplication.notificationEventEndBroadcastReceiver = null;
                 }
             }
             //else
@@ -1928,12 +1834,12 @@ public class PhoneProfilesService extends Service
                 allowed = Event.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
             if (allowed) {
-                if (notificationEventEndBroadcastReceiver == null) {
+                if (PPApplication.notificationEventEndBroadcastReceiver == null) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForNotificationSensor->REGISTER smsEventEndBroadcastReceiver", "PhoneProfilesService_registerReceiverForNotificationSensor");
                     //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForNotificationSensor", "REGISTER notificationEventEndBroadcastReceiver");
-                    notificationEventEndBroadcastReceiver = new NotificationEventEndBroadcastReceiver();
+                    PPApplication.notificationEventEndBroadcastReceiver = new NotificationEventEndBroadcastReceiver();
                     IntentFilter intentFilter22 = new IntentFilter(PhoneProfilesService.ACTION_NOTIFICATION_EVENT_END_BROADCAST_RECEIVER);
-                    appContext.registerReceiver(notificationEventEndBroadcastReceiver, intentFilter22);
+                    appContext.registerReceiver(PPApplication.notificationEventEndBroadcastReceiver, intentFilter22);
                 }
                 //else
                 //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForNotificationSensor", "registered notificationEventEndBroadcastReceiver");
@@ -1948,14 +1854,14 @@ public class PhoneProfilesService extends Service
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForOrientationSensor", "PhoneProfilesService_registerReceiverForOrientationSensor");
         //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForOrientationSensor", "xxx");
         if (!register) {
-            if (orientationEventBroadcastReceiver != null) {
+            if (PPApplication.orientationEventBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForOrientationSensor->UNREGISTER registerReceiverForOrientationSensor", "PhoneProfilesService_registerReceiverForOrientationSensor");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForOrientationSensor", "UNREGISTER registerReceiverForOrientationSensor");
                 try {
-                    appContext.unregisterReceiver(orientationEventBroadcastReceiver);
-                    orientationEventBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.orientationEventBroadcastReceiver);
+                    PPApplication.orientationEventBroadcastReceiver = null;
                 } catch (Exception e) {
-                    orientationEventBroadcastReceiver = null;
+                    PPApplication.orientationEventBroadcastReceiver = null;
                 }
             }
             //else
@@ -1974,12 +1880,12 @@ public class PhoneProfilesService extends Service
                                 PreferenceAllowed.PREFERENCE_ALLOWED;
                 }
                 if (eventAllowed) {
-                    if (orientationEventBroadcastReceiver == null) {
+                    if (PPApplication.orientationEventBroadcastReceiver == null) {
                         //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForOrientationSensor->REGISTER registerReceiverForOrientationSensor", "PhoneProfilesService_registerReceiverForOrientationSensor");
                         //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForOrientationSensor", "REGISTER orientationEventBroadcastReceiver");
-                        orientationEventBroadcastReceiver = new OrientationEventBroadcastReceiver();
+                        PPApplication.orientationEventBroadcastReceiver = new OrientationEventBroadcastReceiver();
                         IntentFilter intentFilter22 = new IntentFilter(PhoneProfilesService.ACTION_ORIENTATION_EVENT_BROADCAST_RECEIVER);
-                        appContext.registerReceiver(orientationEventBroadcastReceiver, intentFilter22);
+                        appContext.registerReceiver(PPApplication.orientationEventBroadcastReceiver, intentFilter22);
                     }
                     //else
                     //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForOrientationSensor", "registered registerReceiverForOrientationSensor");
@@ -1994,14 +1900,14 @@ public class PhoneProfilesService extends Service
         //PPApplication.logE("[RJS] PhoneProfilesService.unregisterPPPPExtenderReceiver", "UNREGISTER");
         Context appContext = getApplicationContext();
         if (type == PPApplication.REGISTRATION_TYPE_FORCE_STOP_APPLICATIONS_UNREGISTER) {
-            if (pppExtenderForceStopApplicationBroadcastReceiver != null) {
+            if (PPApplication.pppExtenderForceStopApplicationBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.unregisterPPPPExtenderReceiver->UNREGISTER", "PhoneProfilesService_pppExtenderForceStopApplicationBroadcastReceiver");
                 //PPApplication.logE("[RJS] PhoneProfilesService.unregisterPPPPExtenderReceiver", "UNREGISTER pppExtenderForceStopApplicationBroadcastReceiver");
                 try {
-                    appContext.unregisterReceiver(pppExtenderForceStopApplicationBroadcastReceiver);
-                    pppExtenderForceStopApplicationBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.pppExtenderForceStopApplicationBroadcastReceiver);
+                    PPApplication.pppExtenderForceStopApplicationBroadcastReceiver = null;
                 } catch (Exception e) {
-                    pppExtenderForceStopApplicationBroadcastReceiver = null;
+                    PPApplication.pppExtenderForceStopApplicationBroadcastReceiver = null;
                 }
             }
             //else
@@ -2014,14 +1920,14 @@ public class PhoneProfilesService extends Service
             sendBroadcast(intent, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
         }
         if (type == PPApplication.REGISTRATION_TYPE_FOREGROUND_APPLICATION_UNREGISTER) {
-            if (pppExtenderForegroundApplicationBroadcastReceiver != null) {
+            if (PPApplication.pppExtenderForegroundApplicationBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.unregisterPPPPExtenderReceiver->UNREGISTER", "PhoneProfilesService_pppExtenderForegroundApplicationBroadcastReceiver");
                 //PPApplication.logE("[RJS] PhoneProfilesService.unregisterPPPPExtenderReceiver", "UNREGISTER pppExtenderForegroundApplicationBroadcastReceiver");
                 try {
-                    appContext.unregisterReceiver(pppExtenderForegroundApplicationBroadcastReceiver);
-                    pppExtenderForegroundApplicationBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.pppExtenderForegroundApplicationBroadcastReceiver);
+                    PPApplication.pppExtenderForegroundApplicationBroadcastReceiver = null;
                 } catch (Exception e) {
-                    pppExtenderForegroundApplicationBroadcastReceiver = null;
+                    PPApplication.pppExtenderForegroundApplicationBroadcastReceiver = null;
                 }
             }
             //else
@@ -2034,14 +1940,14 @@ public class PhoneProfilesService extends Service
             sendBroadcast(intent, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
         }
         if (type == PPApplication.REGISTRATION_TYPE_SMS_UNREGISTER) {
-            if (pppExtenderSMSBroadcastReceiver != null) {
+            if (PPApplication.pppExtenderSMSBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.unregisterPPPPExtenderReceiver->UNREGISTER", "PhoneProfilesService_pppExtenderSMSBroadcastReceiver");
                 //PPApplication.logE("[RJS] PhoneProfilesService.unregisterPPPPExtenderReceiver", "UNREGISTER pppExtenderSMSBroadcastReceiver");
                 try {
-                    appContext.unregisterReceiver(pppExtenderSMSBroadcastReceiver);
-                    pppExtenderSMSBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.pppExtenderSMSBroadcastReceiver);
+                    PPApplication.pppExtenderSMSBroadcastReceiver = null;
                 } catch (Exception e) {
-                    pppExtenderSMSBroadcastReceiver = null;
+                    PPApplication.pppExtenderSMSBroadcastReceiver = null;
                 }
             }
             //else
@@ -2054,14 +1960,14 @@ public class PhoneProfilesService extends Service
             sendBroadcast(intent, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
         }
         if (type == PPApplication.REGISTRATION_TYPE_CALL_UNREGISTER) {
-            if (pppExtenderCallBroadcastReceiver != null) {
+            if (PPApplication.pppExtenderCallBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.unregisterPPPPExtenderReceiver->UNREGISTER", "PhoneProfilesService_pppExtenderCallBroadcastReceiver");
                 //PPApplication.logE("[RJS] PhoneProfilesService.unregisterPPPPExtenderReceiver", "UNREGISTER pppExtenderCallBroadcastReceiver");
                 try {
-                    appContext.unregisterReceiver(pppExtenderCallBroadcastReceiver);
-                    pppExtenderCallBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.pppExtenderCallBroadcastReceiver);
+                    PPApplication.pppExtenderCallBroadcastReceiver = null;
                 } catch (Exception e) {
-                    pppExtenderCallBroadcastReceiver = null;
+                    PPApplication.pppExtenderCallBroadcastReceiver = null;
                 }
             }
             //else
@@ -2139,13 +2045,13 @@ public class PhoneProfilesService extends Service
                 }*/
 
                 if (forceStopAllowed) {
-                    if (pppExtenderForceStopApplicationBroadcastReceiver == null) {
+                    if (PPApplication.pppExtenderForceStopApplicationBroadcastReceiver == null) {
                         //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerPPPPExtenderReceiver->REGISTER", "PhoneProfilesService_pppExtenderForceStopApplicationBroadcastReceiver");
-                        //PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "REGISTER pppExtenderForceStopApplicationBroadcastReceiver");
-                        pppExtenderForceStopApplicationBroadcastReceiver = new PPPExtenderBroadcastReceiver();
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "REGISTER force stop applications");
+                        PPApplication.pppExtenderForceStopApplicationBroadcastReceiver = new PPPExtenderBroadcastReceiver();
                         IntentFilter intentFilter23 = new IntentFilter();
                         intentFilter23.addAction(PPApplication.ACTION_FORCE_STOP_APPLICATIONS_END);
-                        appContext.registerReceiver(pppExtenderForceStopApplicationBroadcastReceiver, intentFilter23,
+                        appContext.registerReceiver(PPApplication.pppExtenderForceStopApplicationBroadcastReceiver, intentFilter23,
                                 PPApplication.ACCESSIBILITY_SERVICE_PERMISSION, null);
                     }
                     //else
@@ -2164,7 +2070,7 @@ public class PhoneProfilesService extends Service
                 if (lockDeviceAllowed) {
                     // send broadcast to Extender for register lock device
 
-                    //PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "REGISTER PPApplication.REGISTRATION_TYPE_LOCK_DEVICE_REGISTER");
+                    PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "REGISTER lock device");
                     Intent intent = new Intent(PPApplication.ACTION_REGISTER_PPPE_FUNCTION);
                     intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, "PhoneProfilesPlus");
                     intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_LOCK_DEVICE_REGISTER);
@@ -2174,14 +2080,14 @@ public class PhoneProfilesService extends Service
                     unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_LOCK_DEVICE_UNREGISTER);
 
                 if ((applicationsAllowed) || (orientationAllowed)) {
-                    if (pppExtenderForegroundApplicationBroadcastReceiver == null) {
+                    if (PPApplication.pppExtenderForegroundApplicationBroadcastReceiver == null) {
                         //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerPPPPExtenderReceiver->REGISTER", "PhoneProfilesService_pppExtenderForegroundApplicationBroadcastReceiver");
-                        //PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "REGISTER pppExtenderForegroundApplicationBroadcastReceiver");
-                        pppExtenderForegroundApplicationBroadcastReceiver = new PPPExtenderBroadcastReceiver();
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "applications and orientation");
+                        PPApplication.pppExtenderForegroundApplicationBroadcastReceiver = new PPPExtenderBroadcastReceiver();
                         IntentFilter intentFilter23 = new IntentFilter();
                         intentFilter23.addAction(PPApplication.ACTION_ACCESSIBILITY_SERVICE_UNBIND);
                         intentFilter23.addAction(PPApplication.ACTION_FOREGROUND_APPLICATION_CHANGED);
-                        appContext.registerReceiver(pppExtenderForegroundApplicationBroadcastReceiver, intentFilter23,
+                        appContext.registerReceiver(PPApplication.pppExtenderForegroundApplicationBroadcastReceiver, intentFilter23,
                                 PPApplication.ACCESSIBILITY_SERVICE_PERMISSION, null);
                     }
                     //else
@@ -2198,13 +2104,13 @@ public class PhoneProfilesService extends Service
                     unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_FOREGROUND_APPLICATION_UNREGISTER);
 
                 if (smsAllowed) {
-                    if (pppExtenderSMSBroadcastReceiver == null) {
+                    if (PPApplication.pppExtenderSMSBroadcastReceiver == null) {
                         //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerPPPPExtenderReceiver->REGISTER", "PhoneProfilesService_pppExtenderSMSBroadcastReceiver");
-                        //PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "REGISTER pppExtenderSMSBroadcastReceiver");
-                        pppExtenderSMSBroadcastReceiver = new PPPExtenderBroadcastReceiver();
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "REGISTER sms");
+                        PPApplication.pppExtenderSMSBroadcastReceiver = new PPPExtenderBroadcastReceiver();
                         IntentFilter intentFilter23 = new IntentFilter();
                         intentFilter23.addAction(PPApplication.ACTION_SMS_MMS_RECEIVED);
-                        appContext.registerReceiver(pppExtenderSMSBroadcastReceiver, intentFilter23,
+                        appContext.registerReceiver(PPApplication.pppExtenderSMSBroadcastReceiver, intentFilter23,
                                 PPApplication.ACCESSIBILITY_SERVICE_PERMISSION, null);
                     }
                     //else
@@ -2221,13 +2127,13 @@ public class PhoneProfilesService extends Service
                     unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_SMS_UNREGISTER);
 
                 if (callAllowed) {
-                    if (pppExtenderCallBroadcastReceiver == null) {
+                    if (PPApplication.pppExtenderCallBroadcastReceiver == null) {
                         //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerPPPPExtenderReceiver->REGISTER", "PhoneProfilesService_pppExtenderCallBroadcastReceiver");
-                        //PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "REGISTER pppExtenderCallBroadcastReceiver");
-                        pppExtenderCallBroadcastReceiver = new PPPExtenderBroadcastReceiver();
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "REGISTER call");
+                        PPApplication.pppExtenderCallBroadcastReceiver = new PPPExtenderBroadcastReceiver();
                         IntentFilter intentFilter23 = new IntentFilter();
                         intentFilter23.addAction(PPApplication.ACTION_CALL_RECEIVED);
-                        appContext.registerReceiver(pppExtenderCallBroadcastReceiver, intentFilter23,
+                        appContext.registerReceiver(PPApplication.pppExtenderCallBroadcastReceiver, intentFilter23,
                                 PPApplication.ACCESSIBILITY_SERVICE_PERMISSION, null);
                     }
                     //else
@@ -2258,14 +2164,14 @@ public class PhoneProfilesService extends Service
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerLocationModeChangedBroadcastReceiver", "PhoneProfilesService_registerLocationModeChangedBroadcastReceiver");
         //PPApplication.logE("[RJS] PhoneProfilesService.registerLocationModeChangedBroadcastReceiver", "xxx");
         if (!register) {
-            if (locationModeChangedBroadcastReceiver != null) {
+            if (PPApplication.locationModeChangedBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerLocationModeChangedBroadcastReceiver->UNREGISTER", "PhoneProfilesService_registerLocationModeChangedBroadcastReceiver");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerLocationModeChangedBroadcastReceiver", "UNREGISTER");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerLocationModeChangedBroadcastReceiver", "UNREGISTER");
                 try {
-                    appContext.unregisterReceiver(locationModeChangedBroadcastReceiver);
-                    locationModeChangedBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.locationModeChangedBroadcastReceiver);
+                    PPApplication.locationModeChangedBroadcastReceiver = null;
                 } catch (Exception e) {
-                    locationModeChangedBroadcastReceiver = null;
+                    PPApplication.locationModeChangedBroadcastReceiver = null;
                 }
             }
             //else
@@ -2293,15 +2199,15 @@ public class PhoneProfilesService extends Service
                 }
             }
             if (allowed) {
-                if (locationModeChangedBroadcastReceiver == null) {
+                if (PPApplication.locationModeChangedBroadcastReceiver == null) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerLocationModeChangedBroadcastReceiver->REGISTER", "PhoneProfilesService_registerLocationModeChangedBroadcastReceiver");
-                    //PPApplication.logE("[RJS] PhoneProfilesService.registerLocationModeChangedBroadcastReceiver", "REGISTER locationModeChangedBroadcastReceiver");
-                    locationModeChangedBroadcastReceiver = new LocationModeChangedBroadcastReceiver();
+                    PPApplication.logE("[RJS] PhoneProfilesService.registerLocationModeChangedBroadcastReceiver", "REGISTER locationModeChangedBroadcastReceiver");
+                    PPApplication.locationModeChangedBroadcastReceiver = new LocationModeChangedBroadcastReceiver();
                     IntentFilter intentFilter18 = new IntentFilter();
                     intentFilter18.addAction(LocationManager.PROVIDERS_CHANGED_ACTION);
                     //if (android.os.Build.VERSION.SDK_INT >= 19)
                         intentFilter18.addAction(LocationManager.MODE_CHANGED_ACTION);
-                    appContext.registerReceiver(locationModeChangedBroadcastReceiver, intentFilter18);
+                    appContext.registerReceiver(PPApplication.locationModeChangedBroadcastReceiver, intentFilter18);
                 }
                 //else
                 //    PPApplication.logE("[RJS] PhoneProfilesService.registerLocationModeChangedBroadcastReceiver", "registered");
@@ -2318,14 +2224,14 @@ public class PhoneProfilesService extends Service
         if (!forceRegister && BluetoothNamePreferenceX.forceRegister)
             return;
         if (!register) {
-            if (bluetoothStateChangedBroadcastReceiver != null) {
+            if (PPApplication.bluetoothStateChangedBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerBluetoothStateChangedBroadcastReceiver->UNREGISTER", "PhoneProfilesService_registerBluetoothStateChangedBroadcastReceiver");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerBluetoothStateChangedBroadcastReceiver", "UNREGISTER");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerBluetoothStateChangedBroadcastReceiver", "UNREGISTER");
                 try {
-                    appContext.unregisterReceiver(bluetoothStateChangedBroadcastReceiver);
-                    bluetoothStateChangedBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.bluetoothStateChangedBroadcastReceiver);
+                    PPApplication.bluetoothStateChangedBroadcastReceiver = null;
                 } catch (Exception e) {
-                    bluetoothStateChangedBroadcastReceiver = null;
+                    PPApplication.bluetoothStateChangedBroadcastReceiver = null;
                 }
             }
             //else
@@ -2354,13 +2260,13 @@ public class PhoneProfilesService extends Service
                 }
             }
             if (allowed) {
-                if (bluetoothStateChangedBroadcastReceiver == null) {
+                if (PPApplication.bluetoothStateChangedBroadcastReceiver == null) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerBluetoothStateChangedBroadcastReceiver->REGISTER", "PhoneProfilesService_registerBluetoothStateChangedBroadcastReceiver");
-                    //PPApplication.logE("[RJS] PhoneProfilesService.registerBluetoothStateChangedBroadcastReceiver", "REGISTER bluetoothStateChangedBroadcastReceiver");
-                    bluetoothStateChangedBroadcastReceiver = new BluetoothStateChangedBroadcastReceiver();
+                    PPApplication.logE("[RJS] PhoneProfilesService.registerBluetoothStateChangedBroadcastReceiver", "REGISTER bluetoothStateChangedBroadcastReceiver");
+                    PPApplication.bluetoothStateChangedBroadcastReceiver = new BluetoothStateChangedBroadcastReceiver();
                     IntentFilter intentFilter15 = new IntentFilter();
                     intentFilter15.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
-                    appContext.registerReceiver(bluetoothStateChangedBroadcastReceiver, intentFilter15);
+                    appContext.registerReceiver(PPApplication.bluetoothStateChangedBroadcastReceiver, intentFilter15);
                 }
                 //else
                 //    PPApplication.logE("[RJS] PhoneProfilesService.registerBluetoothStateChangedBroadcastReceiver", "registered");
@@ -2466,26 +2372,26 @@ public class PhoneProfilesService extends Service
         if (!forceRegister && BluetoothNamePreferenceX.forceRegister)
             return;
         if (!register) {
-            if (bluetoothScanReceiver != null) {
+            if (PPApplication.bluetoothScanReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerBluetoothScannerReceivers->UNREGISTER bluetoothScanReceiver", "PhoneProfilesService_registerBluetoothScannerReceivers");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerBluetoothScannerReceivers", "UNREGISTER bluetoothScanReceiver");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerBluetoothScannerReceivers", "UNREGISTER bluetoothScanReceiver");
                 try {
-                    appContext.unregisterReceiver(bluetoothScanReceiver);
-                    bluetoothScanReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.bluetoothScanReceiver);
+                    PPApplication.bluetoothScanReceiver = null;
                 } catch (Exception e) {
-                    bluetoothScanReceiver = null;
+                    PPApplication.bluetoothScanReceiver = null;
                 }
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerBluetoothScannerReceivers", "not registered bluetoothScanReceiver");
-            if (bluetoothLEScanReceiver != null) {
+            if (PPApplication.bluetoothLEScanReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerBluetoothScannerReceivers->UNREGISTER bluetoothLEScanReceiver", "PhoneProfilesService_registerBluetoothScannerReceivers");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerBluetoothScannerReceivers", "UNREGISTER bluetoothLEScanReceiver");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerBluetoothScannerReceivers", "UNREGISTER bluetoothLEScanReceiver");
                 try {
-                    LocalBroadcastManager.getInstance(appContext).unregisterReceiver(bluetoothLEScanReceiver);
-                    bluetoothLEScanReceiver = null;
+                    LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.bluetoothLEScanReceiver);
+                    PPApplication.bluetoothLEScanReceiver = null;
                 } catch (Exception e) {
-                    bluetoothLEScanReceiver = null;
+                    PPApplication.bluetoothLEScanReceiver = null;
                 }
             }
             //else
@@ -2504,23 +2410,23 @@ public class PhoneProfilesService extends Service
                                 PreferenceAllowed.PREFERENCE_ALLOWED;
                 }
                 if (allowed) {
-                    if (bluetoothScanReceiver == null) {
+                    if (PPApplication.bluetoothScanReceiver == null) {
                         //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerBluetoothScannerReceivers->REGISTER bluetoothLEScanReceiver", "PhoneProfilesService_registerBluetoothScannerReceivers");
-                        //PPApplication.logE("[RJS] PhoneProfilesService.registerBluetoothScannerReceivers", "REGISTER bluetoothScanReceiver");
-                        bluetoothScanReceiver = new BluetoothScanBroadcastReceiver();
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerBluetoothScannerReceivers", "REGISTER bluetoothScanReceiver");
+                        PPApplication.bluetoothScanReceiver = new BluetoothScanBroadcastReceiver();
                         IntentFilter intentFilter14 = new IntentFilter();
                         intentFilter14.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
                         intentFilter14.addAction(BluetoothDevice.ACTION_FOUND);
                         intentFilter14.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
-                        appContext.registerReceiver(bluetoothScanReceiver, intentFilter14);
+                        appContext.registerReceiver(PPApplication.bluetoothScanReceiver, intentFilter14);
                     }
                     //else
                     //    PPApplication.logE("[RJS] PhoneProfilesService.registerBluetoothScannerReceivers", "registered bluetoothLEScanReceiver");
-                    if (bluetoothLEScanReceiver == null) {
+                    if (PPApplication.bluetoothLEScanReceiver == null) {
                         //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerBluetoothScannerReceivers->REGISTER bluetoothLEScanReceiver", "PhoneProfilesService_registerBluetoothScannerReceivers");
-                        //PPApplication.logE("[RJS] PhoneProfilesService.registerBluetoothScannerReceivers", "REGISTER bluetoothLEScanReceiver");
-                        bluetoothLEScanReceiver = new BluetoothLEScanBroadcastReceiver();
-                        LocalBroadcastManager.getInstance(appContext).registerReceiver(bluetoothLEScanReceiver,
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerBluetoothScannerReceivers", "REGISTER bluetoothLEScanReceiver");
+                        PPApplication.bluetoothLEScanReceiver = new BluetoothLEScanBroadcastReceiver();
+                        LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.bluetoothLEScanReceiver,
                                 new IntentFilter(PPApplication.PACKAGE_NAME + ".BluetoothLEScanBroadcastReceiver"));
                     }
                     //else
@@ -2539,14 +2445,14 @@ public class PhoneProfilesService extends Service
         if (!forceRegister && WifiSSIDPreferenceX.forceRegister)
             return;
         if (!register) {
-            if (wifiAPStateChangeBroadcastReceiver != null) {
+            if (PPApplication.wifiAPStateChangeBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerWifiAPStateChangeBroadcastReceiver->UNREGISTER", "PhoneProfilesService_registerWifiAPStateChangeBroadcastReceiver");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerWifiAPStateChangeBroadcastReceiver", "UNREGISTER");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerWifiAPStateChangeBroadcastReceiver", "UNREGISTER");
                 try {
-                    appContext.unregisterReceiver(wifiAPStateChangeBroadcastReceiver);
-                    wifiAPStateChangeBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.wifiAPStateChangeBroadcastReceiver);
+                    PPApplication.wifiAPStateChangeBroadcastReceiver = null;
                 } catch (Exception e) {
-                    wifiAPStateChangeBroadcastReceiver = null;
+                    PPApplication.wifiAPStateChangeBroadcastReceiver = null;
                 }
             }
             //else
@@ -2564,13 +2470,13 @@ public class PhoneProfilesService extends Service
                                 PreferenceAllowed.PREFERENCE_ALLOWED;
                 }
                 if (allowed) {
-                    if (wifiAPStateChangeBroadcastReceiver == null) {
+                    if (PPApplication.wifiAPStateChangeBroadcastReceiver == null) {
                         //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerWifiAPStateChangeBroadcastReceiver->REGISTER", "PhoneProfilesService_registerWifiAPStateChangeBroadcastReceiver");
-                        //PPApplication.logE("[RJS] PhoneProfilesService.registerWifiAPStateChangeBroadcastReceiver", "REGISTER wifiAPStateChangeBroadcastReceiver");
-                        wifiAPStateChangeBroadcastReceiver = new WifiAPStateChangeBroadcastReceiver();
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerWifiAPStateChangeBroadcastReceiver", "REGISTER wifiAPStateChangeBroadcastReceiver");
+                        PPApplication.wifiAPStateChangeBroadcastReceiver = new WifiAPStateChangeBroadcastReceiver();
                         IntentFilter intentFilter17 = new IntentFilter();
                         intentFilter17.addAction("android.net.wifi.WIFI_AP_STATE_CHANGED");
-                        appContext.registerReceiver(wifiAPStateChangeBroadcastReceiver, intentFilter17);
+                        appContext.registerReceiver(PPApplication.wifiAPStateChangeBroadcastReceiver, intentFilter17);
                     }
                     //else
                     //    PPApplication.logE("[RJS] PhoneProfilesService.registerWifiAPStateChangeBroadcastReceiver", "registered");
@@ -2588,14 +2494,14 @@ public class PhoneProfilesService extends Service
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerPowerSaveModeReceiver", "PhoneProfilesService_registerPowerSaveModeReceiver");
         //PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "xxx");
         if (!register) {
-            if (powerSaveModeReceiver != null) {
+            if (PPApplication.powerSaveModeReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerPowerSaveModeReceiver->UNREGISTER", "PhoneProfilesService_registerPowerSaveModeReceiver");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "UNREGISTER");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "UNREGISTER");
                 try {
-                    appContext.unregisterReceiver(powerSaveModeReceiver);
-                    powerSaveModeReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.powerSaveModeReceiver);
+                    PPApplication.powerSaveModeReceiver = null;
                 } catch (Exception e) {
-                    powerSaveModeReceiver = null;
+                    PPApplication.powerSaveModeReceiver = null;
                 }
             }
             //else
@@ -2641,13 +2547,13 @@ public class PhoneProfilesService extends Service
             }
             if (allowed) {
                 //if (android.os.Build.VERSION.SDK_INT >= 21) {
-                    if (powerSaveModeReceiver == null) {
+                    if (PPApplication.powerSaveModeReceiver == null) {
                         //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerPowerSaveModeReceiver->REGISTER", "PhoneProfilesService_registerPowerSaveModeReceiver");
-                        //PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "REGISTER powerSaveModeReceiver");
-                        powerSaveModeReceiver = new PowerSaveModeBroadcastReceiver();
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "REGISTER powerSaveModeReceiver");
+                        PPApplication.powerSaveModeReceiver = new PowerSaveModeBroadcastReceiver();
                         IntentFilter intentFilter10 = new IntentFilter();
                         intentFilter10.addAction(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED);
-                        appContext.registerReceiver(powerSaveModeReceiver, intentFilter10);
+                        appContext.registerReceiver(PPApplication.powerSaveModeReceiver, intentFilter10);
                     }
                     //else
                     //    PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "registered");
@@ -2738,14 +2644,14 @@ public class PhoneProfilesService extends Service
         if (!forceRegister && WifiSSIDPreferenceX.forceRegister)
             return;
         if (!register) {
-            if (wifiConnectionBroadcastReceiver != null) {
+            if (PPApplication.wifiConnectionBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerWifiConnectionBroadcastReceiver->UNREGISTER", "PhoneProfilesService_registerWifiConnectionBroadcastReceiver");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerWifiConnectionBroadcastReceiver", "UNREGISTER");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerWifiConnectionBroadcastReceiver", "UNREGISTER");
                 try {
-                    appContext.unregisterReceiver(wifiConnectionBroadcastReceiver);
-                    wifiConnectionBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.wifiConnectionBroadcastReceiver);
+                    PPApplication.wifiConnectionBroadcastReceiver = null;
                 } catch (Exception e) {
-                    wifiConnectionBroadcastReceiver = null;
+                    PPApplication.wifiConnectionBroadcastReceiver = null;
                 }
             }
             //else
@@ -2775,13 +2681,13 @@ public class PhoneProfilesService extends Service
                 }
             }
             if (profileAllowed || eventAllowed) {
-                if (wifiConnectionBroadcastReceiver == null) {
+                if (PPApplication.wifiConnectionBroadcastReceiver == null) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerWifiConnectionBroadcastReceiver->REGISTER", "PhoneProfilesService_registerWifiConnectionBroadcastReceiver");
-                    //PPApplication.logE("[RJS] PhoneProfilesService.registerWifiConnectionBroadcastReceiver", "REGISTER wifiConnectionBroadcastReceiver");
-                    wifiConnectionBroadcastReceiver = new WifiConnectionBroadcastReceiver();
+                    PPApplication.logE("[RJS] PhoneProfilesService.registerWifiConnectionBroadcastReceiver", "REGISTER wifiConnectionBroadcastReceiver");
+                    PPApplication.wifiConnectionBroadcastReceiver = new WifiConnectionBroadcastReceiver();
                     IntentFilter intentFilter13 = new IntentFilter();
                     intentFilter13.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
-                    appContext.registerReceiver(wifiConnectionBroadcastReceiver, intentFilter13);
+                    appContext.registerReceiver(PPApplication.wifiConnectionBroadcastReceiver, intentFilter13);
                 }
                 //else
                 //    PPApplication.logE("[RJS] PhoneProfilesService.registerWifiConnectionBroadcastReceiver", "registered");
@@ -2798,14 +2704,14 @@ public class PhoneProfilesService extends Service
         if (!forceRegister && WifiSSIDPreferenceX.forceRegister)
             return;
         if (!register) {
-            if (wifiScanReceiver != null) {
+            if (PPApplication.wifiScanReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerWifiScannerReceiver->UNREGISTER", "PhoneProfilesService_registerWifiScannerReceiver");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerWifiScannerReceiver", "UNREGISTER");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerWifiScannerReceiver", "UNREGISTER");
                 try {
-                    appContext.unregisterReceiver(wifiScanReceiver);
-                    wifiScanReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.wifiScanReceiver);
+                    PPApplication.wifiScanReceiver = null;
                 } catch (Exception e) {
-                    wifiScanReceiver = null;
+                    PPApplication.wifiScanReceiver = null;
                 }
             }
             //else
@@ -2826,13 +2732,13 @@ public class PhoneProfilesService extends Service
                 if (allowed) {
                     //}
                     //PPApplication.logE("[RJS] PhoneProfilesService.registerWifiScannerReceiver", "eventCount="+eventCount);
-                    if (wifiScanReceiver == null) {
+                    if (PPApplication.wifiScanReceiver == null) {
                         //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerWifiScannerReceiver->REGISTER", "PhoneProfilesService_registerWifiScannerReceiver");
-                        //PPApplication.logE("[RJS] PhoneProfilesService.registerWifiScannerReceiver", "REGISTER wifiScanReceiver");
-                        wifiScanReceiver = new WifiScanBroadcastReceiver();
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerWifiScannerReceiver", "REGISTER wifiScanReceiver");
+                        PPApplication.wifiScanReceiver = new WifiScanBroadcastReceiver();
                         IntentFilter intentFilter4 = new IntentFilter();
                         intentFilter4.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
-                        appContext.registerReceiver(wifiScanReceiver, intentFilter4);
+                        appContext.registerReceiver(PPApplication.wifiScanReceiver, intentFilter4);
                     }
                     //else
                     //    PPApplication.logE("[RJS] PhoneProfilesService.registerWifiScannerReceiver", "registered");
@@ -2848,14 +2754,14 @@ public class PhoneProfilesService extends Service
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForTimeSensor", "PhoneProfilesService_registerReceiverForTimeSensor");
         //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForTimeSensor", "xxx");
         if (!register) {
-            if (eventTimeBroadcastReceiver != null) {
+            if (PPApplication.eventTimeBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForTimeSensor->UNREGISTER", "PhoneProfilesService_registerReceiverForTimeSensor");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForTimeSensor", "UNREGISTER");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForTimeSensor", "UNREGISTER");
                 try {
-                    appContext.unregisterReceiver(eventTimeBroadcastReceiver);
-                    eventTimeBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.eventTimeBroadcastReceiver);
+                    PPApplication.eventTimeBroadcastReceiver = null;
                 } catch (Exception e) {
-                    eventTimeBroadcastReceiver = null;
+                    PPApplication.eventTimeBroadcastReceiver = null;
                 }
             }
             //else
@@ -2870,12 +2776,12 @@ public class PhoneProfilesService extends Service
                 allowed = Event.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, getApplicationContext()).allowed ==
                         PreferenceAllowed.PREFERENCE_ALLOWED;
             if (allowed) {
-                if (eventTimeBroadcastReceiver == null) {
+                if (PPApplication.eventTimeBroadcastReceiver == null) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForTimeSensor->REGISTER", "PhoneProfilesService_registerReceiverForTimeSensor");
-                    //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForTimeSensor", "REGISTER eventTimeBroadcastReceiver");
-                    eventTimeBroadcastReceiver = new EventTimeBroadcastReceiver();
+                    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForTimeSensor", "REGISTER eventTimeBroadcastReceiver");
+                    PPApplication.eventTimeBroadcastReceiver = new EventTimeBroadcastReceiver();
                     IntentFilter intentFilter23 = new IntentFilter(PhoneProfilesService.ACTION_EVENT_TIME_BROADCAST_RECEIVER);
-                    appContext.registerReceiver(eventTimeBroadcastReceiver, intentFilter23);
+                    appContext.registerReceiver(PPApplication.eventTimeBroadcastReceiver, intentFilter23);
                 }
                 //else
                 //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForTimeSensor", "registered");
@@ -2890,14 +2796,14 @@ public class PhoneProfilesService extends Service
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForNFCSensor", "PhoneProfilesService_registerReceiverForNFCSensor");
         //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForNFCSensor", "xxx");
         if (!register) {
-            if (nfcEventEndBroadcastReceiver != null) {
+            if (PPApplication.nfcEventEndBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForNFCSensor->UNREGISTER", "PhoneProfilesService_registerReceiverForNFCSensor");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForNFCSensor", "UNREGISTER");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForNFCSensor", "UNREGISTER");
                 try {
-                    appContext.unregisterReceiver(nfcEventEndBroadcastReceiver);
-                    nfcEventEndBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.nfcEventEndBroadcastReceiver);
+                    PPApplication.nfcEventEndBroadcastReceiver = null;
                 } catch (Exception e) {
-                    nfcEventEndBroadcastReceiver = null;
+                    PPApplication.nfcEventEndBroadcastReceiver = null;
                 }
             }
             //else
@@ -2912,12 +2818,12 @@ public class PhoneProfilesService extends Service
                 allowed = Event.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, getApplicationContext()).allowed ==
                         PreferenceAllowed.PREFERENCE_ALLOWED;
             if (allowed) {
-                if (nfcEventEndBroadcastReceiver == null) {
+                if (PPApplication.nfcEventEndBroadcastReceiver == null) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForNFCSensor->REGISTER", "PhoneProfilesService_registerReceiverForNFCSensor");
-                    //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForNFCSensor", "REGISTER nfcEventEndBroadcastReceiver");
-                    nfcEventEndBroadcastReceiver = new NFCEventEndBroadcastReceiver();
+                    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForNFCSensor", "REGISTER nfcEventEndBroadcastReceiver");
+                    PPApplication.nfcEventEndBroadcastReceiver = new NFCEventEndBroadcastReceiver();
                     IntentFilter intentFilter23 = new IntentFilter(PhoneProfilesService.ACTION_NFC_EVENT_END_BROADCAST_RECEIVER);
-                    appContext.registerReceiver(nfcEventEndBroadcastReceiver, intentFilter23);
+                    appContext.registerReceiver(PPApplication.nfcEventEndBroadcastReceiver, intentFilter23);
                 }
                 //else
                 //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForNFCSensor", "registered");
@@ -2932,14 +2838,14 @@ public class PhoneProfilesService extends Service
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForCallSensor", "PhoneProfilesService_registerReceiverForCallSensor");
         //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForCallSensor", "xxx");
         if (!register) {
-            if (missedCallEventEndBroadcastReceiver != null) {
+            if (PPApplication.missedCallEventEndBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForCallSensor->UNREGISTER", "PhoneProfilesService_registerReceiverForCallSensor");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForCallSensor", "UNREGISTER");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForCallSensor", "UNREGISTER");
                 try {
-                    appContext.unregisterReceiver(missedCallEventEndBroadcastReceiver);
-                    missedCallEventEndBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.missedCallEventEndBroadcastReceiver);
+                    PPApplication.missedCallEventEndBroadcastReceiver = null;
                 } catch (Exception e) {
-                    missedCallEventEndBroadcastReceiver = null;
+                    PPApplication.missedCallEventEndBroadcastReceiver = null;
                 }
             }
             //else
@@ -2954,12 +2860,12 @@ public class PhoneProfilesService extends Service
                 allowed = Event.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, getApplicationContext()).allowed ==
                         PreferenceAllowed.PREFERENCE_ALLOWED;
             if (allowed) {
-                if (missedCallEventEndBroadcastReceiver == null) {
+                if (PPApplication.missedCallEventEndBroadcastReceiver == null) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForCallSensor->REGISTER", "PhoneProfilesService_registerReceiverForCallSensor");
-                    //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForCallSensor", "REGISTER missedCallEventEndBroadcastReceiver");
-                    missedCallEventEndBroadcastReceiver = new MissedCallEventEndBroadcastReceiver();
+                    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForCallSensor", "REGISTER missedCallEventEndBroadcastReceiver");
+                    PPApplication.missedCallEventEndBroadcastReceiver = new MissedCallEventEndBroadcastReceiver();
                     IntentFilter intentFilter23 = new IntentFilter(PhoneProfilesService.ACTION_MISSED_CALL_EVENT_END_BROADCAST_RECEIVER);
-                    appContext.registerReceiver(missedCallEventEndBroadcastReceiver, intentFilter23);
+                    appContext.registerReceiver(PPApplication.missedCallEventEndBroadcastReceiver, intentFilter23);
                 }
                 //else
                 //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForCallSensor", "registered");
@@ -2974,14 +2880,14 @@ public class PhoneProfilesService extends Service
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerGeofencesScannerReceiver", "PhoneProfilesService_registerGeofencesScannerReceiver");
         //PPApplication.logE("[RJS] PhoneProfilesService.registerGeofencesScannerReceiver", "xxx");
         if (!register) {
-            if (geofencesScannerSwitchGPSBroadcastReceiver != null) {
+            if (PPApplication.geofencesScannerSwitchGPSBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerGeofencesScannerReceiver->UNREGISTER", "PhoneProfilesService_registerGeofencesScannerReceiver");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerGeofencesScannerReceiver", "UNREGISTER");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerGeofencesScannerReceiver", "UNREGISTER");
                 try {
-                    appContext.unregisterReceiver(geofencesScannerSwitchGPSBroadcastReceiver);
-                    geofencesScannerSwitchGPSBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.geofencesScannerSwitchGPSBroadcastReceiver);
+                    PPApplication.geofencesScannerSwitchGPSBroadcastReceiver = null;
                 } catch (Exception e) {
-                    geofencesScannerSwitchGPSBroadcastReceiver = null;
+                    PPApplication.geofencesScannerSwitchGPSBroadcastReceiver = null;
                 }
             }
             //else
@@ -3001,12 +2907,12 @@ public class PhoneProfilesService extends Service
                 }
                 if (allowed) {
                     //PPApplication.logE("[RJS] PhoneProfilesService.registerGeofencesScannerReceiver", "eventCount="+eventCount);
-                    if (geofencesScannerSwitchGPSBroadcastReceiver == null) {
+                    if (PPApplication.geofencesScannerSwitchGPSBroadcastReceiver == null) {
                         //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerGeofencesScannerReceiver->REGISTER", "PhoneProfilesService_registerGeofencesScannerReceiver");
-                        //PPApplication.logE("[RJS] PhoneProfilesService.registerGeofencesScannerReceiver", "REGISTER geofencesScannerSwitchGPSBroadcastReceiver");
-                        geofencesScannerSwitchGPSBroadcastReceiver = new GeofencesScannerSwitchGPSBroadcastReceiver();
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerGeofencesScannerReceiver", "REGISTER geofencesScannerSwitchGPSBroadcastReceiver");
+                        PPApplication.geofencesScannerSwitchGPSBroadcastReceiver = new GeofencesScannerSwitchGPSBroadcastReceiver();
                         IntentFilter intentFilter4 = new IntentFilter(PhoneProfilesService.ACTION_GEOFENCES_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER);
-                        appContext.registerReceiver(geofencesScannerSwitchGPSBroadcastReceiver, intentFilter4);
+                        appContext.registerReceiver(PPApplication.geofencesScannerSwitchGPSBroadcastReceiver, intentFilter4);
                     }
                     //else
                     //    PPApplication.logE("[RJS] PhoneProfilesService.registerGeofencesScannerReceiver", "registered");
@@ -3020,7 +2926,7 @@ public class PhoneProfilesService extends Service
     private void cancelWifiWorker(final Context context, boolean forSchedule) {
         if ((!forSchedule) || WifiScanWorker.isWorkScheduled(context)) {
             //CallsCounter.logCounterNoInc(context, "PhoneProfilesService.cancelWifiWorker->CANCEL", "PhoneProfilesService_cancelWifiWorker");
-            //PPApplication.logE("[RJS] PhoneProfilesService.cancelWifiWorker", "CANCEL");
+            PPApplication.logE("[RJS] PhoneProfilesService.cancelWifiWorker", "CANCEL");
             WifiScanWorker.cancelWork(context, true/*, null*/);
         }
         //else
@@ -3052,13 +2958,13 @@ public class PhoneProfilesService extends Service
             if (eventAllowed) {
                 if (!WifiScanWorker.isWorkScheduled(appContext)) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleWifiWorker->SCHEDULE", "PhoneProfilesService_scheduleWifiWorker");
-                    //PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiWorker", "SCHEDULE work");
+                    PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiWorker", "SCHEDULE work");
                     WifiScanWorker.scheduleWork(appContext, true, /*null,*/ true/*, forScreenOn, afterEnableWifi*/);
                 } else {
-                    //PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiWorker", "scheduled");
+                    PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiWorker", "scheduled");
                     if (rescan) {
-                        //PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiWorker", "rescan");
-                        cancelWifiWorker(appContext, true);
+                        PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiWorker", "rescan");
+                        WifiScanWorker.cancelWork(appContext, true/*, null*/);
                         WifiScanWorker.scheduleWork(appContext, true, /*null,*/ true/*, forScreenOn, afterEnableWifi*/);
                     }
                 }
@@ -3074,7 +2980,7 @@ public class PhoneProfilesService extends Service
     private void cancelBluetoothWorker(final Context context, boolean forSchedule) {
         if ((!forSchedule) || BluetoothScanWorker.isWorkScheduled(context)) {
             //CallsCounter.logCounterNoInc(context, "PhoneProfilesService.cancelBluetoothWorker->CANCEL", "PhoneProfilesService_cancelBluetoothWorker");
-            //PPApplication.logE("[RJS] PhoneProfilesService.cancelBluetoothWorker", "CANCEL");
+            PPApplication.logE("[RJS] PhoneProfilesService.cancelBluetoothWorker", "CANCEL");
             BluetoothScanWorker.cancelWork(context, true/*, null*/);
         }
         //else
@@ -3105,12 +3011,12 @@ public class PhoneProfilesService extends Service
             if (eventAllowed) {
                 if (!BluetoothScanWorker.isWorkScheduled(appContext)) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleBluetoothWorker->SCHEDULE", "PhoneProfilesService_scheduleBluetoothWorker");
-                    //PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothWorker", "SCHEDULE xxx");
+                    PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothWorker", "SCHEDULE xxx");
                     BluetoothScanWorker.scheduleWork(appContext, true, /*null,*/ true/*, forScreenOn*/);
                 } else {
-                    //PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothWorker", "scheduled");
+                    PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothWorker", "scheduled");
                     //if (rescan) {
-                    cancelBluetoothWorker(appContext, true);
+                    BluetoothScanWorker.cancelWork(appContext, true/*, null*/);
                     BluetoothScanWorker.scheduleWork(appContext, true, /*null,*/ true/*, forScreenOn*/);
                     //}
                 }
@@ -3126,7 +3032,7 @@ public class PhoneProfilesService extends Service
     private void cancelGeofenceWorker(final Context context, boolean forSchedule) {
         if ((!forSchedule) || GeofenceScanWorker.isWorkScheduled(context)) {
             //CallsCounter.logCounterNoInc(context, "PhoneProfilesService.cancelGeofenceWorker->CANCEL", "PhoneProfilesService_cancelGeofenceWorker");
-            //PPApplication.logE("[RJS] PhoneProfilesService.cancelGeofenceWorker", "CANCEL");
+            PPApplication.logE("[RJS] PhoneProfilesService.cancelGeofenceWorker", "CANCEL");
             GeofenceScanWorker.cancelWork(context, true/*, null*/);
         }
         //else
@@ -3155,15 +3061,23 @@ public class PhoneProfilesService extends Service
                 // location scanner is enabled
                 if (!GeofenceScanWorker.isWorkScheduled(appContext)/* || rescan*/) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleGeofenceWorker->SCHEDULE", "PhoneProfilesService_scheduleGeofenceWorker");
-                    //PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceWorker", "SCHEDULE xxx");
+                    PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceWorker", "SCHEDULE xxx");
                     synchronized (PPApplication.geofenceScannerMutex) {
                         if (isGeofenceScannerStarted()) {
                             //PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceWorker", "updateTransitionsByLastKnownLocation");
                             getGeofencesScanner().updateTransitionsByLastKnownLocation(false);
                         }
                     }
+                    GeofenceScanWorker.scheduleWork(appContext, false, /*null,*/ true/*, forScreenOn*/);
+                } else {
                     //if (rescan)
-                    cancelGeofenceWorker(appContext, true);
+                    GeofenceScanWorker.cancelWork(appContext, true/*, null*/);
+                    synchronized (PPApplication.geofenceScannerMutex) {
+                        if (isGeofenceScannerStarted()) {
+                            //PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceWorker", "updateTransitionsByLastKnownLocation");
+                            getGeofencesScanner().updateTransitionsByLastKnownLocation(false);
+                        }
+                    }
                     GeofenceScanWorker.scheduleWork(appContext, false, /*null,*/ true/*, forScreenOn*/);
                 }
             } else
@@ -3178,7 +3092,7 @@ public class PhoneProfilesService extends Service
     private void cancelSearchCalendarEventsWorker(final Context context, boolean forSchedule) {
         if ((!forSchedule) || SearchCalendarEventsWorker.isWorkScheduled(context)) {
             //CallsCounter.logCounterNoInc(context, "PhoneProfilesService.cancelSearchCalendarEventsWorker->CANCEL", "PhoneProfilesService_cancelSearchCalendarEventsWorker");
-            //PPApplication.logE("[RJS] PhoneProfilesService.cancelSearchCalendarEventsWorker", "CANCEL");
+            PPApplication.logE("[RJS] PhoneProfilesService.cancelSearchCalendarEventsWorker", "CANCEL");
             SearchCalendarEventsWorker.cancelWork(context, true/*, null*/);
         }
         //else
@@ -3201,9 +3115,9 @@ public class PhoneProfilesService extends Service
         if (eventAllowed) {
             if (!SearchCalendarEventsWorker.isWorkScheduled(appContext)/* || rescan*/) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleSearchCalendarEventsWorker->SCHEDULE", "PhoneProfilesService_scheduleSearchCalendarEventsWorker");
-                //PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsWorker", "SCHEDULE xxx");
+                PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsWorker", "SCHEDULE xxx");
                 //if (rescan)
-                cancelSearchCalendarEventsWorker(appContext, true);
+                SearchCalendarEventsWorker.cancelWork(appContext, true/*, null*/);
                 SearchCalendarEventsWorker.scheduleWork(appContext, true, /*null,*/ true);
             }
             //else
@@ -3223,7 +3137,7 @@ public class PhoneProfilesService extends Service
             if (stop) {
                 if (isGeofenceScannerStarted()) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startGeofenceScanner->STOP", "PhoneProfilesService_startGeofenceScanner");
-                    //PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "STOP");
+                    PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "STOP");
                     stopGeofenceScanner();
                 }
                 //else
@@ -3245,7 +3159,7 @@ public class PhoneProfilesService extends Service
                     if (eventAllowed) {
                         if (!isGeofenceScannerStarted()) {
                             //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startGeofenceScanner->START", "PhoneProfilesService_startGeofenceScanner");
-                            //PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "START xxx");
+                            PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "START xxx");
                             if (forScreenOn && PPApplication.isScreenOn &&
                                     applicationEventLocationScanOnlyWhenScreenIsOn)
                                 startGeofenceScanner(true);
@@ -3271,7 +3185,7 @@ public class PhoneProfilesService extends Service
             if (stop) {
                 if (isPhoneStateScannerStarted()) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startPhoneStateScanner->STOP", "PhoneProfilesService_startPhoneStateScanner");
-                    //PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "STOP");
+                    PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "STOP");
                     stopPhoneStateScanner();
                 }
                 //else
@@ -3297,12 +3211,12 @@ public class PhoneProfilesService extends Service
                         }*/
                         if (!isPhoneStateScannerStarted()) {
                             //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startPhoneStateScanner->START", "PhoneProfilesService_startPhoneStateScanner");
-                            //PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "START xxx");
+                            PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "START xxx");
                             startPhoneStateScanner();
                         } else {
-                            //PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "started");
+                            PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "started");
                             if (rescan)
-                                phoneStateScanner.rescanMobileCells();
+                                PPApplication.phoneStateScanner.rescanMobileCells();
                         }
                     } else
                         startPhoneStateScanner(false, true, dataWrapper, forceStart, rescan);
@@ -3320,7 +3234,7 @@ public class PhoneProfilesService extends Service
             if (stop) {
                 if (isOrientationScannerStarted()) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startOrientationScanner->STOP", "PhoneProfilesService_startOrientationScanner");
-                    //PPApplication.logE("[RJS] PhoneProfilesService.startOrientationScanner", "STOP");
+                    PPApplication.logE("[RJS] PhoneProfilesService.startOrientationScanner", "STOP");
                     stopOrientationScanner();
                 }
                 //else
@@ -3341,7 +3255,7 @@ public class PhoneProfilesService extends Service
                     if (eventAllowed) {
                         if (!isOrientationScannerStarted()) {
                             //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startOrientationScanner->START", "PhoneProfilesService_startOrientationScanner");
-                            //PPApplication.logE("[RJS] PhoneProfilesService.startOrientationScanner", "START xxx");
+                            PPApplication.logE("[RJS] PhoneProfilesService.startOrientationScanner", "START xxx");
                             startOrientationScanner();
                         }
                         //else
@@ -3362,7 +3276,7 @@ public class PhoneProfilesService extends Service
             if (stop) {
                 if (isTwilightScannerStarted()) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startTwilightScanner->STOP", "PhoneProfilesService_startTwilightScanner");
-                    //PPApplication.logE("[RJS] PhoneProfilesService.startTwilightScanner", "STOP");
+                    PPApplication.logE("[RJS] PhoneProfilesService.startTwilightScanner", "STOP");
                     stopTwilightScanner();
                 }
                 //else
@@ -3374,7 +3288,7 @@ public class PhoneProfilesService extends Service
                 if (eventsExists) {
                     if (!isTwilightScannerStarted()) {
                         //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startTwilightScanner->START", "PhoneProfilesService_startTwilightScanner");
-                        //PPApplication.logE("[RJS] PhoneProfilesService.startTwilightScanner", "START xxx");
+                        PPApplication.logE("[RJS] PhoneProfilesService.startTwilightScanner", "START xxx");
                         startTwilightScanner();
                     }
                     //else
@@ -4017,10 +3931,10 @@ public class PhoneProfilesService extends Service
                             //isScreenOn = ((pm != null) && PPApplication.isScreenOn(pm));
 
                             boolean secureKeyguard;
-                            if (keyguardManager == null)
-                                keyguardManager = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
-                            if (keyguardManager != null) {
-                                secureKeyguard = keyguardManager.isKeyguardSecure();
+                            if (PPApplication.keyguardManager == null)
+                                PPApplication.keyguardManager = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
+                            if (PPApplication.keyguardManager != null) {
+                                secureKeyguard = PPApplication.keyguardManager.isKeyguardSecure();
                                 //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "secureKeyguard=" + secureKeyguard);
                                 if (!secureKeyguard) {
                                     //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "getLockScreenDisabled=" + ActivateProfileHelper.getLockScreenDisabled(appContext));
@@ -5338,9 +5252,9 @@ public class PhoneProfilesService extends Service
     private void disableKeyguard()
     {
         //PPApplication.logE("$$$ disableKeyguard","keyguardLock="+keyguardLock);
-        if ((keyguardLock != null) && Permissions.hasPermission(getApplicationContext(), Manifest.permission.DISABLE_KEYGUARD)) {
+        if ((PPApplication.keyguardLock != null) && Permissions.hasPermission(getApplicationContext(), Manifest.permission.DISABLE_KEYGUARD)) {
             try {
-                keyguardLock.disableKeyguard();
+                PPApplication.keyguardLock.disableKeyguard();
             } catch (Exception e) {
                 Log.e("PhoneProfilesService", Log.getStackTraceString(e));
                 //FirebaseCrashlytics.getInstance().recordException(e);
@@ -5352,9 +5266,9 @@ public class PhoneProfilesService extends Service
     private void reenableKeyguard()
     {
         //PPApplication.logE("$$$ reenableKeyguard","keyguardLock="+keyguardLock);
-        if ((keyguardLock != null) && Permissions.hasPermission(getApplicationContext(), Manifest.permission.DISABLE_KEYGUARD)) {
+        if ((PPApplication.keyguardLock != null) && Permissions.hasPermission(getApplicationContext(), Manifest.permission.DISABLE_KEYGUARD)) {
             try {
-                keyguardLock.reenableKeyguard();
+                PPApplication.keyguardLock.reenableKeyguard();
             } catch (Exception e) {
                 Log.e("PhoneProfilesService", Log.getStackTraceString(e));
                 //FirebaseCrashlytics.getInstance().recordException(e);
@@ -5399,35 +5313,35 @@ public class PhoneProfilesService extends Service
 
     private void startGeofenceScanner(boolean resetUseGPS) {
         //PPApplication.logE("PhoneProfilesService.startGeofenceScanner", "xxx");
-        if (geofencesScanner != null) {
-            geofencesScanner.disconnect();
-            geofencesScanner = null;
+        if (PPApplication.geofencesScanner != null) {
+            PPApplication.geofencesScanner.disconnect();
+            PPApplication.geofencesScanner = null;
         }
 
-        geofencesScanner = new GeofencesScanner(getApplicationContext());
+        PPApplication.geofencesScanner = new GeofencesScanner(getApplicationContext());
         //PPApplication.logE("PhoneProfilesService.startGeofenceScanner", "geofencesScanner="+geofencesScanner);
         /*if (instance != null) {
             PPApplication.logE("PhoneProfilesService.startGeofenceScanner", "instance==this? " + (instance == this));
             PPApplication.logE("PhoneProfilesService.startGeofenceScanner", "PhoneProfilesService.isGeofenceScannerStarted()=" + PhoneProfilesService.getInstance().isGeofenceScannerStarted());
             PPApplication.logE("PhoneProfilesService.startGeofenceScanner", "PhoneProfilesService.getGeofencesScanner()=" + PhoneProfilesService.getInstance().getGeofencesScanner());
         }*/
-        geofencesScanner.connect(resetUseGPS);
+        PPApplication.geofencesScanner.connect(resetUseGPS);
     }
 
     private void stopGeofenceScanner() {
         //PPApplication.logE("PhoneProfilesService.stopGeofenceScanner", "xxx");
-        if (geofencesScanner != null) {
-            geofencesScanner.disconnect();
-            geofencesScanner = null;
+        if (PPApplication.geofencesScanner != null) {
+            PPApplication.geofencesScanner.disconnect();
+            PPApplication.geofencesScanner = null;
         }
     }
 
     boolean isGeofenceScannerStarted() {
-        return (geofencesScanner != null);
+        return (PPApplication.geofencesScanner != null);
     }
 
     GeofencesScanner getGeofencesScanner() {
-        return geofencesScanner;
+        return PPApplication.geofencesScanner;
     }
 
     //--------------------------------------------------------------------------
@@ -5435,29 +5349,29 @@ public class PhoneProfilesService extends Service
     // Phone state ----------------------------------------------------------------
 
     private void startPhoneStateScanner() {
-        if (phoneStateScanner != null) {
-            phoneStateScanner.disconnect();
-            phoneStateScanner = null;
+        if (PPApplication.phoneStateScanner != null) {
+            PPApplication.phoneStateScanner.disconnect();
+            PPApplication.phoneStateScanner = null;
         }
 
-        phoneStateScanner = new PhoneStateScanner(getApplicationContext());
-        phoneStateScanner.connect();
+        PPApplication.phoneStateScanner = new PhoneStateScanner(getApplicationContext());
+        PPApplication.phoneStateScanner.connect();
     }
 
     private void stopPhoneStateScanner() {
-        if (phoneStateScanner != null) {
-            phoneStateScanner.disconnect();
-            phoneStateScanner = null;
+        if (PPApplication.phoneStateScanner != null) {
+            PPApplication.phoneStateScanner.disconnect();
+            PPApplication.phoneStateScanner = null;
         }
     }
 
     boolean isPhoneStateScannerStarted() {
-        return (phoneStateScanner != null);
+        return (PPApplication.phoneStateScanner != null);
     }
 
 
     PhoneStateScanner getPhoneStateScanner() {
-        return phoneStateScanner;
+        return PPApplication.phoneStateScanner;
     }
 
     //--------------------------------------------------------------------------
@@ -5465,7 +5379,7 @@ public class PhoneProfilesService extends Service
     // Device orientation ----------------------------------------------------------------
 
     private void startOrientationScanner() {
-        if (mStartedOrientationSensors)
+        if (PPApplication.mStartedOrientationSensors)
             stopListeningOrientationSensors();
 
         startListeningOrientationSensors();
@@ -5476,14 +5390,14 @@ public class PhoneProfilesService extends Service
     }
 
     boolean isOrientationScannerStarted() {
-        return mStartedOrientationSensors;
+        return PPApplication.mStartedOrientationSensors;
     }
 
     @SuppressLint("NewApi")
     private void startListeningOrientationSensors() {
         //PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors", "mStartedOrientationSensors="+mStartedOrientationSensors);
-        if (!mStartedOrientationSensors) {
-            orientationScanner = new OrientationScanner();
+        if (!PPApplication.mStartedOrientationSensors) {
+            PPApplication.orientationScanner = new OrientationScanner();
             PPApplication.startHandlerThreadOrientationScanner();
             Handler handler = new Handler(PPApplication.handlerThreadOrientationScanner.getLooper());
             //PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors", "orientationScanner="+orientationScanner);
@@ -5507,36 +5421,36 @@ public class PhoneProfilesService extends Service
 
             if (PPApplication.accelerometerSensor != null) {
                 if (PPApplication.accelerometerSensor.getFifoMaxEventCount() > 0)
-                    PPApplication.sensorManager.registerListener(orientationScanner, PPApplication.accelerometerSensor, 200000 * interval, 1000000 * interval, handler);
+                    PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.accelerometerSensor, 200000 * interval, 1000000 * interval, handler);
                 else
-                    PPApplication.sensorManager.registerListener(orientationScanner, PPApplication.accelerometerSensor, 1000000 * interval, handler);
+                    PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.accelerometerSensor, 1000000 * interval, handler);
             }
             if (PPApplication.magneticFieldSensor != null) {
                 if (PPApplication.magneticFieldSensor.getFifoMaxEventCount() > 0)
-                    PPApplication.sensorManager.registerListener(orientationScanner, PPApplication.magneticFieldSensor, 200000 * interval, 1000000 * interval, handler);
+                    PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.magneticFieldSensor, 200000 * interval, 1000000 * interval, handler);
                 else
-                    PPApplication.sensorManager.registerListener(orientationScanner, PPApplication.magneticFieldSensor, 1000000 * interval, handler);
+                    PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.magneticFieldSensor, 1000000 * interval, handler);
             }
 
             if (PPApplication.lightSensor != null) {
                 PPApplication.handlerThreadOrientationScanner.mMaxLightDistance = PPApplication.lightSensor.getMaximumRange();
                 if (PPApplication.lightSensor.getFifoMaxEventCount() > 0)
-                    PPApplication.sensorManager.registerListener(orientationScanner, PPApplication.lightSensor, 200000 * interval, 1000000 * interval, handler);
+                    PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.lightSensor, 200000 * interval, 1000000 * interval, handler);
                 else
-                    PPApplication.sensorManager.registerListener(orientationScanner, PPApplication.lightSensor, 1000000 * interval, handler);
+                    PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.lightSensor, 1000000 * interval, handler);
             }
 
             if (PPApplication.proximitySensor != null) {
                 PPApplication.handlerThreadOrientationScanner.mMaxProximityDistance = PPApplication.proximitySensor.getMaximumRange();
                 if (PPApplication.proximitySensor.getFifoMaxEventCount() > 0)
-                    PPApplication.sensorManager.registerListener(orientationScanner, PPApplication.proximitySensor, 200000 * interval, 1000000 * interval, handler);
+                    PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.proximitySensor, 200000 * interval, 1000000 * interval, handler);
                 else
-                    PPApplication.sensorManager.registerListener(orientationScanner, PPApplication.proximitySensor, 1000000 * interval, handler);
+                    PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.proximitySensor, 1000000 * interval, handler);
             }
 
             //Sensor orientation = PPApplication.getOrientationSensor(this);
             //PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","orientation="+orientation);
-            mStartedOrientationSensors = true;
+            PPApplication.mStartedOrientationSensors = true;
 
             PPApplication.handlerThreadOrientationScanner.mDisplayUp = OrientationScannerHandlerThread.DEVICE_ORIENTATION_UNKNOWN;
             PPApplication.handlerThreadOrientationScanner.mSideUp = OrientationScannerHandlerThread.DEVICE_ORIENTATION_UNKNOWN;
@@ -5554,12 +5468,12 @@ public class PhoneProfilesService extends Service
     private void stopListeningOrientationSensors() {
         //PPApplication.logE("PhoneProfilesService.stopListeningOrientationSensors", "PPApplication.sensorManager="+PPApplication.sensorManager);
         if (PPApplication.sensorManager != null) {
-            PPApplication.sensorManager.unregisterListener(orientationScanner);
+            PPApplication.sensorManager.unregisterListener(PPApplication.orientationScanner);
             removeOrientationSensorAlarm(getApplicationContext());
-            orientationScanner = null;
+            PPApplication.orientationScanner = null;
             //PPApplication.sensorManager = null;
         }
-        mStartedOrientationSensors = false;
+        PPApplication.mStartedOrientationSensors = false;
     }
 
     /*
@@ -5709,29 +5623,29 @@ public class PhoneProfilesService extends Service
     // Twilight scanner ----------------------------------------------------------------
 
     private void startTwilightScanner() {
-        if (twilightScanner != null) {
-            twilightScanner.stop();
-            twilightScanner = null;
+        if (PPApplication.twilightScanner != null) {
+            PPApplication.twilightScanner.stop();
+            PPApplication.twilightScanner = null;
         }
 
-        twilightScanner = new TwilightScanner(getApplicationContext());
-        twilightScanner.start();
+        PPApplication.twilightScanner = new TwilightScanner(getApplicationContext());
+        PPApplication.twilightScanner.start();
     }
 
     private void stopTwilightScanner() {
-        if (twilightScanner != null) {
-            twilightScanner.stop();
-            twilightScanner = null;
+        if (PPApplication.twilightScanner != null) {
+            PPApplication.twilightScanner.stop();
+            PPApplication.twilightScanner = null;
         }
     }
 
     private boolean isTwilightScannerStarted() {
-        return (twilightScanner != null);
+        return (PPApplication.twilightScanner != null);
     }
 
 
     TwilightScanner getTwilightScanner() {
-        return twilightScanner;
+        return PPApplication.twilightScanner;
     }
 
     //---------------------------

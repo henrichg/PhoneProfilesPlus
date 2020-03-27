@@ -92,7 +92,7 @@ dependencies {
     //    exclude group: 'com.android.support', module:'support-v4'
     //}
 
-    implementation 'com.android.billingclient:billing:2.2.0'
+    implementation 'com.android.billingclient:billing:2.1.0'
     implementation 'com.google.code.gson:gson:2.8.6'
 
 

@@ -28,8 +28,8 @@ public class LockDeviceActivity extends AppCompatActivity {
         if (android.os.Build.VERSION.SDK_INT >= 23)
             canWriteSettings = Settings.System.canWrite(getApplicationContext());
 
-        if ((PhoneProfilesService.getInstance() != null) && canWriteSettings) {
-            PhoneProfilesService.getInstance().lockDeviceActivity = this;
+        if (/*(PhoneProfilesService.getInstance() != null) &&*/ canWriteSettings) {
+            PPApplication.lockDeviceActivity = this;
 
             /*
             View decorView = getWindow().getDecorView();
@@ -79,7 +79,7 @@ public class LockDeviceActivity extends AppCompatActivity {
             displayed = true;
             //PPApplication.logE("LockDeviceActivity.onCreate", "displayed=true");
 
-            PhoneProfilesService.getInstance().screenTimeoutBeforeDeviceLock = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
+            PPApplication.screenTimeoutBeforeDeviceLock = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
             //ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(getApplicationContext());
 
             Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1000);
@@ -115,9 +115,9 @@ public class LockDeviceActivity extends AppCompatActivity {
 
             LockDeviceActivityFinishBroadcastReceiver.removeAlarm(appContext);
 
-            PhoneProfilesService.getInstance().lockDeviceActivity = null;
+            PPApplication.lockDeviceActivity = null;
 
-            Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PhoneProfilesService.getInstance().screenTimeoutBeforeDeviceLock);
+            Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
 
             // change screen timeout
             //final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);

@@ -2733,41 +2733,41 @@ class ActivateProfileHelper {
         switch (screenTimeout) {
             case 1:
                 //removeScreenTimeoutAlwaysOnView(context);
-                if ((PhoneProfilesService.getInstance() != null) && (PhoneProfilesService.getInstance().lockDeviceActivity != null))
+                if (/*(PhoneProfilesService.getInstance() != null) &&*/ (PPApplication.lockDeviceActivity != null))
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PhoneProfilesService.getInstance().screenTimeoutBeforeDeviceLock = 15000;
+                    PPApplication.screenTimeoutBeforeDeviceLock = 15000;
                 else
                     Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
                 break;
             case 2:
                 //removeScreenTimeoutAlwaysOnView(context);
-                if ((PhoneProfilesService.getInstance() != null) && (PhoneProfilesService.getInstance().lockDeviceActivity != null))
+                if (/*(PhoneProfilesService.getInstance() != null) &&*/ (PPApplication.lockDeviceActivity != null))
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PhoneProfilesService.getInstance().screenTimeoutBeforeDeviceLock = 30000;
+                    PPApplication.screenTimeoutBeforeDeviceLock = 30000;
                 else
                     Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 30000);
                 break;
             case 3:
                 //removeScreenTimeoutAlwaysOnView(context);
-                if ((PhoneProfilesService.getInstance() != null) && (PhoneProfilesService.getInstance().lockDeviceActivity != null))
+                if (/*(PhoneProfilesService.getInstance() != null) &&*/ (PPApplication.lockDeviceActivity != null))
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PhoneProfilesService.getInstance().screenTimeoutBeforeDeviceLock = 60000;
+                    PPApplication.screenTimeoutBeforeDeviceLock = 60000;
                 else
                     Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 60000);
                 break;
             case 4:
                 //removeScreenTimeoutAlwaysOnView(context);
-                if ((PhoneProfilesService.getInstance() != null) && (PhoneProfilesService.getInstance().lockDeviceActivity != null))
+                if (/*(PhoneProfilesService.getInstance() != null) &&*/ (PPApplication.lockDeviceActivity != null))
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PhoneProfilesService.getInstance().screenTimeoutBeforeDeviceLock = 120000;
+                    PPApplication.screenTimeoutBeforeDeviceLock = 120000;
                 else
                     Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 120000);
                 break;
             case 5:
                 //removeScreenTimeoutAlwaysOnView(context);
-                if ((PhoneProfilesService.getInstance() != null) && (PhoneProfilesService.getInstance().lockDeviceActivity != null))
+                if (/*(PhoneProfilesService.getInstance() != null) &&*/ (PPApplication.lockDeviceActivity != null))
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PhoneProfilesService.getInstance().screenTimeoutBeforeDeviceLock = 600000;
+                    PPApplication.screenTimeoutBeforeDeviceLock = 600000;
                 else
                     Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 600000);
                 break;
@@ -2785,9 +2785,9 @@ class ActivateProfileHelper {
                 break;*/
             case 7:
                 //removeScreenTimeoutAlwaysOnView(context);
-                if ((PhoneProfilesService.getInstance() != null) && (PhoneProfilesService.getInstance().lockDeviceActivity != null))
+                if (/*(PhoneProfilesService.getInstance() != null) &&*/ (PPApplication.lockDeviceActivity != null))
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PhoneProfilesService.getInstance().screenTimeoutBeforeDeviceLock = 300000;
+                    PPApplication.screenTimeoutBeforeDeviceLock = 300000;
                 else
                     Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 300000);
                 break;
@@ -2801,9 +2801,9 @@ class ActivateProfileHelper {
                 break;*/
             case 9:
                 //removeScreenTimeoutAlwaysOnView(context);
-                if ((PhoneProfilesService.getInstance() != null) && (PhoneProfilesService.getInstance().lockDeviceActivity != null))
+                if (/*(PhoneProfilesService.getInstance() != null) &&*/ (PPApplication.lockDeviceActivity != null))
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PhoneProfilesService.getInstance().screenTimeoutBeforeDeviceLock = 1800000;
+                    PPApplication.screenTimeoutBeforeDeviceLock = 1800000;
                 else
                     Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1800000);
                 break;
@@ -4115,7 +4115,7 @@ class ActivateProfileHelper {
                     switch (profile._lockDevice) {
                         case 1:
                             if (PhoneProfilesService.getInstance() != null) {
-                                if (Permissions.checkLockDevice(context) && (PhoneProfilesService.getInstance().lockDeviceActivity == null)) {
+                                if (Permissions.checkLockDevice(context) && (PPApplication.lockDeviceActivity == null)) {
                                     try {
                                         Intent intent = new Intent(context, LockDeviceActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

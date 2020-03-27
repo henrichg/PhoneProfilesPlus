@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
+import android.app.KeyguardManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -72,7 +73,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && DebugVersion.enabled;
     private static final boolean rootToolsDebug = false;
@@ -115,7 +116,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|WifiBluetoothScanner.enableWifi"
                                                 //+"|WifiScanWorker.fillScanResults"
 
-                                                //+"|[RJS] "
+                                                +"|[RJS] "
                                                 //+"|BluetoothScanWorker._scheduleWork"
                                                 //+"|GeofenceScanWorker._scheduleWork"
                                                 //+"|SearchCalendarEventsWorker._scheduleWork"
@@ -318,7 +319,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
                                                 //+"|"+CallsCounter.LOG_TAG
                                                 //+"|[RJS] PPApplication"
-                                                +"|[RJS] PhoneProfilesService"
+                                                //+"|[RJS] PhoneProfilesService"
 
                                                 //+"|ActivateProfileHelper.setAirplaneMode_SDK17"
                                                 //+"|ActivateProfileHelper.executeForRadios"
@@ -890,11 +891,98 @@ public class PPApplication extends Application /*implements Application.Activity
     //public static long lastUptimeTime;
     //public static long lastEpochTime;
 
+    static KeyguardManager keyguardManager = null;
+    @SuppressWarnings("deprecation")
+    static KeyguardManager.KeyguardLock keyguardLock = null;
+
+    //BrightnessView brightnessView = null;
+    //BrightnessView screenTimeoutAlwaysOnView = null;
+    //BrightnessView keepScreenOnView = null;
+
+    static LockDeviceActivity lockDeviceActivity = null;
+    static int screenTimeoutBeforeDeviceLock = 0;
+
+    //boolean willBeDoRestartEvents = false;
+
+    static StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = new StartLauncherFromNotificationReceiver();
+    static UpdateGUIBroadcastReceiver updateGUIBroadcastReceiver = new UpdateGUIBroadcastReceiver();
+    static ShowProfileNotificationBroadcastReceiver showProfileNotificationBroadcastReceiver = new ShowProfileNotificationBroadcastReceiver();
+    static RefreshActivitiesBroadcastReceiver refreshActivitiesBroadcastReceiver = new RefreshActivitiesBroadcastReceiver();
+    static DashClockBroadcastReceiver dashClockBroadcastReceiver = new DashClockBroadcastReceiver();
+
+    static TimeChangedReceiver timeChangedReceiver = null;
+    static PermissionsNotificationDeletedReceiver permissionsNotificationDeletedReceiver = null;
+    static StartEventNotificationDeletedReceiver startEventNotificationDeletedReceiver = null;
+    static NotUsedMobileCellsNotificationDeletedReceiver notUsedMobileCellsNotificationDeletedReceiver = null;
+    static ShutdownBroadcastReceiver shutdownBroadcastReceiver = null;
+    static ScreenOnOffBroadcastReceiver screenOnOffReceiver = null;
+    static InterruptionFilterChangedBroadcastReceiver interruptionFilterChangedReceiver = null;
+    static PhoneCallBroadcastReceiver phoneCallBroadcastReceiver = null;
+    static RingerModeChangeReceiver ringerModeChangeReceiver = null;
+    static WifiStateChangedBroadcastReceiver wifiStateChangedBroadcastReceiver = null;
+    static NotUsedMobileCellsNotificationDisableReceiver notUsedMobileCellsNotificationDisableReceiver = null;
+    static DonationBroadcastReceiver donationBroadcastReceiver = null;
+    //static StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = null;
+    static IgnoreBatteryOptimizationDisableReceiver ignoreBatteryOptimizationDisableReceiver = null;
+
+    static BatteryBroadcastReceiver batteryEventReceiver = null;
+    static BatteryBroadcastReceiver batteryChangeLevelReceiver = null;
+    static HeadsetConnectionBroadcastReceiver headsetPlugReceiver = null;
+    static NFCStateChangedBroadcastReceiver nfcStateChangedBroadcastReceiver = null;
+    static DockConnectionBroadcastReceiver dockConnectionBroadcastReceiver = null;
+    static WifiConnectionBroadcastReceiver wifiConnectionBroadcastReceiver = null;
+    static BluetoothConnectionBroadcastReceiver bluetoothConnectionBroadcastReceiver = null;
+    static BluetoothStateChangedBroadcastReceiver bluetoothStateChangedBroadcastReceiver = null;
+    static WifiAPStateChangeBroadcastReceiver wifiAPStateChangeBroadcastReceiver = null;
+    static LocationModeChangedBroadcastReceiver locationModeChangedBroadcastReceiver = null;
+    static AirplaneModeStateChangedBroadcastReceiver airplaneModeStateChangedBroadcastReceiver = null;
+    //static SMSBroadcastReceiver smsBroadcastReceiver = null;
+    //static SMSBroadcastReceiver mmsBroadcastReceiver = null;
+    static CalendarProviderChangedBroadcastReceiver calendarProviderChangedBroadcastReceiver = null;
+    static WifiScanBroadcastReceiver wifiScanReceiver = null;
+    static BluetoothScanBroadcastReceiver bluetoothScanReceiver = null;
+    static BluetoothLEScanBroadcastReceiver bluetoothLEScanReceiver = null;
+    static PPPExtenderBroadcastReceiver pppExtenderBroadcastReceiver = null;
+    static PPPExtenderBroadcastReceiver pppExtenderForceStopApplicationBroadcastReceiver = null;
+    static PPPExtenderBroadcastReceiver pppExtenderForegroundApplicationBroadcastReceiver = null;
+    static PPPExtenderBroadcastReceiver pppExtenderSMSBroadcastReceiver = null;
+    static PPPExtenderBroadcastReceiver pppExtenderCallBroadcastReceiver = null;
+    static EventTimeBroadcastReceiver eventTimeBroadcastReceiver = null;
+    static EventCalendarBroadcastReceiver eventCalendarBroadcastReceiver = null;
+    static EventDelayStartBroadcastReceiver eventDelayStartBroadcastReceiver = null;
+    static EventDelayEndBroadcastReceiver eventDelayEndBroadcastReceiver = null;
+    static ProfileDurationAlarmBroadcastReceiver profileDurationAlarmBroadcastReceiver = null;
+    static SMSEventEndBroadcastReceiver smsEventEndBroadcastReceiver = null;
+    //static NotificationCancelAlarmBroadcastReceiver notificationCancelAlarmBroadcastReceiver = null;
+    static NFCEventEndBroadcastReceiver nfcEventEndBroadcastReceiver = null;
+    static RunApplicationWithDelayBroadcastReceiver runApplicationWithDelayBroadcastReceiver = null;
+    static MissedCallEventEndBroadcastReceiver missedCallEventEndBroadcastReceiver = null;
+    static StartEventNotificationBroadcastReceiver startEventNotificationBroadcastReceiver = null;
+    static GeofencesScannerSwitchGPSBroadcastReceiver geofencesScannerSwitchGPSBroadcastReceiver = null;
+    static LockDeviceActivityFinishBroadcastReceiver lockDeviceActivityFinishBroadcastReceiver = null;
+    static AlarmClockBroadcastReceiver alarmClockBroadcastReceiver = null;
+    static AlarmClockEventEndBroadcastReceiver alarmClockEventEndBroadcastReceiver = null;
+    static NotificationEventEndBroadcastReceiver notificationEventEndBroadcastReceiver = null;
+    static LockDeviceAfterScreenOffBroadcastReceiver lockDeviceAfterScreenOffBroadcastReceiver = null;
+    static OrientationEventBroadcastReceiver orientationEventBroadcastReceiver = null;
+    static PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
+    static DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
+
+    static SettingsContentObserver settingsContentObserver = null;
+    static MobileDataStateChangedContentObserver mobileDataStateChangedContentObserver = null;
+    static ContactsContentObserver contactsContentObserver = null;
+
     static SensorManager sensorManager = null;
     static Sensor accelerometerSensor = null;
     static Sensor magneticFieldSensor = null;
     static Sensor lightSensor = null;
     static Sensor proximitySensor = null;
+
+    static OrientationScanner orientationScanner = null;
+    static boolean mStartedOrientationSensors = false;
+    static GeofencesScanner geofencesScanner = null;
+    static PhoneStateScanner phoneStateScanner = null;
+    static TwilightScanner twilightScanner = null;
 
     public static boolean isScreenOn;
 

@@ -141,11 +141,11 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
 
     static void doWork() {
         //PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.doWork", "xxx");
-        if (PhoneProfilesService.getInstance() != null) {
-            if (PhoneProfilesService.getInstance().lockDeviceActivity != null) {
-                PhoneProfilesService.getInstance().lockDeviceActivity.finish();
+        //if (PhoneProfilesService.getInstance() != null) {
+            if (PPApplication.lockDeviceActivity != null) {
+                PPApplication.lockDeviceActivity.finish();
             }
-        }
+        //}
     }
 
 }
