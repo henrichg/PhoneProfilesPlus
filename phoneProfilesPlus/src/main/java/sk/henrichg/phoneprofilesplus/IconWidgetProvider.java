@@ -73,7 +73,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
                 //PPApplication.logE("IconWidgetProvider.onUpdate", "ApplicationPreferences.applicationWidgetIconColor="+ApplicationPreferences.applicationWidgetIconColor);
                 //PPApplication.logE("IconWidgetProvider.onUpdate", "ApplicationPreferences.applicationWidgetIconCustomIconLightness="+ApplicationPreferences.applicationWidgetIconCustomIconLightness);
-                DataWrapper dataWrapper = new DataWrapper(context,
+                DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(),
                         ApplicationPreferences.applicationWidgetIconColor.equals("1"),
                         monochromeValue,
                         ApplicationPreferences.applicationWidgetIconCustomIconLightness);

@@ -316,7 +316,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
     private Event createEvent(Context context, long event_id, int new_event_mode, int predefinedEventIndex,
                               boolean leaveSaveMenu) {
         Event event;
-        DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
+        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
 
         if (!leaveSaveMenu)
             showSaveMenu = false;

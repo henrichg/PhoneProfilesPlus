@@ -3246,6 +3246,8 @@ public class PPApplication extends Application /*implements Application.Activity
             //if (removeAlarmClock)
             //    ApplicationPreferences.forceNotUseAlarmClock = true;
 
+            PhoneProfilesService.cancelAllWorks(context);
+
             if (dataWrapper != null)
                 dataWrapper.stopAllEvents(false, false, false);
 
@@ -3296,16 +3298,14 @@ public class PPApplication extends Application /*implements Application.Activity
                         StartEventNotificationBroadcastReceiver.removeAlarm(event, context);
                 }
             }
-            ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
             Profile.setActivatedProfileForDuration(context, 0);
             GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(context);
             LockDeviceActivityFinishBroadcastReceiver.removeAlarm(context);
 
             PPApplication.logE("PPApplication._exitApp", "stop service");
-            // maybe fixes ANR Context.startForegroundService() did not then call Service.startForeground
             //PhoneProfilesService.getInstance().showProfileNotification(false);
             //context.stopService(new Intent(context, PhoneProfilesService.class));
-            PhoneProfilesService.stop(context);
+            PhoneProfilesService.stop(/*context*/);
             //if (PhoneProfilesService.getInstance() != null)
             //    PhoneProfilesService.getInstance().setApplicationFullyStarted(false, false);
 
@@ -3319,11 +3319,11 @@ public class PPApplication extends Application /*implements Application.Activity
             PPApplication.logE("PPApplication._exitApp", "set application started = false");
             PPApplication.setApplicationStarted(context, false);
 
-            //PPApplication.logE("ActivateProfileHelper.updateGUI", "from PPApplication._exitApp");
-            //ActivateProfileHelper.updateGUI(context, false, true);
-            PPApplication.forceUpdateGUI(context, false, true);
-
             if (!shutdown) {
+                //PPApplication.logE("ActivateProfileHelper.updateGUI", "from PPApplication._exitApp");
+                //ActivateProfileHelper.updateGUI(context, false, true);
+                PPApplication.forceUpdateGUI(context, false, true);
+
                 Handler _handler = new Handler(context.getMainLooper());
                 Runnable r = new Runnable() {
                     public void run() {

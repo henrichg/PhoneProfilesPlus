@@ -143,10 +143,10 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
     static public void removeAlarm(Profile profile, Context context)
     {
-        try {
-            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            if (alarmManager != null) {
-                if (profile != null) {
+        if (profile != null) {
+            try {
+                AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                if (alarmManager != null) {
                     //Intent intent = new Intent(_context, ProfileDurationAlarmBroadcastReceiver.class);
                     Intent intent = new Intent();
                     intent.setAction(PhoneProfilesService.ACTION_PROFILE_DURATION_BROADCAST_RECEIVER);
@@ -157,13 +157,12 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                         alarmManager.cancel(pendingIntent);
                         pendingIntent.cancel();
                     }
-                }
 
-                //this._isInDelay = false;
-                //dataWrapper.getDatabaseHandler().updateEventInDelay(this);
-            }
-        } catch (Exception ignored) {}
-        if (profile != null) {
+                    //this._isInDelay = false;
+                    //dataWrapper.getDatabaseHandler().updateEventInDelay(this);
+                }
+            } catch (Exception ignored) {}
+
             PhoneProfilesService.cancelWork("elapsedAlarmsProfileDurationWork_"+(int) profile._id, context.getApplicationContext());
             PPApplication.elapsedAlarmsProfileDurationWork.remove("elapsedAlarmsProfileDurationWork_"+(int) profile._id);
         }

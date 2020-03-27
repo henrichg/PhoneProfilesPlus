@@ -72,9 +72,9 @@ public class PPNotificationListenerService extends NotificationListenerService {
         if (sbn == null)
             return;
 
-        final Context context = getApplicationContext();
+        final Context appContext = getApplicationContext();
 
-        if (sbn.getPackageName().equals(context.getPackageName()))
+        if (sbn.getPackageName().equals(appContext.getPackageName()))
             return;
 
 //        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
@@ -124,7 +124,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
@@ -134,7 +134,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PPNotificationListenerService.onNotificationPosted");
 
-                        EventsHandler eventsHandler = new EventsHandler(context);
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
                         //eventsHandler.setEventNotificationParameters("posted");
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
 
@@ -161,9 +161,9 @@ public class PPNotificationListenerService extends NotificationListenerService {
         if (sbn == null)
             return;
 
-        final Context context = getApplicationContext();
+        final Context appContext = getApplicationContext();
 
-        if (sbn.getPackageName().equals(context.getPackageName()))
+        if (sbn.getPackageName().equals(appContext.getPackageName()))
             return;
 
         //PPApplication.logE("PPNotificationListenerService.onNotificationRemoved","packageName="+sbn.getPackageName());
@@ -182,7 +182,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
@@ -192,7 +192,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PPNotificationListenerService.onNotificationRemoved");
 
-                        EventsHandler eventsHandler = new EventsHandler(context);
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
                         //eventsHandler.setEventNotificationParameters("removed");
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
 

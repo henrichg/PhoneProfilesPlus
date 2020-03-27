@@ -70,7 +70,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
 
         if (dataWrapper == null)
         {
-            dataWrapper = new DataWrapper(context, ApplicationPreferences.applicationWidgetListIconColor.equals("1"),
+            dataWrapper = new DataWrapper(context.getApplicationContext(), ApplicationPreferences.applicationWidgetListIconColor.equals("1"),
                                             monochromeValue, ApplicationPreferences.applicationWidgetListCustomIconLightness);
         }
         else

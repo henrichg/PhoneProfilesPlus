@@ -77,7 +77,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         break;
                 }
 
-                DataWrapper dataWrapper = new DataWrapper(context,
+                DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(),
                         ApplicationPreferences.applicationWidgetOneRowIconColor.equals("1"), monochromeValue,
                         ApplicationPreferences.applicationWidgetOneRowCustomIconLightness);
 

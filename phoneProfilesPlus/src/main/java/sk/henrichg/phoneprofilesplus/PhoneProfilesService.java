@@ -78,7 +78,7 @@ public class PhoneProfilesService extends Service
     private boolean applicationFullyStarted = false;
 
     static final String ACTION_COMMAND = PPApplication.PACKAGE_NAME + ".PhoneProfilesService.ACTION_COMMAND";
-    private static final String ACTION_STOP = PPApplication.PACKAGE_NAME + ".PhoneProfilesService.ACTION_STOP_SERVICE";
+    //private static final String ACTION_STOP = PPApplication.PACKAGE_NAME + ".PhoneProfilesService.ACTION_STOP_SERVICE";
     static final String ACTION_START_LAUNCHER_FROM_NOTIFICATION = PPApplication.PACKAGE_NAME + ".PhoneProfilesService.ACTION_START_LAUNCHER_FROM_NOTIFICATION";
     static final String ACTION_EVENT_TIME_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".EventTimeBroadcastReceiver";
     static final String ACTION_EVENT_CALENDAR_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".EventCalendarBroadcastReceiver";
@@ -167,6 +167,7 @@ public class PhoneProfilesService extends Service
         }
     };
 
+    /*
     private final BroadcastReceiver stopReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -189,6 +190,7 @@ public class PhoneProfilesService extends Service
             }
         }
     };
+    */
 
     //--------------------------
 
@@ -225,7 +227,7 @@ public class PhoneProfilesService extends Service
 
         final Context appContext = getApplicationContext();
 
-        appContext.registerReceiver(stopReceiver, new IntentFilter(PhoneProfilesService.ACTION_STOP));
+        //appContext.registerReceiver(stopReceiver, new IntentFilter(PhoneProfilesService.ACTION_STOP));
         //LocalBroadcastManager.getInstance(this).registerReceiver(stopReceiver, new IntentFilter(ACTION_STOP));
         LocalBroadcastManager.getInstance(appContext).registerReceiver(commandReceiver, new IntentFilter(ACTION_COMMAND));
 
@@ -242,9 +244,8 @@ public class PhoneProfilesService extends Service
 
         PPApplication.logE("PhoneProfilesService.onCreate", "before show profile notification");
 
-        //if (Build.VERSION.SDK_INT >= 26)
         // show empty notification to avoid ANR in api level 26
-        PPApplication.showProfileNotification(true, true/*, false*/);
+        showProfileNotification(true, true/*, false*/);
 
         PPApplication.logE("PhoneProfilesService.onCreate", "after show profile notification");
 
@@ -367,16 +368,7 @@ public class PhoneProfilesService extends Service
         });*/
     }
 
-    @Override
-    public void onDestroy()
-    {
-        super.onDestroy();
-
-        PPApplication.logE("PhoneProfilesService.onDestroy", "xxx");
-
-        Context appContext = getApplicationContext();
-
-        // cancel works
+    static void cancelAllWorks(Context appContext) {
         cancelWork("elapsedAlarmsShowProfileNotificationWork", appContext);
         cancelWork("elapsedAlarmsUpdateGUIWork", appContext);
         for (String tag : PPApplication.elapsedAlarmsProfileDurationWork)
@@ -413,13 +405,26 @@ public class PhoneProfilesService extends Service
         cancelWork("handleEventsWifiScannerFromReceiverWork", appContext);
         cancelWork(WifiScanWorker.WORK_TAG, appContext);
         cancelWork("startWifiScanWork", appContext);
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+
+        PPApplication.logE("PhoneProfilesService.onDestroy", "xxx");
+
+        Context appContext = getApplicationContext();
+
+        // cancel works
+        cancelAllWorks(appContext);
 
         try {
             LocalBroadcastManager.getInstance(appContext).unregisterReceiver(commandReceiver);
         } catch (Exception ignored) {}
-        try {
+        /*try {
             appContext.unregisterReceiver(stopReceiver);
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {}*/
 
 
         stopSimulatingRingingCall(/*true*/);
@@ -428,17 +433,6 @@ public class PhoneProfilesService extends Service
         reenableKeyguard();
 
         unregisterReceiversAndWorkers();
-
-        try {
-            //if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBarPermanent(getApplicationContext()))
-                stopForeground(true);
-            /*else {
-                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                if (notificationManager != null)
-                    notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
-            }*/
-        } catch (Exception ignored) {
-        }
 
         try {
             appContext.unregisterReceiver(PPApplication.startLauncherFromNotificationReceiver);
@@ -468,6 +462,17 @@ public class PhoneProfilesService extends Service
         */
 
         PPApplication.initRoot();
+
+        try {
+            //if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBarPermanent(getApplicationContext()))
+            stopForeground(true);
+            /*else {
+                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                if (notificationManager != null)
+                    notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
+            }*/
+        } catch (Exception ignored) {
+        }
 
         synchronized (PPApplication.phoneProfilesServiceMutex) {
             instance = null;
@@ -504,13 +509,21 @@ public class PhoneProfilesService extends Service
         //}
     }
 
-    public static void stop(Context context) {
+    public static void stop(/*Context context*/) {
         if (instance != null) {
-            try {
+            /*try {
                 //noinspection deprecation
                 context.sendStickyBroadcast(new Intent(ACTION_STOP));
                 //context.sendBroadcast(new Intent(ACTION_STOP));
             } catch (Exception ignored) {
+            }*/
+            try {
+                instance.stopForeground(true);
+                instance.stopSelf();
+            } catch (Exception e) {
+                Log.e("PhoneProfilesService.stop", Log.getStackTraceString(e));
+                //FirebaseCrashlytics.getInstance().recordException(e);
+                Crashlytics.logException(e);
             }
         }
     }
@@ -911,6 +924,7 @@ public class PhoneProfilesService extends Service
                 PPApplication.shutdownBroadcastReceiver = new ShutdownBroadcastReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(Intent.ACTION_SHUTDOWN);
+                intentFilter5.addAction("android.intent.action.QUICKBOOT_POWEROFF");
                 appContext.registerReceiver(PPApplication.shutdownBroadcastReceiver, intentFilter5);
             }
             //else
