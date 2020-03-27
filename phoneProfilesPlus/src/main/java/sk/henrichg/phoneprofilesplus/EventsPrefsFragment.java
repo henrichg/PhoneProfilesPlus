@@ -1219,14 +1219,15 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     */
 
     static boolean isRedTextNotificationRequired(Event event, Context context) {
-        boolean enabledSomeSensor = event.isEnabledSomeSensor(context);
-        boolean grantedAllPermissions = Permissions.checkEventPermissions(context, event).size() == 0;
+        Context appContext = context.getApplicationContext();
+        boolean enabledSomeSensor = event.isEnabledSomeSensor(appContext);
+        boolean grantedAllPermissions = Permissions.checkEventPermissions(appContext, event).size() == 0;
         /*if (Build.VERSION.SDK_INT >= 29) {
             if (!Settings.canDrawOverlays(context))
                 grantedAllPermissions = false;
         }*/
-        boolean accessibilityEnabled =  event.isAccessibilityServiceEnabled(context, false) == 1;
-        boolean eventIsRunnable = event.isRunnable(context, false);
+        boolean accessibilityEnabled =  event.isAccessibilityServiceEnabled(appContext, false) == 1;
+        boolean eventIsRunnable = event.isRunnable(appContext, false);
 
         return (!enabledSomeSensor) || (!grantedAllPermissions) || (!accessibilityEnabled) || (!eventIsRunnable);
     }

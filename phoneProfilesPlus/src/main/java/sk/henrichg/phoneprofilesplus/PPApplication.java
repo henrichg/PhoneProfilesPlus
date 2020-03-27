@@ -3260,7 +3260,7 @@ public class PPApplication extends Application /*implements Application.Activity
                 Permissions.removeNotifications(context);
 
                 if (dataWrapper != null)
-                    addActivityLog(context, PPApplication.ALTYPE_APPLICATION_EXIT, null, null, null, 0, "");
+                    addActivityLog(dataWrapper.context, PPApplication.ALTYPE_APPLICATION_EXIT, null, null, null, 0, "");
 
                 /*if (PPApplication.brightnessHandler != null) {
                     PPApplication.brightnessHandler.post(new Runnable() {
