@@ -266,7 +266,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                     PPApplication.logE("[***] GeofenceScanner.updateGeofencesInDB", "PhoneProfilesService.isGeofenceScannerStarted()=" + PhoneProfilesService.getInstance().isGeofenceScannerStarted());
             }*/
 
-            List<Geofence> geofences = DatabaseHandler.getInstance(dataWrapper.context).getAllGeofences();
+            List<Geofence> geofences = DatabaseHandler.getInstance(context).getAllGeofences();
             //PPApplication.logE("[***] GeofenceScanner.updateGeofencesInDB", "geofences.size="+geofences.size());
 
             //boolean change = false;
@@ -290,7 +290,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 else
                     transitionType = com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_EXIT;
 
-                int savedTransition = DatabaseHandler.getInstance(dataWrapper.context).getGeofenceTransition(geofence._id);
+                int savedTransition = DatabaseHandler.getInstance(context).getGeofenceTransition(geofence._id);
 
                 if (savedTransition != transitionType) {
                     /*if (PPApplication.logEnabled()) {
@@ -310,7 +310,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                             PPApplication.logE("[***] GeofenceScanner.updateGeofencesInDB", "savedTransition=0");
                     }*/
 
-                    DatabaseHandler.getInstance(dataWrapper.context).updateGeofenceTransition(geofence._id, transitionType);
+                    DatabaseHandler.getInstance(context).updateGeofenceTransition(geofence._id, transitionType);
                     //change = true;
                 }
                 //else
@@ -323,7 +323,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
     void clearAllEventGeofences() {
         // clear all geofence transitions
-        DatabaseHandler.getInstance(dataWrapper.context).clearAllGeofenceTransitions();
+        DatabaseHandler.getInstance(context).clearAllGeofenceTransitions();
         mTransitionsUpdated = false;
     }
 
