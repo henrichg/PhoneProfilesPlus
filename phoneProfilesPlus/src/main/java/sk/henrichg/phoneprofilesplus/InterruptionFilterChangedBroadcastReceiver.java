@@ -26,18 +26,21 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
                     NotificationManager mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
                     if (mNotificationManager != null) {
                         int interruptionFilter = mNotificationManager.getCurrentInterruptionFilter();
+                        int ringerMode = audioManager.getRingerMode();
 
                         // convert to profile zenMode
                         int zenMode = 0;
                         switch (interruptionFilter) {
                             case NotificationManager.INTERRUPTION_FILTER_ALL:
-                                if (ActivateProfileHelper.vibrationIsOn(/*context.getApplicationContext(), */audioManager, true))
+                                //if (ActivateProfileHelper.vibrationIsOn(/*context.getApplicationContext(), */audioManager, true))
+                                if (ringerMode == AudioManager.RINGER_MODE_VIBRATE)
                                     zenMode = 4;
                                 else
                                     zenMode = 1;
                                 break;
                             case NotificationManager.INTERRUPTION_FILTER_PRIORITY:
-                                if (ActivateProfileHelper.vibrationIsOn(/*context.getApplicationContext(), */audioManager, true))
+                                //if (ActivateProfileHelper.vibrationIsOn(/*context.getApplicationContext(), */audioManager, true))
+                                if (ringerMode == AudioManager.RINGER_MODE_VIBRATE)
                                     zenMode = 5;
                                 else
                                     zenMode = 2;
@@ -74,15 +77,18 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
         if (mNotificationManager != null) {
             int interruptionFilter = mNotificationManager.getCurrentInterruptionFilter();
             //PPApplication.logE("InterruptionFilterChangedBroadcastReceiver.getZenMode", "interruptionFilter=" + interruptionFilter);
+            int ringerMode = audioManager.getRingerMode();
             switch (interruptionFilter) {
                 case NotificationManager.INTERRUPTION_FILTER_ALL:
-                    if (ActivateProfileHelper.vibrationIsOn(/*context, */audioManager, true))
+                    //if (ActivateProfileHelper.vibrationIsOn(/*context, */audioManager, true))
+                    if (ringerMode == AudioManager.RINGER_MODE_VIBRATE)
                         zenMode = 4;
                     else
                         zenMode = 1;
                     break;
                 case NotificationManager.INTERRUPTION_FILTER_PRIORITY:
-                    if (ActivateProfileHelper.vibrationIsOn(/*context, */audioManager, true))
+                    //if (ActivateProfileHelper.vibrationIsOn(/*context, */audioManager, true))
+                    if (ringerMode == AudioManager.RINGER_MODE_VIBRATE)
                         zenMode = 5;
                     else
                         zenMode = 2;

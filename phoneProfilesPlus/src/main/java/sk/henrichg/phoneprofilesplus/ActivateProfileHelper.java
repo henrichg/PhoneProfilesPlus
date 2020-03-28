@@ -1652,7 +1652,8 @@ class ActivateProfileHelper {
         return -1; //defaultValue;
     }
 
-    static boolean vibrationIsOn(/*Context context, */AudioManager audioManager, boolean testRingerMode) {
+    /*
+    static boolean vibrationIsOn(AudioManager audioManager, boolean testRingerMode) {
         int ringerMode = -999;
         if (testRingerMode)
             ringerMode = audioManager.getRingerMode();
@@ -1665,10 +1666,10 @@ class ActivateProfileHelper {
         //else
         //    vibrateWhenRinging = Settings.System.getInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0);
 
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("PPApplication.vibrationIsOn", "ringerMode=" + ringerMode);
-            PPApplication.logE("PPApplication.vibrationIsOn", "vibrateType=" + vibrateType);
-        }*/
+        //if (PPApplication.logEnabled()) {
+        //    PPApplication.logE("PPApplication.vibrationIsOn", "ringerMode=" + ringerMode);
+        //    PPApplication.logE("PPApplication.vibrationIsOn", "vibrateType=" + vibrateType);
+        //}
         //PPApplication.logE("PPApplication.vibrationIsOn", "vibrateWhenRinging="+vibrateWhenRinging);
 
         return (ringerMode == AudioManager.RINGER_MODE_VIBRATE) ||
@@ -1676,6 +1677,7 @@ class ActivateProfileHelper {
                 (vibrateType == AudioManager.VIBRATE_SETTING_ONLY_SILENT);// ||
         //(vibrateWhenRinging == 1);
     }
+    */
 
     private static void setRingerMode(Context context, Profile profile, AudioManager audioManager, /*boolean firstCall,*/ boolean forProfileActivation)
     {

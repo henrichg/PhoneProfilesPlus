@@ -62,7 +62,7 @@ class ProfileIconColorChooserDialogX implements View.OnClickListener {
         defaultColorLayout.getChildAt(0).setVisibility(preselect == -1 ? View.VISIBLE : View.GONE);
 
         Drawable selector = createSelector(defaultColor);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             int[][] states = new int[][]{
                     new int[]{-android.R.attr.state_pressed},
                     new int[]{android.R.attr.state_pressed}
@@ -73,9 +73,9 @@ class ProfileIconColorChooserDialogX implements View.OnClickListener {
             };
             ColorStateList rippleColors = new ColorStateList(states, colors);
             setBackgroundCompat(defaultColorLayout, new RippleDrawable(rippleColors, selector, null));
-        } else {
-            setBackgroundCompat(defaultColorLayout, selector);
-        }
+        //} else {
+        //    setBackgroundCompat(defaultColorLayout, selector);
+        //}
 
 
 
@@ -88,20 +88,20 @@ class ProfileIconColorChooserDialogX implements View.OnClickListener {
             child.getChildAt(0).setVisibility(preselect == i ? View.VISIBLE : View.GONE);
 
             selector = createSelector(mColors[i]);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                int[][] states = new int[][]{
+            //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                /*int[][]*/ states = new int[][]{
                         new int[]{-android.R.attr.state_pressed},
                         new int[]{android.R.attr.state_pressed}
                 };
-                int[] colors = new int[]{
+                /*int[]*/ colors = new int[]{
                         shiftColor(mColors[i]),
                         mColors[i]
                 };
-                ColorStateList rippleColors = new ColorStateList(states, colors);
+                /*ColorStateList*/ rippleColors = new ColorStateList(states, colors);
                 setBackgroundCompat(child, new RippleDrawable(rippleColors, selector, null));
-            } else {
-                setBackgroundCompat(child, selector);
-            }
+            //} else {
+            //    setBackgroundCompat(child, selector);
+            //}
         }
 
     }

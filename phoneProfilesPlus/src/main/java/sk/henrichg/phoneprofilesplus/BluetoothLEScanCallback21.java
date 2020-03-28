@@ -1,11 +1,9 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.TargetApi;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
 import android.content.Context;
-import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.util.Log;
@@ -15,7 +13,7 @@ import com.crashlytics.android.Crashlytics;
 import java.util.ArrayList;
 import java.util.List;
 
-@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+//@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 class BluetoothLEScanCallback21 extends ScanCallback {
 
     private final Context context;

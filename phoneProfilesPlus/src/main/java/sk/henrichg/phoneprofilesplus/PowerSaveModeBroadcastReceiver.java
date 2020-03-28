@@ -10,7 +10,7 @@ import android.os.PowerManager;
 
 public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    //@TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onReceive(Context context, Intent intent) {
         //PPApplication.logE("##### PowerSaveModeBroadcastReceiver.onReceive", "xxx");

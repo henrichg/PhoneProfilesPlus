@@ -51,7 +51,7 @@ public class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCom
             child.getChildAt(0).setVisibility(preselect == i ? View.VISIBLE : View.GONE);
 
             Drawable selector = preference.createSelector(preference.mColors[i]);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 int[][] states = new int[][]{
                         new int[]{-android.R.attr.state_pressed},
                         new int[]{android.R.attr.state_pressed}
@@ -62,9 +62,9 @@ public class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCom
                 };
                 ColorStateList rippleColors = new ColorStateList(states, colors);
                 preference.setBackgroundCompat(child, new RippleDrawable(rippleColors, selector, null));
-            } else {
-                preference.setBackgroundCompat(child, selector);
-            }
+            //} else {
+            //    preference.setBackgroundCompat(child, selector);
+            //}
         }
 
     }

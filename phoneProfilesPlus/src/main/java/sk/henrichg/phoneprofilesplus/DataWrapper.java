@@ -2815,49 +2815,53 @@ public class DataWrapper {
     static boolean isPowerSaveMode(Context context) {
         boolean isCharging = false;
         int batteryPct = -100;
-        boolean isPowerSaveMode = false;
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-            if (powerManager != null)
-                isPowerSaveMode = powerManager.isPowerSaveMode();
-        }
-
-        Intent batteryStatus = null;
-        try { // Huawei devices: java.lang.IllegalArgumentException: registered too many Broadcast Receivers
-            IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-            batteryStatus = context.registerReceiver(null, filter);
-        } catch (Exception ignored) {}
-        if (batteryStatus != null) {
-            //int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-            //PPApplication.logE("DataWrapper.isPowerSaveMode", "status=" + status);
-            int plugged = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0);
-            isCharging = plugged == BatteryManager.BATTERY_PLUGGED_AC
-                    || plugged == BatteryManager.BATTERY_PLUGGED_USB
-                    || plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS;
-            //isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
-            //             status == BatteryManager.BATTERY_STATUS_FULL;
-            //PPApplication.logE("DataWrapper.isPowerSaveMode", "isCharging=" + isCharging);
-
-            int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-            int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-            /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("DataWrapper.isPowerSaveMode", "level=" + level);
-                PPApplication.logE("DataWrapper.isPowerSaveMode", "scale=" + scale);
-            }*/
-
-            batteryPct = Math.round(level / (float) scale * 100);
-            //PPApplication.logE("DataWrapper.isPowerSaveMode", "batteryPct=" + batteryPct);
-        }
+        //boolean isPowerSaveMode = false;
 
         String applicationPowerSaveModeInternal = ApplicationPreferences.applicationPowerSaveModeInternal;
 
-        if (applicationPowerSaveModeInternal.equals("1") && (batteryPct <= 5) && (!isCharging))
-            return true;
-        if (applicationPowerSaveModeInternal.equals("2") && (batteryPct <= 15) && (!isCharging))
-            return true;
-        if (applicationPowerSaveModeInternal.equals("3"))
-            return isPowerSaveMode;
+        if (applicationPowerSaveModeInternal.equals("1") || applicationPowerSaveModeInternal.equals("2")) {
+            Intent batteryStatus = null;
+            try { // Huawei devices: java.lang.IllegalArgumentException: registered too many Broadcast Receivers
+                IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+                batteryStatus = context.registerReceiver(null, filter);
+            } catch (Exception ignored) {
+            }
+            if (batteryStatus != null) {
+                //int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+                //PPApplication.logE("DataWrapper.isPowerSaveMode", "status=" + status);
+                int plugged = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0);
+                isCharging = plugged == BatteryManager.BATTERY_PLUGGED_AC
+                        || plugged == BatteryManager.BATTERY_PLUGGED_USB
+                        || plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS;
+                //isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                //             status == BatteryManager.BATTERY_STATUS_FULL;
+                //PPApplication.logE("DataWrapper.isPowerSaveMode", "isCharging=" + isCharging);
+                if (!isCharging) {
+                    int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+                    int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+                    /*if (PPApplication.logEnabled()) {
+                        PPApplication.logE("DataWrapper.isPowerSaveMode", "level=" + level);
+                        PPApplication.logE("DataWrapper.isPowerSaveMode", "scale=" + scale);
+                    }*/
+
+                    batteryPct = Math.round(level / (float) scale * 100);
+                    //PPApplication.logE("DataWrapper.isPowerSaveMode", "batteryPct=" + batteryPct);
+
+                    if (applicationPowerSaveModeInternal.equals("1") && (batteryPct <= 5))
+                        return true;
+                    if (applicationPowerSaveModeInternal.equals("2") && (batteryPct <= 15))
+                        return true;
+                }
+            }
+        }
+        if (applicationPowerSaveModeInternal.equals("3")) {
+            //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                if (powerManager != null)
+                    return powerManager.isPowerSaveMode();
+            //}
+            //return isPowerSaveMode;
+        }
 
         return false;
     }

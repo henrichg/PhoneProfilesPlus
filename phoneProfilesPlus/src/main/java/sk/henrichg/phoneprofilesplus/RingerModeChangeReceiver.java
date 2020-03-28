@@ -38,9 +38,9 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
             if (systemZenMode == ActivateProfileHelper.ZENMODE_ALL) {
                 switch (ringerMode) {
                     case AudioManager.RINGER_MODE_NORMAL:
-                        if (ActivateProfileHelper.vibrationIsOn(/*context, */audioManager, false))
-                            pRingerMode = 2;
-                        else
+                        //if (ActivateProfileHelper.vibrationIsOn(/*context, */audioManager, false))
+                        //    pRingerMode = 2;
+                        //else
                             pRingerMode = 1;
                         break;
                     case AudioManager.RINGER_MODE_VIBRATE:

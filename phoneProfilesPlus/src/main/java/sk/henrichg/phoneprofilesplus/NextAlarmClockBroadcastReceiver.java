@@ -111,7 +111,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    //@TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void setAlarm(long alarmTime, AlarmManager alarmManager, Context context) {
         removeAlarm(alarmManager, context);
 
