@@ -134,14 +134,23 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
                 batteryPct = pct;
 
             boolean oldIsPowerSaveMode = PPApplication.isPowerSaveMode;
-            PPApplication.isPowerSaveMode = DataWrapper.isPowerSaveMode(appContext);
 
             // restart scanners when any is enabled
             // required for reschedule workers for power save mode
             boolean restart = false;
-            String powerSaveModeInternal = ApplicationPreferences.applicationPowerSaveModeInternal;
-            if (powerSaveModeInternal.equals("1") || powerSaveModeInternal.equals("2")) {
+            String applicationPowerSaveModeInternal = ApplicationPreferences.applicationPowerSaveModeInternal;
+            if (applicationPowerSaveModeInternal.equals("1") || applicationPowerSaveModeInternal.equals("2")) {
                 // power save mode is configured for control battery percentage
+
+                boolean isPowerSaveMode = false;
+                if (!isCharging) {
+                    if (applicationPowerSaveModeInternal.equals("1") && (batteryPct <= 5))
+                        isPowerSaveMode = true;
+                    if (applicationPowerSaveModeInternal.equals("2") && (batteryPct <= 15))
+                        isPowerSaveMode = true;
+                }
+                PPApplication.isPowerSaveMode = isPowerSaveMode;
+
                 if (PPApplication.isPowerSaveMode != oldIsPowerSaveMode) {
                     if (!PPApplication.isScreenOn) {
                         // screen is off

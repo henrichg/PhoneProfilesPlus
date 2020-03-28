@@ -2854,6 +2854,7 @@ public class DataWrapper {
                 }
             }
         }
+        else
         if (applicationPowerSaveModeInternal.equals("3")) {
             //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
