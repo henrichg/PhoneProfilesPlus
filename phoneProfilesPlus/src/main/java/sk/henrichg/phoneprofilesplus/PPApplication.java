@@ -985,6 +985,7 @@ public class PPApplication extends Application /*implements Application.Activity
     static TwilightScanner twilightScanner = null;
 
     public static boolean isScreenOn;
+    public static boolean isPowerSaveMode;
 
 //    static private FirebaseAnalytics firebaseAnalytics;
 
@@ -1211,6 +1212,7 @@ public class PPApplication extends Application /*implements Application.Activity
                     isScreenOn = true;
             }
         }*/
+        isPowerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
 
         //	Debug.startMethodTracing("phoneprofiles");
 
