@@ -35,7 +35,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     private FusedLocationProviderClient mFusedLocationClient;
     private final LocationCallback mLocationCallback;
     private final Context context;
-    private final DataWrapper dataWrapper;
+    //private final DataWrapper dataWrapper;
 
     private final Location lastLocation;
 
@@ -53,7 +53,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
     GeofencesScanner(Context context) {
         this.context = context;
-        dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+        //dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
 
         // Create a GoogleApiClient instance
         mGoogleApiClient = new GoogleApiClient.Builder(context)

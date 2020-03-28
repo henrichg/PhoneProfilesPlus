@@ -38,7 +38,7 @@ import androidx.fragment.app.Fragment;
 @SuppressWarnings("WeakerAccess")
 public class ShortcutCreatorListFragment extends Fragment {
 
-    private DataWrapper activityDataWrapper;
+    DataWrapper activityDataWrapper;
     private ShortcutCreatorListAdapter profileListAdapter;
     private ListView listView;
     TextView textViewNoData;

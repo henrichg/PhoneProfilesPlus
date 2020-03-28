@@ -9,7 +9,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.StateListDrawable;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;

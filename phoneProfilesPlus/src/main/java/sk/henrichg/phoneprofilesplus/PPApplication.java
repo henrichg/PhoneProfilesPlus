@@ -904,11 +904,11 @@ public class PPApplication extends Application /*implements Application.Activity
 
     //boolean willBeDoRestartEvents = false;
 
-    static StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = new StartLauncherFromNotificationReceiver();
-    static UpdateGUIBroadcastReceiver updateGUIBroadcastReceiver = new UpdateGUIBroadcastReceiver();
-    static ShowProfileNotificationBroadcastReceiver showProfileNotificationBroadcastReceiver = new ShowProfileNotificationBroadcastReceiver();
-    static RefreshActivitiesBroadcastReceiver refreshActivitiesBroadcastReceiver = new RefreshActivitiesBroadcastReceiver();
-    static DashClockBroadcastReceiver dashClockBroadcastReceiver = new DashClockBroadcastReceiver();
+    static final StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = new StartLauncherFromNotificationReceiver();
+    static final UpdateGUIBroadcastReceiver updateGUIBroadcastReceiver = new UpdateGUIBroadcastReceiver();
+    static final ShowProfileNotificationBroadcastReceiver showProfileNotificationBroadcastReceiver = new ShowProfileNotificationBroadcastReceiver();
+    static final RefreshActivitiesBroadcastReceiver refreshActivitiesBroadcastReceiver = new RefreshActivitiesBroadcastReceiver();
+    static final DashClockBroadcastReceiver dashClockBroadcastReceiver = new DashClockBroadcastReceiver();
 
     static TimeChangedReceiver timeChangedReceiver = null;
     static PermissionsNotificationDeletedReceiver permissionsNotificationDeletedReceiver = null;
@@ -925,7 +925,7 @@ public class PPApplication extends Application /*implements Application.Activity
     //static StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = null;
     static IgnoreBatteryOptimizationDisableReceiver ignoreBatteryOptimizationDisableReceiver = null;
 
-    static BatteryBroadcastReceiver batteryEventReceiver = null;
+    //static BatteryBroadcastReceiver batteryEventReceiver = null;
     static BatteryBroadcastReceiver batteryChangeLevelReceiver = null;
     static HeadsetConnectionBroadcastReceiver headsetPlugReceiver = null;
     static NFCStateChangedBroadcastReceiver nfcStateChangedBroadcastReceiver = null;

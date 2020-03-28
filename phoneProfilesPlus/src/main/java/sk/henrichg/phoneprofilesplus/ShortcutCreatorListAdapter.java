@@ -86,7 +86,7 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
             profile = activityDataWrapper.profileList.get(position);
         }
         if (profile != null) {
-            Spannable profileName = profile.getProfileNameWithDuration("", "", false, false, fragment.getActivity().getApplicationContext());
+            Spannable profileName = profile.getProfileNameWithDuration("", "", false, false, fragment.activityDataWrapper.context);
             holder.profileName.setText(profileName);
 
             if (profile.getIsIconResourceID()) {

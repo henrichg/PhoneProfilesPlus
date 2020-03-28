@@ -2813,9 +2813,6 @@ public class DataWrapper {
     }
 
     static boolean isPowerSaveMode(Context context) {
-        boolean isCharging = false;
-        int batteryPct = -100;
-        //boolean isPowerSaveMode = false;
 
         String applicationPowerSaveModeInternal = ApplicationPreferences.applicationPowerSaveModeInternal;
 
@@ -2827,6 +2824,9 @@ public class DataWrapper {
             } catch (Exception ignored) {
             }
             if (batteryStatus != null) {
+                boolean isCharging;
+                int batteryPct;
+
                 //int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
                 //PPApplication.logE("DataWrapper.isPowerSaveMode", "status=" + status);
                 int plugged = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0);
