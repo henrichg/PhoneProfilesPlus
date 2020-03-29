@@ -116,7 +116,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|WifiBluetoothScanner.enableWifi"
                                                 //+"|WifiScanWorker.fillScanResults"
 
-                                                //+"|[RJS] "
+                                                +"|[RJS] "
                                                 //+"|BluetoothScanWorker._scheduleWork"
                                                 //+"|GeofenceScanWorker._scheduleWork"
                                                 //+"|SearchCalendarEventsWorker._scheduleWork"

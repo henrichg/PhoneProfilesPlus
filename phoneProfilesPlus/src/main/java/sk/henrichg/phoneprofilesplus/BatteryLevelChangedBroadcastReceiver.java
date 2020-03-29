@@ -12,10 +12,10 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //PPApplication.logE("[TEST BATTERY] BatteryBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "xxx");
 
-        //CallsCounter.logCounter(context, "BatteryBroadcastReceiver.onReceive", "BatteryBroadcastReceiver_onReceive");
-        //CallsCounter.logCounterNoInc(context, "BatteryBroadcastReceiver.onReceive->action="+intent.getAction(), "BatteryBroadcastReceiver_onReceive");
+        //CallsCounter.logCounter(context, "BatteryLevelChangedBroadcastReceiver.onReceive", "BatteryLevelChangedBroadcastReceiver_onReceive");
+        //CallsCounter.logCounterNoInc(context, "BatteryLevelChangedBroadcastReceiver.onReceive->action="+intent.getAction(), "BatteryLevelChangedBroadcastReceiver_onReceive");
 
         final Context appContext = context.getApplicationContext();
 
@@ -33,7 +33,7 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
 
         int _status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
 
-        //PPApplication.logE("[TEST BATTERY] BatteryBroadcastReceiver.onReceive", "_status=" + _status);
+        //PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "_status=" + _status);
 
         if (_status != -1) {
             _isCharging = _status == BatteryManager.BATTERY_STATUS_CHARGING ||
@@ -89,26 +89,26 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
         */
 
         /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("[TEST BATTERY] BatteryBroadcastReceiver.onReceive", "isCharging=" + isCharging);
-            PPApplication.logE("[TEST BATTERY] BatteryBroadcastReceiver.onReceive", "_isCharging=" + _isCharging);
-            PPApplication.logE("[TEST BATTERY] BatteryBroadcastReceiver.onReceive", "_level=" + _level);
-            PPApplication.logE("[TEST BATTERY] BatteryBroadcastReceiver.onReceive", "batteryPct=" + batteryPct);
-            PPApplication.logE("[TEST BATTERY] BatteryBroadcastReceiver.onReceive", "_batteryPct=" + _batteryPct);
-            PPApplication.logE("[TEST BATTERY] BatteryBroadcastReceiver.onReceive", "plugged=" + plugged);
-            PPApplication.logE("[TEST BATTERY] BatteryBroadcastReceiver.onReceive", "_plugged=" + _plugged);
-            //PPApplication.logE("BatteryBroadcastReceiver.onReceive", "batteryLow=" + batteryLow);
-            //PPApplication.logE("BatteryBroadcastReceiver.onReceive", "_batteryLow=" + _batteryLow);
+            PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "isCharging=" + isCharging);
+            PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "_isCharging=" + _isCharging);
+            PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "_level=" + _level);
+            PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "batteryPct=" + batteryPct);
+            PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "_batteryPct=" + _batteryPct);
+            PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "plugged=" + plugged);
+            PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "_plugged=" + _plugged);
+            //PPApplication.logE("BatteryLevelChangedBroadcastReceiver.onReceive", "batteryLow=" + batteryLow);
+            //PPApplication.logE("BatteryLevelChangedBroadcastReceiver.onReceive", "_batteryLow=" + _batteryLow);
         }*/
 
         /* In Samsung S8 lowLevel is configured to 105 :-(
         int _level = appContext.getResources().getInteger(com.android.internal.R.integer.config_lowBatteryWarningLevel);
-        PPApplication.logE("BatteryBroadcastReceiver.onReceive", "lowLevel=" + Math.round(_level / (float) scale * 100));
+        PPApplication.logE("BatteryLevelChangedBroadcastReceiver.onReceive", "lowLevel=" + Math.round(_level / (float) scale * 100));
         */
 
         if ((PPApplication.isCharging != _isCharging) ||
             ((_plugged != -1) && (PPApplication.plugged != _plugged)) ||
             ((_level != -1) && (PPApplication.batteryPct != _batteryPct))) {
-            //PPApplication.logE("[TEST BATTERY] BatteryBroadcastReceiver.onReceive", "---- state changed");
+            //PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "---- state changed");
 
             PPApplication.isCharging = _isCharging;
 
@@ -135,8 +135,8 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
                 PPApplication.isPowerSaveMode = isPowerSaveMode;
 
                 /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("[TEST BATTERY] BatteryBroadcastReceiver.onReceive", "oldIsPowerSaveMode=" + oldIsPowerSaveMode);
-                    PPApplication.logE("[TEST BATTERY] BatteryBroadcastReceiver.onReceive", "isPowerSaveMode=" + isPowerSaveMode);
+                    PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "oldIsPowerSaveMode=" + oldIsPowerSaveMode);
+                    PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "isPowerSaveMode=" + isPowerSaveMode);
                 }*/
 
                 if (PPApplication.isPowerSaveMode != oldIsPowerSaveMode) {
@@ -172,8 +172,8 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
                             restart = true;
                     }
                     if (restart) {
-                        //PPApplication.logE("[****] BatteryBroadcastReceiver.onReceive", "restartAllScanners");
-                        //PPApplication.logE("[RJS] BatteryBroadcastReceiver.onReceive", "restart all scanners");
+                        //PPApplication.logE("[****] BatteryLevelChangedBroadcastReceiver.onReceive", "restartAllScanners");
+                        //PPApplication.logE("[RJS] BatteryLevelChangedBroadcastReceiver.onReceive", "restart all scanners");
                         // for screenOn=true -> used only for geofence scanner - start scan with GPS On
                         PPApplication.restartAllScanners(appContext, true);
                     }
@@ -181,7 +181,7 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
             }
 
             if (Event.getGlobalEventsRunning()) {
-                PPApplication.startHandlerThread("BatteryBroadcastReceiver.onReceive");
+                PPApplication.startHandlerThread("BatteryLevelChangedBroadcastReceiver.onReceive");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
@@ -194,13 +194,13 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=BatteryBroadcastReceiver.onReceive");
+                            //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=BatteryLevelChangedBroadcastReceiver.onReceive");
 
                             // start events handler
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BATTERY);
 
-                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BatteryBroadcastReceiver.onReceive");
+                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BatteryLevelChangedBroadcastReceiver.onReceive");
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
