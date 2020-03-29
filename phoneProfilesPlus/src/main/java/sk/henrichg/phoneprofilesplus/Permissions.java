@@ -2115,8 +2115,11 @@ class Permissions {
 
     static boolean getShowRequestDrawOverlaysPermission(Context context)
     {
-        return ApplicationPreferences.
-                getSharedPreferences(context).getBoolean(PREF_SHOW_REQUEST_DRAW_OVERLAYS_PERMISSION, true);
+        if (Build.VERSION.SDK_INT >= 29)
+            return true;
+        else
+            return ApplicationPreferences.
+                    getSharedPreferences(context).getBoolean(PREF_SHOW_REQUEST_DRAW_OVERLAYS_PERMISSION, true);
     }
 
     static void setShowRequestDrawOverlaysPermission(Context context, boolean value)
