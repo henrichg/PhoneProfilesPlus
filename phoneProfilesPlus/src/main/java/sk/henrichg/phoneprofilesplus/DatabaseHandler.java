@@ -101,7 +101,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_BLUETOOTH = 26;
     static final int ETYPE_ALARM_CLOCK = 27;
     static final int ETYPE_TIME_TWILIGHT = 28;
-    static final int ETYPE_BATTERY_WITH_LEVEL = 29;
+    //static final int ETYPE_BATTERY_WITH_LEVEL = 29;
 
     // Profiles Table Columns names
     private static final String KEY_ID = "id";

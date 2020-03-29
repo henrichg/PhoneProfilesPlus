@@ -3024,13 +3024,13 @@ public class DataWrapper {
                             sensorEnabled = sensorEnabled &&
                                     (_event._eventPreferencesTime._timeType != 0);
                             break;
-                        case DatabaseHandler.ETYPE_BATTERY_WITH_LEVEL:
+                        /*case DatabaseHandler.ETYPE_BATTERY_WITH_LEVEL:
                             sensorEnabled = _event._eventPreferencesBattery._enabled;
                             sensorEnabled = sensorEnabled &&
                                     (_event._eventPreferencesBattery._levelLow > 0);
                             sensorEnabled = sensorEnabled &&
                                     (_event._eventPreferencesBattery._levelHight < 100);
-                            break;
+                            break;*/
                         case DatabaseHandler.ETYPE_ALL:
                         default:
                             sensorEnabled = true;
