@@ -1495,7 +1495,7 @@
     <string name="profile_preferences_profile_not_found">Profile not found. Deleted?</string>
     <string name="event_preferences_event_not_found">Event not found. Deleted?</string>
 
-    <string name="permissions_draw_overlays_not_allowed_alway_required">You have not enabled \"Draw over apps\". But this permission is required for Android 10.</string>
+    <string name="permissions_draw_overlays_not_allowed_alway_required">You have not enabled \"Draw over apps\". But this permission is required for Android 10. Please grant it.</string>
 
     <!-- **************************************************************************************** -->
 
