@@ -54,7 +54,7 @@ public class CmdWifiAP {
         } catch (Throwable e) {
             Log.e("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
             Crashlytics.logException(e);
-            PPApplication.logE("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
+            //PPApplication.logE("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
             return false;
         }
     }

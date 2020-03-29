@@ -73,7 +73,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
-    static final boolean logIntoFile = true;
+    static final boolean logIntoFile = false;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && DebugVersion.enabled;
     private static final boolean rootToolsDebug = false;
@@ -91,14 +91,14 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 +"|PhoneProfilesService.onCreate"
                                                 +"|PhoneProfilesService.onStartCommand"
                                                 +"|PhoneProfilesService.doForFirstStart"
-                                                +"|PhoneProfilesService.doCommand"
+                                                //+"|PhoneProfilesService.doCommand"
                                                 //+"|PhoneProfilesService.isServiceRunningInForeground"
                                                 //+"|PhoneProfilesService.showProfileNotification"
                                                 //+"|PhoneProfilesService._showProfileNotification"
                                                 //+"|ShowProfileNotificationBroadcastReceiver"
                                                 //+"|PhoneProfilesService._showProfileNotification"
                                                 //+"|[CUST] PhoneProfilesService._showProfileNotification"
-                                                +"|PhoneProfilesService.stopReceiver"
+                                                //+"|PhoneProfilesService.stopReceiver"
                                                 +"|PhoneProfilesService.onDestroy"
                                                 //+"|PhoneProfilesService.cancelWork"
                                                 +"|DataWrapper.firstStartEvents"
@@ -116,7 +116,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|WifiBluetoothScanner.enableWifi"
                                                 //+"|WifiScanWorker.fillScanResults"
 
-                                                +"|[RJS] "
+                                                //+"|[RJS] "
                                                 //+"|BluetoothScanWorker._scheduleWork"
                                                 //+"|GeofenceScanWorker._scheduleWork"
                                                 //+"|SearchCalendarEventsWorker._scheduleWork"
