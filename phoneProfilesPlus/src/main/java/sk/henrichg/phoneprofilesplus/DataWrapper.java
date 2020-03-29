@@ -2938,14 +2938,14 @@ public class DataWrapper {
                         case DatabaseHandler.ETYPE_WIFI_CONNECTED:
                             sensorEnabled = _event._eventPreferencesWifi._enabled;
                             sensorEnabled = sensorEnabled &&
-                                    ((_event._eventPreferencesWifi._connectionType == 0) ||
-                                            (_event._eventPreferencesWifi._connectionType == 2));
+                                    ((_event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_CONNECTED) ||
+                                     (_event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOT_CONNECTED));
                             break;
                         case DatabaseHandler.ETYPE_WIFI_NEARBY:
                             sensorEnabled = _event._eventPreferencesWifi._enabled;
                             sensorEnabled = sensorEnabled &&
-                                    ((_event._eventPreferencesWifi._connectionType == 1) ||
-                                            (_event._eventPreferencesWifi._connectionType == 3));
+                                    ((_event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
+                                     (_event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY));
                             break;
                         case DatabaseHandler.ETYPE_SCREEN:
                             sensorEnabled = _event._eventPreferencesScreen._enabled;
@@ -2953,14 +2953,14 @@ public class DataWrapper {
                         case DatabaseHandler.ETYPE_BLUETOOTH_CONNECTED:
                             sensorEnabled = _event._eventPreferencesBluetooth._enabled;
                             sensorEnabled = sensorEnabled &&
-                                    ((_event._eventPreferencesBluetooth._connectionType == 0) ||
-                                            (_event._eventPreferencesBluetooth._connectionType == 2));
+                                    ((_event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_CONNECTED) ||
+                                     (_event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOT_CONNECTED));
                             break;
                         case DatabaseHandler.ETYPE_BLUETOOTH_NEARBY:
                             sensorEnabled = _event._eventPreferencesBluetooth._enabled;
                             sensorEnabled = sensorEnabled &&
-                                    ((_event._eventPreferencesBluetooth._connectionType == 1) ||
-                                            (_event._eventPreferencesBluetooth._connectionType == 3));
+                                    ((_event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NEARBY) ||
+                                     (_event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY));
                             break;
                         case DatabaseHandler.ETYPE_SMS:
                             sensorEnabled = _event._eventPreferencesSMS._enabled;
@@ -3022,15 +3022,29 @@ public class DataWrapper {
                         case DatabaseHandler.ETYPE_TIME_TWILIGHT:
                             sensorEnabled = _event._eventPreferencesTime._enabled;
                             sensorEnabled = sensorEnabled &&
-                                    (_event._eventPreferencesTime._timeType != 0);
+                                    (_event._eventPreferencesTime._timeType != EventPreferencesTime.TIME_TYPE_EXACT);
                             break;
-                        /*case DatabaseHandler.ETYPE_BATTERY_WITH_LEVEL:
+                        case DatabaseHandler.ETYPE_BATTERY_WITH_LEVEL:
                             sensorEnabled = _event._eventPreferencesBattery._enabled;
                             sensorEnabled = sensorEnabled &&
                                     (_event._eventPreferencesBattery._levelLow > 0);
                             sensorEnabled = sensorEnabled &&
                                     (_event._eventPreferencesBattery._levelHight < 100);
-                            break;*/
+                            break;
+                        case DatabaseHandler.ETYPE_ALL_SENSORS:
+                            sensorEnabled = _event._eventPreferencesWifi._enabled &&
+                                    ((_event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
+                                     (_event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY));
+                            if (!sensorEnabled)
+                                sensorEnabled = _event._eventPreferencesBluetooth._enabled &&
+                                    ((_event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NEARBY) ||
+                                     (_event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY));
+                            if (!sensorEnabled) {
+                                sensorEnabled = _event._eventPreferencesLocation._enabled;
+                                sensorEnabled = sensorEnabled || _event._eventPreferencesMobileCells._enabled;
+                                sensorEnabled = sensorEnabled || _event._eventPreferencesOrientation._enabled;
+                            }
+                            break;
                         case DatabaseHandler.ETYPE_ALL:
                         default:
                             sensorEnabled = true;

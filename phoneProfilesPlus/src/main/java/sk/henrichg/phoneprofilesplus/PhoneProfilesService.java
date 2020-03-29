@@ -1193,170 +1193,145 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    /*
-    private void registerBatteryEventReceiver(boolean register, DataWrapper dataWrapper) {
+    private void registerBatteryLevelChangedReceiver(boolean register, DataWrapper dataWrapper) {
         Context appContext = getApplicationContext();
-        //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerBatteryEventReceiver", "PhoneProfilesService_registerBatteryEventReceiver");
-        //PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryEventReceiver", "xxx");
+        //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerBatteryLevelChangedReceiver", "PhoneProfilesService_registerBatteryLevelChangedReceiver");
+        //PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryLevelChangedReceiver", "xxx");
         if (!register) {
-            if (PPApplication.batteryEventReceiver != null) {
-                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerBatteryEventReceiver->UNREGISTER", "PhoneProfilesService_registerBatteryEventReceiver");
+            if (PPApplication.batteryLevelChangedReceiver != null) {
+                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerBatteryLevelChangedReceiver->UNREGISTER", "PhoneProfilesService_registerBatteryLevelChangedReceiver");
                 try {
-                    appContext.unregisterReceiver(PPApplication.batteryEventReceiver);
-                    PPApplication.batteryEventReceiver = null;
-                    PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryEventReceiver", "UNREGISTER");
+                    appContext.unregisterReceiver(PPApplication.batteryLevelChangedReceiver);
+                    PPApplication.batteryLevelChangedReceiver = null;
+                    //PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryLevelChangedReceiver", "UNREGISTER");
                 } catch (Exception e) {
-                    PPApplication.batteryEventReceiver = null;
+                    PPApplication.batteryLevelChangedReceiver = null;
                 }
             }
             //else
-            //    PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryEventReceiver", "not registered");
+            //    PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryLevelChangedReceiver", "not registered");
         }
         if (register) {
-            //PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryEventReceiver", "REGISTER");
-            dataWrapper.fillEventList();
+            //PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryLevelChangedReceiver", "REGISTER");
             boolean allowed = false;
-            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_WIFI_NEARBY);
+
+            dataWrapper.fillEventList();
+            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_BATTERY_WITH_LEVEL/*, false*/);
             if (eventsExists)
-                allowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
+                allowed = Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, appContext).allowed ==
                         PreferenceAllowed.PREFERENCE_ALLOWED;
-            if (!eventsExists) {
-                eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_BLUETOOTH_NEARBY);
-                if (eventsExists)
-                    allowed = Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext).allowed ==
-                            PreferenceAllowed.PREFERENCE_ALLOWED;
-            }
-            if (!eventsExists) {
-                eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_LOCATION);
-                if (eventsExists)
-                    allowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
-                        PreferenceAllowed.PREFERENCE_ALLOWED;
-            }
-            if (!eventsExists) {
-                eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_MOBILE_CELLS);
-                if (eventsExists)
-                    allowed = (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, appContext).allowed ==
-                        PreferenceAllowed.PREFERENCE_ALLOWED);
-            }
-            if (!eventsExists) {
-                eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION);
-                if (eventsExists)
-                    allowed = Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
-                        PreferenceAllowed.PREFERENCE_ALLOWED;
-            }
-            if (!eventsExists) {
-                eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_BATTERY);
-                if (eventsExists)
-                    allowed = Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, appContext).allowed ==
-                        PreferenceAllowed.PREFERENCE_ALLOWED;
-            }
-            if (allowed) {
-                if (PPApplication.batteryEventReceiver == null) {
-                    //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerBatteryEventReceiver->REGISTER", "PhoneProfilesService_registerBatteryEventReceiver");
-                    PPApplication.batteryEventReceiver = new BatteryBroadcastReceiver();
-                    IntentFilter intentFilter1 = new IntentFilter();
-                    intentFilter1.addAction(Intent.ACTION_POWER_CONNECTED);
-                    intentFilter1.addAction(Intent.ACTION_POWER_DISCONNECTED);
-                    intentFilter1.addAction(Intent.ACTION_BATTERY_LOW);
-                    intentFilter1.addAction(Intent.ACTION_BATTERY_OKAY);
-                    appContext.registerReceiver(PPApplication.batteryEventReceiver, intentFilter1);
-                    PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryEventReceiver", "REGISTER batteryEventReceiver");
-                }
-                //else
-                //    PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryEventReceiver", "registered");
-            }
-            else
-                registerBatteryEventReceiver(false, dataWrapper);
-        }
-    }
-    */
-
-    private void registerBatteryChangedReceiver(boolean register, DataWrapper dataWrapper) {
-        Context appContext = getApplicationContext();
-        //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerBatteryChangedReceiver", "PhoneProfilesService_registerBatteryChangedReceiver");
-        //PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryChangedReceiver", "xxx");
-        if (!register) {
-            if (PPApplication.batteryChangeLevelReceiver != null) {
-                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerBatteryChangedReceiver->UNREGISTER", "PhoneProfilesService_registerBatteryChangedReceiver");
-                try {
-                    appContext.unregisterReceiver(PPApplication.batteryChangeLevelReceiver);
-                    PPApplication.batteryChangeLevelReceiver = null;
-                    //PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryChangedReceiver", "UNREGISTER");
-                } catch (Exception e) {
-                    PPApplication.batteryChangeLevelReceiver = null;
-                }
-            }
-            //else
-            //    PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryChangedReceiver", "not registered");
-        }
-        if (register) {
-            //PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryChangedReceiver", "REGISTER");
-            boolean allowed;// = false;
-
-            String powerSaveModeInternal = ApplicationPreferences.applicationPowerSaveModeInternal;
-            allowed = powerSaveModeInternal.equals("1") || powerSaveModeInternal.equals("2");
-
             if (!allowed) {
-                dataWrapper.fillEventList();
-                boolean eventsExists = ApplicationPreferences.applicationEventWifiEnableScanning &&
-                        dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_WIFI_NEARBY/*, false*/);
-                if (eventsExists)
-                    allowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
-                            PreferenceAllowed.PREFERENCE_ALLOWED;
-                if (!eventsExists) {
-                    eventsExists = ApplicationPreferences.applicationEventBluetoothEnableScanning &&
-                            dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_BLUETOOTH_NEARBY/*, false*/);
-                    if (eventsExists)
-                        allowed = Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext).allowed ==
-                                PreferenceAllowed.PREFERENCE_ALLOWED;
-                }
-                if (!eventsExists) {
-                    eventsExists = ApplicationPreferences.applicationEventLocationEnableScanning &&
-                            dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_LOCATION/*, false*/);
-                    if (eventsExists)
-                        allowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
-                                PreferenceAllowed.PREFERENCE_ALLOWED;
-                }
-                if (!eventsExists) {
-                    eventsExists = ApplicationPreferences.applicationEventMobileCellEnableScanning &&
-                            dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_MOBILE_CELLS/*, false*/);
-                    if (eventsExists)
-                        allowed = (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, appContext).allowed ==
-                                PreferenceAllowed.PREFERENCE_ALLOWED);
-                }
-                if (!eventsExists) {
-                    eventsExists = ApplicationPreferences.applicationEventOrientationEnableScanning &&
-                            dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/);
-                    if (eventsExists)
-                        allowed = Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
-                                PreferenceAllowed.PREFERENCE_ALLOWED;
-                }
-                if (!eventsExists) {
-                    eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_BATTERY/*_WITH_LEVEL*//*, false*/);
-                    if (eventsExists)
-                        allowed = Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, appContext).allowed ==
-                                PreferenceAllowed.PREFERENCE_ALLOWED;
+                String powerSaveModeInternal = ApplicationPreferences.applicationPowerSaveModeInternal;
+                if (powerSaveModeInternal.equals("1") || powerSaveModeInternal.equals("2")) {
+                    eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ALL_SENSORS/*, false*/);
+                    if (eventsExists) {
+                        allowed = ApplicationPreferences.applicationEventWifiEnableScanning &&
+                                (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
+                                        PreferenceAllowed.PREFERENCE_ALLOWED);
+                        if (!allowed)
+                            allowed = ApplicationPreferences.applicationEventBluetoothEnableScanning &&
+                                    (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext).allowed ==
+                                            PreferenceAllowed.PREFERENCE_ALLOWED);
+                        if (!allowed)
+                            allowed = ApplicationPreferences.applicationEventLocationEnableScanning &&
+                                    (Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
+                                            PreferenceAllowed.PREFERENCE_ALLOWED);
+                        if (!allowed)
+                            allowed = ApplicationPreferences.applicationEventMobileCellEnableScanning &&
+                                    (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, appContext).allowed ==
+                                            PreferenceAllowed.PREFERENCE_ALLOWED);
+                        if (!allowed)
+                            allowed = ApplicationPreferences.applicationEventOrientationEnableScanning &&
+                                    (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
+                                            PreferenceAllowed.PREFERENCE_ALLOWED);
+                    }
                 }
             }
             if (allowed) {
                 // get power save mode from PPP settings (tested will be value "1" = 5%, "2" = 15%)
-                if (PPApplication.batteryChangeLevelReceiver == null) {
-                    //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerBatteryChangedReceiver->REGISTER", "PhoneProfilesService_registerBatteryChangedReceiver");
-                    PPApplication.batteryChangeLevelReceiver = new BatteryBroadcastReceiver();
+                if (PPApplication.batteryLevelChangedReceiver == null) {
+                    //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerBatteryLevelChangedReceiver->REGISTER", "PhoneProfilesService_registerBatteryLevelChangedReceiver");
+                    PPApplication.batteryLevelChangedReceiver = new BatteryLevelChangedBroadcastReceiver();
                     IntentFilter intentFilter1 = new IntentFilter();
                     intentFilter1.addAction(Intent.ACTION_BATTERY_CHANGED);
-                    intentFilter1.addAction(Intent.ACTION_POWER_CONNECTED);
-                    intentFilter1.addAction(Intent.ACTION_POWER_DISCONNECTED);
-                    //intentFilter1.addAction(Intent.ACTION_BATTERY_LOW);
-                    //intentFilter1.addAction(Intent.ACTION_BATTERY_OKAY);
-                    appContext.registerReceiver(PPApplication.batteryChangeLevelReceiver, intentFilter1);
-                    //PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryChangedReceiver", "REGISTER batteryChangeLevelReceiver");
+                    appContext.registerReceiver(PPApplication.batteryLevelChangedReceiver, intentFilter1);
+                    //PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryLevelChangedReceiver", "REGISTER registerBatteryLevelChangedReceiver");
                 }
                 //else
-                //    PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryChangedReceiver", "registered");
+                //    PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryLevelChangedReceiver", "registered");
             }
             else
-                registerBatteryChangedReceiver(false, dataWrapper);
+                registerBatteryLevelChangedReceiver(false, dataWrapper);
+        }
+    }
+
+    private void registerBatteryChargingChangedReceiver(boolean register, DataWrapper dataWrapper) {
+        Context appContext = getApplicationContext();
+        //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerBatteryChargingChangedReceiver", "PhoneProfilesService_registerBatteryChargingChangedReceiver");
+        //PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryChargingChangedReceiver", "xxx");
+        if (!register) {
+            if (PPApplication.batteryChargingChangedReceiver != null) {
+                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerBatteryChargingChangedReceiver->UNREGISTER", "PhoneProfilesService_registerBatteryChargingChangedReceiver");
+                try {
+                    appContext.unregisterReceiver(PPApplication.batteryChargingChangedReceiver);
+                    PPApplication.batteryChargingChangedReceiver = null;
+                    //PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryChargingChangedReceiver", "UNREGISTER");
+                } catch (Exception e) {
+                    PPApplication.batteryChargingChangedReceiver = null;
+                }
+            }
+            //else
+            //    PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryChargingChangedReceiver", "not registered");
+        }
+        if (register) {
+            //PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryChargingChangedReceiver", "REGISTER");
+            boolean allowed = false;
+
+            dataWrapper.fillEventList();
+            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_BATTERY/*, false*/);
+            if (eventsExists)
+                allowed = Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, appContext).allowed ==
+                        PreferenceAllowed.PREFERENCE_ALLOWED;
+            if (!eventsExists) {
+                eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ALL_SENSORS/*, false*/);
+                if (eventsExists) {
+                    allowed = ApplicationPreferences.applicationEventWifiEnableScanning &&
+                            (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
+                                    PreferenceAllowed.PREFERENCE_ALLOWED);
+                    if (!allowed)
+                        allowed = ApplicationPreferences.applicationEventBluetoothEnableScanning &&
+                                (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext).allowed ==
+                                        PreferenceAllowed.PREFERENCE_ALLOWED);
+                    if (!allowed)
+                        allowed = ApplicationPreferences.applicationEventLocationEnableScanning &&
+                                (Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
+                                        PreferenceAllowed.PREFERENCE_ALLOWED);
+                    if (!allowed)
+                        allowed = ApplicationPreferences.applicationEventMobileCellEnableScanning &&
+                                (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, appContext).allowed ==
+                                        PreferenceAllowed.PREFERENCE_ALLOWED);
+                    if (!allowed)
+                        allowed = ApplicationPreferences.applicationEventOrientationEnableScanning &&
+                                (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
+                                        PreferenceAllowed.PREFERENCE_ALLOWED);
+                }
+            }
+            if (allowed) {
+                // get power save mode from PPP settings (tested will be value "1" = 5%, "2" = 15%)
+                if (PPApplication.batteryChargingChangedReceiver == null) {
+                    //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerBatteryChargingChangedReceiver->REGISTER", "PhoneProfilesService_registerBatteryChargingChangedReceiver");
+                    PPApplication.batteryChargingChangedReceiver = new BatteryChargingChangedBroadcastReceiver();
+                    IntentFilter intentFilter1 = new IntentFilter();
+                    intentFilter1.addAction(Intent.ACTION_POWER_CONNECTED);
+                    intentFilter1.addAction(Intent.ACTION_POWER_DISCONNECTED);
+                    appContext.registerReceiver(PPApplication.batteryChargingChangedReceiver, intentFilter1);
+                    //PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryChargingChangedReceiver", "REGISTER registerBatteryChargingChangedReceiver");
+                }
+                //else
+                //    PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryChargingChangedReceiver", "registered");
+            }
+            else
+                registerBatteryChargingChangedReceiver(false, dataWrapper);
         }
     }
 
@@ -2532,46 +2507,39 @@ public class PhoneProfilesService extends Service
         }
         if (register) {
             //PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "REGISTER");
+            String powerSaveModeInternal = ApplicationPreferences.applicationPowerSaveModeInternal;
+
             dataWrapper.fillEventList();
-            boolean allowed = false;
-            boolean eventsExists = ApplicationPreferences.applicationEventWifiEnableScanning &&
-                    dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_WIFI_NEARBY/*, false*/);
-            if (eventsExists)
-                allowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
-                    PreferenceAllowed.PREFERENCE_ALLOWED;
-            if (!eventsExists) {
-                eventsExists = ApplicationPreferences.applicationEventBluetoothEnableScanning &&
-                        dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_BLUETOOTH_NEARBY/*, false*/);
-                if (eventsExists)
-                    allowed = Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext).allowed ==
-                        PreferenceAllowed.PREFERENCE_ALLOWED;
-            }
-            if (!eventsExists) {
-                eventsExists = ApplicationPreferences.applicationEventLocationEnableScanning &&
-                        dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_LOCATION/*, false*/);
-                if (eventsExists)
-                    allowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
-                        PreferenceAllowed.PREFERENCE_ALLOWED;
-            }
-            if (!eventsExists) {
-                eventsExists = ApplicationPreferences.applicationEventMobileCellEnableScanning &&
-                        dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_MOBILE_CELLS/*, false*/);
-                if (eventsExists)
-                    allowed = (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, appContext).allowed ==
-                        PreferenceAllowed.PREFERENCE_ALLOWED);
-            }
-            if (!eventsExists) {
-                eventsExists = ApplicationPreferences.applicationEventOrientationEnableScanning &&
-                        dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/);
-                if (eventsExists)
-                    allowed = Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
-                        PreferenceAllowed.PREFERENCE_ALLOWED;
-            }
-            if (!eventsExists) {
-                eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_BATTERY/*, false*/);
+            boolean allowed = powerSaveModeInternal.equals("3");
+            if (!allowed) {
+                boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_BATTERY/*, false*/);
                 if (eventsExists)
                     allowed = Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, appContext).allowed ==
-                        PreferenceAllowed.PREFERENCE_ALLOWED;
+                            PreferenceAllowed.PREFERENCE_ALLOWED;
+                if (!eventsExists) {
+                    eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ALL_SENSORS/*, false*/);
+                    if (eventsExists) {
+                        allowed = ApplicationPreferences.applicationEventWifiEnableScanning &&
+                                (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
+                                        PreferenceAllowed.PREFERENCE_ALLOWED);
+                        if (!allowed)
+                            allowed = ApplicationPreferences.applicationEventBluetoothEnableScanning &&
+                                    (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext).allowed ==
+                                            PreferenceAllowed.PREFERENCE_ALLOWED);
+                        if (!allowed)
+                            allowed = ApplicationPreferences.applicationEventLocationEnableScanning &&
+                                    (Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
+                                            PreferenceAllowed.PREFERENCE_ALLOWED);
+                        if (!allowed)
+                            allowed = ApplicationPreferences.applicationEventMobileCellEnableScanning &&
+                                    (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, appContext).allowed ==
+                                            PreferenceAllowed.PREFERENCE_ALLOWED);
+                        if (!allowed)
+                            allowed = ApplicationPreferences.applicationEventOrientationEnableScanning &&
+                                    (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
+                                            PreferenceAllowed.PREFERENCE_ALLOWED);
+                    }
+                }
             }
             if (allowed) {
                 //if (android.os.Build.VERSION.SDK_INT >= 21) {
@@ -3338,7 +3306,7 @@ public class PhoneProfilesService extends Service
         Context appContext = getApplicationContext();
 
         // get actual battery status
-        BatteryBroadcastReceiver.initialize(appContext);
+        BatteryLevelChangedBroadcastReceiver.initialize(appContext);
 
         registerAllTheTimeRequiredReceivers(true);
 
@@ -3347,8 +3315,8 @@ public class PhoneProfilesService extends Service
         //dataWrapper.fillProfileList(false, false);
 
         // required for battery event
-        //registerBatteryEventReceiver(true, dataWrapper);
-        registerBatteryChangedReceiver(true, dataWrapper);
+        registerBatteryLevelChangedReceiver(true, dataWrapper);
+        registerBatteryChargingChangedReceiver(true, dataWrapper);
 
         // required for peripherals event
         registerReceiverForPeripheralsSensor(true, dataWrapper);
@@ -3506,8 +3474,8 @@ public class PhoneProfilesService extends Service
     private void unregisterReceiversAndWorkers() {
         //PPApplication.logE("[RJS] PhoneProfilesService.unregisterReceiversAndWorkers", "xxx");
         registerAllTheTimeRequiredReceivers(false);
-        //registerBatteryEventReceiver(false, null);
-        registerBatteryChangedReceiver(false, null);
+        registerBatteryLevelChangedReceiver(false, null);
+        registerBatteryChargingChangedReceiver(false, null);
         registerReceiverForPeripheralsSensor(false, null);
         registerReceiverForSMSSensor(false, null);
         registerReceiverForCalendarSensor(false, null);
@@ -3558,8 +3526,8 @@ public class PhoneProfilesService extends Service
         dataWrapper.fillEventList();
         //dataWrapper.fillProfileList(false, false);
 
-        //registerBatteryEventReceiver(true, dataWrapper);
-        registerBatteryChangedReceiver(true, dataWrapper);
+        registerBatteryLevelChangedReceiver(true, dataWrapper);
+        registerBatteryChargingChangedReceiver(true, dataWrapper);
         registerReceiverForPeripheralsSensor(true, dataWrapper);
         registerReceiverForSMSSensor(true, dataWrapper);
         registerReceiverForCalendarSensor(true, dataWrapper);

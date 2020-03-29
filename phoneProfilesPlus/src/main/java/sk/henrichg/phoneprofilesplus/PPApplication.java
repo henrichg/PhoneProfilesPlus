@@ -925,8 +925,8 @@ public class PPApplication extends Application /*implements Application.Activity
     //static StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = null;
     static IgnoreBatteryOptimizationDisableReceiver ignoreBatteryOptimizationDisableReceiver = null;
 
-    //static BatteryBroadcastReceiver batteryEventReceiver = null;
-    static BatteryBroadcastReceiver batteryChangeLevelReceiver = null;
+    static BatteryChargingChangedBroadcastReceiver batteryChargingChangedReceiver = null;
+    static BatteryLevelChangedBroadcastReceiver batteryLevelChangedReceiver = null;
     static HeadsetConnectionBroadcastReceiver headsetPlugReceiver = null;
     static NFCStateChangedBroadcastReceiver nfcStateChangedBroadcastReceiver = null;
     static DockConnectionBroadcastReceiver dockConnectionBroadcastReceiver = null;
@@ -983,6 +983,10 @@ public class PPApplication extends Application /*implements Application.Activity
     static GeofencesScanner geofencesScanner = null;
     static PhoneStateScanner phoneStateScanner = null;
     static TwilightScanner twilightScanner = null;
+
+    static boolean isCharging = false;
+    static int batteryPct = -100;
+    static int plugged = -1;
 
     public static boolean isScreenOn;
     public static boolean isPowerSaveMode;
