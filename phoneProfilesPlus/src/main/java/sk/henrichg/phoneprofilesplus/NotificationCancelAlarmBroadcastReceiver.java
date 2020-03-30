@@ -17,8 +17,12 @@ public class NotificationCancelAlarmBroadcastReceiver extends BroadcastReceiver 
         if (Build.VERSION.SDK_INT >= 26)
             return;
 
-        if (PhoneProfilesService.getInstance() != null)
+        if (PhoneProfilesService.getInstance() != null) {
             PhoneProfilesService.getInstance().stopForeground(true);
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (notificationManager != null)
+                notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
+        }
         else {
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null)

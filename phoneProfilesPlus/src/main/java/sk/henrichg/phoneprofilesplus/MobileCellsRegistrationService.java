@@ -121,7 +121,12 @@ public class MobileCellsRegistrationService extends Service {
         }
         else {
             setMobileCellsAutoRegistration(context, true);
+
             stopForeground(true);
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (notificationManager != null)
+                notificationManager.cancel(PPApplication.MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID);
+
             stopSelf();
         }
     }
@@ -151,6 +156,9 @@ public class MobileCellsRegistrationService extends Service {
             PPApplication.restartPhoneStateScanner(this);
 
             stopForeground(true);
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (notificationManager != null)
+                notificationManager.cancel(PPApplication.MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID);
 
             showResultNotification();
 
@@ -162,8 +170,12 @@ public class MobileCellsRegistrationService extends Service {
                 mobileCellsRegistrationStopButtonBroadcastReceiver = null;
             }
         }
-        else
+        else {
             stopForeground(true);
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (notificationManager != null)
+                notificationManager.cancel(PPApplication.MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID);
+        }
 
         serviceStarted = false;
     }

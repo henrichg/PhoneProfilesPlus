@@ -462,15 +462,24 @@ public class PhoneProfilesService extends Service
 
         PPApplication.initRoot();
 
+        ShowProfileNotificationBroadcastReceiver.removeAlarm(appContext);
         try {
             //if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBarPermanent(getApplicationContext()))
+
             stopForeground(true);
+
+            NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (notificationManager != null)
+                notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
+
             /*else {
                 NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                 if (notificationManager != null)
                     notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
             }*/
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            Log.e("PhoneProfilesService.onDestroy", Log.getStackTraceString(e));
+            Crashlytics.logException(e);
         }
 
         synchronized (PPApplication.phoneProfilesServiceMutex) {
@@ -508,7 +517,7 @@ public class PhoneProfilesService extends Service
         //}
     }
 
-    public static void stop(/*Context context*/) {
+    public static void stop(Context context) {
         if (instance != null) {
             /*try {
                 //noinspection deprecation
@@ -518,6 +527,10 @@ public class PhoneProfilesService extends Service
             }*/
             try {
                 instance.stopForeground(true);
+                NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                if (notificationManager != null)
+                    notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
+
                 instance.stopSelf();
             } catch (Exception e) {
                 Log.e("PhoneProfilesService.stop", Log.getStackTraceString(e));
@@ -4177,6 +4190,9 @@ public class PhoneProfilesService extends Service
     {
         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "xxx");
 
+        if (PhoneProfilesService.instance == null)
+            return;
+
         /*
         if (ActivateProfileHelper.lockRefresh)
             // no refresh notification
@@ -5044,29 +5060,31 @@ public class PhoneProfilesService extends Service
 
         if (clear || refresh || ((now - PPApplication.lastRefreshOfProfileNotification) >= PPApplication.DURATION_FOR_GUI_REFRESH))
         {
-            //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","refresh");
+            if (PhoneProfilesService.instance != null) {
+                //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","refresh");
 
-            final boolean _clear = clear;
-            PPApplication.startHandlerThreadProfileNotification();
-            final Handler handler = new Handler(PPApplication.handlerThreadProfileNotification.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
-                    Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
+                final boolean _clear = clear;
+                PPApplication.startHandlerThreadProfileNotification();
+                final Handler handler = new Handler(PPApplication.handlerThreadProfileNotification.getLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
+                        Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
 
-                    boolean fullyStarted = false;
-                    if (PhoneProfilesService.getInstance() != null)
-                        fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
-                    boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
-                    if ((!fullyStarted) || applicationPackageReplaced)
-                        profile = null;
+                        boolean fullyStarted = false;
+                        if (PhoneProfilesService.getInstance() != null)
+                            fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
+                        boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
+                        if ((!fullyStarted) || applicationPackageReplaced)
+                            profile = null;
 
-                    //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification", "_showProfileNotification()");
-                    _showProfileNotification(profile, true, dataWrapper, _clear || refresh  /*, cleared*/);
-                    //dataWrapper.invalidateDataWrapper();
-                }
-            });
+                        //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification", "_showProfileNotification()");
+                        _showProfileNotification(profile, true, dataWrapper, _clear || refresh  /*, cleared*/);
+                        //dataWrapper.invalidateDataWrapper();
+                    }
+                });
+            }
         }
         else {
             //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","do not refresh");
@@ -5097,6 +5115,10 @@ public class PhoneProfilesService extends Service
                 else {*/
                     PPApplication.startForegroundNotification = true;
                     stopForeground(true);
+                    NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                    if (notificationManager != null)
+                        notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
+
                 //}
             } catch (Exception e) {
                 Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));

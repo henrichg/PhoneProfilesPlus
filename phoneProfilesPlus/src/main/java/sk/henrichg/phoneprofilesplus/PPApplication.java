@@ -95,7 +95,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|PhoneProfilesService.isServiceRunningInForeground"
                                                 //+"|PhoneProfilesService.showProfileNotification"
                                                 //+"|PhoneProfilesService._showProfileNotification"
-                                                //+"|ShowProfileNotificationBroadcastReceiver"
+                                                +"|ShowProfileNotificationBroadcastReceiver"
                                                 //+"|PhoneProfilesService._showProfileNotification"
                                                 //+"|[CUST] PhoneProfilesService._showProfileNotification"
                                                 //+"|PhoneProfilesService.stopReceiver"
@@ -3311,7 +3311,7 @@ public class PPApplication extends Application /*implements Application.Activity
             PPApplication.logE("PPApplication._exitApp", "stop service");
             //PhoneProfilesService.getInstance().showProfileNotification(false);
             //context.stopService(new Intent(context, PhoneProfilesService.class));
-            PhoneProfilesService.stop(/*context*/);
+            PhoneProfilesService.stop(context);
             //if (PhoneProfilesService.getInstance() != null)
             //    PhoneProfilesService.getInstance().setApplicationFullyStarted(false, false);
 
