@@ -424,9 +424,6 @@
     <string name="pref_event_battery_power_save_mode">Tryb oszczędzania baterii</string>
     <string name="event_preferences_battery_power_save_mode">Tryb oszczędzania baterii</string>
     <string name="phone_profiles_pref_applicationPowerSaveMode">Włącz tryb oszczędzania baterii</string>
-    <string name="array_pref_powerSaveMode_off">Nigdy</string>
-    <string name="array_pref_powerSaveMode_5" formatted="false">Włącz przy 5% baterii</string>
-    <string name="array_pref_powerSaveMode_15" formatted="false">Włącz przy 15% baterii</string>
     <string name="important_info_profile_ringerMode_root">W Androidzie 6 nie jest możliwa zmiana ustawienia systemu \"Wibracje podczas dzwonienia\" na niezrootowanym urządzeniu.</string>
     <string name="important_info_profile_adaptiveBrightness_root">W Androidzie 6+ nie jest możliwa zmiana automatycznie dopasowywanej jasności ekranu na niezrootowanym urządzeniu.</string>
     <string name="important_info_profile_wifiScanning_location">W Androidzie 6+, aby działało skanowanie WiFi, należy włączyć \"skanowanie WiFi\" w ustawieniach Lokacji.</string>
@@ -513,7 +510,6 @@
     <string name="profile_preferences_askForDuration">Pytaj o czas trwania</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">Optymalizacja baterii</string>
     <string name="profile_preferences_deviceNetworkType">(R) Typ sieci mobilnej</string>
-    <string name="array_pref_powerSaveMode_useSystem">Gdy włączone systemowe \"Oszczędzanie baterii\"</string>
     <string name="phone_profiles_pref_applicationBatterySaver">Oszczędzanie baterii</string>
     <string name="phone_profiles_pref_applicationBatterySaver_system">Ustawienia oszczędzania baterii systemu Android</string>
     <string name="phone_profiles_pref_notificationTextColor">Kolor tekstu</string>
@@ -1412,11 +1408,14 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="draw_over_apps_permission_notification_title">Zezwolenie na \"Rysuj nad aplikacjami\"</string>
     <string name="draw_over_apps_permission_notification_text">Musisz przyznać uprawnienie \"Rysuj nad aplikacjami\". Jest to wymagane aby uruchamiać aktywności, gdy PhoneProfilesPlus działa w tle. Kliknij tutaj, aby przyznać to uprawnienie.</string>
     <string name="profile_preferences_types_G1_permission">Udzielono uprawnień na parametry (G1)</string>
-    <string name="preferences_grantG1Preferences_title">Nie udzielono uprawnień na parametry (G1)</string>
-    <string name="preferences_grantG1Preferences_summary">Grant for (G1) preferences not enabled. Click here to grant it.</string>
+    <string name="preferences_grantG1Preferences_title">Permission for (G1) preferences not granted</string>
+    <string name="preferences_grantG1Preferences_summary">Permission for (G1) preferences not granted. Click here to grant it.</string>
     <string name="phone_profiles_pref_grantG1Permission_summary">Proszę przyznać uprawnienia WRITE_SECURE_SETTINGS dla PhoneProfilesPlus. Jest wymagane dla parametrów profili i zdarzeń, oznaczonych (G1). Wtedy ROOT nie będzie potrzebny.</string>
-    <string name="profile_preferences_profile_not_found">Profile not found. Deleted?</string>
-    <string name="event_preferences_event_not_found">Event not found. Deleted?</string>
+    <string name="profile_preferences_profile_not_found">Profil nie został znaleziony. Usunięty?</string>
+    <string name="event_preferences_event_not_found">Nie znaleziono zdarzenia. Usunięte?</string>
+    <string name="permissions_draw_overlays_not_allowed_alway_required">You do not have granted permission \"Draw over apps\". But this permission is required for Android 10. Please grant it.</string>
+    <string name="event_preferences_battery_level_info">Battery level warning</string>
+    <string name="event_preferences_battery_level_info_summary">Lower level &gt; 0% or upper level &lt; 100% consume battery!</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>
@@ -1673,4 +1672,8 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <!--    <string name="important_info_accessibility_service_text1">Due to a change of rules by Google, about usage of accessibility services, you must install PhoneProfilesPlusExtender to use the Application event sensor and Orientation event sensor. Check the parameters of these sensors for more information.</string>-->
     <!--    <string name="important_info_accessibility_service_text2">Due to a change of rules by Google, about usage of permissions for receive SMS and MMS, you must install PhoneProfilesPlusExtender to use the SMS/MMS event sensor. Check the parameters of this sensor for more information.</string>-->
     <!--    <string name="important_info_accessibility_service_text3">Due to a change of rules by Google, about usage of permissions for receive calls, you must install PhoneProfilesPlusExtender to use the Call event sensor. Check the parameters of this sensor for more information.</string>-->
+    <!--    <string name="array_pref_powerSaveMode_off">Off</string>-->
+    <!--    <string name="array_pref_powerSaveMode_5" formatted="false">Turn on at 5% battery</string>-->
+    <!--    <string name="array_pref_powerSaveMode_15" formatted="false">Turn on at 15% battery</string>-->
+    <!--    <string name="array_pref_powerSaveMode_useSystem">Use Battery saver</string>-->
 </resources>

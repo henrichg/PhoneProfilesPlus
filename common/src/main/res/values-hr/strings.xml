@@ -424,9 +424,6 @@
     <string name="pref_event_battery_power_save_mode">Mod uštede energije</string>
     <string name="event_preferences_battery_power_save_mode">Mod uštede energije</string>
     <string name="phone_profiles_pref_applicationPowerSaveMode">Postavke Moda uštede energije</string>
-    <string name="array_pref_powerSaveMode_off">Isklj.</string>
-    <string name="array_pref_powerSaveMode_5" formatted="false">Uključi na 5% baterije</string>
-    <string name="array_pref_powerSaveMode_15" formatted="false">Uključi na 15% baterije</string>
     <string name="important_info_profile_ringerMode_root">U Android 6 verziji nije moguće promijeniti postavke za \" Vibriraj kada zvoni\" na uređajima koji nemaju root pristup.</string>
     <string name="important_info_profile_adaptiveBrightness_root">U Android 6+ verziji nije moguće promijeniti postavke za \" Prilagodljiva osvijetljenost\" na uređajima koji nemaju root pristup.</string>
     <string name="important_info_profile_wifiScanning_location">U Android 6+ verziji da bi radilo Wi-Fi skeniranje morate omogućiti Lokaciju i Wi-Fi skeniranje u postavkama za Lokaciju.</string>
@@ -513,7 +510,6 @@
     <string name="profile_preferences_askForDuration">Pitaj za trajanje</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">Optimizacija baterije</string>
     <string name="profile_preferences_deviceNetworkType">(R) Tip mobilne mreže</string>
-    <string name="array_pref_powerSaveMode_useSystem">Koristi uštedu baterije</string>
     <string name="phone_profiles_pref_applicationBatterySaver">Ušteda baterije</string>
     <string name="phone_profiles_pref_applicationBatterySaver_system">Konfiguracija zaglavlja sustava</string>
     <string name="phone_profiles_pref_notificationTextColor">Boja teksta</string>
@@ -1411,11 +1407,14 @@
     <string name="draw_over_apps_permission_notification_title">\"Piši preko aplikacija\" dozvola</string>
     <string name="draw_over_apps_permission_notification_text">Morate da date dozvolu za \"Piši preko aplikacija\". Ona je potrebna za rad PhoneProfilesPlus aplikacije u pozadini. Klikni ovdje za odobravanje ove dozvole.</string>
     <string name="profile_preferences_types_G1_permission">Odobrenje za (G1) postavke</string>
-    <string name="preferences_grantG1Preferences_title">Odobrenje za (G1) postavke nije omogućeno</string>
-    <string name="preferences_grantG1Preferences_summary">Odobrenje za (G1) postavke nije omogućeno. Kliknite ovdje da ih omogućite.</string>
+    <string name="preferences_grantG1Preferences_title">Permission for (G1) preferences not granted</string>
+    <string name="preferences_grantG1Preferences_summary">Permission for (G1) preferences not granted. Click here to grant it.</string>
     <string name="phone_profiles_pref_grantG1Permission_summary">Omogućite WRITE_SECURE_SETTINGS odobrenje za PhoneProfilesPlus. Ono je neophodno za profil i parametre događaja, označeni su sa (G1). U tom slučaju ROOT nije neophodan.</string>
-    <string name="profile_preferences_profile_not_found">Profile not found. Deleted?</string>
-    <string name="event_preferences_event_not_found">Event not found. Deleted?</string>
+    <string name="profile_preferences_profile_not_found">Profil nije pronađen. Obrisan?</string>
+    <string name="event_preferences_event_not_found">Događaj nije pronađen. Obrisan?</string>
+    <string name="permissions_draw_overlays_not_allowed_alway_required">You do not have granted permission \"Draw over apps\". But this permission is required for Android 10. Please grant it.</string>
+    <string name="event_preferences_battery_level_info">Battery level warning</string>
+    <string name="event_preferences_battery_level_info_summary">Lower level &gt; 0% or upper level &lt; 100% consume battery!</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>
@@ -1672,4 +1671,8 @@
     <!--    <string name="important_info_accessibility_service_text1">Due to a change of rules by Google, about usage of accessibility services, you must install PhoneProfilesPlusExtender to use the Application event sensor and Orientation event sensor. Check the parameters of these sensors for more information.</string>-->
     <!--    <string name="important_info_accessibility_service_text2">Due to a change of rules by Google, about usage of permissions for receive SMS and MMS, you must install PhoneProfilesPlusExtender to use the SMS/MMS event sensor. Check the parameters of this sensor for more information.</string>-->
     <!--    <string name="important_info_accessibility_service_text3">Due to a change of rules by Google, about usage of permissions for receive calls, you must install PhoneProfilesPlusExtender to use the Call event sensor. Check the parameters of this sensor for more information.</string>-->
+    <!--    <string name="array_pref_powerSaveMode_off">Off</string>-->
+    <!--    <string name="array_pref_powerSaveMode_5" formatted="false">Turn on at 5% battery</string>-->
+    <!--    <string name="array_pref_powerSaveMode_15" formatted="false">Turn on at 15% battery</string>-->
+    <!--    <string name="array_pref_powerSaveMode_useSystem">Use Battery saver</string>-->
 </resources>

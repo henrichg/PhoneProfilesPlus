@@ -424,9 +424,6 @@
     <string name="pref_event_battery_power_save_mode">Режим энергосбережения</string>
     <string name="event_preferences_battery_power_save_mode">Режим энергосбережения</string>
     <string name="phone_profiles_pref_applicationPowerSaveMode">Настройки режима энергосбережения</string>
-    <string name="array_pref_powerSaveMode_off">Выключить</string>
-    <string name="array_pref_powerSaveMode_5" formatted="false">Включить при 5% заряде батареи</string>
-    <string name="array_pref_powerSaveMode_15" formatted="false">Включить при 15% заряде батареи</string>
     <string name="important_info_profile_ringerMode_root">В Android 6 невозможно изменить системную настройку \"Вибрация при звонке\" без прав Суперпользователя.</string>
     <string name="important_info_profile_adaptiveBrightness_root">В Android 6+ невозможно изменить системную настройку \"Адаптивная регулировка\" без прав Суперпользователя.</string>
     <string name="important_info_profile_wifiScanning_location">В Android 6+ для Wi-Fi сканирования должен быть включен режим \"По всем источникам\" в настройках \"Местоположение\".</string>
@@ -513,7 +510,6 @@
     <string name="profile_preferences_askForDuration">Запрос продолжительности</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">Экономия заряда батареи</string>
     <string name="profile_preferences_deviceNetworkType">(R) Тип мобильной сети</string>
-    <string name="array_pref_powerSaveMode_useSystem">Экономия батареи</string>
     <string name="phone_profiles_pref_applicationBatterySaver">Режим энергосбережения</string>
     <string name="phone_profiles_pref_applicationBatterySaver_system">Системные настройки</string>
     <string name="phone_profiles_pref_notificationTextColor">Цвет текста</string>
@@ -1411,11 +1407,14 @@
     <string name="draw_over_apps_permission_notification_title">Разрешение \"Поверх других приложений\"</string>
     <string name="draw_over_apps_permission_notification_text">Необходимо предоставить разрешение \"Поверх других приложений\". Оно нужно для запуска activities, когда PhoneProfilesPlus находится в фоновом режиме. Нажмите сюда, чтобы предоставить это разрешение.</string>
     <string name="profile_preferences_types_G1_permission">Разрешение для параметров с (G1)</string>
-    <string name="preferences_grantG1Preferences_title">Разрешение для параметров, отмеченных (G1), не предоставлено</string>
-    <string name="preferences_grantG1Preferences_summary">Разрешение для параметров, отмеченных (G1), не предоставлено. Нажмите сюда, чтобы предоставить его.</string>
+    <string name="preferences_grantG1Preferences_title">Permission for (G1) preferences not granted</string>
+    <string name="preferences_grantG1Preferences_summary">Permission for (G1) preferences not granted. Click here to grant it.</string>
     <string name="phone_profiles_pref_grantG1Permission_summary">Предоставьте, пожалуйста, PhoneProfilesPlus разрешение WRITE_SECURE_SETTINGS. Оно нужно для работы параметров профилей и событий, отмеченных (G1). После этого ROOT будет не нужен.</string>
-    <string name="profile_preferences_profile_not_found">Profile not found. Deleted?</string>
-    <string name="event_preferences_event_not_found">Event not found. Deleted?</string>
+    <string name="profile_preferences_profile_not_found">Профиль не найден. Он удалён?</string>
+    <string name="event_preferences_event_not_found">Событие не найдено. Оно удалено?</string>
+    <string name="permissions_draw_overlays_not_allowed_alway_required">You do not have granted permission \"Draw over apps\". But this permission is required for Android 10. Please grant it.</string>
+    <string name="event_preferences_battery_level_info">Battery level warning</string>
+    <string name="event_preferences_battery_level_info_summary">Lower level &gt; 0% or upper level &lt; 100% consume battery!</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>
@@ -1672,4 +1671,8 @@
     <!--    <string name="important_info_accessibility_service_text1">Due to a change of rules by Google, about usage of accessibility services, you must install PhoneProfilesPlusExtender to use the Application event sensor and Orientation event sensor. Check the parameters of these sensors for more information.</string>-->
     <!--    <string name="important_info_accessibility_service_text2">Due to a change of rules by Google, about usage of permissions for receive SMS and MMS, you must install PhoneProfilesPlusExtender to use the SMS/MMS event sensor. Check the parameters of this sensor for more information.</string>-->
     <!--    <string name="important_info_accessibility_service_text3">Due to a change of rules by Google, about usage of permissions for receive calls, you must install PhoneProfilesPlusExtender to use the Call event sensor. Check the parameters of this sensor for more information.</string>-->
+    <!--    <string name="array_pref_powerSaveMode_off">Off</string>-->
+    <!--    <string name="array_pref_powerSaveMode_5" formatted="false">Turn on at 5% battery</string>-->
+    <!--    <string name="array_pref_powerSaveMode_15" formatted="false">Turn on at 15% battery</string>-->
+    <!--    <string name="array_pref_powerSaveMode_useSystem">Use Battery saver</string>-->
 </resources>

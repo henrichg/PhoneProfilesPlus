@@ -424,9 +424,6 @@
     <string name="pref_event_battery_power_save_mode">省电模式</string>
     <string name="event_preferences_battery_power_save_mode">省电模式</string>
     <string name="phone_profiles_pref_applicationPowerSaveMode">省电模式设置</string>
-    <string name="array_pref_powerSaveMode_off">关闭</string>
-    <string name="array_pref_powerSaveMode_5" formatted="false">剩余 5% 电量时启用</string>
-    <string name="array_pref_powerSaveMode_15" formatted="false">剩余 15% 电量时启用</string>
     <string name="important_info_profile_ringerMode_root">在未 root 的 Android 6 设备中，不能更改系统设置“响铃时震动”。</string>
     <string name="important_info_profile_adaptiveBrightness_root">在未 root 的 Android 6+ 设备中，不能更改系统设置“自适应亮度”。</string>
     <string name="important_info_profile_wifiScanning_location">在 Android 6+ 设备中，必须在定位设置中启用定位和“Wi-Fi 扫描”选项以启用 Wi-Fi 扫描。</string>
@@ -513,7 +510,6 @@
     <string name="profile_preferences_askForDuration">询问时间段</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">电池优化</string>
     <string name="profile_preferences_deviceNetworkType">(R) 移动网络类型</string>
-    <string name="array_pref_powerSaveMode_useSystem">使用节电程序</string>
     <string name="phone_profiles_pref_applicationBatterySaver">节电模式</string>
     <string name="phone_profiles_pref_applicationBatterySaver_system">系统设置配置</string>
     <string name="phone_profiles_pref_notificationTextColor">文本颜色</string>
@@ -1411,11 +1407,14 @@
     <string name="draw_over_apps_permission_notification_title">\"Draw over apps\" permission</string>
     <string name="draw_over_apps_permission_notification_text">You must grant permission \"Draw over apps\". It is required to start activities when PhoneProfilesPlus is in background. Click here to grant this permission.</string>
     <string name="profile_preferences_types_G1_permission">Grant for (G1) preferences</string>
-    <string name="preferences_grantG1Preferences_title">Grant for (G1) preferences not enabled</string>
-    <string name="preferences_grantG1Preferences_summary">Grant for (G1) preferences not enabled. Click here to grant it.</string>
+    <string name="preferences_grantG1Preferences_title">Permission for (G1) preferences not granted</string>
+    <string name="preferences_grantG1Preferences_summary">Permission for (G1) preferences not granted. Click here to grant it.</string>
     <string name="phone_profiles_pref_grantG1Permission_summary">Please grant WRITE_SECURE_SETTINGS permission for PhoneProfilesPlus. Is required for profile and event parameters, marked with (G1). Then ROOT will not be needed.</string>
     <string name="profile_preferences_profile_not_found">Profile not found. Deleted?</string>
     <string name="event_preferences_event_not_found">Event not found. Deleted?</string>
+    <string name="permissions_draw_overlays_not_allowed_alway_required">You do not have granted permission \"Draw over apps\". But this permission is required for Android 10. Please grant it.</string>
+    <string name="event_preferences_battery_level_info">Battery level warning</string>
+    <string name="event_preferences_battery_level_info_summary">Lower level &gt; 0% or upper level &lt; 100% consume battery!</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：n•配置文件参数“强制停止应用程序”n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>
@@ -1672,4 +1671,8 @@
     <!--    <string name="important_info_accessibility_service_text1">Due to a change of rules by Google, about usage of accessibility services, you must install PhoneProfilesPlusExtender to use the Application event sensor and Orientation event sensor. Check the parameters of these sensors for more information.</string>-->
     <!--    <string name="important_info_accessibility_service_text2">Due to a change of rules by Google, about usage of permissions for receive SMS and MMS, you must install PhoneProfilesPlusExtender to use the SMS/MMS event sensor. Check the parameters of this sensor for more information.</string>-->
     <!--    <string name="important_info_accessibility_service_text3">Due to a change of rules by Google, about usage of permissions for receive calls, you must install PhoneProfilesPlusExtender to use the Call event sensor. Check the parameters of this sensor for more information.</string>-->
+    <!--    <string name="array_pref_powerSaveMode_off">Off</string>-->
+    <!--    <string name="array_pref_powerSaveMode_5" formatted="false">Turn on at 5% battery</string>-->
+    <!--    <string name="array_pref_powerSaveMode_15" formatted="false">Turn on at 15% battery</string>-->
+    <!--    <string name="array_pref_powerSaveMode_useSystem">Use Battery saver</string>-->
 </resources>

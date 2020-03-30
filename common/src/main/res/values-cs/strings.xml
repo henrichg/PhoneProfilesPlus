@@ -424,9 +424,6 @@
     <string name="pref_event_battery_power_save_mode">Úsporný režim</string>
     <string name="event_preferences_battery_power_save_mode">Úsporný režim</string>
     <string name="phone_profiles_pref_applicationPowerSaveMode">Nastavení Úsporného režimu</string>
-    <string name="array_pref_powerSaveMode_off">Vypnout</string>
-    <string name="array_pref_powerSaveMode_5" formatted="false">Zapnout při 5 % baterie</string>
-    <string name="array_pref_powerSaveMode_15" formatted="false">Zapnout při 15 % baterie</string>
     <string name="important_info_profile_ringerMode_root">V Androidu 6 není možné změnit nastavení \"Vibrovat při vyzvánění\" pokud nemáte práva ROOT.</string>
     <string name="important_info_profile_adaptiveBrightness_root">V Androidu 6+ není možné měnit úrovně \"Adaptivní jas\" pokud nemáte práva ROOT.</string>
     <string name="important_info_profile_wifiScanning_location">V Android 6+, pro skenování Wi-Fi musí být povolena Poloha a \"Vyhledávání sítí Wi-Fi\" v nastaveních Polohy.</string>
@@ -513,7 +510,6 @@
     <string name="profile_preferences_askForDuration">Dotaz na Trvání</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">Optimalizace baterie</string>
     <string name="profile_preferences_deviceNetworkType">(R) Typ mobilní sítě</string>
-    <string name="array_pref_powerSaveMode_useSystem">Použij Spořič baterie</string>
     <string name="phone_profiles_pref_applicationBatterySaver">Spořič baterie</string>
     <string name="phone_profiles_pref_applicationBatterySaver_system">Konfigurace v systémových nastaveních</string>
     <string name="phone_profiles_pref_notificationTextColor">Barva textu</string>
@@ -1410,12 +1406,15 @@
     <string name="array_pref_soundModeArray_ZenModeM_On">Nerušit zapnuto</string>
     <string name="draw_over_apps_permission_notification_title">Oprávnění \"Vykreslit přes další aplikace\"</string>
     <string name="draw_over_apps_permission_notification_text">Musíte udělit oprávnění \"Vykreslit přes další aplikace\". Je vyžadováno pro start aktivit když je PhoneProfilesPlus na pozadí. Klikněte sem pro udělení tohoto oprávnění.</string>
-    <string name="profile_preferences_types_G1_permission">Grant for (G1) preferences</string>
-    <string name="preferences_grantG1Preferences_title">Grant for (G1) preferences not enabled</string>
-    <string name="preferences_grantG1Preferences_summary">Grant for (G1) preferences not enabled. Click here to grant it.</string>
-    <string name="phone_profiles_pref_grantG1Permission_summary">Please grant WRITE_SECURE_SETTINGS permission for PhoneProfilesPlus. Is required for profile and event parameters, marked with (G1). Then ROOT will not be needed.</string>
-    <string name="profile_preferences_profile_not_found">Profile not found. Deleted?</string>
-    <string name="event_preferences_event_not_found">Event not found. Deleted?</string>
+    <string name="profile_preferences_types_G1_permission">Udělení pro (G1) parametry</string>
+    <string name="preferences_grantG1Preferences_title">Povolení pro (G1) parametry není uděleno</string>
+    <string name="preferences_grantG1Preferences_summary">Povolení pro (G1) parametry není uděleno. Klikněte sem pro jeho udělení.</string>
+    <string name="phone_profiles_pref_grantG1Permission_summary">Prosím udělte povolení WRITE_SECURE_SETTINGS pro PhoneProfilesPlus. Je vyžadováno pro parametry profilu a události, označené jako (G1). Potom ROOT nebude potřebný.</string>
+    <string name="profile_preferences_profile_not_found">Profil nenalezen. Vymazán?</string>
+    <string name="event_preferences_event_not_found">Událost nenalezena. Vymazána?</string>
+    <string name="permissions_draw_overlays_not_allowed_alway_required">Nemáte povolení \"Vykreslit přes další aplikace\". Ale toto povolení je vyžadováno pro Android 10. Prosim udělte ho.</string>
+    <string name="event_preferences_battery_level_info">Upozornění pro úroveň baterie</string>
+    <string name="event_preferences_battery_level_info_summary">Spodní úroveň &gt; 0% nebo horní úroveň &lt; 100% spotřebovává baterii!</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>
@@ -1672,4 +1671,8 @@
     <!--    <string name="important_info_accessibility_service_text1">Due to a change of rules by Google, about usage of accessibility services, you must install PhoneProfilesPlusExtender to use the Application event sensor and Orientation event sensor. Check the parameters of these sensors for more information.</string>-->
     <!--    <string name="important_info_accessibility_service_text2">Due to a change of rules by Google, about usage of permissions for receive SMS and MMS, you must install PhoneProfilesPlusExtender to use the SMS/MMS event sensor. Check the parameters of this sensor for more information.</string>-->
     <!--    <string name="important_info_accessibility_service_text3">Due to a change of rules by Google, about usage of permissions for receive calls, you must install PhoneProfilesPlusExtender to use the Call event sensor. Check the parameters of this sensor for more information.</string>-->
+    <!--    <string name="array_pref_powerSaveMode_off">Off</string>-->
+    <!--    <string name="array_pref_powerSaveMode_5" formatted="false">Turn on at 5% battery</string>-->
+    <!--    <string name="array_pref_powerSaveMode_15" formatted="false">Turn on at 15% battery</string>-->
+    <!--    <string name="array_pref_powerSaveMode_useSystem">Use Battery saver</string>-->
 </resources>

@@ -353,12 +353,12 @@
     <string name="calendar_pref_dlg_info_about_wildcards">v hľadanom reťazci,</string>
     <string name="pref_dlg_info_about_wildcards_3">pridajte \"\u005C\" pred tieto znaky.</string>
     <string name="important_info_profile_settings">Niektoré parametre profilu vyžadujú zmeny nastavení v systémových Nastaveniach. Tieto parametre sú označená ako \"(S)\".</string>
-    <string name="profile_preferences_volumeNotificationsAccessSettings_title">Prístup k notifikáciám</string>
+    <string name="profile_preferences_volumeNotificationsAccessSettings_title">Prístup k notifikáciam</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Povoľ PhoneProfilesPlus v systémovom nastavení \"Prístup k notifikáciám\", pre povolenie parametru profilu \"Typy vyrušení\".</string>
     <string name="array_pref_zenModeArray_allWithVibration">Všetky s vibráciami</string>
     <string name="array_pref_zenModeArray_priorityWithVibration">Prioritné s vibráciami</string>
     <string name="important_info_news">Novinky</string>
-    <string name="important_info_profile_zenMode">\"Vyrušenia\" v \"Móde zvonenia\" profilu vyžaduje povolenie PhoneProfilesPlus v systémovom nastavení \"Prístup k notifikáciám\". Kliknite sem a povoľte PhoneProfilesPlus.</string>
+    <string name="important_info_profile_zenMode">\"Vyrušenia\" v \"Móde zvonenia\" profilu vyžaduje povolenie PhoneProfilesPlus v systémovom nastavení \"Prístup k notifikáciam\". Kliknite sem a povoľte PhoneProfilesPlus.</string>
     <string name="profile_preferences_zenMode_none_summary">Žiadne vyrušenia, ani budíky</string>
     <string name="profile_preferences_zenMode_priority_summary">Iba prioritné vyrušenia</string>
     <string name="profile_preferences_zenMode_all_summary">Všetky vyrušenia</string>
@@ -424,9 +424,6 @@
     <string name="pref_event_battery_power_save_mode">Režim Šetrič batérie</string>
     <string name="event_preferences_battery_power_save_mode">Režim Šetrič batérie</string>
     <string name="phone_profiles_pref_applicationPowerSaveMode">Režim šetrenia batérie</string>
-    <string name="array_pref_powerSaveMode_off">Vypnúť</string>
-    <string name="array_pref_powerSaveMode_5" formatted="false">Zapnúť pri 5% batérie</string>
-    <string name="array_pref_powerSaveMode_15" formatted="false">Zapnúť pri 15% batérie</string>
     <string name="important_info_profile_ringerMode_root">V Android 6, nie je možné zmeniť nastavenie \"Vibrovať pri zvonení\" ak zariadenie nemá root.</string>
     <string name="important_info_profile_adaptiveBrightness_root">V Android 6+, nie je možné zmeniť úroveň pre nastavenie \"Prispôsobovať jas\" ak zariadenie nemá root.</string>
     <string name="important_info_profile_wifiScanning_location">V Android 6+, pre skenovanie Wi-Fi musí byť povolená Poloha a \"Vyhľadávanie sietí Wi-Fi\" na nastaveniach Polohy.</string>
@@ -513,7 +510,6 @@
     <string name="profile_preferences_askForDuration">Pýtať si trvanie</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">Optimalizácia batérie</string>
     <string name="profile_preferences_deviceNetworkType">(R) Typ mobilnej siete</string>
-    <string name="array_pref_powerSaveMode_useSystem">Používaj Šetrič batérie</string>
     <string name="phone_profiles_pref_applicationBatterySaver">Šetrič batérie</string>
     <string name="phone_profiles_pref_applicationBatterySaver_system">Konfigurácia v systémových nastaveniach</string>
     <string name="phone_profiles_pref_notificationTextColor">Farba textu</string>
@@ -1340,7 +1336,7 @@
     <string name="event_preference_sensor_screen_summary">Tento senzor spustí udalosť podľa zapnutia/vypnutia obrazovky. Parametre: Typ udalosti (obrazovka sa zapla/vypla), Štart keď je odomknuté/zamknuté (udalosť sa spustí keď zariadenie na odomknuté/zamknuté).</string>
     <string name="phone_profiles_pref_applicationPrefIndicator_summary">Zobraziť indikátory parametrov profilu v Aktivátore, Editore, odkaze</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">Zobraziť indikátory parametrov profilu v notifikácii</string>
-    <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Zobraziť indikátory parametrov profilu v miniaplikáciách</string>
+    <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Zobraziť indikátory parametrov profilu v miniaplikáciach</string>
     <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk sa nachádza v</string>
     <string name="event_preferences_not_set_underlined_parameters_summary">Podčiarknuté parametre sú povinné.</string>
     <string name="event_preferences_red_sensors_summary">Skontrolujte aj parametre senzorov označené červenou farbou.</string>
@@ -1404,18 +1400,21 @@
     <string name="altype_manualRestartEvents">manuálny reštart udalostí</string>
     <string name="profile_preferences_configureSoundMode_info">Prosím nakonfigurujte aj parameter profilu \"Zvukový profil\"/\"Režim zvuku\"</string>
     <string name="profile_preferences_category_volumeTypes">Typy hlasitosti</string>
-    <string name="array_pref_soundModeArray_ZenModeL_Off">Vyrušenia vypnté</string>
-    <string name="array_pref_soundModeArray_ZenModeL_On">Vyrušenia zapnté</string>
+    <string name="array_pref_soundModeArray_ZenModeL_Off">Vyrušenia vypnuté</string>
+    <string name="array_pref_soundModeArray_ZenModeL_On">Vyrušenia zapnuté</string>
     <string name="array_pref_soundModeArray_ZenModeM_Off">Nerušiť vypnuté</string>
     <string name="array_pref_soundModeArray_ZenModeM_On">Nerušiť zapnuté</string>
     <string name="draw_over_apps_permission_notification_title">Povolenie \"Vykresliť cez ďalšie aplikácie\"</string>
     <string name="draw_over_apps_permission_notification_text">Musíte udeliť povolenie \"Vykresliť cez ďalšie aplikácie\". Je vyžadované pre štart aktivít keď je PhoneProfilesPlus na pozadí. Kliknite sem pre udelenie tohoto povolenia.</string>
-    <string name="profile_preferences_types_G1_permission">Grant for (G1) preferences</string>
-    <string name="preferences_grantG1Preferences_title">Grant for (G1) preferences not enabled</string>
-    <string name="preferences_grantG1Preferences_summary">Grant for (G1) preferences not enabled. Click here to grant it.</string>
-    <string name="phone_profiles_pref_grantG1Permission_summary">Please grant WRITE_SECURE_SETTINGS permission for PhoneProfilesPlus. Is required for profile and event parameters, marked with (G1). Then ROOT will not be needed.</string>
-    <string name="profile_preferences_profile_not_found">Profile not found. Deleted?</string>
-    <string name="event_preferences_event_not_found">Event not found. Deleted?</string>
+    <string name="profile_preferences_types_G1_permission">Udelenie pre (G1) parametre</string>
+    <string name="preferences_grantG1Preferences_title">Povolenie pre (G1) parametre nie je udelené</string>
+    <string name="preferences_grantG1Preferences_summary">Povolenie pre (G1) parametre nie je udelené. Kliknite sem pre jeho udelenie.</string>
+    <string name="phone_profiles_pref_grantG1Permission_summary">Prosím udeľte povolenie WRITE_SECURE_SETTINGS pre PhoneProfilesPlus. Je vyžadované pre parametre profilu a udalosti, označené ako (G1). Potom ROOT nebude potrebný.</string>
+    <string name="profile_preferences_profile_not_found">Profil nenájdený. Vymazaný?</string>
+    <string name="event_preferences_event_not_found">Udalosť nenájdená. Vymazaná?</string>
+    <string name="permissions_draw_overlays_not_allowed_alway_required">Nemáte udelené povolenie \"Vykresliť cez ďalšie aplikácie\". Ale toto povolenie je vyžadované pre Android 10. Prosim udelte ho.</string>
+    <string name="event_preferences_battery_level_info">Upozornenie pre úroveň batérie</string>
+    <string name="event_preferences_battery_level_info_summary">Spodná úroveň &gt; 0% alebo horná úroveň &lt; 100% spotrebúva batériu!</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>
@@ -1672,4 +1671,8 @@
     <!--    <string name="important_info_accessibility_service_text1">Due to a change of rules by Google, about usage of accessibility services, you must install PhoneProfilesPlusExtender to use the Application event sensor and Orientation event sensor. Check the parameters of these sensors for more information.</string>-->
     <!--    <string name="important_info_accessibility_service_text2">Due to a change of rules by Google, about usage of permissions for receive SMS and MMS, you must install PhoneProfilesPlusExtender to use the SMS/MMS event sensor. Check the parameters of this sensor for more information.</string>-->
     <!--    <string name="important_info_accessibility_service_text3">Due to a change of rules by Google, about usage of permissions for receive calls, you must install PhoneProfilesPlusExtender to use the Call event sensor. Check the parameters of this sensor for more information.</string>-->
+    <!--    <string name="array_pref_powerSaveMode_off">Off</string>-->
+    <!--    <string name="array_pref_powerSaveMode_5" formatted="false">Turn on at 5% battery</string>-->
+    <!--    <string name="array_pref_powerSaveMode_15" formatted="false">Turn on at 15% battery</string>-->
+    <!--    <string name="array_pref_powerSaveMode_useSystem">Use Battery saver</string>-->
 </resources>
