@@ -551,7 +551,7 @@ public class DelayedWorksWorker extends Worker {
                                             .build();
                             try {
                                 WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
-                                workManager.enqueueUniqueWork("afterFirstStartWork", ExistingWorkPolicy.REPLACE, worker);
+                                workManager.enqueue(worker);
                             } catch (Exception ignored) {
                             }
 

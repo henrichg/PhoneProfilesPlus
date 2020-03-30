@@ -646,81 +646,81 @@ public class EditorEventListFragment extends Fragment
     }
 
     boolean runStopEvent(final Event event) {
-        if (!EventsPrefsFragment.isRedTextNotificationRequired(event, activityDataWrapper.context)) {
-            if (Event.getGlobalEventsRunning()) {
-                // events are not globally stopped
+        if (Event.getGlobalEventsRunning()) {
+            // events are not globally stopped
 
-                activityDataWrapper.getEventTimelineList(true);
-                if (event.getStatusFromDB(activityDataWrapper.context) == Event.ESTATUS_STOP) {
+            activityDataWrapper.getEventTimelineList(true);
+            if (event.getStatusFromDB(activityDataWrapper.context) == Event.ESTATUS_STOP) {
+                if (!EventsPrefsFragment.isRedTextNotificationRequired(event, activityDataWrapper.context)) {
                     // pause event
                     //IgnoreBatteryOptimizationNotification.showNotification(activityDataWrapper.context.getApplicationContext());
                     // not needed to use handlerThread, profile is not activated (activateReturnProfile=false)
                     event.pauseEvent(activityDataWrapper, false, false,
                             false, true, null, false, false);
-                } else {
-                    // stop event
-                    // not needed to use handlerThread, profile is not activated (activateReturnProfile=false)
-                    event.stopEvent(activityDataWrapper, false, false,
-                            true, true); // activate return profile
                 }
-
-                // redraw event list
-                //updateListView(event, false, false, true, 0);
-                if (getActivity() != null)
-                    ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
-
-                // restart events
-                //PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.runStopEvent");
-                //activityDataWrapper.restartEvents(false, true, true, true, true);
-                //PPApplication.logE("*********** restartEvents", "from EditorEventListFragment.runStopEvents() - 1");
-                activityDataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
-
-                /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
-                PPApplication.startPPService(activityDataWrapper.context, serviceIntent);*/
-                Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-                //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
-                PPApplication.runCommand(activityDataWrapper.context, commandIntent);
+                else {
+                    EditorProfilesActivity.showDialogAboutRedText(null, event, false, true, getActivity());
+                    return false;
+                }
             } else {
-                if (event.getStatusFromDB(activityDataWrapper.context) == Event.ESTATUS_STOP) {
-                    // pause event
-                    event.setStatus(Event.ESTATUS_PAUSE);
-                } else {
-                    // stop event
-                    event.setStatus(Event.ESTATUS_STOP);
-                }
-
-                // update event in DB
-                DatabaseHandler.getInstance(activityDataWrapper.context).updateEvent(event);
-
-                // redraw event list
-                //updateListView(event, false, false, true, 0);
-                if (getActivity() != null)
-                    ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
-
-                // restart events
-                //PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.runStopEvent");
-                //activityDataWrapper.restartEvents(false, true, true, true, true);
-                //PPApplication.logE("*********** restartEvents", "from EditorEventListFragment.runStopEvents() - 2");
-                activityDataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
-
-                /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
-                PPApplication.startPPService(activityDataWrapper.context, serviceIntent);*/
-                Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-                //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
-                PPApplication.runCommand(activityDataWrapper.context, commandIntent);
+                // stop event
+                // not needed to use handlerThread, profile is not activated (activateReturnProfile=false)
+                event.stopEvent(activityDataWrapper, false, false,
+                        true, true); // activate return profile
             }
-            return true;
+
+            // redraw event list
+            //updateListView(event, false, false, true, 0);
+            if (getActivity() != null)
+                ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
+
+            // restart events
+            //PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.runStopEvent");
+            //activityDataWrapper.restartEvents(false, true, true, true, true);
+            //PPApplication.logE("*********** restartEvents", "from EditorEventListFragment.runStopEvents() - 1");
+            activityDataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
+
+            /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
+            PPApplication.startPPService(activityDataWrapper.context, serviceIntent);*/
+            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
+            PPApplication.runCommand(activityDataWrapper.context, commandIntent);
+        } else {
+            if (event.getStatusFromDB(activityDataWrapper.context) == Event.ESTATUS_STOP) {
+                // pause event
+                event.setStatus(Event.ESTATUS_PAUSE);
+            } else {
+                // stop event
+                event.setStatus(Event.ESTATUS_STOP);
+            }
+
+            // update event in DB
+            DatabaseHandler.getInstance(activityDataWrapper.context).updateEvent(event);
+
+            // redraw event list
+            //updateListView(event, false, false, true, 0);
+            if (getActivity() != null)
+                ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
+
+            // restart events
+            //PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.runStopEvent");
+            //activityDataWrapper.restartEvents(false, true, true, true, true);
+            //PPApplication.logE("*********** restartEvents", "from EditorEventListFragment.runStopEvents() - 2");
+            activityDataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
+
+            /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
+            PPApplication.startPPService(activityDataWrapper.context, serviceIntent);*/
+            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
+            PPApplication.runCommand(activityDataWrapper.context, commandIntent);
         }
-        else {
-            EditorProfilesActivity.showDialogAboutRedText(null, event, false, true, getActivity());
-            return false;
-        }
+        return true;
     }
 
     private void duplicateEvent(Event origEvent)
