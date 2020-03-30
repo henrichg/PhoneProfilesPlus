@@ -24,7 +24,7 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/about_application_application_icon"
             android:scaleType="fitCenter"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@drawable/ic_launcher"/>
 
         <TextView
             android:id="@+id/about_application_application_name"
