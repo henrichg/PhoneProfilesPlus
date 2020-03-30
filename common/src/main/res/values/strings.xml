@@ -429,9 +429,6 @@
     <string name="pref_event_battery_power_save_mode">Power save mode</string>
     <string name="event_preferences_battery_power_save_mode">Power save mode</string>
     <string name="phone_profiles_pref_applicationPowerSaveMode">Power save mode settings</string>
-    <string name="array_pref_powerSaveMode_off">Off</string>
-    <string name="array_pref_powerSaveMode_5" formatted="false">Turn on at 5% battery</string>
-    <string name="array_pref_powerSaveMode_15" formatted="false">Turn on at 15% battery</string>
     <string name="important_info_profile_ringerMode_root">In Android 6, it is not possible to change the \"Vibrate when ringing\" system setting on non-rooted devices.</string>
     <string name="important_info_profile_adaptiveBrightness_root">In Android 6+, it is not possible to change the level of \"Adaptive brightness\" on non-rooted devices.</string>
     <string name="important_info_profile_wifiScanning_location">In Android 6+, for Wi-Fi scanning to work, you must enable Location and Wi-Fi scanning in Location settings.</string>
@@ -518,7 +515,6 @@
     <string name="profile_preferences_askForDuration">Ask for Duration</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">Battery optimization</string>
     <string name="profile_preferences_deviceNetworkType">(R) Mobile network type</string>
-    <string name="array_pref_powerSaveMode_useSystem">Use Battery saver</string>
     <string name="phone_profiles_pref_applicationBatterySaver">Battery Saver</string>
     <string name="phone_profiles_pref_applicationBatterySaver_system">System settings configuration</string>
     <string name="phone_profiles_pref_notificationTextColor">Text color</string>
@@ -1768,6 +1764,10 @@
 <!--    <string name="important_info_accessibility_service_text1">Due to a change of rules by Google, about usage of accessibility services, you must install PhoneProfilesPlusExtender to use the Application event sensor and Orientation event sensor. Check the parameters of these sensors for more information.</string>-->
 <!--    <string name="important_info_accessibility_service_text2">Due to a change of rules by Google, about usage of permissions for receive SMS and MMS, you must install PhoneProfilesPlusExtender to use the SMS/MMS event sensor. Check the parameters of this sensor for more information.</string>-->
 <!--    <string name="important_info_accessibility_service_text3">Due to a change of rules by Google, about usage of permissions for receive calls, you must install PhoneProfilesPlusExtender to use the Call event sensor. Check the parameters of this sensor for more information.</string>-->
+<!--    <string name="array_pref_powerSaveMode_off">Off</string>-->
+<!--    <string name="array_pref_powerSaveMode_5" formatted="false">Turn on at 5% battery</string>-->
+<!--    <string name="array_pref_powerSaveMode_15" formatted="false">Turn on at 15% battery</string>-->
+<!--    <string name="array_pref_powerSaveMode_useSystem">Use Battery saver</string>-->
 
 </resources>
 

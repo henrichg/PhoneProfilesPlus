@@ -550,18 +550,18 @@
         <item>1</item>
         <item>2</item>
     </string-array>
-    <string-array name="powerSaveModeArray" tools:ignore="InconsistentArrays">
-        <item>@string/array_pref_powerSaveMode_off</item>
-        <item>@string/array_pref_powerSaveMode_5</item>
-        <item>@string/array_pref_powerSaveMode_15</item>
-        <item>@string/array_pref_powerSaveMode_useSystem</item>
-    </string-array>
-    <string-array name="powerSaveModeValues" tools:ignore="InconsistentArrays">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
+<!--    <string-array name="powerSaveModeArray" tools:ignore="InconsistentArrays">-->
+<!--        <item>@string/array_pref_powerSaveMode_off</item>-->
+<!--        <item>@string/array_pref_powerSaveMode_5</item>-->
+<!--        <item>@string/array_pref_powerSaveMode_15</item>-->
+<!--        <item>@string/array_pref_powerSaveMode_useSystem</item>-->
+<!--    </string-array>-->
+<!--    <string-array name="powerSaveModeValues" tools:ignore="InconsistentArrays">-->
+<!--        <item>0</item>-->
+<!--        <item>1</item>-->
+<!--        <item>2</item>-->
+<!--        <item>3</item>-->
+<!--    </string-array>-->
 <!--    <string-array name="eventBluetoothDevicesTypeArray">-->
 <!--        <item>@string/array_event_pref_bluetoothDevicesType_classic</item>-->
 <!--        <item>@string/array_event_pref_bluetoothDevicesType_le</item>-->

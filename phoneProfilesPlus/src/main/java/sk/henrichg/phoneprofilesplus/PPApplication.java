@@ -1790,7 +1790,7 @@ public class PPApplication extends Application /*implements Application.Activity
             ApplicationPreferences.applicationShortcutEmblem(context);
             ApplicationPreferences.applicationEventWifiScanInPowerSaveMode(context);
             ApplicationPreferences.applicationEventBluetoothScanInPowerSaveMode(context);
-            ApplicationPreferences.applicationPowerSaveModeInternal(context);
+            //ApplicationPreferences.applicationPowerSaveModeInternal(context);
             ApplicationPreferences.applicationEventBluetoothLEScanDuration(context);
             ApplicationPreferences.applicationEventLocationUpdateInterval(context);
             ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context);

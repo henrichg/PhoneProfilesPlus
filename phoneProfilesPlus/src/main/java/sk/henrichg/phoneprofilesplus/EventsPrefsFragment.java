@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -886,6 +887,64 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             //        if (negative != null) negative.setAllCaps(false);
                             //    }
                             //});
+                            if (!getActivity().isFinishing())
+                                dialog.show();
+                        }
+                    }
+                    return false;
+                }
+            });
+        }
+        preference = prefMng.findPreference(EventPreferencesBattery.PREF_EVENT_BATTERY_BATTERY_SAVER_SYSTEM_SETTINGS);
+        if (preference != null) {
+            //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    boolean activityExists;
+                    Intent intent;
+                    if (Build.VERSION.SDK_INT == 21) {
+                        intent = new Intent();
+                        intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$BatterySaverSettingsActivity"));
+                        activityExists = GlobalGUIRoutines.activityIntentExists(intent, context);
+                    } else {
+                        activityExists = GlobalGUIRoutines.activityActionExists(Settings.ACTION_BATTERY_SAVER_SETTINGS, context);
+                        intent = new Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS);
+                    }
+                    if (activityExists) {
+                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                        try {
+                            startActivity(intent);
+                        } catch (Exception e) {
+                            if (Build.VERSION.SDK_INT > 21) {
+                                intent = new Intent();
+                                intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$BatterySaverSettingsActivity"));
+                                activityExists = GlobalGUIRoutines.activityIntentExists(intent, context);
+                                if (activityExists) {
+                                    try {
+                                        startActivity(intent);
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (!activityExists) {
+                        if (getActivity() != null) {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            AlertDialog dialog = dialogBuilder.create();
+                            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                @Override
+                                public void onShow(DialogInterface dialog) {
+                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                    if (positive != null) positive.setAllCaps(false);
+                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                    if (negative != null) negative.setAllCaps(false);
+                                }
+                            });*/
                             if (!getActivity().isFinishing())
                                 dialog.show();
                         }

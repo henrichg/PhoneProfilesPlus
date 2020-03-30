@@ -50,6 +50,12 @@
         app:defaultValue="false"
         app:dependency="eventBatteryEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    
+    <Preference
+        app:key="eventBatteryBatterySaver"
+        app:title="@string/phone_profiles_pref_applicationBatterySaver"
+        app:summary="@string/phone_profiles_pref_applicationBatterySaver_system"
+        app:dependency="eventBatteryEnabled"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget"/>
 
 </androidx.preference.PreferenceScreen>

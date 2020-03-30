@@ -61,8 +61,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_BLUETOOTH_LOCATION_SYSTEM_SETTINGS = "applicationEventBluetoothLocationSystemSettings";
     private static final String PREF_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS = "applicationEventMobileCellsLocationSystemSettings";
     private static final int RESULT_WIFI_BLUETOOTH_MOBILE_CELLS_LOCATION_SETTINGS = 1992;
-    private static final String PREF_POWER_SAVE_MODE_SETTINGS = "applicationPowerSaveMode";
-    private static final int RESULT_POWER_SAVE_MODE_SETTINGS = 1993;
     //static final String PREF_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
     private static final String PREF_LOCATION_SYSTEM_SETTINGS = "applicationEventLocationSystemSettings";
     private static final int RESULT_LOCATION_SYSTEM_SETTINGS = 1994;
@@ -76,6 +74,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_NOTIFICATION_SYSTEM_SETTINGS = "notificationSystemSettings";
     //private static final String PREF_APPLICATION_POWER_MANAGER = "applicationPowerManager";
     //private static final String PREF_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_SYSTEM_SETTINGS = "applicationEventMobileCellNotUsedCellsDetectionNotificationSystemSettings";
+    private static final String PREF_SYSTEM_POWER_SAVE_MODE_SETTINGS = "applicationSystemPowerSaveMode";
+    private static final String PREF_LOCATION_POWER_SAVE_MODE_SETTINGS = "applicationLocationPowerSaveMode";
+    private static final String PREF_WIFI_POWER_SAVE_MODE_SETTINGS = "applicationWifiPowerSaveMode";
+    private static final String PREF_BLUETOOTH_POWER_SAVE_MODE_SETTINGS = "applicationBluetoothPowerSaveMode";
+    private static final String PREF_MOBILE_CELL_POWER_SAVE_MODE_SETTINGS = "applicationMobileCellPowerSaveMode";
+    private static final String PREF_ORIENTATION_POWER_SAVE_MODE_SETTINGS = "applicationOrientationPowerSaveMode";
+    private static final int RESULT_POWER_SAVE_MODE_SETTINGS = 1993;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -322,63 +328,13 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 systemCategory.removePreference(preference);*/
         }
 
-        preference = findPreference(PREF_POWER_SAVE_MODE_SETTINGS);
-        if (preference != null) {
-            //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @SuppressWarnings("ConstantConditions")
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    boolean activityExists;
-                    Intent intent;
-                    if (Build.VERSION.SDK_INT == 21) {
-                        intent = new Intent();
-                        intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$BatterySaverSettingsActivity"));
-                        activityExists = GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext());
-                    } else {
-                        activityExists = GlobalGUIRoutines.activityActionExists(Settings.ACTION_BATTERY_SAVER_SETTINGS, getActivity().getApplicationContext());
-                        intent = new Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS);
-                    }
-                    if (activityExists) {
-                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        try {
-                            startActivityForResult(intent, RESULT_POWER_SAVE_MODE_SETTINGS);
-                        } catch (Exception e) {
-                            if (Build.VERSION.SDK_INT > 21) {
-                                intent = new Intent();
-                                intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$BatterySaverSettingsActivity"));
-                                activityExists = GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext());
-                                if (activityExists) {
-                                    try {
-                                        startActivityForResult(intent, RESULT_POWER_SAVE_MODE_SETTINGS);
-                                    } catch (Exception ignored) {
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    if (!activityExists) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-                            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                @Override
-                                public void onShow(DialogInterface dialog) {
-                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                    if (positive != null) positive.setAllCaps(false);
-                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                    if (negative != null) negative.setAllCaps(false);
-                                }
-                            });*/
-                        if (!getActivity().isFinishing())
-                            dialog.show();
-                    }
-                    return false;
-                }
-            });
-        }
+        doOnActivityCreatedBatterySaver(PREF_SYSTEM_POWER_SAVE_MODE_SETTINGS);
+        doOnActivityCreatedBatterySaver(PREF_LOCATION_POWER_SAVE_MODE_SETTINGS);
+        doOnActivityCreatedBatterySaver(PREF_WIFI_POWER_SAVE_MODE_SETTINGS);
+        doOnActivityCreatedBatterySaver(PREF_BLUETOOTH_POWER_SAVE_MODE_SETTINGS);
+        doOnActivityCreatedBatterySaver(PREF_MOBILE_CELL_POWER_SAVE_MODE_SETTINGS);
+        doOnActivityCreatedBatterySaver(PREF_ORIENTATION_POWER_SAVE_MODE_SETTINGS);
+
         if (Build.VERSION.SDK_INT >= 23) {
             preference = findPreference(PREF_APPLICATION_PERMISSIONS);
             if (preference != null) {
@@ -1427,6 +1383,67 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
     }
 
+    private void doOnActivityCreatedBatterySaver(String key) {
+        Preference preference = findPreference(key);
+        if (preference != null) {
+            //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @SuppressWarnings("ConstantConditions")
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    boolean activityExists;
+                    Intent intent;
+                    if (Build.VERSION.SDK_INT == 21) {
+                        intent = new Intent();
+                        intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$BatterySaverSettingsActivity"));
+                        activityExists = GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext());
+                    } else {
+                        activityExists = GlobalGUIRoutines.activityActionExists(Settings.ACTION_BATTERY_SAVER_SETTINGS, getActivity().getApplicationContext());
+                        intent = new Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS);
+                    }
+                    if (activityExists) {
+                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                        try {
+                            startActivityForResult(intent, RESULT_POWER_SAVE_MODE_SETTINGS);
+                        } catch (Exception e) {
+                            if (Build.VERSION.SDK_INT > 21) {
+                                intent = new Intent();
+                                intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$BatterySaverSettingsActivity"));
+                                activityExists = GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext());
+                                if (activityExists) {
+                                    try {
+                                        startActivityForResult(intent, RESULT_POWER_SAVE_MODE_SETTINGS);
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (!activityExists) {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
+                            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                @Override
+                                public void onShow(DialogInterface dialog) {
+                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                    if (positive != null) positive.setAllCaps(false);
+                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                    if (negative != null) negative.setAllCaps(false);
+                                }
+                            });*/
+                        if (!getActivity().isFinishing())
+                            dialog.show();
+                    }
+                    return false;
+                }
+            });
+        }
+    }
+
+
     @Override
     public void onDestroy()
     {
@@ -1806,7 +1823,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_POWER_SAVE_MODE);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME);
-        setSummary(ApplicationPreferences.PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL);
+        //setSummary(ApplicationPreferences.PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_UPDATE_IN_POWER_SAVE_MODE);
         //setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_RESCAN);
@@ -1849,7 +1866,12 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES);
         setSummary(PREF_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS);
         //setSummary(PREF_APPLICATION_POWER_MANAGER);
-        setSummary(PREF_POWER_SAVE_MODE_SETTINGS);
+        setSummary(PREF_SYSTEM_POWER_SAVE_MODE_SETTINGS);
+        setSummary(PREF_LOCATION_POWER_SAVE_MODE_SETTINGS);
+        setSummary(PREF_WIFI_POWER_SAVE_MODE_SETTINGS);
+        setSummary(PREF_BLUETOOTH_POWER_SAVE_MODE_SETTINGS);
+        setSummary(PREF_MOBILE_CELL_POWER_SAVE_MODE_SETTINGS);
+        setSummary(PREF_ORIENTATION_POWER_SAVE_MODE_SETTINGS);
         setSummary(PREF_GRANT_ROOT_PERMISSION);
         setSummary(PREF_GRANT_G1_PERMISSION);
         setSummary(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS);

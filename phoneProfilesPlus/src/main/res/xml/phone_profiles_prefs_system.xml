@@ -62,16 +62,16 @@
             app:summary="@string/phone_profiles_pref_applicationDoNotKillMyApp_summary1"
             app:widgetLayout="@layout/start_activity_preference"
             app:layout="@layout/mp_preference_material_widget"/>
-        <ListPreference
+        <!--<ListPreference
             app:key="applicationPowerSaveModeInternal"
             app:title="@string/phone_profiles_pref_applicationPowerSaveMode"
             app:summary="@string/array_pref_powerSaveMode_15"
             app:defaultValue="@string/applicationPowerSaveModeInternal_defaultValue"
             app:entries="@array/powerSaveModeArray"
             app:entryValues="@array/powerSaveModeValues"
-            app:layout="@layout/mp_preference_material_widget" />
+            app:layout="@layout/mp_preference_material_widget" /> -->
         <Preference
-            app:key="applicationPowerSaveMode"
+            app:key="applicationSystemPowerSaveMode"
             app:title="@string/phone_profiles_pref_applicationBatterySaver"
             app:summary="@string/phone_profiles_pref_applicationBatterySaver_system"
             app:widgetLayout="@layout/start_activity_preference"

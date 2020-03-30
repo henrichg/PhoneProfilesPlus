@@ -99,7 +99,7 @@ class ApplicationPreferences {
     static boolean applicationShortcutEmblem;
     static String applicationEventWifiScanInPowerSaveMode;
     static String applicationEventBluetoothScanInPowerSaveMode;
-    static String applicationPowerSaveModeInternal;
+    //static String applicationPowerSaveModeInternal;
     static int applicationEventBluetoothLEScanDuration;
     static int applicationEventLocationUpdateInterval;
     static String applicationEventLocationUpdateInPowerSaveMode;
@@ -279,7 +279,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_SHORTCUT_EMBLEM = "applicationShortcutEmblem";
     static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IN_POWER_SAVE_MODE = "applicationEventWifiScanInPowerSaveMode";
     static final String PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_POWER_SAVE_MODE = "applicationEventBluetoothScanInPowerSaveMode";
-    static final String PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
+    //static final String PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
     static final String PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION = "applicationEventBluetoothLEScanDuration";
     static final String PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL = "applicationEventLocationUpdateInterval";
     static final String PREF_APPLICATION_EVENT_LOCATION_UPDATE_IN_POWER_SAVE_MODE = "applicationEventLocationUpdateInPowerSaveMode";
@@ -674,9 +674,11 @@ class ApplicationPreferences {
         applicationEventBluetoothScanInPowerSaveMode = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_POWER_SAVE_MODE, "1");
     }
 
+    /*
     static void applicationPowerSaveModeInternal(Context context) {
         applicationPowerSaveModeInternal = getSharedPreferences(context).getString(PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL, "3");
     }
+    */
 
     static void applicationEventBluetoothLEScanDuration(Context context) {
         applicationEventBluetoothLEScanDuration = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION, "10"));

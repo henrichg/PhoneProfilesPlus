@@ -40,6 +40,13 @@
         app:entryValues="@array/scanInPowerSaveModeMobileCellsValues"
         app:dependency="applicationEventMobileCellEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="applicationMobileCellPowerSaveMode"
+        app:title="@string/phone_profiles_pref_applicationBatterySaver"
+        app:summary="@string/phone_profiles_pref_applicationBatterySaver_system"
+        app:dependency="applicationEventMobileCellEnableScannig"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget"/>
     <SwitchPreferenceCompat
         app:key="applicationEventMobileCellScanOnlyWhenScreenIsOn"
         app:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"

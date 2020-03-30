@@ -36,6 +36,7 @@ class EventPreferencesBattery extends EventPreferences {
     private static final String PREF_EVENT_BATTERY_CHARGING = "eventBatteryCharging";
     private static final String PREF_EVENT_BATTERY_PLUGGED = "eventBatteryPlugged";
     private static final String PREF_EVENT_BATTERY_POWER_SAVE_MODE = "eventBatteryPowerSaveMode";
+    static final String PREF_EVENT_BATTERY_BATTERY_SAVER_SYSTEM_SETTINGS = "eventBatteryBatterySaver";
 
     private static final String PREF_EVENT_BATTERY_CATEGORY = "eventBatteryCategoryRoot";
 

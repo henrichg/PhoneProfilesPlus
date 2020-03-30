@@ -59,6 +59,13 @@
         app:defaultValue="false"
         app:dependency="applicationEventLocationEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="applicationLocationPowerSaveMode"
+        app:title="@string/phone_profiles_pref_applicationBatterySaver"
+        app:summary="@string/phone_profiles_pref_applicationBatterySaver_system"
+        app:dependency="applicationEventLocationEnableScannig"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget"/>
     <!--<ListPreference
         app:title="@string/phone_profiles_pref_applicationEventLocationRescan"
         app:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"

@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.BatteryManager;
 import android.os.Handler;
 import android.os.PowerManager;
@@ -48,6 +47,7 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
             if (_plugged != -1)
                 PPApplication.plugged = _plugged;
 
+            /*
             boolean oldIsPowerSaveMode = PPApplication.isPowerSaveMode;
             // restart scanners when any is enabled
             // required for reschedule workers for power save mode
@@ -64,10 +64,10 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
                 }
                 PPApplication.isPowerSaveMode = isPowerSaveMode;
 
-                /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("[TEST BATTERY] BatteryChargingChangedBroadcastReceiver.onReceive", "oldIsPowerSaveMode=" + oldIsPowerSaveMode);
-                    PPApplication.logE("[TEST BATTERY] BatteryChargingChangedBroadcastReceiver.onReceive", "isPowerSaveMode=" + isPowerSaveMode);
-                }*/
+                //if (PPApplication.logEnabled()) {
+                //    PPApplication.logE("[TEST BATTERY] BatteryChargingChangedBroadcastReceiver.onReceive", "oldIsPowerSaveMode=" + oldIsPowerSaveMode);
+                //    PPApplication.logE("[TEST BATTERY] BatteryChargingChangedBroadcastReceiver.onReceive", "isPowerSaveMode=" + isPowerSaveMode);
+                //}
 
                 if (PPApplication.isPowerSaveMode != oldIsPowerSaveMode) {
                     boolean restart = false;
@@ -109,6 +109,7 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
                     }
                 }
             }
+            */
 
             if (Event.getGlobalEventsRunning()) {
                 PPApplication.startHandlerThread("BatteryChargingChangedBroadcastReceiver.onReceive");

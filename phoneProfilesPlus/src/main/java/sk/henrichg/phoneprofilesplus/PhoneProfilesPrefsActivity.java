@@ -641,7 +641,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES, false));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES, "0"));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_USE_ALARM_CLOCK, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_USE_ALARM_CLOCK, false));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL, "3"));
+            //editor.putString(ApplicationPreferences.PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL, "3"));
         }
 
     }

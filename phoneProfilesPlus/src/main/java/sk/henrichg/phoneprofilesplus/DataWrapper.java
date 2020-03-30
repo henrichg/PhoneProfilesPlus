@@ -2814,7 +2814,7 @@ public class DataWrapper {
 
     static boolean isPowerSaveMode(Context context) {
 
-        String applicationPowerSaveModeInternal = ApplicationPreferences.applicationPowerSaveModeInternal;
+        /*String applicationPowerSaveModeInternal = ApplicationPreferences.applicationPowerSaveModeInternal;
 
         if (applicationPowerSaveModeInternal.equals("1") || applicationPowerSaveModeInternal.equals("2")) {
             Intent batteryStatus = null;
@@ -2839,10 +2839,10 @@ public class DataWrapper {
                 if (!isCharging) {
                     int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
                     int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-                    /*if (PPApplication.logEnabled()) {
-                        PPApplication.logE("DataWrapper.isPowerSaveMode", "level=" + level);
-                        PPApplication.logE("DataWrapper.isPowerSaveMode", "scale=" + scale);
-                    }*/
+                    //if (PPApplication.logEnabled()) {
+                    //    PPApplication.logE("DataWrapper.isPowerSaveMode", "level=" + level);
+                    //    PPApplication.logE("DataWrapper.isPowerSaveMode", "scale=" + scale);
+                    //}
 
                     batteryPct = Math.round(level / (float) scale * 100);
                     //PPApplication.logE("DataWrapper.isPowerSaveMode", "batteryPct=" + batteryPct);
@@ -2855,14 +2855,14 @@ public class DataWrapper {
             }
         }
         else
-        if (applicationPowerSaveModeInternal.equals("3")) {
+        if (applicationPowerSaveModeInternal.equals("3")) {*/
             //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                 if (powerManager != null)
                     return powerManager.isPowerSaveMode();
             //}
             //return isPowerSaveMode;
-        }
+        //}
 
         return false;
     }

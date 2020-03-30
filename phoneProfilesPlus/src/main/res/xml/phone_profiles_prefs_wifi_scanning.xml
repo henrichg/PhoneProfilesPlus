@@ -59,6 +59,13 @@
         app:entryValues="@array/scanInPowerSaveModeValues"
         app:dependency="applicationEventWifiEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="applicationWifiPowerSaveMode"
+        app:title="@string/phone_profiles_pref_applicationBatterySaver"
+        app:summary="@string/phone_profiles_pref_applicationBatterySaver_system"
+        app:dependency="applicationEventWifiEnableScannig"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget"/>
     <SwitchPreferenceCompat
         app:key="applicationEventWifiScanOnlyWhenScreenIsOn"
         app:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"

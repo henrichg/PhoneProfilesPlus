@@ -118,6 +118,7 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
             if (_level != -1)
                 PPApplication.batteryPct = _batteryPct;
 
+            /*
             boolean oldIsPowerSaveMode = PPApplication.isPowerSaveMode;
             // restart scanners when any is enabled
             // required for reschedule workers for power save mode
@@ -134,10 +135,10 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
                 }
                 PPApplication.isPowerSaveMode = isPowerSaveMode;
 
-                /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "oldIsPowerSaveMode=" + oldIsPowerSaveMode);
-                    PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "isPowerSaveMode=" + isPowerSaveMode);
-                }*/
+                //if (PPApplication.logEnabled()) {
+                //    PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "oldIsPowerSaveMode=" + oldIsPowerSaveMode);
+                //    PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "isPowerSaveMode=" + isPowerSaveMode);
+                //}
 
                 if (PPApplication.isPowerSaveMode != oldIsPowerSaveMode) {
                     boolean restart = false;
@@ -178,7 +179,7 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
                         PPApplication.restartAllScanners(appContext, true);
                     }
                 }
-            }
+            }*/
 
             if (Event.getGlobalEventsRunning()) {
                 PPApplication.startHandlerThread("BatteryLevelChangedBroadcastReceiver.onReceive");
