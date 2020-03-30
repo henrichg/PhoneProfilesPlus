@@ -20,11 +20,10 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         //CallsCounter.logCounter(context, "PackageReplacedReceiver.onReceive", "PackageReplacedReceiver_onReceive");
 
+        PPApplication.applicationPackageReplaced = true;
+
         if ((intent != null) && (intent.getAction() != null) && intent.getAction().equals(Intent.ACTION_MY_PACKAGE_REPLACED)) {
             PPApplication.logE("##### PackageReplacedReceiver.onReceive", "xxx");
-
-            String text = context.getString(R.string.app_name) + " " + context.getString(R.string.application_is_starting_toast);
-            PPApplication.showToast(context.getApplicationContext(), text, Toast.LENGTH_SHORT);
 
             PPApplication.setBlockProfileEventActions(true, context);
 
@@ -37,7 +36,6 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                 editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_PACKAGE_REPLACED, true);
                 editor.apply();
             }*/
-            PPApplication.applicationPackageReplaced = true;
 
             //final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
@@ -54,7 +52,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                     new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
                             .addTag("packageReplacedWork")
                             .setInputData(workData)
-                            .setInitialDelay(5, TimeUnit.SECONDS)
+                            //.setInitialDelay(5, TimeUnit.SECONDS)
                             .build();
             try {
                 WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);

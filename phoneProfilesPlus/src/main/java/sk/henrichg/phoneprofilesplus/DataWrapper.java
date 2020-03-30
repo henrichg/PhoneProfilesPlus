@@ -1256,11 +1256,13 @@ public class DataWrapper {
 
         if (!getIsManualProfileActivation(false/*, context*/)) {
             PPApplication.logE("DataWrapper.firstStartEvents", "no manual profile activation, restart events");
+
             startEventsOnBoot(startedFromService, useHandler);
         }
         else
         {
             PPApplication.logE("DataWrapper.firstStartEvents", "manual profile activation, activate profile");
+
             activateProfileOnBoot();
             startEventsOnBoot(startedFromService, useHandler);
         }

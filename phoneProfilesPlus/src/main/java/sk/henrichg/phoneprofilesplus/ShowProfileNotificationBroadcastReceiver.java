@@ -22,7 +22,7 @@ public class ShowProfileNotificationBroadcastReceiver extends BroadcastReceiver 
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### ShowProfileNotificationBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("##### ShowProfileNotificationBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "ShowProfileNotificationBroadcastReceiver.onReceive", "ShowProfileNotificationBroadcastReceiver_onReceive");
 
         //boolean fromAlarm = intent.getBooleanExtra(EXTRA_FROM_ALARM, false);
@@ -110,7 +110,7 @@ public class ShowProfileNotificationBroadcastReceiver extends BroadcastReceiver 
 
     static void removeAlarm(Context context)
     {
-        PPApplication.logE("ShowProfileNotificationBroadcastReceiver.removeAlarm", "xxx");
+        //PPApplication.logE("ShowProfileNotificationBroadcastReceiver.removeAlarm", "xxx");
         try {
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
@@ -137,7 +137,7 @@ public class ShowProfileNotificationBroadcastReceiver extends BroadcastReceiver 
             // application is not started
             return;
 
-        PPApplication.logE("ShowProfileNotificationBroadcastReceiver.doWork", "xxx");
+        //PPApplication.logE("ShowProfileNotificationBroadcastReceiver.doWork", "xxx");
 
         if (useHandler) {
             PPApplication.startHandlerThreadProfileNotification();
@@ -153,7 +153,7 @@ public class ShowProfileNotificationBroadcastReceiver extends BroadcastReceiver 
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("ShowProfileNotificationBroadcastReceiver.doWork", "handler");
+                        //PPApplication.logE("ShowProfileNotificationBroadcastReceiver.doWork", "handler");
                         _doWork(/*true,*/ appContext/*, fromAlarm*/);
 
                     } finally {
@@ -178,7 +178,7 @@ public class ShowProfileNotificationBroadcastReceiver extends BroadcastReceiver 
             Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
             //PPApplication.logE("ShowProfileNotificationBroadcastReceiver._doWork", "_showProfileNotification()");
             if (PhoneProfilesService.getInstance() != null) {
-                PPApplication.logE("ShowProfileNotificationBroadcastReceiver._doWork", "handler");
+                //PPApplication.logE("ShowProfileNotificationBroadcastReceiver._doWork", "handler");
                 PhoneProfilesService.getInstance()._showProfileNotification(profile, true, dataWrapper, false  /*, cleared*/);
             }
             //dataWrapper.invalidateDataWrapper();

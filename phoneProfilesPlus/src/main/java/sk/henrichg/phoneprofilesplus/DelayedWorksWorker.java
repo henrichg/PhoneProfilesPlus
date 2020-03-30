@@ -13,8 +13,13 @@ import android.util.Log;
 import com.crashlytics.android.Crashlytics;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
@@ -26,6 +31,7 @@ public class DelayedWorksWorker extends Worker {
     static final String DELAYED_WORK_HANDLE_EVENTS = "handle_events";
     static final String DELAYED_WORK_START_WIFI_SCAN = "start_wifi_scan";
     static final String DELAYED_WORK_BLOCK_PROFILE_EVENT_ACTIONS = "block_profile_event_actions";
+    static final String DELAYED_WORK_AFTER_FIRST_START = "after_first_start";
     static final String DELAYED_WORK_PACKAGE_REPLACED = "package_replaced";
     static final String DELAYED_WORK_CLOSE_ALL_APPLICATIONS = "close_all_applications";
     //static final String DELAYED_WORK_CHANGE_FILTER_AFTER_EDITOR_DATA_CHANGE = "change_filter_after_editor_data_change";
@@ -61,18 +67,64 @@ public class DelayedWorksWorker extends Worker {
             Context appContext = getApplicationContext();
 
             switch (action) {
+                case DELAYED_WORK_AFTER_FIRST_START:
+                    PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "START");
+
+                    boolean fromDoFirstStart = getInputData().getBoolean(PhoneProfilesService.EXTRA_FROM_DO_FIRST_START, true);
+                    if (fromDoFirstStart) {
+                        boolean activateProfiles = getInputData().getBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
+
+                        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+
+                        if (Event.getGlobalEventsRunning()) {
+                            PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "global event run is enabled, first start events");
+
+                            if (activateProfiles) {
+                                if (!DataWrapper.getIsManualProfileActivation(false/*, appContext*/)) {
+                                    ////// unblock all events for first start
+                                    //     that may be blocked in previous application run
+                                    dataWrapper.pauseAllEvents(false, false);
+                                }
+                            }
+
+                            dataWrapper.firstStartEvents(true, false);
+                            PPApplication.updateNotificationAndWidgets(true, true, appContext);
+                        } else {
+                            PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "global event run is not enabled, manually activate profile");
+
+                            if (activateProfiles) {
+                                ////// unblock all events for first start
+                                //     that may be blocked in previous application run
+                                dataWrapper.pauseAllEvents(true, false);
+                            }
+
+                            dataWrapper.activateProfileOnBoot();
+                            PPApplication.updateNotificationAndWidgets(true, true, appContext);
+                        }
+                    }
+
+                    PPApplication.applicationPackageReplaced = false;
+
+                    if (fromDoFirstStart) {
+                        PhoneProfilesService instance = PhoneProfilesService.getInstance();
+                        if (instance != null)
+                            instance.setApplicationFullyStarted(true);
+                    }
+
+                    PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "END");
+                    break;
                 case DELAYED_WORK_PACKAGE_REPLACED:
                     PPApplication.logE("PackageReplacedReceiver.doWork", "START");
 
-                    boolean packageReplaced = PPApplication.applicationPackageReplaced; //ApplicationPreferences.applicationPackageReplaced(appContext);
-                    PPApplication.logE("PackageReplacedReceiver.doWork", "package replaced=" + packageReplaced);
-
                     DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+
+                    /*boolean packageReplaced = PPApplication.applicationPackageReplaced; //ApplicationPreferences.applicationPackageReplaced(appContext);
+                    PPApplication.logE("PackageReplacedReceiver.doWork", "package replaced=" + packageReplaced);
 
                     if (!packageReplaced) {
                         PhoneProfilesService instance = PhoneProfilesService.getInstance();
                         if (instance != null)
-                            instance.setApplicationFullyStarted(/*true, */false);
+                            instance.setApplicationFullyStarted(false);
 
                         // do restart events, manual profile activation
                         if (Event.getGlobalEventsRunning()) {
@@ -98,7 +150,7 @@ public class DelayedWorksWorker extends Worker {
                         }
 
                         break;
-                    }
+                    }*/
 
                     final int oldVersionCode = PPApplication.getSavedVersionCode(appContext);
                     // save version code
@@ -472,7 +524,7 @@ public class DelayedWorksWorker extends Worker {
                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_PACKAGE_REPLACED, false);
                         editor.apply();
                     }*/
-                    PPApplication.applicationPackageReplaced = false;
+                    //PPApplication.applicationPackageReplaced = false;
 
                     // Start service only when is not started or restart is required
                     // Is not needed to start it when it is not required. Code is already replaced after this call.
@@ -484,8 +536,27 @@ public class DelayedWorksWorker extends Worker {
                     else {
                         PhoneProfilesService instance = PhoneProfilesService.getInstance();
                         if (instance != null) {
-                            instance.setApplicationFullyStarted(/*true, */true);
-                            PPApplication.updateGUI(appContext, true, true);
+                            // work after first start
+                            Data workData = new Data.Builder()
+                                    .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START)
+                                    .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true)
+                                    .putBoolean(PhoneProfilesService.EXTRA_FROM_DO_FIRST_START, false)
+                                    .build();
+
+                            OneTimeWorkRequest worker =
+                                    new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                            .addTag("afterFirstStartWork")
+                                            .setInputData(workData)
+                                            //.setInitialDelay(5, TimeUnit.SECONDS)
+                                            .build();
+                            try {
+                                WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
+                                workManager.enqueueUniqueWork("afterFirstStartWork", ExistingWorkPolicy.REPLACE, worker);
+                            } catch (Exception ignored) {
+                            }
+
+                            //instance.setApplicationFullyStarted(/*true, */true);
+                            //PPApplication.updateGUI(appContext, true, true);
                         }
                     }
 
@@ -664,8 +735,8 @@ public class DelayedWorksWorker extends Worker {
     */
 
     private void startService(DataWrapper dataWrapper, boolean exitApp) {
-        boolean isApplicationStarted = PPApplication.getApplicationStarted(false);
-        PPApplication.logE("PackageReplacedReceiver.startService", "isApplicationStarted="+isApplicationStarted);
+        //boolean isApplicationStarted = PPApplication.getApplicationStarted(false);
+        //PPApplication.logE("PackageReplacedReceiver.startService", "isApplicationStarted="+isApplicationStarted);
 
         if (exitApp)
             PPApplication.exitApp(false, dataWrapper.context, dataWrapper, null, false/*, false, true*/);
@@ -682,8 +753,8 @@ public class DelayedWorksWorker extends Worker {
         DatabaseHandler.getInstance(dataWrapper.context).unblockAllEvents();
         Event.setForceRunEventRunning(dataWrapper.context, false);
 
-        if (isApplicationStarted)
-        {
+        //if (isApplicationStarted)
+        //{
             PPApplication.logE("PackageReplacedReceiver.startService", "start of wait for end of service");
             int count = 0;
             while ((PhoneProfilesService.getInstance() != null) && (count < 50)) {
@@ -701,7 +772,7 @@ public class DelayedWorksWorker extends Worker {
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
             PPApplication.startPPService(dataWrapper.context, serviceIntent, true);
-        }
+        //}
     }
 
     private static boolean isServiceRunning(Context context) {

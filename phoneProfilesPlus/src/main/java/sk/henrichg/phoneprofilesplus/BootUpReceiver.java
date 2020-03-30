@@ -33,10 +33,6 @@ public class BootUpReceiver extends BroadcastReceiver {
 
             PPApplication.logE("@@@ BootUpReceiver.onReceive", "#### -- start");
 
-            String text = context.getString(R.string.app_name) + " " + context.getString(R.string.application_is_starting_toast);
-            PPApplication.showToast(context.getApplicationContext(), text, Toast.LENGTH_SHORT);
-
-
             PPApplication.setBlockProfileEventActions(true, context);
 
             if (PPApplication.logEnabled()) {
