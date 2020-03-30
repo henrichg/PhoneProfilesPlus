@@ -3028,10 +3028,11 @@ public class DataWrapper {
                             break;
                         case DatabaseHandler.ETYPE_BATTERY_WITH_LEVEL:
                             sensorEnabled = _event._eventPreferencesBattery._enabled;
-                            sensorEnabled = sensorEnabled &&
-                                    (_event._eventPreferencesBattery._levelLow > 0);
-                            sensorEnabled = sensorEnabled &&
-                                    (_event._eventPreferencesBattery._levelHight < 100);
+                            if (sensorEnabled) {
+                                sensorEnabled =
+                                        (_event._eventPreferencesBattery._levelLow > 0) ||
+                                        (_event._eventPreferencesBattery._levelHight < 100);
+                            }
                             break;
                         case DatabaseHandler.ETYPE_ALL_SENSORS:
                             sensorEnabled = _event._eventPreferencesWifi._enabled &&

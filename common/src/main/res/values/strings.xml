@@ -1492,6 +1492,8 @@
     <string name="event_preferences_event_not_found">Event not found. Deleted?</string>
 
     <string name="permissions_draw_overlays_not_allowed_alway_required">You have not enabled \"Draw over apps\". But this permission is required for Android 10. Please grant it.</string>
+    <string name="event_preferences_battery_level_info">Battery level warning</string>
+    <string name="event_preferences_battery_level_info_summary">Lower level &gt; 0% or upper level &lt; 100% consume battery!</string>
 
     <!-- **************************************************************************************** -->
 

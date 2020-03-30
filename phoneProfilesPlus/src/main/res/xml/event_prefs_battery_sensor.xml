@@ -9,6 +9,15 @@
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
+
+    <Preference
+        app:key="eventBatteryLevelInfo"
+        app:title="@string/event_preferences_battery_level_info"
+        app:summary="@string/event_preferences_battery_level_info_summary"
+        app:dependency="eventBatteryEnabled"
+        app:widgetLayout="@layout/info_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
         app:key="eventBatteryLevelLow"
         app:summary="@string/event_preferences_battery_level_low"
