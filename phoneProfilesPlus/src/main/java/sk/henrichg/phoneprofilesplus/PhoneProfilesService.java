@@ -553,7 +553,7 @@ public class PhoneProfilesService extends Service
         return applicationFullyStarted;
     }
 
-    void setApplicationFullyStarted(/*boolean started, */boolean showToast) {
+    void setApplicationFullyStarted(/*boolean started, boolean showToast*/) {
         applicationFullyStarted = true; //started;
 
         final Context appContext = getApplicationContext();
@@ -561,7 +561,7 @@ public class PhoneProfilesService extends Service
         //if (started)
         PPApplication.updateGUI(appContext, true, true);
 
-        if (/*started && */showToast &&
+        if (/*started && *//*showToast &&*/
                 //(!ApplicationPreferences.applicationPackageReplaced(appContext))) {
                 (!PPApplication.applicationPackageReplaced)) {
 

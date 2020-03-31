@@ -989,7 +989,7 @@ public class PPApplication extends Application /*implements Application.Activity
     static int plugged = -1;
 
     public static boolean isScreenOn;
-    public static boolean isPowerSaveMode;
+    //public static boolean isPowerSaveMode;
 
 //    static private FirebaseAnalytics firebaseAnalytics;
 
@@ -1216,7 +1216,7 @@ public class PPApplication extends Application /*implements Application.Activity
                     isScreenOn = true;
             }
         }*/
-        isPowerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
+        //isPowerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
 
         //	Debug.startMethodTracing("phoneprofiles");
 

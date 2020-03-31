@@ -3,9 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
-
-import java.util.concurrent.TimeUnit;
 
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;

@@ -13,11 +13,9 @@ import android.util.Log;
 import com.crashlytics.android.Crashlytics;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 import androidx.work.Worker;
@@ -108,7 +106,7 @@ public class DelayedWorksWorker extends Worker {
                     if (fromDoFirstStart) {
                         PhoneProfilesService instance = PhoneProfilesService.getInstance();
                         if (instance != null)
-                            instance.setApplicationFullyStarted(true);
+                            instance.setApplicationFullyStarted(/*true*/);
                     }
 
                     PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "END");

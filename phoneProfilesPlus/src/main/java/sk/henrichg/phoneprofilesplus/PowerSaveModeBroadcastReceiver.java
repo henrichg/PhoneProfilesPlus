@@ -21,7 +21,7 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        PPApplication.isPowerSaveMode = DataWrapper.isPowerSaveMode(appContext);
+        //PPApplication.isPowerSaveMode = DataWrapper.isPowerSaveMode(appContext);
 
         // restart scanners when any is enabled
         // required for reschedule workers for power save mode

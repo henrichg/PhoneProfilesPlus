@@ -1404,17 +1404,17 @@
     <string name="array_pref_soundModeArray_ZenModeL_On">Onderbrekingen aan</string>
     <string name="array_pref_soundModeArray_ZenModeM_Off">Niet storen uit</string>
     <string name="array_pref_soundModeArray_ZenModeM_On">Niet storen aan</string>
-    <string name="draw_over_apps_permission_notification_title">\"Weergeven vóór andere apps\" toestemming</string>
-    <string name="draw_over_apps_permission_notification_text">U moet toegang tot \"Weergeven vóór andere apps\" geven. Het is vereist om activiteiten te starten wanneer PhoneProfilesPlus op de achtergrond draait. Klik hier om deze toestemming te verlenen.</string>
+    <string name="draw_over_apps_permission_notification_title">\"Weergeven over andere apps\" machtiging</string>
+    <string name="draw_over_apps_permission_notification_text">U moet toegang tot \"Weergeven over andere apps\" geven. Het is vereist om activiteiten te starten wanneer PhoneProfilesPlus op de achtergrond draait. Klik hier om deze toestemming te verlenen.</string>
     <string name="profile_preferences_types_G1_permission">Geef toestemming voor (G1) voorkeuren</string>
-    <string name="preferences_grantG1Preferences_title">Permission for (G1) preferences not granted</string>
-    <string name="preferences_grantG1Preferences_summary">Permission for (G1) preferences not granted. Click here to grant it.</string>
+    <string name="preferences_grantG1Preferences_title">Machtiging voor (G1) voorkeuren niet verleend</string>
+    <string name="preferences_grantG1Preferences_summary">Geen machtiging voor (G1) voorkeuren. Klik hier om het toe te staan.</string>
     <string name="phone_profiles_pref_grantG1Permission_summary">Geef WRITE_SECURE_SETTINGS toestemming voor PhoneProfilesPlus. Dit is nodig voor profiel en event parameters gemarkeerd met (G1). ROOT is dan niet nodig.</string>
     <string name="profile_preferences_profile_not_found">Profiel niet gevonden. Verwijderd?</string>
     <string name="event_preferences_event_not_found">Event niet gevonden. Verwijderd?</string>
-    <string name="permissions_draw_overlays_not_allowed_alway_required">You do not have granted permission \"Draw over apps\". But this permission is required for Android 10. Please grant it.</string>
-    <string name="event_preferences_battery_level_info">Battery level warning</string>
-    <string name="event_preferences_battery_level_info_summary">Lower level &gt; 0% or upper level &lt; 100% consume battery!</string>
+    <string name="permissions_draw_overlays_not_allowed_alway_required">U hebt geen machtiging verleend \"Weergeven over andere apps\". Deze machtiging is vereist voor Android 10. Verleen het alstublieft.</string>
+    <string name="event_preferences_battery_level_info">Batterij niveau waarschuwing</string>
+    <string name="event_preferences_battery_level_info_summary" tools:ignore="StringFormatCount,StringFormatInvalid">Lager niveau &gt; 0% of hoger niveau&lt; 100% batterijverbruik!</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>
