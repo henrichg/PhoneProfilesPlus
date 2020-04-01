@@ -1436,6 +1436,8 @@
     <string name="extender_permissions_event_sensor_call_28">• Berechtigungen für den Ereignisparameter „Anrufsensor” - Telefonberechtigung, Anrufprotokolle:</string>
     <string name="extender_toast_permissions_not_granted">Berechtigungen wurden nicht erteilt</string>
     <string name="extender_accessibility_service_profile_lock_device">• Dienst Eingabehilfen für den Profilparameter „Gerät sperren”:</string>
+    <string name="extender_application_releases">Versionen:</string>
+    <string name="extender_web_browser_chooser">Link öffnen mit</string>
     <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>-->
     <!--<string name="array_pref_color_native">Native</string>-->
     <!--<string name="array_pref_color_dark">Dark</string>-->

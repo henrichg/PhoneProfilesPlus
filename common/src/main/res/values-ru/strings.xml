@@ -1436,6 +1436,8 @@
     <string name="extender_permissions_event_sensor_call_28">• Разрешения для параметра события \"Датчик вызовов\" - разрешения \"Телефон\“, \"Журнал звонков\":</string>
     <string name="extender_toast_permissions_not_granted">Разрешения не предоставлены</string>
     <string name="extender_accessibility_service_profile_lock_device">• Служба спец. возможностей для параметра профиля \"Блокировка устройства\":</string>
+    <string name="extender_application_releases">Релизы:</string>
+    <string name="extender_web_browser_chooser">Просмотр веб-ссылки с помощью</string>
     <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>-->
     <!--<string name="array_pref_color_native">Native</string>-->
     <!--<string name="array_pref_color_dark">Dark</string>-->

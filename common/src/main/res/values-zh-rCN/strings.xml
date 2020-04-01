@@ -1436,6 +1436,8 @@
     <string name="extender_permissions_event_sensor_call_28">•事件参数“呼叫传感器”的权限 - 权限电话，呼叫日志：</string>
     <string name="extender_toast_permissions_not_granted">权限未授予</string>
     <string name="extender_accessibility_service_profile_lock_device">•配置文件参数“锁定设备”的辅助功能服务：</string>
+    <string name="extender_application_releases">版本：</string>
+    <string name="extender_web_browser_chooser">查看Web链接使用</string>
     <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>-->
     <!--<string name="array_pref_color_native">Native</string>-->
     <!--<string name="array_pref_color_dark">Dark</string>-->

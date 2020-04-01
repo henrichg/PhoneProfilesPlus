@@ -1436,6 +1436,8 @@
     <string name="extender_permissions_event_sensor_call_28">• Povolení pro parametry události \"Senzor hovoru\" - povolení Telefon, Deníky hovorů:</string>
     <string name="extender_toast_permissions_not_granted">Povolení nejsou udělena</string>
     <string name="extender_accessibility_service_profile_lock_device">• Služba Dostupnost pro parametr profilu \"Zamknutí zařízení\":</string>
+    <string name="extender_application_releases">Vydání:</string>
+    <string name="extender_web_browser_chooser">Zobrazit webový odkaz pomocí</string>
     <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>-->
     <!--<string name="array_pref_color_native">Native</string>-->
     <!--<string name="array_pref_color_dark">Dark</string>-->

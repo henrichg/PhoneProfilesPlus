@@ -1437,6 +1437,8 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="extender_permissions_event_sensor_call_28">• Uprawnienia dla parametru Zdarzeń \"Czujnik Rozmowy\" - dostęp do Telefonu, Rejestru połączeń:</string>
     <string name="extender_toast_permissions_not_granted">Nie przyznano uprawnień</string>
     <string name="extender_accessibility_service_profile_lock_device">• Usługa Ułatwień Dostępu dla parametru Profili  \"Zablokuj urządzenie\":</string>
+    <string name="extender_application_releases">Wydania:</string>
+    <string name="extender_web_browser_chooser">Wyświetl link web używając</string>
     <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>-->
     <!--<string name="array_pref_color_native">Native</string>-->
     <!--<string name="array_pref_color_dark">Dark</string>-->
