@@ -4238,16 +4238,17 @@ class ActivateProfileHelper {
                 if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                     try {
                         // Not working in Samsung S8 :-(
+                        // this not change gui to dark, this is blue filter (???)
                         PPApplication.logE("ActivateProfileHelper.setScreenNightMode", "(G1)");
                         if (value == 1)
                             Settings.Global.putInt(context.getContentResolver(), "night_mode_enabled", 1);
                         else
                             Settings.Global.putInt(context.getContentResolver(), "night_mode_enabled", 0);
-                        // Android Q ?
-//                        if (value == 1)
-//                            Settings.Secure.putInt(context.getContentResolver(), "ui_night_mode", 2);
-//                        else
-//                            Settings.Secure.putInt(context.getContentResolver(), "ui_night_mode", 1);
+                        // Android Q (Tasker: https://www.reddit.com/r/tasker/comments/d2ngcl/trigger_android_10_dark_theme_with_brightness/)
+                        if (value == 1)
+                            Settings.Secure.putInt(context.getContentResolver(), "ui_night_mode", 2);
+                        else
+                            Settings.Secure.putInt(context.getContentResolver(), "ui_night_mode", 1);
                     }
                     catch (Exception e2) {
                         PPApplication.logE("ActivateProfileHelper.setScreenNightMode", Log.getStackTraceString(e2));

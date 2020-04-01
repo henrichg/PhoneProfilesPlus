@@ -196,7 +196,14 @@ public class BillingManager implements PurchasesUpdatedListener {
                 ConsumeParams consumeParams =
                         ConsumeParams.newBuilder()
                                 .setPurchaseToken(purchase.getPurchaseToken())
-                                .setDeveloperPayload(purchase.getDeveloperPayload())
+
+                                // https://developer.android.com/google/play/billing/developer-payload
+                                // Developer payload has historically been used for various purposes, including fraud
+                                // prevention and attributing purchases to the correct user.
+                                // With version 2.2 of the Google Play Billing Library, intended use cases that previously
+                                // relied on developer payload, are now fully supported in other parts of the library.
+                                //.setDeveloperPayload(purchase.getDeveloperPayload())
+
                                 .build();
 
                 mBillingClient.consumeAsync(consumeParams,
