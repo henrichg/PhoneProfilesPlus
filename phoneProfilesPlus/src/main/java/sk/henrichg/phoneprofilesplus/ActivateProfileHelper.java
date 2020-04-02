@@ -95,6 +95,12 @@ class ActivateProfileHelper {
 
     private static void doExecuteForRadios(Context context, Profile profile)
     {
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "profile=" + profile);
+            if (profile != null)
+                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "profile._name=" + profile._name);
+        }
+
         PPApplication.sleep(300);
 
         Context appContext = context.getApplicationContext();
@@ -103,8 +109,9 @@ class ActivateProfileHelper {
         // in array.xml, networkTypeGSMValues are 100+ values
         if (profile._deviceNetworkType >= 100) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkType");
+                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkType");
                 // in array.xml, networkTypeGSMValues are 100+ values
+                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setPreferredNetworkType()");
                 setPreferredNetworkType(appContext, profile._deviceNetworkType - 100);
                 //try { Thread.sleep(200); } catch (InterruptedException e) { }
                 //SystemClock.sleep(200);
@@ -115,29 +122,33 @@ class ActivateProfileHelper {
         // setup mobile data
         if (profile._deviceMobileData != 0) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "_deviceMobileData");
+                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileData");
                 boolean _isMobileData = isMobileData(appContext);
                 //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","_isMobileData="+_isMobileData);
                 boolean _setMobileData = false;
                 switch (profile._deviceMobileData) {
                     case 1:
+                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileData 1");
                         if (!_isMobileData) {
                             _isMobileData = true;
                             _setMobileData = true;
                         }
                         break;
                     case 2:
+                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileData 2");
                         if (_isMobileData) {
                             _isMobileData = false;
                             _setMobileData = true;
                         }
                         break;
                     case 3:
+                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileData 3");
                         _isMobileData = !_isMobileData;
                         _setMobileData = true;
                         break;
                 }
                 if (_setMobileData) {
+                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setMobileData()");
                     setMobileData(appContext, _isMobileData);
                     //try { Thread.sleep(200); } catch (InterruptedException e) { }
                     //SystemClock.sleep(200);
@@ -152,7 +163,7 @@ class ActivateProfileHelper {
         boolean canChangeWifi = true;
         if (profile._deviceWiFiAP != 0) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "_deviceWiFiAP");
+                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFiAP");
                 if (Build.VERSION.SDK_INT < 28) {
                     WifiApManager wifiApManager = null;
                     try {
@@ -164,6 +175,7 @@ class ActivateProfileHelper {
                         boolean isWifiAPEnabled = wifiApManager.isWifiAPEnabled();
                         switch (profile._deviceWiFiAP) {
                             case 1:
+                                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFiAP 1");
                                 if (!isWifiAPEnabled) {
                                     isWifiAPEnabled = true;
                                     setWifiAPState = true;
@@ -171,6 +183,7 @@ class ActivateProfileHelper {
                                 }
                                 break;
                             case 2:
+                                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFiAP 2");
                                 if (isWifiAPEnabled) {
                                     isWifiAPEnabled = false;
                                     setWifiAPState = true;
@@ -178,12 +191,14 @@ class ActivateProfileHelper {
                                 }
                                 break;
                             case 3:
+                                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFiAP 3");
                                 isWifiAPEnabled = !isWifiAPEnabled;
                                 setWifiAPState = true;
                                 canChangeWifi = !isWifiAPEnabled;
                                 break;
                         }
                         if (setWifiAPState) {
+                            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setWifiAP()");
                             setWifiAP(wifiApManager, isWifiAPEnabled, appContext);
                             //try { Thread.sleep(200); } catch (InterruptedException e) { }
                             //SystemClock.sleep(200);
@@ -196,6 +211,7 @@ class ActivateProfileHelper {
                     boolean isWifiAPEnabled = CmdWifiAP.isEnabled();
                     switch (profile._deviceWiFiAP) {
                         case 1:
+                            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFiAP 1");
                             if (!isWifiAPEnabled) {
                                 isWifiAPEnabled = true;
                                 setWifiAPState = true;
@@ -203,6 +219,7 @@ class ActivateProfileHelper {
                             }
                             break;
                         case 2:
+                            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFiAP 2");
                             if (isWifiAPEnabled) {
                                 isWifiAPEnabled = false;
                                 setWifiAPState = true;
@@ -210,12 +227,14 @@ class ActivateProfileHelper {
                             }
                             break;
                         case 3:
+                            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFiAP 3");
                             isWifiAPEnabled = !isWifiAPEnabled;
                             setWifiAPState = true;
                             canChangeWifi = !isWifiAPEnabled;
                             break;
                     }
                     if (setWifiAPState) {
+                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "CmdWifiAP.setWifiAP()");
                         CmdWifiAP.setWifiAP(isWifiAPEnabled);
                         //try { Thread.sleep(200); } catch (InterruptedException e) { }
                         //SystemClock.sleep(200);
@@ -229,7 +248,7 @@ class ActivateProfileHelper {
             // setup Wi-Fi
             if (profile._deviceWiFi != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi");
+                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi");
                     boolean isWifiAPEnabled;
                     if (Build.VERSION.SDK_INT < 28)
                         isWifiAPEnabled = WifiApManager.isWifiAPEnabled(appContext);
@@ -245,12 +264,14 @@ class ActivateProfileHelper {
                             switch (profile._deviceWiFi) {
                                 case 1:
                                 case 4:
+                                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi 1,4");
                                     if (!isWifiEnabled) {
                                         isWifiEnabled = true;
                                         setWifiState = true;
                                     }
                                     break;
                                 case 2:
+                                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi 2");
                                     if (isWifiEnabled) {
                                         isWifiEnabled = false;
                                         setWifiState = true;
@@ -258,16 +279,20 @@ class ActivateProfileHelper {
                                     break;
                                 case 3:
                                 case 5:
+                                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi 3,5");
                                     isWifiEnabled = !isWifiEnabled;
                                     setWifiState = true;
                                     break;
                             }
                             //PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "isWifiEnabled="+isWifiEnabled);
-                            if (isWifiEnabled)
+                            if (isWifiEnabled) {
+                                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setWifiEnabledForScan()");
                                 // when wifi is enabled from profile, no disable wifi after scan
                                 WifiScanWorker.setWifiEnabledForScan(appContext, false);
+                            }
                             if (setWifiState) {
                                 try {
+                                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setWifiEnabled()");
                                     //PPApplication.logE("#### setWifiEnabled", "from ActivateProfileHelper.doExecuteForRadio");
                                     //if (Build.VERSION.SDK_INT >= 26)
                                     //    CmdWifi.setWifi(isWifiEnabled);
@@ -290,7 +315,7 @@ class ActivateProfileHelper {
             // connect to SSID
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
-                    //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "_deviceConnectToSSID");
+                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceConnectToSSID");
                     if (Permissions.checkLocation(appContext)) {
                         WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
                         if (wifiManager != null) {
@@ -336,6 +361,7 @@ class ActivateProfileHelper {
                                     if (list != null) {
                                         for (WifiConfiguration i : list) {
                                             if (i.SSID != null && i.SSID.equals(profile._deviceConnectToSSID)) {
+                                                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceConnectToSSID wifiConnected="+wifiConnected);
                                                 if (wifiConnected) {
                                                     if (!wifiInfo.getSSID().equals(i.SSID)) {
 
@@ -374,25 +400,28 @@ class ActivateProfileHelper {
         // setup bluetooth
         if (profile._deviceBluetooth != 0) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","setBluetooth");
+                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceBluetooth");
                 BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
                 if (bluetoothAdapter != null) {
                     boolean isBluetoothEnabled = bluetoothAdapter.isEnabled();
                     boolean setBluetoothState = false;
                     switch (profile._deviceBluetooth) {
                         case 1:
+                            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceBluetooth 1");
                             if (!isBluetoothEnabled) {
                                 isBluetoothEnabled = true;
                                 setBluetoothState = true;
                             }
                             break;
                         case 2:
+                            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceBluetooth 2");
                             if (isBluetoothEnabled) {
                                 isBluetoothEnabled = false;
                                 setBluetoothState = true;
                             }
                             break;
                         case 3:
+                            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceBluetooth 3");
                             isBluetoothEnabled = !isBluetoothEnabled;
                             setBluetoothState = true;
                             break;
@@ -402,6 +431,7 @@ class ActivateProfileHelper {
                         PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "isBluetoothEnabled=" + isBluetoothEnabled);
                     }*/
                     if (isBluetoothEnabled) {
+                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setBluetoothEnabledForScan()");
                         // when bluetooth is enabled from profile, no disable bluetooth after scan
                         //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "isBluetoothEnabled=true; setBluetoothEnabledForScan=false");
                         BluetoothScanWorker.setBluetoothEnabledForScan(appContext, false);
@@ -411,6 +441,7 @@ class ActivateProfileHelper {
                             //if (Build.VERSION.SDK_INT >= 26)
                             //    CmdBluetooth.setBluetooth(isBluetoothEnabled);
                             //else {
+                            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "enable/disable bluetooth adapter");
                                 if (isBluetoothEnabled)
                                     bluetoothAdapter.enable();
                                 else
@@ -429,6 +460,7 @@ class ActivateProfileHelper {
         // setup GPS
         if (profile._deviceGPS != 0) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceGPS");
                 //String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
 
                 boolean isEnabled = false;
@@ -446,12 +478,15 @@ class ActivateProfileHelper {
                     //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "isEnabled=" + isEnabled);
                     switch (profile._deviceGPS) {
                         case 1:
+                            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceGPS 1");
                             setGPS(appContext, true);
                             break;
                         case 2:
+                            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceGPS 2");
                             setGPS(appContext, false);
                             break;
                         case 3:
+                            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceGPS 3");
                             if (!isEnabled) {
                                 setGPS(appContext, true);
                             } else {
@@ -466,16 +501,20 @@ class ActivateProfileHelper {
         // setup NFC
         if (profile._deviceNFC != 0) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceNFC");
                 NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(appContext);
                 if (nfcAdapter != null) {
                     switch (profile._deviceNFC) {
                         case 1:
+                            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceNFC 1");
                             setNFC(appContext, true);
                             break;
                         case 2:
+                            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceNFC 2");
                             setNFC(appContext, false);
                             break;
                         case 3:
+                            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceNFC 3");
                             if (!nfcAdapter.isEnabled()) {
                                 setNFC(appContext, true);
                             } else {
@@ -491,6 +530,12 @@ class ActivateProfileHelper {
 
     private static void executeForRadios(final Profile profile, Context context)
     {
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForRadios", "profile=" + profile);
+            if (profile != null)
+                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForRadios", "profile._name=" + profile._name);
+        }
+
         final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadRadios();
         final Handler handler = new Handler(PPApplication.handlerThreadRadios.getLooper());
@@ -506,6 +551,8 @@ class ActivateProfileHelper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
+                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForRadios", "start");
+
                     boolean _isAirplaneMode = false;
                     boolean _setAirplaneMode = false;
                     if (profile._deviceAirplaneMode != 0) {
@@ -513,18 +560,21 @@ class ActivateProfileHelper {
                             _isAirplaneMode = isAirplaneMode(appContext);
                             switch (profile._deviceAirplaneMode) {
                                 case 1:
+                                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForRadios", "_deviceAirplaneMode 1");
                                     if (!_isAirplaneMode) {
                                         _isAirplaneMode = true;
                                         _setAirplaneMode = true;
                                     }
                                     break;
                                 case 2:
+                                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForRadios", "_deviceAirplaneMode 2");
                                     if (_isAirplaneMode) {
                                         _isAirplaneMode = false;
                                         _setAirplaneMode = true;
                                     }
                                     break;
                                 case 3:
+                                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForRadios", "_deviceAirplaneMode 3");
                                     _isAirplaneMode = !_isAirplaneMode;
                                     _setAirplaneMode = true;
                                     break;
@@ -533,10 +583,12 @@ class ActivateProfileHelper {
                     }
                     if (_setAirplaneMode /*&& _isAirplaneMode*/) {
                         // switch ON airplane mode, set it before doExecuteForRadios
+                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForRadios", "setAirplaneMode()");
                         setAirplaneMode(/*context,*/ _isAirplaneMode);
                         PPApplication.sleep(2500);
                         //PPApplication.logE("ActivateProfileHelper.executeForRadios", "after sleep");
                     }
+                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForRadios", "doExecuteForRadios()");
                     doExecuteForRadios(appContext, profile);
 
                     /*if (_setAirplaneMode && (!_isAirplaneMode)) {
@@ -548,6 +600,8 @@ class ActivateProfileHelper {
                     }*/
 
                     //PPApplication.sleep(500);
+
+                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForRadios", "end");
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
@@ -1221,6 +1275,14 @@ class ActivateProfileHelper {
     }
 
     static void executeForVolumes(final Profile profile, final int linkUnlinkVolumes, final boolean forProfileActivation, Context context) {
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "profile=" + profile);
+            if (profile != null)
+                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "profile._name=" + profile._name);
+            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "linkUnlinkVolumes=" + linkUnlinkVolumes);
+            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "forProfileActivation=" + forProfileActivation);
+        }
+
         final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadVolumes();
         final Handler handler = new Handler(PPApplication.handlerThreadVolumes.getLooper());
@@ -1236,21 +1298,18 @@ class ActivateProfileHelper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
+                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "start");
+
                     int linkUnlink = PhoneCallBroadcastReceiver.LINKMODE_NONE;
                     if (ActivateProfileHelper.getMergedRingNotificationVolumes() &&
                             ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) {
                         if (Permissions.checkPhone(appContext))
                             linkUnlink = linkUnlinkVolumes;
                     }
-                    //PPActivation.logE("ActivateProfileHelper.executeForVolumes", "linkUnlink=" + linkUnlink);
-
-
-                    /*if (profile != null)
-                        PPApplication.logE("ActivateProfileHelper.executeForVolumes", "profile.name=" + profile._name);
-                    else
-                        PPApplication.logE("ActivateProfileHelper.executeForVolumes", "profile=null");*/
+                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "linkUnlink=" + linkUnlink);
 
                     if (profile != null) {
+                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setTones() 1");
                         setTones(appContext, profile);
 
                         final AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
@@ -1261,12 +1320,15 @@ class ActivateProfileHelper {
                             profile.getVolumeSystemChange() ||
                             profile.getVolumeDTMFChange()) {
 
-                            //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "change ringer mode");
+                            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "change ringer mode");
 
                             //if (Permissions.checkProfileAccessNotificationPolicy(context, profile, null)) {
                             if (canChangeZenMode(appContext, false)) {
+                                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "can change zen mode");
 
+                                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "changeRingerModeForVolumeEqual0()");
                                 changeRingerModeForVolumeEqual0(profile, audioManager);
+                                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "changeNotificationVolumeForVolumeEqual0()");
                                 changeNotificationVolumeForVolumeEqual0(/*context,*/ profile);
 
                                 RingerModeChangeReceiver.internalChange = true;
@@ -1275,13 +1337,16 @@ class ActivateProfileHelper {
                                 //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange=" + RingerModeChangeReceiver.internalChange);
                                 // !!! DO NOT CALL setVolumes before setRingerMode(..., firsCall:false).
                                 //     Ringer mode must be changed before call of setVolumes() because is checked in setVolumes().
+                                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setRingerMode() 1");
                                 setRingerMode(appContext, profile, audioManager, /*false,*/ forProfileActivation);
                                 //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange=" + RingerModeChangeReceiver.internalChange);
                                 PPApplication.sleep(500);
+                                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setVolumes()");
                                 setVolumes(appContext, profile, audioManager, linkUnlink, forProfileActivation, true);
                                 //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange=" + RingerModeChangeReceiver.internalChange);
                                 if (getSystemZenMode(appContext/*, -1*/) == ActivateProfileHelper.ZENMODE_PRIORITY) {
                                     //PPApplication.sleep(500);
+                                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setRingerMode() 2");
                                     setRingerMode(appContext, profile, audioManager, /*false,*/ forProfileActivation);
                                 }
 
@@ -1289,6 +1354,7 @@ class ActivateProfileHelper {
                                 //SystemClock.sleep(500);
                                 PPApplication.sleep(500);
 
+                                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "start internal change work");
                                 OneTimeWorkRequest disableInternalChangeWorker =
                                         new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
                                                 .addTag("disableInternalChangeWork")
@@ -1320,15 +1386,20 @@ class ActivateProfileHelper {
                             profile.getVolumeAccessibilityChange() ||
                             profile.getVolumeBluetoothSCOChange()) {
 
-                            //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "do not change ringer mode");
+                            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "do not change ringer mode");
 
+                            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setVolumes()");
                             setVolumes(appContext, profile, audioManager, linkUnlink, forProfileActivation, false);
                         }
                         /*else {
                             PPApplication.logE("ActivateProfileHelper.executeForVolumes", "ringer mode and volumes are not configured");
                         }*/
 
+                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setTones() 2");
                         setTones(appContext, profile);
+
+                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "end");
+
                     }
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -2279,7 +2350,7 @@ class ActivateProfileHelper {
 
     static void execute(final Context context, final Profile profile/*, boolean merged, *//*boolean _interactive*/)
     {
-        //PPApplication.logE("##### ActivateProfileHelper.execute", "xxx");
+        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "xxx");
 
         final Context appContext = context.getApplicationContext();
 
@@ -2289,12 +2360,14 @@ class ActivateProfileHelper {
         //final Profile profile = _profile; //Profile.getMappedProfile(_profile, appContext);
 
         // setup volume
+        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "executeForVolumes()");
         ActivateProfileHelper.executeForVolumes(profile, PhoneCallBroadcastReceiver.LINKMODE_NONE,true, appContext);
 
         // set vibration on touch
         if (Permissions.checkProfileVibrationOnTouch(appContext, profile, null)) {
             switch (profile._vibrationOnTouch) {
                 case 1:
+                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_vibrationOnTouch 1");
                     Settings.System.putInt(appContext.getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 1);
                     //Settings.System.putInt(context.getContentResolver(), Settings.Global.CHARGING_SOUNDS_ENABLED, 1);
                     // Settings.System.DTMF_TONE_WHEN_DIALING - working
@@ -2304,6 +2377,7 @@ class ActivateProfileHelper {
                     //                                           (G1) not working :-/
                     break;
                 case 2:
+                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_vibrationOnTouch 2");
                     Settings.System.putInt(appContext.getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 0);
                     //Settings.System.putInt(context.getContentResolver(), Settings.Global.CHARGING_SOUNDS_ENABLED, 0);
                     break;
@@ -2313,9 +2387,11 @@ class ActivateProfileHelper {
         if (Permissions.checkProfileDtmfToneWhenDialing(appContext, profile, null)) {
             switch (profile._dtmfToneWhenDialing) {
                 case 1:
+                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_dtmfToneWhenDialing 1");
                     Settings.System.putInt(appContext.getContentResolver(), Settings.System.DTMF_TONE_WHEN_DIALING, 1);
                     break;
                 case 2:
+                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_dtmfToneWhenDialing 2");
                     Settings.System.putInt(appContext.getContentResolver(), Settings.System.DTMF_TONE_WHEN_DIALING, 0);
                     break;
             }
@@ -2324,15 +2400,18 @@ class ActivateProfileHelper {
         if (Permissions.checkProfileSoundOnTouch(appContext, profile, null)) {
             switch (profile._soundOnTouch) {
                 case 1:
+                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_soundOnTouch 1");
                     Settings.System.putInt(appContext.getContentResolver(), Settings.System.SOUND_EFFECTS_ENABLED, 1);
                     break;
                 case 2:
+                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_soundOnTouch 2");
                     Settings.System.putInt(appContext.getContentResolver(), Settings.System.SOUND_EFFECTS_ENABLED, 0);
                     break;
             }
         }
 
         //// setup radio preferences
+        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "executeForRadios()");
         ActivateProfileHelper.executeForRadios(profile, appContext);
 
         // setup auto-sync
@@ -2341,18 +2420,21 @@ class ActivateProfileHelper {
             boolean _setAutoSync = false;
             switch (profile._deviceAutoSync) {
                 case 1:
+                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_deviceAutoSync 1");
                     if (!_isAutoSync) {
                         _isAutoSync = true;
                         _setAutoSync = true;
                     }
                     break;
                 case 2:
+                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_deviceAutoSync 2");
                     if (_isAutoSync) {
                         _isAutoSync = false;
                         _setAutoSync = true;
                     }
                     break;
                 case 3:
+                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_deviceAutoSync 3");
                     _isAutoSync = !_isAutoSync;
                     _setAutoSync = true;
                     break;
@@ -2363,6 +2445,7 @@ class ActivateProfileHelper {
 
         // screen on permanent
         //if (Permissions.checkProfileScreenTimeout(context, profile, null)) {
+            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "setScreenOnPermanent()");
             setScreenOnPermanent(profile, appContext);
         //}
 
@@ -2374,7 +2457,7 @@ class ActivateProfileHelper {
                 if (PPApplication.screenTimeoutHandler != null) {
                     PPApplication.screenTimeoutHandler.post(new Runnable() {
                         public void run() {
-                            //PPApplication.logE("ActivateProfileHelper.execute","screenTimeoutHandler");
+                            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "setScreenTimeout()");
                             setScreenTimeout(profile._deviceScreenTimeout, appContext);
                         }
                     });
@@ -2382,7 +2465,7 @@ class ActivateProfileHelper {
                 //    setScreenTimeout(profile._deviceScreenTimeout);
             }
             else {
-                //Log.d("ActivateProfileHelper.execute","screen off");
+                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "setActivatedProfileScreenTimeout()");
                 setActivatedProfileScreenTimeout(appContext, profile._deviceScreenTimeout);
             }
         }
@@ -2394,12 +2477,14 @@ class ActivateProfileHelper {
         boolean setLockScreen = false;
         switch (profile._deviceKeyguard) {
             case 1:
+                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_deviceKeyguard 1");
                 // enable lock screen
                 //PPApplication.logE("$$$ ActivateProfileHelper.execute","keyguard=ON");
                 setLockScreenDisabled(appContext, false);
                 setLockScreen = true;
                 break;
             case 2:
+                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_deviceKeyguard 2");
                 // disable lock screen
                 //PPApplication.logE("$$$ ActivateProfileHelper.execute","keyguard=OFF");
                 setLockScreenDisabled(appContext, true);
@@ -2419,6 +2504,7 @@ class ActivateProfileHelper {
 
                     if (PPApplication.isScreenOn && !keyguardShowing) {
                         try {
+                            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "switch keyguard");
                             // start PhoneProfilesService
                             //PPApplication.firstStartServiceStarted = false;
                             /*Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
@@ -2445,42 +2531,50 @@ class ActivateProfileHelper {
                 }*/
                 try {
                     if (profile.getDeviceBrightnessAutomatic()) {
+                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "set automatic brightness");
                         Settings.System.putInt(appContext.getContentResolver(),
                                 Settings.System.SCREEN_BRIGHTNESS_MODE,
                                 Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
                         if (profile.getDeviceBrightnessChangeLevel()) {
+                            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "set brightness 1");
                             Settings.System.putInt(appContext.getContentResolver(),
                                     Settings.System.SCREEN_BRIGHTNESS,
                                     profile.getDeviceBrightnessManualValue(appContext));
                             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, null, true, appContext).allowed
                                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                                if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
+                                if (android.os.Build.VERSION.SDK_INT < 23) {   // Not working in Android M (exception)
+                                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "set adaptive brightness 1");
                                     Settings.System.putFloat(appContext.getContentResolver(),
                                             ADAPTIVE_BRIGHTNESS_SETTING_NAME,
                                             profile.getDeviceBrightnessAdaptiveValue(appContext));
-                                else {
+                                } else {
                                     try {
+                                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "set adaptive brightness 2");
                                         Settings.System.putFloat(appContext.getContentResolver(),
                                                 ADAPTIVE_BRIGHTNESS_SETTING_NAME,
                                                 profile.getDeviceBrightnessAdaptiveValue(appContext));
                                     } catch (Exception ee) {
                                         // run service for execute radios
+                                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "executeRootForAdaptiveBrightness()");
                                         ActivateProfileHelper.executeRootForAdaptiveBrightness(profile, appContext);
                                     }
                                 }
                             }
                         }
                     } else {
+                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "set manual brightness");
                         Settings.System.putInt(appContext.getContentResolver(),
                                 Settings.System.SCREEN_BRIGHTNESS_MODE,
                                 Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
                         if (profile.getDeviceBrightnessChangeLevel()) {
+                            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "set brightness 2");
                             Settings.System.putInt(appContext.getContentResolver(),
                                     Settings.System.SCREEN_BRIGHTNESS,
                                     profile.getDeviceBrightnessManualValue(appContext));
                         }
                     }
 
+                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "start BackgroundBrightnessActivity");
                     Intent intent = new Intent(appContext, BackgroundBrightnessActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //this is important
 
@@ -2512,34 +2606,40 @@ class ActivateProfileHelper {
         if (Permissions.checkProfileAutoRotation(appContext, profile, null)) {
             switch (profile._deviceAutoRotate) {
                 case 1:
+                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_deviceAutoRotate 1");
                     // set autorotate on
                     Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 1);
                     //Settings.System.putInt(context.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_0);
                     break;
                 case 6:
+                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_deviceAutoRotate 6");
                     // set autorotate off
                     Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
                     //Settings.System.putInt(context.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_0);
                     break;
                 case 2:
+                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_deviceAutoRotate 2");
                     // set autorotate off
                     // degree 0
                     Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
                     Settings.System.putInt(appContext.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_0);
                     break;
                 case 3:
+                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_deviceAutoRotate 3");
                     // set autorotate off
                     // degree 90
                     Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
                     Settings.System.putInt(appContext.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_90);
                     break;
                 case 4:
+                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_deviceAutoRotate 4");
                     // set autorotate off
                     // degree 180
                     Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
                     Settings.System.putInt(appContext.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_180);
                     break;
                 case 5:
+                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_deviceAutoRotate 5");
                     // set autorotate off
                     // degree 270
                     Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
@@ -2553,9 +2653,11 @@ class ActivateProfileHelper {
             //if (Permissions.checkProfileNotificationLed(context, profile)) { not needed for Android 6+, because root is required
             switch (profile._notificationLed) {
                 case 1:
+                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_notificationLed 1");
                     setNotificationLed(appContext, 1);
                     break;
                 case 2:
+                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_notificationLed 2");
                     setNotificationLed(appContext, 0);
                     break;
             }
@@ -2565,6 +2667,7 @@ class ActivateProfileHelper {
         // setup wallpaper
         if (Permissions.checkProfileWallpaper(appContext, profile, null)) {
             if (profile._deviceWallpaperChange == 1) {
+                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "executeForWallpaper()");
                 ActivateProfileHelper.executeForWallpaper(profile, appContext);
             }
         }
@@ -2580,6 +2683,7 @@ class ActivateProfileHelper {
                     keyguardLocked = kgMgr.isKeyguardLocked();
                     //PPApplication.logE("---$$$ ActivateProfileHelper.execute", "keyguardLocked=" + keyguardLocked);
                     if (!keyguardLocked) {
+                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "lockDevice()");
                         ActivateProfileHelper.lockDevice(profile, appContext);
                     }
                 }
@@ -2588,6 +2692,7 @@ class ActivateProfileHelper {
 
         // enable/disable scanners
         if (profile._applicationDisableWifiScanning != 0) {
+            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_applicationDisableWifiScanning");
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, profile._applicationDisableWifiScanning == 2);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableWifiScanning == 1);
@@ -2598,6 +2703,7 @@ class ActivateProfileHelper {
             PPApplication.restartWifiScanner(appContext);
         }
         if (profile._applicationDisableBluetoothScanning != 0) {
+            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_applicationDisableBluetoothScanning");
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, profile._applicationDisableBluetoothScanning == 2);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableBluetoothScanning == 1);
@@ -2608,6 +2714,7 @@ class ActivateProfileHelper {
             PPApplication.restartBluetoothScanner(appContext);
         }
         if (profile._applicationDisableLocationScanning != 0) {
+            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_applicationDisableLocationScanning");
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, profile._applicationDisableLocationScanning == 2);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableLocationScanning == 1);
@@ -2618,6 +2725,7 @@ class ActivateProfileHelper {
             PPApplication.restartGeofenceScanner(appContext);
         }
         if (profile._applicationDisableMobileCellScanning != 0) {
+            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_applicationDisableMobileCellScanning");
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, profile._applicationDisableMobileCellScanning == 2);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableMobileCellScanning == 1);
@@ -2628,6 +2736,7 @@ class ActivateProfileHelper {
             PPApplication.restartPhoneStateScanner(appContext);
         }
         if (profile._applicationDisableOrientationScanning != 0) {
+            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_applicationDisableOrientationScanning");
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, profile._applicationDisableOrientationScanning == 2);
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableOrientationScanning == 1);
@@ -2642,9 +2751,11 @@ class ActivateProfileHelper {
         if (profile._headsUpNotifications != 0) {
             switch (profile._headsUpNotifications) {
                 case 1:
+                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_headsUpNotifications 1");
                     setHeadsUpNotifications(appContext, 1);
                     break;
                 case 2:
+                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_headsUpNotifications 2");
                     setHeadsUpNotifications(appContext, 0);
                     break;
             }
@@ -2662,9 +2773,11 @@ class ActivateProfileHelper {
             if (profile._alwaysOnDisplay != 0) {
                 switch (profile._alwaysOnDisplay) {
                     case 1:
+                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_alwaysOnDisplay 1");
                         setAlwaysOnDisplay(appContext, 1);
                         break;
                     case 2:
+                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_alwaysOnDisplay 2");
                         setAlwaysOnDisplay(appContext, 0);
                         break;
                 }
@@ -2674,6 +2787,7 @@ class ActivateProfileHelper {
         // close all applications
         if (profile._deviceCloseAllApplications == 1) {
             if (!PPApplication.blockProfileEventActions) {
+                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "start work for close all applications");
                 // work for first start events or activate profile on boot
                 Data workData = new Data.Builder()
                         .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_CLOSE_ALL_APPLICATIONS)
@@ -2701,11 +2815,14 @@ class ActivateProfileHelper {
                 enabled = PPPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_3_0);
             if (enabled) {
                 // executeForInteractivePreferences() is called from broadcast receiver PPPExtenderBroadcastReceiver
+                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "executeForForceStopApplications()");
                 ActivateProfileHelper.executeForForceStopApplications(profile, appContext);
             }
         }
-        else
+        else {
+            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "executeForInteractivePreferences()");
             executeForInteractivePreferences(profile, appContext);
+        }
 
         //TODO Crashlytics.getInstance().crash();
     }

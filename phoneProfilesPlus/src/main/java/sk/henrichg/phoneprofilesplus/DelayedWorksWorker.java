@@ -101,8 +101,10 @@ public class DelayedWorksWorker extends Worker {
                         }
                     }
 
+                    // do not activate profile after start of PPP
+                    // is not good to change system parameters after start,
+                    // especially after package replaced.
                     PPApplication.applicationPackageReplaced = false;
-
                     if (fromDoFirstStart) {
                         PhoneProfilesService instance = PhoneProfilesService.getInstance();
                         if (instance != null)

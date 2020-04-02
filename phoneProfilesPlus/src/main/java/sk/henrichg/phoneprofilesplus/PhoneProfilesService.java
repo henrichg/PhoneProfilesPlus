@@ -1126,7 +1126,7 @@ public class PhoneProfilesService extends Service
                 IntentFilter intentFilter10 = new IntentFilter();
                 intentFilter10.addAction(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED);
                 appContext.registerReceiver(PPApplication.powerSaveModeReceiver, intentFilter10);
-                PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "REGISTER powerSaveModeReceiver");
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "REGISTER powerSaveModeReceiver");
             }
 
         }
@@ -1142,7 +1142,7 @@ public class PhoneProfilesService extends Service
                 try {
                     appContext.unregisterReceiver(PPApplication.batteryLevelChangedReceiver);
                     PPApplication.batteryLevelChangedReceiver = null;
-                    PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryLevelChangedReceiver", "UNREGISTER");
+                    //PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryLevelChangedReceiver", "UNREGISTER");
                 } catch (Exception e) {
                     PPApplication.batteryLevelChangedReceiver = null;
                 }
@@ -1194,7 +1194,7 @@ public class PhoneProfilesService extends Service
                     IntentFilter intentFilter1 = new IntentFilter();
                     intentFilter1.addAction(Intent.ACTION_BATTERY_CHANGED);
                     appContext.registerReceiver(PPApplication.batteryLevelChangedReceiver, intentFilter1);
-                    PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryLevelChangedReceiver", "REGISTER registerBatteryLevelChangedReceiver");
+                    //PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryLevelChangedReceiver", "REGISTER registerBatteryLevelChangedReceiver");
                 }
                 //else
                 //    PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryLevelChangedReceiver", "registered");
@@ -1214,7 +1214,7 @@ public class PhoneProfilesService extends Service
                 try {
                     appContext.unregisterReceiver(PPApplication.batteryChargingChangedReceiver);
                     PPApplication.batteryChargingChangedReceiver = null;
-                    PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryChargingChangedReceiver", "UNREGISTER");
+                    //PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryChargingChangedReceiver", "UNREGISTER");
                 } catch (Exception e) {
                     PPApplication.batteryChargingChangedReceiver = null;
                 }
@@ -1264,7 +1264,7 @@ public class PhoneProfilesService extends Service
                     intentFilter1.addAction(Intent.ACTION_POWER_CONNECTED);
                     intentFilter1.addAction(Intent.ACTION_POWER_DISCONNECTED);
                     appContext.registerReceiver(PPApplication.batteryChargingChangedReceiver, intentFilter1);
-                    PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryChargingChangedReceiver", "REGISTER registerBatteryChargingChangedReceiver");
+                    //PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryChargingChangedReceiver", "REGISTER registerBatteryChargingChangedReceiver");
                 }
                 //else
                 //    PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryChargingChangedReceiver", "registered");
