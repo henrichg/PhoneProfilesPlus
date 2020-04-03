@@ -677,12 +677,14 @@ class EventPreferencesNotification extends EventPreferences {
                     }
                     Bundle extras = statusBarNotification.getNotification().extras;
                     if (extras != null) {
-                        if (extras.getString("android.title") != null) {
-                            notificationTitle = extras.getString("android.title");
+                        String _text1 = extras.getString("android.title");
+                        if (_text1 != null) {
+                            notificationTitle = _text1;
                             testText = true;
                         }
-                        if (extras.getCharSequence("android.text") != null) {
-                            notificationText = extras.getCharSequence("android.text").toString();
+                        CharSequence _text2 = extras.getCharSequence("android.text");
+                        if (_text2 != null) {
+                            notificationText = _text2.toString();
                             testText = true;
                         }
                     }
