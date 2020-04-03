@@ -1436,8 +1436,8 @@
     <string name="extender_permissions_event_sensor_call_28">• Autorisations pour le paramètre \"Capteur d\'appel\" - Permission du téléphone, journaux d\'appels :</string>
     <string name="extender_toast_permissions_not_granted">Les autorisations ne sont pas accordées</string>
     <string name="extender_accessibility_service_profile_lock_device">• Service d\'accessibilité pour le paramètre de profil \"Verrouillage de l\'appareil\" :</string>
-    <string name="extender_application_releases">Publications:</string>
-    <string name="extender_web_browser_chooser">Voir les liens avec</string>
+    <string name="extender_application_releases">Versions :</string>
+    <string name="extender_web_browser_chooser">Voir le lien web en utilisant</string>
     <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>-->
     <!--<string name="array_pref_color_native">Native</string>-->
     <!--<string name="array_pref_color_dark">Dark</string>-->

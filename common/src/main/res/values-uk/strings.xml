@@ -1407,14 +1407,14 @@
     <string name="draw_over_apps_permission_notification_title">Дозвіл на \"Відображати поверх додатків\"</string>
     <string name="draw_over_apps_permission_notification_text">Потрібно надати дозвіл \"Відображати поверх додатків\". Це потрібно для початку дій коли PhoneProfilesPlus знаходиться у фоновому режимі. Натисніть тут, щоб надати цей дозвіл.</string>
     <string name="profile_preferences_types_G1_permission">Дозвіл до налаштувань з (G1)</string>
-    <string name="preferences_grantG1Preferences_title">Permission for (G1) preferences not granted</string>
-    <string name="preferences_grantG1Preferences_summary">Permission for (G1) preferences not granted. Click here to grant it.</string>
+    <string name="preferences_grantG1Preferences_title">Дозвіл до налаштувань з (G1) не надано</string>
+    <string name="preferences_grantG1Preferences_summary">Дозвіл до налаштувань з (G1) не надано. Натисніть тут щоб надати його.</string>
     <string name="phone_profiles_pref_grantG1Permission_summary">Надайте дозвіл WRITE_SECURE_SETTINGS для PhoneProfilesPlus. Це потрібно для параметрів профіля і подій з позначкою (G1). Після цього ROOT не буде потрібно.</string>
     <string name="profile_preferences_profile_not_found">Профіль не знайдений. Вилучений?</string>
     <string name="event_preferences_event_not_found">Подія не знайдена. Вилучена?</string>
-    <string name="permissions_draw_overlays_not_allowed_alway_required">You do not have granted permission \"Draw over apps\". But this permission is required for Android 10. Please grant it.</string>
-    <string name="event_preferences_battery_level_info">Battery level warning</string>
-    <string name="event_preferences_battery_level_info_summary" tools:ignore="StringFormatCount,StringFormatInvalid">Lower level &gt; 0% or upper level &lt; 100% consume battery!</string>
+    <string name="permissions_draw_overlays_not_allowed_alway_required">Дозвіл на \"Відображати поверх додатків\" не надано. Надайте його. Вимога Android 10.</string>
+    <string name="event_preferences_battery_level_info">Попередження про рівень заряду акумулятора</string>
+    <string name="event_preferences_battery_level_info_summary" tools:ignore="StringFormatCount,StringFormatInvalid">Якщо нищий рівень &gt; 0% або вище рівня &lt; 100% розхід акумулятора!</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>
