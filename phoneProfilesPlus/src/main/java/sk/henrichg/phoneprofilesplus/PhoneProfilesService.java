@@ -85,7 +85,6 @@ public class PhoneProfilesService extends Service
     static final String ACTION_EVENT_DELAY_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".EventDelayEndBroadcastReceiver";
     static final String ACTION_PROFILE_DURATION_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".ProfileDurationAlarmBroadcastReceiver";
     static final String ACTION_SMS_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".SMSEventEndBroadcastReceiver";
-    //private static final String ACTION_NOTIFICATION_CANCEL_ALARM_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".NotificationCancelAlarmBroadcastReceiver";
     static final String ACTION_NFC_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".NFCEventEndBroadcastReceiver";
     static final String ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".RunApplicationWithDelayBroadcastReceiver";
     static final String ACTION_MISSED_CALL_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".MissedCallEventEndBroadcastReceiver";
@@ -527,10 +526,10 @@ public class PhoneProfilesService extends Service
             } catch (Exception ignored) {
             }*/
             try {
-                instance.stopForeground(true);
+                /*instance.stopForeground(true);
                 NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                 if (notificationManager != null)
-                    notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
+                    notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);*/
 
                 instance.stopSelf();
             } catch (Exception e) {
@@ -727,18 +726,6 @@ public class PhoneProfilesService extends Service
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered profileDurationAlarmBroadcastReceiver");
-            /*
-            if (notificationCancelAlarmBroadcastReceiver != null) {
-                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER notificationCancelAlarmBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER notificationCancelAlarmBroadcastReceiver");
-                try {
-                    appContext.unregisterReceiver(notificationCancelAlarmBroadcastReceiver);
-                    notificationCancelAlarmBroadcastReceiver = null;
-                } catch (Exception e) {
-                    notificationCancelAlarmBroadcastReceiver = null;
-                }
-            }
-            */
             if (PPApplication.runApplicationWithDelayBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER runApplicationWithDelayBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER runApplicationWithDelayBroadcastReceiver");
@@ -1015,17 +1002,6 @@ public class PhoneProfilesService extends Service
                 IntentFilter intentFilter14 = new IntentFilter(PhoneProfilesService.ACTION_PROFILE_DURATION_BROADCAST_RECEIVER);
                 appContext.registerReceiver(PPApplication.profileDurationAlarmBroadcastReceiver, intentFilter14);
             }
-
-            /*
-            if (notificationCancelAlarmBroadcastReceiver == null) {
-                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER notificationCancelAlarmBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER notificationCancelAlarmBroadcastReceiver");
-
-                notificationCancelAlarmBroadcastReceiver = new NotificationCancelAlarmBroadcastReceiver();
-                IntentFilter intentFilter14 = new IntentFilter(PhoneProfilesService.ACTION_NOTIFICATION_CANCEL_ALARM_BROADCAST_RECEIVER);
-                appContext.registerReceiver(notificationCancelAlarmBroadcastReceiver, intentFilter14);
-            }
-            */
 
             if (PPApplication.runApplicationWithDelayBroadcastReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER runApplicationWithDelayBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
@@ -5137,38 +5113,6 @@ public class PhoneProfilesService extends Service
         }
         PPApplication.logE("PhoneProfilesService.isServiceRunningInForeground", "false");
         return false;
-    }
-    */
-
-    /*
-    private void setAlarmForNotificationCancel(Context context)
-    {
-        if (Build.VERSION.SDK_INT >= 26)
-            return;
-
-        String notificationStatusBarCancel = ApplicationPreferences.notificationStatusBarCancel(context);
-
-        if (notificationStatusBarCancel.isEmpty() || notificationStatusBarCancel.equals("0"))
-            return;
-
-        //Intent intent = new Intent(_context, NotificationCancelAlarmBroadcastReceiver.class);
-        Intent intent = new Intent();
-        intent.setAction(PhoneProfilesService.ACTION_NOTIFICATION_CANCEL_ALARM_BROADCAST_RECEIVER);
-        //intent.setClass(context, NotificationCancelAlarmBroadcastReceiver.class);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        if (alarmManager != null) {
-            long time = SystemClock.elapsedRealtime() + Integer.valueOf(notificationStatusBarCancel) * 1000;
-            // not needed exact for removing notification
-            /if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
-            //    alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME, time, pendingIntent);
-            //if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
-            //    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME, time, pendingIntent);
-            //else
-            alarmManager.set(AlarmManager.ELAPSED_REALTIME, time, pendingIntent);
-        }
     }
     */
 

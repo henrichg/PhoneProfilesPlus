@@ -122,10 +122,10 @@ public class MobileCellsRegistrationService extends Service {
         else {
             setMobileCellsAutoRegistration(context, true);
 
-            stopForeground(true);
+            /*stopForeground(true);
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null)
-                notificationManager.cancel(PPApplication.MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID);
+                notificationManager.cancel(PPApplication.MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID);*/
 
             stopSelf();
         }

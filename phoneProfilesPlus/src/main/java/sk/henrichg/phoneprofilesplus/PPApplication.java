@@ -955,7 +955,6 @@ public class PPApplication extends Application /*implements Application.Activity
     static EventDelayEndBroadcastReceiver eventDelayEndBroadcastReceiver = null;
     static ProfileDurationAlarmBroadcastReceiver profileDurationAlarmBroadcastReceiver = null;
     static SMSEventEndBroadcastReceiver smsEventEndBroadcastReceiver = null;
-    //static NotificationCancelAlarmBroadcastReceiver notificationCancelAlarmBroadcastReceiver = null;
     static NFCEventEndBroadcastReceiver nfcEventEndBroadcastReceiver = null;
     static RunApplicationWithDelayBroadcastReceiver runApplicationWithDelayBroadcastReceiver = null;
     static MissedCallEventEndBroadcastReceiver missedCallEventEndBroadcastReceiver = null;
