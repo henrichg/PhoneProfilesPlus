@@ -29,7 +29,7 @@ ext.ppVersions = [
 
     minSdk: 21,
     targetSdk: 28,
-    compileSdk: 28,
+    compileSdk: 29,
     buildTools: '29.0.3',
 
     annotationXLib: '1.1.0',

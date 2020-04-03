@@ -73,7 +73,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
-    static final boolean logIntoFile = true;
+    static final boolean logIntoFile = false;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && DebugVersion.enabled;
     private static final boolean rootToolsDebug = false;
@@ -110,6 +110,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 +"|ShutdownBroadcastReceiver"
 
                                                 +"|[ACTIVATOR]"
+                                                //+"|ActivateProfileHelper.setGPS"
 
                                                 //+"|[TEST BATTERY]"
                                                 //+"|[WiFi] EventsHandler.doHandleEvents"
