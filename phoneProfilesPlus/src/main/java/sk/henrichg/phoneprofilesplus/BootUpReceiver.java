@@ -7,6 +7,12 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 
+import java.util.concurrent.TimeUnit;
+
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+
 public class BootUpReceiver extends BroadcastReceiver {
 
     @Override
@@ -62,8 +68,10 @@ public class BootUpReceiver extends BroadcastReceiver {
                         if (ApplicationPreferences.applicationStartOnBoot) {
                             PPApplication.logE("BootUpReceiver.onReceive", "PhoneProfilesService.getInstance()=" + PhoneProfilesService.getInstance());
 
-                            PPApplication.sleep(3000);
+                            //PPApplication.sleep(3000);
                             if (!PPApplication.getApplicationStarted(true)) {
+                                // service is not started
+                                PPApplication.logE("BootUpReceiver.onReceive", "start service");
                                 // service is not started, start it
                                 PPApplication.setApplicationStarted(appContext, true);
                                 Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
@@ -74,38 +82,33 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 PPApplication.startPPService(appContext, serviceIntent, true);
                             }
                             else {
-                                // service is started by PPApplication
+                                // service is started
                                 PPApplication.logE("BootUpReceiver.onReceive", "activate profiles");
 
                                 //if (PhoneProfilesService.getInstance() != null)
                                 //    PhoneProfilesService.getInstance().removeRestartEventsForFirstStartHandler(true);
 
-                                final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
                                 PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_START_ON_BOOT, null, null, null, 0, "");
 
-                                // start events
-                                if (Event.getGlobalEventsRunning()) {
-                                    PPApplication.logE("BootUpReceiver.onReceive", "global event run is enabled, first start events");
+                                PPApplication.logE("BootUpReceiver.onReceive", "called work for first start");
 
-                                    if (!DataWrapper.getIsManualProfileActivation(false/*, appContext*/)) {
-                                        ////// unblock all events for first start
-                                        //     that may be blocked in previous application run
-                                        dataWrapper.pauseAllEvents(false, false/*, false*/);
-                                    }
+                                // work after first start
+                                Data workData = new Data.Builder()
+                                        .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START)
+                                        .putBoolean(PhoneProfilesService.EXTRA_FROM_DO_FIRST_START, true)
+                                        .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true)
+                                        .build();
 
-                                    dataWrapper.firstStartEvents(true, false);
-                                    PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from BootUpReceiver.onReceive");
-                                    PPApplication.updateNotificationAndWidgets(true, true, appContext);
-                                } else {
-                                    PPApplication.logE("BootUpReceiver.onReceive", "global event run is not enabled, manually activate profile");
-
-                                    ////// unblock all events for first start
-                                    //     that may be blocked in previous application run
-                                    dataWrapper.pauseAllEvents(true, false/*, false*/);
-
-                                    dataWrapper.activateProfileOnBoot();
-                                    PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from BootUpReceiver.onReceive");
-                                    PPApplication.updateNotificationAndWidgets(true, true, appContext);
+                                OneTimeWorkRequest worker =
+                                        new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                                .addTag("afterFirstStartWork")
+                                                .setInputData(workData)
+                                                .setInitialDelay(5, TimeUnit.SECONDS)
+                                                .build();
+                                try {
+                                    WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
+                                    workManager.enqueue(worker);
+                                } catch (Exception ignored) {
                                 }
                             }
                         } else {

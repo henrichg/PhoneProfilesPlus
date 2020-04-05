@@ -37,7 +37,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
             //final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
             PPApplication.logE("PackageReplacedReceiver.onReceive", "called work for package replaced");
-            PPApplication.logE("PackageReplacedReceiver.onReceive", "start of delayed work");
+            //PPApplication.logE("PackageReplacedReceiver.onReceive", "start of delayed work");
 
             // work for package replaced
             Data workData = new Data.Builder()
@@ -56,61 +56,6 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                 workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.REPLACE, worker);
             } catch (Exception ignored) {
             }
-
-            /*
-            PPApplication.startHandlerThread("PackageReplacedReceiver.onReceive");
-            final Handler handler2 = new Handler(PPApplication.handlerThread.getLooper());
-            handler2.post(new Runnable() {
-                @Override
-                public void run() {
-                    PPApplication.logE("PackageReplacedReceiver.onReceive - handler", "xxx");
-
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PackageReplacedReceiver_onReceive_1");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
-
-                        //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PackageReplacedReceiver.onReceive");
-
-                        //PhoneProfilesService instance = PhoneProfilesService.getInstance();
-                        //if (instance != null) {
-                        //    if (!instance.getWaitForEndOfStart()) {
-                            //if (ApplicationPreferences.applicationPackageReplaced(appContext)) {
-                            if (PPApplication.applicationPackageReplaced) {
-                                PPApplication.logE("PackageReplacedReceiver.onReceive", "called work for package replaced");
-
-                                // work for package replaced
-                                Data workData = new Data.Builder()
-                                        .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED)
-                                        //.putBoolean(PackageReplacedReceiver.EXTRA_RESTART_SERVICE, restartService)
-                                        .build();
-
-                                OneTimeWorkRequest worker =
-                                        new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
-                                                .addTag("packageReplacedWork")
-                                                .setInputData(workData)
-                                                .setInitialDelay(5, TimeUnit.SECONDS)
-                                                .build();
-                                try {
-                                    WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
-                                    workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.REPLACE, worker);
-                                } catch (Exception ignored) {
-                                }
-                            }
-                        //}
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {}
-                        }
-                    }
-                }
-            });
-            */
         }
     }
 

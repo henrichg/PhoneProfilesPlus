@@ -3700,6 +3700,9 @@ public class PhoneProfilesService extends Service
                         //setApplicationFullyStarted(true);
 
                         // work after first start
+
+                        PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "called work for first start");
+
                         Data workData = new Data.Builder()
                                 .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START)
                                 .putBoolean(PhoneProfilesService.EXTRA_FROM_DO_FIRST_START, true)
