@@ -69,6 +69,16 @@ public class DelayedWorksWorker extends Worker {
                     PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "START");
 
                     boolean fromDoFirstStart = getInputData().getBoolean(PhoneProfilesService.EXTRA_FROM_DO_FIRST_START, true);
+
+                    // activate profile immediately after start of PPP
+                    // this is required for some users, for example: francescocaldelli@gmail.com
+                    PPApplication.applicationPackageReplaced = false;
+                    if (fromDoFirstStart) {
+                        PhoneProfilesService instance = PhoneProfilesService.getInstance();
+                        if (instance != null)
+                            instance.setApplicationFullyStarted(/*true*/);
+                    }
+
                     if (fromDoFirstStart) {
                         boolean activateProfiles = getInputData().getBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
 
@@ -101,15 +111,15 @@ public class DelayedWorksWorker extends Worker {
                         }
                     }
 
-                    // do not activate profile after start of PPP
+                    /*// do not activate profile after start of PPP
                     // is not good to change system parameters after start,
                     // especially after package replaced.
                     PPApplication.applicationPackageReplaced = false;
                     if (fromDoFirstStart) {
                         PhoneProfilesService instance = PhoneProfilesService.getInstance();
                         if (instance != null)
-                            instance.setApplicationFullyStarted(/*true*/);
-                    }
+                            instance.setApplicationFullyStarted();
+                    }*/
 
                     PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "END");
                     break;
@@ -425,10 +435,11 @@ public class DelayedWorksWorker extends Worker {
 
                                     if (Build.VERSION.SDK_INT >= 26) {
                                         NotificationManager manager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                                        NotificationChannel channel = manager.getNotificationChannel(PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL);
-
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED,
-                                                channel.getImportance() != NotificationManager.IMPORTANCE_NONE);
+                                        if (manager != null) {
+                                            NotificationChannel channel = manager.getNotificationChannel(PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL);
+                                            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED,
+                                                    channel.getImportance() != NotificationManager.IMPORTANCE_NONE);
+                                        }
                                     }
 
                                     int filterEventsSelectedItem = ApplicationPreferences.editorEventsViewSelectedItem;

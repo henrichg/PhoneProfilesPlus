@@ -1156,9 +1156,11 @@ public class PPApplication extends Application /*implements Application.Activity
                 Method getRuntime = (Method) getDeclaredMethod.invoke(vmRuntimeClass, "getRuntime", null);
                 Method setHiddenApiExemptions = (Method) getDeclaredMethod.invoke(vmRuntimeClass, "setHiddenApiExemptions", new Class[]{String[].class});
 
-                Object vmRuntime = getRuntime.invoke(null);
-
-                setHiddenApiExemptions.invoke(vmRuntime, new Object[]{new String[]{"L"}});
+                if (getRuntime != null) {
+                    Object vmRuntime = getRuntime.invoke(null);
+                    if (setHiddenApiExemptions != null)
+                        setHiddenApiExemptions.invoke(vmRuntime, new Object[]{new String[]{"L"}});
+                }
             } catch (Exception e) {
                 Log.e("PPApplication.onCreate", Log.getStackTraceString(e));
                 //FirebaseCrashlytics.getInstance().recordException(e);
