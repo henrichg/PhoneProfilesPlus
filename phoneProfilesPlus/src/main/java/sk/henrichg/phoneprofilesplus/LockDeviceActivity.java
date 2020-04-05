@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -55,36 +54,40 @@ public class LockDeviceActivity extends AppCompatActivity {
             params.format = -1;
             params.screenBrightness = 0f;
 
-            LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = layoutInflater.inflate(R.layout.activity_lock_device, null);
-            view.setSystemUiVisibility(5894);
-            view.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
-                @Override
-                public void onSystemUiVisibilityChange(int i) {
-                    view.setSystemUiVisibility(5894);
-                }
-            });
+            //LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            //if (layoutInflater != null) {
+                view = getLayoutInflater().inflate(R.layout.activity_lock_device, null);
+                view.setSystemUiVisibility(5894);
+                view.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+                    @Override
+                    public void onSystemUiVisibilityChange(int i) {
+                        view.setSystemUiVisibility(5894);
+                    }
+                });
 
-            WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-            if (windowManager != null)
-                windowManager.addView(view, params);
+                WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+                if (windowManager != null)
+                    windowManager.addView(view, params);
 
-            /*
-            WindowManager.LayoutParams aParams = getWindow().getAttributes();
-            aParams.flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
-            aParams.screenBrightness = 0;
-            getWindow().setAttributes(aParams);
-            */
+                /*
+                WindowManager.LayoutParams aParams = getWindow().getAttributes();
+                aParams.flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
+                aParams.screenBrightness = 0;
+                getWindow().setAttributes(aParams);
+                */
 
-            displayed = true;
-            //PPApplication.logE("LockDeviceActivity.onCreate", "displayed=true");
+                displayed = true;
+                //PPApplication.logE("LockDeviceActivity.onCreate", "displayed=true");
 
-            PPApplication.screenTimeoutBeforeDeviceLock = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
-            //ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(getApplicationContext());
+                PPApplication.screenTimeoutBeforeDeviceLock = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
+                //ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(getApplicationContext());
 
-            Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1000);
+                Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1000);
 
-            LockDeviceActivityFinishBroadcastReceiver.setAlarm(getApplicationContext());
+                LockDeviceActivityFinishBroadcastReceiver.setAlarm(getApplicationContext());
+            //}
+            //else
+            //    finish();
         }
         else
             finish();

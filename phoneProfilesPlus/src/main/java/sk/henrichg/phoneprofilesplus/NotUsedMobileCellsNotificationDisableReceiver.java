@@ -23,17 +23,18 @@ public class NotUsedMobileCellsNotificationDisableReceiver extends BroadcastRece
         ApplicationPreferences.applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled(context.getApplicationContext());
 
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        if (Build.VERSION.SDK_INT >= 23) {
-            StatusBarNotification[] notifications = manager.getActiveNotifications();
-            for (StatusBarNotification notification : notifications) {
-                if (notification.getId() >= PhoneStateScanner.NEW_MOBILE_CELLS_NOTIFICATION_ID) {
-                    manager.cancel(notification.getId());
+        if (manager != null) {
+            if (Build.VERSION.SDK_INT >= 23) {
+                StatusBarNotification[] notifications = manager.getActiveNotifications();
+                for (StatusBarNotification notification : notifications) {
+                    if (notification.getId() >= PhoneStateScanner.NEW_MOBILE_CELLS_NOTIFICATION_ID) {
+                        manager.cancel(notification.getId());
+                    }
                 }
+            } else {
+                int notificationId = intent.getIntExtra("notificationId", 0);
+                manager.cancel(notificationId);
             }
-        }
-        else {
-            int notificationId = intent.getIntExtra("notificationId", 0);
-            manager.cancel(notificationId);
         }
     }
 

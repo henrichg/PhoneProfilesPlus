@@ -120,6 +120,7 @@ final class WifiApManager {
     boolean isWifiAPEnabled() {
         try {
             wifiApEnabled.setAccessible(true);
+            //noinspection ConstantConditions
             return (Boolean) wifiApEnabled.invoke(mWifiManager);
         } catch (Exception e) {
             Log.e("$$$ WifiAP", "WifiApManager.isWifiAPEnabled-exception="+e);

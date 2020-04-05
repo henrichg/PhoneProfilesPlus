@@ -15,8 +15,7 @@ import java.util.List;
 
 import androidx.preference.DialogPreference;
 
-public class CalendarsMultiSelectDialogPreferenceX extends DialogPreference
-{
+public class CalendarsMultiSelectDialogPreferenceX extends DialogPreference {
     CalendarsMultiSelectDialogPreferenceFragmentX fragment;
 
     private final Context _context;
@@ -35,14 +34,14 @@ public class CalendarsMultiSelectDialogPreferenceX extends DialogPreference
     }
 
     @Override
-    protected void onSetInitialValue(Object defaultValue)
-    {
+    protected void onSetInitialValue(Object defaultValue) {
         // Get the persistent value
-        value = getPersistedString((String)defaultValue);
-        this.defaultValue = (String)defaultValue;
+        value = getPersistedString((String) defaultValue);
+        this.defaultValue = (String) defaultValue;
         setSummaryCMSDP();
     }
 
+    @SuppressLint("MissingPermission")
     static String getSummary(String value, Context context) {
         String summary = context.getString(R.string.calendars_multiselect_summary_text_not_selected);
         if (Permissions.checkCalendar(context)) {
@@ -54,6 +53,7 @@ public class CalendarsMultiSelectDialogPreferenceX extends DialogPreference
                     ContentResolver cr = context.getContentResolver();
                     Uri uri = Calendars.CONTENT_URI;
                     String selection = Calendars._ID + "=" + splits[0];
+                    // permission is already checked in Permissions.checkCalendar()
                     //noinspection MissingPermission
                     cur = cr.query(uri, CalendarsMultiSelectDialogPreferenceFragmentX.CALENDAR_PROJECTION, selection, null, null);
                     if (cur != null) {

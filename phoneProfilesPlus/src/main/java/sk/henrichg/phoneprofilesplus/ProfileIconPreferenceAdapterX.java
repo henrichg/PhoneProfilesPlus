@@ -14,7 +14,7 @@ import java.util.Map;
 class ProfileIconPreferenceAdapterX extends BaseAdapter {
 
     private final Context context;
-    private final LayoutInflater inflater;
+    //private final LayoutInflater inflater;
 
     private final ProfileIconPreferenceX preference;
     /*private String imageIdentifier;
@@ -27,7 +27,7 @@ class ProfileIconPreferenceAdapterX extends BaseAdapter {
         this.preference = preference;
         this.context = context;
 
-        inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     public int getCount() {
@@ -55,7 +55,7 @@ class ProfileIconPreferenceAdapterX extends BaseAdapter {
         View vi = convertView;
         if (convertView == null)
         {
-            vi = inflater.inflate(R.layout.profileicon_preference_gridview_item, parent, false);
+            vi = LayoutInflater.from(context).inflate(R.layout.profileicon_preference_gridview_item, parent, false);
             holder = new ViewHolder();
             holder.icon = vi.findViewById(R.id.profileicon_preference_gridview_item_icon);
             vi.setTag(holder);

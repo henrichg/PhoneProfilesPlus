@@ -20,10 +20,12 @@ public class IgnoreBatteryOptimizationDisableReceiver extends BroadcastReceiver 
 
         if (Build.VERSION.SDK_INT >= 23) {
             NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            StatusBarNotification[] notifications = manager.getActiveNotifications();
-            for (StatusBarNotification notification : notifications) {
-                if (notification.getId() >= PPApplication.IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ID) {
-                    manager.cancel(notification.getId());
+            if (manager != null) {
+                StatusBarNotification[] notifications = manager.getActiveNotifications();
+                for (StatusBarNotification notification : notifications) {
+                    if (notification.getId() >= PPApplication.IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ID) {
+                        manager.cancel(notification.getId());
+                    }
                 }
             }
         }

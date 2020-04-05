@@ -17,14 +17,16 @@ class RingtonePreferenceAdapterX extends BaseAdapter {
     final Map<String, String> toneList;
     private final RingtonePreferenceFragmentX preferenceFragment;
 
-    private final LayoutInflater inflater;
+    //private final LayoutInflater inflater;
+    private final Context context;
 
     RingtonePreferenceAdapterX(RingtonePreferenceFragmentX preferenceFragment, Context c, Map<String, String> toneList)
     {
         this.preferenceFragment = preferenceFragment;
         this.toneList = toneList;
 
-        inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.context = c;
     }
 
     public int getCount() {
@@ -57,7 +59,7 @@ class RingtonePreferenceAdapterX extends BaseAdapter {
 
         View vi = convertView;
         if (convertView == null) {
-            vi = inflater.inflate(R.layout.ringtone_preference_list_item, parent, false);
+            vi = LayoutInflater.from(context).inflate(R.layout.ringtone_preference_list_item, parent, false);
 
             holder = new ViewHolder();
             holder.ringtoneLabel = vi.findViewById(R.id.ringtone_pref_dlg_item_label);

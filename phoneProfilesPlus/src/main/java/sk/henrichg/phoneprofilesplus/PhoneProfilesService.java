@@ -517,7 +517,7 @@ public class PhoneProfilesService extends Service
         //}
     }
 
-    public static void stop(Context context) {
+    public static void stop(/*Context context*/) {
         if (instance != null) {
             /*try {
                 //noinspection deprecation
@@ -5062,7 +5062,7 @@ public class PhoneProfilesService extends Service
         PPApplication.lastRefreshOfProfileNotification = SystemClock.elapsedRealtime();
     }
 
-    void clearProfileNotification(/*Context context, boolean onlyEmpty*/)
+    private void clearProfileNotification(/*Context context, boolean onlyEmpty*/)
     {
         /*if (onlyEmpty) {
             final Context appContext = getApplicationContext();

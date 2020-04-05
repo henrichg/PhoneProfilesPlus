@@ -101,6 +101,9 @@ class ActivateProfileHelper {
                 PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "profile._name=" + profile._name);
         }
 
+        if (profile == null)
+            return;
+
         PPApplication.sleep(300);
 
         Context appContext = context.getApplicationContext();
@@ -535,6 +538,9 @@ class ActivateProfileHelper {
             if (profile != null)
                 PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForRadios", "profile._name=" + profile._name);
         }
+
+        if (profile == null)
+            return;
 
         final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadRadios();
@@ -3266,13 +3272,18 @@ class ActivateProfileHelper {
                     Method getITelephonyMethod = telephonyManagerClass.getDeclaredMethod("getITelephony");
                     getITelephonyMethod.setAccessible(true);
                     ITelephonyStub = getITelephonyMethod.invoke(telephonyManager);
-                    ITelephonyClass = Class.forName(ITelephonyStub.getClass().getName());
+                    if (ITelephonyStub != null) {
+                        ITelephonyClass = Class.forName(ITelephonyStub.getClass().getName());
 
-                    getDataEnabledMethod = ITelephonyClass.getDeclaredMethod("getDataEnabled");
+                        getDataEnabledMethod = ITelephonyClass.getDeclaredMethod("getDataEnabled");
 
-                    getDataEnabledMethod.setAccessible(true);
+                        getDataEnabledMethod.setAccessible(true);
 
-                    return (Boolean) getDataEnabledMethod.invoke(ITelephonyStub);
+                        //noinspection ConstantConditions
+                        return (Boolean) getDataEnabledMethod.invoke(ITelephonyStub);
+                    }
+                    else
+                        return false;
 
                 } catch (Exception e) {
                     return false;
@@ -3294,6 +3305,7 @@ class ActivateProfileHelper {
                     getDataEnabledMethod = telephonyManagerClass.getDeclaredMethod("getDataEnabled");
                     getDataEnabledMethod.setAccessible(true);
 
+                    //noinspection ConstantConditions
                     return (Boolean) getDataEnabledMethod.invoke(telephonyManager);
 
                 } catch (Exception e) {

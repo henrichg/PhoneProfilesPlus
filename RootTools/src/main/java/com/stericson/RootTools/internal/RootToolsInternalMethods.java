@@ -791,7 +791,6 @@ public final class RootToolsInternalMethods {
 
                 if (mp.equals("/")) {
                     if (path.equals("/")) {
-                        //noinspection ConstantConditions
                         return (String) mount.getFlags().toArray()[0];
                     } else {
                         continue;
@@ -799,9 +798,7 @@ public final class RootToolsInternalMethods {
                 }
 
                 if (path.equals(mp) || path.startsWith(mp + "/")) {
-                    //noinspection ConstantConditions
                     RootTools.log((String) mount.getFlags().toArray()[0]);
-                    //noinspection ConstantConditions
                     return (String) mount.getFlags().toArray()[0];
                 }
             }

@@ -14,7 +14,8 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
         //CallsCounter.logCounter(context, "StartLauncherFromNotificationReceiver.onReceive", "StartLauncherFromNotificationReceiver_onReceive");
 
         if (intent != null) {
-            if (intent.getAction().equals(PhoneProfilesService.ACTION_START_LAUNCHER_FROM_NOTIFICATION)) {
+            String action = intent.getAction();
+            if ((action != null) && action.equals(PhoneProfilesService.ACTION_START_LAUNCHER_FROM_NOTIFICATION)) {
                 Context appContext = context.getApplicationContext();
                 // intent to LauncherActivity, for click on notification
                 Intent launcherIntent = new Intent(appContext, LauncherActivity.class);

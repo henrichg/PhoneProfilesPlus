@@ -70,24 +70,26 @@ public class VolumeDialogPreferenceX extends DialogPreference {
 
         if (audioManager != null) {
             // get max. values from audio manager
-            if (volumeType.equalsIgnoreCase("RINGTONE"))
-                maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
-            else if (volumeType.equalsIgnoreCase("NOTIFICATION"))
-                maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
-            else if (volumeType.equalsIgnoreCase("MEDIA"))
-                maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-            else if (volumeType.equalsIgnoreCase("ALARM"))
-                maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
-            else if (volumeType.equalsIgnoreCase("SYSTEM"))
-                maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
-            else if (volumeType.equalsIgnoreCase("VOICE"))
-                maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL);
-            else if (volumeType.equalsIgnoreCase("DTMF"))
-                maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF);
-            else if ((Build.VERSION.SDK_INT >= 26) && volumeType.equalsIgnoreCase("ACCESSIBILITY"))
-                maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY);
-            else if (volumeType.equalsIgnoreCase("BLUETOOTHSCO"))
-                maximumValue = audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO);
+            if (volumeType != null) {
+                if (volumeType.equalsIgnoreCase("RINGTONE"))
+                    maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
+                else if (volumeType.equalsIgnoreCase("NOTIFICATION"))
+                    maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
+                else if (volumeType.equalsIgnoreCase("MEDIA"))
+                    maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                else if (volumeType.equalsIgnoreCase("ALARM"))
+                    maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+                else if (volumeType.equalsIgnoreCase("SYSTEM"))
+                    maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
+                else if (volumeType.equalsIgnoreCase("VOICE"))
+                    maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL);
+                else if (volumeType.equalsIgnoreCase("DTMF"))
+                    maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF);
+                else if ((Build.VERSION.SDK_INT >= 26) && volumeType.equalsIgnoreCase("ACCESSIBILITY"))
+                    maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY);
+                else if (volumeType.equalsIgnoreCase("BLUETOOTHSCO"))
+                    maximumValue = audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO);
+            }
             maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 
             // get actual values from audio manager

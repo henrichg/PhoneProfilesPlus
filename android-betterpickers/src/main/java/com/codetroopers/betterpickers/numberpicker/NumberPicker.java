@@ -82,9 +82,9 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     public NumberPicker(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
-        LayoutInflater layoutInflater =
-                (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        layoutInflater.inflate(getLayoutId(), this);
+        //LayoutInflater layoutInflater =
+        //        (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater.from(context).inflate(getLayoutId(), this);
 
         // Init defaults
         mTextColor = getResources().getColorStateList(R.color.dialog_text_color_holo_dark);

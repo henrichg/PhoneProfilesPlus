@@ -59,10 +59,12 @@ class IgnoreBatteryOptimizationNotification {
                             if (show) {
                                 PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                                 try {
-                                    if (!pm.isIgnoringBatteryOptimizations(appContext.getPackageName())) {
-                                        showNotification(appContext,
-                                                appContext.getString(R.string.ignore_battery_optimization_notification_title),
-                                                appContext.getString(R.string.ignore_battery_optimization_notification_text));
+                                    if (pm != null) {
+                                        if (!pm.isIgnoringBatteryOptimizations(appContext.getPackageName())) {
+                                            showNotification(appContext,
+                                                    appContext.getString(R.string.ignore_battery_optimization_notification_title),
+                                                    appContext.getString(R.string.ignore_battery_optimization_notification_text));
+                                        }
                                     }
                                 } catch (Exception ignore) {
                                 }
@@ -97,10 +99,12 @@ class IgnoreBatteryOptimizationNotification {
                 if (show) {
                     PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     try {
-                        if (!pm.isIgnoringBatteryOptimizations(appContext.getPackageName())) {
-                            showNotification(appContext,
-                                    appContext.getString(R.string.ignore_battery_optimization_notification_title),
-                                    appContext.getString(R.string.ignore_battery_optimization_notification_text));
+                        if (pm != null) {
+                            if (!pm.isIgnoringBatteryOptimizations(appContext.getPackageName())) {
+                                showNotification(appContext,
+                                        appContext.getString(R.string.ignore_battery_optimization_notification_title),
+                                        appContext.getString(R.string.ignore_battery_optimization_notification_text));
+                            }
                         }
                     } catch (Exception ignore) {
                     }

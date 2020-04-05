@@ -581,7 +581,8 @@ public class DataWrapper {
         synchronized (profileList) {
             // remove notifications about profile parameters errors
             NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.cancel(9999 + (int) profile._id);
+            if (notificationManager != null)
+                notificationManager.cancel(9999 + (int) profile._id);
 
             profileList.remove(profile);
         }
@@ -630,7 +631,8 @@ public class DataWrapper {
             //noinspection ForLoopReplaceableByForEach
             for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
                 Profile profile = it.next();
-                notificationManager.cancel(9999 + (int) profile._id);
+                if (notificationManager != null)
+                    notificationManager.cancel(9999 + (int) profile._id);
             }
             profileList.clear();
         }

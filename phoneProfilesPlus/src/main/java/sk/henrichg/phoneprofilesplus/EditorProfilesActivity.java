@@ -181,12 +181,15 @@ public class EditorProfilesActivity extends AppCompatActivity
         public void onReceive( Context context, Intent intent ) {
             //PPApplication.logE("EditorProfilesActivity.finishBroadcastReceiver", "xxx");
             String action = intent.getAction();
-            if (action.equals(PPApplication.ACTION_FINISH_ACTIVITY)) {
-                String what = intent.getStringExtra(PPApplication.EXTRA_WHAT_FINISH);
-                if (what.equals("editor")) {
-                    try {
-                        EditorProfilesActivity.this.finishAffinity();
-                    } catch (Exception ignored) {}
+            if (action != null) {
+                if (action.equals(PPApplication.ACTION_FINISH_ACTIVITY)) {
+                    String what = intent.getStringExtra(PPApplication.EXTRA_WHAT_FINISH);
+                    if (what.equals("editor")) {
+                        try {
+                            EditorProfilesActivity.this.finishAffinity();
+                        } catch (Exception ignored) {
+                        }
+                    }
                 }
             }
         }
@@ -304,8 +307,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         drawerListView = findViewById(R.id.editor_drawer_list);
         //noinspection ConstantConditions
-        headerView =  ((LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE)).
-                            inflate(R.layout.editor_drawer_list_header, drawerListView, false);
+        headerView =  getLayoutInflater().inflate(R.layout.editor_drawer_list_header, drawerListView, false);
         drawerListView.addHeaderView(headerView, null, false);
         drawerHeaderFilterImage = findViewById(R.id.editor_drawer_list_header_icon);
         drawerHeaderFilterTitle = findViewById(R.id.editor_drawer_list_header_title);

@@ -231,14 +231,15 @@ class TonesHandler {
         else
             path = context.getExternalFilesDir(null);
         //PPApplication.logE("TonesHandler._installTone", "path=" + path.getAbsolutePath());
-        //noinspection ResultOfMethodCallIgnored
-        path.mkdirs();
-        String filename = context.getResources().getResourceEntryName(resID) + ".ogg";
-        File outFile = new File(path, filename);
+        if (path != null) {
+            //noinspection ResultOfMethodCallIgnored
+            path.mkdirs();
+            String filename = context.getResources().getResourceEntryName(resID) + ".ogg";
+            File outFile = new File(path, filename);
 
-        boolean isError = false;
+            boolean isError = false;
 
-        //if (!outFile.exists()) {
+            //if (!outFile.exists()) {
 
             // Write the file
             InputStream inputStream = null;
@@ -280,155 +281,156 @@ class TonesHandler {
                 //FirebaseCrashlytics.getInstance().log("TonesHandler._installTone - Error writing " + filename);
                 Crashlytics.log("TonesHandler._installTone - Error writing " + filename);
                 isError = true;
-            }
-            else {
+            } else {
                 if (!outFile.setReadable(true, false)) {
                     Log.e("TonesHandler._installTone", "Error setting readable to all " + filename);
                     //FirebaseCrashlytics.getInstance().log("TonesHandler._installTone - Error setting readable to all " + filename);
                     Crashlytics.log("TonesHandler._installTone - Error setting readable to all " + filename);
                 }
             }
-        //}
+            //}
 
-        if (!isError) {
-
-            try {
-                String mimeType = "audio/ogg";
-
-                // Set the file metadata
-                String outAbsPath = outFile.getAbsolutePath();
-
-                Uri contentUri;
-                if (Build.VERSION.SDK_INT < 29)
-                    contentUri = MediaStore.Audio.Media.INTERNAL_CONTENT_URI;
-                else
-                    contentUri = MediaStore.Audio.Media.getContentUriForPath(outAbsPath);
-
-                // Add the metadata to the file in the database
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(MediaStore.MediaColumns.DATA, outAbsPath);
-                contentValues.put(MediaStore.MediaColumns.TITLE, title);
-                contentValues.put(MediaStore.MediaColumns.MIME_TYPE, mimeType);
-                contentValues.put(MediaStore.MediaColumns.SIZE, outFile.length());
-
-                contentValues.put(MediaStore.Audio.Media.IS_ALARM, true);
-                contentValues.put(MediaStore.Audio.Media.IS_NOTIFICATION, true);
-                contentValues.put(MediaStore.Audio.Media.IS_RINGTONE, true);
-                contentValues.put(MediaStore.Audio.Media.IS_MUSIC, false);
+            if (!isError) {
 
                 try {
-                    context.getContentResolver().delete(contentUri, MediaStore.MediaColumns.DATA + "='" + outAbsPath + "'", null);
-                } catch (Exception eee) {
-                    Crashlytics.logException(eee);
-                }
+                    String mimeType = "audio/ogg";
 
-                Uri newUri = context.getContentResolver().insert(contentUri, contentValues);
+                    // Set the file metadata
+                    String outAbsPath = outFile.getAbsolutePath();
 
-                if (newUri != null) {
-                    //Log.d("TonesHandler","inserted to resolver");
+                    Uri contentUri;
+                    if (Build.VERSION.SDK_INT < 29)
+                        contentUri = MediaStore.Audio.Media.INTERNAL_CONTENT_URI;
+                    else
+                        contentUri = MediaStore.Audio.Media.getContentUriForPath(outAbsPath);
 
-                    // Tell the media scanner about the new ringtone
-                    MediaScannerConnection.scanFile(
-                            context,
-                            new String[]{newUri.toString()},
-                            new String[]{mimeType},
-                            null
-                            //new MediaScannerConnection.OnScanCompletedListener() {
-                            //    @Override
-                            //    public void onScanCompleted(String path, Uri uri) {
-                            //        PPApplication.logE("TonesHandler._installTone","scanFile completed");
-                            //        PPApplication.logE("TonesHandler._installTone","path="+path);
-                            //        PPApplication.logE("TonesHandler._installTone","uri="+uri);
-                            //    }
-                            //}
-                    );
+                    // Add the metadata to the file in the database
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put(MediaStore.MediaColumns.DATA, outAbsPath);
+                    contentValues.put(MediaStore.MediaColumns.TITLE, title);
+                    contentValues.put(MediaStore.MediaColumns.MIME_TYPE, mimeType);
+                    contentValues.put(MediaStore.MediaColumns.SIZE, outFile.length());
 
-                    //try { Thread.sleep(300); } catch (InterruptedException e) { }
-                    //SystemClock.sleep(300);
-                    PPApplication.sleep(500);
-                }
-                else {
-                    Log.e("TonesHandler._installTone","newUri is empty");
-                    //FirebaseCrashlytics.getInstance().log("TonesHandler._installTone - newUri is empty");
-                    Crashlytics.log("TonesHandler._installTone - newUri is empty");
+                    contentValues.put(MediaStore.Audio.Media.IS_ALARM, true);
+                    contentValues.put(MediaStore.Audio.Media.IS_NOTIFICATION, true);
+                    contentValues.put(MediaStore.Audio.Media.IS_RINGTONE, true);
+                    contentValues.put(MediaStore.Audio.Media.IS_MUSIC, false);
+
+                    try {
+                        context.getContentResolver().delete(contentUri, MediaStore.MediaColumns.DATA + "='" + outAbsPath + "'", null);
+                    } catch (Exception eee) {
+                        Crashlytics.logException(eee);
+                    }
+
+                    Uri newUri = context.getContentResolver().insert(contentUri, contentValues);
+
+                    if (newUri != null) {
+                        //Log.d("TonesHandler","inserted to resolver");
+
+                        // Tell the media scanner about the new ringtone
+                        MediaScannerConnection.scanFile(
+                                context,
+                                new String[]{newUri.toString()},
+                                new String[]{mimeType},
+                                null
+                                //new MediaScannerConnection.OnScanCompletedListener() {
+                                //    @Override
+                                //    public void onScanCompleted(String path, Uri uri) {
+                                //        PPApplication.logE("TonesHandler._installTone","scanFile completed");
+                                //        PPApplication.logE("TonesHandler._installTone","path="+path);
+                                //        PPApplication.logE("TonesHandler._installTone","uri="+uri);
+                                //    }
+                                //}
+                        );
+
+                        //try { Thread.sleep(300); } catch (InterruptedException e) { }
+                        //SystemClock.sleep(300);
+                        PPApplication.sleep(500);
+                    } else {
+                        Log.e("TonesHandler._installTone", "newUri is empty");
+                        //FirebaseCrashlytics.getInstance().log("TonesHandler._installTone - newUri is empty");
+                        Crashlytics.log("TonesHandler._installTone - newUri is empty");
+                        isError = true;
+                    }
+
+                    /*
+                    Cursor cursor = context.getContentResolver().query(contentUri,
+                            new String[]{MediaStore.MediaColumns.DATA},
+                            MediaStore.MediaColumns.DATA + "=\"" + outAbsPath + "\"", null, null);
+                    PPApplication.logE("TonesHandler._installTone", "cursor=" + cursor);
+                    if (cursor != null) {
+                        if (!cursor.moveToFirst()) {
+                            // not exists in content
+                            PPApplication.logE("TonesHandler._installTone", "not exists in content resolver");
+
+                            cursor.close();
+
+                            //// If the ringtone already exists in the database, delete it first
+                            //context.getContentResolver().delete(contentUri,
+                            //        MediaStore.MediaColumns.DATA + "=\"" + outAbsPath + "\"", null);
+
+                            // Add the metadata to the file in the database
+                            ContentValues contentValues = new ContentValues();
+                            contentValues.put(MediaStore.MediaColumns.DATA, outAbsPath);
+                            contentValues.put(MediaStore.MediaColumns.TITLE, title);
+                            contentValues.put(MediaStore.MediaColumns.MIME_TYPE, mimeType);
+                            contentValues.put(MediaStore.MediaColumns.SIZE, outFile.length());
+
+                            contentValues.put(MediaStore.Audio.Media.IS_ALARM, isAlarm);
+                            contentValues.put(MediaStore.Audio.Media.IS_NOTIFICATION, isNotification);
+                            contentValues.put(MediaStore.Audio.Media.IS_RINGTONE, isRingtone);
+                            contentValues.put(MediaStore.Audio.Media.IS_MUSIC, false);
+                            Uri newUri = context.getContentResolver().insert(contentUri, contentValues);
+
+                            if (newUri != null) {
+                                //Log.d("TonesHandler","inserted to resolver");
+
+                                // Tell the media scanner about the new ringtone
+                                MediaScannerConnection.scanFile(
+                                        context,
+                                        new String[]{newUri.toString()},
+                                        new String[]{mimeType},
+                                        null
+                                        //new MediaScannerConnection.OnScanCompletedListener() {
+                                        //    @Override
+                                        //    public void onScanCompleted(String path, Uri uri) {
+                                        //        PPApplication.logE("TonesHandler._installTone","scanFile completed");
+                                        //        PPApplication.logE("TonesHandler._installTone","path="+path);
+                                        //        PPApplication.logE("TonesHandler._installTone","uri="+uri);
+                                        //    }
+                                        //}
+                                );
+
+                                //try { Thread.sleep(300); } catch (InterruptedException e) { }
+                                //SystemClock.sleep(300);
+                                PPApplication.sleep(500);
+                            }
+                            else {
+                                Log.e("TonesHandler._installTone","newUri is empty");
+                                cursor.close();
+                                isError = true;
+                            }
+                        } else {
+                            Log.e("TonesHandler","exists in content resolver");
+                            cursor.close();
+                        }
+                    }
+                    */
+                } catch (Exception e) {
+                    Log.e("TonesHandler._installTone", "Error installing tone " + filename, e);
+                    //FirebaseCrashlytics.getInstance().recordException(e);
+                    Crashlytics.logException(e);
                     isError = true;
                 }
-
-                /*
-                Cursor cursor = context.getContentResolver().query(contentUri,
-                        new String[]{MediaStore.MediaColumns.DATA},
-                        MediaStore.MediaColumns.DATA + "=\"" + outAbsPath + "\"", null, null);
-                PPApplication.logE("TonesHandler._installTone", "cursor=" + cursor);
-                if (cursor != null) {
-                    if (!cursor.moveToFirst()) {
-                        // not exists in content
-                        PPApplication.logE("TonesHandler._installTone", "not exists in content resolver");
-
-                        cursor.close();
-
-                        //// If the ringtone already exists in the database, delete it first
-                        //context.getContentResolver().delete(contentUri,
-                        //        MediaStore.MediaColumns.DATA + "=\"" + outAbsPath + "\"", null);
-
-                        // Add the metadata to the file in the database
-                        ContentValues contentValues = new ContentValues();
-                        contentValues.put(MediaStore.MediaColumns.DATA, outAbsPath);
-                        contentValues.put(MediaStore.MediaColumns.TITLE, title);
-                        contentValues.put(MediaStore.MediaColumns.MIME_TYPE, mimeType);
-                        contentValues.put(MediaStore.MediaColumns.SIZE, outFile.length());
-
-                        contentValues.put(MediaStore.Audio.Media.IS_ALARM, isAlarm);
-                        contentValues.put(MediaStore.Audio.Media.IS_NOTIFICATION, isNotification);
-                        contentValues.put(MediaStore.Audio.Media.IS_RINGTONE, isRingtone);
-                        contentValues.put(MediaStore.Audio.Media.IS_MUSIC, false);
-                        Uri newUri = context.getContentResolver().insert(contentUri, contentValues);
-
-                        if (newUri != null) {
-                            //Log.d("TonesHandler","inserted to resolver");
-
-                            // Tell the media scanner about the new ringtone
-                            MediaScannerConnection.scanFile(
-                                    context,
-                                    new String[]{newUri.toString()},
-                                    new String[]{mimeType},
-                                    null
-                                    //new MediaScannerConnection.OnScanCompletedListener() {
-                                    //    @Override
-                                    //    public void onScanCompleted(String path, Uri uri) {
-                                    //        PPApplication.logE("TonesHandler._installTone","scanFile completed");
-                                    //        PPApplication.logE("TonesHandler._installTone","path="+path);
-                                    //        PPApplication.logE("TonesHandler._installTone","uri="+uri);
-                                    //    }
-                                    //}
-                            );
-
-                            //try { Thread.sleep(300); } catch (InterruptedException e) { }
-                            //SystemClock.sleep(300);
-                            PPApplication.sleep(500);
-                        }
-                        else {
-                            Log.e("TonesHandler._installTone","newUri is empty");
-                            cursor.close();
-                            isError = true;
-                        }
-                    } else {
-                        Log.e("TonesHandler","exists in content resolver");
-                        cursor.close();
-                    }
-                }
-                */
-            } catch (Exception e) {
-                Log.e("TonesHandler._installTone", "Error installing tone " + filename, e);
-                //FirebaseCrashlytics.getInstance().recordException(e);
-                Crashlytics.logException(e);
-                isError = true;
             }
+
+            //if (!isError)
+            //    PPApplication.logE("TonesHandler._installTone", "Tone installed: " + filename);
+
+            return !isError;
         }
-
-        //if (!isError)
-        //    PPApplication.logE("TonesHandler._installTone", "Tone installed: " + filename);
-
-        return !isError;
+        else
+            return false;
     }
 
     static void installTone(@SuppressWarnings("SameParameterValue") int resID,

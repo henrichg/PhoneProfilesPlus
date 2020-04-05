@@ -159,7 +159,8 @@ public class ChromaColorView extends RelativeLayout {
             @Override
             public void onClick(View v) {
                 InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(colorEdit.getWindowToken(), 0);
+                if (imm != null)
+                    imm.hideSoftInputFromWindow(colorEdit.getWindowToken(), 0);
             }
         });
 

@@ -21,12 +21,13 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
             if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
                 if (!RingerModeChangeReceiver.internalChange) {
 
-                    final AudioManager audioManager = (AudioManager) context.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
-
                     NotificationManager mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
                     if (mNotificationManager != null) {
                         int interruptionFilter = mNotificationManager.getCurrentInterruptionFilter();
-                        int ringerMode = audioManager.getRingerMode();
+                        final AudioManager audioManager = (AudioManager) context.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+                        int ringerMode = AudioManager.RINGER_MODE_NORMAL;
+                        if (audioManager != null)
+                            ringerMode = audioManager.getRingerMode();
 
                         // convert to profile zenMode
                         int zenMode = 0;

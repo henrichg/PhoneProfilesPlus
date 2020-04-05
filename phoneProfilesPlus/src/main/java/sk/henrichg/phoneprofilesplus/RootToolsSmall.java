@@ -18,7 +18,6 @@ class RootToolsSmall {
         try {
             String path = System.getenv("PATH");
             if (!TextUtils.isEmpty(path)) {
-                //noinspection ConstantConditions
                 for (String p : path.split(":")) {
                     if (new File(p + binaryName).exists()) {
                         exists = true;

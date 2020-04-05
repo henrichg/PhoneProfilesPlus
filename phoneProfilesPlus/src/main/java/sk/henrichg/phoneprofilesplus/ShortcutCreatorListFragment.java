@@ -402,18 +402,17 @@ public class ShortcutCreatorListFragment extends Fragment {
                     if (Build.VERSION.SDK_INT < 26) {
                         ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
                         Intent intent = ShortcutManagerCompat.createShortcutResultIntent(context, shortcutInfo);
-
                         //noinspection ConstantConditions
                         getActivity().setResult(Activity.RESULT_OK, intent);
                     }
                     else {
                         ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
-
-                        ShortcutInfo shortcutInfo = shortcutBuilder.build();
-                        Intent intent = shortcutManager.createShortcutResultIntent(shortcutInfo);
-
-                        //noinspection ConstantConditions
-                        getActivity().setResult(Activity.RESULT_OK, intent);
+                        if (shortcutManager != null) {
+                            ShortcutInfo shortcutInfo = shortcutBuilder.build();
+                            Intent intent = shortcutManager.createShortcutResultIntent(shortcutInfo);
+                            //noinspection ConstantConditions
+                            getActivity().setResult(Activity.RESULT_OK, intent);
+                        }
                     }
                 }
 

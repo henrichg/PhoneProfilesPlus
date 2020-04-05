@@ -19,7 +19,7 @@ class ProfilePreferenceAdapterX extends BaseAdapter {
 
     private final Context context;
 
-    private final LayoutInflater inflater;
+    //private final LayoutInflater inflater;
 
     ProfilePreferenceAdapterX(ProfilePreferenceFragmentX preferenceFragment, Context c, String profileId, List<Profile> profileList)
     {
@@ -36,7 +36,7 @@ class ProfilePreferenceAdapterX extends BaseAdapter {
         else
             this.profileId = Long.parseLong(profileId);
 
-        inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     public int getCount() {
@@ -86,9 +86,9 @@ class ProfilePreferenceAdapterX extends BaseAdapter {
         if (convertView == null)
         {
             if (applicationEditorPrefIndicator)
-                vi = inflater.inflate(R.layout.profile_preference_list_item, parent, false);
+                vi = LayoutInflater.from(context).inflate(R.layout.profile_preference_list_item, parent, false);
             else
-                vi = inflater.inflate(R.layout.profile_preference_list_item_no_indicator, parent, false);
+                vi = LayoutInflater.from(context).inflate(R.layout.profile_preference_list_item_no_indicator, parent, false);
 
             holder = new ViewHolder();
             holder.profileIcon = vi.findViewById(R.id.profile_pref_dlg_item_icon);

@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import androidx.annotation.NonNull;
+
 class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
 
     private final Thread.UncaughtExceptionHandler defaultUEH;
@@ -26,7 +28,7 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
     }
 
     @SuppressWarnings("StringConcatenationInLoop")
-    public void uncaughtException(Thread t, Throwable e)
+    public void uncaughtException(@NonNull Thread t, @NonNull Throwable e)
     {
         try {
             //if (PhoneProfilesService.getInstance() != null) {

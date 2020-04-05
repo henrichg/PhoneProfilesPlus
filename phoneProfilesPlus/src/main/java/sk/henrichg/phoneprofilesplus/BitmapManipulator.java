@@ -45,39 +45,44 @@ class BitmapManipulator {
             try {
                 ContentResolver contentResolver = context.getContentResolver();
 
-                boolean ok = false;
+                //boolean ok = false;
 
                 //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 try {
                     context.grantUriPermission(context.getPackageName(), uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                     contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    ok = true;
+                    //ok = true;
                 } catch (Exception e) {
                     // java.lang.SecurityException: UID 10157 does not have permission to
                     // content://com.android.externalstorage.documents/document/93ED-1CEC%3AMirek%2Fmobil%2F.obr%C3%A1zek%2Fblack.jpg
                     // [user 0]; you could obtain access using ACTION_OPEN_DOCUMENT or related APIs
                     //Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
                     //Crashlytics.logException(e);
-                }
-                if (!ok)
                     return null;
+                }
+                //if (!ok)
+                //    return null;
                 //}
 
-                ok = false;
-                InputStream inputStream = null;
+                //ok = false;
+                InputStream inputStream;
                 try {
                     // check if bitmap format is supported or if exists
                     inputStream = context.getContentResolver().openInputStream(uri);
-                    ok = true;
-                } catch (Exception ignored) {}
-                if (!ok)
+                    //ok = true;
+                } catch (Exception e) {
                     return null;
+                }
+                //if (!ok)
+                //    return null;
 
                 // bitmap format is supported and exists
                 final BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inJustDecodeBounds = true;
                 BitmapFactory.decodeStream(inputStream, null, options);
-                inputStream.close();
+
+                if(inputStream != null)
+                    inputStream.close();
 
                 if (checkSize) {
                     // raw height and width of image
@@ -116,7 +121,8 @@ class BitmapManipulator {
                 options.inJustDecodeBounds = false;
                 decodedSampleBitmap = BitmapFactory.decodeStream(inputStream, null, options);
 
-                inputStream.close();
+                if(inputStream != null)
+                    inputStream.close();
 
                 if (decodedSampleBitmap != null) {
                     /*
@@ -175,7 +181,8 @@ class BitmapManipulator {
                 final BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inJustDecodeBounds = true;
                 BitmapFactory.decodeStream(inputStream, null, options);
-                inputStream.close();
+                if(inputStream != null)
+                    inputStream.close();
 
                 // raw height and width of image
                 final int rawHeight = options.outHeight;

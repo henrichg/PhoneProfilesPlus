@@ -13,17 +13,17 @@ class ProfileMultiSelectPreferenceAdapterX extends BaseAdapter {
 
     private final List<Profile> profileList;
 
-    //private final Context context;
+    private final Context context;
 
-    private final LayoutInflater inflater;
+    //private final LayoutInflater inflater;
 
     ProfileMultiSelectPreferenceAdapterX(Context c, List<Profile> profileList)
     {
-        //context = c;
+        context = c;
 
         this.profileList = profileList;
 
-        inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     public int getCount() {
@@ -52,9 +52,9 @@ class ProfileMultiSelectPreferenceAdapterX extends BaseAdapter {
         if (convertView == null)
         {
             if (applicationEditorPrefIndicator)
-                vi = inflater.inflate(R.layout.profile_multiselect_pref_list_item, parent, false);
+                vi = LayoutInflater.from(context).inflate(R.layout.profile_multiselect_pref_list_item, parent, false);
             else
-                vi = inflater.inflate(R.layout.profile_multiselect_pref_list_item_no_indicator, parent, false);
+                vi = LayoutInflater.from(context).inflate(R.layout.profile_multiselect_pref_list_item_no_indicator, parent, false);
 
             holder = new ProfilesViewHolder();
             holder.profileIcon = vi.findViewById(R.id.profile_multiselect_pref_dlg_item_icon);

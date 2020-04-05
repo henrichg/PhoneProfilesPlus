@@ -90,12 +90,15 @@ public class ActivateProfileActivity extends AppCompatActivity {
         @Override
         public void onReceive( Context context, Intent intent ) {
             String action = intent.getAction();
-            if (action.equals(PPApplication.ACTION_FINISH_ACTIVITY)) {
-                String what = intent.getStringExtra(PPApplication.EXTRA_WHAT_FINISH);
-                if (what.equals("activator")) {
-                    try {
-                        ActivateProfileActivity.this.finishAffinity();
-                    } catch (Exception ignored) {}
+            if (action != null) {
+                if (action.equals(PPApplication.ACTION_FINISH_ACTIVITY)) {
+                    String what = intent.getStringExtra(PPApplication.EXTRA_WHAT_FINISH);
+                    if (what.equals("activator")) {
+                        try {
+                            ActivateProfileActivity.this.finishAffinity();
+                        } catch (Exception ignored) {
+                        }
+                    }
                 }
             }
         }

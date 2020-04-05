@@ -238,7 +238,9 @@ public class PPNotificationListenerService extends NotificationListenerService {
             if (!RingerModeChangeReceiver.internalChange) {
 
                 final AudioManager audioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
-                int ringerMode = audioManager.getRingerMode();
+                int ringerMode = AudioManager.RINGER_MODE_NORMAL;
+                if (audioManager != null)
+                    ringerMode = audioManager.getRingerMode();
 
                 // convert to profile zenMode
                 int zenMode = 0;

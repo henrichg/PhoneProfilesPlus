@@ -230,7 +230,8 @@ class TwilightScanner {
                     // Unregister the current location monitor, so we can
                     // register a new one for it to get an immediate update.
                     mNetworkListenerEnabled = false;
-                    mLocationManager.removeUpdates(mEmptyLocationListener);
+                    if (mLocationManager != null)
+                        mLocationManager.removeUpdates(mEmptyLocationListener);
 
                     // Fall through to re-register listener.
                 case MSG_ENABLE_LOCATION_UPDATES:
@@ -239,6 +240,7 @@ class TwilightScanner {
                     //PPApplication.logE("TwilightScanner.handleMessage", "MSG_ENABLE_LOCATION_UPDATES");
                     boolean networkLocationEnabled;
                     try {
+                        //noinspection ConstantConditions
                         networkLocationEnabled =
                                 mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
                     } catch (Exception e) {
@@ -303,18 +305,19 @@ class TwilightScanner {
         private void retrieveLocation() {
             Location location = null;
             if (Permissions.checkLocation(context)) {
-                final Iterator<String> providers =
-                        mLocationManager.getProviders(new Criteria(), true).iterator();
-                //noinspection WhileLoopReplaceableByForEach
-                while (providers.hasNext()) {
-                    @SuppressLint("MissingPermission")
-                    final Location lastKnownLocation =
-                            mLocationManager.getLastKnownLocation(providers.next());
-                    // pick the most recent location
-                    if (location == null || (lastKnownLocation != null &&
-                            location.getElapsedRealtimeNanos() <
-                                    lastKnownLocation.getElapsedRealtimeNanos())) {
-                        location = lastKnownLocation;
+                if (mLocationManager != null) {
+                    final Iterator<String> providers =
+                            mLocationManager.getProviders(new Criteria(), true).iterator();
+                    //noinspection WhileLoopReplaceableByForEach
+                    while (providers.hasNext()) {
+                        @SuppressLint("MissingPermission") final Location lastKnownLocation =
+                                mLocationManager.getLastKnownLocation(providers.next());
+                        // pick the most recent location
+                        if (location == null || (lastKnownLocation != null &&
+                                location.getElapsedRealtimeNanos() <
+                                        lastKnownLocation.getElapsedRealtimeNanos())) {
+                            location = lastKnownLocation;
+                        }
                     }
                 }
             }
@@ -452,7 +455,8 @@ class TwilightScanner {
                     Intent updateIntent = new Intent(ACTION_UPDATE_TWILIGHT_STATE);
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, updateIntent, PendingIntent.FLAG_NO_CREATE);
                     if (pendingIntent != null) {
-                        mAlarmManager.cancel(pendingIntent);
+                        if (mAlarmManager != null)
+                            mAlarmManager.cancel(pendingIntent);
                         pendingIntent.cancel();
                     }
                 } catch (Exception ignored) {}
@@ -513,27 +517,28 @@ class TwilightScanner {
 
                 Intent updateIntent = new Intent(ACTION_UPDATE_TWILIGHT_STATE);
 
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, updateIntent, PendingIntent.FLAG_NO_CREATE);
-                if (pendingIntent != null) {
-                    //PPApplication.logE("EventPreferencesSMS.removeAlarm", "alarm found");
+                if (mAlarmManager != null) {
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, updateIntent, PendingIntent.FLAG_NO_CREATE);
+                    if (pendingIntent != null) {
+                        //PPApplication.logE("EventPreferencesSMS.removeAlarm", "alarm found");
 
-                    mAlarmManager.cancel(pendingIntent);
-                    pendingIntent.cancel();
-                }
+                        mAlarmManager.cancel(pendingIntent);
+                        pendingIntent.cancel();
+                    }
 
-                pendingIntent = PendingIntent.getBroadcast(context, 0, updateIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                if (ApplicationPreferences.applicationUseAlarmClock) {
-                    Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
-                    editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                    AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(nextUpdate, infoPendingIntent);
-                    mAlarmManager.setAlarmClock(clockInfo, pendingIntent);
-                }
-                else {
-                    if (android.os.Build.VERSION.SDK_INT >= 23)
-                        mAlarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, nextUpdate, pendingIntent);
-                    else
-                        mAlarmManager.setExact(AlarmManager.RTC_WAKEUP, nextUpdate, pendingIntent);
+                    pendingIntent = PendingIntent.getBroadcast(context, 0, updateIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    if (ApplicationPreferences.applicationUseAlarmClock) {
+                        Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                        editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(nextUpdate, infoPendingIntent);
+                        mAlarmManager.setAlarmClock(clockInfo, pendingIntent);
+                    } else {
+                        if (android.os.Build.VERSION.SDK_INT >= 23)
+                            mAlarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, nextUpdate, pendingIntent);
+                        else
+                            mAlarmManager.setExact(AlarmManager.RTC_WAKEUP, nextUpdate, pendingIntent);
+                    }
                 }
             }
         }

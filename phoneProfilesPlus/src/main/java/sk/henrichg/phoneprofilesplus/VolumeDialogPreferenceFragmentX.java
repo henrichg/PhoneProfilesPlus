@@ -225,7 +225,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
     public void onStopTrackingTouch(SeekBar seekBar) {
         //if (preference.mediaPlayer != null) {
             int volume;
-            if (preference.volumeType.equalsIgnoreCase("MEDIA"))
+            if ((preference.volumeType != null) && preference.volumeType.equalsIgnoreCase("MEDIA"))
                 volume = preference.value;
             else {
                 float percentage = (float) preference.value / preference.maximumValue * 100.0f;

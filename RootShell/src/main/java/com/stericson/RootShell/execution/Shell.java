@@ -1063,6 +1063,7 @@ public class Shell {
                     field = processClass.getDeclaredField("id");
                 }
                 field.setAccessible(true);
+                //noinspection ConstantConditions
                 int pid = (Integer) field.get(shell.proc);
                 shell.outputStream.write("(echo -17 > /proc/" + pid + "/oom_adj) &> /dev/null\n");
                 shell.outputStream.write("(echo -17 > /proc/$$/oom_adj) &> /dev/null\n");

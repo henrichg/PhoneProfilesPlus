@@ -891,11 +891,13 @@ class PhoneStateScanner extends PhoneStateListener {
                     boolean isShown = false;
                     if (Build.VERSION.SDK_INT >= 23) {
                         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                        StatusBarNotification[] notifications = mNotificationManager.getActiveNotifications();
-                        for (StatusBarNotification notification : notifications) {
-                            if (notification.getId() == _registeredCell + NEW_MOBILE_CELLS_NOTIFICATION_ID) {
-                                isShown = true;
-                                break;
+                        if (mNotificationManager != null) {
+                            StatusBarNotification[] notifications = mNotificationManager.getActiveNotifications();
+                            for (StatusBarNotification notification : notifications) {
+                                if (notification.getId() == _registeredCell + NEW_MOBILE_CELLS_NOTIFICATION_ID) {
+                                    isShown = true;
+                                    break;
+                                }
                             }
                         }
                     }

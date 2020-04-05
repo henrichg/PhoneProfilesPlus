@@ -392,7 +392,7 @@ public class WifiScanWorker extends Worker {
             wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
         // initialise the locks
-        if (wifiLock == null)
+        if ((wifi != null) && (wifiLock == null))
             wifiLock = wifi.createWifiLock(WifiManager.WIFI_MODE_SCAN_ONLY , "WifiScanWifiLock");
 
         try {
@@ -463,8 +463,11 @@ public class WifiScanWorker extends Worker {
             if (wifi == null)
                 wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
-            //TODO from SDK documentation: The ability for apps to trigger scan requests will be removed in a future release. :-/
-            boolean startScan = wifi.startScan();
+            boolean startScan = false;
+            if (wifi != null) {
+                //TODO from SDK documentation: The ability for apps to trigger scan requests will be removed in a future release. :-/
+                startScan = wifi.startScan();
+            }
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("$$$ WifiScanWorker.startScan", "scanStarted=" + startScan);
                 PPApplication.logE("$$$ WifiAP", "WifiScanWorker.startScan-startScan=" + startScan);
@@ -478,7 +481,8 @@ public class WifiScanWorker extends Worker {
                     //if (Build.VERSION.SDK_INT >= 26)
                     //    CmdWifi.setWifi(false);
                     //else
-                        wifi.setWifiEnabled(false);
+                    if (wifi != null)
+                            wifi.setWifiEnabled(false);
                 }
                 unlock();
             }
@@ -495,7 +499,8 @@ public class WifiScanWorker extends Worker {
                 //else
                     if (wifi == null)
                         wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                    wifi.setWifiEnabled(false);
+                    if (wifi != null)
+                        wifi.setWifiEnabled(false);
             }
             unlock();
             setWaitForResults(context, false);

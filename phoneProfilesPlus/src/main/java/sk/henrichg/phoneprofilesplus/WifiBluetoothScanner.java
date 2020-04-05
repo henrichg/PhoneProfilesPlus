@@ -170,7 +170,8 @@ class WifiBluetoothScanner {
                                             //if (Build.VERSION.SDK_INT >= 26)
                                             //    CmdWifi.setWifi(false);
                                             //else
-                                            WifiScanWorker.wifi.setWifiEnabled(false);
+                                            if (WifiScanWorker.wifi != null)
+                                                WifiScanWorker.wifi.setWifiEnabled(false);
                                             //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
                                         } catch (Exception ignored) {}
                                     }
@@ -288,7 +289,8 @@ class WifiBluetoothScanner {
                                         //if (Build.VERSION.SDK_INT >= 26)
                                         //    CmdWifi.setWifi(false);
                                         //else
-                                        WifiScanWorker.wifi.setWifiEnabled(false);
+                                        if (WifiScanWorker.wifi != null)
+                                            WifiScanWorker.wifi.setWifiEnabled(false);
                                     } catch (Exception ignored) {}
                                 } //else
                                     //PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "keep enabled wifi");

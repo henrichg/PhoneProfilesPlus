@@ -25,6 +25,9 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
         String action = intent.getAction();
         //PPApplication.logE("[TEST BATTERY] BatteryChargingChangedBroadcastReceiver.onReceive", "action=" + action);
 
+        if (action == null)
+            return;
+
         boolean _isCharging = false;
         int _plugged = -1;
 

@@ -74,7 +74,7 @@ public class Remounter
                 {
                     RootTools.log(mount.getMountPoint().toString());
 
-                    if (file.equals(mount.getMountPoint().toString()))
+                    if ((file != null) && file.equals(mount.getMountPoint().toString()))
                     {
                         foundMount = true;
                         break;
@@ -93,6 +93,7 @@ public class Remounter
             {
                 try
                 {
+                    //noinspection ConstantConditions
                     file = (new File(file).getParent());
                 }
                 catch (Exception e)

@@ -202,27 +202,30 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
                     return true;
                 }
             });
-            for (File file : files) {
-                if (file.isDirectory()) {
-                    //noinspection IndexOfReplaceableByContains
-                    if (-1 == file.getAbsolutePath().indexOf(AVOIDDIRPATH)) {
-                        lookup(file, fileList);
-                    }
-                } else {
-                    if (file.getName().endsWith(".java")) {
-                        if (hasClassAnnotation(file)) {
-                            final String fileNamePrefix = file.getName().replace(".java", "");
-                            final File compiledPath = new File(getBuiltPath().toString() + File.separator + desourcedPath);
-                            File[] classAndInnerClassFiles = compiledPath.listFiles(new FilenameFilter() {
-                                @Override
-                                public boolean accept(File dir, String filename) {
-                                    return filename.startsWith(fileNamePrefix);
+            if (files != null) {
+                for (File file : files) {
+                    if (file.isDirectory()) {
+                        //noinspection IndexOfReplaceableByContains
+                        if (-1 == file.getAbsolutePath().indexOf(AVOIDDIRPATH)) {
+                            lookup(file, fileList);
+                        }
+                    } else {
+                        if (file.getName().endsWith(".java")) {
+                            if (hasClassAnnotation(file)) {
+                                final String fileNamePrefix = file.getName().replace(".java", "");
+                                final File compiledPath = new File(getBuiltPath().toString() + File.separator + desourcedPath);
+                                File[] classAndInnerClassFiles = compiledPath.listFiles(new FilenameFilter() {
+                                    @Override
+                                    public boolean accept(File dir, String filename) {
+                                        return filename.startsWith(fileNamePrefix);
+                                    }
+                                });
+                                if (classAndInnerClassFiles != null) {
+                                    for (final File matchingFile : classAndInnerClassFiles) {
+                                        fileList.add(new File(desourcedPath + File.separator + matchingFile.getName()));
+                                    }
                                 }
-                            });
-                            for (final File matchingFile : classAndInnerClassFiles) {
-                                fileList.add(new File(desourcedPath + File.separator + matchingFile.getName()));
                             }
-
                         }
                     }
                 }
@@ -273,38 +276,40 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
             String dxPath = null;
             File[] files = new File(androidHome + File.separator + "build-tools").listFiles();
             int recentSdkVersion = 0;
-            for (File file : files) {
+            if (files != null) {
+                for (File file : files) {
 
-                String fileName; // = null;
-                if (file.getName().contains("-")) {
-                    String[] splitFileName = file.getName().split("-");
-                    if (splitFileName[1].contains("W")) {
-                        char[] fileNameChars = splitFileName[1].toCharArray();
-                        fileName = String.valueOf(fileNameChars[0]);
-                    } else if (splitFileName[1].contains("rc")) {
-                        continue; //Do not use release candidates
+                    String fileName; // = null;
+                    if (file.getName().contains("-")) {
+                        String[] splitFileName = file.getName().split("-");
+                        if (splitFileName[1].contains("W")) {
+                            char[] fileNameChars = splitFileName[1].toCharArray();
+                            fileName = String.valueOf(fileNameChars[0]);
+                        } else if (splitFileName[1].contains("rc")) {
+                            continue; //Do not use release candidates
+                        } else {
+                            fileName = splitFileName[1];
+                        }
                     } else {
-                        fileName = splitFileName[1];
+                        fileName = file.getName();
                     }
-                } else {
-                    fileName = file.getName();
-                }
 
-                int sdkVersion;
+                    int sdkVersion;
 
-                String[] sdkVersionBits = fileName.split("[.]");
-                sdkVersion = Integer.parseInt(sdkVersionBits[0]) * 10000;
-                if (sdkVersionBits.length > 1) {
-                    sdkVersion += Integer.parseInt(sdkVersionBits[1]) * 100;
-                    if (sdkVersionBits.length > 2) {
-                        sdkVersion += Integer.parseInt(sdkVersionBits[2]);
+                    String[] sdkVersionBits = fileName.split("[.]");
+                    sdkVersion = Integer.parseInt(sdkVersionBits[0]) * 10000;
+                    if (sdkVersionBits.length > 1) {
+                        sdkVersion += Integer.parseInt(sdkVersionBits[1]) * 100;
+                        if (sdkVersionBits.length > 2) {
+                            sdkVersion += Integer.parseInt(sdkVersionBits[2]);
+                        }
                     }
-                }
-                if (sdkVersion > recentSdkVersion) {
-                    String tentativePath = file.getAbsolutePath() + File.separator + "dx";
-                    if (new File(tentativePath).exists()) {
-                        recentSdkVersion = sdkVersion;
-                        dxPath = tentativePath;
+                    if (sdkVersion > recentSdkVersion) {
+                        String tentativePath = file.getAbsolutePath() + File.separator + "dx";
+                        if (new File(tentativePath).exists()) {
+                            recentSdkVersion = sdkVersion;
+                            dxPath = tentativePath;
+                        }
                     }
                 }
             }
@@ -325,7 +330,7 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
                         return pathname.isDirectory();
                     }
                 });
-                if (children.length > 0) {
+                if ((children != null) && children.length > 0) {
                     foundPath = new File(ideaPath.getAbsolutePath() + File.separator + children[0].getName());
                 }
             }

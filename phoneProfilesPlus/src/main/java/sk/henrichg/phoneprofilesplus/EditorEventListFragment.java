@@ -345,8 +345,7 @@ public class EditorEventListFragment extends Fragment
         progressBar = view.findViewById(R.id.editor_events_list_linla_progress);
 
         /*
-        View footerView =  ((LayoutInflater)getActivity().getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE))
-                .inflate(R.layout.editor_list_footer, null, false);
+        View footerView =  getActivity().getLayoutInflater()..inflate(R.layout.editor_list_footer, null, false);
         listView.addFooterView(footerView, null, false);
         */
 
@@ -768,7 +767,8 @@ public class EditorEventListFragment extends Fragment
         synchronized (activityDataWrapper.eventList) {
             // remove notifications about event parameters errors
             NotificationManager notificationManager = (NotificationManager) activityDataWrapper.context.getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.cancel(-(9999 + (int) event._id));
+            if (notificationManager != null)
+                notificationManager.cancel(-(9999 + (int) event._id));
         }
 
         eventListAdapter.deleteItemNoNotify(event);
@@ -901,7 +901,8 @@ public class EditorEventListFragment extends Fragment
                         //noinspection ForLoopReplaceableByForEach
                         for (Iterator<Event> it = activityDataWrapper.eventList.iterator(); it.hasNext(); ) {
                             Event event = it.next();
-                            notificationManager.cancel(-(9999 + (int) event._id));
+                            if (notificationManager != null)
+                                notificationManager.cancel(-(9999 + (int) event._id));
                         }
                     }
 
@@ -1063,10 +1064,10 @@ public class EditorEventListFragment extends Fragment
         }
 
         synchronized (activityDataWrapper.eventList) {
-            if (activityDataWrapper.eventList != null) {
+            //if (activityDataWrapper.eventList != null) {
                 // sort list
                 sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
-            }
+            //}
         }
 
         if (eventListAdapter != null) {

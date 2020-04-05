@@ -17,13 +17,13 @@ class FastAccessDurationProfileAdapter extends BaseAdapter {
     private final long profileId;
     private final FastAccessDurationProfileDialog dialog;
 
-    //private final Context context;
+    private final Context context;
 
-    private final LayoutInflater inflater;
+    //private final LayoutInflater inflater;
 
     FastAccessDurationProfileAdapter(FastAccessDurationProfileDialog dialog, Context c, long profileId, List<Profile> profileList)
     {
-        //context = c;
+        context = c;
 
         this.dialog = dialog;
         this.profileList = profileList;
@@ -33,7 +33,7 @@ class FastAccessDurationProfileAdapter extends BaseAdapter {
         else
             this.profileId = profileId;
 
-        inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     public int getCount() {
@@ -75,9 +75,9 @@ class FastAccessDurationProfileAdapter extends BaseAdapter {
         if (convertView == null)
         {
             if (applicationEditorPrefIndicator)
-                vi = inflater.inflate(R.layout.profile_preference_list_item, parent, false);
+                vi = LayoutInflater.from(context).inflate(R.layout.profile_preference_list_item, parent, false);
             else
-                vi = inflater.inflate(R.layout.profile_preference_list_item_no_indicator, parent, false);
+                vi = LayoutInflater.from(context).inflate(R.layout.profile_preference_list_item_no_indicator, parent, false);
 
             holder = new FastAccessDurationProfileAdapter.ViewHolder();
             holder.profileIcon = vi.findViewById(R.id.profile_pref_dlg_item_icon);

@@ -9,15 +9,17 @@ import android.widget.TextView;
 
 class MobileCellNamesDialogAdapterX extends BaseAdapter {
 
-    private final LayoutInflater inflater;
+    //private final LayoutInflater inflater;
+    private final Context context;
 
     private final MobileCellNamesDialogX dialog;
 
     MobileCellNamesDialogAdapterX(Context context, MobileCellNamesDialogX dialog)
     {
         this.dialog = dialog;
+        this.context = context;
 
-        inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -47,7 +49,7 @@ class MobileCellNamesDialogAdapterX extends BaseAdapter {
         View vi = convertView;
         if (convertView == null)
         {
-            vi = inflater.inflate(R.layout.mobile_cell_names_dialog_list_item, parent, false);
+            vi = LayoutInflater.from(context).inflate(R.layout.mobile_cell_names_dialog_list_item, parent, false);
 
             holder = new ViewHolder();
             holder.cellName = vi.findViewById(R.id.mobile_cell_names_dialog_item_cell_name);
