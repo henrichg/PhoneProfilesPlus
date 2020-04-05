@@ -1050,6 +1050,55 @@ public class PPApplication extends Application /*implements Application.Activity
 
         //registerActivityLifecycleCallbacks(PPApplication.this);
 
+        try {
+            //if (!DebugVersion.enabled) {
+            // Obtain the FirebaseAnalytics instance.
+            //firebaseAnalytics = FirebaseAnalytics.getInstance(this);
+            //}
+
+            /*
+            // Set up Crashlytics, disabled for debug builds
+            Crashlytics crashlyticsKit = new Crashlytics.Builder()
+                    .core(new CrashlyticsCore.Builder().disabled(DebugVersion.enabled).build())
+                    .build();
+
+            Fabric.with(this, crashlyticsKit);
+            */
+            //if (!DebugVersion.enabled) {
+            Fabric.with(this, new Crashlytics());
+            //}
+            // Crashlytics.getInstance().core.logException(exception); -- this log will be associated with crash log.
+
+            //FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true);
+        } catch (Exception e) {
+            /*
+            java.lang.IllegalStateException:
+              at android.app.ContextImpl.getSharedPreferences (ContextImpl.java:447)
+              at android.app.ContextImpl.getSharedPreferences (ContextImpl.java:432)
+              at android.content.ContextWrapper.getSharedPreferences (ContextWrapper.java:174)
+              at io.fabric.sdk.android.services.persistence.PreferenceStoreImpl.<init> (PreferenceStoreImpl.java:39)
+              at io.fabric.sdk.android.services.common.AdvertisingInfoProvider.<init> (AdvertisingInfoProvider.java:37)
+              at io.fabric.sdk.android.services.common.IdManager.<init> (IdManager.java:114)
+              at io.fabric.sdk.android.Fabric$Builder.build (Fabric.java:289)
+              at io.fabric.sdk.android.Fabric.with (Fabric.java:340)
+
+              This exception occurs, when storage is protected and PPP is started via LOCKED_BOOT_COMPLETED
+
+              Code from android.app.ContextImpl:
+                if (getApplicationInfo().targetSdkVersion >= android.os.Build.VERSION_CODES.O) {
+                    if (isCredentialProtectedStorage()
+                            && !getSystemService(UserManager.class)
+                                    .isUserUnlockingOrUnlocked(UserHandle.myUserId())) {
+                        throw new IllegalStateException("SharedPreferences in credential encrypted "
+                                + "storage are not available until after user is unlocked");
+                    }
+                }
+            */
+            Log.e("PPPEApplication.onCreate", Log.getStackTraceString(e));
+            //FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
+        }
+
         sensorManager = (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
         accelerometerSensor = getAccelerometerSensor(getApplicationContext());
         magneticFieldSensor = getMagneticFieldSensor(getApplicationContext());
@@ -1094,55 +1143,6 @@ public class PPApplication extends Application /*implements Application.Activity
         if (logIntoFile || crashIntoFile)
             Permissions.grantLogToFilePermissions(getApplicationContext());
         */
-
-        try {
-            //if (!DebugVersion.enabled) {
-                // Obtain the FirebaseAnalytics instance.
-                //firebaseAnalytics = FirebaseAnalytics.getInstance(this);
-            //}
-
-            /*
-            // Set up Crashlytics, disabled for debug builds
-            Crashlytics crashlyticsKit = new Crashlytics.Builder()
-                    .core(new CrashlyticsCore.Builder().disabled(DebugVersion.enabled).build())
-                    .build();
-
-            Fabric.with(this, crashlyticsKit);
-            */
-            //if (!DebugVersion.enabled) {
-                Fabric.with(this, new Crashlytics());
-            //}
-            // Crashlytics.getInstance().core.logException(exception); -- this log will be associated with crash log.
-
-            //FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true);
-        } catch (Exception e) {
-            /*
-            java.lang.IllegalStateException:
-              at android.app.ContextImpl.getSharedPreferences (ContextImpl.java:447)
-              at android.app.ContextImpl.getSharedPreferences (ContextImpl.java:432)
-              at android.content.ContextWrapper.getSharedPreferences (ContextWrapper.java:174)
-              at io.fabric.sdk.android.services.persistence.PreferenceStoreImpl.<init> (PreferenceStoreImpl.java:39)
-              at io.fabric.sdk.android.services.common.AdvertisingInfoProvider.<init> (AdvertisingInfoProvider.java:37)
-              at io.fabric.sdk.android.services.common.IdManager.<init> (IdManager.java:114)
-              at io.fabric.sdk.android.Fabric$Builder.build (Fabric.java:289)
-              at io.fabric.sdk.android.Fabric.with (Fabric.java:340)
-
-              This exception occurs, when storage is protected and PPP is started via LOCKED_BOOT_COMPLETED
-
-              Code from android.app.ContextImpl:
-                if (getApplicationInfo().targetSdkVersion >= android.os.Build.VERSION_CODES.O) {
-                    if (isCredentialProtectedStorage()
-                            && !getSystemService(UserManager.class)
-                                    .isUserUnlockingOrUnlocked(UserHandle.myUserId())) {
-                        throw new IllegalStateException("SharedPreferences in credential encrypted "
-                                + "storage are not available until after user is unlocked");
-                    }
-                }
-            */
-            Log.e("PPPEApplication.onCreate", Log.getStackTraceString(e));
-            //FirebaseCrashlytics.getInstance().recordException(e);
-            //Crashlytics.logException(e);
-        }
 
         ///////////////////////////////////////////
         // Bypass Android's hidden API restrictions
