@@ -1099,6 +1099,13 @@ public class PPApplication extends Application /*implements Application.Activity
             //Crashlytics.logException(e);
         }
 
+        if (checkAppReplacingState()) {
+            PPApplication.logE("##### PPApplication.onCreate", "kill PPApplication - not good");
+            return;
+        }
+
+        PPApplication.logE("##### PPApplication.onCreate", "continue onCreate()");
+
         sensorManager = (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
         accelerometerSensor = getAccelerometerSensor(getApplicationContext());
         magneticFieldSensor = getMagneticFieldSensor(getApplicationContext());
@@ -1132,9 +1139,6 @@ public class PPApplication extends Application /*implements Application.Activity
             PPApplication.logE("##### PPApplication.onCreate", "modVersion=" + getReadableModVersion());
             PPApplication.logE("##### PPApplication.onCreate", "osVersion=" + System.getProperty("os.version"));
         }
-
-        if (checkAppReplacingState())
-            return;
 
         // Fix for FC: java.lang.IllegalArgumentException: register too many Broadcast Receivers
         //LoadedApkHuaWei.hookHuaWeiVerifier(this);
@@ -1220,6 +1224,7 @@ public class PPApplication extends Application /*implements Application.Activity
                     isScreenOn = true;
             }
         }*/
+
         //isPowerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
 
         //	Debug.startMethodTracing("phoneprofiles");
@@ -1306,6 +1311,8 @@ public class PPApplication extends Application /*implements Application.Activity
             } catch (Exception ignored) {
             }
         }
+        else
+            PPApplication.logE("##### PPApplication.onCreate", "application is not started");
     }
 
     static PPApplication getInstance() {
@@ -1332,8 +1339,12 @@ public class PPApplication extends Application /*implements Application.Activity
     // https://issuetracker.google.com/issues/36972466
     private boolean checkAppReplacingState() {
         if (getResources() == null) {
-            Log.w("PPApplication.onCreate", "app is replacing...kill");
-            android.os.Process.killProcess(android.os.Process.myPid());
+            try {
+                android.os.Process.killProcess(android.os.Process.myPid());
+                Crashlytics.log("PPApplication.checkAppReplacingState - app is replacing...kill");
+            } catch (Exception e) {
+                Log.e("PPApplication.checkAppReplacingState", Log.getStackTraceString(e));
+            }
             return true;
         }
         return false;
