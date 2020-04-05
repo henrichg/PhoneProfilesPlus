@@ -109,7 +109,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 +"|PhoneProfilesBackupAgent"
                                                 +"|ShutdownBroadcastReceiver"
 
-                                                +"|[ACTIVATOR]"
+                                                //+"|[ACTIVATOR]"
                                                 //+"|ActivateProfileHelper.setGPS"
 
                                                 //+"|[TEST BATTERY]"

@@ -1537,14 +1537,14 @@ public class DataWrapper {
 
     private void _activateProfile(Profile _profile, boolean merged, int startupSource, final boolean forRestartEvents)
     {
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "_profile=" + _profile);
             if (_profile != null)
                 PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "_profile._name=" + _profile._name);
             PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "merged=" + merged);
             PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "startupSource=" + startupSource);
             PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "forRestartEvents=" + forRestartEvents);
-        }
+        }*/
 
         // show notification when battery optimization is not enabled
         DrawOverAppsPermissionNotification.showNotification(context, false);
@@ -1569,10 +1569,10 @@ public class DataWrapper {
         if (PhoneProfilesService.getInstance() != null)
             fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
         boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "fullyStarted=" + fullyStarted);
             PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "applicationPackageReplaced=" + applicationPackageReplaced);
-        }
+        }*/
         if ((!fullyStarted) || applicationPackageReplaced) {
             // do not activate profile during application start
             PPApplication.showProfileNotification(/*context*/startupSource == PPApplication.STARTUP_SOURCE_BOOT, false);
@@ -1599,11 +1599,11 @@ public class DataWrapper {
 
         // get currently activated profile
         Profile activatedProfile = getActivatedProfile(false, false);
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "activatedProfile=" + activatedProfile);
             if (activatedProfile != null)
                 PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "activatedProfile._name=" + activatedProfile._name);
-        }
+        }*/
 
         if ((startupSource != PPApplication.STARTUP_SOURCE_SERVICE) &&
             //(startupSource != PPApplication.STARTUP_SOURCE_BOOT) &&  // on boot must set as manual activation
@@ -1622,10 +1622,10 @@ public class DataWrapper {
 
         //PPApplication.logE("$$$ DataWrapper._activateProfile","before activation");
 
-        PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "set activate profile start");
+        //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "set activate profile start");
         DatabaseHandler.getInstance(context).activateProfile(_profile);
         setProfileActive(_profile);
-        PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "set activate profile end");
+        //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "set activate profile end");
 
         //PPApplication.logE("$$$ DataWrapper._activateProfile","after activation");
 
@@ -1644,7 +1644,7 @@ public class DataWrapper {
                 profileDuration = _profile._duration;
             }
 
-            PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "profileDuration="+profileDuration);
+            //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "profileDuration="+profileDuration);
 
             // activation with duration
             if (((startupSource != PPApplication.STARTUP_SOURCE_SERVICE) &&
@@ -1682,22 +1682,22 @@ public class DataWrapper {
                 profileDuration = 0;
             }
 
-            PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "profileDuration="+profileDuration);
+            //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "profileDuration="+profileDuration);
         }
 
-        PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "update gui");
+        //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "update gui");
         PPApplication.showProfileNotification(/*context*/startupSource == PPApplication.STARTUP_SOURCE_BOOT, false);
         //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper._activateProfile");
         PPApplication.updateGUI(context, true, startupSource == PPApplication.STARTUP_SOURCE_BOOT);
 
         //if (mappedProfile != null) {
-            PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "call execute");
+            //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "call execute");
             //PPApplication.logE("$$$ DataWrapper._activateProfile","execute activation");
             ActivateProfileHelper.execute(context, _profile);
         //}
 
         if (/*(mappedProfile != null) &&*/ (!merged)) {
-            PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "add log");
+            //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "add log");
             PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ACTIVATION, null,
                     getProfileNameWithManualIndicatorAsString(_profile, true, "", profileDuration > 0, false, false, this),
                     profileIcon, profileDuration, "");
@@ -1712,7 +1712,7 @@ public class DataWrapper {
                     final Profile __profile = _profile;
                     PPApplication.toastHandler.post(new Runnable() {
                         public void run() {
-                            PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "show toast");
+                            //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "show toast");
                             showToastAfterActivation(__profile);
                         }
                     });
