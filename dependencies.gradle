@@ -32,7 +32,6 @@ ext.ppVersions = [
     compileSdk: 29,
     buildTools: '29.0.3',
 
-    annotationXLib: '1.1.0',
     appcompatXLib: '1.1.0',
     workXLib: '2.3.4'
 ]
