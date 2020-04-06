@@ -76,6 +76,9 @@ public class PhoneProfilesService extends Service
     private boolean serviceHasFirstStart = false;
     private boolean applicationFullyStarted = false;
 
+    // must be in PPService !!!
+    static boolean startForegroundNotification = true;
+
     static final String ACTION_COMMAND = PPApplication.PACKAGE_NAME + ".PhoneProfilesService.ACTION_COMMAND";
     //private static final String ACTION_STOP = PPApplication.PACKAGE_NAME + ".PhoneProfilesService.ACTION_STOP_SERVICE";
     static final String ACTION_START_LAUNCHER_FROM_NOTIFICATION = PPApplication.PACKAGE_NAME + ".PhoneProfilesService.ACTION_START_LAUNCHER_FROM_NOTIFICATION";
@@ -204,7 +207,7 @@ public class PhoneProfilesService extends Service
         synchronized (PPApplication.phoneProfilesServiceMutex) {
             instance = this;
         }
-        PPApplication.startForegroundNotification = true;
+        startForegroundNotification = true;
 
         if (PPApplication.getInstance() == null) {
             PPApplication.sensorManager = (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
@@ -4957,10 +4960,10 @@ public class PhoneProfilesService extends Service
                 }*/
 
                 //if ((Build.VERSION.SDK_INT >= 26) || notificationStatusBarPermanent) {
-                    if (PPApplication.startForegroundNotification) {
+                    if (startForegroundNotification) {
                         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "startForeground()");
                         startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
-                        PPApplication.startForegroundNotification = false;
+                        startForegroundNotification = false;
                     }
                     else {
                         NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -5083,7 +5086,7 @@ public class PhoneProfilesService extends Service
                         notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
                 }
                 else {*/
-                    PPApplication.startForegroundNotification = true;
+                    startForegroundNotification = true;
                     stopForeground(true);
                     NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
                     if (notificationManager != null)
