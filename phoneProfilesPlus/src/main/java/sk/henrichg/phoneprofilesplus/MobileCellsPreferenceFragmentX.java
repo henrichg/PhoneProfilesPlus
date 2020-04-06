@@ -516,7 +516,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                                 _cellsList.add(new MobileCellsData(iCell, _cellName, false, false, 0, "", "", false));
                                 //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add cells from preference value - not found - add it to list");
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                //Crashlytics.logException(e);
                             }
                         }
                         if (_registeredCellData != null) {

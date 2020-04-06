@@ -1304,7 +1304,7 @@ class EventsHandler {
                                             break;
                                         }
                                     } catch (Exception e) {
-                                        Crashlytics.logException(e);
+                                        //Crashlytics.logException(e);
                                     }
                                 }
                                 batteryPassed = batteryPassed && passed;

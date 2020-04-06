@@ -65,7 +65,7 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
                                 if (contactGroup.groupId == groupId)
                                     contactGroup.checked = true;
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                //Crashlytics.logException(e);
                             }
                         }
                     }

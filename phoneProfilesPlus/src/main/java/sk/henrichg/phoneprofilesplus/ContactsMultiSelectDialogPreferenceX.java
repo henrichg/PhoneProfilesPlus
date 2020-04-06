@@ -88,7 +88,7 @@ public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
                                         contact.checked = true;
                                 }
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                //Crashlytics.logException(e);
                             }
                         }
                     }

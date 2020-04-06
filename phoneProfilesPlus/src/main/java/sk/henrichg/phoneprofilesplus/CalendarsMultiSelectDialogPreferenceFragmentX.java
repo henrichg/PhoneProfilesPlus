@@ -215,7 +215,7 @@ public class CalendarsMultiSelectDialogPreferenceFragmentX extends PreferenceDia
                         if (calendar.calendarId == calendarId)
                             calendar.checked = true;
                     } catch (Exception e) {
-                        Crashlytics.logException(e);
+                        //Crashlytics.logException(e);
                     }
                 }
             }
