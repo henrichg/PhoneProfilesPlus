@@ -128,6 +128,8 @@ public class PPApplication extends Application /*implements Application.Activity
 
                                                 //+"|BluetoothConnectedDevices"
 
+                                                //+"|[BOOT]"
+                                                //+"|[***] EventsHandler.doHandleEvents"
                                                 //+"|*********** restartEvents"
 
                                                 //+"|[BRS] SettingsContentObserver.onChange"
@@ -666,6 +668,7 @@ public class PPApplication extends Application /*implements Application.Activity
     private static boolean applicationStarted = false;
     static boolean globalEventsRunStop = true;
     static boolean applicationPackageReplaced = false;
+    static boolean deviceBoot = false;
 
     static boolean restoreFinished = true;
 
@@ -968,6 +971,7 @@ public class PPApplication extends Application /*implements Application.Activity
     static OrientationEventBroadcastReceiver orientationEventBroadcastReceiver = null;
     static PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
     static DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
+    static DeviceBootEventEndBroadcastReceiver deviceBootEventEndBroadcastReceiver = null;
 
     static SettingsContentObserver settingsContentObserver = null;
     static MobileDataStateChangedContentObserver mobileDataStateChangedContentObserver = null;

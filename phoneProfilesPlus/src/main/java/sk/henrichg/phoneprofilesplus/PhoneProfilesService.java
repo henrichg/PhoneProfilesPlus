@@ -98,6 +98,7 @@ public class PhoneProfilesService extends Service
     static final String ACTION_ALARM_CLOCK_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".AlarmClockEventEndBroadcastReceiver";
     static final String ACTION_NOTIFICATION_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".NotificationEventEndBroadcastReceiver";
     private static final String ACTION_ORIENTATION_EVENT_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".OrientationEventBroadcastReceiver";
+    static final String ACTION_DEVICE_BOOT_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".DeviceBootEventEndBroadcastReceiver";
 
     //static final String EXTRA_SHOW_PROFILE_NOTIFICATION = "show_profile_notification";
     static final String EXTRA_START_STOP_SCANNER = "start_stop_scanner";
@@ -1828,6 +1829,52 @@ public class PhoneProfilesService extends Service
         }
     }
 
+    private void registerReceiverForDeviceBootSensor(boolean register, DataWrapper dataWrapper) {
+        //if (android.os.Build.VERSION.SDK_INT < 21)
+        //    return;
+
+        Context appContext = getApplicationContext();
+        //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForDeviceBootSensor", "PhoneProfilesService_registerReceiverForDeviceBootSensor");
+        //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForDeviceBootSensor", "xxx");
+        if (!register) {
+            if (PPApplication.deviceBootEventEndBroadcastReceiver != null) {
+                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForDeviceBootSensor->UNREGISTER registerReceiverForDeviceBootSensor", "PhoneProfilesService_registerReceiverForDeviceBootSensor");
+                try {
+                    appContext.unregisterReceiver(PPApplication.deviceBootEventEndBroadcastReceiver);
+                    PPApplication.deviceBootEventEndBroadcastReceiver = null;
+                    //PPApplication.logE("[BOOT] PhoneProfilesService.registerReceiverForDeviceBootSensor", "UNREGISTER registerReceiverForDeviceBootSensor");
+                } catch (Exception e) {
+                    PPApplication.deviceBootEventEndBroadcastReceiver = null;
+                }
+            }
+            //else
+            //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForDeviceBootSensor", "not registered registerReceiverForDeviceBootSensor");
+        }
+        if (register) {
+            //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForDeviceBootSensor", "REGISTER");
+            dataWrapper.fillEventList();
+            boolean allowed = false;
+            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_DEVICE_BOOT/*, false*/);
+            if (eventsExists)
+                allowed = Event.isEventPreferenceAllowed(EventPreferencesDeviceBoot.PREF_EVENT_DEVICE_BOOT_ENABLED, appContext).allowed ==
+                        PreferenceAllowed.PREFERENCE_ALLOWED;
+            if (allowed) {
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForDeviceBootSensor", "REGISTER DEVICE BOOT");
+                if (PPApplication.deviceBootEventEndBroadcastReceiver == null) {
+                    //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForDeviceBootSensor->REGISTER registerReceiverForDeviceBootSensor", "PhoneProfilesService_registerReceiverForDeviceBootSensor");
+                    PPApplication.deviceBootEventEndBroadcastReceiver = new DeviceBootEventEndBroadcastReceiver();
+                    IntentFilter intentFilter22 = new IntentFilter(PhoneProfilesService.ACTION_DEVICE_BOOT_EVENT_END_BROADCAST_RECEIVER);
+                    appContext.registerReceiver(PPApplication.deviceBootEventEndBroadcastReceiver, intentFilter22);
+                    //PPApplication.logE("[BOOT] PhoneProfilesService.registerReceiverForDeviceBootSensor", "REGISTER registerReceiverForDeviceBootSensor");
+                }
+                //else
+                //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForDeviceBootSensor", "registered registerReceiverForDeviceBootSensor");
+            }
+            else
+                registerReceiverForDeviceBootSensor(false, dataWrapper);
+        }
+    }
+
     private void unregisterPPPPExtenderReceiver(int type) {
         //PPApplication.logE("[RJS] PhoneProfilesService.unregisterPPPPExtenderReceiver", "UNREGISTER");
         Context appContext = getApplicationContext();
@@ -3273,6 +3320,9 @@ public class PhoneProfilesService extends Service
         // required for alarm clock event
         registerReceiverForAlarmClockSensor(true, dataWrapper);
 
+        // required for device boot event
+        registerReceiverForDeviceBootSensor(true, dataWrapper);
+
         // required for force stop applications, applications event and orientation event
         registerPPPPExtenderReceiver(true, dataWrapper);
 
@@ -3422,6 +3472,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForRadioSwitchNFCSensor(false, null);
         registerReceiverForRadioSwitchAirplaneModeSensor(false, null);
         registerReceiverForAlarmClockSensor(false, null);
+        registerReceiverForDeviceBootSensor(false, null);
         registerPPPPExtenderReceiver(false, null);
         registerLocationModeChangedBroadcastReceiver(false, null);
         registerBluetoothStateChangedBroadcastReceiver(false, null, false);
@@ -3474,6 +3525,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForRadioSwitchNFCSensor(true, dataWrapper);
         registerReceiverForRadioSwitchAirplaneModeSensor(true, dataWrapper);
         registerReceiverForAlarmClockSensor(true, dataWrapper);
+        registerReceiverForDeviceBootSensor(true, dataWrapper);
         registerPPPPExtenderReceiver(true, dataWrapper);
         registerLocationModeChangedBroadcastReceiver(true, dataWrapper);
         registerBluetoothStateChangedBroadcastReceiver(true, dataWrapper, false);

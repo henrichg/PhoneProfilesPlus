@@ -70,6 +70,8 @@ public class BootUpReceiver extends BroadcastReceiver {
                         if (ApplicationPreferences.applicationStartOnBoot) {
                             PPApplication.logE("BootUpReceiver.onReceive", "PhoneProfilesService.getInstance()=" + PhoneProfilesService.getInstance());
 
+                            PPApplication.deviceBoot = true;
+
                             //PPApplication.sleep(3000);
                             if (!PPApplication.getApplicationStarted(true)) {
                                 // service is not started
@@ -119,6 +121,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 PPApplication.logE("BootUpReceiver.onReceive", "ApplicationPreferences.applicationStartOnBoot()=false");
                                 PPApplication.logE("PPApplication.exitApp", "from BootUpReceiver.onReceive shutdown=false");
                             }
+                            PPApplication.deviceBoot = false;
                             PPApplication.exitApp(false, appContext, null, null, false/*, true, true*/);
                         }
 

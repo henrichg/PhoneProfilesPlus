@@ -50,6 +50,7 @@ class EventsHandler {
     private String eventNFCTagName;
     private long eventNFCDate;
     private long eventAlarmClockDate;
+    private long eventDeviceBootDate;
 
     private boolean startProfileMerged;
     private boolean endProfileMerged;
@@ -91,6 +92,8 @@ class EventsHandler {
     static final String SENSOR_TYPE_PHONE_CALL_EVENT_END = "phoneCallEventEnd";
     static final String SENSOR_TYPE_ALARM_CLOCK = "alarmClock";
     static final String SENSOR_TYPE_ALARM_CLOCK_EVENT_END = "alarmClockEventEnd";
+    static final String SENSOR_TYPE_DEVICE_BOOT = "deviceBoot";
+    static final String SENSOR_TYPE_DEVICE_BOOT_EVENT_END = "deviceBootEventEnd";
 
     public EventsHandler(Context context) {
         this.context = context.getApplicationContext();
@@ -324,6 +327,18 @@ class EventsHandler {
                             if (_event._eventPreferencesAlarmClock._enabled) {
                                 //PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
                                 _event._eventPreferencesAlarmClock.saveStartTime(dataWrapper, eventAlarmClockDate);
+                            }
+                        }
+                    }
+                }
+                if (sensorType.equals(SENSOR_TYPE_DEVICE_BOOT)) {
+                    // search for device boot events, save start time
+                    //PPApplication.logE("EventsHandler.handleEvents", "search for device boot events");
+                    for (Event _event : dataWrapper.eventList) {
+                        if (_event.getStatus() != Event.ESTATUS_STOP) {
+                            if (_event._eventPreferencesDeviceBoot._enabled) {
+                                //PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
+                                _event._eventPreferencesDeviceBoot.saveStartTime(dataWrapper, eventDeviceBootDate);
                             }
                         }
                     }
@@ -923,6 +938,11 @@ class EventsHandler {
                         //eventType = DatabaseHandler.ETYPE_ALARM_CLOCK;
                         sensorEnabled = _event._eventPreferencesAlarmClock._enabled;
                         break;
+                    case SENSOR_TYPE_DEVICE_BOOT:
+                    case SENSOR_TYPE_DEVICE_BOOT_EVENT_END:
+                        //eventType = DatabaseHandler.ETYPE_DEVICE_BOOT;
+                        sensorEnabled = _event._eventPreferencesDeviceBoot._enabled;
+                        break;
                     case SENSOR_TYPE_SCREEN:
                         // call doEventService for all screen on/off changes
                         //eventType = DatabaseHandler.ETYPE_SCREEN;
@@ -1088,6 +1108,7 @@ class EventsHandler {
         boolean notAllowedNfc = false;
         boolean notAllowedRadioSwitch = false;
         boolean notAllowedAlarmClock = false;
+        boolean notAllowedDeviceBoot = false;
 
         boolean timePassed = true;
         boolean batteryPassed = true;
@@ -1106,6 +1127,7 @@ class EventsHandler {
         boolean nfcPassed = true;
         boolean radioSwitchPassed = true;
         boolean alarmClockPassed = true;
+        boolean deviceBootPassed = true;
 
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("%%%%%%% EventsHandler.doHandleEvents", "--- start --------------------------");
@@ -3008,6 +3030,78 @@ class EventsHandler {
             }
         }
 
+        if (event._eventPreferencesDeviceBoot._enabled) {
+            //PPApplication.logE("[BOOT] EventsHandler.doHandleEvents", "xxx");
+            int oldSensorPassed = event._eventPreferencesDeviceBoot.getSensorPassed();
+            if (Event.isEventPreferenceAllowed(EventPreferencesDeviceBoot.PREF_EVENT_DEVICE_BOOT_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                //PPApplication.logE("[BOOT] EventsHandler.doHandleEvents", "allowed");
+
+                // compute start time
+
+                if (event._eventPreferencesDeviceBoot._startTime > 0) {
+                    int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                    long startTime = event._eventPreferencesDeviceBoot._startTime - gmtOffset;
+
+                    /*if (PPApplication.logEnabled()) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        String alarmTimeS = sdf.format(startTime);
+                        PPApplication.logE("[BOOT] EventsHandler.doHandleEvents", "startTime=" + alarmTimeS);
+                    }*/
+
+                    // compute end datetime
+                    long endAlarmTime = event._eventPreferencesDeviceBoot.computeAlarm();
+                    /*if (PPApplication.logEnabled()) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        String alarmTimeS = sdf.format(endAlarmTime);
+                        PPApplication.logE("[BOOT] EventsHandler.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+                    }*/
+
+                    Calendar now = Calendar.getInstance();
+                    long nowAlarmTime = now.getTimeInMillis();
+                    /*if (PPApplication.logEnabled()) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        String alarmTimeS = sdf.format(nowAlarmTime);
+                        PPApplication.logE("[BOOT] EventsHandler.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+                    }*/
+
+                    if (sensorType.equals(EventsHandler.SENSOR_TYPE_DEVICE_BOOT))
+                        deviceBootPassed = true;
+                    else if (!event._eventPreferencesDeviceBoot._permanentRun) {
+                        if (sensorType.equals(EventsHandler.SENSOR_TYPE_DEVICE_BOOT_EVENT_END))
+                            deviceBootPassed = false;
+                        else
+                            deviceBootPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
+                    } else {
+                        deviceBootPassed = nowAlarmTime >= startTime;
+                    }
+                } else
+                    deviceBootPassed = false;
+
+                if (!deviceBootPassed) {
+                    event._eventPreferencesDeviceBoot._startTime = 0;
+                    DatabaseHandler.getInstance(context).updateDeviceBootStartTime(event);
+                }
+
+                if (!notAllowedDeviceBoot) {
+                    if (deviceBootPassed)
+                        event._eventPreferencesDeviceBoot.setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
+                    else
+                        event._eventPreferencesDeviceBoot.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+                }
+            } else
+                notAllowedDeviceBoot = true;
+
+            //PPApplication.logE("[BOOT] EventsHandler.doHandleEvents", "deviceBootPassed=" + deviceBootPassed);
+            //PPApplication.logE("[BOOT] EventsHandler.doHandleEvents", "notAllowedDeviceBoot=" + notAllowedDeviceBoot);
+
+            int newSensorPassed = event._eventPreferencesDeviceBoot.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "device boot - sensor pass changed");
+                event._eventPreferencesDeviceBoot.setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_DEVICE_BOOT);
+            }
+        }
+
         boolean allPassed = true;
         boolean someNotAllowed = false;
         if (!notAllowedTime)
@@ -3078,6 +3172,10 @@ class EventsHandler {
             allPassed &= alarmClockPassed;
         else
             someNotAllowed = true;
+        if (!notAllowedDeviceBoot)
+            allPassed &= deviceBootPassed;
+        else
+            someNotAllowed = true;
 
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("EventsHandler.doHandleEvents", "timePassed=" + timePassed);
@@ -3118,12 +3216,12 @@ class EventsHandler {
             PPApplication.logE("EventsHandler.doHandleEvents", "notAllowedRadioSwitch=" + notAllowedRadioSwitch);
             PPApplication.logE("EventsHandler.doHandleEvents", "notAllowedAlarmClock=" + notAllowedAlarmClock);
 
-            if (event._name.equals("Doma")) {
+            if (event._name.equals("Event")) {
                 PPApplication.logE("[***] EventsHandler.doHandleEvents", "allPassed=" + allPassed);
                 PPApplication.logE("[***] EventsHandler.doHandleEvents", "someNotAllowed=" + someNotAllowed);
             }
 
-            if (event._name.equals("Doma")) {
+            if (event._name.equals("Event")) {
                 //PPApplication.logE("EventsHandler.doHandleEvents","eventStart="+eventStart);
                 PPApplication.logE("[***] EventsHandler.doHandleEvents", "forRestartEvents=" + forRestartEvents);
                 PPApplication.logE("[***] EventsHandler.doHandleEvents", "statePause=" + statePause);
@@ -3145,7 +3243,7 @@ class EventsHandler {
                 newEventStatus = Event.ESTATUS_PAUSE;
 
             /*if (PPApplication.logEnabled()) {
-                if (event._name.equals("Doma")) {
+                if (event._name.equals("Event")) {
                     PPApplication.logE("[***] EventsHandler.doHandleEvents", "event.getStatus()=" + event.getStatus());
                     PPApplication.logE("[***] EventsHandler.doHandleEvents", "newEventStatus=" + newEventStatus);
                 }
@@ -3154,14 +3252,14 @@ class EventsHandler {
             //PPApplication.logE("@@@ EventsHandler.doHandleEvents","restartEvent="+restartEvent);
 
             if ((event.getStatus() != newEventStatus) || forRestartEvents || event._isInDelayStart || event._isInDelayEnd) {
-                //if (event._name.equals("Doma"))
-                //PPApplication.logE("[***] EventsHandler.doHandleEvents", " do new event status");
+                //if (event._name.equals("Event"))
+                //    PPApplication.logE("[***] EventsHandler.doHandleEvents", " do new event status");
 
                 if ((newEventStatus == Event.ESTATUS_RUNNING) && (!statePause)) {
                     // do start of events, all sensors are passed
 
                     /*if (PPApplication.logEnabled()) {
-                        if (event._name.equals("Doma")) {
+                        if (event._name.equals("Event")) {
                             PPApplication.logE("[***] EventsHandler.doHandleEvents", "start event");
                             PPApplication.logE("[***] EventsHandler.doHandleEvents", "event._name=" + event._name);
                         }
@@ -3186,7 +3284,7 @@ class EventsHandler {
                                     event.checkDelayStart(/*this*/);
                                 }
                             }
-                            //if (event._name.equals("Doma"))
+                            //if (event._name.equals("Event"))
                             //    PPApplication.logE("[***] EventsHandler.doHandleEvents", "event._isInDelayStart=" + event._isInDelayStart);
                             if (!event._isInDelayStart) {
                                 // no delay alarm is set
@@ -3194,7 +3292,7 @@ class EventsHandler {
                                 long oldMergedProfile = mergedProfile._id;
                                 event.startEvent(dataWrapper, /*interactive,*/ forRestartEvents, mergedProfile);
                                 startProfileMerged = oldMergedProfile != mergedProfile._id;
-                                //if (event._name.equals("Doma"))
+                                //if (event._name.equals("Event"))
                                 //    PPApplication.logE("[***] EventsHandler.doHandleEvents", "mergedProfile._id=" + mergedProfile._id);
                             }
                         }
@@ -3223,20 +3321,20 @@ class EventsHandler {
                     }
 
                     /*if (PPApplication.logEnabled()) {
-                        if (event._name.equals("Doma")) {
+                        if (event._name.equals("Event")) {
                             PPApplication.logE("[***] EventsHandler.doHandleEvents", "pause event");
                             PPApplication.logE("[***] EventsHandler.doHandleEvents", "event._name=" + event._name);
                         }
                     }*/
 
                     if (event._isInDelayStart) {
-                        //if (event._name.equals("Doma"))
+                        //if (event._name.equals("Event"))
                         //    PPApplication.logE("[***] EventsHandler.doHandleEvents", "isInDelayStart");
                         event.removeDelayStartAlarm(dataWrapper);
                     }
                     else {
                         if (!forDelayEndAlarm) {
-                            //if (event._name.equals("Doma"))
+                            //if (event._name.equals("Event"))
                             //    PPApplication.logE("[***] EventsHandler.doHandleEvents", "!forDelayEndAlarm");
                             // called not for delay alarm
                             /*if (forRestartEvents) {
@@ -3306,6 +3404,10 @@ class EventsHandler {
         EventPreferencesCall.setEventCallEventType(context, callEventType);
         EventPreferencesCall.setEventCallEventTime(context, eventTime);
         EventPreferencesCall.setEventCallPhoneNumber(context, phoneNumber);
+    }
+
+    void setEventDeviceBootParameters(long date) {
+        eventDeviceBootDate = date;
     }
 
     /*

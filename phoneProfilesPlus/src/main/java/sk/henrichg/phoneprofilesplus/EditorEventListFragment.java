@@ -1328,6 +1328,7 @@ public class EditorEventListFragment extends Fragment
                 DatabaseHandler.getInstance(activityDataWrapper.context).getNFCStartTime(event);
                 DatabaseHandler.getInstance(activityDataWrapper.context).getCallStartTime(event);
                 DatabaseHandler.getInstance(activityDataWrapper.context).getAlarmClockStartTime(event);
+                DatabaseHandler.getInstance(activityDataWrapper.context).getDeviceBootStartTime(event);
             }
         }
 

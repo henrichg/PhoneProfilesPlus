@@ -38,7 +38,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2410;
+    private static final int DATABASE_VERSION = 2420;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -103,6 +103,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_TIME_TWILIGHT = 28;
     static final int ETYPE_BATTERY_WITH_LEVEL = 29;
     static final int ETYPE_ALL_SENSORS = 30;
+    static final int ETYPE_DEVICE_BOOT = 31;
 
     // Profiles Table Columns names
     private static final String KEY_ID = "id";
@@ -325,6 +326,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_NOTIFICATION_CHECK_TEXT = "notificationCheckText";
     private static final String KEY_E_NOTIFICATION_TEXT = "notificationText";
     private static final String KEY_E_NOTIFICATION_CONTACT_LIST_TYPE = "notificationContactListType";
+    private static final String KEY_E_DEVICE_BOOT_ENABLED = "deviceBootEnabled";
+    private static final String KEY_E_DEVICE_BOOT_PERMANENT_RUN = "deviceBootPermanentRun";
+    private static final String KEY_E_DEVICE_BOOT_DURATION = "deviceBootDuration";
+    private static final String KEY_E_DEVICE_BOOT_START_TIME = "deviceBootStartTime";
+    private static final String KEY_E_DEVICE_BOOT_SENSOR_PASSED = "deviceBootSensorPassed";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -696,7 +702,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_NOTIFICATION_CONTACT_GROUPS + " TEXT,"
                 + KEY_E_NOTIFICATION_CHECK_TEXT + " INTEGER,"
                 + KEY_E_NOTIFICATION_TEXT + " TEXT,"
-                + KEY_E_NOTIFICATION_CONTACT_LIST_TYPE + " INTEGER"
+                + KEY_E_NOTIFICATION_CONTACT_LIST_TYPE + " INTEGER,"
+                + KEY_E_DEVICE_BOOT_ENABLED + " INTEGER,"
+                + KEY_E_DEVICE_BOOT_PERMANENT_RUN + " INTEGER,"
+                + KEY_E_DEVICE_BOOT_DURATION + " INTEGER,"
+                + KEY_E_DEVICE_BOOT_START_TIME + " INTEGER,"
+                + KEY_E_DEVICE_BOOT_SENSOR_PASSED + " INTEGER"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -3051,6 +3062,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             cursor.close();
         }
 
+        if (oldVersion < 2420)
+        {
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_DEVICE_BOOT_ENABLED + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_DEVICE_BOOT_START_TIME + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_DEVICE_BOOT_DURATION + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_DEVICE_BOOT_PERMANENT_RUN + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_DEVICE_BOOT_SENSOR_PASSED + " INTEGER");
+
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_DEVICE_BOOT_ENABLED + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_DEVICE_BOOT_START_TIME + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_DEVICE_BOOT_DURATION + "=5");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_DEVICE_BOOT_PERMANENT_RUN + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_DEVICE_BOOT_SENSOR_PASSED + "=0");
+        }
+
         //PPApplication.logE("DatabaseHandler.onUpgrade", "END");
 
     }
@@ -5222,6 +5248,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         getEventPreferencesNFC(event, db);
         getEventPreferencesRadioSwitch(event, db);
         getEventPreferencesAlarmClock(event, db);
+        getEventPreferencesDeviceBoot(event, db);
     }
 
     private void getEventPreferencesTime(Event event, SQLiteDatabase db) {
@@ -5799,6 +5826,34 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    private void getEventPreferencesDeviceBoot(Event event, SQLiteDatabase db) {
+        Cursor cursor = db.query(TABLE_EVENTS,
+                new String[]{KEY_E_DEVICE_BOOT_ENABLED,
+                        KEY_E_DEVICE_BOOT_START_TIME,
+                        KEY_E_DEVICE_BOOT_DURATION,
+                        KEY_E_DEVICE_BOOT_PERMANENT_RUN,
+                        KEY_E_DEVICE_BOOT_SENSOR_PASSED
+                },
+                KEY_E_ID + "=?",
+                new String[]{String.valueOf(event._id)}, null, null, null, null);
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+
+            if (cursor.getCount() > 0)
+            {
+                EventPreferencesDeviceBoot eventPreferences = event._eventPreferencesDeviceBoot;
+
+                eventPreferences._enabled = (cursor.getInt(cursor.getColumnIndex(KEY_E_DEVICE_BOOT_ENABLED)) == 1);
+                eventPreferences._startTime = cursor.getLong(cursor.getColumnIndex(KEY_E_DEVICE_BOOT_START_TIME));
+                eventPreferences._duration = cursor.getInt(cursor.getColumnIndex(KEY_E_DEVICE_BOOT_DURATION));
+                eventPreferences._permanentRun = (cursor.getInt(cursor.getColumnIndex(KEY_E_DEVICE_BOOT_PERMANENT_RUN)) == 1);
+                eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndex(KEY_E_DEVICE_BOOT_SENSOR_PASSED)));
+            }
+            cursor.close();
+        }
+    }
+
     private void updateEventPreferences(Event event, SQLiteDatabase db) {
         updateEventPreferencesTime(event, db);
         updateEventPreferencesBattery(event, db);
@@ -5817,6 +5872,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         updateEventPreferencesNFC(event, db);
         updateEventPreferencesRadioSwitch(event, db);
         updateEventPreferencesAlarmClock(event, db);
+        updateEventPreferencesDeviceBoot(event, db);
     }
 
     private void updateEventPreferencesTime(Event event, SQLiteDatabase db) {
@@ -6131,6 +6187,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 new String[] { String.valueOf(event._id) });
     }
 
+    private void updateEventPreferencesDeviceBoot(Event event, SQLiteDatabase db) {
+        ContentValues values = new ContentValues();
+
+        EventPreferencesDeviceBoot eventPreferences = event._eventPreferencesDeviceBoot;
+
+        values.put(KEY_E_DEVICE_BOOT_ENABLED, (eventPreferences._enabled) ? 1 : 0);
+        values.put(KEY_E_DEVICE_BOOT_START_TIME, eventPreferences._startTime);
+        values.put(KEY_E_DEVICE_BOOT_DURATION, eventPreferences._duration);
+        values.put(KEY_E_DEVICE_BOOT_PERMANENT_RUN, (eventPreferences._permanentRun) ? 1 : 0);
+        values.put(KEY_E_DEVICE_BOOT_SENSOR_PASSED, eventPreferences.getSensorPassed());
+
+        // updating row
+        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                new String[] { String.valueOf(event._id) });
+    }
+
     int getEventStatus(Event event)
     {
         importExportLock.lock();
@@ -6433,6 +6505,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         case ETYPE_ALARM_CLOCK:
                             sensorPassedField = KEY_E_ALARM_CLOCK_SENSOR_PASSED;
                             break;
+                        case ETYPE_DEVICE_BOOT:
+                            sensorPassedField = KEY_E_DEVICE_BOOT_SENSOR_PASSED;
+                            break;
                     }
 
                     Cursor cursor = db.query(TABLE_EVENTS,
@@ -6546,6 +6621,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         sensorPassed = event._eventPreferencesAlarmClock.getSensorPassed();
                         sensorPassedField = KEY_E_ALARM_CLOCK_SENSOR_PASSED;
                         break;
+                    case ETYPE_DEVICE_BOOT:
+                        sensorPassed = event._eventPreferencesDeviceBoot.getSensorPassed();
+                        sensorPassedField = KEY_E_DEVICE_BOOT_SENSOR_PASSED;
+                        break;
                 }
                 ContentValues values = new ContentValues();
                 values.put(sensorPassedField, sensorPassed);
@@ -6605,6 +6684,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_SMS_SENSOR_PASSED, event._eventPreferencesSMS.getSensorPassed());
                 values.put(KEY_E_TIME_SENSOR_PASSED, event._eventPreferencesTime.getSensorPassed());
                 values.put(KEY_E_ALARM_CLOCK_SENSOR_PASSED, event._eventPreferencesAlarmClock.getSensorPassed());
+                values.put(KEY_E_DEVICE_BOOT_SENSOR_PASSED, event._eventPreferencesDeviceBoot.getSensorPassed());
 
                 db.beginTransaction();
 
@@ -6661,6 +6741,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_SMS_SENSOR_PASSED, sensorPassed);
                 values.put(KEY_E_TIME_SENSOR_PASSED, sensorPassed);
                 values.put(KEY_E_ALARM_CLOCK_SENSOR_PASSED, sensorPassed);
+                values.put(KEY_E_DEVICE_BOOT_SENSOR_PASSED, sensorPassed);
 
                 db.beginTransaction();
 
@@ -6768,6 +6849,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     else if (eventType == ETYPE_TIME_TWILIGHT)
                         eventTypeChecked = eventTypeChecked + KEY_E_TIME_ENABLED + "=1" + " AND " +
                                 KEY_E_TIME_TYPE + "!=0";
+                    else if (eventType == ETYPE_DEVICE_BOOT)
+                        eventTypeChecked = eventTypeChecked + KEY_E_DEVICE_BOOT_ENABLED + "=1";
                 }
 
                 countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
@@ -7526,6 +7609,81 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                     if (cursor.getCount() > 0) {
                         event._eventPreferencesAlarmClock._startTime = cursor.getLong(cursor.getColumnIndex(KEY_E_ALARM_CLOCK_START_TIME));
+                    }
+
+                    cursor.close();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                Crashlytics.logException(e);
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void updateDeviceBootStartTime(Event event)
+    {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(KEY_E_DEVICE_BOOT_START_TIME, event._eventPreferencesDeviceBoot._startTime);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                            new String[]{String.valueOf(event._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.updateDeviceBootStartTime", Log.getStackTraceString(e));
+                    //FirebaseCrashlytics.getInstance().recordException(e);
+                    Crashlytics.logException(e);
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                Crashlytics.logException(e);
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void getDeviceBootStartTime(Event event)
+    {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.query(TABLE_EVENTS,
+                        new String[]{
+                                KEY_E_DEVICE_BOOT_START_TIME
+                        },
+                        KEY_E_ID + "=?",
+                        new String[]{String.valueOf(event._id)}, null, null, null, null);
+                if (cursor != null) {
+                    cursor.moveToFirst();
+
+                    if (cursor.getCount() > 0) {
+                        event._eventPreferencesDeviceBoot._startTime = cursor.getLong(cursor.getColumnIndex(KEY_E_DEVICE_BOOT_START_TIME));
                     }
 
                     cursor.close();
@@ -11640,6 +11798,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                             }
                                             if (exportedDBObj.getVersion() < 2407) {
                                                 values.put(KEY_E_NOTIFICATION_CONTACT_LIST_TYPE, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 2420) {
+                                                values.put(KEY_E_DEVICE_BOOT_ENABLED, 0);
+                                                values.put(KEY_E_DEVICE_BOOT_START_TIME, 0);
+                                                values.put(KEY_E_DEVICE_BOOT_DURATION, 5);
+                                                values.put(KEY_E_DEVICE_BOOT_PERMANENT_RUN, 0);
+                                                values.put(KEY_E_DEVICE_BOOT_SENSOR_PASSED, 0);
                                             }
 
                                             // Inserting Row do db z SQLiteOpenHelper

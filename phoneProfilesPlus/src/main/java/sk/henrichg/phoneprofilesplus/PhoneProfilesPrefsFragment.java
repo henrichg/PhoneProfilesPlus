@@ -1433,8 +1433,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 if (activityExists) {
                                     try {
                                         startActivityForResult(intent, RESULT_POWER_SAVE_MODE_SETTINGS);
-                                    } catch (Exception e) {
-                                        Crashlytics.logException(e);
+                                    } catch (Exception ee) {
+                                        Crashlytics.logException(ee);
                                     }
                                 }
                             }

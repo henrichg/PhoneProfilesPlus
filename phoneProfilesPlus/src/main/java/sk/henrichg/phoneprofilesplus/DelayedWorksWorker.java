@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 
+import java.util.Calendar;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -96,6 +97,26 @@ public class DelayedWorksWorker extends Worker {
                             }
 
                             dataWrapper.firstStartEvents(true, false);
+
+                            if (PPApplication.deviceBoot) {
+                                PPApplication.deviceBoot = false;
+                                PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "device boot");
+                                boolean deviceBootEvents = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_DEVICE_BOOT);
+                                if (deviceBootEvents) {
+                                    PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "device boot event exists");
+
+                                    // start events handler
+                                    EventsHandler eventsHandler = new EventsHandler(appContext);
+
+                                    Calendar now = Calendar.getInstance();
+                                    int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                                    final long _time = now.getTimeInMillis() + gmtOffset;
+                                    eventsHandler.setEventDeviceBootParameters(_time);
+
+                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_BOOT);
+                                }
+                            }
+
                             PPApplication.updateNotificationAndWidgets(true, true, appContext);
                         } else {
                             PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "global event run is not enabled, manually activate profile");
@@ -545,6 +566,7 @@ public class DelayedWorksWorker extends Worker {
                 case DELAYED_WORK_HANDLE_EVENTS:
                     if (Event.getGlobalEventsRunning() && (sensorType != null)) {
                         //PPApplication.logE("DelayedWorksWorker.doWork", "DELAYED_WORK_HANDLE_EVENTS");
+                        //PPApplication.logE("DelayedWorksWorker.doWork", "sensorType="+sensorType);
                         // start events handler
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(sensorType);

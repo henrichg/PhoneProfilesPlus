@@ -1496,6 +1496,10 @@
     <string name="event_preferences_battery_level_info">Battery level warning</string>
     <string name="event_preferences_battery_level_info_summary" tools:ignore="StringFormatCount,StringFormatInvalid">Lower level &gt; 0% or upper level &lt; 100% consume battery!</string>
 
+    <string name="event_preference_sensor_device_boot_summary">This sensor will start an event immediately after device boot. Parameters: Permanent run, Duration (event run duration).</string>
+    <string name="event_type_device_boot">Device boot</string>
+    <string name="event_preferences_category_eventDeviceBootParameters">Device boot sensor</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

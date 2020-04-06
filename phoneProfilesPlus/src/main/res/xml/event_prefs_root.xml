@@ -242,7 +242,15 @@
             app:widgetLayout="@layout/start_activity_preference"
             app:layout="@layout/mp_preference_material_widget"
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsAlarmClockParameters" />
-        
+
+        <Preference
+            app:title="@string/event_preferences_category_eventDeviceBootParameters"
+            app:summary="@string/event_preference_sensor_device_boot_summary"
+            app:key="eventDeviceBootCategoryRoot"
+            app:widgetLayout="@layout/start_activity_preference"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsDeviceBootParameters" />
+
     </PreferenceCategory>
     
 </androidx.preference.PreferenceScreen>

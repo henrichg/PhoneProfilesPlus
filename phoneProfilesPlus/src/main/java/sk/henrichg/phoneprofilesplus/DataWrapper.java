@@ -2938,6 +2938,12 @@ public class DataWrapper {
             DatabaseHandler.getInstance(context.getApplicationContext()).updateAlarmClockStartTime(_event);
             _event._eventPreferencesAlarmClock.removeAlarm(context);
         }
+
+        if (force || _event._eventPreferencesDeviceBoot._permanentRun) {
+            _event._eventPreferencesDeviceBoot._startTime = 0;
+            DatabaseHandler.getInstance(context.getApplicationContext()).updateDeviceBootStartTime(_event);
+            _event._eventPreferencesDeviceBoot.removeAlarm(context);
+        }
     }
 
     boolean eventTypeExists(int eventType/*, boolean onlyRunning*/) {
@@ -3076,6 +3082,9 @@ public class DataWrapper {
                                 sensorEnabled = sensorEnabled || _event._eventPreferencesMobileCells._enabled;
                                 sensorEnabled = sensorEnabled || _event._eventPreferencesOrientation._enabled;
                             }
+                            break;
+                        case DatabaseHandler.ETYPE_DEVICE_BOOT:
+                            sensorEnabled = _event._eventPreferencesDeviceBoot._enabled;
                             break;
                         case DatabaseHandler.ETYPE_ALL:
                         default:
